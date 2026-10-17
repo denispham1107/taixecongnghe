@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#203f43">
+  <meta name="description" content="Lái xe qua phố Việt, né giao thông bất ngờ và thử phá kỷ lục của bạn. Chơi trên máy tính, Android và iPhone.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Phố Việt">
+  <title>Phố Việt — Chuyến xe không ngừng</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="toolbar">
+    <a class="wordmark" href="./" aria-label="Về đầu phố"><span>★</span> PHỐ VIỆT</a>
+    <nav aria-label="Tùy chọn"><button id="install" hidden>Cài ứng dụng</button><button id="help">Cách chơi</button><button id="fullscreen" aria-label="Toàn màn hình">⛶</button></nav>
+  </header>
+  <main id="game">
+    <canvas id="unity-canvas" tabindex="0" aria-label="Game Phố Việt" hidden></canvas>
+    <section id="welcome">
+      <div class="intro">
+        <p class="eyebrow">MỘT VÒNG VIỆT NAM · GAME 3D VÔ TẬN</p>
+        <h1>Lái qua<br><em>phố quen.</em></h1>
+        <p class="description">Áo đỏ sao vàng, một chiếc xe máy và những con đường không bao giờ ngủ. Bạn sẽ đi được bao xa?</p>
+        <button id="play" class="primary">VÀO PHỐ <span>→</span></button>
+        <p id="load-status" role="status" aria-live="polite">Chơi miễn phí · Máy tính & điện thoại</p>
+        <progress id="progress" max="1" value="0" hidden aria-label="Đang tải game"></progress>
+        <button id="retry" hidden>Tải lại trang</button>
+        <div class="controls"><span><b>← → / A D</b> Đổi làn</span><span><b>SPACE</b> Đạp xe</span><span><b>P</b> Tạm dừng</span></div>
+        <p class="touch-guide">Điện thoại: vuốt để đổi làn · chạm hai lần để đạp.</p>
+      </div>
+      <div class="street-preview"><img src="poster.png" alt="Tài xế áo đỏ chạy xe máy trên đường phố Việt Nam"><div class="preview-label">TRẦN HƯNG ĐẠO / QUANG TRUNG / HAI BÀ TRƯNG</div></div>
+      <footer><span>CHUYẾN XE KHÔNG NGỪNG</span><span id="offline-status" role="status">Có thể thêm vào màn hình chính</span></footer>
+    </section>
+  </main>
+  <dialog id="guide">
+    <button id="close-help" class="close" aria-label="Đóng hướng dẫn">×</button>
+    <p class="eyebrow">CHÀO MỪNG ĐẾN PHỐ VIỆT</p><h2>Một chuyến xe, thật nhiều bất ngờ.</h2>
+    <p><b>Máy tính:</b> ← → hoặc A / D đổi làn. Space đạp xe máy ở cạnh. P / Esc tạm dừng. R chơi lại.</p>
+    <p><b>Điện thoại:</b> vuốt trái/phải hoặc chạm nút mũi tên để đổi làn. Chạm hai lần trong vùng chơi để đạp.</p>
+    <p>Né xe phanh gấp, tạt làn và xe rẽ ở giao lộ. Đạp quái xế là tự vệ; đạp xe thường sẽ bị CSGT truy đuổi.</p>
+    <h3>Cài Phố Việt lên máy</h3>
+    <p><b>Android / Chrome / Edge:</b> chọn “Cài ứng dụng” hoặc mục cài đặt trong menu trình duyệt.</p>
+    <p><b>iPhone / iPad:</b> mở bằng Safari → Chia sẻ → Thêm vào Màn hình chính → bật “Mở dưới dạng ứng dụng web” nếu có → Thêm.</p>
+    <p id="cache-help">Lần đầu cần mạng để tải game. Khi thông báo “Đã lưu để chơi offline” xuất hiện, bạn có thể mở lại trên máy này khi mất mạng.</p>
+  </dialog>
+  <script>
+    window.PHO_VIET_BUILD={
+      loaderUrl:"Build/{{{ LOADER_FILENAME }}}",
+      dataUrl:"Build/{{{ DATA_FILENAME }}}",
+      frameworkUrl:"Build/{{{ FRAMEWORK_FILENAME }}}",
+      codeUrl:"Build/{{{ CODE_FILENAME }}}",
+      companyName:{{{ JSON.stringify(COMPANY_NAME) }}},
+      productName:{{{ JSON.stringify(PRODUCT_NAME) }}},
+      productVersion:{{{ JSON.stringify(PRODUCT_VERSION) }}}
+    };
+  </script>
+  <script src="app.js" defer></script>
+</body>
+</html>

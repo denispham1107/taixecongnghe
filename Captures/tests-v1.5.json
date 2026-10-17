@@ -1,0 +1,27 @@
+[
+  {
+    "test": "VerifyGameplay",
+    "success": true,
+    "count": 23
+  },
+  {
+    "test": "VerifyCrossTraffic",
+    "success": true,
+    "count": 28
+  },
+  {
+    "test": "VerifyPursuit",
+    "success": true,
+    "count": 39
+  },
+  {
+    "test": "VerifyReckless",
+    "success": true,
+    "count": 92
+  },
+  {
+    "test": "VerifyTrafficDynamics",
+    "success": true,
+    "count": 82
+  }
+]

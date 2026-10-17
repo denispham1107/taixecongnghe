@@ -1,0 +1,462 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using static PhoViet.StreetArt;
+
+namespace PhoViet
+{
+    public partial class PhoVietGame : MonoBehaviour
+    {
+        public enum RideState { Ready, Riding, Paused, Falling, GameOver, Arrested, Jailed }
+        [Serializable] public class TrafficVehicle
+        {
+            public Transform model;
+            public int lane;
+            public float speed, halfWidth, halfLength;
+            public bool active;
+            public Vector3 startPosition;
+            public bool crossing;
+            public float crossSpeed, crossDelay;
+            public bool knocked;
+            public Vector3 knockVelocity, previousPosition;
+            public float knockAge, knockDirection, initialYaw, playerGrace;
+            public float baseTrafficSpeed,rideAlongRemaining;
+            public bool hasPaced;
+            public bool eventOnly,isReckless,wallCrashed,willHitWall,knockFromPlayer;
+            public float recklessAge,wallSide,wallCrashAt,swerveDirection;
+            public bool enteringFromBehind;
+            public float swerveFrequency,swerveAmplitude,swerveSpeed,rearStartX;
+            public Transform crashEffect;
+            public ParticleSystem smoke,fire;
+            public float brakeRemaining,brakeCooldown,laneCooldown,changeProgress,changeDuration,changeFromX,targetX;
+            public bool changingLane,turning,hasTurned,physicalCrash;
+            public int turnChoice;
+            public float turnStartX,turnOriginZ,turnRadius,turnAngle,turnEndX,turnZSign;
+            public Vector3 motionVelocity,crashEuler,angularVelocity;
+            public float previousYaw;
+            [NonSerialized] public Transform brakeLights;
+        }
+        public Font vietnameseFont;
+        public Transform scenery, rider;
+        public Camera rideCamera;
+        public List<Transform> blocks=new List<Transform>();
+        public List<Renderer> trafficLights=new List<Renderer>();
+        public List<TrafficVehicle> vehicles=new List<TrafficVehicle>();
+        public RideState State { get; private set; }=RideState.Ready;
+        public float Distance { get; private set; }
+        public float Speed { get; private set; }
+        public int CurrentLane { get; private set; }=2;
+        public int PassedVehicles { get; private set; }
+        public int BestDistance { get; private set; }
+        public int Frames {get;private set;}
+        public int ScheduledIntersections {get;private set;}
+        public const float DifficultyMultiplier=3f;
+        public float DifficultyTime => timeRiding*DifficultyMultiplier;
+        public float Difficulty01 => Mathf.Clamp01(DifficultyTime/110f);
+        public bool sound=true;
+        public string CurrentStreet => VietnamStreet.Streets[((int)(Distance/80)+1)%7];
+        public static readonly float[] LaneX={-4.65f,-1.55f,1.55f,4.65f};
+        float spawnTimer, fallTime, timeRiding, lastX, lean, streak, noticeTimer;
+        float nextIntersectionDistance;
+        bool crossingWarning;
+        Vector2 swipeStart; bool dragging;
+        System.Random rng=new System.Random();
+        public int RunSeed {get;private set;}
+        AudioSource engine,fx; AudioClip crashClip;
+        GUIStyle label,button; bool stylesReady;
+        float uiW,uiH,uiScale; bool portrait;
+        string notice=""; int signalState=-1;
+        const string BestKey="PhoViet.BestMetres.v1";
+
+        void Awake()
+        {
+            StreetArt.Font=vietnameseFont; Application.targetFrameRate=60; Application.runInBackground=true;
+            BestDistance=PlayerPrefs.GetInt(BestKey,0);
+            CreateSound(); InitializeActions(); ResetRide();
+        }
+        public void BuildWorld()
+        {
+            StreetArt.Font=vietnameseFont;
+            scenery=Group("PHỐ VIỆT • thành phố",transform);
+            for(int i=0;i<7;i++)blocks.Add(VietnamStreet.Build(scenery,i,trafficLights));
+            rider=Motorcycle(transform,"Tài xế • áo đỏ sao vàng",Red,Red,true);
+            rider.localPosition=new Vector3(LaneX[2],0,0);
+            // A fixed pool avoids instantiation, destruction and per-frame garbage during a run.
+            Color[] colors={Teal,Hex("C45740"),Hex("E4C05C"),Hex("7F9FA8"),Cream,Hex("5C6C8A")};
+            for(int i=0;i<24;i++)
+            {
+                bool car=i%3==0;var t=car?Car(transform,colors[i%6],i%6==0,i%9==3):Motorcycle(transform,"Xe máy lưu thông",colors[i%6],colors[(i+2)%6],false);
+                t.gameObject.SetActive(false);
+                vehicles.Add(new TrafficVehicle {model=t,halfWidth=car?.94f:.43f,halfLength=car?2.45f:1.1f});
+            }
+            var cameraGo=new GameObject("Main Camera");cameraGo.transform.SetParent(transform,false);rideCamera=cameraGo.AddComponent<Camera>();cameraGo.tag="MainCamera";
+            cameraGo.AddComponent<AudioListener>();rideCamera.fieldOfView=55;rideCamera.nearClipPlane=.15f;rideCamera.farClipPlane=190;rideCamera.backgroundColor=Hex("BCD8D5");
+            rideCamera.clearFlags=CameraClearFlags.SolidColor;rideCamera.allowHDR=true;
+            PositionCamera(true);
+        }
+        void CreateSound()
+        {
+            engine=gameObject.AddComponent<AudioSource>();engine.loop=true;engine.volume=.08f;engine.playOnAwake=false;
+            int hz=22050;float[] wave=new float[hz];
+            for(int i=0;i<wave.Length;i++){float t=(float)i/hz;wave[i]=Mathf.Sin(t*2*Mathf.PI*60)*.45f+Mathf.Sin(t*2*Mathf.PI*120)*.17f+Mathf.Sin(t*2*Mathf.PI*180)*.08f;}
+            var clip=AudioClip.Create("Động cơ xe máy",wave.Length,1,hz,false);clip.SetData(wave,0);engine.clip=clip;
+            fx=gameObject.AddComponent<AudioSource>();fx.playOnAwake=false;fx.volume=.3f;
+            float[] hit=new float[hz/3];var noise=new System.Random(4);
+            for(int i=0;i<hit.Length;i++)hit[i]=((float)noise.NextDouble()*2-1)*Mathf.Exp(-i/(hz*.07f));
+            crashClip=AudioClip.Create("Va chạm",hit.Length,1,hz,false);crashClip.SetData(hit,0);
+        }
+        public void ResetRide()
+        {
+            int seed;do{seed=Guid.NewGuid().GetHashCode()&int.MaxValue;}while(seed==RunSeed);
+            RunSeed=seed;rng=new System.Random(seed);
+            State=RideState.Ready;Distance=0;Speed=0;CurrentLane=2;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;noticeTimer=0;
+            nextIntersectionDistance=VietnamStreet.IntersectionCenter;ScheduledIntersections=0;crossingWarning=false;
+            ResetActions();
+            ResetReckless();
+            ResetTrafficDynamics();
+            if(rider!=null){rider.localPosition=new Vector3(LaneX[2],0,0);rider.localRotation=Quaternion.identity;}
+            lastX=LaneX[2];
+            for(int i=0;i<blocks.Count;i++)blocks[i].localPosition=new Vector3(0,0,(i-1)*VietnamStreet.Length);
+            foreach(var v in vehicles){v.active=false;v.crossing=false;v.crossSpeed=0;v.crossDelay=0;v.knocked=false;v.knockAge=0;v.playerGrace=0;v.model.gameObject.SetActive(false);}
+            float openingZ=30+(float)rng.NextDouble()*10;
+            int openingCount=rng.Next(5,8);
+            for(int i=0;i<openingCount;i++){SpawnTraffic(rng.Next(4),openingZ);openingZ+=11+(float)rng.NextDouble()*10;}
+            spawnTimer=.7f+(float)rng.NextDouble()*1.1f;if(engine!=null)engine.Stop();PositionCamera(true);
+        }
+        public void StartRide() { if(State==RideState.Ready){State=RideState.Riding;Speed=17;engine?.Play();} }
+        public void RestartRide(){ResetRide();StartRide();}
+        public void MoveLane(int direction)
+        {
+            if(State!=RideState.Riding)return;
+            CurrentLane=Mathf.Clamp(CurrentLane+Math.Sign(direction),0,3);
+        }
+        public void TogglePause()
+        {
+            if(State==RideState.Riding){State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();PauseRecklessFx(true);}
+            else if(State==RideState.Paused){State=RideState.Riding;PauseRecklessFx(false);if(sound){engine.UnPause();if(IsChased)siren?.UnPause();}}
+        }
+        public TrafficVehicle SpawnTraffic(int lane,float z,int preferred=-1)
+        {
+            TrafficVehicle v=null;
+            if(preferred>=0 && preferred<vehicles.Count && !vehicles[preferred].active&&!vehicles[preferred].eventOnly)v=vehicles[preferred];
+            if(v==null){int count=0;foreach(var t in vehicles)if(!t.active&&!t.eventOnly&&rng.Next(++count)==0)v=t;}
+            if(v==null)return null;
+            v.crossing=false;v.crossSpeed=0;v.crossDelay=0;v.knocked=false;v.knockAge=0;v.playerGrace=0;v.hasPaced=false;v.rideAlongRemaining=0;
+            v.lane=lane;v.active=true;v.speed=lane<2?-rng.Next(10,17):rng.Next(7,12);
+            v.baseTrafficSpeed=v.speed;
+            v.model.gameObject.SetActive(true);v.model.localPosition=new Vector3(LaneX[lane],0,z);v.model.localRotation=Quaternion.Euler(0,lane<2?180:0,0);
+            InitializeDriver(v);
+            return v;
+        }
+        public TrafficVehicle SpawnCrossTraffic(int direction,float z,bool car,float crossSpeed,float delay=0)
+        {
+            TrafficVehicle v=null;
+            // Reuse the existing saved models, selecting the correct vehicle silhouette and bounds.
+            int candidates=0;
+            foreach(var candidate in vehicles)
+                if(!candidate.active && !candidate.eventOnly && (candidate.halfWidth>.7f)==car&&rng.Next(++candidates)==0)v=candidate;
+            if(v==null)return null;
+            direction=direction>=0?1:-1;
+            v.active=true;v.crossing=true;v.lane=-1;v.speed=0;v.knocked=false;v.knockAge=0;v.playerGrace=0;
+            v.crossSpeed=direction*Mathf.Abs(crossSpeed);v.crossDelay=Mathf.Max(0,delay);
+            v.model.localPosition=new Vector3(-direction*16,0,z);
+            v.model.localRotation=Quaternion.Euler(0,direction*90,0);v.model.gameObject.SetActive(true);
+            InitializeDriver(v);v.turnChoice=rng.NextDouble()<.75?(rng.Next(2)==0?-1:1):0;
+            return v;
+        }
+        float TimeToIntersection(float metres)
+        {
+            float acceleration=.12f*DifficultyMultiplier+(IsChased?.28f:0),cap=30+(IsChased?chaseBoost:0);
+            float speed=Mathf.Max(Speed,17),toCap=Mathf.Max(0,(cap-speed)/acceleration);
+            float beforeCap=speed*toCap+.5f*acceleration*toCap*toCap;
+            if(metres>=beforeCap)return toCap+(metres-beforeCap)/cap;
+            return (Mathf.Sqrt(speed*speed+2*acceleration*Mathf.Max(0,metres))-speed)/acceleration;
+        }
+        void ScheduleIntersection()
+        {
+            // Absolute route distance makes each real intersection fire once, including recycled blocks.
+            while(nextIntersectionDistance-Distance<=90)
+            {
+                float centre=nextIntersectionDistance-Distance;
+                int count=DifficultyTime<18?1:DifficultyTime<60?2:3;
+                int firstDirection=rng.Next(2)==0?1:-1;
+                float targetX=LaneX[rng.Next(4)];
+                for(int i=0;i<count;i++)
+                {
+                    int direction=i%2==0?firstDirection:-firstDirection;
+                    // Two actual cross-street lanes, kept inside its 14 metre width.
+                    float z=centre+(direction>0?-2.8f:2.8f);
+                    float velocity=(Mathf.Lerp(6.5f,11f,Difficulty01)+i*.35f)*(.95f+(float)rng.NextDouble()*.15f);
+                    float travel=(16+direction*targetX)/velocity;
+                    float delay=Mathf.Max(0,TimeToIntersection(z)-travel)+(i>=2?.7f:0);
+                    SpawnCrossTraffic(direction,z,rng.NextDouble()<Mathf.Lerp(.2f,.7f,Difficulty01),velocity,delay);
+                }
+                ScheduledIntersections++;nextIntersectionDistance+=VietnamStreet.Length;
+            }
+        }
+        public static bool SweptOverlap(Vector2 from,Vector2 to,Vector2 halfSize)
+        {
+            float enter=0,leave=1;
+            for(int axis=0;axis<2;axis++)
+            {
+                float d=to[axis]-from[axis],p=from[axis],extent=halfSize[axis];
+                if(Mathf.Abs(d)<.000001f){if(Mathf.Abs(p)>extent)return false;continue;}
+                float a=(-extent-p)/d,b=(extent-p)/d;
+                enter=Mathf.Max(enter,Mathf.Min(a,b));leave=Mathf.Min(leave,Mathf.Max(a,b));
+                if(enter>leave)return false;
+            }
+            return true;
+        }
+        void Update()
+        {
+            Frames++;
+            bool wasRiding=State==RideState.Riding;
+            if(State==RideState.Ready && (Input.GetKeyDown(KeyCode.Space)||Input.GetKeyDown(KeyCode.Return)))StartRide();
+            else if((State==RideState.GameOver||State==RideState.Jailed) && (Input.GetKeyDown(KeyCode.R)||Input.GetKeyDown(KeyCode.Space)))RestartRide();
+            if(Input.GetKeyDown(KeyCode.Escape)||Input.GetKeyDown(KeyCode.P))TogglePause();
+            if(State==RideState.Riding)
+            {
+                if(wasRiding&&Input.GetKeyDown(KeyCode.Space))TryKick();
+                if(Input.GetKeyDown(KeyCode.LeftArrow)||Input.GetKeyDown(KeyCode.A))MoveLane(-1);
+                if(Input.GetKeyDown(KeyCode.RightArrow)||Input.GetKeyDown(KeyCode.D))MoveLane(1);
+                ReadSwipe(); TickRide(Mathf.Min(Time.deltaTime,.05f));
+            }
+            if(State==RideState.Falling)
+            {
+                fallTime+=Time.deltaTime;float t=Mathf.SmoothStep(0,1,fallTime/.65f);
+                rider.localRotation=Quaternion.Euler(-8*t,12*t,-78*t);rider.localPosition=new Vector3(lastX-.3f*t,-.25f*t,0);
+                if(fallTime>.9f)State=RideState.GameOver;
+            }
+            if(noticeTimer>0)noticeTimer-=Time.deltaTime;
+            if(State==RideState.Arrested)TickArrest(Time.deltaTime);
+            AnimateLights();PositionCamera(false);
+            UpdateDangerSigns();
+            if(engine!=null){engine.mute=!sound;engine.pitch=.85f+Speed/45f;}
+            if(siren!=null)siren.mute=!sound;
+        }
+        void ReadSwipe()
+        {
+            if(Input.touchCount>0)
+            {
+                var t=Input.GetTouch(0);
+                if(t.phase==TouchPhase.Began){swipeStart=t.position;touchStarted=Time.unscaledTime;}
+                if(t.phase==TouchPhase.Ended)
+                {
+                    if(Mathf.Abs(t.position.x-swipeStart.x)>Screen.width*.075f){MoveLane(t.position.x>swipeStart.x?1:-1);lastTapTime=-100;}
+                    else if(Vector2.Distance(t.position,swipeStart)<Screen.width*.035f&&Time.unscaledTime-touchStarted<.24f)
+                        RegisterTap(t.position,Time.unscaledTime);
+                }
+            }
+            else
+            {
+                if(Input.GetMouseButtonDown(0)){swipeStart=Input.mousePosition;dragging=true;}
+                if(Input.GetMouseButtonUp(0)&&dragging){dragging=false;if(Mathf.Abs(Input.mousePosition.x-swipeStart.x)>Screen.width*.075f)MoveLane(Input.mousePosition.x>swipeStart.x?1:-1);}
+            }
+        }
+        void TickRide(float dt)
+        {
+            TickActionTimers(dt);
+            timeRiding+=dt;cruiseSpeed=Mathf.Min(17+DifficultyTime*.12f,30)+(IsChased?chaseBoost:0);
+            Speed=cruiseSpeed*(stunRemaining>0?.45f:1);Distance+=Speed*dt;
+            foreach(var b in blocks){b.localPosition-=Vector3.forward*Speed*dt;if(b.localPosition.z<-160)b.localPosition+=Vector3.forward*VietnamStreet.Length*blocks.Count;}
+            float oldX=rider.localPosition.x;
+            float x=Mathf.MoveTowards(oldX,LaneX[CurrentLane],dt*(stunRemaining>0?9:15));
+            lean=Mathf.Lerp(lean,(oldX-x)*-35,dt*10);
+            rider.localPosition=new Vector3(x,Mathf.Sin(timeRiding*12)*.012f,0);rider.localRotation=Quaternion.Euler(0,0,lean);
+            lastX=x;
+            crossingWarning=false;
+            foreach(var v in vehicles)
+            {
+                if(!v.active)continue;
+                Vector3 previous=v.model.localPosition;
+                v.previousPosition=previous;v.previousYaw=v.model.localEulerAngles.y;v.playerGrace=Mathf.Max(0,v.playerGrace-dt);
+                if(v.wallCrashed)TickWallWreck(v,dt);
+                else if(v.knocked)TickKnockedVehicle(v,dt);
+                else if(v.isReckless)TickRecklessVehicle(v,dt);
+                else if(v.crossing)
+                {
+                    TickIntersectionVehicle(v,dt);
+                    if(v.model.localPosition.z>0 && v.model.localPosition.z<55)crossingWarning=true;
+                }
+                else
+                {
+                    TickLongitudinalVehicle(v,dt);
+                }
+                if((v.isReckless||v.knocked)&&!v.wallCrashed)CheckBuildingImpact(v);
+                if(dt>0)v.motionVelocity=v.wallCrashed?Vector3.zero:v.knocked?v.knockVelocity:(v.model.localPosition-previous)/dt+Vector3.forward*Speed;
+            }
+            ResolveVehicleCollisions();
+            foreach(var v in vehicles)
+            {
+                if(!v.active)continue;
+                Vector3 previous=v.previousPosition;
+                Vector3 p=v.model.localPosition;
+                // Sweep both axes relative to the moving rider. Crossing models are rotated 90°,
+                // so their physical width/length swap, preventing side impacts and tunnelling misses.
+                Vector2 half=VehicleFootprint(v)+new Vector2(.33f,.91f);
+                if(collisionImmunity<=0&&v.playerGrace<=0&&p.y<2.4f&&SweptOverlap(new Vector2(previous.x-oldX,previous.z),new Vector2(p.x-x,p.z),half))
+                {if(IsChased)HitDuringChase();else{Crash();return;}}
+                if(previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
+                if((p.z<-18&&(!v.enteringFromBehind||v.knocked)) || Mathf.Abs(p.x)>24 || (v.knocked&&v.knockAge>8) || (v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
+            }
+            TickChase(dt);AnimateKick();
+            if(State!=RideState.Riding)return;
+            ScheduleIntersection();
+            spawnTimer-=dt;
+            if(spawnTimer<=0)
+            {
+                int a=rng.Next(4);float z=105+rng.Next(0,14);SpawnTraffic(a,z);
+                // Never fill all lanes in a row; at least two lanes always remain open.
+                if(DifficultyTime>12){int b=(a+rng.Next(1,4))%4;SpawnTraffic(b,z+rng.Next(5,13));}
+                MaybeSpawnReckless();
+                spawnTimer=Mathf.Lerp(2.5f,1.35f,Difficulty01)*(.8f+(float)rng.NextDouble()*.4f);
+            }
+        }
+        public void Crash()
+        {
+            if(State!=RideState.Riding)return;
+            State=RideState.Falling;fallTime=0;Speed=0;engine.Stop();if(sound)fx.PlayOneShot(crashClip);
+            if((int)Distance>BestDistance){BestDistance=(int)Distance;PlayerPrefs.SetInt(BestKey,BestDistance);PlayerPrefs.Save();}
+        }
+        void AnimateLights()
+        {
+            int active=Time.time%13<6?2:Time.time%13<8?1:0;
+            if(active==signalState)return;signalState=active;
+            for(int i=0;i<trafficLights.Count;i++) if(trafficLights[i]!=null)
+                trafficLights[i].sharedMaterial=Mat(i%3==active?(active==0?Hex("FF6453"):active==1?Gold:Hex("64E5A3")):Hex("354B47"),true);
+        }
+        void PositionCamera(bool snap)
+        {
+            if(rideCamera==null)return;
+            if(State==RideState.Jailed){PositionJailCamera(snap);return;}
+            float x=rider!=null?rider.localPosition.x:LaneX[2];Vector3 target=new Vector3(x*.25f,IsChased?7.8f:7.15f,IsChased?-14f:-9.6f);
+            rideCamera.transform.localPosition=snap?target:Vector3.Lerp(rideCamera.transform.localPosition,target,Time.unscaledDeltaTime*5);
+            rideCamera.transform.LookAt(new Vector3(x*.18f,1.2f,8));
+            rideCamera.fieldOfView=Screen.width<Screen.height?65:55+Mathf.Max(0,Speed-17)*.13f;
+        }
+        public string Telemetry()=>JsonUtility.ToJson(new RunTelemetry {state=State.ToString(),distance=Distance,speed=Speed,lane=CurrentLane,x=rider.localPosition.x,frames=Frames,passed=PassedVehicles,street=CurrentStreet,chased=IsChased,policeGap=PoliceDistance,policeSpeed=PoliceSpeed,kicks=KickCount,chain=ChainCount});
+        [Serializable] class RunTelemetry{public string state,street;public float distance,speed,x,policeGap,policeSpeed;public int lane,frames,passed,kicks,chain;public bool chased;}
+
+        void InitStyles()
+        {
+            if(stylesReady)return;
+            label=new GUIStyle {font=vietnameseFont,richText=false,wordWrap=true};label.normal.textColor=Ink;
+            button=new GUIStyle(label) {alignment=TextAnchor.MiddleCenter};button.normal.textColor=Cream;button.hover.textColor=Gold;
+            stylesReady=true;
+        }
+        void Panel(Rect r,Color c,float radius=12)
+        {GUI.DrawTexture(r,Texture2D.whiteTexture,ScaleMode.StretchToFill,true,0,c,0,radius);}
+        void Txt(string value,float x,float y,float w,float h,int size,Color c,TextAnchor align=TextAnchor.UpperLeft)
+        {label.fontSize=size;label.normal.textColor=c;label.alignment=align;GUI.Label(new Rect(x,y,w,h),value,label);}
+        bool Btn(string value,Rect r,Color bg,Color fg,int size=17)
+        {Panel(r,bg);button.fontSize=size;button.normal.textColor=fg;return GUI.Button(r,value,button);}
+        void Line(float x,float y,float w,Color color){Panel(new Rect(x,y,w,1),color,0);}
+        void OnGUI()
+        {
+            InitStyles();portrait=Screen.width<Screen.height;
+            uiScale=portrait?Screen.width/480f:Mathf.Min(Screen.width/1440f,Screen.height/900f);
+            uiW=Screen.width/uiScale;uiH=Screen.height/uiScale;
+            GUI.matrix=Matrix4x4.TRS(Vector3.zero,Quaternion.identity,Vector3.one*uiScale);
+            if(State==RideState.Jailed)JailScreen();else if(State==RideState.Ready)ReadyScreen();else Hud();
+            if(State==RideState.Paused)EndCard(true);
+            if(State==RideState.GameOver)EndCard(false);
+            if(State==RideState.Falling) {Panel(new Rect(0,0,uiW,uiH),new Color(.7f,.08f,.05f,.12f),0);Txt("VA CHẠM!",0,uiH*.23f,uiW,70,46,Cream,TextAnchor.MiddleCenter);}
+            if(State==RideState.Arrested){Panel(new Rect(0,0,uiW,uiH),new Color(.1f,.18f,.4f,.23f),0);Txt("CSGT ĐÃ ĐUỔI KỊP",0,uiH*.33f,uiW,90,portrait?29:44,Cream,TextAnchor.MiddleCenter);}
+            GUI.matrix=Matrix4x4.identity;
+        }
+        void Brand(float x,float y)
+        {
+            Panel(new Rect(x,y,48,48),Red,12);Txt("★",x,y-1,48,48,31,Gold,TextAnchor.MiddleCenter);
+            Txt("PHỐ VIỆT",x+62,y-3,230,36,27,Cream);Txt("CHUYẾN XE KHÔNG NGỪNG",x+63,y+31,250,20,10,Cream);
+        }
+        void ReadyScreen()
+        {
+            Panel(new Rect(0,0,uiW,uiH),new Color(.05f,.16f,.17f,.08f),0);
+            Brand(portrait?24:48,portrait?24:38);
+            if(!portrait)
+            {
+                Panel(new Rect(uiW-277,40,229,64),Ink);Txt("ĐỊA ĐIỂM HÔM NAY",uiW-257,51,200,18,10,Hex("95C4B4"));Txt(CurrentStreet,uiW-257,72,200,25,17,Cream);
+            }
+            float cx=portrait?20:48,cy=portrait?uiH*.15f:uiH*.27f,cw=portrait?440:420;
+            Panel(new Rect(cx,cy,cw,portrait?350:405),Cream,18);
+            Txt("MỘT VÒNG VIỆT NAM",cx+28,cy+25,cw-56,25,12,Red);
+            Txt("LÁI QUA\nPHỐ QUEN.",cx+24,cy+60,cw-48,150,portrait?45:54,Ink);
+            Txt("Né phanh gấp, xe tạt làn và xe rẽ. Đạp quái xế để tự vệ; đạp xe thường sẽ bị truy đuổi!",cx+28,cy+217,cw-56,62,16,Hex("55716E"));
+            if(Btn("LÊN XE THÔI   →",new Rect(cx+28,cy+(portrait?283:296),cw-56,58),Red,Cream,19))StartRide();
+            if(!portrait)Txt("KỶ LỤC CỦA BẠN   /   "+BestDistance+" m",cx+28,cy+369,cw-56,25,12,Teal);
+            if(!portrait)
+            {
+                float by=uiH-118;
+                Panel(new Rect(48,by,670,75),new Color(.09f,.23f,.24f,.94f));
+                Txt("01   ĐỔI LÀN",69,by+15,190,22,12,Gold);Txt("← →  hoặc A / D",69,by+39,190,22,14,Cream);
+                Txt("02   ĐẠP XE MÁY",283,by+15,190,22,12,Gold);Txt("Space · tự vệ trước quái xế",283,by+39,215,22,12,Cream);
+                Txt("03   TRÁNH BỊ BẮT",518,by+15,190,22,12,Gold);Txt("Né vật cản · P tạm dừng",518,by+39,190,22,12,Cream);
+                Txt("TỰ ĐỘNG TIẾN  /  4 LÀN ĐƯỜNG  /  VÔ TẬN",uiW-450,uiH-65,400,30,11,Cream,TextAnchor.MiddleRight);
+            }
+            else Txt("VUỐT: ĐỔI LÀN · CHẠM HAI LẦN: ĐẠP",20,uiH-46,440,25,12,Cream,TextAnchor.MiddleCenter);
+        }
+        void Hud()
+        {
+            float pad=portrait?16:36,top=portrait?20:28;
+            Panel(new Rect(pad,top,portrait?276:335,72),Ink);
+            Txt("PHỐ VIỆT  /  "+CurrentStreet.ToUpperInvariant(),pad+18,top+12,portrait?250:305,22,portrait?11:12,Gold);
+            Txt(Mathf.FloorToInt(Distance).ToString("N0")+" m",pad+16,top+31,180,40,28,Cream);
+            Txt(Mathf.RoundToInt(Speed*3.6f)+" km/h",pad+(portrait?178:229),top+42,90,25,13,Hex("B5CFC2"));
+            if(Btn(State==RideState.Paused?"▶":"Ⅱ",new Rect(uiW-pad-56,top,56,56),Cream,Ink,22))TogglePause();
+            if(!portrait)
+            {
+                Panel(new Rect(uiW-pad-287,top,212,56),Cream);
+                Txt("KỶ LỤC",uiW-pad-271,top+8,110,18,10,Teal);Txt(BestDistance+" m",uiW-pad-271,top+25,150,25,19,Ink);
+                if(Btn(sound?"ÂM: BẬT":"ÂM: TẮT",new Rect(uiW-pad-111,uiH-59,111,34),Ink,Cream,11))sound=!sound;
+            }
+            if(State==RideState.Riding)
+            {
+                if(noticeTimer>0)Txt(notice,0,uiH*(IsChased?.28f:.22f),uiW,50,portrait?19:26,Gold,TextAnchor.MiddleCenter);
+                if(portrait)
+                {
+                    if(Btn("←",new Rect(20,uiH-106,100,74),Ink,Cream,35))MoveLane(-1);
+                    if(Btn("→",new Rect(uiW-120,uiH-106,100,74),Ink,Cream,35))MoveLane(1);
+                    Panel(new Rect(124,uiH-87,uiW-248,48),Ink);
+                    Txt("CHẠM HAI LẦN: ĐẠP",125,uiH-78,uiW-250,30,10,Cream,TextAnchor.MiddleCenter);
+                }
+                else
+                {
+                    Panel(new Rect(pad,uiH-72,550,39),new Color(.09f,.23f,.24f,.92f));
+                    Txt("← →  ĐỔI LÀN    ·    SPACE  ĐẠP    ·    P  TẠM DỪNG    ·    "+PassedVehicles+" XE ĐÃ NÉ",pad+16,uiH-63,520,24,11,Cream);
+                }
+                if(crossingWarning) {Panel(new Rect(uiW*.5f-185,118,370,34),Red);Txt("GIAO LỘ · XE BĂNG NGANG VÀ RẼ",uiW*.5f-185,125,370,22,12,Cream,TextAnchor.MiddleCenter);}
+                else if(CurrentLane<2) {Panel(new Rect(uiW*.5f-125,118,250,34),Red);Txt("CHÚ Ý XE NGƯỢC CHIỀU",uiW*.5f-125,125,250,22,12,Cream,TextAnchor.MiddleCenter);}
+            }
+            ChaseHud();
+            RecklessHud();
+            TrafficSurpriseHud();
+        }
+        void EndCard(bool paused)
+        {
+            Panel(new Rect(0,0,uiW,uiH),new Color(.04f,.12f,.14f,.63f),0);
+            float w=portrait?432:480,h=paused?340:465,x=(uiW-w)/2,y=(uiH-h)/2;
+            Panel(new Rect(x,y,w,h),Cream,18);
+            Txt(paused?"NGHỈ MỘT CHÚT":"KẾT THÚC CHUYẾN XE",x+28,y+28,w-56,25,12,Red);
+            Txt(paused?"Dừng chân bên phố.":"Ôi, té xe rồi!",x+27,y+69,w-54,70,portrait?31:36,Ink);
+            if(paused)
+            {
+                Txt("Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.",x+28,y+140,w-56,50,16,Teal);
+                if(Btn("ĐI TIẾP   →",new Rect(x+28,y+215,w-56,58),Teal,Cream,18))TogglePause();
+            }
+            else
+            {
+                Txt("Bạn đã đi được",x+28,y+137,w-56,27,15,Teal);
+                Txt(Mathf.FloorToInt(Distance).ToString("N0")+" m",x+24,y+172,w-48,75,58,Ink);
+                Line(x+28,y+267,w-56,Hex("D8D6BF"));
+                Txt(PassedVehicles+" XE ĐÃ NÉ",x+28,y+286,200,27,13,Teal);Txt("KỶ LỤC  "+BestDistance+" m",x+w-225,y+286,200,27,13,Red,TextAnchor.UpperRight);
+                if(Btn("THỬ MỘT CHUYẾN NỮA   →",new Rect(x+28,y+334,w-56,58),Red,Cream,portrait?15:18))RestartRide();
+                if(Btn("VỀ ĐẦU PHỐ",new Rect(x+28,y+404,w-56,34),Cream,Teal,12))ResetRide();
+            }
+        }
+        void OnDestroy()
+        {
+            if(engine!=null&&engine.clip!=null)Destroy(engine.clip);if(crashClip!=null)Destroy(crashClip);
+            if(sirenClip!=null)Destroy(sirenClip);
+        }
+    }
+}
