@@ -30,3 +30,12 @@ Chrome device profiles simulate viewport/touch and injected cutout values; they 
 - Separate OS-controlled status-bar regression on some iOS releases: https://bugs.webkit.org/show_bug.cgi?id=301994
 
 User was asked which launch mode and iOS/iPadOS version produced the screenshots; platform-specific status-bar diagnosis remains dependent on that information.
+
+## Deployed artifact
+
+- Commit `7f6a4f72a0deea12673c1bf8d40e9c70f2641f2f` deployed successfully in Actions run `39067143249`: https://github.com/denispham1107/taixecongnghe/actions/runs/39067143249
+- Live site: https://denispham1107.github.io/taixecongnghe/
+- Final live version/cache: **1.7.2 / 2dd84d7eb8e3a820**.
+- **20/20 focused real-engine checks passed on the live URL**, 0 JavaScript/Unity errors. Published HTML, CSS, JS, manifest, service worker and precache list match the staged artifact (normalizing line endings). Actual iPhone/iPad portrait/landscape renders reach all four viewport edges, have no persistent header and retain usable overlay controls.
+- Evidence: `fullscreen-game-live-results.json` and `browser-fullscreen-live-*.png`.
+- Unity restored to Ready, time scale 1, version 1.7.2, best distance 1775 retained.

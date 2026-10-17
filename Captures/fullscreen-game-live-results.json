@@ -1,0 +1,33 @@
+{
+  "url": "https://denispham1107.github.io/taixecongnghe/",
+  "checks": [
+    "Published version is 1.7.2",
+    "Published file matches tested artifact: index.html",
+    "Published file matches tested artifact: style.css",
+    "Published file matches tested artifact: app.js",
+    "Published file matches tested artifact: manifest.webmanifest",
+    "Published file matches tested artifact: sw.js",
+    "Published file matches tested artifact: precache.json",
+    "iphone-portrait scene fills all viewport edges",
+    "iphone-portrait has no permanent header",
+    "iphone-portrait overlay controls remain usable",
+    "iphone-landscape scene fills all viewport edges",
+    "iphone-landscape has no permanent header",
+    "iphone-landscape overlay controls remain usable",
+    "ipad-portrait scene fills all viewport edges",
+    "ipad-portrait has no permanent header",
+    "ipad-portrait overlay controls remain usable",
+    "ipad-landscape scene fills all viewport edges",
+    "ipad-landscape has no permanent header",
+    "ipad-landscape overlay controls remain usable",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "build": {
+    "version": "1.7.2",
+    "cache": "2dd84d7eb8e3a820",
+    "unity": "6000.5.6f1",
+    "utc": "2026-10-17T20:30:45.9131735Z"
+  },
+  "success": true
+}
