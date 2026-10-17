@@ -7,6 +7,13 @@
 *.css text eol=lf
 *.yml text eol=lf
 *.md text eol=lf
+*.cjs text eol=lf
+*.ps1 text eol=lf
+*.xml text eol=lf
+# Unity writes empty YAML values with a trailing space.
+*.meta text eol=lf whitespace=-blank-at-eol
+*.asset text eol=lf whitespace=-blank-at-eol
+*.unity text eol=lf whitespace=-blank-at-eol
 *.png binary
 *.ttf binary
 *.wasm binary

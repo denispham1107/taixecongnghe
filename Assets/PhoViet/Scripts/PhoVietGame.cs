@@ -329,9 +329,10 @@ namespace PhoViet
         {
             if(rideCamera==null)return;
             if(State==RideState.Jailed){PositionJailCamera(snap);return;}
-            float x=rider!=null?rider.localPosition.x:LaneX[2];Vector3 target=new Vector3(x*.25f,IsChased?7.8f:7.15f,IsChased?-14f:-9.6f);
+            bool narrow=Screen.width<Screen.height;
+            float x=rider!=null?rider.localPosition.x:LaneX[2];Vector3 target=new Vector3(x*(narrow?.85f:.25f),IsChased?7.8f:7.15f,IsChased?-14f:-9.6f);
             rideCamera.transform.localPosition=snap?target:Vector3.Lerp(rideCamera.transform.localPosition,target,Time.unscaledDeltaTime*5);
-            rideCamera.transform.LookAt(new Vector3(x*.18f,1.2f,8));
+            rideCamera.transform.LookAt(new Vector3(x*(narrow?.85f:.18f),1.2f,8));
             rideCamera.fieldOfView=Screen.width<Screen.height?65:55+Mathf.Max(0,Speed-17)*.13f;
         }
         public string Telemetry()=>JsonUtility.ToJson(new RunTelemetry {state=State.ToString(),distance=Distance,speed=Speed,lane=CurrentLane,x=rider.localPosition.x,frames=Frames,passed=PassedVehicles,street=CurrentStreet,chased=IsChased,policeGap=PoliceDistance,policeSpeed=PoliceSpeed,kicks=KickCount,chain=ChainCount});
@@ -347,9 +348,12 @@ namespace PhoViet
         void Panel(Rect r,Color c,float radius=12)
         {GUI.DrawTexture(r,Texture2D.whiteTexture,ScaleMode.StretchToFill,true,0,c,0,radius);}
         void Txt(string value,float x,float y,float w,float h,int size,Color c,TextAnchor align=TextAnchor.UpperLeft)
-        {label.fontSize=size;label.normal.textColor=c;label.alignment=align;GUI.Label(new Rect(x,y,w,h),value,label);}
+        {
+            if(value=="★"){DrawGuiStar(new Rect(x,y,w,h),c);return;}
+            label.fontSize=size;label.normal.textColor=c;label.alignment=align;GUI.Label(new Rect(x,y,w,h),PortableGuiText(value),label);
+        }
         bool Btn(string value,Rect r,Color bg,Color fg,int size=17)
-        {Panel(r,bg);button.fontSize=size;button.normal.textColor=fg;return GUI.Button(r,value,button);}
+        {Panel(r,bg);button.fontSize=size;button.normal.textColor=fg;return GUI.Button(r,PortableGuiText(value),button);}
         void Line(float x,float y,float w,Color color){Panel(new Rect(x,y,w,1),color,0);}
         void OnGUI()
         {
