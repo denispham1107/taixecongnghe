@@ -12,7 +12,7 @@ const url=process.argv[2]||'http://127.0.0.1:8765/docs/';
 const label=process.argv[3]||'local';
 const results={url,label,checks:[],errors:[]};
 function pass(name,value=true){assert(value,name);results.checks.push(name);console.log('PASS '+name);}
-async function shot(page,name){await page.screenshot({path:`Captures/browser-${label}-${name}.png`});}
+async function shot(page,name){await page.screenshot({path:`Captures/browser-${label}-${name}.png`,timeout:90000});}
 async function ready(page){
   await page.locator('#play').click();
   await page.waitForFunction(()=>Boolean(window.phoVietInstance),{},{timeout:180000});
@@ -73,16 +73,23 @@ async function main(){
     pass('Offline home screen loads',await page.locator('#play').isVisible());await ready(page);await shot(page,'offline-ready');
     pass('Complete WebGL game starts with network disabled');await desktop.close();
 
-    const mobile=await browser.newContext({...devices['Pixel 7']});
+    // Keep phone CSS dimensions/touch while reducing software-renderer screenshot load.
+    const mobile=await browser.newContext({...devices['Pixel 7'],deviceScaleFactor:1});
     const phone=await mobile.newPage();await inspect(phone);
+    const touchSession=await mobile.newCDPSession(phone);
+    async function touch(x,y,hold=90) {
+      await touchSession.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:0}]});
+      await phone.waitForTimeout(hold);
+      await touchSession.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+    }
     pass('Phone landing fits width',await phone.evaluate(()=>document.documentElement.scrollWidth===innerWidth));
     await shot(phone,'android-welcome');await ready(phone);await shot(phone,'android-ready');
     const box=await phone.locator('#unity-canvas').boundingBox();
-    await phone.touchscreen.tap(box.x+box.width/2,box.y+box.height*.15+312*(box.width/480));
+    await touch(box.x+box.width/2,box.y+box.height*.15+312*(box.width/480),160);
     await phone.waitForTimeout(350);
-    await phone.touchscreen.tap(box.x+box.width-50,box.y+box.height-55);
-    await phone.touchscreen.tap(box.x+box.width/2,box.y+box.height*.53);
-    await phone.waitForTimeout(90);await phone.touchscreen.tap(box.x+box.width/2,box.y+box.height*.53);
+    await touch(box.x+box.width-50,box.y+box.height-55);
+    await touch(box.x+box.width/2,box.y+box.height*.53);
+    await phone.waitForTimeout(90);await touch(box.x+box.width/2,box.y+box.height*.53);
     await phone.waitForTimeout(150);await shot(phone,'android-touch');
     await phone.evaluate(()=>{
       const game='PHỐ VIỆT • Chuyến xe không ngừng';
@@ -96,7 +103,7 @@ async function main(){
     await phone.setViewportSize({width:844,height:390});await phone.waitForTimeout(600);await shot(phone,'android-landscape');
     pass('Game canvas resizes after rotation',await phone.evaluate(()=>{const r=document.querySelector('canvas').getBoundingClientRect();return r.width<=innerWidth&&r.height<=innerHeight&&r.width>r.height;}));
     await mobile.close();
-    const ios=await browser.newContext({...devices['iPhone 13']});const iphone=await ios.newPage();await inspect(iphone);
+    const ios=await browser.newContext({...devices['iPhone 13'],deviceScaleFactor:1});const iphone=await ios.newPage();await inspect(iphone);
     pass('iOS profile offers home-screen instructions',await iphone.locator('#install').isVisible());
     await iphone.locator('#install').click();pass('iOS installation help available',await iphone.locator('#guide').innerText().then(t=>t.includes('Thêm vào Màn hình chính')));
     await shot(iphone,'ios-install');await ios.close();
