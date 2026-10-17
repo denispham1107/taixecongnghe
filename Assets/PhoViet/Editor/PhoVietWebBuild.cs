@@ -26,7 +26,7 @@ namespace PhoViet.Editor
             PlayerSettings.WebGL.initialMemorySize=128;
             PlayerSettings.WebGL.maximumMemorySize=512;
             PlayerSettings.runInBackground=false;
-            PlayerSettings.bundleVersion="1.7.1";
+            PlayerSettings.bundleVersion="1.7.2";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
@@ -48,7 +48,21 @@ namespace PhoViet.Editor
         public void OnPostprocessBuild(BuildReport report)
         {
             if(report.summary.platform!=BuildTarget.WebGL)return;
-            string root=report.summary.outputPath;
+            FinalizeWebOutput(report.summary.outputPath);
+        }
+
+        // Frontend-only changes can refresh a successful build without relinking unchanged WASM.
+        public static void RefreshWebShell()
+        {
+            const string root="Builds/WebGL";
+            if(!File.Exists(Path.Combine(root,"index.html")))throw new Exception("Build WebGL first");
+            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest"})
+                File.Copy("Assets/WebGLTemplates/PhoVietPWA/"+file,Path.Combine(root,file),true);
+            FinalizeWebOutput(root);
+        }
+
+        static void FinalizeWebOutput(string root)
+        {
             // Hash file contents, including the shell, so each release has an atomic offline cache.
             var files=Directory.GetFiles(root,"*",SearchOption.AllDirectories)
                 .Where(p=>!p.EndsWith(".meta")&&!p.EndsWith(".map")&&!p.EndsWith(".br"))
@@ -65,7 +79,7 @@ namespace PhoViet.Editor
             string digest=BitConverter.ToString(hash.Hash).Replace("-","").Substring(0,16).ToLowerInvariant();
             File.WriteAllText(Path.Combine(root,"precache.json"),JsonUtility.ToJson(new CacheList{files=files}));
             string workerPath=Path.Combine(root,"sw.js");
-            File.WriteAllText(workerPath,File.ReadAllText(workerPath).Replace("__PHOVIET_CACHE__",digest));
+            File.WriteAllText(workerPath,File.ReadAllText("Assets/WebGLTemplates/PhoVietPWA/sw.js").Replace("__PHOVIET_CACHE__",digest));
             File.WriteAllText(Path.Combine(root,"build-info.json"),JsonUtility.ToJson(new BuildInfo {
                 version=Application.version,cache=digest,unity=Application.unityVersion,utc=DateTime.UtcNow.ToString("o")
             },true));

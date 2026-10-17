@@ -358,14 +358,15 @@ namespace PhoViet
         void OnGUI()
         {
             InitStyles();portrait=Screen.width<Screen.height;
-            uiScale=portrait?Screen.width/480f:Mathf.Min(Screen.width/1440f,Screen.height/900f);
-            uiW=Screen.width/uiScale;uiH=Screen.height/uiScale;
-            GUI.matrix=Matrix4x4.TRS(Vector3.zero,Quaternion.identity,Vector3.one*uiScale);
+            var area=GameGuiArea();
+            uiScale=portrait?area.width/480f:Mathf.Min(area.width/1440f,area.height/900f);
+            uiW=area.width/uiScale;uiH=area.height/uiScale;
+            GUI.matrix=Matrix4x4.TRS(new Vector3(area.x,area.y,0),Quaternion.identity,Vector3.one*uiScale);
             if(State==RideState.Jailed)JailScreen();else if(State==RideState.Ready)ReadyScreen();else Hud();
             if(State==RideState.Paused)EndCard(true);
             if(State==RideState.GameOver)EndCard(false);
-            if(State==RideState.Falling) {Panel(new Rect(0,0,uiW,uiH),new Color(.7f,.08f,.05f,.12f),0);Txt("VA CHẠM!",0,uiH*.23f,uiW,70,46,Cream,TextAnchor.MiddleCenter);}
-            if(State==RideState.Arrested){Panel(new Rect(0,0,uiW,uiH),new Color(.1f,.18f,.4f,.23f),0);Txt("CSGT ĐÃ ĐUỔI KỊP",0,uiH*.33f,uiW,90,portrait?29:44,Cream,TextAnchor.MiddleCenter);}
+            if(State==RideState.Falling) {FullscreenTint(new Color(.7f,.08f,.05f,.12f));Txt("VA CHẠM!",0,uiH*.23f,uiW,70,46,Cream,TextAnchor.MiddleCenter);}
+            if(State==RideState.Arrested){FullscreenTint(new Color(.1f,.18f,.4f,.23f));Txt("CSGT ĐÃ ĐUỔI KỊP",0,uiH*.33f,uiW,90,portrait?29:44,Cream,TextAnchor.MiddleCenter);}
             GUI.matrix=Matrix4x4.identity;
         }
         void Brand(float x,float y)
@@ -375,7 +376,7 @@ namespace PhoViet
         }
         void ReadyScreen()
         {
-            Panel(new Rect(0,0,uiW,uiH),new Color(.05f,.16f,.17f,.08f),0);
+            FullscreenTint(new Color(.05f,.16f,.17f,.08f));
             Brand(portrait?24:48,portrait?24:38);
             if(!portrait)
             {
@@ -437,7 +438,7 @@ namespace PhoViet
         }
         void EndCard(bool paused)
         {
-            Panel(new Rect(0,0,uiW,uiH),new Color(.04f,.12f,.14f,.63f),0);
+            FullscreenTint(new Color(.04f,.12f,.14f,.63f));
             float w=portrait?432:480,h=paused?340:465,x=(uiW-w)/2,y=(uiH-h)/2;
             Panel(new Rect(x,y,w,h),Cream,18);
             Txt(paused?"NGHỈ MỘT CHÚT":"KẾT THÚC CHUYẾN XE",x+28,y+28,w-56,25,12,Red);

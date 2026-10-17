@@ -31,7 +31,7 @@ async function main(){
     const response=await fetch(new URL(file,url));pass('HTTP 200 '+file,response.status===200);
   }
   const manifest=await (await fetch(new URL('manifest.webmanifest',url))).json();
-  pass('Installable scoped manifest',manifest.display==='standalone'&&manifest.start_url==='./'&&manifest.scope==='./');
+  pass('Installable scoped manifest',['fullscreen','standalone'].includes(manifest.display)&&manifest.start_url==='./'&&manifest.scope==='./');
   for(const icon of manifest.icons){
     const info=await sharp(Buffer.from(await (await fetch(new URL(icon.src,url))).arrayBuffer())).metadata();
     pass('Icon dimensions '+icon.src,`${info.width}x${info.height}`===icon.sizes);
@@ -43,7 +43,7 @@ async function main(){
   }
   pass('Every offline resource is available');
   const build=await (await fetch(new URL('build-info.json',url))).json();
-  results.build=build;pass('Versioned offline cache',build.version==='1.7.1'&&/^[a-f0-9]{16}$/.test(build.cache));
+  results.build=build;pass('Versioned offline cache',build.version==='1.7.2'&&/^[a-f0-9]{16}$/.test(build.cache));
   const launchOptions={channel:'chrome',headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']};
   const browser=await chromium.launch(launchOptions);
   // PWA installation is disabled in the incognito contexts returned by browser.newContext().
@@ -99,9 +99,10 @@ async function main(){
     });
     await phone.waitForTimeout(550);await shot(phone,'android-left-lane');
     pass('Mobile outer-lane camera scenarios captured for visual inspection');
+    if(await phone.locator('#help').isHidden())await phone.locator('#game-menu').click();
     await phone.locator('#help').click();await phone.locator('#close-help').click();pass('Touch start, lane button, double tap and pause smoke completed');
     await phone.setViewportSize({width:844,height:390});await phone.waitForTimeout(600);await shot(phone,'android-landscape');
-    pass('Game canvas resizes after rotation',await phone.evaluate(()=>{const r=document.querySelector('canvas').getBoundingClientRect();return r.width<=innerWidth&&r.height<=innerHeight&&r.width>r.height;}));
+    pass('Game canvas fills every edge after rotation',await phone.evaluate(()=>{const r=document.querySelector('canvas').getBoundingClientRect();return Math.abs(r.x)<1&&Math.abs(r.y)<1&&Math.abs(r.width-innerWidth)<1&&Math.abs(r.height-innerHeight)<1&&r.width>r.height;}));
     await mobile.close();
     const ios=await browser.newContext({...devices['iPhone 13'],deviceScaleFactor:1});const iphone=await ios.newPage();await inspect(iphone);
     pass('iOS profile offers home-screen instructions',await iphone.locator('#install').isVisible());

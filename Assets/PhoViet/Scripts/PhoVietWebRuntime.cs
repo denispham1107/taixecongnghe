@@ -4,6 +4,37 @@ namespace PhoViet
 {
     public partial class PhoVietGame
     {
+        Vector4 browserInsets;
+        bool hasBrowserInsets;
+        [System.Serializable] class BrowserInsets {public float left,top,right,bottom;}
+
+        // Normalized CSS viewport fractions remain correct when WebGL renders at a different DPR.
+        [UnityEngine.Scripting.Preserve]
+        public void ApplyBrowserInsets(string json)
+        {
+            var value=JsonUtility.FromJson<BrowserInsets>(json);
+            if(value==null)return;
+            var insets=new Vector4(value.left,value.top,value.right,value.bottom);
+            for(int i=0;i<4;i++)
+                if(float.IsNaN(insets[i])||float.IsInfinity(insets[i])||insets[i]<0||insets[i]>.4f)return;
+            browserInsets=insets;hasBrowserInsets=true;
+        }
+
+        Rect GameGuiArea()
+        {
+            if(hasBrowserInsets)
+                return new Rect(browserInsets.x*Screen.width,browserInsets.y*Screen.height,
+                    (1-browserInsets.x-browserInsets.z)*Screen.width,(1-browserInsets.y-browserInsets.w)*Screen.height);
+            var area=Screen.safeArea;
+            return new Rect(area.x,Screen.height-area.yMax,area.width,area.height);
+        }
+
+        void FullscreenTint(Color color)
+        {
+            var area=GameGuiArea();
+            Panel(new Rect(-area.x/uiScale,-area.y/uiScale,Screen.width/uiScale,Screen.height/uiScale),color,0);
+        }
+
         Texture2D guiStar;
         static string PortableGuiText(string value)
         {

@@ -4,13 +4,15 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.7.1**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.7.2**.
 
 - Desktop: mở link bằng Chrome/Edge/Firefox/Safari. Chrome và Edge có thể cài thành ứng dụng qua nút cài đặt của trình duyệt.
 - Android: mở bằng Chrome, chọn **Cài ứng dụng** trên trang hoặc trong menu trình duyệt. Đây là ứng dụng web PWA cài trực tiếp, không cần tải APK.
 - iPhone/iPad: mở link bằng Safari → **Chia sẻ → Thêm vào Màn hình chính**; bật **Mở dưới dạng ứng dụng web** nếu thiết bị hiển thị tùy chọn đó, rồi chọn **Thêm**.
 - Cần mạng ở lần đầu. Khi trang báo **Đã lưu để chơi offline trên máy này**, bản game đã được lưu đầy đủ. Trình duyệt có thể xóa dữ liệu offline khi thiết bị thiếu dung lượng hoặc người dùng xóa dữ liệu trang.
 - Vuốt/chạm và bàn phím dùng chung luật chơi. Chuyển ứng dụng hoặc mở hướng dẫn khi đang chạy sẽ tạm dừng; nhấn tiếp tục trong game để đi tiếp.
+- Khi game mở trên điện thoại/tablet, cảnh chơi phủ toàn bộ khung nhìn dọc và ngang. Vùng tai thỏ và thanh vuốt chỉ đẩy HUD/nút bấm vào trong, không tạo lề quanh cảnh. Nút **☰** mở tùy chọn/cách chơi; thanh tiêu đề không còn chiếm chiều cao khi chơi.
+- Android có thể vào fullscreen khi chạm mở game. Trên iPhone/iPad, mở từ biểu tượng Màn hình chính để dùng khung ứng dụng web; Safari vẫn tự quản lý các thanh trình duyệt nếu mở bằng tab thông thường.
 
 ## Mã nguồn và triển khai
 

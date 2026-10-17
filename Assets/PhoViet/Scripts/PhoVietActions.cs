@@ -68,9 +68,11 @@ namespace PhoViet
         public bool RegisterTap(Vector2 position,float atTime)
         {
             if(State!=RideState.Riding)return false;
-            float scale=Screen.width<Screen.height?Screen.width/480f:Mathf.Min(Screen.width/1440f,Screen.height/900f);
+            var area=GameGuiArea();
+            float scale=Screen.width<Screen.height?area.width/480f:Mathf.Min(area.width/1440f,area.height/900f);
             // Ignore HUD / pause / steering controls so tapping them cannot launch a kick.
-            if(position.y<110*scale||position.y>Screen.height-110*scale){lastTapTime=-100;return false;}
+            float fromTop=Screen.height-position.y;
+            if(position.x<area.xMin||position.x>area.xMax||fromTop<area.yMin+110*scale||fromTop>area.yMax-110*scale){lastTapTime=-100;return false;}
             bool doubled=atTime-lastTapTime>=.06f&&atTime-lastTapTime<=.32f&&Vector2.Distance(position,lastTapPoint)<Screen.width*.13f;
             lastTapPoint=position;lastTapTime=atTime;
             if(!doubled)return false;
