@@ -7,5 +7,8 @@
   ],
   "materials": 1,
   "sign_front_z": null,
-  "wall_front_z": null
+  "wall_front_z": null,
+  "decorative_pots": 0,
+  "protected_awning_strips": 0,
+  "leaf_counts": []
 }

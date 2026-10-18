@@ -4,7 +4,7 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.12.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.13.0**.
 
 - Desktop: mở link bằng Chrome/Edge/Firefox/Safari. Chrome và Edge có thể cài thành ứng dụng qua nút cài đặt của trình duyệt.
 - Android: mở bằng Chrome, chọn **Cài ứng dụng** trên trang hoặc trong menu trình duyệt. Đây là ứng dụng web PWA cài trực tiếp, không cần tải APK.
@@ -77,6 +77,12 @@ Bản hiện tại **1.11.0**:
 - CSGT dự đoán chuyển động của các xe khác, chọn lối né và phanh nếu bị chặn. Xe đứng yên, xe đã ngã, xe rẽ và xe ngược chiều đều tham gia kiểm tra va chạm của CSGT.
 - Nếu vẫn va chạm, mô tô CSGT ngã **1,2 giây**, đứng lại trên đường và không thể bắt người chơi trong thời gian đó. Hết thời gian sẽ dựng xe, tiếp tục cuộc truy đuổi từ vị trí thực tế; không dịch chuyển tức thì về gần người chơi. Tạm dừng cũng dừng thời gian dựng xe.
 - Xe nguy hiểm ngược chiều và hiệu ứng khói/lửa khi đâm nhà từ bản trước vẫn được giữ.
+
+## Cảnh quan bản 1.13.0
+
+- Mái hiên dùng các dải vải kín có độ dày, nối sát nhau và giữ nguyên ở cả ba LOD; không còn mất mảng khi nhìn từ trên/dưới hoặc khi ra xa.
+- Đã xóa các chậu cây trang trí trên vỉa hè và ban công ở toàn bộ các mẫu nhà.
+- Ba mẫu cây ven đường dựng lại qua Blender MCP với thân/cành/rễ và lá riêng có gân, độ gấp, hướng xoay và sắc xanh thay đổi. Mỗi mẫu dùng 864 / 432 / 216 lá nguyên hình ở ba LOD, không dùng các khối tròn để giả tán lá.
 
 ## Phố mới và giao thông bản 1.12.0
 

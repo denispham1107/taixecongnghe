@@ -1,0 +1,55 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyGameplay.cs",
+      "entry": "VerifyGameplay.Main",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 276,
+      "executeMs": 538,
+      "assemblyName": "PipelineRunScript_VerifyGameplay_0afee922afdd4e6a82e7969b8dc8f26b",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 23,
+        "checks": [
+          "Initial ready state and zero distance",
+          "Lane input ignored before starting",
+          "Start begins ride",
+          "Left lane clamps to road",
+          "Lane transition reaches left lane smoothly",
+          "Right lane clamps to road",
+          "Lane transition reaches right lane",
+          "Pause state",
+          "Pause blocks lane input",
+          "Resume state",
+          "Same direction and oncoming traffic velocities",
+          "Adjacent lane does not cause false collision",
+          "Car collision triggers fall",
+          "Motorcycle collision triggers fall",
+          "Oncoming collision triggers fall",
+          "Distance progresses and difficulty reaches capped speed",
+          "Recycled city blocks stay inside active range",
+          "No seams or gaps after 120 seconds of road recycling",
+          "Original seven street names remain available; visible route and next-street signs match the connected journey",
+          "All Vietnamese food, grocery and repair storefronts use Blender signs",
+          "Bundled Vietnamese font and complete signals on every pooled road row",
+          "Vietnamese star has exactly five outer points",
+          "Reset restores rider, distance and lanes"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

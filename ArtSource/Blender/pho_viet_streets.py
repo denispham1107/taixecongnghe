@@ -3,7 +3,7 @@ Metres: author coordinates X across facade, Y up, Z into the shop.
 Each asset exports three shared-atlas LOD meshes; signs are flush with the wall.
 """
 import bpy, bmesh, math, os, json, random
-from mathutils import Vector
+from mathutils import Vector, Quaternion
 ROOT='C:/Users/HP/Documents/GameUnity/Taixecongnghe'
 exec(compile(open(ROOT+'/ArtSource/Blender/pho_viet_bikes.py',encoding='utf-8').read(),'pho_viet_bikes.py','exec'))
 OUT=ROOT+'/Assets/PhoViet/Art/Streets';os.makedirs(OUT,exist_ok=True)
@@ -34,10 +34,6 @@ def label(g,text,pos,size,col,maxwidth=6.5):
  deps=bpy.context.evaluated_depsgraph_get();e=obj.evaluated_get(deps);m=e.to_mesh()
  pts=[obj.matrix_world@v.co for v in m.vertices];g.add([(-p.x,p.z,-p.y) for p in pts],[tuple(f.vertices) for f in m.polygons],col,bone='Lettering',smooth=False)
  e.to_mesh_clear();bpy.data.objects.remove(obj,do_unlink=True);bpy.data.curves.remove(curve)
-def pot(g,x,y,z,seed):
- g.rod((x,y,z),(x,y+.28,z),.17,24,n=8,r2=.23)
- for k in range(5):
-  a=k*1.256+seed;g.ell((x+.16*math.cos(a),y+.5,z+.16*math.sin(a)),(.15,.3,.12),21+k%3,n=6,m=4)
 def shop(seed):
  g=Geometry();r=random.Random(seed);height=8.4+(seed%4)*2.65;paint=seed%7;sign=[9,10,11,10,11,9,12][seed%7]
  g.box((0,height/2,0),(7.7,height,7.8),paint,bevel=.09)
@@ -56,11 +52,14 @@ def shop(seed):
  # Retractable striped canvas, front valance, and visible triangular brackets.
  for i in range(12):
   x=-3.3+i*.6
-  g.add([(x-.29,3.13,-4.1),(x+.29,3.13,-4.1),(x+.29,2.83,-5.35),(x-.29,2.83,-5.35)],[(0,1,2,3)],sign if i%2==0 else 7,smooth=False)
-  g.box((x,2.75,-5.35),(.58,.17,.035),sign if i%2==0 else 7,bevel=.008)
+  # Closed fabric strips meet without gaps. Protect them at every distance LOD.
+  top=[(x-.305,3.13,-4.1),(x+.305,3.13,-4.1),(x+.305,2.83,-5.35),(x-.305,2.83,-5.35)]
+  bottom=[(a,b-.035,c) for a,b,c in top]
+  g.add(top+bottom,[(0,1,2,3),(7,6,5,4),(0,4,5,1),(1,5,6,2),(2,6,7,3),(3,7,4,0)],sign if i%2==0 else 7,bone='Awning',smooth=False)
+  g.box((x,2.75,-5.35),(.61,.17,.035),sign if i%2==0 else 7,bone='Awning',bevel=.008)
  for x in [-3.2,3.2]:
   g.rod((x,2.2,-4.1),(x,2.84,-5.3),.028,17,n=6);g.rod((x,2.84,-5.3),(x,3.13,-4.1),.026,17,n=6)
- # Floors with framed glazing, shutters, balconies, rail detail and plants.
+ # Floors with framed glazing, shutters and balcony rails; no decorative pots.
  floors=int((height-4.4)/2.65)+1
  for f in range(floors):
   y=5.35+f*2.65
@@ -79,7 +78,6 @@ def shop(seed):
    g.box((0,y-1.0,-4.4),(6.4,.18,1.1),7)
    for rail in range(21):g.rod((-3.0+rail*.3,y-.9,-4.91),(-3.0+rail*.3,y-.12,-4.91),.021,8,n=5)
    g.rod((-3.1,y-.12,-4.91),(3.1,y-.12,-4.91),.035,8,n=6)
-   for x in [-2.5,2.5]:pot(g,x,y-.9,-4.5,seed+f)
   if f==0:
    g.box((3.14,y+.92,-4.2),(.95,.5,.45),16)
    for k in range(5):g.box((2.8+k*.16,y+.92,-4.45),(.055,.35,.025),17)
@@ -117,31 +115,60 @@ def shop(seed):
     for sz in [-.4,.4]:g.rod((x+sx,.25,-4.95+sz),(x+sx,.88,-4.95+sz),.027,17,n=5)
    g.ell((x,.99,-4.95),(.14,.055,.14),7,n=8,m=4)
    for z in [-5.65,-4.2]:g.box((x,.5,z),(.42,.43,.42),13)
- # Small ceramic number plate, wall light, potted corner plant.
+ # Small ceramic number plate and wall light.
  g.box((-3.2,2.4,-4.05),(.38,.28,.03),11)
  label(g,str(18+seed*7),(-3.2,2.4,-4.075),.12,7,.32)
- g.box((2.9,4.68,-4.12),(.26,.12,.38),7);pot(g,3,.24,-4.8,seed)
+ g.box((2.9,4.68,-4.12),(.26,.12,.38),7)
  if seed%2==0:
   g.rod((3.25,4.65,-4.0),(3.25,5.65,-4.9),.025,17,n=6)
   g.box((2.65,5.5,-4.9),(1.2,.8,.025),13)
   g.star((2.65,5.5,-4.921),.25,14)
  return g
-def tree(seed):
+def leaf(g,base,direction,length,width,col,vein,roll=0):
+ base=Vector(base);axis=Vector(direction).normalized()
+ side=axis.cross(Vector((0,1,.15)))
+ if side.length<.1:side=axis.cross(Vector((1,0,0)))
+ side.normalize();side=Quaternion(axis,roll)@side;normal=side.cross(axis).normalized()
+ rim=[base,base+axis*length*.28+side*width,base+axis*length*.7+side*width*.7,
+      base+axis*length,base+axis*length*.7-side*width*.7,base+axis*length*.28-side*width]
+ ridge=base+axis*length*.48+normal*width*.18
+ vertices=rim+[ridge]+[p-normal*.006 for p in rim]+[ridge-normal*.006]
+ faces=[]
+ for i in range(6):
+  j=(i+1)%6;faces.extend([(6,i,j),(13,j+7,i+7),(i,i+7,j+7,j)])
+ g.add(vertices,faces,col,bone='Leaf',smooth=False)
+ if vein:g.rod(base,ridge,.003,23,n=3,r2=.001)
+def tree(seed,lod=0):
  g=Geometry();r=random.Random(400+seed)
  g.box((0,.16,0),(1.45,.32,1.45),18)
  g.box((0,.33,0),(1.22,.06,1.22),20)
  for x in [-.65,.65]:g.box((x,.38,0),(.12,.15,1.5),26)
  for z in [-.65,.65]:g.box((0,.38,z),(1.45,.15,.12),26)
- g.rod((0,.32,0),(.13,3.8,0),.18,20,n=10,r2=.1)
- for k in range(9):
-  a=k*2.399+seed;reach=.7+r.random()*.6;y=3.2+r.random()*1.2
-  end=(math.cos(a)*reach,y,math.sin(a)*reach)
-  g.rod((.08,2.2+k*.14,0),end,.08,20,n=6,r2=.028)
-  g.ell((end[0],y+.38,end[2]),(.85,.7,.78),21+k%3,n=9,m=6)
-  for j in range(3):
-   aa=a+j*2.09;g.ell((end[0]+.42*math.cos(aa),y+.7,end[2]+.42*math.sin(aa)),(.52,.4,.48),22+j%2,n=7,m=4)
+ g.rod((0,.32,0),(.13,3.6,0),.18,20,n=10 if lod==0 else 7,r2=.09)
+ g.rod((.13,3.6,0),(.18,5.3,.05),.09,20,n=7,r2=.018)
+ if lod==0:
+  for k in range(7):
+   a=k*math.tau/7;g.rod((.16*math.cos(a),.4,.16*math.sin(a)),(.13+.08*math.cos(a+.3),3.5,.08*math.sin(a+.3)),.012,25,n=4,r2=.005)
+ leaf_count=0
+ for k in range(12):
+  a=k*2.399+seed;reach=.8+r.random()*.5;y=3.35+(k%4)*.42+r.random()*.2
+  end=Vector((math.cos(a)*reach,y,math.sin(a)*reach))
+  origin=Vector((.13,2.5+k*.13,0));g.rod(origin,end,.075,20,n=7 if lod==0 else 5,r2=.024)
+  for j in range(6):
+   aa=a+(j-2.5)*.38;tip=end+Vector((math.cos(aa)*(.3+r.random()*.25),.18+r.random()*.6,math.sin(aa)*(.3+r.random()*.25)))
+   g.rod(end,tip,.02,25,n=5 if lod==0 else 4,r2=.004)
+   for m in range(12):
+    # A deterministic subset of complete leaves forms each LOD, never round blobs.
+    t=(m+.4)/12;base=end.lerp(tip,t)+Vector(((r.random()-.5)*.3,(r.random()-.5)*.35,(r.random()-.5)*.3))
+    angle=aa+(1 if m%2 else -1)*(.7+r.random()*.7)
+    direction=(math.cos(angle),-.25+r.random(),math.sin(angle))
+    length=.38+r.random()*.22;width=.12+r.random()*.06;col=[21,22,23,28,29][r.randrange(5)];roll=(r.random()-.5)*1.6
+    if lod==1 and m%2:continue
+    if lod==2 and m%4:continue
+    leaf(g,base,direction,length*(1+lod*.15),width*(1+lod*.15),col,lod==0,roll);leaf_count+=1
  for k in range(5):
   a=k*1.25;g.rod((.01,.55,0),(.48*math.cos(a),.34,.48*math.sin(a)),.065,20,n=6,r2=.025)
+ g.leaf_count=leaf_count
  return g
 def pavement():
  g=Geometry();g.box((0,.1,0),(4.2,.2,8.4),18)
@@ -154,7 +181,7 @@ def pavement():
   g.box((-1.72,.29,z),(.38,.025,.65),17)
   for j in range(6):g.box((-1.72,.31,z-.25+j*.1),(.32,.008,.037),8,bevel=.002)
  return g
-def save_asset(name,g,offset):
+def save_asset(name,g,offset,lod_geometries=None):
  mesh=bpy.data.meshes.new(name+'_LOD0');mesh.from_pydata(g.v,[],g.f);mesh.update();mesh.materials.append(MAT)
  uv=mesh.uv_layers.new(name='StreetAtlasUV')
  for poly,(col,smooth) in zip(mesh.polygons,g.colors):
@@ -163,7 +190,7 @@ def save_asset(name,g,offset):
  bm=bmesh.new();bm.from_mesh(mesh);bmesh.ops.recalc_face_normals(bm,faces=bm.faces);bm.to_mesh(mesh);bm.free()
  root=bpy.data.objects.new(name,None);bpy.context.collection.objects.link(root)
  ob=bpy.data.objects.new(name+'_LOD0',mesh);bpy.context.collection.objects.link(ob);ob.parent=root;objs=[ob]
- label_faces={i for i,f in enumerate(g.f) if g.bones[f[0]]=='Lettering'}
+ label_faces={i for i,f in enumerate(g.f) if g.bones[f[0]] in ('Lettering','Awning')}
  def strip_faces(target,remove_labels):
   bm=bmesh.new();bm.from_mesh(target);bm.faces.ensure_lookup_table()
   doomed=[f for f in bm.faces if (f.index in label_faces)==remove_labels]
@@ -171,6 +198,14 @@ def save_asset(name,g,offset):
   bmesh.ops.delete(bm,geom=[v for v in bm.verts if not v.link_faces],context='VERTS');bm.to_mesh(target);bm.free()
  letters=mesh.copy();strip_faces(letters,False)
  for level,ratio in [(1,.48),(2,.18)]:
+  if lod_geometries is not None:
+   geo=lod_geometries[level];data=bpy.data.meshes.new(name+'_LOD'+str(level));data.from_pydata(geo.v,[],geo.f);data.update();data.materials.append(MAT)
+   uv=data.uv_layers.new(name='StreetAtlasUV')
+   for poly,(col,smooth) in zip(data.polygons,geo.colors):
+    poly.use_smooth=smooth
+    for loop in poly.loop_indices:uv.data[loop].uv=((col%8+.5)/8,(col//8+.5)/4)
+   bm=bmesh.new();bm.from_mesh(data);bmesh.ops.recalc_face_normals(bm,faces=bm.faces);bm.to_mesh(data);bm.free()
+   child=bpy.data.objects.new(name+'_LOD'+str(level),data);bpy.context.collection.objects.link(child);child.parent=root;objs.append(child);continue
   child=ob.copy();child.data=mesh.copy();child.name=name+'_LOD'+str(level);bpy.context.collection.objects.link(child);child.parent=root
   strip_faces(child.data,True)
   bpy.context.view_layer.objects.active=child;mod=child.modifiers.new('Distance simplification','DECIMATE');mod.ratio=ratio
@@ -185,7 +220,8 @@ def save_asset(name,g,offset):
  bpy.ops.export_scene.fbx(filepath=OUT+'/'+name+'.fbx',use_selection=True,object_types={'EMPTY','MESH'},axis_forward='-Z',axis_up='Y',apply_unit_scale=True,apply_scale_options='FBX_SCALE_UNITS',bake_anim=False,add_leaf_bones=False,use_mesh_modifiers=True,mesh_smooth_type='FACE')
  counts=[]
  for o in objs:o.data.calc_loop_triangles();counts.append(len(o.data.loop_triangles))
- info={'name':name,'lod_triangles':counts,'materials':1,'sign_front_z':-4.158 if 'Shop' in name else None,'wall_front_z':-3.9 if 'Shop' in name else None}
+ info={'name':name,'lod_triangles':counts,'materials':1,'sign_front_z':-4.158 if 'Shop' in name else None,'wall_front_z':-3.9 if 'Shop' in name else None,
+       'decorative_pots':0,'protected_awning_strips':12 if 'Shop' in name else 0,'leaf_counts':[getattr(geo,'leaf_count',0) for geo in lod_geometries] if lod_geometries else []}
  with open(OUT+'/'+name+'.json','w',encoding='utf8') as f:json.dump(info,f,ensure_ascii=False,indent=2)
  root.location=offset
  for o in objs[1:]:o.hide_set(True);o.hide_render=True
@@ -196,7 +232,8 @@ def build_streets():
  for o in owned:bpy.data.objects.remove(o,do_unlink=True)
  MAT=atlas();results=[]
  for i in range(12):results.append(save_asset('PV_StreetShop'+str(i).zfill(2),shop(i),((i%4)*10,(i//4)*13,0)))
- for i in range(3):results.append(save_asset('PV_StreetTree'+str(i),tree(i),(i*5,-17,0)))
+ for i in range(3):
+  geometries=[tree(i,lod) for lod in range(3)];results.append(save_asset('PV_StreetTree'+str(i),geometries[0],(i*5,-17,0),geometries))
  results.append(save_asset('PV_StreetPavement',pavement(),(18,-17,0)))
  with open(OUT+'/catalogue.json','w',encoding='utf8') as f:json.dump(results,f,indent=2)
  bpy.ops.wm.save_as_mainfile(filepath=ROOT+'/ArtSource/Blender/PhoViet_Streets.blend')

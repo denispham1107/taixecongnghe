@@ -22,7 +22,7 @@ public static class VerifyStreetArt
     check(lods.Length==36,b.name+": fourteen shopfronts, six trees and sixteen pavement segments");
     var shops=b.Cast<Transform>().Where(t=>t.name.StartsWith("Blender • ",StringComparison.Ordinal)).ToArray();
     check(shops.Length==14,b.name+": both street sides use detailed shop fronts");
-    check(shops.All(t=>Mathf.Abs(Vector3.Dot(t.forward,Vector3.right))>.99f),b.name+": shop facades and integral wall-mounted signs face the road at ninety degrees");
+    check(shops.All(t=>Mathf.Abs(Vector3.Dot(t.localRotation*Vector3.forward,Vector3.right))>.99f),b.name+": shop facades and integral wall-mounted signs face their own road at ninety degrees");
     check(lods.All(l=>l.size>4&&l.size<25),b.name+": model dimensions remain in metres after FBX conversion");
     check(lods.All(l=>l.GetLODs().Length==3&&l.GetLODs().All(d=>d.renderers.Length==1&&d.renderers[0]!=null)),b.name+": three complete distance LODs for every scenery instance");
    }

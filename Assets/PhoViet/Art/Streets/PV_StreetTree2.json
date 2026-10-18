@@ -1,11 +1,18 @@
 {
   "name": "PV_StreetTree2",
   "lod_triangles": [
-    3544,
-    1878,
-    1878
+    30076,
+    12316,
+    7132
   ],
   "materials": 1,
   "sign_front_z": null,
-  "wall_front_z": null
+  "wall_front_z": null,
+  "decorative_pots": 0,
+  "protected_awning_strips": 0,
+  "leaf_counts": [
+    864,
+    432,
+    216
+  ]
 }

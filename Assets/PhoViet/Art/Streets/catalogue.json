@@ -2,167 +2,224 @@
   {
     "name": "PV_StreetShop00",
     "lod_triangles": [
-      11025,
-      5501,
-      2263
+      10341,
+      6021,
+      3481
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetShop01",
     "lod_triangles": [
-      18860,
-      9288,
-      3750
+      18176,
+      9810,
+      4932
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetShop02",
     "lod_triangles": [
-      21243,
-      10419,
-      4147
+      20023,
+      10681,
+      5201
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetShop03",
     "lod_triangles": [
-      26905,
-      13211,
-      5299
+      25685,
+      13475,
+      6347
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetShop04",
     "lod_triangles": [
-      21494,
-      10570,
-      4212
+      20810,
+      11090,
+      5450
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetShop05",
     "lod_triangles": [
-      12447,
-      6199,
-      2569
+      11763,
+      6721,
+      3749
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetShop06",
     "lod_triangles": [
-      21376,
-      10552,
-      4280
+      20156,
+      10814,
+      5334
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetShop07",
     "lod_triangles": [
-      29099,
-      14229,
-      5629
+      27879,
+      14491,
+      6683
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetShop08",
     "lod_triangles": [
-      11087,
-      5563,
-      2325
+      10403,
+      6083,
+      3543
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetShop09",
     "lod_triangles": [
-      18652,
-      9310,
-      3900
+      17968,
+      9830,
+      5094
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetShop10",
     "lod_triangles": [
-      21805,
-      10787,
-      4403
+      20585,
+      11051,
+      5459
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetShop11",
     "lod_triangles": [
-      26889,
-      13195,
-      5283
+      25669,
+      13459,
+      6331
     ],
     "materials": 1,
     "sign_front_z": -4.158,
-    "wall_front_z": -3.9
+    "wall_front_z": -3.9,
+    "decorative_pots": 0,
+    "protected_awning_strips": 12,
+    "leaf_counts": []
   },
   {
     "name": "PV_StreetTree0",
     "lod_triangles": [
-      3544,
-      1824,
-      1824
+      30076,
+      12316,
+      7132
     ],
     "materials": 1,
     "sign_front_z": null,
-    "wall_front_z": null
+    "wall_front_z": null,
+    "decorative_pots": 0,
+    "protected_awning_strips": 0,
+    "leaf_counts": [
+      864,
+      432,
+      216
+    ]
   },
   {
     "name": "PV_StreetTree1",
     "lod_triangles": [
-      3544,
-      1878,
-      1878
+      30076,
+      12316,
+      7132
     ],
     "materials": 1,
     "sign_front_z": null,
-    "wall_front_z": null
+    "wall_front_z": null,
+    "decorative_pots": 0,
+    "protected_awning_strips": 0,
+    "leaf_counts": [
+      864,
+      432,
+      216
+    ]
   },
   {
     "name": "PV_StreetTree2",
     "lod_triangles": [
-      3544,
-      1878,
-      1878
+      30076,
+      12316,
+      7132
     ],
     "materials": 1,
     "sign_front_z": null,
-    "wall_front_z": null
+    "wall_front_z": null,
+    "decorative_pots": 0,
+    "protected_awning_strips": 0,
+    "leaf_counts": [
+      864,
+      432,
+      216
+    ]
   },
   {
     "name": "PV_StreetPavement",
@@ -173,6 +230,9 @@
     ],
     "materials": 1,
     "sign_front_z": null,
-    "wall_front_z": null
+    "wall_front_z": null,
+    "decorative_pots": 0,
+    "protected_awning_strips": 0,
+    "leaf_counts": []
   }
 ]
