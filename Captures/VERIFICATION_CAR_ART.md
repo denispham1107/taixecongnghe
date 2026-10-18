@@ -64,5 +64,13 @@ Frame evidence: `car-art-frame-evidence.json`.
 
 ## Publication
 
-The source and tested WebGL artifact are ready for the authorized GitHub Pages release.
-Deployment and live verification will be recorded after publication.
+- Source and tested artifact commit: `812dcb9785e0a5191ff8e33b82b2157da3c0800e`.
+- GitHub Pages deployment succeeded for that exact commit:
+  https://github.com/denispham1107/taixecongnghe/actions/runs/39097929493
+- Live game: https://denispham1107.github.io/taixecongnghe/
+- **22 live assertions passed**: version/cache and every published resource match the
+  tested artifact; real WebAssembly initializes, start/pause works, no runtime errors.
+  Evidence: `car-art-live-results.json`.
+- Unity left in Play Mode Ready, version 1.9.0, time scale 1, all eleven car/truck and
+  thirty-three motorcycle actors present. Existing best distance **1775** retained.
+- Blender left with the editable six-car lineup, Drive frame 1 and packed source saved.
