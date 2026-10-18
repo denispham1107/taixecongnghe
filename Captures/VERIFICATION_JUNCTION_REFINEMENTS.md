@@ -76,4 +76,13 @@ five oncoming vehicles. No player collision immunity was used for the captures.
   visually inspected. Phone/iOS profiles emulate viewport and touch; these checks
   did not use physical Android/iOS hardware.
 
-Deployment results are added after completion below.
+- Source and tested artifact commit: `21e2e1c13beb4ab2feee32c53109a2c4c5a3426e`.
+- GitHub Pages deployment succeeded for that exact commit:
+  https://github.com/denispham1107/taixecongnghe/actions/runs/39111187991
+- Live game: https://denispham1107.github.io/taixecongnghe/
+- **22 live checks passed**. Version/cache and every published resource match the
+  tested artifact. The deployed Unity WebAssembly initializes and accepts start/pause
+  input without JavaScript/Unity runtime errors. Evidence: `junction-fix-live-results.json`.
+- Unity left in Play Mode Ready at version 1.11.0, time scale 1, exit traffic enabled,
+  eleven four-wheel actors and thirty-three motorcycle/rider actors. Existing best
+  distance **1775 m** retained.
