@@ -1,0 +1,55 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyGameplay.cs",
+      "entry": "VerifyGameplay.Main",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 139,
+      "executeMs": 85,
+      "assemblyName": "PipelineRunScript_VerifyGameplay_0eaf7413b77149dba028f6aa64b0a050",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 23,
+        "checks": [
+          "Initial ready state and zero distance",
+          "Lane input ignored before starting",
+          "Start begins ride",
+          "Left lane clamps to road",
+          "Lane transition reaches left lane smoothly",
+          "Right lane clamps to road",
+          "Lane transition reaches right lane",
+          "Pause state",
+          "Pause blocks lane input",
+          "Resume state",
+          "Same direction and oncoming traffic velocities",
+          "Adjacent lane does not cause false collision",
+          "Car collision triggers fall",
+          "Motorcycle collision triggers fall",
+          "Oncoming collision triggers fall",
+          "Distance progresses and difficulty reaches capped speed",
+          "Recycled city blocks stay inside active range",
+          "No seams or gaps after 120 seconds of road recycling",
+          "All seven requested street signs exist in saved scene",
+          "Vietnamese food, grocery and repair shop signs exist",
+          "Bundled Vietnamese font and 28 traffic signals",
+          "Vietnamese star has exactly five outer points",
+          "Reset restores rider, distance and lanes"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

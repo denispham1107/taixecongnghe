@@ -139,12 +139,12 @@ public static class VerifyRearRandomPolice
             {
                 tick(.02f);
                 stable&=!float.IsNaN(g.PoliceDistance)&&!float.IsInfinity(g.policeBike.localPosition.sqrMagnitude);
-                // Damage immunity no longer permits driving through traffic. A physically
-                // blocked rider may be captured; continue the stress test in a fresh chase.
-                if(g.State==PhoVietGame.RideState.Arrested)
+                // Pursuit traffic collisions now immediately lose, even with a damage
+                // cooldown injected by this test. Continue in a fresh chase after a loss.
+                if(g.State==PhoVietGame.RideState.Arrested||g.State==PhoVietGame.RideState.Falling)
                 {chase();g.recklessTrafficEnabled=true;g.trafficSurprises=true;set("spawnTimer",0);set("nextIntersectionDistance",70);set("collisionImmunity",10000);}
             }
-            check(stable&&g.State==PhoVietGame.RideState.Riding&&g.IsChased,"Forty-second integrated chase remains stable through solid contacts and capture/restart with all hazards enabled");
+            check(stable&&g.State==PhoVietGame.RideState.Riding&&g.IsChased,"Forty-second integrated chase remains stable through immediate collision losses and capture/restart with all hazards enabled");
             g.ResetRide();check(g.PoliceFalls==0&&g.PoliceAvoidances==0&&!g.PoliceFallen&&g.PoliceFallRemaining==0,"Restart clears police avoidance and recovery state");
             return new {success=true,count=checks.Count,checks};
         }

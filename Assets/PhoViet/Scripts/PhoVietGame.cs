@@ -257,10 +257,10 @@ namespace PhoViet
         {
             TickActionTimers(dt);
             timeRiding+=dt;cruiseSpeed=Mathf.Min(17+DifficultyTime*.12f,30)+(IsChased?chaseBoost:0);
-            Speed=cruiseSpeed*(stunRemaining>0?.45f:1);Distance+=Speed*dt;
+            Speed=cruiseSpeed;Distance+=Speed*dt;
             foreach(var b in blocks){b.localPosition-=Vector3.forward*Speed*dt;if(b.localPosition.z<-160)b.localPosition+=Vector3.forward*VietnamStreet.Length*blocks.Count;}
             float oldX=rider.localPosition.x;
-            float x=Mathf.MoveTowards(oldX,LaneX[CurrentLane],dt*(stunRemaining>0?9:15));
+            float x=Mathf.MoveTowards(oldX,LaneX[CurrentLane],dt*15);
             lean=Mathf.Lerp(lean,(oldX-x)*-35,dt*10);
             rider.localPosition=new Vector3(x,Mathf.Sin(timeRiding*12)*.012f,0);rider.localRotation=Quaternion.Euler(0,0,lean);
             lastX=x;
@@ -312,7 +312,7 @@ namespace PhoViet
         public void Crash()
         {
             if(State!=RideState.Riding)return;
-            State=RideState.Falling;fallTime=0;Speed=0;engine.Stop();if(sound)fx.PlayOneShot(crashClip);
+            State=RideState.Falling;fallTime=0;Speed=0;engine.Stop();siren?.Stop();if(sound)fx.PlayOneShot(crashClip);
             if((int)Distance>BestDistance){BestDistance=(int)Distance;PlayerPrefs.SetInt(BestKey,BestDistance);PlayerPrefs.Save();}
         }
         void AnimateLights()

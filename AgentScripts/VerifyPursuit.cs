@@ -72,10 +72,12 @@ public static class VerifyPursuit
 
             clean();g.SpawnTraffic(3,0,1);g.TryKick();clear();for(int i=0;i<120;i++)tick(.02f);
             var obstacle=g.SpawnTraffic(g.CurrentLane,1,0);tick(.02f);
-            check(g.State==PhoVietGame.RideState.Riding&&g.Speed<g.PoliceSpeed,"Obstacle impact slows the rider and allows police to close");
-            clear();
-            for(int i=0;i<80&&g.State==PhoVietGame.RideState.Riding;i++)tick(.02f);
-            check(g.State==PhoVietGame.RideState.Arrested,"Police capture the obstructed rider");
+            check(g.State==PhoVietGame.RideState.Falling&&g.Speed==0,"Any traffic impact during pursuit immediately loses the ride");
+            clean();typeof(PhoVietGame).GetMethod("StartChase",flags).Invoke(g,null);
+            g.policeBike.localPosition=new Vector3(g.rider.localPosition.x,0,-1);
+            typeof(PhoVietGame).GetProperty("PoliceDistance").SetValue(g,1f);
+            tick(.02f);
+            check(g.State==PhoVietGame.RideState.Arrested,"Police catching the rider still triggers capture independently of traffic crashes");
             typeof(PhoVietGame).GetMethod("TickArrest",flags).Invoke(g,new object[]{1.2f});
             check(g.State==PhoVietGame.RideState.Jailed&&g.jailRoom.gameObject.activeSelf,"Capture transitions to the jail scene");
             check(!g.scenery.gameObject.activeSelf&&!g.rider.gameObject.activeSelf&&!g.policeBike.gameObject.activeSelf,"Street actors are hidden in jail");

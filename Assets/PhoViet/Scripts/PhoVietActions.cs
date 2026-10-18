@@ -13,7 +13,7 @@ namespace PhoViet
         public int KickCount {get;private set;}
         public int ChainCount {get;private set;}
         public float KickCooldown => kickCooldown;
-        float kickCooldown,kickTime,kickDirection,chaseBoost,cruiseSpeed,stunRemaining,collisionImmunity,arrestTime;
+        float kickCooldown,kickTime,kickDirection,chaseBoost,cruiseSpeed,collisionImmunity,arrestTime;
         float lastTapTime=-100,touchStarted;
         Vector2 lastTapPoint;
         bool policeArrived,roadFog;
@@ -33,7 +33,7 @@ namespace PhoViet
         void ResetActions()
         {
             IsChased=false;PoliceDistance=0;PoliceSpeed=0;KickCount=0;ChainCount=0;
-            kickCooldown=0;kickTime=0;chaseBoost=0;stunRemaining=0;collisionImmunity=0;arrestTime=0;
+            kickCooldown=0;kickTime=0;chaseBoost=0;collisionImmunity=0;arrestTime=0;
             lastTapTime=-100;policeArrived=false;
             ResetPoliceDriving();
             if(siren!=null)siren.Stop();if(policeBike!=null)policeBike.gameObject.SetActive(false);
@@ -93,7 +93,7 @@ namespace PhoViet
         void TickActionTimers(float dt)
         {
             kickCooldown=Mathf.Max(0,kickCooldown-dt);kickTime=Mathf.Max(0,kickTime-dt);
-            stunRemaining=Mathf.Max(0,stunRemaining-dt);collisionImmunity=Mathf.Max(0,collisionImmunity-dt);
+            collisionImmunity=Mathf.Max(0,collisionImmunity-dt);
             if(IsChased)chaseBoost=Mathf.Min(12,chaseBoost+dt*.28f);
         }
         void AnimateKick()
@@ -135,13 +135,6 @@ namespace PhoViet
             bool flash=(int)(timeRiding*8)%2==0;
             if(redBeacon!=null)redBeacon.sharedMaterial=Mat(flash?Hex("FF423D"):Hex("652F31"),true);
             if(blueBeacon!=null)blueBeacon.sharedMaterial=Mat(flash?Hex("284568"):Hex("4CBAFF"),true);
-        }
-        void HitDuringChase()
-        {
-            if(collisionImmunity>0)return;
-            stunRemaining=.95f;collisionImmunity=1.1f;
-            notice="BỊ CẢN ĐƯỜNG!  CSGT ĐANG ÁP SÁT";noticeTimer=1.5f;
-            if(sound)fx.PlayOneShot(crashClip);Speed=cruiseSpeed*.45f;
         }
         public void Arrest()
         {

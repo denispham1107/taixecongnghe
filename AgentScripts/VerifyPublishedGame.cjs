@@ -2,6 +2,7 @@
 const {chromium}=require('playwright');
 const fs=require('node:fs');const assert=require('node:assert/strict');
 const url=process.argv[2]||'https://denispham1107.github.io/taixecongnghe/';
+const label=process.argv[3]||'rider-contact-live';
 const result={url,checks:[],errors:[]};
 function check(name,ok){assert(ok,name);result.checks.push(name);console.log('PASS '+name);}
 async function main(){
@@ -23,9 +24,9 @@ async function main(){
     await page.waitForFunction(()=>!!window.phoVietInstance,{},{timeout:180000});await page.waitForTimeout(4500);
     check('Real published Unity WebAssembly initializes',await page.locator('#welcome').isHidden());
     await page.locator('#unity-canvas').focus();await page.keyboard.press('Enter');await page.waitForTimeout(500);await page.keyboard.press('p');
-    await page.screenshot({path:'Captures/browser-rider-contact-live.png',timeout:90000});
+    await page.screenshot({path:`Captures/browser-${label}.png`,timeout:90000});
     check('Published start and pause input smoke completed',true);
     check('No JavaScript or Unity runtime errors',result.errors.length===0);
   }finally{await browser.close();}
 }
-main().then(()=>{result.success=true;console.log(JSON.stringify({success:true,count:result.checks.length}));}).catch(e=>{result.success=false;result.failure=e.stack;console.error(e);process.exitCode=1;}).finally(()=>fs.writeFileSync('Captures/rider-contact-live-results.json',JSON.stringify(result,null,2)));
+main().then(()=>{result.success=true;console.log(JSON.stringify({success:true,count:result.checks.length}));}).catch(e=>{result.success=false;result.failure=e.stack;console.error(e);process.exitCode=1;}).finally(()=>fs.writeFileSync(`Captures/${label}-results.json`,JSON.stringify(result,null,2)));
