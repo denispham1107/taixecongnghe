@@ -1,0 +1,11 @@
+{
+  "name": "PV_StreetShop03",
+  "lod_triangles": [
+    26905,
+    13211,
+    5299
+  ],
+  "materials": 1,
+  "sign_front_z": -4.158,
+  "wall_front_z": -3.9
+}

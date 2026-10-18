@@ -4,7 +4,7 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.11.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.12.0**.
 
 - Desktop: mở link bằng Chrome/Edge/Firefox/Safari. Chrome và Edge có thể cài thành ứng dụng qua nút cài đặt của trình duyệt.
 - Android: mở bằng Chrome, chọn **Cài ứng dụng** trên trang hoặc trong menu trình duyệt. Đây là ứng dụng web PWA cài trực tiếp, không cần tải APK.
@@ -77,6 +77,15 @@ Bản hiện tại **1.11.0**:
 - CSGT dự đoán chuyển động của các xe khác, chọn lối né và phanh nếu bị chặn. Xe đứng yên, xe đã ngã, xe rẽ và xe ngược chiều đều tham gia kiểm tra va chạm của CSGT.
 - Nếu vẫn va chạm, mô tô CSGT ngã **1,2 giây**, đứng lại trên đường và không thể bắt người chơi trong thời gian đó. Hết thời gian sẽ dựng xe, tiếp tục cuộc truy đuổi từ vị trí thực tế; không dịch chuyển tức thì về gần người chơi. Tạm dừng cũng dừng thời gian dựng xe.
 - Xe nguy hiểm ngược chiều và hiệu ứng khói/lửa khi đâm nhà từ bản trước vẫn được giữ.
+
+## Phố mới và giao thông bản 1.12.0
+
+- Xe máy và xe hơi đang chạy dọc đường có thể chọn rẽ trái/phải ở giao lộ, ôm cua liên tục rồi chạy sang đường nhánh. Xe băng ngang xuất hiện nhiều hơn và vẫn có thể rẽ vào đường chính.
+- Mọi loại xe ngược chiều thông thường cũng đổi làn và có thể lấn qua vạch vàng sang phía người chơi rồi quay lại; xe vẫn giữ chiều chạy ngược, va chạm vẫn gây thua.
+- Toàn bộ 35 khối phố trên đường chính và các đường nhánh dùng bộ cảnh quan gốc dựng qua Blender MCP: 12 mẫu nhà/cửa tiệm, 3 mẫu cây và vỉa hè lát gạch có bó vỉa, rãnh thoát nước. Nhà có ban công, cửa chớp, khung cửa, mái che, máy lạnh, bồn nước, chậu cây, vật dụng riêng theo từng loại tiệm và cờ Việt Nam.
+- Bảng hiệu và chữ tiếng Việt được dựng chung trong mặt tiền, song song và sát vách nhà, không xoay chéo lấn sang tiệm bên cạnh. Chữ giữ nguyên ở cả ba LOD.
+- Bộ phố dùng chung một atlas 128 px, ba LOD cho mỗi mẫu; nhân vật, xe chi tiết, giao lộ, rẽ đường và luật truy đuổi vẫn được giữ.
+- Nguồn chỉnh sửa: `ArtSource/Blender/PhoViet_Streets.blend`, `ArtSource/Blender/pho_viet_streets.py` (gọi `build_streets()` qua Blender MCP). FBX/atlas/catalogue nằm trong `Assets/PhoViet/Art/Streets`.
 
 ## Nguồn model Blender
 

@@ -1,0 +1,11 @@
+{
+  "name": "PV_StreetPavement",
+  "lod_triangles": [
+    15500,
+    7440,
+    2766
+  ],
+  "materials": 1,
+  "sign_front_z": null,
+  "wall_front_z": null
+}

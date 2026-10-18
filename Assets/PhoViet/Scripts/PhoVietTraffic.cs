@@ -14,13 +14,14 @@ namespace PhoViet
 
         void ResetTrafficDynamics()
         {
-            SuddenBrakes=0;SuddenLaneChanges=0;IntersectionTurns=0;TrafficCollisions=0;
+            SuddenBrakes=0;SuddenLaneChanges=0;IntersectionTurns=0;TrafficCollisions=0;RoadTrafficTurns=0;
             contactUntil=new float[vehicles.Count,vehicles.Count];
             foreach(var v in vehicles)InitializeDriver(v);
         }
         void InitializeDriver(TrafficVehicle v)
         {
             v.routeDetached=false;v.routeVelocity=Vector3.zero;v.rearEntryBoost=0;
+            v.roadTurning=false;v.roadDecisionAt=float.NaN;v.roadTurnAngle=0;
             v.knocked=false;v.wallCrashed=false;v.knockFromPlayer=false;v.knockVelocity=Vector3.zero;v.knockAge=0;v.playerGrace=0;
             v.enteringFromBehind=false;
             v.brakeRemaining=0;v.brakeCooldown=1.1f+(float)rng.NextDouble()*1.7f;
@@ -55,7 +56,8 @@ namespace PhoViet
         }
         public bool BeginSuddenLaneChange(TrafficVehicle v,int lane)
         {
-            if(!v.active||v.knocked||v.crossing||v.isReckless||v.baseTrafficSpeed<=0||v.changingLane||lane<2||lane>3||lane==v.lane)return false;
+            if(!v.active||v.knocked||v.crossing||v.isReckless||v.roadTurning||v.routeDetached||v.baseTrafficSpeed==0||v.changingLane||lane<0||lane>3||lane==v.lane)return false;
+            if(v.baseTrafficSpeed>0&&lane<2)return false;
             v.changeFromX=v.model.localPosition.x;v.targetX=LaneX[lane];v.changeProgress=0;
             v.changeDuration=v.halfLength>3?.9f:v.halfWidth>.7f?.7f:.52f;
             v.changingLane=true;v.lane=lane;v.laneCooldown=2.2f+(float)rng.NextDouble()*1.8f;SuddenLaneChanges++;return true;
@@ -69,17 +71,22 @@ namespace PhoViet
                 if(p.z>4){v.enteringFromBehind=false;v.baseTrafficSpeed=7+(float)rng.NextDouble()*7;}
             }
             v.brakeCooldown-=dt;v.laneCooldown-=dt;
-            if(trafficSurprises&&same&&!v.isReckless&&dt>0)
+            if(TryBeginRoadTurn(v,dt)){TickRoadTurn(v,dt);return;}
+            if(trafficSurprises&&!v.isReckless&&dt>0)
             {
-                if(v.brakeCooldown<=0&&p.z>-4&&p.z<60)
+                if(same&&v.brakeCooldown<=0&&p.z>-4&&p.z<60)
                 {
                     if(rng.NextDouble()<.65+Difficulty01*.2)BeginSuddenBrake(v);
                     else v.brakeCooldown=.6f;
                 }
                 bool parallel=Mathf.Abs(p.z)<8&&Mathf.Abs(p.x-rider.localPosition.x)>.9f&&Mathf.Abs(p.x-rider.localPosition.x)<3.8f;
-                if(v.laneCooldown<=0&&!v.changingLane&&p.z>-5&&p.z<48)
+                if(v.laneCooldown<=0&&!v.changingLane&&p.z>-5&&p.z<(same?48:95))
                 {
-                    if(rng.NextDouble()<(parallel?.85:.35))BeginSuddenLaneChange(v,v.lane==2?3:2);
+                    if(rng.NextDouble()<(parallel?.85:same?.35:.7))
+                    {
+                        int targetLane=same?(v.lane==2?3:2):Mathf.Clamp(v.lane+(v.lane==0?1:v.lane==3?-1:rng.Next(2)==0?-1:1),0,3);
+                        BeginSuddenLaneChange(v,targetLane);
+                    }
                     else v.laneCooldown=.4f;
                 }
             }

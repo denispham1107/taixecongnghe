@@ -171,6 +171,7 @@ namespace PhoViet
                 v.model.localPosition=inverse*(v.model.localPosition-origin);v.model.localRotation=inverse*v.model.localRotation;
                 v.previousPosition=inverse*(v.previousPosition-origin);v.previousYaw-=turnSide*90;v.initialYaw-=turnSide*90;
                 v.knockVelocity=inverse*v.knockVelocity;v.motionVelocity=inverse*v.motionVelocity;v.crashEuler.y-=turnSide*90;
+                v.roadTurnStart=inverse*(v.roadTurnStart-origin);v.roadTurnForward=inverse*v.roadTurnForward;v.roadTurnSide=inverse*v.roadTurnSide;
                 v.routeDetached=true;v.routeVelocity=v.motionVelocity;
                 if(v.crashEffect!=null){v.crashEffect.localPosition=inverse*(v.crashEffect.localPosition-origin);v.crashEffect.localRotation=inverse*v.crashEffect.localRotation;v.routeEffectOffset=v.crashEffect.localPosition-v.model.localPosition;}
             }

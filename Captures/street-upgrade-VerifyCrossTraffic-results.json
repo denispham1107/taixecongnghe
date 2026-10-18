@@ -1,0 +1,60 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyCrossTraffic.cs",
+      "entry": "VerifyCrossTraffic.Main",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 220,
+      "executeMs": 291,
+      "assemblyName": "PipelineRunScript_VerifyCrossTraffic_f4df996e8f234dc3b320be1a5494f660",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 28,
+        "checks": [
+          "30 seconds reaches 27.8 m/s: acceleration is 50 percent faster than v1.1",
+          "Maximum speed reached in about 36.2 seconds",
+          "Before 4 seconds, one longitudinal vehicle per wave",
+          "Double-vehicle waves begin after 4 seconds",
+          "Traffic density keeps its difficulty ramp with randomized spawn intervals",
+          "Cross traffic selects real motorcycle and car models",
+          "Models face left-to-right and right-to-left",
+          "Both crossing directions move horizontally",
+          "Cross traffic stays attached to the scrolling intersection",
+          "Scheduled vehicle waits off the main road",
+          "Release delay preserves only the elapsed moving fraction",
+          "Motorcycle side impact from left triggers immediate loss even across an entire frame",
+          "Car side impact from left triggers immediate loss even across an entire frame",
+          "Motorcycle side impact from right triggers immediate loss even across an entire frame",
+          "Car side impact from right triggers immediate loss even across an entire frame",
+          "Crossing ahead without Z overlap is a safe near miss",
+          "Swept collision rejects a parallel pass at a safe distance",
+          "Collision requires simultaneous overlap, not independent X and Z crossings",
+          "First actual intersection schedules two low-difficulty crossing vehicles",
+          "Crossing is inside the real cross street, with either randomized entry direction",
+          "Intersection does not spawn duplicates on subsequent frames",
+          "Medium difficulty schedules three crossing vehicles",
+          "Busy intersection includes vehicles from both sides",
+          "High difficulty schedules five crossing vehicles",
+          "Crossing traffic also speeds up with difficulty",
+          "Vehicles return to pool after crossing the far side",
+          "Reused crossing model resets to normal longitudinal traffic",
+          "Restart clears crossing schedules and vehicle motion state"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

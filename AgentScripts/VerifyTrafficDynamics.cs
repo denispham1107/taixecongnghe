@@ -46,7 +46,7 @@ public static class VerifyTrafficDynamics
                 check(Quaternion.Angle(v.model.localRotation,Quaternion.identity)>2,"Vehicle points into its lane change: "+kind);
                 for(int i=0;i<60;i++)call("TickLongitudinalVehicle",new object[]{v,.02f});
                 check(!v.changingLane&&Mathf.Abs(v.model.localPosition.x-1.55f)<.001f&&v.lane==2,"Lane change finishes in target lane: "+kind);
-                clean();v=spawn(kind,1,20);check(!g.BeginSuddenBrake(v)&&!g.BeginSuddenLaneChange(v,2),"Oncoming ordinary traffic does not use same-direction maneuvers: "+kind);
+                clean();v=spawn(kind,1,20);check(!g.BeginSuddenBrake(v)&&g.BeginSuddenLaneChange(v,2),"Oncoming ordinary traffic can invade the player's side while preserving its opposite direction: "+kind);
                 clean();v=spawn(kind,3,1);v.brakeCooldown=0;v.laneCooldown=0;
                 for(int i=0;i<800&&(g.SuddenBrakes==0||g.SuddenLaneChanges==0);i++)
                 {v.model.localPosition=new Vector3(v.model.localPosition.x,0,1);call("TickLongitudinalVehicle",new object[]{v,.02f});}

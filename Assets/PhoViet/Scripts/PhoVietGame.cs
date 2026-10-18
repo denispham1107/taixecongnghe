@@ -38,6 +38,9 @@ namespace PhoViet
             public Vector3 routeVelocity;
             public Vector3 routeEffectOffset;
             public float rearEntryBoost;
+            public bool roadTurning;
+            public float roadTurnAngle,roadTurnRadius,roadTurnSpeed,roadDecisionAt;
+            public Vector3 roadTurnStart,roadTurnForward,roadTurnSide;
             [NonSerialized] public Transform brakeLights;
         }
         public Font vietnameseFont;
@@ -185,7 +188,7 @@ namespace PhoViet
             while(nextIntersectionDistance-Distance<=90)
             {
                 float centre=nextIntersectionDistance-Distance;
-                int count=DifficultyTime<18?1:DifficultyTime<60?2:3;
+                int count=DifficultyTime<18?2:DifficultyTime<60?3:5;
                 int firstDirection=rng.Next(2)==0?1:-1;
                 float targetX=LaneX[rng.Next(4)];
                 for(int i=0;i<count;i++)
@@ -283,6 +286,7 @@ namespace PhoViet
                 v.previousPosition=previous;v.previousYaw=v.model.localEulerAngles.y;v.playerGrace=Mathf.Max(0,v.playerGrace-dt);
                 if(v.wallCrashed)TickWallWreck(v,dt);
                 else if(v.knocked)TickKnockedVehicle(v,dt);
+                else if(v.roadTurning)TickRoadTurn(v,dt);
                 else if(v.routeDetached)v.model.localPosition+=(v.routeVelocity-Vector3.forward*Speed)*dt;
                 else if(v.isReckless)TickRecklessVehicle(v,dt);
                 else if(v.crossing)

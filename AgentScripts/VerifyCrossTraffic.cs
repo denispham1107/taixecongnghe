@@ -53,15 +53,15 @@ public static class VerifyCrossTraffic
             check(!PhoVietGame.SweptOverlap(new Vector2(-5,0),new Vector2(0,5),Vector2.one),"Collision requires simultaneous overlap, not independent X and Z crossings");
 
             clean();set("nextIntersectionDistance",70);step(.02f);
-            check(g.ScheduledIntersections==1&&g.vehicles.Count(v=>v.active&&v.crossing)==1,"First actual intersection schedules one low-difficulty crossing vehicle");
+            check(g.ScheduledIntersections==1&&g.vehicles.Count(v=>v.active&&v.crossing)==2,"First actual intersection schedules two low-difficulty crossing vehicles");
             var cross=g.vehicles.First(v=>v.active&&v.crossing);
             check(Mathf.Abs(cross.model.localPosition.z+g.Distance-(70+(cross.crossSpeed>0?-2.8f:2.8f)))<.01f,"Crossing is inside the real cross street, with either randomized entry direction");
             step(.02f);check(g.ScheduledIntersections==1,"Intersection does not spawn duplicates on subsequent frames");
             clean();set("timeRiding",10);set("nextIntersectionDistance",70);step(.02f);
-            check(g.vehicles.Count(v=>v.active&&v.crossing)==2,"Medium difficulty schedules two crossing vehicles");
+            check(g.vehicles.Count(v=>v.active&&v.crossing)==3,"Medium difficulty schedules three crossing vehicles");
             check(g.vehicles.Any(v=>v.active&&v.crossSpeed>0)&&g.vehicles.Any(v=>v.active&&v.crossSpeed<0),"Busy intersection includes vehicles from both sides");
             clean();set("timeRiding",40);set("nextIntersectionDistance",70);step(.02f);
-            check(g.vehicles.Count(v=>v.active&&v.crossing)==3,"High difficulty schedules three crossing vehicles");
+            check(g.vehicles.Count(v=>v.active&&v.crossing)==5,"High difficulty schedules five crossing vehicles");
             check(g.vehicles.Where(v=>v.active&&v.crossing).All(v=>Mathf.Abs(v.crossSpeed)>9),"Crossing traffic also speeds up with difficulty");
             clean();left=g.SpawnCrossTraffic(1,50,false,8);left.model.localPosition=new Vector3(20,0,50);step(.02f);
             check(!left.active&&!left.model.gameObject.activeSelf,"Vehicles return to pool after crossing the far side");

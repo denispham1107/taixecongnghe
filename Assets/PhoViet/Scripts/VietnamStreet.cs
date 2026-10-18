@@ -8,6 +8,9 @@ namespace PhoViet
     {
         public const float Length=80;
         public const float IntersectionCenter=70;
+        public static System.Action<Transform,float,float,int> ShopFactory;
+        public static System.Action<Transform,float,float> TreeFactory;
+        public static System.Action<Transform,float> PavementFactory;
         public static readonly string[] Streets={"Trần Hưng Đạo","Quang Trung","Hai Bà Trưng","Lê Lợi","Lý Thường Kiệt","Lý Nam Đế","Đinh Bộ Lĩnh"};
         public static readonly string[] Shops={"QUÁN PHỞ","HỦ TIẾU","MÌ GÕ","TẠP HÓA CÔ BA","BÁCH HÓA AN TÂM","SỬA XE TẤN PHÁT","CÀ PHÊ VỈA HÈ","BÁNH MÌ SÀI GÒN","CƠM TẤM","TIỆM SỬA XE HAI LÚA","BÚN BÒ HUẾ","TẠP HÓA MINH CHÂU"};
         static readonly string[] Subs={"BÒ TÁI • NẠM • GẦU   /   TỪ 35K","NƯỚC LÈO THANH • SỢI DAI NGON","NÓNG HỔI MỖI NGÀY • KÍNH MỜI","GẠO • SỮA • BÁNH KẸO • GIA VỊ","ĐỦ ĐẦY MỖI NGÀY • GIÁ BÌNH DÂN","VÁ VỎ • THAY NHỚT • BẢO DƯỠNG","CÀ PHÊ SỮA ĐÁ • TRÀ TẮC","GIÒN THƠM • ĐẬM VỊ VIỆT","SƯỜN • BÌ • CHẢ • TRỨNG","HONDA • YAMAHA • SỬA CHỮA","ĐẬM ĐÀ HƯƠNG VỊ CỐ ĐÔ","MỞ CỬA TỪ 6:00 ĐẾN 22:00"};
@@ -29,6 +32,9 @@ namespace PhoViet
             }
             foreach(float side in new[]{-1f,1f})
             {
+                if(PavementFactory!=null)PavementFactory(r,side);
+                else
+                {
                 Box("Vỉa hè",r,new Vector3(side*9.1f,.09f,31.5f),new Vector3(4.2f,.28f,63),sidewalk);
                 Box("Bó vỉa",r,new Vector3(side*7.1f,.15f,31.5f),new Vector3(.22f,.34f,63),edge);
                 Box("Vạch biên",r,new Vector3(side*6.72f,.01f,31),new Vector3(.11f,.015f,61),Cream);
@@ -37,8 +43,10 @@ namespace PhoViet
                     Box("Mạch gạch vỉa hè",r,new Vector3(side*9.1f,.238f,t*2),new Vector3(3.8f,.012f,.025f),Hex("AF9F86"));
                     if(t%2==0) Box("Gạch màu",r,new Vector3(side*7.8f,.242f,t*2+.6f),new Vector3(.75f,.01f,.75f),Hex("B99B7B"),new Vector3(0,45,0));
                 }
+                }
+                if(PavementFactory!=null)Box("Vạch biên",r,new Vector3(side*6.72f,.01f,31),new Vector3(.11f,.015f,61),Cream);
                 for(int b=0;b<7;b++) Shop(r,side,4+b*8.4f,index*7+b+(side>0?3:0));
-                for(int t=0;t<3;t++) {Tree(r,side*8.2f,10+t*20);Person(r,new Vector3(side*8.15f,.26f,15+t*18),SignColors[(index+t)%7],side*65);}
+                for(int t=0;t<3;t++) {if(TreeFactory!=null)TreeFactory(r,side*8.2f,10+t*20);else Tree(r,side*8.2f,10+t*20);Person(r,new Vector3(side*8.15f,.26f,15+t*18),SignColors[(index+t)%7],side*65);}
                 // Parked scooters, tables and a pavement food cart.
                 var parked=Motorcycle(r,"Xe máy đậu trên vỉa hè",Teal,Hex("426367"),false); parked.localPosition=new Vector3(side*9.2f,.27f,21);parked.localEulerAngles=new Vector3(0,side*50,0);parked.localScale=Vector3.one*.86f;
                 Cart(r,new Vector3(side*8.5f,.24f,43),side);
@@ -59,6 +67,7 @@ namespace PhoViet
         }
         static void Shop(Transform p,float s,float z,int seed)
         {
+            if(ShopFactory!=null){ShopFactory(p,s,z,seed);return;}
             int i=seed%Shops.Length; float height=7+(seed%4)*2.1f;
             Color facade=Facades[seed%Facades.Length],sign=SignColors[i%7];
             var r=Group(Shops[i],p,new Vector3(s*13.2f,0,z));

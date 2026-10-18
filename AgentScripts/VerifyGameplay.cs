@@ -50,7 +50,8 @@ public static class VerifyGameplay
             var allText=g.scenery.GetComponentsInChildren<TextMesh>(true).Select(t=>t.text).ToArray();
             var streetCatalog=(string[])typeof(PhoVietGame).GetField("RouteNames",BindingFlags.Static|BindingFlags.NonPublic).GetValue(null);
             check(VietnamStreet.Streets.All(s=>streetCatalog.Contains(s))&&allText.Contains(g.CurrentStreet.ToUpperInvariant())&&allText.Contains(g.NextStreet.ToUpperInvariant()),"Original seven street names remain available; visible route and next-street signs match the connected journey");
-            check(VietnamStreet.Shops.All(s=>allText.Contains(s)),"Vietnamese food, grocery and repair shop signs exist");
+            var shopNames=g.scenery.GetComponentsInChildren<Transform>(true).Select(t=>t.name).ToArray();
+            check(VietnamStreet.Shops.All(s=>shopNames.Contains("Blender • "+s)),"All Vietnamese food, grocery and repair storefronts use Blender signs");
             check(g.vietnameseFont!=null&&g.trafficLights.Count==84*g.roadRows.Count,"Bundled Vietnamese font and complete signals on every pooled road row");
             var temp=new GameObject("Star mesh verification");StreetArt.Star(temp.transform,Vector3.zero,1);
             var mesh=temp.GetComponentInChildren<MeshFilter>().sharedMesh;

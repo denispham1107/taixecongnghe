@@ -14,6 +14,7 @@ namespace PhoViet.Editor
         public static void Build()
         {
             PhoVietBikeUpgrade.ConfigureParkedFactory();
+            if(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx")!=null)PhoVietStreetUpgrade.ConfigureFactories();
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
             var root=new GameObject("PHỐ VIỆT • Chuyến xe không ngừng");var game=root.AddComponent<PhoVietGame>();
             game.vietnameseFont=AssetDatabase.LoadAssetAtPath<Font>("Assets/PhoViet/Fonts/BeVietnamPro-SemiBold.ttf");
@@ -174,7 +175,7 @@ namespace PhoViet.Editor
             foreach(var f in root.GetComponentsInChildren<MeshFilter>(true))
             {
                 var renderer=f.GetComponent<MeshRenderer>();
-                if(renderer==null||f.sharedMesh==null||f.name.StartsWith("Tín hiệu")||AnimatedMesh(f.transform,root))continue;
+                if(renderer==null||f.sharedMesh==null||f.name.StartsWith("Tín hiệu")||f.GetComponentInParent<LODGroup>()!=null||f.name.StartsWith("Vạch mũi tên")||AnimatedMesh(f.transform,root))continue;
                 Material m=renderer.sharedMaterial;if(m==null)continue;
                 if(!groups.TryGetValue(m,out var list)){list=new List<CombineInstance>();groups[m]=list;}
                 list.Add(new CombineInstance {mesh=f.sharedMesh,transform=root.worldToLocalMatrix*f.transform.localToWorldMatrix});old.Add(f);

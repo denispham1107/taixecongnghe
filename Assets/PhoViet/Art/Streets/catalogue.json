@@ -1,0 +1,178 @@
+[
+  {
+    "name": "PV_StreetShop00",
+    "lod_triangles": [
+      11025,
+      5501,
+      2263
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetShop01",
+    "lod_triangles": [
+      18860,
+      9288,
+      3750
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetShop02",
+    "lod_triangles": [
+      21243,
+      10419,
+      4147
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetShop03",
+    "lod_triangles": [
+      26905,
+      13211,
+      5299
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetShop04",
+    "lod_triangles": [
+      21494,
+      10570,
+      4212
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetShop05",
+    "lod_triangles": [
+      12447,
+      6199,
+      2569
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetShop06",
+    "lod_triangles": [
+      21376,
+      10552,
+      4280
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetShop07",
+    "lod_triangles": [
+      29099,
+      14229,
+      5629
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetShop08",
+    "lod_triangles": [
+      11087,
+      5563,
+      2325
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetShop09",
+    "lod_triangles": [
+      18652,
+      9310,
+      3900
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetShop10",
+    "lod_triangles": [
+      21805,
+      10787,
+      4403
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetShop11",
+    "lod_triangles": [
+      26889,
+      13195,
+      5283
+    ],
+    "materials": 1,
+    "sign_front_z": -4.158,
+    "wall_front_z": -3.9
+  },
+  {
+    "name": "PV_StreetTree0",
+    "lod_triangles": [
+      3544,
+      1824,
+      1824
+    ],
+    "materials": 1,
+    "sign_front_z": null,
+    "wall_front_z": null
+  },
+  {
+    "name": "PV_StreetTree1",
+    "lod_triangles": [
+      3544,
+      1878,
+      1878
+    ],
+    "materials": 1,
+    "sign_front_z": null,
+    "wall_front_z": null
+  },
+  {
+    "name": "PV_StreetTree2",
+    "lod_triangles": [
+      3544,
+      1878,
+      1878
+    ],
+    "materials": 1,
+    "sign_front_z": null,
+    "wall_front_z": null
+  },
+  {
+    "name": "PV_StreetPavement",
+    "lod_triangles": [
+      15500,
+      7440,
+      2766
+    ],
+    "materials": 1,
+    "sign_front_z": null,
+    "wall_front_z": null
+  }
+]

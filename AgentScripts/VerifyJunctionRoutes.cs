@@ -31,7 +31,7 @@ public static class VerifyJunctionRoutes
                 var paint=row.tiles[0].Find("Vạch mũi tên giao lộ • 4 hướng");var mesh=paint.GetComponent<MeshFilter>().sharedMesh;
                 check(mesh.vertexCount==192&&mesh.triangles.Length==192,row.root.name+": sixteen filled arrow markings face all four approaches");
                 check(paint.GetComponent<Renderer>().sharedMaterial.color==StreetArt.Cream,row.root.name+": arrow paint matches crosswalk paint exactly");
-                check(row.root.GetComponentsInChildren<TextMesh>(true).Any(t=>t.text=="QUÁN PHỞ")&&row.root.GetComponentsInChildren<TextMesh>(true).Any(t=>t.text.Contains("TẠP HÓA")),row.root.name+": Vietnamese food shops and groceries continue on the new roads");
+                check(row.root.GetComponentsInChildren<Transform>(true).Any(t=>t.name=="Blender • QUÁN PHỞ")&&row.root.GetComponentsInChildren<Transform>(true).Any(t=>t.name.Contains("Blender • TẠP HÓA")),row.root.name+": Blender food shops and groceries continue on the new roads");
             }
             check(g.GetComponentsInChildren<BikeVisualAnimator>(true).Length==33&&g.GetComponentsInChildren<CarVisualAnimator>(true).Length==11,"New scenery shares static parked art and preserves all existing active-vehicle controllers");
             check(g.worldTextMaterial!=null&&g.worldTextMaterial.shader.name=="PhoViet/World Street Text","Street labels use depth-tested world text instead of drawing through adjacent buildings");

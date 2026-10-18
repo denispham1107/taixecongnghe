@@ -1,0 +1,11 @@
+{
+  "name": "PV_StreetTree1",
+  "lod_triangles": [
+    3544,
+    1878,
+    1878
+  ],
+  "materials": 1,
+  "sign_front_z": null,
+  "wall_front_z": null
+}
