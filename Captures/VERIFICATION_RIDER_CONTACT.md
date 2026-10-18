@@ -27,3 +27,13 @@ Evidence: `rider-contact-Verify*-results.json`. Each file records the actual Uni
 - Version **1.7.3**, offline cache **629418cfd000a117**.
 - **36 real-browser checks passed** on the staged artifact: WebAssembly startup, keyboard input, touch/double-tap input, mobile rotation, installability, complete offline resource caching and startup with the network disabled. No JavaScript or Unity runtime errors. Actual mobile gameplay screenshot inspected.
 - Browser evidence: `rider-contact-web-results.json`. Chrome mobile profiles emulate viewport/touch; this is not physical iPhone hardware testing.
+
+## Deployment
+
+- Game/source commit `15b8c940fae321922d0e6a420bb0429f01de3e79` pushed to `main`.
+- GitHub Pages deployment succeeded: https://github.com/denispham1107/taixecongnghe/actions/runs/39081261692
+- Live game: https://denispham1107.github.io/taixecongnghe/
+- **22 live checks passed**: version/cache match, all precache resources plus service worker/manifest match the staged build, actual Unity WebAssembly initializes, start/pause input smoke completes, and no JavaScript/Unity runtime errors. The deployed font was also compared byte-for-byte separately. Paused game screenshot inspected.
+- Live evidence: `rider-contact-live-results.json`; screenshot `browser-rider-contact-live.png`.
+- Unity restored to Ready, time scale 1, version 1.7.3; saved best distance 1775 preserved.
+- Existing installations download the complete update while online and activate it after old game windows close. No site-data reset is needed.
