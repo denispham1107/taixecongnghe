@@ -55,7 +55,7 @@ namespace PhoViet
                 Box("Vạch sang đường",r,new Vector3(-6.1f+k*1.22f,.02f,z),new Vector3(.65f,.02f,2.1f),Cream);
             foreach(float x in new[]{-12f,12f}) for(int k=0;k<7;k++)
                 Box("Vạch qua đường nhánh",r,new Vector3(x,.02f,64.5f+k*1.7f),new Vector3(2.1f,.02f,.75f),Cream);
-            return r;
+            JunctionStreetArt.AddArrows(r);return r;
         }
         static void Shop(Transform p,float s,float z,int seed)
         {

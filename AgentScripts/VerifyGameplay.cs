@@ -48,9 +48,10 @@ public static class VerifyGameplay
             check(zs[0]>=-160.1f&&zs[6]<401,"Recycled city blocks stay inside active range");
             check(zs.Zip(zs.Skip(1),(a,b)=>Mathf.Abs(b-a-80)<.02f).All(x=>x),"No seams or gaps after 120 seconds of road recycling");
             var allText=g.scenery.GetComponentsInChildren<TextMesh>(true).Select(t=>t.text).ToArray();
-            check(VietnamStreet.Streets.All(s=>allText.Contains(s.ToUpperInvariant())),"All seven requested street signs exist in saved scene");
+            var streetCatalog=(string[])typeof(PhoVietGame).GetField("RouteNames",BindingFlags.Static|BindingFlags.NonPublic).GetValue(null);
+            check(VietnamStreet.Streets.All(s=>streetCatalog.Contains(s))&&allText.Contains(g.CurrentStreet.ToUpperInvariant())&&allText.Contains(g.NextStreet.ToUpperInvariant()),"Original seven street names remain available; visible route and next-street signs match the connected journey");
             check(VietnamStreet.Shops.All(s=>allText.Contains(s)),"Vietnamese food, grocery and repair shop signs exist");
-            check(g.vietnameseFont!=null&&g.trafficLights.Count==84,"Bundled Vietnamese font and 28 traffic signals");
+            check(g.vietnameseFont!=null&&g.trafficLights.Count==84*g.roadRows.Count,"Bundled Vietnamese font and complete signals on every pooled road row");
             var temp=new GameObject("Star mesh verification");StreetArt.Star(temp.transform,Vector3.zero,1);
             var mesh=temp.GetComponentInChildren<MeshFilter>().sharedMesh;
             check(mesh.vertexCount==11&&mesh.triangles.Length==30&&mesh.vertices.Skip(1).Count(v=>v.magnitude>.9f)==5,"Vietnamese star has exactly five outer points");

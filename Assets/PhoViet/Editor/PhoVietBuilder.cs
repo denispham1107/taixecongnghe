@@ -27,6 +27,7 @@ namespace PhoViet.Editor
             Combine(game.policeBike);Combine(game.jailRoom);
             PhoVietBikeUpgrade.ApplyToGame(game);
             PhoVietCarUpgrade.ApplyToGame(game);
+            PhoVietRouteUpgrade.ApplyToGame(game);
             var sunlight=new GameObject("Nắng chiều Sài Gòn").AddComponent<Light>();sunlight.type=LightType.Directional;
             sunlight.transform.rotation=Quaternion.Euler(48,-32,0);sunlight.color=Hex("FFE3AE");sunlight.intensity=.95f;
             sunlight.shadows=LightShadows.Soft;sunlight.shadowStrength=.63f;sunlight.shadowBias=.055f;sunlight.shadowNormalBias=.3f;
@@ -158,6 +159,7 @@ namespace PhoViet.Editor
         }
         static bool AnimatedMesh(Transform t,Transform root)
         {
+            if(t.name.StartsWith("Vạch mũi tên giao lộ"))return true;
             if(t.name.StartsWith("Đèn ưu tiên"))return true;
             for(var current=t;current!=null&&current!=root;current=current.parent)
                 if(current.name.StartsWith("Chân đạp"))return true;

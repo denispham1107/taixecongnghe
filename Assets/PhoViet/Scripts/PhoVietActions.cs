@@ -50,18 +50,19 @@ namespace PhoViet
             foreach(var v in vehicles)
             {
                 if(!v.active||v.knocked||v.crossing||v.halfWidth>.7f)continue;
-                Vector3 d=v.model.localPosition-rider.localPosition;
+                Vector3 d=Quaternion.Inverse(Quaternion.Euler(0,IsTurning?TurnYaw:0,0))*(v.model.localPosition-rider.localPosition);
                 // Oncoming bikes have a slightly longer reach window; dangerous riders take priority.
                 if(Mathf.Abs(d.z)>(v.speed<0?3.4f:2)||Mathf.Abs(d.x)<.85f||Mathf.Abs(d.x)>3.65f)continue;
                 float score=Mathf.Abs(d.z)+Mathf.Abs(d.x)*.12f-(v.isReckless?5:0);
                 if(score<closest){closest=score;target=v;}
             }
             if(target==null){notice="CẦN XE MÁY Ở BÊN CẠNH TRONG TẦM ĐẠP";noticeTimer=1;return false;}
-            kickDirection=Mathf.Sign(target.model.localPosition.x-rider.localPosition.x);
+            kickDirection=Mathf.Sign((Quaternion.Inverse(Quaternion.Euler(0,IsTurning?TurnYaw:0,0))*(target.model.localPosition-rider.localPosition)).x);
             kickTime=.38f;kickCooldown=.8f;KickCount++;
             rider.GetComponent<BikeVisualAnimator>()?.Kick(kickDirection);
             bool selfDefense=target.isReckless;
-            KnockVehicle(target,kickDirection,false);
+            Vector3 targetVelocity=BodyVelocity(target);KnockVehicle(target,kickDirection,false);
+            if(IsTurning){Vector3 side=Quaternion.Euler(0,TurnYaw,0)*Vector3.right;target.knockVelocity=targetVelocity+side*kickDirection*9;target.knockVelocity.y=2.2f;}
             if(!selfDefense)StartChase();
             notice=selfDefense?"TỰ VỆ: HẠ QUÁI XẾ · KHÔNG GỌI CSGT":kickDirection>0?"ĐẠP PHẢI!  CSGT ĐANG ĐẾN":"ĐẠP TRÁI!  CSGT ĐANG ĐẾN";noticeTimer=1.5f;
             return true;
@@ -127,12 +128,13 @@ namespace PhoViet
             if(IsChased)return;
             IsChased=true;PoliceDistance=38;PoliceSpeed=Speed+15;policeArrived=false;chaseBoost=.5f;
             if(policeBike!=null){policeBike.gameObject.SetActive(true);policeBike.localPosition=new Vector3(rider.localPosition.x-1,0,-PoliceDistance);}
+            if(IsTurning){routePolice=true;policeRouteAt=Distance-PoliceDistance;policeBike.localPosition=SampleRoute(policeRouteAt).point;}
             if(sound)siren?.Play();
         }
         void TickChase(float dt)
         {
             if(!IsChased)return;
-            TickPoliceDriving(dt);
+            if(routePolice)TickRoutePolice(dt);else TickPoliceDriving(dt);
             bool flash=(int)(timeRiding*8)%2==0;
             if(redBeacon!=null)redBeacon.sharedMaterial=Mat(flash?Hex("FF423D"):Hex("652F31"),true);
             if(blueBeacon!=null)blueBeacon.sharedMaterial=Mat(flash?Hex("284568"):Hex("4CBAFF"),true);
@@ -148,7 +150,7 @@ namespace PhoViet
             arrestTime+=dt;
             if(policeBike!=null)
             {
-                Vector3 from=policeBike.localPosition,to=Vector3.Lerp(from,new Vector3(rider.localPosition.x-1.1f,0,-.7f),dt*5);bool clear=true;
+                Vector3 from=policeBike.localPosition,to=Vector3.Lerp(from,rider.localPosition+Quaternion.Euler(0,IsTurning?TurnYaw:0,0)*new Vector3(-1.1f,0,-.7f),dt*5);bool clear=true;
                 foreach(var v in vehicles)if(v.active&&v.model.localPosition.y<2.4f&&SweptOverlap(Flat(v.model.localPosition-from),Flat(v.model.localPosition-to),VehicleFootprint(v)+new Vector2(.5f,1.2f))){clear=false;break;}
                 if(clear)policeBike.localPosition=to;
             }

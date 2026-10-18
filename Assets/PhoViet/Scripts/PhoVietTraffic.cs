@@ -20,6 +20,7 @@ namespace PhoViet
         }
         void InitializeDriver(TrafficVehicle v)
         {
+            v.routeDetached=false;v.routeVelocity=Vector3.zero;
             v.knocked=false;v.wallCrashed=false;v.knockFromPlayer=false;v.knockVelocity=Vector3.zero;v.knockAge=0;v.playerGrace=0;
             v.enteringFromBehind=false;
             v.brakeRemaining=0;v.brakeCooldown=1.1f+(float)rng.NextDouble()*1.7f;

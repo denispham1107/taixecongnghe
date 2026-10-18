@@ -109,7 +109,7 @@ namespace PhoViet
         void CheckBuildingImpact(TrafficVehicle v)
         {
             Vector3 p=v.model.localPosition;Vector2 half=VehicleFootprint(v);
-            float route=Mathf.Repeat(Distance+p.z,VietnamStreet.Length);
+            float route=Mathf.Repeat(RoadProgress+p.z,VietnamStreet.Length);
             // Shop rows stop before the junction: an empty cross street is never a wall.
             if(Mathf.Abs(p.x)+half.x<9.3f||route>58.4f)return;
             float side=Mathf.Sign(p.x);p.x=side*(9.3f-half.x);p.y=0;
@@ -129,7 +129,7 @@ namespace PhoViet
             v.knockAge+=dt;v.model.localPosition-=Vector3.forward*Speed*dt;
             if(v.crashEffect!=null)
             {
-                v.crashEffect.localPosition=WreckFxPosition(v);
+                v.crashEffect.localPosition=v.routeDetached?v.model.localPosition+v.routeEffectOffset:WreckFxPosition(v);
                 var flame=v.crashEffect.Find("Ngọn lửa");
                 if(flame!=null)flame.localScale=new Vector3(1+.08f*Mathf.Sin(v.knockAge*19),1+.15f*Mathf.Sin(v.knockAge*23),1);
             }

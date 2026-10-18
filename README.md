@@ -4,7 +4,7 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.9.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.10.0**.
 
 - Desktop: mở link bằng Chrome/Edge/Firefox/Safari. Chrome và Edge có thể cài thành ứng dụng qua nút cài đặt của trình duyệt.
 - Android: mở bằng Chrome, chọn **Cài ứng dụng** trên trang hoặc trong menu trình duyệt. Đây là ứng dụng web PWA cài trực tiếp, không cần tải APK.
@@ -31,6 +31,7 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 - **← / →** hoặc **A / D**: đổi giữa 4 làn đường. Xe tự tiến.
 - Khi đang chạy: **Space** đạp xe máy bên trái/phải trong tầm, cả cùng chiều và ngược chiều. Không thể đạp ô tô, xe tải hoặc xe đang băng ngang. Có hồi chiêu 0,8 giây.
 - Điện thoại: vuốt trái/phải hoặc chạm hai nút mũi tên.
+- **Rẽ giao lộ:** trong vùng mũi tên trắng trước giao lộ (cách tâm khoảng 12–30 m), làn ngoài cùng trái được chọn rẽ trái, làn ngoài cùng phải được chọn rẽ phải bằng một lần bấm/vuốt đúng hướng. Hai làn giữa đi thẳng. Ngoài vùng này điều khiển vẫn đổi làn; đổi sang làn khác sẽ hủy lệnh rẽ đã chọn. Khi ôm cua xe tự điều chỉnh tốc độ, camera chuyển mượt và xe giữ đúng vị trí làn sau khi rẽ, kể cả làn ngoài cùng trái theo lựa chọn của người chơi.
 - Điện thoại: **chạm hai lần liên tiếp** trong vùng chơi để đạp; chạm các nút điều khiển hoặc HUD không kích hoạt cú đạp.
 - **P / Esc** hoặc nút **Ⅱ**: tạm dừng / đi tiếp.
 - Sau va chạm: **R / Space** hoặc nút chơi lại.
@@ -52,7 +53,12 @@ Bản **1.2.0** tăng nhịp độ khó thêm **50% so với 1.1.0**: tốc đ�
 
 ## Nội dung
 
-Bản hiện tại **1.9.0**:
+Bản hiện tại **1.10.0**:
+
+- Mỗi giao lộ có **16 mũi tên sơn màu vạch qua đường**, chia đều cả bốn hướng tiếp cận. Có đường nhánh thật nối tiếp nhà cửa, quán phở/hủ tiếu/mì gõ, tạp hóa, sửa xe, người đi bộ, cây xanh và xe đậu.
+- Rẽ trái/phải theo cung cong 90 độ, góc nhìn phía sau xoay và trở lại mượt mà; quãng đường, độ khó và truy đuổi tiếp tục. Tên đường được chọn từ 48 tên Việt Nam, tránh trùng đường đã ghé trong cùng lượt. Đi thẳng vẫn ở trên cùng một đường.
+- Năm dãy đường dùng lại mô hình/mesh chung để giữ cả giao lộ cũ phía sau khi rẽ, chuẩn bị hai nhánh phía trước và tiếp tục hành trình không giới hạn. Xe đang ở đường cũ tiếp tục chuyển động và vẫn có va chạm; CSGT theo dấu đường cong, vẫn tránh xe và ngã 1,2 giây nếu va chạm. Đụng xe khi bị truy đuổi vẫn thua ngay, cả trong lúc cua.
+- Chữ biển hiệu dùng vật liệu có kiểm tra độ sâu và sương mù để không hiện xuyên qua nhà ở đường bên cạnh. HUD vẫn dùng font giao diện riêng.
 
 - Toàn bộ **11 xe bốn bánh** được thay bằng sáu mẫu gốc dựng qua Blender MCP: sedan, hatchback, taxi, xe giao hàng thùng nhỏ, xe tải thùng thường và xe tải ngủ gật. Thân xe có đường cong, hốc bánh, mâm/lốp, giảm xóc, kính và gương, gạt mưa, lưới tản nhiệt, biển số; thùng hàng có gân, cửa, bản lề và khóa. Phong cách bán hiện thực vui nhộn đồng bộ với người lái xe máy.
 - Mỗi mẫu có **15 xương, 7 clip** (chờ, chạy, phanh, va chạm trước/sau/trái/phải), **3 LOD**, một atlas vật liệu; LOD xa dưới 4.000 tam giác. Bánh quay theo tốc độ, bánh trước đánh lái theo hướng rẽ; thân xe nhún khi chạy/phanh, cản xe và gương phản ứng theo hướng xung lực va chạm. Tạm dừng đóng băng hoạt ảnh.

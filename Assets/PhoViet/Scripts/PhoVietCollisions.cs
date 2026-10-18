@@ -11,9 +11,10 @@ namespace PhoViet
             foreach(var v in vehicles)
             {
                 if(!v.active||(!IsChased&&v.playerGrace>0)||v.model.localPosition.y>=2.4f)continue;
-                Vector2 from=new Vector2(v.previousPosition.x-oldX,v.previousPosition.z);
-                Vector2 to=new Vector2(v.model.localPosition.x-rider.localPosition.x,v.model.localPosition.z);
-                if(!SweptOverlap(from,to,VehicleFootprint(v)+new Vector2(.33f,.91f)))continue;
+                Vector2 from=new Vector2(v.previousPosition.x-oldX,v.previousPosition.z-oldRiderZ);
+                Vector2 to=new Vector2(v.model.localPosition.x-rider.localPosition.x,v.model.localPosition.z-rider.localPosition.z);
+                float angle=(IsTurning?TurnYaw:0)*Mathf.Deg2Rad,c=Mathf.Abs(Mathf.Cos(angle)),s=Mathf.Abs(Mathf.Sin(angle));
+                if(!SweptOverlap(from,to,VehicleFootprint(v)+new Vector2(.33f*c+.91f*s,.91f*c+.33f*s)))continue;
                 Crash();return false;
             }
             return true;

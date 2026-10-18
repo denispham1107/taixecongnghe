@@ -8,6 +8,13 @@ namespace PhoViet
     public static class StreetArt
     {
         public static Font Font;
+        public static Material WorldTextMaterial;
+        public static void ConfigureWorldText(Font font,Material material)
+        {
+            Font=font;WorldTextMaterial=material;UnityEngine.Font.textureRebuilt-=RefreshWorldText;UnityEngine.Font.textureRebuilt+=RefreshWorldText;RefreshWorldText(font);
+        }
+        static void RefreshWorldText(Font font)
+        {if(font!=null&&font==Font&&WorldTextMaterial!=null)WorldTextMaterial.mainTexture=font.material.mainTexture;}
         public static System.Func<Transform,string,Transform> ParkedBikeFactory;
         static readonly Dictionary<string, Material> materials = new Dictionary<string, Material>();
         public static readonly Color Ink = Hex("203C43"), Cream = Hex("FFF1CF"), Red = Hex("D83833"), Teal = Hex("177E80"), Gold = Hex("FFD35A");
@@ -45,7 +52,7 @@ namespace PhoViet
             var mesh = t.gameObject.AddComponent<TextMesh>(); mesh.text=value; mesh.font=Font; mesh.fontSize=64;
             // TextMesh world scale also multiplies by fontSize / 10.
             mesh.characterSize=size*10f/64f; mesh.anchor=anchor; mesh.alignment=TextAlignment.Center; mesh.color=color;
-            if (Font != null) t.GetComponent<MeshRenderer>().sharedMaterial=Font.material;
+            if (Font != null) t.GetComponent<MeshRenderer>().sharedMaterial=WorldTextMaterial!=null?WorldTextMaterial:Font.material;
         }
         public static void Star(Transform parent, Vector3 p, float radius, bool back = false)
         {

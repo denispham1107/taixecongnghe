@@ -34,9 +34,13 @@ namespace PhoViet
             public float turnStartX,turnOriginZ,turnRadius,turnAngle,turnEndX,turnZSign;
             public Vector3 motionVelocity,crashEuler,angularVelocity;
             public float previousYaw;
+            public bool routeDetached;
+            public Vector3 routeVelocity;
+            public Vector3 routeEffectOffset;
             [NonSerialized] public Transform brakeLights;
         }
         public Font vietnameseFont;
+        public Material worldTextMaterial;
         public Transform scenery, rider;
         public Camera rideCamera;
         public List<Transform> blocks=new List<Transform>();
@@ -54,7 +58,7 @@ namespace PhoViet
         public float DifficultyTime => timeRiding*DifficultyMultiplier;
         public float Difficulty01 => Mathf.Clamp01(DifficultyTime/110f);
         public bool sound=true;
-        public string CurrentStreet => VietnamStreet.Streets[((int)(Distance/80)+1)%7];
+        public string CurrentStreet => RouteStreet;
         public static readonly float[] LaneX={-4.65f,-1.55f,1.55f,4.65f};
         float spawnTimer, fallTime, timeRiding, lastX, lean, streak, noticeTimer;
         float nextIntersectionDistance;
@@ -70,7 +74,7 @@ namespace PhoViet
 
         void Awake()
         {
-            StreetArt.Font=vietnameseFont; Application.targetFrameRate=60; Application.runInBackground=true;
+            StreetArt.ConfigureWorldText(vietnameseFont,worldTextMaterial); Application.targetFrameRate=60; Application.runInBackground=true;
             BestDistance=PlayerPrefs.GetInt(BestKey,0);
             CreateSound(); InitializeActions(); ResetRide();
         }
@@ -111,6 +115,7 @@ namespace PhoViet
             RunSeed=seed;rng=new System.Random(seed);
             State=RideState.Ready;Distance=0;Speed=0;CurrentLane=2;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;noticeTimer=0;
             nextIntersectionDistance=VietnamStreet.IntersectionCenter;ScheduledIntersections=0;crossingWarning=false;
+            ResetRoutes();
             ResetActions();
             ResetReckless();
             ResetTrafficDynamics();
@@ -128,6 +133,7 @@ namespace PhoViet
         public void MoveLane(int direction)
         {
             if(State!=RideState.Riding)return;
+            if(SelectJunctionTurn(direction))return;
             CurrentLane=Mathf.Clamp(CurrentLane+Math.Sign(direction),0,3);
         }
         public void TogglePause()
@@ -224,7 +230,8 @@ namespace PhoViet
             if(State==RideState.Falling)
             {
                 fallTime+=Time.deltaTime;float t=Mathf.SmoothStep(0,1,fallTime/.65f);
-                rider.localRotation=Quaternion.Euler(-8*t,12*t,-78*t);rider.localPosition=new Vector3(lastX-.3f*t,-.25f*t,0);
+                if(turnCrash){rider.localRotation=crashTurnRotation*Quaternion.Euler(-8*t,12*t,-78*t);rider.localPosition=crashTurnPosition+crashTurnRotation*new Vector3(-.3f*t,-.25f*t,0);}
+                else {rider.localRotation=Quaternion.Euler(-8*t,12*t,-78*t);rider.localPosition=new Vector3(lastX-.3f*t,-.25f*t,0);}
                 if(fallTime>.9f)State=RideState.GameOver;
             }
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
@@ -257,12 +264,15 @@ namespace PhoViet
         {
             TickActionTimers(dt);
             timeRiding+=dt;cruiseSpeed=Mathf.Min(17+DifficultyTime*.12f,30)+(IsChased?chaseBoost:0);
-            Speed=cruiseSpeed;Distance+=Speed*dt;
-            foreach(var b in blocks){b.localPosition-=Vector3.forward*Speed*dt;if(b.localPosition.z<-160)b.localPosition+=Vector3.forward*VietnamStreet.Length*blocks.Count;}
+            Speed=IsTurning?Mathf.Min(cruiseSpeed,10):cruiseSpeed;
+            if(IsTurning&&dt>0)Speed=Mathf.Min(Speed,Mathf.Max(0,turnRadius*Mathf.PI*.5f-turnTravel)/dt);
+            Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;
+            oldRiderZ=rider.localPosition.z;
             float x=Mathf.MoveTowards(oldX,LaneX[CurrentLane],dt*15);
             lean=Mathf.Lerp(lean,(oldX-x)*-35,dt*10);
-            rider.localPosition=new Vector3(x,Mathf.Sin(timeRiding*12)*.012f,0);rider.localRotation=Quaternion.Euler(0,0,lean);
+            if(!IsTurning){rider.localPosition=new Vector3(x,Mathf.Sin(timeRiding*12)*.012f,0);rider.localRotation=Quaternion.Euler(0,0,lean);}
+            BeginOrContinueTurn(Speed*dt);
             lastX=x;
             crossingWarning=false;
             foreach(var v in vehicles)
@@ -272,6 +282,7 @@ namespace PhoViet
                 v.previousPosition=previous;v.previousYaw=v.model.localEulerAngles.y;v.playerGrace=Mathf.Max(0,v.playerGrace-dt);
                 if(v.wallCrashed)TickWallWreck(v,dt);
                 else if(v.knocked)TickKnockedVehicle(v,dt);
+                else if(v.routeDetached)v.model.localPosition+=(v.routeVelocity-Vector3.forward*Speed)*dt;
                 else if(v.isReckless)TickRecklessVehicle(v,dt);
                 else if(v.crossing)
                 {
@@ -282,7 +293,7 @@ namespace PhoViet
                 {
                     TickLongitudinalVehicle(v,dt);
                 }
-                if((v.isReckless||v.knocked)&&!v.wallCrashed)CheckBuildingImpact(v);
+                if((v.isReckless||v.knocked)&&!v.wallCrashed&&!v.routeDetached)CheckBuildingImpact(v);
                 if(dt>0)v.motionVelocity=v.wallCrashed?Vector3.zero:v.knocked?v.knockVelocity:(v.model.localPosition-previous)/dt+Vector3.forward*Speed;
             }
             ResolveVehicleCollisions();
@@ -294,10 +305,12 @@ namespace PhoViet
                 Vector3 previous=v.previousPosition;
                 Vector3 p=v.model.localPosition;
                 if(previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
-                if((p.z<-18&&(!v.enteringFromBehind||v.knocked)) || Mathf.Abs(p.x)>24 || (v.knocked&&v.knockAge>8) || (v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
+                if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&v.knockAge>8) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
             }
             TickChase(dt);AnimateKick();
             if(State!=RideState.Riding)return;
+            EndRouteFrame(dt);
+            if(IsTurning)return;
             ScheduleIntersection();
             spawnTimer-=dt;
             if(spawnTimer<=0)
@@ -312,6 +325,7 @@ namespace PhoViet
         public void Crash()
         {
             if(State!=RideState.Riding)return;
+            turnCrash=IsTurning;crashTurnPosition=rider.localPosition;crashTurnRotation=Quaternion.Euler(0,TurnYaw,0);
             State=RideState.Falling;fallTime=0;Speed=0;engine.Stop();siren?.Stop();if(sound)fx.PlayOneShot(crashClip);
             if((int)Distance>BestDistance){BestDistance=(int)Distance;PlayerPrefs.SetInt(BestKey,BestDistance);PlayerPrefs.Save();}
         }
@@ -326,10 +340,18 @@ namespace PhoViet
         {
             if(rideCamera==null)return;
             if(State==RideState.Jailed){PositionJailCamera(snap);return;}
+            if(!snap&&State==RideState.Paused&&IsTurning)return;
             bool narrow=Screen.width<Screen.height;
-            float x=rider!=null?rider.localPosition.x:LaneX[2];Vector3 target=new Vector3(x*(narrow?.85f:.25f),IsChased?7.8f:7.15f,IsChased?-14f:-9.6f);
-            rideCamera.transform.localPosition=snap?target:Vector3.Lerp(rideCamera.transform.localPosition,target,Time.unscaledDeltaTime*5);
-            rideCamera.transform.LookAt(new Vector3(x*(narrow?.85f:.18f),1.2f,8));
+            float x=rider!=null?rider.localPosition.x:LaneX[2];
+            Quaternion heading=Quaternion.Euler(0,IsTurning?TurnYaw:0,0);
+            Vector3 center=IsTurning?rider.localPosition-heading*new Vector3(LaneX[CurrentLane],0,0):Vector3.zero;
+            float lateral=IsTurning?LaneX[CurrentLane]:x;
+            Vector3 target=center+heading*new Vector3(lateral*(narrow?.85f:.25f),IsChased?7.8f:7.15f,IsChased?-14f:-9.6f);
+            float cameraDt=Mathf.Min(Time.unscaledDeltaTime,.05f);
+            rideCamera.transform.localPosition=snap?target:Vector3.Lerp(rideCamera.transform.localPosition,target,1-Mathf.Exp(-cameraDt*5));
+            Vector3 look=center+heading*new Vector3(lateral*(narrow?.85f:.18f),1.2f,8);
+            Quaternion rotation=Quaternion.LookRotation(transform.TransformPoint(look)-rideCamera.transform.position,Vector3.up);
+            rideCamera.transform.rotation=!snap&&(IsTurning||cameraTurnBlend>0)?Quaternion.Slerp(rideCamera.transform.rotation,rotation,1-Mathf.Exp(-cameraDt*9)):rotation;
             rideCamera.fieldOfView=Screen.width<Screen.height?65:55+Mathf.Max(0,Speed-17)*.13f;
         }
         public string Telemetry()=>JsonUtility.ToJson(new RunTelemetry {state=State.ToString(),distance=Distance,speed=Speed,lane=CurrentLane,x=rider.localPosition.x,frames=Frames,passed=PassedVehicles,street=CurrentStreet,chased=IsChased,policeGap=PoliceDistance,policeSpeed=PoliceSpeed,kicks=KickCount,chain=ChainCount});
@@ -430,6 +452,7 @@ namespace PhoViet
                 else if(CurrentLane<2) {Panel(new Rect(uiW*.5f-125,118,250,34),Red);Txt("CHÚ Ý XE NGƯỢC CHIỀU",uiW*.5f-125,125,250,22,12,Cream,TextAnchor.MiddleCenter);}
             }
             ChaseHud();
+            RouteTurnHud();
             RecklessHud();
             TrafficSurpriseHud();
         }
