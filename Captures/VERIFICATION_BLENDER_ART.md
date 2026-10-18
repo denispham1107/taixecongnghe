@@ -48,3 +48,11 @@ Blender and actual Unity renders were inspected. `CaptureBikeEvidence` captures 
 - **36 real-browser checks passed** on the final artifact: WebAssembly startup, keyboard/touch controls, rotation, PWA installability, complete offline caching and startup with the network disabled. Zero JavaScript/Unity runtime errors. Evidence: `blender-art-web-results.json`.
 - GPU-updated Unity frame evidence completed successfully (`blender-art-frame-evidence.json`); the right-kick screenshot was visually inspected with the foot extended on the correct side.
 - Browser device profiles simulate viewport/touch; they are not tests on physical iPhones or Android devices.
+
+## Deployment
+
+- Commit `0a61dce99e9caa56890f159142f815a92eb9947d` contains the Blender sources, imported art, updated scene, verification and built WebGL release.
+- GitHub Pages deployment succeeded: https://github.com/denispham1107/taixecongnghe/actions/runs/39086869734
+- Live game: https://denispham1107.github.io/taixecongnghe/
+- **22 live checks passed**: deployed version/cache and all resources match the tested artifact, actual WebAssembly starts, start/pause smoke completes and no JavaScript/Unity runtime errors occur. Evidence: `blender-art-live-results.json`.
+- Unity left in Play Mode Ready, time scale 1, version 1.8.0, all 33 bike actors present; saved best distance **1775** retained.
