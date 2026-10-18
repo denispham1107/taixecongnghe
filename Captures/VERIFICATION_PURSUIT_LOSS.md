@@ -31,3 +31,12 @@ Evidence: `pursuit-loss-Verify*-results.json`.
 - Native WebGL build `build_1adcb1fae119`: succeeded, **0 errors**, 178.675 seconds; one warning for the unused Pipeline plugin being disabled in player builds.
 - Version **1.7.4**, cache **f35224791a76af40**.
 - **22 local WebGL checks passed**: build version/cache, resource integrity, actual Unity WebAssembly startup and start/pause input smoke; no JavaScript/Unity runtime errors. Evidence: `pursuit-loss-local-results.json`.
+
+## Deployment
+
+- Game commit `2e176c52ce37e7750974f370d8bcf2c177f9315a` pushed to main.
+- GitHub Pages deployment succeeded: https://github.com/denispham1107/taixecongnghe/actions/runs/39082246356
+- Live URL: https://denispham1107.github.io/taixecongnghe/
+- Live build version/cache verified as **1.7.4 / f35224791a76af40**.
+- **22 live checks passed**: exact deployed resources, real WebAssembly startup, start/pause input smoke and zero JavaScript/Unity runtime errors. Evidence: `pursuit-loss-live-results.json`.
+- Unity restored to Ready, time scale 1, version 1.7.4, saved best 1775 preserved.
