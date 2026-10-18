@@ -61,3 +61,16 @@
 
 Browser phone profiles emulate layout and touch; physical iPhone/iPad testing
 has not been performed in this environment.
+
+## Published release
+
+- Source and tested WebGL artifact commit:
+  `1cd602d40a84372401137841aeb65f14df839049`, pushed to `origin/main`.
+- GitHub Pages workflow completed successfully for that exact commit:
+  https://github.com/denispham1107/taixecongnghe/actions/runs/39143443936
+- **22 live checks passed** at
+  https://denispham1107.github.io/taixecongnghe/ : release version/cache, deployed
+  resource contents, actual WebAssembly initialization, start/pause input and no
+  JavaScript/Unity runtime errors. Evidence: `jobs-live-results.json`.
+- Unity was returned to Ready, jobs enabled, 0 Coin and the existing 1775 m
+  record preserved. The local verification HTTP server was stopped.
