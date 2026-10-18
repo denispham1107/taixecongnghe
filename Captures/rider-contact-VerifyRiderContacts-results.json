@@ -1,0 +1,68 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyRiderContacts.cs",
+      "entry": "VerifyRiderContacts.Main",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2415,
+      "executeMs": 51,
+      "assemblyName": "PipelineRunScript_VerifyRiderContacts_10800a66f5be4898910ad1d7b0c54828",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 36,
+        "checks": [
+          "Swept pursuit contact blocks kind 0 direction 1",
+          "Police and scenery use same corrected road offset 0/1",
+          "Recovery cooldown never grants ghosting 0/1",
+          "Collision preserves pursuit slowdown mechanism 0/1",
+          "Swept pursuit contact blocks kind 0 direction -1",
+          "Police and scenery use same corrected road offset 0/-1",
+          "Recovery cooldown never grants ghosting 0/-1",
+          "Collision preserves pursuit slowdown mechanism 0/-1",
+          "Swept pursuit contact blocks kind 1 direction 1",
+          "Police and scenery use same corrected road offset 1/1",
+          "Recovery cooldown never grants ghosting 1/1",
+          "Collision preserves pursuit slowdown mechanism 1/1",
+          "Swept pursuit contact blocks kind 1 direction -1",
+          "Police and scenery use same corrected road offset 1/-1",
+          "Recovery cooldown never grants ghosting 1/-1",
+          "Collision preserves pursuit slowdown mechanism 1/-1",
+          "Swept pursuit contact blocks kind 2 direction 1",
+          "Police and scenery use same corrected road offset 2/1",
+          "Recovery cooldown never grants ghosting 2/1",
+          "Collision preserves pursuit slowdown mechanism 2/1",
+          "Swept pursuit contact blocks kind 2 direction -1",
+          "Police and scenery use same corrected road offset 2/-1",
+          "Recovery cooldown never grants ghosting 2/-1",
+          "Collision preserves pursuit slowdown mechanism 2/-1",
+          "Crossing car pushes rider on original side instead of tunnelling",
+          "Lane change is stopped at side contact",
+          "Standing side contact remains solid while damage is on cooldown",
+          "Downed motorcycles remain solid during chase",
+          "Kicked bike damage grace cannot disable physical chase contact",
+          "Airborne vehicles above the rider remain clear",
+          "Adjacent lane near miss is not blocked",
+          "Repeated real ride ticks cannot drive through a stopped car",
+          "Blocked rider loses speed so police can close",
+          "Rider can steer away from contact",
+          "Ordinary ride collision still ends in a fall",
+          "Pursuit collision still permits capture"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

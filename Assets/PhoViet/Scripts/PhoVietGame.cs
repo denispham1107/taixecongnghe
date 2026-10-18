@@ -286,16 +286,13 @@ namespace PhoViet
                 if(dt>0)v.motionVelocity=v.wallCrashed?Vector3.zero:v.knocked?v.knockVelocity:(v.model.localPosition-previous)/dt+Vector3.forward*Speed;
             }
             ResolveVehicleCollisions();
+            if(!ResolveRiderContacts(oldX,dt))return;
+            x=rider.localPosition.x;lastX=x;
             foreach(var v in vehicles)
             {
                 if(!v.active)continue;
                 Vector3 previous=v.previousPosition;
                 Vector3 p=v.model.localPosition;
-                // Sweep both axes relative to the moving rider. Crossing models are rotated 90°,
-                // so their physical width/length swap, preventing side impacts and tunnelling misses.
-                Vector2 half=VehicleFootprint(v)+new Vector2(.33f,.91f);
-                if(collisionImmunity<=0&&v.playerGrace<=0&&p.y<2.4f&&SweptOverlap(new Vector2(previous.x-oldX,previous.z),new Vector2(p.x-x,p.z),half))
-                {if(IsChased)HitDuringChase();else{Crash();return;}}
                 if(previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
                 if((p.z<-18&&(!v.enteringFromBehind||v.knocked)) || Mathf.Abs(p.x)>24 || (v.knocked&&v.knockAge>8) || (v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
             }

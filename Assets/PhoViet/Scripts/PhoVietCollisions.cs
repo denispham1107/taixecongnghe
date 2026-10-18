@@ -4,6 +4,100 @@ namespace PhoViet
 {
     public partial class PhoVietGame
     {
+        bool[] riderContacts;
+
+        // Damage cooldown never disables solid contact. The rider stays at z=0 in this
+        // scrolling world, so a longitudinal response adjusts the whole road's offset.
+        bool ResolveRiderContacts(float oldX,float dt)
+        {
+            if(!IsChased)
+            {
+                if(collisionImmunity>0)return true;
+                foreach(var v in vehicles)
+                {
+                    if(!v.active||v.playerGrace>0||v.model.localPosition.y>=2.4f)continue;
+                    Vector2 from=new Vector2(v.previousPosition.x-oldX,v.previousPosition.z);
+                    Vector2 to=new Vector2(v.model.localPosition.x-rider.localPosition.x,v.model.localPosition.z);
+                    if(SweptOverlap(from,to,VehicleFootprint(v)+new Vector2(.33f,.91f))){Crash();return false;}
+                }
+                return true;
+            }
+            if(riderContacts==null||riderContacts.Length!=vehicles.Count)riderContacts=new bool[vehicles.Count];
+            System.Array.Clear(riderContacts,0,riderContacts.Length);
+            float simulatedSpeed=Speed,roadCorrection=0;
+            for(int contact=0;contact<vehicles.Count;contact++)
+            {
+                int hit=-1;float earliest=2;Vector2 normal=Vector2.zero,half=Vector2.zero;
+                for(int i=0;i<vehicles.Count;i++)
+                {
+                    var v=vehicles[i];if(!v.active||riderContacts[i]||v.model.localPosition.y>=2.4f)continue;
+                    Vector2 extent=VehicleFootprint(v)+new Vector2(.33f,.91f);
+                    Vector2 from=new Vector2(v.previousPosition.x-oldX,v.previousPosition.z);
+                    Vector2 to=new Vector2(v.model.localPosition.x-rider.localPosition.x,v.model.localPosition.z);
+                    if(RiderContact(from,to,extent,out float at,out Vector2 n)&&at<earliest)
+                    {hit=i;earliest=at;normal=n;half=extent;}
+                }
+                if(hit<0)break;
+                riderContacts[hit]=true;var body=vehicles[hit];
+                // A kicked bike has a brief damage grace period while moving away, but
+                // ordinary traffic and wrecks remain solid throughout pursuit recovery.
+                if(body.playerGrace<=0)HitDuringChase();
+                if(normal.x!=0)
+                {
+                    Vector3 p=rider.localPosition;
+                    p.x=body.model.localPosition.x-normal.x*(half.x+.015f);
+                    rider.localPosition=p;
+                }
+                else
+                {
+                    float correction=normal.y*(half.y+.015f)-body.model.localPosition.z;
+                    ShiftRoadAfterContact(correction);roadCorrection+=correction;
+                }
+            }
+            if(IsChased&&dt>0&&roadCorrection!=0)
+                Speed=Mathf.Min(Speed,simulatedSpeed-roadCorrection/dt);
+            return true;
+        }
+
+        static bool RiderContact(Vector2 from,Vector2 to,Vector2 half,out float at,out Vector2 normal)
+        {
+            at=0;normal=Vector2.zero;float enter=0,leave=1;
+            bool inside=Mathf.Abs(from.x)<=half.x&&Mathf.Abs(from.y)<=half.y;
+            if(inside)
+            {
+                // Existing contact may slide apart; do not pull an escaping rider back.
+                if((Mathf.Abs(to.x)>half.x&&from.x*to.x>=0)||(Mathf.Abs(to.y)>half.y&&from.y*to.y>=0))return false;
+                int axis=half.x-Mathf.Abs(from.x)<half.y-Mathf.Abs(from.y)?0:1;
+                normal[axis]=from[axis]>=0?1:-1;return true;
+            }
+            for(int axis=0;axis<2;axis++)
+            {
+                float delta=to[axis]-from[axis],p=from[axis],extent=half[axis];
+                if(Mathf.Abs(delta)<.000001f){if(Mathf.Abs(p)>extent)return false;continue;}
+                float a=(-extent-p)/delta,b=(extent-p)/delta,near=Mathf.Min(a,b);
+                if(near>=enter){enter=near;normal=Vector2.zero;normal[axis]=p+delta*near>=0?1:-1;}
+                leave=Mathf.Min(leave,Mathf.Max(a,b));if(enter>leave)return false;
+            }
+            if(leave<0||enter>1)return false;
+            at=Mathf.Clamp01(enter);return normal.sqrMagnitude>.5f;
+        }
+
+        void ShiftRoadAfterContact(float correction)
+        {
+            Vector3 shift=Vector3.forward*correction;
+            Distance=Mathf.Max(0,Distance-correction);
+            foreach(var block in blocks)block.localPosition+=shift;
+            foreach(var v in vehicles)if(v.active)
+            {
+                v.model.localPosition+=shift;v.previousPosition+=shift;
+                if(v.wallCrashed&&v.crashEffect!=null)v.crashEffect.localPosition=WreckFxPosition(v);
+            }
+            if(IsChased&&policeBike!=null)
+            {
+                policeBike.localPosition+=shift;PoliceDistance=-policeBike.localPosition.z;
+            }
+        }
+
         public static float VehicleMass(TrafficVehicle v)
         {return v.halfLength>3?4500:v.halfWidth>.7f?(v.model.name.Contains("tải")?2200:1350):220;}
         static Vector2 Flat(Vector3 p)=>new Vector2(p.x,p.z);

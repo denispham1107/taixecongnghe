@@ -134,8 +134,17 @@ public static class VerifyRearRandomPolice
             g.policeBike.localPosition=new Vector3(g.rider.localPosition.x,0,-1);typeof(PhoVietGame).GetProperty("PoliceDistance").SetValue(g,1f);
             chaseStep(.02f);check(g.State==PhoVietGame.RideState.Riding&&g.PoliceFallen,"A fallen officer cannot arrest the rider even when very close");
             chase();g.recklessTrafficEnabled=true;g.trafficSurprises=true;set("spawnTimer",0);set("nextIntersectionDistance",70);set("collisionImmunity",10000);
-            for(int i=0;i<2000;i++)tick(.02f);
-            check(g.State==PhoVietGame.RideState.Riding&&g.IsChased&&!float.IsNaN(g.PoliceDistance)&&!float.IsInfinity(g.policeBike.localPosition.sqrMagnitude),"Forty-second integrated chase remains stable with all traffic hazards enabled");
+            bool stable=true;
+            for(int i=0;i<2000;i++)
+            {
+                tick(.02f);
+                stable&=!float.IsNaN(g.PoliceDistance)&&!float.IsInfinity(g.policeBike.localPosition.sqrMagnitude);
+                // Damage immunity no longer permits driving through traffic. A physically
+                // blocked rider may be captured; continue the stress test in a fresh chase.
+                if(g.State==PhoVietGame.RideState.Arrested)
+                {chase();g.recklessTrafficEnabled=true;g.trafficSurprises=true;set("spawnTimer",0);set("nextIntersectionDistance",70);set("collisionImmunity",10000);}
+            }
+            check(stable&&g.State==PhoVietGame.RideState.Riding&&g.IsChased,"Forty-second integrated chase remains stable through solid contacts and capture/restart with all hazards enabled");
             g.ResetRide();check(g.PoliceFalls==0&&g.PoliceAvoidances==0&&!g.PoliceFallen&&g.PoliceFallRemaining==0,"Restart clears police avoidance and recovery state");
             return new {success=true,count=checks.Count,checks};
         }

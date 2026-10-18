@@ -4,7 +4,7 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.7.2**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.7.3**.
 
 - Desktop: mở link bằng Chrome/Edge/Firefox/Safari. Chrome và Edge có thể cài thành ứng dụng qua nút cài đặt của trình duyệt.
 - Android: mở bằng Chrome, chọn **Cài ứng dụng** trên trang hoặc trong menu trình duyệt. Đây là ứng dụng web PWA cài trực tiếp, không cần tải APK.
@@ -46,12 +46,13 @@ Bản **1.2.0** tăng nhịp độ khó thêm **50% so với 1.1.0**: tốc đ�
 - Sau cú đạp thành công đầu tiên vào **xe máy thường**, mô tô CSGT xuất hiện rất nhanh từ phía sau, có đồng phục vàng cát, mũ CSGT, cầu vai, đèn đỏ/xanh và còi.
 - Đạp **xe máy quái xế lạng lách** là tự vệ, **không gọi CSGT**. Nếu đã bị truy đuổi vì đạp xe thường trước đó, cuộc truy đuổi đang có vẫn tiếp tục.
 - Khi đường thông thoáng, tốc độ người chơi tăng thêm theo thời gian và giữ ưu thế 0,65 m/s sau khi mô tô truy đuổi đã áp sát. Va chạm làm người chơi chậm lại; khoảng cách truy đuổi giảm tới 2,2 m sẽ bị bắt.
+- Bản 1.7.3: khi bị truy đuổi, xe người chơi vẫn bị chặn bởi xe máy, ô tô, xe tải và xe đã ngã, kể cả trong 1,1 giây hồi phục sau va chạm. Có thể chuyển làn để thoát; thời gian hồi phục chỉ ngăn lặp sát thương/âm thanh, không cho đi xuyên xe.
 - Sau khi bị bắt, camera chuyển sang buồng giam: nhân vật mặc đồ sọc đen trắng ngồi sau song sắt. Nhấn **R / Space** hoặc **CHƠI LẠI** để trở lại phố.
 - Kỷ lục được giữ nguyên qua các lần chơi. Đạp tiếp không đặt lại khoảng cách CSGT.
 
 ## Nội dung
 
-Bản hiện tại **1.7.0**:
+Bản hiện tại **1.7.3**:
 
 - Quái xế/xe tải ngủ gật **cùng chiều bắt đầu hoàn toàn phía sau camera**, chạy từ mép dưới màn hình lên và vượt người chơi. Chúng chỉ bắt đầu lạng lách sau khi tới gần; không sinh ra giữa đường đang nhìn thấy. Xe mới không xuất hiện đè lên xe giao thông hoặc mô tô CSGT.
 - Mỗi lượt chơi dùng seed mới, ngẫu nhiên lại số lượng, mẫu xe, làn, vị trí và vận tốc của nhóm xe ban đầu. Xe giao lộ chọn mẫu xe ngẫu nhiên; nhịp sinh xe và tần số/biên độ lạng cũng thay đổi giữa các lượt.
