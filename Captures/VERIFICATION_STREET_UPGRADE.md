@@ -96,4 +96,11 @@ three LODs using the shared material.
 - Unity left Ready, time scale 1, version 1.12.0, eleven four-wheel actors and
   thirty-three bike/rider actors. Best distance 1775 m retained.
 
-Publication results are added after completion.
+- Source and tested artifact commit: `1a8cd826f0b2a9e61ca72fae7460943084665420`.
+- GitHub Pages deployment succeeded for that exact commit:
+  https://github.com/denispham1107/taixecongnghe/actions/runs/39117818367
+- Live game: https://denispham1107.github.io/taixecongnghe/
+- **22 live checks passed**: deployed version/cache and every published resource
+  match the tested artifact. The real published Unity WebAssembly initializes,
+  accepts start/pause input and reports no JavaScript/Unity runtime errors.
+  Evidence: street-upgrade-live-results.json.
