@@ -4,7 +4,20 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.14.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.15.0**.
+
+## Xe máy và tài xế bản 1.15.0
+
+Phát hành bộ xe máy v2 do Claude Code dựng trong Blender: sáu mẫu xe và người
+lái với tỷ lệ gần thực tế, tay ga trắng của người chơi, xe phố, xe số, xe côn tay,
+quái xế và mô tô CSGT. Tài xế chính vẫn mặc áo đỏ sao vàng năm cánh trước/sau.
+Các model giữ 17 xương, bảy clip và ba LOD; skin dùng hai xương mỗi đỉnh. Đã
+cập nhật cả xe đậu và mesh tĩnh của xe ở đường nhánh. Luật giao thông, rẽ,
+truy đuổi, công việc, GPS và Coin giữ nguyên.
+
+Nguồn mới: `ArtSource/Blender/pho_viet_motorcycles.py` (`build_motorcycles()`).
+Script `pho_viet_bikes.py` cũ vẫn là thư viện dùng chung cho ô tô, phố và khách.
+Xem `Captures/VERIFICATION_BIKES_V2.md` và `Captures/VERIFICATION_BIKES_V2_WEB.md`.
 
 ## Chuyến xe và Coin — 1.14.0
 

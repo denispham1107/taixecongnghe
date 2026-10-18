@@ -1,6 +1,6 @@
 # Xe máy và người lái phiên bản 2 (gần như thật) — 19/10/2026
 
-Dựng lại cả 6 mẫu xe máy có người lái bằng Blender MCP (Blender 5.2 LTS) rồi cài vào scene Unity đang mở. Bản WebGL/GitHub Pages **chưa** build lại, nên vẫn là 1.14.0 với xe cũ.
+Dựng lại cả 6 mẫu xe máy có người lái bằng Blender MCP (Blender 5.2 LTS) rồi cài vào scene Unity đang mở. Tại thời điểm commit `cb95f85`, WebGL/GitHub Pages chưa build lại và còn ở 1.14.0. Bước build/phát hành 1.15.0 tiếp theo được ghi riêng tại [VERIFICATION_BIKES_V2_WEB.md](VERIFICATION_BIKES_V2_WEB.md).
 
 ## Phương án người dùng đã chọn
 
