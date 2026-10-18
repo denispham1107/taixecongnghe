@@ -53,4 +53,11 @@
   frame-rate performance were not tested.
 - Unity left in Play Mode Ready, version 1.13.0, time scale 1, best distance 1775 m.
 
-Publication results are added after completion.
+- Source and tested artifact commit: `954f72f5110f832778a9e97d4af6ca28aca9a8b9`.
+- GitHub Pages deployment succeeded for that exact commit:
+  https://github.com/denispham1107/taixecongnghe/actions/runs/39122927809
+- Live game: https://denispham1107.github.io/taixecongnghe/
+- **22 live checks passed**: deployed version/cache and all resources match the
+  tested artifact, real Unity WebAssembly initializes and accepts start/pause input,
+  and no JavaScript/Unity runtime errors are reported.
+  Evidence: fabric-leaves-live-results.json.
