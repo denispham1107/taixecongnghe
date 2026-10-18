@@ -113,6 +113,7 @@ namespace PhoViet
             // Shop rows stop before the junction: an empty cross street is never a wall.
             if(Mathf.Abs(p.x)+half.x<9.3f||route>58.4f)return;
             float side=Mathf.Sign(p.x);p.x=side*(9.3f-half.x);p.y=0;
+            v.model.GetComponent<CarVisualAnimator>()?.ReceiveImpact(v.model.InverseTransformDirection(transform.TransformDirection(new Vector3(-side,0,0))),15);
             v.model.localPosition=p;v.wallCrashed=true;v.knocked=true;v.knockAge=0;
             v.knockDirection=side;v.knockVelocity=Vector3.zero;
             v.model.localRotation=Quaternion.Euler(v.halfWidth>.7f?-8:0,v.model.localEulerAngles.y,-side*(v.halfWidth>.7f?24:78));

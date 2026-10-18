@@ -1,0 +1,23 @@
+{
+  "name": "PV_Taxi",
+  "kind": "Taxi",
+  "vertices": 11482,
+  "triangles": 20498,
+  "bones": 15,
+  "materials": 1,
+  "clips": [
+    "Idle",
+    "Drive",
+    "Brake",
+    "ImpactFront",
+    "ImpactRear",
+    "ImpactLeft",
+    "ImpactRight"
+  ],
+  "wheel_radius": 0.38,
+  "lod_triangles": [
+    20498,
+    9019,
+    3278
+  ]
+}

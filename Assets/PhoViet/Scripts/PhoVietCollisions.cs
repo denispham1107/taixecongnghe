@@ -121,6 +121,7 @@ namespace PhoViet
         void ActivateCollisionBody(TrafficVehicle v,Vector3 before,Vector3 after,Vector2 impulse,Vector2 lever,bool credited,bool newlyHit,float closing)
         {
             float deltaV=Flat(after-before).magnitude;
+            v.model.GetComponent<CarVisualAnimator>()?.ReceiveImpact(v.model.InverseTransformDirection(transform.TransformDirection(new Vector3(impulse.x,0,impulse.y))),closing);
             if(!v.physicalCrash)
             {
                 v.crashEuler=v.model.localEulerAngles;

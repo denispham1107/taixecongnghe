@@ -1,0 +1,77 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyRiderContacts.cs",
+      "entry": "VerifyRiderContacts.Main",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 164,
+      "executeMs": 39,
+      "assemblyName": "PipelineRunScript_VerifyRiderContacts_7405959d806d4eeda94cd077bfd4698b",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 45,
+        "checks": [
+          "Swept kind 0 direction 1 grace False: immediately loses and stops",
+          "Swept kind 0 direction 1 grace False: input cannot resume riding",
+          "Swept kind 0 direction 1 grace True: immediately loses and stops",
+          "Swept kind 0 direction 1 grace True: input cannot resume riding",
+          "Swept kind 0 direction -1 grace False: immediately loses and stops",
+          "Swept kind 0 direction -1 grace False: input cannot resume riding",
+          "Swept kind 0 direction -1 grace True: immediately loses and stops",
+          "Swept kind 0 direction -1 grace True: input cannot resume riding",
+          "Swept kind 1 direction 1 grace False: immediately loses and stops",
+          "Swept kind 1 direction 1 grace False: input cannot resume riding",
+          "Swept kind 1 direction 1 grace True: immediately loses and stops",
+          "Swept kind 1 direction 1 grace True: input cannot resume riding",
+          "Swept kind 1 direction -1 grace False: immediately loses and stops",
+          "Swept kind 1 direction -1 grace False: input cannot resume riding",
+          "Swept kind 1 direction -1 grace True: immediately loses and stops",
+          "Swept kind 1 direction -1 grace True: input cannot resume riding",
+          "Swept kind 2 direction 1 grace False: immediately loses and stops",
+          "Swept kind 2 direction 1 grace False: input cannot resume riding",
+          "Swept kind 2 direction 1 grace True: immediately loses and stops",
+          "Swept kind 2 direction 1 grace True: input cannot resume riding",
+          "Swept kind 2 direction -1 grace False: immediately loses and stops",
+          "Swept kind 2 direction -1 grace False: input cannot resume riding",
+          "Swept kind 2 direction -1 grace True: immediately loses and stops",
+          "Swept kind 2 direction -1 grace True: input cannot resume riding",
+          "Crossing car direction -1: immediately loses and stops",
+          "Crossing car direction -1: input cannot resume riding",
+          "Crossing car direction 1: immediately loses and stops",
+          "Crossing car direction 1: input cannot resume riding",
+          "Sudden side impact: immediately loses and stops",
+          "Sudden side impact: input cannot resume riding",
+          "Downed bike despite kick grace: immediately loses and stops",
+          "Downed bike despite kick grace: input cannot resume riding",
+          "Reckless rider: immediately loses and stops",
+          "Reckless rider: input cannot resume riding",
+          "Drowsy truck: immediately loses and stops",
+          "Drowsy truck: input cannot resume riding",
+          "Vehicle above rider height does not falsely collide",
+          "Adjacent lane near miss does not falsely collide",
+          "Real ride ticks approaching stopped car: immediately loses and stops",
+          "Real ride ticks approaching stopped car: input cannot resume riding",
+          "Fall animation ends at game over, never resumes pursuit",
+          "Restart clears crash and pursuit state",
+          "Ordinary ride collision: immediately loses and stops",
+          "Ordinary ride collision: input cannot resume riding",
+          "Police capture without a traffic collision still works"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

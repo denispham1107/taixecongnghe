@@ -1,0 +1,23 @@
+{
+  "name": "PV_DrowsyTruck",
+  "kind": "Drowsy",
+  "vertices": 13183,
+  "triangles": 23503,
+  "bones": 15,
+  "materials": 1,
+  "clips": [
+    "Idle",
+    "Drive",
+    "Brake",
+    "ImpactFront",
+    "ImpactRear",
+    "ImpactLeft",
+    "ImpactRight"
+  ],
+  "wheel_radius": 0.51,
+  "lod_triangles": [
+    23503,
+    10340,
+    3760
+  ]
+}

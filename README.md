@@ -4,7 +4,7 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.8.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.9.0**.
 
 - Desktop: mở link bằng Chrome/Edge/Firefox/Safari. Chrome và Edge có thể cài thành ứng dụng qua nút cài đặt của trình duyệt.
 - Android: mở bằng Chrome, chọn **Cài ứng dụng** trên trang hoặc trong menu trình duyệt. Đây là ứng dụng web PWA cài trực tiếp, không cần tải APK.
@@ -52,7 +52,11 @@ Bản **1.2.0** tăng nhịp độ khó thêm **50% so với 1.1.0**: tốc đ�
 
 ## Nội dung
 
-Bản hiện tại **1.8.0**:
+Bản hiện tại **1.9.0**:
+
+- Toàn bộ **11 xe bốn bánh** được thay bằng sáu mẫu gốc dựng qua Blender MCP: sedan, hatchback, taxi, xe giao hàng thùng nhỏ, xe tải thùng thường và xe tải ngủ gật. Thân xe có đường cong, hốc bánh, mâm/lốp, giảm xóc, kính và gương, gạt mưa, lưới tản nhiệt, biển số; thùng hàng có gân, cửa, bản lề và khóa. Phong cách bán hiện thực vui nhộn đồng bộ với người lái xe máy.
+- Mỗi mẫu có **15 xương, 7 clip** (chờ, chạy, phanh, va chạm trước/sau/trái/phải), **3 LOD**, một atlas vật liệu; LOD xa dưới 4.000 tam giác. Bánh quay theo tốc độ, bánh trước đánh lái theo hướng rẽ; thân xe nhún khi chạy/phanh, cản xe và gương phản ứng theo hướng xung lực va chạm. Tạm dừng đóng băng hoạt ảnh.
+- Hoạt ảnh chỉ tác động mô hình con, giữ nguyên bộ xe, ngẫu nhiên, kích thước va chạm, vật lý dây chuyền, hành vi xe tải ngủ gật và khói/lửa khi đâm nhà. Khi bị CSGT truy đuổi, đụng bất kỳ xe giao thông nào vẫn thua ngay.
 
 - Toàn bộ 19 xe máy/người lái đang tham gia giao thông và 14 xe đậu vỉa hè dùng bộ model gốc dựng bằng Blender MCP theo phong cách bán hiện thực vui nhộn: xe người chơi, tay ga, xe số, xe thể thao, quái xế và mô tô CSGT. Có thân vỏ cong, vành/lốp/phanh/giảm xóc/động cơ/pô, mặt người, mũ bảo hiểm, quần áo và sao vàng đủ năm cánh.
 - Mỗi mẫu có 7 clip có khung xương: đứng chờ, chạy, đạp trái, đạp phải, ngã trái, ngã phải và dựng xe. Bánh quay theo vận tốc đường thực tế, tạm dừng đóng băng hoạt ảnh; phần tiếp đất chỉ chỉnh hình ảnh.
@@ -66,6 +70,8 @@ Bản hiện tại **1.8.0**:
 
 ## Nguồn model Blender
 
+- Xe bốn bánh: `ArtSource/Blender/PhoViet_Cars.blend`, script `ArtSource/Blender/pho_viet_cars.py` (gọi `build_all()` trong Blender, dùng chung tiện ích mesh/atlas/FBX từ script xe máy). Sáu mẫu có rig/action, bảng màu và font được đóng gói trong file.
+- Tài nguyên: `Assets/PhoViet/Art/Cars`. Menu **Phố Việt → Art → Replace all four-wheel vehicles with Blender models** thay đúng các mô hình con; `CarVisualAnimator` lấy mẫu clip, quay bánh và nhận hướng xung lực từ lớp va chạm hiện có.
 - File chỉnh sửa: `ArtSource/Blender/PhoViet_Motorcycles.blend`. Sáu mẫu cùng rig/action, bảng màu và font đã được lưu trong file; timeline mặc định phát vòng chạy xe.
 - Script dựng gốc: `ArtSource/Blender/pho_viet_bikes.py`. Chạy trong Blender bằng Python/MCP, sau đó gọi `rebuild_all()` để tái tạo bộ mẫu, LOD, FBX và sân trình bày. Script chỉ thay các collection/model do nó sở hữu.
 - FBX, texture atlas và material Unity: `Assets/PhoViet/Art/Bikes`. Menu **Phố Việt → Art → Replace all motorcycles with Blender models** cập nhật scene hiện tại mà giữ các gốc xe, pool và cảnh đường phố.

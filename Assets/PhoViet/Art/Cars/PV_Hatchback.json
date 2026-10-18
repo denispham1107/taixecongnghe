@@ -1,0 +1,23 @@
+{
+  "name": "PV_Hatchback",
+  "kind": "Hatchback",
+  "vertices": 9812,
+  "triangles": 17340,
+  "bones": 15,
+  "materials": 1,
+  "clips": [
+    "Idle",
+    "Drive",
+    "Brake",
+    "ImpactFront",
+    "ImpactRear",
+    "ImpactLeft",
+    "ImpactRight"
+  ],
+  "wheel_radius": 0.38,
+  "lod_triangles": [
+    17340,
+    7628,
+    2774
+  ]
+}

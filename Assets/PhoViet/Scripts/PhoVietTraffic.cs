@@ -34,11 +34,13 @@ namespace PhoViet
             {
                 var lights=Group("Đèn phanh động",v.model);v.brakeLights=lights;
                 bool blenderBike=v.model.GetComponent<BikeVisualAnimator>()!=null;
+                var blenderCar=v.model.GetComponent<CarVisualAnimator>();
                 float z=v.halfLength>3?-3.26f:v.halfWidth>.7f?(v.model.name.Contains("tải")?-2.46f:-2.075f):-.88f;
                 if(blenderBike)z=-1.015f;
+                if(blenderCar!=null)z=blenderCar.tailZ;
                 foreach(float side in new[]{-1f,1f})
                 {
-                    var lamp=Box("Đèn phanh đỏ",lights,new Vector3(side*(blenderBike?.09f:v.halfWidth*.65f),blenderBike?.79f:.86f,z),blenderBike?new Vector3(.08f,.06f,.018f):new Vector3(v.halfWidth>.7f?.3f:.17f,.17f,.065f),Red);
+                    var lamp=Box("Đèn phanh đỏ",lights,new Vector3(side*(blenderCar!=null?blenderCar.tailX:blenderBike?.09f:v.halfWidth*.65f),blenderCar!=null?blenderCar.tailY:blenderBike?.79f:.86f,z),blenderBike?new Vector3(.08f,.06f,.018f):new Vector3(v.halfWidth>.7f?.3f:.17f,.12f,.018f),Red);
                     lamp.GetComponent<Renderer>().sharedMaterial=Mat(Hex("FF3929"),true);
                 }
             }

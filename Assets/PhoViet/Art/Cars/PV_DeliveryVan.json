@@ -1,0 +1,23 @@
+{
+  "name": "PV_DeliveryVan",
+  "kind": "Van",
+  "vertices": 11291,
+  "triangles": 19793,
+  "bones": 15,
+  "materials": 1,
+  "clips": [
+    "Idle",
+    "Drive",
+    "Brake",
+    "ImpactFront",
+    "ImpactRear",
+    "ImpactLeft",
+    "ImpactRight"
+  ],
+  "wheel_radius": 0.38,
+  "lod_triangles": [
+    19793,
+    8707,
+    3165
+  ]
+}

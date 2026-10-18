@@ -39,7 +39,7 @@ public static class VerifyBikeArt
                 var counts=lod.GetLODs().Select(l=>(long)((SkinnedMeshRenderer)l.renderers[0]).sharedMesh.GetIndexCount(0)/3).ToArray();
                 check(counts[0]>counts[1]&&counts[1]>counts[2]&&counts[2]<6000,d.name+": triangle count decreases to fewer than six thousand at distance");
             }
-            check(g.vehicles.Where(v=>v.halfWidth>.7f).All(v=>v.model.GetComponent<BikeVisualAnimator>()==null),"Cars and trucks retain their original models and physics roots");
+            check(g.vehicles.Where(v=>v.halfWidth>.7f).All(v=>v.model.GetComponent<BikeVisualAnimator>()==null),"Four-wheel actors have separate visuals and retain their physics roots");
             var parked=drivers.First(d=>d.role==BikeVisualAnimator.ActorRole.Parked);parked.Advance(.2f);
             check(parked.CurrentClip=="Idle"&&parked.WheelAngle==0,"Parked riders idle naturally while their wheels remain still");
             clean();var hero=g.rider.GetComponent<BikeVisualAnimator>();hero.Advance(.1f);

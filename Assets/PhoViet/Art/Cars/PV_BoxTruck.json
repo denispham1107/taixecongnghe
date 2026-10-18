@@ -1,0 +1,23 @@
+{
+  "name": "PV_BoxTruck",
+  "kind": "Truck",
+  "vertices": 12815,
+  "triangles": 23093,
+  "bones": 15,
+  "materials": 1,
+  "clips": [
+    "Idle",
+    "Drive",
+    "Brake",
+    "ImpactFront",
+    "ImpactRear",
+    "ImpactLeft",
+    "ImpactRight"
+  ],
+  "wheel_radius": 0.51,
+  "lod_triangles": [
+    23093,
+    10160,
+    3693
+  ]
+}
