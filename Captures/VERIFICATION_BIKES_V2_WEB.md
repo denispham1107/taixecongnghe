@@ -41,7 +41,16 @@
   `bikes-v2-web-ui-results.json`; screenshots use the `bikes-v2-web-*` prefix.
   The phone GPS screenshot was visually inspected with the new rider and scooter.
 - `git diff --check` and JavaScript syntax checking passed.
-- Publication and live verification are recorded after deployment.
+- Source/artifact release commit `6c5b8dfddb01678b449e16d5f403520ed3e775ef`
+  was pushed to `origin/main`, including Claude Code's motorcycle v2 commit.
+- GitHub Pages workflow succeeded for that exact source/artifact commit:
+  https://github.com/denispham1107/taixecongnghe/actions/runs/39158226385
+- **22 live checks passed** at https://denispham1107.github.io/taixecongnghe/ :
+  version/cache, all deployed resource contents, real published WebAssembly
+  startup, start/pause input and zero JavaScript/Unity runtime errors.
+  Evidence: `bikes-v2-live-results.json`.
+- Local HTTP verification server stopped. Unity returned to Edit Mode, matching
+  its pre-release state; the saved scene and the new art remain intact.
 
 Phone/iOS browser profiles emulate layout and touch; no physical device FPS or
 physical iPhone/iPad verification is claimed for this release.
