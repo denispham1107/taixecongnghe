@@ -59,6 +59,7 @@ namespace PhoViet
             if(target==null){notice="CẦN XE MÁY Ở BÊN CẠNH TRONG TẦM ĐẠP";noticeTimer=1;return false;}
             kickDirection=Mathf.Sign(target.model.localPosition.x-rider.localPosition.x);
             kickTime=.38f;kickCooldown=.8f;KickCount++;
+            rider.GetComponent<BikeVisualAnimator>()?.Kick(kickDirection);
             bool selfDefense=target.isReckless;
             KnockVehicle(target,kickDirection,false);
             if(!selfDefense)StartChase();

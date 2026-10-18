@@ -13,6 +13,7 @@ namespace PhoViet.Editor
         [MenuItem("Phố Việt/Dựng lại scene chính")]
         public static void Build()
         {
+            PhoVietBikeUpgrade.ConfigureParkedFactory();
             EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
             var root=new GameObject("PHỐ VIỆT • Chuyến xe không ngừng");var game=root.AddComponent<PhoVietGame>();
             game.vietnameseFont=AssetDatabase.LoadAssetAtPath<Font>("Assets/PhoViet/Fonts/BeVietnamPro-SemiBold.ttf");
@@ -24,6 +25,7 @@ namespace PhoViet.Editor
             foreach(var b in game.blocks)Combine(b);
             CombineRider(game);foreach(var v in game.vehicles)Combine(v.model);
             Combine(game.policeBike);Combine(game.jailRoom);
+            PhoVietBikeUpgrade.ApplyToGame(game);
             var sunlight=new GameObject("Nắng chiều Sài Gòn").AddComponent<Light>();sunlight.type=LightType.Directional;
             sunlight.transform.rotation=Quaternion.Euler(48,-32,0);sunlight.color=Hex("FFE3AE");sunlight.intensity=.95f;
             sunlight.shadows=LightShadows.Soft;sunlight.shadowStrength=.63f;sunlight.shadowBias=.055f;sunlight.shadowNormalBias=.3f;
@@ -160,8 +162,11 @@ namespace PhoViet.Editor
                 if(current.name.StartsWith("Chân đạp"))return true;
             return false;
         }
-        static void Combine(Transform root)
+        internal static void Combine(Transform root)
         {
+            var skeleton=new HashSet<Transform>();
+            foreach(var skin in root.GetComponentsInChildren<SkinnedMeshRenderer>(true))foreach(var bone in skin.bones)
+                for(var t=bone;t!=null&&t!=root;t=t.parent)skeleton.Add(t);
             var groups=new Dictionary<Material,List<CombineInstance>>();var old=new List<MeshFilter>();
             foreach(var f in root.GetComponentsInChildren<MeshFilter>(true))
             {
@@ -180,9 +185,9 @@ namespace PhoViet.Editor
             foreach(var f in old){Object.DestroyImmediate(f.GetComponent<MeshRenderer>());Object.DestroyImmediate(f);}
             // Remove only empty leaves; text, lights, pool roots and semantic shop groups survive.
             for(int pass=0;pass<4;pass++)foreach(var t in root.GetComponentsInChildren<Transform>(true))
-                if(t!=root&&t.childCount==0&&t.GetComponents<Component>().Length==1)Object.DestroyImmediate(t.gameObject);
+                if(t!=root&&!skeleton.Contains(t)&&t.childCount==0&&t.GetComponents<Component>().Length==1)Object.DestroyImmediate(t.gameObject);
         }
-        static void PersistGeometry(GameObject root)
+        internal static void PersistGeometry(GameObject root)
         {
             string folder="Assets/PhoViet/Generated";
             if(!AssetDatabase.IsValidFolder(folder))AssetDatabase.CreateFolder("Assets/PhoViet","Generated");

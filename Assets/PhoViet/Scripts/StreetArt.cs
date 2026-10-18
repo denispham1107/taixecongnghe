@@ -8,6 +8,7 @@ namespace PhoViet
     public static class StreetArt
     {
         public static Font Font;
+        public static System.Func<Transform,string,Transform> ParkedBikeFactory;
         static readonly Dictionary<string, Material> materials = new Dictionary<string, Material>();
         public static readonly Color Ink = Hex("203C43"), Cream = Hex("FFF1CF"), Red = Hex("D83833"), Teal = Hex("177E80"), Gold = Hex("FFD35A");
         public static Color Hex(string s) { ColorUtility.TryParseHtmlString("#" + s, out Color c); return c; }
@@ -57,6 +58,7 @@ namespace PhoViet
         }
         public static Transform Motorcycle(Transform parent, string name, Color paint, Color shirt, bool hero)
         {
+            if(!hero&&name=="Xe máy đậu trên vỉa hè"&&ParkedBikeFactory!=null)return ParkedBikeFactory(parent,name);
             var root=Group(name,parent); Color rubber=Hex("252F34"), chrome=Hex("A6B5B6"), skin=Hex("D99A6B");
             foreach(float z in new[]{-.76f,.81f})
             {

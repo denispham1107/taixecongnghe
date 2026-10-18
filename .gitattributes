@@ -18,3 +18,6 @@
 *.ttf binary
 *.wasm binary
 *.unityweb binary
+*.fbx binary
+*.blend binary
+*.py text eol=lf

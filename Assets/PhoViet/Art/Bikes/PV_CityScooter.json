@@ -1,0 +1,22 @@
+{
+  "name": "PV_CityScooter",
+  "kind": "Scooter",
+  "vertices": 13541,
+  "triangles": 23725,
+  "bones": 17,
+  "materials": 1,
+  "clips": [
+    "Idle",
+    "Ride",
+    "KickLeft",
+    "KickRight",
+    "FallLeft",
+    "FallRight",
+    "Recover"
+  ],
+  "lod_triangles": [
+    23725,
+    10439,
+    5315
+  ]
+}

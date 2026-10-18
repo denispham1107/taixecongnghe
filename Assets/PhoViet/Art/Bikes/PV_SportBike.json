@@ -1,0 +1,22 @@
+{
+  "name": "PV_SportBike",
+  "kind": "Sport",
+  "vertices": 13841,
+  "triangles": 24241,
+  "bones": 17,
+  "materials": 1,
+  "clips": [
+    "Idle",
+    "Ride",
+    "KickLeft",
+    "KickRight",
+    "FallLeft",
+    "FallRight",
+    "Recover"
+  ],
+  "lod_triangles": [
+    24241,
+    10665,
+    5504
+  ]
+}

@@ -21,6 +21,7 @@
 *.log
 *.tmp
 *.stackdump
+*.blend[1-9]
 *.apk
 *.aab
 *.ipa

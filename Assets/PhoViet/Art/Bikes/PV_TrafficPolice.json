@@ -1,0 +1,22 @@
+{
+  "name": "PV_TrafficPolice",
+  "kind": "Police",
+  "vertices": 15358,
+  "triangles": 26813,
+  "bones": 17,
+  "materials": 1,
+  "clips": [
+    "Idle",
+    "Ride",
+    "KickLeft",
+    "KickRight",
+    "FallLeft",
+    "FallRight",
+    "Recover"
+  ],
+  "lod_triangles": [
+    26813,
+    11797,
+    5847
+  ]
+}

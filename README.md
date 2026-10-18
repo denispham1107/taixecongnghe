@@ -4,7 +4,7 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.7.4**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.8.0**.
 
 - Desktop: mở link bằng Chrome/Edge/Firefox/Safari. Chrome và Edge có thể cài thành ứng dụng qua nút cài đặt của trình duyệt.
 - Android: mở bằng Chrome, chọn **Cài ứng dụng** trên trang hoặc trong menu trình duyệt. Đây là ứng dụng web PWA cài trực tiếp, không cần tải APK.
@@ -52,13 +52,24 @@ Bản **1.2.0** tăng nhịp độ khó thêm **50% so với 1.1.0**: tốc đ�
 
 ## Nội dung
 
-Bản hiện tại **1.7.4**:
+Bản hiện tại **1.8.0**:
+
+- Toàn bộ 19 xe máy/người lái đang tham gia giao thông và 14 xe đậu vỉa hè dùng bộ model gốc dựng bằng Blender MCP theo phong cách bán hiện thực vui nhộn: xe người chơi, tay ga, xe số, xe thể thao, quái xế và mô tô CSGT. Có thân vỏ cong, vành/lốp/phanh/giảm xóc/động cơ/pô, mặt người, mũ bảo hiểm, quần áo và sao vàng đủ năm cánh.
+- Mỗi mẫu có 7 clip có khung xương: đứng chờ, chạy, đạp trái, đạp phải, ngã trái, ngã phải và dựng xe. Bánh quay theo vận tốc đường thực tế, tạm dừng đóng băng hoạt ảnh; phần tiếp đất chỉ chỉnh hình ảnh.
+- Mỗi mẫu có 3 mức LOD và một atlas vật liệu. Xe ở xa giảm từ khoảng 24–27 nghìn xuống dưới 6 nghìn tam giác; hình ảnh mới giữ nguyên gốc vật lý và luật va chạm/thua ngay khi đang bị truy đuổi.
 
 - Quái xế/xe tải ngủ gật **cùng chiều bắt đầu hoàn toàn phía sau camera**, chạy từ mép dưới màn hình lên và vượt người chơi. Chúng chỉ bắt đầu lạng lách sau khi tới gần; không sinh ra giữa đường đang nhìn thấy. Xe mới không xuất hiện đè lên xe giao thông hoặc mô tô CSGT.
 - Mỗi lượt chơi dùng seed mới, ngẫu nhiên lại số lượng, mẫu xe, làn, vị trí và vận tốc của nhóm xe ban đầu. Xe giao lộ chọn mẫu xe ngẫu nhiên; nhịp sinh xe và tần số/biên độ lạng cũng thay đổi giữa các lượt.
 - CSGT dự đoán chuyển động của các xe khác, chọn lối né và phanh nếu bị chặn. Xe đứng yên, xe đã ngã, xe rẽ và xe ngược chiều đều tham gia kiểm tra va chạm của CSGT.
 - Nếu vẫn va chạm, mô tô CSGT ngã **1,2 giây**, đứng lại trên đường và không thể bắt người chơi trong thời gian đó. Hết thời gian sẽ dựng xe, tiếp tục cuộc truy đuổi từ vị trí thực tế; không dịch chuyển tức thì về gần người chơi. Tạm dừng cũng dừng thời gian dựng xe.
 - Xe nguy hiểm ngược chiều và hiệu ứng khói/lửa khi đâm nhà từ bản trước vẫn được giữ.
+
+## Nguồn model Blender
+
+- File chỉnh sửa: `ArtSource/Blender/PhoViet_Motorcycles.blend`. Sáu mẫu cùng rig/action, bảng màu và font đã được lưu trong file; timeline mặc định phát vòng chạy xe.
+- Script dựng gốc: `ArtSource/Blender/pho_viet_bikes.py`. Chạy trong Blender bằng Python/MCP, sau đó gọi `rebuild_all()` để tái tạo bộ mẫu, LOD, FBX và sân trình bày. Script chỉ thay các collection/model do nó sở hữu.
+- FBX, texture atlas và material Unity: `Assets/PhoViet/Art/Bikes`. Menu **Phố Việt → Art → Replace all motorcycles with Blender models** cập nhật scene hiện tại mà giữ các gốc xe, pool và cảnh đường phố.
+- `BikeVisualAnimator` lấy mẫu clip và điều khiển bánh xe/tiếp đất. Di chuyển, va chạm, cú đạp và các mốc bắt giữ vẫn thuộc các lớp gameplay hiện có.
 
 Bản **1.6.0** có quái xế và **xe tải ngủ gật ở cả hai chiều**: xe cùng chiều từ làn kế bên lạng sang, xe ngược chiều từ hai làn trái lao tới và lấn qua vạch giữa đường sang làn người chơi. Cả hai hướng đều có thể húc xe khác hoặc đâm nhà bên trái/phải, phát khói và lửa. Biển tên có hai mặt để nhận diện cả khi chạy đối diện. Đạp quái xế ngược chiều để tự vệ vẫn không gọi CSGT.
 
