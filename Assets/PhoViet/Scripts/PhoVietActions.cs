@@ -45,7 +45,7 @@ namespace PhoViet
         }
         public bool TryKick()
         {
-            if(State!=RideState.Riding||kickCooldown>0)return false;
+            if(State!=RideState.Riding||ServiceStopped||kickCooldown>0)return false;
             TrafficVehicle target=null;float closest=float.MaxValue;
             foreach(var v in vehicles)
             {

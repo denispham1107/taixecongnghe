@@ -119,6 +119,7 @@ namespace PhoViet
             RunSeed=seed;rng=new System.Random(seed);
             State=RideState.Ready;Distance=0;Speed=0;CurrentLane=2;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;noticeTimer=0;
             nextIntersectionDistance=VietnamStreet.IntersectionCenter;ScheduledIntersections=0;crossingWarning=false;
+            ResetCityJobs();
             ResetRoutes();
             ResetActions();
             ResetReckless();
@@ -136,14 +137,15 @@ namespace PhoViet
         public void RestartRide(){ResetRide();StartRide();}
         public void MoveLane(int direction)
         {
-            if(State!=RideState.Riding)return;
+            if(State!=RideState.Riding||ServiceStopped)return;
             if(SelectJunctionTurn(direction))return;
             CurrentLane=Mathf.Clamp(CurrentLane+Math.Sign(direction),0,3);
         }
         public void TogglePause()
         {
-            if(State==RideState.Riding){State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();PauseRecklessFx(true);}
-            else if(State==RideState.Paused){State=RideState.Riding;PauseRecklessFx(false);if(sound){engine.UnPause();if(IsChased)siren?.UnPause();}}
+            if(JobOffersOpen)return;
+            if(State==RideState.Riding){State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);}
+            else if(State==RideState.Paused){State=RideState.Riding;PauseRecklessFx(false);if(sound){engine.UnPause();navigationAudio?.UnPause();if(IsChased)siren?.UnPause();}}
         }
         public TrafficVehicle SpawnTraffic(int lane,float z,int preferred=-1)
         {
@@ -226,11 +228,12 @@ namespace PhoViet
             if(Input.GetKeyDown(KeyCode.Escape)||Input.GetKeyDown(KeyCode.P))TogglePause();
             if(State==RideState.Riding)
             {
-                if(wasRiding&&Input.GetKeyDown(KeyCode.Space))TryKick();
+                if(wasRiding&&!ServiceStopped&&Input.GetKeyDown(KeyCode.Space))TryKick();
                 if(Input.GetKeyDown(KeyCode.LeftArrow)||Input.GetKeyDown(KeyCode.A))MoveLane(-1);
                 if(Input.GetKeyDown(KeyCode.RightArrow)||Input.GetKeyDown(KeyCode.D))MoveLane(1);
                 ReadSwipe(); TickRide(Mathf.Min(Time.deltaTime,.05f));
             }
+            UpdateWork(Mathf.Min(Time.deltaTime,.05f));
             if(State==RideState.Falling)
             {
                 fallTime+=Time.deltaTime;float t=Mathf.SmoothStep(0,1,fallTime/.65f);
@@ -266,14 +269,16 @@ namespace PhoViet
         }
         void TickRide(float dt)
         {
+            TickWorkMotion(dt);
             TickActionTimers(dt);
-            timeRiding+=dt;cruiseSpeed=Mathf.Min(17+DifficultyTime*.12f,30)+(IsChased?chaseBoost:0);
+            if(!ServiceStopped)timeRiding+=dt;cruiseSpeed=Mathf.Min(17+DifficultyTime*.12f,30)+(IsChased?chaseBoost:0);
             Speed=IsTurning?Mathf.Min(cruiseSpeed,lateTurn?8:10):cruiseSpeed;
+            Speed=WorkSpeedLimit(Speed);
             if(IsTurning&&dt>0)Speed=Mathf.Min(Speed,Mathf.Max(0,turnLength-turnTravel)/dt);
             Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;
             oldRiderZ=rider.localPosition.z;
-            float x=Mathf.MoveTowards(oldX,LaneX[CurrentLane],dt*15);
+            float x=ServiceStopped?oldX:Mathf.MoveTowards(oldX,LaneX[CurrentLane],dt*15);
             lean=Mathf.Lerp(lean,(oldX-x)*-35,dt*10);
             if(!IsTurning){rider.localPosition=new Vector3(x,Mathf.Sin(timeRiding*12)*.012f,0);rider.localRotation=Quaternion.Euler(0,0,lean);}
             BeginOrContinueTurn(Speed*dt);
@@ -298,10 +303,12 @@ namespace PhoViet
                 {
                     TickLongitudinalVehicle(v,dt);
                 }
+                YieldRearForService(v);
                 if((v.isReckless||v.knocked)&&!v.wallCrashed&&!v.routeDetached)CheckBuildingImpact(v);
                 if(dt>0)v.motionVelocity=v.wallCrashed?Vector3.zero:v.knocked?v.knockVelocity:(v.model.localPosition-previous)/dt+Vector3.forward*Speed;
             }
             ResolveVehicleCollisions();
+            if(ServiceRearProtected)foreach(var vehicle in vehicles)YieldRearForService(vehicle);
             if(!ResolveRiderContacts(oldX,dt))return;
             x=rider.localPosition.x;lastX=x;
             foreach(var v in vehicles)
@@ -388,7 +395,8 @@ namespace PhoViet
             uiW=area.width/uiScale;uiH=area.height/uiScale;
             GUI.matrix=Matrix4x4.TRS(new Vector3(area.x,area.y,0),Quaternion.identity,Vector3.one*uiScale);
             if(State==RideState.Jailed)JailScreen();else if(State==RideState.Ready)ReadyScreen();else Hud();
-            if(State==RideState.Paused)EndCard(true);
+            if(State==RideState.Paused&&!JobOffersOpen)EndCard(true);
+            if(JobOffersOpen)JobOffersGui();
             if(State==RideState.GameOver)EndCard(false);
             if(State==RideState.Falling) {FullscreenTint(new Color(.7f,.08f,.05f,.12f));Txt("VA CHẠM!",0,uiH*.23f,uiW,70,46,Cream,TextAnchor.MiddleCenter);}
             if(State==RideState.Arrested){FullscreenTint(new Color(.1f,.18f,.4f,.23f));Txt("CSGT ĐÃ ĐUỔI KỊP",0,uiH*.33f,uiW,90,portrait?29:44,Cream,TextAnchor.MiddleCenter);}
@@ -428,10 +436,11 @@ namespace PhoViet
         void Hud()
         {
             float pad=portrait?16:36,top=portrait?20:28;
-            Panel(new Rect(pad,top,portrait?276:335,72),Ink);
+            Panel(new Rect(pad,top,portrait?276:335,97),Ink);
             Txt("PHỐ VIỆT  /  "+CurrentStreet.ToUpperInvariant(),pad+18,top+12,portrait?250:305,22,portrait?11:12,Gold);
             Txt(Mathf.FloorToInt(Distance).ToString("N0")+" m",pad+16,top+31,180,40,28,Cream);
             Txt(Mathf.RoundToInt(Speed*3.6f)+" km/h",pad+(portrait?178:229),top+42,90,25,13,Hex("B5CFC2"));
+            Txt("Coin: "+FormatCoins(Coins),pad+18,top+73,portrait?250:300,21,15,Gold);
             if(Btn(State==RideState.Paused?"▶":"Ⅱ",new Rect(uiW-pad-56,top,56,56),Cream,Ink,22))TogglePause();
             if(!portrait)
             {
@@ -461,6 +470,7 @@ namespace PhoViet
             RouteTurnHud();
             RecklessHud();
             TrafficSurpriseHud();
+            JobNavigationGui();
         }
         void EndCard(bool paused)
         {

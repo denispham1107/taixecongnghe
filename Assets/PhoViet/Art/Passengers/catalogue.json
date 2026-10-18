@@ -1,0 +1,32 @@
+[
+  {
+    "name": "PV_PassengerMale",
+    "bones": 14,
+    "clips": [
+      "Idle",
+      "Walk",
+      "Board",
+      "Sit"
+    ],
+    "lod_triangles": [
+      4688,
+      2338,
+      1091
+    ]
+  },
+  {
+    "name": "PV_PassengerFemale",
+    "bones": 14,
+    "clips": [
+      "Idle",
+      "Walk",
+      "Board",
+      "Sit"
+    ],
+    "lod_triangles": [
+      5084,
+      2541,
+      1160
+    ]
+  }
+]

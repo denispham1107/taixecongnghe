@@ -1,0 +1,88 @@
+using UnityEngine;
+namespace PhoViet
+{
+ public partial class PhoVietGame
+ {
+  int jobTouchChoice=-1;Vector2 jobTouchStart;
+  Rect JobChoiceRect(int index,float width,float height,bool narrow)
+  {
+   float w=narrow?448:790,h=narrow?530:475,x=(width-w)/2,y=Mathf.Max(125,(height-h)/2);
+   return new Rect(x+w-143,y+126+index*(narrow?125:107)+14,113,narrow?86:70);
+  }
+  int JobChoiceAt(Vector2 screenPosition)
+  {
+   var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
+   float scale=narrow?area.width/480f:Mathf.Min(area.width/1440f,area.height/900f);
+   Vector2 p=new Vector2((screenPosition.x-area.x)/scale,(Screen.height-screenPosition.y-area.y)/scale);
+   for(int i=0;i<JobOffers.Count;i++)if(JobChoiceRect(i,area.width/scale,area.height/scale,narrow).Contains(p))return i;
+   return -1;
+  }
+  void ReadJobTouch()
+  {
+   if(!JobOffersOpen){jobTouchChoice=-1;return;}if(Input.touchCount==0)return;
+   var touch=Input.GetTouch(0);
+   if(touch.phase==TouchPhase.Began){jobTouchChoice=JobChoiceAt(touch.position);jobTouchStart=touch.position;}
+   if(touch.phase==TouchPhase.Ended)
+   {
+    int selected=jobTouchChoice;jobTouchChoice=-1;
+    if(selected>=0&&JobChoiceAt(touch.position)==selected&&Vector2.Distance(jobTouchStart,touch.position)<Screen.width*.05f)AcceptJob(selected);
+   }
+   if(touch.phase==TouchPhase.Canceled)jobTouchChoice=-1;
+  }
+  void JobOffersGui()
+  {
+   FullscreenTint(new Color(.03f,.12f,.14f,.72f));float w=portrait?448:790,h=portrait?530:475,x=(uiW-w)/2,y=Mathf.Max(125,(uiH-h)/2);
+   Panel(new Rect(x,y,w,h),StreetArt.Cream,18);Txt("CHỌN CHUYẾN XE",x+22,y+18,w-44,35,portrait?24:29,StreetArt.Ink);
+   Txt("Game tạm dừng · Chỉ nhận Coin sau khi trả khách",x+22,y+58,w-44,32,13,StreetArt.Teal);
+   Txt("SỐ DƯ: "+FormatCoins(Coins)+" COIN",x+22,y+92,w-44,25,14,StreetArt.Red);
+   for(int i=0;i<JobOffers.Count;i++)
+   {
+    var j=JobOffers[i];float cy=y+126+i*(portrait?125:107);
+    Panel(new Rect(x+16,cy,w-32,portrait?115:98),StreetArt.Ink,10);
+    Txt((i+1)+". ĐÓN: "+city.Street(j.pickup),x+29,cy+9,w-176,23,portrait?14:17,StreetArt.Cream);
+    Txt("TRẢ: "+city.Street(j.dropoff),x+29,cy+35,w-176,23,portrait?13:15,StreetArt.Cream);
+    Txt("Đón "+Mathf.CeilToInt(j.pickupMetres)+" m · Chở "+Mathf.CeilToInt(j.tripMetres)+" m",x+29,cy+65,w-176,30,12,new Color(.7f,.85f,.8f));
+    if(Btn(FormatCoins(j.reward)+" Coin\nNHẬN VIỆC",JobChoiceRect(i,uiW,uiH,portrait),StreetArt.Gold,StreetArt.Ink,14))AcceptJob(i);
+   }
+  }
+  void JobNavigationGui()
+  {
+   if(!jobsEnabled||ActiveJob==null||State==RideState.Ready||State==RideState.Jailed)return;
+   float w=portrait?242:300,h=portrait?190:220,x=uiW-w-(portrait?16:36),y=portrait?145:125;
+   Panel(new Rect(x,y,w,h),new Color(.07f,.18f,.2f,.96f),12);
+   string stage=JobPhase==WorkPhase.Pickup?"ĐÓN KHÁCH":JobPhase==WorkPhase.Delivery?"ĐƯA KHÁCH":JobPhase==WorkPhase.Boarding?"KHÁCH ĐANG LÊN XE":"KHÁCH ĐANG XUỐNG XE";
+   float remaining=ActiveRoute==null?0:Mathf.Max(0,ActiveRoute.distance-(Distance-routePlanDistance));
+   string instruction=ServiceStopped?"DỪNG TẠI ĐIỂM HẸN":ActiveRoute!=null&&!ActiveRoute.direct?(ActiveRoute.nextTurn<0?"RẼ TRÁI":ActiveRoute.nextTurn>0?"RẼ PHẢI":"ĐI THẲNG")+" · "+Mathf.Max(0,Mathf.CeilToInt(NextJunctionDistance))+" m":"VÀO LỀ "+(TargetLane(CurrentWorkTarget)==3?"PHẢI":"TRÁI");
+   Txt(stage+" · "+Mathf.CeilToInt(remaining)+" m",x+12,y+9,w-24,20,12,StreetArt.Gold);
+   Txt(instruction,x+12,y+31,w-24,23,14,StreetArt.Cream);
+   DrawJobMap(new Rect(x+10,y+60,w-20,h-111));
+   Txt(city.Street(CurrentWorkTarget),x+12,y+h-43,w-24,21,12,StreetArt.Cream);
+   Txt(rerouteNotice>0?"ĐANG TÍNH LẠI LỘ TRÌNH":"THƯỞNG "+FormatCoins(ActiveJob.reward)+" COIN",x+12,y+h-22,w-24,18,10,rerouteNotice>0?StreetArt.Gold:new Color(.7f,.85f,.8f));
+  }
+  void DrawJobMap(Rect rect)
+  {
+   GUI.BeginGroup(rect);Vector2 player=NavigationPosition;
+   float radius=100;if(ActiveRoute!=null)foreach(var p in ActiveRoute.points)radius=Mathf.Max(radius,Mathf.Abs(p.x-player.x)+20,Mathf.Abs(p.y-player.y)+20);
+   float scale=Mathf.Min(rect.width,rect.height)/(2*radius),cx=rect.width*.5f,cy=rect.height*.5f;
+   System.Func<Vector2,Vector2> screen=p=>new Vector2(cx+(p.x-player.x)*scale,cy-(p.y-player.y)*scale);
+   int grid=Mathf.Max(1,Mathf.CeilToInt(radius/80));
+   for(int n=-grid;n<=grid;n++)
+   {
+    float gx=Mathf.Round(player.x/80)*80+n*80,gy=Mathf.Round(player.y/80)*80+n*80;
+    MapLine(screen(new Vector2(gx,player.y-radius)),screen(new Vector2(gx,player.y+radius)),3,new Color(.24f,.36f,.36f));
+    MapLine(screen(new Vector2(player.x-radius,gy)),screen(new Vector2(player.x+radius,gy)),3,new Color(.24f,.36f,.36f));
+   }
+   if(ActiveRoute!=null)for(int i=1;i<ActiveRoute.points.Count;i++)MapLine(screen(ActiveRoute.points[i-1]),screen(ActiveRoute.points[i]),4,StreetArt.Gold);
+   Vector2 end=screen(CurrentWorkTarget.Point);Panel(new Rect(end.x-4,end.y-4,8,8),StreetArt.Red,4);
+   Vector2 centre=screen(player),heading=CityNavigation.Directions[navHeading];Vector2 tip=centre+new Vector2(heading.x,-heading.y)*9;
+   MapLine(centre,tip,5,new Color(.25f,.85f,.9f));Panel(new Rect(centre.x-4,centre.y-4,8,8),StreetArt.Cream,4);GUI.EndGroup();
+  }
+  void MapLine(Vector2 a,Vector2 b,float width,Color color)
+  {
+   // Grid streets and route segments are axis-aligned. Keep the GUI transform
+   // intact so the map's group clips every line inside its card on all screens.
+   Panel(new Rect(Mathf.Min(a.x,b.x)-width*.5f,Mathf.Min(a.y,b.y)-width*.5f,
+    Mathf.Max(width,Mathf.Abs(a.x-b.x)+width),Mathf.Max(width,Mathf.Abs(a.y-b.y)+width)),color,0);
+  }
+ }
+}

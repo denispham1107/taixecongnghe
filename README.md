@@ -4,7 +4,23 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.13.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.14.0**.
+
+## Chuyến xe và Coin — 1.14.0
+
+Khi chưa nhận chuyến, game tạm dừng và hiện ba công việc ngẫu nhiên. Chọn một
+chuyến, đi theo GPS đến đúng phía lề đón khách rồi đưa khách đến điểm trả. Coin
+khởi đầu bằng 0, chỉ cộng sau khi trả khách và được lưu trên thiết bị qua các lượt
+chơi. Quãng đường đến đón và chở khách càng dài thì thưởng càng cao, từ 20 Coin.
+
+Mạng phố theo ô bàn cờ có tên cố định trong mỗi lượt. GPS tính lại đường về cùng
+điểm hẹn khi đi sai và phát ba câu chỉ dẫn giọng nữ tiếng Việt đã lưu sẵn, kể cả
+khi chơi offline. Xe sau nhường lúc khách lên/xuống và trong ba giây di chuyển
+đầu sau khi đón; các va chạm khác vẫn giữ luật thua ngay khi bị CSGT truy đuổi.
+
+Hai hành khách nam/nữ được dựng qua Blender MCP, có bộ xương 14 xương, ba mức
+chi tiết và hoạt ảnh Idle/Walk/Board/Sit. Nguồn chỉnh sửa nằm trong
+`ArtSource/Blender/PhoViet_Passengers.blend` và `pho_viet_passengers.py`.
 
 - Desktop: mở link bằng Chrome/Edge/Firefox/Safari. Chrome và Edge có thể cài thành ứng dụng qua nút cài đặt của trình duyệt.
 - Android: mở bằng Chrome, chọn **Cài ứng dụng** trên trang hoặc trong menu trình duyệt. Đây là ứng dụng web PWA cài trực tiếp, không cần tải APK.

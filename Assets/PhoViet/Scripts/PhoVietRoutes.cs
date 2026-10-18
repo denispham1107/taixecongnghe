@@ -55,7 +55,7 @@ namespace PhoViet
         }
         void PrepareBranches(float distance)
         {
-            junctionAt=Distance+distance;junctionStreet=PickStreet();int first=-1,second=-1;
+            junctionAt=Distance+distance;junctionStreet=GridJunctionStreet();int first=-1,second=-1;
             for(int i=0;i<5;i++)if(i!=mainRow&&i!=leftRow&&i!=rightRow){if(first<0)first=i;else second=i;}
             // On reset all four spare rows are empty; subsequent calls keep the last junction behind us.
             if(first<0||second<0){first=(mainRow+1)%5;second=(mainRow+2)%5;}
@@ -67,6 +67,7 @@ namespace PhoViet
                 for(int j=0;j<row.tiles.Count;j++){row.tiles[j].localPosition=new Vector3(0,0,j*80);row.tiles[j].localRotation=Quaternion.identity;}
                 LabelRow(index,junctionStreet);
             }
+            CityJunctionPrepared();
         }
         bool SelectJunctionTurn(int direction)
         {
@@ -149,7 +150,7 @@ namespace PhoViet
             if(routeTrail.Count==0||Distance-routeTrail[routeTrail.Count-1].at>.3f)routeTrail.Add(new RoutePoint(Distance,rider.localPosition,TurnYaw));
             while(routeTrail.Count>2&&routeTrail[1].at<Distance-180)routeTrail.RemoveAt(0);
             if(IsTurning&&turnTravel>=turnLength-.0001f){FinishJunctionTurn();return;}
-            if(!IsTurning&&NextJunctionDistance< -18)PrepareBranches(NextJunctionDistance+80);
+            if(!IsTurning&&NextJunctionDistance< -18){PassCityJunction();PrepareBranches(NextJunctionDistance+80);}
             cameraTurnBlend=Mathf.Max(0,cameraTurnBlend-dt);
         }
         void FinishJunctionTurn()
@@ -186,7 +187,7 @@ namespace PhoViet
             for(int i=0;i<positions.Length;i++){chosen.tiles[i].localPosition=positions[i];chosen.tiles[i].localRotation=Quaternion.identity;}
             blocks=new List<Transform>(chosen.tiles);roadOffset=-Distance-positions[0].z;
             rider.localPosition=new Vector3(LaneX[CurrentLane],0,0);rider.localRotation=Quaternion.identity;lastX=rider.localPosition.x;oldRiderZ=0;
-            RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;turnCrash=false;cameraTurnBlend=.7f;turnEndAt=Distance;
+            TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;turnCrash=false;cameraTurnBlend=.7f;turnEndAt=Distance;
             float nearest=float.MaxValue;foreach(var b in blocks){float z=b.localPosition.z+70;if(z>12)nearest=Mathf.Min(nearest,z);}
             nextIntersectionDistance=Distance+nearest;leftRow=oldMain;rightRow=unused;PrepareBranches(nearest);notice="ĐÃ VÀO ĐƯỜNG "+RouteStreet.ToUpperInvariant();noticeTimer=2;
             QueueExitTraffic();

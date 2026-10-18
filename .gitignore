@@ -36,3 +36,4 @@ __pycache__/
 /Captures/browser-*.json
 /Captures/browser-*.png
 /Captures/build-status*.json
+/.tools/
