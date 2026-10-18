@@ -100,7 +100,7 @@ namespace PhoViet.Editor
             var material=AtlasMaterial(asset);
             foreach(var renderer in rendererList)
             {
-                renderer.sharedMaterial=material;renderer.enabled=true;renderer.quality=SkinQuality.Bone1;
+                renderer.sharedMaterial=material;renderer.enabled=true;renderer.quality=SkinQuality.Bone2;
                 renderer.shadowCastingMode=ShadowCastingMode.On;renderer.receiveShadows=true;renderer.updateWhenOffscreen=false;
                 renderer.localBounds=new Bounds(new Vector3(0,1.1f,0),new Vector3(3.3f,3.0f,3.0f));
             }

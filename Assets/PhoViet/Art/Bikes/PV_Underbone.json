@@ -1,8 +1,8 @@
 {
   "name": "PV_Underbone",
-  "kind": "Underbone",
-  "vertices": 13677,
-  "triangles": 23957,
+  "kind": "underbone",
+  "vertices": 13298,
+  "triangles": 25946,
   "bones": 17,
   "materials": 1,
   "clips": [
@@ -14,9 +14,19 @@
     "FallRight",
     "Recover"
   ],
+  "reach": {
+    "L": [
+      0.929,
+      0.641
+    ],
+    "R": [
+      0.929,
+      0.641
+    ]
+  },
   "lod_triangles": [
-    23957,
-    10541,
-    5337
+    25946,
+    11674,
+    4410
   ]
 }

@@ -35,7 +35,7 @@ public static class VerifyBikeArt
                 d.Initialize();var lod=d.visual.GetComponent<LODGroup>();var renderers=d.visual.GetComponentsInChildren<SkinnedMeshRenderer>(true);
                 check(d.clips.Length==7&&d.clips.All(c=>c.legacy)&&d.clips.Select(c=>c.name).Distinct().Count()==7,d.name+": seven imported animation clips");
                 check(lod!=null&&lod.GetLODs().Length==3&&renderers.Length==3,d.name+": three usable mobile LODs");
-                check(renderers.All(r=>r.sharedMaterials.Length==1&&r.quality==SkinQuality.Bone1&&r.bones.Length==17&&r.bones.All(b=>b!=null)),d.name+": one atlas material and complete seventeen-bone rig");
+                check(renderers.All(r=>r.sharedMaterials.Length==1&&r.quality==SkinQuality.Bone2&&r.bones.Length==17&&r.bones.All(b=>b!=null)),d.name+": one atlas material and complete seventeen-bone rig");
                 var counts=lod.GetLODs().Select(l=>(long)((SkinnedMeshRenderer)l.renderers[0]).sharedMesh.GetIndexCount(0)/3).ToArray();
                 check(counts[0]>counts[1]&&counts[1]>counts[2]&&counts[2]<6000,d.name+": triangle count decreases to fewer than six thousand at distance");
             }

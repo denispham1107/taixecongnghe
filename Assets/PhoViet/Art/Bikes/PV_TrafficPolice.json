@@ -1,8 +1,8 @@
 {
   "name": "PV_TrafficPolice",
-  "kind": "Police",
-  "vertices": 15358,
-  "triangles": 26813,
+  "kind": "police",
+  "vertices": 13415,
+  "triangles": 26212,
   "bones": 17,
   "materials": 1,
   "clips": [
@@ -14,9 +14,19 @@
     "FallRight",
     "Recover"
   ],
+  "reach": {
+    "L": [
+      0.935,
+      0.718
+    ],
+    "R": [
+      0.935,
+      0.718
+    ]
+  },
   "lod_triangles": [
-    26813,
-    11797,
-    5847
+    26212,
+    11794,
+    4456
   ]
 }

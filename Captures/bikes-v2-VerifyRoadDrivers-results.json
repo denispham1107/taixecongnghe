@@ -1,0 +1,77 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyRoadDrivers.cs",
+      "entry": "VerifyRoadDrivers.Main",
+      "timeout_ms": "360000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 270,
+      "executeMs": 152,
+      "assemblyName": "PipelineRunScript_VerifyRoadDrivers_706e4d2b49cc47889a7a8f9d86e396be",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 45,
+        "checks": [
+          "Longitudinal bike/car starts turn: False,-1,-1",
+          "Turn finishes on side road",
+          "Exits in requested left/right heading",
+          "Turn is continuous at normal simulation step",
+          "Longitudinal bike/car starts turn: False,-1,1",
+          "Turn finishes on side road",
+          "Exits in requested left/right heading",
+          "Turn is continuous at normal simulation step",
+          "Longitudinal bike/car starts turn: False,1,-1",
+          "Turn finishes on side road",
+          "Exits in requested left/right heading",
+          "Turn is continuous at normal simulation step",
+          "Longitudinal bike/car starts turn: False,1,1",
+          "Turn finishes on side road",
+          "Exits in requested left/right heading",
+          "Turn is continuous at normal simulation step",
+          "Longitudinal bike/car starts turn: True,-1,-1",
+          "Turn finishes on side road",
+          "Exits in requested left/right heading",
+          "Turn is continuous at normal simulation step",
+          "Longitudinal bike/car starts turn: True,-1,1",
+          "Turn finishes on side road",
+          "Exits in requested left/right heading",
+          "Turn is continuous at normal simulation step",
+          "Longitudinal bike/car starts turn: True,1,-1",
+          "Turn finishes on side road",
+          "Exits in requested left/right heading",
+          "Turn is continuous at normal simulation step",
+          "Longitudinal bike/car starts turn: True,1,1",
+          "Turn finishes on side road",
+          "Exits in requested left/right heading",
+          "Turn is continuous at normal simulation step",
+          "Oncoming class 0 crosses yellow centre line",
+          "Intruding oncoming actor still faces and drives against player",
+          "Intruding actor reaches player-side lane continuously",
+          "Intruding actor can return to original side",
+          "Oncoming class 1 crosses yellow centre line",
+          "Intruding oncoming actor still faces and drives against player",
+          "Intruding actor reaches player-side lane continuously",
+          "Intruding actor can return to original side",
+          "Oncoming class 2 crosses yellow centre line",
+          "Intruding oncoming actor still faces and drives against player",
+          "Intruding actor reaches player-side lane continuously",
+          "Intruding actor can return to original side",
+          "Restart clears road-turn counter"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

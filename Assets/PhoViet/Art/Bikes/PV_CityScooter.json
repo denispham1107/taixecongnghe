@@ -1,8 +1,8 @@
 {
   "name": "PV_CityScooter",
-  "kind": "Scooter",
-  "vertices": 13541,
-  "triangles": 23725,
+  "kind": "scooter",
+  "vertices": 15372,
+  "triangles": 30104,
   "bones": 17,
   "materials": 1,
   "clips": [
@@ -14,9 +14,19 @@
     "FallRight",
     "Recover"
   ],
+  "reach": {
+    "L": [
+      0.93,
+      0.726
+    ],
+    "R": [
+      0.93,
+      0.726
+    ]
+  },
   "lod_triangles": [
-    23725,
-    10439,
-    5315
+    30104,
+    13546,
+    5116
   ]
 }

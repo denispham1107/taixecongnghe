@@ -1,8 +1,8 @@
 {
   "name": "PV_Racer",
-  "kind": "Racer",
-  "vertices": 13841,
-  "triangles": 24241,
+  "kind": "sport",
+  "vertices": 13161,
+  "triangles": 25746,
   "bones": 17,
   "materials": 1,
   "clips": [
@@ -14,9 +14,19 @@
     "FallRight",
     "Recover"
   ],
+  "reach": {
+    "L": [
+      0.874,
+      0.662
+    ],
+    "R": [
+      0.874,
+      0.662
+    ]
+  },
   "lod_triangles": [
-    24241,
-    10665,
-    5504
+    25746,
+    11584,
+    4376
   ]
 }
