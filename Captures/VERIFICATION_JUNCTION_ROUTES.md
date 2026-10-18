@@ -85,5 +85,13 @@ Both the native images and desktop/mobile WebGL screenshots were visually inspec
 
 ## Publication
 
-The tested source and WebGL artifact are ready for the authorized GitHub Pages release.
-Deployment and live verification are recorded after publication.
+- Source and tested artifact commit: `97e40512cccc18507cc47da99058718ccfa56009`.
+- GitHub Pages deployment succeeded for that commit:
+  https://github.com/denispham1107/taixecongnghe/actions/runs/39106069048
+- Live game: https://denispham1107.github.io/taixecongnghe/
+- **22 live checks passed**: deployed version/cache and all resources match the tested
+  artifact; real WebAssembly startup and start/pause smoke succeed without runtime errors.
+  Evidence: `routes-live-results.json`.
+- Unity left in Play Mode Ready, time scale 1, version 1.10.0, current road Trần Hưng Đạo,
+  five road rows, eleven four-wheel actors and thirty-three motorcycle actors present.
+  Existing best distance **1775 m** retained.
