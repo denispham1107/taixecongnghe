@@ -37,6 +37,7 @@ namespace PhoViet
             public bool routeDetached;
             public Vector3 routeVelocity;
             public Vector3 routeEffectOffset;
+            public float rearEntryBoost;
             [NonSerialized] public Transform brakeLights;
         }
         public Font vietnameseFont;
@@ -264,8 +265,8 @@ namespace PhoViet
         {
             TickActionTimers(dt);
             timeRiding+=dt;cruiseSpeed=Mathf.Min(17+DifficultyTime*.12f,30)+(IsChased?chaseBoost:0);
-            Speed=IsTurning?Mathf.Min(cruiseSpeed,10):cruiseSpeed;
-            if(IsTurning&&dt>0)Speed=Mathf.Min(Speed,Mathf.Max(0,turnRadius*Mathf.PI*.5f-turnTravel)/dt);
+            Speed=IsTurning?Mathf.Min(cruiseSpeed,lateTurn?8:10):cruiseSpeed;
+            if(IsTurning&&dt>0)Speed=Mathf.Min(Speed,Mathf.Max(0,turnLength-turnTravel)/dt);
             Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;
             oldRiderZ=rider.localPosition.z;
@@ -305,12 +306,13 @@ namespace PhoViet
                 Vector3 previous=v.previousPosition;
                 Vector3 p=v.model.localPosition;
                 if(previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
-                if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&v.knockAge>8) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
+                if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || (v.enteringFromBehind&&!v.isReckless&&p.z< -95) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&v.knockAge>8) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
             }
             TickChase(dt);AnimateKick();
             if(State!=RideState.Riding)return;
             EndRouteFrame(dt);
             if(IsTurning)return;
+            TickExitTraffic(dt);
             ScheduleIntersection();
             spawnTimer-=dt;
             if(spawnTimer<=0)

@@ -4,7 +4,7 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.10.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.11.0**.
 
 - Desktop: mở link bằng Chrome/Edge/Firefox/Safari. Chrome và Edge có thể cài thành ứng dụng qua nút cài đặt của trình duyệt.
 - Android: mở bằng Chrome, chọn **Cài ứng dụng** trên trang hoặc trong menu trình duyệt. Đây là ứng dụng web PWA cài trực tiếp, không cần tải APK.
@@ -31,7 +31,7 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 - **← / →** hoặc **A / D**: đổi giữa 4 làn đường. Xe tự tiến.
 - Khi đang chạy: **Space** đạp xe máy bên trái/phải trong tầm, cả cùng chiều và ngược chiều. Không thể đạp ô tô, xe tải hoặc xe đang băng ngang. Có hồi chiêu 0,8 giây.
 - Điện thoại: vuốt trái/phải hoặc chạm hai nút mũi tên.
-- **Rẽ giao lộ:** trong vùng mũi tên trắng trước giao lộ (cách tâm khoảng 12–30 m), làn ngoài cùng trái được chọn rẽ trái, làn ngoài cùng phải được chọn rẽ phải bằng một lần bấm/vuốt đúng hướng. Hai làn giữa đi thẳng. Ngoài vùng này điều khiển vẫn đổi làn; đổi sang làn khác sẽ hủy lệnh rẽ đã chọn. Khi ôm cua xe tự điều chỉnh tốc độ, camera chuyển mượt và xe giữ đúng vị trí làn sau khi rẽ, kể cả làn ngoài cùng trái theo lựa chọn của người chơi.
+- **Rẽ giao lộ:** trong vùng mũi tên trắng trước giao lộ (cách tâm khoảng 12–30 m), làn ngoài cùng trái được chọn rẽ trái, làn ngoài cùng phải được chọn rẽ phải bằng một lần bấm/vuốt đúng hướng. **Trong lòng giao lộ cũng nhận rẽ ngay**, không cần chọn trước: xe ở phía sát lề trái được rẽ trái, phía sát lề phải được rẽ phải (trong chiều rộng 14 m của đường giao nhau). Hai làn giữa tiếp tục đổi làn. Ngoài vùng rẽ điều khiển vẫn đổi làn; đổi sang làn khác hủy lệnh rẽ đã chọn. Xe tự ôm cua, camera chuyển mượt và vẫn giữ vị trí làn sau cua như đã chọn trước đó, kể cả làn ngoài cùng trái.
 - Điện thoại: **chạm hai lần liên tiếp** trong vùng chơi để đạp; chạm các nút điều khiển hoặc HUD không kích hoạt cú đạp.
 - **P / Esc** hoặc nút **Ⅱ**: tạm dừng / đi tiếp.
 - Sau va chạm: **R / Space** hoặc nút chơi lại.
@@ -53,7 +53,11 @@ Bản **1.2.0** tăng nhịp độ khó thêm **50% so với 1.1.0**: tốc đ�
 
 ## Nội dung
 
-Bản hiện tại **1.10.0**:
+Bản hiện tại **1.11.0**:
+
+- Mũi tên trên hai đường nhánh được dời ra ngoài mép vạch qua đường, có khoảng trống hơn 1,5 m; màu sơn và số lượng mũi tên giữ nguyên ở cả bốn phía.
+- Nhận lệnh rẽ trực tiếp trong lòng giao lộ tại đúng phía lề, kể cả đã đi qua vạch người đi bộ và chưa chọn rẽ từ trước. Quỹ đạo nối mượt giúp lệnh rẽ muộn nhập đúng làn đã xác nhận, giữ va chạm và truy đuổi hoạt động.
+- Mỗi lần vừa rẽ xong có đợt **6–10 xe ngẫu nhiên**: 3–5 xe cùng chiều từ ngoài màn hình phía sau vượt lên và 3–5 xe ngược chiều từ xa đi tới. Loại xe, làn, vận tốc, vị trí và nhịp xuất hiện thay đổi mỗi lượt. Xe không xuất hiện chồng lên xe khác hay CSGT; nếu bộ xe đang đầy thì chờ chỗ trống, không dời xe đang chạy để lấy chỗ. Khi vượt qua người chơi, xe từ phía sau trở lại hành vi giao thông bình thường.
 
 - Mỗi giao lộ có **16 mũi tên sơn màu vạch qua đường**, chia đều cả bốn hướng tiếp cận. Có đường nhánh thật nối tiếp nhà cửa, quán phở/hủ tiếu/mì gõ, tạp hóa, sửa xe, người đi bộ, cây xanh và xe đậu.
 - Rẽ trái/phải theo cung cong 90 độ, góc nhìn phía sau xoay và trở lại mượt mà; quãng đường, độ khó và truy đuổi tiếp tục. Tên đường được chọn từ 48 tên Việt Nam, tránh trùng đường đã ghé trong cùng lượt. Đi thẳng vẫn ở trên cùng một đường.

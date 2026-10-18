@@ -19,6 +19,9 @@ namespace PhoViet
         readonly HashSet<string> visitedStreets=new HashSet<string>();
         int mainRow,leftRow=1,rightRow=2,turnSide;
         float junctionAt,roadOffset,turnRadius,turnTravel,cameraTurnBlend,oldRiderZ;
+        float turnLength;bool lateTurn;
+        Vector3 lateControl1,lateControl2,lateEnd;
+        readonly float[] lateArcLengths=new float[65];
         Vector3 turnStart,crashTurnPosition;Quaternion crashTurnRotation;
         string junctionStreet;
         bool turnCrash,routePolice;float policeRouteAt,policeFallYaw,turnEndAt;
@@ -28,6 +31,7 @@ namespace PhoViet
         void ResetRoutes()
         {
             IsTurning=false;QueuedTurn=0;CompletedTurns=0;TurnYaw=0;roadOffset=0;cameraTurnBlend=0;turnCrash=false;routePolice=false;oldRiderZ=0;
+            ResetExitTraffic();lateTurn=false;turnLength=0;
             mainRow=0;RouteStreet="Trần Hưng Đạo";visitedStreets.Clear();visitedStreets.Add(RouteStreet);routeTrail.Clear();
             for(int i=-160;i<=0;i+=2)routeTrail.Add(new RoutePoint(i,new Vector3(LaneX[2],0,i),0));
             if(!RoutesReady)return;
@@ -69,6 +73,12 @@ namespace PhoViet
             if(!RoutesReady||direction==0)return false;if(IsTurning)return true;
             if(QueuedTurn==Math.Sign(direction)&&(direction<0?CurrentLane==0:CurrentLane==3))return true;
             float near=NextJunctionDistance;
+            // Accept an unqueued turn throughout the actual open intersection.
+            bool atEdge=direction<0?rider.localPosition.x<=-3.1f:rider.localPosition.x>=3.1f;
+            if(near>=-7&&near<=7&&atEdge)
+            {
+                CurrentLane=direction<0?0:3;QueuedTurn=Math.Sign(direction);StartJunctionTurn(true);return true;
+            }
             bool lane=direction<0?CurrentLane==0:CurrentLane==3;
             if(near>=12&&near<=30&&lane&&Mathf.Abs(rider.localPosition.x-LaneX[CurrentLane])<.6f)
             {
@@ -88,23 +98,57 @@ namespace PhoViet
             if(!IsTurning&&QueuedTurn!=0&&NextJunctionDistance<=11.65f)
             {
                 if((QueuedTurn<0?CurrentLane!=0:CurrentLane!=3)||Mathf.Abs(rider.localPosition.x-LaneX[CurrentLane])>.65f){QueuedTurn=0;return;}
-                IsTurning=true;turnSide=QueuedTurn;QueuedTurn=0;turnStart=rider.localPosition;
-                turnRadius=Mathf.Max(4,NextJunctionDistance-4.65f);turnTravel=0;TurnYaw=0;
-                if(IsChased){routePolice=true;policeRouteAt=Distance-PoliceDistance;}
+                StartJunctionTurn(false);
                 return;
             }
             if(!IsTurning)return;
-            turnTravel=Mathf.Min(turnRadius*Mathf.PI*.5f,turnTravel+delta);
-            float angle=turnTravel/turnRadius;TurnYaw=turnSide*angle*Mathf.Rad2Deg;
-            rider.localPosition=new Vector3(turnStart.x+turnSide*turnRadius*(1-Mathf.Cos(angle)),0,turnStart.z+turnRadius*Mathf.Sin(angle)-turnTravel);
-            rider.localRotation=Quaternion.Euler(0,TurnYaw,-turnSide*18*Mathf.Sin(angle*2));lastX=rider.localPosition.x;
+            turnTravel=Mathf.Min(turnLength,turnTravel+delta);
+            if(lateTurn)
+            {
+                int i=1;while(i<lateArcLengths.Length-1&&lateArcLengths[i]<turnTravel)i++;
+                float fraction=Mathf.InverseLerp(lateArcLengths[i-1],lateArcLengths[i],turnTravel),t=(i-1+fraction)/64;
+                float u=1-t;
+                Vector3 tangent=3*u*u*(lateControl1-turnStart)+6*u*t*(lateControl2-lateControl1)+3*t*t*(lateEnd-lateControl2);
+                TurnYaw=Mathf.Atan2(tangent.x,tangent.z)*Mathf.Rad2Deg;
+                rider.localPosition=LateTurnPoint(t)-Vector3.forward*turnTravel;
+                rider.localRotation=Quaternion.Euler(0,TurnYaw,-turnSide*16*Mathf.Sin(t*Mathf.PI));
+            }
+            else
+            {
+                float angle=turnTravel/turnRadius;TurnYaw=turnSide*angle*Mathf.Rad2Deg;
+                rider.localPosition=new Vector3(turnStart.x+turnSide*turnRadius*(1-Mathf.Cos(angle)),0,turnStart.z+turnRadius*Mathf.Sin(angle)-turnTravel);
+                rider.localRotation=Quaternion.Euler(0,TurnYaw,-turnSide*18*Mathf.Sin(angle*2));
+            }
+            lastX=rider.localPosition.x;
+        }
+        void StartJunctionTurn(bool late)
+        {
+            IsTurning=true;turnSide=QueuedTurn;QueuedTurn=0;turnStart=rider.localPosition;turnStart.y=0;
+            turnRadius=Mathf.Max(4,NextJunctionDistance-4.65f);turnTravel=0;TurnYaw=0;lateTurn=late;
+            turnLength=turnRadius*Mathf.PI*.5f;
+            if(late)
+            {
+                // A late input needs room to align with the same exit lane. A tangent-
+                // continuous curve keeps the bike inside the union of the two roads.
+                lateControl1=turnStart+Vector3.forward*3;
+                lateEnd=new Vector3(turnSide*20,0,NextJunctionDistance-4.65f);
+                lateControl2=lateEnd-Vector3.right*turnSide*6;
+                Vector3 previous=turnStart;lateArcLengths[0]=0;
+                for(int i=1;i<65;i++){Vector3 p=LateTurnPoint(i/64f);lateArcLengths[i]=lateArcLengths[i-1]+Vector3.Distance(previous,p);previous=p;}
+                turnLength=lateArcLengths[64];
+            }
+            if(IsChased&&!routePolice){routePolice=true;policeRouteAt=Distance-PoliceDistance;}
+        }
+        Vector3 LateTurnPoint(float t)
+        {
+            float u=1-t;return u*u*u*turnStart+3*u*u*t*lateControl1+3*u*t*t*lateControl2+t*t*t*lateEnd;
         }
         void EndRouteFrame(float dt)
         {
             if(!RoutesReady)return;
             if(routeTrail.Count==0||Distance-routeTrail[routeTrail.Count-1].at>.3f)routeTrail.Add(new RoutePoint(Distance,rider.localPosition,TurnYaw));
             while(routeTrail.Count>2&&routeTrail[1].at<Distance-180)routeTrail.RemoveAt(0);
-            if(IsTurning&&turnTravel>=turnRadius*Mathf.PI*.5f-.0001f){FinishJunctionTurn();return;}
+            if(IsTurning&&turnTravel>=turnLength-.0001f){FinishJunctionTurn();return;}
             if(!IsTurning&&NextJunctionDistance< -18)PrepareBranches(NextJunctionDistance+80);
             cameraTurnBlend=Mathf.Max(0,cameraTurnBlend-dt);
         }
@@ -144,11 +188,13 @@ namespace PhoViet
             RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;turnCrash=false;cameraTurnBlend=.7f;turnEndAt=Distance;
             float nearest=float.MaxValue;foreach(var b in blocks){float z=b.localPosition.z+70;if(z>12)nearest=Mathf.Min(nearest,z);}
             nextIntersectionDistance=Distance+nearest;leftRow=oldMain;rightRow=unused;PrepareBranches(nearest);notice="ĐÃ VÀO ĐƯỜNG "+RouteStreet.ToUpperInvariant();noticeTimer=2;
+            QueueExitTraffic();
         }
         void RouteTurnHud()
         {
             if(!RoutesReady||State!=RideState.Riding)return;
             string value=IsTurning?"ĐANG RẼ · "+junctionStreet:QueuedTurn!=0?"ĐÃ CHỌN RẼ "+(QueuedTurn<0?"TRÁI":"PHẢI")+" · "+junctionStreet:
+                NextJunctionDistance>=-7&&NextJunctionDistance<=7?"SÁT LỀ TRÁI / PHẢI: BẤM HOẶC VUỐT ĐỂ RẼ NGAY":
                 NextJunctionDistance<=30&&NextJunctionDistance>12?"LÀN NGOÀI CÙNG: BẤM / VUỐT ĐỂ CHỌN RẼ":"";
             if(value.Length==0)return;float w=portrait?420:540;Panel(new Rect((uiW-w)/2,portrait?115:100,w,38),StreetArt.Ink);Txt(value,(uiW-w)/2+10,portrait?123:108,w-20,24,portrait?11:13,StreetArt.Cream,TextAnchor.MiddleCenter);
         }

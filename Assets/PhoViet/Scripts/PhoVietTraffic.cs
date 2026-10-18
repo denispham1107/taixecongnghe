@@ -20,7 +20,7 @@ namespace PhoViet
         }
         void InitializeDriver(TrafficVehicle v)
         {
-            v.routeDetached=false;v.routeVelocity=Vector3.zero;
+            v.routeDetached=false;v.routeVelocity=Vector3.zero;v.rearEntryBoost=0;
             v.knocked=false;v.wallCrashed=false;v.knockFromPlayer=false;v.knockVelocity=Vector3.zero;v.knockAge=0;v.playerGrace=0;
             v.enteringFromBehind=false;
             v.brakeRemaining=0;v.brakeCooldown=1.1f+(float)rng.NextDouble()*1.7f;
@@ -63,6 +63,11 @@ namespace PhoViet
         void TickLongitudinalVehicle(TrafficVehicle v,float dt)
         {
             bool same=v.baseTrafficSpeed>0;Vector3 p=v.model.localPosition;
+            if(v.enteringFromBehind&&!v.isReckless)
+            {
+                v.baseTrafficSpeed=Mathf.Max(v.baseTrafficSpeed,Speed+v.rearEntryBoost);
+                if(p.z>4){v.enteringFromBehind=false;v.baseTrafficSpeed=7+(float)rng.NextDouble()*7;}
+            }
             v.brakeCooldown-=dt;v.laneCooldown-=dt;
             if(trafficSurprises&&same&&!v.isReckless&&dt>0)
             {

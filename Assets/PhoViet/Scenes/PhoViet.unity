@@ -269926,6 +269926,7 @@ MonoBehaviour:
   rightKickLeg: {fileID: 151585628}
   redBeacon: {fileID: 1581132127}
   blueBeacon: {fileID: 1236734410}
+  turnExitTrafficEnabled: 1
   vietnameseFont: {fileID: 12800000, guid: f72a0311d028fa1428e7cd2038ab4849, type: 3}
   worldTextMaterial: {fileID: 2100000, guid: c2e4898df1406c24991776a9edd25cc5, type: 2}
   scenery: {fileID: 963172432}
@@ -270422,6 +270423,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1963547594}
     lane: 0
     speed: 0
@@ -270483,6 +270486,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 142672070}
     lane: 0
     speed: 0
@@ -270544,6 +270549,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1185390696}
     lane: 0
     speed: 0
@@ -270605,6 +270612,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1392914635}
     lane: 0
     speed: 0
@@ -270666,6 +270675,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1852985249}
     lane: 0
     speed: 0
@@ -270727,6 +270738,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1922601877}
     lane: 0
     speed: 0
@@ -270788,6 +270801,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 9420100}
     lane: 0
     speed: 0
@@ -270849,6 +270864,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1774163179}
     lane: 0
     speed: 0
@@ -270910,6 +270927,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 900081884}
     lane: 0
     speed: 0
@@ -270971,6 +270990,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1985829105}
     lane: 0
     speed: 0
@@ -271032,6 +271053,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 278696106}
     lane: 0
     speed: 0
@@ -271093,6 +271116,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 739469352}
     lane: 0
     speed: 0
@@ -271154,6 +271179,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 982033484}
     lane: 0
     speed: 0
@@ -271215,6 +271242,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 368774397}
     lane: 0
     speed: 0
@@ -271276,6 +271305,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 771218481}
     lane: 0
     speed: 0
@@ -271337,6 +271368,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1002816636}
     lane: 0
     speed: 0
@@ -271398,6 +271431,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 678929730}
     lane: 0
     speed: 0
@@ -271459,6 +271494,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1247526008}
     lane: 0
     speed: 0
@@ -271520,6 +271557,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 697971907}
     lane: 0
     speed: 0
@@ -271581,6 +271620,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 862724412}
     lane: 0
     speed: 0
@@ -271642,6 +271683,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 450430129}
     lane: 0
     speed: 0
@@ -271703,6 +271746,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1888307410}
     lane: 0
     speed: 0
@@ -271764,6 +271809,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 165034721}
     lane: 0
     speed: 0
@@ -271825,6 +271872,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 573475469}
     lane: 0
     speed: 0
@@ -271886,6 +271935,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1370278126}
     lane: 0
     speed: 0
@@ -271947,6 +271998,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1416126248}
     lane: 0
     speed: 0
@@ -272008,6 +272061,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   - model: {fileID: 1435612062}
     lane: 0
     speed: 0
@@ -272069,6 +272124,8 @@ MonoBehaviour:
     previousYaw: 0
     routeDetached: 0
     routeVelocity: {x: 0, y: 0, z: 0}
+    routeEffectOffset: {x: 0, y: 0, z: 0}
+    rearEntryBoost: 0
   sound: 1
   recklessBikeModel: {fileID: 573475469}
   recklessTruckModel: {fileID: 1370278126}

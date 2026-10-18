@@ -15,8 +15,8 @@ public static class VerifyJunctionRoutes
         Action<string,object> set=(n,v)=>typeof(PhoVietGame).GetField(n,F).SetValue(g,v);
         Action<float> step=dt=>typeof(PhoVietGame).GetMethod("TickRide",F).Invoke(g,new object[]{dt});
         Action<string,object[]> call=(n,args)=>typeof(PhoVietGame).GetMethod(n,F).Invoke(g,args);
-        float scale=Time.timeScale;int best=PlayerPrefs.GetInt("PhoViet.BestMetres.v1",0);bool reckless=g.recklessTrafficEnabled,surprises=g.trafficSurprises;
-        Action clean=()=>{g.RestartRide();g.trafficSurprises=false;g.recklessTrafficEnabled=false;foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("spawnTimer",100000f);set("nextIntersectionDistance",float.PositiveInfinity);};
+        float scale=Time.timeScale;int best=PlayerPrefs.GetInt("PhoViet.BestMetres.v1",0);bool reckless=g.recklessTrafficEnabled,surprises=g.trafficSurprises,exitTraffic=g.turnExitTrafficEnabled;
+        Action clean=()=>{g.turnExitTrafficEnabled=false;g.RestartRide();g.trafficSurprises=false;g.recklessTrafficEnabled=false;foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("spawnTimer",100000f);set("nextIntersectionDistance",float.PositiveInfinity);};
         Action<int> lane=n=>{typeof(PhoVietGame).GetProperty("CurrentLane").SetValue(g,n);g.rider.localPosition=new Vector3(PhoVietGame.LaneX[n],0,0);};
         Action approach=()=>{int guard=0;while(g.NextJunctionDistance>24&&guard++<300)step(.02f);if(guard>=300)throw new Exception("Approach timeout");};
         Action begin=()=>{int guard=0;while(!g.IsTurning&&guard++<150)step(.02f);if(guard>=150)throw new Exception("Begin timeout");};
@@ -92,6 +92,6 @@ public static class VerifyJunctionRoutes
             g.ResetRide();check(g.CompletedTurns==0&&!g.IsTurning&&g.QueuedTurn==0&&g.CurrentStreet=="Trần Hưng Đạo"&&g.roadRows[0].root.gameObject.activeSelf,"Restart restores original road, name, controls and branch pool");
             return new{success=true,count=checks.Count,checks};
         }
-        finally{g.trafficSurprises=surprises;g.recklessTrafficEnabled=reckless;g.ResetRide();PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.Save();Time.timeScale=scale;}
+        finally{g.turnExitTrafficEnabled=exitTraffic;g.trafficSurprises=surprises;g.recklessTrafficEnabled=reckless;g.ResetRide();PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.Save();Time.timeScale=scale;}
     }
 }

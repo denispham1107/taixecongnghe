@@ -21,6 +21,13 @@ namespace PhoViet.Editor
             if(textMaterial==null){textMaterial=new Material(Shader.Find("PhoViet/World Street Text")){name="PV_WorldStreetText"};AssetDatabase.CreateAsset(textMaterial,materialPath);}
             game.worldTextMaterial=textMaterial;StreetArt.ConfigureWorldText(game.vietnameseFont,textMaterial);
             foreach(var text in game.GetComponentsInChildren<TextMesh>(true))text.GetComponent<Renderer>().sharedMaterial=textMaterial;
+            var arrowTemplate=JunctionStreetArt.CreateArrowMesh();var refreshed=new HashSet<Mesh>();
+            foreach(var filter in game.scenery.GetComponentsInChildren<MeshFilter>(true))
+            {
+                if(!filter.name.StartsWith("Vạch mũi tên giao lộ",StringComparison.Ordinal)||filter.sharedMesh==null||!refreshed.Add(filter.sharedMesh))continue;
+                EditorUtility.CopySerialized(arrowTemplate,filter.sharedMesh);EditorUtility.SetDirty(filter.sharedMesh);
+            }
+            UnityEngine.Object.DestroyImmediate(arrowTemplate);
             if(game.roadRows.Count==5)return;
             StreetArt.Font=game.vietnameseFont;
             foreach(var block in game.blocks)JunctionStreetArt.AddArrows(block);

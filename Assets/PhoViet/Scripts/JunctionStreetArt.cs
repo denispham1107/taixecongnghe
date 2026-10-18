@@ -7,6 +7,11 @@ namespace PhoViet
         public static Transform AddArrows(Transform block)
         {
             var old=block.Find("Vạch mũi tên giao lộ • 4 hướng");if(old!=null)return old;
+            var root=StreetArt.Group("Vạch mũi tên giao lộ • 4 hướng",block);
+            root.gameObject.AddComponent<MeshFilter>().sharedMesh=CreateArrowMesh();root.gameObject.AddComponent<MeshRenderer>().sharedMaterial=StreetArt.Mat(StreetArt.Cream);return root;
+        }
+        public static Mesh CreateArrowMesh()
+        {
             var vertices=new List<Vector3>();var indices=new List<int>();
             for(int arm=0;arm<4;arm++)
             {
@@ -28,11 +33,16 @@ namespace PhoViet
                     }
                 }
             }
-            var root=StreetArt.Group("Vạch mũi tên giao lộ • 4 hướng",block);
             var mesh=new Mesh{name="PV_JunctionArrows16"};mesh.SetVertices(vertices);mesh.SetTriangles(indices,0);mesh.RecalculateNormals();mesh.RecalculateBounds();
-            root.gameObject.AddComponent<MeshFilter>().sharedMesh=mesh;root.gameObject.AddComponent<MeshRenderer>().sharedMaterial=StreetArt.Mat(StreetArt.Cream);return root;
+            return mesh;
         }
-        static Vector3 Point(Quaternion q,int lane,Vector2 p)=>new Vector3(0,.035f,VietnamStreet.IntersectionCenter)+q*new Vector3(PhoVietGame.LaneX[lane]+p.x,0,-13.5f+p.y);
+        static Vector3 Point(Quaternion q,int lane,Vector2 p)
+        {
+            // Side crosswalks are 12 m from centre (the main-road ones are 9 m).
+            // Leave a clear gap past the outside edge of each crosswalk.
+            bool side=Mathf.Abs((q*Vector3.forward).x)>.5f;
+            return new Vector3(0,.035f,VietnamStreet.IntersectionCenter)+q*new Vector3(PhoVietGame.LaneX[lane]+p.x,0,-(side?16f:13.5f)+p.y);
+        }
         static void Triangle(List<Vector3> v,List<int> f,Quaternion q,int lane,Vector2 a,Vector2 b,Vector2 c)
         {
             int n=v.Count;v.Add(Point(q,lane,a));v.Add(Point(q,lane,b));v.Add(Point(q,lane,c));
