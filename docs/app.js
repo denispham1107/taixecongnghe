@@ -122,6 +122,20 @@ document.addEventListener('visibilitychange',()=>{
 });
 window.addEventListener('pageshow',scheduleViewport);
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
+// HUD uses one pointer path for mouse, touch and pen, independent of Unity frame timing.
+let hudPointerStart=null;
+canvas.addEventListener('pointerdown',e=>{
+  if(!e.isPrimary||e.button!==0){hudPointerStart=null;return;}
+  hudPointerStart={id:e.pointerId,x:e.clientX,y:e.clientY};
+},{passive:true});
+canvas.addEventListener('pointercancel',()=>{hudPointerStart=null;},{passive:true});
+canvas.addEventListener('pointerup',e=>{
+  const start=hudPointerStart;hudPointerStart=null;
+  if(!start||start.id!==e.pointerId||!unityInstance)return;
+  const r=canvas.getBoundingClientRect();
+  if(r.width<=0||r.height<=0||Math.hypot(e.clientX-start.x,e.clientY-start.y)>r.width*.035)return;
+  unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','ApplyHudTap',JSON.stringify({x:(e.clientX-r.x)/r.width,y:(e.clientY-r.y)/r.height}));
+},{passive:true});
 window.addEventListener('keydown',e=>{
   if(unityInstance && document.activeElement===canvas && ['Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault();
 });

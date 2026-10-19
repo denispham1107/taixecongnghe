@@ -122,19 +122,19 @@ document.addEventListener('visibilitychange',()=>{
 });
 window.addEventListener('pageshow',scheduleViewport);
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
-// Keep HUD taps reliable even if software WebGL renders no frame during a short tap.
-let hudTouchStart=null;
-canvas.addEventListener('touchstart',e=>{
-  if(e.touches.length!==1){hudTouchStart=null;return;}
-  const t=e.touches[0];hudTouchStart={id:t.identifier,x:t.clientX,y:t.clientY};
+// HUD uses one pointer path for mouse, touch and pen, independent of Unity frame timing.
+let hudPointerStart=null;
+canvas.addEventListener('pointerdown',e=>{
+  if(!e.isPrimary||e.button!==0){hudPointerStart=null;return;}
+  hudPointerStart={id:e.pointerId,x:e.clientX,y:e.clientY};
 },{passive:true});
-canvas.addEventListener('touchcancel',()=>{hudTouchStart=null;},{passive:true});
-canvas.addEventListener('touchend',e=>{
-  const start=hudTouchStart;hudTouchStart=null;
-  if(!start||!unityInstance)return;
-  const t=Array.from(e.changedTouches).find(t=>t.identifier===start.id),r=canvas.getBoundingClientRect();
-  if(!t||r.width<=0||r.height<=0||Math.hypot(t.clientX-start.x,t.clientY-start.y)>r.width*.035)return;
-  unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','ApplyHudTap',JSON.stringify({x:(t.clientX-r.x)/r.width,y:(t.clientY-r.y)/r.height}));
+canvas.addEventListener('pointercancel',()=>{hudPointerStart=null;},{passive:true});
+canvas.addEventListener('pointerup',e=>{
+  const start=hudPointerStart;hudPointerStart=null;
+  if(!start||start.id!==e.pointerId||!unityInstance)return;
+  const r=canvas.getBoundingClientRect();
+  if(r.width<=0||r.height<=0||Math.hypot(e.clientX-start.x,e.clientY-start.y)>r.width*.035)return;
+  unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','ApplyHudTap',JSON.stringify({x:(e.clientX-r.x)/r.width,y:(e.clientY-r.y)/r.height}));
 },{passive:true});
 window.addEventListener('keydown',e=>{
   if(unityInstance && document.activeElement===canvas && ['Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault();

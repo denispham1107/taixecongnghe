@@ -42,8 +42,14 @@ namespace PhoViet
   bool HudButton(string value,Rect rect,Color bg,Color fg,int size)
   {
    bool clicked=Btn(value,rect,bg,fg,size);
+#if UNITY_WEBGL && !UNITY_EDITOR
+   // The browser pointer bridge owns these buttons, including mouse, touch and pen.
+   // Never process its later compatibility mouse event a second time.
+   return false;
+#else
    // A browser may synthesize a mouse event after touch; consume each HUD tap once.
    return Time.unscaledTime>=hudTouchSuppressUntil&&clicked;
+#endif
   }
   string HudEllipsis(string text,float width,int size)
   {

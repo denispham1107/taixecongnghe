@@ -1,0 +1,71 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyPursuit.cs",
+      "entry": "VerifyPursuit.Main",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 171,
+      "executeMs": 245,
+      "assemblyName": "PipelineRunScript_VerifyPursuit_60d67b5721ad4c43ba82579645b058e8",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 39,
+        "checks": [
+          "Difficulty clock is 50 percent faster than v1.1 (2 -> 3)",
+          "Saved scene includes animated legs, police motorcycle and jail",
+          "Cannot kick before the ride begins",
+          "Empty kick does not summon police",
+          "Cars are not valid kick targets",
+          "Distant motorcycle is not parallel",
+          "Oncoming ordinary motorcycles can be kicked and summon police",
+          "Space action knocks a valid parallel motorcycle",
+          "Right kick sends the bike away to the right",
+          "First successful kick starts police pursuit",
+          "Police initially approach rapidly from behind",
+          "Kick cooldown prevents repeated impacts in the same instant",
+          "Unobstructed rider avoids capture",
+          "After arrival the player is slightly faster than police",
+          "Player speed keeps increasing during pursuit",
+          "Further kicks do not reset the police gap",
+          "Left-side target produces a leftward kick",
+          "Only the kicking-side leg extends",
+          "No kick while paused",
+          "Domino setup starts with a valid rightward kick",
+          "Falling motorcycle knocks down another motorcycle",
+          "Car running into the domino wreck receives a mass-based collision response",
+          "Chain counter records secondary motorcycle and car impacts",
+          "Player credit propagates through the chain without arbitrary launch directions",
+          "Already-fallen vehicles are not counted repeatedly",
+          "A following car that runs over the downed motorcycle slows from the physical impact",
+          "A single mobile tap does not kick",
+          "Two close taps trigger the same kick action",
+          "Separated taps are not a double tap",
+          "Tapping steering controls cannot accidentally kick",
+          "Spatially separated taps are not a double tap",
+          "Traffic impact during pursuit spends one life and begins a fall",
+          "Police catching the rider still triggers capture independently of traffic crashes",
+          "Capture transitions to the jail scene",
+          "Street actors are hidden in jail",
+          "Camera switches to the prison set",
+          "Cannot attack from the jail screen",
+          "Restart exits prison and restores the city",
+          "Restart clears combat and pursuit state"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
