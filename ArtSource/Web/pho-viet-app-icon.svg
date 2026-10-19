@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+ <title id="title">Phố Việt — Xe máy sao vàng</title>
+ <desc id="desc">Logo vector xe máy đỏ nhìn chính diện, sao vàng năm cánh và con đường trên nền xanh đậm.</desc>
+ <rect width="512" height="512" fill="#173F43"/>
+ <circle cx="256" cy="256" r="218" fill="#204B4E"/>
+ <path d="M175 512 237 32h38l62 480Z" fill="#2D5B5C"/>
+ <path d="M256 59v27m0 25v27m0 325v28" fill="none" stroke="#FFD45A" stroke-width="9" stroke-linecap="round"/>
+ <ellipse cx="256" cy="435" rx="73" ry="13" fill="#123337"/>
+ <rect x="223" y="343" width="66" height="100" rx="31" fill="#112D33" stroke="#FFF2D5" stroke-width="7"/>
+ <path d="M242 398v24" stroke="#396267" stroke-width="8" stroke-linecap="round"/>
+ <path d="m219 349-7 58m81-58 7 58" fill="none" stroke="#FFF2D5" stroke-width="10" stroke-linecap="round"/>
+ <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m184 185-34 3-15-27m193 24 34 3 15-27" stroke="#102F35" stroke-width="19"/>
+  <path d="m184 185-34 3-15-27m193 24 34 3 15-27" stroke="#FFF2D5" stroke-width="9"/>
+  <path d="M139 190h34m166 0h34" stroke="#E3483E" stroke-width="13"/>
+ </g>
+ <g fill="#FFF2D5" stroke="#123337" stroke-width="7">
+  <ellipse cx="130" cy="148" rx="24" ry="16" transform="rotate(22 130 148)"/>
+  <ellipse cx="382" cy="148" rx="24" ry="16" transform="rotate(-22 382 148)"/>
+ </g>
+ <path d="M194 229q-33 25-26 70l23 77q5 22 29 25h72q24-3 29-25l23-77q7-45-26-70Z" fill="#E3483E" stroke="#FFF2D5" stroke-width="8" stroke-linejoin="round"/>
+ <path d="m192 252 13 112q3 18 23 27h-9q-17-2-22-20l-22-75q-4-24 17-44Z" fill="#BD3437"/>
+ <path d="M314 252q21 22 15 49l-17 51 1-72q4-15 1-28Z" fill="#F97654"/>
+ <path d="M203 254q53 27 106 0" fill="none" stroke="#FFF2D5" stroke-width="9" stroke-linecap="round"/>
+ <path d="m256 277 8 23 25 1-19 15 6 24-20-14-20 14 6-24-19-15 25-1Z" fill="#FFD45A"/>
+ <rect x="227" y="369" width="58" height="13" rx="6.5" fill="#FFF2D5"/>
+ <path d="M192 165q64-23 128 0l16 31q-1 30-28 43H204q-27-13-28-43Z" fill="#E3483E" stroke="#123337" stroke-width="8" stroke-linejoin="round"/>
+ <path d="M191 183q65-18 130 0l-11 32q-54 29-108 0Z" fill="#FFD45A" stroke="#FFF2D5" stroke-width="6" stroke-linejoin="round"/>
+ <path d="M213 190q43-8 86 0l-8 19q-35 16-70 0Z" fill="#FFF8E7"/>
+ <path d="M218 169q38-9 76 0" fill="none" stroke="#F97654" stroke-width="5" stroke-linecap="round"/>
+</svg>

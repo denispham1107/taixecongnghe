@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "checks": [
+    "Unchanged gameplay artifact: 18b9da0db81d3e8a6ec12b77d09f4f7e.loader.js",
+    "Unchanged gameplay artifact: 53aaacf69d6f037d46ce22b0f2274d18.data.unityweb",
+    "Unchanged gameplay artifact: 6b8fbb1245fbc83be7850fb211f7d67e.wasm.unityweb",
+    "Unchanged gameplay artifact: dabac52ef8e37e718a30d4ba9afd3e8d.framework.js.unityweb",
+    "SVG contains vector geometry only",
+    "New offline cache"
+  ],
+  "build": {
+    "version": "1.18.0",
+    "cache": "d768860be0a4d815",
+    "unity": "6000.5.6f1",
+    "utc": "2026-10-19T09:00:04.0872965Z"
+  }
+}

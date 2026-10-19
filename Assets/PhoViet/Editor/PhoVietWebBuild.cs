@@ -58,6 +58,20 @@ namespace PhoViet.Editor
             if(!File.Exists(Path.Combine(root,"index.html")))throw new Exception("Build WebGL first");
             foreach(string file in new[]{"style.css","app.js","manifest.webmanifest"})
                 File.Copy("Assets/WebGLTemplates/PhoVietPWA/"+file,Path.Combine(root,file),true);
+            Directory.CreateDirectory(Path.Combine(root,"icons"));
+            foreach(string icon in Directory.GetFiles("Assets/WebGLTemplates/PhoVietPWA/icons"))
+                if(!icon.EndsWith(".meta"))File.Copy(icon,Path.Combine(root,"icons",Path.GetFileName(icon)),true);
+            // Keep the generated Unity loader/configuration while refreshing icon URLs.
+            string htmlPath=Path.Combine(root,"index.html"),html=File.ReadAllText(htmlPath);
+            string template=File.ReadAllText("Assets/WebGLTemplates/PhoVietPWA/index.html");
+            foreach(string rel in new[]{"icon","apple-touch-icon"})
+            {
+                string pattern="<link rel=\""+rel+"\"[^>]*>";
+                string tag=System.Text.RegularExpressions.Regex.Match(template,pattern).Value;
+                if(string.IsNullOrEmpty(tag))throw new Exception("Missing template icon: "+rel);
+                html=System.Text.RegularExpressions.Regex.Replace(html,pattern,tag);
+            }
+            File.WriteAllText(htmlPath,html);
             FinalizeWebOutput(root);
         }
 

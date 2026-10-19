@@ -1,11 +1,19 @@
-# Phố Việt installed app icon
+# Phố Việt — vector motorcycle logo
 
-Generated with the built-in imagegen tool. Source: `pho-viet-app-icon.png`.
-Regenerate platform sizes with `node AgentScripts/GenerateWebIcons.cjs` (requires sharp).
-Desktop/Android use the manifest 192/512 PNGs; Android adaptive crops use the
-maskable PNG; iOS uses the opaque 180px Apple touch icon. The source is an
-edge-to-edge square; platforms apply their own corner/circle masks.
+The current editable source is `pho-viet-app-icon.svg`. It contains SVG paths,
+ellipses and rectangles only: no embedded bitmap, external image or font.
+The approved design is a front-facing red scooter with a complete five-pointed
+yellow star and a road, using dark teal, red, yellow and warm cream.
+The main scooter stays within the central maskable circle for Android crops.
 
-Prompt:
+Run `node AgentScripts/GenerateWebIcons.cjs` to export 192px and 512px desktop/
+Android icons, the 512px maskable icon, and the opaque 180px Apple touch icon.
+The PNGs are raster exports of the vector, as required by these install surfaces.
+`icon.svg` remains a real editable vector. The new `*-moto-*` URLs distinguish
+this artwork from the previous installed image; legacy generic URLs are updated
+with the same vector exports for compatibility. No image generation is used.
 
-Use case: stylized-concept. Asset type: square installed app icon for Vietnamese motorcycle driving game PHỐ VIỆT. Create one polished playful semi-realistic 3D illustration: friendly Vietnamese male motorbike driver wearing a red shirt with one complete yellow five-pointed star centered on his chest, cream open-face safety helmet, riding a red urban scooter, front three-quarter view. Behind him a simplified Vietnamese streetscape with colorful narrow shophouses, striped awning, warm sunny sky, dark teal accents. Strong readable silhouette, bold cheerful colors and appealing expressive face. Center the whole driver and scooter within central 70 percent safe circle, helmet not near edge; small-town scenery fills entire square edge-to-edge. Close composition readable at 48 pixels, crisp professionally rendered materials, soft dimensional lighting, minimal background clutter. No text, no letters, no watermark, no border, no baked rounded corners, opaque full square background.
+Web refresh: run `RefreshWebIcons.Main` in Unity, then publish `Builds/WebGL` to
+`docs`. It updates icon files, manifest, favicon/Apple links and the offline cache
+without rebuilding unchanged Unity gameplay/WASM. The game version stays 1.18.0;
+the cache hash identifies this icon revision.
