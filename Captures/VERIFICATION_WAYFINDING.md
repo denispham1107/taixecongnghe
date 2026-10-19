@@ -29,6 +29,8 @@
 - **65 browser checks passed on the final artifact**: 37 real WebGL/PWA/offline/input checks, eight actual canvas job-selection/GPS checks and 20 fullscreen checks across phone/tablet portrait/landscape. There were no JavaScript or Unity runtime errors. Evidence: `wayfinding-web-results.json`, `wayfinding-ui-results.json`, `fullscreen-game-wayfinding-results.json`.
 - The desktop GPS screenshot confirms the new curb arrow in the real WebGL player. An additional native portrait screenshot confirms the active marker and notification positioned above touch controls: `wayfinding-native-phone.png`. UI cards retain their normal overlay priority over the world scene.
 - Unity returned to Edit Mode with jobs enabled, 0 Coin and the 1775m record preserved. `git diff --check` passed. Four pre-existing Blender edits, the motorcycle backup and untracked `huongdan.md` are excluded.
-- Live deployment verification is appended after publication.
+- Source/artifact commit `cd739110047f58f153aa4be8e9351ab2ace5347c` was pushed to `origin/main`. GitHub Pages deployed that exact SHA successfully: https://github.com/denispham1107/taixecongnghe/actions/runs/39223683110 .
+- **22 live checks passed** at https://denispham1107.github.io/taixecongnghe/ : version/cache, every deployed artifact including the new icons, real published WebAssembly startup, start/pause input and zero JavaScript/Unity runtime errors. Evidence: `wayfinding-live-results.json`.
+- The local verification server was stopped after checks completed. Existing Blender edits and untracked handoff files remain unchanged.
 
 Chromium mobile/tablet profiles verify layout and touch behavior; this is not a physical iPhone performance measurement. Existing iOS home-screen entries may retain their previous icon; a newly added entry uses the updated Apple touch icon. Website data was not cleared by the update, preserving the existing Coin wallet.
