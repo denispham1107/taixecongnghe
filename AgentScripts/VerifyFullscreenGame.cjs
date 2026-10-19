@@ -5,7 +5,7 @@ const result={url,checks:[],errors:[]};
 function check(name,value){assert(value,name);result.checks.push(name);console.log('PASS '+name);}
 async function main(){
   const info=await(await fetch(new URL('build-info.json',url))).json();result.build=info;
-  check('Published version is 1.15.0',info.version==='1.15.0');
+  check('Published version is 1.16.0',info.version==='1.16.0');
   for(const file of ['index.html','style.css','app.js','manifest.webmanifest','sw.js','precache.json']){
     const response=await fetch(new URL(file,url));const remote=(await response.text()).replace(/\r\n/g,'\n');
     const local=fs.readFileSync('docs/'+file,'utf8').replace(/\r\n/g,'\n');
@@ -29,9 +29,7 @@ async function main(){
       check(name+' scene fills all viewport edges',Math.abs(box.x)<1&&Math.abs(box.y)<1&&Math.abs(box.width-width)<1&&Math.abs(box.height-height)<1);
       check(name+' has no permanent header',await page.locator('#toolbar').isHidden());
       await page.screenshot({path:`Captures/browser-fullscreen-${label}-${name}.png`,timeout:90000});
-      await page.locator('#game-menu').click();await page.locator('#help').click();
-      check(name+' overlay controls remain usable',await page.locator('#guide').isVisible());
-      await page.locator('#close-help').click();
+      check(name+' floating hamburger button is hidden',await page.locator('#game-menu').isHidden());
     }
     check('No JavaScript or Unity runtime errors',result.errors.length===0);
     await context.close();

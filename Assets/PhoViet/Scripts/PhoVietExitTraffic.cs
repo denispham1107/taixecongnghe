@@ -12,7 +12,7 @@ namespace PhoViet
         void QueueExitTraffic()
         {
             if(!turnExitTrafficEnabled)return;
-            exitRearRemaining=rng.Next(3,6);exitOncomingRemaining=rng.Next(3,6);exitWaveAge=0;exitWaveTimer=.25f;
+            exitRearRemaining=TrafficCount(rng.Next(3,6));exitOncomingRemaining=TrafficCount(rng.Next(3,6));exitWaveAge=0;exitWaveTimer=.25f;
             if(TryExitTraffic(true))exitRearRemaining--;
             if(TryExitTraffic(false))exitOncomingRemaining--;
         }

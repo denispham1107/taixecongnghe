@@ -53,7 +53,7 @@ public static class VerifyCrossTraffic
             check(!PhoVietGame.SweptOverlap(new Vector2(-5,0),new Vector2(0,5),Vector2.one),"Collision requires simultaneous overlap, not independent X and Z crossings");
 
             clean();set("nextIntersectionDistance",70);step(.02f);
-            check(g.ScheduledIntersections==1&&g.vehicles.Count(v=>v.active&&v.crossing)==2,"First actual intersection schedules two low-difficulty crossing vehicles");
+            check(g.ScheduledIntersections==1&&g.vehicles.Count(v=>v.active&&v.crossing)==1,"Opening intersection schedules half the low-difficulty crossing traffic");
             var cross=g.vehicles.First(v=>v.active&&v.crossing);
             check(Mathf.Abs(cross.model.localPosition.z+g.Distance-(70+(cross.crossSpeed>0?-2.8f:2.8f)))<.01f,"Crossing is inside the real cross street, with either randomized entry direction");
             step(.02f);check(g.ScheduledIntersections==1,"Intersection does not spawn duplicates on subsequent frames");

@@ -93,6 +93,7 @@ namespace PhoViet
                 return;
             }
             v.recklessAge+=dt;
+            if(v.baseTrafficSpeed<0&&v.speed>v.baseTrafficSpeed)v.speed=Mathf.MoveTowards(v.speed,v.baseTrafficSpeed,dt*20);
             if(v.speed>0)v.speed=Mathf.MoveTowards(v.speed,Speed+(truck?1.2f:3.2f),dt*7);
             float frequency=v.swerveFrequency>0?v.swerveFrequency:(truck?2.1f:2.8f);
             float weave=(1-Mathf.Cos(v.recklessAge*frequency))*.5f;

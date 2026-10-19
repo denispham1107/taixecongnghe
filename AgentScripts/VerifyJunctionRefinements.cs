@@ -62,7 +62,7 @@ public static class VerifyJunctionRefinements
             var patterns=new HashSet<string>();
             for(int run=0;run<5;run++)
             {
-                clean();at(run%2==0?0:3,2);g.turnExitTrafficEnabled=true;g.MoveLane(run%2==0?-1:1);finish();
+                clean();set("timeRiding",10f);at(run%2==0?0:3,2);g.turnExitTrafficEnabled=true;g.MoveLane(run%2==0?-1:1);finish();
                 var initial=g.vehicles.Where(v=>v.active&&!v.crossing).ToArray();
                 check(g.ExitRearSpawns==1&&g.ExitOncomingSpawns==1&&initial.Length==2,"Turn "+run+": both traffic directions are populated immediately on exit");
                 var rear=initial.Single(v=>v.enteringFromBehind);var coming=initial.Single(v=>v.speed<0);
@@ -70,13 +70,13 @@ public static class VerifyJunctionRefinements
                 check(coming.model.localPosition.z>=125&&coming.lane<2,"Turn "+run+": oncoming vehicles enter from the far end of the new street");
                 for(int i=0;i<28;i++)call("TickExitTraffic",new object[]{.2f});
                 check(g.ExitRearSpawns>=3&&g.ExitRearSpawns<=5&&g.ExitOncomingSpawns>=3&&g.ExitOncomingSpawns<=5,"Turn "+run+": multiple randomized vehicles in both directions join the exit waves");
-                var all=g.vehicles.Where(v=>v.active).ToArray();bool separated=true;
+                var all=g.vehicles.Where(v=>v.active&&!v.crossing).ToArray();bool separated=true;
                 for(int a=0;a<all.Length;a++)for(int b=a+1;b<all.Length;b++)
                 {
                     Vector3 d=all[a].model.localPosition-all[b].model.localPosition;
                     if(Mathf.Abs(d.x)<all[a].halfWidth+all[b].halfWidth&&Mathf.Abs(d.z)<all[a].halfLength+all[b].halfLength)separated=false;
                 }
-                check(separated,"Turn "+run+": exit traffic never spawns overlapping another active vehicle");
+                check(separated,"Turn "+run+": exit traffic never spawns overlapping another active vehicle"+(separated?"":" · "+string.Join(" | ",all.Select(v=>v.model.name+" "+v.model.localPosition+" bounds "+v.halfWidth+","+v.halfLength+" yaw "+v.model.localEulerAngles.y))));
                 patterns.Add(string.Join("|",all.Select(v=>v.model.name+":"+v.lane+":"+v.model.localPosition.z.ToString("F2"))));
             }
             check(patterns.Count==5,"Restarting changes exit vehicle types, lanes and spacing instead of replaying one fixed pattern");

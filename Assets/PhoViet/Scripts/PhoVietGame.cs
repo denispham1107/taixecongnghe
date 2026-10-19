@@ -38,6 +38,7 @@ namespace PhoViet
             public Vector3 routeVelocity;
             public Vector3 routeEffectOffset;
             public float rearEntryBoost;
+            public int jobYieldLane=-1;
             public bool roadTurning;
             public float roadTurnAngle,roadTurnRadius,roadTurnSpeed,roadDecisionAt;
             public Vector3 roadTurnStart,roadTurnForward,roadTurnSide;
@@ -61,12 +62,14 @@ namespace PhoViet
         public const float DifficultyMultiplier=3f;
         public float DifficultyTime => timeRiding*DifficultyMultiplier;
         public float Difficulty01 => Mathf.Clamp01(DifficultyTime/110f);
+        public bool OpeningTrafficReduced => timeRiding<10f;
+        float TrafficDensity => OpeningTrafficReduced?.5f:1f;
+        int TrafficCount(int count)=>Mathf.CeilToInt(count*TrafficDensity);
         public bool sound=true;
         public string CurrentStreet => RouteStreet;
         public static readonly float[] LaneX={-4.65f,-1.55f,1.55f,4.65f};
         float spawnTimer, fallTime, timeRiding, lastX, lean, streak, noticeTimer;
         float nextIntersectionDistance;
-        bool crossingWarning;
         Vector2 swipeStart; bool dragging;
         System.Random rng=new System.Random();
         public int RunSeed {get;private set;}
@@ -118,7 +121,7 @@ namespace PhoViet
             int seed;do{seed=Guid.NewGuid().GetHashCode()&int.MaxValue;}while(seed==RunSeed);
             RunSeed=seed;rng=new System.Random(seed);
             State=RideState.Ready;Distance=0;Speed=0;CurrentLane=2;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;noticeTimer=0;
-            nextIntersectionDistance=VietnamStreet.IntersectionCenter;ScheduledIntersections=0;crossingWarning=false;
+            nextIntersectionDistance=VietnamStreet.IntersectionCenter;ScheduledIntersections=0;
             ResetCityJobs();
             ResetRoutes();
             ResetActions();
@@ -129,7 +132,7 @@ namespace PhoViet
             for(int i=0;i<blocks.Count;i++)blocks[i].localPosition=new Vector3(0,0,(i-1)*VietnamStreet.Length);
             foreach(var v in vehicles){v.active=false;v.crossing=false;v.crossSpeed=0;v.crossDelay=0;v.knocked=false;v.knockAge=0;v.playerGrace=0;v.model.gameObject.SetActive(false);}
             float openingZ=30+(float)rng.NextDouble()*10;
-            int openingCount=rng.Next(5,8);
+            int openingCount=TrafficCount(rng.Next(5,8));
             for(int i=0;i<openingCount;i++){SpawnTraffic(rng.Next(4),openingZ);openingZ+=11+(float)rng.NextDouble()*10;}
             spawnTimer=.7f+(float)rng.NextDouble()*1.1f;if(engine!=null)engine.Stop();PositionCamera(true);
         }
@@ -190,7 +193,7 @@ namespace PhoViet
             while(nextIntersectionDistance-Distance<=90)
             {
                 float centre=nextIntersectionDistance-Distance;
-                int count=DifficultyTime<18?2:DifficultyTime<60?3:5;
+                int count=TrafficCount(DifficultyTime<18?2:DifficultyTime<60?3:5);
                 int firstDirection=rng.Next(2)==0?1:-1;
                 float targetX=LaneX[rng.Next(4)];
                 for(int i=0;i<count;i++)
@@ -274,6 +277,7 @@ namespace PhoViet
             if(!ServiceStopped)timeRiding+=dt;cruiseSpeed=Mathf.Min(17+DifficultyTime*.12f,30)+(IsChased?chaseBoost:0);
             Speed=IsTurning?Mathf.Min(cruiseSpeed,lateTurn?8:10):cruiseSpeed;
             Speed=WorkSpeedLimit(Speed);
+            Speed=JobAcceptanceSpeedLimit(Speed);
             if(IsTurning&&dt>0)Speed=Mathf.Min(Speed,Mathf.Max(0,turnLength-turnTravel)/dt);
             Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;
@@ -283,7 +287,6 @@ namespace PhoViet
             if(!IsTurning){rider.localPosition=new Vector3(x,Mathf.Sin(timeRiding*12)*.012f,0);rider.localRotation=Quaternion.Euler(0,0,lean);}
             BeginOrContinueTurn(Speed*dt);
             lastX=x;
-            crossingWarning=false;
             foreach(var v in vehicles)
             {
                 if(!v.active)continue;
@@ -293,11 +296,11 @@ namespace PhoViet
                 else if(v.knocked)TickKnockedVehicle(v,dt);
                 else if(v.roadTurning)TickRoadTurn(v,dt);
                 else if(v.routeDetached)v.model.localPosition+=(v.routeVelocity-Vector3.forward*Speed)*dt;
+                else if(!v.crossing&&TickJobTrafficYield(v,dt)){}
                 else if(v.isReckless)TickRecklessVehicle(v,dt);
                 else if(v.crossing)
                 {
                     TickIntersectionVehicle(v,dt);
-                    if(v.model.localPosition.z>0 && v.model.localPosition.z<55)crossingWarning=true;
                 }
                 else
                 {
@@ -325,7 +328,8 @@ namespace PhoViet
             if(IsTurning)return;
             TickExitTraffic(dt);
             ScheduleIntersection();
-            spawnTimer-=dt;
+            // The ordinary wave also owns reckless entries, so both thin out together.
+            spawnTimer-=dt*TrafficDensity;
             if(spawnTimer<=0)
             {
                 int a=rng.Next(4);float z=105+rng.Next(0,14);SpawnTraffic(a,z);
@@ -450,7 +454,12 @@ namespace PhoViet
             }
             if(State==RideState.Riding)
             {
-                if(noticeTimer>0)Txt(notice,0,uiH*(IsChased?.28f:.22f),uiW,50,portrait?19:26,Gold,TextAnchor.MiddleCenter);
+                if(noticeTimer>0)
+                {
+                    float nw=Mathf.Min(uiW-32,portrait?420:540),ny=portrait?(ActiveJob!=null?347:125):100;
+                    Panel(new Rect((uiW-nw)/2,ny,nw,48),Ink);
+                    Txt(notice,(uiW-nw)/2+12,ny+6,nw-24,36,portrait?13:16,Gold,TextAnchor.MiddleCenter);
+                }
                 if(portrait)
                 {
                     if(Btn("←",new Rect(20,uiH-106,100,74),Ink,Cream,35))MoveLane(-1);
@@ -463,13 +472,7 @@ namespace PhoViet
                     Panel(new Rect(pad,uiH-72,550,39),new Color(.09f,.23f,.24f,.92f));
                     Txt("← →  ĐỔI LÀN    ·    SPACE  ĐẠP    ·    P  TẠM DỪNG    ·    "+PassedVehicles+" XE ĐÃ NÉ",pad+16,uiH-63,520,24,11,Cream);
                 }
-                if(crossingWarning) {Panel(new Rect(uiW*.5f-185,118,370,34),Red);Txt("GIAO LỘ · XE BĂNG NGANG VÀ RẼ",uiW*.5f-185,125,370,22,12,Cream,TextAnchor.MiddleCenter);}
-                else if(CurrentLane<2) {Panel(new Rect(uiW*.5f-125,118,250,34),Red);Txt("CHÚ Ý XE NGƯỢC CHIỀU",uiW*.5f-125,125,250,22,12,Cream,TextAnchor.MiddleCenter);}
             }
-            ChaseHud();
-            RouteTurnHud();
-            RecklessHud();
-            TrafficSurpriseHud();
             JobNavigationGui();
         }
         void EndCard(bool paused)

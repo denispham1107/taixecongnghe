@@ -49,11 +49,8 @@ async function main(){
         check(prefix+' no body padding or horizontal overflow',state.padding.every(x=>parseFloat(x)===0)&&state.scroll<=w);
         const expected={top:insets[0],right:insets[1],bottom:insets[2],left:insets[3]};
         check(prefix+' safe area passed to HUD only',Object.keys(expected).every(key=>Math.abs(state.last[key]*(key==='left'||key==='right'?state.rect.width:state.rect.height)-expected[key])<1));
-        check(prefix+' floating menu stays inside safe area',state.menu.x>=insets[3]&&state.menu.y>=insets[0]&&state.menu.right<=w-insets[1]&&state.menu.bottom<=h-insets[2]);
+        check(prefix+' floating hamburger button is hidden',await page.locator('#game-menu').isHidden());
         check(prefix+' header does not occupy game area',await page.locator('#toolbar').isHidden());
-        await page.locator('#game-menu').click();await page.locator('#help').click();
-        check(prefix+' help remains accessible',await page.locator('#guide').isVisible());
-        await page.locator('#close-help').click();
       }
       await context.close();console.log('PASS '+name+' portrait, landscape and rotate-back');
     }

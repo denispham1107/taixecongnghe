@@ -3,7 +3,7 @@ public static class ConfigureWebRelease
  public static object Main()
  {
   PhoViet.Editor.PhoVietWebBuild.Configure();
-  UnityEditor.PlayerSettings.bundleVersion="1.15.0";
+  UnityEditor.PlayerSettings.bundleVersion="1.16.0";
   UnityEditor.AssetDatabase.SaveAssets();
   return new{success=true,version=UnityEngine.Application.version};
  }

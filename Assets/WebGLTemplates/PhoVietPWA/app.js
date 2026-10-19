@@ -40,7 +40,7 @@ function scheduleViewport(){
 }
 function setImmersive(enabled){
   immersive=Boolean(enabled);document.body.classList.toggle('immersive',immersive);
-  $('game-menu').hidden=!immersive;setMenu(false);syncViewport();scheduleViewport();
+  $('game-menu').hidden=!immersive||touchDevice;setMenu(false);syncViewport();scheduleViewport();
 }
 async function requestNativeFullscreen(){
   if(document.fullscreenElement || (ios && standalone) || matchMedia('(display-mode: fullscreen)').matches)return true;

@@ -33,13 +33,14 @@ namespace PhoViet
   Vector2Int navNext;int navHeading;float offersDelay,serviceTime,rearDepartureProtection,rerouteNotice;
   Transform customer,jobMarker;AudioSource navigationAudio;
   string spokenKey="";Vector3 boardingStart;bool streetTargetMissed,pendingReroute;float routePlanDistance;
+  int navigationCueStage;
   public static string FormatCoins(int value)=>Math.Max(0,value).ToString("N0",CultureInfo.InvariantCulture);
   void ResetCityJobs()
   {
    Coins=Math.Max(0,PlayerPrefs.GetInt(CoinsKey,0));navHeading=0;navNext=new Vector2Int(0,1);
    city=new CityNavigation(RouteNames,RunSeed^17391);jobRandom=new System.Random(RunSeed^93517);
    ActiveJob=null;ActiveRoute=null;JobPhase=WorkPhase.None;JobOffersOpen=false;JobOffers.Clear();Reroutes=0;
-   offersDelay=2;serviceTime=0;rearDepartureProtection=0;rerouteNotice=0;spokenKey="";streetTargetMissed=false;pendingReroute=false;
+   offersDelay=2;serviceTime=0;rearDepartureProtection=0;jobTrafficYieldRemaining=0;rerouteNotice=0;spokenKey="";navigationCueStage=0;streetTargetMissed=false;pendingReroute=false;
    if(malePassenger!=null)malePassenger.gameObject.SetActive(false);if(femalePassenger!=null)femalePassenger.gameObject.SetActive(false);
    customer=null;if(jobMarker!=null)jobMarker.gameObject.SetActive(false);navigationAudio?.Stop();
   }
@@ -92,7 +93,7 @@ namespace PhoViet
    if(!JobOffersOpen||index<0||index>=JobOffers.Count)return false;
    ActiveJob=JobOffers[index];JobPhase=WorkPhase.Pickup;JobOffersOpen=false;serviceTime=0;
    State=RideState.Riding;PauseRecklessFx(false);if(sound){engine?.UnPause();if(IsChased)siren?.UnPause();}
-   ReplanJob(false);SpeakNavigation(ActiveRoute.direct?0:ActiveRoute.nextTurn);notice="ĐÃ NHẬN CHUYẾN · "+FormatCoins(ActiveJob.reward)+" COIN";noticeTimer=2;return true;
+   BeginJobTrafficYield();ReplanJob(false);UpdateNavigationVoice();notice="ĐÃ NHẬN CHUYẾN · "+FormatCoins(ActiveJob.reward)+" COIN";noticeTimer=2;return true;
   }
   void ReplanJob(bool afterJunction)
   {
@@ -110,11 +111,34 @@ namespace PhoViet
    if(navigationAudio!=null){navigationAudio.mute=!sound;if(State!=RideState.Riding)navigationAudio.Pause();}
    if(State!=RideState.Riding||ActiveJob==null)return;
    rerouteNotice=Mathf.Max(0,rerouteNotice-dt);UpdateJobMarker();
-   if(!IsTurning&&!ServiceStopped&&NextJunctionDistance<=30&&NextJunctionDistance>=8&&ActiveRoute!=null&&!ActiveRoute.direct)
+   UpdateNavigationVoice();
+  }
+  bool TurnSoonAfterStraight()
+  {
+   float travelled=Mathf.Max(0,Distance-routePlanDistance),along=0;
+   var points=ActiveRoute.points;
+   for(int i=1;i<points.Count-1;i++)
    {
-    string key=navNext+":"+navHeading+":"+ActiveRoute.nextTurn+":"+JobPhase;
-    if(key!=spokenKey){spokenKey=key;SpeakNavigation(ActiveRoute.nextTurn);}
+    along+=Vector2.Distance(points[i-1],points[i]);
+    Vector2 incoming=points[i]-points[i-1],outgoing=points[i+1]-points[i];
+    if(incoming.sqrMagnitude>.01f&&outgoing.sqrMagnitude>.01f&&Vector2.Dot(incoming.normalized,outgoing.normalized)<.5f)
+     return Mathf.Max(0,along-travelled)/Mathf.Max(2,Speed)<=4f;
    }
+   return false;
+  }
+  void UpdateNavigationVoice()
+  {
+   if(IsTurning||ServiceStopped||ActiveRoute==null||State!=RideState.Riding)return;
+   string key=navNext+":"+navHeading+":"+ActiveRoute.nextTurn+":"+JobPhase+":"+ActiveRoute.direct;
+   if(key!=spokenKey){spokenKey=key;navigationCueStage=0;}
+   // Never queue stale speech: only the next junction can issue a turn instruction.
+   float metres=ActiveRoute.direct?ActiveRoute.distance-Mathf.Max(0,Distance-routePlanDistance):NextJunctionDistance;
+   float seconds=Mathf.Max(0,metres)/Mathf.Max(2,Speed);
+   if(metres<=0)return;
+   int turn=ActiveRoute.direct?0:ActiveRoute.nextTurn;
+   if(turn==0&&(TurnSoonAfterStraight()||(ActiveRoute.direct&&seconds<4)))return;
+   int stage=seconds<=2?2:seconds<=4?1:0;
+   if(stage>navigationCueStage){navigationCueStage=stage;SpeakNavigation(turn);}
   }
   void SpeakNavigation(int turn)
   {
@@ -125,6 +149,7 @@ namespace PhoViet
   void TickWorkMotion(float dt)
   {
    if(!jobsEnabled)return;
+   jobTrafficYieldRemaining=Mathf.Max(0,jobTrafficYieldRemaining-dt);
    if(!ServiceStopped)rearDepartureProtection=Mathf.Max(0,rearDepartureProtection-dt);
    if(ActiveJob==null||IsTurning)return;
    if(ServiceStopped){TickService(dt);return;}
