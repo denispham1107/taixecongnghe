@@ -31,6 +31,10 @@
 - Cache phát hành: `176343a50a90fd24`, Unity 6000.5.6f1.
 - 69 kiểm tra trình duyệt đạt: 12 kiểm tra nhận chuyến/HUD bằng chuột và touch thật qua CDP, 37 kiểm tra WebGL/PWA/offline/điều khiển, 20 kiểm tra full viewport và safe area iPhone/iPad ở cả hai hướng.
 - Đã xem ảnh `waypoint-3d-desktop-gps.png`, `waypoint-3d-phone-gps.png` và `waypoint-3d-phone-landscape.png` của bản build cuối. Nút pause ngang và dọc đều có kiểm tra chuyển trạng thái bằng hình ảnh, không chỉ gửi lệnh giả lập tới C#.
-- Đang triển khai GitHub Pages; SHA, workflow và kết quả kiểm tra live sẽ được ghi sau khi hoàn tất.
+- Commit phát hành: `b6cab56fa45a3799880acb888ed8be6ddc9fd3c5` (phần mã ban đầu ở `3253dd1c36032a7942b9b8504a4db062c8befb56`).
+- GitHub Pages triển khai thành công: https://github.com/denispham1107/taixecongnghe/actions/runs/39295873893
+- 26 kiểm tra trên trang công khai đạt: phiên bản/cache đúng, toàn bộ tài nguyên khớp bản đã kiểm tra, WebAssembly khởi động, nhận điều khiển và không có lỗi JavaScript/Unity runtime.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/
+- Kết thúc ở Unity Edit Mode, công việc bật, Coin thử nghiệm 0 và kỷ lục 1,775 m; server kiểm tra nội bộ đã dừng.
 
 Các tệp Blender đã thay đổi từ trước, bản sao lưu Blender và `huongdan.md` ngoài phạm vi được giữ nguyên và không đưa vào commit này.
