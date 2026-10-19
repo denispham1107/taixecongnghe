@@ -22,7 +22,19 @@ async function main(){
    await page.waitForTimeout(250);const gps=await page.screenshot({path:`Captures/${label}-${name}-gps.png`,timeout:90000});
    async function creamCount(png){const {data,info}=await sharp(png).removeAlpha().raw().toBuffer({resolveWithObject:true});let count=0;for(let i=0;i<data.length;i+=info.channels)if(Math.abs(data[i]-255)<3&&Math.abs(data[i+1]-241)<3&&Math.abs(data[i+2]-207)<3)count++;return count;}
    check(name+' job accepted through actual canvas button',(await creamCount(gps))<(await creamCount(offers))*.6);
-   await page.evaluate(()=>window.phoVietInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','TogglePause'));
+   if(portrait){
+    const {data,info}=await sharp(gps).removeAlpha().raw().toBuffer({resolveWithObject:true});let ink=0,total=0;
+    for(let yy=Math.floor(info.height*.90);yy<info.height*.98;yy++)for(let xx=Math.floor(info.width*.05);xx<info.width*.95;xx++){
+     const at=(yy*info.width+xx)*info.channels;total++;
+     if(Math.abs(data[at]-32)<3&&Math.abs(data[at+1]-60)<3&&Math.abs(data[at+2]-67)<3)ink++;
+    }
+    check('Portrait bottom control panels are removed',ink/total<.05);
+    const cdp=await context.newCDPSession(page),tx=box.x+(uiW-37)*scale,ty=box.y+35*scale;
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:tx,y:ty,id:0}]});await page.waitForTimeout(150);
+    await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await page.waitForTimeout(250);
+    const paused=await page.screenshot({path:`Captures/${label}-phone-paused.png`,timeout:90000});
+    check('Compact portrait pause button works through real touch input',(await creamCount(paused))>(await creamCount(gps))*2);
+   }else await page.evaluate(()=>window.phoVietInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','TogglePause'));
    check(name+' canvas fits available game surface',await page.evaluate(()=>{const r=document.querySelector('canvas').getBoundingClientRect();return r.width>0&&r.height>0&&r.x>=0&&r.y>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1;}));
    if(portrait){await page.setViewportSize({width:844,height:390});await page.waitForTimeout(400);await page.screenshot({path:`Captures/${label}-phone-landscape.png`,timeout:90000});check('GPS and job layout rotation captured');}
    await context.close();

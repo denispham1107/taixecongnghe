@@ -252,8 +252,8 @@ namespace PhoViet
             if(Input.touchCount>0)
             {
                 var t=Input.GetTouch(0);
-                if(t.phase==TouchPhase.Began){swipeStart=t.position;touchStarted=Time.unscaledTime;}
-                if(t.phase==TouchPhase.Ended)
+                if(t.phase==TouchPhase.Began){swipeStart=t.position;touchStarted=Time.unscaledTime;swipeCanSteer=Screen.width>=Screen.height||GameplayPointerAllowed(t.position);}
+                if(t.phase==TouchPhase.Ended&&swipeCanSteer)
                 {
                     if(Mathf.Abs(t.position.x-swipeStart.x)>Screen.width*.075f){MoveLane(t.position.x>swipeStart.x?1:-1);lastTapTime=-100;}
                     else if(Vector2.Distance(t.position,swipeStart)<Screen.width*.035f&&Time.unscaledTime-touchStarted<.24f)
@@ -262,7 +262,7 @@ namespace PhoViet
             }
             else
             {
-                if(Input.GetMouseButtonDown(0)){swipeStart=Input.mousePosition;dragging=true;}
+                if(Input.GetMouseButtonDown(0)){swipeStart=Input.mousePosition;dragging=Screen.width>=Screen.height||GameplayPointerAllowed(Input.mousePosition);}
                 if(Input.GetMouseButtonUp(0)&&dragging){dragging=false;if(Mathf.Abs(Input.mousePosition.x-swipeStart.x)>Screen.width*.075f)MoveLane(Input.mousePosition.x>swipeStart.x?1:-1);}
             }
         }
@@ -373,7 +373,8 @@ namespace PhoViet
             Vector3 look=center+heading*new Vector3(lateral*(narrow?.85f:.18f),1.2f,8);
             Quaternion rotation=Quaternion.LookRotation(transform.TransformPoint(look)-rideCamera.transform.position,Vector3.up);
             rideCamera.transform.rotation=!snap&&(IsTurning||cameraTurnBlend>0)?Quaternion.Slerp(rideCamera.transform.rotation,rotation,1-Mathf.Exp(-cameraDt*9)):rotation;
-            rideCamera.fieldOfView=Screen.width<Screen.height?65:55+Mathf.Max(0,Speed-17)*.13f;
+            // Perspective zoom: tan(FOV/2) scales inversely with apparent size.
+            rideCamera.fieldOfView=narrow?2*Mathf.Atan(Mathf.Tan(65*Mathf.Deg2Rad*.5f)/PortraitWorldScale)*Mathf.Rad2Deg:55+Mathf.Max(0,Speed-17)*.13f;
         }
         public string Telemetry()=>JsonUtility.ToJson(new RunTelemetry {state=State.ToString(),distance=Distance,speed=Speed,lane=CurrentLane,x=rider.localPosition.x,frames=Frames,passed=PassedVehicles,street=CurrentStreet,chased=IsChased,policeGap=PoliceDistance,policeSpeed=PoliceSpeed,kicks=KickCount,chain=ChainCount});
         [Serializable] class RunTelemetry{public string state,street;public float distance,speed,x,policeGap,policeSpeed;public int lane,frames,passed,kicks,chain;public bool chased;}
@@ -443,6 +444,7 @@ namespace PhoViet
         }
         void Hud()
         {
+            if(portrait){PortraitHud();return;}
             float pad=portrait?16:36,top=portrait?20:28;
             Panel(new Rect(pad,top,portrait?276:335,121),Ink);
             Txt("PHỐ VIỆT  /  "+CurrentStreet.ToUpperInvariant(),pad+18,top+12,portrait?250:305,22,portrait?11:12,Gold);
@@ -457,33 +459,11 @@ namespace PhoViet
                 Txt("KỶ LỤC",uiW-pad-271,top+8,110,18,10,Teal);Txt(BestDistance+" m",uiW-pad-271,top+25,150,25,19,Ink);
                 if(Btn(sound?"ÂM: BẬT":"ÂM: TẮT",new Rect(uiW-pad-111,uiH-59,111,34),Ink,Cream,11))sound=!sound;
             }
-            if(State==RideState.Riding||State==RideState.Falling||State==RideState.Recovering)
+            DrawRideNotice();
+            if(State==RideState.Riding&&!portrait)
             {
-                if(noticeTimer>0||State!=RideState.Riding)
-                {
-                    float nw=Mathf.Min(uiW-32,portrait?420:540),ny=portrait?(ActiveJob!=null?347:151):100;
-                    // Keep the short notification above the touch controls while
-                    // a customer arrow is visible, leaving the curb marker clear.
-                    if(portrait&&JobMarkerVisible)ny=uiH-160;
-                    Panel(new Rect((uiW-nw)/2,ny,nw,48),Ink);
-                    string message=State==RideState.Falling?(LivesRemaining>0?"VA CHẠM · CÒN "+LivesRemaining+" MẠNG":"ĐÃ HẾT 3 MẠNG"):State==RideState.Recovering?"ĐANG DỰNG XE · CÒN "+LivesRemaining+" MẠNG":notice;
-                    Txt(message,(uiW-nw)/2+12,ny+6,nw-24,36,portrait?13:16,Gold,TextAnchor.MiddleCenter);
-                }
-            }
-            if(State==RideState.Riding)
-            {
-                if(portrait)
-                {
-                    if(Btn("←",new Rect(20,uiH-106,100,74),Ink,Cream,35))MoveLane(-1);
-                    if(Btn("→",new Rect(uiW-120,uiH-106,100,74),Ink,Cream,35))MoveLane(1);
-                    Panel(new Rect(124,uiH-87,uiW-248,48),Ink);
-                    Txt("CHẠM HAI LẦN: ĐẠP",125,uiH-78,uiW-250,30,10,Cream,TextAnchor.MiddleCenter);
-                }
-                else
-                {
                     Panel(new Rect(pad,uiH-72,550,39),new Color(.09f,.23f,.24f,.92f));
                     Txt("← →  ĐỔI LÀN    ·    SPACE  ĐẠP    ·    P  TẠM DỪNG    ·    "+PassedVehicles+" XE ĐÃ NÉ",pad+16,uiH-63,520,24,11,Cream);
-                }
             }
             JobNavigationGui();
         }

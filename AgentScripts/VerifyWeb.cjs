@@ -43,7 +43,7 @@ async function main(){
   }
   pass('Every offline resource is available');
   const build=await (await fetch(new URL('build-info.json',url))).json();
-  results.build=build;pass('Versioned offline cache',build.version==='1.18.0'&&/^[a-f0-9]{16}$/.test(build.cache));
+  results.build=build;pass('Versioned offline cache',build.version==='1.19.0'&&/^[a-f0-9]{16}$/.test(build.cache));
   const launchOptions={channel:'chrome',headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']};
   const browser=await chromium.launch(launchOptions);
   // PWA installation is disabled in the incognito contexts returned by browser.newContext().
@@ -87,7 +87,12 @@ async function main(){
     const box=await phone.locator('#unity-canvas').boundingBox();
     await touch(box.x+box.width/2,box.y+box.height*.15+312*(box.width/480),160);
     await phone.waitForTimeout(350);
-    await touch(box.x+box.width-50,box.y+box.height-55);
+    const sx=box.x+box.width*.40,sy=box.y+box.height*.68;
+    await touchSession.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:sx,y:sy,id:0}]});
+    await phone.waitForTimeout(90);
+    await touchSession.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:sx+box.width*.24,y:sy,id:0}]});
+    await phone.waitForTimeout(90);
+    await touchSession.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
     await touch(box.x+box.width/2,box.y+box.height*.53);
     await phone.waitForTimeout(90);await touch(box.x+box.width/2,box.y+box.height*.53);
     await phone.waitForTimeout(150);await shot(phone,'android-touch');
@@ -101,7 +106,7 @@ async function main(){
     pass('Mobile outer-lane camera scenarios captured for visual inspection');
     pass('Mobile game has no floating hamburger button',await phone.locator('#game-menu').isHidden());
     await phone.evaluate(()=>window.phoVietInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','TogglePause'));
-    pass('Touch start, lane button, double tap and pause smoke completed');
+    pass('Touch start, swipe steering, double tap and pause smoke completed');
     await phone.setViewportSize({width:844,height:390});await phone.waitForTimeout(600);await shot(phone,'android-landscape');
     pass('Game canvas fills every edge after rotation',await phone.evaluate(()=>{const r=document.querySelector('canvas').getBoundingClientRect();return Math.abs(r.x)<1&&Math.abs(r.y)<1&&Math.abs(r.width-innerWidth)<1&&Math.abs(r.height-innerHeight)<1&&r.width>r.height;}));
     await mobile.close();

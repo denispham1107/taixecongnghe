@@ -47,19 +47,25 @@ namespace PhoViet
   }
   void JobNavigationGui()
   {
+   if(portrait)return; // The portrait HUD owns one merged information/navigation bar.
    if(!jobsEnabled||ActiveJob==null||State==RideState.Ready||State==RideState.Jailed)return;
    float w=portrait?242:300,h=portrait?190:220,x=uiW-w-(portrait?16:36),y=portrait?145:125;
    Panel(new Rect(x,y,w,h),new Color(.07f,.18f,.2f,.96f),12);
    string stage=JobPhase==WorkPhase.Pickup?"ĐÓN KHÁCH":JobPhase==WorkPhase.Delivery?"ĐƯA KHÁCH":JobPhase==WorkPhase.Boarding?"KHÁCH ĐANG LÊN XE":"KHÁCH ĐANG XUỐNG XE";
    var route=NavigationRoute;float remaining=NavigationRemainingDistance;
-   string instruction=ServiceStopped?"DỪNG TẠI ĐIỂM HẸN":IsTurning?"ĐANG RẼ "+(turnSide<0?"TRÁI":"PHẢI"):route!=null&&!route.direct?(route.nextTurn<0?"RẼ TRÁI":route.nextTurn>0?"RẼ PHẢI":"ĐI THẲNG")+" · "+Mathf.Max(0,Mathf.CeilToInt(NextJunctionDistance))+" m":"VÀO LỀ "+(TargetLane(CurrentWorkTarget)==3?"PHẢI":"TRÁI");
+   string instruction=JobNavigationInstruction();
    Txt(stage+" · "+Mathf.CeilToInt(remaining)+" m",x+12,y+9,w-24,20,12,StreetArt.Gold);
    Txt(instruction,x+12,y+31,w-24,23,14,StreetArt.Cream);
    DrawJobMap(new Rect(x+10,y+60,w-20,h-111));
    Txt(city.Street(CurrentWorkTarget),x+12,y+h-43,w-24,21,12,StreetArt.Cream);
    Txt(rerouteNotice>0?"ĐANG TÍNH LẠI LỘ TRÌNH":"THƯỞNG "+FormatCoins(ActiveJob.reward)+" COIN",x+12,y+h-22,w-24,18,10,rerouteNotice>0?StreetArt.Gold:new Color(.7f,.85f,.8f));
   }
-  void DrawJobMap(Rect rect)
+  string JobNavigationInstruction()
+  {
+   var route=NavigationRoute;
+   return ServiceStopped?"DỪNG TẠI ĐIỂM HẸN":IsTurning?"ĐANG RẼ "+(turnSide<0?"TRÁI":"PHẢI"):route!=null&&!route.direct?(route.nextTurn<0?"RẼ TRÁI":route.nextTurn>0?"RẼ PHẢI":"ĐI THẲNG")+" · "+Mathf.Max(0,Mathf.CeilToInt(NextJunctionDistance))+" m":CurrentWorkTarget!=null?"VÀO LỀ "+(TargetLane(CurrentWorkTarget)==3?"PHẢI":"TRÁI"):"";
+  }
+  void DrawJobMap(Rect rect,bool compact=false)
   {
    GUI.BeginGroup(rect);Vector2 player=NavigationMapPosition;var route=NavigationRoute;
    float radius=100;if(route!=null)foreach(var p in route.points)radius=Mathf.Max(radius,Mathf.Abs(p.x-player.x)+20,Mathf.Abs(p.y-player.y)+20);
@@ -69,16 +75,18 @@ namespace PhoViet
    for(int n=-grid;n<=grid;n++)
    {
     float gx=Mathf.Round(player.x/80)*80+n*80,gy=Mathf.Round(player.y/80)*80+n*80;
-    MapLine(screen(new Vector2(gx,player.y-radius)),screen(new Vector2(gx,player.y+radius)),3,new Color(.24f,.36f,.36f));
-    MapLine(screen(new Vector2(player.x-radius,gy)),screen(new Vector2(player.x+radius,gy)),3,new Color(.24f,.36f,.36f));
+    Color gridColor=compact?new Color(.7f,.9f,.85f,.25f):new Color(.24f,.36f,.36f);float lineWidth=compact?1:3;
+    MapLine(screen(new Vector2(gx,player.y-radius)),screen(new Vector2(gx,player.y+radius)),lineWidth,gridColor);
+    MapLine(screen(new Vector2(player.x-radius,gy)),screen(new Vector2(player.x+radius,gy)),lineWidth,gridColor);
    }
-   if(route!=null)for(int i=1;i<route.points.Count;i++)MapLine(screen(route.points[i-1]),screen(route.points[i]),4,StreetArt.Gold);
-   Vector2 end=screen(CurrentWorkTarget.Point);Panel(new Rect(end.x-4,end.y-4,8,8),StreetArt.Red,4);
-   Vector2 centre=screen(player),heading=NavigationMapDirection;Vector2 tip=centre+new Vector2(heading.x,-heading.y)*9;
+   if(route!=null)for(int i=1;i<route.points.Count;i++)MapLine(screen(route.points[i-1]),screen(route.points[i]),compact?2:4,StreetArt.Gold);
+   float dot=compact?3:4;
+   if(CurrentWorkTarget!=null){Vector2 end=screen(CurrentWorkTarget.Point);Panel(new Rect(end.x-dot,end.y-dot,dot*2,dot*2),StreetArt.Red,dot);}
+   Vector2 centre=screen(player),heading=NavigationMapDirection;Vector2 tip=centre+new Vector2(heading.x,-heading.y)*(compact?6:9);
    // Small dots support the smoothly rotating heading without changing the GUI
    // matrix, which would break clipping inside this map group on mobile.
-   for(int i=0;i<=9;i++){var p=Vector2.Lerp(centre,tip,i/9f);Panel(new Rect(p.x-2,p.y-2,4,4),new Color(.25f,.85f,.9f),2);}
-   Panel(new Rect(centre.x-4,centre.y-4,8,8),StreetArt.Cream,4);GUI.EndGroup();
+   for(int i=0;i<=9;i++){var p=Vector2.Lerp(centre,tip,i/9f);float s=compact?1:2;Panel(new Rect(p.x-s,p.y-s,2*s,2*s),new Color(.25f,.85f,.9f),s);}
+   Panel(new Rect(centre.x-dot,centre.y-dot,2*dot,2*dot),StreetArt.Cream,dot);GUI.EndGroup();
   }
   void MapLine(Vector2 a,Vector2 b,float width,Color color)
   {
