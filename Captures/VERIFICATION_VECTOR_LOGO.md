@@ -27,5 +27,13 @@ installability, full offline cache, actual WASM startup offline/online, desktop
 keyboard and phone touch/rotation, with zero JavaScript/Unity runtime errors.
 Evidence: `vector-logo-web-results.json`. `git diff --check` passed.
 
-Published-site verification is recorded after completion. Existing Blender edits,
-backup and untracked `huongdan.md` are excluded from this update.
+Commit `4c5ba842bb6e07c855e2adb0a682a94c79df1758` was pushed to `origin/main`.
+GitHub Pages deployed that SHA successfully:
+https://github.com/denispham1107/taixecongnghe/actions/runs/39227518426 .
+All **26 live checks passed**: the version/cache, every published resource including
+all vector icon exports, real online WebAssembly startup, start/pause input and
+zero runtime errors. Evidence: `vector-logo-live-results.json`.
+
+The local verification server was stopped. Existing Blender edits, backup and
+untracked `huongdan.md` are excluded from this update. Existing iOS home-screen
+entries can retain a previously saved icon; a new entry uses the new Apple icon URL.
