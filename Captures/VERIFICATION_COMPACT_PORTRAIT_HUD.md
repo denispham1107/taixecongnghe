@@ -66,5 +66,17 @@
 - `git diff --check` passed. Existing local Blender edits, the backup and untracked
   `huongdan.md` are excluded. Published-site verification is appended below.
 
+## Publication
+
+- Source/artifact commit `c5cb13396faf422c7b7de038fa32c4ebed8addce` was pushed to
+  `origin/main`. GitHub Pages deployed that exact SHA successfully:
+  https://github.com/denispham1107/taixecongnghe/actions/runs/39276271603 .
+- **26 live checks passed** at https://denispham1107.github.io/taixecongnghe/ :
+  version/cache, every deployed resource, real WebAssembly startup, start/pause
+  input and zero JavaScript/Unity runtime errors. Evidence:
+  `compact-hud-live-results.json`.
+- The local verification server was stopped. Unity remains in Edit Mode; the
+  original Blender edits, backup and untracked handoff document remain separate.
+
 Browser phone/tablet profiles verify layout and touch behavior; no physical iOS
 device performance claim is made.
