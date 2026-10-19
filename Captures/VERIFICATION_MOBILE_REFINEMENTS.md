@@ -39,6 +39,9 @@ The three-second behavior, the four/two-second speech timing and the single-noti
 - **8 real job UI checks passed**: both desktop mouse and phone touch select actual canvas job buttons; GPS and rotation render correctly. Evidence: `mobile-refinements-ui-results.json` and the `mobile-refinements-*-gps.png`/offers/landscape images.
 - **20 real WebGL fullscreen checks passed**, including iPhone/iPad portrait and landscape with simulated safe-area insets and no floating hamburger. Evidence: `fullscreen-game-mobile-refinements-results.json`.
 - Total real browser checks on the final artifact: **65**, with zero JavaScript or Unity runtime errors. Desktop and phone GPS screenshots were visually inspected: the yellow notice has a dark teal rounded panel and does not overlap GPS.
-- Unity is back in Edit Mode. Publication and live verification follow below.
+- Source/artifact commit `33c58e0c3592bd05d9dd1bbd4fb29a77dde6c502` was pushed to `origin/main`.
+- GitHub Pages deployment succeeded for that exact commit: https://github.com/denispham1107/taixecongnghe/actions/runs/39197504415 .
+- **22 live checks passed** at https://denispham1107.github.io/taixecongnghe/ : version/cache, deployed file contents, real published Unity WASM startup, start/pause controls and zero JavaScript/Unity runtime errors. Evidence: `mobile-refinements-live-results.json`.
+- Wallet 0 Coin and record 1775 m were checked again after release. Local HTTP server stopped; Unity returned to Edit Mode.
 
 Phone profiles emulate layout and touch in Chromium; they do not constitute a physical iPhone/iPad performance test.
