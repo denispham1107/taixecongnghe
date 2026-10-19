@@ -8,6 +8,43 @@ namespace PhoViet
   const float PortraitBarTop=10,PortraitBarHeight=96,PortraitNoticeTop=112,PortraitNoticeHeight=28;
   static readonly Color PortraitGlass=new Color(.07f,.19f,.21f,.64f);
   bool swipeCanSteer;
+  int hudTouchChoice=-1;Vector2 hudTouchStart;float hudTouchSuppressUntil;
+  int HudButtonAt(Vector2 position)
+  {
+   var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
+   float scale=narrow?area.width/480f:LandscapeHudScale(area),width=area.width/scale;
+   var p=new Vector2((position.x-area.x)/scale,(Screen.height-position.y-area.y)/scale);
+   if(narrow)return new Rect(width-54,18,34,34).Contains(p)?0:-1;
+   float x=(width-1000)/2;
+   if(new Rect(x+944,28,40,36).Contains(p))return 0;
+   return new Rect(x+897,71,87,20).Contains(p)?1:-1;
+  }
+  void ReadHudTouch()
+  {
+#if UNITY_WEBGL && !UNITY_EDITOR
+   // Browser touch taps arrive through ApplyHudTap even when a frame spans the whole tap.
+   return;
+#else
+   if(JobOffersOpen||State==RideState.Ready||State==RideState.GameOver||State==RideState.Jailed||State==RideState.Arrested){hudTouchChoice=-1;return;}
+   if(Input.touchCount==0)return;
+   var t=Input.GetTouch(0);
+   if(t.phase==TouchPhase.Began){hudTouchChoice=HudButtonAt(t.position);hudTouchStart=t.position;}
+   if(hudTouchChoice>=0)hudTouchSuppressUntil=Time.unscaledTime+.6f;
+   if(t.phase==TouchPhase.Ended)
+   {
+    int choice=hudTouchChoice;hudTouchChoice=-1;
+    if(choice>=0&&HudButtonAt(t.position)==choice&&Vector2.Distance(t.position,hudTouchStart)<Screen.width*.035f)
+    {if(choice==0)TogglePause();else sound=!sound;}
+   }
+   if(t.phase==TouchPhase.Canceled)hudTouchChoice=-1;
+#endif
+  }
+  bool HudButton(string value,Rect rect,Color bg,Color fg,int size)
+  {
+   bool clicked=Btn(value,rect,bg,fg,size);
+   // A browser may synthesize a mouse event after touch; consume each HUD tap once.
+   return Time.unscaledTime>=hudTouchSuppressUntil&&clicked;
+  }
   string HudEllipsis(string text,float width,int size)
   {
    label.fontSize=size;
@@ -40,7 +77,7 @@ namespace PhoViet
     CompactHudText("Chờ công việc tiếp theo",172,63,152,10,Cream);
    }
    DrawJobMap(new Rect(uiW-148,18,80,80),true);
-   if(Btn(State==RideState.Paused?"▶":"Ⅱ",new Rect(uiW-54,18,34,34),new Color(1,.945f,.812f,.86f),Ink,18))TogglePause();
+   if(HudButton(State==RideState.Paused?"▶":"Ⅱ",new Rect(uiW-54,18,34,34),new Color(1,.945f,.812f,.86f),Ink,18))TogglePause();
    DrawRideNotice();
   }
   void DrawRideNotice()
@@ -55,8 +92,8 @@ namespace PhoViet
    }
    else
    {
-    float width=Mathf.Min(uiW-32,540);Panel(new Rect((uiW-width)/2,100,width,48),Ink);
-    Txt(message,(uiW-width)/2+12,106,width-24,36,16,Gold,TextAnchor.MiddleCenter);
+    float width=Mathf.Min(uiW-40,680);Panel(new Rect((uiW-width)/2,100,width,26),new Color(.07f,.19f,.21f,.70f),7);
+    Txt(HudEllipsis(message,width-20,14),(uiW-width)/2+10,102,width-20,22,14,Gold,TextAnchor.MiddleCenter);
    }
   }
   bool GameplayPointerAllowed(Vector2 position)
@@ -64,7 +101,7 @@ namespace PhoViet
    var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
    float scale=narrow?area.width/480f:Mathf.Min(area.width/1440f,area.height/900f);
    float top=Screen.height-position.y;
-   float reservedTop=narrow?(noticeTimer>0?PortraitNoticeTop+PortraitNoticeHeight:PortraitBarTop+PortraitBarHeight):110;
+   float reservedTop=narrow?(noticeTimer>0?PortraitNoticeTop+PortraitNoticeHeight:PortraitBarTop+PortraitBarHeight):(noticeTimer>0?126:94)*LandscapeHudScale(area)/scale;
    float reservedBottom=narrow?0:110;
    return position.x>=area.xMin&&position.x<=area.xMax&&top>=area.yMin+reservedTop*scale&&top<=area.yMax-reservedBottom*scale;
   }

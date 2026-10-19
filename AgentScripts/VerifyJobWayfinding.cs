@@ -28,9 +28,14 @@ public static class VerifyJobWayfinding
     var marker=(Transform)typeof(PhoVietGame).GetField("jobMarker",F).GetValue(g);
     check(Mathf.Abs(marker.localPosition.x-side*7.6f)<.01f,"Arrow points to actual customer curb "+side);
     check(Vector3.Dot(marker.forward,g.rideCamera.transform.forward)>.999f,"Arrow faces camera "+side);
-    var green=marker.Find("Mũi tên xanh lá").GetComponent<Renderer>();
+    var green=marker.Find("Mũi tên 3D/Mũi tên xanh lá").GetComponent<Renderer>();
     check(green.sharedMaterial.shader.isSupported&&green.sharedMaterial.color.g>.95f,"Bright green shader is supported "+side);
-    check(marker.Find("Viền sáng")!=null&&marker.Find("Quầng sáng xanh")!=null,"Arrow has contrasting outline and glow "+side);
+    check(marker.Find("Mũi tên 3D/Viền sáng")!=null&&marker.Find("Mũi tên 3D/Quầng sáng xanh")!=null,"Arrow has contrasting outline and glow "+side);
+    var mesh=green.GetComponent<MeshFilter>().sharedMesh;
+    check(mesh.bounds.size.z>.4f,"Waypoint has genuine solid depth rather than stacked flat arrows "+side);
+    check(mesh.normals.Any(n=>n.z<-.98f)&&mesh.normals.Any(n=>n.z>.98f),"Arrow volume has front and back faces "+side);
+    check(mesh.normals.Any(n=>Mathf.Abs(n.z)>.1f&&Mathf.Abs(n.z)<.95f),"Arrow edges contain sloped bevel faces "+side);
+    check(mesh.triangles.Length/3<128&&marker.Find("Vòng sáng điểm hẹn")!=null,"Solid arrow is lightweight and has a ground locator halo "+side);
    }
    g.ActiveJob.dropoff=new RideAddress{node=Vector2Int.zero,axis=0,offset=40,curb=1};
    typeof(PhoVietGame).GetProperty("JobPhase").SetValue(g,PhoVietGame.WorkPhase.Delivery);call("UpdateJobMarker",null);

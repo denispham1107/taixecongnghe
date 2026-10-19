@@ -45,21 +45,6 @@ namespace PhoViet
     if(Btn(FormatCoins(j.reward)+" Coin\nNHẬN VIỆC",JobChoiceRect(i,uiW,uiH,portrait),StreetArt.Gold,StreetArt.Ink,14))AcceptJob(i);
    }
   }
-  void JobNavigationGui()
-  {
-   if(portrait)return; // The portrait HUD owns one merged information/navigation bar.
-   if(!jobsEnabled||ActiveJob==null||State==RideState.Ready||State==RideState.Jailed)return;
-   float w=portrait?242:300,h=portrait?190:220,x=uiW-w-(portrait?16:36),y=portrait?145:125;
-   Panel(new Rect(x,y,w,h),new Color(.07f,.18f,.2f,.96f),12);
-   string stage=JobPhase==WorkPhase.Pickup?"ĐÓN KHÁCH":JobPhase==WorkPhase.Delivery?"ĐƯA KHÁCH":JobPhase==WorkPhase.Boarding?"KHÁCH ĐANG LÊN XE":"KHÁCH ĐANG XUỐNG XE";
-   var route=NavigationRoute;float remaining=NavigationRemainingDistance;
-   string instruction=JobNavigationInstruction();
-   Txt(stage+" · "+Mathf.CeilToInt(remaining)+" m",x+12,y+9,w-24,20,12,StreetArt.Gold);
-   Txt(instruction,x+12,y+31,w-24,23,14,StreetArt.Cream);
-   DrawJobMap(new Rect(x+10,y+60,w-20,h-111));
-   Txt(city.Street(CurrentWorkTarget),x+12,y+h-43,w-24,21,12,StreetArt.Cream);
-   Txt(rerouteNotice>0?"ĐANG TÍNH LẠI LỘ TRÌNH":"THƯỞNG "+FormatCoins(ActiveJob.reward)+" COIN",x+12,y+h-22,w-24,18,10,rerouteNotice>0?StreetArt.Gold:new Color(.7f,.85f,.8f));
-  }
   string JobNavigationInstruction()
   {
    var route=NavigationRoute;
