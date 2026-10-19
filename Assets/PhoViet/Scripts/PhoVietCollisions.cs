@@ -4,19 +4,29 @@ namespace PhoViet
 {
     public partial class PhoVietGame
     {
-        // Pursuit never grants immunity: every actual traffic contact immediately loses.
+        // One life per crash sequence, including pursuit. Falling bodies continue
+        // exchanging impulses, but cannot spend several lives on the same pile-up.
         bool ResolveRiderContacts(float oldX,float dt)
         {
+            if(State!=RideState.Riding)return false;
             if(!IsChased&&collisionImmunity>0)return true;
+            riderBody.previousPosition=new Vector3(oldX,rider.localPosition.y,oldRiderZ);riderBody.previousYaw=oldRiderYaw;riderBody.knocked=false;
+            TrafficVehicle hit=null;Vector2 hitNormal=Vector2.zero;float earliest=2;
             foreach(var v in vehicles)
             {
                 if(!v.active||(!IsChased&&v.playerGrace>0)||v.model.localPosition.y>=2.4f)continue;
-                Vector2 from=new Vector2(v.previousPosition.x-oldX,v.previousPosition.z-oldRiderZ);
-                Vector2 to=new Vector2(v.model.localPosition.x-rider.localPosition.x,v.model.localPosition.z-rider.localPosition.z);
-                float angle=(IsTurning?TurnYaw:0)*Mathf.Deg2Rad,c=Mathf.Abs(Mathf.Cos(angle)),s=Mathf.Abs(Mathf.Sin(angle));
-                if(!SweptOverlap(from,to,VehicleFootprint(v)+new Vector2(.33f*c+.91f*s,.91f*c+.33f*s)))continue;
-                Crash();return false;
+                if(!VehicleContact(riderBody,v,out Vector2 normal,out float at,out float depth)||at>=earliest)continue;
+                earliest=at;hit=v;hitNormal=normal;
             }
+            if(hit!=null)
+            {
+                Vector3 before=riderVelocityValid?riderRoadVelocity:Quaternion.Euler(0,IsTurning?TurnYaw:0,0)*Vector3.forward*Speed;
+                rider.localPosition=Vector3.Lerp(riderBody.previousPosition,rider.localPosition,earliest);
+                hit.model.localPosition=Vector3.Lerp(hit.previousPosition,hit.model.localPosition,earliest);
+                Vector3 contact=(rider.localPosition+hit.model.localPosition)*.5f;
+                BeginRiderImpact(hit,hitNormal,contact,before);riderVelocityValid=false;return false;
+            }
+            riderVelocityValid=false;
             return true;
         }
         public static float VehicleMass(TrafficVehicle v)

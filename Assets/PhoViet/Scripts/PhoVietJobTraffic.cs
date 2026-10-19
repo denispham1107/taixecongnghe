@@ -4,6 +4,7 @@ namespace PhoViet
  public partial class PhoVietGame
  {
   float jobTrafficYieldRemaining;
+  bool TrafficYieldActive=>(jobsEnabled&&jobTrafficYieldRemaining>0)||recoveryTrafficYieldRemaining>0;
   public float JobTrafficYieldRemaining=>jobTrafficYieldRemaining;
   void BeginJobTrafficYield()
   {
@@ -31,7 +32,7 @@ namespace PhoViet
   }
   bool TickJobTrafficYield(TrafficVehicle v,float dt)
   {
-   if(!jobsEnabled||jobTrafficYieldRemaining<=0||dt<=0)return false;
+   if(!TrafficYieldActive||dt<=0)return false;
    Vector3 p=v.model.localPosition,r=rider.localPosition;
    float relative=v.speed-Speed,z=p.z-r.z;
    float separation=v.halfLength+.91f;
@@ -79,7 +80,7 @@ namespace PhoViet
   }
   float JobAcceptanceSpeedLimit(float desired)
   {
-   if(!jobsEnabled||jobTrafficYieldRemaining<=0)return desired;
+   if(!TrafficYieldActive)return desired;
    foreach(var v in vehicles)
    {
     if(!v.active||v.knocked||v.wallCrashed||v.crossing||v.roadTurning||v.routeDetached||v.baseTrafficSpeed>=0)continue;

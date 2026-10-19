@@ -67,16 +67,18 @@ namespace PhoViet
             if(game.State==PhoVietGame.RideState.Ready&&previousState!=game.State)
             {clock=0;kickAge=10;fallAge=0;WheelAngle=0;}
             previousState=game.State;clock+=dt;kickAge+=dt;
+            bool recovering=role==ActorRole.Player&&game.State==PhoVietGame.RideState.Recovering;
             bool falling=role==ActorRole.Player?(game.State==PhoVietGame.RideState.Falling||game.State==PhoVietGame.RideState.GameOver):
                 role==ActorRole.Police?game.PoliceFallen:vehicle.knocked;
             float speed=role==ActorRole.Player?game.Speed:role==ActorRole.Police?game.PoliceSpeed:
                 vehicle.crossing?vehicle.crossSpeed:vehicle.speed;
             string clip="Idle";float normalized=0;
-            if(falling)
+            if(recovering){clip="Recover";normalized=game.RiderRecoveryProgress;speed=0;fallAge=0;}
+            else if(falling)
             {
                 if(role==ActorRole.Player){if(game.State==PhoVietGame.RideState.Falling)fallAge+=dt;}
                 else fallAge=role==ActorRole.Police?1.2f-game.PoliceFallRemaining:vehicle.knockAge;
-                float z=Mathf.DeltaAngle(0,transform.localEulerAngles.z);
+                float z=role==ActorRole.Player?game.RiderFallRoll:Mathf.DeltaAngle(0,transform.localEulerAngles.z);
                 clip=z>0?"FallLeft":"FallRight";normalized=Mathf.Clamp01(fallAge/.75f);
                 if(role==ActorRole.Police&&game.PoliceFallRemaining<.35f)
                 {clip="Recover";normalized=1-Mathf.Clamp01(game.PoliceFallRemaining/.35f);}
@@ -92,7 +94,7 @@ namespace PhoViet
                 else {clip="Idle";normalized=Mathf.Repeat(clock,2.4f)/2.4f;speed=0;}
             }
             Sample(clip,normalized);
-            if(!falling)WheelAngle=Mathf.Repeat(WheelAngle+speed/.34f*Mathf.Rad2Deg*dt,360);
+            if(!falling&&!recovering)WheelAngle=Mathf.Repeat(WheelAngle+speed/.34f*Mathf.Rad2Deg*dt,360);
             RotateWheel(frontWheel,frontRest);RotateWheel(rearWheel,rearRest);
             // Physics owns the outer vehicle roll. Lift only its visual skin so fallen
             // handlebars, panniers and the rider settle above the road rather than through it.
@@ -100,7 +102,7 @@ namespace PhoViet
             float signedRoll=Mathf.DeltaAngle(0,transform.localEulerAngles.z);
             visual.localRotation=baseVisualRotation*Quaternion.Euler(0,0,-signedRoll*recovery);
             visual.position=transform.TransformPoint(baseVisualPosition);
-            if(falling)visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.012f-LowestSupport());
+            if(falling||recovering)visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.012f-LowestSupport());
         }
         void Sample(string name,float normalized)
         {

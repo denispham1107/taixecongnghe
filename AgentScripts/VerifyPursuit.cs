@@ -72,7 +72,7 @@ public static class VerifyPursuit
 
             clean();g.SpawnTraffic(3,0,1);g.TryKick();clear();for(int i=0;i<120;i++)tick(.02f);
             var obstacle=g.SpawnTraffic(g.CurrentLane,1,0);tick(.02f);
-            check(g.State==PhoVietGame.RideState.Falling&&g.Speed==0,"Any traffic impact during pursuit immediately loses the ride");
+            check(g.State==PhoVietGame.RideState.Falling&&g.Speed==0&&g.LivesRemaining==2,"Traffic impact during pursuit spends one life and begins a fall");
             clean();typeof(PhoVietGame).GetMethod("StartChase",flags).Invoke(g,null);
             g.policeBike.localPosition=new Vector3(g.rider.localPosition.x,0,-1);
             typeof(PhoVietGame).GetProperty("PoliceDistance").SetValue(g,1f);

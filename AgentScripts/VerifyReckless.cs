@@ -115,7 +115,7 @@ public static class VerifyReckless
             foreach(bool truck in new[]{false,true})
             {
                 clean();var threat=g.SpawnReckless(truck);threat.willHitWall=false;threat.model.localPosition=new Vector3(1.55f,0,.5f);tick(.02f);
-                check(g.State==PhoVietGame.RideState.Falling,"Being hit by reckless traffic ends the ride: "+truck);
+                check(g.State==PhoVietGame.RideState.Falling&&g.LivesRemaining==2,"Being hit by reckless traffic spends one life: "+truck);
                 foreach(float side in new[]{-1f,1f})
                 {
                     clean();threat=g.SpawnReckless(truck);threat.enteringFromBehind=false;threat.model.localPosition=new Vector3(threat.model.localPosition.x,0,30);threat.startPosition=threat.model.localPosition;threat.willHitWall=true;threat.wallSide=side;threat.wallCrashAt=.9f;

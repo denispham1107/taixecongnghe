@@ -96,6 +96,7 @@ namespace PhoViet
         {
             kickCooldown=Mathf.Max(0,kickCooldown-dt);kickTime=Mathf.Max(0,kickTime-dt);
             collisionImmunity=Mathf.Max(0,collisionImmunity-dt);
+            recoveryTrafficYieldRemaining=Mathf.Max(0,recoveryTrafficYieldRemaining-dt);
             if(IsChased)chaseBoost=Mathf.Min(12,chaseBoost+dt*.28f);
         }
         void AnimateKick()
@@ -134,14 +135,14 @@ namespace PhoViet
         void TickChase(float dt)
         {
             if(!IsChased)return;
-            if(routePolice)TickRoutePolice(dt);else TickPoliceDriving(dt);
+            if(RiderCrashActive)TickCrashPolice(dt);else if(routePolice)TickRoutePolice(dt);else TickPoliceDriving(dt);
             bool flash=(int)(timeRiding*8)%2==0;
             if(redBeacon!=null)redBeacon.sharedMaterial=Mat(flash?Hex("FF423D"):Hex("652F31"),true);
             if(blueBeacon!=null)blueBeacon.sharedMaterial=Mat(flash?Hex("284568"):Hex("4CBAFF"),true);
         }
         public void Arrest()
         {
-            if(State!=RideState.Riding||!IsChased)return;
+            if((State!=RideState.Riding&&State!=RideState.Falling&&State!=RideState.Recovering)||!IsChased)return;
             State=RideState.Arrested;Speed=0;arrestTime=0;engine.Stop();siren?.Stop();
             if((int)Distance>BestDistance){BestDistance=(int)Distance;PlayerPrefs.SetInt(BestKey,BestDistance);PlayerPrefs.Save();}
         }
@@ -185,7 +186,7 @@ namespace PhoViet
             Panel(new Rect(x,y,w,h),Cream,18);
             Txt("CHUYẾN XE KẾT THÚC",x+26,y+24,w-52,24,12,Red);
             Txt("ĐÃ BỊ BẮT",x+24,y+62,w-48,62,portrait?34:40,Ink);
-            Txt("Quãng đường  "+Mathf.FloorToInt(Distance)+" m\nĐạp xe  "+KickCount+"   ·   Dây chuyền  "+ChainCount,x+26,y+132,w-52,62,16,Teal);
+            Txt("Quãng đường  "+Mathf.Max(0,Mathf.FloorToInt(Distance))+" m\nĐạp xe  "+KickCount+"   ·   Dây chuyền  "+ChainCount,x+26,y+132,w-52,62,16,Teal);
             if(Btn("CHƠI LẠI   →",new Rect(x+26,y+(portrait?203:230),w-52,54),Red,Cream,18))RestartRide();
             if(!portrait&&Btn("VỀ ĐẦU PHỐ",new Rect(x+26,y+300,w-52,32),Cream,Teal,13))ResetRide();
         }

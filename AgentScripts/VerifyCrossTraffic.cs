@@ -45,7 +45,7 @@ public static class VerifyCrossTraffic
             foreach(int direction in new[]{1,-1})foreach(bool car in new[]{false,true})
             {
                 clean();var v=g.SpawnCrossTraffic(direction,.5f,car,400);v.model.localPosition=new Vector3(g.rider.localPosition.x-direction*8,0,.5f);
-                step(.05f);check(g.State==PhoVietGame.RideState.Falling,(car?"Car":"Motorcycle")+" side impact from "+(direction==1?"left":"right")+" triggers immediate loss even across an entire frame");
+                step(.05f);check(g.State==PhoVietGame.RideState.Falling&&g.LivesRemaining==2,(car?"Car":"Motorcycle")+" side impact from "+(direction==1?"left":"right")+" spends one life even across an entire frame");
             }
             clean();left=g.SpawnCrossTraffic(1,10,true,400);left.model.localPosition=new Vector3(-6,0,10);step(.05f);
             check(g.State==PhoVietGame.RideState.Riding,"Crossing ahead without Z overlap is a safe near miss");

@@ -74,7 +74,7 @@ public static class VerifyBikeArt
             check(police.CurrentClip=="Recover"&&Mathf.Abs(g.PoliceFallRemaining-.15f)<.001f,"Police recovery animation does not change the 1.2 second gameplay timer");
             check(Mathf.Abs(Mathf.DeltaAngle(0,police.visual.eulerAngles.z))<Mathf.Abs(Mathf.DeltaAngle(0,g.policeBike.eulerAngles.z)),"Police motorcycle visually rises smoothly during recovery");
             g.Crash();hero.Advance(.3f);
-            check(g.State==PhoVietGame.RideState.Falling&&hero.CurrentClip.StartsWith("Fall")&&g.Speed==0,"Player crash immediately loses while playing a skeletal fall reaction");
+            check(g.State==PhoVietGame.RideState.Falling&&hero.CurrentClip.StartsWith("Fall")&&g.Speed==0&&g.LivesRemaining==2,"Player crash spends one life while playing a skeletal fall reaction");
             g.ResetRide();hero.Advance(.02f);
             check(hero.CurrentClip=="Idle"&&hero.visual.localPosition.sqrMagnitude<.0001f,"Restart restores idle posture and removes ground lift");
             return new{success=true,count=checks.Count,checks};

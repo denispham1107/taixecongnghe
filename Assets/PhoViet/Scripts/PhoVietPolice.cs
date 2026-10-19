@@ -98,7 +98,7 @@ namespace PhoViet
             Vector3 roadVelocity=(next-before)/dt+Vector3.forward*Speed;
             ResolvePoliceContact(before,roadVelocity,true);
             PoliceDistance=-policeBike.localPosition.z;
-            if(!PoliceFallen&&PoliceDistance<=2.2f&&Mathf.Abs(policeBike.localPosition.x-rider.localPosition.x)<1.7f)Arrest();
+            if(!PoliceFallen&&Mathf.Abs(PoliceDistance)<=2.2f&&Mathf.Abs(policeBike.localPosition.x-rider.localPosition.x)<1.7f)Arrest();
         }
         void ResolvePoliceContact(Vector3 before,Vector3 policeVelocity,bool canFall)
         {

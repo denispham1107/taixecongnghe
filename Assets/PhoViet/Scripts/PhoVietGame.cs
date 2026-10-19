@@ -7,7 +7,7 @@ namespace PhoViet
 {
     public partial class PhoVietGame : MonoBehaviour
     {
-        public enum RideState { Ready, Riding, Paused, Falling, GameOver, Arrested, Jailed }
+        public enum RideState { Ready, Riding, Paused, Falling, GameOver, Arrested, Jailed, Recovering }
         [Serializable] public class TrafficVehicle
         {
             public Transform model;
@@ -127,6 +127,7 @@ namespace PhoViet
             ResetActions();
             ResetReckless();
             ResetTrafficDynamics();
+            ResetRiderImpact();
             if(rider!=null){rider.localPosition=new Vector3(LaneX[2],0,0);rider.localRotation=Quaternion.identity;}
             lastX=LaneX[2];
             for(int i=0;i<blocks.Count;i++)blocks[i].localPosition=new Vector3(0,0,(i-1)*VietnamStreet.Length);
@@ -147,8 +148,8 @@ namespace PhoViet
         public void TogglePause()
         {
             if(JobOffersOpen)return;
-            if(State==RideState.Riding){State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);}
-            else if(State==RideState.Paused){State=RideState.Riding;PauseRecklessFx(false);if(sound){engine.UnPause();navigationAudio?.UnPause();if(IsChased)siren?.UnPause();}}
+            if(State==RideState.Riding||State==RideState.Falling||State==RideState.Recovering){pauseFromState=State;State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);}
+            else if(State==RideState.Paused){State=pauseFromState;PauseRecklessFx(false);if(sound){if(State==RideState.Riding){engine.UnPause();navigationAudio?.UnPause();}if(IsChased)siren?.UnPause();}}
         }
         public TrafficVehicle SpawnTraffic(int lane,float z,int preferred=-1)
         {
@@ -237,13 +238,7 @@ namespace PhoViet
                 ReadSwipe(); TickRide(Mathf.Min(Time.deltaTime,.05f));
             }
             UpdateWork(Mathf.Min(Time.deltaTime,.05f));
-            if(State==RideState.Falling)
-            {
-                fallTime+=Time.deltaTime;float t=Mathf.SmoothStep(0,1,fallTime/.65f);
-                if(turnCrash){rider.localRotation=crashTurnRotation*Quaternion.Euler(-8*t,12*t,-78*t);rider.localPosition=crashTurnPosition+crashTurnRotation*new Vector3(-.3f*t,-.25f*t,0);}
-                else {rider.localRotation=Quaternion.Euler(-8*t,12*t,-78*t);rider.localPosition=new Vector3(lastX-.3f*t,-.25f*t,0);}
-                if(fallTime>.9f)State=RideState.GameOver;
-            }
+            if(State==RideState.Falling||State==RideState.Recovering)TickRiderCrash(Mathf.Min(Time.deltaTime,.05f));
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
             if(State==RideState.Arrested)TickArrest(Time.deltaTime);
             AnimateLights();PositionCamera(false);
@@ -282,11 +277,36 @@ namespace PhoViet
             Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;
             oldRiderZ=rider.localPosition.z;
+            oldRiderYaw=IsTurning?TurnYaw:0;
             float x=ServiceStopped?oldX:Mathf.MoveTowards(oldX,LaneX[CurrentLane],dt*15);
             lean=Mathf.Lerp(lean,(oldX-x)*-35,dt*10);
             if(!IsTurning){rider.localPosition=new Vector3(x,Mathf.Sin(timeRiding*12)*.012f,0);rider.localRotation=Quaternion.Euler(0,0,lean);}
             BeginOrContinueTurn(Speed*dt);
             lastX=x;
+            riderRoadVelocity=dt>0?new Vector3((rider.localPosition.x-oldX)/dt,0,Speed+(rider.localPosition.z-oldRiderZ)/dt):Quaternion.Euler(0,TurnYaw,0)*Vector3.forward*Speed;
+            riderVelocityValid=true;
+            TickTrafficMotion(dt);
+            if(!ResolveRiderContacts(oldX,dt))return;
+            x=rider.localPosition.x;lastX=x;
+            RetireTraffic(true);
+            TickChase(dt);AnimateKick();
+            if(State!=RideState.Riding)return;
+            EndRouteFrame(dt);
+            if(IsTurning)return;
+            TickExitTraffic(dt);
+            ScheduleIntersection();
+            // The ordinary wave also owns reckless entries, so both thin out together.
+            spawnTimer-=dt*TrafficDensity;
+            if(spawnTimer<=0)
+            {
+                int a=rng.Next(4);float z=105+rng.Next(0,14);SpawnTraffic(a,z);
+                if(DifficultyTime>12){int b=(a+rng.Next(1,4))%4;SpawnTraffic(b,z+rng.Next(5,13));}
+                MaybeSpawnReckless();
+                spawnTimer=Mathf.Lerp(2.5f,1.35f,Difficulty01)*(.8f+(float)rng.NextDouble()*.4f);
+            }
+        }
+        void TickTrafficMotion(float dt)
+        {
             foreach(var v in vehicles)
             {
                 if(!v.active)continue;
@@ -312,39 +332,21 @@ namespace PhoViet
             }
             ResolveVehicleCollisions();
             if(ServiceRearProtected)foreach(var vehicle in vehicles)YieldRearForService(vehicle);
-            if(!ResolveRiderContacts(oldX,dt))return;
-            x=rider.localPosition.x;lastX=x;
+        }
+        void RetireTraffic(bool countPasses)
+        {
             foreach(var v in vehicles)
             {
                 if(!v.active)continue;
                 Vector3 previous=v.previousPosition;
                 Vector3 p=v.model.localPosition;
-                if(previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
+                if(countPasses&&previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-rider.localPosition.x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
                 if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || (v.enteringFromBehind&&!v.isReckless&&p.z< -95) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&v.knockAge>8) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
-            }
-            TickChase(dt);AnimateKick();
-            if(State!=RideState.Riding)return;
-            EndRouteFrame(dt);
-            if(IsTurning)return;
-            TickExitTraffic(dt);
-            ScheduleIntersection();
-            // The ordinary wave also owns reckless entries, so both thin out together.
-            spawnTimer-=dt*TrafficDensity;
-            if(spawnTimer<=0)
-            {
-                int a=rng.Next(4);float z=105+rng.Next(0,14);SpawnTraffic(a,z);
-                // Never fill all lanes in a row; at least two lanes always remain open.
-                if(DifficultyTime>12){int b=(a+rng.Next(1,4))%4;SpawnTraffic(b,z+rng.Next(5,13));}
-                MaybeSpawnReckless();
-                spawnTimer=Mathf.Lerp(2.5f,1.35f,Difficulty01)*(.8f+(float)rng.NextDouble()*.4f);
             }
         }
         public void Crash()
         {
-            if(State!=RideState.Riding)return;
-            turnCrash=IsTurning;crashTurnPosition=rider.localPosition;crashTurnRotation=Quaternion.Euler(0,TurnYaw,0);
-            State=RideState.Falling;fallTime=0;Speed=0;engine.Stop();siren?.Stop();if(sound)fx.PlayOneShot(crashClip);
-            if((int)Distance>BestDistance){BestDistance=(int)Distance;PlayerPrefs.SetInt(BestKey,BestDistance);PlayerPrefs.Save();}
+            if(State==RideState.Riding)BeginRiderImpact(null,Vector2.up,rider.localPosition+Vector3.forward*.8f,Vector3.forward*Speed);
         }
         void AnimateLights()
         {
@@ -361,8 +363,9 @@ namespace PhoViet
             bool narrow=Screen.width<Screen.height;
             float x=rider!=null?rider.localPosition.x:LaneX[2];
             Quaternion heading=Quaternion.Euler(0,IsTurning?TurnYaw:0,0);
-            Vector3 center=IsTurning?rider.localPosition-heading*new Vector3(LaneX[CurrentLane],0,0):Vector3.zero;
-            float lateral=IsTurning?LaneX[CurrentLane]:x;
+            bool followsCrash=RiderCrashActive||State==RideState.GameOver;
+            Vector3 center=IsTurning||followsCrash?rider.localPosition-heading*new Vector3(LaneX[CurrentLane],0,0):Vector3.zero;
+            float lateral=IsTurning||followsCrash?LaneX[CurrentLane]:x;
             Vector3 target=center+heading*new Vector3(lateral*(narrow?.85f:.25f),IsChased?7.8f:7.15f,IsChased?-14f:-9.6f);
             float cameraDt=Mathf.Min(Time.unscaledDeltaTime,.05f);
             rideCamera.transform.localPosition=snap?target:Vector3.Lerp(rideCamera.transform.localPosition,target,1-Mathf.Exp(-cameraDt*5));
@@ -402,7 +405,7 @@ namespace PhoViet
             if(State==RideState.Paused&&!JobOffersOpen)EndCard(true);
             if(JobOffersOpen)JobOffersGui();
             if(State==RideState.GameOver)EndCard(false);
-            if(State==RideState.Falling) {FullscreenTint(new Color(.7f,.08f,.05f,.12f));Txt("VA CHẠM!",0,uiH*.23f,uiW,70,46,Cream,TextAnchor.MiddleCenter);}
+            if(State==RideState.Falling&&fallTime<.2f)FullscreenTint(new Color(.7f,.08f,.05f,.1f));
             if(State==RideState.Arrested){FullscreenTint(new Color(.1f,.18f,.4f,.23f));Txt("CSGT ĐÃ ĐUỔI KỊP",0,uiH*.33f,uiW,90,portrait?29:44,Cream,TextAnchor.MiddleCenter);}
             GUI.matrix=Matrix4x4.identity;
         }
@@ -423,7 +426,7 @@ namespace PhoViet
             Panel(new Rect(cx,cy,cw,portrait?350:405),Cream,18);
             Txt("MỘT VÒNG VIỆT NAM",cx+28,cy+25,cw-56,25,12,Red);
             Txt("LÁI QUA\nPHỐ QUEN.",cx+24,cy+60,cw-48,150,portrait?45:54,Ink);
-            Txt("Né phanh gấp, xe tạt làn và xe rẽ. Đạp quái xế để tự vệ; đạp xe thường sẽ bị truy đuổi!",cx+28,cy+217,cw-56,62,16,Hex("55716E"));
+            Txt("Bạn có 3 mạng. Né xe, đạp quái xế để tự vệ. Đạp xe thường sẽ bị truy đuổi; bị CSGT bắt là kết thúc!",cx+28,cy+217,cw-56,62,16,Hex("55716E"));
             if(Btn("LÊN XE THÔI   →",new Rect(cx+28,cy+(portrait?283:296),cw-56,58),Red,Cream,19))StartRide();
             if(!portrait)Txt("KỶ LỤC CỦA BẠN   /   "+BestDistance+" m",cx+28,cy+369,cw-56,25,12,Teal);
             if(!portrait)
@@ -440,11 +443,12 @@ namespace PhoViet
         void Hud()
         {
             float pad=portrait?16:36,top=portrait?20:28;
-            Panel(new Rect(pad,top,portrait?276:335,97),Ink);
+            Panel(new Rect(pad,top,portrait?276:335,121),Ink);
             Txt("PHỐ VIỆT  /  "+CurrentStreet.ToUpperInvariant(),pad+18,top+12,portrait?250:305,22,portrait?11:12,Gold);
-            Txt(Mathf.FloorToInt(Distance).ToString("N0")+" m",pad+16,top+31,180,40,28,Cream);
+            Txt(Mathf.Max(0,Mathf.FloorToInt(Distance)).ToString("N0")+" m",pad+16,top+31,180,40,28,Cream);
             Txt(Mathf.RoundToInt(Speed*3.6f)+" km/h",pad+(portrait?178:229),top+42,90,25,13,Hex("B5CFC2"));
             Txt("Coin: "+FormatCoins(Coins),pad+18,top+73,portrait?250:300,21,15,Gold);
+            Txt("MẠNG: "+LivesRemaining+" / 3",pad+18,top+96,portrait?250:300,19,13,LivesRemaining==1?Cream:Gold);
             if(Btn(State==RideState.Paused?"▶":"Ⅱ",new Rect(uiW-pad-56,top,56,56),Cream,Ink,22))TogglePause();
             if(!portrait)
             {
@@ -452,14 +456,18 @@ namespace PhoViet
                 Txt("KỶ LỤC",uiW-pad-271,top+8,110,18,10,Teal);Txt(BestDistance+" m",uiW-pad-271,top+25,150,25,19,Ink);
                 if(Btn(sound?"ÂM: BẬT":"ÂM: TẮT",new Rect(uiW-pad-111,uiH-59,111,34),Ink,Cream,11))sound=!sound;
             }
+            if(State==RideState.Riding||State==RideState.Falling||State==RideState.Recovering)
+            {
+                if(noticeTimer>0||State!=RideState.Riding)
+                {
+                    float nw=Mathf.Min(uiW-32,portrait?420:540),ny=portrait?(ActiveJob!=null?347:151):100;
+                    Panel(new Rect((uiW-nw)/2,ny,nw,48),Ink);
+                    string message=State==RideState.Falling?(LivesRemaining>0?"VA CHẠM · CÒN "+LivesRemaining+" MẠNG":"ĐÃ HẾT 3 MẠNG"):State==RideState.Recovering?"ĐANG DỰNG XE · CÒN "+LivesRemaining+" MẠNG":notice;
+                    Txt(message,(uiW-nw)/2+12,ny+6,nw-24,36,portrait?13:16,Gold,TextAnchor.MiddleCenter);
+                }
+            }
             if(State==RideState.Riding)
             {
-                if(noticeTimer>0)
-                {
-                    float nw=Mathf.Min(uiW-32,portrait?420:540),ny=portrait?(ActiveJob!=null?347:125):100;
-                    Panel(new Rect((uiW-nw)/2,ny,nw,48),Ink);
-                    Txt(notice,(uiW-nw)/2+12,ny+6,nw-24,36,portrait?13:16,Gold,TextAnchor.MiddleCenter);
-                }
                 if(portrait)
                 {
                     if(Btn("←",new Rect(20,uiH-106,100,74),Ink,Cream,35))MoveLane(-1);
@@ -481,7 +489,7 @@ namespace PhoViet
             float w=portrait?432:480,h=paused?340:465,x=(uiW-w)/2,y=(uiH-h)/2;
             Panel(new Rect(x,y,w,h),Cream,18);
             Txt(paused?"NGHỈ MỘT CHÚT":"KẾT THÚC CHUYẾN XE",x+28,y+28,w-56,25,12,Red);
-            Txt(paused?"Dừng chân bên phố.":"Ôi, té xe rồi!",x+27,y+69,w-54,70,portrait?31:36,Ink);
+            Txt(paused?"Dừng chân bên phố.":"Đã hết 3 mạng!",x+27,y+69,w-54,70,portrait?31:36,Ink);
             if(paused)
             {
                 Txt("Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.",x+28,y+140,w-56,50,16,Teal);
@@ -490,7 +498,7 @@ namespace PhoViet
             else
             {
                 Txt("Bạn đã đi được",x+28,y+137,w-56,27,15,Teal);
-                Txt(Mathf.FloorToInt(Distance).ToString("N0")+" m",x+24,y+172,w-48,75,58,Ink);
+                Txt(Mathf.Max(0,Mathf.FloorToInt(Distance)).ToString("N0")+" m",x+24,y+172,w-48,75,58,Ink);
                 Line(x+28,y+267,w-56,Hex("D8D6BF"));
                 Txt(PassedVehicles+" XE ĐÃ NÉ",x+28,y+286,200,27,13,Teal);Txt("KỶ LỤC  "+BestDistance+" m",x+w-225,y+286,200,27,13,Red,TextAnchor.UpperRight);
                 if(Btn("THỬ MỘT CHUYẾN NỮA   →",new Rect(x+28,y+334,w-56,58),Red,Cream,portrait?15:18))RestartRide();
