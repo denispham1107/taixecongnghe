@@ -242,6 +242,7 @@ namespace PhoViet
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
             if(State==RideState.Arrested)TickArrest(Time.deltaTime);
             AnimateLights();PositionCamera(false);
+            UpdateJobMarker();
             UpdateDangerSigns();
             if(engine!=null){engine.mute=!sound;engine.pitch=.85f+Speed/45f;}
             if(siren!=null)siren.mute=!sound;
@@ -461,6 +462,9 @@ namespace PhoViet
                 if(noticeTimer>0||State!=RideState.Riding)
                 {
                     float nw=Mathf.Min(uiW-32,portrait?420:540),ny=portrait?(ActiveJob!=null?347:151):100;
+                    // Keep the short notification above the touch controls while
+                    // a customer arrow is visible, leaving the curb marker clear.
+                    if(portrait&&JobMarkerVisible)ny=uiH-160;
                     Panel(new Rect((uiW-nw)/2,ny,nw,48),Ink);
                     string message=State==RideState.Falling?(LivesRemaining>0?"VA CHẠM · CÒN "+LivesRemaining+" MẠNG":"ĐÃ HẾT 3 MẠNG"):State==RideState.Recovering?"ĐANG DỰNG XE · CÒN "+LivesRemaining+" MẠNG":notice;
                     Txt(message,(uiW-nw)/2+12,ny+6,nw-24,36,portrait?13:16,Gold,TextAnchor.MiddleCenter);

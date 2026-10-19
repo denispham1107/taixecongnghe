@@ -51,8 +51,8 @@ namespace PhoViet
    float w=portrait?242:300,h=portrait?190:220,x=uiW-w-(portrait?16:36),y=portrait?145:125;
    Panel(new Rect(x,y,w,h),new Color(.07f,.18f,.2f,.96f),12);
    string stage=JobPhase==WorkPhase.Pickup?"ĐÓN KHÁCH":JobPhase==WorkPhase.Delivery?"ĐƯA KHÁCH":JobPhase==WorkPhase.Boarding?"KHÁCH ĐANG LÊN XE":"KHÁCH ĐANG XUỐNG XE";
-   float remaining=ActiveRoute==null?0:Mathf.Max(0,ActiveRoute.distance-(Distance-routePlanDistance));
-   string instruction=ServiceStopped?"DỪNG TẠI ĐIỂM HẸN":ActiveRoute!=null&&!ActiveRoute.direct?(ActiveRoute.nextTurn<0?"RẼ TRÁI":ActiveRoute.nextTurn>0?"RẼ PHẢI":"ĐI THẲNG")+" · "+Mathf.Max(0,Mathf.CeilToInt(NextJunctionDistance))+" m":"VÀO LỀ "+(TargetLane(CurrentWorkTarget)==3?"PHẢI":"TRÁI");
+   var route=NavigationRoute;float remaining=NavigationRemainingDistance;
+   string instruction=ServiceStopped?"DỪNG TẠI ĐIỂM HẸN":IsTurning?"ĐANG RẼ "+(turnSide<0?"TRÁI":"PHẢI"):route!=null&&!route.direct?(route.nextTurn<0?"RẼ TRÁI":route.nextTurn>0?"RẼ PHẢI":"ĐI THẲNG")+" · "+Mathf.Max(0,Mathf.CeilToInt(NextJunctionDistance))+" m":"VÀO LỀ "+(TargetLane(CurrentWorkTarget)==3?"PHẢI":"TRÁI");
    Txt(stage+" · "+Mathf.CeilToInt(remaining)+" m",x+12,y+9,w-24,20,12,StreetArt.Gold);
    Txt(instruction,x+12,y+31,w-24,23,14,StreetArt.Cream);
    DrawJobMap(new Rect(x+10,y+60,w-20,h-111));
@@ -61,8 +61,8 @@ namespace PhoViet
   }
   void DrawJobMap(Rect rect)
   {
-   GUI.BeginGroup(rect);Vector2 player=NavigationPosition;
-   float radius=100;if(ActiveRoute!=null)foreach(var p in ActiveRoute.points)radius=Mathf.Max(radius,Mathf.Abs(p.x-player.x)+20,Mathf.Abs(p.y-player.y)+20);
+   GUI.BeginGroup(rect);Vector2 player=NavigationMapPosition;var route=NavigationRoute;
+   float radius=100;if(route!=null)foreach(var p in route.points)radius=Mathf.Max(radius,Mathf.Abs(p.x-player.x)+20,Mathf.Abs(p.y-player.y)+20);
    float scale=Mathf.Min(rect.width,rect.height)/(2*radius),cx=rect.width*.5f,cy=rect.height*.5f;
    System.Func<Vector2,Vector2> screen=p=>new Vector2(cx+(p.x-player.x)*scale,cy-(p.y-player.y)*scale);
    int grid=Mathf.Max(1,Mathf.CeilToInt(radius/80));
@@ -72,10 +72,13 @@ namespace PhoViet
     MapLine(screen(new Vector2(gx,player.y-radius)),screen(new Vector2(gx,player.y+radius)),3,new Color(.24f,.36f,.36f));
     MapLine(screen(new Vector2(player.x-radius,gy)),screen(new Vector2(player.x+radius,gy)),3,new Color(.24f,.36f,.36f));
    }
-   if(ActiveRoute!=null)for(int i=1;i<ActiveRoute.points.Count;i++)MapLine(screen(ActiveRoute.points[i-1]),screen(ActiveRoute.points[i]),4,StreetArt.Gold);
+   if(route!=null)for(int i=1;i<route.points.Count;i++)MapLine(screen(route.points[i-1]),screen(route.points[i]),4,StreetArt.Gold);
    Vector2 end=screen(CurrentWorkTarget.Point);Panel(new Rect(end.x-4,end.y-4,8,8),StreetArt.Red,4);
-   Vector2 centre=screen(player),heading=CityNavigation.Directions[navHeading];Vector2 tip=centre+new Vector2(heading.x,-heading.y)*9;
-   MapLine(centre,tip,5,new Color(.25f,.85f,.9f));Panel(new Rect(centre.x-4,centre.y-4,8,8),StreetArt.Cream,4);GUI.EndGroup();
+   Vector2 centre=screen(player),heading=NavigationMapDirection;Vector2 tip=centre+new Vector2(heading.x,-heading.y)*9;
+   // Small dots support the smoothly rotating heading without changing the GUI
+   // matrix, which would break clipping inside this map group on mobile.
+   for(int i=0;i<=9;i++){var p=Vector2.Lerp(centre,tip,i/9f);Panel(new Rect(p.x-2,p.y-2,4,4),new Color(.25f,.85f,.9f),2);}
+   Panel(new Rect(centre.x-4,centre.y-4,8,8),StreetArt.Cream,4);GUI.EndGroup();
   }
   void MapLine(Vector2 a,Vector2 b,float width,Color color)
   {

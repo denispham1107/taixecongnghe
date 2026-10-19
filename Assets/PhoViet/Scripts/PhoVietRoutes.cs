@@ -139,6 +139,7 @@ namespace PhoViet
                 turnLength=lateArcLengths[64];
             }
             if(IsChased&&!routePolice){routePolice=true;policeRouteAt=Distance-PoliceDistance;}
+            PreviewJunctionNavigation();
         }
         Vector3 LateTurnPoint(float t)
         {

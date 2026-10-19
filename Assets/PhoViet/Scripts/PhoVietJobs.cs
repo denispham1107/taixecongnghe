@@ -25,6 +25,20 @@ namespace PhoViet
   public Vector2Int NavigationNextNode=>navNext;
   public int NavigationHeading=>navHeading;
   public Vector2 NavigationPosition=>(Vector2)navNext*80-(Vector2)CityNavigation.Directions[navHeading]*NextJunctionDistance;
+  // Preview the committed exit immediately, without advancing the authoritative city
+  // node until the road geometry has been rebased at the end of the curve.
+  CityRoute turnNavigationRoute;
+  public CityRoute NavigationRoute=>IsTurning&&turnNavigationRoute!=null?turnNavigationRoute:ActiveRoute;
+  public Vector2 NavigationMapPosition=>IsTurning?NavigationPosition+(Vector2)CityNavigation.Directions[navHeading]*rider.localPosition.z+(Vector2)CityNavigation.Directions[(navHeading+1)%4]*rider.localPosition.x:NavigationPosition;
+  public Vector2 NavigationMapDirection=>((Vector2)CityNavigation.Directions[navHeading])*Mathf.Cos(TurnYaw*Mathf.Deg2Rad)+(Vector2)CityNavigation.Directions[(navHeading+1)%4]*Mathf.Sin(TurnYaw*Mathf.Deg2Rad);
+  float TurnExitAdvance=>Vector2.Dot(NavigationMapPosition-(Vector2)navNext*80,CityNavigation.Directions[(navHeading+turnSide+4)%4]);
+  public float NavigationRemainingDistance=>NavigationRoute==null?0:Mathf.Max(0,IsTurning&&turnNavigationRoute!=null?turnNavigationRoute.distance-Mathf.Max(0,TurnExitAdvance):ActiveRoute.distance-Mathf.Max(0,Distance-routePlanDistance));
+  void PreviewJunctionNavigation()
+  {
+   if(!jobsEnabled||ActiveJob==null)return;
+   int heading=(navHeading+turnSide+4)%4;
+   turnNavigationRoute=city.Plan((Vector2)navNext*80,navNext+CityNavigation.Directions[heading],heading,80,CurrentWorkTarget);
+  }
   public bool ServiceStopped=>jobsEnabled&&(JobPhase==WorkPhase.Boarding||JobPhase==WorkPhase.Alighting);
   public bool ServiceRearProtected=>ServiceStopped||rearDepartureProtection>0;
   const string CoinsKey="PhoViet.Coins.v1";
@@ -39,7 +53,7 @@ namespace PhoViet
   {
    Coins=Math.Max(0,PlayerPrefs.GetInt(CoinsKey,0));navHeading=0;navNext=new Vector2Int(0,1);
    city=new CityNavigation(RouteNames,RunSeed^17391);jobRandom=new System.Random(RunSeed^93517);
-   ActiveJob=null;ActiveRoute=null;JobPhase=WorkPhase.None;JobOffersOpen=false;JobOffers.Clear();Reroutes=0;
+   ActiveJob=null;ActiveRoute=null;turnNavigationRoute=null;JobPhase=WorkPhase.None;JobOffersOpen=false;JobOffers.Clear();Reroutes=0;
    offersDelay=2;serviceTime=0;rearDepartureProtection=0;jobTrafficYieldRemaining=0;rerouteNotice=0;spokenKey="";navigationCueStage=0;streetTargetMissed=false;pendingReroute=false;
    if(malePassenger!=null)malePassenger.gameObject.SetActive(false);if(femalePassenger!=null)femalePassenger.gameObject.SetActive(false);
    customer=null;if(jobMarker!=null)jobMarker.gameObject.SetActive(false);navigationAudio?.Stop();
@@ -110,7 +124,7 @@ namespace PhoViet
    if(State==RideState.Riding&&ActiveJob==null&&!JobOffersOpen){offersDelay-=dt;if(offersDelay<=0)ShowJobOffers();}
    if(navigationAudio!=null){navigationAudio.mute=!sound;if(State!=RideState.Riding)navigationAudio.Pause();}
    if(State!=RideState.Riding||ActiveJob==null)return;
-   rerouteNotice=Mathf.Max(0,rerouteNotice-dt);UpdateJobMarker();
+   rerouteNotice=Mathf.Max(0,rerouteNotice-dt);
    UpdateNavigationVoice();
   }
   bool TurnSoonAfterStraight()
@@ -229,20 +243,6 @@ namespace PhoViet
    bool rear=v.previousPosition.z<rider.localPosition.z-.5f&&p.z>v.previousPosition.z;
    if(rear&&Mathf.Abs(p.x-rider.localPosition.x)<v.halfWidth+.85f&&p.z>safe)
    {p.z=safe;v.model.localPosition=p;v.speed=Mathf.Min(v.speed,Speed);v.knockVelocity.z=Mathf.Min(v.knockVelocity.z,Speed);v.motionVelocity.z=Mathf.Min(v.motionVelocity.z,Speed);if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(true);}
-  }
-  void UpdateJobMarker()
-  {
-   if(ActiveJob==null)return;
-   if(jobMarker==null)
-   {
-    jobMarker=StreetArt.Group("Điểm hẹn công việc",transform);
-    StreetArt.Shape("Cột chỉ điểm",jobMarker,PrimitiveType.Cylinder,new Vector3(0,1.6f,0),new Vector3(.12f,1.6f,.12f),StreetArt.Gold);
-    StreetArt.Sphere("Điểm hẹn",jobMarker,new Vector3(0,3.35f,0),Vector3.one*.55f,StreetArt.Gold);
-    StreetArt.Text(jobMarker,"Nhãn điểm hẹn","",new Vector3(0,4,0),.25f,StreetArt.Cream);
-   }
-   Vector2 delta=CurrentWorkTarget.Point-NavigationPosition;float z=Vector2.Dot(delta,CityNavigation.Directions[navHeading]),x=Vector2.Dot(delta,CityNavigation.Directions[(navHeading+1)%4]);
-   bool visible=!IsTurning&&Mathf.Abs(x)<.2f&&z>-8&&z<115;jobMarker.gameObject.SetActive(visible);
-   if(visible){jobMarker.localPosition=new Vector3(TargetLane(CurrentWorkTarget)==3?7.6f:-7.6f,0,z);jobMarker.GetComponentInChildren<TextMesh>().text=JobPhase==WorkPhase.Pickup?"ĐÓN KHÁCH":"TRẢ KHÁCH";}
   }
  }
 }
