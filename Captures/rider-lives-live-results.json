@@ -1,0 +1,35 @@
+{
+  "url": "https://denispham1107.github.io/taixecongnghe/",
+  "checks": [
+    "Live release version and cache match tested build",
+    "Published artifact matches: Build/56246fa010212de8b0da1ca9f3ba7d5d.framework.js.unityweb",
+    "Published artifact matches: Build/58d58210dcf2439a35ae2098493ca2a2.wasm.unityweb",
+    "Published artifact matches: Build/db137263009ea62702d5db9c04053777.loader.js",
+    "Published artifact matches: Build/dde44359d0aadc44eb7454396450968e.data.unityweb",
+    "Published artifact matches: FONT-LICENSE.txt",
+    "Published artifact matches: app.js",
+    "Published artifact matches: font.ttf",
+    "Published artifact matches: icons/apple-touch-icon.png",
+    "Published artifact matches: icons/icon-192.png",
+    "Published artifact matches: icons/icon-512.png",
+    "Published artifact matches: icons/icon-maskable-512.png",
+    "Published artifact matches: icons/icon.svg",
+    "Published artifact matches: index.html",
+    "Published artifact matches: manifest.webmanifest",
+    "Published artifact matches: poster.png",
+    "Published artifact matches: style.css",
+    "Published artifact matches: sw.js",
+    "Published artifact matches: precache.json",
+    "Real published Unity WebAssembly initializes",
+    "Published start and pause input smoke completed",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "build": {
+    "version": "1.17.0",
+    "cache": "ed34b794b58f4886",
+    "unity": "6000.5.6f1",
+    "utc": "2026-10-19T05:56:50.3799203Z"
+  },
+  "success": true
+}

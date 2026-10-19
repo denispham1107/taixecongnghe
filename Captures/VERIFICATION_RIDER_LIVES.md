@@ -37,6 +37,9 @@ The user explicitly confirmed the pursuit behavior, automatic get-up after about
 - Version `1.17.0`, offline cache `ed34b794b58f4886`.
 - **65 browser checks passed on the final artifact**: 37 WebGL/PWA/offline/input checks, eight real canvas job-selection/GPS checks and 20 fullscreen checks across phone/tablet portrait/landscape. There were zero JavaScript or Unity runtime errors. Evidence: `rider-lives-web-results.json`, `rider-lives-ui-results.json`, `fullscreen-game-rider-lives-results.json`.
 - The final phone GPS screenshot was visually inspected: the three-life counter, Coin, GPS and unified notification fit without overlap; the mobile hamburger remains hidden.
-- Publication and live verification details follow below.
+- Source/artifact commit `d7067a3dc19400936b078b8b56bf78562a58566c` was pushed to `origin/main`.
+- GitHub Pages deployment succeeded for that exact commit: https://github.com/denispham1107/taixecongnghe/actions/runs/39208887730 .
+- **22 live checks passed** at https://denispham1107.github.io/taixecongnghe/ : final version/cache, deployed resource contents, real published WASM startup, start/pause controls and zero JavaScript/Unity runtime errors. Evidence: `rider-lives-live-results.json`.
+- Local HTTP verification server stopped. Unity is in Edit Mode, jobs enabled; native wallet 0 Coin and record 1775 m were verified preserved. Existing Blender edits, backup and untracked handoff document remain untouched.
 
 Phone browser profiles verify layout and touch in Chromium; no physical iPhone/iPad performance claim is made.
