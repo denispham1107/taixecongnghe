@@ -31,4 +31,8 @@
 - 81 kiểm tra web đều đạt: 6 SpaceBar/vuốt lên, 6 W/vuốt xuống, 12 công việc/UI/chuột/touch/xoay, 37 WebGL/PWA/offline, 20 fullscreen/safe area theo profile iPhone/iPad dọc/ngang. Không có lỗi JavaScript hoặc Unity runtime.
 - Profile điện thoại trong trình duyệt kiểm tra bố cục/điều khiển, không phải phép đo hiệu năng trên thiết bị vật lý.
 - Unity kết thúc ở Edit Mode, Game View ngang; công việc bật, dữ liệu đọc lại vẫn 55 Coin và kỷ lục 1.775 m.
-- Đang đưa bản đã kiểm tra lên GitHub Pages.
+- Commit phát hành: `09af0babe5aaf07a97380b847b0daffafcf39242`.
+- GitHub Pages triển khai thành công đúng commit: https://github.com/denispham1107/taixecongnghe/actions/runs/39465334366
+- 26 kiểm tra live đều đạt: phiên bản/cache và từng tài nguyên khớp bản đã thử, WebAssembly thật khởi động, nhận thao tác bắt đầu/tạm dừng, không có lỗi JavaScript hoặc Unity runtime. Bằng chứng: `truck-jump-live-results.json`.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/
+- Server thử nội bộ đã dừng. Các file Blender thay đổi từ trước, bản sao lưu Motorcycle và `huongdan.md` được giữ riêng khỏi commit.
