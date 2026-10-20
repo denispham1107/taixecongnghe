@@ -156,6 +156,7 @@ namespace PhoViet
         }
         void FinishJunctionTurn()
         {
+            if(boostSmoke!=null)boostSmoke.Rebase();
             Quaternion exit=Quaternion.Euler(0,turnSide*90,0),inverse=Quaternion.Inverse(exit);
             Vector3 origin=rider.localPosition-exit*new Vector3(LaneX[CurrentLane],0,0);origin.y=0;
             foreach(var row in roadRows)

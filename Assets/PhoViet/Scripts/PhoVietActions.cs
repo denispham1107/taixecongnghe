@@ -140,7 +140,7 @@ namespace PhoViet
         public void Arrest()
         {
             if((State!=RideState.Riding&&State!=RideState.Falling&&State!=RideState.Recovering)||!IsChased)return;
-            State=RideState.Arrested;Speed=0;arrestTime=0;engine.Stop();siren?.Stop();
+            CancelBoost();State=RideState.Arrested;Speed=0;arrestTime=0;engine.Stop();siren?.Stop();
             if((int)Distance>BestDistance){BestDistance=(int)Distance;PlayerPrefs.SetInt(BestKey,BestDistance);PlayerPrefs.Save();}
         }
         void TickArrest(float dt)

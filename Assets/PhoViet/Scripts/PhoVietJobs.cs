@@ -189,7 +189,7 @@ namespace PhoViet
   }
   void BeginService()
   {
-   bool pickup=JobPhase==WorkPhase.Pickup;JobPhase=pickup?WorkPhase.Boarding:WorkPhase.Alighting;serviceTime=0;Speed=0;engine?.Pause();navigationAudio?.Stop();
+   CancelBoost();bool pickup=JobPhase==WorkPhase.Pickup;JobPhase=pickup?WorkPhase.Boarding:WorkPhase.Alighting;serviceTime=0;Speed=0;engine?.Pause();navigationAudio?.Stop();
    foreach(var v in vehicles)v.jobYieldLane=-1;
    if(pickup)
    {

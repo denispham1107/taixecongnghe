@@ -42,7 +42,7 @@ namespace PhoViet
    QueuedTurn=0;fallTime=0;settledTime=0;RiderFallTravel=0;RiderRecoveryProgress=0;
    riderFallVelocity=before;riderFallEuler=rider.localEulerAngles;
    riderFallEuler.x=Mathf.DeltaAngle(0,riderFallEuler.x);riderFallEuler.z=Mathf.DeltaAngle(0,riderFallEuler.z);riderFallSpin=Vector3.zero;
-   before.y=jumpVelocity;ResetJump();
+   before.y=jumpVelocity;ResetJump();CancelBoost();
    State=RideState.Falling;riderBody.knocked=true;ApplyRiderImpulse(hit,normal,contact,before);
    if(hit!=null){int index=vehicles.IndexOf(hit);if(index>=0)riderContactUntil[index]=.35f;}
    Speed=0;engine?.Stop();navigationAudio?.Stop();kickTime=0;
@@ -87,7 +87,7 @@ namespace PhoViet
   {
    if(dt<=0||!RiderCrashActive||State==RideState.Paused)return;
    bool gettingUp=State==RideState.Recovering;
-   fallTime+=dt;timeRiding+=dt;TickActionTimers(dt);
+   fallTime+=dt;timeRiding+=dt;TickActionTimers(dt);TickBoost(dt);
    Vector3 previous=rider.localPosition;
    Speed=gettingUp?0:Mathf.Max(0,riderFallVelocity.z);
    float scroll=Speed*dt;Distance+=scroll;ScrollRoutes(scroll);

@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyHudTap.cs",
+      "entry": "VerifyHudTap.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 198,
+      "executeMs": 43,
+      "assemblyName": "PipelineRunScript_VerifyHudTap_5bc6ff37e28f4f7988ae236503a2be63",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 7,
+        "checks": [
+          "Browser HUD tap pauses game",
+          "Browser HUD tap resumes game",
+          "World tap does not pause",
+          "Invalid coordinates ignored",
+          "Landscape sound tap toggles audio",
+          "Audio tap does not interrupt ride",
+          "HUD tap cannot resume job selection"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

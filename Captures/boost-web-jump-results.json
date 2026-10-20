@@ -1,0 +1,12 @@
+{
+  "url": "http://127.0.0.1:8765/docs/",
+  "checks": [
+    "Desktop real WASM loaded",
+    "Actual Q key delivered to WebGL",
+    "Desktop jump/input smoke has no runtime errors",
+    "Mobile real WASM loaded",
+    "Actual upward touch swipe delivered to WebGL",
+    "Mobile jump/input smoke has no runtime errors"
+  ],
+  "errors": []
+}
