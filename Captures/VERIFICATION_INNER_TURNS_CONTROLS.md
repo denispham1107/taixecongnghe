@@ -31,4 +31,9 @@
 - Hai cảnh báo cũ: Pipeline không có runtime config (chỉ dùng Editor), và trường HUD touch native không dùng ở nhánh WebGL.
 - 81 kiểm tra web đạt: 6 W/vuốt xuống, 6 SpaceBar/vuốt lên, 12 UI/công việc/chuột/touch/xoay, 37 WebGL/PWA/offline (bao gồm Q), 20 fullscreen/safe area iPhone/iPad. Không có lỗi JavaScript hoặc Unity runtime.
 - Profile điện thoại trong trình duyệt kiểm tra bố cục/điều khiển, không phải phép đo hiệu năng trên thiết bị vật lý.
-- Kết quả GitHub Pages/live sẽ được bổ sung sau khi hoàn tất.
+- Commit phát hành: `bf032695fbf3b166cf15dce09fcd16cbf584530f`.
+- GitHub Pages triển khai thành công đúng commit: https://github.com/denispham1107/taixecongnghe/actions/runs/39443915283
+- 26 kiểm tra live đạt: phiên bản/cache đúng, binary khớp bản đã thử, WebAssembly khởi động và nhận điều khiển, không có lỗi JavaScript/Unity runtime. Bằng chứng: `inner-turns-live-results.json`.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/
+- Unity kết thúc ở Edit Mode, Game View ngang, công việc bật; dữ liệu đọc lại vẫn là 55 Coin và kỷ lục 1.775 m. Server thử nội bộ đã dừng.
+- Các file Blender có thay đổi từ trước, bản sao lưu Motorcycle và `huongdan.md` được giữ riêng khỏi commit.
