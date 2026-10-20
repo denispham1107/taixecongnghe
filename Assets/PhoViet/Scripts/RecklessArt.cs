@@ -54,42 +54,37 @@ namespace PhoViet
         public static Transform CrashFx(Transform parent,out ParticleSystem smoke,out ParticleSystem fire)
         {
             var root=Group("Khói lửa • xe đâm nhà",parent);
-            var texture=new Texture2D(64,64,TextureFormat.RGBA32,false){name="PV_SoftParticle",wrapMode=TextureWrapMode.Clamp};
-            var pixels=new Color[64*64];
-            for(int y=0;y<64;y++)for(int x=0;x<64;x++)
-            {float d=Vector2.Distance(new Vector2(x,y),new Vector2(31.5f,31.5f))/31.5f;float a=Mathf.Pow(Mathf.Clamp01(1-d),1.6f);pixels[y*64+x]=new Color(1,1,1,a);}
-            texture.SetPixels(pixels);texture.Apply();
-            smoke=Particles(root,"Khói đen",texture,false);fire=Particles(root,"Lửa cháy",texture,true);
-            var flames=Group("Ngọn lửa",root);
-            foreach(float x in new[]{-.4f,0,.35f})
-            {
-                var outer=Shape("Lửa cam",flames,PrimitiveType.Capsule,new Vector3(x,.55f,0),new Vector3(.5f,1+(x==0?.35f:0),.5f),Hex("F36B21"));
-                outer.GetComponent<Renderer>().sharedMaterial=Mat(Hex("F36B21"),true);
-                var core=Sphere("Lõi lửa",flames,new Vector3(x,.28f,-.15f),new Vector3(.35f,.8f,.35f),Gold);
-                core.GetComponent<Renderer>().sharedMaterial=Mat(Gold,true);
-            }
+            var smokeTexture=Resources.Load<Texture2D>("Wreck/PV_WreckSmoke");var fireTexture=Resources.Load<Texture2D>("Wreck/PV_WreckFlame");
+            if(smokeTexture==null||fireTexture==null)throw new System.InvalidOperationException("Missing Blender Mantaflow wreck flipbooks");
+            smoke=Particles(root,"Khói đen • Blender",smokeTexture,false);fire=Particles(root,"Lửa cháy • Blender",fireTexture,true);
+            smoke.transform.localPosition=Vector3.up*.8f;
+            fire.transform.localPosition=Vector3.up*.4f;
             var glow=Group("Ánh lửa",root,new Vector3(0,.6f,0)).gameObject.AddComponent<Light>();
             glow.type=LightType.Point;glow.color=Hex("FF8A29");glow.range=5;glow.intensity=1.8f;glow.shadows=LightShadows.None;
+            root.gameObject.AddComponent<WreckFireVisual>().glow=glow;
             root.gameObject.SetActive(false);return root;
         }
         static ParticleSystem Particles(Transform parent,string name,Texture texture,bool flame)
         {
             var p=Group(name,parent).gameObject.AddComponent<ParticleSystem>();p.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);
             var main=p.main;main.loop=true;main.playOnAwake=false;main.duration=5;main.maxParticles=flame?100:160;
-            main.simulationSpace=ParticleSystemSimulationSpace.Local;
-            main.startLifetime=new ParticleSystem.MinMaxCurve(flame?.4f:2.5f,flame?1:4.5f);
-            main.startSpeed=new ParticleSystem.MinMaxCurve(flame?1:1.5f,flame?3:2.8f);
-            main.startSize=new ParticleSystem.MinMaxCurve(flame?.9f:1.8f,flame?1.6f:2.5f);
-            main.startRotation=new ParticleSystem.MinMaxCurve(0,Mathf.PI*2);
-            var emission=p.emission;emission.rateOverTime=flame?35:32;
-            var shape=p.shape;shape.shapeType=ParticleSystemShapeType.Cone;shape.angle=flame?18:24;shape.radius=flame?.45f:.65f;
+            main.simulationSpace=ParticleSystemSimulationSpace.Local;main.maxParticles=flame?48:40;
+            main.startLifetime=new ParticleSystem.MinMaxCurve(flame?.45f:2.4f,flame?.8f:3.6f);
+            main.startSpeed=new ParticleSystem.MinMaxCurve(flame?.4f:1.3f,flame?.9f:1.8f);
+            main.startSize=new ParticleSystem.MinMaxCurve(flame?1.3f:1.2f,flame?1.9f:1.7f);
+            main.startRotation=new ParticleSystem.MinMaxCurve(-.12f,.12f);
+            var emission=p.emission;emission.rateOverTime=flame?16:12;
+            var shape=p.shape;shape.shapeType=ParticleSystemShapeType.Cone;shape.angle=flame?8:16;shape.radius=flame?.32f:.45f;
             shape.rotation=new Vector3(-90,0,0);
-            var gradient=new Gradient();gradient.SetKeys(new[]{new GradientColorKey(flame?Gold:Hex("252D2E"),0),new GradientColorKey(flame?Hex("EC4B20"):Hex("555B59"),1)},new[]{new GradientAlphaKey(.95f,0),new GradientAlphaKey(.7f,.55f),new GradientAlphaKey(0,1)});
+            var gradient=new Gradient();gradient.SetKeys(new[]{new GradientColorKey(Color.white,0),new GradientColorKey(flame?Hex("FFAE69"):Hex("9B9B98"),1)},new[]{new GradientAlphaKey(0,0),new GradientAlphaKey(flame?.85f:.8f,.15f),new GradientAlphaKey(flame?.7f:.6f,.55f),new GradientAlphaKey(0,1)});
             var color=p.colorOverLifetime;color.enabled=true;color.color=gradient;
-            var size=p.sizeOverLifetime;size.enabled=true;size.size=new ParticleSystem.MinMaxCurve(1,AnimationCurve.Linear(0,flame?1:.5f,1,flame?.2f:2));
-            var mat=new Material(Shader.Find("PhoViet/Soft Particle")){name=flame?"PV_Fire":"PV_Smoke",mainTexture=texture};
+            var size=p.sizeOverLifetime;size.enabled=true;size.size=new ParticleSystem.MinMaxCurve(1,AnimationCurve.EaseInOut(0,flame?.9f:.7f,1,flame?1.15f:2.1f));
+            var sheet=p.textureSheetAnimation;sheet.enabled=true;sheet.numTilesX=4;sheet.numTilesY=2;sheet.frameOverTime=new ParticleSystem.MinMaxCurve(1,AnimationCurve.Linear(0,0,1,1));sheet.startFrame=new ParticleSystem.MinMaxCurve(0,.875f);sheet.cycleCount=1;
+            var noise=p.noise;noise.enabled=true;noise.strength=flame?.12f:.3f;noise.frequency=.8f;noise.scrollSpeed=.5f;noise.quality=ParticleSystemNoiseQuality.Low;
+            var mat=new Material(Shader.Find(flame?"PhoViet/Wreck Flame":"PhoViet/Soft Particle")){name=flame?"PV_MantaflowFire":"PV_MantaflowSmoke",mainTexture=texture};
             mat.renderQueue=3000;
             var renderer=p.GetComponent<ParticleSystemRenderer>();renderer.sharedMaterial=mat;renderer.shadowCastingMode=ShadowCastingMode.Off;
+            renderer.renderMode=ParticleSystemRenderMode.VerticalBillboard;renderer.sortMode=ParticleSystemSortMode.Distance;
             renderer.SetActiveVertexStreams(new System.Collections.Generic.List<ParticleSystemVertexStream>{ParticleSystemVertexStream.Position,ParticleSystemVertexStream.Color,ParticleSystemVertexStream.UV});
             return p;
         }

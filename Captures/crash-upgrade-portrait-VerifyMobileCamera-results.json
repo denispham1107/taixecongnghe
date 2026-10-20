@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyMobileCamera.cs",
+      "entry": "VerifyMobileCamera.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 80,
+      "executeMs": 38,
+      "assemblyName": "PipelineRunScript_VerifyMobileCamera_a842b0638de44dbe8021da9c601b7512",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 8,
+        "width": 540,
+        "height": 960,
+        "coverage": "All rider renderer bounds, four lanes, ordinary and police chase cameras"
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

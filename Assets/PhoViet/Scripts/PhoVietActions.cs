@@ -80,6 +80,7 @@ namespace PhoViet
         void KnockVehicle(TrafficVehicle v,float direction,bool chain,bool credited=true)
         {
             if(v.knocked||!v.active)return;
+            RememberTrafficCourse(v);
             v.knocked=true;v.knockAge=0;v.knockDirection=Mathf.Sign(direction);
             v.physicalCrash=false;v.changingLane=false;v.turning=false;if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(false);
             v.initialYaw=v.model.localEulerAngles.y;v.previousPosition=v.model.localPosition;v.playerGrace=.45f;

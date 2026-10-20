@@ -1,0 +1,81 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyRideRefinements.cs",
+      "entry": "VerifyRideRefinements.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 223,
+      "executeMs": 609,
+      "assemblyName": "PipelineRunScript_VerifyRideRefinements_eeb0df205cfb4288946c3c18d877b186",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 50,
+        "checks": [
+          "Restart 0: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Restart 1: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Restart 2: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Restart 3: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Restart 4: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Restart 5: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Restart 6: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Restart 7: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Restart 8: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Restart 9: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Restart 10: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Restart 11: opening traffic is 3–4 rather than 5–7 vehicles",
+          "Opening waves consume the spawn clock at half rate",
+          "Half traffic lasts through 9.95 seconds of riding",
+          "Normal wave rate returns after ten seconds",
+          "Opening turn exits have only 2–3 vehicles per direction instead of 3–5",
+          "A pause does not restart the opening period",
+          "Accepting work starts three seconds of traffic yielding",
+          "A rear motorcycle actively changes to a clear lane without hitting the rider",
+          "Ordinary same-direction traffic stays on its own side while yielding",
+          "Yield timer uses simulated riding time",
+          "Job selection/pause does not consume avoidance time",
+          "Accepting work starts three seconds of traffic yielding",
+          "A oncoming motorcycle actively changes to a clear lane without hitting the rider",
+          "Yield timer uses simulated riding time",
+          "Job selection/pause does not consume avoidance time",
+          "Accepting work starts three seconds of traffic yielding",
+          "A rear car actively changes to a clear lane without hitting the rider",
+          "Ordinary same-direction traffic stays on its own side while yielding",
+          "Yield timer uses simulated riding time",
+          "Job selection/pause does not consume avoidance time",
+          "Accepting work starts three seconds of traffic yielding",
+          "A oncoming car actively changes to a clear lane without hitting the rider",
+          "Yield timer uses simulated riding time",
+          "Job selection/pause does not consume avoidance time",
+          "Rear traffic brakes when every alternate lane is occupied",
+          "Avoidance expires after three riding seconds",
+          "A blocked oncoming row makes the player brake/stop before contact: Riding",
+          "The blocked oncoming vehicle also stops while yielding",
+          "Automatic stopping still consumes the original three-second acceptance window",
+          "Player resumes when the blocked route clears",
+          "Actual contact spends one life during acceptance avoidance",
+          "Actual contact spends one life during police pursuit",
+          "Left instruction starts about four seconds before the junction",
+          "Instruction repeats at two seconds",
+          "Repeated updates do not restart an already spoken stage",
+          "Right instruction uses the same early announcement window",
+          "Straight speech is suppressed when a following turn is less than four seconds away",
+          "Straight speech remains available when the next turn is safely distant",
+          "Restart clears job avoidance state"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

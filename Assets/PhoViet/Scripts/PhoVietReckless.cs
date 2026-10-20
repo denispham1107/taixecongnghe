@@ -150,8 +150,9 @@ namespace PhoViet
             // Shop rows stop before the junction: an empty cross street is never a wall.
             if(Mathf.Abs(p.x)+half.x<9.3f||route>58.4f)return;
             float side=Mathf.Sign(p.x);p.x=side*(9.3f-half.x);p.y=0;
+            if(!v.isReckless){v.model.localPosition=p;v.knockVelocity.x=-v.knockVelocity.x*.25f;return;}
             v.model.GetComponent<CarVisualAnimator>()?.ReceiveImpact(v.model.InverseTransformDirection(transform.TransformDirection(new Vector3(-side,0,0))),15);
-            v.model.localPosition=p;v.wallCrashed=true;v.knocked=true;v.knockAge=0;
+            v.model.localPosition=p;v.wallCrashed=true;v.knocked=true;v.knockAge=0;v.recovery=null;
             v.knockDirection=side;v.knockVelocity=Vector3.zero;
             v.model.localRotation=Quaternion.Euler(v.halfWidth>.7f?-8:0,v.model.localEulerAngles.y,-side*(v.halfWidth>.7f?24:78));
             if(v.crashEffect!=null)
@@ -167,12 +168,13 @@ namespace PhoViet
             if(v.crashEffect!=null)
             {
                 v.crashEffect.localPosition=v.routeDetached?v.model.localPosition+v.routeEffectOffset:WreckFxPosition(v);
-                var flame=v.crashEffect.Find("Ngọn lửa");
-                if(flame!=null)flame.localScale=new Vector3(1+.08f*Mathf.Sin(v.knockAge*19),1+.15f*Mathf.Sin(v.knockAge*23),1);
             }
         }
         Vector3 WreckFxPosition(TrafficVehicle v)
-        {return v.model.localPosition+new Vector3(-Mathf.Sign(v.model.localPosition.x)*(v.halfWidth>.7f?1.8f:.65f),.8f,-.8f);}
+        {
+            bool truck=v.halfWidth>.7f;Vector3 p=v.model.localPosition+v.model.localRotation*new Vector3(0,.7f,truck?2.2f:.4f);
+            p.x-=Mathf.Sign(v.model.localPosition.x)*(truck?1.25f:.45f);p.y=Mathf.Max(.25f,p.y);return p;
+        }
         void ResolveRecklessRams()
         {
             ResolveVehicleCollisions();

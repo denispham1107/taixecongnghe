@@ -27,6 +27,7 @@ namespace PhoViet
         int kickSide=1;
         BikeJumpPose jumpPose=new BikeJumpPose();
         float jumpBalancePitch,jumpPitchVelocity;
+        Transform[] poseBones;Vector3[] restPositions,restScales;Quaternion[] restRotations;
         [NonSerialized] bool initialized;
         PhoVietGame.RideState previousState;
 
@@ -45,6 +46,11 @@ namespace PhoViet
             baseVisualPosition=visual.localPosition;
             baseVisualRotation=visual.localRotation;
             var bones=visual.GetComponentsInChildren<Transform>(true);
+            if(poseBones==null)
+            {
+                poseBones=bones.Where(t=>t!=visual).ToArray();restPositions=poseBones.Select(t=>t.localPosition).ToArray();
+                restRotations=poseBones.Select(t=>t.localRotation).ToArray();restScales=poseBones.Select(t=>t.localScale).ToArray();
+            }
             leftFoot=bones.FirstOrDefault(t=>t.name=="LFoot");rightFoot=bones.FirstOrDefault(t=>t.name=="RFoot");
             // All exported wheel bones have identity local bind rotation. Never capture a
             // previous spawn's wheel spin or an editor hot-reload pose as the new bind pose.
@@ -70,13 +76,13 @@ namespace PhoViet
             if(game.State==PhoVietGame.RideState.Ready&&previousState!=game.State)
             {clock=0;kickAge=10;fallAge=0;WheelAngle=0;}
             previousState=game.State;clock+=dt;kickAge+=dt;
-            bool recovering=role==ActorRole.Player&&game.State==PhoVietGame.RideState.Recovering;
+            bool recovering=role==ActorRole.Player&&game.State==PhoVietGame.RideState.Recovering||role==ActorRole.Traffic&&vehicle.IsStandingUp;
             bool falling=role==ActorRole.Player?(game.State==PhoVietGame.RideState.Falling||game.State==PhoVietGame.RideState.GameOver):
                 role==ActorRole.Police?game.PoliceFallen:vehicle.knocked;
             float speed=role==ActorRole.Player?game.Speed:role==ActorRole.Police?game.PoliceSpeed:
                 vehicle.crossing?vehicle.crossSpeed:vehicle.speed;
             string clip="Idle";float normalized=0;
-            if(recovering){clip="Recover";normalized=game.RiderRecoveryProgress;speed=0;fallAge=0;}
+            if(recovering){clip="Recover";normalized=role==ActorRole.Player?game.RiderRecoveryProgress:vehicle.StandUpProgress;speed=0;fallAge=0;}
             else if(falling)
             {
                 if(role==ActorRole.Player){if(game.State==PhoVietGame.RideState.Falling)fallAge+=dt;}
@@ -126,6 +132,10 @@ namespace PhoViet
         void Sample(string name,float normalized)
         {
             var state=animationPlayer[name];if(state==null)return;
+            // Some Blender actions key only moving joints. Restore unkeyed bones
+            // before sampling so a recovery pose cannot leave raised arms on Ride.
+            for(int i=0;i<poseBones.Length;i++)if(poseBones[i]!=null)
+            {poseBones[i].localPosition=restPositions[i];poseBones[i].localRotation=restRotations[i];poseBones[i].localScale=restScales[i];}
             if(!animationPlayer.IsPlaying(name))animationPlayer.Play(name,PlayMode.StopAll);
             state.enabled=true;state.weight=1;state.speed=0;state.wrapMode=WrapMode.ClampForever;
             state.time=Mathf.Clamp01(normalized)*state.length;animationPlayer.Sample();

@@ -14,7 +14,9 @@ public static class VerifyJobWayfinding
   var checks=new List<string>();Action<bool,string> check=(ok,s)=>{if(!ok)throw new Exception(s);checks.Add(s);};
   Action<string,object> set=(n,v)=>typeof(PhoVietGame).GetField(n,F).SetValue(g,v);
   Func<string,object[],object> call=(n,a)=>typeof(PhoVietGame).GetMethod(n,F).Invoke(g,a);
-  Action clean=()=>{foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("spawnTimer",10000f);set("nextIntersectionDistance",float.PositiveInfinity);g.recklessTrafficEnabled=false;g.trafficSurprises=false;g.turnExitTrafficEnabled=false;};
+  // These GPS cases move junctionAt without moving the rendered street tiles.
+  // Actual road/turn scenery contacts are exercised by VerifyCrashUpgrade and VerifyInnerTurns.
+  Action clean=()=>{foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("streetObstacles",new StreetObstacleSet[0]);set("spawnTimer",10000f);set("nextIntersectionDistance",float.PositiveInfinity);g.recklessTrafficEnabled=false;g.trafficSurprises=false;g.turnExitTrafficEnabled=false;};
   Action begin=()=>{g.jobsEnabled=true;g.RestartRide();g.ShowJobOffers();g.AcceptJob(0);clean();};
   try
   {

@@ -112,11 +112,11 @@ namespace PhoViet.Editor
             {
                 var v=game.vehicles.Find(t=>t.model==model);
                 if(v==null){v=new PhoVietGame.TrafficVehicle {model=model,eventOnly=true,halfWidth=model==game.recklessTruckModel?1.2f:.48f,halfLength=model==game.recklessTruckModel?3.4f:1.1f};game.vehicles.Add(v);}
-                if(v.crashEffect!=null&&v.crashEffect.Find("Ngọn lửa")==null){Object.DestroyImmediate(v.crashEffect.gameObject);v.crashEffect=null;}
+                if(v.crashEffect!=null&&v.crashEffect.GetComponent<WreckFireVisual>()==null){Object.DestroyImmediate(v.crashEffect.gameObject);v.crashEffect=null;}
                 if(v.crashEffect==null)v.crashEffect=RecklessArt.CrashFx(game.transform,out v.smoke,out v.fire);
                 foreach(var renderer in v.crashEffect.GetComponentsInChildren<ParticleSystemRenderer>(true))
                 {
-                    renderer.sharedMaterial.shader=Shader.Find("PhoViet/Soft Particle");
+                    renderer.sharedMaterial.shader=Shader.Find(renderer.GetComponent<ParticleSystem>()==v.fire?"PhoViet/Wreck Flame":"PhoViet/Soft Particle");
                     renderer.SetActiveVertexStreams(new List<ParticleSystemVertexStream>{ParticleSystemVertexStream.Position,ParticleSystemVertexStream.Color,ParticleSystemVertexStream.UV});
                     EditorUtility.SetDirty(renderer.sharedMaterial);
                 }

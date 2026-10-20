@@ -19,6 +19,8 @@ namespace PhoViet
                 if((jumpHeight>.05f||jumpPreviousHeight>.05f)&&JumpClearsVehicle(v,at))continue;
                 earliest=at;hit=v;hitNormal=normal;
             }
+            Vector3 riderBefore=riderVelocityValid?riderRoadVelocity:Quaternion.Euler(0,IsTurning?TurnYaw:0,0)*Vector3.forward*Speed;
+            if(ResolveSceneryImpact(riderBody.previousPosition,riderBefore,earliest)){riderVelocityValid=false;return false;}
             if(hit!=null)
             {
                 Vector3 before=riderVelocityValid?riderRoadVelocity:Quaternion.Euler(0,IsTurning?TurnYaw:0,0)*Vector3.forward*Speed;
@@ -141,15 +143,16 @@ namespace PhoViet
         }
         void ActivateCollisionBody(TrafficVehicle v,Vector3 before,Vector3 after,Vector2 impulse,Vector2 lever,bool credited,bool newlyHit,float closing)
         {
+            bool standing=v.IsStandingUp;RememberTrafficCourse(v);v.knockAge=0;
             float deltaV=Flat(after-before).magnitude;
             v.model.GetComponent<CarVisualAnimator>()?.ReceiveImpact(v.model.InverseTransformDirection(transform.TransformDirection(new Vector3(impulse.x,0,impulse.y))),closing);
-            if(!v.physicalCrash)
+            if(!v.physicalCrash||standing)
             {
                 v.crashEuler=v.model.localEulerAngles;
                 v.crashEuler.x=Mathf.DeltaAngle(0,v.crashEuler.x);v.crashEuler.z=Mathf.DeltaAngle(0,v.crashEuler.z);
                 v.angularVelocity=Vector3.zero;
             }
-            v.knocked=true;v.physicalCrash=true;v.changingLane=false;v.turning=false;v.knockAge=newlyHit?0:v.knockAge;
+            v.knocked=true;v.physicalCrash=true;v.changingLane=false;v.turning=false;
             if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(false);
             v.knockDirection=credited&&v.knockFromPlayer?v.knockDirection:Mathf.Abs(impulse.x)>.01f?Mathf.Sign(impulse.x):v.model.localPosition.x>=0?1:-1;
             if(newlyHit){v.playerGrace=0;if(credited){ChainCount++;notice="VA CHẠM DÂY CHUYỀN  ×"+ChainCount;noticeTimer=1.3f;}}

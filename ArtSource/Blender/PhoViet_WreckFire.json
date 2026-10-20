@@ -1,0 +1,17 @@
+{
+  "blender": "5.2.0 LTS",
+  "simulation": "Mantaflow gas combustion",
+  "resolution": 96,
+  "cacheFrames": [
+    1,
+    48
+  ],
+  "baked": true,
+  "atlasFrames": 8,
+  "atlasSize": [
+    768,
+    384
+  ],
+  "cacheRebuild": "ArtSource/Blender/pho_viet_wreck_simulation.py",
+  "cacheIsReproducibleInTemp": true
+}

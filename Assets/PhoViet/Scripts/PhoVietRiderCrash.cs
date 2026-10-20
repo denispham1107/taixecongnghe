@@ -27,6 +27,7 @@ namespace PhoViet
    riderFallVelocity=Vector3.zero;riderFallSpin=Vector3.zero;riderRoadVelocity=Vector3.zero;riderVelocityValid=false;
    riderContactUntil=new float[vehicles.Count];
    riderBody=new TrafficVehicle{model=rider,halfWidth=.33f,halfLength=.91f};
+   CacheStreetObstacles();
   }
   void SaveRideRecord()
   {
@@ -57,7 +58,7 @@ namespace PhoViet
    // direction instead of an arbitrary side, including for very fast swept hits.
    if(closing<.35f&&relative.sqrMagnitude>.1f){normal=-relative.normalized;closing=relative.magnitude;}
    closing=Mathf.Max(.35f,closing);LastRiderImpactSpeed=closing;
-   float invA=1f/220,invB=hit!=null&&hit.wallCrashed?0:1f/(hit==null?1350:VehicleMass(hit));
+   float invA=1f/220,invB=hit==null||hit.wallCrashed?0:1f/VehicleMass(hit);
    Vector2 lever=Flat(contact-rider.localPosition),otherLever=hit==null?Vector2.zero:Flat(contact-hit.model.localPosition);
    float torque=LeverCross(lever,normal),otherTorque=LeverCross(otherLever,normal);
    float inertia=220*(4*.33f*.33f+4*.91f*.91f)/12;
@@ -115,6 +116,7 @@ namespace PhoViet
    }
    TickTrafficMotion(dt);
    ResolveFallenRiderContacts(previous);
+   ResolveFallenScenery(previous);
    TickChase(dt);RetireTraffic(false);
    if(State==RideState.Arrested)return;
    if(!IsTurning)EndRouteFrame(dt);
@@ -169,7 +171,7 @@ namespace PhoViet
     for(int i=1;i<65;i++){Vector3 p=LateTurnPoint(i/64f);lateArcLengths[i]=lateArcLengths[i-1]+Vector3.Distance(last,p);last=p;}
     turnLength=Mathf.Max(.01f,lateArcLengths[64]);
    }
-   rider.localRotation=crashTurnRotation;lastX=rider.localPosition.x;oldRiderZ=rider.localPosition.z;
+   rider.localRotation=crashTurnRotation;riderFallEuler=crashTurnRotation.eulerAngles;riderFallSpin=Vector3.zero;lastX=rider.localPosition.x;oldRiderZ=rider.localPosition.z;
    riderBody.knocked=false;State=RideState.Riding;BeginRecoveryTrafficYield();
    if(IsChased&&policeBike!=null)
    {
@@ -187,6 +189,7 @@ namespace PhoViet
    foreach(var v in vehicles)
    {
     if(!v.active)continue;v.model.localPosition-=offset;v.previousPosition-=offset;v.roadTurnStart-=offset;
+    ScrollTrafficRecovery(v,offset);
     if(v.crashEffect!=null)v.crashEffect.localPosition-=offset;
    }
    if(policeBike!=null)policeBike.localPosition-=offset;

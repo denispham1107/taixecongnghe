@@ -8,7 +8,7 @@ namespace PhoViet
     public partial class PhoVietGame : MonoBehaviour
     {
         public enum RideState { Ready, Riding, Paused, Falling, GameOver, Arrested, Jailed, Recovering }
-        [Serializable] public class TrafficVehicle
+        [Serializable] public partial class TrafficVehicle
         {
             public Transform model;
             public int lane;
@@ -344,7 +344,9 @@ namespace PhoViet
                 if(!v.active)continue;
                 Vector3 previous=v.model.localPosition;
                 v.previousPosition=previous;v.previousYaw=v.model.localEulerAngles.y;v.playerGrace=Mathf.Max(0,v.playerGrace-dt);
+                ScrollTrafficRecovery(v,Vector3.forward*Speed*dt);
                 if(v.wallCrashed)TickWallWreck(v,dt);
+                else if(TickTrafficRecovery(v,dt)){}
                 else if(v.knocked)TickKnockedVehicle(v,dt);
                 else if(HoldCrossTrafficForService(v,dt)){}
                 else if(v.roadTurning)TickRoadTurn(v,dt);
@@ -376,6 +378,7 @@ namespace PhoViet
                 Vector3 previous=v.previousPosition;
                 Vector3 p=v.model.localPosition;
                 if(countPasses&&previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-rider.localPosition.x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
+                if(v.recovery!=null)continue;
                 if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || (v.enteringFromBehind&&!v.isReckless&&p.z< -95) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&v.knockAge>8) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
             }
         }
