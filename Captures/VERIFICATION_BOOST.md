@@ -32,4 +32,9 @@
 - Cache phát hành: `c18c89f5fba61b82`.
 - 81 kiểm tra web đạt: 6 smoke tăng tốc E/vuốt xuống, 6 smoke nhảy Q/vuốt lên, 12 UI/công việc/chuột/touch/xoay, 37 WebGL/PWA/offline, 20 fullscreen/safe area iPhone/iPad. Không có lỗi JavaScript hoặc Unity runtime.
 - Đã xem ảnh WebGL mobile: vuốt xuống kích hoạt tốc độ 108 km/h và vệt khói trắng thật phía sau xe. Đây là kiểm tra profile trình duyệt, không phải đo hiệu năng trên iPhone vật lý.
-- Kết quả GitHub Pages/live sẽ được bổ sung sau khi hoàn tất.
+- Commit phát hành: `a6dab40e885b45cb69b8c94ba061fe20923ab13c`.
+- GitHub Pages triển khai thành công đúng commit: https://github.com/denispham1107/taixecongnghe/actions/runs/39419860687
+- 26 kiểm tra live đạt: phiên bản/cache đúng, tất cả binary khớp bản đã thử, WebAssembly khởi động và nhận điều khiển, không có lỗi JavaScript/Unity runtime. Bằng chứng: `boost-live-results.json`.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/
+- Unity kết thúc ở Edit Mode, Game View ngang, công việc bật; dữ liệu hiện tại đọc lại là 55 Coin và kỷ lục 1.775 m. Không đặt lại ví về số dư cũ. Server thử nội bộ đã dừng.
+- Các file Blender xe/khách/phố/nhảy đã có thay đổi từ trước, bản sao lưu Motorcycle và `huongdan.md` được giữ riêng khỏi commit tính năng này.
