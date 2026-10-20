@@ -86,7 +86,7 @@ public static class VerifyReckless
                 check(v.enteringFromBehind&&v.model.localPosition.z<g.rideCamera.transform.localPosition.z-v.halfLength&&v.speed>g.Speed,"Same-direction dangerous driver starts behind the camera and overtakes: "+truck);
                 for(int i=0;i<400&&v.enteringFromBehind;i++)call("TickRecklessVehicle",new object[]{v,.02f});
                 check(!v.enteringFromBehind&&v.model.localPosition.z>=1.5f,"Dangerous driver approaches continuously before starting its weave: "+truck);
-                float initialYaw=v.model.localEulerAngles.y,maxX=-10,minX=10,maxTurn=0;
+                float initialYaw=v.model.localEulerAngles.y,maxX=v.model.localPosition.x,minX=v.model.localPosition.x,maxTurn=0;
                 for(int i=0;i<75;i++){call("TickRecklessVehicle",new object[]{v,.02f});maxX=Mathf.Max(maxX,v.model.localPosition.x);minX=Mathf.Min(minX,v.model.localPosition.x);maxTurn=Mathf.Max(maxTurn,Quaternion.Angle(Quaternion.Euler(0,initialYaw,0),v.model.localRotation));}
                 check(minX<=g.rider.localPosition.x&&maxX>=g.rider.localPosition.x,"Swerving crosses into the player's lane: "+truck);
                 check(maxTurn>2,"Vehicle heading follows its swerve: "+truck);

@@ -154,8 +154,8 @@ namespace PhoViet
         public TrafficVehicle SpawnTraffic(int lane,float z,int preferred=-1)
         {
             TrafficVehicle v=null;
-            if(preferred>=0 && preferred<vehicles.Count && !vehicles[preferred].active&&!vehicles[preferred].eventOnly)v=vehicles[preferred];
-            if(v==null){int count=0;foreach(var t in vehicles)if(!t.active&&!t.eventOnly&&rng.Next(++count)==0)v=t;}
+            if(preferred>=0 && preferred<vehicles.Count && !vehicles[preferred].active&&!vehicles[preferred].eventOnly&&!RearExitReserved(vehicles[preferred]))v=vehicles[preferred];
+            if(v==null){int count=0;foreach(var t in vehicles)if(!t.active&&!t.eventOnly&&!RearExitReserved(t)&&rng.Next(++count)==0)v=t;}
             if(v==null)return null;
             v.crossing=false;v.crossSpeed=0;v.crossDelay=0;v.knocked=false;v.knockAge=0;v.playerGrace=0;v.hasPaced=false;v.rideAlongRemaining=0;
             v.lane=lane;v.active=true;v.speed=lane<2?-rng.Next(10,17):rng.Next(7,12);
@@ -170,7 +170,7 @@ namespace PhoViet
             // Reuse the existing saved models, selecting the correct vehicle silhouette and bounds.
             int candidates=0;
             foreach(var candidate in vehicles)
-                if(!candidate.active && !candidate.eventOnly && (candidate.halfWidth>.7f)==car&&rng.Next(++candidates)==0)v=candidate;
+                if(!candidate.active && !candidate.eventOnly&&!RearExitReserved(candidate) && (candidate.halfWidth>.7f)==car&&rng.Next(++candidates)==0)v=candidate;
             if(v==null)return null;
             direction=direction>=0?1:-1;
             v.active=true;v.crossing=true;v.lane=-1;v.speed=0;v.knocked=false;v.knockAge=0;v.playerGrace=0;
@@ -289,6 +289,7 @@ namespace PhoViet
             riderVelocityValid=true;
             TickTrafficMotion(dt);
             TickRearRecklessWarning(dt);
+            TickOrdinaryRearWarnings(dt);
             if(!ResolveRiderContacts(oldX,dt))return;
             x=rider.localPosition.x;lastX=x;
             RetireTraffic(true);

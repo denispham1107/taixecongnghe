@@ -26,7 +26,7 @@ public static class VerifyRideRefinements
    reset();set("spawnTimer",100f);step(1);check(Mathf.Abs((float)get("spawnTimer")-99.5f)<.001f,"Opening waves consume the spawn clock at half rate");
    set("timeRiding",9.9f);step(.05f);check(g.OpeningTrafficReduced,"Half traffic lasts through 9.95 seconds of riding");
    set("timeRiding",10f);set("spawnTimer",100f);step(.05f);check(!g.OpeningTrafficReduced&&Mathf.Abs((float)get("spawnTimer")-99.95f)<.001f,"Normal wave rate returns after ten seconds");
-   reset();g.turnExitTrafficEnabled=true;call("QueueExitTraffic",null);for(int i=0;i<35;i++)call("TickExitTraffic",new object[]{.2f});
+   reset();g.turnExitTrafficEnabled=true;call("QueueExitTraffic",null);for(int i=0;i<60;i++){call("TickExitTraffic",new object[]{.2f});call("TickOrdinaryRearWarnings",new object[]{.2f});}
    check(g.ExitRearSpawns>=2&&g.ExitRearSpawns<=3&&g.ExitOncomingSpawns>=2&&g.ExitOncomingSpawns<=3,"Opening turn exits have only 2–3 vehicles per direction instead of 3–5");set("timeRiding",10f);
    g.TogglePause();call("UpdateWork",new object[]{5f});check(!g.OpeningTrafficReduced,"A pause does not restart the opening period");
    foreach(bool car in new[]{false,true})foreach(bool oncoming in new[]{false,true})

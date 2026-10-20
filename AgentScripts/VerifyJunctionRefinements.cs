@@ -64,11 +64,12 @@ public static class VerifyJunctionRefinements
             {
                 clean();set("timeRiding",10f);at(run%2==0?0:3,2);g.turnExitTrafficEnabled=true;g.MoveLane(run%2==0?-1:1);finish();
                 var initial=g.vehicles.Where(v=>v.active&&!v.crossing).ToArray();
-                check(g.ExitRearSpawns==1&&g.ExitOncomingSpawns==1&&initial.Length==2,"Turn "+run+": both traffic directions are populated immediately on exit");
-                var rear=initial.Single(v=>v.enteringFromBehind);var coming=initial.Single(v=>v.speed<0);
+                check(g.ExitRearSpawns==0&&g.ExitOncomingSpawns==1&&initial.Length==1,"Turn "+run+": rear traffic warns before entry while oncoming traffic enters normally");
+                call("TickOrdinaryRearWarnings",new object[]{2.01f});
+                var rear=g.vehicles.Single(v=>v.active&&v.enteringFromBehind);var coming=initial.Single(v=>v.speed<0);
                 check(rear.model.localPosition.z<=-22&&rear.lane>=2&&rear.speed>Mathf.Max(g.Speed,17),"Turn "+run+": same-direction vehicles start behind camera and catch up from the bottom of the screen");
                 check(coming.model.localPosition.z>=125&&coming.lane<2,"Turn "+run+": oncoming vehicles enter from the far end of the new street");
-                for(int i=0;i<28;i++)call("TickExitTraffic",new object[]{.2f});
+                for(int i=0;i<60;i++){call("TickExitTraffic",new object[]{.2f});call("TickOrdinaryRearWarnings",new object[]{.2f});}
                 check(g.ExitRearSpawns>=3&&g.ExitRearSpawns<=5&&g.ExitOncomingSpawns>=3&&g.ExitOncomingSpawns<=5,"Turn "+run+": multiple randomized vehicles in both directions join the exit waves");
                 var all=g.vehicles.Where(v=>v.active&&!v.crossing).ToArray();bool separated=true;
                 for(int a=0;a<all.Length;a++)for(int b=a+1;b<all.Length;b++)
@@ -83,7 +84,7 @@ public static class VerifyJunctionRefinements
             clean();g.turnExitTrafficEnabled=true;var crowded=g.vehicles.Where(v=>!v.eventOnly).ToArray();
             foreach(var v in crowded){v.active=true;v.model.gameObject.SetActive(true);v.model.localPosition=new Vector3(0,0,50);}
             call("QueueExitTraffic",null);check(g.ExitRearSpawns==0&&g.ExitOncomingSpawns==0&&crowded.All(v=>v.active),"A full pool defers exit spawns without stealing or teleporting existing traffic");
-            clean();g.turnExitTrafficEnabled=true;call("QueueExitTraffic",null);var entrant=g.vehicles.Single(v=>v.active&&v.enteringFromBehind);
+            clean();g.turnExitTrafficEnabled=true;call("QueueExitTraffic",null);call("TickOrdinaryRearWarnings",new object[]{2.01f});var entrant=g.vehicles.Single(v=>v.active&&v.enteringFromBehind);
             float z0=entrant.model.localPosition.z;for(int i=0;i<8;i++)call("TickLongitudinalVehicle",new object[]{entrant,.05f});
             check(entrant.model.localPosition.z>z0,"Rear entrants genuinely advance toward the rider");
             entrant.model.localPosition=new Vector3(PhoVietGame.LaneX[2],0,5);call("TickLongitudinalVehicle",new object[]{entrant,.02f});
