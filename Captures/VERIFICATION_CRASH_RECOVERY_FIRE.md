@@ -42,4 +42,6 @@
 - Hai cảnh báo cũ: Pipeline không có RuntimePipelineConfig (công cụ chỉ dùng trong Editor), và trường HUD touch native không dùng trong nhánh WebGL.
 - Đã đọc lại trạng thái Unity: Edit Mode, Game View ngang, công việc bật; vẫn 55 Coin và kỷ lục 1.775 m.
 - 81 kiểm tra trình duyệt đạt: nhảy 6, tăng tốc 6, công việc 12, WebGL/PWA 37 và toàn màn hình iPhone/iPad dọc/ngang 20. Không có lỗi JavaScript/Unity runtime; bản WebAssembly thật cũng khởi động được từ cache khi offline.
-- Đang triển khai lên GitHub Pages và đối chiếu bản công khai.
+- Đã commit/push bản phát hành `61ff4353796c7027c61617bbd2ef89b1f98cccbb`. GitHub Pages triển khai thành công: https://github.com/denispham1107/taixecongnghe/actions/runs/39479971464.
+- 26 kiểm tra bản công khai đạt: phiên bản/cache đúng, các tài nguyên khớp bản đã kiểm tra, WebAssembly thật khởi động thành công, thao tác bắt đầu/tạm dừng hoạt động, không có lỗi JavaScript/Unity runtime. Kết quả: `crash-upgrade-live-results.json`.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/. Đã dừng HTTP server kiểm tra nội bộ. Có thể đóng hẳn rồi mở lại PWA để nhận bản mới; không cần xóa dữ liệu Coin/kỷ lục.
