@@ -26,6 +26,11 @@ Chỉ cảnh báo xe thường đi từ dưới màn hình lên, trước hai gi
 - WebGL 1.22.0 cuối cùng: build `build_7c94ce9e0885` thành công trong 166.965 giây, 0 lỗi; cache `66c809085e9bc16a`.
 - Hai cảnh báo cũ: Pipeline chỉ dùng trong Editor, và trường native HUD touch không dùng trong nhánh WebGL. Không có lỗi shader/build.
 - 69 kiểm tra web trên bản cuối đều đạt: 12 kiểm tra UI/chuột/touch/xoay, 37 kiểm tra WebGL/PWA/offline/điều khiển, 20 kiểm tra full viewport/safe area iPhone/iPad dọc/ngang. Không có lỗi JavaScript/Unity runtime.
-- GitHub Pages đang triển khai. Kiểm tra thiết bị bằng profile trình duyệt là mô phỏng bố cục, không phải đo hiệu năng trên iPhone vật lý.
+- Commit phát hành: `d540734e92997843294ab3b3f60bd8e60b61f713`.
+- GitHub Pages triển khai thành công: https://github.com/denispham1107/taixecongnghe/actions/runs/39354100972
+- 26 kiểm tra live đạt: đúng phiên bản/cache, toàn bộ tài nguyên khớp bản kiểm tra, WebAssembly khởi động và nhận điều khiển, không có lỗi JavaScript/Unity runtime.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/
+- Unity kết thúc ở Edit Mode, Game View ngang; công việc bật, Coin thử nghiệm 0, kỷ lục 1,775 m. Server nội bộ đã dừng.
+- Kiểm tra thiết bị bằng profile trình duyệt là mô phỏng bố cục, không phải đo hiệu năng trên iPhone vật lý.
 
 Các tệp Blender và `huongdan.md` có thay đổi từ trước được giữ riêng.
