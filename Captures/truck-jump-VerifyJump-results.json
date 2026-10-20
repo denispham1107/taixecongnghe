@@ -1,0 +1,76 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyJump.cs",
+      "entry": "VerifyJump.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2437,
+      "executeMs": 292,
+      "assemblyName": "PipelineRunScript_VerifyJump_c2f4a5c9632a422ba3edbf74bfd1272b",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 44,
+        "maximumHeight": 4.84440327,
+        "checks": [
+          "Ready screen rejects jumping",
+          "Upward touch swipe triggers jump",
+          "Horizontal/downward swipes do not trigger jump",
+          "Grounded rider can initiate wheelie",
+          "Repeated SpaceBar cannot restart windup",
+          "Wheelie precedes takeoff",
+          "Blender takeoff action is sampled by the rider animator",
+          "Ballistic jump reaches raised fixed height above all truck roofs",
+          "Unobstructed jump lands on road",
+          "Safe landing costs no lives",
+          "Two-second cooldown persists after landing",
+          "Cooldown allows next jump after two seconds",
+          "Pause blocks jump input and preserves height",
+          "Mid-air jump is rejected",
+          "Actual jump clears fallen motorcycle without collision immunity",
+          "Approaching a moving sedan can start a real jump",
+          "Full takeoff-flight-descent lands on moving car roof",
+          "Descending rider lands on PV_Sedan roof without losing life",
+          "Faster rider drives off PV_Sedan roof and returns to road: Riding y=0 life=3 carZ=-18.11822",
+          "Descending rider lands on PV_Hatchback roof without losing life",
+          "Faster rider drives off PV_Hatchback roof and returns to road: Riding y=0 life=3 carZ=-18.17822",
+          "Descending rider lands on PV_Taxi roof without losing life",
+          "Faster rider drives off PV_Taxi roof and returns to road: Riding y=0 life=3 carZ=-18.11822",
+          "Descending rider lands on PV_DeliveryVan roof without losing life",
+          "Faster rider drives off PV_DeliveryVan roof and returns to road: Riding y=0 life=3 carZ=-18.02656",
+          "A supported rider can jump from a car roof",
+          "A removed or crashed support cannot leave rider floating",
+          "Fast descending travel selects front-wheel landing",
+          "Small relative roof speed selects rear-wheel landing",
+          "Moderate descent selects two-wheel landing",
+          "Junction rebase preserves airborne height",
+          "Turning in air does not lift or sink the streets",
+          "Insufficient takeoff clearance hits car body and spends one life",
+          "Crash clears jump and roof state",
+          "Upright medium box/drowsy trucks now have eligible roofs",
+          "Body collision during pursuit still spends one life",
+          "Police capture still ends immediately during a jump",
+          "Restart resets all jump state",
+          "Five actual Blender actions are exported to Unity",
+          "Smooth sampled action JumpTakeoff",
+          "Smooth sampled action JumpAir",
+          "Smooth sampled action LandBoth",
+          "Smooth sampled action LandFront",
+          "Smooth sampled action LandRear"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

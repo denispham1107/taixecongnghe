@@ -400,6 +400,7 @@ namespace PhoViet
             Quaternion heading=Quaternion.Euler(0,IsTurning?TurnYaw:0,0);
             bool followsCrash=RiderCrashActive||State==RideState.GameOver;
             Vector3 center=IsTurning||followsCrash?rider.localPosition-heading*new Vector3(LaneX[CurrentLane],0,0):Vector3.zero;
+            if(!IsTurning&&!followsCrash)center.y=jumpHeight*.45f;
             float lateral=IsTurning||followsCrash?LaneX[CurrentLane]:x;
             Vector3 target=center+heading*new Vector3(lateral*(narrow?.85f:.25f),IsChased?7.8f:7.15f,IsChased?-14f:-9.6f);
             float cameraDt=Mathf.Min(Time.unscaledDeltaTime,.05f);
