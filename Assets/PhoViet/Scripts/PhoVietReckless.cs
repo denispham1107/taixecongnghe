@@ -10,10 +10,19 @@ namespace PhoViet
         public int RecklessRamCount {get;private set;}
         public int OncomingRecklessEvents {get;private set;}
         public bool recklessTrafficEnabled=true;
+        bool rearRecklessPending,rearRecklessTruck;
+        int rearRecklessLane=-1;
+        float rearRecklessWarning;
+        public int RearRecklessWarningLane=>RearRecklessWarningVisible?rearRecklessLane:-1;
+        public float RearRecklessWarningRemaining=>rearRecklessWarning;
+        bool MovingOncomingDanger=>vehicles.Exists(v=>v.active&&v.isReckless&&v.baseTrafficSpeed<0&&!v.knocked&&!v.wallCrashed);
+        bool MovingRearDanger=>vehicles.Exists(v=>v.active&&v.isReckless&&v.baseTrafficSpeed>0&&!v.knocked&&!v.wallCrashed);
+        bool RearRecklessWarningVisible=>rearRecklessPending&&!MovingOncomingDanger&&!MovingRearDanger&&!IsTurning&&!ServiceStopped;
 
         void ResetReckless()
         {
             RecklessEvents=0;RecklessRamCount=0;OncomingRecklessEvents=0;
+            rearRecklessPending=false;rearRecklessLane=-1;rearRecklessWarning=0;
             foreach(var v in vehicles)
             {
                 v.isReckless=false;v.wallCrashed=false;v.willHitWall=false;v.knockFromPlayer=false;v.recklessAge=0;
@@ -27,18 +36,45 @@ namespace PhoViet
             bool truck=rng.Next(2)==0;
             bool oncoming=rng.Next(2)==0;
             // Join ordinary traffic waves. Never teleport away an existing dangerous driver.
-            if(SpawnReckless(truck,oncoming)==null)SpawnReckless(!truck,oncoming);
+            if(oncoming){if(SpawnReckless(truck,true)==null)SpawnReckless(!truck,true);}
+            else QueueRearReckless(truck);
+        }
+        bool QueueRearReckless(bool truck)
+        {
+            if(rearRecklessPending||MovingRearDanger)return false;
+            var candidate=vehicles.Find(v=>v.eventOnly&&v.model==(truck?recklessTruckModel:recklessBikeModel));
+            if(candidate==null||candidate.active)
+            {
+                truck=!truck;candidate=vehicles.Find(v=>v.eventOnly&&v.model==(truck?recklessTruckModel:recklessBikeModel));
+                if(candidate==null||candidate.active)return false;
+            }
+            rearRecklessPending=true;rearRecklessTruck=truck;rearRecklessLane=rng.Next(2,4);rearRecklessWarning=2;
+            return true;
+        }
+        void TickRearRecklessWarning(float dt)
+        {
+            if(!rearRecklessPending||dt<=0)return;
+            if(!recklessTrafficEnabled){rearRecklessPending=false;rearRecklessLane=-1;return;}
+            if(!RearRecklessWarningVisible){rearRecklessWarning=2;return;}
+            rearRecklessWarning=Mathf.Max(0,rearRecklessWarning-dt);
+            if(rearRecklessWarning>0)return;
+            // Keep the warned lane even when traffic temporarily occupies the spawn gap.
+            var spawned=SpawnRecklessAtLane(rearRecklessTruck,false,rearRecklessLane);
+            if(spawned!=null){rearRecklessPending=false;rearRecklessLane=-1;}
         }
         public TrafficVehicle SpawnReckless(bool truck,bool oncoming=false)
+        {return SpawnRecklessAtLane(truck,oncoming,oncoming?-1:rng.Next(2,4));}
+        TrafficVehicle SpawnRecklessAtLane(bool truck,bool oncoming,int rearLane)
         {
+            if(!oncoming&&(MovingOncomingDanger||MovingRearDanger))return null;
             Transform model=truck?recklessTruckModel:recklessBikeModel;
             if(model==null)return null;
             TrafficVehicle v=vehicles.Find(t=>t.eventOnly&&t.model==model);
             if(v==null)return null;
             if(v.active)return null;
-            int adjacent=oncoming?rng.Next(2):CurrentLane==0?1:CurrentLane==3?2:CurrentLane+(rng.Next(2)==0?-1:1);
+            int adjacent=oncoming?rng.Next(2):rearLane;
             float rearZ=Mathf.Min(-28,rideCamera.transform.localPosition.z-v.halfLength-12);
-            Vector3 spawn=new Vector3(oncoming?LaneX[adjacent]:rider.localPosition.x,0,oncoming?105+(float)rng.NextDouble()*15:rearZ-(float)rng.NextDouble()*6);
+            Vector3 spawn=new Vector3(LaneX[adjacent],0,oncoming?105+(float)rng.NextDouble()*15:rearZ-(float)rng.NextDouble()*6);
             bool blocked=true;
             for(int attempt=0;attempt<6;attempt++)
             {
@@ -65,7 +101,7 @@ namespace PhoViet
             v.lane=adjacent;
             v.startPosition=spawn;
             v.rearStartX=spawn.x;if(!oncoming)v.startPosition.x=LaneX[adjacent];
-            v.swerveDirection=oncoming?1:Mathf.Sign(LaneX[CurrentLane]-v.startPosition.x);
+            v.swerveDirection=oncoming?1:adjacent==3?-1:1;
             v.swerveFrequency=(truck?1.9f:2.6f)+(float)rng.NextDouble()*.4f;
             v.swerveAmplitude=oncoming?(5.4f-v.startPosition.x):3.4f+(float)rng.NextDouble()*1.1f;
             v.swerveSpeed=(truck?8:11)+(float)rng.NextDouble()*2;

@@ -288,6 +288,7 @@ namespace PhoViet
             riderRoadVelocity=dt>0?new Vector3((rider.localPosition.x-oldX)/dt,0,Speed+(rider.localPosition.z-oldRiderZ)/dt):Quaternion.Euler(0,TurnYaw,0)*Vector3.forward*Speed;
             riderVelocityValid=true;
             TickTrafficMotion(dt);
+            TickRearRecklessWarning(dt);
             if(!ResolveRiderContacts(oldX,dt))return;
             x=rider.localPosition.x;lastX=x;
             RetireTraffic(true);
@@ -316,6 +317,7 @@ namespace PhoViet
                 v.previousPosition=previous;v.previousYaw=v.model.localEulerAngles.y;v.playerGrace=Mathf.Max(0,v.playerGrace-dt);
                 if(v.wallCrashed)TickWallWreck(v,dt);
                 else if(v.knocked)TickKnockedVehicle(v,dt);
+                else if(HoldCrossTrafficForService(v,dt)){}
                 else if(v.roadTurning)TickRoadTurn(v,dt);
                 else if(v.routeDetached)v.model.localPosition+=(v.routeVelocity-Vector3.forward*Speed)*dt;
                 else if(!v.crossing&&TickJobTrafficYield(v,dt)){}
@@ -329,11 +331,13 @@ namespace PhoViet
                     TickLongitudinalVehicle(v,dt);
                 }
                 YieldRearForService(v);
+                BrakeBeforeStoppedRider(v);
                 if((v.isReckless||v.knocked)&&!v.wallCrashed&&!v.routeDetached)CheckBuildingImpact(v);
                 if(dt>0)v.motionVelocity=v.wallCrashed?Vector3.zero:v.knocked?v.knockVelocity:(v.model.localPosition-previous)/dt+Vector3.forward*Speed;
             }
             ResolveVehicleCollisions();
             if(ServiceRearProtected)foreach(var vehicle in vehicles)YieldRearForService(vehicle);
+            if(ServiceStopped)foreach(var vehicle in vehicles)BrakeBeforeStoppedRider(vehicle);
         }
         void RetireTraffic(bool countPasses)
         {
@@ -446,6 +450,7 @@ namespace PhoViet
         void Hud()
         {
             if(portrait)PortraitHud();else LandscapeHud();
+            RearRecklessWarningHud();
         }
         void EndCard(bool paused)
         {

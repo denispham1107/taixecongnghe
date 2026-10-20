@@ -106,8 +106,8 @@ public static class VerifyRearRandomPolice
             {
                 chase();g.MoveLane(1);call("PositionCamera",new object[]{true});g.policeBike.localPosition=new Vector3(1.55f,0,-31.5f);
                 var overtaker=g.SpawnReckless(truck);
-                check(overtaker!=null&&Mathf.Abs(overtaker.model.localPosition.z-g.policeBike.localPosition.z)>overtaker.halfLength+1.2f,"New rear traffic cannot materialize inside the pursuing police motorcycle: "+truck);
-                check(overtaker.swerveDirection>0,"Overtaker retains a valid intended weave direction even during a player lane transition: "+truck);
+                check(overtaker!=null&&(Mathf.Abs(overtaker.model.localPosition.z-g.policeBike.localPosition.z)>overtaker.halfLength+1.2f||Mathf.Abs(overtaker.model.localPosition.x-g.policeBike.localPosition.x)>overtaker.halfWidth+.55f),"New rear traffic cannot materialize inside the pursuing police motorcycle: "+truck);
+                check(overtaker.swerveDirection==(overtaker.lane==3?-1:1),"Overtaker retains a valid inward weave from its warned lane during a player lane transition: "+truck);
             }
             foreach(float trafficSpeed in new[]{7f,-10f})
             {

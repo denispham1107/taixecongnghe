@@ -35,11 +35,12 @@ public static class VerifyReckless
             clean();var busy=g.SpawnReckless(true);Vector3 busyPosition=busy.model.localPosition;
             check(g.SpawnReckless(true)==null&&busy.active&&busy.model.localPosition==busyPosition,"A busy dangerous model is never teleported away to make another spawn");
             clean();var first=g.SpawnReckless(true);var secondDanger=g.SpawnReckless(false);
-            check(secondDanger!=null&&(Mathf.Abs(first.model.localPosition.x-secondDanger.model.localPosition.x)>=first.halfWidth+secondDanger.halfWidth||Mathf.Abs(first.model.localPosition.z-secondDanger.model.localPosition.z)>=first.halfLength+secondDanger.halfLength),"New dangerous traffic never spawns overlapping the other dangerous vehicle");
+            check(secondDanger==null&&first.active,"Only one moving rear dangerous vehicle can occupy a wave");
             clean();g.recklessTrafficEnabled=true;
             for(int i=0;i<40;i++)
             {
                 call("MaybeSpawnReckless",null);
+                call("TickRearRecklessWarning",new object[]{2.01f});
                 foreach(var v in g.vehicles.Where(t=>t.eventOnly&&t.active))call("RetireVehicle",new object[]{v});
             }
             check(g.RecklessEvents>20,"Dangerous drivers appear frequently across ordinary traffic waves");
@@ -81,7 +82,7 @@ public static class VerifyReckless
             foreach(bool truck in new[]{false,true})
             {
                 clean();var v=g.SpawnReckless(truck);v.willHitWall=false;
-                check(v.isReckless&&v.eventOnly&&v.speed>0&&Mathf.Abs(v.lane-g.CurrentLane)==1,"Dangerous driver begins moving forward in an adjacent lane: "+truck);
+                check(v.isReckless&&v.eventOnly&&v.speed>0&&v.lane>=2&&v.lane<=3,"Dangerous driver begins in one random same-direction lane: "+truck);
                 check(v.enteringFromBehind&&v.model.localPosition.z<g.rideCamera.transform.localPosition.z-v.halfLength&&v.speed>g.Speed,"Same-direction dangerous driver starts behind the camera and overtakes: "+truck);
                 for(int i=0;i<400&&v.enteringFromBehind;i++)call("TickRecklessVehicle",new object[]{v,.02f});
                 check(!v.enteringFromBehind&&v.model.localPosition.z>=1.5f,"Dangerous driver approaches continuously before starting its weave: "+truck);
@@ -96,7 +97,7 @@ public static class VerifyReckless
                 clean();while(g.CurrentLane<playerLane)g.MoveLane(1);while(g.CurrentLane>playerLane)g.MoveLane(-1);
                 for(int i=0;i<30;i++)tick(.02f);
                 var nearby=g.SpawnReckless(true);
-                check(Mathf.Abs(nearby.lane-playerLane)==1&&nearby.swerveDirection*(g.rider.localPosition.x-nearby.startPosition.x)>0,"Drowsy truck overtakes in an adjacent lane and then steers toward each player lane: "+playerLane);
+                check(nearby.lane>=2&&nearby.lane<=3&&Mathf.Abs(nearby.model.localPosition.x-PhoVietGame.LaneX[nearby.lane])<.001f,"Drowsy truck uses exactly one legal rear entry lane regardless of player lane: "+playerLane);
             }
             clean();var racer=g.SpawnReckless(false);racer.model.localPosition=new Vector3(4.65f,0,1.8f);racer.speed=-10;
             check(g.TryKick()&&racer.knocked&&racer.knockDirection==1,"Oncoming reckless motorcycle can be kicked rightward");

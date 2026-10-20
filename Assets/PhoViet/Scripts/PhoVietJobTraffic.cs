@@ -4,12 +4,35 @@ namespace PhoViet
  public partial class PhoVietGame
  {
   float jobTrafficYieldRemaining;
-  bool TrafficYieldActive=>(jobsEnabled&&jobTrafficYieldRemaining>0)||recoveryTrafficYieldRemaining>0;
+  bool TrafficYieldActive=>(jobsEnabled&&(jobTrafficYieldRemaining>0||ServiceStopped))||recoveryTrafficYieldRemaining>0;
   public float JobTrafficYieldRemaining=>jobTrafficYieldRemaining;
   void BeginJobTrafficYield()
   {
    jobTrafficYieldRemaining=3;
    foreach(var v in vehicles)v.jobYieldLane=-1;
+  }
+  bool HoldCrossTrafficForService(TrafficVehicle v,float dt)
+  {
+   if(!ServiceStopped||dt<=0||(!v.crossing&&!v.roadTurning&&!v.routeDetached))return false;
+   Vector3 velocity=v.routeDetached?v.routeVelocity:v.crossing?new Vector3(v.crossDelay>0?0:v.crossSpeed,0,0):BodyVelocity(v);
+   Vector2 from=Flat(v.model.localPosition-rider.localPosition),half=VehicleFootprint(v)+new Vector2(.85f,1.35f);
+   if(!SweptOverlap(from,from+Flat(velocity)*1.8f,half))return false;
+   // Cross-street traffic holds before entering the passenger stop, retaining its route.
+   if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(true);
+   return true;
+  }
+  void BrakeBeforeStoppedRider(TrafficVehicle v)
+  {
+   if(!ServiceStopped||!v.active||v.wallCrashed)return;
+   Vector2 half=VehicleFootprint(v)+new Vector2(.65f,1.15f),from=Flat(v.previousPosition-rider.localPosition),to=Flat(v.model.localPosition-rider.localPosition);
+   if(!SweptOverlap(from,to,half))return;
+   // Emergency braking bounds the actual displacement; collision checks remain enabled.
+   float low=0,high=1;
+   for(int i=0;i<12;i++){float mid=(low+high)*.5f;if(SweptOverlap(from,Vector2.Lerp(from,to,mid),half))high=mid;else low=mid;}
+   v.model.localPosition=Vector3.Lerp(v.previousPosition,v.model.localPosition,Mathf.Max(0,low-.001f));
+   v.speed=0;v.motionVelocity=Vector3.zero;
+   if(v.knocked){v.knockVelocity.x=0;v.knockVelocity.z=0;}
+   if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(true);
   }
   bool JobYieldLaneClear(TrafficVehicle v,int lane,float seconds)
   {
@@ -34,7 +57,7 @@ namespace PhoViet
   {
    if(!TrafficYieldActive||dt<=0)return false;
    Vector3 p=v.model.localPosition,r=rider.localPosition;
-   float relative=v.speed-Speed,z=p.z-r.z;
+   float relative=(ServiceStopped&&Mathf.Abs(v.speed)<.1f?v.baseTrafficSpeed:v.speed)-Speed,z=p.z-r.z;
    float separation=v.halfLength+.91f;
    bool converging=z*relative<0&&Mathf.Abs(z)<separation+Mathf.Abs(relative)*1.5f+5;
    bool holdingOncoming=v.baseTrafficSpeed<0&&z>0&&z<separation+5;
