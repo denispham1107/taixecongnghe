@@ -128,6 +128,7 @@ namespace PhoViet
             ResetReckless();
             ResetTrafficDynamics();
             ResetRiderImpact();
+            ResetJump();
             if(rider!=null){rider.localPosition=new Vector3(LaneX[2],0,0);rider.localRotation=Quaternion.identity;}
             lastX=LaneX[2];
             for(int i=0;i<blocks.Count;i++)blocks[i].localPosition=new Vector3(0,0,(i-1)*VietnamStreet.Length);
@@ -234,6 +235,7 @@ namespace PhoViet
             if(State==RideState.Riding)
             {
                 if(wasRiding&&!ServiceStopped&&Input.GetKeyDown(KeyCode.Space))TryKick();
+                if(wasRiding&&Input.GetKeyDown(KeyCode.Q))TryJump();
                 if(Input.GetKeyDown(KeyCode.LeftArrow)||Input.GetKeyDown(KeyCode.A))MoveLane(-1);
                 if(Input.GetKeyDown(KeyCode.RightArrow)||Input.GetKeyDown(KeyCode.D))MoveLane(1);
                 ReadSwipe(); TickRide(Mathf.Min(Time.deltaTime,.05f));
@@ -256,7 +258,9 @@ namespace PhoViet
                 if(t.phase==TouchPhase.Began){swipeStart=t.position;touchStarted=Time.unscaledTime;swipeCanSteer=GameplayPointerAllowed(t.position);}
                 if(t.phase==TouchPhase.Ended&&swipeCanSteer)
                 {
-                    if(Mathf.Abs(t.position.x-swipeStart.x)>Screen.width*.075f){MoveLane(t.position.x>swipeStart.x?1:-1);lastTapTime=-100;}
+                    Vector2 swipe=t.position-swipeStart;
+                    if(IsJumpSwipe(swipe,Screen.width)){TryJump();lastTapTime=-100;}
+                    else if(Mathf.Abs(swipe.x)>Screen.width*.075f){MoveLane(swipe.x>0?1:-1);lastTapTime=-100;}
                     else if(Vector2.Distance(t.position,swipeStart)<Screen.width*.035f&&Time.unscaledTime-touchStarted<.24f)
                         RegisterTap(t.position,Time.unscaledTime);
                 }
@@ -264,17 +268,19 @@ namespace PhoViet
             else
             {
                 if(Input.GetMouseButtonDown(0)){swipeStart=Input.mousePosition;dragging=GameplayPointerAllowed(Input.mousePosition);}
-                if(Input.GetMouseButtonUp(0)&&dragging){dragging=false;if(Mathf.Abs(Input.mousePosition.x-swipeStart.x)>Screen.width*.075f)MoveLane(Input.mousePosition.x>swipeStart.x?1:-1);}
+                if(Input.GetMouseButtonUp(0)&&dragging){dragging=false;Vector2 swipe=(Vector2)Input.mousePosition-swipeStart;if(IsJumpSwipe(swipe,Screen.width)){TryJump();lastTapTime=-100;}else if(Mathf.Abs(swipe.x)>Screen.width*.075f)MoveLane(swipe.x>0?1:-1);}
             }
         }
         void TickRide(float dt)
         {
             TickWorkMotion(dt);
             TickActionTimers(dt);
+            TickJump(dt);
             if(!ServiceStopped)timeRiding+=dt;cruiseSpeed=Mathf.Min(17+DifficultyTime*.12f,30)+(IsChased?chaseBoost:0);
             Speed=IsTurning?Mathf.Min(cruiseSpeed,lateTurn?8:10):cruiseSpeed;
             Speed=WorkSpeedLimit(Speed);
             Speed=JobAcceptanceSpeedLimit(Speed);
+            if(jumpFlying&&!ServiceStopped&&!IsTurning)Speed+=3;
             if(IsTurning&&dt>0)Speed=Mathf.Min(Speed,Mathf.Max(0,turnLength-turnTravel)/dt);
             Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;
@@ -282,12 +288,14 @@ namespace PhoViet
             oldRiderYaw=IsTurning?TurnYaw:0;
             float x=ServiceStopped?oldX:Mathf.MoveTowards(oldX,LaneX[CurrentLane],dt*15);
             lean=Mathf.Lerp(lean,(oldX-x)*-35,dt*10);
-            if(!IsTurning){rider.localPosition=new Vector3(x,Mathf.Sin(timeRiding*12)*.012f,0);rider.localRotation=Quaternion.Euler(0,0,lean);}
+            if(!IsTurning){rider.localPosition=new Vector3(x,jumpHeight,0);rider.localRotation=Quaternion.Euler(0,0,lean);}
             BeginOrContinueTurn(Speed*dt);
+            {var p=rider.localPosition;p.y=jumpHeight;rider.localPosition=p;}
             lastX=x;
             riderRoadVelocity=dt>0?new Vector3((rider.localPosition.x-oldX)/dt,0,Speed+(rider.localPosition.z-oldRiderZ)/dt):Quaternion.Euler(0,TurnYaw,0)*Vector3.forward*Speed;
             riderVelocityValid=true;
             TickTrafficMotion(dt);
+            ResolveJumpSurface(dt);
             TickRearRecklessWarning(dt);
             TickOrdinaryRearWarnings(dt);
             if(!ResolveRiderContacts(oldX,dt))return;
@@ -442,11 +450,11 @@ namespace PhoViet
                 float by=uiH-118;
                 Panel(new Rect(48,by,670,75),new Color(.09f,.23f,.24f,.94f));
                 Txt("01   ĐỔI LÀN",69,by+15,190,22,12,Gold);Txt("← →  hoặc A / D",69,by+39,190,22,14,Cream);
-                Txt("02   ĐẠP XE MÁY",283,by+15,190,22,12,Gold);Txt("Space · tự vệ trước quái xế",283,by+39,215,22,12,Cream);
+                Txt("02   ĐẠP / NHẢY XE",283,by+15,190,22,12,Gold);Txt("Space: đạp · Q: nhảy",283,by+39,215,22,12,Cream);
                 Txt("03   TRÁNH BỊ BẮT",518,by+15,190,22,12,Gold);Txt("Né vật cản · P tạm dừng",518,by+39,190,22,12,Cream);
                 Txt("TỰ ĐỘNG TIẾN  /  4 LÀN ĐƯỜNG  /  VÔ TẬN",uiW-450,uiH-65,400,30,11,Cream,TextAnchor.MiddleRight);
             }
-            else Txt("VUỐT: ĐỔI LÀN · CHẠM HAI LẦN: ĐẠP",20,uiH-46,440,25,12,Cream,TextAnchor.MiddleCenter);
+            else Txt("VUỐT NGANG: ĐỔI LÀN · VUỐT LÊN: NHẢY · CHẠM 2 LẦN: ĐẠP",10,uiH-46,460,25,10,Cream,TextAnchor.MiddleCenter);
         }
         void Hud()
         {

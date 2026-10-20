@@ -25,12 +25,14 @@ namespace PhoViet
         Transform leftFoot,rightFoot;
         float clock,kickAge=10,fallAge;
         int kickSide=1;
+        BikeJumpPose jumpPose=new BikeJumpPose();
+        float jumpBalancePitch,jumpPitchVelocity;
         [NonSerialized] bool initialized;
         PhoVietGame.RideState previousState;
 
         void OnEnable()
         {
-            initialized=false;game=null;vehicle=null;clock=0;kickAge=10;fallAge=0;WheelAngle=0;
+            initialized=false;game=null;vehicle=null;clock=0;kickAge=10;fallAge=0;WheelAngle=0;jumpBalancePitch=jumpPitchVelocity=0;
             if(visual!=null){visual.localPosition=Vector3.zero;visual.localRotation=Quaternion.identity;}
         }
         void Start(){Initialize();}
@@ -53,6 +55,7 @@ namespace PhoViet
             foreach(var clip in clips)if(clip!=null)animationPlayer.AddClip(clip,clip.name);
             foreach(AnimationState state in animationPlayer){state.enabled=false;state.weight=0;state.speed=0;}
             initialized=true;previousState=game.State;Sample("Idle",0);
+            if(role==ActorRole.Player)jumpPose.Initialize(visual);
         }
         public void Kick(float direction){kickSide=direction<0?-1:1;kickAge=0;}
         void LateUpdate(){Advance(Mathf.Min(Time.deltaTime,.05f));}
@@ -102,6 +105,22 @@ namespace PhoViet
             float signedRoll=Mathf.DeltaAngle(0,transform.localEulerAngles.z);
             visual.localRotation=baseVisualRotation*Quaternion.Euler(0,0,-signedRoll*recovery);
             visual.position=transform.TransformPoint(baseVisualPosition);
+            if(role==ActorRole.Player&&game.State==PhoVietGame.RideState.Riding)game.PoseJumpPassenger(0,0);
+            if(role==ActorRole.Player&&game.State==PhoVietGame.RideState.Riding&&game.RiderJumpActive)
+            {
+                float pitch=jumpPose.Apply(game.RiderJumpClip,game.RiderJumpPose);
+                jumpBalancePitch=Mathf.SmoothDamp(jumpBalancePitch,pitch,ref jumpPitchVelocity,.045f,500,dt);
+                pitch=jumpBalancePitch;
+                Quaternion balance=Quaternion.Euler(pitch,0,0);
+                Vector3 rearContact=new Vector3(0,0,-.73f);
+                visual.localRotation=baseVisualRotation*balance;
+                visual.localPosition=baseVisualPosition+rearContact-balance*rearContact;
+                float lift=Mathf.Max(0,transform.position.y+.008f-LowestSupport());
+                visual.position+=Vector3.up*lift;
+                game.PoseJumpPassenger(pitch,visual.localPosition.y);
+                CurrentClip=game.RiderJumpClip;
+            }
+            else {jumpBalancePitch=jumpPitchVelocity=0;}
             if(falling||recovering)visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.012f-LowestSupport());
         }
         void Sample(string name,float normalized)

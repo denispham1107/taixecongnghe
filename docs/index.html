@@ -30,8 +30,8 @@
         <p id="load-status" role="status" aria-live="polite">Chơi miễn phí · Máy tính & điện thoại</p>
         <progress id="progress" max="1" value="0" hidden aria-label="Đang tải game"></progress>
         <button id="retry" hidden>Tải lại trang</button>
-        <div class="controls"><span><b>← → / A D</b> Đổi làn</span><span><b>SPACE</b> Đạp xe</span><span><b>P</b> Tạm dừng</span></div>
-        <p class="touch-guide">Vuốt: đổi làn / chọn rẽ ở làn ngoài cùng gần giao lộ · chạm hai lần: đạp.</p>
+        <div class="controls"><span><b>← → / A D</b> Đổi làn</span><span><b>SPACE</b> Đạp xe</span><span><b>Q</b> Nhảy</span><span><b>P</b> Tạm dừng</span></div>
+        <p class="touch-guide">Vuốt ngang: đổi làn / chọn rẽ · vuốt lên: nhảy · chạm hai lần: đạp.</p>
       </div>
       <div class="street-preview"><img src="poster.png" alt="Tài xế áo đỏ chạy xe máy trên đường phố Việt Nam"><div class="preview-label">TRẦN HƯNG ĐẠO / QUANG TRUNG / HAI BÀ TRƯNG</div></div>
       <footer><span>CHUYẾN XE KHÔNG NGỪNG</span><span id="offline-status" role="status">Có thể thêm vào màn hình chính</span></footer>
@@ -42,8 +42,9 @@
   <dialog id="guide">
     <button id="close-help" class="close" aria-label="Đóng hướng dẫn">×</button>
     <p class="eyebrow">CHÀO MỪNG ĐẾN PHỐ VIỆT</p><h2>Một chuyến xe, thật nhiều bất ngờ.</h2>
-    <p><b>Máy tính:</b> ← → hoặc A / D đổi làn. Space đạp xe máy ở cạnh. P / Esc tạm dừng. R chơi lại.</p>
-    <p><b>Điện thoại:</b> vuốt trái/phải hoặc chạm nút mũi tên để đổi làn. Chạm hai lần trong vùng chơi để đạp.</p>
+    <p><b>Máy tính:</b> ← → hoặc A / D đổi làn. Q ngóc bánh và nhảy. Space đạp xe máy ở cạnh. P / Esc tạm dừng. R chơi lại.</p>
+    <p><b>Điện thoại:</b> vuốt trái/phải để đổi làn. Vuốt từ dưới lên để nhảy. Chạm hai lần trong vùng chơi để đạp.</p>
+    <p><b>Nhảy xe:</b> hồi chiêu 2 giây, chỉ thực hiện từ mặt đường hoặc nóc xe. Có thể vượt xe máy đã ngã, đáp và chạy trên ô tô con hoặc xe giao hàng nhỏ; chạy vượt mép nóc sẽ rơi xuống đường. Xe tải thùng cỡ trung vẫn là chướng ngại. Va vào thân xe vẫn mất 1 mạng.</p>
     <p><b>Rẽ sang phố mới:</b> ở vùng mũi tên trước giao lộ, bấm/vuốt đúng hướng để chọn rẽ từ làn ngoài cùng. Ngay trong lòng giao lộ vẫn có thể rẽ: sát lề trái bấm/vuốt trái, sát lề phải bấm/vuốt phải, không cần chọn trước. Xe giữ nguyên vị trí làn sau cua. Chú ý xe vượt lên từ phía sau và xe ngược chiều trên phố mới. Hai làn giữa và đoạn đường ngoài vùng rẽ vẫn đổi làn như thường.</p>
     <p>Né xe phanh gấp, tạt làn và xe rẽ ở giao lộ. Đạp quái xế là tự vệ; đạp xe thường sẽ bị CSGT truy đuổi.</p>
     <p><b>3 mạng mỗi lượt:</b> va chạm làm mất một mạng; hướng té và quãng văng tùy lực va chạm. Xe trượt dừng, nằm khoảng 1,2 giây rồi tự dựng lại và nhập làn gần nhất. Xe khác né/nhường trong 3 giây sau hồi phục. Công việc và khách đang chở vẫn tiếp tục. Hết 3 mạng thì kết thúc sau hoạt cảnh té. Bị CSGT bắt thì kết thúc ngay, dù còn mạng.</p>
@@ -54,13 +55,13 @@
   </dialog>
   <script>
     window.PHO_VIET_BUILD={
-      loaderUrl:"Build/16e320a7a6d0071907925f2c24e5e913.loader.js",
-      dataUrl:"Build/f1ab558bda23dd8605a9c49ae20908ab.data.unityweb",
-      frameworkUrl:"Build/8ac3d0e7eb65a86622d7e26e5e28a408.framework.js.unityweb",
-      codeUrl:"Build/84244fc00f830034d294648901751119.wasm.unityweb",
+      loaderUrl:"Build/f221a82e64e17a490b2a97a72095eea0.loader.js",
+      dataUrl:"Build/80a483233c092b5178acf49c9354371c.data.unityweb",
+      frameworkUrl:"Build/76d26955606aaf45493258e87b440c40.framework.js.unityweb",
+      codeUrl:"Build/48016db6face7262aa0c1d788e28d456.wasm.unityweb",
       companyName:"Pho Viet Studio",
       productName:"Phố Việt - Chuyến xe không ngừng",
-      productVersion:"1.22.0"
+      productVersion:"1.23.0"
     };
   </script>
   <script src="app.js" defer></script>

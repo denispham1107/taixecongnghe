@@ -172,7 +172,7 @@ namespace PhoViet
    if(Mathf.Abs(across)<.1f&&target.axis%2==navHeading%2)
    {
     int lane=TargetLane(target);
-    if(ahead<=1.2f&&ahead>=-2.5f&&CurrentLane==lane&&Mathf.Abs(rider.localPosition.x-LaneX[lane])<.4f)
+    if(!RiderAirborne&&!RiderOnRoof&&!RiderJumpActive&&ahead<=1.2f&&ahead>=-2.5f&&CurrentLane==lane&&Mathf.Abs(rider.localPosition.x-LaneX[lane])<.4f)
     {BeginService();return;}
     if(ahead< -4&&!streetTargetMissed){streetTargetMissed=true;Reroutes++;rerouteNotice=3;ActiveRoute=city.Plan(NavigationPosition,navNext,navHeading,Mathf.Max(0,NextJunctionDistance),target);spokenKey="";}
    }

@@ -1,0 +1,48 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyJobEdges.cs",
+      "entry": "VerifyJobEdges.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 257,
+      "executeMs": 112,
+      "assemblyName": "PipelineRunScript_VerifyJobEdges_d7babbfb2c854f0c974dfce85a8ceac0",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 17,
+        "checks": [
+          "Wrong turn preserves original customer and destination",
+          "Wrong turn calculates a new route to the same address",
+          "Pickup does not stop in the wrong lane",
+          "Correct curb starts boarding",
+          "Exactly one randomly selected passenger appears",
+          "Passenger has four imported animation clips",
+          "Passenger has three mobile detail levels",
+          "Passenger has four imported animation clips",
+          "Passenger has three mobile detail levels",
+          "Rear vehicle yields before reaching a stopped pickup",
+          "Boarding starts exactly three seconds of departure protection",
+          "Departure protection counts movement simulation time",
+          "Pause does not consume departure protection",
+          "Time spent riding through a turn counts toward the three seconds too",
+          "Ordinary rear traffic returns after three seconds",
+          "Pursuit traffic collision still spends a life during departure yielding",
+          "An unfinished or crashed job pays no Coin"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifySafeArea.cs",
+      "entry": "VerifySafeArea.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 119,
+      "executeMs": 43,
+      "assemblyName": "PipelineRunScript_VerifySafeArea_3ecbef8093714abebeef535c91c033c4",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 9
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

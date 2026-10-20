@@ -10,12 +10,13 @@ namespace PhoViet
         {
             if(State!=RideState.Riding)return false;
             if(!IsChased&&collisionImmunity>0)return true;
-            riderBody.previousPosition=new Vector3(oldX,rider.localPosition.y,oldRiderZ);riderBody.previousYaw=oldRiderYaw;riderBody.knocked=false;
+            riderBody.previousPosition=new Vector3(oldX,jumpPreviousHeight,oldRiderZ);riderBody.previousYaw=oldRiderYaw;riderBody.knocked=false;
             TrafficVehicle hit=null;Vector2 hitNormal=Vector2.zero;float earliest=2;
             foreach(var v in vehicles)
             {
                 if(!v.active||(!IsChased&&v.playerGrace>0)||v.model.localPosition.y>=2.4f)continue;
                 if(!VehicleContact(riderBody,v,out Vector2 normal,out float at,out float depth)||at>=earliest)continue;
+                if((jumpHeight>.05f||jumpPreviousHeight>.05f)&&JumpClearsVehicle(v,at))continue;
                 earliest=at;hit=v;hitNormal=normal;
             }
             if(hit!=null)
@@ -69,12 +70,21 @@ namespace PhoViet
                 if(near>enter){enter=near;entryNormal=axis*(p+d*near>=0?1:-1);}
                 leave=Mathf.Min(leave,far);if(enter>leave)return false;
             }
-            if(leave<0||enter>1)return false;
-            at=Mathf.Clamp01(enter);normal=entryNormal.sqrMagnitude>.5f?entryNormal:minNormal;
-            float ay=Mathf.Lerp(a.previousPosition.y,a.model.localPosition.y,at),by=Mathf.Lerp(b.previousPosition.y,b.model.localPosition.y,at);
+            // Intersect the vertical time interval too: checking height only at the
+            // horizontal entry could miss a descending rider or a rising crash body.
             float ah=a.halfLength>3?3.2f:a.halfWidth>.7f?1.9f:a.knocked?.6f:2.4f;
             float bh=b.halfLength>3?3.2f:b.halfWidth>.7f?1.9f:b.knocked?.6f:2.4f;
-            if(ay+ah<by||by+bh<ay)return false;
+            float y0=a.previousPosition.y-b.previousPosition.y;
+            float dy=a.model.localPosition.y-b.model.localPosition.y-y0;
+            if(Mathf.Abs(dy)<.000001f){if(y0>bh||y0< -ah)return false;}
+            else
+            {
+                float aY=(-ah-y0)/dy,bY=(bh-y0)/dy;
+                enter=Mathf.Max(enter,Mathf.Min(aY,bY));leave=Mathf.Min(leave,Mathf.Max(aY,bY));
+                if(enter>leave)return false;
+            }
+            if(leave<0||enter>1)return false;
+            at=Mathf.Clamp01(enter);normal=entryNormal.sqrMagnitude>.5f?entryNormal:minNormal;
             penetration=Mathf.Max(0,ProjectedRadius(a,normal)+ProjectedRadius(b,normal)-Mathf.Abs(Vector2.Dot(to,normal)));
             return true;
         }
