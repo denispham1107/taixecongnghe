@@ -28,6 +28,10 @@
 - Hai cảnh báo cũ: Pipeline chỉ được dùng trong Editor, và trường native HUD touch không dùng ở nhánh WebGL. Không có lỗi shader hoặc lỗi build.
 - 69 kiểm tra web đạt: 12 kiểm tra UI/chuột/touch/xoay, 37 kiểm tra WebGL/PWA/offline/điều khiển, 20 kiểm tra full viewport/safe area iPhone/iPad dọc/ngang. Không có lỗi JavaScript/Unity runtime.
 - Các profile iPhone/iPad là mô phỏng bố cục, không thay thế kiểm tra hiệu năng Safari trên máy thật.
-- GitHub Pages: đang triển khai; SHA, workflow và kiểm tra live sẽ ghi khi hoàn tất.
+- Commit phát hành: `be3feaa31ac2aef6d867b2e4386d5e119a2f1eb9`.
+- GitHub Pages triển khai thành công: https://github.com/denispham1107/taixecongnghe/actions/runs/39347767517
+- 26 kiểm tra live đạt: phiên bản/cache đúng, toàn bộ tài nguyên khớp bản kiểm tra, WebAssembly khởi động, nhận điều khiển và không có lỗi JavaScript/Unity runtime.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/
+- Unity kết thúc ở Edit Mode, Game View ngang; công việc bật, Coin thử nghiệm 0, kỷ lục 1,775 m. Server kiểm tra nội bộ đã dừng.
 
 Các tệp Blender và `huongdan.md` có thay đổi từ trước được giữ riêng.
