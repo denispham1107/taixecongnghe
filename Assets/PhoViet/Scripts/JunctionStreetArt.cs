@@ -30,6 +30,10 @@ namespace PhoViet
                     {
                         Rect(vertices,indices,rotation,lane,-.14f,-1.1f,.14f,.55f);
                         Triangle(vertices,indices,rotation,lane,new Vector2(0,1.22f),new Vector2(-.56f,.48f),new Vector2(.56f,.48f));
+                        // A branch shares the straight shaft; both directions use the same white paint.
+                        float s=lane==1?-1:1;
+                        Rect(vertices,indices,rotation,lane,Mathf.Min(0,s*.65f),-.62f,Mathf.Max(0,s*.65f),-.34f);
+                        Triangle(vertices,indices,rotation,lane,new Vector2(s*1.2f,-.48f),new Vector2(s*.58f,.04f),new Vector2(s*.58f,-1f));
                     }
                 }
             }

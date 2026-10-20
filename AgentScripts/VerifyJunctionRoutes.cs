@@ -29,7 +29,7 @@ public static class VerifyJunctionRoutes
             {
                 check(row.tiles.All(t=>t.Find("Vạch mũi tên giao lộ • 4 hướng")!=null),row.root.name+": every intersection has four-arm painted arrows");
                 var paint=row.tiles[0].Find("Vạch mũi tên giao lộ • 4 hướng");var mesh=paint.GetComponent<MeshFilter>().sharedMesh;
-                check(mesh.vertexCount==192&&mesh.triangles.Length==192,row.root.name+": sixteen filled arrow markings face all four approaches");
+                check(mesh.vertexCount==264&&mesh.triangles.Length==264,row.root.name+": sixteen filled combined arrow markings face all four approaches");
                 check(paint.GetComponent<Renderer>().sharedMaterial.color==StreetArt.Cream,row.root.name+": arrow paint matches crosswalk paint exactly");
                 check(row.root.GetComponentsInChildren<Transform>(true).Any(t=>t.name=="Blender • QUÁN PHỞ")&&row.root.GetComponentsInChildren<Transform>(true).Any(t=>t.name.Contains("Blender • TẠP HÓA")),row.root.name+": Blender food shops and groceries continue on the new roads");
             }
@@ -37,7 +37,7 @@ public static class VerifyJunctionRoutes
             check(g.worldTextMaterial!=null&&g.worldTextMaterial.shader.name=="PhoViet/World Street Text","Street labels use depth-tested world text instead of drawing through adjacent buildings");
             check(g.scenery.GetComponentsInChildren<TextMesh>(true).All(t=>t.GetComponent<Renderer>().sharedMaterial==g.worldTextMaterial),"Every branch and main-road sign uses the same depth-tested font atlas");
             g.MoveLane(1);check(g.CurrentLane==3&&g.QueuedTurn==0,"Outside arrow zone right input remains lane movement");
-            approach();lane(2);g.MoveLane(-1);check(g.CurrentLane==1&&g.QueuedTurn==0,"Middle lanes cannot choose a junction turn");
+            approach();lane(2);g.MoveLane(-1);check(g.CurrentLane==1&&g.QueuedTurn==0,"Opposite-side inner lane does not turn across the median");
             lane(3);g.MoveLane(1);check(g.QueuedTurn==1&&g.CurrentLane==3,"One right input in outer lane queues the upcoming right turn");
             g.MoveLane(1);check(g.QueuedTurn==1&&g.CurrentLane==3,"Repeated input in the chosen direction retains the single queued turn");
             g.MoveLane(-1);check(g.QueuedTurn==0&&g.CurrentLane==2,"Moving away cancels the queued turn");

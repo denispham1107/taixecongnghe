@@ -250,9 +250,9 @@ namespace PhoViet
             if(Input.GetKeyDown(KeyCode.Escape)||Input.GetKeyDown(KeyCode.P))TogglePause();
             if(State==RideState.Riding)
             {
-                if(wasRiding&&!ServiceStopped&&Input.GetKeyDown(KeyCode.Space))TryKick();
-                if(wasRiding&&Input.GetKeyDown(KeyCode.Q))TryJump();
-                if(wasRiding&&Input.GetKeyDown(KeyCode.E))TryBoost();
+                if(wasRiding&&!ServiceStopped&&Input.GetKeyDown(KeyCode.Q))TryKick();
+                if(wasRiding&&Input.GetKeyDown(KeyCode.Space))TryJump();
+                if(wasRiding&&Input.GetKeyDown(KeyCode.W))TryBoost();
                 if(Input.GetKeyDown(KeyCode.LeftArrow)||Input.GetKeyDown(KeyCode.A))MoveLane(-1);
                 if(Input.GetKeyDown(KeyCode.RightArrow)||Input.GetKeyDown(KeyCode.D))MoveLane(1);
                 ReadSwipe(); TickRide(Mathf.Min(Time.deltaTime,.05f));
@@ -470,7 +470,7 @@ namespace PhoViet
                 float by=uiH-118;
                 Panel(new Rect(48,by,670,75),new Color(.09f,.23f,.24f,.94f));
                 Txt("01   ĐỔI LÀN",69,by+15,190,22,12,Gold);Txt("← →  hoặc A / D",69,by+39,190,22,14,Cream);
-                Txt("02   KỸ NĂNG LÁI XE",283,by+15,190,22,12,Gold);Txt("Space: đạp · Q: nhảy · E: tăng tốc",283,by+39,215,22,10,Cream);
+                Txt("02   KỸ NĂNG LÁI XE",283,by+15,190,22,12,Gold);Txt("Q: đạp · Space: nhảy · W: tăng tốc",283,by+39,215,22,10,Cream);
                 Txt("03   TRÁNH BỊ BẮT",518,by+15,190,22,12,Gold);Txt("Né vật cản · P tạm dừng",518,by+39,190,22,12,Cream);
                 Txt("TỰ ĐỘNG TIẾN  /  4 LÀN ĐƯỜNG  /  VÔ TẬN",uiW-450,uiH-65,400,30,11,Cream,TextAnchor.MiddleRight);
             }

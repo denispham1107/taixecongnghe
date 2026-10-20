@@ -19,7 +19,7 @@ async function main(){
     await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:0}]});await page.waitForTimeout(80);
     await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y-box.height*.24,id:0}]});await page.waitForTimeout(80);
     await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});pass('Actual upward touch swipe delivered to WebGL');
-   }else{await page.locator('#unity-canvas').focus();await page.keyboard.press('q');pass('Actual Q key delivered to WebGL');}
+   }else{await page.locator('#unity-canvas').focus();await page.keyboard.press('Space');pass('Actual SpaceBar key delivered to WebGL');}
    await page.waitForTimeout(650);await page.evaluate(()=>window.phoVietInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','TogglePause'));
    await page.screenshot({path:`Captures/${label}-web-${mobile?'mobile':'desktop'}-jump.png`,timeout:90000});
    pass((mobile?'Mobile':'Desktop')+' jump/input smoke has no runtime errors',result.errors.length===0);await context.close();

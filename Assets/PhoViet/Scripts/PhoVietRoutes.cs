@@ -69,18 +69,20 @@ namespace PhoViet
             }
             CityJunctionPrepared();
         }
+        public static bool CanTurnFromLane(int direction,int lane)=>lane>=0&&lane<4&&(direction<0?lane<=1:direction>0&&lane>=2);
         bool SelectJunctionTurn(int direction)
         {
             if(!RoutesReady||direction==0)return false;if(IsTurning)return true;
-            if(QueuedTurn==Math.Sign(direction)&&(direction<0?CurrentLane==0:CurrentLane==3))return true;
+            if(QueuedTurn==Math.Sign(direction)&&CanTurnFromLane(direction,CurrentLane))return true;
             float near=NextJunctionDistance;
             // Accept an unqueued turn throughout the actual open intersection.
-            bool atEdge=direction<0?rider.localPosition.x<=-3.1f:rider.localPosition.x>=3.1f;
+            bool atEdge=direction<0?rider.localPosition.x<=-.65f:rider.localPosition.x>=.65f;
             if(near>=-7&&near<=7&&atEdge)
             {
-                CurrentLane=direction<0?0:3;QueuedTurn=Math.Sign(direction);StartJunctionTurn(true);return true;
+                CurrentLane=direction<0?(rider.localPosition.x<=-3.1f?0:1):(rider.localPosition.x>=3.1f?3:2);
+                QueuedTurn=Math.Sign(direction);StartJunctionTurn(true);return true;
             }
-            bool lane=direction<0?CurrentLane==0:CurrentLane==3;
+            bool lane=CanTurnFromLane(direction,CurrentLane);
             if(near>=12&&near<=30&&lane&&Mathf.Abs(rider.localPosition.x-LaneX[CurrentLane])<.6f)
             {
                 QueuedTurn=Math.Sign(direction);notice=(direction<0?"ĐÃ CHỌN RẼ TRÁI · ":"ĐÃ CHỌN RẼ PHẢI · ")+junctionStreet.ToUpperInvariant();noticeTimer=2;return true;
@@ -98,7 +100,7 @@ namespace PhoViet
             if(!RoutesReady)return;
             if(!IsTurning&&QueuedTurn!=0&&NextJunctionDistance<=11.65f)
             {
-                if((QueuedTurn<0?CurrentLane!=0:CurrentLane!=3)||Mathf.Abs(rider.localPosition.x-LaneX[CurrentLane])>.65f){QueuedTurn=0;return;}
+                if(!CanTurnFromLane(QueuedTurn,CurrentLane)||Mathf.Abs(rider.localPosition.x-LaneX[CurrentLane])>.65f){QueuedTurn=0;return;}
                 StartJunctionTurn(false);
                 return;
             }
@@ -125,14 +127,14 @@ namespace PhoViet
         void StartJunctionTurn(bool late)
         {
             IsTurning=true;turnSide=QueuedTurn;QueuedTurn=0;turnStart=rider.localPosition;turnStart.y=0;
-            turnRadius=Mathf.Max(4,NextJunctionDistance-4.65f);turnTravel=0;TurnYaw=0;lateTurn=late;
+            turnRadius=Mathf.Max(4,NextJunctionDistance-turnSide*LaneX[CurrentLane]);turnTravel=0;TurnYaw=0;lateTurn=late;
             turnLength=turnRadius*Mathf.PI*.5f;
             if(late)
             {
                 // A late input needs room to align with the same exit lane. A tangent-
                 // continuous curve keeps the bike inside the union of the two roads.
                 lateControl1=turnStart+Vector3.forward*3;
-                lateEnd=new Vector3(turnSide*20,0,NextJunctionDistance-4.65f);
+                lateEnd=new Vector3(turnSide*20,0,NextJunctionDistance-turnSide*LaneX[CurrentLane]);
                 lateControl2=lateEnd-Vector3.right*turnSide*6;
                 Vector3 previous=turnStart;lateArcLengths[0]=0;
                 for(int i=1;i<65;i++){Vector3 p=LateTurnPoint(i/64f);lateArcLengths[i]=lateArcLengths[i-1]+Vector3.Distance(previous,p);previous=p;}
@@ -198,8 +200,8 @@ namespace PhoViet
         {
             if(!RoutesReady||State!=RideState.Riding)return;
             string value=IsTurning?"ĐANG RẼ · "+junctionStreet:QueuedTurn!=0?"ĐÃ CHỌN RẼ "+(QueuedTurn<0?"TRÁI":"PHẢI")+" · "+junctionStreet:
-                NextJunctionDistance>=-7&&NextJunctionDistance<=7?"SÁT LỀ TRÁI / PHẢI: BẤM HOẶC VUỐT ĐỂ RẼ NGAY":
-                NextJunctionDistance<=30&&NextJunctionDistance>12?"LÀN NGOÀI CÙNG: BẤM / VUỐT ĐỂ CHỌN RẼ":"";
+                NextJunctionDistance>=-7&&NextJunctionDistance<=7?"HAI LÀN TRÁI RẼ TRÁI · HAI LÀN PHẢI RẼ PHẢI":
+                NextJunctionDistance<=30&&NextJunctionDistance>12?"THEO MŨI TÊN: BẤM / VUỐT ĐỂ CHỌN RẼ":"";
             if(value.Length==0)return;float w=portrait?420:540;Panel(new Rect((uiW-w)/2,portrait?115:100,w,38),StreetArt.Ink);Txt(value,(uiW-w)/2+10,portrait?123:108,w-20,24,portrait?11:13,StreetArt.Cream,TextAnchor.MiddleCenter);
         }
     }

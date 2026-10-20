@@ -43,7 +43,7 @@ async function main(){
   }
   pass('Every offline resource is available');
   const build=await (await fetch(new URL('build-info.json',url))).json();
-  results.build=build;pass('Versioned offline cache',build.version==='1.24.0'&&/^[a-f0-9]{16}$/.test(build.cache));
+  results.build=build;pass('Versioned offline cache',build.version==='1.25.0'&&/^[a-f0-9]{16}$/.test(build.cache));
   const launchOptions={channel:'chrome',headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']};
   const browser=await chromium.launch(launchOptions);
   // PWA installation is disabled in the incognito contexts returned by browser.newContext().
@@ -60,7 +60,7 @@ async function main(){
     pass('Browser parses manifest without errors',appManifest.errors.length===0);
     await ready(page);await shot(page,'desktop-ready');
     await page.locator('#unity-canvas').focus();await page.keyboard.press('Enter');await page.waitForTimeout(350);
-    await page.keyboard.press('ArrowRight');await page.waitForTimeout(350);await page.keyboard.press('Space');await page.waitForTimeout(150);await page.keyboard.press('p');
+    await page.keyboard.press('ArrowRight');await page.waitForTimeout(350);await page.keyboard.press('q');await page.waitForTimeout(150);await page.keyboard.press('p');
     await shot(page,'desktop-paused');pass('Keyboard start, steering, kick and pause smoke completed');
     await page.locator('#help').click();await page.locator('#close-help').click();pass('Unity accepts browser pause message without an error');
     await page.waitForFunction(async()=>{const r=await navigator.serviceWorker.getRegistration();return !!(r&&r.active)},{},{timeout:180000});

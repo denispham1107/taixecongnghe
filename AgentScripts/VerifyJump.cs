@@ -27,7 +27,7 @@ public static class VerifyJump
    Time.timeScale=0;g.ResetRide();check(!g.TryJump(),"Ready screen rejects jumping");reset();
    check(PhoVietGame.IsJumpSwipe(new Vector2(15,100),540),"Upward touch swipe triggers jump");
    check(!PhoVietGame.IsJumpSwipe(new Vector2(100,25),540)&&!PhoVietGame.IsJumpSwipe(new Vector2(0,-100),540),"Horizontal/downward swipes do not trigger jump");
-   check(g.TryJump(),"Grounded rider can initiate wheelie");check(!g.TryJump(),"Repeated Q cannot restart windup");
+   check(g.TryJump(),"Grounded rider can initiate wheelie");check(!g.TryJump(),"Repeated SpaceBar cannot restart windup");
    tick(.12f);check(!g.RiderAirborne&&g.RiderJumpClip=="JumpTakeoff","Wheelie precedes takeoff");
    var hero=g.rider.GetComponent<BikeVisualAnimator>();hero.Advance(.01f);check(hero.CurrentClip=="JumpTakeoff","Blender takeoff action is sampled by the rider animator");
    float maximum=0;for(int i=0;i<70;i++){tick(.02f);maximum=Mathf.Max(maximum,g.RiderJumpHeight);}

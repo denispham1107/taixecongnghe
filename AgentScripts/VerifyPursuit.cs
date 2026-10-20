@@ -30,7 +30,7 @@ public static class VerifyPursuit
             clean();var bike=g.SpawnTraffic(3,5,1);check(!g.TryKick(),"Distant motorcycle is not parallel");
             bike.model.localPosition=new Vector3(PhoVietGame.LaneX[3],0,0);bike.speed=-10;check(g.TryKick()&&bike.knocked&&g.IsChased,"Oncoming ordinary motorcycles can be kicked and summon police");
             clean();bike=g.SpawnTraffic(3,0,1);
-            bike.speed=10;check(g.TryKick()&&bike.knocked,"Space action knocks a valid parallel motorcycle");
+            bike.speed=10;check(g.TryKick()&&bike.knocked,"Q action knocks a valid parallel motorcycle");
             check(bike.knockVelocity.x>0&&bike.knockDirection==1,"Right kick sends the bike away to the right");
             check(g.KickCount==1&&g.IsChased&&g.policeBike.gameObject.activeSelf,"First successful kick starts police pursuit");
             check(g.PoliceSpeed>g.Speed&&g.PoliceDistance>=37,"Police initially approach rapidly from behind");

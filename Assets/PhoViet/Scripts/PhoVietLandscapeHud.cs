@@ -45,7 +45,7 @@ namespace PhoViet
    if(State==RideState.Riding)
    {
     Panel(new Rect(36,uiH-72,550,39),new Color(.07f,.19f,.21f,.46f));
-    Txt("← →  ĐỔI LÀN    ·    SPACE  ĐẠP    ·    P  TẠM DỪNG    ·    "+PassedVehicles+" XE ĐÃ NÉ",52,uiH-63,520,24,11,Cream);
+    Txt("← → ĐỔI LÀN · Q ĐẠP · SPACE NHẢY · W TĂNG TỐC · P DỪNG · "+PassedVehicles+" XE ĐÃ NÉ",52,uiH-63,520,24,10,Cream);
    }
   }
  }

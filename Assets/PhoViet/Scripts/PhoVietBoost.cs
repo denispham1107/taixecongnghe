@@ -6,7 +6,7 @@ namespace PhoViet
   public bool BoostActive=>boostRemaining>0;
   public float BoostRemaining=>boostRemaining;
   public float BoostCooldown=>boostCooldown;
-  public const float BoostMultiplier=1.75f,BoostDuration=4,BoostRecovery=3;
+  public const float BoostMultiplier=2.25f,BoostDuration=4,BoostRecovery=2;
   float boostRemaining,boostCooldown;
   BoostSmokeVisual boostSmoke;
   public static bool IsBoostSwipe(Vector2 delta,float width)=>delta.y< -width*.12f&&-delta.y>Mathf.Abs(delta.x)*1.3f;
@@ -14,7 +14,7 @@ namespace PhoViet
   {
    if(State!=RideState.Riding||ServiceStopped||BoostActive||boostCooldown>0)return false;
    boostRemaining=BoostDuration;
-   notice="TĂNG TỐC +75% · 4 GIÂY";noticeTimer=1.3f;
+   notice="TĂNG TỐC +125% · 4 GIÂY";noticeTimer=1.3f;
    EnsureBoostSmoke();return true;
   }
   void EnsureBoostSmoke()

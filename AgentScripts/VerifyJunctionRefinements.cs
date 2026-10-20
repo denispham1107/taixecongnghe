@@ -29,7 +29,7 @@ public static class VerifyJunctionRefinements
                 for(int arm=0;arm<4;arm++)
                 {
                     Quaternion inverse=Quaternion.Inverse(Quaternion.Euler(0,arm*90,0));float min=float.MaxValue,max=float.MinValue;
-                    for(int i=arm*48;i<(arm+1)*48;i++){var p=inverse*(points[i]-new Vector3(0,.035f,70));min=Mathf.Min(min,-p.z);max=Mathf.Max(max,-p.z);}
+                    for(int i=arm*66;i<(arm+1)*66;i++){var p=inverse*(points[i]-new Vector3(0,.035f,70));min=Mathf.Min(min,-p.z);max=Mathf.Max(max,-p.z);}
                     float crosswalkOutside=arm%2==0?10.05f:13.05f;
                     check(min>crosswalkOutside+1.5f,row.root.name+" arm "+arm+": every arrow is beyond its crosswalk with a visible clear gap");
                 }
@@ -52,7 +52,7 @@ public static class VerifyJunctionRefinements
                 check(g.CompletedTurns==1&&g.CurrentStreet==name&&g.Distance>before&&Mathf.Abs(g.rider.localPosition.x-PhoVietGame.LaneX[side<0?0:3])<.001f,"Late "+side+" at "+near+": new street, ongoing distance and exact previously confirmed exit lane");
                 check(g.blocks.All(b=>Mathf.Abs(b.localPosition.x)<.001f)&&g.NextJunctionDistance>40,"Late "+side+" at "+near+": new street geometry aligns with the player and continues to another junction");
             }
-            clean();at(2,0);g.MoveLane(1);check(!g.IsTurning,"Middle lane inside the junction still changes lane rather than turning from the wrong curb");
+            clean();at(2,0);g.MoveLane(1);check(g.IsTurning&&g.CurrentLane==2,"Inner right lane can immediately turn right while retaining lane");
             clean();at(3,0);g.MoveLane(-1);check(!g.IsTurning&&g.CurrentLane==2,"Right curb does not turn left across the junction");
             clean();at(0,0);g.MoveLane(1);check(!g.IsTurning&&g.CurrentLane==1,"Left curb does not turn right across the junction");
             clean();at(3,-8);g.MoveLane(1);check(!g.IsTurning,"Turn input beyond the far edge of the intersection is not accepted");

@@ -200,7 +200,7 @@ namespace PhoViet
             {
                 float w=portrait?400:420,x=(uiW-w)/2,y=uiH-(portrait?160:125);
                 Panel(new Rect(x,y,w,37),Red);
-                string warning=v.speed<0?(v.halfWidth>.7f?"XE TẢI NGỦ GẬT · NGƯỢC CHIỀU LẤN LÀN":"QUÁI XẾ NGƯỢC CHIỀU · CẨN THẬN LẤN LÀN"):(v.halfWidth>.7f?"XE TẢI NGỦ GẬT · CẨN THẬN LẤN LÀN":"QUÁI XẾ · SPACE / CHẠM HAI LẦN ĐỂ TỰ VỆ");
+                string warning=v.speed<0?(v.halfWidth>.7f?"XE TẢI NGỦ GẬT · NGƯỢC CHIỀU LẤN LÀN":"QUÁI XẾ NGƯỢC CHIỀU · CẨN THẬN LẤN LÀN"):(v.halfWidth>.7f?"XE TẢI NGỦ GẬT · CẨN THẬN LẤN LÀN":"QUÁI XẾ · Q / CHẠM HAI LẦN ĐỂ TỰ VỆ");
                 if(v.enteringFromBehind)warning=v.halfWidth>.7f?"XE TẢI NGỦ GẬT · ĐANG VƯỢT TỪ PHÍA SAU":"QUÁI XẾ · ĐANG VƯỢT TỪ PHÍA SAU";
                 Txt(warning,x+8,y+9,w-16,24,portrait?11:12,Cream,TextAnchor.MiddleCenter);
                 break;
