@@ -229,6 +229,7 @@ namespace PhoViet
             for(int i=0;i<positions.Length;i++){chosen.tiles[i].localPosition=positions[i];chosen.tiles[i].localRotation=Quaternion.identity;}
             blocks=new List<Transform>(chosen.tiles);roadOffset=-Distance-positions[0].z;
             rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0);rider.localRotation=Quaternion.identity;lean=0;lastX=rider.localPosition.x;oldRiderZ=0;
+            if(daylight!=null)daylight.Rebase(inverse,origin);
             TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;cameraTurnBlend=.7f;turnEndAt=Distance;
             float nearest=float.MaxValue;foreach(var b in blocks){float z=b.localPosition.z+70;if(z>12)nearest=Mathf.Min(nearest,z);}
             nextIntersectionDistance=Distance+nearest;leftRow=oldMain;rightRow=unused;PrepareBranches(nearest);notice="ĐÃ VÀO ĐƯỜNG "+RouteStreet.ToUpperInvariant();noticeTimer=2;

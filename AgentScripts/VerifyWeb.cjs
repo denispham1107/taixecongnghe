@@ -22,6 +22,8 @@ async function ready(page){
   pass('Loading screen dismissed',await page.locator('#welcome').isHidden());
 }
 async function inspect(page){
+  // Software WebGL rendering can delay the two stable frames required by DOM clicks.
+  page.setDefaultTimeout(90000);
   page.on('pageerror',e=>results.errors.push(e.message));
   page.on('console',msg=>{if(msg.type()==='error')results.errors.push(msg.text());});
   await page.goto(url,{waitUntil:'networkidle',timeout:60000});
@@ -43,7 +45,7 @@ async function main(){
   }
   pass('Every offline resource is available');
   const build=await (await fetch(new URL('build-info.json',url))).json();
-  results.build=build;pass('Versioned offline cache',build.version==='1.28.1'&&/^[a-f0-9]{16}$/.test(build.cache));
+  results.build=build;pass('Versioned offline cache',build.version==='1.29.0'&&/^[a-f0-9]{16}$/.test(build.cache));
   const launchOptions={channel:'chrome',headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']};
   const browser=await chromium.launch(launchOptions);
   // PWA installation is disabled in the incognito contexts returned by browser.newContext().
@@ -85,7 +87,9 @@ async function main(){
     pass('Phone landing fits width',await phone.evaluate(()=>document.documentElement.scrollWidth===innerWidth));
     await shot(phone,'android-welcome');await ready(phone);await shot(phone,'android-ready');
     const box=await phone.locator('#unity-canvas').boundingBox();
-    await touch(box.x+box.width/2,box.y+box.height*.15+312*(box.width/480),160);
+    const uiScale=box.width/480,uiHeight=box.height/uiScale;
+    const cardY=Math.max(105,Math.min(uiHeight*.15,Math.max(105,uiHeight-258-95)));
+    await touch(box.x+box.width/2,box.y+(cardY+258-70+22)*uiScale,160);
     await phone.waitForTimeout(350);
     const sx=box.x+box.width*.40,sy=box.y+box.height*.68;
     await touchSession.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:sx,y:sy,id:0}]});

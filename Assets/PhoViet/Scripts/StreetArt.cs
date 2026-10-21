@@ -17,7 +17,7 @@ namespace PhoViet
         {if(font!=null&&font==Font&&WorldTextMaterial!=null)WorldTextMaterial.mainTexture=font.material.mainTexture;}
         public static System.Func<Transform,string,Transform> ParkedBikeFactory;
         static readonly Dictionary<string, Material> materials = new Dictionary<string, Material>();
-        public static readonly Color Ink = Hex("203C43"), Cream = Hex("FFF1CF"), Red = Hex("D83833"), Teal = Hex("177E80"), Gold = Hex("FFD35A");
+        public static readonly Color Ink = Hex("203C43"), Cream = Hex("F6F9FE"), Red = Hex("D83833"), Teal = Hex("177E80"), Gold = Hex("FFD35A");
         public static Color Hex(string s) { ColorUtility.TryParseHtmlString("#" + s, out Color c); return c; }
         public static Material Mat(Color c, bool flat = false)
         {

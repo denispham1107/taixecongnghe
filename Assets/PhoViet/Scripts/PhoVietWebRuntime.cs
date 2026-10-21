@@ -12,7 +12,8 @@ namespace PhoViet
         {
             var tap=JsonUtility.FromJson<BrowserTap>(json);
             if(tap==null||float.IsNaN(tap.x)||float.IsNaN(tap.y)||tap.x<0||tap.x>1||tap.y<0||tap.y>1)return;
-            if(JobOffersOpen||State==RideState.Ready||State==RideState.GameOver||State==RideState.Jailed||State==RideState.Arrested)return;
+            if(State==RideState.Ready){WelcomeTap(new Vector2(tap.x*Screen.width,(1-tap.y)*Screen.height));return;}
+            if(JobOffersOpen||State==RideState.GameOver||State==RideState.Jailed||State==RideState.Arrested)return;
             int choice=HudButtonAt(new Vector2(tap.x*Screen.width,(1-tap.y)*Screen.height));
             if(choice<0)return;
             hudTouchSuppressUntil=Time.unscaledTime+.6f;

@@ -1,0 +1,27 @@
+{
+  "halfCycleSeconds": 30,
+  "daySun": "FFFFFF",
+  "nightMoon": "A9C6FF",
+  "daySky": "C3DFF9",
+  "dayHorizon": "F0F7FF",
+  "nightSky": "071329",
+  "nightHorizon": "172846",
+  "dayAmbientSky": "E4F1FF",
+  "dayAmbientEquator": "D9E4EF",
+  "dayAmbientGround": "ADB7C2",
+  "nightAmbientSky": "263D67",
+  "nightAmbientEquator": "182841",
+  "nightAmbientGround": "0E172B",
+  "sunIntensity": 1.12,
+  "moonIntensity": 0.24,
+  "lampColor": "F1F7FF",
+  "lightPoolMax": 6,
+  "authoredIn": "Blender MCP 5.2",
+  "headlightCookieBounds": [
+    -16,
+    -4,
+    16,
+    28
+  ],
+  "streetCookieWidth": 18
+}

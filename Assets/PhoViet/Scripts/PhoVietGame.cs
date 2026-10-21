@@ -138,7 +138,7 @@ namespace PhoViet
             float openingZ=30+(float)rng.NextDouble()*10;
             int openingCount=TrafficCount(rng.Next(5,8));
             for(int i=0;i<openingCount;i++){SpawnTraffic(rng.Next(4),openingZ);openingZ+=11+(float)rng.NextDouble()*10;}
-            spawnTimer=.7f+(float)rng.NextDouble()*1.1f;if(engine!=null)engine.Stop();PositionCamera(true);
+            spawnTimer=.7f+(float)rng.NextDouble()*1.1f;if(engine!=null)engine.Stop();ResetDaylight();PositionCamera(true);
         }
         public void StartRide() { if(State==RideState.Ready){State=RideState.Riding;Speed=17;engine?.Play();} }
         public void RestartRide(){ResetRide();StartRide();}
@@ -271,6 +271,7 @@ namespace PhoViet
         }
         void TickRide(float dt)
         {
+            AdvanceDaylight(dt);
             TickWorkMotion(dt);
             TickActionTimers(dt);
             TickJump(dt);
@@ -434,34 +435,24 @@ namespace PhoViet
         }
         void Brand(float x,float y)
         {
-            Panel(new Rect(x,y,48,48),Red,12);Txt("★",x,y-1,48,48,31,Gold,TextAnchor.MiddleCenter);
-            Txt("PHỐ VIỆT",x+62,y-3,230,36,27,Cream);Txt("CHUYẾN XE KHÔNG NGỪNG",x+63,y+31,250,20,10,Cream);
+            Panel(new Rect(x-10,y-8,259,57),new Color(.97f,.985f,1,.83f),14);
+            Panel(new Rect(x,y,36,36),Red,10);Txt("★",x,y-1,36,36,27,Gold,TextAnchor.MiddleCenter);
+            Txt("PHỐ VIỆT",x+48,y-3,200,30,24,Ink);Txt("CHUYẾN XE KHÔNG NGỪNG",x+49,y+27,198,17,9,Teal);
         }
         void ReadyScreen()
         {
-            FullscreenTint(new Color(.05f,.16f,.17f,.08f));
             Brand(portrait?24:48,portrait?24:38);
             if(!portrait)
             {
-                Panel(new Rect(uiW-277,40,229,64),Ink);Txt("ĐỊA ĐIỂM HÔM NAY",uiW-257,51,200,18,10,Hex("95C4B4"));Txt(CurrentStreet,uiW-257,72,200,25,17,Cream);
+                Panel(new Rect(uiW-277,40,229,56),WelcomeGlass);Txt("ĐỊA ĐIỂM HÔM NAY",uiW-257,48,200,18,9,Teal);Txt(CurrentStreet,uiW-257,67,200,25,16,Ink);
             }
-            float cx=portrait?20:48,cy=portrait?uiH*.15f:uiH*.27f,cw=portrait?440:420;
-            Panel(new Rect(cx,cy,cw,portrait?350:405),Cream,18);
-            Txt("MỘT VÒNG VIỆT NAM",cx+28,cy+25,cw-56,25,12,Red);
-            Txt("LÁI QUA\nPHỐ QUEN.",cx+24,cy+60,cw-48,150,portrait?45:54,Ink);
-            Txt("Né xe, đạp quái xế để tự vệ. Va chạm sẽ kết thúc chuyến đi sau hoạt cảnh té. Nếu đang bị truy đuổi, CSGT sẽ đến bắt!",cx+28,cy+217,cw-56,62,16,Hex("55716E"));
-            if(Btn("LÊN XE THÔI   →",new Rect(cx+28,cy+(portrait?283:296),cw-56,58),Red,Cream,19))StartRide();
-            if(!portrait)Txt("KỶ LỤC CỦA BẠN   /   "+BestDistance+" m",cx+28,cy+369,cw-56,25,12,Teal);
+            WelcomeCard();
             if(!portrait)
             {
-                float by=uiH-118;
-                Panel(new Rect(48,by,670,75),new Color(.09f,.23f,.24f,.94f));
-                Txt("01   ĐỔI LÀN",69,by+15,190,22,12,Gold);Txt("← →  hoặc A / D",69,by+39,190,22,14,Cream);
-                Txt("02   KỸ NĂNG LÁI XE",283,by+15,190,22,12,Gold);Txt("Q: đạp · Space: nhảy · W: tăng tốc",283,by+39,215,22,10,Cream);
-                Txt("03   TRÁNH BỊ BẮT",518,by+15,190,22,12,Gold);Txt("Né vật cản · P tạm dừng",518,by+39,190,22,12,Cream);
-                Txt("TỰ ĐỘNG TIẾN  /  4 LÀN ĐƯỜNG  /  VÔ TẬN",uiW-450,uiH-65,400,30,11,Cream,TextAnchor.MiddleRight);
+                float by=uiH-82;Panel(new Rect(48,by,754,43),WelcomeGlass,12);
+                Txt("← → / A D: ĐỔI LÀN     Q: ĐẠP     SPACE: NHẢY     W: TĂNG TỐC     P: TẠM DỪNG",64,by+13,724,23,11,Ink);
             }
-            else Txt("VUỐT NGANG: LÀN · LÊN: NHẢY · XUỐNG: TĂNG TỐC · CHẠM 2 LẦN: ĐẠP",10,uiH-46,460,25,9,Cream,TextAnchor.MiddleCenter);
+            else {Panel(new Rect(18,uiH-54,uiW-36,30),WelcomeGlass,10);Txt("VUỐT: ĐỔI LÀN / NHẢY / TĂNG TỐC  ·  CHẠM 2 LẦN: ĐẠP",25,uiH-46,uiW-50,21,9,Ink,TextAnchor.MiddleCenter);}
         }
         void Hud()
         {

@@ -1,0 +1,326 @@
+{
+  "success": true,
+  "command": "command build_status",
+  "data": {
+    "command": "build_status",
+    "parameters": {},
+    "result": {
+      "status": "completed",
+      "buildId": "build_f2c1ab83fda6",
+      "result": "Succeeded",
+      "platform": "WebGL",
+      "outputPath": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL",
+      "totalSizeBytes": 24603513,
+      "buildTimeMs": 274508,
+      "buildStartedAt": "2026-10-21T04:59:59.3743568Z",
+      "buildEndedAt": "2026-10-21T05:04:33.8828278Z",
+      "totalWarnings": 3,
+      "totalErrors": 0,
+      "files": [
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/8ae3ee8b950b79da42dcff040fe3fec3.framework.js.unityweb",
+          "role": "unityweb",
+          "sizeBytes": 78666
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/90389c8bcf4e55940620dad335566a20.wasm.unityweb",
+          "role": "unityweb",
+          "sizeBytes": 6132935
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/f0322cf247af8efe93081ddeea491f37.data.unityweb",
+          "role": "unityweb",
+          "sizeBytes": 17388515
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/5a516d002910638e3639ab3c176f13f1.loader.js",
+          "role": "js",
+          "sizeBytes": 40317
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/app.js",
+          "role": "js",
+          "sizeBytes": 11125
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/FONT-LICENSE.txt",
+          "role": "txt",
+          "sizeBytes": 4397
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/font.ttf",
+          "role": "ttf",
+          "sizeBytes": 136736
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/apple-touch-icon-moto.png",
+          "role": "png",
+          "sizeBytes": 10310
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/apple-touch-icon.png",
+          "role": "png",
+          "sizeBytes": 10310
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-192.png",
+          "role": "png",
+          "sizeBytes": 10961
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-512.png",
+          "role": "png",
+          "sizeBytes": 32399
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-maskable-512.png",
+          "role": "png",
+          "sizeBytes": 32399
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-moto-192.png",
+          "role": "png",
+          "sizeBytes": 10961
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-moto-512.png",
+          "role": "png",
+          "sizeBytes": 32399
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-moto-maskable-512.png",
+          "role": "png",
+          "sizeBytes": 32399
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon.svg",
+          "role": "svg",
+          "sizeBytes": 2505
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/index.html",
+          "role": "html",
+          "sizeBytes": 6392
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/manifest.webmanifest",
+          "role": "webmanifest",
+          "sizeBytes": 776
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/poster.png",
+          "role": "png",
+          "sizeBytes": 621511
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/style.css",
+          "role": "css",
+          "sizeBytes": 5951
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/sw.js",
+          "role": "js",
+          "sizeBytes": 1549
+        }
+      ],
+      "packedAssets": [],
+      "buildSteps": [
+        {
+          "name": "Build player",
+          "durationMs": 273303,
+          "depth": 0,
+          "messages": []
+        },
+        {
+          "name": "Preprocess Player",
+          "durationMs": 173,
+          "depth": 1,
+          "messages": [
+            {
+              "type": "Warning",
+              "content": "Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds."
+            }
+          ]
+        },
+        {
+          "name": "Back up scenes",
+          "durationMs": 162,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Prepare For Build",
+          "durationMs": 1,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "ProducePlayerScriptAssemblies",
+          "durationMs": 5446,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Prebuild Cleanup and Recompile",
+          "durationMs": 3791,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Compile scripts",
+          "durationMs": 3758,
+          "depth": 3,
+          "messages": [
+            {
+              "type": "Warning",
+              "content": "Assets\\PhoViet\\Scripts\\PhoVietPortraitHud.cs(11,7): warning CS0414: The field 'PhoVietGame.hudTouchChoice' is assigned but its value is never used"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\PhoViet\\Scripts\\PhoVietGame.cs(73,34): warning CS0414: The field 'PhoVietGame.dragging' is assigned but its value is never used"
+            }
+          ]
+        },
+        {
+          "name": "Generate and validate platform script types",
+          "durationMs": 5,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Verify Build setup",
+          "durationMs": 79,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "GetUnityAssemblies",
+          "durationMs": 7,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "GetPlayerAssemblies",
+          "durationMs": 7,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Check old data build",
+          "durationMs": 49,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Set up scripts only build",
+          "durationMs": 0,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Prepare assets for target platform",
+          "durationMs": 1,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Prepare splash screen",
+          "durationMs": 1,
+          "depth": 1,
+          "messages": [
+            {
+              "type": "Log",
+              "content": "Including Unity Splash Screen logo because 'Show Unity Logo' is enabled."
+            }
+          ]
+        },
+        {
+          "name": "Run script only build",
+          "durationMs": 25,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Compile Global Game Manager dependencies",
+          "durationMs": 19,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Load object[unnamed] (Sprite) from Library/SplashScreenCache/91/914ccc9a4e8ab6e77854c75a16955a54",
+          "durationMs": 5,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Load object[unnamed] (GraphicsSettings) from ProjectSettings/GraphicsSettings.asset",
+          "durationMs": 7,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Build scripts DLLs",
+          "durationMs": 39,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "GetSystemAssemblies",
+          "durationMs": 1,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Postprocess built player",
+          "durationMs": 267158,
+          "depth": 1,
+          "messages": [
+            {
+              "type": "Log",
+              "content": "PHỐ VIỆT PWA ready: 20 offline files, cache ca54198ddf4a4c9b"
+            }
+          ]
+        },
+        {
+          "name": "Setup incremental player build",
+          "durationMs": 80,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Incremental player build",
+          "durationMs": 262537,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Report output files",
+          "durationMs": 342,
+          "depth": 2,
+          "messages": []
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        {
+          "message": "Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds."
+        },
+        {
+          "message": "warning CS0414: The field 'PhoVietGame.hudTouchChoice' is assigned but its value is never used",
+          "file": "Assets\\PhoViet\\Scripts\\PhoVietPortraitHud.cs"
+        },
+        {
+          "message": "warning CS0414: The field 'PhoVietGame.dragging' is assigned but its value is never used",
+          "file": "Assets\\PhoViet\\Scripts\\PhoVietGame.cs"
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

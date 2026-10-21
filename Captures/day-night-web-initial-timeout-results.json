@@ -1,0 +1,35 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "label": "day-night",
+  "checks": [
+    "HTTP 200 index.html",
+    "HTTP 200 style.css",
+    "HTTP 200 app.js",
+    "HTTP 200 manifest.webmanifest",
+    "HTTP 200 precache.json",
+    "HTTP 200 sw.js",
+    "HTTP 200 build-info.json",
+    "Installable scoped manifest",
+    "Icon dimensions icons/icon-moto-192.png",
+    "Icon dimensions icons/icon-moto-512.png",
+    "Icon dimensions icons/icon-moto-maskable-512.png",
+    "Offline list contains WASM, data and shell",
+    "Every offline resource is available",
+    "Versioned offline cache",
+    "Landing page has no horizontal overflow",
+    "Installation guide opens",
+    "Browser parses manifest without errors",
+    "WebAssembly game initialized",
+    "Loading screen dismissed",
+    "Keyboard start, steering, kick and pause smoke completed"
+  ],
+  "errors": [],
+  "build": {
+    "version": "1.29.0",
+    "cache": "dd7d0a81a7633aa5",
+    "unity": "6000.5.6f1",
+    "utc": "2026-10-21T11:30:50.2457255Z"
+  },
+  "success": false,
+  "failure": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#help')\u001b[22m\n\u001b[2m    - locator resolved to <button id=\"help\">Cách chơi</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\n    at main (C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\AgentScripts\\VerifyWeb.cjs:65:33)"
+}

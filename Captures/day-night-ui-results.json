@@ -1,0 +1,19 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "checks": [
+    "desktop real WASM job selection rendered",
+    "desktop job accepted through actual canvas button",
+    "Compact landscape pause button works through actual mouse input",
+    "desktop canvas fits available game surface",
+    "phone real WASM job selection rendered",
+    "phone job accepted through actual canvas button",
+    "Portrait bottom control panels are removed",
+    "Compact portrait pause button works through real touch input",
+    "phone canvas fits available game surface",
+    "GPS and job layout rotation captured",
+    "Compact landscape pause button works through real touch after rotation",
+    "No JavaScript or Unity errors in job UI"
+  ],
+  "errors": [],
+  "success": true
+}

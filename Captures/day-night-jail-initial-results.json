@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyJailLighting.cs",
+      "entry": "VerifyJailLighting.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2307,
+      "executeMs": 33,
+      "assemblyName": "PipelineRunScript_VerifyJailLighting_c8653109a9544649a31e1ab6c2033ed0",
+      "success": false,
+      "error": "Runtime Error",
+      "errorDetails": "Exception: Jail hides all detached vehicle optics, even after the traffic models disappear\n  at VerifyJailLighting+<>c__DisplayClass0_0.<Main>b__0 (System.Boolean ok, System.String s) [0x00020] in C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\AgentScripts\\VerifyJailLighting.cs:12 \r\n  at VerifyJailLighting.Main () [0x000f2] in C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\AgentScripts\\VerifyJailLighting.cs:19 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
