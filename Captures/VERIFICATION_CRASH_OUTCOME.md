@@ -28,4 +28,8 @@
 ## Phát hành
 
 - WebGL 1.28.0 build thành công (`build_87eb3ca57d12`), 211,148 giây, 0 lỗi, cache `f38472ef1f17d268`. Ba cảnh báo không chặn build giữ nguyên: Pipeline không có runtime config (công cụ Editor), các biến native dragging/hudTouchChoice không dùng trong nhánh WebGL nhận chạm bằng DOM.
-- Đã xác minh lại sau khi tiếp tục phiên làm việc: bản build và toàn bộ kết quả kiểm tra vẫn còn nguyên; Unity ở Edit Mode, công việc bật, giữ 55 Coin và kỷ lục 1.775 m. Đang triển khai GitHub Pages.
+- Đã xác minh lại sau khi tiếp tục phiên làm việc: bản build và toàn bộ kết quả kiểm tra vẫn còn nguyên; Unity ở Edit Mode, công việc bật, giữ 55 Coin và kỷ lục 1.775 m.
+- Lần push đầu lỗi HTTP 408; đã kiểm tra remote SHA vẫn là bản cũ trước khi thử lại. Đẩy lại bằng HTTP/1.1 và postBuffer lớn thành công; không force push, không build lại hoặc ghi đè model Blender đang sửa sẵn.
+- Bản phát hành `22a50e30396f6810d0b16e49ca1176a3fa2199a3`. GitHub Pages thành công: https://github.com/denispham1107/taixecongnghe/actions/runs/39572194447.
+- 26 kiểm tra bản công khai đạt: phiên bản/cache và toàn bộ tài nguyên khớp bản đã kiểm tra, Unity WebAssembly thật khởi động/nhận input, không lỗi JavaScript/Unity runtime. Kết quả `crash-outcome-live-results.json`.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/. Không còn server kiểm tra nội bộ trên cổng 8765. Đóng hẳn rồi mở lại PWA để nhận bản 1.28.0; không cần xóa dữ liệu Coin/kỷ lục.
