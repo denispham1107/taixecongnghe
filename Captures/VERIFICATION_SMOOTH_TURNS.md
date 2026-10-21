@@ -22,4 +22,8 @@
 
 - Bản build đầu 1.28.1 thành công (`build_b392dc84dd58`), 272,983 giây, 0 lỗi, cache `1b24495d356eb5f4`. Ba cảnh báo cũ không chặn build: Pipeline không có runtime config cho công cụ Editor, `dragging` và `hudTouchChoice` không dùng trong nhánh WebGL nhận cử chỉ bằng DOM.
 - Bản đầu `bcb52e60dff5183063d88d68a63d37b38105ef60` đã push và GitHub Pages thành công: https://github.com/denispham1107/taixecongnghe/actions/runs/39580901914. 26 kiểm tra bản công khai đầu đạt, lưu ở `smooth-turns-initial-live-results.json`.
-- Bản build cuối có sửa độ nghiêng dư thành công (`build_8035926eaf3c`), 181,579 giây, 0 lỗi, ba cảnh báo cũ như trên. Phiên bản 1.28.1, cache `d0d0e5b1e9e91d91`; đủ 20 tài nguyên precache. Đang phát hành và xác minh bản công khai cuối.
+- Bản build cuối có sửa độ nghiêng dư thành công (`build_8035926eaf3c`), 181,579 giây, 0 lỗi, ba cảnh báo cũ như trên. Phiên bản 1.28.1, cache `d0d0e5b1e9e91d91`; đủ 20 tài nguyên precache.
+- Bản cuối `212b3344236c66585f8490eeeee828026402a676` đã push. GitHub Pages thành công: https://github.com/denispham1107/taixecongnghe/actions/runs/39582390761.
+- 26 kiểm tra bản công khai cuối đạt (`smooth-turns-live-results.json`): phiên bản/cache khớp, tất cả tài nguyên công khai khớp build cuối, Unity WebAssembly thật khởi động/nhận input, không có lỗi JavaScript hoặc Unity runtime.
+- Đã xác minh Unity ở Edit Mode, không còn server thử trên cổng 8765. Giữ nguyên các file Blender và `huongdan.md` đang sửa sẵn, không đưa chúng vào commit của công việc này.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/. Đóng hẳn rồi mở lại ứng dụng PWA để nhận bản mới; không cần xóa dữ liệu Coin/kỷ lục.
