@@ -23,8 +23,8 @@ public static class VerifyPortraitHud
     typeof(PhoVietGame).GetProperty("IsChased").SetValue(g,chased);typeof(PhoVietGame).GetProperty("CurrentLane").SetValue(g,lane);g.rider.localPosition=new Vector3(PhoVietGame.LaneX[lane],0,0);
     call("PositionCamera",new object[]{true});float expanded=g.rideCamera.fieldOfView;
     var renderer=g.rider.GetComponentInChildren<SkinnedMeshRenderer>();float now=projectedHeight(renderer);
-    g.rideCamera.fieldOfView=65;float before=projectedHeight(renderer);g.rideCamera.fieldOfView=expanded;
-    check(Mathf.Abs(now/before-.75f)<.001f,"Rider projects at 75 percent of previous size: chase="+chased+", lane="+lane);
+    g.rideCamera.fieldOfView=2*Mathf.Atan(Mathf.Tan(65*Mathf.Deg2Rad*.5f)/.75f)*Mathf.Rad2Deg;float before=projectedHeight(renderer);g.rideCamera.fieldOfView=expanded;
+    check(Mathf.Abs(now/before-.70f)<.001f,"Rider projects at 70 percent of 1.27.1 portrait size: chase="+chased+", lane="+lane);
     check(g.rideCamera.rect==new Rect(0,0,1,1),"Wider view keeps full-screen viewport: "+chased+","+lane);
    }
    g.RestartRide();foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}
