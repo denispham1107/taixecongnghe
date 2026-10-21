@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyJailLighting.cs",
+      "entry": "VerifyJailLighting.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 104,
+      "executeMs": 60,
+      "assemblyName": "PipelineRunScript_VerifyJailLighting_d3fb5b50ecb44c47a7110a5e727f3794",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 7
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

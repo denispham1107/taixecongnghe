@@ -20,6 +20,7 @@ namespace PhoViet
             public string dayAmbientSky="E4F1FF",dayAmbientEquator="D9E4EF",dayAmbientGround="ADB7C2",nightAmbientSky="263D67",nightAmbientEquator="182841",nightAmbientGround="0E172B";
         }
         public PhoVietGame game;
+        public MorningFog morningFog;
         public TextAsset authoredProfile;
         public Light sun,moon;
         public Material sky,streetLens;
@@ -30,6 +31,7 @@ namespace PhoViet
         public StreetLamp[] streets=Array.Empty<StreetLamp>();
         public Light[] lightPool=Array.Empty<Light>();
         public float CycleTime {get;private set;}
+        public float ElapsedTime {get;private set;}
         public float NightLevel {get;private set;}
         public float LampLevel {get;private set;}
         public int ActiveRealtimeLights {get;private set;}
@@ -79,31 +81,34 @@ namespace PhoViet
         public void ResetCycle()
         {
             Initialize(game!=null?game:GetComponent<PhoVietGame>());solarFrame=Quaternion.identity;jailMode=false;
+            if(morningFog!=null)morningFog.ResetFrame();
             if(sun!=null)sun.enabled=true;if(moon!=null)moon.enabled=true;SetCycleTime(0);
         }
         public void Advance(float dt)
         {
             if(!initialized)Initialize(game!=null?game:GetComponent<PhoVietGame>());
             if(game==null||game.State!=PhoVietGame.RideState.Riding||game.JobOffersOpen||dt<=0)return;
-            SetCycleTime(CycleTime+dt);
+            SetCycleTime(ElapsedTime+dt);
         }
         // Also used by the artist's day/dusk/night preview and deterministic captures.
         public void SetCycleTime(float seconds)
         {
             if(!initialized)Initialize(game!=null?game:GetComponent<PhoVietGame>());
-            CycleTime=Mathf.Repeat(seconds,CycleSeconds);
+            ElapsedTime=Mathf.Max(0,seconds);CycleTime=Mathf.Repeat(ElapsedTime,CycleSeconds);
             NightLevel=.5f-.5f*Mathf.Cos(CycleTime*Mathf.PI/profile.halfCycleSeconds);
             LampLevel=Mathf.SmoothStep(0,1,Mathf.InverseLerp(.26f,.66f,NightLevel));ApplyEnvironment();UpdateLamps();
         }
         public void Rebase(Quaternion inverse,Vector3 origin)
         {
             solarFrame=inverse*solarFrame;
+            if(morningFog!=null)morningFog.Rebase(inverse,origin);
             foreach(var lamp in lightPool)if(lamp!=null){lamp.transform.localPosition=inverse*(lamp.transform.localPosition-origin);lamp.transform.localRotation=inverse*lamp.transform.localRotation;}
             ApplyEnvironment();UpdateLamps();
         }
         void ApplyEnvironment()
         {
             if(game==null)return;
+            if(morningFog!=null)morningFog.SetTime(ElapsedTime);
             float twilight=Mathf.Sin(NightLevel*Mathf.PI);
             if(sun!=null)
             {
@@ -138,6 +143,7 @@ namespace PhoViet
                 if(!jailMode)
                 {
                     jailMode=true;if(sun!=null)sun.enabled=false;if(moon!=null)moon.enabled=false;
+                    if(morningFog!=null)morningFog.Hide();
                     if(game.rideCamera!=null)game.rideCamera.clearFlags=CameraClearFlags.SolidColor;
                     UpdateLamps(); // Hide detached road spills/halos as well as the real lights.
                     RenderSettings.ambientSkyColor=C("CAD7E4");RenderSettings.ambientEquatorColor=C("AABACB");RenderSettings.ambientGroundColor=C("7C8793");

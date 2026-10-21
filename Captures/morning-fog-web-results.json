@@ -1,0 +1,64 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "checks": [
+    "Tested build is version 1.30.0",
+    "desktop-wide real WebGL image changes as dawn mist disperses",
+    "desktop-wide fog shader does not render an error color",
+    "desktop-wide canvas fits its layout without overflow",
+    "Same morning illumination at 0/60 seconds confirms actual fog rather than a sun-color change",
+    "WebGL fog has more depth in the distant street than in the foreground",
+    "phone-portrait real WebGL image changes as dawn mist disperses",
+    "phone-portrait fog shader does not render an error color",
+    "phone-portrait canvas fits its layout without overflow",
+    "phone-landscape real WebGL image changes as dawn mist disperses",
+    "phone-landscape fog shader does not render an error color",
+    "phone-landscape canvas fits its layout without overflow",
+    "No WebGL shader, JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "measurements": [
+    {
+      "label": "desktop-wide",
+      "difference": 54.74241232382732,
+      "first": 194.49493762045336,
+      "second": 141.41380515240834,
+      "magenta": 0
+    },
+    {
+      "label": "same-sunlight-depth-comparison",
+      "far": {
+        "difference": 34.54785316289567,
+        "first": 194.49493762045336,
+        "second": 163.2809161160266,
+        "magenta": 0
+      },
+      "near": {
+        "difference": 14.220399698341383,
+        "first": 188.40410783934715,
+        "second": 175.7395786764684,
+        "magenta": 0
+      }
+    },
+    {
+      "label": "phone-portrait",
+      "difference": 45.47167548500915,
+      "first": 189.85365726983974,
+      "second": 144.73348292063602,
+      "magenta": 0
+    },
+    {
+      "label": "phone-landscape",
+      "difference": 61.88557309716315,
+      "first": 183.81975644975145,
+      "second": 129.74628386599898,
+      "magenta": 0
+    }
+  ],
+  "build": {
+    "version": "1.30.0",
+    "cache": "ea3fb90268515ad6",
+    "unity": "6000.5.6f1",
+    "utc": "2026-10-21T18:13:01.9712831Z"
+  },
+  "success": true
+}

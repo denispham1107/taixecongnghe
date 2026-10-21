@@ -467919,6 +467919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhoViet.DayNightLighting
   game: {fileID: 1548093416}
+  morningFog: {fileID: 1561634440}
   authoredProfile: {fileID: 4900000, guid: 9105314c0625e1541a198cec43ee0ec0, type: 3}
   sun: {fileID: 133014341}
   moon: {fileID: 1703313598}
@@ -472851,6 +472852,7 @@ GameObject:
   - component: {fileID: 1561634439}
   - component: {fileID: 1561634437}
   - component: {fileID: 1561634438}
+  - component: {fileID: 1561634440}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -472932,6 +472934,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1548093417}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1561634440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561634436}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b75bb67523215f54f9f77bfde94670a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhoViet.MorningFog
+  lighting: {fileID: 1548093418}
+  authoredProfile: {fileID: 4900000, guid: 8b917e9c9b777ed4b883841460257686, type: 3}
+  densityAtlas: {fileID: 2800000, guid: 483a8c03f4538694882d6e2e2989a5f3, type: 3}
+  volumeShader: {fileID: 4800000, guid: 5ac94f032d5070f459aac8dda703c77b, type: 3}
 --- !u!1001 &1561721232
 PrefabInstance:
   m_ObjectHideFlags: 0
