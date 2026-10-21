@@ -33,4 +33,6 @@ Dùng cùng khoảng vuốt cho dọc/ngang, nhận ngay khi đủ ngưỡng, m�
 
 - WebGL 1.27.1 build thành công: `build_aa064c7ed889`, 193,197 giây, 0 lỗi, cache `88961a68f468460d`. Ba cảnh báo không chặn build: Pipeline không có runtime config (công cụ Editor), hai biến native `dragging`/`hudTouchChoice` không được đọc ở nhánh WebGL vốn dùng DOM bridge.
 - Đã đọc lại Unity ở Edit Mode, Game View ngang, công việc bật; giữ nguyên 55 Coin và kỷ lục 1.775 m. Các file Blender sửa sẵn và `huongdan.md` không thuộc bản sửa này.
-- Đã xác minh engine thật; đang triển khai GitHub Pages và kiểm tra bản công khai.
+- Đã commit/push bản phát hành `1d4a9c6a242329de5771f75ab8684df8d1f1a5d9`. GitHub Pages triển khai thành công: https://github.com/denispham1107/taixecongnghe/actions/runs/39523247146.
+- 26 kiểm tra trang công khai đạt: version/cache khớp, tài nguyên khớp byte với bản kiểm tra, Unity WebAssembly thật khởi động và nhận input bắt đầu/tạm dừng; không lỗi runtime. Kết quả `gesture-live-results.json`.
+- Trang chơi https://denispham1107.github.io/taixecongnghe/. Đã dừng server HTTP kiểm tra nội bộ. Đóng hẳn rồi mở lại PWA để cập nhật; không xóa dữ liệu.
