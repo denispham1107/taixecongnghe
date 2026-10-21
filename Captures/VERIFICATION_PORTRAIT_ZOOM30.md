@@ -9,4 +9,6 @@
 - Build WebGL `build_7a0588f273d2` thành công, 169,147 giây, 0 lỗi; cache `c3f610804495fe43`. Ba cảnh báo không chặn build giữ nguyên từ 1.27.1: Pipeline không có runtime config và hai biến native không đọc trong WebGL.
 - Unity được trả về Edit Mode, Game View ngang; công việc bật, giữ nguyên 55 Coin và kỷ lục 1.775 m.
 - 20 kiểm tra WebGL đạt: version/tài nguyên đúng bản build; iPhone/iPad dọc/ngang phủ kín viewport, không có header hoặc hamburger che game; không lỗi JavaScript/Unity runtime.
-- Đang triển khai GitHub Pages. Chưa kiểm tra trên iPhone vật lý.
+- Đã push bản phát hành `93d2500233e69cb059730ee17e6bede1f8287a00`. GitHub Pages triển khai thành công: https://github.com/denispham1107/taixecongnghe/actions/runs/39525905208.
+- 26 kiểm tra trang công khai đạt: version/cache và tài nguyên khớp bản build, WebAssembly thật khởi động/nhận input, không lỗi runtime. Kết quả `portrait-zoom30-live-results.json`.
+- Trang chơi https://denispham1107.github.io/taixecongnghe/. Đã dừng HTTP server nội bộ. Đóng hẳn rồi mở lại PWA để nhận 1.27.2, không xóa dữ liệu. Chưa kiểm tra trên iPhone vật lý.
