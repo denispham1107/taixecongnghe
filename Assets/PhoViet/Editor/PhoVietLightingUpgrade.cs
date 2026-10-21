@@ -26,7 +26,7 @@ namespace PhoViet.Editor
             opticalRoot=Group("Ánh sáng động • Blender MCP",g.transform);
             floorQuad=Quad("PV_OpticalGround",true);haloQuad=Quad("PV_OpticalHalo",false);
             headPool=Optical("PV_HeadlightSpill","PV_HeadlightCookie",new Color(.75f,.88f,1,.28f));
-            streetPool=Optical("PV_StreetSpill","PV_StreetPool",new Color(.83f,.92f,1,.33f));
+            streetPool=Optical("PV_StreetSpill","PV_StreetPool",new Color(.83f,.92f,1,.44f));
             whiteGlow=Optical("PV_WhiteGlare","PV_OpticalGlare",new Color(.88f,.95f,1,.22f));
             redGlow=Optical("PV_RedGlare","PV_OpticalGlare",new Color(1,.025f,.05f,.4f));
             lens=Standard("PV_StreetLEDLens","F4FAFF",.1f,.85f);lens.EnableKeyword("_EMISSION");

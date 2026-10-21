@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyHeadlightProjectionRender.cs",
+      "entry": "VerifyHeadlightProjectionRender.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 137,
+      "executeMs": 71,
+      "assemblyName": "PipelineRunScript_VerifyHeadlightProjectionRender_f3896fb734c34be69724923ff34ce941",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 8,
+        "roadEnergy": 138.173065,
+        "wheelieEnergy": 0,
+        "roofEnergy": 45.9354,
+        "checks": [
+          "Level headlamp renders an illuminated footprint ahead of the bike",
+          "Level projected cookie stays centered on the headlamp direction",
+          "Wheelie lifts the beam off the near road instead of leaving the original ground patch",
+          "Nose-down landing brings the projected footprint closer to the bike",
+          "Higher roof source changes and attenuates the road footprint",
+          "Reprojected headlight follows a ninety-degree street turn",
+          "Street-frame rotation preserves the headlight profile and brightness",
+          "Projection remains fully off in daylight"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

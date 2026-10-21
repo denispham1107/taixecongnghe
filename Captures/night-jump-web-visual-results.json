@@ -1,0 +1,15 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "checks": [
+    "desktop actual WASM changes from daylight to visible nighttime",
+    "desktop full cycle returns to bright morning",
+    "desktop canvas has no overflow",
+    "phone actual WASM changes from daylight to visible nighttime",
+    "phone full cycle returns to bright morning",
+    "phone canvas has no overflow",
+    "Mobile landscape welcome captured with full viewport canvas",
+    "No WebGL shader, JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "success": true
+}

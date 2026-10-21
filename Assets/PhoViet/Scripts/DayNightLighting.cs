@@ -7,6 +7,7 @@ namespace PhoViet
 {
     // Blender-authored optics, with a bounded pool of real lights for WebGL/mobile.
     [DisallowMultipleComponent]
+    [DefaultExecutionOrder(200)] // Follow the final bike suspension/jump pose from LateUpdate.
     public sealed class DayNightLighting : MonoBehaviour
     {
         [Serializable] public sealed class Halo { public Transform source; public Renderer glow; public bool rear; public float size=.7f; }
@@ -39,12 +40,13 @@ namespace PhoViet
         Material runtimeSky,runtimeLens;
         Material[] managedEmission;
         readonly List<Material> owned=new List<Material>();
-        MaterialPropertyBlock haloBlock;
+        MaterialPropertyBlock haloBlock,projectionBlock,streetBlock;
         Color daySky,dayHorizon,nightSky,nightHorizon,dayAmbientSky,dayAmbientEquator,dayAmbientGround,nightAmbientSky,nightAmbientEquator,nightAmbientGround,moonColor;
         readonly float[] scores=new float[6];
         readonly Vector3[] origins=new Vector3[6],directions=new Vector3[6];
         readonly bool[] streetKind=new bool[6];
         static readonly int Tint=Shader.PropertyToID("_Tint"),NightLights=Shader.PropertyToID("_PVNightLights");
+        static readonly int ProjectHeadlight=Shader.PropertyToID("_ProjectHeadlight"),WorldToHead=Shader.PropertyToID("_WorldToHead"),HeadPosition=Shader.PropertyToID("_HeadPosition");
 
         public void Initialize(PhoVietGame owner)
         {
@@ -54,7 +56,7 @@ namespace PhoViet
             daySky=C(profile.daySky);dayHorizon=C(profile.dayHorizon);nightSky=C(profile.nightSky);nightHorizon=C(profile.nightHorizon);
             dayAmbientSky=C(profile.dayAmbientSky);dayAmbientEquator=C(profile.dayAmbientEquator);dayAmbientGround=C(profile.dayAmbientGround);
             nightAmbientSky=C(profile.nightAmbientSky);nightAmbientEquator=C(profile.nightAmbientEquator);nightAmbientGround=C(profile.nightAmbientGround);moonColor=C(profile.nightMoon);
-            runtimeSky=sky;runtimeLens=streetLens;managedEmission=emissionMaterials;haloBlock=new MaterialPropertyBlock();
+            runtimeSky=sky;runtimeLens=streetLens;managedEmission=emissionMaterials;haloBlock=new MaterialPropertyBlock();projectionBlock=new MaterialPropertyBlock();streetBlock=new MaterialPropertyBlock();
             if(Application.isPlaying)
             {
                 var map=new Dictionary<Material,Material>();
@@ -126,7 +128,7 @@ namespace PhoViet
             if(game.rideCamera!=null){game.rideCamera.backgroundColor=horizon;game.rideCamera.clearFlags=CameraClearFlags.Skybox;}
             Shader.SetGlobalFloat(NightLights,LampLevel);
             foreach(var material in managedEmission)if(material!=null){material.SetColor("_EmissionColor",Color.white*(LampLevel*2.1f));material.EnableKeyword("_EMISSION");}
-            if(runtimeLens!=null){runtimeLens.SetColor("_EmissionColor",Color.white*(LampLevel*3));runtimeLens.EnableKeyword("_EMISSION");}
+            if(runtimeLens!=null){runtimeLens.SetColor("_EmissionColor",Color.white*(LampLevel*6));runtimeLens.EnableKeyword("_EMISSION");}
         }
         void LateUpdate()
         {
@@ -159,10 +161,21 @@ namespace PhoViet
                     vehicle.roadLight.enabled=on;
                     if(on)
                     {
-                        Vector3 forward=FlatDirection(vehicle.head.forward,vehicle.root.forward);
-                        var p=vehicle.head.position+forward*12;p.y=transform.position.y+.035f;
-                        vehicle.roadLight.transform.SetPositionAndRotation(p,Quaternion.LookRotation(forward,Vector3.up));
-                        // In a real jump the headlight lifts with the motorcycle; keep its road spill subtle.
+                        // The receiver remains on the road. Project the Blender cookie from the
+                        // animated lamp, rather than pasting an unchanged patch beneath a jump.
+                        var p=vehicle.head.position;
+                        bool expanded=p.y-transform.position.y>1.5f||Vector3.Dot(vehicle.head.up,Vector3.up)<.98f;
+                        if(!expanded){var forward=vehicle.head.forward;forward.y=0;if(forward.sqrMagnitude>.01f)p+=forward.normalized*12;}
+                        p.y=transform.position.y+.035f;
+                        vehicle.roadLight.transform.SetPositionAndRotation(p,Quaternion.identity);
+                        // Keep ordinary traffic receivers small to limit mobile overdraw.
+                        // The projection is in world space, so receiver orientation is immaterial.
+                        if(!expanded){var forward=vehicle.head.forward;forward.y=0;if(forward.sqrMagnitude>.01f)vehicle.roadLight.transform.rotation=Quaternion.LookRotation(forward,Vector3.up);}
+                        vehicle.roadLight.transform.localScale=new Vector3(expanded?64:32,1,expanded?64:32);
+                        projectionBlock.SetFloat(ProjectHeadlight,1);
+                        projectionBlock.SetMatrix(WorldToHead,Matrix4x4.TRS(vehicle.head.position,vehicle.head.rotation,Vector3.one).inverse);
+                        projectionBlock.SetVector(HeadPosition,vehicle.head.position);
+                        vehicle.roadLight.SetPropertyBlock(projectionBlock);
                     }
                 }
                 foreach(var halo in vehicle.halos)
@@ -180,22 +193,31 @@ namespace PhoViet
                 }
                 if(on)
                 {
-                    Vector3 direction=(vehicle.head.forward+Vector3.down*.085f).normalized;
+                    Vector3 direction=(vehicle.head.forward-vehicle.head.up*.085f).normalized;
                     float score=vehicle.player?-100000:(vehicle.head.position-focus).sqrMagnitude+25;
-                    if(score<3000)Offer(score,vehicle.head.position,direction,false);
+                    if(score<3000)Offer(score,vehicle.head.position,direction,false,0,3);
                 }
             }
             foreach(var street in streets)
             {
                 if(street.source==null)continue;bool on=enabled&&street.source.gameObject.activeInHierarchy;
-                if(street.pool!=null)street.pool.enabled=on;
+                if(street.pool!=null)
+                {
+                    street.pool.enabled=on;
+                    streetBlock.SetColor(Tint,new Color(.83f,.92f,1,.44f));street.pool.SetPropertyBlock(streetBlock);
+                }
                 if(street.glow!=null)
                 {
                     street.glow.enabled=on;
-                    if(on)street.glow.transform.SetPositionAndRotation(street.source.position,Quaternion.LookRotation(eye-street.source.position,Vector3.up));
+                    if(on)
+                    {
+                        street.glow.transform.SetPositionAndRotation(street.source.position,Quaternion.LookRotation(eye-street.source.position,Vector3.up));
+                        haloBlock.SetColor(Tint,new Color(.88f,.95f,1,.7f));street.glow.SetPropertyBlock(haloBlock);
+                    }
                 }
                 float score=(street.source.position-focus).sqrMagnitude;
-                if(on&&score<2600)Offer(score,street.source.position,Vector3.down,true);
+                // Reserve two sources so dense traffic cannot extinguish nearby street lamps.
+                if(on&&score<2600)Offer(score,street.source.position,Vector3.down,true,4,5);
             }
             ActiveRealtimeLights=0;
             for(int i=0;i<lightPool.Length;i++)
@@ -203,16 +225,15 @@ namespace PhoViet
                 var light=lightPool[i];if(light==null)continue;bool use=enabled&&i<6&&!float.IsPositiveInfinity(scores[i]);light.enabled=use;
                 if(!use)continue;ActiveRealtimeLights++;
                 light.transform.SetPositionAndRotation(origins[i],Quaternion.LookRotation(directions[i],streetKind[i]?Vector3.forward:Vector3.up));
-                light.spotAngle=streetKind[i]?99:58;light.range=streetKind[i]?17:32;light.intensity=(streetKind[i]?1.65f:2.8f)*LampLevel;
+                light.spotAngle=streetKind[i]?99:58;light.range=streetKind[i]?20:32;light.intensity=(streetKind[i]?3.6f:2.8f)*LampLevel;
+                light.renderMode=i==0||streetKind[i]?LightRenderMode.ForcePixel:LightRenderMode.Auto;
                 light.color=C("F1F7FF");light.shadows=i==0&&!streetKind[i]?LightShadows.Hard:LightShadows.None;
             }
         }
-        static Vector3 FlatDirection(Vector3 source,Vector3 fallback)
-        {source.y=0;if(source.sqrMagnitude<.01f){source=fallback;source.y=0;}return source.sqrMagnitude>.001f?source.normalized:Vector3.forward;}
-        void Offer(float score,Vector3 origin,Vector3 direction,bool street)
+        void Offer(float score,Vector3 origin,Vector3 direction,bool street,int first,int last)
         {
-            int at=5;if(score>=scores[at])return;
-            while(at>0&&score<scores[at-1]){scores[at]=scores[at-1];origins[at]=origins[at-1];directions[at]=directions[at-1];streetKind[at]=streetKind[at-1];at--;}
+            int at=last;if(score>=scores[at])return;
+            while(at>first&&score<scores[at-1]){scores[at]=scores[at-1];origins[at]=origins[at-1];directions[at]=directions[at-1];streetKind[at]=streetKind[at-1];at--;}
             scores[at]=score;origins[at]=origin;directions[at]=direction;streetKind[at]=street;
         }
         void OnDestroy(){foreach(var material in owned)if(material!=null){if(Application.isPlaying)Destroy(material);else DestroyImmediate(material);}}
