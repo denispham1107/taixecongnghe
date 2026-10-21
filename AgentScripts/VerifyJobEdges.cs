@@ -34,14 +34,15 @@ public static class VerifyJobEdges
    var index=g.vehicles.FindIndex(v=>!v.active&&!v.eventOnly&&v.halfWidth>.7f);if(index<0)index=g.vehicles.FindIndex(v=>!v.eventOnly);
    var car=g.SpawnTraffic(3,-8,index);car.previousPosition=new Vector3(PhoVietGame.LaneX[3],0,-8);car.model.localPosition=new Vector3(PhoVietGame.LaneX[3],0,0);
    call("YieldRearForService",new object[]{car});check(car.model.localPosition.z<=-car.halfLength-2.6f,"Rear vehicle yields before reaching a stopped pickup");
-   call("TickService",new object[]{3.6f});check(g.RearDepartureProtection==3&&g.JobPhase==PhoVietGame.WorkPhase.Delivery,"Boarding starts exactly three seconds of departure protection");
-   call("TickWorkMotion",new object[]{1f});check(Mathf.Abs(g.RearDepartureProtection-2)<.01f,"Departure protection counts movement simulation time");
+   call("TickService",new object[]{3.6f});check(g.RearDepartureProtection==2&&g.JobPhase==PhoVietGame.WorkPhase.Delivery,"Boarding starts exactly two moving seconds of departure protection");
+   foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("spawnTimer",10000f);
+   for(int i=0;i<40;i++)call("TickRide",new object[]{.025f});check(Mathf.Abs(g.RearDepartureProtection-1)<.01f,"Departure protection counts actual movement simulation time");
    g.TogglePause();float timer=g.RearDepartureProtection;call("UpdateWork",new object[]{1f});check(g.RearDepartureProtection==timer,"Pause does not consume departure protection");g.TogglePause();
    typeof(PhoVietGame).GetProperty("IsTurning").SetValue(g,true);call("TickWorkMotion",new object[]{.5f});typeof(PhoVietGame).GetProperty("IsTurning").SetValue(g,false);
-   check(Mathf.Abs(g.RearDepartureProtection-1.5f)<.01f,"Time spent riding through a turn counts toward the three seconds too");
-   call("TickWorkMotion",new object[]{1.51f});check(!g.ServiceRearProtected,"Ordinary rear traffic returns after three seconds");
-   set("rearDepartureProtection",3f);call("StartChase",null);car.previousPosition=new Vector3(g.rider.localPosition.x,0,8);car.model.localPosition=new Vector3(g.rider.localPosition.x,0,-8);
-   call("ResolveRiderContacts",new object[]{g.rider.localPosition.x,.05f});check(g.State==PhoVietGame.RideState.Falling,"Pursuit traffic collision still spends a life during departure yielding");
+   check(Mathf.Abs(g.RearDepartureProtection-1)<.01f,"Navigation work without driving does not consume departure protection");
+   for(int i=0;i<41;i++)call("TickRide",new object[]{.025f});check(!g.ServiceRearProtected,"Ordinary rear traffic returns after two moving seconds");
+   set("rearDepartureProtection",2f);call("StartChase",null);car.active=true;car.model.gameObject.SetActive(true);car.previousPosition=new Vector3(g.rider.localPosition.x,0,8);car.model.localPosition=new Vector3(g.rider.localPosition.x,0,-8);
+   call("ResolveRiderContacts",new object[]{g.rider.localPosition.x,.05f});check(g.State==PhoVietGame.RideState.Falling,"Actual pursuit traffic collision still starts a crash during departure yielding");
    check(g.Coins==wallet,"An unfinished or crashed job pays no Coin");
    return new{success=true,count=checks.Count,checks};
   }

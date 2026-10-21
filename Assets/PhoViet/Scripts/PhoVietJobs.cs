@@ -164,7 +164,6 @@ namespace PhoViet
   {
    if(!jobsEnabled)return;
    jobTrafficYieldRemaining=Mathf.Max(0,jobTrafficYieldRemaining-dt);
-   if(!ServiceStopped)rearDepartureProtection=Mathf.Max(0,rearDepartureProtection-dt);
    if(ActiveJob==null||IsTurning)return;
    if(ServiceStopped){TickService(dt);return;}
    var target=CurrentWorkTarget;Vector2 delta=target.Point-NavigationPosition,heading=CityNavigation.Directions[navHeading];
@@ -226,7 +225,7 @@ namespace PhoViet
    if(pickup)
    {
     if(customer!=null){customer.SetParent(rider,false);customer.localPosition=new Vector3(0,.16f,-.9f);customer.localRotation=Quaternion.identity;customer.GetComponent<PassengerVisualAnimator>()?.Pose("Sit",0);}
-    JobPhase=WorkPhase.Delivery;rearDepartureProtection=3;ReplanJob(false);notice="KHÁCH ĐÃ LÊN XE · BẮT ĐẦU CHUYẾN ĐI";noticeTimer=2;
+    JobPhase=WorkPhase.Delivery;ReplanJob(false);notice="KHÁCH ĐÃ LÊN XE · BẮT ĐẦU CHUYẾN ĐI";noticeTimer=2;
    }
    else
    {
@@ -235,6 +234,9 @@ namespace PhoViet
     notice="HOÀN THÀNH CHUYẾN  +"+FormatCoins(ActiveJob.reward)+" COIN";noticeTimer=3;
     ActiveJob=null;ActiveRoute=null;JobPhase=WorkPhase.None;offersDelay=2;if(jobMarker!=null)jobMarker.gameObject.SetActive(false);
    }
+   // Keep all traffic yielding across the exact frame in which either service ends.
+   // Consume this window only after actual riding motion, not while stopped/paused.
+   rearDepartureProtection=2;
    if(sound)engine?.UnPause();
   }
   void YieldRearForService(TrafficVehicle v)

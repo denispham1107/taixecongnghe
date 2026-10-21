@@ -299,6 +299,7 @@ namespace PhoViet
             TickRearRecklessWarning(dt);
             TickOrdinaryRearWarnings(dt);
             if(!ResolveRiderContacts(oldX,dt))return;
+            if(!ServiceStopped&&Speed>.1f)rearDepartureProtection=Mathf.Max(0,rearDepartureProtection-dt);
             x=rider.localPosition.x;lastX=x;
             RetireTraffic(true);
             TickChase(dt);AnimateKick();

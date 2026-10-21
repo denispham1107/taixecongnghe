@@ -4,7 +4,7 @@ namespace PhoViet
  public partial class PhoVietGame
  {
   float jobTrafficYieldRemaining;
-  bool TrafficYieldActive=>jobsEnabled&&(jobTrafficYieldRemaining>0||ServiceStopped);
+  bool TrafficYieldActive=>jobsEnabled&&(jobTrafficYieldRemaining>0||ServiceRearProtected);
   public float JobTrafficYieldRemaining=>jobTrafficYieldRemaining;
   void BeginJobTrafficYield()
   {
