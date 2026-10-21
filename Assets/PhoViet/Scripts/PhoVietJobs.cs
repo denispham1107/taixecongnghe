@@ -95,7 +95,7 @@ namespace PhoViet
    }
    JobOffers.Sort((a,b)=>(a.pickupMetres+a.tripMetres).CompareTo(b.pickupMetres+b.tripMetres));
    int previousReward=15;foreach(var job in JobOffers){job.reward=Math.Max(job.reward,previousReward+5);previousReward=job.reward;}
-   JobOffersOpen=true;State=RideState.Paused;engine?.Pause();siren?.Pause();PauseRecklessFx(true);navigationAudio?.Pause();
+   CancelSwipe();JobOffersOpen=true;State=RideState.Paused;engine?.Pause();siren?.Pause();PauseRecklessFx(true);navigationAudio?.Pause();
   }
   static int FindArrivalHeading(CityRoute route,RideAddress target)
   {

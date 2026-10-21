@@ -122,20 +122,55 @@ document.addEventListener('visibilitychange',()=>{
 });
 window.addEventListener('pageshow',scheduleViewport);
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
-// HUD uses one pointer path for mouse, touch and pen, independent of Unity frame timing.
-let hudPointerStart=null;
-canvas.addEventListener('pointerdown',e=>{
-  if(!e.isPrimary||e.button!==0){hudPointerStart=null;return;}
-  hudPointerStart={id:e.pointerId,x:e.clientX,y:e.clientY};
-},{passive:true});
-canvas.addEventListener('pointercancel',()=>{hudPointerStart=null;},{passive:true});
-canvas.addEventListener('pointerup',e=>{
-  const start=hudPointerStart;hudPointerStart=null;
-  if(!start||start.id!==e.pointerId||!unityInstance)return;
+// DOM events retain very quick gestures even when one Unity frame spans the entire
+// touch. Use the short CSS edge, so rotating or changing render DPR never doubles
+// the required travel. One pointer owns one action, triggered before finger-up.
+let gamePointer=null;
+const gameRoot='PHỐ VIỆT • Chuyến xe không ngừng';
+function sendGesture(p,phase,e,action=0){
+  if(!unityInstance)return;
+  unityInstance.SendMessage(gameRoot,'ApplyBrowserGesture',JSON.stringify({phase,id:p.id,action,
+    x:Math.max(0,Math.min(1,(e.clientX-p.rect.x)/p.rect.width)),
+    y:Math.max(0,Math.min(1,(e.clientY-p.rect.y)/p.rect.height)),at:e.timeStamp/1000}));
+}
+function cancelGamePointer(){
+  if(!gamePointer)return;
+  const p=gamePointer;gamePointer=null;
+  sendGesture(p,3,{clientX:p.x,clientY:p.y,timeStamp:performance.now()});
+}
+function pointerMoved(e){
+  const p=gamePointer;
+  if(!p||p.id!==e.pointerId||p.consumed)return;
   const r=canvas.getBoundingClientRect();
-  if(r.width<=0||r.height<=0||Math.hypot(e.clientX-start.x,e.clientY-start.y)>r.width*.035)return;
-  unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','ApplyHudTap',JSON.stringify({x:(e.clientX-r.x)/r.width,y:(e.clientY-r.y)/r.height}));
+  if(Math.abs(r.width-p.rect.width)>1||Math.abs(r.height-p.rect.height)>1){cancelGamePointer();return;}
+  const dx=e.clientX-p.x,dy=e.clientY-p.y,short=Math.min(r.width,r.height);
+  let action=0;
+  if(Math.abs(dy)>short*.12&&Math.abs(dy)>Math.abs(dx)*1.3)action=dy<0?2:3;
+  else if(Math.abs(dx)>short*.075&&Math.abs(dx)>=Math.abs(dy))action=dx>0?1:-1;
+  if(action){p.consumed=true;sendGesture(p,1,e,action);}
+}
+canvas.addEventListener('pointerdown',e=>{
+  if(!e.isPrimary||e.button!==0||!unityInstance||gamePointer)return;
+  const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;
+  gamePointer={id:e.pointerId,x:e.clientX,y:e.clientY,at:e.timeStamp,rect,consumed:false,touch:e.pointerType!=='mouse'};
+  canvas.setPointerCapture?.(e.pointerId);sendGesture(gamePointer,0,e);
 },{passive:true});
+canvas.addEventListener('pointermove',pointerMoved,{passive:true});
+canvas.addEventListener('pointerup',e=>{
+  if(!gamePointer||gamePointer.id!==e.pointerId)return;
+  pointerMoved(e);const p=gamePointer;if(!p)return;gamePointer=null;
+  const short=Math.min(p.rect.width,p.rect.height);
+  const tap=!p.consumed&&Math.hypot(e.clientX-p.x,e.clientY-p.y)<short*.035;
+  if(tap){
+    unityInstance.SendMessage(gameRoot,'ApplyHudTap',JSON.stringify({x:(e.clientX-p.rect.x)/p.rect.width,y:(e.clientY-p.rect.y)/p.rect.height}));
+    if(p.touch&&e.timeStamp-p.at<240)sendGesture(p,2,e);else sendGesture(p,3,e);
+  }else sendGesture(p,3,e);
+},{passive:true});
+canvas.addEventListener('pointercancel',e=>{if(gamePointer?.id===e.pointerId)cancelGamePointer();},{passive:true});
+canvas.addEventListener('lostpointercapture',e=>{if(gamePointer?.id===e.pointerId)cancelGamePointer();},{passive:true});
+window.addEventListener('orientationchange',cancelGamePointer);
+window.addEventListener('blur',cancelGamePointer);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelGamePointer();});
 window.addEventListener('keydown',e=>{
   if(unityInstance && document.activeElement===canvas && ['Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault();
 });

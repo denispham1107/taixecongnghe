@@ -1,0 +1,4023 @@
+{
+  "success": true,
+  "command": "command build_status",
+  "data": {
+    "command": "build_status",
+    "parameters": {},
+    "result": {
+      "status": "completed",
+      "buildId": "build_aa064c7ed889",
+      "result": "Succeeded",
+      "platform": "WebGL",
+      "outputPath": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL",
+      "totalSizeBytes": 24133889,
+      "buildTimeMs": 193197,
+      "buildStartedAt": "2026-10-20T17:25:09.0966542Z",
+      "buildEndedAt": "2026-10-20T17:28:22.2939545Z",
+      "totalWarnings": 3,
+      "totalErrors": 0,
+      "files": [
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/4adaaafb2101da1dcec987ba91af522a.framework.js.unityweb",
+          "role": "unityweb",
+          "sizeBytes": 78671
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/b2bbc0d91d7b4a780521926c4de0052b.wasm.unityweb",
+          "role": "unityweb",
+          "sizeBytes": 6122594
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/24cee165d065346489dcdfe6c00a56de.data.unityweb",
+          "role": "unityweb",
+          "sizeBytes": 16929078
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/a1608288cbeb14d28c053c9c26afef45.loader.js",
+          "role": "js",
+          "sizeBytes": 40317
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/app.js",
+          "role": "js",
+          "sizeBytes": 11125
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/FONT-LICENSE.txt",
+          "role": "txt",
+          "sizeBytes": 4397
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/font.ttf",
+          "role": "ttf",
+          "sizeBytes": 136736
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/apple-touch-icon-moto.png",
+          "role": "png",
+          "sizeBytes": 10310
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/apple-touch-icon.png",
+          "role": "png",
+          "sizeBytes": 10310
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-192.png",
+          "role": "png",
+          "sizeBytes": 10961
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-512.png",
+          "role": "png",
+          "sizeBytes": 32399
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-maskable-512.png",
+          "role": "png",
+          "sizeBytes": 32399
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-moto-192.png",
+          "role": "png",
+          "sizeBytes": 10961
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-moto-512.png",
+          "role": "png",
+          "sizeBytes": 32399
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-moto-maskable-512.png",
+          "role": "png",
+          "sizeBytes": 32399
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon.svg",
+          "role": "svg",
+          "sizeBytes": 2505
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/index.html",
+          "role": "html",
+          "sizeBytes": 6541
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/manifest.webmanifest",
+          "role": "webmanifest",
+          "sizeBytes": 776
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/poster.png",
+          "role": "png",
+          "sizeBytes": 621511
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/style.css",
+          "role": "css",
+          "sizeBytes": 5951
+        },
+        {
+          "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/sw.js",
+          "role": "js",
+          "sizeBytes": 1549
+        }
+      ],
+      "packedAssets": [
+        {
+          "bundlePath": "globalgamemanagers.assets",
+          "overheadBytes": 1175,
+          "contents": [
+            {
+              "assetPath": "",
+              "type": "PreloadData",
+              "guid": "00000000000000000000000000000000",
+              "sizeBytes": 373
+            },
+            {
+              "assetPath": "Resources/unity_builtin_extra",
+              "type": "Material",
+              "guid": "0000000000000000f000000000000000",
+              "sizeBytes": 304
+            },
+            {
+              "assetPath": "Built-in Texture2D: Splash Screen Unity Logo",
+              "type": "Texture2D",
+              "guid": "00000000000000000000000000000000",
+              "sizeBytes": 2796376
+            },
+            {
+              "assetPath": "Packages/com.unity.pipeline/Runtime/Attributes/CodeReloadAttributes.cs",
+              "type": "MonoScript",
+              "guid": "0bd43f6237214774ab4a178b811eb453",
+              "sizeBytes": 132
+            },
+            {
+              "assetPath": "Packages/com.unity.multiplayer.center/Common/IOnboardingSection.cs",
+              "type": "MonoScript",
+              "guid": "1bd8e2f47a6c4478ab8f0ade7687e79b",
+              "sizeBytes": 140
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/VietnamStreet.cs",
+              "type": "MonoScript",
+              "guid": "1d1f9b7991e195f44b998218be9ed341",
+              "sizeBytes": 92
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/RecklessArt.cs",
+              "type": "MonoScript",
+              "guid": "36bbca991636b3348af0ac03b891c5cf",
+              "sizeBytes": 84
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/BoostSmokeVisual.cs",
+              "type": "MonoScript",
+              "guid": "4d973ed530f72d54c9f1f607d987f3cd",
+              "sizeBytes": 92
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/WreckFireVisual.cs",
+              "type": "MonoScript",
+              "guid": "4f01a424b5a49ff47a6e73c3d63967a4",
+              "sizeBytes": 92
+            },
+            {
+              "assetPath": "Packages/com.unity.multiplayer.center/Common/StyleConstants.cs",
+              "type": "MonoScript",
+              "guid": "50d5ff9fe4ab4477b7ea648da183e9d1",
+              "sizeBytes": 136
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/BikeJumpPose.cs",
+              "type": "MonoScript",
+              "guid": "6afef647a6e689e4ea5b3b367baad340",
+              "sizeBytes": 84
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/StreetArt.cs",
+              "type": "MonoScript",
+              "guid": "6d6ba69cf1ae7ce43bf930e9f116dd8a",
+              "sizeBytes": 84
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/CityNavigation.cs",
+              "type": "MonoScript",
+              "guid": "76360bc0b8c9d6041ba4d69f56b8e825",
+              "sizeBytes": 92
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/BikeVisualAnimator.cs",
+              "type": "MonoScript",
+              "guid": "76aa691846e87cf4bbf93c00d7254cf4",
+              "sizeBytes": 100
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/PursuitArt.cs",
+              "type": "MonoScript",
+              "guid": "7d87323271942a947b193b9344dd2b80",
+              "sizeBytes": 84
+            },
+            {
+              "assetPath": "Packages/com.unity.multiplayer.center/Common/IOnboardingSectionAnalyticsProvider.cs",
+              "type": "MonoScript",
+              "guid": "833328f3bcf144cc94f92e286e86b427",
+              "sizeBytes": 184
+            },
+            {
+              "assetPath": "Packages/com.unity.multiplayer.center/Common/AnswerData.cs",
+              "type": "MonoScript",
+              "guid": "89b6d933e4994d0980f6b48dc2b8779c",
+              "sizeBytes": 124
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/StreetObstacleSet.cs",
+              "type": "MonoScript",
+              "guid": "a1f7703afdb77e2428360214d7f708a8",
+              "sizeBytes": 100
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/PhoVietGame.cs",
+              "type": "MonoScript",
+              "guid": "a551a1893e4521e428c18b4c0e66d943",
+              "sizeBytes": 84
+            },
+            {
+              "assetPath": "Packages/com.unity.pipeline/Runtime/Attributes/CliArgAttribute.cs",
+              "type": "MonoScript",
+              "guid": "ac8886d9f7e92d844b4f1728ce2e2cab",
+              "sizeBytes": 120
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/CarVisualAnimator.cs",
+              "type": "MonoScript",
+              "guid": "aff0f66e0160572438fbc3dc1886d532",
+              "sizeBytes": 100
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/JunctionStreetArt.cs",
+              "type": "MonoScript",
+              "guid": "cd1bb6dd9273814438b21f8e80b3257b",
+              "sizeBytes": 100
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/WaypointMesh.cs",
+              "type": "MonoScript",
+              "guid": "d995c7b938a9ddb4f9a3d14b8db89ff0",
+              "sizeBytes": 84
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/PassengerVisualAnimator.cs",
+              "type": "MonoScript",
+              "guid": "e5251596e9633ec44b5a515b4c732c9b",
+              "sizeBytes": 108
+            },
+            {
+              "assetPath": "Packages/com.unity.multiplayer.center/Common/SelectedSolutionsData.cs",
+              "type": "MonoScript",
+              "guid": "ec737041edec4a5b93f7953a6ffe9f06",
+              "sizeBytes": 148
+            },
+            {
+              "assetPath": "Packages/com.unity.pipeline/Runtime/Attributes/CliCommandAttribute.cs",
+              "type": "MonoScript",
+              "guid": "ee4da62af1984f442af8ada30f3eee83",
+              "sizeBytes": 128
+            },
+            {
+              "assetPath": "Built-in Sprite: ",
+              "type": "Sprite",
+              "guid": "00000000000000000000000000000000",
+              "sizeBytes": 432
+            }
+          ]
+        },
+        {
+          "bundlePath": "resources.assets",
+          "overheadBytes": 280,
+          "contents": [
+            {
+              "assetPath": "Assets/PhoViet/Resources/Boost/PV_WhiteBoostSmoke.png",
+              "type": "Texture2D",
+              "guid": "50ccd6f1af462d34484ad16e188eb2c2",
+              "sizeBytes": 589956
+            },
+            {
+              "assetPath": "Assets/PhoViet/Resources/PhoVietWaypointSolid.shader",
+              "type": "Shader",
+              "guid": "2b400678d942c754892155398c5626c2",
+              "sizeBytes": 3916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Resources/PhoVietWaypoint.shader",
+              "type": "Shader",
+              "guid": "48a53acec88ea664986407f065127354",
+              "sizeBytes": 3768
+            },
+            {
+              "assetPath": "Assets/PhoViet/Resources/PhoVietJump.json",
+              "type": "TextAsset",
+              "guid": "a0399be51ec6e514faf193ccd02d4218",
+              "sizeBytes": 144660
+            }
+          ]
+        },
+        {
+          "bundlePath": "sharedassets0.assets",
+          "overheadBytes": 12287,
+          "contents": [
+            {
+              "assetPath": "",
+              "type": "PreloadData",
+              "guid": "00000000000000000000000000000000",
+              "sizeBytes": 145
+            },
+            {
+              "assetPath": "Resources/unity_builtin_extra",
+              "type": "Material",
+              "guid": "0000000000000000f000000000000000",
+              "sizeBytes": 268
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter.mat",
+              "type": "Material",
+              "guid": "8c3fa0ddf62ee814ebe20b0d8779d50a",
+              "sizeBytes": 940
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter.mat",
+              "type": "Material",
+              "guid": "71670868544290e4b85b7e2f22f500f0",
+              "sizeBytes": 940
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer.mat",
+              "type": "Material",
+              "guid": "db3e9e98a49a37f418f980647d4106f2",
+              "sizeBytes": 936
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike.mat",
+              "type": "Material",
+              "guid": "51d88b6dfe10de84a9d5511090e71256",
+              "sizeBytes": 940
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.mat",
+              "type": "Material",
+              "guid": "cf572c20f10e20d458fb4e2256e7f4bf",
+              "sizeBytes": 944
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone.mat",
+              "type": "Material",
+              "guid": "d09704c86a26b6d4b87b0efe255b22ed",
+              "sizeBytes": 940
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck.mat",
+              "type": "Material",
+              "guid": "c06a616766db7d143bbcda93806d5fe9",
+              "sizeBytes": 940
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan.mat",
+              "type": "Material",
+              "guid": "8d95c0a2a64cdf344ad30571908ceffd",
+              "sizeBytes": 940
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck.mat",
+              "type": "Material",
+              "guid": "8a12397121a8e1d41a30b7842e892f75",
+              "sizeBytes": 940
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback.mat",
+              "type": "Material",
+              "guid": "a6d428acc01b93c4ebf49e6ae979dd6f",
+              "sizeBytes": 940
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan.mat",
+              "type": "Material",
+              "guid": "cf4926a6f12827a42a594db9992cb91c",
+              "sizeBytes": 936
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi.mat",
+              "type": "Material",
+              "guid": "e9cd57afa83d2504282f8e549ca004f0",
+              "sizeBytes": 936
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.mat",
+              "type": "Material",
+              "guid": "677dd9a559c841a4fabd47c8d16c1198",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.mat",
+              "type": "Material",
+              "guid": "502de86db3f8aaf4b8c97c0b60676eb5",
+              "sizeBytes": 912
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetAtlas.mat",
+              "type": "Material",
+              "guid": "fb172235263f60e4c95bb15d58b26d1c",
+              "sizeBytes": 912
+            },
+            {
+              "assetPath": "Assets/PhoViet/Fonts/WorldStreetText.mat",
+              "type": "Material",
+              "guid": "c2e4898df1406c24991776a9edd25cc5",
+              "sizeBytes": 148
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_177E80FFFalse 3.mat",
+              "type": "Material",
+              "guid": "c193ccb23fa0f6546aad1f2fb55fb0db",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_196E72FFFalse 2.mat",
+              "type": "Material",
+              "guid": "ff05059153f134b4fade8cbbb1bffe3c",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_203C43FFFalse 3.mat",
+              "type": "Material",
+              "guid": "f2bb7224dd16f044ba065654ae24ff79",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_203C43FFFalse 5.mat",
+              "type": "Material",
+              "guid": "c32d73a58d92d884c897d018ccf5d5d3",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_245C91FFFalse 2.mat",
+              "type": "Material",
+              "guid": "a442656365a4d4846b257f9c2557ee52",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_263F42FFFalse 1.mat",
+              "type": "Material",
+              "guid": "1a6ece7b30579d04bafc8b588e6e5be6",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_274A69FFFalse 2.mat",
+              "type": "Material",
+              "guid": "a0dcff97f327912479c8f7f9456fef25",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_276563FFFalse 2.mat",
+              "type": "Material",
+              "guid": "106437c856e61714ea359006c6e10a0f",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_303D3FFFFalse 1.mat",
+              "type": "Material",
+              "guid": "584dd0dbe84e24e4eb0c106e9c4711e2",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_326A8CFFFalse 2.mat",
+              "type": "Material",
+              "guid": "ccd554ab591fdb242a5df599d993d5de",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_374543FFTrue 3.mat",
+              "type": "Material",
+              "guid": "dbeae4336460d494e9965e453c2292b5",
+              "sizeBytes": 112
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_394F51FFFalse 1.mat",
+              "type": "Material",
+              "guid": "c60afe99aebac9842a2beb9dd52cafd7",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_4CBAFFFFTrue.mat",
+              "type": "Material",
+              "guid": "0b2c7a5b4cb6a4f47affc3ed343df5f1",
+              "sizeBytes": 108
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_555D5DFFFalse 2.mat",
+              "type": "Material",
+              "guid": "580946bf9d04f66418880b8aaea8652f",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_596C65FFFalse.mat",
+              "type": "Material",
+              "guid": "e7614c6f1f4c2af4186546ebe4f4d512",
+              "sizeBytes": 912
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_65756EFFFalse 1.mat",
+              "type": "Material",
+              "guid": "259318a9c16969f4ebfb04e3a689edc8",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_684B39FFFalse 2.mat",
+              "type": "Material",
+              "guid": "65e88b1d9969af747812070564c61878",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_72E0A6FFTrue 3.mat",
+              "type": "Material",
+              "guid": "5c071ce424c5dc043b5eddfd67a8bc7e",
+              "sizeBytes": 112
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_7B8980FFFalse 1.mat",
+              "type": "Material",
+              "guid": "bdcf32c03c69fe34cab62cc7fb54a0f9",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_8A5347FFFalse 1.mat",
+              "type": "Material",
+              "guid": "bc793d6766528954791d80fcd572241d",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_8C9D86FFFalse 1.mat",
+              "type": "Material",
+              "guid": "b922e59a4801db34696406412d26da2e",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_8D9C94FFFalse 1.mat",
+              "type": "Material",
+              "guid": "505d2a152af3679499d75be9c3a452fb",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_92A68AFFFalse.mat",
+              "type": "Material",
+              "guid": "6ec4cb93defc42040a7e40d795669215",
+              "sizeBytes": 912
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_A0ABA0FFFalse 1.mat",
+              "type": "Material",
+              "guid": "750f7ceba4767d744b754324a395bde7",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_A6ABA1FFFalse 2.mat",
+              "type": "Material",
+              "guid": "e224600ddbb2358499029b482bce0dee",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_A9382EFFFalse 2.mat",
+              "type": "Material",
+              "guid": "687e3e94fe6601c48a3df941eb182f85",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_B39A54FFFalse 1.mat",
+              "type": "Material",
+              "guid": "5ae22753049b8fd4e9544ebd477659c1",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_B74B31FFFalse 2.mat",
+              "type": "Material",
+              "guid": "09363028eab0af04b81dd2f64c26502a",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_B9A879FFFalse 1.mat",
+              "type": "Material",
+              "guid": "31fd355d2d253e0409adbc3c483a4a2e",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_D83833FFFalse 4.mat",
+              "type": "Material",
+              "guid": "b6448461fbbc4324a9a63145fb1a1e22",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_D99A6BFFFalse 2.mat",
+              "type": "Material",
+              "guid": "41bede9a79ffb5a40b0a6b95f7c080be",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_D99A6BFFFalse 5.mat",
+              "type": "Material",
+              "guid": "09e06da0cda0b9d42b171f93df7d8771",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_E3E2CEFFFalse 1.mat",
+              "type": "Material",
+              "guid": "17a9a5ef45005d849809a121bc9520ee",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_FF423DFFTrue.mat",
+              "type": "Material",
+              "guid": "2d474e362ce4eda48a7270befaff74de",
+              "sizeBytes": 108
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_FFD35AFFFalse 4.mat",
+              "type": "Material",
+              "guid": "c88c85733958da94ba2d40d61bd2e30e",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_FFF1CFFFFalse 2.mat",
+              "type": "Material",
+              "guid": "8f5580e88d569cc42b18ef4338acaeae",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/PV_FFF1CFFFFalse 6.mat",
+              "type": "Material",
+              "guid": "196d3e05d07b3a54aa0cc1a122e85a78",
+              "sizeBytes": 916
+            },
+            {
+              "assetPath": "Assets/PhoViet/Resources/Wreck/PV_MantaflowFire 1.mat",
+              "type": "Material",
+              "guid": "126ba38e192f5b84c90f5aaec07ea869",
+              "sizeBytes": 140
+            },
+            {
+              "assetPath": "Assets/PhoViet/Resources/Wreck/PV_MantaflowFire.mat",
+              "type": "Material",
+              "guid": "a6bad6da74eaa8a4bb068c07724aaf6e",
+              "sizeBytes": 140
+            },
+            {
+              "assetPath": "Assets/PhoViet/Resources/Wreck/PV_MantaflowSmoke 1.mat",
+              "type": "Material",
+              "guid": "da25eda1c8080ef4380e0322b5eb3c9e",
+              "sizeBytes": 124
+            },
+            {
+              "assetPath": "Assets/PhoViet/Resources/Wreck/PV_MantaflowSmoke.mat",
+              "type": "Material",
+              "guid": "f012239ac64eb6a41a226e85fa914725",
+              "sizeBytes": 124
+            },
+            {
+              "assetPath": "Assets/PhoViet/Fonts/BeVietnamPro-SemiBold.ttf",
+              "type": "Material",
+              "guid": "f72a0311d028fa1428e7cd2038ab4849",
+              "sizeBytes": 148
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetPalette.png",
+              "type": "Texture2D",
+              "guid": "049ad32aba918db4fb5137bbe46f4545",
+              "sizeBytes": 49280
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi_Palette.png",
+              "type": "Texture2D",
+              "guid": "052cc8764b5bad04081c9c337bbe8fad",
+              "sizeBytes": 8320
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck_Palette.png",
+              "type": "Texture2D",
+              "guid": "060291b1398df11448a958c6c8134fc8",
+              "sizeBytes": 8328
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer_Surface.png",
+              "type": "Texture2D",
+              "guid": "07b2bdc09efb89e4395a370294291de1",
+              "sizeBytes": 16512
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice_Surface.png",
+              "type": "Texture2D",
+              "guid": "0c7cc8e6ed1077049ba86eafb4043bb2",
+              "sizeBytes": 16520
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter_Surface.png",
+              "type": "Texture2D",
+              "guid": "0da9cd9055a101a4d807e67ca2bf808d",
+              "sizeBytes": 16520
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi_Surface.png",
+              "type": "Texture2D",
+              "guid": "20beadcea2e15c04e8ffb0f9ab95ad30",
+              "sizeBytes": 16512
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike_Surface.png",
+              "type": "Texture2D",
+              "guid": "2902399052cd60a44bb3282a27454700",
+              "sizeBytes": 16516
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter_Palette.png",
+              "type": "Texture2D",
+              "guid": "2b23ac7cd18812f40a039c02d85d5ea0",
+              "sizeBytes": 8328
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan_Surface.png",
+              "type": "Texture2D",
+              "guid": "2de5d17347ff682499b6f9d2cd4854c5",
+              "sizeBytes": 16512
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter_Surface.png",
+              "type": "Texture2D",
+              "guid": "3a2de068c6261b24dbb1e375ae091b19",
+              "sizeBytes": 16520
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone_Surface.png",
+              "type": "Texture2D",
+              "guid": "55a054c0adfd8e54e83aa665367e8365",
+              "sizeBytes": 16516
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike_Palette.png",
+              "type": "Texture2D",
+              "guid": "56773b3a02385514db09812194f0d7a1",
+              "sizeBytes": 8324
+            },
+            {
+              "assetPath": "Assets/PhoViet/Resources/Wreck/PV_WreckSmoke.png",
+              "type": "Texture2D",
+              "guid": "5aa165351040d8d43beb87028950d05c",
+              "sizeBytes": 1179776
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback_Surface.png",
+              "type": "Texture2D",
+              "guid": "6fcec69c9b2ba284a81b1c091f6b9ae9",
+              "sizeBytes": 16516
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice_Palette.png",
+              "type": "Texture2D",
+              "guid": "70cec02daef7f0e42a7c745cf7c4e145",
+              "sizeBytes": 8328
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan_Palette.png",
+              "type": "Texture2D",
+              "guid": "789860bb6cee4c34c9d3a5295e49b944",
+              "sizeBytes": 8328
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck_Surface.png",
+              "type": "Texture2D",
+              "guid": "7e41822d162e77d4da61eec4c0b786d7",
+              "sizeBytes": 16516
+            },
+            {
+              "assetPath": "Assets/PhoViet/Resources/Wreck/PV_WreckFlame.png",
+              "type": "Texture2D",
+              "guid": "81d18bbed2bbf4d408a1e223ac0a329f",
+              "sizeBytes": 1179776
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer_Palette.png",
+              "type": "Texture2D",
+              "guid": "87d310904b2b1214e932e7ad2556ea51",
+              "sizeBytes": 8320
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan_Palette.png",
+              "type": "Texture2D",
+              "guid": "93a1feb759d8e314e8d6dfb48f1f0e52",
+              "sizeBytes": 8320
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback_Palette.png",
+              "type": "Texture2D",
+              "guid": "951ca565aeb8cc741aade4b8a2c2ac44",
+              "sizeBytes": 8324
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck_Palette.png",
+              "type": "Texture2D",
+              "guid": "b17bb86cbbccb634fb4ab3f9161815f0",
+              "sizeBytes": 8324
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale_Palette.png",
+              "type": "Texture2D",
+              "guid": "b372fcac288ffc94fb5800f65c0289cb",
+              "sizeBytes": 8332
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck_Surface.png",
+              "type": "Texture2D",
+              "guid": "ccbc72699f767d447bade5c852c2f41c",
+              "sizeBytes": 16520
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone_Palette.png",
+              "type": "Texture2D",
+              "guid": "d43fef8135d950048a5099963c078485",
+              "sizeBytes": 8324
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter_Palette.png",
+              "type": "Texture2D",
+              "guid": "d66907722f6c904438236e94587ff960",
+              "sizeBytes": 8328
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerMale_Palette.png",
+              "type": "Texture2D",
+              "guid": "dd610e1ea33579c42acc156216c2a730",
+              "sizeBytes": 8328
+            },
+            {
+              "assetPath": "Assets/PhoViet/Fonts/BeVietnamPro-SemiBold.ttf",
+              "type": "Texture2D",
+              "guid": "f72a0311d028fa1428e7cd2038ab4849",
+              "sizeBytes": 124
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan_Surface.png",
+              "type": "Texture2D",
+              "guid": "fd2a943941a38d7479cd8f5d2ce7bbdd",
+              "sizeBytes": 16520
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+              "type": "Mesh",
+              "guid": "5f4af39af9c6b8246b733daaf742d6ce",
+              "sizeBytes": 1412200
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop10.fbx",
+              "type": "Mesh",
+              "guid": "c53e0ca0d99383c4489cdbd0185b556e",
+              "sizeBytes": 209796
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+              "type": "Mesh",
+              "guid": "ed297cf5b108129409e7db2bf7af2127",
+              "sizeBytes": 201324
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+              "type": "Mesh",
+              "guid": "77c79207b18d25145a12ea591dc2b8bb",
+              "sizeBytes": 60956
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop01.fbx",
+              "type": "Mesh",
+              "guid": "b706aada11d74ba4eadfd1ae130221df",
+              "sizeBytes": 570832
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+              "type": "Mesh",
+              "guid": "c93704ef0b9a0e04b9395480f81e54b9",
+              "sizeBytes": 1412200
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+              "type": "Mesh",
+              "guid": "59f5e36d374c5b042b6c7d61ab492b95",
+              "sizeBytes": 575600
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+              "type": "Mesh",
+              "guid": "73ff8b221ed09ed468400e14dcc17af0",
+              "sizeBytes": 345844
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop02.fbx",
+              "type": "Mesh",
+              "guid": "9026e501226ec6845b98ac95d8237e0a",
+              "sizeBytes": 197640
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+              "type": "Mesh",
+              "guid": "405762846cbeefb4d8d145539c722131",
+              "sizeBytes": 69140
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop04.fbx",
+              "type": "Mesh",
+              "guid": "db48c7239353de443b1f80cf42a9852e",
+              "sizeBytes": 379420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+              "type": "Mesh",
+              "guid": "18b684c249cae014cacffb24956b03f4",
+              "sizeBytes": 647656
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+              "type": "Mesh",
+              "guid": "92c0a805d665484448ff0ac5ae9e08d2",
+              "sizeBytes": 309432
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx",
+              "type": "Mesh",
+              "guid": "ede501c8cef6c3545962102812082fea",
+              "sizeBytes": 133608
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop05.fbx",
+              "type": "Mesh",
+              "guid": "d2e91db5c34401546841c379bec2d900",
+              "sizeBytes": 241704
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+              "type": "Mesh",
+              "guid": "fa616daa4691c5342976cec232644279",
+              "sizeBytes": 76780
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop04.fbx",
+              "type": "Mesh",
+              "guid": "db48c7239353de443b1f80cf42a9852e",
+              "sizeBytes": 205900
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop07.fbx",
+              "type": "Mesh",
+              "guid": "0569a032c253a7e4ebda3a0c849acafc",
+              "sizeBytes": 883500
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop07.fbx",
+              "type": "Mesh",
+              "guid": "0569a032c253a7e4ebda3a0c849acafc",
+              "sizeBytes": 503652
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+              "type": "Mesh",
+              "guid": "ed297cf5b108129409e7db2bf7af2127",
+              "sizeBytes": 73388
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+              "type": "Mesh",
+              "guid": "3fd60972920674f42b37e975bc1ee490",
+              "sizeBytes": 197060
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+              "type": "Mesh",
+              "guid": "73ff8b221ed09ed468400e14dcc17af0",
+              "sizeBytes": 566944
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+              "type": "Mesh",
+              "guid": "c93704ef0b9a0e04b9395480f81e54b9",
+              "sizeBytes": 759016
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.fbx",
+              "type": "Mesh",
+              "guid": "9a65e4db865548e469802627852c22d0",
+              "sizeBytes": 190472
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+              "type": "Mesh",
+              "guid": "92c0a805d665484448ff0ac5ae9e08d2",
+              "sizeBytes": 140944
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx",
+              "type": "Mesh",
+              "guid": "ede501c8cef6c3545962102812082fea",
+              "sizeBytes": 328464
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop08.fbx",
+              "type": "Mesh",
+              "guid": "a8f501058933a714588c9d4d6fbd2f15",
+              "sizeBytes": 332388
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop05.fbx",
+              "type": "Mesh",
+              "guid": "d2e91db5c34401546841c379bec2d900",
+              "sizeBytes": 144048
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+              "type": "Mesh",
+              "guid": "77c79207b18d25145a12ea591dc2b8bb",
+              "sizeBytes": 161908
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetPavement.fbx",
+              "type": "Mesh",
+              "guid": "24ccaaa36e91df04ab1bd2b08fe03354",
+              "sizeBytes": 96152
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+              "type": "Mesh",
+              "guid": "405762846cbeefb4d8d145539c722131",
+              "sizeBytes": 387904
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+              "type": "Mesh",
+              "guid": "08b49ec9e6e21ac478d91f1dec7c0f96",
+              "sizeBytes": 140940
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+              "type": "Mesh",
+              "guid": "6ccb73f09e2887d469831f36467bd972",
+              "sizeBytes": 3284968
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+              "type": "Mesh",
+              "guid": "cdf506cc23df0ed448fef33441e2d8bb",
+              "sizeBytes": 379212
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop11.fbx",
+              "type": "Mesh",
+              "guid": "9f6e391dc76f2b048a5156e224103576",
+              "sizeBytes": 810576
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+              "type": "Mesh",
+              "guid": "08b49ec9e6e21ac478d91f1dec7c0f96",
+              "sizeBytes": 53508
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+              "type": "Mesh",
+              "guid": "cdf506cc23df0ed448fef33441e2d8bb",
+              "sizeBytes": 171712
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop07.fbx",
+              "type": "Mesh",
+              "guid": "0569a032c253a7e4ebda3a0c849acafc",
+              "sizeBytes": 254100
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop02.fbx",
+              "type": "Mesh",
+              "guid": "9026e501226ec6845b98ac95d8237e0a",
+              "sizeBytes": 381624
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+              "type": "Mesh",
+              "guid": "59f5e36d374c5b042b6c7d61ab492b95",
+              "sizeBytes": 90656
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.fbx",
+              "type": "Mesh",
+              "guid": "63f69fb9cf1c2d744b1479a17a867a5e",
+              "sizeBytes": 33700
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_0 2.asset",
+              "type": "Mesh",
+              "guid": "29de85b23b5bedf419a38df503dc2ef8",
+              "sizeBytes": 1928
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_0 6.asset",
+              "type": "Mesh",
+              "guid": "bcee8e8ac0fad4942bb9e000f7db09a7",
+              "sizeBytes": 7312
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_1 2.asset",
+              "type": "Mesh",
+              "guid": "1f441665367bfbd4784f51a028f1cea0",
+              "sizeBytes": 6392
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_1 6.asset",
+              "type": "Mesh",
+              "guid": "30869ad6fe7e105468db958f50f03062",
+              "sizeBytes": 3416
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_10 2.asset",
+              "type": "Mesh",
+              "guid": "68ed5fdf39a2185499e59bcd2d937828",
+              "sizeBytes": 103460
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_10 5.asset",
+              "type": "Mesh",
+              "guid": "0dd1a95590222254987ccb2dd6f4ff14",
+              "sizeBytes": 6396
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_11 2.asset",
+              "type": "Mesh",
+              "guid": "307ddcd9818705945bd5fe9f5b188a52",
+              "sizeBytes": 120500
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_11 5.asset",
+              "type": "Mesh",
+              "guid": "9d407e78c374b7649baf76abf934f28c",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_12 2.asset",
+              "type": "Mesh",
+              "guid": "7c8d0266b7627124da7469539fdbcb0b",
+              "sizeBytes": 1932
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_12 5.asset",
+              "type": "Mesh",
+              "guid": "975a4b20d3cff9346bd3c370d7aef8f0",
+              "sizeBytes": 12220
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_13 2.asset",
+              "type": "Mesh",
+              "guid": "0c5bf30c7f2ddbd4c8c710c559daf7e2",
+              "sizeBytes": 1932
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_13 5.asset",
+              "type": "Mesh",
+              "guid": "4024fb79c810ab64685866d40e91ed55",
+              "sizeBytes": 7312
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_14 2.asset",
+              "type": "Mesh",
+              "guid": "5ee5d8d5416f6e642bff7e8683a16e2d",
+              "sizeBytes": 1932
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_14 5.asset",
+              "type": "Mesh",
+              "guid": "9dbfe5bbbdb2426419eeffa1617d6e06",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_15 4.asset",
+              "type": "Mesh",
+              "guid": "6c0c46070795d5f47aad949925cd856b",
+              "sizeBytes": 22764
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_16 3.asset",
+              "type": "Mesh",
+              "guid": "3fed5d92c33adfc44a149e9a27678fa8",
+              "sizeBytes": 169436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_17 3.asset",
+              "type": "Mesh",
+              "guid": "ee0e083e0435ef54eb569836b5a20689",
+              "sizeBytes": 299436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_18 3.asset",
+              "type": "Mesh",
+              "guid": "274bdf0dd89600d42903f3bf9ab10bd3",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_19 3.asset",
+              "type": "Mesh",
+              "guid": "47732fe7275d1594c8aceb31db058fdd",
+              "sizeBytes": 212668
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_2 2.asset",
+              "type": "Mesh",
+              "guid": "b416bce80f301bc4b919b0ec67d5b1a7",
+              "sizeBytes": 1928
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_2 6.asset",
+              "type": "Mesh",
+              "guid": "88b07e8fe7ac83941bd8fe1cd3620bf9",
+              "sizeBytes": 22760
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_20 3.asset",
+              "type": "Mesh",
+              "guid": "449f7742317624244be7eeccdee21aa5",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_21 3.asset",
+              "type": "Mesh",
+              "guid": "57d0ba179ad548f4b8b953e8169a9f4d",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_22 3.asset",
+              "type": "Mesh",
+              "guid": "85523b88c9415e3458319bd3939f5c91",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_23 3.asset",
+              "type": "Mesh",
+              "guid": "2de1296f00a8bd94990d2e5b46b61833",
+              "sizeBytes": 6396
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_24 3.asset",
+              "type": "Mesh",
+              "guid": "7fec85b8207a3e84a928d339a05f4997",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_25 3.asset",
+              "type": "Mesh",
+              "guid": "dbaff6105ae606f45ade5cdcfe9afb54",
+              "sizeBytes": 12220
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_26 3.asset",
+              "type": "Mesh",
+              "guid": "84d70488fd26e6341907e7cd538b35e5",
+              "sizeBytes": 7312
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_27 3.asset",
+              "type": "Mesh",
+              "guid": "c5ca5554245639444acfb721761de51d",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_28 3.asset",
+              "type": "Mesh",
+              "guid": "f3eb4f8c8018d6d448a7f4395213faf1",
+              "sizeBytes": 22764
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_29 3.asset",
+              "type": "Mesh",
+              "guid": "c9f0f84c397d32f48b2fabfb70189b8c",
+              "sizeBytes": 169436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_3 2.asset",
+              "type": "Mesh",
+              "guid": "de4e6810e56d1934ea6c44d0c4187396",
+              "sizeBytes": 24248
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_3 6.asset",
+              "type": "Mesh",
+              "guid": "f1565f4d03d01694eab59648443be1d6",
+              "sizeBytes": 169432
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_30 3.asset",
+              "type": "Mesh",
+              "guid": "aada209c43f604a4282358453a478802",
+              "sizeBytes": 299436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_31 3.asset",
+              "type": "Mesh",
+              "guid": "660d89858ed20854a8e0639291f21582",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_32 3.asset",
+              "type": "Mesh",
+              "guid": "bf3043f739b165d46a7b8d575acdf6b5",
+              "sizeBytes": 212668
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_33 3.asset",
+              "type": "Mesh",
+              "guid": "d8424cfb8c3ccc248ab264347ebf7d9a",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_34 3.asset",
+              "type": "Mesh",
+              "guid": "2e0a1f9b02ed7d749bed564237d38fbd",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_35 3.asset",
+              "type": "Mesh",
+              "guid": "12e7bc95f4cc2e444b27aab542c1fbeb",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_36 3.asset",
+              "type": "Mesh",
+              "guid": "90928f4e1ffdd7c4aa551ec22b06e0cc",
+              "sizeBytes": 6396
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_37 3.asset",
+              "type": "Mesh",
+              "guid": "5f115192f2872514e8a7c42683f15499",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_38 3.asset",
+              "type": "Mesh",
+              "guid": "79e13d75616c8d74db0924d09deb5d94",
+              "sizeBytes": 12220
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_39 2.asset",
+              "type": "Mesh",
+              "guid": "c4411a6ddabebec4187bc4557312b32a",
+              "sizeBytes": 7312
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_4 2.asset",
+              "type": "Mesh",
+              "guid": "806b08c3378821b4a8c3f6e84e6f061c",
+              "sizeBytes": 1928
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_4 6.asset",
+              "type": "Mesh",
+              "guid": "5afeec0f657a7bc4aa59e2cbcdc5147b",
+              "sizeBytes": 299432
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_40 2.asset",
+              "type": "Mesh",
+              "guid": "514ccab895ce347469fd4538ca0895e5",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_41 2.asset",
+              "type": "Mesh",
+              "guid": "1792deb923f0724449ff530616e011db",
+              "sizeBytes": 22764
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_42 2.asset",
+              "type": "Mesh",
+              "guid": "fd98aa94e6f75434e9e8bcf83dafba4b",
+              "sizeBytes": 169436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_43 2.asset",
+              "type": "Mesh",
+              "guid": "08e5b1e71d7e8f94a9ecab8658faf416",
+              "sizeBytes": 299436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_44 2.asset",
+              "type": "Mesh",
+              "guid": "fcf168b4e53279c41b8352ab6e9283da",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_45 2.asset",
+              "type": "Mesh",
+              "guid": "a2e70f1184931b84bbdf51b8e9bae6b3",
+              "sizeBytes": 212668
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_46 2.asset",
+              "type": "Mesh",
+              "guid": "0302c219a4ee62047ac5ed1121d6a6af",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_47 2.asset",
+              "type": "Mesh",
+              "guid": "336c4347e38506f49afcf8d8d96f405b",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_48 2.asset",
+              "type": "Mesh",
+              "guid": "4ce4ad4cd123fcf4bb9b7fa02e956930",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_49 2.asset",
+              "type": "Mesh",
+              "guid": "f74248ad45ae353499cafeadfead4bda",
+              "sizeBytes": 6396
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_5 2.asset",
+              "type": "Mesh",
+              "guid": "1e3b6eb19df006e4ba0990643cca6562",
+              "sizeBytes": 110888
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_5 6.asset",
+              "type": "Mesh",
+              "guid": "99f20ed13c8350549a801cef5757607a",
+              "sizeBytes": 3416
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_50 2.asset",
+              "type": "Mesh",
+              "guid": "75eec68027656a8439da71226d595ecd",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_51 2.asset",
+              "type": "Mesh",
+              "guid": "514d72b337a28644bbe946f5411d8b02",
+              "sizeBytes": 12220
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_52 2.asset",
+              "type": "Mesh",
+              "guid": "be7180b80db93294aa9925373c00ca03",
+              "sizeBytes": 7312
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_53 2.asset",
+              "type": "Mesh",
+              "guid": "5c782c0ed275eda4997b52b8bf78ef77",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_54 2.asset",
+              "type": "Mesh",
+              "guid": "cde4b14e5d8d3284ba903d80f6e85ed7",
+              "sizeBytes": 22764
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_55 2.asset",
+              "type": "Mesh",
+              "guid": "816c67a063230524fbdb149eacf30c21",
+              "sizeBytes": 169436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_56 2.asset",
+              "type": "Mesh",
+              "guid": "e21f4ceb215cfa24cb2b2a97f3477e69",
+              "sizeBytes": 299436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_57 2.asset",
+              "type": "Mesh",
+              "guid": "d3a7e03a358e201439fb14b3bf07335c",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_58 2.asset",
+              "type": "Mesh",
+              "guid": "56ce60f56a6f4734eb0f2d61a272cca2",
+              "sizeBytes": 212668
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_59 2.asset",
+              "type": "Mesh",
+              "guid": "073783d83188f974da2cc2210ee029e7",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_6 2.asset",
+              "type": "Mesh",
+              "guid": "0ffdca45139207844b4fc6af5dfd75f1",
+              "sizeBytes": 1928
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_6 6.asset",
+              "type": "Mesh",
+              "guid": "c9c637fa5a7e44249bed7f55cec6894b",
+              "sizeBytes": 212664
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_60 2.asset",
+              "type": "Mesh",
+              "guid": "abb8d1f4a77e1c84ca6ca4d432689933",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_61 2.asset",
+              "type": "Mesh",
+              "guid": "0bf5ca12c3fe8814e97b83469a24fca4",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_62 2.asset",
+              "type": "Mesh",
+              "guid": "b12c8ac461cc44e4193e9026121f9d87",
+              "sizeBytes": 6396
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_63 2.asset",
+              "type": "Mesh",
+              "guid": "ef6011d9ba30caf4a8639a1e4972da7f",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_64 2.asset",
+              "type": "Mesh",
+              "guid": "c817b234f5e6e9b4ab901e3764f7ac60",
+              "sizeBytes": 12220
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_65 2.asset",
+              "type": "Mesh",
+              "guid": "a20fb18132818a3488864341eb87f29a",
+              "sizeBytes": 7312
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_66 2.asset",
+              "type": "Mesh",
+              "guid": "5bb868b1646845f4c8ab38b54c4df50b",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_67 2.asset",
+              "type": "Mesh",
+              "guid": "b892619505ec8b049a1cb6b7927907a0",
+              "sizeBytes": 22764
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_68 2.asset",
+              "type": "Mesh",
+              "guid": "5f71cd665328e184bb80ef2bc27ad92b",
+              "sizeBytes": 169436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_69 2.asset",
+              "type": "Mesh",
+              "guid": "b525a9299e1f53046b68d0f41b464da6",
+              "sizeBytes": 299436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_7 2.asset",
+              "type": "Mesh",
+              "guid": "5e0d6d4311033f043957b4535d5f3c62",
+              "sizeBytes": 1928
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_7 5.asset",
+              "type": "Mesh",
+              "guid": "28feda9081809fd40ad2924ca860f409",
+              "sizeBytes": 3416
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_70 2.asset",
+              "type": "Mesh",
+              "guid": "8079926b0309c5545841bfc8acd0c3a3",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_71 2.asset",
+              "type": "Mesh",
+              "guid": "cdfa7c94aa3159a41b5bc99f898bb4a9",
+              "sizeBytes": 212668
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_72 2.asset",
+              "type": "Mesh",
+              "guid": "6369253ed55f9b24abd7bfe34bdef26a",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_73 2.asset",
+              "type": "Mesh",
+              "guid": "43478fb23d3db9148a6860ba345298d6",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_74 2.asset",
+              "type": "Mesh",
+              "guid": "5da9673b692d4da4fb0cf247d0c95059",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_75 2.asset",
+              "type": "Mesh",
+              "guid": "4e54393aa497af541b1de35b26846be4",
+              "sizeBytes": 6396
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_76 2.asset",
+              "type": "Mesh",
+              "guid": "8d469504723773943b6e14341456a537",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_77 2.asset",
+              "type": "Mesh",
+              "guid": "401cac6540ea0e847bfbb3aaa3f4e81f",
+              "sizeBytes": 12220
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_78 2.asset",
+              "type": "Mesh",
+              "guid": "1ca65b89fed0dbe46ae754871242b9fa",
+              "sizeBytes": 7312
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_79 2.asset",
+              "type": "Mesh",
+              "guid": "f90ac9bc0e71d56498fad97fcf205922",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_8 2.asset",
+              "type": "Mesh",
+              "guid": "2439f0fd95f88da47a55da5bd6195f77",
+              "sizeBytes": 1928
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_8 5.asset",
+              "type": "Mesh",
+              "guid": "1c6c81e536335094b8760ed710c02caf",
+              "sizeBytes": 3416
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_80 2.asset",
+              "type": "Mesh",
+              "guid": "8b942b437a6bcc247bec11b34e881247",
+              "sizeBytes": 22764
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_81 2.asset",
+              "type": "Mesh",
+              "guid": "a6c81feae918a0344b41965e409b4fdc",
+              "sizeBytes": 169436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_82 2.asset",
+              "type": "Mesh",
+              "guid": "e2e9fbff0e08eb94e9651181215a3667",
+              "sizeBytes": 299436
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_83 2.asset",
+              "type": "Mesh",
+              "guid": "18b4258218acab94d8840f1cf8be21a8",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_84 2.asset",
+              "type": "Mesh",
+              "guid": "50ba00c0c5b66344dabb0de857d5f088",
+              "sizeBytes": 212668
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_85 2.asset",
+              "type": "Mesh",
+              "guid": "c41f6bd3b036ecf468188b12be710591",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_86 2.asset",
+              "type": "Mesh",
+              "guid": "99816584413ba824387c5824271b5cfc",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_87 2.asset",
+              "type": "Mesh",
+              "guid": "13fe86ce94ff07b489ed8afe688498ff",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_88 2.asset",
+              "type": "Mesh",
+              "guid": "a05c8e4ed728b91499e3737214f623eb",
+              "sizeBytes": 6396
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_89 2.asset",
+              "type": "Mesh",
+              "guid": "b314abb16d3100a47b4766dfcd499127",
+              "sizeBytes": 3420
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_9 2.asset",
+              "type": "Mesh",
+              "guid": "fe15d8cd37f54214484b22ce63ac73bb",
+              "sizeBytes": 84360
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_9 5.asset",
+              "type": "Mesh",
+              "guid": "88e25a254af2565428004ffdaee19281",
+              "sizeBytes": 3416
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/Geometry_90 2.asset",
+              "type": "Mesh",
+              "guid": "78855f2a46f831a489542b37bbe15b0a",
+              "sizeBytes": 12220
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/RouteParked_PV_CityScooter.asset",
+              "type": "Mesh",
+              "guid": "d81c6eb661c317c47887b6a7d840e8f2",
+              "sizeBytes": 514600
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/RouteParked_PV_SportBike.asset",
+              "type": "Mesh",
+              "guid": "4c7b7e7899ae9fb4da5b5b00eeb4c7b8",
+              "sizeBytes": 435920
+            },
+            {
+              "assetPath": "Assets/PhoViet/Generated/RouteParked_PV_Underbone.asset",
+              "type": "Mesh",
+              "guid": "9d502c5ef674be24d92d0661cede7fa4",
+              "sizeBytes": 468284
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop01.fbx",
+              "type": "Mesh",
+              "guid": "b706aada11d74ba4eadfd1ae130221df",
+              "sizeBytes": 341788
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+              "type": "Mesh",
+              "guid": "59f5e36d374c5b042b6c7d61ab492b95",
+              "sizeBytes": 250468
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+              "type": "Mesh",
+              "guid": "08b49ec9e6e21ac478d91f1dec7c0f96",
+              "sizeBytes": 309428
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+              "type": "Mesh",
+              "guid": "fa616daa4691c5342976cec232644279",
+              "sizeBytes": 214180
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop04.fbx",
+              "type": "Mesh",
+              "guid": "db48c7239353de443b1f80cf42a9852e",
+              "sizeBytes": 647692
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+              "type": "Mesh",
+              "guid": "5f4af39af9c6b8246b733daaf742d6ce",
+              "sizeBytes": 759016
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop11.fbx",
+              "type": "Mesh",
+              "guid": "9f6e391dc76f2b048a5156e224103576",
+              "sizeBytes": 239844
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop01.fbx",
+              "type": "Mesh",
+              "guid": "b706aada11d74ba4eadfd1ae130221df",
+              "sizeBytes": 185320
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+              "type": "Mesh",
+              "guid": "3fd60972920674f42b37e975bc1ee490",
+              "sizeBytes": 71920
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+              "type": "Mesh",
+              "guid": "b2762135925625d45863c5aa0b56e5f8",
+              "sizeBytes": 166076
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+              "type": "Mesh",
+              "guid": "fa616daa4691c5342976cec232644279",
+              "sizeBytes": 484428
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+              "type": "Mesh",
+              "guid": "6ccb73f09e2887d469831f36467bd972",
+              "sizeBytes": 1412200
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+              "type": "Mesh",
+              "guid": "36ff14e9d4236cf459bf269a85954d4b",
+              "sizeBytes": 499216
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+              "type": "Mesh",
+              "guid": "405762846cbeefb4d8d145539c722131",
+              "sizeBytes": 176176
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+              "type": "Mesh",
+              "guid": "36ff14e9d4236cf459bf269a85954d4b",
+              "sizeBytes": 208496
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetPavement.fbx",
+              "type": "Mesh",
+              "guid": "24ccaaa36e91df04ab1bd2b08fe03354",
+              "sizeBytes": 477452
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop10.fbx",
+              "type": "Mesh",
+              "guid": "c53e0ca0d99383c4489cdbd0185b556e",
+              "sizeBytes": 397284
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+              "type": "Mesh",
+              "guid": "ed297cf5b108129409e7db2bf7af2127",
+              "sizeBytes": 472900
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+              "type": "Mesh",
+              "guid": "5f4af39af9c6b8246b733daaf742d6ce",
+              "sizeBytes": 3284968
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+              "type": "Mesh",
+              "guid": "36ff14e9d4236cf459bf269a85954d4b",
+              "sizeBytes": 74768
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.fbx",
+              "type": "Mesh",
+              "guid": "9a65e4db865548e469802627852c22d0",
+              "sizeBytes": 36004
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop03.fbx",
+              "type": "Mesh",
+              "guid": "f4a63fee1caa4de49b4559ed0cb6ae89",
+              "sizeBytes": 467988
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop03.fbx",
+              "type": "Mesh",
+              "guid": "f4a63fee1caa4de49b4559ed0cb6ae89",
+              "sizeBytes": 810960
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+              "type": "Mesh",
+              "guid": "b2762135925625d45863c5aa0b56e5f8",
+              "sizeBytes": 62292
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.fbx",
+              "type": "Mesh",
+              "guid": "63f69fb9cf1c2d744b1479a17a867a5e",
+              "sizeBytes": 174140
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetPavement.fbx",
+              "type": "Mesh",
+              "guid": "24ccaaa36e91df04ab1bd2b08fe03354",
+              "sizeBytes": 236084
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop10.fbx",
+              "type": "Mesh",
+              "guid": "c53e0ca0d99383c4489cdbd0185b556e",
+              "sizeBytes": 661512
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop05.fbx",
+              "type": "Mesh",
+              "guid": "d2e91db5c34401546841c379bec2d900",
+              "sizeBytes": 369924
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+              "type": "Mesh",
+              "guid": "e3e337d7b982ad148b8bfa66deaccab4",
+              "sizeBytes": 549088
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop02.fbx",
+              "type": "Mesh",
+              "guid": "9026e501226ec6845b98ac95d8237e0a",
+              "sizeBytes": 640092
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop08.fbx",
+              "type": "Mesh",
+              "guid": "a8f501058933a714588c9d4d6fbd2f15",
+              "sizeBytes": 137532
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+              "type": "Mesh",
+              "guid": "3fd60972920674f42b37e975bc1ee490",
+              "sizeBytes": 467012
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+              "type": "Mesh",
+              "guid": "b2762135925625d45863c5aa0b56e5f8",
+              "sizeBytes": 355648
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+              "type": "Mesh",
+              "guid": "77c79207b18d25145a12ea591dc2b8bb",
+              "sizeBytes": 348560
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+              "type": "Mesh",
+              "guid": "c93704ef0b9a0e04b9395480f81e54b9",
+              "sizeBytes": 3284968
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+              "type": "Mesh",
+              "guid": "92c0a805d665484448ff0ac5ae9e08d2",
+              "sizeBytes": 53512
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+              "type": "Mesh",
+              "guid": "18b684c249cae014cacffb24956b03f4",
+              "sizeBytes": 205204
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+              "type": "Mesh",
+              "guid": "cdf506cc23df0ed448fef33441e2d8bb",
+              "sizeBytes": 68068
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+              "type": "Mesh",
+              "guid": "6ccb73f09e2887d469831f36467bd972",
+              "sizeBytes": 759016
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.fbx",
+              "type": "Mesh",
+              "guid": "9a65e4db865548e469802627852c22d0",
+              "sizeBytes": 90988
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx",
+              "type": "Mesh",
+              "guid": "ede501c8cef6c3545962102812082fea",
+              "sizeBytes": 220656
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+              "type": "Mesh",
+              "guid": "e3e337d7b982ad148b8bfa66deaccab4",
+              "sizeBytes": 85456
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.fbx",
+              "type": "Mesh",
+              "guid": "63f69fb9cf1c2d744b1479a17a867a5e",
+              "sizeBytes": 83196
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop11.fbx",
+              "type": "Mesh",
+              "guid": "9f6e391dc76f2b048a5156e224103576",
+              "sizeBytes": 467604
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop03.fbx",
+              "type": "Mesh",
+              "guid": "f4a63fee1caa4de49b4559ed0cb6ae89",
+              "sizeBytes": 240228
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+              "type": "Mesh",
+              "guid": "e3e337d7b982ad148b8bfa66deaccab4",
+              "sizeBytes": 237384
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+              "type": "Mesh",
+              "guid": "18b684c249cae014cacffb24956b03f4",
+              "sizeBytes": 389188
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop08.fbx",
+              "type": "Mesh",
+              "guid": "a8f501058933a714588c9d4d6fbd2f15",
+              "sizeBytes": 224580
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+              "type": "Mesh",
+              "guid": "73ff8b221ed09ed468400e14dcc17af0",
+              "sizeBytes": 196804
+            },
+            {
+              "assetPath": "Resources/unity_builtin_extra",
+              "type": "Shader",
+              "guid": "0000000000000000f000000000000000",
+              "sizeBytes": 124304
+            },
+            {
+              "assetPath": "Resources/unity_builtin_extra",
+              "type": "Shader",
+              "guid": "0000000000000000f000000000000000",
+              "sizeBytes": 7248
+            },
+            {
+              "assetPath": "Resources/unity_builtin_extra",
+              "type": "Shader",
+              "guid": "0000000000000000f000000000000000",
+              "sizeBytes": 3800
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/WorldStreetText.shader",
+              "type": "Shader",
+              "guid": "492afa8550c87de428f983b9f3bb7836",
+              "sizeBytes": 4336
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/WreckFlame.shader",
+              "type": "Shader",
+              "guid": "ad26708ffb8972344a1545bb1c06898d",
+              "sizeBytes": 3844
+            },
+            {
+              "assetPath": "Assets/PhoViet/Scripts/SoftParticle.shader",
+              "type": "Shader",
+              "guid": "ca136a327f49a284bbea1a34bd5393ea",
+              "sizeBytes": 3744
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+              "type": "AnimationClip",
+              "guid": "36ff14e9d4236cf459bf269a85954d4b",
+              "sizeBytes": 21444
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+              "type": "AnimationClip",
+              "guid": "3fd60972920674f42b37e975bc1ee490",
+              "sizeBytes": 21228
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "59f5e36d374c5b042b6c7d61ab492b95",
+              "sizeBytes": 21336
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "e3e337d7b982ad148b8bfa66deaccab4",
+              "sizeBytes": 21336
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+              "type": "AnimationClip",
+              "guid": "ed297cf5b108129409e7db2bf7af2127",
+              "sizeBytes": 21012
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+              "type": "AnimationClip",
+              "guid": "fa616daa4691c5342976cec232644279",
+              "sizeBytes": 21228
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+              "type": "AnimationClip",
+              "guid": "08b49ec9e6e21ac478d91f1dec7c0f96",
+              "sizeBytes": 14292
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "405762846cbeefb4d8d145539c722131",
+              "sizeBytes": 14544
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+              "type": "AnimationClip",
+              "guid": "77c79207b18d25145a12ea591dc2b8bb",
+              "sizeBytes": 14544
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+              "type": "AnimationClip",
+              "guid": "92c0a805d665484448ff0ac5ae9e08d2",
+              "sizeBytes": 14484
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+              "type": "AnimationClip",
+              "guid": "b2762135925625d45863c5aa0b56e5f8",
+              "sizeBytes": 14280
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "cdf506cc23df0ed448fef33441e2d8bb",
+              "sizeBytes": 14472
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+              "type": "AnimationClip",
+              "guid": "36ff14e9d4236cf459bf269a85954d4b",
+              "sizeBytes": 20456
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+              "type": "AnimationClip",
+              "guid": "3fd60972920674f42b37e975bc1ee490",
+              "sizeBytes": 20240
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "59f5e36d374c5b042b6c7d61ab492b95",
+              "sizeBytes": 20348
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "e3e337d7b982ad148b8bfa66deaccab4",
+              "sizeBytes": 20348
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+              "type": "AnimationClip",
+              "guid": "ed297cf5b108129409e7db2bf7af2127",
+              "sizeBytes": 20024
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+              "type": "AnimationClip",
+              "guid": "fa616daa4691c5342976cec232644279",
+              "sizeBytes": 20240
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+              "type": "AnimationClip",
+              "guid": "08b49ec9e6e21ac478d91f1dec7c0f96",
+              "sizeBytes": 18636
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "405762846cbeefb4d8d145539c722131",
+              "sizeBytes": 18888
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+              "type": "AnimationClip",
+              "guid": "77c79207b18d25145a12ea591dc2b8bb",
+              "sizeBytes": 18888
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+              "type": "AnimationClip",
+              "guid": "92c0a805d665484448ff0ac5ae9e08d2",
+              "sizeBytes": 18828
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+              "type": "AnimationClip",
+              "guid": "b2762135925625d45863c5aa0b56e5f8",
+              "sizeBytes": 18624
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "cdf506cc23df0ed448fef33441e2d8bb",
+              "sizeBytes": 18816
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+              "type": "AnimationClip",
+              "guid": "08b49ec9e6e21ac478d91f1dec7c0f96",
+              "sizeBytes": 13544
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "405762846cbeefb4d8d145539c722131",
+              "sizeBytes": 13796
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+              "type": "AnimationClip",
+              "guid": "77c79207b18d25145a12ea591dc2b8bb",
+              "sizeBytes": 13796
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+              "type": "AnimationClip",
+              "guid": "92c0a805d665484448ff0ac5ae9e08d2",
+              "sizeBytes": 13736
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+              "type": "AnimationClip",
+              "guid": "b2762135925625d45863c5aa0b56e5f8",
+              "sizeBytes": 13532
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "cdf506cc23df0ed448fef33441e2d8bb",
+              "sizeBytes": 13724
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+              "type": "AnimationClip",
+              "guid": "08b49ec9e6e21ac478d91f1dec7c0f96",
+              "sizeBytes": 11800
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+              "type": "AnimationClip",
+              "guid": "36ff14e9d4236cf459bf269a85954d4b",
+              "sizeBytes": 16384
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+              "type": "AnimationClip",
+              "guid": "3fd60972920674f42b37e975bc1ee490",
+              "sizeBytes": 16168
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "405762846cbeefb4d8d145539c722131",
+              "sizeBytes": 12052
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "59f5e36d374c5b042b6c7d61ab492b95",
+              "sizeBytes": 16276
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.fbx",
+              "type": "AnimationClip",
+              "guid": "63f69fb9cf1c2d744b1479a17a867a5e",
+              "sizeBytes": 11868
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+              "type": "AnimationClip",
+              "guid": "77c79207b18d25145a12ea591dc2b8bb",
+              "sizeBytes": 12052
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+              "type": "AnimationClip",
+              "guid": "92c0a805d665484448ff0ac5ae9e08d2",
+              "sizeBytes": 11992
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.fbx",
+              "type": "AnimationClip",
+              "guid": "9a65e4db865548e469802627852c22d0",
+              "sizeBytes": 11952
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+              "type": "AnimationClip",
+              "guid": "b2762135925625d45863c5aa0b56e5f8",
+              "sizeBytes": 11788
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "cdf506cc23df0ed448fef33441e2d8bb",
+              "sizeBytes": 11980
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "e3e337d7b982ad148b8bfa66deaccab4",
+              "sizeBytes": 16276
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+              "type": "AnimationClip",
+              "guid": "ed297cf5b108129409e7db2bf7af2127",
+              "sizeBytes": 15952
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+              "type": "AnimationClip",
+              "guid": "fa616daa4691c5342976cec232644279",
+              "sizeBytes": 16168
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+              "type": "AnimationClip",
+              "guid": "08b49ec9e6e21ac478d91f1dec7c0f96",
+              "sizeBytes": 14292
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "405762846cbeefb4d8d145539c722131",
+              "sizeBytes": 14544
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+              "type": "AnimationClip",
+              "guid": "77c79207b18d25145a12ea591dc2b8bb",
+              "sizeBytes": 14544
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+              "type": "AnimationClip",
+              "guid": "92c0a805d665484448ff0ac5ae9e08d2",
+              "sizeBytes": 14484
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+              "type": "AnimationClip",
+              "guid": "b2762135925625d45863c5aa0b56e5f8",
+              "sizeBytes": 14280
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "cdf506cc23df0ed448fef33441e2d8bb",
+              "sizeBytes": 14472
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+              "type": "AnimationClip",
+              "guid": "36ff14e9d4236cf459bf269a85954d4b",
+              "sizeBytes": 18408
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+              "type": "AnimationClip",
+              "guid": "3fd60972920674f42b37e975bc1ee490",
+              "sizeBytes": 18192
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "59f5e36d374c5b042b6c7d61ab492b95",
+              "sizeBytes": 18300
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "e3e337d7b982ad148b8bfa66deaccab4",
+              "sizeBytes": 18300
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+              "type": "AnimationClip",
+              "guid": "ed297cf5b108129409e7db2bf7af2127",
+              "sizeBytes": 17976
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+              "type": "AnimationClip",
+              "guid": "fa616daa4691c5342976cec232644279",
+              "sizeBytes": 18192
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.fbx",
+              "type": "AnimationClip",
+              "guid": "63f69fb9cf1c2d744b1479a17a867a5e",
+              "sizeBytes": 11868
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.fbx",
+              "type": "AnimationClip",
+              "guid": "9a65e4db865548e469802627852c22d0",
+              "sizeBytes": 11952
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.fbx",
+              "type": "AnimationClip",
+              "guid": "63f69fb9cf1c2d744b1479a17a867a5e",
+              "sizeBytes": 16756
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.fbx",
+              "type": "AnimationClip",
+              "guid": "9a65e4db865548e469802627852c22d0",
+              "sizeBytes": 16840
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+              "type": "AnimationClip",
+              "guid": "36ff14e9d4236cf459bf269a85954d4b",
+              "sizeBytes": 20016
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+              "type": "AnimationClip",
+              "guid": "3fd60972920674f42b37e975bc1ee490",
+              "sizeBytes": 19800
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "59f5e36d374c5b042b6c7d61ab492b95",
+              "sizeBytes": 19908
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "e3e337d7b982ad148b8bfa66deaccab4",
+              "sizeBytes": 19908
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+              "type": "AnimationClip",
+              "guid": "ed297cf5b108129409e7db2bf7af2127",
+              "sizeBytes": 19584
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+              "type": "AnimationClip",
+              "guid": "fa616daa4691c5342976cec232644279",
+              "sizeBytes": 19800
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+              "type": "AnimationClip",
+              "guid": "08b49ec9e6e21ac478d91f1dec7c0f96",
+              "sizeBytes": 14680
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "405762846cbeefb4d8d145539c722131",
+              "sizeBytes": 14932
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+              "type": "AnimationClip",
+              "guid": "77c79207b18d25145a12ea591dc2b8bb",
+              "sizeBytes": 14932
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+              "type": "AnimationClip",
+              "guid": "92c0a805d665484448ff0ac5ae9e08d2",
+              "sizeBytes": 14872
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+              "type": "AnimationClip",
+              "guid": "b2762135925625d45863c5aa0b56e5f8",
+              "sizeBytes": 14668
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "cdf506cc23df0ed448fef33441e2d8bb",
+              "sizeBytes": 14860
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+              "type": "AnimationClip",
+              "guid": "36ff14e9d4236cf459bf269a85954d4b",
+              "sizeBytes": 21440
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+              "type": "AnimationClip",
+              "guid": "3fd60972920674f42b37e975bc1ee490",
+              "sizeBytes": 21224
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "59f5e36d374c5b042b6c7d61ab492b95",
+              "sizeBytes": 21332
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "e3e337d7b982ad148b8bfa66deaccab4",
+              "sizeBytes": 21332
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+              "type": "AnimationClip",
+              "guid": "ed297cf5b108129409e7db2bf7af2127",
+              "sizeBytes": 21008
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+              "type": "AnimationClip",
+              "guid": "fa616daa4691c5342976cec232644279",
+              "sizeBytes": 21224
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.fbx",
+              "type": "AnimationClip",
+              "guid": "63f69fb9cf1c2d744b1479a17a867a5e",
+              "sizeBytes": 14072
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.fbx",
+              "type": "AnimationClip",
+              "guid": "9a65e4db865548e469802627852c22d0",
+              "sizeBytes": 14156
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+              "type": "AnimationClip",
+              "guid": "08b49ec9e6e21ac478d91f1dec7c0f96",
+              "sizeBytes": 14680
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "405762846cbeefb4d8d145539c722131",
+              "sizeBytes": 14932
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+              "type": "AnimationClip",
+              "guid": "77c79207b18d25145a12ea591dc2b8bb",
+              "sizeBytes": 14932
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+              "type": "AnimationClip",
+              "guid": "92c0a805d665484448ff0ac5ae9e08d2",
+              "sizeBytes": 14872
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+              "type": "AnimationClip",
+              "guid": "b2762135925625d45863c5aa0b56e5f8",
+              "sizeBytes": 14668
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+              "type": "AnimationClip",
+              "guid": "cdf506cc23df0ed448fef33441e2d8bb",
+              "sizeBytes": 14860
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+              "type": "AnimationClip",
+              "guid": "36ff14e9d4236cf459bf269a85954d4b",
+              "sizeBytes": 20020
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+              "type": "AnimationClip",
+              "guid": "3fd60972920674f42b37e975bc1ee490",
+              "sizeBytes": 19804
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "59f5e36d374c5b042b6c7d61ab492b95",
+              "sizeBytes": 19912
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+              "type": "AnimationClip",
+              "guid": "e3e337d7b982ad148b8bfa66deaccab4",
+              "sizeBytes": 19912
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+              "type": "AnimationClip",
+              "guid": "ed297cf5b108129409e7db2bf7af2127",
+              "sizeBytes": 19588
+            },
+            {
+              "assetPath": "Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+              "type": "AnimationClip",
+              "guid": "fa616daa4691c5342976cec232644279",
+              "sizeBytes": 19804
+            },
+            {
+              "assetPath": "Assets/PhoViet/Audio/Navigation/straight.mp3",
+              "type": "AudioClip",
+              "guid": "024fe483360d44a479c4fd45cfbc97a6",
+              "sizeBytes": 92
+            },
+            {
+              "assetPath": "Assets/PhoViet/Audio/Navigation/right.mp3",
+              "type": "AudioClip",
+              "guid": "654b532ab745ebb46a9af1067f229720",
+              "sizeBytes": 92
+            },
+            {
+              "assetPath": "Assets/PhoViet/Audio/Navigation/left.mp3",
+              "type": "AudioClip",
+              "guid": "bc9667aca867795418647ff141710d37",
+              "sizeBytes": 88
+            },
+            {
+              "assetPath": "Resources/unity_builtin_extra",
+              "type": "Cubemap",
+              "guid": "0000000000000000f000000000000000",
+              "sizeBytes": 524492
+            },
+            {
+              "assetPath": "Assets/PhoViet/Fonts/BeVietnamPro-SemiBold.ttf",
+              "type": "Font",
+              "guid": "f72a0311d028fa1428e7cd2038ab4849",
+              "sizeBytes": 136878
+            }
+          ]
+        },
+        {
+          "bundlePath": "sharedassets0.resource",
+          "overheadBytes": 11,
+          "contents": [
+            {
+              "assetPath": "Assets/PhoViet/Audio/Navigation/straight.mp3",
+              "type": "AudioClip",
+              "guid": "024fe483360d44a479c4fd45cfbc97a6",
+              "sizeBytes": 56837
+            },
+            {
+              "assetPath": "Assets/PhoViet/Audio/Navigation/right.mp3",
+              "type": "AudioClip",
+              "guid": "654b532ab745ebb46a9af1067f229720",
+              "sizeBytes": 61888
+            },
+            {
+              "assetPath": "Assets/PhoViet/Audio/Navigation/left.mp3",
+              "type": "AudioClip",
+              "guid": "bc9667aca867795418647ff141710d37",
+              "sizeBytes": 59643
+            }
+          ]
+        }
+      ],
+      "buildSteps": [
+        {
+          "name": "Build player",
+          "durationMs": 192381,
+          "depth": 0,
+          "messages": []
+        },
+        {
+          "name": "Preprocess Player",
+          "durationMs": 154,
+          "depth": 1,
+          "messages": [
+            {
+              "type": "Warning",
+              "content": "Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds."
+            }
+          ]
+        },
+        {
+          "name": "Back up scenes",
+          "durationMs": 124,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Prepare For Build",
+          "durationMs": 1,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "ProducePlayerScriptAssemblies",
+          "durationMs": 4475,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Prebuild Cleanup and Recompile",
+          "durationMs": 3084,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Compile scripts",
+          "durationMs": 3062,
+          "depth": 3,
+          "messages": [
+            {
+              "type": "Warning",
+              "content": "Assets\\PhoViet\\Scripts\\PhoVietGame.cs(73,34): warning CS0414: The field 'PhoVietGame.dragging' is assigned but its value is never used"
+            },
+            {
+              "type": "Warning",
+              "content": "Assets\\PhoViet\\Scripts\\PhoVietPortraitHud.cs(11,7): warning CS0414: The field 'PhoVietGame.hudTouchChoice' is assigned but its value is never used"
+            }
+          ]
+        },
+        {
+          "name": "Generate and validate platform script types",
+          "durationMs": 3,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Verify Build setup",
+          "durationMs": 51,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "GetUnityAssemblies",
+          "durationMs": 4,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "GetPlayerAssemblies",
+          "durationMs": 5,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Check old data build",
+          "durationMs": 31,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Prepare assets for target platform",
+          "durationMs": 4,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Prepare splash screen",
+          "durationMs": 1,
+          "depth": 1,
+          "messages": [
+            {
+              "type": "Log",
+              "content": "Including Unity Splash Screen logo because 'Show Unity Logo' is enabled."
+            }
+          ]
+        },
+        {
+          "name": "Build scripts DLLs",
+          "durationMs": 31,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "GetSystemAssemblies",
+          "durationMs": 2,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Compile Global Game Manager dependencies",
+          "durationMs": 6,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Load object[unnamed] (Sprite) from Library/SplashScreenCache/91/914ccc9a4e8ab6e77854c75a16955a54",
+          "durationMs": 1,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Building scenes",
+          "durationMs": 1483,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Building scene Assets/PhoViet/Scenes/PhoViet.unity",
+          "durationMs": 1483,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Building scene 0: PhoViet",
+          "durationMs": 1477,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Load scene (and close previous ones)",
+          "durationMs": 788,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Compile game scene dependencies",
+          "durationMs": 295,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Compile game scene",
+          "durationMs": 381,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Rebuild resources",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Compile Resources folder dependencies",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Build GlobalGameManagers file",
+          "durationMs": 156,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Writing asset files",
+          "durationMs": 529,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Packaging assets - globalgamemanagers.assets",
+          "durationMs": 14,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Write file:globalgamemanagers.assets",
+          "durationMs": 13,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - PhoVietGame (MonoScript) from Assets/PhoViet/Scripts/PhoVietGame.cs",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - Sprites-Default (Material) from Resources/unity_builtin_extra",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - Splash Screen Unity Logo (Texture2D) from Library/SplashScreenCache/91/914ccc9a4e8ab6e77854c75a16955a54",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Finish writing",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Packaging assets - resources.assets",
+          "durationMs": 23,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Write file:resources.assets",
+          "durationMs": 22,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - PhoViet/Waypoint Solid (Shader) from Assets/PhoViet/Resources/PhoVietWaypointSolid.shader",
+          "durationMs": 15,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Finish writing",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Packaging assets - sharedassets0.assets = additional assets for scene 0: Assets/PhoViet/Scenes/PhoViet.unity",
+          "durationMs": 482,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Extract assets to write",
+          "durationMs": 28,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Load dependencies - PV_E3E2CEFFFalse 1 (Material) from Assets/PhoViet/Generated/PV_E3E2CEFFFalse 1.mat",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write file:sharedassets0.assets",
+          "durationMs": 452,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_StreetTree1_LOD1 (Mesh) from Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Racer_LOD1 (Mesh) from Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_DeliveryVan_LOD2 (Mesh) from Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_StreetTree0_LOD1 (Mesh) from Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_HeroScooter_Body (Mesh) from Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+          "durationMs": 7,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+          "durationMs": 3,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_DrowsyTruck_LOD2 (Mesh) from Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_StreetShop06_LOD0 (Mesh) from Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Hatchback_Body (Mesh) from Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+          "durationMs": 4,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Underbone_LOD2 (Mesh) from Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Racer_LOD2 (Mesh) from Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_SportBike_LOD1 (Mesh) from Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_StreetShop09_LOD0 (Mesh) from Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+          "durationMs": 4,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_StreetTree0_LOD2 (Mesh) from Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Hatchback_LOD1 (Mesh) from Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_DeliveryVan_LOD1 (Mesh) from Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_DrowsyTruck_Body (Mesh) from Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+          "durationMs": 4,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Sedan_LOD1 (Mesh) from Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_StreetTree2_LOD0 (Mesh) from Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+          "durationMs": 3,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_BoxTruck_Body (Mesh) from Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+          "durationMs": 4,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_BoxTruck_LOD1 (Mesh) from Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+          "durationMs": 3,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_HeroScooter_LOD2 (Mesh) from Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_10 2 (Mesh) from Assets/PhoViet/Generated/Geometry_10 2.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_10 2.asset",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_11 2 (Mesh) from Assets/PhoViet/Generated/Geometry_11 2.asset",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_11 2.asset",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_16 3 (Mesh) from Assets/PhoViet/Generated/Geometry_16 3.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_16 3.asset",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_17 3 (Mesh) from Assets/PhoViet/Generated/Geometry_17 3.asset",
+          "durationMs": 3,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_17 3.asset",
+          "durationMs": 3,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_19 3 (Mesh) from Assets/PhoViet/Generated/Geometry_19 3.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_19 3.asset",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_29 3 (Mesh) from Assets/PhoViet/Generated/Geometry_29 3.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_29 3.asset",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_3 6 (Mesh) from Assets/PhoViet/Generated/Geometry_3 6.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_3 6.asset",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_30 3 (Mesh) from Assets/PhoViet/Generated/Geometry_30 3.asset",
+          "durationMs": 3,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_30 3.asset",
+          "durationMs": 3,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_32 3 (Mesh) from Assets/PhoViet/Generated/Geometry_32 3.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_32 3.asset",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_4 6 (Mesh) from Assets/PhoViet/Generated/Geometry_4 6.asset",
+          "durationMs": 3,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_4 6.asset",
+          "durationMs": 3,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_42 2 (Mesh) from Assets/PhoViet/Generated/Geometry_42 2.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_42 2.asset",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_43 2 (Mesh) from Assets/PhoViet/Generated/Geometry_43 2.asset",
+          "durationMs": 3,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_43 2.asset",
+          "durationMs": 3,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_45 2 (Mesh) from Assets/PhoViet/Generated/Geometry_45 2.asset",
+          "durationMs": 10,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_45 2.asset",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_5 2 (Mesh) from Assets/PhoViet/Generated/Geometry_5 2.asset",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_5 2.asset",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_55 2 (Mesh) from Assets/PhoViet/Generated/Geometry_55 2.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_55 2.asset",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_56 2 (Mesh) from Assets/PhoViet/Generated/Geometry_56 2.asset",
+          "durationMs": 3,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_56 2.asset",
+          "durationMs": 3,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_58 2 (Mesh) from Assets/PhoViet/Generated/Geometry_58 2.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_58 2.asset",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_6 6 (Mesh) from Assets/PhoViet/Generated/Geometry_6 6.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_6 6.asset",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_68 2 (Mesh) from Assets/PhoViet/Generated/Geometry_68 2.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_68 2.asset",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_69 2 (Mesh) from Assets/PhoViet/Generated/Geometry_69 2.asset",
+          "durationMs": 3,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_69 2.asset",
+          "durationMs": 3,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_71 2 (Mesh) from Assets/PhoViet/Generated/Geometry_71 2.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_71 2.asset",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_81 2 (Mesh) from Assets/PhoViet/Generated/Geometry_81 2.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_81 2.asset",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_82 2 (Mesh) from Assets/PhoViet/Generated/Geometry_82 2.asset",
+          "durationMs": 3,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_82 2.asset",
+          "durationMs": 3,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_84 2 (Mesh) from Assets/PhoViet/Generated/Geometry_84 2.asset",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_84 2.asset",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Geometry_9 2 (Mesh) from Assets/PhoViet/Generated/Geometry_9 2.asset",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/Geometry_9 2.asset",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_RouteParked_PV_CityScooter (Mesh) from Assets/PhoViet/Generated/RouteParked_PV_CityScooter.asset",
+          "durationMs": 6,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/RouteParked_PV_CityScooter.asset",
+          "durationMs": 5,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_RouteParked_PV_SportBike (Mesh) from Assets/PhoViet/Generated/RouteParked_PV_SportBike.asset",
+          "durationMs": 4,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/RouteParked_PV_SportBike.asset",
+          "durationMs": 4,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_RouteParked_PV_Underbone (Mesh) from Assets/PhoViet/Generated/RouteParked_PV_Underbone.asset",
+          "durationMs": 5,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Generated/RouteParked_PV_Underbone.asset",
+          "durationMs": 4,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_HeroScooter_LOD1 (Mesh) from Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+          "durationMs": 3,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_HeroScooter.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Sedan_Body (Mesh) from Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+          "durationMs": 4,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Cars/PV_Sedan.fbx",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Underbone_LOD1 (Mesh) from Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_SportBike_LOD2 (Mesh) from Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Taxi_LOD1 (Mesh) from Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Underbone_Body (Mesh) from Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+          "durationMs": 6,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_Underbone.fbx",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_StreetTree2_LOD1 (Mesh) from Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_TrafficPolice_Body (Mesh) from Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+          "durationMs": 6,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_DrowsyTruck_LOD1 (Mesh) from Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Cars/PV_DrowsyTruck.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_TrafficPolice_LOD1 (Mesh) from Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Racer_Body (Mesh) from Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+          "durationMs": 5,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_Racer.fbx",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_StreetTree1_LOD0 (Mesh) from Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+          "durationMs": 2,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_TrafficPolice_LOD2 (Mesh) from Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Taxi_LOD2 (Mesh) from Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_CityScooter_Body (Mesh) from Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+          "durationMs": 7,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_SportBike_Body (Mesh) from Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+          "durationMs": 5,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_SportBike.fbx",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Taxi_Body (Mesh) from Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+          "durationMs": 4,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Cars/PV_Taxi.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_DeliveryVan_Body (Mesh) from Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+          "durationMs": 4,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Cars/PV_DeliveryVan.fbx",
+          "durationMs": 2,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_StreetTree0_LOD0 (Mesh) from Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+          "durationMs": 17,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_Hatchback_LOD2 (Mesh) from Assets/PhoViet/Art/Cars/PV_Hatchback.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_BoxTruck_LOD2 (Mesh) from Assets/PhoViet/Art/Cars/PV_BoxTruck.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_CityScooter_LOD2 (Mesh) from Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PV_CityScooter_LOD1 (Mesh) from Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+          "durationMs": 3,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Load object from Assets/PhoViet/Art/Bikes/PV_CityScooter.fbx",
+          "durationMs": 1,
+          "depth": 5,
+          "messages": []
+        },
+        {
+          "name": "Write object - Standard (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 49,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - Skybox/Procedural (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - Unlit/Color (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - PhoViet/World Street Text (Shader) from Assets/PhoViet/Scripts/WorldStreetText.shader",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Write object - straight (AudioClip) from Assets/PhoViet/Audio/Navigation/straight.mp3",
+          "durationMs": 1,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Finish writing",
+          "durationMs": 53,
+          "depth": 4,
+          "messages": []
+        },
+        {
+          "name": "Building Resources/unity_builtin_extra",
+          "durationMs": 116,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Write file:Library/PlayerDataCache/WebGL/Data/Resources/unity_builtin_extra",
+          "durationMs": 115,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Write object - Legacy Shaders/VertexLit (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 5,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Legacy Shaders/Diffuse (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 5,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-DepthNormalsTexture (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 4,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-ScreenSpaceShadows (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 3,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-DeferredShading (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 10,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-DeferredReflections (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-MotionVectors (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/BlitToDepth (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-DebugPattern (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-GUITextureClip (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-GUITextureClipText (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-GUITexture (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-GUITextureBlit (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-GUIRoundedRect (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-GUIRoundedRectWithColorPerBorder (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-UIRDefault (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 30,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-UIRAtlasBlitCopy (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Sprites/Default (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Sprites/Mask (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - UI/Default (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 2,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - UI/DefaultETC1 (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 2,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/CubeBlur (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/CubeCopy (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/CubeBlend (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Internal-ODSWorldTexture (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 5,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/VR/BlitFromTex2DToTexArraySlice (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Compositing (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/TextCore/Distance Field SSD (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Physics2D/SDF_CircleGeometry (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Physics2D/SDF_CapsuleGeometry (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Write object - Hidden/Physics2D/SDF_PolygonGeometry (Shader) from Resources/unity_builtin_extra",
+          "durationMs": 1,
+          "depth": 3,
+          "messages": []
+        },
+        {
+          "name": "Creating compressed player package",
+          "durationMs": 5498,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Write data build dirty tracking information",
+          "durationMs": 37,
+          "depth": 1,
+          "messages": []
+        },
+        {
+          "name": "Postprocess built player",
+          "durationMs": 179263,
+          "depth": 1,
+          "messages": [
+            {
+              "type": "Log",
+              "content": "PHỐ VIỆT PWA ready: 20 offline files, cache 88961a68f468460d"
+            }
+          ]
+        },
+        {
+          "name": "Setup incremental player build",
+          "durationMs": 64,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Incremental player build",
+          "durationMs": 178517,
+          "depth": 2,
+          "messages": []
+        },
+        {
+          "name": "Report output files",
+          "durationMs": 13,
+          "depth": 2,
+          "messages": []
+        }
+      ],
+      "errors": [],
+      "warnings": [
+        {
+          "message": "Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds."
+        },
+        {
+          "message": "warning CS0414: The field 'PhoVietGame.dragging' is assigned but its value is never used",
+          "file": "Assets\\PhoViet\\Scripts\\PhoVietGame.cs"
+        },
+        {
+          "message": "warning CS0414: The field 'PhoVietGame.hudTouchChoice' is assigned but its value is never used",
+          "file": "Assets\\PhoViet\\Scripts\\PhoVietPortraitHud.cs"
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

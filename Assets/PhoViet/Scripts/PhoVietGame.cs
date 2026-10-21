@@ -118,6 +118,7 @@ namespace PhoViet
         }
         public void ResetRide()
         {
+            CancelSwipe();
             int seed;do{seed=Guid.NewGuid().GetHashCode()&int.MaxValue;}while(seed==RunSeed);
             RunSeed=seed;rng=new System.Random(seed);
             State=RideState.Ready;Distance=0;Speed=0;CurrentLane=2;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;noticeTimer=0;
@@ -150,6 +151,7 @@ namespace PhoViet
         public void TogglePause()
         {
             if(JobOffersOpen)return;
+            CancelSwipe();
             if(State==RideState.Riding||State==RideState.Falling||State==RideState.Recovering){pauseFromState=State;State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);}
             else if(State==RideState.Paused){State=pauseFromState;PauseRecklessFx(false);if(sound){if(State==RideState.Riding){engine.UnPause();navigationAudio?.UnPause();}if(IsChased)siren?.UnPause();}}
         }
@@ -266,28 +268,6 @@ namespace PhoViet
             UpdateDangerSigns();
             if(engine!=null){engine.mute=!sound;engine.pitch=.85f+Speed/45f;}
             if(siren!=null)siren.mute=!sound;
-        }
-        void ReadSwipe()
-        {
-            if(Input.touchCount>0)
-            {
-                var t=Input.GetTouch(0);
-                if(t.phase==TouchPhase.Began){swipeStart=t.position;touchStarted=Time.unscaledTime;swipeCanSteer=GameplayPointerAllowed(t.position);}
-                if(t.phase==TouchPhase.Ended&&swipeCanSteer)
-                {
-                    Vector2 swipe=t.position-swipeStart;
-                    if(IsJumpSwipe(swipe,Screen.width)){TryJump();lastTapTime=-100;}
-                    else if(IsBoostSwipe(swipe,Screen.width)){TryBoost();lastTapTime=-100;}
-                    else if(Mathf.Abs(swipe.x)>Screen.width*.075f){MoveLane(swipe.x>0?1:-1);lastTapTime=-100;}
-                    else if(Vector2.Distance(t.position,swipeStart)<Screen.width*.035f&&Time.unscaledTime-touchStarted<.24f)
-                        RegisterTap(t.position,Time.unscaledTime);
-                }
-            }
-            else
-            {
-                if(Input.GetMouseButtonDown(0)){swipeStart=Input.mousePosition;dragging=GameplayPointerAllowed(Input.mousePosition);}
-                if(Input.GetMouseButtonUp(0)&&dragging){dragging=false;Vector2 swipe=(Vector2)Input.mousePosition-swipeStart;if(IsJumpSwipe(swipe,Screen.width)){TryJump();lastTapTime=-100;}else if(IsBoostSwipe(swipe,Screen.width)){TryBoost();lastTapTime=-100;}else if(Mathf.Abs(swipe.x)>Screen.width*.075f)MoveLane(swipe.x>0?1:-1);}
-            }
         }
         void TickRide(float dt)
         {
