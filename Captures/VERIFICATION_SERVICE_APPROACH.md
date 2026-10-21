@@ -24,7 +24,10 @@
 - **26 kiểm tra gói web cục bộ đạt**: toàn bộ tài nguyên khớp build, WASM thật khởi tạo được, bắt đầu/tạm dừng hoạt động và không có lỗi JavaScript/Unity (`service-approach-local-results.json`).
 - **20 kiểm tra WebGL mobile đạt** trên giả lập iPhone/iPad, cả dọc và ngang: canvas phủ màn hình, vùng safe area, ẩn toolbar/menu theo bố cục và không có lỗi runtime (`fullscreen-game-service-approach-results.json`). Đây là giả lập Chrome theo thiết bị, không phải thử trực tiếp trên iPhone vật lý. Tổng **998 điều kiện Unity + WebGL**.
 - Unity cuối kiểm tra ở Edit Mode, công việc được bật; ví **75 Coin** và kỷ lục **1.775 m** được giữ nguyên.
-- Chưa push/phát hành bản 1.30.1; xác nhận phát hành gần nhất của người dùng áp dụng bản 1.30.0.
+- Người dùng đã xác nhận cho phép push/phát hành **1.30.1**. Commit nguồn và gói web `1bd65b2da9f27d1daec98d1624bcbeeb22a8af92` đã được push lên `main`.
+- GitHub Pages [run 39658160761](https://github.com/denispham1107/taixecongnghe/actions/runs/39658160761) hoàn tất thành công cho đúng commit trên (`service-approach-pages-release.json`).
+- [Bản công khai](https://denispham1107.github.io/taixecongnghe/) đã trả về **1.30.1**, cache `a9544bfce916de62`, khớp build đã kiểm tra.
+- **26 kiểm tra trên web công khai đạt**: tất cả tài nguyên khớp, Unity WebAssembly khởi tạo, bắt đầu/tạm dừng hoạt động và không có lỗi runtime (`service-approach-live-results.json`). Tổng **998 điều kiện trước phát hành + 26 điều kiện trên bản công khai**.
 
 ## Các file chính
 

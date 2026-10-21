@@ -1,0 +1,56 @@
+{
+  "id": 39658160761,
+  "status": "completed",
+  "conclusion": "success",
+  "head_sha": "1bd65b2da9f27d1daec98d1624bcbeeb22a8af92",
+  "html_url": "https://github.com/denispham1107/taixecongnghe/actions/runs/39658160761",
+  "jobs": [
+    {
+      "name": "deploy",
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/configure-pages@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Validate the built game",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-pages-artifact@v3",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Deploy to GitHub Pages",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}
