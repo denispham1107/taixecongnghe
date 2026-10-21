@@ -20,4 +20,9 @@
 
 ## Phát hành
 
-- Phiên bản: 1.29.2. Trạng thái push/Pages sẽ được bổ sung sau khi triển khai.
+- Phiên bản: 1.29.2. Commit nguồn/build đã tạo trên máy: `19fdea8`.
+- Người dùng đã xác nhận “Cho phép push và phát hành bản 1.29.2”. Commit `19fdea8e15c3db41e5d419543302e0a61fd72cfd` đã push lên main của `denispham1107/taixecongnghe`.
+- GitHub Pages triển khai thành công đúng commit: https://github.com/denispham1107/taixecongnghe/actions/runs/39607742822.
+- 26 kiểm tra bản công khai đạt: phiên bản 1.29.2/cache `124df654195facbf` khớp, toàn bộ tài nguyên khớp build đã kiểm tra, WebAssembly khởi động, input bắt đầu/tạm dừng hoạt động và không có lỗi JavaScript/Unity runtime. Kết quả lưu tại `night-jump-live-results.json`; trạng thái Pages lưu tại `night-jump-pages-status.txt`.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/. Đóng hẳn rồi mở lại web app/PWA để nhận bản 1.29.2.
+- Unity đã trở về Edit Mode/Game View ngang, công việc bật; giữ 55 Coin và kỷ lục 1.775 m. Máy chủ localhost kiểm tra đã dừng. Giữ riêng toàn bộ thay đổi Blender và `huongdan.md` đang có sẵn của người dùng.
