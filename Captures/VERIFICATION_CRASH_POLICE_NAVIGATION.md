@@ -34,4 +34,7 @@
 
 ## Phát hành
 
-- Bản hoàn chỉnh **1.30.2** đã build và kiểm tra cục bộ; chưa push/phát hành. Quyền phát hành gần nhất của người dùng áp dụng bản 1.30.1.
+- Người dùng đã xác nhận cho phép push/phát hành **1.30.2**. Commit nguồn và gói web `e8691d2bda3bfb4300ed379012032dfb3bed3dc3` đã được push lên `main`.
+- GitHub Pages [run 39663697829](https://github.com/denispham1107/taixecongnghe/actions/runs/39663697829) hoàn tất thành công cho đúng commit trên (`crash-police-pages-release.json`).
+- [Bản công khai](https://denispham1107.github.io/taixecongnghe/) trả về **1.30.2**, cache `f8a17176175c5001`, khớp gói đã kiểm tra.
+- **26 kiểm tra trên web công khai đạt**: toàn bộ tài nguyên khớp build, WASM khởi tạo, bắt đầu/tạm dừng hoạt động và không có lỗi runtime (`crash-police-live-results.json`). Tổng **719 điều kiện trước phát hành + 26 điều kiện trên bản công khai**.
