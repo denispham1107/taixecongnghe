@@ -1,0 +1,50 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "checks": [
+    "Tested WebGL release is 1.30.2",
+    "desktop Unity WASM initialized",
+    "desktop pursuit crash physically completes capture and displays the jail replay panel",
+    "phone-portrait Unity WASM initialized",
+    "phone-portrait pursuit crash physically completes capture and displays the jail replay panel",
+    "phone-landscape Unity WASM initialized",
+    "phone-landscape pursuit crash physically completes capture and displays the jail replay panel",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "captures": [
+    {
+      "label": "desktop",
+      "path": "Captures/crash-police-web-desktop-jail.png",
+      "elapsedMs": 93138,
+      "visible": true,
+      "redRatio": 0.9557109557109557,
+      "width": 1024,
+      "height": 588
+    },
+    {
+      "label": "phone-portrait",
+      "path": "Captures/crash-police-web-phone-portrait-jail.png",
+      "elapsedMs": 47797,
+      "visible": true,
+      "redRatio": 0.9639751552795031,
+      "width": 412,
+      "height": 839
+    },
+    {
+      "label": "phone-landscape",
+      "path": "Captures/crash-police-web-phone-landscape-jail.png",
+      "elapsedMs": 73049,
+      "visible": true,
+      "redRatio": 0.9411764705882353,
+      "width": 844,
+      "height": 390
+    }
+  ],
+  "build": {
+    "version": "1.30.2",
+    "cache": "f8a17176175c5001",
+    "unity": "6000.5.6f1",
+    "utc": "2026-10-21T19:31:56.4968716Z"
+  },
+  "success": true
+}

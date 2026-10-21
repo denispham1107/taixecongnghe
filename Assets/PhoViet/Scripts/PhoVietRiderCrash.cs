@@ -16,13 +16,12 @@ namespace PhoViet
   float settledTime,fallTargetRoll,fallTargetPitch,oldRiderYaw;
   float[] riderContactUntil;
   bool riderVelocityValid;
-  int crashPoliceDetourSide=1;
   const float RiderGroundDrag=9f;
   void ResetRiderImpact()
   {
    CrashDuringPursuit=false;RiderFallComplete=false;RiderFallTravel=0;LastRiderImpactSpeed=0;
    fallTime=0;settledTime=0;pauseFromState=RideState.Riding;
-   crashPoliceDetourSide=1;
+   ResetCrashPoliceNavigation();
    riderFallVelocity=Vector3.zero;riderFallSpin=Vector3.zero;riderRoadVelocity=Vector3.zero;riderVelocityValid=false;
    riderContactUntil=new float[vehicles.Count];
    riderBody=new TrafficVehicle{model=rider,halfWidth=.33f,halfLength=.91f};
@@ -37,7 +36,7 @@ namespace PhoViet
   {
    if(State!=RideState.Riding)return;
    CrashDuringPursuit=IsChased;RiderFallComplete=false;CancelSwipe();
-   if(policeBike!=null)crashPoliceDetourSide=policeBike.localPosition.x<rider.localPosition.x?-1:1;
+   ResetCrashPoliceNavigation();
    crashTurnRotation=Quaternion.Euler(0,IsTurning?TurnYaw:0,0);
    QueuedTurn=0;fallTime=0;settledTime=0;RiderFallTravel=0;
    riderFallVelocity=before;riderFallEuler=rider.localEulerAngles;
@@ -145,27 +144,20 @@ namespace PhoViet
   void TickCrashPolice(float dt)
   {
    if(policeBike==null||dt<=0)return;
-   if(PoliceFallen){if(routePolice)TickRoutePolice(dt);else TickPoliceDriving(dt);return;}
+   if(PoliceFallen){crashPolicePath.Clear();crashPoliceReplan=0;if(routePolice)TickRoutePolice(dt);else TickPoliceDriving(dt);return;}
    if(policeBody==null)policeBody=new TrafficVehicle{model=policeBike,halfWidth=.5f,halfLength=1.2f};
    Vector3 before=policeBike.localPosition,start=before-Vector3.forward*Speed*dt,next=start;
    policeBody.previousPosition=before;policeBody.previousYaw=policeBike.localEulerAngles.y;policeBody.knocked=false;
    float nominal=Mathf.Max(12,cruiseSpeed+5);bool clear=false;
-   Vector3 destination=rider.localPosition;destination.y=0;
-   Vector3 toward=destination-start;toward.y=0;
-   float directYaw=Mathf.Atan2(toward.x,toward.z)*Mathf.Rad2Deg;
-   // A direct ray alone gets stuck behind a parked car. Probe a fan around it,
-   // keeping one preferred detour side, and move only one bounded physics step.
-   foreach(float angle in new[]{0f,30f,60f,90f,120f,-30f,-60f,-90f,-120f,180f})
+   bool arrived=Vector3.Distance(start,rider.localPosition)<=2.1f;
+   if(!arrived&&CrashPoliceWaypoint(start,dt,out Vector3 target))
    {
-    float yaw=directYaw+angle*crashPoliceDetourSide;Vector3 direction=Quaternion.Euler(0,yaw,0)*Vector3.forward;
-    float reach=Mathf.Min(toward.magnitude,Mathf.Max(nominal*dt,3.2f));
-    Vector3 probe=start+direction*reach;
-    if(!IsTurning&&Mathf.Abs(probe.x)>8.4f)continue;
-    if(!RoutePolicePathClear(before,probe,yaw,Mathf.Max(dt,reach/nominal)))continue;
-    next=start+direction*Mathf.Min(nominal*dt,toward.magnitude);
-    policeBike.localRotation=Quaternion.Euler(0,yaw,0);clear=true;break;
+    next=Vector3.MoveTowards(start,target,nominal*dt);Vector3 direction=next-start;
+    float yaw=Mathf.Atan2(direction.x,direction.z)*Mathf.Rad2Deg;
+    if(RoutePolicePathClear(before,next,yaw,dt)){policeBike.localRotation=Quaternion.Euler(0,yaw,0);clear=true;}
+    else {next=start;crashPolicePath.Clear();}
    }
-   PoliceSpeed=clear?nominal:0;if(!clear)PoliceAvoidances++;
+   PoliceSpeed=clear?nominal:0;if(!clear&&!arrived)PoliceAvoidances++;
    policeBike.localPosition=next;ResolvePoliceContact(before,(next-before)/dt+Vector3.forward*Speed,true);
    if(PoliceFallen)policeFallYaw=policeBike.localEulerAngles.y;
    PoliceDistance=Vector2.Distance(Flat(policeBike.localPosition),Flat(rider.localPosition));
