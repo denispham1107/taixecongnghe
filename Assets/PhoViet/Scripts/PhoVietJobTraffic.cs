@@ -11,6 +11,12 @@ namespace PhoViet
    jobTrafficYieldRemaining=3;
    foreach(var v in vehicles)v.jobYieldLane=-1;
   }
+  Vector2 ServiceTrafficFootprint(TrafficVehicle v)
+  {
+   float a=v.previousYaw*Mathf.Deg2Rad,c=Mathf.Abs(Mathf.Cos(a)),s=Mathf.Abs(Mathf.Sin(a));
+   var previous=new Vector2(BodyWidth(v)*c+v.halfLength*s,v.halfLength*c+BodyWidth(v)*s);
+   return Vector2.Max(previous,VehicleFootprint(v));
+  }
   bool HoldCrossTrafficForService(TrafficVehicle v,float dt)
   {
    if(!ServiceStopped||dt<=0||(!v.crossing&&!v.roadTurning&&!v.routeDetached))return false;
@@ -58,11 +64,13 @@ namespace PhoViet
    if(!TrafficYieldActive||dt<=0)return false;
    Vector3 p=v.model.localPosition,r=rider.localPosition;
    float relative=(ServiceStopped&&Mathf.Abs(v.speed)<.1f?v.baseTrafficSpeed:v.speed)-Speed,z=p.z-r.z;
-   float separation=v.halfLength+.91f;
+   Vector2 footprint=ServiceTrafficFootprint(v);
+   float separation=footprint.y+.91f;
    bool converging=z*relative<0&&Mathf.Abs(z)<separation+Mathf.Abs(relative)*1.5f+5;
    bool holdingOncoming=v.baseTrafficSpeed<0&&z>0&&z<separation+5;
-   bool inPath=Mathf.Abs(p.x-r.x)<v.halfWidth+1.15f||v.changingLane&&Mathf.Abs(v.targetX-r.x)<v.halfWidth+1.15f;
+   bool inPath=Mathf.Abs(p.x-r.x)<footprint.x+1.15f||v.changingLane&&Mathf.Abs(v.targetX-r.x)<footprint.x+1.15f;
    if(v.jobYieldLane<0&&(!(converging||holdingOncoming)||!inPath))return false;
+   if(v.jobYieldLane>=0&&!JobYieldLaneClear(v,v.jobYieldLane,Mathf.Abs(p.x-LaneX[v.jobYieldLane])/18f))v.jobYieldLane=-1;
    if(v.jobYieldLane<0)v.jobYieldLane=FindJobYieldLane(v);
    v.changingLane=false;v.rideAlongRemaining=0;
    if(v.jobYieldLane>=0)

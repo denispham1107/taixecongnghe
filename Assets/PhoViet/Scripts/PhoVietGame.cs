@@ -294,6 +294,7 @@ namespace PhoViet
             lastX=x;
             riderRoadVelocity=dt>0?new Vector3((rider.localPosition.x-oldX)/dt,0,Speed+(rider.localPosition.z-oldRiderZ)/dt):Quaternion.Euler(0,TurnYaw,0)*Vector3.forward*Speed;
             riderVelocityValid=true;
+            riderBody.previousPosition=new Vector3(oldX,jumpPreviousHeight,oldRiderZ);riderBody.previousYaw=oldRiderYaw;riderBody.knocked=false;
             TickTrafficMotion(dt);
             ResolveJumpSurface(dt);
             TickRearRecklessWarning(dt);
@@ -342,14 +343,14 @@ namespace PhoViet
                 {
                     TickLongitudinalVehicle(v,dt);
                 }
-                YieldRearForService(v);
                 BrakeBeforeStoppedRider(v);
+                YieldRearForService(v);
                 if((v.isReckless||v.knocked)&&!v.wallCrashed&&!v.routeDetached)CheckBuildingImpact(v);
                 if(dt>0)v.motionVelocity=v.wallCrashed?Vector3.zero:v.knocked?v.knockVelocity:(v.model.localPosition-previous)/dt+Vector3.forward*Speed;
             }
             ResolveVehicleCollisions();
-            if(ServiceRearProtected)foreach(var vehicle in vehicles)YieldRearForService(vehicle);
             if(ServiceStopped)foreach(var vehicle in vehicles)BrakeBeforeStoppedRider(vehicle);
+            if(ServiceRearProtected)foreach(var vehicle in vehicles)YieldRearForService(vehicle);
         }
         void RetireTraffic(bool countPasses)
         {

@@ -40,7 +40,19 @@ namespace PhoViet
    turnNavigationRoute=city.Plan((Vector2)navNext*80,navNext+CityNavigation.Directions[heading],heading,80,CurrentWorkTarget);
   }
   public bool ServiceStopped=>jobsEnabled&&(JobPhase==WorkPhase.Boarding||JobPhase==WorkPhase.Alighting);
-  public bool ServiceRearProtected=>ServiceStopped||rearDepartureProtection>0;
+  public bool ServiceRearProtected=>ServiceStopped||ServiceApproaching||rearDepartureProtection>0;
+  // Use the same approach gate for slowing down and for traffic yielding. Protection
+  // must start before the rider brakes, rather than only when the passenger animates.
+  bool ServiceApproaching=>TryServiceApproach(out _);
+  bool TryServiceApproach(out float ahead)
+  {
+   ahead=0;
+   if(!jobsEnabled||ActiveJob==null||IsTurning||(JobPhase!=WorkPhase.Pickup&&JobPhase!=WorkPhase.Delivery))return false;
+   var target=CurrentWorkTarget;var delta=target.Point-NavigationPosition;
+   ahead=Vector2.Dot(delta,CityNavigation.Directions[navHeading]);
+   return target.axis%2==navHeading%2&&Mathf.Abs(Vector2.Dot(delta,CityNavigation.Directions[(navHeading+1)%4]))<.1f&&
+    CurrentLane==TargetLane(target)&&ahead>=-2.5f&&ahead<22;
+  }
   const string CoinsKey="PhoViet.Coins.v1";
   static readonly float[] ShopOffsets={14,22.4f,30.8f,39.2f,47.6f,56,64.4f};
   CityNavigation city;System.Random jobRandom;
@@ -180,9 +192,7 @@ namespace PhoViet
   float WorkSpeedLimit(float desired)
   {
    if(ServiceStopped)return 0;
-   if(!jobsEnabled||ActiveJob==null||IsTurning)return desired;
-   var target=CurrentWorkTarget;var delta=target.Point-NavigationPosition;float z=Vector2.Dot(delta,CityNavigation.Directions[navHeading]);
-   if(target.axis%2==navHeading%2&&Mathf.Abs(Vector2.Dot(delta,CityNavigation.Directions[(navHeading+1)%4]))<.1f&&CurrentLane==TargetLane(target)&&z>0&&z<22)
+   if(TryServiceApproach(out float z)&&z>0)
     return Mathf.Min(desired,Mathf.Max(2,z*.7f));
    return desired;
   }
@@ -242,10 +252,33 @@ namespace PhoViet
   void YieldRearForService(TrafficVehicle v)
   {
    if(!jobsEnabled||!ServiceRearProtected||!v.active||v.wallCrashed)return;
-   var p=v.model.localPosition;float safe=rider.localPosition.z-v.halfLength-2.6f;
-   bool rear=v.previousPosition.z<rider.localPosition.z-.5f&&p.z>v.previousPosition.z;
-   if(rear&&Mathf.Abs(p.x-rider.localPosition.x)<v.halfWidth+.85f&&p.z>safe)
-   {p.z=safe;v.model.localPosition=p;v.speed=Mathf.Min(v.speed,Speed);v.knockVelocity.z=Mathf.Min(v.knockVelocity.z,Speed);v.motionVelocity.z=Mathf.Min(v.motionVelocity.z,Speed);if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(true);}
+   Vector3 p=v.model.localPosition,r=rider.localPosition;
+   // Keep the established roughly 2.6 m nose-to-rider-center following gap.
+   Vector2 half=ServiceTrafficFootprint(v)+ServiceTrafficFootprint(riderBody)+new Vector2(.45f,1.7f);
+   Vector3 previousRider=riderVelocityValid?riderBody.previousPosition:r;
+   Vector2 from=Flat(v.previousPosition-previousRider),to=Flat(p-r);
+   bool rear=from.y<-.1f;
+   if(rear&&SweptOverlap(from,from,half))
+   {
+    // Swept contacts use the body's final axes for the entire frame. A sharp
+    // steering yaw must not retroactively swing a long tail through the rider.
+    // Hold the last safe heading while braking, then resume the lane change.
+    v.model.localRotation=Quaternion.Euler(0,v.previousYaw,0);
+    half=ServiceTrafficFootprint(v)+ServiceTrafficFootprint(riderBody)+new Vector2(.45f,1.7f);
+   }
+   // Include rotated long bodies, the rider's lane-change sweep and collision-chain
+   // displacement. Test again after vehicle/vehicle impulses, before rider contacts.
+   if(rear&&SweptOverlap(from,to,half))
+   {
+    // Truncate the entire relative movement. Merely moving the endpoint backwards
+    // can still draw a diagonal swept collision through the rider during a cut-in.
+    float low=0,high=1;
+    for(int i=0;i<12;i++){float mid=(low+high)*.5f;if(SweptOverlap(from,Vector2.Lerp(from,to,mid),half))high=mid;else low=mid;}
+    Vector2 held=Vector2.Lerp(from,to,Mathf.Max(0,low-.001f));
+    p.x=r.x+held.x;p.z=r.z+held.y;v.model.localPosition=p;
+    v.speed=Mathf.Min(v.speed,Speed);v.knockVelocity.z=Mathf.Min(v.knockVelocity.z,Speed);v.motionVelocity.z=Mathf.Min(v.motionVelocity.z,Speed);
+    if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(true);
+   }
   }
  }
 }
