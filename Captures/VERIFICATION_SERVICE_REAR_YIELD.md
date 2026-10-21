@@ -19,4 +19,7 @@
 
 ## Phát hành
 
-- Bản 1.29.3 đã hoàn tất trên máy; chưa push/phát hành bản này. Quyền phát hành người dùng xác nhận ở lượt trước nêu riêng bản 1.29.2.
+- Người dùng xác nhận “Cho phép push và phát hành bản 1.29.3”. Commit nguồn/build `bec8d73323b45ea6549af5b006e8708f5265651f` đã push lên main.
+- Ban đầu chưa thấy đợt Pages tự động trong danh sách; đã xác nhận workflow còn active và main đúng commit được duyệt, sau đó kích hoạt `workflow_dispatch` của workflow Pages có sẵn. Đợt https://github.com/denispham1107/taixecongnghe/actions/runs/39613250335 đã thành công. Lần kiểm tra tiếp tục cũng ghi nhận đợt https://github.com/denispham1107/taixecongnghe/actions/runs/39613396507 thành công với cùng commit `bec8d733`.
+- **26 kiểm tra trang công khai đạt**: phiên bản 1.29.3/cache `ca5defa4375b1ca7` khớp, toàn bộ tài nguyên khớp bản đã thử, WebAssembly thật khởi động/nhận input bắt đầu và tạm dừng, không có lỗi JavaScript/Unity runtime. Kết quả lưu tại `service-rear-live-results.json`; trạng thái Pages tại `service-rear-pages-status.txt`.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/. Đóng hẳn rồi mở lại PWA/web app để nhận bản 1.29.3.
