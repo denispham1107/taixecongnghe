@@ -5,7 +5,11 @@ namespace PhoViet
 {
     public partial class PhoVietGame
     {
-        [Serializable] public sealed class RoadRow {public Transform root;public List<Transform> tiles=new List<Transform>();}
+        [Serializable] public sealed class RoadRow
+        {
+            public Transform root;public List<Transform> tiles=new List<Transform>();
+            [NonSerialized] public TextMesh[] streetLabels;
+        }
         public List<RoadRow> roadRows=new List<RoadRow>();
         public bool IsTurning {get;private set;}
         public int QueuedTurn {get;private set;}
@@ -20,8 +24,8 @@ namespace PhoViet
         int mainRow,leftRow=1,rightRow=2,turnSide;
         float junctionAt,roadOffset,turnRadius,turnTravel,cameraTurnBlend,oldRiderZ;
         float turnLength;bool lateTurn;
-        Vector3 lateControl1,lateControl2,lateEnd;
-        readonly float[] lateArcLengths=new float[65];
+        Vector3 turnControl1,turnControl2,turnControl3,turnControl4,turnEnd;
+        readonly float[] turnArcLengths=new float[129];
         Vector3 turnStart;Quaternion crashTurnRotation;
         string junctionStreet;
         bool routePolice;float policeRouteAt,policeFallYaw,turnEndAt;
@@ -40,6 +44,7 @@ namespace PhoViet
                 var row=roadRows[i];row.root.localPosition=Vector3.zero;row.root.localRotation=Quaternion.identity;row.root.gameObject.SetActive(i==0);
                 for(int j=0;j<row.tiles.Count;j++){row.tiles[j].localPosition=new Vector3(0,0,(j-(i==0?1:0))*80);row.tiles[j].localRotation=Quaternion.identity;}
             }
+            foreach(var row in roadRows)CacheStreetLabels(row);
             blocks=new List<Transform>(roadRows[0].tiles);LabelRow(mainRow,RouteStreet);PrepareBranches(70);
         }
         string PickStreet()
@@ -50,8 +55,16 @@ namespace PhoViet
         }
         void LabelRow(int index,string street)
         {
-            foreach(var text in roadRows[index].root.GetComponentsInChildren<TextMesh>(true))
-                if(text.transform.parent!=null&&text.transform.parent.name.StartsWith("Bảng tên đường",StringComparison.Ordinal)&&text.name!="ĐƯỜNG")text.text=street.ToUpperInvariant();
+            var row=roadRows[index];CacheStreetLabels(row);string label=street.ToUpperInvariant();
+            foreach(var text in row.streetLabels)if(text!=null&&text.text!=label)text.text=label;
+        }
+        static void CacheStreetLabels(RoadRow row)
+        {
+            if(row.streetLabels!=null)return;
+            var labels=new List<TextMesh>();
+            foreach(var text in row.root.GetComponentsInChildren<TextMesh>(true))
+                if(text.transform.parent!=null&&text.transform.parent.name.StartsWith("Bảng tên đường",StringComparison.Ordinal)&&text.name!="ĐƯỜNG")labels.Add(text);
+            row.streetLabels=labels.ToArray();
         }
         void PrepareBranches(float distance)
         {
@@ -101,51 +114,75 @@ namespace PhoViet
             if(!IsTurning&&QueuedTurn!=0&&NextJunctionDistance<=11.65f)
             {
                 if(!CanTurnFromLane(QueuedTurn,CurrentLane)||Mathf.Abs(rider.localPosition.x-LaneX[CurrentLane])>.65f){QueuedTurn=0;return;}
-                StartJunctionTurn(false);
-                return;
+                // The world has already scrolled this frame. Spend only the part of
+                // its distance after the entry line on the curve, without a dead frame.
+                float afterEntry=Mathf.Clamp(11.65f-NextJunctionDistance,0,delta);
+                StartJunctionTurnAt(false,NextJunctionDistance+afterEntry);
+                delta=afterEntry;
             }
             if(!IsTurning)return;
-            turnTravel=Mathf.Min(turnLength,turnTravel+delta);
-            if(lateTurn)
-            {
-                int i=1;while(i<lateArcLengths.Length-1&&lateArcLengths[i]<turnTravel)i++;
-                float fraction=Mathf.InverseLerp(lateArcLengths[i-1],lateArcLengths[i],turnTravel),t=(i-1+fraction)/64;
-                float u=1-t;
-                Vector3 tangent=3*u*u*(lateControl1-turnStart)+6*u*t*(lateControl2-lateControl1)+3*t*t*(lateEnd-lateControl2);
-                TurnYaw=Mathf.Atan2(tangent.x,tangent.z)*Mathf.Rad2Deg;
-                rider.localPosition=LateTurnPoint(t)-Vector3.forward*turnTravel;
-                rider.localRotation=Quaternion.Euler(0,TurnYaw,-turnSide*16*Mathf.Sin(t*Mathf.PI));
-            }
-            else
-            {
-                float angle=turnTravel/turnRadius;TurnYaw=turnSide*angle*Mathf.Rad2Deg;
-                rider.localPosition=new Vector3(turnStart.x+turnSide*turnRadius*(1-Mathf.Cos(angle)),0,turnStart.z+turnRadius*Mathf.Sin(angle)-turnTravel);
-                rider.localRotation=Quaternion.Euler(0,TurnYaw,-turnSide*18*Mathf.Sin(angle*2));
-            }
+            turnTravel+=Mathf.Max(0,delta);
+            float curvedDistance=Mathf.Min(turnLength,turnTravel);
+            int i=1;while(i<turnArcLengths.Length-1&&turnArcLengths[i]<curvedDistance)i++;
+            float fraction=Mathf.InverseLerp(turnArcLengths[i-1],turnArcLengths[i],curvedDistance);
+            float t=(i-1+fraction)/(turnArcLengths.Length-1);
+            Vector3 tangent=TurnTangent(t);
+            TurnYaw=Mathf.Atan2(tangent.x,tangent.z)*Mathf.Rad2Deg;
+            // Carry the last frame's unused distance straight onto the destination
+            // road. Clamping speed here used to brake the bike just before rebasing.
+            float exitDistance=Mathf.Max(0,turnTravel-turnLength);
+            rider.localPosition=TurnPoint(t)+Vector3.right*turnSide*exitDistance-Vector3.forward*turnTravel;
+            rider.localRotation=Quaternion.Euler(0,TurnYaw,-turnSide*(lateTurn?16:18)*Mathf.Sin(t*Mathf.PI));
             lastX=rider.localPosition.x;
         }
         void StartJunctionTurn(bool late)
+        {StartJunctionTurnAt(late,NextJunctionDistance);}
+        void StartJunctionTurnAt(bool late,float junctionDistance)
         {
             IsTurning=true;turnSide=QueuedTurn;QueuedTurn=0;turnStart=rider.localPosition;turnStart.y=0;
-            turnRadius=Mathf.Max(4,NextJunctionDistance-turnSide*LaneX[CurrentLane]);turnTravel=0;TurnYaw=0;lateTurn=late;
-            turnLength=turnRadius*Mathf.PI*.5f;
+            turnRadius=Mathf.Max(4,junctionDistance-turnSide*LaneX[CurrentLane]);turnTravel=0;TurnYaw=0;lateTurn=late;
             if(late)
             {
                 // A late input needs room to align with the same exit lane. A tangent-
                 // continuous curve keeps the bike inside the union of the two roads.
-                lateControl1=turnStart+Vector3.forward*3;
-                lateEnd=new Vector3(turnSide*20,0,NextJunctionDistance-turnSide*LaneX[CurrentLane]);
-                lateControl2=lateEnd-Vector3.right*turnSide*6;
-                Vector3 previous=turnStart;lateArcLengths[0]=0;
-                for(int i=1;i<65;i++){Vector3 p=LateTurnPoint(i/64f);lateArcLengths[i]=lateArcLengths[i-1]+Vector3.Distance(previous,p);previous=p;}
-                turnLength=lateArcLengths[64];
+                turnControl1=turnStart+Vector3.forward*3;
+                turnEnd=new Vector3(turnSide*20,0,junctionDistance-turnSide*LaneX[CurrentLane]);
+                turnControl2=turnEnd-Vector3.right*turnSide*6;
             }
+            else
+            {
+                // A quintic curve has zero curvature at both straight-road joins.
+                // Arc-length sampling keeps speed independent of its eased steering.
+                float handle=turnRadius*.27f;Vector3 exit=Vector3.right*turnSide;
+                turnEnd=turnStart+(Vector3.forward+exit)*turnRadius;
+                turnControl1=turnStart+Vector3.forward*handle;
+                turnControl2=turnStart+Vector3.forward*(2*handle);
+                turnControl3=turnEnd-exit*(2*handle);
+                turnControl4=turnEnd-exit*handle;
+            }
+            Vector3 previous=turnStart;turnArcLengths[0]=0;
+            for(int j=1;j<turnArcLengths.Length;j++)
+            {
+                Vector3 p=TurnPoint(j/(float)(turnArcLengths.Length-1));
+                turnArcLengths[j]=turnArcLengths[j-1]+Vector3.Distance(previous,p);previous=p;
+            }
+            turnLength=turnArcLengths[turnArcLengths.Length-1];
             if(IsChased&&!routePolice){routePolice=true;policeRouteAt=Distance-PoliceDistance;}
             PreviewJunctionNavigation();
         }
-        Vector3 LateTurnPoint(float t)
+        Vector3 TurnPoint(float t)
         {
-            float u=1-t;return u*u*u*turnStart+3*u*u*t*lateControl1+3*u*t*t*lateControl2+t*t*t*lateEnd;
+            float u=1-t,u2=u*u,t2=t*t;
+            if(lateTurn)return u2*u*turnStart+3*u2*t*turnControl1+3*u*t2*turnControl2+t2*t*turnEnd;
+            return u2*u2*u*turnStart+5*u2*u2*t*turnControl1+10*u2*u*t2*turnControl2+
+                10*u2*t2*t*turnControl3+5*u*t2*t2*turnControl4+t2*t2*t*turnEnd;
+        }
+        Vector3 TurnTangent(float t)
+        {
+            float u=1-t,u2=u*u,t2=t*t;
+            if(lateTurn)return 3*u2*(turnControl1-turnStart)+6*u*t*(turnControl2-turnControl1)+3*t2*(turnEnd-turnControl2);
+            return 5*(u2*u2*(turnControl1-turnStart)+4*u2*u*t*(turnControl2-turnControl1)+
+                6*u2*t2*(turnControl3-turnControl2)+4*u*t2*t*(turnControl4-turnControl3)+t2*t2*(turnEnd-turnControl4));
         }
         void EndRouteFrame(float dt)
         {

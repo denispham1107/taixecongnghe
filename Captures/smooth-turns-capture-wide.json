@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureSmoothTurns.cs",
+      "entry": "CaptureSmoothTurns.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 182,
+      "executeMs": 1071,
+      "assemblyName": "PipelineRunScript_CaptureSmoothTurns_a3bf8e14aaa24fb99a30c0e4fc97e925",
+      "success": true,
+      "result": {
+        "success": true,
+        "files": 6,
+        "mode": "wide"
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

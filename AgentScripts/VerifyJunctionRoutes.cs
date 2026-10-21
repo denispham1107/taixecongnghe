@@ -48,7 +48,7 @@ public static class VerifyJunctionRoutes
                 check(g.IsTurning&&g.CurrentLane==selected,"Direction "+side+": automatic curve begins in the selected outer lane");
                 for(int i=0;i<15;i++)step(.02f);
                 check(Mathf.Sign(g.TurnYaw)==side&&Mathf.Abs(g.TurnYaw)>5&&Mathf.Abs(g.rider.localPosition.z)>.01f,"Direction "+side+": bike follows a real horizontal arc, including longitudinal movement");
-                check(g.Speed<=10.001f,"Direction "+side+": corner speed fits the junction radius");
+                check(g.Speed>=17,"Direction "+side+": corner retains the current cruising speed without a turn cap");
                 g.TogglePause();float yaw=g.TurnYaw,dist=g.Distance;Vector3 pose=g.rider.localPosition,cam=g.rideCamera.transform.localPosition;call("Update",null);
                 check(g.TurnYaw==yaw&&g.Distance==dist&&g.rider.localPosition==pose&&g.rideCamera.transform.localPosition==cam,"Direction "+side+": pause freezes turn progress and turn camera");g.TogglePause();
                 g.MoveLane(-side);check(g.IsTurning&&g.CurrentLane==selected,"Direction "+side+": steering input cannot break the active automatic curve");

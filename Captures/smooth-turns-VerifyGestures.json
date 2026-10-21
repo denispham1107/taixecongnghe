@@ -1,0 +1,72 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyGestures.cs",
+      "entry": "VerifyGestures.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 266,
+      "executeMs": 250,
+      "assemblyName": "PipelineRunScript_VerifyGestures_f051464dd165408fbdbdf05801f34821",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 39,
+        "checks": [
+          "Left at 8 percent short edge: (412.00, 839.00)",
+          "Right at 8 percent short edge: (412.00, 839.00)",
+          "Jump at 13 percent short edge: (412.00, 839.00)",
+          "Boost at 13 percent short edge: (412.00, 839.00)",
+          "Jitter is not swipe: (412.00, 839.00)",
+          "Left at 8 percent short edge: (839.00, 412.00)",
+          "Right at 8 percent short edge: (839.00, 412.00)",
+          "Jump at 13 percent short edge: (839.00, 412.00)",
+          "Boost at 13 percent short edge: (839.00, 412.00)",
+          "Jitter is not swipe: (839.00, 412.00)",
+          "Left at 8 percent short edge: (768.00, 1024.00)",
+          "Right at 8 percent short edge: (768.00, 1024.00)",
+          "Jump at 13 percent short edge: (768.00, 1024.00)",
+          "Boost at 13 percent short edge: (768.00, 1024.00)",
+          "Jitter is not swipe: (768.00, 1024.00)",
+          "Left at 8 percent short edge: (1024.00, 768.00)",
+          "Right at 8 percent short edge: (1024.00, 768.00)",
+          "Jump at 13 percent short edge: (1024.00, 768.00)",
+          "Boost at 13 percent short edge: (1024.00, 768.00)",
+          "Jitter is not swipe: (1024.00, 768.00)",
+          "Left applies before pointer release",
+          "Holding/moving same pointer cannot repeat lane change",
+          "Release cannot duplicate a swipe",
+          "Next distinct pointer accepts right",
+          "Other pointer cannot control active gesture",
+          "Canceled gesture cannot later trigger",
+          "Up begins actual jump without release",
+          "Down begins actual boost without release",
+          "Repeated event cannot stack boost",
+          "Gesture starting on HUD is excluded",
+          "Paused-start gesture cannot activate after resume",
+          "Pause/resume cancels old held pointer",
+          "Restart cancels previous run pointer",
+          "Job selection never triggers gameplay gesture",
+          "Unknown action ignored",
+          "Single browser tap does not kick",
+          "Two quick taps in one Unity frame still kick using browser timestamps",
+          "Swipe returning to start cannot count as tap",
+          "Long hold is not double-tap component"
+        ],
+        "width": 1103,
+        "height": 620
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

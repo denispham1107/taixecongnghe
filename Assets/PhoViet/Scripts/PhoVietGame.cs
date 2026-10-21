@@ -276,12 +276,11 @@ namespace PhoViet
             TickJump(dt);
             TickBoost(dt);
             if(!ServiceStopped)timeRiding+=dt;cruiseSpeed=Mathf.Min(17+DifficultyTime*.12f,30)+(IsChased?chaseBoost:0);
-            Speed=IsTurning?Mathf.Min(cruiseSpeed,lateTurn?8:10):cruiseSpeed;
-            if(jumpFlying&&!ServiceStopped&&!IsTurning)Speed+=3;
+            Speed=cruiseSpeed;
+            if(jumpFlying&&!ServiceStopped)Speed+=3;
             if(BoostActive)Speed*=BoostMultiplier;
             Speed=WorkSpeedLimit(Speed);
             Speed=JobAcceptanceSpeedLimit(Speed);
-            if(IsTurning&&dt>0)Speed=Mathf.Min(Speed,Mathf.Max(0,turnLength-turnTravel)/dt);
             Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;
             oldRiderZ=rider.localPosition.z;
@@ -374,6 +373,8 @@ namespace PhoViet
                 trafficLights[i].sharedMaterial=Mat(i%3==active?(active==0?Hex("FF6453"):active==1?Gold:Hex("64E5A3")):Hex("354B47"),true);
         }
         void PositionCamera(bool snap)
+        {PositionRideCamera(snap,Mathf.Min(Time.unscaledDeltaTime,.05f));}
+        void PositionRideCamera(bool snap,float cameraDt)
         {
             if(rideCamera==null)return;
             if(State==RideState.Jailed){PositionJailCamera(snap);return;}
@@ -383,14 +384,16 @@ namespace PhoViet
             Quaternion heading=Quaternion.Euler(0,IsTurning?TurnYaw:0,0);
             bool followsCrash=RiderCrashActive||State==RideState.GameOver;
             Vector3 center=IsTurning||followsCrash?rider.localPosition-heading*new Vector3(LaneX[CurrentLane],0,0):Vector3.zero;
-            if(!IsTurning&&!followsCrash)center.y=jumpHeight*.45f;
+            if(!followsCrash)center.y=jumpHeight*.45f;
             float lateral=IsTurning||followsCrash?LaneX[CurrentLane]:x;
             Vector3 target=center+heading*new Vector3(lateral*(narrow?.85f:.25f),IsChased?7.8f:7.15f,IsChased?-14f:-9.6f);
-            float cameraDt=Mathf.Min(Time.unscaledDeltaTime,.05f);
-            rideCamera.transform.localPosition=snap?target:Vector3.Lerp(rideCamera.transform.localPosition,target,1-Mathf.Exp(-cameraDt*5));
+            // Keep a similar following distance at every riding speed. A fixed
+            // time lag let a boosted bike leave the frame during a short corner.
+            float cornerTracking=IsTurning||cameraTurnBlend>0?Mathf.Max(1,Speed/17):1;
+            rideCamera.transform.localPosition=snap?target:Vector3.Lerp(rideCamera.transform.localPosition,target,1-Mathf.Exp(-cameraDt*5*cornerTracking));
             Vector3 look=center+heading*new Vector3(lateral*(narrow?.85f:.18f),1.2f,8);
             Quaternion rotation=Quaternion.LookRotation(transform.TransformPoint(look)-rideCamera.transform.position,Vector3.up);
-            rideCamera.transform.rotation=!snap&&(IsTurning||cameraTurnBlend>0)?Quaternion.Slerp(rideCamera.transform.rotation,rotation,1-Mathf.Exp(-cameraDt*9)):rotation;
+            rideCamera.transform.rotation=!snap&&(IsTurning||cameraTurnBlend>0)?Quaternion.Slerp(rideCamera.transform.rotation,rotation,1-Mathf.Exp(-cameraDt*9*cornerTracking)):rotation;
             // Perspective zoom: tan(FOV/2) scales inversely with apparent size.
             rideCamera.fieldOfView=narrow?2*Mathf.Atan(Mathf.Tan(65*Mathf.Deg2Rad*.5f)/PortraitWorldScale)*Mathf.Rad2Deg:55+Mathf.Max(0,Speed-17)*.13f;
         }
