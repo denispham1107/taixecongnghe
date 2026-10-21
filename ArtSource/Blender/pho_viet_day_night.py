@@ -118,15 +118,7 @@ def build():
         for y in range(128):
             for x in range(128):data.extend(linear(slots.get((y//32)*8+x//16,'000000')))
         image=bpy.data.images.new(name,128,128,alpha=True);image.pixels=data;image.filepath_raw=OUT+'/'+name+'.png';image.file_format='PNG';image.save()
-    # Preserve saturated shop signs, flags and foliage; neutralize only architectural plaster/stone.
-    colors=['E3E8EF','BDD9D5','EDC8BD','E4E7EB','BECFDF','DFE3E8','CEDBCC','F7FAFF',
-     '203C43','A9382E','196E72','326A8C','684B39','D83833','FFD35A','507478',
-     'CAD3D8','7B8B92','CFD2D6','AFB1B5','725844','516C43','6D985B','8EB471',
-     'D29262','8A6040','D3D9DF','EDF1F5','466143','376E58','BCC8CF','E6EBF0']
-    data=[]
-    for y in range(128):
-        for x in range(128):data.extend(linear(colors[(y//32)*8+x//16]))
-    image=bpy.data.images.new('PV_MorningStreetPalette',128,128,alpha=True);image.pixels=data;image.filepath_raw=OUT+'/PV_MorningStreetPalette.png';image.file_format='PNG';image.save()
+    # Street pigments stay in the original PV_StreetPalette; daylight only changes illumination.
     profile={'halfCycleSeconds':30,'daySun':'FFFFFF','nightMoon':'A9C6FF','daySky':'C3DFF9','dayHorizon':'F0F7FF','nightSky':'071329','nightHorizon':'172846',
      'dayAmbientSky':'E4F1FF','dayAmbientEquator':'D9E4EF','dayAmbientGround':'ADB7C2','nightAmbientSky':'263D67','nightAmbientEquator':'182841','nightAmbientGround':'0E172B',
      'sunIntensity':1.12,'moonIntensity':.24,'lampColor':'F1F7FF','lightPoolMax':6,'authoredIn':'Blender MCP 5.2','headlightCookieBounds':[-16,-4,16,28],'streetCookieWidth':18}
@@ -160,6 +152,6 @@ def build():
     # Library write saves only this study and dependencies; the other open scenes remain untouched.
     bpy.data.libraries.write(ROOT+'/ArtSource/Blender/PhoViet_DayNight.blend',{scene},fake_user=True)
     bpy.context.window.scene=scene
-    print(json.dumps({'success':True,'fixtureTriangles':sum(len(p.vertices)-2 for p in model.data.polygons),'textures':6,'halfCycleSeconds':30,'source':'PhoViet_DayNight.blend','previousScene':original.name}))
+    print(json.dumps({'success':True,'fixtureTriangles':sum(len(p.vertices)-2 for p in model.data.polygons),'textures':5,'halfCycleSeconds':30,'source':'PhoViet_DayNight.blend','previousScene':original.name}))
 
 build()

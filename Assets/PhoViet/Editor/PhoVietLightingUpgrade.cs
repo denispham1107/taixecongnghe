@@ -70,8 +70,7 @@ namespace PhoViet.Editor
                 material.SetTexture("_EmissionMap",AssetDatabase.LoadAssetAtPath<Texture2D>(Folder+(path.Contains("/Bikes/")?"PV_BikeEmission":"PV_CarEmission")+".png"));
                 material.EnableKeyword("_EMISSION");material.SetColor("_EmissionColor",Color.black);EditorUtility.SetDirty(material);emission.Add(material);
             }
-            var atlas=AssetDatabase.LoadAssetAtPath<Material>("Assets/PhoViet/Art/Streets/PV_StreetAtlas.mat");atlas.mainTexture=AssetDatabase.LoadAssetAtPath<Texture2D>(Folder+"PV_MorningStreetPalette.png");EditorUtility.SetDirty(atlas);
-            NeutralizePrimitivePaint(g);
+            ApplyColorfulStreetPaint(g);
             var lighting=g.gameObject.AddComponent<DayNightLighting>();g.daylight=lighting;lighting.game=g;lighting.authoredProfile=AssetDatabase.LoadAssetAtPath<TextAsset>(Folder+"PV_LightingProfile.json");
             lighting.sun=RenderSettings.sun!=null?RenderSettings.sun:UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None).First(l=>l.type==LightType.Directional);
             lighting.sun.name="Nắng ban mai • chu kỳ ngày đêm";lighting.sun.shadows=LightShadows.Soft;lighting.sun.shadowStrength=.65f;
@@ -92,7 +91,7 @@ namespace PhoViet.Editor
         }
         static void ConfigureTextures()
         {
-            foreach(string file in new[]{"PV_HeadlightCookie","PV_StreetPool","PV_OpticalGlare","PV_BikeEmission","PV_CarEmission","PV_MorningStreetPalette"})
+            foreach(string file in new[]{"PV_HeadlightCookie","PV_StreetPool","PV_OpticalGlare","PV_BikeEmission","PV_CarEmission"})
             {
                 var importer=AssetImporter.GetAtPath(Folder+file+".png") as TextureImporter;if(importer==null)throw new Exception("Missing Blender texture "+file);
                 bool palette=file.Contains("Emission")||file.Contains("Palette");importer.sRGBTexture=true;importer.mipmapEnabled=!palette;importer.wrapMode=TextureWrapMode.Clamp;
@@ -158,11 +157,22 @@ namespace PhoViet.Editor
             if(skipped==0)return source;removed+=skipped;string guid=AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(source));
             var clean=Asset("PV_NoOldLamps_"+guid+".asset",()=>UnityEngine.Object.Instantiate(source));clean.name="PV_Combined • neutral morning";clean.triangles=keep.ToArray();clean.RecalculateBounds();EditorUtility.SetDirty(clean);return clean;
         }
-        static void NeutralizePrimitivePaint(PhoVietGame game)
+        [MenuItem("Phố Việt/Ánh sáng/Restore colorful street materials")]
+        public static void RestoreColorfulStreetPaint()
         {
-            var colors=new Dictionary<string,string>{{"FFF1CF","F6F9FE"},{"E7D8B9","E2E7ED"},{"CABCA2","CCD3DB"},{"AF9F86","A6B0BE"},{"B99B7B","C7CDD5"},{"92A68A","C3CCD5"}};
+            if(Application.isPlaying)throw new Exception("Exit Play Mode first");
+            var game=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();if(game==null)throw new Exception("Open PhoViet scene first");
+            ApplyColorfulStreetPaint(game);
+        }
+        static void ApplyColorfulStreetPaint(PhoVietGame game)
+        {
+            // White sunlight belongs to the lighting rig; keep the authored pigments of the city.
+            var atlas=AssetDatabase.LoadAssetAtPath<Material>("Assets/PhoViet/Art/Streets/PV_StreetAtlas.mat");
+            atlas.mainTexture=AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/PhoViet/Art/Streets/PV_StreetPalette.png");EditorUtility.SetDirty(atlas);AssetDatabase.SaveAssetIfDirty(atlas);
+            // Retain the neutral white road markings, restore warm paving and green roadside soil.
+            var colors=new Dictionary<string,string>{{"FFF1CF","F6F9FE"},{"E2E7ED","E7D8B9"},{"CCD3DB","CABCA2"},{"A6B0BE","AF9F86"},{"C7CDD5","B99B7B"},{"C3CCD5","92A68A"}};
             foreach(var m in game.GetComponentsInChildren<Renderer>(true).SelectMany(r=>r.sharedMaterials).Where(m=>m!=null&&m.mainTexture==null&&m.HasProperty("_Color")).Distinct())
-            {string key=ColorUtility.ToHtmlStringRGB(m.color);if(colors.TryGetValue(key,out var hex)){m.color=Hex(hex);EditorUtility.SetDirty(m);}}
+            {string key=ColorUtility.ToHtmlStringRGB(m.color);if(colors.TryGetValue(key,out var hex)){m.color=Hex(hex);EditorUtility.SetDirty(m);AssetDatabase.SaveAssetIfDirty(m);}}
         }
         static Cubemap Reflection()
         {
