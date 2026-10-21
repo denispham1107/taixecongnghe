@@ -76,13 +76,13 @@ namespace PhoViet
             if(game.State==PhoVietGame.RideState.Ready&&previousState!=game.State)
             {clock=0;kickAge=10;fallAge=0;WheelAngle=0;}
             previousState=game.State;clock+=dt;kickAge+=dt;
-            bool recovering=role==ActorRole.Player&&game.State==PhoVietGame.RideState.Recovering||role==ActorRole.Traffic&&vehicle.IsStandingUp;
-            bool falling=role==ActorRole.Player?(game.State==PhoVietGame.RideState.Falling||game.State==PhoVietGame.RideState.GameOver):
+            bool recovering=role==ActorRole.Traffic&&vehicle.IsStandingUp;
+            bool falling=role==ActorRole.Player?(game.State==PhoVietGame.RideState.Falling||game.State==PhoVietGame.RideState.GameOver||game.State==PhoVietGame.RideState.Arrested&&game.CrashDuringPursuit):
                 role==ActorRole.Police?game.PoliceFallen:vehicle.knocked;
             float speed=role==ActorRole.Player?game.Speed:role==ActorRole.Police?game.PoliceSpeed:
                 vehicle.crossing?vehicle.crossSpeed:vehicle.speed;
             string clip="Idle";float normalized=0;
-            if(recovering){clip="Recover";normalized=role==ActorRole.Player?game.RiderRecoveryProgress:vehicle.StandUpProgress;speed=0;fallAge=0;}
+            if(recovering){clip="Recover";normalized=vehicle.StandUpProgress;speed=0;fallAge=0;}
             else if(falling)
             {
                 if(role==ActorRole.Player){if(game.State==PhoVietGame.RideState.Falling)fallAge+=dt;}

@@ -89,12 +89,12 @@ public static class VerifyCrashUpgrade
     var a=g.transform.InverseTransformPoint(obstacle.transform.TransformPoint(new Vector3(box.bounds.center.x,0,box.bounds.min.z-2)));
     var b=g.transform.InverseTransformPoint(obstacle.transform.TransformPoint(new Vector3(box.bounds.center.x,0,box.bounds.min.z+.2f)));
     g.rider.localPosition=b;set("oldRiderZ",a.z);set("jumpPreviousHeight",a.y);set("riderRoadVelocity",(b-a)/.05f);set("riderVelocityValid",true);
-    call("ResolveRiderContacts",new object[]{a.x,.05f});check(g.State==PhoVietGame.RideState.Falling&&g.LivesRemaining==2&&g.LastSceneryImpact=="Thân cây","Actual rider collision with a tree spends one life and starts a physical throw");
+    call("ResolveRiderContacts",new object[]{a.x,.05f});check(g.State==PhoVietGame.RideState.Falling&&g.LastSceneryImpact=="Thân cây","Actual rider collision with a tree starts a physical crash and starts a physical throw");
    }
    finally{obstacle.obstacles=oldBoxes;}
-   reset();g.Crash();for(int i=0;i<650&&g.State!=PhoVietGame.RideState.Riding;i++)call("TickRiderCrash",new object[]{.02f});
-   check(g.State==PhoVietGame.RideState.Riding&&g.LivesRemaining==2,"Rider retains existing recovery timing and three-life rule");
-   check(Quaternion.Angle(g.rider.localRotation,Quaternion.identity)<.1f,"Recovered rider faces the original route direction with no residual spin");
+   reset();g.Crash();for(int i=0;i<650&&g.State==PhoVietGame.RideState.Falling;i++)call("TickRiderCrash",new object[]{.02f});
+   check(g.State==PhoVietGame.RideState.GameOver&&g.RiderFallComplete,"A normal crash ends the run after the physical fall");
+   check(Mathf.Abs(Mathf.DeltaAngle(0,g.rider.localEulerAngles.x))+Mathf.Abs(Mathf.DeltaAngle(0,g.rider.localEulerAngles.z))>20,"Ended run retains the fallen pose rather than standing up");
    reset();typeof(PhoVietGame).GetProperty("Speed").SetValue(g,15f);g.Crash();float slow=g.RiderFallVelocity.magnitude,slowImpact=g.LastRiderImpactSpeed;
    reset();typeof(PhoVietGame).GetProperty("Speed").SetValue(g,30f);g.Crash();check(g.LastRiderImpactSpeed>slowImpact*1.9f,"Scenery impact closing speed scales with actual approach speed");check(g.RiderFallVelocity.magnitude>slow,"Faster static impacts produce a stronger physical throw");
    foreach(int lane in new[]{0,1,2,3})
@@ -103,7 +103,7 @@ public static class VerifyCrashUpgrade
     typeof(PhoVietGame).GetProperty("CurrentLane").SetValue(g,lane);g.rider.localPosition=new Vector3(PhoVietGame.LaneX[lane],0,0);g.MoveLane(lane<2?-1:1);
     guard=0;while(g.CompletedTurns==0&&g.State==PhoVietGame.RideState.Riding&&guard++<600)call("TickRide",new object[]{.02f});
     check(g.CompletedTurns==1&&g.State==PhoVietGame.RideState.Riding,"Real painted junction stays driveable with scenery contacts enabled: lane "+lane+", obstacle="+g.LastSceneryImpact);
-    check(g.LivesRemaining==3,"Legal turn does not lose a life to nearby scenery: lane "+lane);
+    check(g.State==PhoVietGame.RideState.Riding,"Legal turn does not collide to nearby scenery: lane "+lane);
    }
    return new{success=true,count=checks.Count,checks};
   }

@@ -94,7 +94,6 @@ namespace PhoViet
         {
             kickCooldown=Mathf.Max(0,kickCooldown-dt);kickTime=Mathf.Max(0,kickTime-dt);
             collisionImmunity=Mathf.Max(0,collisionImmunity-dt);
-            recoveryTrafficYieldRemaining=Mathf.Max(0,recoveryTrafficYieldRemaining-dt);
             if(IsChased)chaseBoost=Mathf.Min(12,chaseBoost+dt*.28f);
         }
         void AnimateKick()
@@ -140,7 +139,10 @@ namespace PhoViet
         }
         public void Arrest()
         {
-            if((State!=RideState.Riding&&State!=RideState.Falling&&State!=RideState.Recovering)||!IsChased)return;
+            if((State!=RideState.Riding&&State!=RideState.Falling)||!IsChased)return;
+            // A nearby officer waits for the physical fall to finish; no jail
+            // transition can cut off the throw/landing animation.
+            if(State==RideState.Falling&&!RiderFallComplete)return;
             CancelBoost();State=RideState.Arrested;Speed=0;arrestTime=0;engine.Stop();siren?.Stop();
             if((int)Distance>BestDistance){BestDistance=(int)Distance;PlayerPrefs.SetInt(BestKey,BestDistance);PlayerPrefs.Save();}
         }
@@ -182,7 +184,7 @@ namespace PhoViet
         {
             float w=portrait?440:420,h=portrait?296:360,x=portrait?20:uiW-w-42,y=portrait?uiH-h-22:(uiH-h)/2;
             Panel(new Rect(x,y,w,h),Cream,18);
-            Txt("CHUYẾN XE KẾT THÚC",x+26,y+24,w-52,24,12,Red);
+            Txt("CSGT ĐÃ ĐƯA BẠN VÀO TÙ",x+26,y+24,w-52,24,12,Red);
             Txt("ĐÃ BỊ BẮT",x+24,y+62,w-48,62,portrait?34:40,Ink);
             Txt("Quãng đường  "+Mathf.Max(0,Mathf.FloorToInt(Distance))+" m\nĐạp xe  "+KickCount+"   ·   Dây chuyền  "+ChainCount,x+26,y+132,w-52,62,16,Teal);
             if(Btn("CHƠI LẠI   →",new Rect(x+26,y+(portrait?203:230),w-52,54),Red,Cream,18))RestartRide();

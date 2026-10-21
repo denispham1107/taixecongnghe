@@ -41,7 +41,7 @@ public static class VerifyJobEdges
    check(Mathf.Abs(g.RearDepartureProtection-1.5f)<.01f,"Time spent riding through a turn counts toward the three seconds too");
    call("TickWorkMotion",new object[]{1.51f});check(!g.ServiceRearProtected,"Ordinary rear traffic returns after three seconds");
    set("rearDepartureProtection",3f);call("StartChase",null);car.previousPosition=new Vector3(g.rider.localPosition.x,0,8);car.model.localPosition=new Vector3(g.rider.localPosition.x,0,-8);
-   call("ResolveRiderContacts",new object[]{g.rider.localPosition.x,.05f});check(g.State==PhoVietGame.RideState.Falling&&g.LivesRemaining==2,"Pursuit traffic collision still spends a life during departure yielding");
+   call("ResolveRiderContacts",new object[]{g.rider.localPosition.x,.05f});check(g.State==PhoVietGame.RideState.Falling,"Pursuit traffic collision still spends a life during departure yielding");
    check(g.Coins==wallet,"An unfinished or crashed job pays no Coin");
    return new{success=true,count=checks.Count,checks};
   }

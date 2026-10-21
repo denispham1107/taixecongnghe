@@ -7,7 +7,7 @@ namespace PhoViet
 {
     public partial class PhoVietGame : MonoBehaviour
     {
-        public enum RideState { Ready, Riding, Paused, Falling, GameOver, Arrested, Jailed, Recovering }
+        public enum RideState { Ready, Riding, Paused, Falling, GameOver, Arrested, Jailed }
         [Serializable] public partial class TrafficVehicle
         {
             public Transform model;
@@ -152,7 +152,7 @@ namespace PhoViet
         {
             if(JobOffersOpen)return;
             CancelSwipe();
-            if(State==RideState.Riding||State==RideState.Falling||State==RideState.Recovering){pauseFromState=State;State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);}
+            if(State==RideState.Riding||State==RideState.Falling){pauseFromState=State;State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);}
             else if(State==RideState.Paused){State=pauseFromState;PauseRecklessFx(false);if(sound){if(State==RideState.Riding){engine.UnPause();navigationAudio?.UnPause();}if(IsChased)siren?.UnPause();}}
         }
         public TrafficVehicle SpawnTraffic(int lane,float z,int preferred=-1)
@@ -260,7 +260,7 @@ namespace PhoViet
                 ReadSwipe(); TickRide(Mathf.Min(Time.deltaTime,.05f));
             }
             UpdateWork(Mathf.Min(Time.deltaTime,.05f));
-            if(State==RideState.Falling||State==RideState.Recovering)TickRiderCrash(Mathf.Min(Time.deltaTime,.05f));
+            if(State==RideState.Falling)TickRiderCrash(Mathf.Min(Time.deltaTime,.05f));
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
             if(State==RideState.Arrested)TickArrest(Time.deltaTime);
             AnimateLights();PositionCamera(false);
@@ -446,7 +446,7 @@ namespace PhoViet
             Panel(new Rect(cx,cy,cw,portrait?350:405),Cream,18);
             Txt("MỘT VÒNG VIỆT NAM",cx+28,cy+25,cw-56,25,12,Red);
             Txt("LÁI QUA\nPHỐ QUEN.",cx+24,cy+60,cw-48,150,portrait?45:54,Ink);
-            Txt("Bạn có 3 mạng. Né xe, đạp quái xế để tự vệ. Đạp xe thường sẽ bị truy đuổi; bị CSGT bắt là kết thúc!",cx+28,cy+217,cw-56,62,16,Hex("55716E"));
+            Txt("Né xe, đạp quái xế để tự vệ. Va chạm sẽ kết thúc chuyến đi sau hoạt cảnh té. Nếu đang bị truy đuổi, CSGT sẽ đến bắt!",cx+28,cy+217,cw-56,62,16,Hex("55716E"));
             if(Btn("LÊN XE THÔI   →",new Rect(cx+28,cy+(portrait?283:296),cw-56,58),Red,Cream,19))StartRide();
             if(!portrait)Txt("KỶ LỤC CỦA BẠN   /   "+BestDistance+" m",cx+28,cy+369,cw-56,25,12,Teal);
             if(!portrait)
@@ -471,7 +471,7 @@ namespace PhoViet
             float w=portrait?432:480,h=paused?340:465,x=(uiW-w)/2,y=(uiH-h)/2;
             Panel(new Rect(x,y,w,h),Cream,18);
             Txt(paused?"NGHỈ MỘT CHÚT":"KẾT THÚC CHUYẾN XE",x+28,y+28,w-56,25,12,Red);
-            Txt(paused?"Dừng chân bên phố.":"Đã hết 3 mạng!",x+27,y+69,w-54,70,portrait?31:36,Ink);
+            Txt(paused?"Dừng chân bên phố.":"Chuyến đi kết thúc!",x+27,y+69,w-54,70,portrait?31:36,Ink);
             if(paused)
             {
                 Txt("Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.",x+28,y+140,w-56,50,16,Teal);

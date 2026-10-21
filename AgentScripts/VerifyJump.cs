@@ -33,7 +33,7 @@ public static class VerifyJump
    float maximum=0;for(int i=0;i<80;i++){tick(.02f);maximum=Mathf.Max(maximum,g.RiderJumpHeight);}
    check(maximum>4.7f&&maximum<5f,"Ballistic jump reaches raised fixed height above all truck roofs");
    check(!g.RiderAirborne&&g.RiderJumpHeight==0,"Unobstructed jump lands on road");
-   check(g.State==PhoVietGame.RideState.Riding&&g.LivesRemaining==3,"Safe landing costs no lives");
+   check(g.State==PhoVietGame.RideState.Riding,"Safe landing does not collide");
    check(!g.TryJump(),"Two-second cooldown persists after landing");for(int i=0;i<40;i++)tick(.02f);
    check(g.TryJump(),"Cooldown allows next jump after two seconds");
    g.TogglePause();float h=g.RiderJumpHeight;check(!g.TryJump()&&g.RiderJumpHeight==h,"Pause blocks jump input and preserves height");g.TogglePause();
@@ -42,19 +42,19 @@ public static class VerifyJump
    reset();int bike=g.vehicles.FindIndex(v=>!v.eventOnly&&v.halfWidth<.7f);var fallen=g.SpawnTraffic(2,11,bike);
    fallen.knocked=true;fallen.physicalCrash=true;fallen.knockVelocity=Vector3.zero;fallen.model.localRotation=Quaternion.Euler(0,0,-78);
    g.TryJump();for(int i=0;i<85&&g.State==PhoVietGame.RideState.Riding;i++)tick(.02f);
-   check(g.State==PhoVietGame.RideState.Riding&&g.LivesRemaining==3,"Actual jump clears fallen motorcycle without collision immunity");
+   check(g.State==PhoVietGame.RideState.Riding,"Actual jump clears fallen motorcycle without collision immunity");
    reset();var moving=spawn("PV_Sedan");moving.model.localPosition=new Vector3(PhoVietGame.LaneX[2],0,18);moving.previousPosition=moving.model.localPosition;
    check(g.TryJump(),"Approaching a moving sedan can start a real jump");bool actualRoof=false;
    for(int i=0;i<180&&g.State==PhoVietGame.RideState.Riding;i++){tick(.01f);actualRoof|=g.RiderOnRoof;}
-   check(actualRoof&&g.LivesRemaining==3,"Full takeoff-flight-descent lands on moving car roof");
+   check(actualRoof&&g.State==PhoVietGame.RideState.Riding,"Full takeoff-flight-descent lands on moving car roof");
    foreach(string asset in new[]{"PV_Sedan","PV_Hatchback","PV_Taxi","PV_DeliveryVan"})
    {
     reset();var v=spawn(asset);float roof=PhoVietGame.JumpRoofHeight(v);set("jumpHeight",roof+.2f);set("jumpPreviousHeight",roof+.2f);set("jumpVelocity",-3f);set("jumpFlying",true);
     g.rider.localPosition=new Vector3(PhoVietGame.LaneX[2],roof+.2f,0);
     bool landed=false;for(int i=0;i<12&&g.State==PhoVietGame.RideState.Riding;i++){tick(.02f);landed|=g.RiderOnRoof;}
-    check(landed&&g.LivesRemaining==3,"Descending rider lands on "+asset+" roof without losing life");
+    check(landed&&g.State==PhoVietGame.RideState.Riding,"Descending rider lands on "+asset+" roof without a collision");
     for(int i=0;i<120&&g.State==PhoVietGame.RideState.Riding;i++)tick(.02f);
-    check(g.State==PhoVietGame.RideState.Riding&&!g.RiderOnRoof&&g.RiderJumpHeight==0,"Faster rider drives off "+asset+" roof and returns to road: "+g.State+" y="+g.RiderJumpHeight+" life="+g.LivesRemaining+" carZ="+v.model.localPosition.z);
+    check(g.State==PhoVietGame.RideState.Riding&&!g.RiderOnRoof&&g.RiderJumpHeight==0,"Faster rider drives off "+asset+" roof and returns to road: "+g.State+" y="+g.RiderJumpHeight+" carZ="+v.model.localPosition.z);
    }
    reset();var car=spawn("PV_Sedan");set("roofVehicle",car);set("jumpHeight",1.625f);g.rider.localPosition=new Vector3(PhoVietGame.LaneX[2],1.625f,0);
    check(g.TryJump(),"A supported rider can jump from a car roof");
@@ -67,11 +67,11 @@ public static class VerifyJump
    set("turnSide",1);call("FinishJunctionTurn",new object[0]);
    check(Mathf.Abs(g.rider.localPosition.y-beforeTurn)<.001f,"Junction rebase preserves airborne height");
    check(g.blocks.TrueForAll(b=>Mathf.Abs(b.position.y)<.01f),"Turning in air does not lift or sink the streets");
-   reset();var body=spawn("PV_Sedan");g.TryJump();tick(.02f);check(g.State==PhoVietGame.RideState.Falling&&g.LivesRemaining==2,"Insufficient takeoff clearance hits car body and spends one life");
+   reset();var body=spawn("PV_Sedan");g.TryJump();tick(.02f);check(g.State==PhoVietGame.RideState.Falling,"Insufficient takeoff clearance hits car body and starts a physical crash");
    check(!g.RiderAirborne&&!g.RiderJumpActive,"Crash clears jump and roof state");
-   reset();var truck=g.vehicles.Find(v=>v.halfLength>3);check(PhoVietGame.JumpRoofHeight(truck)>3,"Upright medium box/drowsy trucks now have eligible roofs");
+   reset();var truck=g.vehicles.Find(v=>v.halfLength>3);truck.model.localRotation=Quaternion.identity;check(PhoVietGame.JumpRoofHeight(truck)>3,"Upright medium box/drowsy trucks now have eligible roofs");
    reset();call("StartChase",new object[0]);var collision=spawn("PV_Sedan");g.TryJump();tick(.02f);
-   check(g.LivesRemaining==2&&g.State==PhoVietGame.RideState.Falling,"Body collision during pursuit still spends one life");
+   check(g.State==PhoVietGame.RideState.Falling,"Body collision during pursuit still starts a physical crash");
    reset();call("StartChase",new object[0]);g.TryJump();g.Arrest();check(g.State==PhoVietGame.RideState.Arrested,"Police capture still ends immediately during a jump");
    reset();g.TryJump();g.ResetRide();check(!g.RiderJumpActive&&g.RiderJumpCooldown==0&&g.RiderJumpHeight==0,"Restart resets all jump state");
    var data=JsonUtility.FromJson<BikeJumpPose.Library>(Resources.Load<TextAsset>("PhoVietJump").text);

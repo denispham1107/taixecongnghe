@@ -25,7 +25,7 @@ public static class CaptureTruckJump
    bool roof=false;for(int i=0;i<100;i++){tick(.01f);if(g.RiderOnRoof){roof=true;break;}}if(!roof)throw new Exception("Capture never reached roof");
    shot("roof");bool cab=false;for(int i=0;i<120;i++){tick(.01f);if(g.RiderAirborne&&g.RiderJumpHeight<3&&g.RiderJumpHeight>2.6f){cab=true;break;}}if(!cab)throw new Exception("Capture never crossed cab");shot("cab");
    for(int i=0;i<160&&(g.RiderOnRoof||g.RiderAirborne);i++)tick(.01f);shot("road");
-   if(g.LivesRemaining!=3||g.RiderJumpHeight!=0)throw new Exception("Unsafe capture landing");
+   if(g.State!=PhoVietGame.RideState.Riding||g.RiderJumpHeight!=0)throw new Exception("Unsafe capture landing");
    return new{success=true,files=new[]{"truck-jump-apex.png","truck-jump-roof.png","truck-jump-cab.png","truck-jump-road.png"}};
   }
   finally{g.jobsEnabled=jobs;g.trafficSurprises=surprises;g.recklessTrafficEnabled=reckless;g.turnExitTrafficEnabled=exits;g.ResetRide();Time.timeScale=scale;c.targetTexture=target;c.transform.localPosition=pos;c.transform.localRotation=rot;c.fieldOfView=fov;RenderTexture.active=previous;UnityEngine.Object.DestroyImmediate(image);UnityEngine.Object.DestroyImmediate(rt);}

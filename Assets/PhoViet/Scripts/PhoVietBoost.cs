@@ -31,7 +31,7 @@ namespace PhoViet
   }
   void TickBoost(float dt)
   {
-   if(State!=RideState.Riding&&State!=RideState.Falling&&State!=RideState.Recovering)return;
+   if(State!=RideState.Riding&&State!=RideState.Falling)return;
    if(ServiceStopped||State!=RideState.Riding){CancelBoost();boostCooldown=Mathf.Max(0,boostCooldown-dt);return;}
    if(boostRemaining>0)
    {

@@ -61,7 +61,7 @@ public static class VerifyRideRefinements
    {
     reset();g.jobsEnabled=true;g.ShowJobOffers();g.AcceptJob(0);clear();if(chase)call("StartChase",null);
     var hit=g.SpawnTraffic(2,0);hit.previousPosition=hit.model.localPosition;call("ResolveRiderContacts",new object[]{g.rider.localPosition.x,.05f});
-    check(g.State==PhoVietGame.RideState.Falling&&g.LivesRemaining==2,"Actual contact spends one life "+(chase?"during police pursuit":"during acceptance avoidance"));
+    check(g.State==PhoVietGame.RideState.Falling,"Actual contact starts a physical crash "+(chase?"during police pursuit":"during acceptance avoidance"));
    }
    reset();g.jobsEnabled=true;g.ShowJobOffers();g.AcceptJob(0);clear();g.sound=true;
    typeof(PhoVietGame).GetProperty("Speed").SetValue(g,20f);set("junctionAt",g.Distance+78);set("spokenKey","");

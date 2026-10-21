@@ -38,10 +38,10 @@ public static class VerifyTruckJump
      check(g.TryJump(),asset+" speed "+speed+": real ground takeoff starts");
      bool landed=false;float supported=0;
      for(int i=0;i<210&&g.State==PhoVietGame.RideState.Riding;i++){tick(.01f);if(g.RiderOnRoof){landed=true;supported+=.01f;}}
-     check(landed&&g.LivesRemaining==3,asset+" speed "+speed+": full ballistic flight lands safely on roof, state="+g.State+" lives="+g.LivesRemaining);
+     check(landed&&g.State==PhoVietGame.RideState.Riding,asset+" speed "+speed+": full ballistic flight lands safely on roof, state="+g.State);
      check(supported>.02f,asset+" speed "+speed+": roof actually supports riding");
      for(int i=0;i<300&&g.State==PhoVietGame.RideState.Riding;i++)tick(.01f);
-     check(!g.RiderOnRoof&&!g.RiderAirborne&&g.RiderJumpHeight==0&&g.LivesRemaining==3,asset+" speed "+speed+": rides beyond roof and physically lands on road, state="+g.State+" height="+g.RiderJumpHeight+" lives="+g.LivesRemaining);
+     check(!g.RiderOnRoof&&!g.RiderAirborne&&g.RiderJumpHeight==0&&g.State==PhoVietGame.RideState.Riding,asset+" speed "+speed+": rides beyond roof and physically lands on road, state="+g.State+" height="+g.RiderJumpHeight);
     }
     reset();var support=spawn(asset,0,17);mount(support);
     check(g.TryJump(),asset+": can jump again from supported truck roof");tick(.3f);
@@ -52,27 +52,27 @@ public static class VerifyTruckJump
     check(PhoVietGame.JumpRoofHeight(support)<0,asset+": tilted wreck cannot be landed on");
     call("ResolveJumpSurface",new object[]{.01f});check(g.RiderAirborne&&!g.RiderOnRoof,asset+": rider falls when supporting truck tips over");
     reset();var body=spawn(asset,1,7);g.TryJump();tick(.02f);
-    check(g.State==PhoVietGame.RideState.Falling&&g.LivesRemaining==2,asset+": insufficient clearance still hits truck body and costs a life");
+    check(g.State==PhoVietGame.RideState.Falling,asset+": insufficient clearance still hits truck body and starts a physical crash");
     reset();var boosted=spawn(asset,47.4f,7);g.TryBoost();g.TryJump();bool boostedRoof=false;
     for(int i=0;i<65&&g.State==PhoVietGame.RideState.Riding;i++){tick(.05f);boostedRoof|=g.RiderOnRoof;}
-    check(boostedRoof&&g.LivesRemaining==3&&g.RiderJumpHeight==0,asset+": boosted jump at 20 physics steps/sec lands on roof then road without tunneling");
+    check(boostedRoof&&g.State==PhoVietGame.RideState.Riding&&g.RiderJumpHeight==0,asset+": boosted jump at 20 physics steps/sec lands on roof then road without tunneling");
     reset();support=spawn(asset,0,17);mount(support);support.active=false;support.model.gameObject.SetActive(false);tick(.01f);
     check(g.RiderAirborne&&!g.RiderOnRoof,asset+": retired truck releases its roof support");
     reset();support=spawn(asset,1,-10);mount(support);set("jumpHeight",2.735f);set("jumpPreviousHeight",2.735f);g.rider.localPosition=new Vector3(PhoVietGame.LaneX[2],2.735f,0);
     for(int i=0;i<30&&g.State==PhoVietGame.RideState.Riding;i++)tick(.01f);
-    check(g.State==PhoVietGame.RideState.Falling&&g.LivesRemaining==2,asset+": driving from low cab into higher cargo wall collides instead of snapping up");
+    check(g.State==PhoVietGame.RideState.Falling,asset+": driving from low cab into higher cargo wall collides instead of snapping up");
    }
    // Exercise the actual weaving controller on the drowsy-truck skin, then drive
    // off it. This is not a special invulnerability path for dangerous traffic.
    reset();var weaving=spawn("PV_DrowsyTruck",0,18);weaving.isReckless=true;weaving.willHitWall=false;
    weaving.startPosition=weaving.model.localPosition;weaving.swerveAmplitude=.18f;weaving.swerveFrequency=2;weaving.swerveSpeed=8;weaving.swerveDirection=1;mount(weaving);
    float startX=weaving.model.localPosition.x;for(int i=0;i<50;i++)tick(.01f);
-   check(g.RiderOnRoof&&g.LivesRemaining==3&&Mathf.Abs(weaving.model.localPosition.x-startX)>.01f,"Upright drowsy truck really weaves while rider stays supported on roof");
+   check(g.RiderOnRoof&&g.State==PhoVietGame.RideState.Riding&&Mathf.Abs(weaving.model.localPosition.x-startX)>.01f,"Upright drowsy truck really weaves while rider stays supported on roof");
    weaving.isReckless=false;weaving.speed=weaving.baseTrafficSpeed=7;
    bool cabinFall=false;float oldHeight=g.RiderJumpHeight;
    for(int i=0;i<350&&g.State==PhoVietGame.RideState.Riding;i++){tick(.01f);if(g.RiderAirborne&&g.RiderJumpHeight<oldHeight&&g.RiderJumpHeight>2.7f)cabinFall=true;oldHeight=g.RiderJumpHeight;}
    check(cabinFall,"Cargo-to-cab height step begins a physical fall instead of instant downward snapping");
-   check(g.LivesRemaining==3&&g.RiderJumpHeight==0&&!g.RiderAirborne,"Weaving truck can be ridden across and exited without a false collision");
+   check(g.State==PhoVietGame.RideState.Riding&&g.RiderJumpHeight==0&&!g.RiderAirborne,"Weaving truck can be ridden across and exited without a false collision");
    // Flight action is driven by vertical velocity, so higher jumps and falls
    // from trucks use the appropriate phase of the existing Blender animation.
    reset();set("jumpFlying",true);set("jumpVelocity",0f);check(Mathf.Abs(g.RiderJumpPose-.5f)<.001f,"Blender air pose stays at apex when vertical velocity is zero");

@@ -66,8 +66,7 @@ namespace PhoViet
    CompactHudText(CurrentStreet.ToUpperInvariant(),22,18,298,10,Gold);
    CompactHudText(Mathf.Max(0,Mathf.FloorToInt(Distance)).ToString("N0")+" m",22,36,140,22,Cream);
    CompactHudText("Coin: "+FormatCoins(Coins),22,66,140,12,Gold);
-   CompactHudText("MẠNG: "+LivesRemaining+" / 3",22,84,78,11,LivesRemaining==1?Cream:Gold);
-   CompactHudText(Mathf.RoundToInt(Speed*3.6f)+" km/h",104,86,54,9,Hex("B5CFC2"));
+   CompactHudText(Mathf.RoundToInt(Speed*3.6f)+" km/h",22,86,132,10,Hex("B5CFC2"));
    Panel(new Rect(160,38,1,57),new Color(.8f,.95f,.9f,.18f),0);
    if(jobsEnabled&&ActiveJob!=null)
    {
@@ -88,9 +87,9 @@ namespace PhoViet
   }
   void DrawRideNotice()
   {
-   if(State!=RideState.Riding&&State!=RideState.Falling&&State!=RideState.Recovering)return;
+   if(State!=RideState.Riding&&State!=RideState.Falling)return;
    if(noticeTimer<=0&&State==RideState.Riding)return;
-   string message=State==RideState.Falling?(LivesRemaining>0?"VA CHẠM · CÒN "+LivesRemaining+" MẠNG":"ĐÃ HẾT 3 MẠNG"):State==RideState.Recovering?"ĐANG DỰNG XE · CÒN "+LivesRemaining+" MẠNG":notice;
+   string message=State==RideState.Falling?(CrashDuringPursuit?(RiderFallComplete?"ĐÃ TÉ · CHỜ CSGT ĐẾN BẮT":"VA CHẠM · CSGT ĐANG ĐẾN"):"VA CHẠM · CHUYẾN ĐI KẾT THÚC"):notice;
    if(portrait)
    {
     float width=uiW-20;Panel(new Rect(10,PortraitNoticeTop,width,PortraitNoticeHeight),new Color(.07f,.19f,.21f,.70f),7);

@@ -71,7 +71,7 @@ public static class VerifyJunctionRoutes
             var target=g.SpawnTraffic(2,20,0);target.model.localPosition=g.rider.localPosition;target.previousPosition=target.model.localPosition;
             typeof(PhoVietGame).GetProperty("IsChased").SetValue(g,true);Vector3 crash=g.rider.localPosition;
             call("ResolveRiderContacts",new object[]{g.rider.localPosition.x,0f});
-            check(g.State==PhoVietGame.RideState.Falling&&g.LivesRemaining==2,"During a turn and police pursuit, traffic contact spends one life");
+            check(g.State==PhoVietGame.RideState.Falling,"During a turn and police pursuit, traffic contact starts a physical crash");
             call("Update",null);check(Mathf.Abs(g.rider.localPosition.z-crash.z)<.5f,"Falling during a corner stays at the actual crash location instead of snapping to the straight road");
             clean();approach();lane(0);call("StartChase",null);g.MoveLane(-1);begin();finish();
             check(g.IsChased&&g.State==PhoVietGame.RideState.Riding&&g.CompletedTurns==1,"Police pursuit survives the corner without resetting the run or granting immunity");
@@ -87,7 +87,7 @@ public static class VerifyJunctionRoutes
                 clean();approach();lane(side<0?0:3);g.MoveLane(side);begin();step(.18f);
                 var v=g.SpawnTraffic(2,20,kind);v.model.localPosition=g.rider.localPosition;v.previousPosition=v.model.localPosition;typeof(PhoVietGame).GetProperty("IsChased").SetValue(g,true);
                 call("ResolveRiderContacts",new object[]{g.rider.localPosition.x,0f});
-                check(g.State==PhoVietGame.RideState.Falling&&g.LivesRemaining==2,"Curve "+side+" pursuit contact with pool type "+kind+" spends one life");
+                check(g.State==PhoVietGame.RideState.Falling,"Curve "+side+" pursuit contact with pool type "+kind+" starts a physical crash");
             }
             g.ResetRide();check(g.CompletedTurns==0&&!g.IsTurning&&g.QueuedTurn==0&&g.CurrentStreet=="Trần Hưng Đạo"&&g.roadRows[0].root.gameObject.activeSelf,"Restart restores original road, name, controls and branch pool");
             return new{success=true,count=checks.Count,checks};

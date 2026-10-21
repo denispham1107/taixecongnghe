@@ -33,7 +33,7 @@ public static class VerifyRiderContacts
         };
         Action<string> lost=name=>
         {
-            check(g.State==PhoVietGame.RideState.Falling&&g.Speed==0&&g.LivesRemaining==2,name+": spends one life and starts the physical fall");
+            check(g.State==PhoVietGame.RideState.Falling&&g.Speed==0&&g.State==PhoVietGame.RideState.Falling,name+": starts a physical crash and starts the physical fall");
             int lane=g.CurrentLane;g.MoveLane(1);check(g.CurrentLane==lane&&!g.TryKick(),name+": input cannot resume riding");
         };
         try
@@ -72,8 +72,8 @@ public static class VerifyRiderContacts
             for(int i=0;i<100&&g.State==PhoVietGame.RideState.Riding;i++)tick(.02f);
             lost("Real ride ticks approaching stopped car");
             g.policeBike.localPosition=new Vector3(0,0,-1000);int recoveryGuard=0;
-            while((g.State==PhoVietGame.RideState.Falling||g.State==PhoVietGame.RideState.Recovering)&&recoveryGuard++<1500)typeof(PhoVietGame).GetMethod("TickRiderCrash",F).Invoke(g,new object[]{.02f});
-            check(g.State==PhoVietGame.RideState.Riding&&g.LivesRemaining==2&&g.IsChased,"First crash recovers with two lives while retaining the pursuit");
+            while(g.State==PhoVietGame.RideState.Falling&&recoveryGuard++<300)typeof(PhoVietGame).GetMethod("TickRiderCrash",F).Invoke(g,new object[]{.02f});
+            check(g.State==PhoVietGame.RideState.Falling&&g.RiderFallComplete&&g.IsChased,"Pursuit crash stays fallen while waiting for the distant police");
             g.RestartRide();check(g.State==PhoVietGame.RideState.Riding&&!g.IsChased,"Restart clears crash and pursuit state");
             clean();spawn(1,1);tick(.02f);lost("Ordinary ride collision");
             chase();g.policeBike.localPosition=new Vector3(start,0,-1);typeof(PhoVietGame).GetProperty("PoliceDistance").SetValue(g,1f);tick(.02f);

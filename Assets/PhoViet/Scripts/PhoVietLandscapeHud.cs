@@ -18,8 +18,7 @@ namespace PhoViet
     CompactHudText(CurrentStreet.ToUpperInvariant(),x+14,y+8,310,12,Gold);
     CompactHudText(Mathf.Max(0,Mathf.FloorToInt(Distance)).ToString("N0")+" m",x+14,y+27,132,28,Cream);
     CompactHudText(Mathf.RoundToInt(Speed*3.6f)+" km/h",x+18,y+59,120,11,Hex("B5CFC2"));
-    CompactHudText("Coin: "+FormatCoins(Coins),x+155,y+29,170,16,Gold);
-    CompactHudText("MẠNG: "+LivesRemaining+" / 3",x+155,y+53,170,14,LivesRemaining==1?Cream:Gold);
+    CompactHudText("Coin: "+FormatCoins(Coins),x+155,y+36,170,16,Gold);
     Panel(new Rect(x+334,y+11,1,54),new Color(.8f,.95f,.9f,.18f),0);
     if(jobsEnabled&&ActiveJob!=null)
     {

@@ -1,0 +1,17 @@
+{
+  "url": "http://127.0.0.1:8765/docs/",
+  "checks": [
+    "Desktop real engine loaded",
+    "wide hud capture generated for visual state review",
+    "wide gameover capture generated for visual state review",
+    "wide jailed capture generated for visual state review",
+    "wide has no runtime errors",
+    "Mobile real engine loaded",
+    "portrait hud capture generated for visual state review",
+    "portrait gameover capture generated for visual state review",
+    "portrait jailed capture generated for visual state review",
+    "portrait has no runtime errors"
+  ],
+  "errors": [],
+  "success": true
+}

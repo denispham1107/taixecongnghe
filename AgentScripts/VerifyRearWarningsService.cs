@@ -78,12 +78,12 @@ public static class VerifyRearWarningsService
      call("ResolveRiderContacts",new object[]{g.rider.localPosition.x,.025f});
      if(g.State!=PhoVietGame.RideState.Riding)throw new Exception("Alighting struck: "+stopLane+","+kind+","+front);
     }
-    check(g.LivesRemaining==3&&(Mathf.Abs(traffic.model.localPosition.x-startX)>1||Mathf.Abs(traffic.speed)<.1f),"Bike/car/truck steers or yields throughout alighting: "+stopLane+","+kind+","+front);
+    check(g.State==PhoVietGame.RideState.Riding&&(Mathf.Abs(traffic.model.localPosition.x-startX)>1||Mathf.Abs(traffic.speed)<.1f),"Bike/car/truck steers or yields throughout alighting: "+stopLane+","+kind+","+front);
    }
    reset();g.jobsEnabled=true;g.ShowJobOffers();g.AcceptJob(0);clear();lane(3);typeof(PhoVietGame).GetProperty("JobPhase").SetValue(g,PhoVietGame.WorkPhase.Delivery);call("BeginService",null);
    var crossing=g.SpawnCrossTraffic(1,0,true,12);crossing.model.localPosition=new Vector3(-5,0,0);crossing.previousPosition=crossing.model.localPosition;crossing.crossDelay=0;crossing.turnChoice=0;
    for(int i=0;i<120;i++){call("TickTrafficMotion",new object[]{.025f});call("ResolveRiderContacts",new object[]{g.rider.localPosition.x,.025f});}
-   check(g.State==PhoVietGame.RideState.Riding&&g.LivesRemaining==3,"Cross traffic holds instead of striking an alighting rider");
+   check(g.State==PhoVietGame.RideState.Riding,"Cross traffic holds instead of striking an alighting rider");
    return new{success=true,count=checks.Count,checks};
   }
   finally

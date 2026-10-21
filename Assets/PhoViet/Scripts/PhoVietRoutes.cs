@@ -22,15 +22,15 @@ namespace PhoViet
         float turnLength;bool lateTurn;
         Vector3 lateControl1,lateControl2,lateEnd;
         readonly float[] lateArcLengths=new float[65];
-        Vector3 turnStart,crashTurnPosition;Quaternion crashTurnRotation;
+        Vector3 turnStart;Quaternion crashTurnRotation;
         string junctionStreet;
-        bool turnCrash,routePolice;float policeRouteAt,policeFallYaw,turnEndAt;
+        bool routePolice;float policeRouteAt,policeFallYaw,turnEndAt;
         readonly List<RoutePoint> routeTrail=new List<RoutePoint>();
         struct RoutePoint {public float at;public Vector3 point;public float yaw;public RoutePoint(float a,Vector3 p,float y){at=a;point=p;yaw=y;}}
         bool RoutesReady=>roadRows!=null&&roadRows.Count==5;
         void ResetRoutes()
         {
-            IsTurning=false;QueuedTurn=0;CompletedTurns=0;TurnYaw=0;roadOffset=0;cameraTurnBlend=0;turnCrash=false;routePolice=false;oldRiderZ=0;
+            IsTurning=false;QueuedTurn=0;CompletedTurns=0;TurnYaw=0;roadOffset=0;cameraTurnBlend=0;routePolice=false;oldRiderZ=0;
             ResetExitTraffic();lateTurn=false;turnLength=0;
             mainRow=0;RouteStreet="Trần Hưng Đạo";visitedStreets.Clear();visitedStreets.Add(RouteStreet);routeTrail.Clear();
             for(int i=-160;i<=0;i+=2)routeTrail.Add(new RoutePoint(i,new Vector3(LaneX[2],0,i),0));
@@ -192,7 +192,7 @@ namespace PhoViet
             for(int i=0;i<positions.Length;i++){chosen.tiles[i].localPosition=positions[i];chosen.tiles[i].localRotation=Quaternion.identity;}
             blocks=new List<Transform>(chosen.tiles);roadOffset=-Distance-positions[0].z;
             rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0);rider.localRotation=Quaternion.identity;lastX=rider.localPosition.x;oldRiderZ=0;
-            TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;turnCrash=false;cameraTurnBlend=.7f;turnEndAt=Distance;
+            TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;cameraTurnBlend=.7f;turnEndAt=Distance;
             float nearest=float.MaxValue;foreach(var b in blocks){float z=b.localPosition.z+70;if(z>12)nearest=Mathf.Min(nearest,z);}
             nextIntersectionDistance=Distance+nearest;leftRow=oldMain;rightRow=unused;PrepareBranches(nearest);notice="ĐÃ VÀO ĐƯỜNG "+RouteStreet.ToUpperInvariant();noticeTimer=2;
             QueueExitTraffic();
