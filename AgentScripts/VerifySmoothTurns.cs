@@ -58,6 +58,7 @@ public static class VerifySmoothTurns
     check(moving,key+": measured travel against stationary road has no stalled/teleported frame ("+minRatio.ToString("F4")+".."+maxRatio.ToString("F4")+")");
     check(guard<700&&g.State==PhoVietGame.RideState.Riding&&g.CompletedTurns==1&&g.CurrentStreet==street&&g.CurrentLane==lane,key+": connected turn completes into the same lane and correct street");
     float speed=g.Speed;tick(dt);clear();check(g.Speed>=speed-.001f,key+": straight travel resumes without a post-turn speed drop");
+    check(Quaternion.Angle(g.rider.localRotation,Quaternion.identity)<.001f,key+": rider stays upright on the first straight frame instead of banking again after the curve");
    }
    foreach(int lane in new[]{0,1,2,3})
    {
