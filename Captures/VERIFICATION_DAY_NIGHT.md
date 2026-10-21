@@ -32,5 +32,9 @@ Blender MCP được dùng trực tiếp để dựng nguồn mới `ArtSource/B
 - 77 điều kiện web đạt trên cache đầu: hình ảnh ngày/đêm và mở đầu thực tế 8; chọn việc/HUD bằng chuột và chạm 12; WebGL/PWA/offline 37; toàn màn hình iPhone/iPad dọc/ngang mô phỏng 20. Đã xem ảnh WebGL desktop, mobile dọc và mobile ngang.
 - Một lượt đầu bị timeout 30 giây khi Playwright chờ hai frame ổn định của nút “Cách chơi” trên software renderer. Không có lỗi runtime; tăng thời gian chờ lên 90 giây và chạy lại đủ bộ 37 điều kiện đã đạt. Lưu chẩn đoán riêng, không bỏ qua kiểm tra input.
 - Build cuối `build_f2c1ab83fda6` thành công trong 274,508 giây, 0 lỗi, 3 cảnh báo cũ không chặn build. Phiên bản 1.29.0, cache `ca54198ddf4a4c9b`. Bản cuối bổ sung việc tắt optics trong cảnh tù và dùng API reflection texture hiện hành; các bộ native liên quan đã chạy lại đạt như trên. Bộ web 77 điều kiện chạy trên cache đầu có cùng giao diện và chu kỳ ánh sáng; kết quả kiểm tra riêng bản công khai cuối được lưu sau phát hành.
+- Commit nguồn/build `8f4be7ad6eb64b6ee8ca4dc5337cc076b9148c57` đã push lên `main`. GitHub Pages thành công: https://github.com/denispham1107/taixecongnghe/actions/runs/39596986096.
+- 26 kiểm tra bản công khai cuối đạt (`day-night-live-results.json`): phiên bản 1.29.0/cache `ca54198ddf4a4c9b` khớp, mọi tài nguyên công khai khớp build cuối, Unity WebAssembly thật khởi động/nhận input, không có lỗi JavaScript hoặc Unity runtime.
+- Unity trở về Edit Mode, công việc bật; giữ 55 Coin và kỷ lục 1.775 m. Server localhost 8765 đã dừng. Năm file Blender đang sửa sẵn, bản backup xe máy và `huongdan.md` được giữ riêng ngoài commit này.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/. Đóng hẳn rồi mở lại PWA để nhận bản mới; không cần xóa Coin/kỷ lục.
 
 Các profile trình duyệt mobile kiểm tra bố cục và touch emulation; chưa phải kiểm tra trực tiếp Safari trên iPhone/iPad thật.

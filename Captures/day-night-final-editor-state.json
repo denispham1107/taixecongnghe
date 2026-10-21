@@ -1,0 +1,34 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": ".tools/day-night-release-state.cs",
+      "entry": "DayNightReleaseState.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 80,
+      "executeMs": 0,
+      "assemblyName": "PipelineRunScript_day-night-release-state_52f4dcdfacd440d5b99d4bd6a93f5a3b",
+      "success": true,
+      "result": {
+        "playing": false,
+        "version": "1.29.0",
+        "width": 1667,
+        "height": 679,
+        "jobsEnabled": true,
+        "coins": 55,
+        "best": 1775
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
