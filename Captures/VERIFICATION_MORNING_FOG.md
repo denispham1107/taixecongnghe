@@ -30,4 +30,7 @@
 
 ## Phát hành
 
-- Bản hoàn chỉnh **1.30.0** đã build cục bộ; chưa push/phát hành bản này. Quyền phát hành lần trước chỉ áp dụng 1.29.3, cần người dùng xác nhận cho bản mới.
+- Người dùng đã xác nhận cho phép push/phát hành **1.30.0**. Commit nguồn và gói web `40137670fb5a0cf75bae41ece389bbd8d20aa0b0` đã được push lên `main`.
+- GitHub Pages [run 39652060429](https://github.com/denispham1107/taixecongnghe/actions/runs/39652060429) hoàn tất thành công cho đúng commit trên.
+- [Bản công khai](https://denispham1107.github.io/taixecongnghe/) trả về phiên bản **1.30.0**, cache **ea3fb90268515ad6**, khớp gói đã kiểm tra.
+- **26 kiểm tra bản phát hành đạt**: đối chiếu toàn bộ tài nguyên công khai, chạy WASM thật, bắt đầu/tạm dừng và không có lỗi JavaScript/Unity. Kết quả ở `morning-fog-live-results.json`. Tổng bằng chứng: **611 điều kiện trước phát hành + 26 điều kiện trên web công khai**.
