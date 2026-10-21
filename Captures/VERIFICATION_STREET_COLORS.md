@@ -12,4 +12,7 @@
 - Đã xem ảnh Unity buổi sáng và ban đêm ở desktop, cùng ảnh mobile dọc. Sáu ảnh được lưu dưới tiền tố `street-colors-native-`.
 - Build `build_bd2671ad33bb` thành công trong 46,713 giây, 0 lỗi; một cảnh báo cũ rằng công cụ Pipeline Editor không bật trong Player. Phiên bản 1.29.1, cache `7da072f7b7c355cd`.
 - 8 kiểm tra WebGL thật đạt: ngày/đêm, trở lại ban ngày, desktop/mobile không tràn màn hình, mobile ngang và không có lỗi shader/JavaScript/Unity runtime. Đã xem ảnh WebGL và xác nhận màu mặt tiền/vỉa hè khôi phục đúng. Mobile dùng mô phỏng trình duyệt.
-- Đang push và xác minh GitHub Pages.
+- Commit nguồn/build `10f71ad9952c14783932b2a9507a48db3db99c11` đã push. GitHub Pages thành công: https://github.com/denispham1107/taixecongnghe/actions/runs/39601053362.
+- 26 kiểm tra bản công khai đạt: phiên bản/cache khớp, toàn bộ file khớp build đã kiểm tra, WebAssembly thật khởi động/nhận input, không có lỗi JavaScript hoặc Unity runtime. Kết quả: `street-colors-live-results.json`.
+- Unity ở Edit Mode/Game View ngang, công việc bật, giữ 55 Coin và kỷ lục 1.775 m. Server localhost đã dừng; các file đang sửa sẵn của người dùng được giữ riêng.
+- Trang chơi: https://denispham1107.github.io/taixecongnghe/. Đóng hẳn rồi mở lại PWA để nhận bản 1.29.1.
