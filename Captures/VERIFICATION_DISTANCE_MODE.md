@@ -78,5 +78,16 @@ thao tác bắt đầu/tạm dừng, không có lỗi JavaScript/Unity runtime. 
 Sau kiểm tra: Unity ở Edit Mode, `timeScale=1`, Coin vẫn **105**, kỷ lục vẫn
 **1.775 m** (`distance-native-final-state.json`).
 
-Chưa push hoặc phát hành bản mới; GitHub Pages vẫn chạy bản đã phát hành trước
-đó. Bản 1.30.6 đang chờ người dùng cho phép push/phát hành.
+Đã push commit `23941b11c82116d45185a51672d554dfac07413d` lên `main` và phát
+hành thành công sau khi người dùng yêu cầu tiếp tục công việc.
+
+- GitHub Actions run **39797882879**: completed/success, đúng SHA nguồn.
+- Trang công khai: https://denispham1107.github.io/taixecongnghe/
+- Kiểm tra trực tiếp bản công khai bằng `VerifyPublishedGame.cjs`: **26/26 đạt**,
+  đúng version/cache và toàn bộ tài nguyên, WebAssembly khởi động được, không có
+  lỗi JavaScript/Unity runtime.
+- Bằng chứng: `distance-live-results.json`, `distance-pages-release.json`,
+  `browser-distance-live.png`.
+
+Người dùng cài PWA nên đóng toàn bộ tab/cửa sổ game rồi mở lại để service worker
+chuyển sang bộ tài nguyên mới đã tải đủ.
