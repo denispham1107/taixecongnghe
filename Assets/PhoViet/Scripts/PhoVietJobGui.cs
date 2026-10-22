@@ -19,7 +19,7 @@ namespace PhoViet
   }
   void ReadJobTouch()
   {
-   if(!JobOffersOpen){jobTouchChoice=-1;return;}if(Input.touchCount==0)return;
+   if(!JobsAvailable||!JobOffersOpen){jobTouchChoice=-1;return;}if(Input.touchCount==0)return;
    var touch=Input.GetTouch(0);
    if(touch.phase==TouchPhase.Began){jobTouchChoice=JobChoiceAt(touch.position);jobTouchStart=touch.position;}
    if(touch.phase==TouchPhase.Ended)
@@ -31,6 +31,7 @@ namespace PhoViet
   }
   void JobOffersGui()
   {
+   if(!JobsAvailable)return;
    FullscreenTint(new Color(.03f,.12f,.14f,.72f));float w=portrait?448:790,h=portrait?530:475,x=(uiW-w)/2,y=Mathf.Max(125,(uiH-h)/2);
    Panel(new Rect(x,y,w,h),StreetArt.Cream,18);Txt("CHỌN CHUYẾN XE",x+22,y+18,w-44,35,portrait?24:29,StreetArt.Ink);
    Txt("Game tạm dừng · Chỉ nhận Coin sau khi trả khách",x+22,y+58,w-44,32,13,StreetArt.Teal);
@@ -52,6 +53,7 @@ namespace PhoViet
   }
   void DrawJobMap(Rect rect,bool compact=false)
   {
+   if(!JobsAvailable)return;
    GUI.BeginGroup(rect);Vector2 player=NavigationMapPosition;var route=NavigationRoute;
    float radius=100;if(route!=null)foreach(var p in route.points)radius=Mathf.Max(radius,Mathf.Abs(p.x-player.x)+20,Mathf.Abs(p.y-player.y)+20);
    float scale=Mathf.Min(rect.width,rect.height)/(2*radius),cx=rect.width*.5f,cy=rect.height*.5f;

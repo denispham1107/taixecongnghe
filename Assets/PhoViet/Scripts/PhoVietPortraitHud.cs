@@ -15,9 +15,9 @@ namespace PhoViet
    float scale=narrow?area.width/480f:LandscapeHudScale(area),width=area.width/scale;
    var p=new Vector2((position.x-area.x)/scale,(Screen.height-position.y-area.y)/scale);
    if(narrow)return new Rect(width-54,18,34,34).Contains(p)?0:-1;
-   float x=(width-1000)/2;
-   if(new Rect(x+944,28,40,36).Contains(p))return 0;
-   return new Rect(x+897,71,87,20).Contains(p)?1:-1;
+   float x=(width-LandscapeBarWidth)/2;
+   if(new Rect(x+LandscapeBarWidth-56,28,40,36).Contains(p))return 0;
+   return new Rect(x+LandscapeBarWidth-103,71,87,20).Contains(p)?1:-1;
   }
   void ReadHudTouch()
   {
@@ -62,13 +62,14 @@ namespace PhoViet
   {Txt(HudEllipsis(value,width,size),x,y,width,size+5,size,color);}
   void PortraitHud()
   {
+   if(!JobsAvailable){DistancePortraitHud();DrawRideNotice();return;}
    Panel(new Rect(10,PortraitBarTop,uiW-20,PortraitBarHeight),PortraitGlass,10);
    CompactHudText(CurrentStreet.ToUpperInvariant(),22,18,298,10,Gold);
    CompactHudText(Mathf.Max(0,Mathf.FloorToInt(Distance)).ToString("N0")+" m",22,36,140,22,Cream);
    CompactHudText("Coin: "+FormatCoins(Coins),22,66,140,12,Gold);
    CompactHudText(Mathf.RoundToInt(Speed*3.6f)+" km/h",22,86,132,10,Hex("B5CFC2"));
    Panel(new Rect(160,38,1,57),new Color(.8f,.95f,.9f,.18f),0);
-   if(jobsEnabled&&ActiveJob!=null)
+   if(JobsAvailable&&ActiveJob!=null)
    {
     string stage=JobPhase==WorkPhase.Pickup?"ĐÓN":JobPhase==WorkPhase.Delivery?"TRẢ":JobPhase==WorkPhase.Boarding?"LÊN XE":"XUỐNG XE";
     CompactHudText(stage+" · "+Mathf.CeilToInt(NavigationRemainingDistance)+" m",172,36,152,12,Gold);
@@ -92,8 +93,8 @@ namespace PhoViet
    string message=State==RideState.Falling?(CrashDuringPursuit?(RiderFallComplete?"ĐÃ TÉ · CHỜ CSGT ĐẾN BẮT":"VA CHẠM · CSGT ĐANG ĐẾN"):"VA CHẠM · CHUYẾN ĐI KẾT THÚC"):notice;
    if(portrait)
    {
-    float width=uiW-20;Panel(new Rect(10,PortraitNoticeTop,width,PortraitNoticeHeight),new Color(.07f,.19f,.21f,.70f),7);
-    Txt(HudEllipsis(message,width-18,11),19,PortraitNoticeTop+3,width-18,22,11,Gold,TextAnchor.MiddleCenter);
+    float width=uiW-20;Panel(new Rect(10,PortraitNoticeY,width,PortraitNoticeHeight),new Color(.07f,.19f,.21f,.70f),7);
+    Txt(HudEllipsis(message,width-18,11),19,PortraitNoticeY+3,width-18,22,11,Gold,TextAnchor.MiddleCenter);
    }
    else
    {
@@ -106,7 +107,7 @@ namespace PhoViet
    var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
    float scale=narrow?area.width/480f:Mathf.Min(area.width/1440f,area.height/900f);
    float top=Screen.height-position.y;
-   float reservedTop=narrow?(noticeTimer>0?PortraitNoticeTop+PortraitNoticeHeight:PortraitBarTop+PortraitBarHeight):(noticeTimer>0?126:94)*LandscapeHudScale(area)/scale;
+   float reservedTop=narrow?(noticeTimer>0?PortraitNoticeY+PortraitNoticeHeight:PortraitBarTop+(JobsAvailable?PortraitBarHeight:76)):(noticeTimer>0?126:94)*LandscapeHudScale(area)/scale;
    float reservedBottom=narrow?0:110;
    return position.x>=area.xMin&&position.x<=area.xMax&&top>=area.yMin+reservedTop*scale&&top<=area.yMax-reservedBottom*scale;
   }

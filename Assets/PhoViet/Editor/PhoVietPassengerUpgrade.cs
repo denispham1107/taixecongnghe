@@ -19,7 +19,7 @@ namespace PhoViet.Editor
    g.navigationRight=AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/PhoViet/Audio/Navigation/right.mp3");
    g.navigationStraight=AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/PhoViet/Audio/Navigation/straight.mp3");
    if(g.navigationLeft==null||g.navigationRight==null||g.navigationStraight==null)throw new Exception("Three navigation clips required");
-   g.jobsEnabled=true;EditorUtility.SetDirty(g);EditorSceneManager.MarkSceneDirty(g.gameObject.scene);EditorSceneManager.SaveScene(g.gameObject.scene);AssetDatabase.SaveAssets();
+   g.jobsEnabled=PhoVietGame.RideJobsReleased;EditorUtility.SetDirty(g);EditorSceneManager.MarkSceneDirty(g.gameObject.scene);EditorSceneManager.SaveScene(g.gameObject.scene);AssetDatabase.SaveAssets();
   }
   static Transform Replace(PhoVietGame g,string name,Transform old)
   {

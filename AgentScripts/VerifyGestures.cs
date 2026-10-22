@@ -38,7 +38,7 @@ public static class VerifyGestures
    reset();g.TogglePause();begin();g.TogglePause();packet(1,7,2,.5f,.3f,10.1f);check(!g.RiderJumpActive,"Paused-start gesture cannot activate after resume");
    reset();begin();g.TogglePause();g.TogglePause();packet(1,7,-1,.4f,.5f,10.1f);check(g.CurrentLane==2,"Pause/resume cancels old held pointer");
    reset();begin();g.RestartRide();packet(1,7,-1,.4f,.5f,10.1f);check(g.CurrentLane==2,"Restart cancels previous run pointer");
-   reset();g.jobsEnabled=true;g.ShowJobOffers();begin();packet(1,7,3,.5f,.7f,10.1f);check(!g.BoostActive&&g.JobOffersOpen,"Job selection never triggers gameplay gesture");
+   reset();g.jobsEnabled=true;g.ShowJobOffers();begin();packet(1,7,3,.5f,.7f,10.1f);if(PhoVietGame.RideJobsReleased)check(!g.BoostActive&&g.JobOffersOpen,"Job selection never triggers gameplay gesture");else check(g.BoostActive&&!g.JobOffersOpen,"Disabled job call cannot block a gameplay swipe");
    reset();begin();packet(1,7,99,.5f,.5f,10.1f);check(g.CurrentLane==2&&!g.RiderJumpActive&&!g.BoostActive,"Unknown action ignored");
    reset();int bike=g.vehicles.FindIndex(v=>!v.eventOnly&&v.halfWidth<.7f);var target=g.SpawnTraffic(3,0,bike);
    packet(0,7,0,.5f,.5f,20);packet(2,7,0,.5f,.5f,20.04f);check(!target.knocked,"Single browser tap does not kick");

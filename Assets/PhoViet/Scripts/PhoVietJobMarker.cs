@@ -39,7 +39,7 @@ namespace PhoViet
   }
   void UpdateJobMarker()
   {
-   if(!jobsEnabled||ActiveJob==null||rideCamera==null||State==RideState.Ready||State==RideState.Jailed||State==RideState.GameOver||State==RideState.Arrested)
+   if(!JobsAvailable||ActiveJob==null||rideCamera==null||State==RideState.Ready||State==RideState.Jailed||State==RideState.GameOver||State==RideState.Arrested)
    {if(jobMarker!=null)jobMarker.gameObject.SetActive(false);return;}
    var target=CurrentWorkTarget;
    Vector2 delta=target.Point+target.CurbDirection*7.6f-NavigationPosition;

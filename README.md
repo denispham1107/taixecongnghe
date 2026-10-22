@@ -4,7 +4,28 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.15.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản nguồn/build **1.30.6** (xem báo cáo phát hành để biết trạng thái bản web).
+
+## Chế độ hiện tại — chỉ thi quãng đường (1.30.6)
+
+Theo yêu cầu ngày 22/10/2026, tạm ẩn toàn bộ công việc đưa đón/trả khách.
+Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự khôi phục tính năng này
+khi sửa game, nâng cấp model hoặc build bản mới.
+
+- Game chạy liên tục, thi quãng đường và lưu kỷ lục; không tự tạm dừng để chọn việc.
+- Ẩn danh sách việc, Coin trên HUD, GPS/bản đồ, mũi tên điểm hẹn, khách và giọng chỉ đường.
+- Không tự giảm tốc/dừng đón trả khách hoặc áp dụng nhường đường dành riêng cho công việc.
+- Giữ nguyên số Coin đã lưu và toàn bộ mã nguồn/model khách để có thể khôi phục sau.
+- HUD dọc/ngang chỉ giữ tên đường, mét, tốc độ, kỷ lục, tạm dừng và các thông báo chơi game.
+
+Khóa phát hành tại `PhoVietGame.RideJobsReleased` trong
+`Assets/PhoViet/Scripts/PhoVietJobs.cs` đang là `false`; `JobsAvailable` kết hợp
+khóa này với cờ scene `jobsEnabled`. Scene và công cụ nâng cấp khách đều để tắt.
+Các API nhận việc, hoạt ảnh dịch vụ, giọng dẫn đường và bản đồ có kiểm tra khóa.
+Khi được yêu cầu mở lại, cần bật khóa cùng cờ scene và chạy lại bộ kiểm tra công việc.
+Hệ thống phố/giao lộ vẫn hoạt động độc lập để đổi đường, rẽ và hiển thị tên phố.
+
+Các phần mô tả công việc/Coin bên dưới là tài liệu tính năng đã lưu, hiện đang tắt.
 
 ## Xe máy và tài xế bản 1.15.0
 

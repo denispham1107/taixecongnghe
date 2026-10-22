@@ -11,7 +11,11 @@ namespace PhoViet
   {
    public RideAddress pickup,dropoff;public int reward;public float pickupMetres,tripMetres;public bool female;
   }
-  public bool jobsEnabled=true;
+  // User disabled ride jobs on 2026-10-22. Re-enable only on explicit request.
+  // The release gate also prevents old serialized scenes/editor upgrades from restoring jobs.
+  public static readonly bool RideJobsReleased=false;
+  public bool jobsEnabled=false;
+  public bool JobsAvailable=>RideJobsReleased&&jobsEnabled;
   public Transform malePassenger,femalePassenger;
   public AudioClip navigationLeft,navigationRight,navigationStraight;
   public int Coins {get;private set;}
@@ -35,19 +39,19 @@ namespace PhoViet
   public float NavigationRemainingDistance=>NavigationRoute==null?0:Mathf.Max(0,IsTurning&&turnNavigationRoute!=null?turnNavigationRoute.distance-Mathf.Max(0,TurnExitAdvance):ActiveRoute.distance-Mathf.Max(0,Distance-routePlanDistance));
   void PreviewJunctionNavigation()
   {
-   if(!jobsEnabled||ActiveJob==null)return;
+   if(!JobsAvailable||ActiveJob==null)return;
    int heading=(navHeading+turnSide+4)%4;
    turnNavigationRoute=city.Plan((Vector2)navNext*80,navNext+CityNavigation.Directions[heading],heading,80,CurrentWorkTarget);
   }
-  public bool ServiceStopped=>jobsEnabled&&(JobPhase==WorkPhase.Boarding||JobPhase==WorkPhase.Alighting);
-  public bool ServiceRearProtected=>ServiceStopped||ServiceApproaching||rearDepartureProtection>0;
+  public bool ServiceStopped=>JobsAvailable&&(JobPhase==WorkPhase.Boarding||JobPhase==WorkPhase.Alighting);
+  public bool ServiceRearProtected=>JobsAvailable&&(ServiceStopped||ServiceApproaching||rearDepartureProtection>0);
   // Use the same approach gate for slowing down and for traffic yielding. Protection
   // must start before the rider brakes, rather than only when the passenger animates.
   bool ServiceApproaching=>TryServiceApproach(out _);
   bool TryServiceApproach(out float ahead)
   {
    ahead=0;
-   if(!jobsEnabled||ActiveJob==null||IsTurning||(JobPhase!=WorkPhase.Pickup&&JobPhase!=WorkPhase.Delivery))return false;
+   if(!JobsAvailable||ActiveJob==null||IsTurning||(JobPhase!=WorkPhase.Pickup&&JobPhase!=WorkPhase.Delivery))return false;
    var target=CurrentWorkTarget;var delta=target.Point-NavigationPosition;
    ahead=Vector2.Dot(delta,CityNavigation.Directions[navHeading]);
    return target.axis%2==navHeading%2&&Mathf.Abs(Vector2.Dot(delta,CityNavigation.Directions[(navHeading+1)%4]))<.1f&&
@@ -77,7 +81,7 @@ namespace PhoViet
   RideAddress CurrentWorkTarget=>ActiveJob==null?null:JobPhase==WorkPhase.Pickup||JobPhase==WorkPhase.Boarding?ActiveJob.pickup:ActiveJob.dropoff;
   public void ShowJobOffers()
   {
-   if(!jobsEnabled||ActiveJob!=null||State!=RideState.Riding||IsTurning)return;
+   if(!JobsAvailable||ActiveJob!=null||State!=RideState.Riding||IsTurning)return;
    JobOffers.Clear();Vector2Int around=new Vector2Int(Mathf.FloorToInt(NavigationPosition.x/80),Mathf.FloorToInt(NavigationPosition.y/80));
    for(int i=0;i<3;i++)
    {
@@ -116,14 +120,14 @@ namespace PhoViet
   }
   public bool AcceptJob(int index)
   {
-   if(!JobOffersOpen||index<0||index>=JobOffers.Count)return false;
+   if(!JobsAvailable||!JobOffersOpen||index<0||index>=JobOffers.Count)return false;
    ActiveJob=JobOffers[index];JobPhase=WorkPhase.Pickup;JobOffersOpen=false;serviceTime=0;
    State=RideState.Riding;PauseRecklessFx(false);if(sound){engine?.UnPause();if(IsChased)siren?.UnPause();}
    BeginJobTrafficYield();ReplanJob(false);UpdateNavigationVoice();notice="ĐÃ NHẬN CHUYẾN · "+FormatCoins(ActiveJob.reward)+" COIN";noticeTimer=2;return true;
   }
   void ReplanJob(bool afterJunction)
   {
-   if(!jobsEnabled||ActiveJob==null||ServiceStopped)return;
+   if(!JobsAvailable||ActiveJob==null||ServiceStopped)return;
    ActiveRoute=city.Plan(NavigationPosition,navNext,navHeading,Mathf.Max(0,NextJunctionDistance),CurrentWorkTarget);
    routePlanDistance=Distance;
    spokenKey="";streetTargetMissed=false;
@@ -131,7 +135,7 @@ namespace PhoViet
   }
   void UpdateWork(float dt)
   {
-   if(!jobsEnabled)return;
+   if(!JobsAvailable)return;
    ReadJobTouch();
    if(State==RideState.Riding&&ActiveJob==null&&!JobOffersOpen){offersDelay-=dt;if(offersDelay<=0)ShowJobOffers();}
    if(navigationAudio!=null){navigationAudio.mute=!sound;if(State!=RideState.Riding)navigationAudio.Pause();}
@@ -154,7 +158,7 @@ namespace PhoViet
   }
   void UpdateNavigationVoice()
   {
-   if(IsTurning||ServiceStopped||ActiveRoute==null||State!=RideState.Riding)return;
+   if(!JobsAvailable||IsTurning||ServiceStopped||ActiveRoute==null||State!=RideState.Riding)return;
    string key=navNext+":"+navHeading+":"+ActiveRoute.nextTurn+":"+JobPhase+":"+ActiveRoute.direct;
    if(key!=spokenKey){spokenKey=key;navigationCueStage=0;}
    // Never queue stale speech: only the next junction can issue a turn instruction.
@@ -168,13 +172,14 @@ namespace PhoViet
   }
   void SpeakNavigation(int turn)
   {
+   if(!JobsAvailable)return;
    if(navigationAudio==null){navigationAudio=gameObject.AddComponent<AudioSource>();navigationAudio.playOnAwake=false;navigationAudio.volume=.9f;}
    var clip=turn<0?navigationLeft:turn>0?navigationRight:navigationStraight;
    if(sound&&clip!=null){navigationAudio.clip=clip;navigationAudio.Play();}
   }
   void TickWorkMotion(float dt)
   {
-   if(!jobsEnabled)return;
+   if(!JobsAvailable)return;
    jobTrafficYieldRemaining=Mathf.Max(0,jobTrafficYieldRemaining-dt);
    if(ActiveJob==null||IsTurning)return;
    if(ServiceStopped){TickService(dt);return;}
@@ -198,6 +203,7 @@ namespace PhoViet
   }
   void BeginService()
   {
+   if(!JobsAvailable||ActiveJob==null)return;
    CancelAssistedKick(false);CancelBoost();bool pickup=JobPhase==WorkPhase.Pickup;JobPhase=pickup?WorkPhase.Boarding:WorkPhase.Alighting;serviceTime=0;Speed=0;engine?.Pause();navigationAudio?.Stop();
    foreach(var v in vehicles)v.jobYieldLane=-1;
    if(pickup)
@@ -209,6 +215,7 @@ namespace PhoViet
   }
   void TickService(float dt)
   {
+   if(!JobsAvailable||ActiveJob==null)return;
    serviceTime+=dt;bool pickup=JobPhase==WorkPhase.Boarding;float length=pickup?3.6f:3.2f;
    if(customer!=null)
    {
@@ -251,7 +258,7 @@ namespace PhoViet
   }
   void YieldRearForService(TrafficVehicle v)
   {
-   if(!jobsEnabled||!ServiceRearProtected||!v.active||v.wallCrashed)return;
+   if(!JobsAvailable||!ServiceRearProtected||!v.active||v.wallCrashed)return;
    Vector3 p=v.model.localPosition,r=rider.localPosition;
    // Keep the established roughly 2.6 m nose-to-rider-center following gap.
    Vector2 half=ServiceTrafficFootprint(v)+ServiceTrafficFootprint(riderBody)+new Vector2(.45f,1.7f);

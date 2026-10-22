@@ -40,11 +40,21 @@ public static class VerifyBoost
    check(!g.TryBoost(),"Cooldown rejects W");clock(1.99f);check(!g.TryBoost(),"Cooldown is still enforced just before two seconds");clock(.02f);check(g.TryBoost(),"Boost becomes available after two seconds");
    reset();g.TryJump();tick(.3f);check(g.RiderAirborne&&g.TryBoost(),"Boost can activate during the existing jump");tick(.02f);check(g.RiderAirborne&&g.BoostActive&&g.State==PhoVietGame.RideState.Riding,"Jump and boost coexist without canceling jump or colliding");
    reset();g.TryBoost();g.TogglePause();check(!g.TryBoost(),"Paused state rejects a new boost");g.TogglePause();
+   if(PhoVietGame.RideJobsReleased)
+   {
    g.jobsEnabled=true;g.ShowJobOffers();check(g.JobOffersOpen,"Job list can pause an active boost");remaining=g.BoostRemaining;clock(2);check(g.BoostRemaining==remaining,"Job selection freezes boost timer");g.AcceptJob(0);clear();
    call("BeginService",new object[0]);check(!g.BoostActive&&g.BoostCooldown==2&&g.ServiceStopped,"Pickup cancels boost immediately and starts cooldown");
    check(!g.TryBoost(),"Boarding passenger blocks boost");clock(1);check(Mathf.Abs(g.BoostCooldown-1)<.001f,"Cooldown continues while stopped for a customer");clock(1);check(g.BoostCooldown==0,"Full two-second service wait completes cooldown");
    reset();g.jobsEnabled=true;g.ShowJobOffers();g.AcceptJob(0);clear();typeof(PhoVietGame).GetProperty("JobPhase").SetValue(g,PhoVietGame.WorkPhase.Delivery);g.TryBoost();
    call("BeginService",new object[0]);check(g.ServiceStopped&&!g.BoostActive&&g.BoostCooldown==2,"Dropoff also cancels active boost");
+   }
+   else
+   {
+    g.jobsEnabled=true;g.ShowJobOffers();remaining=g.BoostRemaining;
+    check(!g.JobOffersOpen&&g.State==PhoVietGame.RideState.Riding,"Disabled jobs do not pause active boost");
+    call("BeginService",new object[0]);check(g.BoostActive&&!g.ServiceStopped,"Disabled service cannot cancel boost or stop rider");
+    clock(.2f);check(g.BoostRemaining<remaining,"Boost timer keeps advancing in distance mode");
+   }
    reset();g.TryBoost();g.Crash();check(g.State==PhoVietGame.RideState.Falling&&!g.BoostActive&&g.BoostCooldown==2,"Impact cancels boost, starts the physical fall and starts cooldown");
    call("TickRiderCrash",new object[]{.2f});check(g.BoostCooldown<2,"Cooldown continues during physical falling");check(!g.TryBoost(),"Falling state rejects boost");
    reset();set("timeRiding",150f);int car=g.vehicles.FindIndex(v=>!v.eventOnly&&v.halfWidth>.7f&&v.halfLength<3);var obstacle=g.SpawnTraffic(2,4,car);obstacle.speed=obstacle.baseTrafficSpeed=0;

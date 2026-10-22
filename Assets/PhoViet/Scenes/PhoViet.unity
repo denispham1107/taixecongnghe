@@ -467796,7 +467796,7 @@ MonoBehaviour:
     roadTurnForward: {x: 0, y: 0, z: 0}
     roadTurnSide: {x: 0, y: 0, z: 0}
   sound: 1
-  jobsEnabled: 1
+  jobsEnabled: 0
   malePassenger: {fileID: 1645853379}
   femalePassenger: {fileID: 1451525786}
   navigationLeft: {fileID: 8300000, guid: bc9667aca867795418647ff141710d37, type: 3}
