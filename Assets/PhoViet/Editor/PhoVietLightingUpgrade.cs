@@ -64,10 +64,11 @@ namespace PhoViet.Editor
             foreach(var bike in g.GetComponentsInChildren<BikeVisualAnimator>(true).Where(b=>b.role!=BikeVisualAnimator.ActorRole.Parked))vehicles.Add(Bike(bike,g));
             foreach(var car in g.GetComponentsInChildren<CarVisualAnimator>(true))vehicles.Add(Car(car));
             var emission=new List<Material>();
-            foreach(var path in PhoVietBikeUpgrade.Assets.Select(a=>"Assets/PhoViet/Art/Bikes/"+a+".mat").Concat(PhoVietCarUpgrade.Assets.Select(a=>"Assets/PhoViet/Art/Cars/"+a+".mat")))
+            foreach(var path in PhoVietBikeUpgrade.Assets.Select(a=>System.IO.Path.ChangeExtension(PhoVietBikeUpgrade.ModelPath(a),"mat").Replace('\\','/')).Concat(PhoVietCarUpgrade.Assets.Select(a=>"Assets/PhoViet/Art/Cars/"+a+".mat")))
             {
                 var material=AssetDatabase.LoadAssetAtPath<Material>(path);if(material==null)throw new Exception("Missing vehicle material: "+path);
-                material.SetTexture("_EmissionMap",AssetDatabase.LoadAssetAtPath<Texture2D>(Folder+(path.Contains("/Bikes/")?"PV_BikeEmission":"PV_CarEmission")+".png"));
+                string emissionPath=path.Contains("/Meshy/")?"Assets/PhoViet/Art/Bikes/Meshy/Meshy_Emission.png":Folder+(path.Contains("/Bikes/")?"PV_BikeEmission":"PV_CarEmission")+".png";
+                material.SetTexture("_EmissionMap",AssetDatabase.LoadAssetAtPath<Texture2D>(emissionPath));
                 material.EnableKeyword("_EMISSION");material.SetColor("_EmissionColor",Color.black);EditorUtility.SetDirty(material);emission.Add(material);
             }
             ApplyColorfulStreetPaint(g);
@@ -126,10 +127,11 @@ namespace PhoViet.Editor
         static DayNightLighting.VehicleLamps Bike(BikeVisualAnimator bike,PhoVietGame game)
         {
             var root=bike.transform;ClearAnchors(root);var bones=bike.visual.GetComponentsInChildren<Transform>(true);
-            bool sport=bike.AssetName=="PV_SportBike"||bike.AssetName=="PV_Racer";
-            var front=bones.First(t=>t.name==(sport?"Frame":"Steering"));var rear=bones.First(t=>t.name=="Frame");
-            float y=sport?.97f:bike.AssetName=="PV_CityScooter"||bike.AssetName=="PV_Underbone"?1.09f:1.13f,z=sport?.73f:.68f;
-            var head=Anchor(root,front,"Quang học đèn xe • pha",new Vector3(0,y,z));var tail=Anchor(root,rear,"Quang học đèn xe • hậu",new Vector3(0,.805f,-1.112f));
+            // Read received Meshy mounts; preserve original police and legacy Wave fallbacks.
+            bool police=bike.AssetName=="PV_TrafficPolice";
+            var front=bones.First(t=>t.name=="Steering");var rear=bones.First(t=>t.name=="Frame");
+            var head=Anchor(root,front,"Quang học đèn xe • pha",PhoVietMeshyBikeUpgrade.Mount(bike.AssetName,"headlight")??(police?new Vector3(0,1.13f,.68f):new Vector3(0,1.095f,.80f)));
+            var tail=Anchor(root,rear,"Quang học đèn xe • hậu",PhoVietMeshyBikeUpgrade.Mount(bike.AssetName,"taillight")??(police?new Vector3(0,.805f,-1.112f):new Vector3(0,.81f,-1.085f)));
             return new DayNightLighting.VehicleLamps{root=root,head=head,player=root==game.rider,roadLight=GroundLight(),halos=new[]{Halo(head,false,.7f),Halo(tail,true,.45f)}};
         }
         static Renderer GroundLight(){var r=Overlay("Vệt đèn pha trên mặt đường",opticalRoot,headPool,true);r.transform.localScale=new Vector3(32,1,32);return r;}

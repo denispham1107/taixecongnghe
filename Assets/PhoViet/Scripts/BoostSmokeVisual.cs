@@ -21,7 +21,11 @@ namespace PhoViet
    if(sprite==null){Debug.LogError("Missing Blender boost smoke flipbook");return;}
    var visual=GetComponent<BikeVisualAnimator>();
    nozzle=new GameObject("Khói trắng phản lực • Blender").transform;
-   nozzle.SetParent(visual!=null?visual.visual:transform,false);nozzle.localPosition=new Vector3(.36f,.42f,-1.02f);
+   Transform socket=null;
+   if(visual!=null&&visual.visual!=null)
+    foreach(var t in visual.visual.GetComponentsInChildren<Transform>(true))if(t.name=="PV_MeshyExhaust"){socket=t;break;}
+   nozzle.SetParent(socket!=null?socket:visual!=null?visual.visual:transform,false);
+   nozzle.localPosition=socket!=null?Vector3.zero:new Vector3(.214f,.45f,-1.02f); // Retain Wave fallback for older scenes.
    material=new Material(Shader.Find("PhoViet/Soft Particle")){name="PV_WhiteBoostSmoke",mainTexture=sprite};
    jet=Create("Luồng phụt trắng",true);smoke=Create("Khói trắng tản",false);
   }

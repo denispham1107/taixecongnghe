@@ -1,8 +1,10 @@
 # PHỐ VIỆT — Tài liệu tính năng, kiến trúc và bàn giao cho Claude Code
 
-Cập nhật toàn diện: **22/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.30.6. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
+Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.30.6. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
 
 > **Trạng thái hiện tại: 1.30.6, chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
+>
+> **Xe máy Meshy (23/10/2026, Codex):** đã nhận thành công FBX “Red Honda Scooter Front View” qua Meshy Bridge. Theo yêu cầu mới, scene dùng mẫu này cho mọi xe máy trừ CSGT: xe chính trắng–đen; xe giao thông/quái xế/xe đỗ nhiều màu. Giữ người lái, rig, clip và luật chơi. Bản Wave/WaveAlpha ở 21.5–21.6 là lịch sử đã thay thế; nguồn cũ được giữ. Bản Meshy đang được build/phát hành **1.31.0** theo yêu cầu trực tiếp mới của người dùng; chỉ coi web đã cập nhật khi mục 21.8 ghi xác minh live. Xem 21.7–21.8.
 >
 > **Quy tắc bắt buộc từ 22/10/2026:** mỗi lần thay đổi, sửa lỗi hoặc thêm chức năng phải cập nhật đầy đủ `huongdan.md` trong cùng công việc. Ghi hành vi mới, cách triển khai/file liên quan, tham số, quyết định thay thế, kiểm tra và trạng thái commit/build/phát hành; cập nhật mục cũ bị thay thế. Đây là tài liệu dùng chung cho Codex và Claude Code.
 
@@ -43,6 +45,7 @@ Cập nhật toàn diện: **22/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 - Mạng phố hiện tại là **ô bàn cờ, tên/vị trí đường cố định trong từng lượt**; quay lại đúng đường phải thấy tên cũ. Lượt mới có thể sinh lại cách gán tên.
 - Giọng chỉ đường đã chọn: nữ miền Nam, “Quẹo trái”, “Quẹo phải”, “Đi thẳng”; báo trước khoảng 4 giây, nhắc trước 2 giây, tránh “Đi thẳng” ngay trước rẽ. Hiện không phát vì công việc đang tắt.
 - Phím hiện tại: **Q đạp**, **Space nhảy**, **W tăng tốc +125% trong 4 giây, hồi 2 giây**. Mobile: chạm hai lần đạp, vuốt lên nhảy, xuống tăng tốc; vuốt nhận ngay khi đủ ngưỡng, không chờ nhấc tay.
+- **Xe máy (yêu cầu mới 23/10/2026):** dùng đúng mô hình đã nhận từ Meshy cho xe người chơi, xe máy thường hai chiều, quái xế và xe đậu. Xe chính **trắng–đen**, bốn phối màu còn lại **xanh ngọc, xanh dương, vàng, cam**. Giữ nguyên mô tô CSGT hiện tại theo xác nhận riêng của người dùng. Giữ người lái/động tác, hình học và texture gốc Meshy (kể cả gương/chi tiết nhận diện vốn có), chỉ đổi vùng sơn; yêu cầu không gương/không logo của bản Wave cũ không áp vào mẫu mới này.
 - **Mọi lần sửa/thêm chức năng đều phải ghi vào tài liệu này**, kể cả thay đổi chưa build hoặc chưa phát hành; ghi rõ trạng thái chưa hoàn tất thay vì bỏ qua.
 
 ### 1.2. Những yêu cầu cũ đã được thay thế
@@ -56,6 +59,7 @@ Cập nhật toàn diện: **22/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 | Space đạp, Q nhảy, E tăng tốc +75%/hồi 3 s | Q đạp, Space nhảy, W +125%/4 s/hồi 2 s |
 | Hai làn giữa chỉ được đi thẳng; cua giảm 8/10 m/s | Làn giữa trái/phải rẽ đúng phía; cua giữ tốc độ như đường thẳng |
 | Bật công việc trong scene trước mọi bản phát hành | Sai với trạng thái hiện tại: RideJobsReleased=false và jobsEnabled=false |
+| Xe tay ga/xe số v2, rồi bản Wave/WaveAlpha | Scene hiện dùng xe Meshy đã nhập, xe chính trắng–đen; giữ tên semantic `PV_HeroScooter`… và riêng xe CSGT cũ. Xem 21.7 |
 | Icon minh họa raster hoặc PV cách điệu | SVG xe máy chính diện, sao vàng, đường; PNG chỉ là bản xuất cho hệ điều hành |
 | Chậu cây trang trí ở ban công/vỉa hè | Đã xóa khỏi bộ cảnh quan Blender |
 | Tán lá ghép từ những khối cầu | Đã dựng lại bằng lá có hình học riêng và nhiều LOD |
@@ -68,7 +72,7 @@ Cập nhật toàn diện: **22/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 ### 2.1. Bối cảnh, nhân vật và vòng chơi
 
 - Góc nhìn thứ ba từ phía sau và hơi cao, camera nhìn dọc con đường; xe tự tiến.
-- Nhân vật chính mặc áo đỏ có **ngôi sao vàng đủ 5 cánh** (ngực và lưng), đội mũ bảo hiểm, đi **xe tay ga màu trắng** (từ bản xe máy v2, 19/10/2026; trước đó xe đỏ).
+- Nhân vật chính mặc áo đỏ có **ngôi sao vàng đủ 5 cánh** ở ngực/lưng, đội mũ bảo hiểm, đi xe Meshy phối **trắng–đen**. Đây là mẫu người dùng gửi qua Bridge ngày 23/10, thay bản Wave cục bộ; **chưa có trên bản web**.
 - Đường có 4 làn, vạch giữa đường vàng đứt nét, vạch trắng phân làn, vạch biên, vạch qua đường và giao lộ.
 - Hai làn bên trái chủ yếu là xe ngược chiều; hai làn bên phải chủ yếu cùng chiều. Xe ngược chiều có thể lấn qua phía người chơi.
 - Xe máy, sedan, hatchback, taxi, xe giao hàng, xe tải thường và xe tải ngủ gật cùng xuất hiện.
@@ -109,7 +113,7 @@ Không có ga/phanh thủ công. Tốc độ tăng theo thời gian, có nhảy 
 
 ### 2.4. Quái xế và xe tải ngủ gật
 
-- Có xe máy quái xế kiểu Exciter cách điệu và xe mang biển **XE TẢI NGỦ GẬT**.
+- Có xe máy quái xế (hiện dùng thân xe Meshy màu cam, người lái áo đen mũ fullface cam; trước đó thân Wave rồi côn tay kiểu Exciter) và xe mang biển **XE TẢI NGỦ GẬT**.
 - Có cả cùng chiều lẫn ngược chiều, lấn làn và lạng lách qua phía người chơi.
 - Xe cùng chiều xuất hiện từ ngoài camera phía sau. Mỗi đợt chỉ một xe nguy hiểm trên một làn cùng chiều được chọn ngẫu nhiên, báo mũi tên đỏ–vàng đúng làn trước 2 giây. Nếu còn xe nguy hiểm ngược chiều/chạy từ sau đang di chuyển thì đợi nó va chạm; khi đủ điều kiện lại phải báo đủ 2 giây. Quy tắc còn hiệu lực qua rẽ/rebase.
 - Có thể húc và đẩy xe khác, gây rối giao thông và phản ứng dây chuyền.
@@ -208,7 +212,7 @@ Taixecongnghe/
 
 Khi chuyển dự án, giữ **Assets + toàn bộ `.meta`**, ArtSource, AgentScripts, Captures, Packages, ProjectSettings, docs và Git history nếu có. `Assets/PhoViet/Generated` có tài nguyên scene đang tham chiếu nên phải giữ. Không cần gửi `Library`, `Temp`, `Obj`, `Logs`, `UserSettings`, `node_modules` hoặc `.tools`; Unity/công cụ sẽ tạo lại khi cần.
 
-Trước lần cập nhật tài liệu 22/10, có sẵn **5 nguồn Blender sửa cục bộ**: Cars, Jump, Motorcycles, Passengers, Streets; ba file chưa track là `PhoViet_Anhsangngaydem.blend`, `PhoViet_Motorcycles.backup-20261019.blend`, `Phoviet_Suongmu.blend`. Giữ nguyên, không tự reset/ghi đè/stage chúng. `huongdan.md` cũng chưa được track trước lần cập nhật này và có bổ sung xe máy v2 của Claude Code: đã đọc/giữ phần đó rồi đối chiếu, không thay bằng bản hướng dẫn cũ trong Git. Snapshot không thay cho `git status` lúc bắt đầu phiên mới. Sửa `.blend` không đồng nghĩa đã xuất FBX hoặc cập nhật build.
+Trước lần cập nhật tài liệu 22/10, có sẵn **5 nguồn Blender sửa cục bộ**: Cars, Jump, Motorcycles, Passengers, Streets; ba file chưa track là `PhoViet_Anhsangngaydem.blend`, `PhoViet_Motorcycles.backup-20261019.blend`, `Phoviet_Suongmu.blend`. Giữ nguyên, không tự reset/ghi đè/stage chúng. `huongdan.md` cũng chưa được track trước lần cập nhật này và có bổ sung xe máy v2 của Claude Code: đã đọc/giữ phần đó rồi đối chiếu, không thay bằng bản hướng dẫn cũ trong Git. Phiên xe máy Wave 23/10 thêm nguồn mới `PhoViet_Motorcycles_Wave.blend` + `pho_viet_wave.py` và không ghi vào `PhoViet_Motorcycles.blend` (theo lựa chọn “lưu file mới” của người dùng). Snapshot không thay cho `git status` lúc bắt đầu phiên mới. Sửa `.blend` không đồng nghĩa đã xuất FBX hoặc cập nhật build.
 
 ## 4. Bản đồ mã nguồn
 
@@ -573,7 +577,8 @@ Ba file `left.mp3`, `right.mp3`, `straight.mp3` trong `Assets/PhoViet/Audio/Navi
 
 | Bộ | Model/source | Kỹ thuật |
 | --- | --- | --- |
-| Xe máy + người lái **(v2, gần như thật, 19/10/2026)** | HeroScooter (tay ga trắng), CityScooter (tay ga, người lái nữ), Underbone (xe số), SportBike, Racer (côn tay), TrafficPolice | 6 thiết kế, 17 xương/mẫu, 7 clip, 3 LOD (khoảng 25–32k / 11–14k / 4,3–5,4k tam giác), atlas 32 ô; thân người một khối remesh, skin 2 xương. Xem `Captures/VERIFICATION_BIKES_V2.md` |
+| Xe máy + người lái **Meshy (23/10/2026)** | HeroScooter, CityScooter, Underbone, SportBike, Racer dùng cùng hình xe đã nhập từ Meshy và màu khác nhau; TrafficPolice vẫn mô tô tuần tra v2 | 17 xương, 7 clip, 3 LOD; khoảng 28,3–30,4k / 11k / 5k tam giác, atlas màu/surface 2048² và normal chung; người lái cũ giữ lại, chỉ căn tay vào tay nắm mới. Xem 21.7 và `Captures/VERIFICATION_MESHY_BIKES.md` |
+| Xe máy + người lái v2 (19/10/2026, **đã thay thế trừ CSGT**) | Tay ga trắng/tay ga nữ/xe số/côn tay/quái xế/CSGT | `Captures/VERIFICATION_BIKES_V2.md`; nguồn `pho_viet_motorcycles.py` vẫn là thư viện người lái/rig/xuất cho bản Wave |
 | Xe bốn bánh | Sedan, Hatchback, Taxi, DeliveryVan, BoxTruck, DrowsyTruck | 6 thiết kế, 15 xương/mẫu, 7 clip, 3 LOD, một material atlas/mẫu |
 | Phố | 12 shop, 3 cây, 1 module vỉa hè | Mesh tĩnh 3 LOD, dùng chung palette 128 px; chữ/mái che được bảo vệ khi giảm chi tiết |
 | Khách | PassengerMale, PassengerFemale | 14 xương/mẫu, 4 clip, 3 LOD, một palette material/mẫu |
@@ -582,13 +587,15 @@ Xe máy có vỏ cong, lốp/mâm/phanh/giảm xóc/động cơ/pô, gương/đ�
 
 Trong scene có **33 `BikeVisualAnimator`**: 19 actor gameplay tính cả người chơi và CSGT, 14 xe đậu có animator ở dãy nguồn. Xe đậu nhân bản ở các nhánh được bake tĩnh để tránh nhân toàn bộ skeleton/animator; không hiểu 33 là tổng mọi hình xe máy được render trên cả 35 module. Có **11 `CarVisualAnimator`** trên các xe bốn bánh giao thông.
 
-Tam giác ví dụ: HeroScooter v2 **31.818 / 14.318 / 5.408**; DrowsyTruck **23.503 / 10.340 / 3.760**. Khách nam **4.688 / 2.338 / 1.091**, khách nữ **5.084 / 2.541 / 1.160**. Xem JSON metadata từng xe và `catalogue.json` của phố/khách để lấy số chính xác cho từng mẫu.
+Tam giác ví dụ hiện hành: HeroScooter Meshy **30.423 / 10.999 / 4.999**; mỗi xe đích có metadata trong `Art/Bikes/Meshy/*.json`. DrowsyTruck **23.503 / 10.340 / 3.760**. Khách nam **4.688 / 2.338 / 1.091**, khách nữ **5.084 / 2.541 / 1.160** (đang khóa). Bản Wave cũ có 35.604 / 16.020 / 5.200 và không còn được scene dùng trừ rider/rig kế thừa.
 
 ### 11.2. Source chỉnh sửa và điểm vào tái tạo
 
 | File trong `ArtSource/Blender/` | Script | Hàm tái tạo |
 | --- | --- | --- |
-| `PhoViet_Motorcycles.blend` | **`pho_viet_motorcycles.py`** (v2; `pho_viet_bikes.py` chỉ còn là thư viện helper cho các script khác, `rebuild_all()` cũ sẽ đưa xe về bản v1) | **`build_motorcycles()`** |
+| **`PhoViet_MeshyMotorcycles.blend`** (nguồn xe máy hiện hành, 23/10) | **`prepare_meshy_bike_atlas.py` + `integrate_meshy_bikes.py`** | Tạo atlas bằng Python rồi ghép hình học FBX Meshy với người lái/rig cũ trong Blender, xuất 5 FBX mới vào `Art/Bikes/Meshy/`; không xuất CSGT, không ghi đè Wave/nguồn Meshy. File blend chứa cả 5 rig đã xuất |
+| `PhoViet_Motorcycles_Wave.blend` (nguồn cũ giữ lại) | `pho_viet_wave.py` / `pho_viet_motorcycles.py` | Chỉ dùng khi cần bảo trì nguồn cũ; không chạy để thay thế lại bản Meshy hiện hành |
+| `PhoViet_Motorcycles.blend` (v2, giữ nguyên, có sửa cục bộ chưa commit có từ trước) | `pho_viet_motorcycles.py` (`pho_viet_bikes.py` chỉ còn là helper cho script khác; `rebuild_all()` cũ đưa xe về v1) | `build_motorcycles()` dựng lại **cả 6 mẫu v2, sẽ ghi đè FBX Wave** — chỉ dùng khi muốn quay về v2 hoặc để xuất lại riêng CSGT bằng `build_motorcycles(['PV_TrafficPolice'])` |
 | `PhoViet_Cars.blend` | `pho_viet_cars.py` | `build_all()` |
 | `PhoViet_Streets.blend` | `pho_viet_streets.py` | `build_streets()` |
 | `PhoViet_Passengers.blend` | `pho_viet_passengers.py` | `build_passengers()` |
@@ -645,7 +652,7 @@ World text cho bảng tên đường dùng `WorldStreetText.mat` và shader **`P
 Thoát Play Mode trước khi lưu nâng cấp scene. Các menu thường dùng:
 
 - `Phố Việt/Art/Configure Blender bike imports`.
-- `Phố Việt/Art/Replace all motorcycles with Blender models`. Với xe máy v2 dùng `AgentScripts/UpgradeBikesV2.cs` → `UpgradeBikesV2.Main`: gọi menu này, tạo lại 14 xe đậu vỉa hè và bake lại `Generated/RouteParked_*.asset` từ LOD1.
+- **Dùng menu `Phố Việt/Art/Install received Meshy motorcycles (keep police)`**, hoặc `AgentScripts/UpgradeBikesMeshy.cs` → `UpgradeBikesMeshy.Main`. Trình cài mới thay đúng 32 actor ngoài CSGT, bake lại 3 mesh xe đậu nhánh giữ GUID và đổi vật liệu trên 56 bản sao, dựng lại neo đèn/nozzle, làm mới emission users rồi lưu scene. Menu chung `Replace all motorcycles with Blender models` và `UpgradeBikesWave` không phải quy trình cài hiện hành: chúng có thể thay cả CSGT hoặc làm mất neo đèn. `ModelPath` ưu tiên FBX trong `Bikes/Meshy/`, fallback asset cũ nếu chưa có.
 - `Phố Việt/Art/Replace all four-wheel vehicles with Blender models`.
 - `Phố Việt/Routes/Install connected junction roads`.
 - `Phố Việt/Art/Install Blender streets`.
@@ -754,6 +761,62 @@ Claude Code cần có kết nối Blender MCP riêng tới add-on đang bật tr
 
 Python chạy trong Blender, không phải Python ngoài shell có sẵn `bpy`. File export Unity là FBX đã lưu trong Assets; không phụ thuộc việc Unity phải mở `.blend` bằng Blender khi import. Giữ nguồn `.blend` ở ArtSource để tránh phụ thuộc Blender auto-import trên máy người nhận.
 
+### 13.3. Cầu nối Meshy → Unity (Meshy Bridge, 23/10/2026)
+
+Mục đích: bấm **Cầu DCC → Gửi đến Unity** trên meshy.ai để mô hình (ví dụ xe máy dựng bằng Meshy) tự tải vào editor đang mở.
+
+**Đã cài:**
+- **Plugin chính thức** `meshy-for-unity-0.2.4.unitypackage` (28.279 byte), lấy từ link trên trang `https://www.meshy.ai/integrations/unity` (`https://cdn.meshy.ai/meshy-for-unity/meshy-for-unity-0.2.4.unitypackage`).
+  - Chỉ chép thư mục `Assets/ai.meshy/` cùng `.meta` gốc để giữ GUID. Không chép `Assets/TutorialInfo/` (script readme mẫu của template Unity đi kèm gói).
+  - Assembly chỉ dùng trong Editor: `MeshyAssembly`. Không vào build WebGL.
+- **Bản vá phạm vi lắng nghe** ở `Assets/ai.meshy/Editor/Script/MeshyBridgeWindow.cs`: `TcpListener(IPAddress.Loopback, 5326)` thay cho `IPAddress.Any` (hai bản vá Origin/preflight bổ sung được ghi bên dưới).
+  - Lý do: bản gốc nghe cả mạng LAN, và mọi request `POST /import` đều được tải về và import, vì kiểm tra Origin chỉ ảnh hưởng header CORS.
+  - Trình duyệt trên cùng máy vẫn gửi được. Người dùng đã đồng ý bản vá này.
+  - Khi nâng cấp plugin phải vá lại.
+- **Hai bản vá thêm ngày 23/10**, sau khi Meshy vẫn báo lỗi gửi mà nhật ký Bridge không ghi request nào từ trình duyệt:
+  - (a) thêm origin `https://meshy.ai` (không có www) vào `allowedOrigins`;
+  - (b) preflight `OPTIONS` trả thêm `Access-Control-Allow-Private-Network: true`, header Chrome đòi khi trang web công khai gọi tới localhost.
+  - Đã kiểm tra bằng curl giả lập preflight của Chrome: 200, đủ header.
+- **Gói `com.unity.cloud.gltfast` 6.20.0** trong `Packages/manifest.json`, để nhập được file `.glb` mà Meshy hay gửi. Người dùng đã đồng ý cài.
+
+**Cách dùng:**
+1. Trong Unity chọn menu **Meshy → Bridge**. Cửa sổ mở là server tự chạy; nút hiện **Bridge ON**, còn nếu hiện **Run Bridge** thì bấm vào.
+   - Đóng cửa sổ là server dừng. Sau domain reload (biên dịch lại, vào Play Mode), cửa sổ còn mở sẽ tự chạy lại server.
+2. Kiểm tra nhanh: `curl -H "Origin: https://www.meshy.ai" http://127.0.0.1:5326/status` phải trả `{"status":"ok","dcc":"unity",...}`. Đã kiểm tra đạt ngày 23/10 trên Unity 6000.5.6f1.
+3. Trên meshy.ai:
+   - Tài khoản cần gói **Pro trở lên**.
+   - Tài liệu Meshy hiện hành **không còn** công tắc "Unity DCC Bridge" trong Settings/Preferences (đó là hướng dẫn cũ). Chỉ cần mở Bridge trong Unity.
+   - Chọn mô hình → **Cầu DCC → Gửi đến Unity**. Nếu Chrome hỏi quyền truy cập mạng cục bộ/thiết bị trong mạng, chọn Cho phép.
+   - Lỗi "Không thể gửi mô hình đến unity…" có thể do một trong các nguyên nhân sau:
+     - cửa sổ Bridge chưa mở;
+     - cổng 5326 bị ứng dụng khác chiếm;
+     - tài khoản Meshy không phải gói Pro;
+     - tiện ích chặn quảng cáo hoặc bảo mật chặn request tới `127.0.0.1`;
+     - Chrome chặn quyền **truy cập mạng cục bộ** của meshy.ai. Chrome 142 trở lên bắt buộc xin quyền này cho cả loopback. Bấm biểu tượng bên trái thanh địa chỉ → bật "Truy cập mạng cục bộ", hoặc vào "Cài đặt trang web" → dòng "mạng cục bộ" → Cho phép, rồi tải lại trang.
+   - Chẩn đoán đúng thứ tự: kiểm tra Bridge ON và cổng 5326 trước, rồi GET /status, sau đó mới xem Console có request từ trình duyệt. Không có dòng Received request **chưa đủ để kết luận trình duyệt chặn**: server có thể chưa chạy vì cửa sổ Bridge chưa mở trong dự án hiện tại. Bridge/layout của Diablo25D không tự bật Bridge cho Phố Việt.
+4. Mô hình được lưu vào `Assets/MeshyImports/<tên>_<thời gian>…`. Plugin **tự đặt một bản vào scene đang mở** ở gốc tọa độ, đặt chạm Y=0 nếu bật "Stand on Ground", và đánh dấu scene bẩn.
+
+**Lưu ý với Phố Việt:**
+- Đừng lưu `PhoViet.unity` với bản thả tự động này.
+- Muốn dùng mô hình Meshy cho xe trong game, phải tích hợp theo hợp đồng xe:
+  - 17 xương, 7 clip, 3 LOD;
+  - neo đèn pha/đèn hậu (mục 20.3) và vị trí khói boost (mục 19.3);
+  - chạy lại các bộ kiểm tra xe.
+- Mô hình Meshy thô là mesh tĩnh có texture riêng, chưa có rig của game.
+
+#### 13.3.1. Chẩn đoán lại sau đổi dự án — 23/10/2026 (Codex)
+
+Người dùng xác nhận gửi mô hình từ cùng Meshy vào Diablo25D được nhưng Phố Việt báo không kết nối Unity. Kiểm tra thực tế trên editor Phố Việt cho thấy:
+
+- Đúng scene `Assets/PhoViet/Scenes/PhoViet.unity`, Edit Mode, không compiling; scene không bẩn trong bộ nhớ.
+- Assembly `MeshyAssembly` và type `MeshyBridgeWindow` **đã được nạp**, không thiếu plugin/không phải lỗi compile hiện tại.
+- Trước xử lý: `IsRunning=false`, không có instance cửa sổ Bridge, không có listener trên TCP 5326. `OnEnable` mới gọi StartServer; `OnDisable` dừng server. Plugin được cài không đồng nghĩa server tự chạy mỗi lần mở bất kỳ dự án.
+- Cách xử lý: thực thi menu `Meshy/Bridge` ngay trong editor Phố Việt. Sau đó `IsRunning=true`, một cửa sổ Bridge mở; `127.0.0.1:5326` thuộc đúng tiến trình Unity của dự án. Không cần vào Play Mode.
+- Bốn kiểm tra HTTP đạt: GET `/status` và OPTIONS `/import` cho cả `https://www.meshy.ai` và `https://meshy.ai`; đều HTTP 200, status `ok`/dcc `unity`, CORS trả đúng origin và preflight có `Access-Control-Allow-Private-Network: true`.
+- Giữ cửa sổ Bridge mở, trạng thái **Bridge ON**, rồi gửi lại từ Meshy. Đóng cửa sổ sẽ dừng; nếu đổi dự án phải kiểm tra lại menu/cửa sổ của dự án vừa mở. Chỉ một Bridge được chiếm cổng 5326 trên máy; khi dùng editor khác thì dừng Bridge cũ trước.
+
+Bằng chứng: `Captures/meshy-bridge-20261023-diagnostic.json`. Đây là kiểm tra kết nối/status/preflight, **không phải tuyên bố đã gửi hoặc import mô hình Meshy của người dùng**. Không sửa mã plugin/Packages/gameplay, không import/thả model, không lưu scene hoặc build/push/phát hành trong lần xử lý này. Giữ nguyên toàn bộ thay đổi Wave/model/scene/Packages và phần tài liệu Claude Code đang làm. Web công khai vẫn bản 1.30.6.
+
 ## 14. Kiểm tra và bằng chứng đã có
 
 Các `AgentScripts/Verify*.cs` là script kiểm tra điều khiển trực tiếp scene, nhiều script dùng reflection và mô phỏng các tick. Chúng **không phải toàn bộ đều là NUnit Test Runner**; chỉ chạy `unity test` sẽ không tự thay thế hết hệ kiểm tra này.
@@ -772,6 +835,10 @@ Các `AgentScripts/Verify*.cs` là script kiểm tra điều khiển trực ti�
 | VerifyGestures | 39 |
 
 1.30.5 trước khi jobs tắt đã chạy 21 suite/5.121 điều kiện, gồm VerifyRoofRiding 2.304 điều kiện từ 576 cú nhảy thực, VerifyTruckJump 69, BoostTrafficIsolation 478, CrashPoliceNavigation 214, các suite dịch vụ/va chạm/cử chỉ/art. Không cộng dồn số các bản để gọi là số test độc lập.
+
+**Bằng chứng lịch sử xe máy Wave 23/10 (đã được Meshy thay thế, chưa từng phát hành):** 25 suite / 5.033 điều kiện đạt sau lần xuất cuối (gồm cả bản dựng lại đầu xe chi tiết; VerifyWaveBikes đo tới bề mặt tam giác), gồm suite mới `VerifyWaveBikes` 111 (metadata Wave, neo đèn trên xương mới, emission users, đèn đêm/pool, kính đèn và đầu pô có hình học thật tại neo, khói boost ở đầu pô, phối màu) cùng BikeArt 156, RoofRiding 2.304, SmoothTurns 468, BoostTrafficIsolation 478, JunctionKick 216, CrashPoliceNavigation 214… Xem `Captures/VERIFICATION_WAVE_BIKES.md` và `wave-bikes-*-results.json`. `VerifyKickContact`/`VerifyDayNight` dừng ở đoạn bắt buộc mở công việc (bị khóa) nên **không** tính là đạt.
+
+**Xe máy Meshy 23/10 (scene hiện hành, chưa build WebGL):** **15 suite / 4,572 điều kiện đạt**: MeshyBikes 340, MeshyLighting 16, BikeArt 156, Jump 44, TruckJump 69, RoofRiding 2.304, QuickKick 62, JunctionKick 216, Boost 35, BoostTrafficIsolation 478, CrashOutcome 51, CrashPoliceNavigation 214, SmoothTurns 468, NightJumpLighting 88, DistanceMode 31. Xem `Captures/VERIFICATION_MESHY_BIKES.md` và `meshy-bikes-verification-summary.json`. Có ảnh Unity ngày/đêm đã kiểm tra, chưa đo điện thoại thật/chưa WebGL.
 
 **Lịch sử 1.14:** 1.335 assertion trong 17 suite; bảng bên dưới là snapshot lúc đó, không phải kết quả mới hoặc hướng dẫn bật công việc.
 
@@ -840,7 +907,7 @@ Các kiểm tra điện thoại/iOS bằng browser profile là **mô phỏng lay
 - `wasm2023 = false` để giữ dải tương thích Safari của dự án.
 - Bộ nhớ khởi đầu 128 MB, tối đa 512 MB.
 - `dataCaching = false`, vì service worker phiên bản hóa chịu trách nhiệm cache thay vì hai cache độc lập.
-- Phiên bản hiện 1.30.6; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
+- Cấu hình phiên bản build hiện 1.31.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
 
 Hậu xử lý build tạo `precache.json`, `build-info.json`, `sw.js` đã thay mã cache và `.nojekyll`. Cache là 16 ký tự hex từ SHA-256 nội dung tài nguyên, không gán tay để làm giả một lần build mới.
 
@@ -968,6 +1035,7 @@ Nếu người dùng vẫn thấy bản trước, kiểm tra `build-info.json`, 
 | 1.30.4 | Áp sát tăng tốc nhanh, ngang 32 m/s/Swing 0,30 s; TrafficPaceSpeed tách mọi NPC khỏi W | `e96fd6e`; `VERIFICATION_FAST_KICK_BOOST_ISOLATION.md` |
 | 1.30.5 | Đạp crossing/xe rẽ ở giao lộ khi đi thẳng/trái/phải; quét đáp nóc xe chuyển động, hai bánh và rời mép giữa frame | `539ca1e`; `VERIFICATION_JUNCTION_KICK_ROOF.md` |
 | 1.30.6 hiện hành | Khóa toàn bộ công việc/khách/GPS/Coin HUD, chỉ thi mét/kỷ lục, giữ tiền và mã để mở lại theo lệnh | `23941b1`, proof `98c3ed3`; `VERIFICATION_DISTANCE_MODE.md` |
+| Xe máy Wave (23/10, chưa build/phát hành) | Mọi xe máy trừ CSGT thành xe số kiểu Wave theo ảnh mẫu, xe chính đúng màu ảnh, xe khác đổi màu, không logo/tem/gương; neo lại đèn và khói boost | `VERIFICATION_WAVE_BIKES.md`; commit xem mục 21.5 |
 
 Không duy trì mỗi phiên bản như một nhánh gameplay độc lập. Bản 1.30.6 kế thừa art/cơ chế hiện hành và tạm khóa jobs; ba mạng/phím cũ/cua hãm tốc/va xe đang bị đuổi GameOver ngay là lịch sử đã thay thế.
 
@@ -991,6 +1059,7 @@ Không duy trì mỗi phiên bản như một nhánh gameplay độc lập. Bả
 16. **Khôi phục lượt:** không lưu chuyến đang chạy, thành phố/seed và toàn traffic để resume sau đóng game; chưa có save-game toàn cảnh.
 17. **Nền tảng:** hiện ưu tiên WebGL/PWA; không tuyên bố APK/IPA/native app đã build. Bản Windows trong Builds nếu còn chỉ là output cục bộ, không mặc định là bản mới nhất.
 18. **Chất lượng thiết bị thật:** chưa xác nhận mọi iOS/iPadOS, FPS, nhiệt, RAM hoặc thời lượng pin; cần thử phần cứng thực khi có yêu cầu cụ thể.
+20. **Thay visual xe máy:** dùng `PhoVietMeshyBikeUpgrade`/`UpgradeBikesMeshy`, đọc neo từ metadata Meshy, cập nhật mesh/material xe đậu nhánh và kiểm tra `VerifyMeshyBikes`. Đèn là con của Steering/Frame; khói boost dùng socket `PV_MeshyExhaust`. Không dùng `UpgradeBikesWave` để cài bản hiện tại.
 19. **MCP không tự đi theo repo:** cấu hình agent, Unity CLI/Blender add-on, Node/Python và credential thuộc máy người dùng; không sao chép cấu hình cá nhân chứa bí mật để bàn giao.
 
 ## 18. Quy trình Claude Code tiếp tục làm cùng Codex
@@ -1054,7 +1123,7 @@ Tiếp đất chọn LandBoth/Front/Rear theo vận tốc xuống và chuyển �
 
 `PhoVietBoost`: BoostMultiplier=2.25, BoostDuration=4, BoostRecovery=2. TryBoost chỉ Riding, không ServiceStopped/cooldown/đang boost; không stack hoặc kéo dài khi spam. `CancelBoost` hủy ngay, đặt hồi 2 s nếu đang boost, xóa khói. TickBoost đóng băng khi pause, xử lý phần thời gian dư lúc boost kết thúc để cooldown không lệch frame. Va chạm/bị bắt/dịch vụ hủy; reset lượt xóa tất cả. W có thể chạy cùng nhảy và qua rẽ.
 
-`pho_viet_boost_smoke.py` dựng volume khói trắng có mật độ noise 4D trong Blender, render Cycles bốn frame RGBA, atlas 768×192 tại `Resources/Boost/PV_WhiteBoostSmoke.png`. Import Clamp/Bilinear, alpha, không mip/nén làm lem ô. `BoostSmokeVisual` có luồng hẹp sát pô và lớp khói nở sau, tối đa 128 hạt, mô phỏng theo hệ đường. Nguồn phát bám Frame/pose thực khi ngóc bánh/nhảy; vệt đã phụt không quay theo đổi làn. Pause/resume cùng game; sau rebase xóa vệt cũ rồi phát lại mà không mất thời lượng W.
+`pho_viet_boost_smoke.py` dựng volume khói trắng có mật độ noise 4D trong Blender, render Cycles bốn frame RGBA, atlas 768×192 tại `Resources/Boost/PV_WhiteBoostSmoke.png`. Import Clamp/Bilinear, alpha, không mip/nén làm lem ô. Nguồn khói hiện gắn vào socket `PV_MeshyExhaust` trên xương Frame, vị trí metadata Meshy `(.23,.40,-1.0)` trong hệ xe. `BoostSmokeVisual` tự tìm socket, localPosition zero; fallback `(.214,.45,-1.02)` chỉ dùng cho scene Wave cũ không có socket. `BoostSmokeVisual` có luồng hẹp sát pô và lớp khói nở sau, tối đa 128 hạt, mô phỏng theo hệ đường. Nguồn phát bám Frame/pose thực khi ngóc bánh/nhảy; vệt đã phụt không quay theo đổi làn. Pause/resume cùng game; sau rebase xóa vệt cũ rồi phát lại mà không mất thời lượng W.
 
 ### 19.4. Không tăng ga NPC theo W
 
@@ -1098,7 +1167,7 @@ Rig hiện có 70 bộ LED trên 35 module và 30 bộ đèn xe gồm người c
 
 Đèn đường gần đã tăng intensity 1,65→3,6, range 17→20 m, alpha vùng chiếu 0,33→0,44. Đây là cài đặt bản hiện hành, không nhân thêm mỗi lần cài lại. Đèn LED ba LOD, có glow/profile tạo bằng Blender.
 
-DayNightLighting có DefaultExecutionOrder(200), cập nhật sau pose LateUpdate của xe. Lấy vị trí/trục từ head gắn Frame/Steering, gồm độ cao nhảy, pitch ngóc/đáp và nóc xe; độ chúc dùng local-down. OpticalLight shader dùng ma trận world→head mỗi frame để chiếu cookie Blender lên mặt đường. Cookie chuẩn author đèn cao 1,1 m, miền x[-16,16], z[-4,28]; khoảng chiếu chặn 32 m, giảm theo góc/khoảng cách. Khi đầu ngóc, vùng gần rời đường; hạ bánh thì vùng sáng quay gần đúng hướng. Không nâng một tấm tam giác sáng lơ lửng hoặc để ánh sáng cố định dưới chân người bay. Spotlight thật chiếu hình học xe/nóc/vật thể; receiver xa/nhỏ tối ưu overdraw, chỉ mở rộng khi nguồn cao/nghiêng. MaterialPropertyBlock chỉ bật chế độ project mới trên vệt đèn pha, không làm sai UV halo/đèn phố.
+Neo đèn xe máy Meshy (23/10): đọc `anchors` trong `Bikes/Meshy/PV_*.json`, đèn pha trên Steering tại khoảng `(0,1.25,.573413)`, đèn hậu trên Frame `(0,.995,-.830376)`. `PhoVietMeshyBikeUpgrade` dựng lại các neo sau thay visual; `PhoVietLightingUpgrade.Bike` cũng đọc metadata khi cài lại đèn. CSGT giữ neo cũ `(0,1.13,.68)`/`(0,.805,-1.112)`. Không còn nhánh “sport dùng Frame”. DayNightLighting có DefaultExecutionOrder(200), cập nhật sau pose LateUpdate của xe. Lấy vị trí/trục từ head gắn Frame/Steering, gồm độ cao nhảy, pitch ngóc/đáp và nóc xe; độ chúc dùng local-down. OpticalLight shader dùng ma trận world→head mỗi frame để chiếu cookie Blender lên mặt đường. Cookie chuẩn author đèn cao 1,1 m, miền x[-16,16], z[-4,28]; khoảng chiếu chặn 32 m, giảm theo góc/khoảng cách. Khi đầu ngóc, vùng gần rời đường; hạ bánh thì vùng sáng quay gần đúng hướng. Không nâng một tấm tam giác sáng lơ lửng hoặc để ánh sáng cố định dưới chân người bay. Spotlight thật chiếu hình học xe/nóc/vật thể; receiver xa/nhỏ tối ưu overdraw, chỉ mở rộng khi nguồn cao/nghiêng. MaterialPropertyBlock chỉ bật chế độ project mới trên vệt đèn pha, không làm sai UV halo/đèn phố.
 
 ### 20.4. Sương sớm sáu giây
 
@@ -1163,6 +1232,83 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Đối chiếu lịch sử Git, mã/scene/config, metadata art và báo cáo từ 1.15 đến 1.30.6. Bổ sung cơ chế, tham số, bản đồ mã, Blender → Unity, bằng chứng và quy tắc phối hợp.
 - 12 kiểm tra tài liệu đạt: cấu trúc mục/code fence, link file nội bộ, mốc version/cache/SHA, các cơ chế mới và loại mô tả bật jobs/phím cũ khỏi hướng dẫn hiện hành. Kết quả tại `Captures/huongdan-doc-checks.json`.
 - Chỉ thay tài liệu và hướng dẫn dự án; không thay gameplay/model/scene/WebGL, không chạy lại toàn bộ kiểm tra game hoặc build chỉ cho lần cập nhật tài liệu này.
+
+### 21.5. Xe máy kiểu Wave theo ảnh người dùng (23/10/2026, Claude Code) — đã được Meshy thay thế ở 21.7
+
+- **Yêu cầu:** dựng lại tất cả xe máy giống ảnh mẫu (xe số kiểu Wave độ) bằng Blender MCP. **Đã chốt:** trừ CSGT; không logo/tem; xe chính y màu ảnh, xe khác đổi màu; lưu nguồn file mới.
+- **Nguồn:** `ArtSource/Blender/pho_viet_wave.py` → `PhoViet_Motorcycles_Wave.blend`, gọi `build_wave_motorcycles()`. Script exec `pho_viet_motorcycles.py` để dùng người lái/rig/clip/LOD/atlas/xuất của v2, rồi xuất đè `Assets/PhoViet/Art/Bikes/PV_{HeroScooter,CityScooter,Underbone,SportBike,Racer}.fbx/.json/_Palette.png`. `PV_TrafficPolice` không đổi.
+- **Thân xe (bản chi tiết, dựng lại theo góp ý người dùng 23/10):**
+  - **Đầu xe:** hộp mỏng, mặt trên gần phẳng, vách thẳng sắc cạnh, dựng bằng `slab_solid` từ đường viền nhìn từ trên. Mũi nhọn chính là kính đèn pha hình khiên đáy chữ V; cánh mỏng dần ra hai đầu tay lái; dải xi-nhan cam chạy dọc hông trước; vách sau và hộp đồng hồ màu đen. Mũi dày khoảng 0,12 m, cánh khoảng 0,04–0,05 m. Bản trước là khối loft tròn mập, người dùng đã bác bỏ.
+  - **Mặt nạ:** xanh–đen, thuôn chữ V có gờ giữa (`OutlineSolid`), phần trên lẩn vào cằm dưới đèn.
+  - **Yếm bạc:** tấm vỏ cong có độ dày (`side_panel`) hình tam giác ngược, rộng dưới đầu xe, mũi nhọn chĩa xuống trước máy; mép trước ôm vào mặt nạ, mép sau có nẹp crôm, luôn nằm trước đầu gối người lái. Yếm trong đen nối kín hai tấm bạc.
+  - **Chắn bùn trước:** rộng bằng lốp, có gờ giữa. Chắn bùn sau là tấm đen rộng, không còn vây chẻ đôi biển số. Hai lỗi này do hướng mặt cắt sweep: với `up_hint=X` trên cung tròn, bán kính thứ nhất là hướng xuyên tâm, bán kính thứ hai là bề ngang.
+  - Phần còn lại giữ như cũ: ốp sườn sơn vuốt lên đuôi; yên đen, tay dắt crôm, phuộc sau lò xo vàng; pô crôm phải; vành nan crôm 36 nan, đĩa sóng; không gương.
+  - Xe chính: đầu `1A2130`, thân `EEF0F1`, yếm `C6CCD2`.
+  - Xe khác: đỏ, xanh dương, đen, cam–đen.
+  - Mỗi mẫu 17 xương/7 clip/3 LOD (LOD2 = 5.200).
+- **Unity:**
+  - `AgentScripts/UpgradeBikesWave.cs` cài model, xe đậu, bake nhánh, **neo lại đèn** và `emissionUsers`, rồi lưu scene.
+  - `PhoVietLightingUpgrade.Bike` dùng vị trí đèn Wave.
+  - `BoostSmokeVisual` đặt nozzle ở đầu pô Wave.
+  - `VerifyWaveBikes.cs` và `CaptureBikesWave.cs` là công cụ mới.
+  - Công việc vẫn khóa.
+- **Kiểm tra:** xem mục 14 và `Captures/VERIFICATION_WAVE_BIKES.md`; ảnh `wave-blender-*.png`, `wave-bikes-*.png`.
+- **Trạng thái:** source/asset/scene đã lưu trong working tree; **chưa commit, chưa build WebGL, chưa push/Pages**. Bản chơi công khai vẫn 1.30.6 với xe v2. Khi phát hành phải tăng version theo quy trình 15.2 và cập nhật mục này.
+- **Không đụng:** các `.blend` cục bộ có sẵn (Cars, Jump, Motorcycles, Passengers, Streets) và file chưa track (`PhoViet_Anhsangngaydem.blend`, `Phoviet_Suongmu.blend`, backup).
+
+
+### 21.6. Dựng lại xe máy theo ảnh Wave đỏ (23/10/2026, Claude Code — nguồn thử nghiệm cũ)
+
+- **Yêu cầu người dùng:** bản Wave ở 21.5 "hoàn toàn không giống" 5 ảnh mới (Wave đỏ: ngang trái, trước, sau, 3/4 trước trái, 3/4 sau phải). Người dùng muốn dựng lại từ đầu trong file mới, không dựa vào thiết kế cũ.
+  - Đã chốt: **xe chính màu trắng** (giữ yêu cầu cũ), dáng y ảnh.
+  - Chỉ dựng lại **xe**; giữ người lái áo đỏ sao vàng cùng rig/clip.
+  - **Gửi ảnh render cho người dùng duyệt trước khi đưa vào Unity.**
+- **Ảnh mẫu:** `ArtSource/Reference/WaveAlpha/wave_{side_left,front,rear,front34_left,rear34_right}.png`.
+  - Tỉ lệ ảnh ngang: trục trước tại px (217,742), mặt đất v=958, 1 px = 1,557 mm, khớp hai trục bánh game `(0,.34,±)`. Ảnh trước: tâm u=722, đất v=1030, 1 px = 1,463 mm.
+  - Phát hiện quan trọng: đầu đèn thật nằm ở z≈0,56. Bản 21.5 đặt đèn ở z 0,80, lệch ra trước khoảng 25 cm. Tay nắm thật nằm ở khoảng z 0,11–0,20, x ±0,28–0,42.
+- **Nguồn mới:** `ArtSource/Blender/pho_viet_wave_alpha.py`, viết mới hoàn toàn.
+  - Mỗi tấm vỏ là trường khoảng cách có dấu (SDF) dựng từ đường viền dò trên ảnh, gồm các hàm `P()`/`PF()` và các bảng `LEG`, `COWL`, `REAR_BODY`, `SEAT`, …
+  - Phép giao tạo cạnh bo: `inter_round`. Chi tiết dán dạng da mỏng có kiểm tra hướng nhìn: `decal`.
+  - Lưới hóa qua OpenVDB → Volume to Mesh, rồi decimate theo từng phần. Bánh căm, phuộc, giảm xóc, gương, tay lái là capsule/khối xoay.
+  - Mỗi file `.vdb` tạm có tên duy nhất, vì Blender lưu cache lưới theo đường dẫn file. Lỗi này từng làm các lần sửa đầu không có tác dụng.
+  - Hàm `build_body(colors)` dựng xe; `review(dir)` render ảnh ngang/trước/sau/3/4 trùng khung ảnh mẫu ra `Captures/wa-*.png`.
+- **Trạng thái:**
+  - Đã dựng và đang tinh chỉnh trong Blender: khoảng 41k tam giác cho xe khi chưa giảm.
+  - Còn phải làm: ghép người lái/rig/LOD/atlas và xuất FBX, neo đèn và nozzle mới, cập nhật `VerifyWaveBikes`, cài vào Unity, chạy hồi quy.
+  - **Chưa gửi bản duyệt, chưa xuất FBX, chưa đổi asset game, chưa commit/build.**
+  - File `.blend` mới sẽ là `PhoViet_Motorcycles_WaveAlpha.blend` khi lưu.
+- Ngày 23/10 người dùng đã chọn mô hình Meshy đã gửi để thay toàn bộ xe máy trừ CSGT (mục 21.7). Không tiếp tục tự cài bản WaveAlpha vào scene; giữ nguyên nguồn/ảnh thử nghiệm để tránh mất công việc Claude Code.
+
+
+### 21.7. Thay xe bằng mô hình Meshy đã nhận (23/10/2026, Codex)
+
+- **Xác nhận nhận thành công:** `Assets/MeshyImports/Red Honda Scooter Front View_20261023_023822/Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx`, một mesh tĩnh **15.739 tam giác**, kèm `meshy_basecolor.png`, `meshy_normal.png`, `meshy_metallic_smoothness.png`. `Captures/meshy-bike-source-inspection.json` là kết quả kiểm tra Unity. Không sửa các file nguồn này.
+- **Quyết định mới:** dùng đúng xe Meshy cho toàn bộ xe máy ngoài CSGT; hero trắng–đen, City xanh ngọc, Underbone xanh dương, Sport vàng, Racer cam. Tên semantic giữ để không phá tham chiếu; không có nghĩa còn dùng hình Wave/côn tay cũ. Người dùng đã xác nhận riêng **giữ mô tô CSGT hiện tại**. Công việc vẫn khóa cả code và scene.
+- **Tạo tài sản:**
+  - `ArtSource/Blender/prepare_meshy_bike_atlas.py`: Pillow/NumPy đổi riêng vùng đỏ trong basecolor sang màu mới, giữ đen/cao su/yên/kim loại và texture gốc. Atlas 2048²: phần xe chiếm 1920 hàng trên, bảng màu người lái 128 hàng dưới. UV xe `v=.0625+.9375*v`, UV người `v=.0625*v`. Surface map tương ứng, normal chung có dải người màu trung tính.
+  - `ArtSource/Blender/integrate_meshy_bikes.py`: Blender chạy nền riêng, không điều khiển/chỉnh Blender người dùng đang mở. Chuẩn hóa chiều dài cơ sở 1,51 m, tâm bánh `(0,.34,.78)` / `(0,.34,-.73)`, nhận bánh từ cung lốp thấp để tránh nhầm lốc máy. Phân riêng Frame/Steering/hai bánh bằng trọng số cứng theo mặt, tránh kéo giãn các tam giác giữa bánh và thân. Giữ hình người/17 xương/7 action cũ; căn phần cuối cẳng tay vào tay lái mới, không đổi chân/quỹ đạo giày đạp.
+  - Tạo `Meshy_Emission.png` từ UV các mặt đèn thật trong không gian xe: 128 mặt pha, 66 mặt hậu; pha trắng/hậu đỏ, phần thân/người đen. Standard emission được `DayNightLighting` điều khiển cùng danh sách vật liệu mới. Không dùng mask 128px Wave trên UV Meshy.
+  - Tạo 3 LOD mỗi mẫu: LOD0 khoảng 28,3–30,4k, LOD1 khoảng 11k, LOD2 khoảng 5k tam giác. Một material/skin, chất lượng Bone2. Xuất mới trong `Assets/PhoViet/Art/Bikes/Meshy/`, **không ghi đè** FBX/palette Wave cũ. File `.blend` độc lập `PhoViet_MeshyMotorcycles.blend` chứa 5 rig; script/JSON cho phép tái tạo. LOD2 vẫn dưới 6k, không thay ngân sách đèn/gameplay.
+- **Tích hợp Unity:**
+  - `PhoVietBikeUpgrade.ModelPath` ưu tiên `Bikes/Meshy/{asset}.fbx`, fallback đường cũ (CSGT không có bản Meshy). Atlas mới import Bilinear/Clamp/mipmap/max2048; surface/normal tuyến tính, màu sRGB, Standard shader dùng metallic/smoothness và normal. Palette cũ vẫn Point/128/không mip.
+  - `Assets/PhoViet/Editor/PhoVietMeshyBikeUpgrade.cs`: sao lưu scene trước cài vào `.tools/PhoViet-before-meshy*.unity`; giữ root physics/pool và role, thay **32 actor gồm 14 xe đậu nguồn**; bake lại 3 `Generated/RouteParked_*.asset` giữ GUID và cập nhật material cho **56 xe đậu nhánh**. Không thay visual/clip/material/đèn CSGT, có đối chiếu trước–sau khi cài.
+  - Neo pha/hậu theo metadata trên Steering/Frame; điểm pha khoảng `(0,1.25,.573413)`, hậu `(0,.995,-.830376)`. Neo `PV_MeshyExhaust` khoảng `(.23,.40,-1.0)` trên Frame để boost đi theo nhảy/ngã. `BoostSmokeVisual` tìm socket này, giữ fallback Wave cho scene cũ. Cài lại đèn cũng đọc metadata; không hardcode tọa độ Wave cho Meshy.
+  - Làm mới `DayNightLighting.emissionUsers`, giữ đủ 30 binding đèn xe và không có head/halo null. Giữ xe bốn bánh, người lái CSGT, gesture/Q/Space/W, va chạm, công việc đang tắt và dữ liệu Coin/kỷ lục.
+- **Kiểm tra cuối:** **15 suite / 4,572 điều kiện đạt**, có thêm `VerifyMeshyLighting` (16) cho mask/đèn/nozzle; ảnh Unity ngày/đêm đã xem. `AgentScripts/VerifyMeshyBikes.cs` kiểm provenance/5 màu/atlas/normal/surface, 33 actor/3 LOD/17 xương/7 clip, tất cả xe đậu nhánh/material, CSGT cũ và neo đèn. Bộ hồi quy và kết quả cuối xem `Captures/VERIFICATION_MESHY_BIKES.md`, `Captures/meshy-bikes-Verify*-results.json`. `CaptureBikesMeshy.cs` chụp hero trước/sau, màu giao thông, quái xế, CSGT, ban ngày/đêm trong Unity.
+- **Trạng thái phát hành:** scene/asset Meshy đã lưu; người dùng yêu cầu **build WebGL và phát hành web** ngày 23/10. Bản 1.31.0 đang được build, kiểm tra và push/Pages theo mục 21.8; trước khi live xác minh xong, bản công khai vẫn 1.30.6. Không cần hỏi lại quyền push/phát hành đã được người dùng cấp trực tiếp. Giữ nguyên mọi file Wave/WaveAlpha và thay đổi cục bộ có sẵn của Claude Code; không gộp chúng vào một commit rộng ngoài phạm vi.
+
+
+### 21.8. Build WebGL và phát hành bộ xe Meshy 1.31.0 (23/10/2026)
+
+- **Ủy quyền:** người dùng yêu cầu trực tiếp “Build WebGL và phát hành lên web”; gồm build, kiểm tra, commit, push main và phát hành GitHub Pages. Không hỏi lại phê duyệt cho cùng lần phát hành này.
+- **Cấu hình:** nâng `PhoVietWebBuild.Configure`, `ConfigureWebRelease`, `PlayerSettings.bundleVersion` và các kỳ vọng version trong VerifyWeb/FullscreenGame/CrashPoliceWeb/MorningFogWeb lên **1.31.0**. Giữ Gzip fallback, WASM một luồng, bộ nhớ 128–512 MB, PWA/cache theo hash nội dung và toàn bộ cấu hình mobile. README thêm bộ xe mới; không bật công việc.
+- **Preflight Unity:** `AgentScripts/VerifyMeshyRelease.cs` kiểm đúng scene, 33 bike actors, chỉ một CSGT nguồn cũ, không thiếu script, mọi xe ngoài CSGT trỏ Meshy FBX, đèn đầy đủ, jobs=false. Kết quả `Captures/meshy-release-preflight.json`; native trước phát hành đã đạt 15 suite / 4.572 điều kiện (21.7).
+- **Build cuối:** `build_1e00ac19ccba` **Succeeded**, 30,275 ms, 0 lỗi / 1 warning Pipeline thiếu RuntimePipelineConfig đã biết (công cụ Editor không chạy trong player). Build đầu `build_ec0562990b16` cũng thành công nhưng được thay bằng bản cuối sau khi phát hiện một xe mẫu Meshy rời ngoài game root. `VerifyMeshyRelease` giữ xe mẫu trong Editor, gán `EditorOnly`, lưu scene rồi build lại; báo cáo packedAssets bản cuối xác nhận **0 asset MeshyImports gốc** bị đưa vào runtime. Đây là loại bản xem mẫu khỏi build, không xóa file/xe mẫu của người dùng.
+  - Output cuối đã copy sang `docs`, chỉ dọn các hash cũ trong `docs/Build` sau khi kiểm tra đường dẫn tuyệt đối. Cache **`4f9dbd6172a2b7df`**, build UTC `2026-10-22T20:34:46.3473513Z`, tài nguyên khoảng 52,45 MB; data gzip khoảng 45,21 MB.
+  - `Captures/meshy-release-build-summary.json`, `meshy-release-preflight.json`, `meshy-release-bundle-checks.json`: 28 kiểm tra static bundle gồm gzip/WASM/data header, SHA cache, offline list, không file quá 100 MB, không hash cũ.
+- **Kiểm tra local cuối:** **83 kiểm tra trình duyệt đạt** = VerifyWeb/PWA/offline 37, so tài nguyên + WASM thật 26, fullscreen iPhone/iPad dọc-ngang 20; **0 lỗi runtime**. Đã xem ảnh desktop/portrait/landscape/offline của đúng cache `4f9dbd6172a2b7df`. Bằng chứng `Captures/meshy-release-web-results.json`, `meshy-local-artifact-results.json`, `meshy-release-fullscreen-results.json`, `meshy-release-web-*.png`. Đây là giả lập browser, chưa thử phần cứng điện thoại thật.
+- **Push/Pages/live:** đang chờ commit và push main; chỉ cập nhật trạng thái phát hành sau khi đúng workflow SHA thành công và tài nguyên/WASM trên URL công khai khớp bản docs đã kiểm tra.
+- **Giới hạn phạm vi Git:** commit bộ Meshy mới, scene/mesh xe đậu, mã tích hợp/đèn/boost, cấu hình phiên bản, tài liệu và docs build tương ứng. Giữ các file Wave/WaveAlpha, .blend cũ, Meshy Bridge/Packages cục bộ chưa liên quan ngoài staging; không reset/xóa công việc Claude Code. Các FBX Meshy cuối đã chứa người lái/rig nên build không phụ thuộc việc xuất lại Wave.
 
 ---
 

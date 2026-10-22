@@ -45,7 +45,7 @@ async function main(){
   }
   pass('Every offline resource is available');
   const build=await (await fetch(new URL('build-info.json',url))).json();
-  results.build=build;pass('Versioned offline cache',build.version==='1.30.6'&&/^[a-f0-9]{16}$/.test(build.cache));
+  results.build=build;pass('Versioned offline cache',build.version==='1.31.0'&&/^[a-f0-9]{16}$/.test(build.cache));
   const launchOptions={channel:'chrome',headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']};
   const browser=await chromium.launch(launchOptions);
   // PWA installation is disabled in the incognito contexts returned by browser.newContext().

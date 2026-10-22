@@ -1,0 +1,62 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InspectMeshyBike.cs",
+      "entry": "InspectMeshyBike.Main",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 268,
+      "executeMs": 26,
+      "assemblyName": "PipelineRunScript_InspectMeshyBike_02e91f15ef554187861494b1af1b77ae",
+      "success": true,
+      "result": {
+        "path": "Assets/MeshyImports/Red Honda Scooter Front View_20261023_023822/Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+        "meshes": [
+          {
+            "name": "Red Honda Scooter Front View",
+            "vertices": 18669,
+            "triangles": 15739,
+            "subMeshes": 1,
+            "readable": false,
+            "boundsCentre": [
+              0,
+              0,
+              0
+            ],
+            "boundsSize": [
+              0.0095752,
+              0.00417479966,
+              0.0060205
+            ],
+            "position": "(0.00, 0.00, 0.00)",
+            "rotation": "(270.00, 0.00, 0.00)",
+            "scale": "(100.00, 100.00, 100.00)"
+          }
+        ],
+        "skins": 0,
+        "materials": [
+          {
+            "name": "Material.001",
+            "shader": "Standard",
+            "texture": "Assets/MeshyImports/Red Honda Scooter Front View_20261023_023822/meshy_basecolor.png"
+          }
+        ],
+        "nodes": [
+          "Red Honda Scooter Front View"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

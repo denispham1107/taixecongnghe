@@ -1,0 +1,29 @@
+{
+  "version": "1.31.0",
+  "cache": "4f9dbd6172a2b7df",
+  "buildUtc": "2026-10-22T20:34:46.3473513Z",
+  "build": {
+    "status": "completed",
+    "buildId": "build_1e00ac19ccba",
+    "result": "Succeeded",
+    "buildTimeMs": 30275,
+    "totalErrors": 0,
+    "totalWarnings": 1,
+    "totalSizeBytes": 52451796,
+    "warnings": [
+      {
+        "message": "Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds."
+      }
+    ],
+    "rawMeshyReferenceAssets": 0
+  },
+  "nativeConditions": 4572,
+  "localBrowserChecks": 83,
+  "pwaChecks": 37,
+  "artifactChecks": 26,
+  "fullscreenChecks": 20,
+  "bundleChecks": 28,
+  "runtimeErrors": 0,
+  "status": "Local verified; awaiting commit/push/Pages/live",
+  "physicalDeviceTested": false
+}

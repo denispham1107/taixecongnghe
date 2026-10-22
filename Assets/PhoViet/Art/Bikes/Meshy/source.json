@@ -1,0 +1,41 @@
+{
+  "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822",
+  "triangles": 15739,
+  "paintColors": {
+    "PV_HeroScooter": [
+      0.96,
+      0.97,
+      1.0
+    ],
+    "PV_CityScooter": [
+      0.07,
+      0.7,
+      0.64
+    ],
+    "PV_Underbone": [
+      0.1,
+      0.33,
+      0.95
+    ],
+    "PV_SportBike": [
+      1.0,
+      0.74,
+      0.1
+    ],
+    "PV_Racer": [
+      1.0,
+      0.2,
+      0.07
+    ]
+  },
+  "atlasSize": 2048,
+  "bikeUvY": [
+    0.0625,
+    1
+  ],
+  "riderUvY": [
+    0,
+    0.0625
+  ],
+  "sourceUnchanged": true
+}

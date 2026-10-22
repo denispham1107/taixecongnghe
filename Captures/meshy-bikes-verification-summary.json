@@ -1,0 +1,308 @@
+{
+  "success": true,
+  "date": "2026-10-23",
+  "scope": "Native Unity scene and Meshy assets; no WebGL build, commit, push or Pages release",
+  "suites": [
+    {
+      "name": "VerifyMeshyBikes",
+      "count": 340,
+      "file": "meshy-bikes-VerifyMeshyBikes-results.json"
+    },
+    {
+      "name": "VerifyMeshyLighting",
+      "count": 16,
+      "file": "meshy-bikes-VerifyMeshyLighting-results.json"
+    },
+    {
+      "name": "VerifyBikeArt",
+      "count": 156,
+      "file": "meshy-bikes-VerifyBikeArt-results.json"
+    },
+    {
+      "name": "VerifyJump",
+      "count": 44,
+      "file": "meshy-bikes-VerifyJump-results.json"
+    },
+    {
+      "name": "VerifyTruckJump",
+      "count": 69,
+      "file": "meshy-bikes-VerifyTruckJump-results.json"
+    },
+    {
+      "name": "VerifyRoofRiding",
+      "count": 2304,
+      "file": "meshy-bikes-VerifyRoofRiding-results.json"
+    },
+    {
+      "name": "VerifyQuickKick",
+      "count": 62,
+      "file": "meshy-bikes-VerifyQuickKick-results.json"
+    },
+    {
+      "name": "VerifyJunctionKick",
+      "count": 216,
+      "file": "meshy-bikes-VerifyJunctionKick-results.json"
+    },
+    {
+      "name": "VerifyBoost",
+      "count": 35,
+      "file": "meshy-bikes-VerifyBoost-results.json"
+    },
+    {
+      "name": "VerifyBoostTrafficIsolation",
+      "count": 478,
+      "file": "meshy-bikes-VerifyBoostTrafficIsolation-results.json"
+    },
+    {
+      "name": "VerifyCrashOutcome",
+      "count": 51,
+      "file": "meshy-bikes-VerifyCrashOutcome-results.json"
+    },
+    {
+      "name": "VerifyCrashPoliceNavigation",
+      "count": 214,
+      "file": "meshy-bikes-VerifyCrashPoliceNavigation-results.json"
+    },
+    {
+      "name": "VerifySmoothTurns",
+      "count": 468,
+      "file": "meshy-bikes-VerifySmoothTurns-results.json"
+    },
+    {
+      "name": "VerifyNightJumpLighting",
+      "count": 88,
+      "file": "meshy-bikes-VerifyNightJumpLighting-results.json"
+    },
+    {
+      "name": "VerifyDistanceMode",
+      "count": 31,
+      "file": "meshy-bikes-VerifyDistanceMode-results.json"
+    }
+  ],
+  "conditions": 4572,
+  "install": {
+    "success": true,
+    "replaced": 32,
+    "parked": 14,
+    "branchParked": 56,
+    "anchored": 18,
+    "rebaked": [
+      "PV_CityScooter:14071",
+      "PV_Underbone:14101",
+      "PV_SportBike:14034"
+    ],
+    "policeUnchanged": true,
+    "missingLampHeads": 0,
+    "jobsEnabled": false,
+    "scene": "Assets/PhoViet/Scenes/PhoViet.unity"
+  },
+  "sourceSHA256": {
+    "Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx": "373fbe586e877ecf2e006b60afda7c4224528644aee42f44cf131233f9fa33cc",
+    "meshy_basecolor.png": "288816f2791bf73186d235fbfd9f1c5a23a1ba000a6b856c1dd81169bca8ed98",
+    "meshy_metallic_smoothness.png": "b47be1fee0d0f983202a25f06d666215017406ab47372a3ab559236fa16c50c1",
+    "meshy_normal.png": "d7a601e8513cfe3e524ccbe98d79483abb71f409d4332ee8046f32b2710ee960"
+  },
+  "export": [
+    {
+      "name": "PV_HeroScooter",
+      "design": "meshy-scooter",
+      "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822\\Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+      "source_triangles": 15739,
+      "bones": 17,
+      "materials": 1,
+      "clips": [
+        "Idle",
+        "Ride",
+        "KickLeft",
+        "KickRight",
+        "FallLeft",
+        "FallRight",
+        "Recover"
+      ],
+      "lod_triangles": [
+        30423,
+        10999,
+        4999
+      ],
+      "anchors": {
+        "headlight": [
+          0.0,
+          1.25,
+          0.5734127759933472
+        ],
+        "taillight": [
+          0.0,
+          0.9950000047683716,
+          -0.8303760290145874
+        ],
+        "exhaust_tip": [
+          0.23,
+          0.4,
+          -1.0
+        ]
+      },
+      "originalRiderPreserved": true
+    },
+    {
+      "name": "PV_CityScooter",
+      "design": "meshy-scooter",
+      "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822\\Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+      "source_triangles": 15739,
+      "bones": 17,
+      "materials": 1,
+      "clips": [
+        "Idle",
+        "Ride",
+        "KickLeft",
+        "KickRight",
+        "FallLeft",
+        "FallRight",
+        "Recover"
+      ],
+      "lod_triangles": [
+        28695,
+        11000,
+        5000
+      ],
+      "anchors": {
+        "headlight": [
+          0.0,
+          1.25,
+          0.5734127759933472
+        ],
+        "taillight": [
+          0.0,
+          0.9950000047683716,
+          -0.8303760290145874
+        ],
+        "exhaust_tip": [
+          0.23,
+          0.4,
+          -1.0
+        ]
+      },
+      "originalRiderPreserved": true
+    },
+    {
+      "name": "PV_Underbone",
+      "design": "meshy-scooter",
+      "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822\\Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+      "source_triangles": 15739,
+      "bones": 17,
+      "materials": 1,
+      "clips": [
+        "Idle",
+        "Ride",
+        "KickLeft",
+        "KickRight",
+        "FallLeft",
+        "FallRight",
+        "Recover"
+      ],
+      "lod_triangles": [
+        28263,
+        10999,
+        5000
+      ],
+      "anchors": {
+        "headlight": [
+          0.0,
+          1.25,
+          0.5734127759933472
+        ],
+        "taillight": [
+          0.0,
+          0.9950000047683716,
+          -0.8303760290145874
+        ],
+        "exhaust_tip": [
+          0.23,
+          0.4,
+          -1.0
+        ]
+      },
+      "originalRiderPreserved": true
+    },
+    {
+      "name": "PV_SportBike",
+      "design": "meshy-scooter",
+      "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822\\Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+      "source_triangles": 15739,
+      "bones": 17,
+      "materials": 1,
+      "clips": [
+        "Idle",
+        "Ride",
+        "KickLeft",
+        "KickRight",
+        "FallLeft",
+        "FallRight",
+        "Recover"
+      ],
+      "lod_triangles": [
+        28911,
+        10999,
+        4999
+      ],
+      "anchors": {
+        "headlight": [
+          0.0,
+          1.25,
+          0.5734127759933472
+        ],
+        "taillight": [
+          0.0,
+          0.9950000047683716,
+          -0.8303760290145874
+        ],
+        "exhaust_tip": [
+          0.23,
+          0.4,
+          -1.0
+        ]
+      },
+      "originalRiderPreserved": true
+    },
+    {
+      "name": "PV_Racer",
+      "design": "meshy-scooter",
+      "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822\\Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+      "source_triangles": 15739,
+      "bones": 17,
+      "materials": 1,
+      "clips": [
+        "Idle",
+        "Ride",
+        "KickLeft",
+        "KickRight",
+        "FallLeft",
+        "FallRight",
+        "Recover"
+      ],
+      "lod_triangles": [
+        29197,
+        11000,
+        4999
+      ],
+      "anchors": {
+        "headlight": [
+          0.0,
+          1.25,
+          0.5734127759933472
+        ],
+        "taillight": [
+          0.0,
+          0.9950000047683716,
+          -0.8303760290145874
+        ],
+        "exhaust_tip": [
+          0.23,
+          0.4,
+          -1.0
+        ]
+      },
+      "originalRiderPreserved": true
+    }
+  ],
+  "physicalMobilePerformanceMeasured": false
+}

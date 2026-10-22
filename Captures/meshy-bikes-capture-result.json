@@ -1,0 +1,40 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureBikesMeshy.cs",
+      "entry": "CaptureBikesMeshy.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 298,
+      "executeMs": 1471,
+      "assemblyName": "PipelineRunScript_CaptureBikesMeshy_64a126aef01b4728af38467a1083d835",
+      "success": true,
+      "result": {
+        "success": true,
+        "files": [
+          "Captures/meshy-bikes-game.png",
+          "Captures/meshy-bikes-hero-rear.png",
+          "Captures/meshy-bikes-hero-front.png",
+          "Captures/meshy-bikes-chase.png",
+          "Captures/meshy-bikes-police.png",
+          "Captures/meshy-bikes-racer.png",
+          "Captures/meshy-bikes-night.png",
+          "Captures/meshy-bikes-night-hero.png"
+        ],
+        "bikes": 5
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

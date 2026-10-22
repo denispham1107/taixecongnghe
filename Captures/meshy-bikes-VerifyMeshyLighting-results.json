@@ -1,0 +1,50 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyMeshyLighting.cs",
+      "entry": "VerifyMeshyLighting.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 181,
+      "executeMs": 471,
+      "assemblyName": "PipelineRunScript_VerifyMeshyLighting_a07aa9c09ef746ed960665598cb72ab2",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 16,
+        "checks": [
+          "UV mask contains actual front white and rear red lamp faces",
+          "Emission is restricted to lenses, not whole white body",
+          "Rider palette cannot glow at night",
+          "PV_HeroScooter: managed by the day-night system",
+          "PV_HeroScooter: every LOD has live day-night emission",
+          "PV_CityScooter: managed by the day-night system",
+          "PV_CityScooter: every LOD has live day-night emission",
+          "PV_Underbone: managed by the day-night system",
+          "PV_Underbone: every LOD has live day-night emission",
+          "PV_SportBike: managed by the day-night system",
+          "PV_SportBike: every LOD has live day-night emission",
+          "PV_Racer: managed by the day-night system",
+          "PV_Racer: every LOD has live day-night emission",
+          "Head/tail lens material lights up at night",
+          "Lens emission switches off during daylight",
+          "Boost plume uses the Meshy frame socket, not legacy hardcoded Wave position"
+        ],
+        "whitePixels": 7332,
+        "redPixels": 12445
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

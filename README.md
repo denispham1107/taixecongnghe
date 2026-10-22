@@ -4,7 +4,15 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.30.6**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.31.0**.
+
+## Xe máy Meshy — 1.31.0
+
+Mọi xe máy ngoài CSGT dùng mẫu xe người dùng gửi từ Meshy: xe chính trắng–đen,
+xe giao thông/quái xế/xe đậu có các màu xanh ngọc, xanh dương, vàng và cam.
+Giữ người lái, bộ xương/động tác, ba LOD, đèn đêm và khói tăng tốc bám theo xe.
+Mô tô CSGT giữ nguyên. Công việc đưa đón vẫn tắt; chỉ thi quãng đường/kỷ lục.
+Chi tiết triển khai và trạng thái phát hành: `huongdan.md`, mục 21.7–21.8.
 
 ## Chế độ hiện tại — chỉ thi quãng đường (1.30.6)
 

@@ -1,0 +1,40 @@
+{
+  "name": "PV_Underbone",
+  "design": "meshy-scooter",
+  "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822\\Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+  "source_triangles": 15739,
+  "bones": 17,
+  "materials": 1,
+  "clips": [
+    "Idle",
+    "Ride",
+    "KickLeft",
+    "KickRight",
+    "FallLeft",
+    "FallRight",
+    "Recover"
+  ],
+  "lod_triangles": [
+    28263,
+    10999,
+    5000
+  ],
+  "anchors": {
+    "headlight": [
+      0.0,
+      1.25,
+      0.5734127759933472
+    ],
+    "taillight": [
+      0.0,
+      0.9950000047683716,
+      -0.8303760290145874
+    ],
+    "exhaust_tip": [
+      0.23,
+      0.4,
+      -1.0
+    ]
+  },
+  "originalRiderPreserved": true
+}

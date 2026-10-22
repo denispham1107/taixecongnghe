@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-23",
+  "project": "Taixecongnghe",
+  "scene": "Assets/PhoViet/Scenes/PhoViet.unity",
+  "before": {
+    "assemblyLoaded": true,
+    "typeLoaded": true,
+    "running": false,
+    "windows": 0,
+    "listener": false,
+    "playing": false,
+    "sceneDirty": false
+  },
+  "action": "Unity Editor menu Meshy/Bridge",
+  "after": {
+    "running": true,
+    "windows": 1,
+    "listenerAddress": "127.0.0.1",
+    "port": 5326,
+    "ownerPid": 1376,
+    "playing": false,
+    "sceneDirty": false
+  },
+  "httpChecks": [
+    {
+      "origin": "https://www.meshy.ai",
+      "method": "GET",
+      "path": "/status",
+      "status": 200,
+      "allowOrigin": "https://www.meshy.ai",
+      "statusBody": "ok",
+      "dcc": "unity",
+      "version": "6000.5.6f1"
+    },
+    {
+      "origin": "https://www.meshy.ai",
+      "method": "OPTIONS",
+      "path": "/import",
+      "status": 200,
+      "allowOrigin": "https://www.meshy.ai",
+      "allowPrivateNetwork": "true"
+    },
+    {
+      "origin": "https://meshy.ai",
+      "method": "GET",
+      "path": "/status",
+      "status": 200,
+      "allowOrigin": "https://meshy.ai",
+      "statusBody": "ok",
+      "dcc": "unity",
+      "version": "6000.5.6f1"
+    },
+    {
+      "origin": "https://meshy.ai",
+      "method": "OPTIONS",
+      "path": "/import",
+      "status": 200,
+      "allowOrigin": "https://meshy.ai",
+      "allowPrivateNetwork": "true"
+    }
+  ],
+  "success": true,
+  "modelImported": false,
+  "scope": "Opened existing Bridge window; no plugin, package, model, scene or gameplay edit; documentation updated preserving concurrent work"
+}

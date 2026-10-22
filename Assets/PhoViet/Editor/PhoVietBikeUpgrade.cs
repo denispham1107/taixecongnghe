@@ -12,6 +12,12 @@ namespace PhoViet.Editor
         const string Folder="Assets/PhoViet/Art/Bikes/";
         public static readonly string[] Assets={"PV_HeroScooter","PV_CityScooter","PV_Underbone","PV_SportBike","PV_Racer","PV_TrafficPolice"};
         static readonly string[] ClipNames={"Idle","Ride","KickLeft","KickRight","FallLeft","FallRight","Recover"};
+        // The Meshy replacement is isolated from the previous Blender sources and police model.
+        public static string ModelPath(string asset)
+        {
+            string path=Folder+"Meshy/"+asset+".fbx";
+            return System.IO.File.Exists(path)?path:Folder+asset+".fbx";
+        }
 
         [MenuItem("Phố Việt/Art/Replace all motorcycles with Blender models")]
         public static void UpgradeOpenScene()
@@ -26,7 +32,7 @@ namespace PhoViet.Editor
         }
         public static void ApplyToGame(PhoVietGame game)
         {
-            foreach(string asset in Assets)if(AssetDatabase.LoadAssetAtPath<GameObject>(Folder+asset+".fbx")==null)throw new Exception("Missing Blender asset "+asset);
+            foreach(string asset in Assets)if(AssetDatabase.LoadAssetAtPath<GameObject>(ModelPath(asset))==null)throw new Exception("Missing Blender asset "+asset);
             UpgradeParkedBikes(game);
             Replace(game.rider,"PV_HeroScooter",BikeVisualAnimator.ActorRole.Player);
             game.leftKickLeg=StreetArt.Group("Chân đạp trái",game.rider,new Vector3(-.17f,1.08f,-.25f));
@@ -92,7 +98,7 @@ namespace PhoViet.Editor
                 if(child.name=="Biển xe nguy hiểm"||child.name.StartsWith("Đèn ưu tiên",StringComparison.Ordinal))continue;
                 UnityEngine.Object.DestroyImmediate(child.gameObject);
             }
-            var model=AssetDatabase.LoadAssetAtPath<GameObject>(Folder+asset+".fbx");
+            var model=AssetDatabase.LoadAssetAtPath<GameObject>(ModelPath(asset));
             var visual=(GameObject)PrefabUtility.InstantiatePrefab(model,root);visual.name="Blender • "+asset;
             visual.transform.localPosition=Vector3.zero;visual.transform.localRotation=Quaternion.identity;visual.transform.localScale=Vector3.one;
             var rendererList=visual.GetComponentsInChildren<SkinnedMeshRenderer>(true).OrderBy(r=>r.name.Contains("_LOD1")?1:r.name.Contains("_LOD2")?2:0).ToArray();
@@ -109,30 +115,44 @@ namespace PhoViet.Editor
             lod.SetLODs(new[]{new LOD(.16f,new Renderer[]{rendererList[0]}),new LOD(.055f,new Renderer[]{rendererList[1]}),new LOD(.008f,new Renderer[]{rendererList[2]})});
             lod.localReferencePoint=new Vector3(0,1.1f,0);lod.size=2.25f;
             var player=visual.GetComponent<Animation>()??visual.AddComponent<Animation>();player.playAutomatically=false;player.cullingType=AnimationCullingType.AlwaysAnimate;player.Stop();
-            var clips=AssetDatabase.LoadAllAssetsAtPath(Folder+asset+".fbx").OfType<AnimationClip>().Where(c=>ClipNames.Contains(c.name)).ToArray();
+            var clips=AssetDatabase.LoadAllAssetsAtPath(ModelPath(asset)).OfType<AnimationClip>().Where(c=>ClipNames.Contains(c.name)).ToArray();
             if(clips.Length!=7)throw new Exception(asset+" must have exactly seven semantic clips");
             var driver=root.GetComponent<BikeVisualAnimator>()??root.gameObject.AddComponent<BikeVisualAnimator>();
             driver.visual=visual.transform;driver.animationPlayer=player;driver.clips=clips;driver.role=role;driver.AssetName=asset;
             var bones=visual.GetComponentsInChildren<Transform>(true);
             driver.frontWheel=bones.Single(t=>t.name=="WheelFront");driver.rearWheel=bones.Single(t=>t.name=="WheelRear");
+            var exhaust=PhoVietMeshyBikeUpgrade.Mount(asset,"exhaust_tip");
+            if(exhaust.HasValue)
+            {
+                var socket=new GameObject("PV_MeshyExhaust").transform;socket.SetParent(bones.Single(t=>t.name=="Frame"),false);
+                socket.position=root.TransformPoint(exhaust.Value);socket.rotation=root.rotation;
+            }
         }
         static Material AtlasMaterial(string asset)
         {
-            Texture2D texture=ImportTexture(Folder+asset+"_Palette.png",true),surface=ImportTexture(Folder+asset+"_Surface.png",false);
-            string path=Folder+asset+".mat";var material=AssetDatabase.LoadAssetAtPath<Material>(path);
+            string folder=System.IO.Path.GetDirectoryName(ModelPath(asset)).Replace('\\','/')+"/";
+            Texture2D texture=ImportTexture(folder+asset+"_Palette.png",true),surface=ImportTexture(folder+asset+"_Surface.png",false);
+            string path=folder+asset+".mat";var material=AssetDatabase.LoadAssetAtPath<Material>(path);
             if(material==null){material=new Material(Shader.Find("Standard"));AssetDatabase.CreateAsset(material,path);}
             material.name=asset+"_Atlas";material.mainTexture=texture;material.color=Color.white;
             material.SetTexture("_MetallicGlossMap",surface);material.EnableKeyword("_METALLICGLOSSMAP");material.SetFloat("_GlossMapScale",1);
+            if(folder.EndsWith("Meshy/",StringComparison.Ordinal))
+            {
+                material.SetTexture("_BumpMap",ImportTexture(folder+"Meshy_Normal.png",false,true));material.EnableKeyword("_NORMALMAP");material.SetFloat("_BumpScale",1);
+                material.SetTexture("_EmissionMap",ImportTexture(folder+"Meshy_Emission.png",true));material.EnableKeyword("_EMISSION");material.SetColor("_EmissionColor",Color.black);
+            }
             material.SetFloat("_Glossiness",.35f);EditorUtility.SetDirty(material);return material;
         }
-        static Texture2D ImportTexture(string path,bool srgb)
+        static Texture2D ImportTexture(string path,bool srgb,bool normal=false)
         {
             var importer=AssetImporter.GetAtPath(path) as TextureImporter;
             if(importer==null)throw new Exception("Missing texture "+path);
-            if(importer.sRGBTexture!=srgb||importer.filterMode!=FilterMode.Point||importer.wrapMode!=TextureWrapMode.Clamp||importer.mipmapEnabled)
+            bool meshy=path.Contains("/Meshy/");var filter=meshy?FilterMode.Bilinear:FilterMode.Point;int size=meshy?2048:128;
+            var type=normal?TextureImporterType.NormalMap:TextureImporterType.Default;
+            if(importer.sRGBTexture!=srgb||importer.filterMode!=filter||importer.wrapMode!=TextureWrapMode.Clamp||importer.mipmapEnabled!=meshy||importer.maxTextureSize!=size||importer.textureType!=type)
             {
-                importer.sRGBTexture=srgb;importer.filterMode=FilterMode.Point;importer.wrapMode=TextureWrapMode.Clamp;
-                importer.mipmapEnabled=false;importer.alphaIsTransparency=false;importer.maxTextureSize=128;importer.SaveAndReimport();
+                importer.textureType=type;importer.sRGBTexture=srgb;importer.filterMode=filter;importer.wrapMode=TextureWrapMode.Clamp;
+                importer.mipmapEnabled=meshy;importer.alphaIsTransparency=false;importer.maxTextureSize=size;importer.SaveAndReimport();
             }
             return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
         }

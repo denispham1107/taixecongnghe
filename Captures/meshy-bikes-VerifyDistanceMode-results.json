@@ -1,0 +1,63 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyDistanceMode.cs",
+      "entry": "VerifyDistanceMode.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 186,
+      "executeMs": 3640,
+      "assemblyName": "PipelineRunScript_VerifyDistanceMode_61449178ed1f4a1fbc4788fa974dd1c7",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 31,
+        "checks": [
+          "Ride jobs explicitly disabled for this release",
+          "Saved scene defaults to distance mode",
+          "Old enabled flag cannot restore jobs: False",
+          "Direct offer call does not pause or generate work: False",
+          "Direct acceptance rejected: False",
+          "60-second run accumulates distance and speed without job pauses: False",
+          "Street grid/intersections continue without jobs: False",
+          "No service stop or job-specific traffic protection: False",
+          "No GPS route or service phase: False",
+          "Both passenger models stay hidden: False",
+          "Saved coins preserved without rewards: False",
+          "Manual pause works: False",
+          "Manual resume works: False",
+          "Old enabled flag cannot restore jobs: True",
+          "Direct offer call does not pause or generate work: True",
+          "Direct acceptance rejected: True",
+          "60-second run accumulates distance and speed without job pauses: True",
+          "Street grid/intersections continue without jobs: True",
+          "No service stop or job-specific traffic protection: True",
+          "No GPS route or service phase: True",
+          "Both passenger models stay hidden: True",
+          "Saved coins preserved without rewards: True",
+          "Manual pause works: True",
+          "Manual resume works: True",
+          "Stale offer cannot be accepted",
+          "Stale service completion cannot award coins",
+          "Stale service state cannot stop rider or traffic",
+          "No navigation voice source created",
+          "Crash still ends distance run after the fall",
+          "Distance high score still recorded",
+          "Retry starts another distance-only run"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
