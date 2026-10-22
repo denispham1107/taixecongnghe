@@ -285,7 +285,7 @@ namespace PhoViet
             if(jumpFlying&&!ServiceStopped)Speed+=3;
             if(BoostActive)Speed*=BoostMultiplier;
             Speed=WorkSpeedLimit(Speed);
-            Speed=AssistedKickSpeed(Speed,previousSpeed,dt);
+            Speed=WorkSpeedLimit(AssistedKickSpeed(Speed,previousSpeed,dt));
             Speed=JobAcceptanceSpeedLimit(Speed);
             Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;

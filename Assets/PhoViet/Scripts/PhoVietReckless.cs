@@ -95,7 +95,7 @@ namespace PhoViet
             if(blocked)return null;
             v.active=true;v.isReckless=true;v.knocked=false;v.wallCrashed=false;v.crossing=false;
             v.knockAge=0;v.playerGrace=0;v.recklessAge=0;v.knockFromPlayer=false;
-            v.speed=oncoming?-(truck?12:20):Mathf.Max(17,Speed)+(truck?9:12)+(float)rng.NextDouble()*3;v.baseTrafficSpeed=v.speed;
+            v.speed=oncoming?-(truck?12:20):TrafficPaceSpeed+(truck?9:12)+(float)rng.NextDouble()*3;v.baseTrafficSpeed=v.speed;
             v.willHitWall=rng.NextDouble()<.7;v.wallSide=rng.Next(2)==0?-1:1;
             v.wallCrashAt=oncoming?.9f+(float)rng.NextDouble()*.4f:2.8f+(float)rng.NextDouble()*1.2f;
             v.lane=adjacent;
@@ -119,7 +119,7 @@ namespace PhoViet
             bool truck=v.halfWidth>.7f;
             if(v.enteringFromBehind)
             {
-                v.speed=Mathf.Max(v.speed,Speed+(truck?9:12));
+                v.speed=Mathf.Max(v.speed,TrafficPaceSpeed+(truck?9:12));
                 Vector3 previous=v.model.localPosition,entryPosition=previous;entryPosition.z+=(v.speed-Speed)*dt;
                 float merge=Mathf.InverseLerp(truck?-10:-7,truck?-4:-2.6f,entryPosition.z);
                 entryPosition.x=Mathf.Lerp(v.rearStartX,v.startPosition.x,Mathf.SmoothStep(0,1,merge));v.model.localPosition=entryPosition;
@@ -130,7 +130,7 @@ namespace PhoViet
             }
             v.recklessAge+=dt;
             if(v.baseTrafficSpeed<0&&v.speed>v.baseTrafficSpeed)v.speed=Mathf.MoveTowards(v.speed,v.baseTrafficSpeed,dt*20);
-            if(v.speed>0)v.speed=Mathf.MoveTowards(v.speed,Speed+(truck?1.2f:3.2f),dt*7);
+            if(v.speed>0)v.speed=Mathf.MoveTowards(v.speed,TrafficPaceSpeed+(truck?1.2f:3.2f),dt*7);
             float frequency=v.swerveFrequency>0?v.swerveFrequency:(truck?2.1f:2.8f);
             float weave=(1-Mathf.Cos(v.recklessAge*frequency))*.5f;
             float amplitude=v.swerveAmplitude>0?v.swerveAmplitude:v.speed<0?5.4f-v.startPosition.x:3.9f;

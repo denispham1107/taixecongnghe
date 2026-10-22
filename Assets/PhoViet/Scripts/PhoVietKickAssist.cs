@@ -11,7 +11,8 @@ namespace PhoViet
   bool kickHit,kickOncoming;
   Vector3 kickAppliedOffset,kickPreviousRider;
   Quaternion kickPreviousRotation;
-  const float KickSideSpeed=16,KickSwingDuration=.55f,KickFootRadius=.08f;
+  public const float KickApproachLateralSpeed=32;
+  const float KickSideSpeed=KickApproachLateralSpeed,KickSwingDuration=.30f,KickFootRadius=.08f,KickFootLead=.085f;
   public bool KickAssistActive=>assistedKick!=AssistedKickPhase.None;
   public bool KickSwingActive=>assistedKick==AssistedKickPhase.Swing;
   public float KickSwingPose=>Mathf.Clamp01(kickSwingAge/KickSwingDuration);
@@ -46,12 +47,13 @@ namespace PhoViet
     bool oncoming=velocity.z<0;
     if(Mathf.Abs(d.x)<.75f||Mathf.Abs(d.x)>3.65f||(!oncoming&&Mathf.Abs(d.z)>2)||(oncoming&&(d.z<0||d.z>16)))continue;
     float gap=v.halfWidth+.50f,approach=Mathf.Max(0,Mathf.Abs(d.x)-gap)/KickSideSpeed;
-    float relative=velocity.z-Speed,arrival=d.z+relative*(approach+.20f);
+    float intercept=KickInterceptSpeed(v,d,WorkSpeedLimit(Mathf.Max(Speed,TrafficPaceSpeed)),approach+KickFootLead);
+    float relative=velocity.z-intercept,arrival=d.z+relative*(approach+KickFootLead);
     // Never chase an oncoming bike that will have passed before the foot extends.
     if(oncoming&&arrival<.4f-v.halfLength-.15f)continue;
-    if(!oncoming&&velocity.z>Speed+5&&arrival>v.halfLength+.6f)continue;
+    if(!oncoming&&(arrival<-.6f||arrival>1.45f))continue;
     Vector3 destination=rider.localPosition+KickRoadFrame*new Vector3(d.x-Mathf.Sign(d.x)*gap,0,0);
-    if(!KickAssistPathClear(rider.localPosition,destination,Mathf.Max(.04f,approach)))continue;
+    if(!KickAssistPathClear(rider.localPosition,destination,Mathf.Max(.04f,approach+KickFootLead),intercept))continue;
     float score=Mathf.Abs(d.z)+Mathf.Abs(d.x)*.12f-(v.isReckless?5:0);
     if(score<closest){selected=v;closest=score;kickOncoming=oncoming;}
    }
@@ -60,23 +62,35 @@ namespace PhoViet
    kickApproachAge=kickSwingAge=0;kickHit=false;assistedKick=AssistedKickPhase.Approach;kickCooldown=.8f;
    return true;
   }
+  float KickInterceptSpeed(TrafficVehicle target,Vector3 delta,float desired,float lead)
+  {
+   Quaternion inverse=Quaternion.Inverse(KickRoadFrame);float targetSpeed=(inverse*KickTrafficVelocity(target)).z;
+   float cap=ServiceRearProtected?desired:Mathf.Max(desired,TrafficPaceSpeed*BoostMultiplier);
+   if(targetSpeed<0)return Mathf.Min(cap,Mathf.Max(desired,TrafficPaceSpeed*1.8f));
+   return Mathf.Clamp(targetSpeed+(delta.z-.35f)/Mathf.Max(.025f,lead),2,cap);
+  }
   float AssistedKickSpeed(float desired,float previous,float dt)
   {
-   if(assistedKick==AssistedKickPhase.Return||KickAssistActive&&kickHit)return Mathf.Min(desired,Mathf.MoveTowards(previous,desired,35*dt));
-   if((assistedKick!=AssistedKickPhase.Approach&&assistedKick!=AssistedKickPhase.Swing)||!KickTargetValid(kickTarget)||kickOncoming)return desired;
-   Quaternion inverse=Quaternion.Inverse(KickRoadFrame);Vector3 d=inverse*(kickTarget.model.localPosition-rider.localPosition);
-   float targetSpeed=(inverse*KickTrafficVelocity(kickTarget)).z;
-   float matching=Mathf.Clamp(targetSpeed+(d.z-.4f)*2.8f,2,desired);
-   return Mathf.Min(desired,Mathf.MoveTowards(previous,matching,45*dt));
+   if(assistedKick==AssistedKickPhase.Return||KickAssistActive&&kickHit)return Mathf.MoveTowards(previous,desired,120*dt);
+   if((assistedKick!=AssistedKickPhase.Approach&&assistedKick!=AssistedKickPhase.Swing)||!KickTargetValid(kickTarget))return desired;
+   Quaternion q=KickRoadFrame,inverse=Quaternion.Inverse(q);Vector3 d=inverse*(kickTarget.model.localPosition-rider.localPosition);
+   float sideGap=kickTarget.halfWidth+.50f,sideTime=Mathf.Max(0,Mathf.Abs(d.x)-sideGap)/KickSideSpeed;
+   float lead=assistedKick==AssistedKickPhase.Approach?sideTime+KickFootLead:Mathf.Max(.025f,KickFootLead-kickSwingAge);
+   float intercept=KickInterceptSpeed(kickTarget,d,desired,lead);
+   float proposed=Mathf.MoveTowards(previous,intercept,(intercept>previous?400:600)*dt);
+   Vector3 candidate=rider.localPosition+q*Vector3.right*Mathf.Clamp(d.x-kickDirection*sideGap,-KickSideSpeed*dt,KickSideSpeed*dt);
+   if(!KickAssistPathClear(rider.localPosition,candidate,dt,proposed)){CancelAssistedKick();return Mathf.Min(previous,desired);}
+   return proposed;
   }
-  bool KickAssistPathClear(Vector3 from,Vector3 to,float horizon)
+  bool KickAssistPathClear(Vector3 from,Vector3 to,float horizon,float roadSpeed=-1)
   {
+   if(roadSpeed<0)roadSpeed=Speed;
    Quaternion q=KickRoadFrame;Vector3 f=q*Vector3.forward,r=q*Vector3.right;
    Vector2 body=new Vector2(Mathf.Abs(r.x)*.33f+Mathf.Abs(f.x)*.91f,Mathf.Abs(r.z)*.33f+Mathf.Abs(f.z)*.91f)+new Vector2(.04f,.04f);
    foreach(var v in vehicles)
    {
     if(!v.active||v.model.localPosition.y>2.4f)continue;
-    Vector3 future=v.model.localPosition+(KickTrafficVelocity(v)-Vector3.forward*Speed)*horizon;
+    Vector3 future=v.model.localPosition+(KickTrafficVelocity(v)-Vector3.forward*roadSpeed)*horizon;
     if(SweptOverlap(Flat(v.model.localPosition-from),Flat(future-to),VehicleFootprint(v)+body))return false;
    }
    if(SceneryContact(from,to,out _,out _,out _))return false;
@@ -92,7 +106,7 @@ namespace PhoViet
    {
     if(!KickTargetValid(kickTarget)||kickTarget.spawnGeneration!=kickTargetSpawn)CancelAssistedKick();
    }
-   if(assistedKick==AssistedKickPhase.Approach)
+   if(assistedKick==AssistedKickPhase.Approach||assistedKick==AssistedKickPhase.Swing&&!kickHit)
    {
     kickApproachAge+=dt;Quaternion q=KickRoadFrame,inverse=Quaternion.Inverse(q);
     Vector3 nextTarget=kickTarget.model.localPosition+(KickTrafficVelocity(kickTarget)-Vector3.forward*Speed)*dt;
@@ -100,14 +114,14 @@ namespace PhoViet
     float desired=d.x-kickDirection*gap;
     Vector3 offset=q*Vector3.right*Mathf.MoveTowards(Vector3.Dot(oldOffset,q*Vector3.right),desired,KickSideSpeed*dt);
     Vector3 candidate=baseline+offset;
-    if(kickApproachAge>1.2f||!KickAssistPathClear(previous,candidate,dt)){CancelAssistedKick();}
+    if(kickApproachAge>.55f||!KickAssistPathClear(previous,candidate,dt)){CancelAssistedKick();}
     else
     {
      kickAppliedOffset=offset;rider.localPosition=candidate;
      Vector3 beside=inverse*(nextTarget-candidate);float relative=(inverse*KickTrafficVelocity(kickTarget)).z-Speed;
      bool nearSide=Mathf.Abs(Mathf.Abs(beside.x)-gap)<.07f;
-     bool timed=kickOncoming?Mathf.Abs(beside.z+relative*.20f-.45f)<=kickTarget.halfLength+.25f:Mathf.Abs(beside.z-.4f)<=.9f;
-     if(nearSide&&timed)
+     bool timed=kickOncoming?Mathf.Abs(beside.z+relative*KickFootLead-.45f)<=kickTarget.halfLength+.25f:Mathf.Abs(beside.z-.4f)<=.9f;
+     if(assistedKick==AssistedKickPhase.Approach&&nearSide&&timed)
      {assistedKick=AssistedKickPhase.Swing;kickSwingAge=0;rider.GetComponent<BikeVisualAnimator>()?.Kick(kickDirection);}
      else if(kickOncoming&&beside.z< -kickTarget.halfLength-.2f)CancelAssistedKick();
     }

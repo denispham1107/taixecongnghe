@@ -79,7 +79,7 @@ namespace PhoViet
     // Reduce closing speed while steering, so the lane change finishes before reaching the rider.
     if(z>0&&v.baseTrafficSpeed<0)v.speed=Mathf.MoveTowards(v.speed,0,60*dt);
     else if(z<0)v.speed=Mathf.MoveTowards(v.speed,Mathf.Min(v.speed,Speed),60*dt);
-    else v.speed=Mathf.Max(v.speed,Speed);
+    // A vehicle ahead keeps its own speed; the protected rider yields below.
     p.z+=(v.speed-Speed)*dt;v.model.localPosition=p;
     float sideways=(p.x-oldX)/dt;
     float yaw=Mathf.Abs(sideways)+Mathf.Abs(v.speed)<.01f?(v.baseTrafficSpeed<0?180:0):Mathf.Atan2(sideways,v.speed)*Mathf.Rad2Deg;
@@ -89,7 +89,7 @@ namespace PhoViet
    else
    {
     // A blocked rear driver brakes; forward traffic holds its gap. Oncoming traffic stops to yield.
-    float target=v.baseTrafficSpeed<0?0:z<0?Mathf.Min(v.speed,Speed):Mathf.Max(v.speed,Speed);
+    float target=v.baseTrafficSpeed<0?0:z<0?Mathf.Min(v.speed,Speed):v.speed;
     v.speed=Mathf.MoveTowards(v.speed,target,60*dt);p.z+=(v.speed-Speed)*dt;v.model.localPosition=p;
    }
    if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(true);
@@ -114,9 +114,14 @@ namespace PhoViet
    if(!TrafficYieldActive)return desired;
    foreach(var v in vehicles)
    {
-    if(!v.active||v.knocked||v.wallCrashed||v.crossing||v.roadTurning||v.routeDetached||v.baseTrafficSpeed>=0)continue;
+    if(!v.active||v.knocked||v.wallCrashed||v.crossing||v.roadTurning||v.routeDetached)continue;
     Vector3 delta=v.model.localPosition-rider.localPosition;
     if(delta.z<=0||Mathf.Abs(delta.x)>=v.halfWidth+1.15f)continue;
+    if(v.baseTrafficSpeed>=0)
+    {
+     float forwardGap=delta.z-ServiceTrafficFootprint(v).y-.91f-.8f;
+     desired=Mathf.Min(desired,Mathf.Max(0,v.speed)+Mathf.Sqrt(120f*Mathf.Max(0,forwardGap)));continue;
+    }
     if(v.jobYieldLane<0&&FindJobYieldLane(v)>=0)continue;
     // Both participants brake when the road is blocked. Reserve the oncoming
     // vehicle's stopping distance before assigning any of the gap to the rider.

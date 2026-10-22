@@ -40,7 +40,7 @@ namespace PhoViet
                 return;
             }
             float nominal=PoliceDistance<=6.5f?cruiseSpeed-.65f:cruiseSpeed+15;
-            if(IsTurning)nominal=PoliceDistance<=6.5f?Speed-.65f:Speed+2;
+            if(IsTurning)nominal=PoliceDistance<=6.5f?TrafficPaceSpeed-.65f:TrafficPaceSpeed+2;
             float nextAt=Mathf.Min(Distance-.8f,policeRouteAt+Mathf.Max(0,nominal)*dt);var point=SampleRoute(nextAt);Quaternion yaw=Quaternion.Euler(0,point.yaw,0);
             Vector3 destination=point.point;bool clear=false;
             foreach(float side in new[]{-.9f,0,.9f})

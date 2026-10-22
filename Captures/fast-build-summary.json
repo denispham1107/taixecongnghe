@@ -1,0 +1,22 @@
+{
+  "status": "completed",
+  "buildId": "build_aa4f17ed29f0",
+  "result": "Succeeded",
+  "buildTimeMs": 241285,
+  "totalErrors": 0,
+  "totalWarnings": 3,
+  "errors": [],
+  "warnings": [
+    {
+      "message": "Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds."
+    },
+    {
+      "message": "warning CS0414: The field 'PhoVietGame.hudTouchChoice' is assigned but its value is never used",
+      "file": "Assets\\PhoViet\\Scripts\\PhoVietPortraitHud.cs"
+    },
+    {
+      "message": "warning CS0414: The field 'PhoVietGame.dragging' is assigned but its value is never used",
+      "file": "Assets\\PhoViet\\Scripts\\PhoVietGame.cs"
+    }
+  ]
+}

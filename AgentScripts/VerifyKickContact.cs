@@ -41,7 +41,7 @@ public static class VerifyKickContact
     check(sawSwing&&v.knocked&&g.KickCount==1,"Approach then one physical foot impact: "+label);
     check(g.LastKickFootGap>=0&&g.LastKickFootGap<=.081f&&g.LastKickCentreDistance<2.6f,"Impact lies on animated shoe surface, not remote range: "+label);
     check(g.State==PhoVietGame.RideState.Riding&&!g.KickAssistActive&&g.CurrentLane==lane&&Mathf.Abs(g.rider.localPosition.x-PhoVietGame.LaneX[lane])<.01f,"Returns to original lane without crashing: "+label);
-    check(maxStep<=16*dt+.02f,"No lateral teleport: "+label);check(g.IsChased,"Ordinary bike summons police only after contact: "+label);
+    check(maxStep<=PhoVietGame.KickApproachLateralSpeed*dt+.02f,"No lateral teleport: "+label);check(g.IsChased,"Ordinary bike summons police only after contact: "+label);
     contacts.Add(new{label,elapsed,g.LastKickFootGap,g.LastKickCentreDistance,maxStep});
    }
    reset(2);var boostTarget=bike(3,0,17);g.TryKick();for(int i=0;i<100&&g.KickAssistActive;i++)tick(.02f);float beforeBoost=g.Speed;

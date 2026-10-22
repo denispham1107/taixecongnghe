@@ -95,7 +95,7 @@ namespace PhoViet
                 if(rear)
                 {
                     v.enteringFromBehind=true;v.rearEntryBoost=10+(float)rng.NextDouble()*5;
-                    v.speed=v.baseTrafficSpeed=Mathf.Max(cruiseSpeed,17)+v.rearEntryBoost;ExitRearSpawns++;
+                    v.speed=v.baseTrafficSpeed=TrafficPaceSpeed+v.rearEntryBoost;ExitRearSpawns++;
                 }
                 else ExitOncomingSpawns++;
                 return true;

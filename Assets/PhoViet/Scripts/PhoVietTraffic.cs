@@ -5,6 +5,8 @@ namespace PhoViet
 {
     public partial class PhoVietGame
     {
+        // This reference never includes W, jump or the kick interception surge.
+        float TrafficPaceSpeed=>Mathf.Min(17+DifficultyTime*.12f,30);
         public bool trafficSurprises=true;
         public int SuddenBrakes {get;private set;}
         public int SuddenLaneChanges {get;private set;}
@@ -71,7 +73,7 @@ namespace PhoViet
             bool same=v.baseTrafficSpeed>0;Vector3 p=v.model.localPosition;
             if(v.enteringFromBehind&&!v.isReckless)
             {
-                v.baseTrafficSpeed=Mathf.Max(v.baseTrafficSpeed,Speed+v.rearEntryBoost);
+                v.baseTrafficSpeed=Mathf.Max(v.baseTrafficSpeed,TrafficPaceSpeed+v.rearEntryBoost);
                 if(p.z>4){v.enteringFromBehind=false;v.baseTrafficSpeed=7+(float)rng.NextDouble()*7;}
             }
             v.brakeCooldown-=dt;v.laneCooldown-=dt;
@@ -94,14 +96,8 @@ namespace PhoViet
                     else v.laneCooldown=.4f;
                 }
             }
-            // Adjacent vehicles briefly match the rider, making cut-ins and defensive kicks readable.
-            if(same&&(trafficSurprises||v.halfWidth<.7f))
-            {
-                if(!v.hasPaced&&p.z<=3&&p.z>=-2){v.hasPaced=true;v.rideAlongRemaining=1.6f;}
-                v.rideAlongRemaining=Mathf.Max(0,v.rideAlongRemaining-dt);
-            }
             bool braking=v.brakeRemaining>0;
-            float target=braking?Mathf.Max(.7f,v.baseTrafficSpeed*.1f):v.rideAlongRemaining>0?Mathf.Max(v.baseTrafficSpeed,Speed-1.2f):v.baseTrafficSpeed;
+            float target=braking?Mathf.Max(.7f,v.baseTrafficSpeed*.1f):v.baseTrafficSpeed;
             v.speed=trafficSurprises?Mathf.MoveTowards(v.speed,target,dt*(braking?38:6)):target;
             v.brakeRemaining=Mathf.Max(0,v.brakeRemaining-dt);
             if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(v.brakeRemaining>0);

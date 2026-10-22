@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": ".tools/ProbeBoostKick.cs",
+      "entry": "ProbeBoostKick.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 97,
+      "executeMs": 189,
+      "assemblyName": "PipelineRunScript_ProbeBoostKick_0c551f9bc408458f88ba43ee5a1ba197",
+      "success": true,
+      "result": {
+        "success": true,
+        "otherBikeBefore": 12,
+        "otherBikeAfterPlayerBoost": 12,
+        "boostLeaksToTraffic": false,
+        "fastNearbyBikeSelected": true,
+        "fastBikeHit": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
