@@ -23,7 +23,7 @@ public static class CaptureBikeActions
             var hero=g.rider.GetComponent<BikeVisualAnimator>();float x=g.rider.position.x;
             camera.transform.position=new Vector3(x+2.8f,2.7f,-4.6f);camera.transform.LookAt(new Vector3(x,.98f,0));camera.fieldOfView=44;
             hero.Advance(.15f);capture("ride");
-            var target=g.SpawnTraffic(3,0,1);g.TryKick();hero.Advance(.27f);capture("kick-right");
+            var target=g.SpawnTraffic(3,0,1);g.TryKick();for(int i=0;i<100&&(!g.KickSwingActive||g.KickSwingPose<.48f);i++)typeof(PhoVietGame).GetMethod("TickRide",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(g,new object[]{.01f});hero.Advance(0);capture("kick-right");
             target.knockAge=.6f;target.model.localRotation=Quaternion.Euler(0,0,-78);target.model.GetComponent<BikeVisualAnimator>().Advance(.02f);
             camera.transform.position=new Vector3(x+1.5f,3.6f,-5.3f);camera.transform.LookAt(new Vector3(x+1.3f,.7f,0));camera.fieldOfView=50;capture("victim-fall");
             target.active=false;target.model.gameObject.SetActive(false);g.Crash();g.rider.localRotation=Quaternion.Euler(-8,12,-78);g.rider.localPosition=new Vector3(x,-.25f,0);hero.Advance(.7f);

@@ -23,7 +23,15 @@ namespace PhoViet
         Quaternion frontRest,rearRest;
         Quaternion baseVisualRotation;
         Transform leftFoot,rightFoot;
-        float clock,kickAge=10,fallAge;
+        Vector3[][] kickFeet;
+        public bool HasKickContactPose {get{Initialize();return kickFeet!=null;}}
+        public Vector3 KickFootLocal(float side,float normalized,bool toe)
+        {
+            Initialize();if(kickFeet==null)return Vector3.zero;
+            var points=kickFeet[(side<0?0:2)+(toe?1:0)];float at=Mathf.Clamp01(normalized)*(points.Length-1);
+            int i=Mathf.Min(points.Length-2,(int)at);return Vector3.Lerp(points[i],points[i+1],at-i);
+        }
+        float clock,fallAge;
         int kickSide=1;
         BikeJumpPose jumpPose=new BikeJumpPose();
         float jumpBalancePitch,jumpPitchVelocity;
@@ -33,7 +41,7 @@ namespace PhoViet
 
         void OnEnable()
         {
-            initialized=false;game=null;vehicle=null;clock=0;kickAge=10;fallAge=0;WheelAngle=0;jumpBalancePitch=jumpPitchVelocity=0;
+            initialized=false;game=null;vehicle=null;clock=0;fallAge=0;WheelAngle=0;jumpBalancePitch=jumpPitchVelocity=0;
             if(visual!=null){visual.localPosition=Vector3.zero;visual.localRotation=Quaternion.identity;}
         }
         void Start(){Initialize();}
@@ -61,9 +69,22 @@ namespace PhoViet
             foreach(var clip in clips)if(clip!=null)animationPlayer.AddClip(clip,clip.name);
             foreach(AnimationState state in animationPlayer){state.enabled=false;state.weight=0;state.speed=0;}
             initialized=true;previousState=game.State;Sample("Idle",0);
-            if(role==ActorRole.Player)jumpPose.Initialize(visual);
+            if(role==ActorRole.Player)
+            {
+                jumpPose.Initialize(visual);
+                if(kickFeet==null&&leftFoot!=null&&rightFoot!=null&&animationPlayer["KickLeft"]!=null&&animationPlayer["KickRight"]!=null)
+                {
+                    kickFeet=new Vector3[4][];for(int i=0;i<4;i++)kickFeet[i]=new Vector3[65];
+                    for(int side=0;side<2;side++)for(int i=0;i<65;i++)
+                    {
+                        Sample(side==0?"KickLeft":"KickRight",i/64f);var foot=side==0?leftFoot:rightFoot;
+                        for(int toe=0;toe<2;toe++)kickFeet[side*2+toe][i]=transform.InverseTransformPoint(foot.TransformPoint(new Vector3(0,-.03f,toe==1?.23f:-.06f)));
+                    }
+                    Sample("Idle",0);
+                }
+            }
         }
-        public void Kick(float direction){kickSide=direction<0?-1:1;kickAge=0;}
+        public void Kick(float direction){kickSide=direction<0?-1:1;}
         void LateUpdate(){Advance(Mathf.Min(Time.deltaTime,.05f));}
         public void Advance(float dt)
         {
@@ -74,8 +95,8 @@ namespace PhoViet
             if(role==ActorRole.Parked)
             {clock+=dt;Sample("Idle",Mathf.Repeat(clock,2.4f)/2.4f);return;}
             if(game.State==PhoVietGame.RideState.Ready&&previousState!=game.State)
-            {clock=0;kickAge=10;fallAge=0;WheelAngle=0;}
-            previousState=game.State;clock+=dt;kickAge+=dt;
+            {clock=0;fallAge=0;WheelAngle=0;}
+            previousState=game.State;clock+=dt;
             bool recovering=role==ActorRole.Traffic&&vehicle.IsStandingUp;
             bool falling=role==ActorRole.Player?(game.State==PhoVietGame.RideState.Falling||game.State==PhoVietGame.RideState.GameOver||game.State==PhoVietGame.RideState.Arrested&&game.CrashDuringPursuit):
                 role==ActorRole.Police?game.PoliceFallen:vehicle.knocked;
@@ -96,8 +117,8 @@ namespace PhoViet
             else
             {
                 fallAge=0;
-                if(role==ActorRole.Player&&kickAge<.55f&&game.State==PhoVietGame.RideState.Riding)
-                {clip=kickSide<0?"KickLeft":"KickRight";normalized=kickAge/.55f;}
+                if(role==ActorRole.Player&&game.KickSwingActive&&game.State==PhoVietGame.RideState.Riding)
+                {clip=kickSide<0?"KickLeft":"KickRight";normalized=game.KickSwingPose;}
                 else if(game.State==PhoVietGame.RideState.Riding&&Mathf.Abs(speed)>.1f)
                 {clip="Ride";normalized=Mathf.Repeat(clock, .8f)/.8f;}
                 else {clip="Idle";normalized=Mathf.Repeat(clock,2.4f)/2.4f;speed=0;}

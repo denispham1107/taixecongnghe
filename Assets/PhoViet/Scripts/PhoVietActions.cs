@@ -34,6 +34,7 @@ namespace PhoViet
         {
             IsChased=false;PoliceDistance=0;PoliceSpeed=0;KickCount=0;ChainCount=0;
             kickCooldown=0;kickTime=0;chaseBoost=0;collisionImmunity=0;arrestTime=0;
+            ResetAssistedKick();
             lastTapTime=-100;policeArrived=false;
             ResetPoliceDriving();
             if(siren!=null)siren.Stop();if(policeBike!=null)policeBike.gameObject.SetActive(false);
@@ -45,27 +46,7 @@ namespace PhoViet
         }
         public bool TryKick()
         {
-            if(State!=RideState.Riding||ServiceStopped||RiderJumpActive||RiderOnRoof||kickCooldown>0)return false;
-            TrafficVehicle target=null;float closest=float.MaxValue;
-            foreach(var v in vehicles)
-            {
-                if(!v.active||v.knocked||v.crossing||v.halfWidth>.7f)continue;
-                Vector3 d=Quaternion.Inverse(Quaternion.Euler(0,IsTurning?TurnYaw:0,0))*(v.model.localPosition-rider.localPosition);
-                // Oncoming bikes have a slightly longer reach window; dangerous riders take priority.
-                if(Mathf.Abs(d.z)>(v.speed<0?3.4f:2)||Mathf.Abs(d.x)<.85f||Mathf.Abs(d.x)>3.65f)continue;
-                float score=Mathf.Abs(d.z)+Mathf.Abs(d.x)*.12f-(v.isReckless?5:0);
-                if(score<closest){closest=score;target=v;}
-            }
-            if(target==null){notice="CẦN XE MÁY Ở BÊN CẠNH TRONG TẦM ĐẠP";noticeTimer=1;return false;}
-            kickDirection=Mathf.Sign((Quaternion.Inverse(Quaternion.Euler(0,IsTurning?TurnYaw:0,0))*(target.model.localPosition-rider.localPosition)).x);
-            kickTime=.38f;kickCooldown=.8f;KickCount++;
-            rider.GetComponent<BikeVisualAnimator>()?.Kick(kickDirection);
-            bool selfDefense=target.isReckless;
-            Vector3 targetVelocity=BodyVelocity(target);KnockVehicle(target,kickDirection,false);
-            if(IsTurning){Vector3 side=Quaternion.Euler(0,TurnYaw,0)*Vector3.right;target.knockVelocity=targetVelocity+side*kickDirection*9;target.knockVelocity.y=2.2f;}
-            if(!selfDefense)StartChase();
-            notice=selfDefense?"TỰ VỆ: HẠ QUÁI XẾ · KHÔNG GỌI CSGT":kickDirection>0?"ĐẠP PHẢI!  CSGT ĐANG ĐẾN":"ĐẠP TRÁI!  CSGT ĐANG ĐẾN";noticeTimer=1.5f;
-            return true;
+            return BeginAssistedKick();
         }
         public bool RegisterTap(Vector2 position,float atTime)
         {
@@ -143,7 +124,7 @@ namespace PhoViet
             // A nearby officer waits for the physical fall to finish; no jail
             // transition can cut off the throw/landing animation.
             if(State==RideState.Falling&&!RiderFallComplete)return;
-            CancelBoost();State=RideState.Arrested;Speed=0;arrestTime=0;engine.Stop();siren?.Stop();
+            CancelAssistedKick(false);CancelBoost();State=RideState.Arrested;Speed=0;arrestTime=0;engine.Stop();siren?.Stop();
             if((int)Distance>BestDistance){BestDistance=(int)Distance;PlayerPrefs.SetInt(BestKey,BestDistance);PlayerPrefs.Save();}
         }
         void TickArrest(float dt)

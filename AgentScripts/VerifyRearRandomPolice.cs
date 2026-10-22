@@ -21,7 +21,7 @@ public static class VerifyRearRandomPolice
         Action clean=()=>{g.RestartRide();g.trafficSurprises=false;g.recklessTrafficEnabled=false;foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("spawnTimer",10000);set("nextIntersectionDistance",float.PositiveInfinity);};
         Action chase=()=>
         {
-            clean();tick(.02f);var target=g.SpawnTraffic(3,0,1);g.TryKick();call("RetireVehicle",new object[]{target});
+            clean();tick(.02f);call("StartChase",null);
             g.policeBike.localPosition=new Vector3(.45f,0,-10);g.policeBike.localRotation=Quaternion.identity;
             typeof(PhoVietGame).GetProperty("PoliceDistance").SetValue(g,10f);typeof(PhoVietGame).GetProperty("PoliceSpeed").SetValue(g,17f);
             typeof(PhoVietGame).GetField("policeArrived",F).SetValue(g,true);

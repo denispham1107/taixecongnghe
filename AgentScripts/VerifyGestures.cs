@@ -42,7 +42,7 @@ public static class VerifyGestures
    reset();begin();packet(1,7,99,.5f,.5f,10.1f);check(g.CurrentLane==2&&!g.RiderJumpActive&&!g.BoostActive,"Unknown action ignored");
    reset();int bike=g.vehicles.FindIndex(v=>!v.eventOnly&&v.halfWidth<.7f);var target=g.SpawnTraffic(3,0,bike);
    packet(0,7,0,.5f,.5f,20);packet(2,7,0,.5f,.5f,20.04f);check(!target.knocked,"Single browser tap does not kick");
-   packet(0,8,0,.5f,.5f,20.15f);packet(2,8,0,.5f,.5f,20.19f);check(target.knocked,"Two quick taps in one Unity frame still kick using browser timestamps");
+   packet(0,8,0,.5f,.5f,20.15f);packet(2,8,0,.5f,.5f,20.19f);check(g.KickAssistActive&&!target.knocked,"Two quick taps begin assisted approach using browser timestamps, without remote force");
    reset();var last=typeof(PhoVietGame).GetField("lastTapTime",BindingFlags.Instance|BindingFlags.NonPublic);
    begin();packet(1,7,-1,.4f,.5f,10.05f);packet(2,7,0,.5f,.5f,10.1f);check((float)last.GetValue(g)==-100,"Swipe returning to start cannot count as tap");
    reset();begin();packet(2,7,0,.5f,.5f,11);check((float)last.GetValue(g)==-100,"Long hold is not double-tap component");

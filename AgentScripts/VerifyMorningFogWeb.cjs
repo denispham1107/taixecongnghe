@@ -11,7 +11,7 @@ function stats(a,b,rect){
  return {difference:delta/n,first:lightA/n,second:lightB/n,magenta:magenta/n};
 }
 async function main(){
- const build=await(await fetch(new URL('build-info.json',url))).json();check('Tested build is version 1.30.2',build.version==='1.30.2');result.build=build;
+ const build=await(await fetch(new URL('build-info.json',url))).json();check('Tested build is version 1.30.3',build.version==='1.30.3');result.build=build;
  const browser=await chromium.launch({channel:'chrome',headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  try{
   for(const [device,options] of [['desktop',{viewport:{width:1440,height:900}}],['phone',{...devices['Pixel 7'],deviceScaleFactor:1}]]){

@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyKickContact.cs",
+      "entry": "VerifyKickContact.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2309,
+      "executeMs": 34,
+      "assemblyName": "PipelineRunScript_VerifyKickContact_a286a5d353d14fa3b683f5c7107bcbb2",
+      "success": false,
+      "error": "Runtime Error",
+      "errorDetails": "Exception: FAIL: Pressing kick cannot apply an invisible remote impact before approaching and foot contact\n  at VerifyKickContact+<>c__DisplayClass1_0.<Main>b__0 (System.Boolean ok, System.String s) [0x00027] in C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\AgentScripts\\VerifyKickContact.cs:15 \r\n  at VerifyKickContact.Main () [0x001eb] in C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\AgentScripts\\VerifyKickContact.cs:23 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,33 @@
+{
+  "url": "http://127.0.0.1:8767/",
+  "mock": false,
+  "checks": [
+    "portrait left: short swipe dispatched before finger-up",
+    "portrait left: hold and release never duplicate action",
+    "portrait right: short swipe dispatched before finger-up",
+    "portrait right: hold and release never duplicate action",
+    "portrait up: short swipe dispatched before finger-up",
+    "portrait up: hold and release never duplicate action",
+    "portrait down: short swipe dispatched before finger-up",
+    "portrait down: hold and release never duplicate action",
+    "portrait: small finger jitter remains a tap",
+    "portrait: cancellation clears pointer without action",
+    "portrait: rotation cancels held gesture",
+    "portrait: fresh swipe after rotation is accepted",
+    "landscape left: short swipe dispatched before finger-up",
+    "landscape left: hold and release never duplicate action",
+    "landscape right: short swipe dispatched before finger-up",
+    "landscape right: hold and release never duplicate action",
+    "landscape up: short swipe dispatched before finger-up",
+    "landscape up: hold and release never duplicate action",
+    "landscape down: short swipe dispatched before finger-up",
+    "landscape down: hold and release never duplicate action",
+    "landscape: small finger jitter remains a tap",
+    "landscape: cancellation clears pointer without action",
+    "landscape: rotation cancels held gesture",
+    "landscape: fresh swipe after rotation is accepted",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "success": true
+}

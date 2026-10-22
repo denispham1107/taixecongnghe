@@ -39,6 +39,8 @@ namespace PhoViet
             public Vector3 routeEffectOffset;
             public float rearEntryBoost;
             public int jobYieldLane=-1;
+            [NonSerialized] public int spawnGeneration;
+            [NonSerialized] public float previousCrashWidth=-1;
             public bool roadTurning;
             public float roadTurnAngle,roadTurnRadius,roadTurnSpeed,roadDecisionAt;
             public Vector3 roadTurnStart,roadTurnForward,roadTurnSide;
@@ -145,6 +147,7 @@ namespace PhoViet
         public void MoveLane(int direction)
         {
             if(State!=RideState.Riding||ServiceStopped)return;
+            CancelAssistedKick(false);
             if(SelectJunctionTurn(direction))return;
             CurrentLane=Mathf.Clamp(CurrentLane+Math.Sign(direction),0,3);
         }
@@ -271,6 +274,7 @@ namespace PhoViet
         }
         void TickRide(float dt)
         {
+            float previousSpeed=Speed;Vector3 previousRider=rider.localPosition;Quaternion previousRotation=rider.localRotation;
             AdvanceDaylight(dt);
             TickWorkMotion(dt);
             TickActionTimers(dt);
@@ -281,16 +285,19 @@ namespace PhoViet
             if(jumpFlying&&!ServiceStopped)Speed+=3;
             if(BoostActive)Speed*=BoostMultiplier;
             Speed=WorkSpeedLimit(Speed);
+            Speed=AssistedKickSpeed(Speed,previousSpeed,dt);
             Speed=JobAcceptanceSpeedLimit(Speed);
             Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;
             oldRiderZ=rider.localPosition.z;
             oldRiderYaw=IsTurning?TurnYaw:0;
-            float x=ServiceStopped?oldX:Mathf.MoveTowards(oldX,LaneX[CurrentLane],dt*15);
-            lean=Mathf.Lerp(lean,(oldX-x)*-35,dt*10);
+            float baseX=oldX-kickAppliedOffset.x;
+            float x=ServiceStopped?baseX:Mathf.MoveTowards(baseX,LaneX[CurrentLane],dt*15);
+            lean=Mathf.Lerp(lean,(baseX-x)*-35,dt*10);
             if(!IsTurning){rider.localPosition=new Vector3(x,jumpHeight,0);rider.localRotation=Quaternion.Euler(0,0,lean);}
             BeginOrContinueTurn(Speed*dt);
             {var p=rider.localPosition;p.y=jumpHeight;rider.localPosition=p;}
+            TickAssistedKickMotion(dt,previousRider,previousRotation);x=rider.localPosition.x;
             lastX=x;
             riderRoadVelocity=dt>0?new Vector3((rider.localPosition.x-oldX)/dt,0,Speed+(rider.localPosition.z-oldRiderZ)/dt):Quaternion.Euler(0,TurnYaw,0)*Vector3.forward*Speed;
             riderVelocityValid=true;
@@ -300,6 +307,7 @@ namespace PhoViet
             TickRearRecklessWarning(dt);
             TickOrdinaryRearWarnings(dt);
             if(!ResolveRiderContacts(oldX,dt))return;
+            TickAssistedKickContact(dt);
             if(!ServiceStopped&&Speed>.1f)rearDepartureProtection=Mathf.Max(0,rearDepartureProtection-dt);
             x=rider.localPosition.x;lastX=x;
             RetireTraffic(true);
@@ -325,7 +333,7 @@ namespace PhoViet
             {
                 if(!v.active)continue;
                 Vector3 previous=v.model.localPosition;
-                v.previousPosition=previous;v.previousYaw=v.model.localEulerAngles.y;v.playerGrace=Mathf.Max(0,v.playerGrace-dt);
+                v.previousPosition=previous;v.previousYaw=v.model.localEulerAngles.y;v.previousCrashWidth=BodyWidth(v);v.playerGrace=Mathf.Max(0,v.playerGrace-dt);
                 ScrollTrafficRecovery(v,Vector3.forward*Speed*dt);
                 if(v.wallCrashed)TickWallWreck(v,dt);
                 else if(TickTrafficRecovery(v,dt)){}

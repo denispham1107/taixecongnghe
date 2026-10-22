@@ -26,7 +26,7 @@ public static class PreviewRearPolice
     }
     static PhoVietGame Chase()
     {
-        var g=Setup();Call(g,"TickRide",.02f);var bike=g.SpawnTraffic(3,0,1);g.TryKick();Call(g,"RetireVehicle",bike);
+        var g=Setup();Call(g,"TickRide",.02f);Call(g,"StartChase");
         g.policeBike.localPosition=new Vector3(.45f,0,-5.5f);typeof(PhoVietGame).GetProperty("PoliceDistance").SetValue(g,5.5f);typeof(PhoVietGame).GetProperty("PoliceSpeed").SetValue(g,17f);
         typeof(PhoVietGame).GetField("policeArrived",F).SetValue(g,true);Call(g,"PositionCamera",true);Set(g,"noticeTimer",0);return g;
     }

@@ -30,7 +30,7 @@ namespace PhoViet
    if(State!=RideState.Riding||ServiceStopped||jumpFlying||jumpWindup>0||jumpCooldown>0||jumpLanding>0)return false;
    // A roof edge starts a physical fall, so it cannot be used for an extra mid-air jump.
    if(jumpHeight>.06f&&roofVehicle==null)return false;
-   jumpWindup=.24f;jumpCooldown=2;return true;
+   CancelAssistedKick(false);jumpWindup=.24f;jumpCooldown=2;return true;
   }
   // A roof is usable while upright, including a weaving or damaged truck. A tilted
   // wreck remains a collision obstacle rather than becoming an invisible platform.

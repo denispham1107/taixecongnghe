@@ -19,6 +19,8 @@ public static class VerifyReckless
         Action<string,object[]> call=(name,args)=>typeof(PhoVietGame).GetMethod(name,F).Invoke(g,args);
         Action<float> tick=dt=>call("TickRide",new object[]{dt});
         Action clean=()=>{g.RestartRide();foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("spawnTimer",10000);set("nextIntersectionDistance",float.PositiveInfinity);g.recklessTrafficEnabled=false;};
+        Func<bool> kick=()=>{int before=g.KickCount;if(!g.TryKick())return false;for(int i=0;i<100&&g.KickCount==before&&g.State==PhoVietGame.RideState.Riding;i++)tick(.02f);return g.KickCount>before;};
+        Action<PhoVietGame.TrafficVehicle,float,float,float> steady=(v,x,z,speed)=>{v.model.localPosition=new Vector3(x,0,z);v.previousPosition=v.model.localPosition;v.model.localRotation=Quaternion.Euler(0,speed<0?180:0,0);v.speed=v.baseTrafficSpeed=speed;v.routeDetached=true;v.routeVelocity=v.motionVelocity=Vector3.forward*speed;};
         try
         {
             Time.timeScale=0;
@@ -75,8 +77,8 @@ public static class VerifyReckless
             }
             foreach(float side in new[]{-1f,1f})
             {
-                clean();var incoming=g.SpawnReckless(false,true);incoming.model.localPosition=new Vector3(g.rider.localPosition.x+side*3.1f,0,3.3f);
-                check(g.TryKick()&&incoming.knocked&&incoming.knockDirection==side&&!g.IsChased,"Self-defense against an actual oncoming racer works on either side without police: "+side);
+                clean();var incoming=g.SpawnReckless(false,true);steady(incoming,g.rider.localPosition.x+side*3.1f,12,-12);
+                check(kick()&&incoming.knocked&&incoming.knockDirection==side&&!g.IsChased,"Self-defense against an actual oncoming racer works on either side without police: "+side);
             }
 
             foreach(bool truck in new[]{false,true})
@@ -99,20 +101,20 @@ public static class VerifyReckless
                 var nearby=g.SpawnReckless(true);
                 check(nearby.lane>=2&&nearby.lane<=3&&Mathf.Abs(nearby.model.localPosition.x-PhoVietGame.LaneX[nearby.lane])<.001f,"Drowsy truck uses exactly one legal rear entry lane regardless of player lane: "+playerLane);
             }
-            clean();var racer=g.SpawnReckless(false);racer.model.localPosition=new Vector3(4.65f,0,1.8f);racer.speed=-10;
-            check(g.TryKick()&&racer.knocked&&racer.knockDirection==1,"Oncoming reckless motorcycle can be kicked rightward");
+            clean();var racer=g.SpawnReckless(false);steady(racer,4.65f,12,-12);
+            check(kick()&&racer.knocked&&racer.knockDirection==1,"Oncoming reckless motorcycle can be kicked rightward");
             check(!g.IsChased&&!g.policeBike.gameObject.activeSelf,"Self-defense does not summon police");
-            clean();racer=g.SpawnReckless(false);racer.model.localPosition=new Vector3(-1.55f,0,0);
-            check(g.TryKick()&&racer.knockVelocity.x<0&&!g.IsChased,"Self-defense works on the left too");
-            clean();var innocent=g.SpawnTraffic(3,0,1);racer=g.SpawnReckless(false);racer.model.localPosition=new Vector3(-1.55f,0,1);
-            check(g.TryKick()&&racer.knocked&&!innocent.knocked&&!g.IsChased,"Self-defense prioritizes the dangerous rider over innocent adjacent traffic");
-            clean();g.SpawnTraffic(3,0,1);g.TryKick();float gap=g.PoliceDistance;set("kickCooldown",0);
-            racer=g.SpawnReckless(false);racer.model.localPosition=new Vector3(-1.55f,0,0);g.TryKick();
+            clean();racer=g.SpawnReckless(false);steady(racer,-1.55f,0,17);
+            check(kick()&&racer.knockVelocity.x<0&&!g.IsChased,"Self-defense works on the left too");
+            clean();var innocent=g.SpawnTraffic(3,0,1);racer=g.SpawnReckless(false);steady(racer,-1.55f,1,17);
+            check(kick()&&racer.knocked&&!innocent.knocked&&!g.IsChased,"Self-defense prioritizes the dangerous rider over innocent adjacent traffic");
+            clean();g.SpawnTraffic(3,0,1);kick();for(int i=0;i<50;i++)tick(.02f);float gap=g.PoliceDistance;set("kickCooldown",0);
+            racer=g.SpawnReckless(false);steady(racer,-1.55f,0,17);g.TryKick();
             check(g.IsChased&&g.PoliceDistance==gap,"Self-defense preserves an existing chase without resetting or adding police");
             clean();var truckTarget=g.SpawnReckless(true);truckTarget.model.localPosition=new Vector3(4.65f,0,0);
             check(!g.TryKick()&&!truckTarget.knocked&&!g.IsChased,"A medium truck cannot be kicked");
-            clean();var oncoming=g.SpawnTraffic(1,3.3f,1);check(g.TryKick()&&oncoming.knocked&&g.IsChased,"Ordinary oncoming bikes are kickable within the extended reach window");
-            clean();oncoming=g.SpawnTraffic(1,3.6f,1);check(!g.TryKick(),"Oncoming bike beyond reach cannot be kicked");
+            clean();var oncoming=g.SpawnTraffic(1,12,1);check(kick()&&oncoming.knocked&&g.IsChased,"Ordinary oncoming bikes can be approached from a velocity-safe 12m lead");
+            clean();oncoming=g.SpawnTraffic(1,17,1);check(!g.TryKick(),"Oncoming bike beyond reach cannot be kicked");
             foreach(bool truck in new[]{false,true})
             {
                 clean();var threat=g.SpawnReckless(truck);threat.willHitWall=false;threat.model.localPosition=new Vector3(1.55f,0,.5f);tick(.02f);

@@ -41,7 +41,7 @@ public static class PreviewReckless
     public static string Defense()
     {
         var g=Setup();var v=g.SpawnReckless(false);v.model.localPosition=new Vector3(4.65f,0,.8f);
-        g.TryKick();typeof(PhoVietGame).GetMethod("TickKnockedVehicle",F).Invoke(g,new object[]{v,.17f});
+        v.routeDetached=true;v.routeVelocity=Vector3.forward*17;v.speed=v.baseTrafficSpeed=17;v.model.localRotation=Quaternion.identity;g.TryKick();for(int i=0;i<100&&!v.knocked;i++)typeof(PhoVietGame).GetMethod("TickRide",F).Invoke(g,new object[]{.01f});
         typeof(PhoVietGame).GetField("kickTime",F).SetValue(g,.19f);typeof(PhoVietGame).GetMethod("AnimateKick",F).Invoke(g,null);
         return "Self-defense preview ready; chased="+g.IsChased;
     }

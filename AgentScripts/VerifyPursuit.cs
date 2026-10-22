@@ -18,6 +18,7 @@ public static class VerifyPursuit
         Action<string,float> set=(name,v)=>typeof(PhoVietGame).GetField(name,flags).SetValue(g,v);
         Action<float> tick=dt=>typeof(PhoVietGame).GetMethod("TickRide",flags).Invoke(g,new object[]{dt});
         Action clear=()=>{foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}g.recklessTrafficEnabled=false;set("spawnTimer",10000);set("nextIntersectionDistance",float.PositiveInfinity);};
+        Func<bool> kick=()=>{int before=g.KickCount;if(!g.TryKick())return false;for(int i=0;i<100&&g.KickCount==before&&g.State==PhoVietGame.RideState.Riding;i++)tick(.02f);return g.KickCount>before;};
         Action clean=()=>{g.RestartRide();clear();};
         try
         {
@@ -28,9 +29,9 @@ public static class VerifyPursuit
             clean();check(!g.TryKick()&&!g.IsChased,"Empty kick does not summon police");
             g.SpawnTraffic(3,0,0);check(!g.TryKick(),"Cars are not valid kick targets");
             clean();var bike=g.SpawnTraffic(3,5,1);check(!g.TryKick(),"Distant motorcycle is not parallel");
-            bike.model.localPosition=new Vector3(PhoVietGame.LaneX[3],0,0);bike.speed=-10;check(g.TryKick()&&bike.knocked&&g.IsChased,"Oncoming ordinary motorcycles can be kicked and summon police");
+            bike.model.localPosition=new Vector3(PhoVietGame.LaneX[3],0,12);bike.speed=bike.baseTrafficSpeed=-10;bike.model.localRotation=Quaternion.Euler(0,180,0);check(kick()&&bike.knocked&&g.IsChased,"Oncoming ordinary motorcycles can be kicked and summon police");
             clean();bike=g.SpawnTraffic(3,0,1);
-            bike.speed=10;check(g.TryKick()&&bike.knocked,"Q action knocks a valid parallel motorcycle");
+            bike.speed=10;check(kick()&&bike.knocked,"Q action knocks a valid parallel motorcycle");
             check(bike.knockVelocity.x>0&&bike.knockDirection==1,"Right kick sends the bike away to the right");
             check(g.KickCount==1&&g.IsChased&&g.policeBike.gameObject.activeSelf,"First successful kick starts police pursuit");
             check(g.PoliceSpeed>g.Speed&&g.PoliceDistance>=37,"Police initially approach rapidly from behind");
@@ -42,35 +43,37 @@ public static class VerifyPursuit
             float gap=g.PoliceDistance;g.SpawnTraffic(3,.1f,1);check(g.TryKick()&&g.PoliceDistance==gap,"Further kicks do not reset the police gap");
 
             clean();g.MoveLane(1);for(int i=0;i<15;i++)tick(.02f);bike=g.SpawnTraffic(2,0,1);
-            check(g.TryKick()&&bike.knockVelocity.x<0,"Left-side target produces a leftward kick");
+            check(kick()&&bike.knockVelocity.x<0,"Left-side target produces a leftward kick");
             set("kickTime",.19f);typeof(PhoVietGame).GetMethod("AnimateKick",flags).Invoke(g,null);
             check(Quaternion.Angle(g.leftKickLeg.localRotation,Quaternion.identity)>70&&Quaternion.Angle(g.rightKickLeg.localRotation,Quaternion.identity)<.1f,"Only the kicking-side leg extends");
             g.TogglePause();check(!g.TryKick(),"No kick while paused");
 
             clean();g.MoveLane(-1);for(int i=0;i<15;i++)tick(.02f);
-            bike=g.SpawnTraffic(2,0,1);var second=g.SpawnTraffic(3,0,2);var car=g.SpawnTraffic(3,-7,0);car.speed=22;car.baseTrafficSpeed=22;
-            check(g.TryKick(),"Domino setup starts with a valid rightward kick");
-            for(int i=0;i<20;i++)tick(.02f);
-            check(second.knocked,"Falling motorcycle knocks down another motorcycle");
+            bike=g.SpawnTraffic(2,0,1);var second=g.SpawnTraffic(3,0,2);
+            check(kick(),"Domino setup waits for an actual right-foot impact");
+            for(int i=0;i<50&&!second.knocked;i++)typeof(PhoVietGame).GetMethod("TickTrafficMotion",flags).Invoke(g,new object[]{.02f});
+            check(second.knocked&&second.knockFromPlayer,"Falling motorcycle physically knocks down and credits another motorcycle");
+            var car=g.SpawnTraffic(3,second.model.localPosition.z-4,0);car.model.localPosition=new Vector3(second.model.localPosition.x,0,car.model.localPosition.z);car.speed=car.baseTrafficSpeed=40;
+            for(int i=0;i<40&&!car.knocked;i++)typeof(PhoVietGame).GetMethod("TickTrafficMotion",flags).Invoke(g,new object[]{.02f});
             check(car.knocked&&car.physicalCrash,"Car running into the domino wreck receives a mass-based collision response");
             check(g.ChainCount>=2,"Chain counter records secondary motorcycle and car impacts");
-            check(second.knockFromPlayer&&car.knockFromPlayer,"Player credit propagates through the chain without arbitrary launch directions");
+            check(car.knockFromPlayer,"Player credit propagates through physical chain impacts");
             int count=g.ChainCount;typeof(PhoVietGame).GetMethod("ResolveChainReactions",flags).Invoke(g,null);
             check(g.ChainCount==count,"Already-fallen vehicles are not counted repeatedly");
 
-            clean();bike=g.SpawnTraffic(3,0,1);g.TryKick();bike.knockVelocity=new Vector3(0,0,7);bike.knockAge=.5f;
+            clean();bike=g.SpawnTraffic(3,0,1);kick();bike.knockVelocity=new Vector3(0,0,7);bike.knockAge=.5f;
             car=g.SpawnTraffic(3,-6,0);car.speed=30;car.baseTrafficSpeed=30;
             for(int i=0;i<15;i++)tick(.02f);
             check(car.knocked&&car.knockVelocity.z<30,"A following car that runs over the downed motorcycle slows from the physical impact");
 
             clean();bike=g.SpawnTraffic(3,0,1);Vector2 centre=new Vector2(Screen.width*.5f,Screen.height*.5f);
             check(!g.RegisterTap(centre,10),"A single mobile tap does not kick");
-            check(g.RegisterTap(centre,10.2f)&&bike.knocked,"Two close taps trigger the same kick action");
+            check(g.RegisterTap(centre,10.2f)&&!bike.knocked,"Two close taps begin approach without a remote impact");
             clean();g.SpawnTraffic(3,0,1);g.RegisterTap(centre,10);check(!g.RegisterTap(centre,10.6f),"Separated taps are not a double tap");
             clean();g.SpawnTraffic(3,0,1);g.RegisterTap(new Vector2(30,10),10);check(!g.RegisterTap(new Vector2(30,10),10.2f)&&!g.IsChased,"Tapping steering controls cannot accidentally kick");
             clean();g.SpawnTraffic(3,0,1);g.RegisterTap(centre,10);check(!g.RegisterTap(centre+Vector2.right*Screen.width*.25f,10.2f),"Spatially separated taps are not a double tap");
 
-            clean();g.SpawnTraffic(3,0,1);g.TryKick();clear();for(int i=0;i<120;i++)tick(.02f);
+            clean();g.SpawnTraffic(3,0,1);kick();clear();for(int i=0;i<120;i++)tick(.02f);
             var obstacle=g.SpawnTraffic(g.CurrentLane,1,0);tick(.02f);
             check(g.State==PhoVietGame.RideState.Falling&&g.Speed==0,"Traffic impact during pursuit starts a physical crash and begins a fall");
             clean();typeof(PhoVietGame).GetMethod("StartChase",flags).Invoke(g,null);

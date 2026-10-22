@@ -35,7 +35,7 @@ namespace PhoViet
   void BeginRiderImpact(TrafficVehicle hit,Vector2 normal,Vector3 contact,Vector3 before)
   {
    if(State!=RideState.Riding)return;
-   CrashDuringPursuit=IsChased;RiderFallComplete=false;CancelSwipe();
+   CrashDuringPursuit=IsChased;RiderFallComplete=false;CancelSwipe();CancelAssistedKick(false);
    ResetCrashPoliceNavigation();
    crashTurnRotation=Quaternion.Euler(0,IsTurning?TurnYaw:0,0);
    QueuedTurn=0;fallTime=0;settledTime=0;RiderFallTravel=0;

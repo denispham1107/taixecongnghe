@@ -4,8 +4,8 @@ namespace PhoViet
 {
     public partial class PhoVietGame
     {
-        // One life per crash sequence, including pursuit. Falling bodies continue
-        // exchanging impulses, but cannot spend several lives on the same pile-up.
+        // Start the crash once. Fallen bodies keep exchanging physical impulses
+        // while the normal end-of-ride or police capture sequence completes.
         bool ResolveRiderContacts(float oldX,float dt)
         {
             if(State!=RideState.Riding)return false;
@@ -50,9 +50,23 @@ namespace PhoViet
         {float a=v.model.localEulerAngles.y*Mathf.Deg2Rad;return new Vector2(Mathf.Sin(a),Mathf.Cos(a));}
         static Vector2 BodyRight(TrafficVehicle v)
         {var f=BodyForward(v);return new Vector2(f.y,-f.x);}
-        static float BodyWidth(TrafficVehicle v)=>v.knocked&&v.halfWidth<.7f?1.05f:v.halfWidth;
-        static float ProjectedRadius(TrafficVehicle v,Vector2 axis)
-        {return Mathf.Abs(Vector2.Dot(BodyRight(v),axis))*BodyWidth(v)+Mathf.Abs(Vector2.Dot(BodyForward(v),axis))*v.halfLength;}
+        static float BodyWidth(TrafficVehicle v)
+        {
+            if(!v.knocked||v.halfWidth>=.7f)return v.halfWidth;
+            // The falling rider widens the body as it actually rolls. Expanding an
+            // upright bike to its fully fallen width at kick contact creates a
+            // fictitious collision before either vehicle has moved.
+            float roll=Mathf.Abs(Mathf.DeltaAngle(0,v.model.localEulerAngles.z))*Mathf.Deg2Rad;
+            return Mathf.Lerp(v.halfWidth,1.05f,Mathf.Clamp01(Mathf.Sin(roll)));
+        }
+        static float ProjectedRadius(TrafficVehicle v,Vector2 axis,bool previous=false)
+        {return Mathf.Abs(Vector2.Dot(BodyRight(v),axis))*(previous&&v.previousCrashWidth>0?v.previousCrashWidth:BodyWidth(v))+Mathf.Abs(Vector2.Dot(BodyForward(v),axis))*v.halfLength;}
+        static bool ContactHalfSpace(float offset,float velocity,ref float enter,ref float leave)
+        {
+            if(Mathf.Abs(velocity)<.000001f)return offset<=0;
+            float at=-offset/velocity;if(velocity>0)leave=Mathf.Min(leave,at);else enter=Mathf.Max(enter,at);
+            return enter<=leave;
+        }
 
         // Swept separating-axis test: contact must overlap on every body axis at the same instant.
         // The scroll velocity cancels in relative coordinates; impulses use actual road velocities.
@@ -64,13 +78,15 @@ namespace PhoViet
             for(int i=0;i<4;i++)
             {
                 Vector2 axis=i==0?BodyRight(a):i==1?BodyForward(a):i==2?BodyRight(b):BodyForward(b);
-                float radius=ProjectedRadius(a,axis)+ProjectedRadius(b,axis),p=Vector2.Dot(from,axis),d=Vector2.Dot(delta,axis);
+                float radius=ProjectedRadius(a,axis,true)+ProjectedRadius(b,axis,true),p=Vector2.Dot(from,axis),d=Vector2.Dot(delta,axis);
+                float growth=ProjectedRadius(a,axis)+ProjectedRadius(b,axis)-radius;
                 float depth=radius-Mathf.Abs(p);
                 if(depth<minDepth){minDepth=depth;minNormal=axis*(p>=0?1:-1);}
-                if(Mathf.Abs(d)<.000001f){if(Mathf.Abs(p)>radius)return false;continue;}
-                float t1=(-radius-p)/d,t2=(radius-p)/d,near=Mathf.Min(t1,t2),far=Mathf.Max(t1,t2);
-                if(near>enter){enter=near;entryNormal=axis*(p+d*near>=0?1:-1);}
-                leave=Mathf.Min(leave,far);if(enter>leave)return false;
+                // Width grows during the fall, not retroactively over the whole
+                // frame. Solve both sides of |p+d*t| <= radius+growth*t.
+                float before=enter;
+                if(!ContactHalfSpace(p-radius,d-growth,ref enter,ref leave)||!ContactHalfSpace(-p-radius,-d-growth,ref enter,ref leave))return false;
+                if(enter>before)entryNormal=axis*(p+d*enter>=0?1:-1);
             }
             // Intersect the vertical time interval too: checking height only at the
             // horizontal entry could miss a descending rider or a rising crash body.

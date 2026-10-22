@@ -22,6 +22,7 @@ public static class VerifyBikeArt
             foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}
             set("spawnTimer",10000);set("nextIntersectionDistance",float.PositiveInfinity);
         };
+        Action swing=()=>{for(int i=0;i<70&&(!g.KickSwingActive||g.KickSwingPose<.48f);i++)typeof(PhoVietGame).GetMethod("TickRide",F).Invoke(g,new object[]{.01f});};
         Func<BikeVisualAnimator,string,Transform> bone=(d,n)=>d.visual.GetComponentsInChildren<Transform>(true).Single(t=>t.name==n);
         try
         {
@@ -51,7 +52,7 @@ public static class VerifyBikeArt
             g.TogglePause();float sample=hero.SampleTime,angle=hero.WheelAngle;Quaternion pausedWheel=hero.frontWheel.localRotation;
             hero.animationPlayer.Sample();hero.Advance(.4f);
             check(hero.SampleTime==sample&&hero.WheelAngle==angle&&Quaternion.Angle(pausedWheel,hero.frontWheel.localRotation)<.01f,"Pause freezes animation and wheels even after Unity samples the bound clip");g.TogglePause();
-            var target=g.SpawnTraffic(3,0,1);check(g.TryKick(),"Gameplay still selects and kicks a nearby motorcycle");hero.Advance(.27f);
+            var target=g.SpawnTraffic(3,0,1);check(g.TryKick(),"Gameplay still selects and kicks a nearby motorcycle");swing();hero.Advance(0);
             check(hero.CurrentClip=="KickRight"&&Quaternion.Angle(bone(hero,"RThigh").localRotation,Quaternion.identity)>25,"Real right kick deforms the correct skeletal leg");
             check(bone(hero,"RFoot").position.x-g.rider.position.x>.6f,"Right kick extends the foot toward the actual right-side target in Unity");
             check(Quaternion.Angle(bone(hero,"LThigh").localRotation,Quaternion.identity)<5,"Right kick leaves the supporting leg in its riding pose");
@@ -64,7 +65,7 @@ public static class VerifyBikeArt
             target.knocked=true;target.knockAge=.3f;target.model.localRotation=Quaternion.Euler(0,0,55);npc.Advance(.02f);
             check(npc.CurrentClip=="FallLeft","Recycled motorcycle reacts to a new fall using the current pool record");
             clean();g.MoveLane(1);g.rider.localPosition=new Vector3(PhoVietGame.LaneX[3],0,0);g.SpawnTraffic(2,0,1);
-            check(g.TryKick(),"Left-side kick still selects the correct target");hero.Advance(.27f);
+            check(g.TryKick(),"Left-side kick still selects the correct target");swing();hero.Advance(0);
             check(hero.CurrentClip=="KickLeft"&&Quaternion.Angle(bone(hero,"LThigh").localRotation,Quaternion.identity)>25,"Left kick uses a separate mirrored skeletal animation");
             check(bone(hero,"LFoot").position.x-g.rider.position.x<-.6f,"Left kick extends the foot toward the actual left-side target in Unity");
             var police=g.policeBike.GetComponent<BikeVisualAnimator>();

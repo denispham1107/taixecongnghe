@@ -13,7 +13,7 @@ namespace PhoViet
   public bool TryBoost()
   {
    if(State!=RideState.Riding||ServiceStopped||BoostActive||boostCooldown>0)return false;
-   boostRemaining=BoostDuration;
+   CancelAssistedKick(false);boostRemaining=BoostDuration;
    notice="TĂNG TỐC +125% · 4 GIÂY";noticeTimer=1.3f;
    EnsureBoostSmoke();return true;
   }

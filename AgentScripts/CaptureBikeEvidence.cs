@@ -38,7 +38,7 @@ public static class CaptureBikeEvidence
             if(phase==4){Finish();File.WriteAllText("Captures/blender-art-frame-evidence.json","{\"success\":true,\"frames\":4}");return;}
             if(phase==1)
             {
-                target=game.SpawnTraffic(3,0,1);game.TryKick();hero.Advance(.27f);
+                target=game.SpawnTraffic(3,0,1);game.TryKick();for(int i=0;i<100&&(!game.KickSwingActive||game.KickSwingPose<.48f);i++)typeof(PhoVietGame).GetMethod("TickRide",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(game,new object[]{.01f});hero.Advance(0);
                 SetView(new Vector3(x,2.5f,-4.5f),new Vector3(x+.25f,1,0),45);
                 foreach(var skin in target.model.GetComponentsInChildren<SkinnedMeshRenderer>(true))skin.updateWhenOffscreen=true;
             }

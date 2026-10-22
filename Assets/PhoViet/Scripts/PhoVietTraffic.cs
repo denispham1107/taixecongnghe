@@ -20,6 +20,8 @@ namespace PhoViet
         }
         void InitializeDriver(TrafficVehicle v)
         {
+            v.spawnGeneration++;
+            v.previousCrashWidth=-1;
             v.recovery=null;
             v.jobYieldLane=-1;
             v.routeDetached=false;v.routeVelocity=Vector3.zero;v.rearEntryBoost=0;
