@@ -63,8 +63,16 @@ WebGL **1.30.3** build thành công (`build_b931e177b5a1`, 229,744 giây), **0 l
 
 **26 kiểm tra gói web đạt**: mọi tài nguyên trong precache khớp build đã kiểm tra, đúng phiên bản/cache, Unity WASM thật khởi tạo và thao tác bắt đầu/tạm dừng không gây lỗi runtime (`kick-local-results.json`).
 
-Dữ liệu native được xác nhận sau kiểm thử: **105 Coin**, kỷ lục **1.775 m**; Unity trở về Edit Mode (`kick-release-state.json`). Chưa push hoặc phát hành. Các file Blender và huongdan.md người dùng đang chỉnh không thuộc bản sửa này.
+Dữ liệu native được xác nhận sau kiểm thử: **105 Coin**, kỷ lục **1.775 m**; Unity trở về Edit Mode (`kick-release-state.json`). Các file Blender và huongdan.md người dùng đang chỉnh không thuộc bản sửa này.
 
 **25 kiểm tra cử chỉ trên WASM thật đạt** (`kick-web-gestures-results.json`): trên khổ dọc 412×839 và ngang 839×412, vuốt được gửi trước khi nhấc tay, không lặp thao tác khi giữ/thả, rung nhẹ vẫn là tap, hủy/xoay màn hình xóa cử chỉ cũ và chạm mới hoạt động ngay. Đây là giả lập Chrome/SwiftShader, không thay cho thử trên iPhone/Android vật lý. Native `VerifyGestures` xác nhận hai tap cùng frame bắt đầu áp sát, không hất xe ngay.
 
-Tổng trước phát hành: **2.281 điều kiện đạt** = 2.230 Unity + 26 gói/WASM + 25 cử chỉ web. `git diff --check` đạt. Gói web và mã nguồn đã sẵn sàng, chờ người dùng xác nhận push/phát hành phiên bản mới.
+Tổng trước phát hành: **2.281 điều kiện đạt** = 2.230 Unity + 26 gói/WASM + 25 cử chỉ web. `git diff --check` đạt. Gói web và mã nguồn đã được người dùng xác nhận cho phép push/phát hành phiên bản mới.
+
+## Phát hành đã xác minh
+
+- Người dùng đã xác nhận cho phép push/phát hành bản **1.30.3**. Commit nguồn và gói web `a2ee4e10be6b926a0cb76e6ca147e01274eca130` đã được push lên main.
+- GitHub Pages [run 39713599187](https://github.com/denispham1107/taixecongnghe/actions/runs/39713599187) hoàn tất thành công cho đúng commit trên (`kick-pages-release.json`).
+- [Game công khai](https://denispham1107.github.io/taixecongnghe/) trả về **1.30.3**, cache `e7abee28429a3fd1`, khớp gói đã kiểm tra.
+- **26 kiểm tra trên bản công khai đạt**: toàn bộ tài nguyên khớp build, Unity WASM khởi tạo, thao tác bắt đầu/tạm dừng không gây lỗi runtime (`kick-live-results.json`). Tổng **2.281 điều kiện trước phát hành + 26 điều kiện trên bản công khai**.
+- Bản PWA đang mở sẽ thông báo có bản mới; đóng và mở lại để nhận bộ nhớ đệm mới theo cơ chế cập nhật sẵn có của game.
