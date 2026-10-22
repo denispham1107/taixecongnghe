@@ -1,0 +1,180 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyQuickKick.cs",
+      "entry": "VerifyQuickKick.Main",
+      "timeout_ms": "180000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2475,
+      "executeMs": 640,
+      "assemblyName": "PipelineRunScript_VerifyQuickKick_f5dae0ff6c9640629c076226b1d53249",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 62,
+        "checks": [
+          "Fast nearby motorcycle selected: dt=0.02,lane=2,incoming=False",
+          "No force on pressing kick: dt=0.02,lane=2,incoming=False",
+          "Physical foot hit within fast interception budget: dt=0.02,lane=2,incoming=False,hit=0.18,state=Riding",
+          "Only rider surges to intercept target: dt=0.02,lane=2,incoming=False,peak=38.3796",
+          "Fast kick returns to original lane safely: dt=0.02,lane=2,incoming=False",
+          "Fast surge preserves animated shoe contact and one impact: dt=0.02,lane=2,incoming=False",
+          "Fast approach still has bounded motion, no teleport: dt=0.02,lane=2,incoming=False",
+          "Fast nearby motorcycle selected: dt=0.02,lane=2,incoming=True",
+          "No force on pressing kick: dt=0.02,lane=2,incoming=True",
+          "Physical foot hit within fast interception budget: dt=0.02,lane=2,incoming=True,hit=0.26,state=Riding",
+          "Only rider surges to intercept target: dt=0.02,lane=2,incoming=True,peak=30.76848",
+          "Fast kick returns to original lane safely: dt=0.02,lane=2,incoming=True",
+          "Fast surge preserves animated shoe contact and one impact: dt=0.02,lane=2,incoming=True",
+          "Fast approach still has bounded motion, no teleport: dt=0.02,lane=2,incoming=True",
+          "Fast nearby motorcycle selected: dt=0.02,lane=3,incoming=False",
+          "No force on pressing kick: dt=0.02,lane=3,incoming=False",
+          "Physical foot hit within fast interception budget: dt=0.02,lane=3,incoming=False,hit=0.18,state=Riding",
+          "Only rider surges to intercept target: dt=0.02,lane=3,incoming=False,peak=38.3796",
+          "Fast kick returns to original lane safely: dt=0.02,lane=3,incoming=False",
+          "Fast surge preserves animated shoe contact and one impact: dt=0.02,lane=3,incoming=False",
+          "Fast approach still has bounded motion, no teleport: dt=0.02,lane=3,incoming=False",
+          "Fast nearby motorcycle selected: dt=0.02,lane=3,incoming=True",
+          "No force on pressing kick: dt=0.02,lane=3,incoming=True",
+          "Physical foot hit within fast interception budget: dt=0.02,lane=3,incoming=True,hit=0.26,state=Riding",
+          "Only rider surges to intercept target: dt=0.02,lane=3,incoming=True,peak=30.76848",
+          "Fast kick returns to original lane safely: dt=0.02,lane=3,incoming=True",
+          "Fast surge preserves animated shoe contact and one impact: dt=0.02,lane=3,incoming=True",
+          "Fast approach still has bounded motion, no teleport: dt=0.02,lane=3,incoming=True",
+          "Fast nearby motorcycle selected: dt=0.05,lane=2,incoming=False",
+          "No force on pressing kick: dt=0.05,lane=2,incoming=False",
+          "Physical foot hit within fast interception budget: dt=0.05,lane=2,incoming=False,hit=0.2,state=Riding",
+          "Only rider surges to intercept target: dt=0.05,lane=2,incoming=False,peak=38.3715",
+          "Fast kick returns to original lane safely: dt=0.05,lane=2,incoming=False",
+          "Fast surge preserves animated shoe contact and one impact: dt=0.05,lane=2,incoming=False",
+          "Fast approach still has bounded motion, no teleport: dt=0.05,lane=2,incoming=False",
+          "Fast nearby motorcycle selected: dt=0.05,lane=2,incoming=True",
+          "No force on pressing kick: dt=0.05,lane=2,incoming=True",
+          "Physical foot hit within fast interception budget: dt=0.05,lane=2,incoming=True,hit=0.3,state=Riding",
+          "Only rider surges to intercept target: dt=0.05,lane=2,incoming=True,peak=30.762",
+          "Fast kick returns to original lane safely: dt=0.05,lane=2,incoming=True",
+          "Fast surge preserves animated shoe contact and one impact: dt=0.05,lane=2,incoming=True",
+          "Fast approach still has bounded motion, no teleport: dt=0.05,lane=2,incoming=True",
+          "Fast nearby motorcycle selected: dt=0.05,lane=3,incoming=False",
+          "No force on pressing kick: dt=0.05,lane=3,incoming=False",
+          "Physical foot hit within fast interception budget: dt=0.05,lane=3,incoming=False,hit=0.2,state=Riding",
+          "Only rider surges to intercept target: dt=0.05,lane=3,incoming=False,peak=38.3715",
+          "Fast kick returns to original lane safely: dt=0.05,lane=3,incoming=False",
+          "Fast surge preserves animated shoe contact and one impact: dt=0.05,lane=3,incoming=False",
+          "Fast approach still has bounded motion, no teleport: dt=0.05,lane=3,incoming=False",
+          "Fast nearby motorcycle selected: dt=0.05,lane=3,incoming=True",
+          "No force on pressing kick: dt=0.05,lane=3,incoming=True",
+          "Physical foot hit within fast interception budget: dt=0.05,lane=3,incoming=True,hit=0.3,state=Riding",
+          "Only rider surges to intercept target: dt=0.05,lane=3,incoming=True,peak=30.762",
+          "Fast kick returns to original lane safely: dt=0.05,lane=3,incoming=True",
+          "Fast surge preserves animated shoe contact and one impact: dt=0.05,lane=3,incoming=True",
+          "Fast approach still has bounded motion, no teleport: dt=0.05,lane=3,incoming=True",
+          "Can intercept a nearby bike moving between lanes: 2",
+          "A target cutting across the approach is hit only by shoe contact, otherwise canceled safely: 2",
+          "Cut-in cancellation/interception returns without crossing the bike: 2, state=Riding, active=False, x=1.55, target=(5.61, 0.03, 0.56), knocked=True",
+          "Can intercept a nearby bike moving between lanes: 3",
+          "A target cutting across the approach is hit only by shoe contact, otherwise canceled safely: 3",
+          "Cut-in cancellation/interception returns without crossing the bike: 3, state=Riding, active=False, x=4.65, target=(0.59, 0.03, 0.56), knocked=True"
+        ],
+        "cases": [
+          {
+            "label": "dt=0.02,lane=2,incoming=False",
+            "hitAt": 0.179999977,
+            "age": 0.420000046,
+            "peak": 38.3796,
+            "maxStep": 0.6400001,
+            "state": "Riding",
+            "gap": 0.08
+          },
+          {
+            "label": "dt=0.02,lane=2,incoming=True",
+            "hitAt": 0.259999961,
+            "age": 0.480000079,
+            "peak": 30.7684784,
+            "maxStep": 0.6400001,
+            "state": "Riding",
+            "gap": 0.07999998
+          },
+          {
+            "label": "dt=0.02,lane=3,incoming=False",
+            "hitAt": 0.179999977,
+            "age": 0.420000046,
+            "peak": 38.3796,
+            "maxStep": 0.6400001,
+            "state": "Riding",
+            "gap": 0.08
+          },
+          {
+            "label": "dt=0.02,lane=3,incoming=True",
+            "hitAt": 0.259999961,
+            "age": 0.480000079,
+            "peak": 30.7684784,
+            "maxStep": 0.6400001,
+            "state": "Riding",
+            "gap": 0.07999998
+          },
+          {
+            "label": "dt=0.05,lane=2,incoming=False",
+            "hitAt": 0.2,
+            "age": 0.450000048,
+            "peak": 38.3715019,
+            "maxStep": 1.5999999,
+            "state": "Riding",
+            "gap": 0.08
+          },
+          {
+            "label": "dt=0.05,lane=2,incoming=True",
+            "hitAt": 0.3,
+            "age": 0.50000006,
+            "peak": 30.762,
+            "maxStep": 1.5999999,
+            "state": "Riding",
+            "gap": 0.07999998
+          },
+          {
+            "label": "dt=0.05,lane=3,incoming=False",
+            "hitAt": 0.2,
+            "age": 0.450000048,
+            "peak": 38.3715019,
+            "maxStep": 1.5999999,
+            "state": "Riding",
+            "gap": 0.08
+          },
+          {
+            "label": "dt=0.05,lane=3,incoming=True",
+            "hitAt": 0.3,
+            "age": 0.50000006,
+            "peak": 30.762,
+            "maxStep": 1.5999999,
+            "state": "Riding",
+            "gap": 0.07999998
+          },
+          {
+            "label": "moving-lane-2",
+            "hitAt": 0.199999973,
+            "age": 0.420000046,
+            "gap": 0.08
+          },
+          {
+            "label": "moving-lane-3",
+            "hitAt": 0.199999973,
+            "age": 0.420000046,
+            "gap": 0.08
+          }
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

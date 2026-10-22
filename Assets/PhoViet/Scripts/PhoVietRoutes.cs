@@ -195,10 +195,10 @@ namespace PhoViet
         }
         void FinishJunctionTurn()
         {
-            CancelAssistedKick(false);
             if(boostSmoke!=null)boostSmoke.Rebase();
             Quaternion exit=Quaternion.Euler(0,turnSide*90,0),inverse=Quaternion.Inverse(exit);
-            Vector3 origin=rider.localPosition-exit*new Vector3(LaneX[CurrentLane],0,0);origin.y=0;
+            Vector3 origin=rider.localPosition-kickAppliedOffset-exit*new Vector3(LaneX[CurrentLane],0,0);origin.y=0;
+            RebaseAssistedKick(inverse,origin);
             foreach(var row in roadRows)
             {
                 if(row==roadRows[mainRow])
@@ -229,7 +229,7 @@ namespace PhoViet
             chosen.root.localPosition=Vector3.zero;chosen.root.localRotation=Quaternion.identity;
             for(int i=0;i<positions.Length;i++){chosen.tiles[i].localPosition=positions[i];chosen.tiles[i].localRotation=Quaternion.identity;}
             blocks=new List<Transform>(chosen.tiles);roadOffset=-Distance-positions[0].z;
-            rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0);rider.localRotation=Quaternion.identity;lean=0;lastX=rider.localPosition.x;oldRiderZ=0;
+            rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0)+kickAppliedOffset;rider.localRotation=Quaternion.identity;lean=0;lastX=rider.localPosition.x;oldRiderZ=rider.localPosition.z;
             if(daylight!=null)daylight.Rebase(inverse,origin);
             TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;cameraTurnBlend=.7f;turnEndAt=Distance;
             float nearest=float.MaxValue;foreach(var b in blocks){float z=b.localPosition.z+70;if(z>12)nearest=Mathf.Min(nearest,z);}

@@ -1,0 +1,134 @@
+{
+  "status": "completed",
+  "buildId": "build_244b633caaed",
+  "result": "Succeeded",
+  "platform": "WebGL",
+  "outputPath": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL",
+  "totalSizeBytes": 24696320,
+  "buildTimeMs": 234803,
+  "buildStartedAt": "2026-10-22T03:52:55.1885481Z",
+  "buildEndedAt": "2026-10-22T03:56:49.9920564Z",
+  "totalWarnings": 3,
+  "totalErrors": 0,
+  "files": [
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/bec0a5bed336650dbe3965f89c9a1e72.framework.js.unityweb",
+      "role": "unityweb",
+      "sizeBytes": 78773
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/473962b142c82e7f086ff64e7e5475a7.wasm.unityweb",
+      "role": "unityweb",
+      "sizeBytes": 6157718
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/cece3a830e00ff019c96d4fe54fd0d27.data.unityweb",
+      "role": "unityweb",
+      "sizeBytes": 17456432
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/Build/c90d39bceb5330d22e862db658e4b7df.loader.js",
+      "role": "js",
+      "sizeBytes": 40317
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/app.js",
+      "role": "js",
+      "sizeBytes": 11125
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/FONT-LICENSE.txt",
+      "role": "txt",
+      "sizeBytes": 4397
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/font.ttf",
+      "role": "ttf",
+      "sizeBytes": 136736
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/apple-touch-icon-moto.png",
+      "role": "png",
+      "sizeBytes": 10310
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/apple-touch-icon.png",
+      "role": "png",
+      "sizeBytes": 10310
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-192.png",
+      "role": "png",
+      "sizeBytes": 10961
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-512.png",
+      "role": "png",
+      "sizeBytes": 32399
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-maskable-512.png",
+      "role": "png",
+      "sizeBytes": 32399
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-moto-192.png",
+      "role": "png",
+      "sizeBytes": 10961
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-moto-512.png",
+      "role": "png",
+      "sizeBytes": 32399
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon-moto-maskable-512.png",
+      "role": "png",
+      "sizeBytes": 32399
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/icons/icon.svg",
+      "role": "svg",
+      "sizeBytes": 2505
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/index.html",
+      "role": "html",
+      "sizeBytes": 6392
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/manifest.webmanifest",
+      "role": "webmanifest",
+      "sizeBytes": 776
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/poster.png",
+      "role": "png",
+      "sizeBytes": 621511
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/style.css",
+      "role": "css",
+      "sizeBytes": 5951
+    },
+    {
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/Builds/WebGL/sw.js",
+      "role": "js",
+      "sizeBytes": 1549
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    {
+      "message": "Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds."
+    },
+    {
+      "message": "warning CS0414: The field 'PhoVietGame.dragging' is assigned but its value is never used",
+      "file": "Assets\\PhoViet\\Scripts\\PhoVietGame.cs"
+    },
+    {
+      "message": "warning CS0414: The field 'PhoVietGame.hudTouchChoice' is assigned but its value is never used",
+      "file": "Assets\\PhoViet\\Scripts\\PhoVietPortraitHud.cs"
+    }
+  ]
+}

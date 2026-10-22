@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": ".tools/JunctionReleaseState.cs",
+      "entry": "JunctionReleaseState.Main"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 545,
+      "executeMs": 1,
+      "assemblyName": "PipelineRunScript_JunctionReleaseState_3a2204ba26a04505a60de5aa3e4c348d",
+      "success": true,
+      "result": {
+        "playing": false,
+        "version": "1.30.5",
+        "coins": 105,
+        "best": 1775,
+        "timeScale": 1
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -38,7 +38,7 @@ public static class VerifyQuickKick
     check(g.BeginSuddenLaneChange(target,lane)&&g.TryKick(),"Can intercept a nearby bike moving between lanes: "+lane);float hitAt=-1,age=0;
     for(int i=0;i<100&&g.KickAssistActive&&g.State==PhoVietGame.RideState.Riding;i++){tick(.02f);age+=.02f;if(target.knocked&&hitAt<0)hitAt=age;}
     check(target.knocked?hitAt>0&&hitAt<.4f&&g.KickCount==1&&g.LastKickFootGap<=.081f:g.KickCount==0&&!g.IsChased,"A target cutting across the approach is hit only by shoe contact, otherwise canceled safely: "+lane);
-    check(g.State==PhoVietGame.RideState.Riding&&!g.KickAssistActive&&Mathf.Abs(g.rider.localPosition.x-PhoVietGame.LaneX[lane])<.01f,"Cut-in cancellation/interception returns without crossing the bike: "+lane);
+    check(g.State==PhoVietGame.RideState.Riding&&!g.KickAssistActive&&Mathf.Abs(g.rider.localPosition.x-PhoVietGame.LaneX[lane])<.01f,"Cut-in cancellation/interception returns without crossing the bike: "+lane+", state="+g.State+", active="+g.KickAssistActive+", x="+g.rider.localPosition.x+", target="+target.model.localPosition+", knocked="+target.knocked);
     cases.Add(new{label="moving-lane-"+lane,hitAt,age,gap=g.LastKickFootGap});
    }
    return new{success=true,count=checks.Count,checks,cases};

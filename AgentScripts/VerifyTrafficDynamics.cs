@@ -23,7 +23,8 @@ public static class VerifyTrafficDynamics
         {
             int index=g.vehicles.FindIndex(v=>!v.eventOnly&&!v.active&&(kind==2?v.halfLength>3:kind==1?v.halfWidth>.7f&&v.halfLength<3&&!v.model.name.Contains("tải"):v.halfWidth<.7f));
             if(index<0)throw new Exception("No pool entry for kind="+kind);
-            var v=g.SpawnTraffic(lane,z,index);v.brakeCooldown=10000;v.laneCooldown=10000;return v;
+            // These fixtures isolate brakes/lane changes; a nearby recycled junction must not randomly start a road turn.
+            var v=g.SpawnTraffic(lane,z,index);v.hasTurned=true;v.brakeCooldown=10000;v.laneCooldown=10000;return v;
         };
         Action<PhoVietGame.TrafficVehicle,Vector3,float> place=(v,p,s)=>{v.model.localPosition=p;v.previousPosition=p;v.speed=s;v.baseTrafficSpeed=s;v.motionVelocity=Vector3.zero;v.model.localRotation=Quaternion.Euler(0,s<0?180:0,0);};
         Func<PhoVietGame.TrafficVehicle,Vector3> velocity=v=>v.knocked?v.knockVelocity:new Vector3(0,0,v.speed);

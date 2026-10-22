@@ -274,6 +274,14 @@ namespace PhoViet
         }
         void TickRide(float dt)
         {
+            // Short, bounded control steps keep the shoe and turning target in
+            // contact at mobile frame rates without changing total game time.
+            if(KickAssistActive&&dt>.0101f)
+            {
+                int steps=Mathf.CeilToInt(dt/.01f);float step=dt/steps;
+                for(int i=0;i<steps&&State==RideState.Riding;i++)TickRide(step);
+                return;
+            }
             float previousSpeed=Speed;Vector3 previousRider=rider.localPosition;Quaternion previousRotation=rider.localRotation;
             AdvanceDaylight(dt);
             TickWorkMotion(dt);

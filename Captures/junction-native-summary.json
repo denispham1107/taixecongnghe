@@ -1,0 +1,91 @@
+{
+  "success": true,
+  "suites": 21,
+  "assertions": 5121.0,
+  "tests": [
+    {
+      "test": "VerifyQuickKick",
+      "count": 62
+    },
+    {
+      "test": "VerifyKickContact",
+      "count": 229
+    },
+    {
+      "test": "VerifyJunctionKick",
+      "count": 216
+    },
+    {
+      "test": "VerifyJump",
+      "count": 44
+    },
+    {
+      "test": "VerifyTruckJump",
+      "count": 69
+    },
+    {
+      "test": "VerifyRoofRiding",
+      "count": 2304
+    },
+    {
+      "test": "VerifyPursuit",
+      "count": 39
+    },
+    {
+      "test": "VerifyReckless",
+      "count": 120
+    },
+    {
+      "test": "VerifyTrafficDynamics",
+      "count": 82
+    },
+    {
+      "test": "VerifyRiderContacts",
+      "count": 45
+    },
+    {
+      "test": "VerifyCrashOutcome",
+      "count": 51
+    },
+    {
+      "test": "VerifyCrashPoliceNavigation",
+      "count": 214
+    },
+    {
+      "test": "VerifyServiceApproach",
+      "count": 152
+    },
+    {
+      "test": "VerifyServiceRearYield",
+      "count": 117
+    },
+    {
+      "test": "VerifyRearRandomPolice",
+      "count": 60
+    },
+    {
+      "test": "VerifyOrdinaryRearWarnings",
+      "count": 137
+    },
+    {
+      "test": "VerifySmoothTurns",
+      "count": 468
+    },
+    {
+      "test": "VerifyBoostTrafficIsolation",
+      "count": 478
+    },
+    {
+      "test": "VerifyBoost",
+      "count": 39
+    },
+    {
+      "test": "VerifyBikeArt",
+      "count": 156
+    },
+    {
+      "test": "VerifyGestures",
+      "count": 39
+    }
+  ]
+}

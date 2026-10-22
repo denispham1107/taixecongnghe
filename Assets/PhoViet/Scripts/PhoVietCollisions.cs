@@ -57,6 +57,9 @@ namespace PhoViet
             // upright bike to its fully fallen width at kick contact creates a
             // fictitious collision before either vehicle has moved.
             float roll=Mathf.Abs(Mathf.DeltaAngle(0,v.model.localEulerAngles.z))*Mathf.Deg2Rad;
+            // Steering lean existed before the kick. It must not instantly turn
+            // into the wider fallen-body envelope when knocked flips to true.
+            if(!v.physicalCrash)roll=Mathf.Clamp01(v.knockAge/.42f)*82*Mathf.Deg2Rad;
             return Mathf.Lerp(v.halfWidth,1.05f,Mathf.Clamp01(Mathf.Sin(roll)));
         }
         static float ProjectedRadius(TrafficVehicle v,Vector2 axis,bool previous=false)

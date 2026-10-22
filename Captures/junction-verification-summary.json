@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "version": "1.30.5",
+  "cache": "80915edfb1105b45",
+  "nativeSuites": 21,
+  "nativeAssertions": 5121,
+  "packageAndWasmChecks": 26,
+  "gestureChecks": 25,
+  "desktopMobileJumpInputChecks": 6,
+  "totalChecks": 5178,
+  "browser": "Chrome SwiftShader emulation; not physical iOS/Android",
+  "verifiedAtUtc": "2026-10-22T11:16:35.2672286Z"
+}

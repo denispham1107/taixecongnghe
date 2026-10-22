@@ -7,7 +7,7 @@ namespace PhoViet
   AssistedKickPhase assistedKick;
   TrafficVehicle kickTarget;
   int kickTargetSpawn;
-  float kickApproachAge,kickSwingAge;
+  float kickApproachAge,kickSwingAge,kickBalance;
   bool kickHit,kickOncoming;
   Vector3 kickAppliedOffset,kickPreviousRider;
   Quaternion kickPreviousRotation;
@@ -21,7 +21,7 @@ namespace PhoViet
   public float LastKickCentreDistance {get;private set;}
   public float LastKickFootGap {get;private set;}=-1;
   void ResetAssistedKick()
-  {assistedKick=AssistedKickPhase.None;kickTarget=null;kickAppliedOffset=Vector3.zero;kickHit=false;kickApproachAge=kickSwingAge=0;LastKickFootGap=-1;LastKickCentreDistance=0;}
+  {assistedKick=AssistedKickPhase.None;kickTarget=null;kickAppliedOffset=Vector3.zero;kickHit=false;kickApproachAge=kickSwingAge=kickBalance=0;LastKickFootGap=-1;LastKickCentreDistance=0;}
   void CancelAssistedKick(bool returnToLane=true)
   {
    kickTarget=null;kickTime=0;
@@ -31,8 +31,50 @@ namespace PhoViet
   Quaternion KickRoadFrame=>Quaternion.Euler(0,IsTurning?TurnYaw:0,0);
   bool KickTargetValid(TrafficVehicle v)
   {
-   if(v==null||!v.active||v.knocked||v.wallCrashed||v.crossing||v.halfWidth>.7f||Mathf.Abs(v.model.localPosition.y-rider.localPosition.y)>.35f)return false;
-   return Mathf.Abs(Vector3.Dot(v.model.forward,transform.TransformDirection(KickRoadFrame*Vector3.forward)))>.75f;
+   return v!=null&&v.active&&!v.knocked&&!v.wallCrashed&&v.halfWidth<=.7f&&Mathf.Abs(v.model.localPosition.y-rider.localPosition.y)<=.35f;
+  }
+  float KickSideGap(TrafficVehicle v)
+  {
+   Vector3 side=Quaternion.Inverse(v.model.localRotation)*(KickRoadFrame*Vector3.right);
+   return Mathf.Abs(side.x)*v.halfWidth+Mathf.Abs(side.z)*v.halfLength+Mathf.Max(.40f,.50f-.14f*Mathf.Abs(side.z));
+  }
+  float KickAimForward(TrafficVehicle v,float side)
+  {
+   Quaternion inverse=Quaternion.Inverse(v.model.localRotation);Vector3 f=inverse*(KickRoadFrame*Vector3.forward);
+   Vector3 p=inverse*(KickRoadFrame*Vector3.right)*(side*(.74f-KickSideGap(v)));
+   float lo=-2,hi=2;
+   for(int i=0;i<2;i++)
+   {
+    int axis=i==0?0:2;float half=(i==0?Mathf.Min(v.halfWidth,.23f):Mathf.Min(v.halfLength,.75f))+.06f;
+    if(Mathf.Abs(f[axis])<.0001f)continue;
+    float a=(-half-p[axis])/f[axis],b=(half-p[axis])/f[axis];lo=Mathf.Max(lo,Mathf.Min(a,b));hi=Mathf.Min(hi,Mathf.Max(a,b));
+   }
+   float near=Mathf.Clamp(0,lo,Mathf.Max(lo,hi));
+   return .54f-Mathf.Lerp(near,(lo+hi)*.5f,.15f);
+  }
+  float KickTravelRatio()
+  {
+   if(!IsTurning||kickAppliedOffset.sqrMagnitude<.00001f)return 1;
+   float arc=Mathf.Min(turnLength,turnTravel+.2f);int i=1;while(i<turnArcLengths.Length-1&&turnArcLengths[i]<arc)i++;
+   float t=(i-1+Mathf.InverseLerp(turnArcLengths[i-1],turnArcLengths[i],arc))/(turnArcLengths.Length-1);
+   Vector3 tangent=TurnTangent(t);float yaw=Mathf.Atan2(tangent.x,tangent.z)*Mathf.Rad2Deg;
+   float curvature=Mathf.DeltaAngle(TurnYaw,yaw)*Mathf.Deg2Rad/.2f;
+   return Mathf.Clamp(1-curvature*Vector3.Dot(kickAppliedOffset,KickRoadFrame*Vector3.right),.35f,2);
+  }
+  // Predict the same curved baseline used by BeginOrContinueTurn. World scroll
+  // remains along Z even while the rider's direction is turning through 90°.
+  Vector3 KickBaselineAdvance(float distance)
+  {
+   if(!IsTurning)return Vector3.zero;
+   float travel=turnTravel+distance,arc=Mathf.Min(turnLength,travel);int i=1;
+   while(i<turnArcLengths.Length-1&&turnArcLengths[i]<arc)i++;
+   float t=(i-1+Mathf.InverseLerp(turnArcLengths[i-1],turnArcLengths[i],arc))/(turnArcLengths.Length-1);
+   return TurnPoint(t)+Vector3.right*turnSide*Mathf.Max(0,travel-turnLength)-Vector3.forward*travel-(rider.localPosition-kickAppliedOffset);
+  }
+  void RebaseAssistedKick(Quaternion inverse,Vector3 origin)
+  {
+   kickAppliedOffset=inverse*kickAppliedOffset;kickPreviousRider=inverse*(kickPreviousRider-origin);kickPreviousRotation=inverse*kickPreviousRotation;
+   LastKickFootPoint=inverse*(LastKickFootPoint-origin);
   }
   Vector3 KickTrafficVelocity(TrafficVehicle v)=>v.routeDetached&&!v.knocked&&!v.wallCrashed?v.routeVelocity:BodyVelocity(v);
   bool BeginAssistedKick()
@@ -44,15 +86,21 @@ namespace PhoViet
    {
     if(!KickTargetValid(v))continue;
     Vector3 d=inverse*(v.model.localPosition-rider.localPosition),velocity=inverse*KickTrafficVelocity(v);
-    bool oncoming=velocity.z<0;
-    if(Mathf.Abs(d.x)<.75f||Mathf.Abs(d.x)>3.65f||(!oncoming&&Mathf.Abs(d.z)>2)||(oncoming&&(d.z<0||d.z>16)))continue;
-    float gap=v.halfWidth+.50f,approach=Mathf.Max(0,Mathf.Abs(d.x)-gap)/KickSideSpeed;
+    bool oncoming=velocity.z< -1;
+    bool parallel=Mathf.Abs(Vector3.Dot(v.model.forward,transform.TransformDirection(KickRoadFrame*Vector3.forward)))>.75f;
+    if(Mathf.Abs(d.x)<.75f||Mathf.Abs(d.x)>3.65f||(parallel&&!oncoming&&Mathf.Abs(d.z)>2)||((oncoming||!parallel)&&(d.z<0||d.z>16)))continue;
+    float gap=KickSideGap(v),approach=Mathf.Max(0,Mathf.Abs(d.x)-gap)/KickSideSpeed;
     float intercept=KickInterceptSpeed(v,d,WorkSpeedLimit(Mathf.Max(Speed,TrafficPaceSpeed)),approach+KickFootLead);
     float relative=velocity.z-intercept,arrival=d.z+relative*(approach+KickFootLead);
     // Never chase an oncoming bike that will have passed before the foot extends.
     if(oncoming&&arrival<.4f-v.halfLength-.15f)continue;
     if(!oncoming&&(arrival<-.6f||arrival>1.45f))continue;
-    Vector3 destination=rider.localPosition+KickRoadFrame*new Vector3(d.x-Mathf.Sign(d.x)*gap,0,0);
+    float lead=approach+KickFootLead;
+    Vector3 ahead=v.model.localPosition+(KickTrafficVelocity(v)-Vector3.forward*intercept)*lead;
+    Vector3 baseline=rider.localPosition+KickBaselineAdvance(intercept*lead);
+    float side=(inverse*(ahead-baseline)).x;
+    if(Mathf.Sign(side)!=Mathf.Sign(d.x))continue;
+    Vector3 destination=baseline+KickRoadFrame*Vector3.right*(side-Mathf.Sign(d.x)*gap);
     if(!KickAssistPathClear(rider.localPosition,destination,Mathf.Max(.04f,approach+KickFootLead),intercept))continue;
     float score=Mathf.Abs(d.z)+Mathf.Abs(d.x)*.12f-(v.isReckless?5:0);
     if(score<closest){selected=v;closest=score;kickOncoming=oncoming;}
@@ -66,39 +114,77 @@ namespace PhoViet
   {
    Quaternion inverse=Quaternion.Inverse(KickRoadFrame);float targetSpeed=(inverse*KickTrafficVelocity(target)).z;
    float cap=ServiceRearProtected?desired:Mathf.Max(desired,TrafficPaceSpeed*BoostMultiplier);
-   if(targetSpeed<0)return Mathf.Min(cap,Mathf.Max(desired,TrafficPaceSpeed*1.8f));
-   return Mathf.Clamp(targetSpeed+(delta.z-.35f)/Mathf.Max(.025f,lead),2,cap);
+   if(targetSpeed< -1)return Mathf.Min(cap,Mathf.Max(desired,TrafficPaceSpeed*1.8f));
+   return Mathf.Clamp((targetSpeed+(delta.z-KickAimForward(target,Mathf.Sign(delta.x)))/Mathf.Max(.025f,lead))/KickTravelRatio(),2,cap);
   }
   float AssistedKickSpeed(float desired,float previous,float dt)
   {
-   if(assistedKick==AssistedKickPhase.Return||KickAssistActive&&kickHit)return Mathf.MoveTowards(previous,desired,120*dt);
+   if(assistedKick==AssistedKickPhase.Return||KickAssistActive&&kickHit)return KickReturnSpeed(Mathf.MoveTowards(previous,desired,120*dt),dt);
    if((assistedKick!=AssistedKickPhase.Approach&&assistedKick!=AssistedKickPhase.Swing)||!KickTargetValid(kickTarget))return desired;
    Quaternion q=KickRoadFrame,inverse=Quaternion.Inverse(q);Vector3 d=inverse*(kickTarget.model.localPosition-rider.localPosition);
-   float sideGap=kickTarget.halfWidth+.50f,sideTime=Mathf.Max(0,Mathf.Abs(d.x)-sideGap)/KickSideSpeed;
+   float sideGap=KickSideGap(kickTarget),sideTime=Mathf.Max(0,Mathf.Abs(d.x)-sideGap)/KickSideSpeed;
    float lead=assistedKick==AssistedKickPhase.Approach?sideTime+KickFootLead:Mathf.Max(.025f,KickFootLead-kickSwingAge);
    float intercept=KickInterceptSpeed(kickTarget,d,desired,lead);
    float proposed=Mathf.MoveTowards(previous,intercept,(intercept>previous?400:600)*dt);
-   Vector3 candidate=rider.localPosition+q*Vector3.right*Mathf.Clamp(d.x-kickDirection*sideGap,-KickSideSpeed*dt,KickSideSpeed*dt);
-   if(!KickAssistPathClear(rider.localPosition,candidate,dt,proposed)){CancelAssistedKick();return Mathf.Min(previous,desired);}
+   Vector3 advance=KickBaselineAdvance(proposed*dt);
+   Vector3 next=kickTarget.model.localPosition+(KickTrafficVelocity(kickTarget)-Vector3.forward*proposed)*dt;
+   float nextSide=(inverse*(next-rider.localPosition-advance)).x;
+   Vector3 candidate=rider.localPosition+advance+q*Vector3.right*Mathf.Clamp(nextSide-kickDirection*sideGap,-KickSideSpeed*dt,KickSideSpeed*dt);
+   if(!KickAssistPathClear(rider.localPosition,candidate,dt,proposed)){CancelAssistedKick();return KickReturnSpeed(Mathf.Min(previous,desired),dt);}
    return proposed;
+  }
+  float KickReturnSpeed(float desired,float dt)
+  {
+   Vector3 delta=Vector3.MoveTowards(kickAppliedOffset,Vector3.zero,KickSideSpeed*dt)-kickAppliedOffset;
+   for(int i=0;i<3;i++)
+   {
+    float speed=i==0?desired:i==1?0:TrafficPaceSpeed*BoostMultiplier;
+    Vector3 candidate=rider.localPosition+KickBaselineAdvance(speed*dt)+delta;
+    if(KickAssistPathClear(rider.localPosition,candidate,dt,speed))return speed;
+   }
+   return 0;
   }
   bool KickAssistPathClear(Vector3 from,Vector3 to,float horizon,float roadSpeed=-1)
   {
    if(roadSpeed<0)roadSpeed=Speed;
-   Quaternion q=KickRoadFrame;Vector3 f=q*Vector3.forward,r=q*Vector3.right;
-   Vector2 body=new Vector2(Mathf.Abs(r.x)*.33f+Mathf.Abs(f.x)*.91f,Mathf.Abs(r.z)*.33f+Mathf.Abs(f.z)*.91f)+new Vector2(.04f,.04f);
+   Quaternion q=KickRoadFrame;
    foreach(var v in vehicles)
    {
     if(!v.active||v.model.localPosition.y>2.4f)continue;
     Vector3 future=v.model.localPosition+(KickTrafficVelocity(v)-Vector3.forward*roadSpeed)*horizon;
-    if(SweptOverlap(Flat(v.model.localPosition-from),Flat(future-to),VehicleFootprint(v)+body))return false;
+    if(KickBodySweep(v,from,to,future,q,horizon))return false;
    }
    if(SceneryContact(from,to,out _,out _,out _))return false;
    return true;
   }
+  static bool KickBodySweep(TrafficVehicle v,Vector3 from,Vector3 to,Vector3 future,Quaternion frame,float horizon)
+  {
+   Vector2 right=Flat(frame*Vector3.right),forward=Flat(frame*Vector3.forward);
+   Vector2 delta=Flat(future-to)-Flat(v.model.localPosition-from),offset=Flat(v.model.localPosition-from);
+   float enter=0,leave=1;
+   for(int i=0;i<4;i++)
+   {
+    Vector2 axis=i==0?right:i==1?forward:i==2?BodyRight(v):BodyForward(v);
+    float radius=ProjectedRadius(v,axis)+Mathf.Abs(Vector2.Dot(right,axis))*.33f+Mathf.Abs(Vector2.Dot(forward,axis))*.91f+.04f;
+    float growth=0;
+    if(v.knocked&&v.halfWidth<.7f&&!v.physicalCrash)
+    {
+     float roll=Mathf.Clamp01((v.knockAge+horizon)/.42f)*82*Mathf.Deg2Rad;
+     float width=Mathf.Lerp(v.halfWidth,1.05f,Mathf.Sin(roll));
+     growth=Mathf.Max(0,width-BodyWidth(v))*Mathf.Abs(Vector2.Dot(BodyRight(v),axis));
+    }
+    float p=Vector2.Dot(offset,axis),d=Vector2.Dot(delta,axis);
+    if(!ContactHalfSpace(p-radius,d-growth,ref enter,ref leave)||!ContactHalfSpace(-p-radius,-d-growth,ref enter,ref leave))return false;
+   }
+   return leave>=0&&enter<=1;
+  }
   void TickAssistedKickMotion(float dt,Vector3 previous,Quaternion previousRotation)
   {
    kickPreviousRider=previous;kickPreviousRotation=previousRotation;
+   // Stabilise the bike before extending a leg. Banking into a left turn used
+   // to pull the right shoe inward by ~30 cm, beyond physical contact range.
+   kickBalance=Mathf.MoveTowards(kickBalance,assistedKick==AssistedKickPhase.Approach||assistedKick==AssistedKickPhase.Swing?1:0,dt*12);
+   if(kickBalance>0){var angles=rider.localEulerAngles;angles.z=Mathf.DeltaAngle(0,angles.z)*(1-kickBalance);rider.localRotation=Quaternion.Euler(angles);}
    if(!KickAssistActive)return;
    Vector3 baseline=rider.localPosition,oldOffset=kickAppliedOffset;
    if(ServiceStopped||RiderJumpActive||RiderOnRoof){CancelAssistedKick();}
@@ -110,7 +196,7 @@ namespace PhoViet
    {
     kickApproachAge+=dt;Quaternion q=KickRoadFrame,inverse=Quaternion.Inverse(q);
     Vector3 nextTarget=kickTarget.model.localPosition+(KickTrafficVelocity(kickTarget)-Vector3.forward*Speed)*dt;
-    Vector3 d=inverse*(nextTarget-baseline);float gap=kickTarget.halfWidth+.50f;
+    Vector3 d=inverse*(nextTarget-baseline);float gap=KickSideGap(kickTarget);
     float desired=d.x-kickDirection*gap;
     Vector3 offset=q*Vector3.right*Mathf.MoveTowards(Vector3.Dot(oldOffset,q*Vector3.right),desired,KickSideSpeed*dt);
     Vector3 candidate=baseline+offset;
@@ -118,21 +204,22 @@ namespace PhoViet
     else
     {
      kickAppliedOffset=offset;rider.localPosition=candidate;
-     Vector3 beside=inverse*(nextTarget-candidate);float relative=(inverse*KickTrafficVelocity(kickTarget)).z-Speed;
+     Vector3 beside=inverse*(nextTarget-candidate);float relative=(inverse*KickTrafficVelocity(kickTarget)).z-Speed*KickTravelRatio();
      bool nearSide=Mathf.Abs(Mathf.Abs(beside.x)-gap)<.07f;
-     bool timed=kickOncoming?Mathf.Abs(beside.z+relative*KickFootLead-.45f)<=kickTarget.halfLength+.25f:Mathf.Abs(beside.z-.4f)<=.9f;
+     float aim=KickAimForward(kickTarget,kickDirection);
+     bool timed=kickOncoming?Mathf.Abs(beside.z+relative*KickFootLead-aim)<=kickTarget.halfLength+.25f:Mathf.Abs(beside.z-aim)<=.9f;
      if(assistedKick==AssistedKickPhase.Approach&&nearSide&&timed)
      {assistedKick=AssistedKickPhase.Swing;kickSwingAge=0;rider.GetComponent<BikeVisualAnimator>()?.Kick(kickDirection);}
      else if(kickOncoming&&beside.z< -kickTarget.halfLength-.2f)CancelAssistedKick();
     }
    }
    if(assistedKick==AssistedKickPhase.Swing)rider.localPosition=baseline+kickAppliedOffset;
-   if(assistedKick==AssistedKickPhase.Return)
+   if(assistedKick==AssistedKickPhase.Return||assistedKick==AssistedKickPhase.Swing&&kickHit)
    {
     Vector3 offset=Vector3.MoveTowards(oldOffset,Vector3.zero,KickSideSpeed*dt),candidate=baseline+offset;
     if(KickAssistPathClear(previous,candidate,dt))kickAppliedOffset=offset;
     rider.localPosition=baseline+kickAppliedOffset;
-    if(kickAppliedOffset.sqrMagnitude<.00001f){kickAppliedOffset=Vector3.zero;assistedKick=AssistedKickPhase.None;}
+    if(kickAppliedOffset.sqrMagnitude<.00001f){kickAppliedOffset=Vector3.zero;if(assistedKick==AssistedKickPhase.Return)assistedKick=AssistedKickPhase.None;}
    }
   }
   static bool KickSegmentBox(Vector3 from,Vector3 to,Vector3 half,out float at)
@@ -183,7 +270,8 @@ namespace PhoViet
   void ApplyAssistedKickImpact()
   {
    kickHit=true;KickCount++;bool selfDefense=kickTarget.isReckless;Vector3 velocity=KickTrafficVelocity(kickTarget);
-   KnockVehicle(kickTarget,kickDirection,false);kickTarget.knockVelocity=velocity+KickRoadFrame*Vector3.right*kickDirection*9;kickTarget.knockVelocity.y=2.2f;
+   Vector3 away=KickRoadFrame*Vector3.right*kickDirection;float outward=Vector3.Dot(velocity,away);
+   KnockVehicle(kickTarget,kickDirection,false);kickTarget.knockVelocity=velocity+away*(Mathf.Max(9,outward+9)-outward);kickTarget.knockVelocity.y=2.2f;
    if(!selfDefense)StartChase();
    notice=selfDefense?"TỰ VỆ: HẠ QUÁI XẾ · KHÔNG GỌI CSGT":kickDirection>0?"ĐẠP PHẢI!  CSGT ĐANG ĐẾN":"ĐẠP TRÁI!  CSGT ĐANG ĐẾN";noticeTimer=1.5f;
   }

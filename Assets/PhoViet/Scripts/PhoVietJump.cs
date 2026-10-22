@@ -13,7 +13,8 @@ namespace PhoViet
   float jumpHeight,jumpVelocity,jumpCooldown,jumpWindup,jumpLanding,jumpFlightAge,jumpPreviousHeight;
   bool jumpFlying;
   string landingClip="LandBoth";
-  TrafficVehicle roofVehicle;
+  TrafficVehicle roofVehicle,previousRoofVehicle,roofContactVehicle;
+  float roofContactHeight;
   const float JumpGravity=22f,JumpLaunch=14.6f;
   public static bool IsJumpSwipe(Vector2 delta,float width)=>delta.y>width*.12f&&delta.y>Mathf.Abs(delta.x)*1.3f;
   public void PoseJumpPassenger(float pitch,float lift)
@@ -24,7 +25,7 @@ namespace PhoViet
    customer.localRotation=balance;
   }
   void ResetJump()
-  {jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=0;jumpFlying=false;roofVehicle=null;landingClip="LandBoth";}
+  {jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=roofContactHeight=0;jumpFlying=false;roofVehicle=previousRoofVehicle=roofContactVehicle=null;landingClip="LandBoth";}
   public bool TryJump()
   {
    if(State!=RideState.Riding||ServiceStopped||jumpFlying||jumpWindup>0||jumpCooldown>0||jumpLanding>0)return false;
@@ -44,37 +45,50 @@ namespace PhoViet
    return n=="PV_DeliveryVan"?1.91f:n=="PV_Hatchback"?1.69f:1.60f;
   }
   bool RoofContains(TrafficVehicle v,Vector3 point,float padding=0)
+   =>RoofContainsAt(v,point,v.model.localPosition,v.model.localRotation,padding);
+  bool RoofContainsAt(TrafficVehicle v,Vector3 point,Vector3 position,Quaternion rotation,float padding=0)
   {
    if(!v.active||JumpRoofHeight(v)<0)return false;
-   Vector3 local=Quaternion.Inverse(v.model.localRotation)*(point-v.model.localPosition);
+   Vector3 local=Quaternion.Inverse(rotation)*(point-position);
    // Support lasts until the trailing wheel/body clears the bonnet, rather than
    // dropping the bike while its rear half is still overlapping the same car.
    return Mathf.Abs(local.x)<v.halfWidth-.14f+padding&&Mathf.Abs(local.z)<v.halfLength+.92f+padding;
   }
   float RoofSurface(TrafficVehicle v,Vector3 point)
+   =>RoofSurfaceAt(v,point,v.model.localPosition,v.model.localRotation,rider.localRotation);
+  float RoofSurfaceAt(TrafficVehicle v,Vector3 point,Vector3 position,Quaternion rotation,Quaternion riderRotation)
   {
-   Vector3 local=Quaternion.Inverse(v.model.localRotation)*(point-v.model.localPosition);
+   Vector3 local=Quaternion.Inverse(rotation)*(point-position);
    float roof=JumpRoofHeight(v),z=local.z;
    if(v.halfLength>3)
    {
     // Blender box roof ends at z=1.225, cab roof is 2.71 m high. Keep the
     // rear wheel supported on the box until it clears that edge, then fall
     // onto the lower cab instead of snapping downward or floating over it.
-    Vector3 relativeForward=Quaternion.Inverse(v.model.localRotation)*rider.localRotation*Vector3.forward;
+    Vector3 relativeForward=Quaternion.Inverse(rotation)*riderRotation*Vector3.forward;
     float rearZ=z-.73f*relativeForward.z;
     float truckSurface=rearZ<=1.225f?roof:rearZ<=2.75f?2.71f:
       Mathf.Lerp(2.71f,1.0f,Mathf.Clamp01((rearZ-2.75f)/.48f));
-    return v.model.TransformPoint(new Vector3(local.x,truckSurface,local.z)).y-transform.position.y+.025f;
+    return (position+rotation*new Vector3(local.x,truckSurface,local.z)).y+.025f;
    }
    // Sloping bonnet and boot avoid floating above the lower ends of the mesh.
-   float surface=z>.15f?Mathf.Lerp(roof,1.07f,Mathf.Clamp01((z-.15f)/.85f)):
-      z<-.85f?Mathf.Lerp(roof,1.1f,Mathf.Clamp01((-z-.85f)/.65f)):roof;
-   if(roof>1.8f&&z<.15f)surface=roof;
-   return v.model.localPosition.y+surface+.025f;
+   // Both wheels support the bike. Sampling only its centre drops it into the
+   // windscreen/bonnet while its trailing wheel is still on the higher roof.
+   Vector3 forward=Quaternion.Inverse(rotation)*riderRotation*Vector3.forward;
+   float a=z-.73f*forward.z,b=z+.90f*forward.z;
+   float surface=Mathf.Max(CarRoofProfile(roof,a),CarRoofProfile(roof,b));
+   if(Mathf.Min(a,b)<=.15f&&Mathf.Max(a,b)>=-.85f)surface=roof;
+   return (position+rotation*new Vector3(local.x,surface,local.z)).y+.025f;
+  }
+  static float CarRoofProfile(float roof,float z)
+  {
+   if(roof>1.8f&&z<.15f)return roof;
+   return z>.15f?Mathf.Lerp(roof,1.07f,Mathf.Clamp01((z-.15f)/.85f)):
+    z<-.85f?Mathf.Lerp(roof,1.1f,Mathf.Clamp01((-z-.85f)/.65f)):roof;
   }
   void TickJump(float dt)
   {
-   jumpPreviousHeight=jumpHeight;jumpCooldown=Mathf.Max(0,jumpCooldown-dt);jumpLanding=Mathf.Max(0,jumpLanding-dt);
+   previousRoofVehicle=roofVehicle;roofContactVehicle=null;roofContactHeight=0;jumpPreviousHeight=jumpHeight;jumpCooldown=Mathf.Max(0,jumpCooldown-dt);jumpLanding=Mathf.Max(0,jumpLanding-dt);
    if(jumpWindup>0)
    {
     jumpWindup=Mathf.Max(0,jumpWindup-dt);
@@ -94,18 +108,57 @@ namespace PhoViet
    }
    if(jumpFlying&&jumpVelocity<=0)
    {
-    TrafficVehicle landed=null;float top=0;
+    TrafficVehicle landed=null;float top=0,first=2;
     foreach(var v in vehicles)
     {
-     if(!RoofContains(v,point))continue;
-     float surface=RoofSurface(v,point);
-     float oldSurface=surface+v.previousPosition.y-v.model.localPosition.y;
-     if(jumpPreviousHeight>=oldSurface-.035f&&jumpHeight<=surface&&surface>top){landed=v;top=surface;}
+     if(!v.active||JumpRoofHeight(v)<0)continue;
+     if(FindRoofLanding(v,point,dt,out float at,out float surface)&&at<first){landed=v;top=surface;first=at;}
     }
-    if(landed!=null)LandJump(top,landed);
+    if(landed!=null)
+    {
+     LandJump(top,landed);roofContactVehicle=landed;roofContactHeight=top;
+     // Spend the rest of this frame riding across the roof. At high relative
+     // speed the landing and the roof edge can both occur between two frames.
+     int steps=Mathf.Clamp(Mathf.CeilToInt(dt/.005f),2,100);
+     for(int i=1;i<=steps;i++)
+     {
+      float t=Mathf.Lerp(first,1,i/(float)steps);RoofPose(landed,point,t,out var p,out var q,out var r,out var bike);
+      float surface=RoofSurfaceAt(landed,p,q,r,bike);
+      if(!RoofContainsAt(landed,p,q,r)||surface>jumpHeight+.12f||landed.halfLength>3&&surface<jumpHeight-.12f)
+      {roofVehicle=null;jumpFlying=true;float fall=dt*(1-t);jumpVelocity=-JumpGravity*fall;jumpHeight-=.5f*JumpGravity*fall*fall;jumpFlightAge=JumpLaunch/JumpGravity;break;}
+      jumpHeight=surface;roofContactHeight=Mathf.Max(roofContactHeight,surface);
+     }
+    }
     else if(jumpHeight<=0)LandJump(0,null);
    }
-   var p=rider.localPosition;p.y=jumpHeight;rider.localPosition=p;
+   var resolved=rider.localPosition;resolved.y=jumpHeight;rider.localPosition=resolved;
+  }
+  void RoofPose(TrafficVehicle v,Vector3 point,float t,out Vector3 riderPoint,out Vector3 vehiclePoint,out Quaternion vehicleRotation,out Quaternion riderRotation)
+  {
+   riderPoint=Vector3.Lerp(riderBody.previousPosition,point,t);vehiclePoint=Vector3.Lerp(v.previousPosition,v.model.localPosition,t);
+   vehicleRotation=Quaternion.Slerp(Quaternion.Euler(0,v.previousYaw,0),v.model.localRotation,t);
+   riderRotation=Quaternion.Slerp(Quaternion.Euler(0,oldRiderYaw,0),rider.localRotation,t);
+  }
+  bool FindRoofLanding(TrafficVehicle v,Vector3 point,float dt,out float at,out float height)
+  {
+   at=2;height=0;float freeHeight=jumpHeight;
+   float radius=Mathf.Max(v.halfLength,v.halfWidth)+1.05f;
+   if(!SweptOverlap(Flat(v.previousPosition-riderBody.previousPosition),Flat(v.model.localPosition-point),Vector2.one*radius))return false;
+   float travel=((point-riderBody.previousPosition)-(v.model.localPosition-v.previousPosition)).magnitude;
+   int steps=Mathf.Clamp(Mathf.CeilToInt(Mathf.Max(dt/.005f,travel/.1f)),2,128);
+   for(int i=1;i<=steps;i++)
+   {
+    float a=(i-1)/(float)steps,b=i/(float)steps;
+    RoofPose(v,point,b,out var p,out var position,out var rotation,out var bike);
+    if(!RoofContainsAt(v,p,position,rotation))continue;
+    float surface=RoofSurfaceAt(v,p,position,rotation,bike);
+    RoofPose(v,point,a,out var oldPoint,out var oldPosition,out var oldRotation,out var oldBike);
+    float oldSurface=RoofContainsAt(v,oldPoint,oldPosition,oldRotation)?RoofSurfaceAt(v,oldPoint,oldPosition,oldRotation,oldBike):surface;
+    float before=Mathf.Lerp(jumpPreviousHeight,freeHeight,a),after=Mathf.Lerp(jumpPreviousHeight,freeHeight,b);
+    if(before<Mathf.Max(oldSurface,surface)-.035f||after>surface)continue;
+    at=b;height=surface;return true;
+   }
+   return false;
   }
   void LandJump(float y,TrafficVehicle surface)
   {
@@ -118,7 +171,32 @@ namespace PhoViet
   {
    float y=Mathf.Lerp(jumpPreviousHeight,jumpHeight,at);
    float top=JumpRoofHeight(v);
-   if(top>=0)top=RoofSurface(v,rider.localPosition);
+   if(top>=0)
+   {
+    // Collision broad-phase uses a conservative car/truck box. Resolve the
+    // actual moving roof over the same interval, including the landing frame.
+    // Comparing an earlier rider height with the roof at the frame's end used
+    // to turn valid landings and bonnet exits into side impacts.
+    Vector3 from=riderBody.previousPosition,to=rider.localPosition;
+    float travel=((to-from)-(v.model.localPosition-v.previousPosition)).magnitude;
+    int steps=Mathf.Clamp(Mathf.CeilToInt(travel/.1f),2,128);
+    bool supported=roofVehicle==v||previousRoofVehicle==v||roofContactVehicle==v;
+    for(int i=0;i<=steps;i++)
+    {
+     float t=Mathf.Lerp(at,1,i/(float)steps);
+     Quaternion vehicleRotation=Quaternion.Slerp(Quaternion.Euler(0,v.previousYaw,0),v.model.localRotation,t);
+     Quaternion riderRotation=Quaternion.Slerp(Quaternion.Euler(0,oldRiderYaw,0),rider.localRotation,t);
+     Vector3 point=Vector3.Lerp(from,to,t),position=Vector3.Lerp(v.previousPosition,v.model.localPosition,t);
+     Vector3 local=Quaternion.Inverse(vehicleRotation)*(point-position),f=Quaternion.Inverse(vehicleRotation)*riderRotation*Vector3.forward;
+     if(Mathf.Abs(local.x)>v.halfWidth+Mathf.Abs(f.z)*.33f+Mathf.Abs(f.x)*.91f||Mathf.Abs(local.z)>v.halfLength+Mathf.Abs(f.x)*.33f+Mathf.Abs(f.z)*.91f)continue;
+     top=RoofSurfaceAt(v,point,position,vehicleRotation,riderRotation);
+     // A supported wheel follows the roof profile, not the straight chord from
+     // one frame's height to the next. A higher cargo wall still blocks it.
+     float height=supported?Mathf.Max(Mathf.Max(jumpPreviousHeight,jumpHeight),roofContactVehicle==v?roofContactHeight:0):Mathf.Lerp(jumpPreviousHeight,jumpHeight,t);
+     if(height<top-.04f)return false;
+    }
+    return true;
+   }
    else top=v.model.localPosition.y+(v.halfLength>3?3.2f:v.halfWidth>.7f?1.9f:v.knocked?.6f:2.4f);
    return y>=top-.018f;
   }

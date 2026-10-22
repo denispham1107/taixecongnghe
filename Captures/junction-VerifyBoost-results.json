@@ -1,0 +1,71 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyBoost.cs",
+      "entry": "VerifyBoost.Main",
+      "timeout_ms": "180000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 234,
+      "executeMs": 289,
+      "assemblyName": "PipelineRunScript_VerifyBoost_45181d51eaa14e0a8316c5f4937f470a",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 39,
+        "checks": [
+          "Ready screen rejects boost",
+          "Downward mobile swipe selects boost",
+          "Up/horizontal swipes do not boost",
+          "Boost and jump gestures remain distinct",
+          "Boost begins with four seconds and no concurrent cooldown",
+          "Boost multiplies current normal speed by exactly 2.25",
+          "Cross traffic schedules arrival using boosted speed",
+          "Intersection prediction accounts for boost ending before arrival",
+          "Repeated W cannot stack or extend boost",
+          "Blender smoke emits actual particles during boost",
+          "Four-frame Blender flipbook is available in player Resources",
+          "Pause freezes boost duration",
+          "Paused particle simulation is frozen",
+          "Paused particle simulation is frozen",
+          "Resuming continues active boost exhaust",
+          "Boost lasts through 3.99 seconds",
+          "Four seconds ends boost and starts a two-second cooldown",
+          "Cooldown rejects W",
+          "Cooldown is still enforced just before two seconds",
+          "Boost becomes available after two seconds",
+          "Boost can activate during the existing jump",
+          "Jump and boost coexist without canceling jump or colliding",
+          "Paused state rejects a new boost",
+          "Job list can pause an active boost",
+          "Job selection freezes boost timer",
+          "Pickup cancels boost immediately and starts cooldown",
+          "Boarding passenger blocks boost",
+          "Cooldown continues while stopped for a customer",
+          "Full two-second service wait completes cooldown",
+          "Dropoff also cancels active boost",
+          "Impact cancels boost, starts the physical fall and starts cooldown",
+          "Cooldown continues during physical falling",
+          "Falling state rejects boost",
+          "Real high-speed swept collision starts a physical crash and cancels boost instead of tunneling",
+          "Boost is available during pursuit",
+          "Capture cancels boost and ends the ride immediately",
+          "Street rebase preserves remaining boost duration",
+          "Smoke restarts in the new street coordinate frame",
+          "New run resets timers and clears exhaust particles"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
