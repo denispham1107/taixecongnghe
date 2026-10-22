@@ -1,0 +1,1169 @@
+# PHỐ VIỆT — Tài liệu tính năng, kiến trúc và bàn giao cho Claude Code
+
+Cập nhật toàn diện: **22/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.30.6. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
+
+> **Trạng thái hiện tại: 1.30.6, chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
+>
+> **Quy tắc bắt buộc từ 22/10/2026:** mỗi lần thay đổi, sửa lỗi hoặc thêm chức năng phải cập nhật đầy đủ `huongdan.md` trong cùng công việc. Ghi hành vi mới, cách triển khai/file liên quan, tham số, quyết định thay thế, kiểm tra và trạng thái commit/build/phát hành; cập nhật mục cũ bị thay thế. Đây là tài liệu dùng chung cho Codex và Claude Code.
+
+## 1. Đọc trước khi tiếp tục dự án
+
+**Phố Việt — Chuyến xe không ngừng** là game Unity 3D lái xe máy và né giao thông vô tận, sau đó được mở rộng thành game tài xế nhận chuyến, đón/trả khách và kiếm Coin. Nhịp chơi ban đầu lấy cảm hứng từ thể loại endless runner như Subway Surfers; nhân vật, xe và cảnh quan trong repo được dựng riêng cho bối cảnh Việt Nam.
+
+| Thông tin | Giá trị tại thời điểm bàn giao |
+| --- | --- |
+| Thư mục đang làm việc | `C:\Users\HP\Documents\GameUnity\Taixecongnghe` |
+| GitHub | <https://github.com/denispham1107/taixecongnghe> |
+| Nhánh | `main` |
+| Bản chơi công khai | <https://denispham1107.github.io/taixecongnghe/> |
+| Unity Editor | **6000.5.6f1**, cần module Web Build Support để build WebGL |
+| Scene chính | `Assets/PhoViet/Scenes/PhoViet.unity` |
+| Phiên bản game đã phát hành | **1.30.6** — chế độ chỉ thi quãng đường |
+| Commit source + WebGL hiện hành | `23941b11c82116d45185a51672d554dfac07413d` |
+| Commit bằng chứng phát hành | `98c3ed36068d32bddb601c42bb38a17ff9202b1b` |
+| Cache WebGL hiện hành | `c713cfa4fa73614d`; build UTC `2026-10-22T11:49:17.4262969Z` |
+| Pages đã xác minh | Run `39797882879`, completed/success; 26 kiểm tra live đạt; `Captures/distance-pages-release.json` |
+| Render pipeline | Built-in Render Pipeline; `m_CustomRenderPipeline` đang là `fileID: 0` |
+| Input | Legacy Input Manager, `activeInputHandler: 0`; dùng `UnityEngine.Input` |
+| Giao diện trong game | IMGUI, `OnGUI`, `GUIStyle`, `GUI.matrix`; không phải Canvas/uGUI |
+| Vật lý giao thông | Mã chuyển động, va chạm quét và xung lực tự viết |
+| Điều hướng công việc | Đồ thị phố dạng ô bàn cờ trong game, không gọi Google Maps/GPS thật |
+
+### 1.1. Quy tắc làm việc người dùng đã xác nhận
+
+- **Nếu không thực sự chắc chắn từ 90% trở lên về ý người dùng, yêu cầu hoặc phương án định làm, phải hỏi lại bằng các lựa chọn cụ thể. Chỉ làm phần chưa chắc chắn sau khi người dùng chọn và xác nhận. Không tự chọn thay hoặc coi im lặng là đồng ý.** Có thể tiếp tục kiểm tra và làm những phần đã rõ, không phụ thuộc câu trả lời.
+- Giữ phong cách **bán hiện thực vui nhộn**: xe có cấu tạo gần xe thật, người có tỷ lệ tương đối tự nhiên, nét mặt/động tác vui nhộn, màu sắc tươi; tối ưu cho điện thoại.
+- **Không còn ba mạng.** Va chạm thật làm văng/té theo hướng và vận tốc tương đối. Không bị truy đuổi: té xong kết thúc lượt. Đang bị CSGT đuổi: nằm lại chờ CSGT thật sự tới bắt rồi vào tù; không tự dựng xe, không GameOver ngay, không timer bắt từ xa. Luật này thay thế quy tắc thua ngay khi bị đuổi của bản cũ.
+- Đạp quái xế để tự vệ **không làm xuất hiện CSGT**. Đạp xe máy thường thì có truy đuổi. Nếu đã bị truy đuổi từ trước, đạp quái xế không tự xóa cuộc truy đuổi.
+- Hai làn trái được chọn rẽ trái, hai làn phải được chọn rẽ phải; sau cua giữ số thứ tự làn cũ, gồm cả làn giữa. Đi thẳng/đang cua dùng cùng tốc độ mong muốn, không còn hãm về 8/10 m/s.
+- Trong lòng giao lộ, sát lề trái được rẽ trái, sát lề phải được rẽ phải, kể cả chưa chọn rẽ từ trước.
+- **Công việc đang tắt từ 1.30.6 cho tới yêu cầu mở lại.** Coin đã lưu được giữ nguyên, hiện không hiện trên HUD và không phát sinh thưởng. Khi tính năng được cho phép mở lại: bắt đầu 0 nếu chưa có số dư, chỉ cộng sau khi hoàn tất trả khách, giữ sau thua/đóng game.
+- Cơ chế được giữ trong mã nhưng **đang tắt**: chưa có việc thì tạm dừng và hiện 3 đề xuất, chọn xong chạy tiếp. Không được để menu này xuất hiện trong bản hiện tại.
+- Cơ chế dịch vụ được giữ nhưng đang tắt: đúng lề mới tự dừng đón/trả; xe khác nhường từ khi bắt đầu giảm tốc cách điểm hẹn 22 m, suốt hoạt ảnh khách và 2 giây thực sự chạy lại sau cả đón lẫn trả. Nhận việc có cửa sổ nhường riêng 3 giây.
+- Mạng phố hiện tại là **ô bàn cờ, tên/vị trí đường cố định trong từng lượt**; quay lại đúng đường phải thấy tên cũ. Lượt mới có thể sinh lại cách gán tên.
+- Giọng chỉ đường đã chọn: nữ miền Nam, “Quẹo trái”, “Quẹo phải”, “Đi thẳng”; báo trước khoảng 4 giây, nhắc trước 2 giây, tránh “Đi thẳng” ngay trước rẽ. Hiện không phát vì công việc đang tắt.
+- Phím hiện tại: **Q đạp**, **Space nhảy**, **W tăng tốc +125% trong 4 giây, hồi 2 giây**. Mobile: chạm hai lần đạp, vuốt lên nhảy, xuống tăng tốc; vuốt nhận ngay khi đủ ngưỡng, không chờ nhấc tay.
+- **Mọi lần sửa/thêm chức năng đều phải ghi vào tài liệu này**, kể cả thay đổi chưa build hoặc chưa phát hành; ghi rõ trạng thái chưa hoàn tất thay vì bỏ qua.
+
+### 1.2. Những yêu cầu cũ đã được thay thế
+
+| Nội dung từng tồn tại | Quy tắc hiện tại cần giữ |
+| --- | --- |
+| Quái xế/xe tải chỉ xuất hiện mỗi 20 giây hoặc 15–20 giây | Đã bỏ lịch riêng; tham gia các đợt sinh giao thông bình thường, ở cả hai chiều |
+| Cứ rẽ là gán một tên đường chưa từng dùng | Đã thay bằng mạng phố cố định theo tọa độ để GPS có thể quay lại cùng địa điểm |
+| Va chạm khi bị đuổi làm chậm/chạy tiếp hoặc GameOver ngay | Hiện văng/té rồi nằm chờ CSGT đến bắt thật; Arrested → Jailed |
+| Ba mạng/tự dựng xe người chơi | Đã bỏ từ 1.28.0; không tự dựng lại sau té |
+| Space đạp, Q nhảy, E tăng tốc +75%/hồi 3 s | Q đạp, Space nhảy, W +125%/4 s/hồi 2 s |
+| Hai làn giữa chỉ được đi thẳng; cua giảm 8/10 m/s | Làn giữa trái/phải rẽ đúng phía; cua giữ tốc độ như đường thẳng |
+| Bật công việc trong scene trước mọi bản phát hành | Sai với trạng thái hiện tại: RideJobsReleased=false và jobsEnabled=false |
+| Icon minh họa raster hoặc PV cách điệu | SVG xe máy chính diện, sao vàng, đường; PNG chỉ là bản xuất cho hệ điều hành |
+| Chậu cây trang trí ở ban công/vỉa hè | Đã xóa khỏi bộ cảnh quan Blender |
+| Tán lá ghép từ những khối cầu | Đã dựng lại bằng lá có hình học riêng và nhiều LOD |
+| Mái hiên một mặt hoặc thiếu dải vải khi giảm chi tiết | Đã sửa thành vải có độ dày, giữ nguyên các dải ở cả 3 LOD |
+
+`README.md`, báo cáo cũ và Git history có thể mô tả luật tại thời điểm cũ (ba mạng, phím cũ, việc đang bật, va chạm thua ngay khi bị đuổi). Không dùng chúng để ghi đè trạng thái hiện tại. Các mục 1/2/7/8/19–21 của tài liệu này và source hiện hành là mốc bàn giao; yêu cầu mới trực tiếp của người dùng vẫn được ưu tiên.
+
+## 2. Toàn bộ tính năng người chơi đang có
+
+### 2.1. Bối cảnh, nhân vật và vòng chơi
+
+- Góc nhìn thứ ba từ phía sau và hơi cao, camera nhìn dọc con đường; xe tự tiến.
+- Nhân vật chính mặc áo đỏ có **ngôi sao vàng đủ 5 cánh** (ngực và lưng), đội mũ bảo hiểm, đi **xe tay ga màu trắng** (từ bản xe máy v2, 19/10/2026; trước đó xe đỏ).
+- Đường có 4 làn, vạch giữa đường vàng đứt nét, vạch trắng phân làn, vạch biên, vạch qua đường và giao lộ.
+- Hai làn bên trái chủ yếu là xe ngược chiều; hai làn bên phải chủ yếu cùng chiều. Xe ngược chiều có thể lấn qua phía người chơi.
+- Xe máy, sedan, hatchback, taxi, xe giao hàng, xe tải thường và xe tải ngủ gật cùng xuất hiện.
+- Các lượt chơi dùng seed mới, không lặp nguyên xi mẫu xe/làn/tốc độ/lịch di chuyển của lượt trước.
+- Quãng đường và tốc độ được hiển thị; có kỷ lục lưu cục bộ, số xe đã né, thông báo tình huống và truy đuổi.
+- Không có mạng dự phòng: va chạm văng/té xong kết thúc lượt nếu không bị đuổi; nếu đang bị đuổi thì nằm chờ CSGT đến bắt và chuyển sang buồng giam. Góc/ngả/văng phụ thuộc tiếp xúc, không luôn đổ phải tại chỗ.
+- 10 giây chạy đầu giảm một nửa mật độ/số xe (làm tròn lên), rồi trở về bình thường; pause không ăn thời gian này.
+- Ngày–đêm lặp 60 giây, đèn xe/đường tự bật theo trời tối; sương sớm tan hết trong 6 giây đầu mỗi lượt.
+- Hiện chỉ thi số mét và kỷ lục cục bộ; không có bảng xếp hạng online, không hiện menu việc/GPS/Coin.
+- Có bắt đầu, tạm dừng/tiếp tục, chơi lại, về màn hình đầu và bật/tắt âm thanh.
+
+### 2.2. Điều khiển
+
+| Thao tác | Desktop | Điện thoại/tablet |
+| --- | --- | --- |
+| Bắt đầu | Nút “LÊN XE THÔI”, Enter hoặc Space | Chạm nút bắt đầu |
+| Đổi làn/chọn rẽ | ←/→ hoặc A/D; rẽ theo nửa đường trong vùng hợp lệ | Vuốt trái/phải |
+| Đạp xe máy | **Q** | Chạm hai lần gần nhau trong vùng chơi |
+| Ngóc bánh/nhảy | **SpaceBar** | Vuốt từ dưới lên |
+| Tăng tốc | **W** | Vuốt từ trên xuống |
+| Tạm dừng/tiếp tục | P, Esc hoặc nút tạm dừng | Nút tạm dừng/tiếp tục |
+| Chơi lại | R, Space hoặc nút chơi lại | Chạm nút chơi lại |
+| Chọn công việc | **Đang ẩn/tắt** | **Đang ẩn/tắt** |
+
+Không có ga/phanh thủ công. Tốc độ tăng theo thời gian, có nhảy và tăng tốc chủ động. Tăng tốc chỉ áp dụng cho xe người chơi. Trong cua vẫn giữ tốc độ như đường thẳng. Vuốt thực hiện ngay tại lúc đủ ngưỡng; một lần chạm tối đa một lệnh, giữ/nhấc tay không lặp lệnh. Bỏ các nút trái/phải và ô nhắc double tap dưới màn hình dọc.
+
+### 2.3. Giao thông gây bất ngờ
+
+- Xe cùng chiều có thể phanh gấp hoặc giảm tốc mạnh, có đèn phanh, rồi tăng tốc trở lại.
+- Xe chạy song song có thể bất ngờ đổi làn. Chuyển làn được nội suy liên tục; xe lớn đổi làn chậm hơn xe máy.
+- Xe thường ngược chiều cũng đổi làn, có thể vượt vạch vàng sang làn người chơi rồi quay lại; không đổi thành xe cùng chiều chỉ vì đổi làn.
+- Xe băng ngang ở giao lộ đi từ cả hai phía; số lượng, tốc độ và tỷ lệ xe lớn tăng theo độ khó. Có xe đi thẳng và có xe rẽ vào đường chính.
+- Xe chạy dọc đường cũng có thể rẽ trái/phải qua đường nhánh bằng quỹ đạo cong.
+- Xe có thể va chạm và bị hất văng. Sau **3 giây từ lần va chạm mới nhất**, xe giao thông tự dựng (hoạt ảnh khoảng 0,65 s), nhập làn trống gần nhất đúng chiều cũ và chạy tiếp; nếu đang rẽ thì hoàn thành đích rẽ đã chọn. CSGT giữ 1,2 s. Ngoại lệ xe nguy hiểm đâm nhà cháy nằm lại.
+- Xe thường vượt từ dưới màn hình lên có mũi tên đỏ viền vàng ở đúng làn ít nhất 2 giây trước khi xuất hiện; không áp dụng cảnh báo này cho xe từ phía trên hoặc xe băng ngang.
+- Sau khi người chơi rẽ xong, có đợt xe ngẫu nhiên từ phía sau vượt lên và từ hướng ngược chiều đi tới.
+- Đèn giao thông hiện là cảnh vật có đổi màu; game chưa dùng đèn để buộc tất cả xe dừng/nhường theo luật giao thông.
+
+### 2.4. Quái xế và xe tải ngủ gật
+
+- Có xe máy quái xế kiểu Exciter cách điệu và xe mang biển **XE TẢI NGỦ GẬT**.
+- Có cả cùng chiều lẫn ngược chiều, lấn làn và lạng lách qua phía người chơi.
+- Xe cùng chiều xuất hiện từ ngoài camera phía sau. Mỗi đợt chỉ một xe nguy hiểm trên một làn cùng chiều được chọn ngẫu nhiên, báo mũi tên đỏ–vàng đúng làn trước 2 giây. Nếu còn xe nguy hiểm ngược chiều/chạy từ sau đang di chuyển thì đợi nó va chạm; khi đủ điều kiện lại phải báo đủ 2 giây. Quy tắc còn hiệu lực qua rẽ/rebase.
+- Có thể húc và đẩy xe khác, gây rối giao thông và phản ứng dây chuyền.
+- Có thể đâm nhà bên trái/phải, nằm lại với hiệu ứng lửa/khói. Phần đường giao nhau trống không bị coi là vách nhà.
+- Người chơi có thể đạp ngã xe máy quái xế ở cả hai chiều để tự vệ; không thể dùng cú đạp để đạp trực tiếp ô tô hoặc xe tải.
+
+### 2.5. Đạp xe, dây chuyền, CSGT và buồng giam
+
+- Q/double tap chọn **một** xe máy hợp lệ gần nhất/ưu tiên quái xế, cùng chiều, ngược chiều, cắt ngang hoặc đang rẽ gần giao lộ. Tài xế tăng tốc bắt kịp, áp sát đúng bên rồi mới vung đúng chân; **chỉ hất khi giày chạm thân xe thật**, không tác động từ xa. Đạp xong trở về làn gốc; bị chắn thì hủy, không xuyên vật cản.
+- Xe bị đạp ngã theo hướng ra xa người chơi. Xe ngã có thể kéo theo xe máy khác; xe lớn va vào đống xe cũng nhận phản lực theo mô hình vật lý.
+- Có hồi chiêu đạp; không đạp khi tạm dừng, đang đón/trả khách hoặc đã thua.
+- Đạp trúng xe máy thường lần đầu gọi mô tô CSGT từ phía sau rất nhanh. CSGT có đồng phục vàng cát, mũ, chi tiết cầu vai, đèn ưu tiên và còi.
+- Người chơi khi đường thông thoáng có ưu thế tốc độ nhỏ sau khi CSGT áp sát; truy đuổi vẫn tăng nhịp theo thời gian.
+- CSGT dự đoán xe, chọn lối né và phanh khi bị chặn; không được đi xuyên xe đang chạy, xe đứng yên hoặc xe ngã.
+- Nếu CSGT vẫn va chạm, mô tô ngã **1,2 giây**, không bắt người chơi trong lúc nằm; dựng xe rồi tiếp tục từ vị trí thực tế.
+- Đang bị truy đuổi mà chạm thật vẫn văng/té, không miễn va chạm. Người chơi nằm chờ; CSGT tìm đường tới vị trí bắt quanh người đã té, kể cả khi phải vòng cụm xe hoặc đi tạm xa trước rồi quay lại. Không tự dựng xe người chơi hoặc kết thúc bằng timer.
+- Khi CSGT thực sự tới trong khoảng bắt và đã đứng dậy, chuyển `Arrested` → `Jailed`; nếu người chơi đang té phải đợi té xong. Nhân vật mặc đồ sọc trong buồng giam, có thông báo “CSGT ĐÃ ĐƯA BẠN VÀO TÙ”.
+
+### 2.6. Rẽ đường và cảnh quan Việt Nam
+
+- Sơn 16 cụm mũi tên ở mỗi giao lộ: ngoài trái rẽ trái; giữa trái thẳng+rẽ trái; giữa phải thẳng+rẽ phải; ngoài phải rẽ phải. Tất cả cùng màu sơn trắng, nhánh nối liền thân mũi tên, áp dụng cả bốn hướng.
+- Mũi tên cùng màu sơn với vạch qua đường, được đặt cách vạch để không chồng lên nhau.
+- Có thể chọn rẽ trong vùng mũi tên trước giao lộ, hoặc rẽ muộn khi đang ở lòng giao lộ và sát đúng phía lề.
+- Xe ôm cua 90 độ, camera chuyển mượt rồi trở về góc nhìn sau xe; vẫn giữ quãng đường, độ khó, giao thông và truy đuổi.
+- Đường mới có nhà phố, cửa/cửa chớp, ban công, mái che, máy lạnh, bồn nước, cờ Việt Nam, cây, vỉa hè lát gạch, bó vỉa, rãnh thoát nước, xe đậu, người đứng vỉa hè, xe đẩy, bàn ghế và dây điện.
+- 12 mẫu cửa hàng: QUÁN PHỞ, HỦ TIẾU, MÌ GÕ, TẠP HÓA CÔ BA, BÁCH HÓA AN TÂM, SỬA XE TẤN PHÁT, CÀ PHÊ VỈA HÈ, BÁNH MÌ SÀI GÒN, CƠM TẤM, TIỆM SỬA XE HAI LÚA, BÚN BÒ HUẾ, TẠP HÓA MINH CHÂU.
+- Có 48 tên đường Việt Nam trong `RouteNames`, gồm các tên người dùng chỉ định và các tên bổ sung; cùng một trục phố giữ cùng tên trong lượt hiện tại.
+- Biển hiệu đã dựng song song, sát mặt tiền; chữ không xuyên qua nhà bên cạnh. Các chậu cây trang trí đã xóa. Cây ven đường vẫn còn và đã dựng lại bằng lá riêng.
+
+### 2.7. Công việc, hành khách, Coin và GPS — đang tắt
+
+**Toàn bộ mục này mô tả cơ chế được giữ trong mã để mở lại sau; không xuất hiện trong bản 1.30.6.** Khóa `RideJobsReleased=false`, scene `jobsEnabled=false`, runtime dùng `JobsAvailable`. Không bật lại chỉ để chạy kiểm tra cũ.
+
+- Sau khoảng 2 giây đang chạy mà chưa có việc, game hiện 3 chuyến và tạm dừng để chọn. Sau trả khách cũng có khoảng chờ ngắn trước bộ việc mới.
+- Mỗi chuyến có điểm đón, điểm trả, quãng đường tới đón, quãng đường chở, mức thưởng và giới tính khách ngẫu nhiên.
+- Điểm hẹn là địa chỉ trên cạnh đường của mạng phố, gắn với vị trí cửa hàng; không dời mục tiêu sang vị trí mới khi người chơi đi sai.
+- 3 vị trí đón khác nhau; mức thưởng khác nhau, tối thiểu 20 Coin, tăng theo tổng quãng đường đón + chở.
+- GPS có ô bản đồ, đường đi, điểm đích, hướng người chơi, khoảng cách, hướng rẽ tiếp theo, tên đường, phía lề cần vào và mức thưởng.
+- Khi rẽ: GPS xem trước đường thoát ngay frame bắt đầu cua, khoảng cách/vị trí/hướng cập nhật liên tục; tọa độ phố chính thức chỉ đổi một lần lúc rebase. Đi sai/lỡ điểm dừng vẫn tính lại tới đúng địa chỉ cũ.
+- Điểm đón/trả đang thực hiện có mũi tên khối xanh ngọc, bề dày/cạnh vát, viền sáng/tối, quầng nhịp và vòng dưới đất; nhãn ĐÓN KHÁCH/TRẢ KHÁCH. Chỉ hiện mục tiêu giai đoạn hiện tại khi trong tầm camera, kể cả đường ngang/đang rẽ. Hiện marker bị khóa cùng công việc.
+- Giọng nữ có sẵn trong build/offline; dùng thời gian tới giao lộ theo tốc độ thật: báo khoảng 4 s, nhắc khoảng 2 s; không phát “Đi thẳng” nếu sắp tới lệnh rẽ trong cửa sổ đó. Không phát giọng khi tính năng tắt.
+- Khi người chơi vào đúng lề gần điểm hẹn, xe tự giảm tốc/dừng. Khách nam hoặc nữ bước ra, lên sau xe, đi cùng rồi xuống ở điểm trả; chỉ một khách xuất hiện cho chuyến đó.
+- Khi bật lại dịch vụ: nhường từ lúc giảm tốc trong vùng 22 m đúng đường/lề, suốt Boarding/Alighting và **2 giây thực sự di chuyển sau cả đón lẫn trả**. Cửa sổ **3 giây sau nhận việc** riêng biệt. Đổi làn nếu trống, không trống thì phanh/nhường; tình huống ngược chiều kín có thể cho người chơi giảm/dừng. Pause/đứng phục vụ không ăn hai giây xuất phát.
+- Nhường dùng dự đoán/phanh/quét thân xe trước và sau va chạm xe–xe, không tắt collision. Tai nạn thật vẫn dùng luật té/kết thúc hoặc chờ CSGT hiện tại. Bản đang tắt công việc không chạy bảo vệ riêng này.
+- Số dư có dạng `Coin: 0`, `Coin: 50`, `Coin: 1,000`; chỉ trả thưởng sau khi khách xuống xong. Không trả trước lúc nhận việc/đón khách; thua giữa chuyến không được thưởng.
+
+### 2.8. WebGL, cài ứng dụng và offline
+
+- Desktop chơi trực tiếp trên web; Chrome/Edge hỗ trợ cài PWA nếu môi trường trình duyệt đáp ứng.
+- Android cài ứng dụng web từ Chrome/nút cài; chưa phải bản APK/AAB gốc.
+- iPhone/iPad mở bằng Safari rồi **Thêm vào Màn hình chính** để chạy dạng ứng dụng web; chưa phải ứng dụng App Store/IPA.
+- Cần mạng tải lần đầu. Service worker tải đủ shell + tài nguyên Unity mới báo sẵn sàng offline.
+- Hỗ trợ màn hình ngang/dọc; cảnh game phủ khung nhìn trên điện thoại/tablet, HUD/nút bấm tránh tai thỏ/thanh vuốt.
+- Nút menu nổi ba gạch đã ẩn trên mobile. Desktop còn điều khiển shell; có hướng dẫn, tải/lỗi/thử lại, trợ giúp cài và trạng thái offline.
+- Icon hiện tại là **vector xe máy chính diện + sao vàng + con đường**, đỏ–vàng–xanh đậm; SVG nguồn không chứa ảnh nhúng. PNG 192/512/maskable/Apple 180 chỉ là các bản xuất tương thích nền tảng.
+- Rời ứng dụng, ẩn tab hoặc mở trợ giúp khi đang chạy sẽ tạm dừng game.
+
+### 2.9. Nhảy và chạy trên nóc
+
+Space/vuốt lên ngóc bánh trước rồi nhảy tiến tới; hồi 2 s từ lúc bắt đầu, chỉ nhảy từ đường hoặc nóc đang đỡ, không nhảy thêm trên không. Đỉnh đo từ mặt đường khoảng 4,844 m; có thể vượt xe máy nằm và đáp/chạy trên sáu mẫu xe bốn bánh, gồm BoxTruck/DrowsyTruck đứng thẳng. Xe tải lạng lách hoặc đã va chạm nhưng vẫn đứng thẳng còn là mặt đỡ; xe nghiêng/lật là vật cản. Xe nhanh hơn chạy qua mép rồi rơi xuống; từ thùng xuống cabin thấp cũng rơi thật. Tiếp bằng hai bánh/trước/sau theo vận tốc, hấp thụ lực rồi cân bằng. Nhảy hụt đâm thân/vách vẫn gây té như thường.
+
+### 2.10. Tăng tốc
+
+W/vuốt xuống tăng **125% = nhân 2,25** tốc độ mong muốn trong 4 s; không cộng dồn, hồi 2 s sau hết/hủy. Chỉ xe người chơi tăng tốc; mọi xe khác giữ tốc độ nền/hành vi của chính nó. Dùng chung với nhảy được. Té/bị bắt/dừng dịch vụ hủy boost. Khói phản lực trắng mềm từ dữ liệu volume Blender bám ống xả và pose xe, không bay rời khi ngóc bánh; pause/rebase được xử lý riêng.
+
+### 2.11. Ánh sáng, màu phố và sương sớm
+
+Ban ngày nắng trắng, trời xanh sáng; nhà/vỉa hè/cây vẫn dùng palette rực rỡ, không trắng bệt. Mỗi 30 s chuyển dần ngày → đêm, 30 s tiếp theo đêm → ngày; lặp 60 s và pause dừng đồng hồ. Đèn trước/hậu cả xe người chơi/NPC/CSGT và 70 đèn đường bật dần theo độ tối. Đèn pha theo đúng độ cao/hướng xe lúc nhảy, đáp và đứng trên nóc. Sương phủ có chiều sâu trong 6 s đầu mỗi lượt, tan dần và tắt hẳn; không xuất hiện lại mỗi vòng bình minh.
+
+## 3. Cấu trúc dự án và những gì cần gửi cho Claude Code
+
+```text
+Taixecongnghe/
+├─ huongdan.md                         # Tài liệu bàn giao này
+├─ README.md                           # Giới thiệu và lịch sử tính năng
+├─ Assets/
+│  ├─ PhoViet/
+│  │  ├─ Scenes/PhoViet.unity           # Scene đã tích hợp đầy đủ
+│  │  ├─ Scripts/                      # Gameplay, GUI, vật lý, animation và các shader
+│  │  ├─ Editor/                       # Builder, importer, upgrader, build web
+│  │  ├─ Art/{Bikes,Cars,Streets,Passengers}/
+│  │  ├─ Resources/                    # Pose nhảy, waypoint, khói boost/lửa và shader
+│  │  ├─ Audio/Navigation/             # 3 câu chỉ đường MP3
+│  │  ├─ Fonts/                       # Be Vietnam Pro và giấy phép OFL
+│  │  └─ Generated/                   # Mesh/material đã persist, không phải rác
+│  └─ WebGLTemplates/PhoVietPWA/        # Source HTML/CSS/JS/PWA
+├─ ArtSource/Blender/                  # .blend và script Python tái tạo model
+├─ AgentScripts/                      # Công cụ kiểm tra/chụp/nâng cấp chạy qua CLI
+├─ Captures/                          # Báo cáo, JSON kiểm tra, ảnh bằng chứng
+├─ Packages/                          # Package manifest và lock
+├─ ProjectSettings/                   # Cấu hình Unity, scene build, input, version
+├─ docs/                              # WebGL đã build, GitHub Pages phát hành từ đây
+├─ .github/workflows/pages.yml         # Deploy artifact docs, không build Unity trên CI
+└─ Builds/                            # Build cục bộ, bị gitignore
+```
+
+Khi chuyển dự án, giữ **Assets + toàn bộ `.meta`**, ArtSource, AgentScripts, Captures, Packages, ProjectSettings, docs và Git history nếu có. `Assets/PhoViet/Generated` có tài nguyên scene đang tham chiếu nên phải giữ. Không cần gửi `Library`, `Temp`, `Obj`, `Logs`, `UserSettings`, `node_modules` hoặc `.tools`; Unity/công cụ sẽ tạo lại khi cần.
+
+Trước lần cập nhật tài liệu 22/10, có sẵn **5 nguồn Blender sửa cục bộ**: Cars, Jump, Motorcycles, Passengers, Streets; ba file chưa track là `PhoViet_Anhsangngaydem.blend`, `PhoViet_Motorcycles.backup-20261019.blend`, `Phoviet_Suongmu.blend`. Giữ nguyên, không tự reset/ghi đè/stage chúng. `huongdan.md` cũng chưa được track trước lần cập nhật này và có bổ sung xe máy v2 của Claude Code: đã đọc/giữ phần đó rồi đối chiếu, không thay bằng bản hướng dẫn cũ trong Git. Snapshot không thay cho `git status` lúc bắt đầu phiên mới. Sửa `.blend` không đồng nghĩa đã xuất FBX hoặc cập nhật build.
+
+## 4. Bản đồ mã nguồn
+
+Tất cả đường dẫn file trong các bảng dưới đây tính từ gốc repo. Các file `PhoViet*.cs` runtime chủ yếu là các phần của **cùng một `partial class PhoVietGame : MonoBehaviour`**; không gắn mỗi file thành một component riêng.
+
+| File trong `Assets/PhoViet/Scripts/` | Trách nhiệm chính |
+| --- | --- |
+| `PhoVietGame.cs` | Dữ liệu xe/pool, Awake/Reset/Update/TickRide, spawn thường/ngang, điều khiển, camera, âm cơ bản, HUD/màn hình đầu/thua |
+| `PhoVietActions.cs` | Điểm vào TryKick, double tap, cú ngã/bộ đếm, truy đuổi, bắt giữ và buồng giam |
+| `PhoVietKickAssist.cs` | Chọn/dự đoán mục tiêu, tăng tốc áp sát, Swing/Return, quét giày từ animation, giữ động tác qua rẽ |
+| `PhoVietJump.cs`, `BikeJumpPose.cs` | Quỹ đạo nhảy, mặt nóc chuyển động, đáp/rời mép, pose Blender |
+| `PhoVietBoost.cs`, `BoostSmokeVisual.cs` | W/vuốt xuống, timer +125%/4/2, khói trắng Blender |
+| `PhoVietRiderCrash.cs` | Xung lực/văng/ngã người chơi, kết thúc sau té hoặc nằm chờ CSGT |
+| `PhoVietTrafficRecovery.cs` | Lưu hướng/đích rẽ trước tai nạn; NPC dựng sau 3 giây |
+| `PhoVietSceneryContacts.cs`, `StreetObstacleSet.cs` | Quét va chạm nhà/cây/vật dụng theo hộp nhẹ, có xét cao và hệ đường xoay |
+| `PhoVietCrashPoliceNavigation.cs` | A* và điểm tiếp cận để CSGT bắt người chơi đã té |
+| `PhoVietRearWarning.cs` | Mũi tên đúng làn báo xe thường/nguy hiểm vượt sau |
+| `PhoVietCollisions.cs` | Va chạm người chơi, swept SAT xe–xe, khối lượng, xung lực, trượt/xoay sau va chạm |
+| `PhoVietTraffic.cs` | Khởi tạo lại tài xế, phanh/đèn phanh, tạt làn, xe băng ngang và rẽ vào đường chính |
+| `PhoVietRoadDrivers.cs` | Xe dọc đường quyết định và thực hiện rẽ sang đường nhánh |
+| `PhoVietReckless.cs` | Quái xế/xe tải ngủ gật hai chiều, vào từ phía sau, lạng, đâm nhà, khói/lửa, tái sử dụng xe |
+| `PhoVietPolice.cs` | Dự đoán đường đi, chọn đường né/phanh, va chạm CSGT, ngã 1,2 giây và phục hồi |
+| `PhoVietRoutePolice.cs` | CSGT theo vết quỹ đạo khi người chơi ôm cua/đổi khung đường |
+| `PhoVietRoutes.cs` | Pool 5 dãy đường, mũi tên/vùng chọn rẽ, cung cua, rẽ muộn, rebase hệ tọa độ, tên đường và route trail |
+| `PhoVietExitTraffic.cs` | Đợt xe từ phía sau/ngược chiều sau mỗi lần rẽ |
+| `CityNavigation.cs` | `RideAddress`, `CityRoute`, gán tên phố cố định và tìm đường trên đồ thị có hướng |
+| `PhoVietJobs.cs` | Sinh/chọn chuyến, chuyển giai đoạn, Coin, GPS, âm chỉ đường, dừng đón/trả, nhường xe phía sau |
+| `PhoVietJobGui.cs` | Thẻ công việc/hit-test/bản đồ; kiểm tra khóa phát hành |
+| `PhoVietJobTraffic.cs`, `PhoVietJobMarker.cs` | Nhường lúc nhận việc/tiếp cận/đón trả và điểm hẹn 3D, hiện bị khóa cùng jobs |
+| `PhoVietPortraitHud.cs`, `PhoVietLandscapeHud.cs`, `PhoVietDistanceHud.cs` | Thanh trong gọn dọc/ngang; bố cục chỉ mét/tốc độ/kỷ lục khi jobs tắt |
+| `PhoVietGestures.cs` | Nhận đủ ngưỡng ngay khi move, bridge pointer WebGL, một chạm một lệnh |
+| `PhoVietWelcome.cs` | Thẻ trắng trong mở đầu nhỏ, nút bắt đầu/hit-test |
+| `PhoVietDayNight.cs`, `DayNightLighting.cs`, `MorningFog.cs` | Chu kỳ ngày–đêm, pool đèn và sương volume sáu giây |
+| `WreckFireVisual.cs`, `WaypointMesh.cs` | Flipbook lửa/khói và mesh mũi tên khối vát |
+| `PhoVietWebRuntime.cs` | Safe area, cầu nối web pause/insets, ký hiệu GUI WebGL, chất lượng đồ họa trình duyệt |
+| `BikeVisualAnimator.cs` | Lấy mẫu hoạt ảnh xe máy/người lái, bánh xe, đạp, ngã, dựng xe, tiếp đất hình ảnh |
+| `CarVisualAnimator.cs` | Chạy/phanh/va chạm xe bốn bánh, quay/đánh lái bánh, nhún thân, phản ứng cản/gương |
+| `PassengerVisualAnimator.cs` | Lấy mẫu Idle/Walk/Board/Sit của khách |
+| `StreetArt.cs` | Helper tạo hình học/material/text/sao và các model ban đầu/fallback/factory |
+| `VietnamStreet.cs` | Module phố 80 m, nền đường, giao lộ, cửa hàng/cây/vỉa hè, tín hiệu, bảng tên và vật dụng phố |
+| `JunctionStreetArt.cs` | Mesh 16 mũi tên giao lộ, vị trí cách vạch qua đường |
+| `PursuitArt.cs` | Model mô tô CSGT ban đầu và cảnh buồng giam |
+| `RecklessArt.cs` | Model sự kiện ban đầu, biển nguy hiểm và particle khói/lửa |
+
+| File trong `Assets/PhoViet/Editor/` | Cách dùng/vai trò |
+| --- | --- |
+| `PhoVietBuilder.cs` | Dựng scene gốc, gộp mesh/persist tài nguyên, các menu nâng cấp lịch sử |
+| `PhoVietBikeImport.cs` | Cấu hình FBX xe máy và 7 clip Legacy |
+| `PhoVietBikeUpgrade.cs` | Thay visual xe máy/người lái, giữ root gameplay và các đối tượng ngữ nghĩa |
+| `PhoVietCarUpgrade.cs` | Importer + thay visual 11 xe bốn bánh, giữ root/kích thước vật lý |
+| `PhoVietRouteUpgrade.cs` | Cài 5 road rows, mũi tên, world text, bake xe đậu ở nhánh |
+| `PhoVietStreetUpgrade.cs` | Factories/importer cảnh quan Blender, thay các dãy phố trong scene |
+| `PhoVietPassengerUpgrade.cs` | Import 2 khách/4 clip/3 LOD, material, gắn tham chiếu khách và 3 clip chỉ đường |
+| `PhoVietWebBuild.cs` | Cấu hình WebGL, build, hậu xử lý offline/cache/version và refresh shell |
+| `PhoVietLightingUpgrade.cs` | Cài đèn/sky/profile/material, giữ palette phố rực rỡ |
+| `PhoVietObstacleUpgrade.cs` | Tạo hộp vật cản nhẹ theo scene/model hiện có |
+
+## 5. Scene, trạng thái và vòng cập nhật
+
+### 5.1. Scene đã lưu sẵn là điểm khởi đầu
+
+Scene chính đã chứa root **`PHỐ VIỆT • Chuyến xe không ngừng`**, component `PhoVietGame`, camera/audio, tài xế, pool xe, CSGT, buồng giam, road rows và hai khách cùng các tham chiếu font/material/clip. Tên root này còn được JavaScript dùng trong `SendMessage`; đổi tên phải sửa cả web shell và công cụ kiểm tra liên quan.
+
+Mở scene rồi Play là cách chạy bình thường. Không cần dựng lại scene mỗi lần mở project.
+
+**Lưu ý builder:** `PhoVietBuilder.Build` tạo scene mới, thay thế scene đang mở, cài bộ xe và đường nhưng hiện **chưa gọi `PhoVietPassengerUpgrade.UpgradeOpenScene()`**. Vì vậy không coi menu “Dựng lại scene chính” là lệnh khôi phục đầy đủ 1.14 chỉ bằng một bước. Các menu nâng cấp cũ cũng còn gán số version lịch sử. Nếu thật sự cần tái tạo, sao lưu/kiểm tra diff, đọc chuỗi builder hiện tại, bổ sung bước khách/âm chỉ đường, cấu hình web lại và kiểm tra đầy đủ trước khi lưu/phát hành.
+
+### 5.2. Trạng thái game
+
+```text
+Ready → StartRide → Riding ↔ Paused
+Riding → va chạm → Falling (văng/trượt theo vật lý)
+Falling + không bị đuổi lúc té → té xong → GameOver
+Falling + đang bị đuổi lúc té → nằm chờ CSGT tới → Arrested → Jailed
+Riding + CSGT bắt được → Arrested → Jailed
+GameOver/Jailed → RestartRide → ResetRide + StartRide
+
+Luồng được giữ nhưng đang khóa:
+Riding chưa có việc → ShowJobOffers → Paused + JobOffersOpen
+Paused + JobOffersOpen → AcceptJob → Riding + Pickup
+```
+
+Không còn Recovering hoặc LivesRemaining cho người chơi. `CrashDuringPursuit` chốt trạng thái đuổi lúc bị tông, `RiderFallComplete` đánh dấu đã té xong. CSGT/NPC vẫn có phục hồi riêng.
+
+`IsChased`, `IsTurning` và `WorkPhase` là các trạng thái bổ sung; không nên gộp tất cả vào một enum hoặc bỏ các kiểm tra hiện có mà chưa đánh giá ảnh hưởng.
+
+Pause chủ yếu được triển khai bằng `State`, không phải luôn đặt `Time.timeScale = 0`. `Update` vẫn chạy để đọc nút/menu, xử lý chạm chọn việc và một số phần giao diện/cảnh vật. Timer gameplay mới phải được gắn với đúng trạng thái; không giả định mọi `Time.time` hoặc `Update` sẽ tự đứng lại khi `State == Paused`.
+
+### 5.3. Thứ tự quan trọng
+
+`Awake` cấu hình world text, âm thanh, CSGT và `ResetRide`. Reset tạo seed mới, xóa chuyến chưa hoàn thành/khách, đặt lại thành phố và đường, hành động/truy đuổi, xe nguy hiểm, giao thông, pool và camera; số dư Coin/kỷ lục đọc từ dữ liệu lưu.
+
+`Update` đọc bàn phím, swipe và chạy `TickRide` khi đang `Riding`, sau đó gọi `UpdateWork` kể cả khi menu việc đang pause. Ngoài ra xử lý chuyển cảnh ngã/bị bắt, thông báo, camera, tín hiệu và âm thanh.
+
+Thứ tự trong `TickRide(dt)` hiện là:
+
+1. Khi đang hỗ trợ đạp, chia dt thành các bước tối đa 10 ms, vẫn cộng đủ thời gian/quãng đường.
+2. `AdvanceDaylight`, `TickWorkMotion` (thoát ngay khi jobs tắt), timer hành động, `TickJump`, `TickBoost`.
+3. Cập nhật độ khó/cruise; cộng tốc độ bay +3 m/s, nhân W 2,25, giới hạn dịch vụ nếu có, `AssistedKickSpeed`, rồi `JobAcceptanceSpeedLimit`. **Không giới hạn riêng tốc độ cua.**
+4. Cộng Distance, scroll; nhập làn/độ nghiêng, `BeginOrContinueTurn` tiêu thụ đúng quãng đường, giữ độ cao nhảy, `TickAssistedKickMotion`.
+5. Lưu pose/vận tốc trước frame cho người chơi; `TickTrafficMotion` xử lý các loại xe, hồi phục, nhường và va chạm xe–xe.
+6. `ResolveJumpSurface` xác định nóc/đáp/rời mép, cập nhật hai hàng chờ cảnh báo xe vượt sau.
+7. `ResolveRiderContacts`: kiểm tra thân xe/cảnh vật với độ cao và thời điểm chạm; nếu đã té thì thoát.
+8. `TickAssistedKickContact`: chỉ bây giờ giải tiếp xúc giày, tránh đạp bỏ qua va chạm thân xe trước đó.
+9. Trừ timer xuất phát dịch vụ chỉ khi thực chạy, thu hồi xe, `TickChase`, pose đạp.
+10. `EndRouteFrame` thực hiện rebase nếu hết cua; khi không đang cua mới tick đợt xe sau cua, lịch giao lộ và sinh xe thường (tốc độ đợt nhân TrafficDensity).
+
+Nhánh `Falling` chạy vật lý té và điều hướng CSGT riêng, không khôi phục điều khiển lái cho người chơi.
+
+Thứ tự này giải thích vì sao chỉ sửa hình ảnh hoặc chỉ chặn một nhánh chuyển động không đủ để sửa lỗi xuyên xe.
+
+## 6. Tọa độ, pool và độ khó
+
+### 6.1. Hai hệ tọa độ khác nhau
+
+- **Hệ hiển thị Unity cục bộ:** sau đoạn đường thẳng, xe người chơi gần `z = 0`, đường nằm theo `+Z`, `X` là bề ngang, `Y` là độ cao. Thế giới và xe khác chuyển động tương đối với người chơi.
+- **Hệ thành phố logic:** `Vector2Int`/`Vector2` trong `CityNavigation`; hai thành phần tương ứng mặt phẳng phố, hướng `N/E/S/W`. Không phải trực tiếp `Transform.position` của scene.
+- Vận tốc đường thực của xe dọc `v.speed`; thay đổi vị trí tương đối thường là `(v.speed - Speed) * dt`. Xe ngược chiều có tốc độ âm.
+- Khi tính xung lực, dùng vận tốc đường thực (`BodyVelocity`/`motionVelocity`), không nhầm tốc độ scroll thành tốc độ vật lý.
+- `TrafficPaceSpeed = min(17 + DifficultyTime*0.12, 30)` là tham chiếu NPC độc lập W, nhảy, tốc độ áp sát và chaseBoost của người chơi. Giữ phép trừ `Speed` khi tính vị trí tương đối; đó không phải tăng ga NPC.
+
+Thông số nền:
+
+| Thông số | Giá trị |
+| --- | --- |
+| `LaneX` | `[-4.65, -1.55, 1.55, 4.65]` |
+| Module phố `VietnamStreet.Length` | 80 m |
+| Tâm ngã tư trong module nguồn | z = 70 m |
+| Bề rộng mặt đường/đường giao nhau | 14 m |
+| `DifficultyMultiplier` | 3 |
+| Tốc độ khởi hành/giới hạn đường thường | 17 / 30 m/s |
+| Tốc độ cua thường/cua muộn | giữ cùng công thức đường thẳng, không còn cap 10/8 |
+| W | nhân 2,25 trong 4 s; hồi 2 s sau hết/hủy |
+| Nhảy | vận tốc lên 14,6 m/s; trọng lực 22 m/s²; windup 0,24 s; hồi 2 s |
+| Khung mô phỏng từ Update | `min(Time.deltaTime, 0.05)` |
+
+### 6.2. Ngẫu nhiên và tái sử dụng xe
+
+`ResetRide` tạo `RunSeed` mới bằng `Guid.NewGuid().GetHashCode()` và tránh trùng seed lượt ngay trước. `rng` điều khiển giao thông; việc/địa chỉ dùng RNG tách từ seed để giảm phụ thuộc giữa lựa chọn công việc và giao thông.
+
+Pool hiện có **28 xe giao thông**: 26 xe thường và 2 slot `eventOnly` cho quái xế/xe tải ngủ gật. Có 17 xe máy giao thông và 11 xe bốn bánh. Tài xế/CSGT không chiếm slot giao thông. Khách cũng là actor riêng.
+
+`SpawnTraffic` dùng đối tượng đang rảnh, lựa chọn ngẫu nhiên; `SpawnCrossTraffic` lọc silhouette xe máy/xe lớn rồi chọn ngẫu nhiên. Các lần spawn reset cờ phanh, đổi làn, ngã, FX, route và contact cooldown qua `InitializeDriver`. Xe được `RetireVehicle` đưa về pool khi ra khỏi vùng, đi hết đường nhánh hoặc xác xe đã đủ lâu.
+
+Không dời xe đang hoạt động để “lấy chỗ” cho xe mới. Các spawn đặc biệt/đợt sau cua kiểm tra chồng lấn với xe khác và CSGT; pool đầy thì thử lại hoặc bỏ lượt spawn đó.
+
+### 6.3. Độ khó hiện tại
+
+```csharp
+DifficultyTime = timeRiding * 3f;
+Difficulty01 = Mathf.Clamp01(DifficultyTime / 110f);
+cruiseSpeed = Mathf.Min(17 + DifficultyTime * .12f, 30)
+              + (IsChased ? chaseBoost : 0);
+```
+
+Vì vậy trên đoạn thẳng không bị dừng/cua, tốc độ tăng khoảng **0,36 m/s mỗi giây chơi**, đạt 30 m/s sau khoảng **36,1 giây**. Đây là kết quả tăng nhịp ban đầu gấp đôi rồi tăng thêm 50%; không nhân đôi/nhân 1,5 lại mỗi lần chỉnh tính năng khác.
+
+- Mỗi đợt thường có 1 xe; khi `DifficultyTime > 12` (hơn khoảng 4 giây chạy) có thêm xe thứ 2, lệch làn/vị trí.
+- Khoảng sinh đợt thường: `Lerp(2.5, 1.35, Difficulty01) * random(0.8, 1.2)`.
+- Mỗi giao lộ được đặt lịch 2, 3 hoặc 5 xe ngang theo mốc `DifficultyTime < 18`, `< 60`, hoặc cao hơn; tỷ lệ xe lớn/tốc độ ngang cũng tăng.
+- Trong **10 giây Riding đầu**, `TrafficDensity=0.5`: số mở đầu/xe ngang/đợt sau rẽ dùng `ceil(count*0.5)`, đồng hồ spawn thường chạy nửa tốc độ; xe nguy hiểm dùng chung đợt đó. Sau 10 s density=1.
+- Đứng phục vụ khách (khi được bật lại) không tăng timeRiding; pause không chạy tick đường/độ khó. Mốc này tách với sương sáu giây và chu kỳ ngày–đêm.
+- Các va chạm và xe lấn làn có thể làm đường bị chặn dù một đợt spawn không tự sinh kín cả bốn làn; không cam kết luôn tồn tại đường tránh an toàn ở mọi thời điểm.
+
+## 7. Giao thông, va chạm và luật thua
+
+### 7.1. Hành vi xe
+
+`TrafficVehicle` lưu model root, kích thước nửa thân, tốc độ/làn, vị trí trước, vận tốc thực, trạng thái phanh/đổi làn/rẽ, trạng thái ngã/xung lực, xe sự kiện, FX và thông tin đường cũ. Thêm trường mới phải xem cả spawn, reset, retire và rebase.
+
+`BeginSuddenBrake` chỉ áp dụng xe thường cùng chiều còn hoạt động; phanh khoảng 0,95–1,6 giây, mục tiêu gần 10% tốc độ nền với giới hạn tối thiểu, rồi tăng lại. Xe máy/ô tô/xe tải dùng chung hệ thống, đèn phanh gắn theo vị trí đuôi model.
+
+`BeginSuddenLaneChange` dùng SmoothStep: xe máy khoảng 0,52 s, ô tô 0,7 s, xe tải 0,9 s. Xe thường cùng chiều đổi giữa làn 2/3; xe ngược chiều có thể bước sang các làn 0–3, kể cả lấn sang người chơi. Hành vi được kích hoạt theo cooldown và tình huống xe song song, không phải một animation dịch chuyển tức thì.
+
+Xe ngang có khoảng 75% lựa chọn rẽ khi `trafficSurprises` bật; dùng cung tròn rồi chuyển về xe dọc, cập nhật chiều/làn/tốc độ. Xe dọc tới giao lộ có xác suất chọn rẽ riêng khoảng 68%, thực hiện qua `TryBeginRoadTurn`/`TickRoadTurn`; hết cua chuyển sang `routeDetached` để tiếp tục chuyển động ở nhánh/khung đường cũ.
+
+### 7.2. Xe nguy hiểm
+
+`MaybeSpawnReckless` vẫn dùng đợt xe thường. Hướng ngược chiều sinh xa phía trước; hướng vượt sau đi qua `QueueRearReckless` → cảnh báo → spawn. Mỗi đợt sau chỉ một xe và một làn 2/3. `MovingOncomingDanger`/`MovingRearDanger` chặn xe vượt sau mới khi xe nguy hiểm tương ứng vẫn đang chạy (chưa knocked/wallCrashed); chặn countdown trong cua/dừng dịch vụ, khi mở lại yêu cầu đủ 2 s. Không reset quy tắc để sinh bất ngờ ngay sau cua.
+
+Xe vượt sau sinh ngoài camera đúng làn đã báo; khoảng spawn bị chắn thì giữ làn/chờ, không chọn làn chưa cảnh báo. Tốc độ sinh/vượt/lạng dùng TrafficPaceSpeed và tham số NPC, không bám W của người chơi. Sau khi tới gần/vượt thì rời enteringFromBehind để lạng. `SpawnReckless` mức thấp phục vụ test/preview không thay cho hàng chờ gameplay. Xe ngược chiều vẫn sinh phía trước; hướng/nhịp lạng và lần đâm nhà được ngẫu nhiên hóa.
+
+`CheckBuildingImpact` xét biên mặt tiền khoảng `|x| + footprint >= 9.3`, đồng thời loại vùng ngã tư theo chu kỳ module 80 m. Xe đâm nhà chuyển thành xác xe, dừng chuyển động, có FX khói/lửa; model bốn bánh nhận hoạt ảnh va chạm tương ứng.
+
+### 7.3. Vật lý xe–xe
+
+Đây là mô hình gameplay tự viết, **không phải các xe đều dùng Rigidbody/WheelCollider/PhysX để quyết định di chuyển**. Không thêm một hệ Rigidbody thứ hai lên cùng root rồi để hai hệ cùng điều khiển transform.
+
+- `VehicleContact`: swept separating-axis test trên 4 trục thân xe, kiểm tra khoảng thời gian các hình chiếu thật sự cùng chồng lên nhau; có xét chiều cao để xe đang văng trên cao không tự va giả với xe dưới đất.
+- Kích thước thân đổi theo yaw; xe máy nằm có bề ngang chiếm chỗ lớn hơn lúc đứng.
+- Khối lượng quy ước: xe máy kèm người **220 kg**, ô tô **1.350 kg**, xe giao hàng **2.200 kg**, xe tải **4.500 kg**. `VehicleMass` còn dựa vào kích thước/tên model nên đổi tên xe tùy tiện có thể ảnh hưởng phân loại.
+- Xung lực dựa vào vận tốc tương đối, hướng pháp tuyến, khối lượng, điểm tác động và mô men quán tính. Hệ số nảy đang 0,18, ma sát va chạm 0,28.
+- Va lệch tâm tạo yaw/roll/pitch; có trọng lực, ma sát mặt đường và giảm xoay. Xe tải không bị xe máy bắn văng như cùng khối lượng.
+- Swept hit đưa xe về thời điểm chạm thay vì để xuyên nhau hết frame; có tách thân khi chồng lấn và cooldown cặp va chạm.
+- Trạng thái `knockFromPlayer` truyền ghi nhận dây chuyền từ cú đạp; các tai nạn tự phát không tự gọi CSGT.
+
+Không phải mô phỏng phá hủy/biến dạng vỏ xe liên tục. Hoạt ảnh cản/gương phản ứng theo hướng lực là phần hình ảnh riêng.
+
+### 7.4. Va chạm người chơi — hợp đồng bắt buộc
+
+`ResolveRiderContacts` quét vị trí tương đối, có yaw/chiều cao/thời điểm tiếp xúc; so cả xe và cảnh vật để chọn va chạm xảy ra trước. Tiếp xúc thân thật gọi `BeginRiderImpact`, chốt hướng/vận tốc/điểm tông và chuyển Falling; xe/người bị văng bởi xung lực, trọng lực, ma sát và spin. Va chạm nhanh/lệch tâm thay đổi độ xa và hướng té. Kết thúc chỉ sau khi té/trượt xong: không bị đuổi thì GameOver; đang bị đuổi thì nằm chờ bắt, không tự dựng xe. Không có ba mạng.
+
+Runtime còn các trường grace lịch sử nhưng **khi IsChased=true không được bỏ qua contact**. Cú đạp mới không dựa vào miễn va chạm để áp sát; đạp trúng phải kiểm tra giày và thân tách biệt. Đáp nóc hợp lệ được giải trước va chạm thân, dùng cùng thời điểm/hình bao cao để không coi đang đứng trên nóc là đâm vào xe. Không thêm miễn va chạm cho cả cú nhảy hoặc cả dịch vụ.
+
+`YieldRearForService` là nhường/phanh vật lý khi JobsAvailable=true, không bỏ ResolveRiderContacts. Hiện bị khóa cùng dịch vụ; chi tiết khoảng 22 m, hoạt ảnh và 2 s chạy lại ở mục 10.4.
+
+### 7.5. Hồi phục NPC và va chạm cảnh vật
+
+`PhoVietTrafficRecovery` ghi hướng/tốc độ/làn/hệ trục/đích rẽ trước xung lực đầu tiên. Va chạm mới đặt lại age. Sau 3 s, tìm làn trống đúng chiều, dựng 0,65 s rồi đi tiếp; đường rẽ lưu nối từ vị trí ngã tới đích cũ. Pose, vận tốc và đường phục hồi phải scroll/rebase cùng thế giới. Giữ slot đủ lâu để xe hồi phục; bị tông lúc đang dựng cũng phải nhận lực và reset timer. CSGT giữ cơ chế 1,2 s, không dùng hệ 3 s. Xe nguy hiểm wallCrashed nằm cháy không hồi phục.
+
+`PhoVietObstacleUpgrade` tạo 735 nhóm / 4.575 hộp nhẹ theo nhà, mái, biển, cây, bàn ghế, quầy, xe đậu và cột trên 5 road rows. `StreetObstacleSet` lưu hộp trong local của cụm; `PhoVietSceneryContacts` quét trong đúng hệ trục kể cả row đã xoay và xét cao để nhảy qua vật thấp. Cảnh vật đứng yên, chỉ xe/người văng; không gắn mesh collider/PhysX thứ hai cho toàn cảnh. Đây là số đã kiểm tra của cảnh hiện hành, cần tái kiểm sau dựng lại scene.
+
+## 8. Đạp, CSGT và cảnh bị bắt trong code
+
+### 8.1. Chọn mục tiêu và áp sát (1.30.3–1.30.5)
+
+`TryKick` đi vào `BeginAssistedKick` trong `PhoVietKickAssist.cs`; từ chối khi không Riding, service stopped, đang bay/đứng nóc/đang đạp hoặc cooldown. Chọn xe active, chưa ngã/cháy, halfWidth<=0,7 và cùng khoảng cao. Từ 1.30.5 **không loại crossing/đang rẽ**: áp dụng cả gần giao lộ khi người chơi đi thẳng, rẽ trái hoặc rẽ phải. Mỗi lần chọn một mục tiêu hợp lệ, không đạp diện rộng.
+
+Khoảng ngang lựa chọn 0,75–3,65 m là vùng có thể **tiến tới**, không phải tầm chân để hất ngay. Cùng chiều gần song song xét khoảng dọc ±2 m; ngược chiều/cắt hướng xét 0–16 m phía trước và đủ thời gian tiếp cận theo vận tốc tương đối. Ưu tiên quái xế trong mục tiêu an toàn. Dự đoán vị trí thân mục tiêu, yaw, vận tốc ngang và tiếp tuyến cung cua, có `KickTravelRatio` bù tiến độ khi đang lệch khỏi tâm quỹ đạo.
+
+Luồng **Approach → Swing → Return**. `AssistedKickSpeed` tăng tốc bắt kịp theo vận tốc dự đoán (bước tăng có giới hạn); cap dựa trên tối đa 2,25×TrafficPaceSpeed, không nhân chồng W. Tốc độ ngang tối đa 32 m/s, Swing 0,30 s, cooldown khởi tạo 0,8 s. Căn lại tốc độ trong Swing để xe không chạy thoát trước nhịp vung. CurrentLane giữ làn gốc; áp sát là offset riêng trong hệ hướng tài xế.
+
+### 8.2. Chạm giày, va chạm và trở về làn
+
+`BikeVisualAnimator` cache 65 mẫu gót/mũi cho mỗi chân từ clip KickLeft/KickRight Blender hiện có. `KickSwingPose` cấp cùng tiến trình Swing cho pose hiển thị và phép quét; không phát animation và lực bằng hai timer độc lập. Vùng thân xe hẹp loại khoảng rỗng quanh tay lái; giày có bán kính 0,08 m. Chỉ khi giày tới vùng thân trong cửa sổ Swing mới `KnockVehicle`, tăng KickCount và gọi CSGT nếu là xe thường. Hụt/hủy không có lực, không truy đuổi. Không tạo mới animation Blender cho ba bản sửa này.
+
+`TickRide` chia tối đa 10 ms khi hỗ trợ đạp; phép quét giày có bước nhỏ để không bỏ lỡ xe ngược chiều. Lối áp sát/quay về dùng hộp có hướng, dự đoán xe và cảnh vật, xét mục tiêu đang ngã nở hình bao dần. Thân xe được kiểm tra trước giày; không miễn va chạm. Nếu đường chắn hoặc mục tiêu đổi đường quá xa thì hủy, giữ/chờ lối về làn, không teleport/ép trúng. `spawnGeneration` ngăn hất nhầm slot pool đã được tái sử dụng.
+
+Trở về bắt đầu trong nhịp thu chân. MoveLane/nhảy/W/va chạm/bị bắt/dịch vụ có thể ngắt; pause giữ timer, reset xóa. Khi hết cua `RebaseAssistedKick` biến đổi offset/pose/điểm tiếp xúc, không xóa động tác giữa chừng. Xe ngã dùng độ rộng theo tiến trình té; độ nghiêng lái trước cú đạp không được nở hình bao hồi tố gây va chạm giả.
+
+### 8.3. Truy đuổi khi đang chạy
+
+Đạp trúng xe thường lần đầu `StartChase`; quái xế tự vệ không gọi mới/xóa cuộc đuổi đang có. CSGT bắt đầu khoảng 38 m sau; chaseBoost nền tăng 0,28 m/s/s tới 12 m/s. Tham chiếu NPC/CSGT không tự nhân theo W/áp sát. `ChoosePolicePath`/`PolicePathClear` dự đoán giao thông, chọn lối/phanh; `ResolvePoliceContact` vẫn xử lý xung lực và ngã 1,2 s. Cua dùng routeTrail/SampleRoute với kiểm tra quét; không nhảy qua xe để về sau người chơi.
+
+### 8.4. Khi người chơi đã té trong cuộc đuổi (1.30.2)
+
+`CrashDuringPursuit` chốt lúc va chạm. Sau khi té hoàn tất, người chơi nằm lại; không tự lái/nhảy/boost/đạp hoặc chạy tiếp. `PhoVietCrashPoliceNavigation.cs` ưu tiên đường thẳng nếu thoáng, nếu chắn lập **A* lưới 1,2 m**, lưu waypoint và có thể chạy tạm xa để vòng ra khỏi túi xe. Mỗi bước kiểm tra thân có yaw, vật cản và dự đoán xe di chuyển; cập nhật đường khi vật cản/mục tiêu thay đổi, scroll và rebase waypoint đúng hệ.
+
+Mục tiêu bắt là điểm có thể đứng quanh người té, không cố đi vào tâm đang nằm trong xe. Hỗ trợ hai nhánh mặt đường khi té giữa cua. Không có đường thì chờ tính lại, không xuyên/teleport/bắt từ xa bằng timer. CSGT té thì đợi dựng 1,2 s. Chỉ khi đã đứng dậy, người chơi té xong và khoảng cách thực <=2,2 m mới `Arrest` → `TickArrest` khoảng 1,1 s → `Jailed`. Jail là đối tượng riêng cùng scene; camera và ánh sáng riêng, có nút chơi lại.
+
+## 9. Đường vô tận, giao lộ và phép rebase
+
+### 9.1. Pool hình học
+
+`RoadRow` gồm một root và 7 module 80 m. Có **5 rows**, tổng 35 module đã chuẩn bị: đường chính, nhánh chuẩn bị và các phần đường cũ cần giữ khi rẽ. `blocks` trỏ tới 7 module của đường hiện tại; không liên tục Instantiate cả thành phố trong runtime.
+
+`ScrollRoutes` trượt đường ngược hướng xe; module qua phía sau được cộng lại 7 × 80 m để tái sử dụng. Giữ đồng bộ đường nhánh và `routeTrail` trong cùng phép scroll.
+
+### 9.2. Chọn rẽ và hình mũi tên
+
+- `CanTurnFromLane`: lane 0/1 rẽ trái, 2/3 rẽ phải. `SelectJunctionTurn` nhận chọn trước tâm 12–30 m khi xe đã gần tâm làn (<0,6 m).
+- Lệnh rẽ đã chọn được giữ; chuyển ra làn khác hủy lệnh. Ngoài vùng rẽ, thao tác tiếp tục là đổi làn.
+- Trong lòng giao lộ, NextJunctionDistance từ -7 đến +7 m: x<=-0,65 được rẽ trái, x>=+0,65 được rẽ phải. Chọn lane 0/1 hoặc 3/2 theo vị trí thực (mốc ±3,1), giữ số thứ tự sau cua.
+- Lệnh đã chọn trước bắt đầu tự cua khi gần khoảng **11,65 m** tới tâm và vẫn còn đúng làn.
+- Mũi tên là mesh riêng `PV_JunctionArrows16`, đặt ở độ cao nhỏ trên mặt đường. Vị trí trên hai nhánh được đẩy ra xa hơn để không đè lên vạch ngang. Không gộp mất mesh này khi chạy combiner.
+
+### 9.3. Cua và đổi khung tọa độ
+
+Cua đặt trước dùng Bézier bậc năm, tiếp tuyến và độ cong về 0 ở hai đầu nối đường thẳng; rẽ muộn dùng Bézier bậc ba nằm trong hợp mặt đường. Bảng độ dài cung **128 đoạn/129 mốc** đổi quãng đường sang tham số. Tick chia đúng phần đi thẳng trước vạch vào cua và phần qua cua ngay frame đầu; frame cuối giữ quãng dư tiến theo tiếp tuyến đường đích trước rebase. Không ép Speed về 8/10 hoặc hãm về điểm cuối. Camera theo delta thực, tăng bám theo tốc độ khi đang/vừa cua và theo độ cao nhảy. Cache TextMesh tên phố, chỉ đổi chữ khi cần; kết thúc cua xóa lean dư để không lắc một nhịp ở frame thẳng kế tiếp.
+
+`FinishJunctionTurn` không chỉ xoay camera. Nó tính phép quay ngược 90 độ và gốc mới, áp dụng cho:
+
+- Các row đường và module đang giữ.
+- Vị trí/hướng xe, vị trí trước, vận tốc ngã/vận tốc chuyển động, góc crash.
+- Các vector bắt đầu/hướng cua của NPC.
+- FX đang nằm ở đường cũ và offset của FX.
+- CSGT, góc ngã CSGT, camera và toàn bộ điểm/hướng trong trail.
+
+Sau đó chọn row mới thành đường chính, đưa tài xế về `z = 0`, giữ đúng `LaneX[CurrentLane]`, cập nhật heading/node thành phố và chuẩn bị giao lộ kế tiếp. Xe đang ở đường cũ tiếp tục theo `routeDetached`/`routeVelocity` thay vì bỗng quay theo đường mới.
+
+**Nếu thêm một đối tượng gắn với thế giới hoặc một vector vận tốc mới, phải quyết định nó có cần scroll/rebase không.** Chỉ đổi vị trí mà quên vị trí trước/vận tốc sẽ tạo xuyên xe, xung lực sai hoặc FX bay khỏi xe.
+
+### 9.4. Xe xuất hiện sau cua
+
+`QueueExitTraffic` chọn 3–5 xe sau và 3–5 ngược chiều ở mật độ đầy, đầu lượt áp TrafficCount làm tròn lên. Xe sau đi qua hàng chờ riêng từng lane 2/3, **báo đủ 2 s đúng lane**; countdown không tiêu trong cua/dừng dịch vụ, pause đóng băng, restart giải phóng xe chờ. Lane đang bị chiếm giữ cảnh báo/thử lại, không nhảy sang lane chưa báo. Model được reserve, spawn khác không được lấy slot đó. Thời hạn lập đợt 12 s; chỉ tăng số đã sinh khi tạo được xe, không tăng mật độ chỉ vì thêm cảnh báo. Xe thường và nguy hiểm cùng lane dùng một icon đỏ viền vàng, các chỉ báo nằm ngoài mép màn hình được giãn theo thứ tự để không chồng. Xe từ phía trước/ngang không dùng cảnh báo sau này. Tốc độ NPC lấy TrafficPaceSpeed, không lấy W hiện tại.
+
+## 10. Công việc, Coin, GPS và hành khách trong code — giữ lại nhưng khóa
+
+**1.30.6:** toàn bộ luồng mô tả tại đây hiện bị `JobsAvailable=false` chặn. Đây là tài liệu để bảo trì/mở lại sau yêu cầu người dùng, không phải tính năng đang xuất hiện. Chi tiết khóa ở mục 21.
+
+### 10.1. Dữ liệu và vòng đời
+
+`RideJob` chứa `pickup`, `dropoff`, `reward`, `pickupMetres`, `tripMetres`, `female`. `RideAddress` gồm:
+
+| Trường | Ý nghĩa |
+| --- | --- |
+| `node` | Đầu chuẩn của cạnh đường trên lưới |
+| `axis` | 0 = cạnh theo Bắc, 1 = cạnh theo Đông |
+| `offset` | Khoảng cách dọc cạnh 80 m |
+| `curb` | Phía lề cố định theo trục chuẩn, giá trị -1/+1 |
+| `Point` | Tọa độ logic điểm hẹn |
+| `CurbDirection` | Vector từ đường ra phía lề; khi đi ngược hướng, trái/phải theo người lái sẽ đổi đúng |
+
+```text
+None → hiện 3 việc / pause → AcceptJob → Pickup
+Pickup → đúng lề tại điểm đón → Boarding
+Boarding hoàn tất → Delivery + 2 giây thực chạy nhường phía sau
+Delivery → đúng lề tại điểm trả → Alighting
+Alighting hoàn tất → cộng Coin một lần + 2 giây xuất phát → None → bộ việc tiếp theo
+Thua giữa chuyến → dừng phục vụ, không cộng thưởng
+ResetRide → hủy chuyến/khách chưa hoàn thành
+```
+
+`RideJobsReleased=false` là khóa phát hành; `jobsEnabled=false` là cờ scene; `JobsAvailable` kết hợp cả hai. Bản hiện tại **phải tắt**, không bật lại trước build. Khi được cho phép mở lại: JobOffersOpen chặn pause thường mở nhầm menu; ReadJobTouch chạy từ UpdateWork cả khi menu đang Paused. Chỉ gán jobsEnabled=true không vượt được khóa phát hành.
+
+### 10.2. Sinh việc và tính thưởng
+
+`ShowJobOffers` tạo ba đề xuất ở các phạm vi gần/vừa/xa quanh vị trí logic; cố có một điểm đón tương đối gần phía trước nếu phù hợp. Các điểm được chọn ở offset cửa hàng **14; 22,4; 30,8; 39,2; 47,6; 56; 64,4 m** của cạnh đường. Offset này có tính phần dịch giữa tâm giao lộ logic và vị trí shop `4 + 8.4*n` trong module nguồn.
+
+Thử sinh lại để tránh hai điểm đón quá gần nhau và để hành trình chở không quá ngắn, có giới hạn số lần thử. Quãng đường tính bằng route thật trên lưới, gồm đoạn tới đón và đoạn chở khách, không chỉ khoảng cách thẳng giữa hai điểm.
+
+```text
+baseReward = 20 + 5 * floor(max(0, pickupDistance + tripDistance - 160) / 80)
+```
+
+Sau đó sắp các đề xuất theo tổng quãng đường tăng dần và đảm bảo mỗi mức thưởng sau lớn hơn mức trước ít nhất 5 Coin. Mức đã báo khi nhận là mức trả khi hoàn thành; đi vòng không tự làm tăng tiền của cùng chuyến.
+
+### 10.3. Tên phố cố định và tìm đường
+
+`CityNavigation` dùng các hướng `N, E, S, W`, node cách 80 m. Tên gắn vào trục `V:x` hoặc `H:y`, lưu dictionary trong lượt; `V:0` là Trần Hưng Đạo. Tên mới lấy từ `RouteNames`, hết danh sách thì dùng hậu tố nối dài.
+
+Vị trí logic tài xế:
+
+```text
+NavigationPosition = navNext * 80 - Directions[navHeading] * NextJunctionDistance
+```
+
+`Plan` ưu tiên đi trực tiếp nếu đích đang ở phía trước trên cùng cạnh hiện tại. Nếu không, tìm đường kiểu Dijkstra trên trạng thái **(node, hướng đang đi)**, mỗi bước được đi thẳng/trái/phải, không quay đầu 180 độ tại chỗ. Tính cả phần cạnh còn lại và phần cạnh tới điểm đích, rồi truy ngược cha để tạo `CityRoute.points`, `distance`, `nextTurn`.
+
+`PassCityJunction`, `TurnCityJunction`, `CityJunctionPrepared` đồng bộ khi đi thẳng hoặc kết thúc cua/rebase. Rẽ sai hướng hoặc bỏ qua lệnh rẽ gọi `ReplanJob` và tăng `Reroutes`. Lỡ chạy qua điểm đón/trả quá khoảng 4 m cũng tính lại vòng quay về. Địa chỉ khách không thay đổi.
+
+Hình học phố chỉ render bằng pool; lưới logic có thể mở rộng theo chuyến. Không nhầm hệ GPS này với NavMesh của Unity, bản đồ thật, tọa độ địa lý hoặc API dịch vụ bên ngoài.
+
+### 10.4. Dừng và hoạt ảnh khách
+
+`WorkSpeedLimit` bắt đầu giảm tốc trong khoảng 22 m nếu đang đúng trục và đúng làn lề. `TickWorkMotion` chỉ bắt đầu phục vụ khi đúng phía lề, ở gần điểm hẹn theo chiều dọc và vị trí x thực đã gần tâm làn. Chỉ đổi biến `CurrentLane` mà xe chưa chạy tới lề thì chưa đủ.
+
+Đón khách kéo dài khoảng **3,6 s**: 2,3 s đi từ mặt tiền ra cạnh xe, rồi 1,3 s chuyển tư thế/lên xe. Trả khách khoảng **3,2 s**: 0,9 s rời yên rồi 2,3 s đi về mặt tiền. Đây là đường đi/tween được script điều khiển, chưa phải AI đi bộ/NavMesh né mọi đồ vật cửa tiệm.
+
+Khi ngồi, khách được parent vào `rider`, local position **`(0, 0.16, -0.9)`**, dùng clip `Sit`; model FBX con được xoay 180 độ lúc tích hợp để hướng mặt đúng chiều. Hai model có bộ xương riêng, chỉ một root khách được bật cho một chuyến.
+
+`TryServiceApproach` dùng chung điều kiện với WorkSpeedLimit: đúng địa chỉ/đường/lề, khoảng tiếp cận 22 m. `ServiceRearProtected` bao phủ tiếp cận + Boarding/Alighting + 2 s thực sự chạy lại sau cả đón và trả; timer trừ ở cuối bước xe/va chạm, không hụt ngay frame kết thúc animation. `TrafficYieldActive` còn có cửa sổ nhận việc riêng 3 s.
+
+Xe thường/nguy hiểm/ngang/đang rẽ/bị hất văng đều đổi lane trống hoặc phanh; mỗi bước kiểm lại lane. `ServiceTrafficFootprint` gộp hình bao yaw cũ/mới, cả thân xe dài. `YieldRearForService` chặn toàn đoạn quét chuyển động tương đối và giữ yaw an toàn khi phanh, không chỉ sửa Z cuối frame. Giữ khoảng hở theo đầu xe (khoảng 2,6 m tới tâm tài xế khi thẳng), kiểm lại sau va chạm dây chuyền. Rider pose trước frame phải cập nhật trước AI để không bị quét sai. `HoldCrossTrafficForService`/phanh khẩn cấp giữ xe cắt ngang trước điểm dừng. Không tắt collision hoặc cho xe trước tăng tốc theo W để né. Tất cả đều bị JobsAvailable khóa trong 1.30.6.
+
+### 10.5. Lưu tiền và giọng chỉ đường
+
+- Coin: khóa PlayerPrefs **`PhoViet.Coins.v1`**, mặc định 0.
+- Kỷ lục: khóa **`PhoViet.BestMetres.v1`**.
+- Chỉ nhánh hoàn tất `Alighting` mới cộng `ActiveJob.reward`, gọi `PlayerPrefs.Save`, xóa chuyến và khách; cộng có chặn tràn `int`.
+- `FormatCoins` dùng `InvariantCulture` và `N0`, đảm bảo dấu phẩy đơn vị nghìn dù ngôn ngữ hệ điều hành khác.
+- Lượt/chuyến đang làm không được lưu để khôi phục sau đóng game; số dư và kỷ lục mới là dữ liệu lưu cục bộ hiện tại.
+- Đây không phải ví online/chống gian lận; xóa dữ liệu trình duyệt/đổi origin/profile có thể mất hoặc thay dữ liệu lưu.
+
+Ba file `left.mp3`, `right.mp3`, `straight.mp3` trong `Assets/PhoViet/Audio/Navigation` đã tạo với giọng nữ `vi-VN-HoaiMyNeural` bằng edge-tts 7.3.1, được gắn vào scene. Runtime không cần mạng/TTS key. Xem `README.md` trong chính thư mục âm thanh để tái tạo; không commit `.tools` đã cài tạm.
+
+`UpdateNavigationVoice` tính giây còn lại bằng khoảng cách/tốc độ hiện tại: stage đầu <=4 s, nhắc <=2 s, khóa node/hướng/lệnh/phase chống lặp và không xếp hàng lời cũ. `TurnSoonAfterStraight` bỏ Đi thẳng nếu sắp có rẽ trong 4 s; tới trực tiếp điểm hẹn quá gần cũng bỏ. `SpeakNavigation` dùng AudioSource riêng có mute/pause và kiểm tra JobsAvailable trước cả tạo source. `NavigationRoute`/`NavigationMapPosition`/`NavigationMapDirection`/`NavigationRemainingDistance` dùng đường preview ngay khi commit cú rẽ; thành phố logic chỉ tiến node một lần lúc FinishJunctionTurn, tránh chậm >1 s hoặc tiến node hai lần.
+
+## 11. Model, rig, animation và quy trình Blender → Unity
+
+### 11.1. Những bộ model đã dựng lại bằng Blender MCP
+
+| Bộ | Model/source | Kỹ thuật |
+| --- | --- | --- |
+| Xe máy + người lái **(v2, gần như thật, 19/10/2026)** | HeroScooter (tay ga trắng), CityScooter (tay ga, người lái nữ), Underbone (xe số), SportBike, Racer (côn tay), TrafficPolice | 6 thiết kế, 17 xương/mẫu, 7 clip, 3 LOD (khoảng 25–32k / 11–14k / 4,3–5,4k tam giác), atlas 32 ô; thân người một khối remesh, skin 2 xương. Xem `Captures/VERIFICATION_BIKES_V2.md` |
+| Xe bốn bánh | Sedan, Hatchback, Taxi, DeliveryVan, BoxTruck, DrowsyTruck | 6 thiết kế, 15 xương/mẫu, 7 clip, 3 LOD, một material atlas/mẫu |
+| Phố | 12 shop, 3 cây, 1 module vỉa hè | Mesh tĩnh 3 LOD, dùng chung palette 128 px; chữ/mái che được bảo vệ khi giảm chi tiết |
+| Khách | PassengerMale, PassengerFemale | 14 xương/mẫu, 4 clip, 3 LOD, một palette material/mẫu |
+
+Xe máy có vỏ cong, lốp/mâm/phanh/giảm xóc/động cơ/pô, gương/đèn/biển số; người có mặt, mắt, mũ, trang phục và chi tiết áo/sao. Mô tô CSGT có kính/túi hông và nhận diện riêng. Xe lớn có hốc bánh, kính, gương/gạt mưa, lưới tản nhiệt, thùng hàng, gân/cửa/bản lề/khóa.
+
+Trong scene có **33 `BikeVisualAnimator`**: 19 actor gameplay tính cả người chơi và CSGT, 14 xe đậu có animator ở dãy nguồn. Xe đậu nhân bản ở các nhánh được bake tĩnh để tránh nhân toàn bộ skeleton/animator; không hiểu 33 là tổng mọi hình xe máy được render trên cả 35 module. Có **11 `CarVisualAnimator`** trên các xe bốn bánh giao thông.
+
+Tam giác ví dụ: HeroScooter v2 **31.818 / 14.318 / 5.408**; DrowsyTruck **23.503 / 10.340 / 3.760**. Khách nam **4.688 / 2.338 / 1.091**, khách nữ **5.084 / 2.541 / 1.160**. Xem JSON metadata từng xe và `catalogue.json` của phố/khách để lấy số chính xác cho từng mẫu.
+
+### 11.2. Source chỉnh sửa và điểm vào tái tạo
+
+| File trong `ArtSource/Blender/` | Script | Hàm tái tạo |
+| --- | --- | --- |
+| `PhoViet_Motorcycles.blend` | **`pho_viet_motorcycles.py`** (v2; `pho_viet_bikes.py` chỉ còn là thư viện helper cho các script khác, `rebuild_all()` cũ sẽ đưa xe về bản v1) | **`build_motorcycles()`** |
+| `PhoViet_Cars.blend` | `pho_viet_cars.py` | `build_all()` |
+| `PhoViet_Streets.blend` | `pho_viet_streets.py` | `build_streets()` |
+| `PhoViet_Passengers.blend` | `pho_viet_passengers.py` | `build_passengers()` |
+| `PhoViet_Jump.blend` | `pho_viet_jump.py` | Chạy script trên rig HeroScooter; xuất action + Resources/PhoVietJump.json |
+| `PhoViet_BoostSmoke.blend` | `pho_viet_boost_smoke.py` | Chạy script; volume Cycles → atlas RGBA 4 frame |
+| `PhoViet_WreckFire.blend` | `pho_viet_wreck_simulation.py` | `bake_simulation_atlases()` trong namespace riêng |
+| `PhoViet_DayNight.blend` | `pho_viet_day_night.py` | `build()` |
+| `PhoViet_MorningFog.blend` | `pho_viet_morning_fog.py` | `build()` |
+
+Các script gọi helper mesh/atlas/rig/FBX từ `pho_viet_bikes.py`. Biến `ROOT` hiện gắn đường dẫn máy Windows ở đầu script; chuyển máy phải cập nhật đường dẫn phù hợp **ở các script liên quan**, kiểm tra đường xuất trước khi chạy. Đơn vị tác giả là mét, có helper đổi trục Blender/Unity; không sửa scale/axis tùy ý để chữa một model lệch mà chưa kiểm tra cả import, clip và xương.
+
+Blender MCP đã được dùng để chạy Python trong Blender thật, tạo hình học, rig, action, LOD, material và xuất FBX; không phải chỉ tạo ảnh minh họa. Phiên làm trước dùng Blender 5.2 LTS; khi chuyển môi trường kiểm tra lại version/add-on. Không tự xóa toàn scene của người dùng: chỉ thay đối tượng/collection do các script sở hữu.
+
+Ví dụ nội dung gửi vào công cụ execute Python của Blender MCP, sau khi đã xác nhận đúng file/mô hình đang mở:
+
+```python
+source = r"C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Blender/pho_viet_passengers.py"
+exec(compile(open(source, encoding="utf-8").read(), source, "exec"), globals())
+build_passengers()
+```
+
+Lệnh rebuild có ghi đè tài nguyên do script quản lý. Lưu thay đổi thủ công cần giữ trước khi chạy. Sửa `.blend` nhưng chưa export FBX thì Unity chưa nhận hình mới; sửa script Python nhưng chưa chạy cũng chưa làm đổi model đang dùng.
+
+### 11.3. Clip và phân chia visual/gameplay
+
+| Bộ | Tên clip dùng trong Unity |
+| --- | --- |
+| Xe máy | `Idle`, `Ride`, `KickLeft`, `KickRight`, `FallLeft`, `FallRight`, `Recover` |
+| Xe lớn | `Idle`, `Drive`, `Brake`, `ImpactFront`, `ImpactRear`, `ImpactLeft`, `ImpactRight` |
+| Khách | `Idle`, `Walk`, `Board`, `Sit` |
+| Nhảy người chơi | `JumpTakeoff`, `JumpAir`, `LandBoth`, `LandFront`, `LandRear`; `JumpDemo` dùng xem thử Blender |
+
+Các importer dùng **Legacy Animation**, không phải Animator Controller/Mecanim. Controller script chọn clip, đặt normalized time, speed = 0 rồi `Animation.Sample` để khớp trạng thái gameplay. `BikeVisualAnimator`/`CarVisualAnimator` cập nhật visual trong `LateUpdate`; bánh được quay theo vận tốc thật, bánh trước xe lớn đánh lái theo chuyển hướng. Khi pause, pose/bánh được giữ.
+
+Root vật lý/pool là đối tượng ổn định. FBX/skin nằm ở model con. Animator chỉ thay bone/visual; không tự điều khiển root hay thay kích thước va chạm theo mesh mới. Hướng va chạm từ physics được chuyển sang hệ local của visual để chọn clip cản/gương đúng phía. Cú ngã/tiếp đất có hiệu chỉnh visual để không xuyên mặt đường; luật thua vẫn thuộc gameplay.
+
+Importer/upgrader giữ semantic objects như biển nguy hiểm, đèn ưu tiên và các tham chiếu cần thiết. Cần giữ tên xương mà code đang tìm, ví dụ `WheelFront`, `WheelRear`, các xương chân xe máy; xe lớn có `Body`, `BumperFront`, `BumperRear`, `WheelFL/FR/RL/RR`, `SteerFL/FR/RL/RR`. Đổi tên xương/clip phải sửa và kiểm tra importer/controller/tests cùng lúc.
+
+### 11.4. Phố, mái hiên, biển hiệu và cây
+
+`PhoVietStreetUpgrade.ConfigureFactories` nối `ShopFactory`, `TreeFactory`, `PavementFactory` của `VietnamStreet` sang FBX Blender. Khi các factory này hoạt động, hình học shop/cây/vỉa hè fallback cũ không phải bộ cảnh quan đang render.
+
+- Shop đặt theo mặt tiền quay vào đường; chữ tiếng Việt được dựng vào hình học của bảng hiệu, không còn bảng quay chéo lấn qua tiệm bên cạnh.
+- Mái hiên gồm các dải vải **kín, có độ dày**, kề nhau, cả mái và phần rủ; các dải được bảo vệ khỏi decimation. Phải xem cả mặt trên/dưới và LOD xa sau chỉnh sửa.
+- Toàn bộ chậu cây trang trí dưới lề/trên ban công đã bỏ khỏi 12 shop; không xóa cây đường vì yêu cầu này.
+- Ba cây dùng lá nhọn có mặt gấp/độ dày, màu/hướng biến thiên, gân ở mức gần; thân/cành/nhánh/rễ vẫn có hình học. Số lá **864 / 432 / 216** ở ba LOD, không quay lại dùng các quả cầu ở LOD xa.
+- Vỉa hè có gạch/bó vỉa/rãnh; runtime ánh sáng/fog/bóng do Unity quản lý theo profile/optics/density tạo từ Blender, không còn ánh sáng tĩnh đơn giản. PV_StreetAtlas.mat giữ PV_StreetPalette.png rực rỡ; cài lại ánh sáng không thay palette phố bằng màu nhạt.
+- Các bản sao chia sẻ mesh/material; tổng scene có 35 module và 1.260 nhóm LOD cảnh quan theo bộ kiểm tra hiện tại. Điều này không thay cho đo FPS trên điện thoại thật.
+
+World text cho bảng tên đường dùng `WorldStreetText.mat` và shader **`PhoViet/World Street Text`**, có depth test/fog để không vẽ xuyên nhà. HUD vẫn dùng font Be Vietnam Pro; sao HUD được vẽ bằng texture 5 cánh tự tạo để không phụ thuộc ký tự font trên WebGL. Khói boost dùng texture volume bake, lửa/khói wreck dùng atlas mô phỏng; có shader riêng WreckFlame/SoftParticle, xem mục 20. Waypoint có Solid shader vát khối; DayNightSky/OpticalLight/MorningFog phụ trách trời, vùng đèn và sương.
+
+### 11.5. Tích hợp lại art đúng cách
+
+Thoát Play Mode trước khi lưu nâng cấp scene. Các menu thường dùng:
+
+- `Phố Việt/Art/Configure Blender bike imports`.
+- `Phố Việt/Art/Replace all motorcycles with Blender models`. Với xe máy v2 dùng `AgentScripts/UpgradeBikesV2.cs` → `UpgradeBikesV2.Main`: gọi menu này, tạo lại 14 xe đậu vỉa hè và bake lại `Generated/RouteParked_*.asset` từ LOD1.
+- `Phố Việt/Art/Replace all four-wheel vehicles with Blender models`.
+- `Phố Việt/Routes/Install connected junction roads`.
+- `Phố Việt/Art/Install Blender streets`.
+- Khách: chạy `AgentScripts/UpgradePassengers.cs` → `UpgradePassengers.Main` hoặc gọi `PhoVietPassengerUpgrade.UpgradeOpenScene()` trong editor script.
+
+Không chạy toàn bộ các menu trên theo thói quen cho một thay đổi nhỏ. Có menu tái tạo cả dãy đường/model con; đọc phạm vi trước, giữ GUID `.meta`, xem diff scene và kiểm tra references. `PhoVietBuilder.Combine` đã có ngoại lệ cho skeleton, LOD, đèn/mũi tên và phần chuyển động; không gộp toàn bộ skinned mesh thành mesh tĩnh chỉ để giảm draw call.
+
+Unity có thể chưa cập nhật GPU skin trong đúng frame vừa `Animation.Sample`. Khi chụp pose, chuẩn bị pose rồi chờ một frame editor thật trước khi render/chụp; hoặc dùng `SkinnedMeshRenderer.BakeMesh` để xác nhận biến dạng. Đã từng cần cách này để tránh ảnh đứng sai pose dù bone/clip đã đúng.
+
+## 12. GUI, camera, cảm ứng và fullscreen
+
+`OnGUI` dùng `GameGuiArea` và GUI.matrix: menu ngang theo thiết kế 1440×900, dọc rộng 480. HUD ngang có scale riêng `min(area.width/1280, area.height/420)`. Hit-test phải dùng đúng ma trận HUD, đổi touch dưới-trái sang GUI trên-trái, trừ safe area và chia scale; không dùng ma trận menu cho nút HUD.
+
+- **Hiện tại jobs tắt:** `PhoVietDistanceHud` vẽ dọc cao 76 ở y=10, thông báo y=92 cao 28; ngang rộng 640 cao 76 y=18, thông báo y=100 cao 26. Có đường/mét/tốc độ/kỷ lục/pause, ngang thêm âm thanh. Không Coin, mạng, GPS hoặc ô Chưa có chuyến. Nền thanh alpha 0,64; thông báo 0,70, chữ vàng. Ellipsis đo theo font để tên dài không chồng.
+- Bố cục được giữ cho khi jobs bật: dọc 96 ở y=10, map 80×80, notice y=112; ngang 1000×76 chứa tất cả, map 60×60. Không còn hai thẻ HUD/GPS riêng cỡ lớn. Dọc bỏ cả ba ô điều khiển dưới cùng. Bản đồ vẫn dùng GUI.BeginGroup để clip các nét và vẽ các tuyến ngang/dọc; không xoay GUI.matrix làm map tràn ô.
+- `HudButtonAt`, `ApplyHudTap` và `GameplayPointerAllowed` dùng kích thước thanh theo JobsAvailable; thu hẹp HUD cũng thu hẹp vùng chặn cử chỉ. Marker job không đổi vị trí thông báo xuống giữa cảnh trong layout mới.
+- Notice chỉ một dải xanh đậm bo góc/chữ vàng; bỏ các dải route, ngược chiều, reckless, phanh, truy đuổi xanh/đỏ riêng. Mũi tên báo xe sau vẫn có chức năng riêng tại mép dưới.
+- Web HUD dùng pointer bridge ApplyHudTap; bỏ IMGUI compatibility-mouse xử lý lần hai. Native giữ mouse/GetTouch. Pause/âm thanh nhận đúng một lần, cả tap ngắn giữa hai frame.
+- `PhoVietWelcome` dùng thẻ trắng trong alpha 0,93, viền/bóng nhẹ, tiêu đề xanh đậm và đỏ; kích thước dọc 432×258, ngang 360×276 trong tọa độ GUI. WelcomeStartRect dùng chung vẽ/hit-test; không còn thẻ vàng lớn cũ.
+
+**Cử chỉ 1.27.1:** app.js bắt pointerdown/move/up/cancel trực tiếp, pointer capture; khoảng vuốt theo cạnh ngắn CSS canvas, không theo chiều rộng hay DPR. Ngang >0,075 cạnh ngắn; dọc >0,12 và rõ dọc (>1,3 lần ngang). Nhận ngay khi move đủ ngưỡng, một pointer một lệnh; WebGL tắt polling Input touch/mouse trùng. `ApplyBrowserGesture` nhận phase/id/action/x/y/at, kiểm finite/bounds và timestamp gốc. Begin từ HUD/paused không thể hóa gameplay sau đổi State. Cancel khi blur/visibility/rotation/restart/pause/mất capture hoặc canvas resize. Double tap dùng timestamp gốc nên hai tap chung frame vẫn phân biệt; cửa sổ thực xem RegisterTap, không nới để chiều software-renderer.
+
+**Camera dọc:** `PortraitWorldScale=.75*.70=.525`, công thức `2*atan(tan(65°/2)/.525)` ≈101,017°. Đây là giảm kích thước chiếu 25% ở 1.19, thêm 30% ở 1.27.2; game vẫn phủ kín màn hình, không scale nhỏ canvas. Cả bốn làn được giữ trong nhìn; camera bám độ cao khi nhảy, góc/camera cua theo tốc độ và delta thực. Camera jail riêng.
+
+**Icon vector:** nguồn `ArtSource/Web/pho-viet-app-icon.svg`, không ảnh nhúng/font ngoài. `AgentScripts/GenerateWebIcons.cjs` + sharp xuất PNG 192/512, maskable 512, Apple opaque 180; icon-moto-* URLs dùng trong manifest/favicon/Apple, tên legacy cũng giữ cùng artwork. Mẫu PV monogram không phát hành; icon minh họa raster 1.18 ban đầu đã thay. iOS có thể giữ icon cũ của mục Home Screen đã cài, không đồng nghĩa gameplay còn cũ.
+
+### 12.1. Phân chia trách nhiệm web/Unity
+
+| Lớp | Xử lý |
+| --- | --- |
+| `Assets/WebGLTemplates/PhoVietPWA/index.html` | Canvas, loader config, viewport/meta, UI web, hướng dẫn |
+| `style.css` | Khung nhìn động, immersive canvas, toolbar/menu nổi, safe-area probe, bố cục trang |
+| `app.js` | Khởi tạo Unity, fullscreen/install, resize/orientation/visibility, gửi insets/pause, trạng thái offline |
+| `PhoVietWebRuntime.cs` | Nhận insets chuẩn hóa, tính vùng HUD, pause từ web, ký tự GUI, chất lượng đồ họa mobile |
+
+`app.js` dùng `visualViewport`, `innerWidth/innerHeight`, CSS env safe-area và các lần sync sau xoay máy. Chế độ immersive đặt vùng game phủ viewport; chỉ HUD/nút nhận inset. iOS standalone có xử lý riêng khi `visualViewport.height` trừ safe area. Không ép canvas theo kích thước màn hình vật lý vì iPad split view/cửa sổ có thể nhỏ hơn màn hình.
+
+DPR cấu hình hiện chặn tối đa **1,5 trên thiết bị pointer coarse**, **2 trên desktop**. Inset gửi theo tỷ lệ viewport, tránh sai khi canvas render ở DPR khác CSS. Trong WebGL player tắt HDR; mobile giảm shadow distance còn 45, bóng thấp, không cascade, MSAA 2 để nhẹ hơn.
+
+Cầu nối JavaScript đang gọi tên root chính qua `SendMessage`:
+
+```javascript
+window.phoVietInstance.SendMessage(
+  'PHỐ VIỆT • Chuyến xe không ngừng',
+  'PauseForBrowser'
+);
+```
+
+`ApplyBrowserInsets` nhận JSON left/top/right/bottom chuẩn hóa và có kiểm tra giá trị. Các hàm bridge có `[Preserve]` khi cần. Đừng bỏ bridge vì trong Editor chưa thấy tác dụng; lỗi safe area/fullscreen thường chỉ lộ trên web.
+
+Fullscreen native cần thao tác người dùng và tùy hỗ trợ trình duyệt. iOS Safari quản lý thanh trình duyệt/status bar; “cảnh phủ viewport” không đồng nghĩa code có thể ép mọi phiên bản iOS ẩn toàn bộ thanh hệ điều hành. Người dùng đã cho biết các ảnh lỗi lề cũ chụp từ biểu tượng Home Screen trên iPhone 13 Pro Max; **chưa có phiên bản iOS chính xác** trong thông tin bàn giao.
+
+## 13. Kết nối Unity CLI/MCP và Blender MCP
+
+### 13.1. Unity
+
+Package dự án: `com.unity.pipeline` **0.8.0-exp.1** trong `Packages/manifest.json`. Unity CLI trên máy lúc lập tài liệu: **1.0.0-beta.13**. Lần kiểm tra read-only cho tài liệu thấy một editor `ready`, project đúng thư mục, cổng **7800**; cổng/PID là thông tin phiên, phải kiểm tra lại khi mở máy khác.
+
+```powershell
+unity --help
+unity status --json
+unity list --json
+unity recompile --timeout 60 --json
+unity command editor_play --json
+unity command editor_stop --json
+```
+
+MCP stdio server có thể chạy bằng:
+
+```powershell
+unity mcp --project-path 'C:/Users/HP/Documents/GameUnity/Taixecongnghe'
+```
+
+Để biết cú pháp cấu hình agent hiện được CLI hỗ trợ:
+
+```powershell
+unity mcp --help
+unity mcp configure --list
+```
+
+CLI phân biệt **`claude` = Claude Desktop** và **`claude-code` = Claude Code CLI**. Không cấu hình nhầm client chỉ vì cả hai có chữ Claude. Lệnh cấu hình là thao tác thay đổi môi trường người dùng; tài liệu này chỉ mô tả, không tự cài/cấu hình Claude Code. Nếu Claude Code chưa có MCP thì vẫn có thể gọi Unity CLI từ shell sau khi được cài và kết nối đúng project. Không giả định cấu hình MCP của Codex sẽ tự chuyển sang Claude Code.
+
+Kiểm tra nhanh không thay đổi scene:
+
+```powershell
+unity command eval 'var g=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>(); return new {state=g.State.ToString(),g.Coins,g.BestDistance,g.jobsEnabled,g.JobsAvailable};' --json
+```
+
+Chạy editor script có entry point static:
+
+```powershell
+unity command run_script --file AgentScripts/VerifyDistanceMode.cs --entry VerifyDistanceMode.Main --timeout_ms 120000 --timeout 130 --json
+```
+
+JSON có nhiều tầng: thành công của lệnh transport không có nghĩa script kiểm tra đã đạt. Với `run_script`, đọc **`data.result.success`**, `data.result.errorDetails` và kết quả thực bên trong **`data.result.result`**. Nếu terminal trả session đang chạy, chờ xong rồi mới chạy lệnh Unity phụ thuộc tiếp theo.
+
+`eval` phù hợp truy vấn ngắn; những việc import, SaveAssets, nâng cấp scene hoặc kiểm tra dài dùng `run_script` với timeout rõ ràng. Không chạy nhiều mutation Unity đồng thời trên cùng editor. Không mở thêm editor batchmode vào cùng project đang bị editor khác khóa.
+
+Build 1.30.6 có 0 lỗi/3 cảnh báo đã biết: Pipeline thiếu RuntimePipelineConfig (công cụ Editor), dragging và hudTouchChoice không được đọc trong nhánh WebGL dùng DOM bridge. Không coi mọi warning mới là cùng loại. CLI/MCP là công cụ phát triển, không cần runtime plugin hoạt động trong game web.
+
+### 13.2. Blender MCP
+
+Claude Code cần có kết nối Blender MCP riêng tới add-on đang bật trong Blender, hoặc được người dùng thiết lập; repo không tự cấp kết nối MCP cho agent khác. Kiểm tra trạng thái/scene trước khi chạy Python; xem lại model bằng viewport/render sau khi dựng.
+
+Ở phiên dựng trước, một số yêu cầu handshake metadata add-on có thể không tương thích phiên bản tool dù thực thi Python vẫn hoạt động. Xác nhận bằng thao tác đọc scene thực tế; không tự nâng cấp/cài lại add-on hoặc xóa scene để “chữa kết nối”. Cần hỏi người dùng nếu phương án thay đổi môi trường chưa chắc chắn.
+
+Python chạy trong Blender, không phải Python ngoài shell có sẵn `bpy`. File export Unity là FBX đã lưu trong Assets; không phụ thuộc việc Unity phải mở `.blend` bằng Blender khi import. Giữ nguồn `.blend` ở ArtSource để tránh phụ thuộc Blender auto-import trên máy người nhận.
+
+## 14. Kiểm tra và bằng chứng đã có
+
+Các `AgentScripts/Verify*.cs` là script kiểm tra điều khiển trực tiếp scene, nhiều script dùng reflection và mô phỏng các tick. Chúng **không phải toàn bộ đều là NUnit Test Runner**; chỉ chạy `unity test` sẽ không tự thay thế hết hệ kiểm tra này.
+
+**Bằng chứng hiện hành 1.30.6:** 8 suite/946 điều kiện Unity đạt, 26 local WebGL và 26 live WebGL đạt; xem `Captures/VERIFICATION_DISTANCE_MODE.md` và `distance-*-results.json`. Đã xem ba ảnh HUD native dọc/mobile ngang/desktop; Coin 105 và record 1.775 m được khôi phục trong phiên kiểm tra đó (không phải số dư mặc định người chơi).
+
+| Suite 1.30.6 | Điều kiện |
+| --- | ---: |
+| VerifyDistanceMode | 31 |
+| VerifyQuickKick | 62 |
+| VerifyJunctionKick | 216 |
+| VerifySmoothTurns | 468 |
+| VerifyJump | 44 |
+| VerifyBoost | 35 |
+| VerifyCrashOutcome | 51 |
+| VerifyGestures | 39 |
+
+1.30.5 trước khi jobs tắt đã chạy 21 suite/5.121 điều kiện, gồm VerifyRoofRiding 2.304 điều kiện từ 576 cú nhảy thực, VerifyTruckJump 69, BoostTrafficIsolation 478, CrashPoliceNavigation 214, các suite dịch vụ/va chạm/cử chỉ/art. Không cộng dồn số các bản để gọi là số test độc lập.
+
+**Lịch sử 1.14:** 1.335 assertion trong 17 suite; bảng bên dưới là snapshot lúc đó, không phải kết quả mới hoặc hướng dẫn bật công việc.
+
+| Suite | Assertion đã ghi nhận | Phạm vi |
+| --- | ---: | --- |
+| `VerifyGameplay` | 23 | Vòng chơi, điều khiển, recycle, phố/ngôi sao |
+| `VerifyCrossTraffic` | 28 | Xe ngang, lịch giao lộ, tốc độ/độ khó |
+| `VerifyPursuit` | 39 | Đạp, dây chuyền, tự vệ, truy đuổi/bị bắt |
+| `VerifyReckless` | 120 | Quái xế/xe tải, hai chiều, lạng, va nhà/FX |
+| `VerifyTrafficDynamics` | 82 | Phanh, làn, rẽ, va chạm vật lý |
+| `VerifyRearRandomPolice` | 60 | Vào từ sau, seed/random, CSGT né/ngã |
+| `VerifyRiderContacts` | 45 | Quét va chạm mọi loại xe, luật thua khi truy đuổi |
+| `VerifyBikeArt` | 156 | Rig/clip/LOD/bánh/đạp/ngã và giữ root; từ v2 kỳ vọng `SkinQuality.Bone2` |
+| `VerifyCarArt` | 204 | 11 xe lớn, hướng impact, bánh/phanh, pool/FX |
+| `VerifyMobileCamera` | 8 | Camera dọc đủ 4 làn, có/không truy đuổi |
+| `VerifySafeArea` | 9 | Inset HUD, toàn cảnh, vùng touch hợp lệ |
+| `VerifyJunctionRoutes` | 92 | Rows, mũi tên, cua, rebase, camera, CSGT |
+| `VerifyJunctionRefinements` | 105 | Mũi tên không chồng, rẽ muộn, xe sau cua |
+| `VerifyRoadDrivers` | 45 | NPC rẽ và xe ngược chiều lấn làn |
+| `VerifyStreetArt` | 186 | Phố Blender, chiều mặt tiền/biển, LOD/cảnh quan |
+| `VerifyJobs` | 116 | 100 tình huống route và chuyến thật đón/trả/tiền/lưu |
+| `VerifyJobEdges` | 17 | Sai đường giữ đích, đúng lề, khách/LOD, nhường xe, timer/pause/cua và thua |
+
+**Chú ý từ 1.30.6:** scene/jobs release gate phải tắt. Các suite jobs/JobEdges/ServiceApproach/ServiceRearYield và browser JobWeb cũ đòi công việc bật sẽ không phù hợp khi chạy nguyên trạng. Không tự mở lại để làm test pass. Chỉ sau khi được người dùng yêu cầu mở lại mới bật hai cờ và chạy hồi quy dịch vụ. VerifyBoost/VerifyGestures đã có nhánh theo RideJobsReleased: khi tắt kiểm tra lời gọi công việc không cản boost/swipe, khi bật giữ kỳ vọng dịch vụ. Các suite va chạm cũ phải đọc kỳ vọng hiện tại, không dùng số mạng hoặc cấm đạp crossing cũ.
+
+`VerifyMobileCamera` yêu cầu Game View dọc thật. Dùng `GameViewSetup.Portrait` rồi đợi cập nhật kích thước trước khi gọi; `GameViewSetup.Wide` để trả về ngang. Lỗi “Requires portrait Play Mode” là thiếu điều kiện thử, không phải bằng chứng camera/game đã hỏng.
+
+Các bài test thay PlayerPrefs/timescale phải bảo toàn và khôi phục giá trị trước thử. Không xóa toàn PlayerPrefs của người dùng để đưa Coin/kỷ lục về 0 cho đẹp ảnh.
+
+### 14.1. Kiểm tra trình duyệt
+
+| Script | Kết quả bản 1.14 | Nội dung |
+| --- | --- | --- |
+| `AgentScripts/VerifyWeb.cjs` | 36 kiểm tra | HTTP, manifest/icons, cache, khởi động WASM, keyboard/touch, xoay máy, offline, lỗi runtime |
+| `AgentScripts/VerifyJobWeb.cjs` | 8 kiểm tra | Click/chạm nút việc thật trên canvas, đổi từ menu sang GPS, layout và xoay |
+| `AgentScripts/VerifyPublishedGame.cjs` | 26 live ở bản hiện hành; 22 ở 1.14 | So version/cache và nội dung tài nguyên deploy với docs, WASM/start/pause/lỗi |
+| `AgentScripts/VerifyFullscreen.cjs`, `VerifyFullscreenGame.cjs` | Có trong repo | Kiểm tra layout/fullscreen riêng; xem script và báo cáo tương ứng trước dùng |
+
+Các script browser dùng Node + Playwright; một số dùng `sharp`, Chrome channel và software WebGL flags. Máy mới cần cài dependency/browser phù hợp; `node_modules` không nằm trong repo. Script có thể dùng version kỳ vọng hardcode; khi tăng version, cập nhật đúng các chỗ kiểm tra tương ứng chứ không xóa kiểm tra.
+
+Trong automation, touch quá nhanh có thể đi qua giữa hai frame Unity software-rendered. Các smoke đã dùng touchStart → giữ ngắn → touchEnd để mô phỏng chạm thực. Không thay test chạm bằng `SendMessage('AcceptJob')` rồi tuyên bố nút cảm ứng đã hoạt động.
+
+### 14.2. Báo cáo và ảnh cần xem
+
+- [Báo cáo 1.14 công việc/GPS/Coin](Captures/VERIFICATION_JOBS.md), các `jobs-*-results.json`, `jobs-web-results.json`, `jobs-web-ui-results.json`, `jobs-live-results.json`.
+- [Xe máy và người lái Blender](Captures/VERIFICATION_BLENDER_ART.md).
+- [Xe bốn bánh Blender](Captures/VERIFICATION_CAR_ART.md).
+- [Rẽ và mạng đường hình học](Captures/VERIFICATION_JUNCTION_ROUTES.md), [sửa giao lộ](Captures/VERIFICATION_JUNCTION_REFINEMENTS.md).
+- [Cảnh quan Blender](Captures/VERIFICATION_STREET_UPGRADE.md), [mái hiên/lá cây/chậu cây](Captures/VERIFICATION_FABRIC_LEAVES.md).
+- [Full màn hình](Captures/VERIFICATION_FULLSCREEN.md), [Web/PWA](Captures/VERIFICATION_WEB_PWA.md).
+- [Luật va chạm người chơi](Captures/VERIFICATION_RIDER_CONTACT.md), [thua khi truy đuổi](Captures/VERIFICATION_PURSUIT_LOSS.md).
+- Các báo cáo `VERIFICATION_CROSS_TRAFFIC`, `TRAFFIC`, `RECKLESS`, `DROWSY`, `ONCOMING`, `REAR_RANDOM_POLICE`, `PURSUIT` ghi các bước triển khai trước đó.
+- Ảnh lịch sử khi công việc còn bật: [3 công việc desktop](Captures/jobs-web-desktop-offers.png), [GPS điện thoại](Captures/jobs-web-phone-gps.png), [khách nam](Captures/passenger-male-seated.png), [khách nữ](Captures/passenger-female-seated.png).
+
+Các kiểm tra điện thoại/iOS bằng browser profile là **mô phỏng layout/cảm ứng**, chưa phải thử trên phần cứng iPhone/iPad/Android thật. Chưa xác nhận FPS, nhiệt máy, mọi phiên bản iOS, âm lượng/gesture audio và thanh hệ thống trên mọi thiết bị. Không tuyên bố đã test máy thật chỉ từ tên profile Playwright.
+
+## 15. Build WebGL và phát hành GitHub Pages
+
+### 15.1. Cấu hình đang dùng
+
+`PhoVietWebBuild.Configure()` đặt:
+
+- Template `PROJECT:PhoVietPWA`.
+- Gzip + decompression fallback, tên file theo hash.
+- Một luồng, `threadsSupport = false`, vì Pages không cấp các isolation header cần cho shared-memory threads.
+- `wasm2023 = false` để giữ dải tương thích Safari của dự án.
+- Bộ nhớ khởi đầu 128 MB, tối đa 512 MB.
+- `dataCaching = false`, vì service worker phiên bản hóa chịu trách nhiệm cache thay vì hai cache độc lập.
+- Phiên bản hiện 1.30.6; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
+
+Hậu xử lý build tạo `precache.json`, `build-info.json`, `sw.js` đã thay mã cache và `.nojekyll`. Cache là 16 ký tự hex từ SHA-256 nội dung tài nguyên, không gán tay để làm giả một lần build mới.
+
+### 15.2. Quy trình phát hành
+
+1. Kiểm tra Git/scene đúng, lưu thay đổi cần giữ và thoát Play Mode trước chỉnh scene/build.
+2. Chạy kiểm tra phù hợp thay đổi, đọc lỗi compile/scene/runtime, xem hình nếu thay art/GUI.
+3. Khi tăng version, đồng bộ ít nhất `PhoVietWebBuild.cs`, `AgentScripts/ConfigureWebRelease.cs`, kỳ vọng trong `VerifyWeb.cjs`/`VerifyFullscreenGame.cjs`, README và `PlayerSettings.bundleVersion` qua configure.
+4. Cấu hình rồi build WebGL từ Unity đang mở hoặc batchmode độc lập; chờ kết quả thành công thật, không coi trạng thái `queued` là đã build xong.
+5. Sao chép toàn bộ output cuối sang `docs`, xóa các file hash build cũ không còn trong output; giữ shell và binary cùng phiên bản.
+6. Chạy server HTTP và kiểm tra local/offline/touch/layout trên chính thư mục `docs` sẽ publish.
+7. `git diff --check`, xem staged files, commit source/asset/scene và docs đã kiểm tra; không kéo các chỉnh sửa khác chưa liên quan vào commit.
+8. Push `main`, chờ đúng workflow Pages cho đúng SHA thành công.
+9. Kiểm tra live bằng `VerifyPublishedGame.cjs`; version/cache và nội dung tài nguyên phải khớp artifact local.
+10. Lưu báo cáo và kết quả; trả Unity về trạng thái dễ chơi, khôi phục dữ liệu người dùng và dừng server kiểm tra cục bộ.
+
+**Trước commit tính năng/sửa lỗi:** cập nhật `huongdan.md` cùng source, bao gồm trạng thái đang chờ phát hành. Khi publish xong cập nhật bằng chứng SHA/run/cache/live; không để tài liệu nói chưa phát hành mãi. Không rebuild Unity cho thay đổi tài liệu đơn thuần.
+
+Ví dụ CLI đã dùng:
+
+```powershell
+unity command run_script --file AgentScripts/ConfigureWebRelease.cs --entry ConfigureWebRelease.Main --timeout_ms 60000 --timeout 70 --json
+unity command build --target WebGL --outputPath Builds/WebGL --confirm true --json
+unity command build_status --json
+```
+
+`build_status` có thể chứa báo cáo rất dài. Khi chỉ cần trạng thái, chọn các trường `status`, `buildId`, `result`, `totalErrors`, `totalWarnings`, `buildTimeMs`. Kết quả 1.14 cuối: `build_754073c7acfe`, Succeeded, **`buildTimeMs = 247744` (tương đương 247,744 giây)**, 0 lỗi, 1 warning Pipeline đã nêu.
+
+Hoặc dùng Unity batchmode ngoài một editor đang khóa cùng project:
+
+```powershell
+& 'C:/Program Files/Unity/Hub/Editor/6000.5.6f1/Editor/Unity.exe' -batchmode -quit -projectPath 'C:/Users/HP/Documents/GameUnity/Taixecongnghe' -executeMethod PhoViet.Editor.PhoVietWebBuild.Build -logFile 'Builds/webgl-build.log'
+```
+
+Tạo thư mục log/output nếu chưa có. Thời gian build phụ thuộc thay đổi và cache; không cam kết mọi lần đều mất đúng thời gian báo cáo.
+
+Ví dụ copy và dọn **chỉ file trong `docs/Build` đã xác minh đường dẫn**, không xóa cả workspace:
+
+```powershell
+Copy-Item -Path 'Builds/WebGL/*' -Destination docs -Recurse -Force
+$publishBuild = (Resolve-Path 'docs/Build').Path
+foreach ($file in Get-ChildItem -LiteralPath $publishBuild -File) {
+    if (-not (Test-Path -LiteralPath (Join-Path 'Builds/WebGL/Build' $file.Name))) {
+        if ($file.DirectoryName -ne $publishBuild) { throw 'Unexpected build path' }
+        Remove-Item -LiteralPath $file.FullName
+    }
+}
+```
+
+Nếu chỉ sửa CSS/JS/manifest, `PhoVietWebBuild.RefreshWebShell()` có thể cập nhật shell từ một build tốt rồi tính cache lại. Hàm này hiện copy một danh sách file cụ thể; sửa `index.html` hoặc tài nguyên ngoài danh sách phải đọc/điều chỉnh đúng quy trình. **Sửa C#/FBX/scene/âm thanh phải build lại**, không dùng refresh shell để bỏ qua WASM/data cũ.
+
+### 15.3. Chạy kiểm tra web
+
+Chạy server ở một terminal, các lệnh Node ở terminal khác. Máy người nhận tự chọn Python/Node đã cài; không phụ thuộc đường runtime riêng của Codex.
+
+```powershell
+python -m http.server 8765 --bind 127.0.0.1 --directory .
+```
+
+```powershell
+node AgentScripts/VerifyWeb.cjs http://127.0.0.1:8765/docs/ handoff
+node AgentScripts/VerifyPublishedGame.cjs https://denispham1107.github.io/taixecongnghe/ handoff-live
+```
+
+Nếu Playwright/sharp không ở `node_modules` thông thường, cấu hình `NODE_PATH` tới thư mục package đã cài. Dùng cùng môi trường mạng cho server localhost và Chrome; đã có trường hợp shell sandbox mở server nhưng Chrome ngoài sandbox không truy cập được. Không sửa code game để chữa lỗi kết nối localhost của môi trường kiểm tra.
+
+Các file `Captures/browser-*.json/png` bị gitignore. Muốn lưu bằng chứng phát hành vào Git, copy kết quả đã kiểm tra sang tên có nghĩa như `jobs-web-results.json`; không chỉ báo “pass” mà không lưu bằng chứng khi cần bàn giao.
+
+### 15.4. GitHub/PWA
+
+Workflow `.github/workflows/pages.yml` chạy khi push `main` có thay đổi `docs/**` hoặc chính workflow. Nó kiểm tra artifact, upload `docs`, deploy bằng GitHub Pages. Nó **không biên dịch Unity từ source**. Chỉ push C# mà không build/copy docs thì người chơi trên web vẫn chạy bản cũ.
+
+`AgentScripts/GitHubProject.ps1` có mode `Inspect`, `EnablePages`, `Status`; dùng Git Credential Manager trong process. Không in token, không đưa credential vào tài liệu/repo, không chạy `EnablePages` lại khi chỉ cần đọc trạng thái.
+
+Service worker dùng cache theo scope và hash build. Cài cache mới chỉ thành công khi tải đủ tài nguyên, lỗi thì xóa cache chưa hoàn chỉnh. Không `skipWaiting` cưỡng bức thay binary giữa lượt; bản cũ có thể còn được dùng đến khi các tab/app cũ đóng. Sau khi activate mới dọn cache phiên bản cũ cùng scope.
+
+Nếu người dùng vẫn thấy bản trước, kiểm tra `build-info.json`, trạng thái worker và việc đóng/mở lại ứng dụng; không khuyên xóa toàn dữ liệu ngay vì có thể xóa Coin/kỷ lục. Browser có thể thu hồi cache khi thiếu dung lượng, nên offline không phải bảo đảm dữ liệu tồn tại vĩnh viễn.
+
+## 16. Các mốc công việc đã làm
+
+| Mốc | Công việc đã triển khai | Chỗ tra thêm |
+| --- | --- | --- |
+| Nền game | Scene phố Việt, tài xế đỏ sao vàng, xe máy/ô tô hai chiều, lane input, camera sau, va chạm/thua, âm động cơ, HUD và kỷ lục | `VERIFICATION.md`, source gốc/builder |
+| Giao lộ/nhịp độ khó | Xe ngang hai phía, tăng tốc/tần suất theo thời gian, tăng nhịp gấp đôi rồi thêm 50% | `VERIFICATION_CROSS_TRAFFIC.md` |
+| Đạp và truy đuổi ban đầu (phím đã đổi) | Space lúc đó/double tap, ngã theo hướng, domino, CSGT, boost truy đuổi và buồng giam | `VERIFICATION_PURSUIT.md` |
+| Quái xế/xe tải | Xe lạng/húc, ngược/cùng chiều, tự vệ không gọi CSGT, cháy/khói khi đâm nhà; bỏ timer 20 s | `VERIFICATION_RECKLESS/DROWSY/ONCOMING.md` |
+| Giao thông bất ngờ | Phanh, đèn phanh, tạt làn, xe ngang rẽ, physics theo khối lượng/xung lực | `VERIFICATION_TRAFFIC.md` |
+| Spawn/random/CSGT | Xe nguy hiểm vào từ sau camera; đổi seed/mẫu/lịch mỗi lượt; CSGT né, phanh, ngã 1,2 s | `VERIFICATION_REAR_RANDOM_POLICE.md` |
+| Web/PWA | Đưa source lên GitHub, build WebGL, Pages, install desktop/Android/iOS, offline, trình tải/hướng dẫn | `VERIFICATION_WEB_PWA.md` |
+| Fullscreen mobile | Sửa lề/crop, immersive viewport, safe-area HUD, camera dọc và xoay máy | `VERIFICATION_FULLSCREEN.md` |
+| Luật truy đuổi trước 1.28 (đã thay thế) | Lúc đó va xe đang bị đuổi thua ngay; hiện phải té xong nằm chờ CSGT bắt thật | `VERIFICATION_PURSUIT_LOSS.md` |
+| 1.8 | Dựng lại toàn bộ bộ xe máy/người lái bằng Blender MCP, rig/7 clip/3 LOD, giữ gameplay roots | commit `0a61dce` |
+| 1.9 | Dựng lại 6 mẫu xe bốn bánh và thay 11 actor, rig/va chạm/bánh/LOD | commit `812dcb9` |
+| 1.10 | 16 mũi tên, đường nhánh thật, rẽ 90 độ, camera/rebase, CSGT theo quỹ đạo | commit `97e4051` |
+| 1.11 | Dời mũi tên khỏi crosswalk, rẽ muộn trong giao lộ và đợt 6–10 xe sau cua | commit `21e2e1c` |
+| 1.12 | NPC dọc rẽ, xe thường ngược chiều lấn làn, dựng lại shop/cây/vỉa hè bằng Blender và sửa biển hiệu | commit `1a8cd82` |
+| 1.13 | Sửa vải mái hiên mọi LOD, xóa chậu cây, dựng lá cây riêng | commit `954f72f` |
+| 1.14 | Job/Coin/GPS/grid tên phố/giọng nữ/khách nam nữ/đón trả/nhường xe/touch chọn việc | commit `1cd602d`, báo cáo `92c64f2` |
+| 1.15.0 — xe máy v2 của Claude Code | 6 mẫu xe/người, tay ga trắng, skin 2 xương; đã build/push/Pages, không còn trạng thái chỉ source 1.14 | `cb95f85` art, `6c5b8df` build; `VERIFICATION_BIKES_V2_WEB.md` |
+| 1.16.0 | Ẩn hamburger mobile, một notice vàng/xanh, nửa mật độ 10 s đầu, nhường 3 s sau nhận việc, GPS báo 4/2 s | `33c58e0`; `VERIFICATION_MOBILE_REFINEMENTS.md` |
+| 1.17.0 (lịch sử) | Vật lý té theo góc/tốc độ và ba mạng; nhánh ba mạng/hồi phục người chơi sau đó đã bỏ ở 1.28 | `d7067a3`; `VERIFICATION_RIDER_LIVES.md` |
+| 1.18.0 | Điểm hẹn trong tầm nhìn, GPS đổi route ngay khi cua; ban đầu icon raster | `cd73911`; `VERIFICATION_WAYFINDING.md` |
+| 1.18.0, revision vector | Thay raster bằng SVG xe máy chính diện + sao + đường, xuất cả bộ icon/PWA | `4c5ba84`; `VERIFICATION_VECTOR_LOGO.md` |
+| 1.19.0 | HUD dọc gộp, trong nhẹ; bỏ ba ô dưới; FOV cho vật thể nhỏ 25% | `c5cb133`; `VERIFICATION_COMPACT_PORTRAIT_HUD.md` |
+| 1.20.0 | HUD ngang gộp, mũi tên waypoint khối vát và pointer bridge HUD | `3253dd1`, `b6cab56`; `VERIFICATION_LANDSCAPE_HUD_3D_WAYPOINT.md` |
+| 1.21.0 | Hàng chờ một xe nguy hiểm vượt sau, báo 2 s đúng lane, chờ xe nguy hiểm đang chạy va chạm; nhường lúc trả khách | `be3feaa`; `VERIFICATION_REAR_WARNING_SERVICE.md` |
+| 1.22.0 | Cảnh báo 2 s cho cả xe thường vượt sau, reserve slot từng lane và không chồng icon | `d540734`; `VERIFICATION_ORDINARY_REAR_WARNINGS.md` |
+| 1.23.0 | Animation nhảy Blender, quỹ đạo/tiếp đất/chạy nóc xe nhỏ; phím lúc đó Q, độ cao thấp hơn hiện tại | `3d4c80e`; `VERIFICATION_JUMP.md` |
+| 1.24.0 (tham số cũ) | Boost E +75%/4 s/hồi 3 s và volume khói trắng Blender; phím/tham số đã đổi ở 1.25 | `a6dab40`; `VERIFICATION_BOOST.md` |
+| 1.25.0 | Space nhảy, Q đạp, W +125%/4 s/hồi 2 s; hai làn giữa thêm nhánh sơn và được rẽ/giữ lane | `bf03269`; `VERIFICATION_INNER_TURNS_CONTROLS.md` |
+| 1.26.0 | Nhảy cao 4,844 m, chạy nóc mọi xe tải đứng thẳng, rơi thật từ thùng xuống cabin | `09af0ba`; `VERIFICATION_TRUCK_JUMP.md` |
+| 1.27.0 | NPC tự dựng sau 3 s, đúng hướng/đích rẽ cũ; vật cản tĩnh; lửa/khói Mantaflow bake | `61ff435`; `VERIFICATION_CRASH_RECOVERY_FIRE.md` |
+| 1.27.1 | Ngưỡng vuốt theo cạnh ngắn, nhận tại pointermove, không chờ release, chống mất/trùng lệnh/rotation | `1d4a9c6`; `VERIFICATION_MOBILE_GESTURES.md` |
+| 1.27.2 | Camera dọc xa thêm 30% so với 1.27.1, world scale 0,525 | `93d2500`; `VERIFICATION_PORTRAIT_ZOOM30.md` |
+| 1.28.0 | Bỏ ba mạng/tự dựng người chơi; té thường hết lượt, té khi bị đuổi nằm chờ bắt vào tù | `22a50e3`; `VERIFICATION_CRASH_OUTCOME.md` |
+| 1.28.1 | Cua bậc năm/arc length, giữ tốc độ và quãng dư, camera bám nhanh khi boost; xóa lean dư | `bcb52e6`, bản cuối `212b334`; `VERIFICATION_SMOOTH_TURNS.md` |
+| 1.29.0 | Nắng trắng/ngày đêm 30+30 s, đèn xe/LED/sky Blender, thẻ mở đầu trắng nhỏ | `8f4be7a`; `VERIFICATION_DAY_NIGHT.md` |
+| 1.29.1 | Giữ nắng trắng nhưng trả palette nhà/vỉa hè/cây rực rỡ, bảo vệ khi cài lại ánh sáng | `10f71ad`; `VERIFICATION_STREET_COLORS.md` |
+| 1.29.2 | Tăng đèn đường, dành 2 nguồn sáng gần; đèn pha theo pose nhảy bằng world-to-light | `19fdea8`; `VERIFICATION_NIGHT_JUMP_LIGHTING.md` |
+| 1.29.3 | Nhường toàn bộ dịch vụ và 2 s thực chạy sau cả đón/trả, không hụt frame chuyển phase | `bec8d73`; `VERIFICATION_SERVICE_REAR_YIELD.md` |
+| 1.30.0 | Sương volume Blender sáu giây đầu/tan hết, theo thế giới/độ sâu và tắt chi phí sau đó | `4013767`; `VERIFICATION_MORNING_FOG.md` |
+| 1.30.1 | Nhường ngay lúc giảm tốc 22 m, quét cả thân/yaw cũ mới và xe bị đẩy, không chỉ chỉnh Z cuối | `1bd65b2`; `VERIFICATION_SERVICE_APPROACH.md` |
+| 1.30.2 | A* tìm đường tới điểm bắt quanh người té, vòng túi xe, không bị kẹt vô hạn do steering cục bộ | `e8691d2`; `VERIFICATION_CRASH_POLICE_NAVIGATION.md` |
+| 1.30.3 | Approach/Swing/Return, giày chạm mới hất, đúng chân, trở về lane và hủy nếu chắn | `a2ee4e1`; `VERIFICATION_KICK_CONTACT.md` |
+| 1.30.4 | Áp sát tăng tốc nhanh, ngang 32 m/s/Swing 0,30 s; TrafficPaceSpeed tách mọi NPC khỏi W | `e96fd6e`; `VERIFICATION_FAST_KICK_BOOST_ISOLATION.md` |
+| 1.30.5 | Đạp crossing/xe rẽ ở giao lộ khi đi thẳng/trái/phải; quét đáp nóc xe chuyển động, hai bánh và rời mép giữa frame | `539ca1e`; `VERIFICATION_JUNCTION_KICK_ROOF.md` |
+| 1.30.6 hiện hành | Khóa toàn bộ công việc/khách/GPS/Coin HUD, chỉ thi mét/kỷ lục, giữ tiền và mã để mở lại theo lệnh | `23941b1`, proof `98c3ed3`; `VERIFICATION_DISTANCE_MODE.md` |
+
+Không duy trì mỗi phiên bản như một nhánh gameplay độc lập. Bản 1.30.6 kế thừa art/cơ chế hiện hành và tạm khóa jobs; ba mạng/phím cũ/cua hãm tốc/va xe đang bị đuổi GameOver ngay là lịch sử đã thay thế.
+
+## 17. Giới hạn hiện tại và điểm dễ làm sai khi phát triển tiếp
+
+1. **Nguồn/bản build khác nhau:** sửa Assets không tự cập nhật docs hay Pages. Kiểm thử source pass chưa đồng nghĩa đã phát hành.
+2. **Scene có tham chiếu serialize:** giữ `.meta`, Generated, imported model/material/clip; không xóa rồi tạo mới tùy tiện khiến GUID đổi.
+3. **Play Mode không phải scene đã lưu:** thay Inspector/lưu asset cần đúng Edit Mode; đừng chỉ sửa instance trong Play rồi báo đã lưu.
+4. **Builder lịch sử chưa tự cài đủ jobs:** đọc mục 5.1; không dùng nó để vô tình đưa game về state trước 1.14 hoặc reset version.
+5. **Root và visual:** không đổi root vật lý/pool khi chỉ nâng cấp art, không để animation root motion chạy song song với code di chuyển.
+6. **Rebase:** bất kỳ vị trí cũ, vận tốc, hiệu ứng hay actor mới gắn thế giới đều phải xem logic scroll/cua. Địa chỉ GPS logic không nên bị xoay trực tiếp theo transform hiển thị.
+7. **CSGT:** không xuyên xe/teleport/bắt từ xa. Người chơi té khi bị đuổi nằm chờ cảnh sát tới bắt; không GameOver ngay, không tự dựng. Dùng navigation A* đã sửa, không quay lại steering cục bộ dễ mắc kẹt.
+8. **Công việc đang khóa:** không tự bật lại. Mã nhường đã bao trùm tiếp cận/khách lên xuống/2 s chạy lại; không tắt collision hoặc xóa traffic để che lỗi nếu được mở lại sau này.
+9. **Pause:** đừng chặn toàn bộ Update đến mức không nhận được chạm chọn việc/tiếp tục; timer phải gắn đúng State/WorkPhase.
+10. **Tên phố:** `PickStreet`/`visitedStreets` cũ vẫn có trong file Routes, nhưng `PrepareBranches` hiện dùng `GridJunctionStreet`; không nối lại `PickStreet` làm GPS mất địa chỉ cố định.
+11. **Pots/fallback:** code fallback hình học ban đầu có thể còn chi tiết khác FBX hiện tại. Muốn thay cảnh đang chơi, kiểm tra factory/scene thực; không suy luận chỉ từ hàm fallback.
+12. **Blender → Unity:** kiểm tra axis, normals, scale, FBX take/clip, xương trái/phải trong world space, LOD, material và pose sau một frame. Không “sửa” bằng scale âm mà bỏ qua animation/collision.
+13. **Cảnh phố và khách:** phố là modular lặp lại; tên/toạ độ logic cố định trong lượt không có nghĩa đã lưu một bản đồ thế giới độc nhất với từng đồ vật qua mọi lượt. Khách đi bằng script, không có AI đông người đi bộ.
+14. **Vật lý:** đang là mô hình gameplay đơn giản hóa, không phải giả lập giao thông/biến dạng hoàn chỉnh; chưa có bảo đảm giải được mọi đống xe chặn đường.
+15. **Kinh tế:** mã nhận Coin/lưu số dư còn giữ nhưng hiện khóa cùng jobs. Chưa có cửa hàng tiêu Coin/nâng cấp/thanh toán/tài khoản/ví máy chủ/đồng bộ đa thiết bị.
+16. **Khôi phục lượt:** không lưu chuyến đang chạy, thành phố/seed và toàn traffic để resume sau đóng game; chưa có save-game toàn cảnh.
+17. **Nền tảng:** hiện ưu tiên WebGL/PWA; không tuyên bố APK/IPA/native app đã build. Bản Windows trong Builds nếu còn chỉ là output cục bộ, không mặc định là bản mới nhất.
+18. **Chất lượng thiết bị thật:** chưa xác nhận mọi iOS/iPadOS, FPS, nhiệt, RAM hoặc thời lượng pin; cần thử phần cứng thực khi có yêu cầu cụ thể.
+19. **MCP không tự đi theo repo:** cấu hình agent, Unity CLI/Blender add-on, Node/Python và credential thuộc máy người dùng; không sao chép cấu hình cá nhân chứa bí mật để bàn giao.
+
+## 18. Quy trình Claude Code tiếp tục làm cùng Codex
+
+### 18.1. Bắt đầu một phiên làm việc
+
+1. Đọc tài liệu này, yêu cầu mới nhất của người dùng và `git status --short`/branch/remote. Đọc `AGENTS.md` hoặc hướng dẫn dự án nếu có thêm về sau.
+2. Xác định scope và những gì chưa chắc chắn; nếu dưới 90%, hỏi phương án trước khi làm phần đó.
+3. Mở đúng scene, kiểm tra Unity CLI/MCP đang trỏ đúng project; không dùng port/PID cũ như hằng số.
+4. Xác định source file + scene/asset bị ảnh hưởng, kiểm tra trạng thái đang Play/Edit và các chỉnh sửa chưa commit.
+5. Nếu nhiều agent/công cụ cùng làm, phân công file rõ ràng và báo cho người dùng; không cùng lúc sửa scene hoặc chạy mutation vào cùng Unity/Blender. Không tự spawn/nhắn một agent khác nếu chưa được cho phép theo môi trường làm việc.
+6. Thực hiện thay đổi nhỏ đúng phạm vi, giữ các hợp đồng gameplay nêu trên. Đọc lại Git diff trước khi sửa cùng partial class hoặc shared scene; thống nhất người phụ trách import/build/scene với người dùng nếu hai công cụ đang cùng chạy.
+7. Chạy kiểm tra phù hợp, xem ảnh/render nếu có thay hình, rồi mới build/deploy khi phạm vi đã được người dùng cho phép.
+8. **Bắt buộc cập nhật huongdan.md trong cùng lần sửa/thêm chức năng**, gồm sửa mục cũ và thêm chi tiết mới: yêu cầu/quyết định, hành vi, file/hàm/tham số/asset/scene, kiểm tra/bằng chứng, build/version/cache/SHA/run/live nếu đã có; nếu chưa xong/chưa publish phải nói rõ. Không đợi người dùng nhắc, không chỉ ghi ở README/report riêng.
+9. Báo rõ thay gì, vì sao, kiểm tra/source/commit/push/Pages và hạn chế. Nếu người cùng làm đã sửa huongdan.md, đọc lại rồi gộp phần bổ sung, không ghi đè nguyên file từ bản cũ.
+
+### 18.2. Gợi ý chọn nhóm kiểm tra theo thay đổi
+
+| Thay đổi | Nhóm nên ưu tiên |
+| --- | --- |
+| Va chạm/movement | Gameplay, RiderContacts, TrafficDynamics, CrossTraffic, Pursuit, RearRandomPolice |
+| Rẽ/rebase | SmoothTurns, JunctionKick, RoofRiding, RoadDrivers, RiderContacts, CrashPoliceNavigation; Jobs chỉ khi được cho phép mở lại |
+| Jobs đang tắt | VerifyDistanceMode, Boost/Gestures nhánh khóa; kiểm tra không sinh menu/GPS/khách và giữ Coin |
+| Job/GPS/Coin sau yêu cầu mở lại | Jobs, JobEdges, ServiceApproach, ServiceRearYield + JobWeb; kiểm tra lại cờ và layout |
+| Đạp/boost/nhảy/nóc | QuickKick, KickContact, JunctionKick, BoostTrafficIsolation, Boost, Jump, TruckJump, RoofRiding |
+| Té/CSGT/hồi phục NPC | CrashOutcome, CrashPoliceNavigation, CrashUpgrade, TrafficDynamics |
+| Ngày–đêm/đèn/sương | DayNight, StreetColors, NightJumpLighting, MorningFog + ảnh theo mốc thời gian |
+| Xe máy/xe lớn | BikeArt/CarArt + collision/pursuit + ảnh pose/collision thật |
+| Cảnh quan/mái hiên/cây | StreetArt, JunctionRoutes, hình LOD/mặt trên dưới, kiểm tra browser mobile |
+| HUD/mobile/fullscreen | Gestures, VerifyDistanceMode, camera/safe area và ảnh dọc/ngang; JobWeb cũ không dùng khi khóa jobs |
+| PWA/build/deploy | VerifyWeb trên docs, trạng thái đúng workflow SHA và VerifyPublishedGame |
+
+Không cần rebuild/deploy WebGL chỉ vì sửa chính tài liệu bàn giao. Ngược lại, thay gameplay/art mà muốn cập nhật bản người chơi phải đi hết chuỗi source → build → docs → deploy → live check.
+
+### 18.3. Nội dung có thể gửi kèm cho Claude Code
+
+> Hãy đọc toàn bộ `huongdan.md` tại gốc dự án và `git status` trước khi sửa. Game Phố Việt đã phát hành WebGL/PWA **1.30.6**: hiện **chỉ thi quãng đường/kỷ lục, công việc/GPS/khách/Coin HUD đang khóa**, chỉ mở lại khi tôi yêu cầu. Q đạp có áp sát/chạm giày thật, Space nhảy và chạy nóc, W +125%/4 s/hồi 2 s; rẽ giữ tốc độ và đúng số làn; mobile vuốt nhận ngay đủ ngưỡng. Không có ba mạng: té thường kết thúc sau té, té đang bị CSGT đuổi thì nằm chờ cảnh sát tới bắt rồi vào tù. Không ghi đè file Blender cục bộ, không dựng lại scene toàn bộ theo thói quen. Nếu chưa chắc 90% hãy đưa phương án và chờ tôi xác nhận phần đó. Phân chia file/công cụ rõ ràng khi làm song song với Codex; không cùng mutation Unity/Blender. **Mỗi lần sửa/thêm chức năng phải cập nhật đầy đủ huongdan.md ngay trong cùng công việc**, ghi hành vi/triển khai/tham số/kiểm tra và trạng thái source/build/Pages. Đọc lại tài liệu mới nhất trước khi lưu để không mất phần người khác bổ sung.
+
+
+## 19. Nhảy, nóc xe và boost — tham chiếu triển khai hiện hành
+
+### 19.1. Dữ liệu animation từ Blender
+
+`pho_viet_jump.py` chạy trong Blender thật trên `PV_HeroScooter_Rig`, tạo năm action JumpTakeoff/JumpAir/LandBoth/LandFront/LandRear, mỗi pha 61 mẫu, cùng JumpDemo để xem quỹ đạo đầy đủ. Lưu nguồn `PhoViet_Jump.blend` riêng, xuất bảng pose `Assets/PhoViet/Resources/PhoVietJump.json`. Không cần thay sáu FBX/17 xương/bảy clip Legacy cũ chỉ để thêm nhảy.
+
+`BikeJumpPose` đọc/nội suy bảng; `BikeVisualAnimator` phối pose, co gối/tay/chuyển trọng tâm, xoay thân quanh điểm bánh sau, hấp thụ khi đáp. Chuyển góc bằng damping, giữ điểm thấp nhất trên mặt đỡ; nếu khách được mở lại thì `PoseJumpPassenger` bám cả lift/pitch. Visual không tự điều khiển quỹ đạo root.
+
+### 19.2. Vật lý và mặt đỡ
+
+`PhoVietJump` quản lý windup 0,24 s, phóng 14,6 m/s, gravity 22 m/s², hồi 2 s từ lúc bắt đầu. Đỉnh thực đo từ mặt đường khoảng 4,844 m. Lúc bay cộng 3 m/s tiến trước W; vẫn steer và có thể boost. Không nhảy lần hai giữa không trung; chỉ nhảy từ đường hoặc roofVehicle đang đỡ, hết pha tiếp đất/cooldown. JumpAir lấy theo vận tốc Y để khớp các độ cao rơi khác nhau, không dùng đồng hồ bay cố định cũ.
+
+`JumpRoofHeight` phân loại model hiện có: sedan/taxi khoảng 1,60 m, hatchback 1,69 m, DeliveryVan 1,91 m, thùng tải 3,175 m/cabin 2,71 m. Đây là profile gameplay theo các asset hiện hành, không phải tự đọc mọi mesh tùy ý. Xe thêm mới/đổi kích thước phải bổ sung profile và kiểm tra cùng collision. Góc pitch/roll vượt 12° không còn mặt đỡ. Xe tải đã va chạm nhưng còn đứng thẳng vẫn có nóc; xe nhỏ knocked/wallCrashed bị loại. Model inactive/pool bị thu hồi cũng không đỡ người chơi.
+
+Sửa 1.30.5 đồng bộ mặt nóc với **vị trí/yaw của xe tại đúng thời điểm va chạm**, không lấy mặt cuối frame cho va chạm đầu frame. Ô tô xét cả bánh trước và sau, không hạ root vào kính/capo khi bánh sau còn trên nóc cao. Xe tải giữ điểm tựa bánh sau trên thùng tới khi qua mép; sau đó rơi xuống cabin, không snap xuống.
+
+`ResolveJumpSurface` quét toàn đoạn để tìm đáp lần đầu, kể cả đáp rồi qua mép trong một frame tốc độ cao. Dùng phần thời gian dư sau chạm để chạy tiếp trên mặt đỡ/rời mép. Chỉ khảo sát xe gần vùng quét để giới hạn chi phí. Collision Y/XZ dùng cùng contact/support, tránh hộp bảo thủ coi đang được đỡ là đâm xe. Đâm vách thùng từ cabin thấp, nhảy muộn/thiếu cao hoặc xe lật vẫn té thật.
+
+Tiếp đất chọn LandBoth/Front/Rear theo vận tốc xuống và chuyển động tương đối; chân/root theo mặt đỡ, cân bằng rồi tiếp tục. Bắt đầu té hủy trạng thái nhảy nhưng chuyển vận tốc Y hiện có sang vật lý văng. Rebase khi cua chỉ đổi mặt phẳng, giữ độ cao/vận tốc đứng; camera theo lift nhẹ và giữ xe trong khung.
+
+### 19.3. W và khói phản lực
+
+`PhoVietBoost`: BoostMultiplier=2.25, BoostDuration=4, BoostRecovery=2. TryBoost chỉ Riding, không ServiceStopped/cooldown/đang boost; không stack hoặc kéo dài khi spam. `CancelBoost` hủy ngay, đặt hồi 2 s nếu đang boost, xóa khói. TickBoost đóng băng khi pause, xử lý phần thời gian dư lúc boost kết thúc để cooldown không lệch frame. Va chạm/bị bắt/dịch vụ hủy; reset lượt xóa tất cả. W có thể chạy cùng nhảy và qua rẽ.
+
+`pho_viet_boost_smoke.py` dựng volume khói trắng có mật độ noise 4D trong Blender, render Cycles bốn frame RGBA, atlas 768×192 tại `Resources/Boost/PV_WhiteBoostSmoke.png`. Import Clamp/Bilinear, alpha, không mip/nén làm lem ô. `BoostSmokeVisual` có luồng hẹp sát pô và lớp khói nở sau, tối đa 128 hạt, mô phỏng theo hệ đường. Nguồn phát bám Frame/pose thực khi ngóc bánh/nhảy; vệt đã phụt không quay theo đổi làn. Pause/resume cùng game; sau rebase xóa vệt cũ rồi phát lại mà không mất thời lượng W.
+
+### 19.4. Không tăng ga NPC theo W
+
+Nguyên nhân cũ: nhánh pacing dùng `Speed-1.2`, xe vượt/reckless dùng `Speed+...`, khiến W hoặc áp sát kéo tốc độ mọi xe lên. Sửa 1.30.4 tách **TrafficPaceSpeed** theo độ khó cơ sở; xe thường dùng baseTrafficSpeed, phanh/đổi làn giữ hành vi riêng. Spawn/vượt/lạng trong PhoVietReckless/PhoVietExitTraffic, khởi đầu/theo đường rẽ CSGT và nhường JobTraffic không lấy boost tạm của người chơi.
+
+Vẫn cần `(v.speed - Speed)*dt` để mô phỏng tọa độ tương đối với tài xế: việc xe trên màn hình lùi nhanh hơn khi người chơi W không có nghĩa xe đó tăng ga. Không bỏ phép trừ scroll để “giữ tốc độ NPC”. Kiểm tra bằng tốc độ thực/độ dịch chuyển trong hệ đường và so một lượt đối chứng cùng seed, không chỉ nhìn khoảng cách camera.
+
+### 19.5. Bằng chứng và giới hạn kiểm tra
+
+- `VerifyQuickKick`: xe cùng chiều 28 m/s cách trước 2 m được bắt kịp/chạm giày trong khoảng 0,15–0,18 s; xe ngược 12 m khoảng 0,25–0,26 s (thời gian mô phỏng).
+- `VerifyJunctionKick`: các hướng mục tiêu thẳng/ngược/cắt ngang/đang rẽ, người chơi đi thẳng/trái/phải, hai bên và bước 20/50 ms; có trường hợp hủy an toàn khi thoát cửa sổ, không ép mọi trường hợp phải đạp trúng. Có bộ điều khiển crossing thật và động tác qua thời điểm rebase.
+- `VerifyRoofRiding`: 576 cú nhảy thật từ mặt đường, sáu mẫu xe, dt 16/33/50/100 ms, có/không W, tốc độ mục tiêu -12/0/7/28 m/s và ba offset; 2.304 điều kiện đạt ở 1.30.5. Có ảnh chụp lúc tiếp xúc/được đỡ thật, không ép gọi KnockVehicle hoặc đặt người đứng sẵn trên nóc.
+- `VerifyJump`, `VerifyTruckJump`, `VerifyBoostTrafficIsolation`, `VerifyBoost` kiểm tra riêng quỹ đạo/xe lạng/xe lật/rời thùng/cooldown/khói và tốc độ NPC. Xem JSON/report từng bản, không suy rộng smoke input WebGL thành đã đo mọi trường hợp vật lý trên iPhone thật.
+
+## 20. Ngày–đêm, đèn, màu phố, sương và lửa khói
+
+### 20.1. Nguồn và ranh giới Blender/Unity
+
+Blender dùng dựng model/volume/keyframe/profile/texture đã bake, không chạy mô phỏng nặng Blender trong trình duyệt. Unity đọc dữ liệu và áp dụng trong Built-in Render Pipeline. Không cần chuyển sang URP/HDRP hay thêm bloom toàn cảnh để các hiệu ứng hiện tại hoạt động.
+
+| Nguồn | Tích hợp runtime/editor |
+| --- | --- |
+| `pho_viet_day_night.py` → `PhoViet_DayNight.blend`, FBX/textures/profile trong Art/Lighting | PhoVietLightingUpgrade; DayNightLighting/PhoVietDayNight; DayNightSky/OpticalLight shaders |
+| `pho_viet_morning_fog.py` → `PhoViet_MorningFog.blend`, Art/Fog/PV_MorningFogDensity.png và PV_MorningFog.json | MorningFog trên camera; MorningFog.shader; AgentScripts/InstallMorningFog.cs |
+| `pho_viet_wreck_simulation.py` → `PhoViet_WreckFire.blend`/JSON, Resources/Wreck atlases | RecklessArt/WreckFireVisual, WreckFlame.shader; AgentScripts/InstallCrashUpgrade.cs |
+| `pho_viet_boost_smoke.py` → `PhoViet_BoostSmoke.blend`, Resources/Boost atlas | BoostSmokeVisual, AgentScripts/ConfigureBoostArt.cs |
+
+Nguồn `.blend` thủ công khác tên (`PhoViet_Anhsangngaydem.blend`, `Phoviet_Suongmu.blend`) đang chưa track không mặc định là nguồn đã xuất vào build. Đừng thay chúng bằng các file canonical hoặc tự ghi đè khi chạy script.
+
+### 20.2. Chu kỳ và màu ban ngày
+
+`DayNightLighting` có ElapsedTime tăng chỉ trong Riding, CycleTime=Repeat(ElapsedTime,60); NightLevel=0.5-0.5*cos(CycleTime*pi/30). Ngày ở 0/60, đêm ở 30; chuyển liên tục, không đổi cảnh đột ngột. Pause/menu việc khi bật không tăng; reset khởi tạo ngày. Đồng hồ khác timeRiding của độ khó và không bị reset về 0 mỗi chu kỳ. Cảnh jail dùng ánh sáng riêng.
+
+Trời/nắng/trăng/ambient/fog/reflection và emission nội suy theo profile. Solar frame đổi cùng rebase để hướng nguồn sáng ngoài trời không giật khi phố đổi hệ tọa độ. Runtime clone material emission/sky để Play Mode không ghi thay asset.
+
+1.29.1 khôi phục **PV_StreetPalette.png** cho PV_StreetAtlas.mat, các mặt tiền vàng/xanh ngọc/hồng/lam, gạch/vỉa hè/bó vỉa và nền đất xanh 92A68A; giữ nắng trắng và vạch sơn trắng. PhoVietLightingUpgrade/RestoreColorfulStreetPaint và script Blender không xuất lại palette kiến trúc bạc nhạt. Đừng “giữ tông trắng” bằng cách tẩy toàn bộ vật liệu phố.
+
+### 20.3. Ngân sách đèn và đèn pha bám nhảy
+
+Rig hiện có 70 bộ LED trên 35 module và 30 bộ đèn xe gồm người chơi/NPC/CSGT. Đèn trước/hậu, lens/halo và cookie sáng dần theo độ tối, tắt khi root xe inactive. Xa dùng optics bake; gần tối đa **6 đèn thực**, quality tối đa 4 per-pixel. Ưu tiên đèn người chơi và **dành 2 trong 6 cho hai cột gần nhất**, không để xe đông chiếm hết ánh sáng phố.
+
+Đèn đường gần đã tăng intensity 1,65→3,6, range 17→20 m, alpha vùng chiếu 0,33→0,44. Đây là cài đặt bản hiện hành, không nhân thêm mỗi lần cài lại. Đèn LED ba LOD, có glow/profile tạo bằng Blender.
+
+DayNightLighting có DefaultExecutionOrder(200), cập nhật sau pose LateUpdate của xe. Lấy vị trí/trục từ head gắn Frame/Steering, gồm độ cao nhảy, pitch ngóc/đáp và nóc xe; độ chúc dùng local-down. OpticalLight shader dùng ma trận world→head mỗi frame để chiếu cookie Blender lên mặt đường. Cookie chuẩn author đèn cao 1,1 m, miền x[-16,16], z[-4,28]; khoảng chiếu chặn 32 m, giảm theo góc/khoảng cách. Khi đầu ngóc, vùng gần rời đường; hạ bánh thì vùng sáng quay gần đúng hướng. Không nâng một tấm tam giác sáng lơ lửng hoặc để ánh sáng cố định dưới chân người bay. Spotlight thật chiếu hình học xe/nóc/vật thể; receiver xa/nhỏ tối ưu overdraw, chỉ mở rộng khi nguồn cao/nghiêng. MaterialPropertyBlock chỉ bật chế độ project mới trên vệt đèn pha, không làm sai UV halo/đèn phố.
+
+### 20.4. Sương sớm sáu giây
+
+Blender tạo volume noise/fBm loang, giảm theo cao, animation tan frame 1–181 ở 30 fps. Xuất density tuyến tính 32³ trong atlas **272×136**, 32 lát có padding (8×4, tile34); profile density 0,065, heightFalloff 0,24, distance 100 m, 61 mẫu fade. Không sRGB/mip/nén/rescale NPOT làm lệch dữ liệu. Textures đã pack trong nguồn Blender để gửi dự án.
+
+MorningFog trên camera đọc depth và tích phân **6 mẫu/pixel** dọc tia nhìn; truyền sáng theo bề dày sương, có gió/jitter nhẹ. Đây là sương theo sâu, không overlay trắng toàn màn hình/billboard tròn; HUD IMGUI vẽ sau nên không bị phủ. Trường theo hệ phố, scroll/rebase qua rẽ; không dính màn hình.
+
+Sương dùng **ElapsedTime**, không CycleTime: tan từ giây 0 đến hết giây 6 của mỗi lượt; không quay lại vào bình minh vòng sau. Pause đóng băng; trong service Riding nếu được mở lại vẫn tan. Tới giây 6 tắt component và phần depth mà nó sở hữu, tránh tốn render phần còn lại. Không làm mất yêu cầu depth của thành phần khác; jail Hide sương. Cài lại lighting toàn bộ phải chạy InstallMorningFog sau đó để giữ tham chiếu camera/profile.
+
+### 20.5. Xe cháy khi đâm tường
+
+Hiệu ứng mới dùng **Mantaflow gas combustion** Blender: lưới 96, cache 48 frame, xoáy/nhiên liệu/khói, render Cycles 128 mẫu. Bake `PV_WreckFlame.png`/`PV_WreckSmoke.png` trong Resources/Wreck, mỗi atlas RGBA 768×384 có 8 frame. Common alpha crop cho khói giữ tâm/kích thước nhất quán. Cache tái tạo Temp/WreckGasCache96 không phải runtime hoặc dữ liệu phải commit.
+
+WreckFireVisual/RecklessArt có tối đa 48 hạt lửa / 40 hạt khói mỗi wreck, lửa emission và đèn nhấp nháy, khói đen bốc/tản theo nhiễu, nguồn ở động cơ theo yaw xe. Bỏ capsule/sphere giả ngọn lửa. Scene lưu đủ material/texture, installer dùng lại material đã có. Chỉ quái xế/tải ngủ gật wallCrashed nằm lại cháy, không dựng sau 3 s; vẫn scroll như vật trong thế giới và thu hồi khi ngoài vùng, không “đóng đinh” vào một tọa độ màn hình.
+
+## 21. Khóa công việc 1.30.6 và hợp đồng duy trì tài liệu
+
+### 21.1. Một khóa phát hành, giữ mã để phục hồi
+
+```csharp
+// Assets/PhoViet/Scripts/PhoVietJobs.cs
+public static readonly bool RideJobsReleased=false;
+public bool jobsEnabled=false;
+public bool JobsAvailable=>RideJobsReleased&&jobsEnabled;
+```
+
+Scene lưu jobsEnabled:0. PhoVietPassengerUpgrade gán theo RideJobsReleased nên nâng cấp model khách không vô tình bật tính năng. Không thêm UI tùy chọn mở lại cho người chơi hoặc đổi khóa trong build thường. **Chỉ sau yêu cầu trực tiếp mở lại của người dùng** mới đổi release gate và scene, kiểm tra đầy đủ các luồng/timer/UI cũ cùng thay đổi mới.
+
+Guards dùng JobsAvailable tại ShowJobOffers/AcceptJob/UpdateWork/TickWorkMotion/ReplanJob/preview route, service approach/stopped/protected, BeginService/TickService, voice, JobOffersGui/DrawJobMap, marker và traffic yielding. ResetCityJobs vẫn cần tạo city/navNext/heading/seed/tên phố và ẩn khách/clear route/stop voice, **không bỏ cả hàm vì jobs đang tắt**. Thành phố/road turning hoạt động độc lập.
+
+Không còn menu 3 việc/tự pause/GPS/nhãn điểm hẹn/giọng dẫn đường/khách lên xuống/giảm tốc phục vụ/nhường riêng công việc. Không cộng/xóa Coin: chỉ load số dư cũ, ẩn trên HUD. Game bình thường vẫn quái xế/CSGT/va chạm/nhảy/boost/đạp/rẽ/ngày đêm/sương, tính mét và kỷ lục như cũ. Không có leaderboard máy chủ.
+
+VerifyDistanceMode có hai lượt mô phỏng 60 s với cờ jobsEnabled false/true, chứng minh cờ scene cũ không vượt release gate; không tự dừng/chọn việc, vẫn đi giao lộ/tăng mét/kỷ lục/chơi lại. Còn kiểm API nhận việc/stale service không cộng thưởng/tạo voice. 8 suite / 946 điều kiện Unity và 26 local / 26 live đã đạt; không gọi các suite dịch vụ bị khóa là pass. Đã xem ảnh distance-hud-portrait/mobile-landscape/desktop và WebGL pause.
+
+### 21.2. Mốc phát hành đã đối chiếu
+
+- Bản hiện hành: **1.30.6**, source/artifact commit `23941b11c82116d45185a51672d554dfac07413d`.
+- Build `build_6c2bf1bad844` Succeeded, 374.734 ms (374,734 giây), 0 lỗi / 3 warning đã biết. Thời gian build là snapshot, không phải dự đoán lần sau.
+- Cache `c713cfa4fa73614d`, build UTC `2026-10-22T11:49:17.4262969Z`.
+- Pages run [39797882879](https://github.com/denispham1107/taixecongnghe/actions/runs/39797882879) completed/success đúng SHA.
+- 26 live checks đạt: version/cache/tài nguyên khớp docs, khởi động WASM thật, input start/pause, 0 runtime error. Proof commit `98c3ed3`; `Captures/distance-pages-release.json`, `distance-live-results.json` và `VERIFICATION_DISTANCE_MODE.md`.
+- Tài liệu cập nhật 22/10 không thay đổi C#/art/scene/build/docs, không cần rebuild hoặc phát hành bản game mới. Không tự nâng version chỉ để tài liệu mang ngày mới.
+
+### 21.3. Mỗi lần sửa/thêm chức năng phải cập nhật huongdan.md
+
+Đây là yêu cầu trực tiếp của người dùng, áp dụng các lần làm tiếp, không phải lời khuyên tùy chọn. Ghi trong **chính file này**, không chỉ README, báo cáo Captures, chat hoặc bộ nhớ cá nhân. Cần bao gồm:
+
+1. Yêu cầu/quyết định đã xác nhận; tính năng nào đang bật/tắt, thay thế luật/phím/tham số nào.
+2. Hành vi người chơi và edge case quan trọng, desktop/mobile/dọc/ngang nếu liên quan.
+3. File/hàm/field, scene/asset/shader/animation/Blender nguồn → export → runtime, tham số và tương tác với các hệ khác.
+4. Kiểm tra đã chạy và bằng chứng thật, phần chưa kiểm/chưa xong/giới hạn; không tự tăng số test hoặc đánh đồng profile với máy thật.
+5. Version/commit/build/cache/push/Pages run/live nếu đã có; nếu chưa publish ghi rõ chờ, sau publish cập nhật kết quả.
+6. Sửa cả đoạn cũ mâu thuẫn; lịch sử giữ nhưng gắn nhãn “đã thay thế”, không để hai quy tắc cùng được gọi hiện tại.
+
+Đọc lại phiên bản file mới nhất trước khi lưu/gộp, giữ bổ sung của Claude Code/Codex. Nếu làm song song, thống nhất phạm vi file/branch với người dùng; tránh cùng sửa file partial, scene, Generated hoặc docs build. Chỉ một bên thực hiện mutation Unity/Blender/import/build tại một thời điểm. Không tự gửi lệnh/message sang task khác nếu chưa được cho phép. Trước commit, kiểm diff không lẫn nguồn Blender/local ngoài scope; mỗi phần việc có báo cáo/bằng chứng dễ bàn giao, không force push để bỏ mất thay đổi bên còn lại.
+
+Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo và trong bộ nhớ Codex theo yêu cầu. Khi chuyển máy/agent, **repo và tài liệu hiện hành** mới là nội dung cần gửi; không giả định bộ nhớ riêng hoặc MCP client của Codex sẽ tự có ở Claude Code.
+
+### 21.4. Lần cập nhật tài liệu ngày 22/10/2026
+
+- Đọc hết 889 dòng của bản bàn giao cũ, giữ phần xe máy v2 Claude Code đã bổ sung; sửa các mô tả hết hiệu lực thay vì chỉ nối nhật ký mới ở cuối.
+- Đối chiếu lịch sử Git, mã/scene/config, metadata art và báo cáo từ 1.15 đến 1.30.6. Bổ sung cơ chế, tham số, bản đồ mã, Blender → Unity, bằng chứng và quy tắc phối hợp.
+- 12 kiểm tra tài liệu đạt: cấu trúc mục/code fence, link file nội bộ, mốc version/cache/SHA, các cơ chế mới và loại mô tả bật jobs/phím cũ khỏi hướng dẫn hiện hành. Kết quả tại `Captures/huongdan-doc-checks.json`.
+- Chỉ thay tài liệu và hướng dẫn dự án; không thay gameplay/model/scene/WebGL, không chạy lại toàn bộ kiểm tra game hoặc build chỉ cho lần cập nhật tài liệu này.
+
+---
+
+**Nguồn kiểm chứng chính:** mã C# và cấu hình hiện tại trong repo, `ArtSource/Blender`, metadata asset, Git history, các báo cáo `Captures/VERIFICATION_*.md` và JSON kết quả tương ứng. Nếu dự án tiếp tục thay đổi, cập nhật lại tài liệu này theo hành vi thực tế; đừng coi một con số/version/port của ngày bàn giao là thông tin luôn đúng về sau.

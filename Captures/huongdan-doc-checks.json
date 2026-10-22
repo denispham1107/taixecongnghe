@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "checks": [
+    "All Markdown fences paired",
+    "Current version documented",
+    "Current cache matches published proof",
+    "Source and evidence commits recorded",
+    "Gate and preserved wallet documented",
+    "Latest kick roof and police fixes documented",
+    "Future documentation rule in both files",
+    "Local Markdown links resolve",
+    "Sections 1 through 21 present",
+    "No merge markers",
+    "No old required jobs-enable rule",
+    "No obsolete Space-kick controls in current table"
+  ],
+  "oldLines": 889,
+  "newLines": 1169,
+  "bytes": 139693,
+  "gameVersion": "1.30.6",
+  "cache": "c713cfa4fa73614d",
+  "missingLinks": [],
+  "scope": "Documentation only; no gameplay/build retest claimed"
+}
