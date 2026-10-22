@@ -59,4 +59,10 @@ Trình duyệt là Chrome/SwiftShader giả lập, không phải phép đo GPU/c
 
 Unity đã về Edit Mode, phiên bản 1.30.5; dữ liệu native giữ **105 Coin** và kỷ lục **1.775 m** (`junction-release-state.json`). Máy chủ kiểm thử cục bộ đã dừng.
 
-Chưa push/phát hành. Các file Blender và `huongdan.md` đang sửa từ trước được giữ ngoài phạm vi commit bản sửa này.
+Các file Blender và `huongdan.md` đang sửa từ trước được giữ ngoài phạm vi commit bản sửa này.
+
+## Phát hành công khai
+
+Người dùng đã cho phép push và phát hành **1.30.5**. Commit nguồn/build `539ca1e9673dd268278b13a98c94f51f82368109` đã lên main. [GitHub Pages run 39769884708](https://github.com/denispham1107/taixecongnghe/actions/runs/39769884708) hoàn tất thành công.
+
+[Game công khai](https://denispham1107.github.io/taixecongnghe/) trả về phiên bản **1.30.5**, cache **80915edfb1105b45**. **26 kiểm tra công khai đạt** (`junction-live-results.json`): tài nguyên khớp gói đã kiểm thử, WASM thật khởi tạo, bắt đầu/tạm dừng hoạt động và không ghi nhận lỗi JavaScript/Unity runtime. Đây là kiểm tra Chrome/SwiftShader, không phải đo trên điện thoại vật lý. Bằng chứng workflow và thời điểm xác minh ở `junction-pages-release.json`.
