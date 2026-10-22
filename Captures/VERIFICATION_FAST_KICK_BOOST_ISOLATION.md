@@ -63,8 +63,14 @@ WebGL **1.30.4** build thành công (`build_aa4f17ed29f0`, 241,285 giây), **0 l
 
 **26 kiểm tra gói web/WASM thật đạt** (`fast-local-results.json`): tài nguyên khớp build, đúng phiên bản/cache, WASM khởi tạo và thao tác bắt đầu/tạm dừng không gây lỗi runtime.
 
-Dữ liệu native sau kiểm thử: **105 Coin**, kỷ lục **1.775 m**; Unity đã về Edit Mode (`fast-release-state.json`). Chưa push/phát hành. Các file Blender và huongdan.md đang chỉnh được giữ riêng ngoài bản sửa.
+Dữ liệu native sau kiểm thử: **105 Coin**, kỷ lục **1.775 m**; Unity đã về Edit Mode (`fast-release-state.json`). Các file Blender và huongdan.md đang chỉnh được giữ riêng ngoài bản sửa.
 
 **25 kiểm tra cử chỉ trên WASM thật đạt** (`fast-web-gestures-results.json`): mobile dọc 412×839 và ngang 839×412 đều gửi lệnh trước khi nhấc tay, không nhân đôi lệnh lúc giữ/thả, phân biệt tap/rung nhẹ, hủy khi xoay màn hình và nhận cử chỉ mới ngay. Đây là giả lập Chrome/SwiftShader, không phải phép đo GPU hay cảm ứng trên thiết bị vật lý.
 
-Tổng trước phát hành: **2.531 điều kiện đạt** = 2.480 Unity + 26 gói/WASM + 25 cử chỉ web. `git diff --check` đạt. Bản 1.30.4 đã build và chuẩn bị xong, chờ xác nhận push/phát hành riêng cho phiên bản này.
+Tổng trước phát hành: **2.531 điều kiện đạt** = 2.480 Unity + 26 gói/WASM + 25 cử chỉ web. `git diff --check` đạt.
+
+## Xác minh phát hành công khai
+
+Người dùng đã cho phép push và phát hành **1.30.4**. Commit nguồn/build `e96fd6e43a36196ca4bd32f6872493f131f5d261` đã được push lên main. [GitHub Pages run 39757627284](https://github.com/denispham1107/taixecongnghe/actions/runs/39757627284) hoàn tất thành công.
+
+[Game công khai](https://denispham1107.github.io/taixecongnghe/) trả về phiên bản **1.30.4**, cache **196acfd579d1e4e9**. **26 kiểm tra bản công khai đạt** (`fast-live-results.json`): tài nguyên khớp build đã kiểm thử, WASM thật khởi động, bắt đầu/tạm dừng hoạt động và không ghi nhận lỗi JavaScript/Unity runtime. Kiểm tra trình duyệt dùng Chrome/SwiftShader; không phải phép đo trên điện thoại vật lý. Bằng chứng triển khai và thời điểm xác minh nằm trong `fast-pages-release.json`.
