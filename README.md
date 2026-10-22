@@ -14,7 +14,7 @@ Giữ người lái, bộ xương/động tác, ba LOD, đèn đêm và khói t�
 Mô tô CSGT giữ nguyên. Công việc đưa đón vẫn tắt; chỉ thi quãng đường/kỷ lục.
 Chi tiết triển khai và trạng thái phát hành: `huongdan.md`, mục 21.7–21.8.
 
-## Chế độ hiện tại — chỉ thi quãng đường (1.30.6)
+## Chế độ hiện tại — chỉ thi quãng đường (công việc tắt từ 1.30.6)
 
 Theo yêu cầu ngày 22/10/2026, tạm ẩn toàn bộ công việc đưa đón/trả khách.
 Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự khôi phục tính năng này

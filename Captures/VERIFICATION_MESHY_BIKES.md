@@ -41,6 +41,6 @@ Một lần chạy đầu `VerifyMeshyLighting` thiếu khởi tạo khói vốn
 ## Giới hạn và phát hành
 
 - Đã biên dịch C# Unity thành công, lưu scene/asset và thoát Play Mode. Chưa đo FPS trên điện thoại vật lý; kiểm tra này chạy trong Unity Editor.
-- Theo yêu cầu phát hành tiếp theo, **đã build WebGL 1.31.0 thành công** (`build_1e00ac19ccba`, 0 lỗi/1 warning), cache `4f9dbd6172a2b7df`; local browser 83 kiểm tra và static bundle 28 đạt. Xe mẫu rời được giữ EditorOnly, không đóng gói vào game. **Đang chờ commit/push/Pages/live**, xem `huongdan.md` 21.8 và `meshy-release-local-summary.json`.
+- Theo yêu cầu phát hành tiếp theo, **đã build WebGL 1.31.0 thành công** (`build_1e00ac19ccba`, 0 lỗi/1 warning), cache `4f9dbd6172a2b7df`; local browser 83 kiểm tra và static bundle 28 đạt. Xe mẫu rời được giữ EditorOnly, không đóng gói vào game. **Đã commit/push/Pages/live**: `6a0266098bf8fd80cbd6e7b05896ddf04079c3f9`, run `39851261543` success, 26 live checks/0 runtime error. Xem `huongdan.md` 21.8 và `VERIFICATION_MESHY_WEB_RELEASE.md`.
 - Working tree có các chỉnh sửa Wave/Blender/Packages/plugin của người dùng và Claude Code từ trước; giữ nguyên, không tự stage/reset hoặc đưa vào một commit rộng.
 - Tái tạo: Python chạy `prepare_meshy_bike_atlas.py`, Blender nền chạy `integrate_meshy_bikes.py`, Unity chạy menu **Phố Việt/Art/Install received Meshy motorcycles (keep police)**; không chạy `UpgradeBikesWave` để thay ngược mẫu hiện hành.

@@ -1,10 +1,10 @@
 # PHỐ VIỆT — Tài liệu tính năng, kiến trúc và bàn giao cho Claude Code
 
-Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.30.6. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
+Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.31.0. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
 
-> **Trạng thái hiện tại: 1.30.6, chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
+> **Trạng thái hiện tại: 1.31.0 (bộ xe Meshy đã phát hành), chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
 >
-> **Xe máy Meshy (23/10/2026, Codex):** đã nhận thành công FBX “Red Honda Scooter Front View” qua Meshy Bridge. Theo yêu cầu mới, scene dùng mẫu này cho mọi xe máy trừ CSGT: xe chính trắng–đen; xe giao thông/quái xế/xe đỗ nhiều màu. Giữ người lái, rig, clip và luật chơi. Bản Wave/WaveAlpha ở 21.5–21.6 là lịch sử đã thay thế; nguồn cũ được giữ. Bản Meshy đang được build/phát hành **1.31.0** theo yêu cầu trực tiếp mới của người dùng; chỉ coi web đã cập nhật khi mục 21.8 ghi xác minh live. Xem 21.7–21.8.
+> **Xe máy Meshy (23/10/2026, Codex):** đã nhận thành công FBX “Red Honda Scooter Front View” qua Meshy Bridge. Theo yêu cầu mới, scene dùng mẫu này cho mọi xe máy trừ CSGT: xe chính trắng–đen; xe giao thông/quái xế/xe đỗ nhiều màu. Giữ người lái, rig, clip và luật chơi. Bản Wave/WaveAlpha ở 21.5–21.6 là lịch sử đã thay thế; nguồn cũ được giữ. Bộ xe đã build/push/phát hành **1.31.0** và xác minh live; Pages run `39851261543` thành công, cache `4f9dbd6172a2b7df`. Xem 21.7–21.8.
 >
 > **Quy tắc bắt buộc từ 22/10/2026:** mỗi lần thay đổi, sửa lỗi hoặc thêm chức năng phải cập nhật đầy đủ `huongdan.md` trong cùng công việc. Ghi hành vi mới, cách triển khai/file liên quan, tham số, quyết định thay thế, kiểm tra và trạng thái commit/build/phát hành; cập nhật mục cũ bị thay thế. Đây là tài liệu dùng chung cho Codex và Claude Code.
 
@@ -20,11 +20,11 @@ Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 | Bản chơi công khai | <https://denispham1107.github.io/taixecongnghe/> |
 | Unity Editor | **6000.5.6f1**, cần module Web Build Support để build WebGL |
 | Scene chính | `Assets/PhoViet/Scenes/PhoViet.unity` |
-| Phiên bản game đã phát hành | **1.30.6** — chế độ chỉ thi quãng đường |
-| Commit source + WebGL hiện hành | `23941b11c82116d45185a51672d554dfac07413d` |
-| Commit bằng chứng phát hành | `98c3ed36068d32bddb601c42bb38a17ff9202b1b` |
-| Cache WebGL hiện hành | `c713cfa4fa73614d`; build UTC `2026-10-22T11:49:17.4262969Z` |
-| Pages đã xác minh | Run `39797882879`, completed/success; 26 kiểm tra live đạt; `Captures/distance-pages-release.json` |
+| Phiên bản game đã phát hành | **1.31.0** — xe Meshy, chế độ chỉ thi quãng đường |
+| Commit source + WebGL hiện hành | `6a0266098bf8fd80cbd6e7b05896ddf04079c3f9` |
+| Bằng chứng phát hành hiện hành | `Captures/meshy-pages-release.json`, `VERIFICATION_MESHY_WEB_RELEASE.md`; SHA commit báo cáo xem Git log |
+| Cache WebGL hiện hành | `4f9dbd6172a2b7df`; build UTC `2026-10-22T20:34:46.3473513Z` |
+| Pages đã xác minh | Run `39851261543`, completed/success; 26 kiểm tra live đạt; `Captures/meshy-pages-release.json` |
 | Render pipeline | Built-in Render Pipeline; `m_CustomRenderPipeline` đang là `fileID: 0` |
 | Input | Legacy Input Manager, `activeInputHandler: 0`; dùng `UnityEngine.Input` |
 | Giao diện trong game | IMGUI, `OnGUI`, `GUIStyle`, `GUI.matrix`; không phải Canvas/uGUI |
@@ -72,7 +72,7 @@ Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 ### 2.1. Bối cảnh, nhân vật và vòng chơi
 
 - Góc nhìn thứ ba từ phía sau và hơi cao, camera nhìn dọc con đường; xe tự tiến.
-- Nhân vật chính mặc áo đỏ có **ngôi sao vàng đủ 5 cánh** ở ngực/lưng, đội mũ bảo hiểm, đi xe Meshy phối **trắng–đen**. Đây là mẫu người dùng gửi qua Bridge ngày 23/10, thay bản Wave cục bộ; **chưa có trên bản web**.
+- Nhân vật chính mặc áo đỏ có **ngôi sao vàng đủ 5 cánh** ở ngực/lưng, đội mũ bảo hiểm, đi xe Meshy phối **trắng–đen**. Đây là mẫu người dùng gửi qua Bridge ngày 23/10, thay bản Wave cục bộ; **đã có trên web 1.31.0**.
 - Đường có 4 làn, vạch giữa đường vàng đứt nét, vạch trắng phân làn, vạch biên, vạch qua đường và giao lộ.
 - Hai làn bên trái chủ yếu là xe ngược chiều; hai làn bên phải chủ yếu cùng chiều. Xe ngược chiều có thể lấn qua phía người chơi.
 - Xe máy, sedan, hatchback, taxi, xe giao hàng, xe tải thường và xe tải ngủ gật cùng xuất hiện.
@@ -838,7 +838,7 @@ Các `AgentScripts/Verify*.cs` là script kiểm tra điều khiển trực ti�
 
 **Bằng chứng lịch sử xe máy Wave 23/10 (đã được Meshy thay thế, chưa từng phát hành):** 25 suite / 5.033 điều kiện đạt sau lần xuất cuối (gồm cả bản dựng lại đầu xe chi tiết; VerifyWaveBikes đo tới bề mặt tam giác), gồm suite mới `VerifyWaveBikes` 111 (metadata Wave, neo đèn trên xương mới, emission users, đèn đêm/pool, kính đèn và đầu pô có hình học thật tại neo, khói boost ở đầu pô, phối màu) cùng BikeArt 156, RoofRiding 2.304, SmoothTurns 468, BoostTrafficIsolation 478, JunctionKick 216, CrashPoliceNavigation 214… Xem `Captures/VERIFICATION_WAVE_BIKES.md` và `wave-bikes-*-results.json`. `VerifyKickContact`/`VerifyDayNight` dừng ở đoạn bắt buộc mở công việc (bị khóa) nên **không** tính là đạt.
 
-**Xe máy Meshy 23/10 (scene hiện hành, chưa build WebGL):** **15 suite / 4,572 điều kiện đạt**: MeshyBikes 340, MeshyLighting 16, BikeArt 156, Jump 44, TruckJump 69, RoofRiding 2.304, QuickKick 62, JunctionKick 216, Boost 35, BoostTrafficIsolation 478, CrashOutcome 51, CrashPoliceNavigation 214, SmoothTurns 468, NightJumpLighting 88, DistanceMode 31. Xem `Captures/VERIFICATION_MESHY_BIKES.md` và `meshy-bikes-verification-summary.json`. Có ảnh Unity ngày/đêm đã kiểm tra, chưa đo điện thoại thật/chưa WebGL.
+**Xe máy Meshy 23/10 (đã phát hành WebGL 1.31.0):** **15 suite / 4,572 điều kiện đạt**: MeshyBikes 340, MeshyLighting 16, BikeArt 156, Jump 44, TruckJump 69, RoofRiding 2.304, QuickKick 62, JunctionKick 216, Boost 35, BoostTrafficIsolation 478, CrashOutcome 51, CrashPoliceNavigation 214, SmoothTurns 468, NightJumpLighting 88, DistanceMode 31. Xem `Captures/VERIFICATION_MESHY_BIKES.md` và `meshy-bikes-verification-summary.json`. Có ảnh Unity ngày/đêm đã kiểm tra; WebGL 1.31.0 đã kiểm tra riêng ở mục 21.8, chưa đo điện thoại thật.
 
 **Lịch sử 1.14:** 1.335 assertion trong 17 suite; bảng bên dưới là snapshot lúc đó, không phải kết quả mới hoặc hướng dẫn bật công việc.
 
@@ -1096,7 +1096,7 @@ Không cần rebuild/deploy WebGL chỉ vì sửa chính tài liệu bàn giao. 
 
 ### 18.3. Nội dung có thể gửi kèm cho Claude Code
 
-> Hãy đọc toàn bộ `huongdan.md` tại gốc dự án và `git status` trước khi sửa. Game Phố Việt đã phát hành WebGL/PWA **1.30.6**: hiện **chỉ thi quãng đường/kỷ lục, công việc/GPS/khách/Coin HUD đang khóa**, chỉ mở lại khi tôi yêu cầu. Q đạp có áp sát/chạm giày thật, Space nhảy và chạy nóc, W +125%/4 s/hồi 2 s; rẽ giữ tốc độ và đúng số làn; mobile vuốt nhận ngay đủ ngưỡng. Không có ba mạng: té thường kết thúc sau té, té đang bị CSGT đuổi thì nằm chờ cảnh sát tới bắt rồi vào tù. Không ghi đè file Blender cục bộ, không dựng lại scene toàn bộ theo thói quen. Nếu chưa chắc 90% hãy đưa phương án và chờ tôi xác nhận phần đó. Phân chia file/công cụ rõ ràng khi làm song song với Codex; không cùng mutation Unity/Blender. **Mỗi lần sửa/thêm chức năng phải cập nhật đầy đủ huongdan.md ngay trong cùng công việc**, ghi hành vi/triển khai/tham số/kiểm tra và trạng thái source/build/Pages. Đọc lại tài liệu mới nhất trước khi lưu để không mất phần người khác bổ sung.
+> Hãy đọc toàn bộ `huongdan.md` tại gốc dự án và `git status` trước khi sửa. Game Phố Việt đã phát hành WebGL/PWA **1.31.0** với xe Meshy nhiều màu, xe chính trắng–đen, CSGT giữ riêng: hiện **chỉ thi quãng đường/kỷ lục, công việc/GPS/khách/Coin HUD đang khóa**, chỉ mở lại khi tôi yêu cầu. Q đạp có áp sát/chạm giày thật, Space nhảy và chạy nóc, W +125%/4 s/hồi 2 s; rẽ giữ tốc độ và đúng số làn; mobile vuốt nhận ngay đủ ngưỡng. Không có ba mạng: té thường kết thúc sau té, té đang bị CSGT đuổi thì nằm chờ cảnh sát tới bắt rồi vào tù. Không ghi đè file Blender cục bộ, không dựng lại scene toàn bộ theo thói quen. Nếu chưa chắc 90% hãy đưa phương án và chờ tôi xác nhận phần đó. Phân chia file/công cụ rõ ràng khi làm song song với Codex; không cùng mutation Unity/Blender. **Mỗi lần sửa/thêm chức năng phải cập nhật đầy đủ huongdan.md ngay trong cùng công việc**, ghi hành vi/triển khai/tham số/kiểm tra và trạng thái source/build/Pages. Đọc lại tài liệu mới nhất trước khi lưu để không mất phần người khác bổ sung.
 
 
 ## 19. Nhảy, nóc xe và boost — tham chiếu triển khai hiện hành
@@ -1204,7 +1204,7 @@ VerifyDistanceMode có hai lượt mô phỏng 60 s với cờ jobsEnabled false
 
 ### 21.2. Mốc phát hành đã đối chiếu
 
-- Bản hiện hành: **1.30.6**, source/artifact commit `23941b11c82116d45185a51672d554dfac07413d`.
+- Mốc lịch sử 1.30.6 (đã thay bằng 1.31.0 tại 21.8), source/artifact commit `23941b11c82116d45185a51672d554dfac07413d`.
 - Build `build_6c2bf1bad844` Succeeded, 374.734 ms (374,734 giây), 0 lỗi / 3 warning đã biết. Thời gian build là snapshot, không phải dự đoán lần sau.
 - Cache `c713cfa4fa73614d`, build UTC `2026-10-22T11:49:17.4262969Z`.
 - Pages run [39797882879](https://github.com/denispham1107/taixecongnghe/actions/runs/39797882879) completed/success đúng SHA.
@@ -1295,7 +1295,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
   - Neo pha/hậu theo metadata trên Steering/Frame; điểm pha khoảng `(0,1.25,.573413)`, hậu `(0,.995,-.830376)`. Neo `PV_MeshyExhaust` khoảng `(.23,.40,-1.0)` trên Frame để boost đi theo nhảy/ngã. `BoostSmokeVisual` tìm socket này, giữ fallback Wave cho scene cũ. Cài lại đèn cũng đọc metadata; không hardcode tọa độ Wave cho Meshy.
   - Làm mới `DayNightLighting.emissionUsers`, giữ đủ 30 binding đèn xe và không có head/halo null. Giữ xe bốn bánh, người lái CSGT, gesture/Q/Space/W, va chạm, công việc đang tắt và dữ liệu Coin/kỷ lục.
 - **Kiểm tra cuối:** **15 suite / 4,572 điều kiện đạt**, có thêm `VerifyMeshyLighting` (16) cho mask/đèn/nozzle; ảnh Unity ngày/đêm đã xem. `AgentScripts/VerifyMeshyBikes.cs` kiểm provenance/5 màu/atlas/normal/surface, 33 actor/3 LOD/17 xương/7 clip, tất cả xe đậu nhánh/material, CSGT cũ và neo đèn. Bộ hồi quy và kết quả cuối xem `Captures/VERIFICATION_MESHY_BIKES.md`, `Captures/meshy-bikes-Verify*-results.json`. `CaptureBikesMeshy.cs` chụp hero trước/sau, màu giao thông, quái xế, CSGT, ban ngày/đêm trong Unity.
-- **Trạng thái phát hành:** scene/asset Meshy đã lưu; người dùng yêu cầu **build WebGL và phát hành web** ngày 23/10. Bản 1.31.0 đang được build, kiểm tra và push/Pages theo mục 21.8; trước khi live xác minh xong, bản công khai vẫn 1.30.6. Không cần hỏi lại quyền push/phát hành đã được người dùng cấp trực tiếp. Giữ nguyên mọi file Wave/WaveAlpha và thay đổi cục bộ có sẵn của Claude Code; không gộp chúng vào một commit rộng ngoài phạm vi.
+- **Trạng thái phát hành:** **đã build/commit/push/phát hành WebGL 1.31.0 và xác minh live** theo yêu cầu trực tiếp ngày 23/10. Source/artifact `6a0266098bf8fd80cbd6e7b05896ddf04079c3f9`, Pages run `39851261543`, cache `4f9dbd6172a2b7df`; 26 live checks đạt, 0 lỗi runtime. Xem 21.8. Không cần hỏi lại quyền cho cùng lần phát hành đã được cấp. Giữ nguyên mọi file Wave/WaveAlpha và thay đổi cục bộ có sẵn của Claude Code; không gộp chúng vào một commit rộng ngoài phạm vi.
 
 
 ### 21.8. Build WebGL và phát hành bộ xe Meshy 1.31.0 (23/10/2026)
@@ -1307,7 +1307,8 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
   - Output cuối đã copy sang `docs`, chỉ dọn các hash cũ trong `docs/Build` sau khi kiểm tra đường dẫn tuyệt đối. Cache **`4f9dbd6172a2b7df`**, build UTC `2026-10-22T20:34:46.3473513Z`, tài nguyên khoảng 52,45 MB; data gzip khoảng 45,21 MB.
   - `Captures/meshy-release-build-summary.json`, `meshy-release-preflight.json`, `meshy-release-bundle-checks.json`: 28 kiểm tra static bundle gồm gzip/WASM/data header, SHA cache, offline list, không file quá 100 MB, không hash cũ.
 - **Kiểm tra local cuối:** **83 kiểm tra trình duyệt đạt** = VerifyWeb/PWA/offline 37, so tài nguyên + WASM thật 26, fullscreen iPhone/iPad dọc-ngang 20; **0 lỗi runtime**. Đã xem ảnh desktop/portrait/landscape/offline của đúng cache `4f9dbd6172a2b7df`. Bằng chứng `Captures/meshy-release-web-results.json`, `meshy-local-artifact-results.json`, `meshy-release-fullscreen-results.json`, `meshy-release-web-*.png`. Đây là giả lập browser, chưa thử phần cứng điện thoại thật.
-- **Push/Pages/live:** đang chờ commit và push main; chỉ cập nhật trạng thái phát hành sau khi đúng workflow SHA thành công và tài nguyên/WASM trên URL công khai khớp bản docs đã kiểm tra.
+- **Push/Pages/live đã hoàn tất:** commit **`6a0266098bf8fd80cbd6e7b05896ddf04079c3f9`** đã push main, [Pages run 39851261543](https://github.com/denispham1107/taixecongnghe/actions/runs/39851261543) completed/success đúng SHA. **26 live checks đạt**, version/cache và toàn bộ tài nguyên trên [https://denispham1107.github.io/taixecongnghe/](https://denispham1107.github.io/taixecongnghe/) khớp docs đã kiểm tra; WASM thật/start/pause hoạt động, **0 lỗi runtime**. Bằng chứng `Captures/meshy-pages-release.json`, `meshy-live-results.json`, `meshy-live-game.png`, `VERIFICATION_MESHY_WEB_RELEASE.md`.
+- **PWA:** nếu ứng dụng/tab cũ còn chạy, đóng hết rồi mở lại để worker mới kích hoạt; không xóa Coin/kỷ lục hay bắt người dùng xóa toàn bộ dữ liệu. Giữ nguyên giới hạn: browser profile giả lập, chưa đo thiết bị vật lý. Báo cáo phát hành được commit/push riêng sau source/artifact; không rebuild cho tài liệu đơn thuần.
 - **Giới hạn phạm vi Git:** commit bộ Meshy mới, scene/mesh xe đậu, mã tích hợp/đèn/boost, cấu hình phiên bản, tài liệu và docs build tương ứng. Giữ các file Wave/WaveAlpha, .blend cũ, Meshy Bridge/Packages cục bộ chưa liên quan ngoài staging; không reset/xóa công việc Claude Code. Các FBX Meshy cuối đã chứa người lái/rig nên build không phụ thuộc việc xuất lại Wave.
 
 ---
