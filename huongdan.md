@@ -4,7 +4,7 @@ Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 > **Trạng thái hiện tại: 1.31.0 (bộ xe Meshy đã phát hành), chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
 >
-> **Xe máy Meshy (23/10/2026, Codex):** đã nhận thành công FBX “Red Honda Scooter Front View” qua Meshy Bridge. Theo yêu cầu mới, scene dùng mẫu này cho mọi xe máy trừ CSGT: xe chính trắng–đen; xe giao thông/quái xế/xe đỗ nhiều màu. Giữ người lái, rig, clip và luật chơi. Bản Wave/WaveAlpha ở 21.5–21.6 là lịch sử đã thay thế; nguồn cũ được giữ. Bộ xe đã build/push/phát hành **1.31.0** và xác minh live; Pages run `39851261543` thành công, cache `4f9dbd6172a2b7df`. Xem 21.7–21.8.
+> **Xe máy Meshy (23/10/2026, Codex):** đã nhận thành công FBX “Red Honda Scooter Front View” qua Meshy Bridge. Theo yêu cầu mới, scene dùng mẫu này cho mọi xe máy trừ CSGT: xe chính trắng–đen; xe giao thông/quái xế/xe đỗ nhiều màu. Bản 1.31.0 giữ người lái cũ; scene đang nâng cấp người Meshy có rig ở 21.9, chưa phát hành. Bản Wave/WaveAlpha ở 21.5–21.6 là lịch sử đã thay thế; nguồn cũ được giữ. Bộ xe đã build/push/phát hành **1.31.0** và xác minh live; Pages run `39851261543` thành công, cache `4f9dbd6172a2b7df`. Xem 21.7–21.8.
 >
 > **Quy tắc bắt buộc từ 22/10/2026:** mỗi lần thay đổi, sửa lỗi hoặc thêm chức năng phải cập nhật đầy đủ `huongdan.md` trong cùng công việc. Ghi hành vi mới, cách triển khai/file liên quan, tham số, quyết định thay thế, kiểm tra và trạng thái commit/build/phát hành; cập nhật mục cũ bị thay thế. Đây là tài liệu dùng chung cho Codex và Claude Code.
 
@@ -45,7 +45,7 @@ Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 - Mạng phố hiện tại là **ô bàn cờ, tên/vị trí đường cố định trong từng lượt**; quay lại đúng đường phải thấy tên cũ. Lượt mới có thể sinh lại cách gán tên.
 - Giọng chỉ đường đã chọn: nữ miền Nam, “Quẹo trái”, “Quẹo phải”, “Đi thẳng”; báo trước khoảng 4 giây, nhắc trước 2 giây, tránh “Đi thẳng” ngay trước rẽ. Hiện không phát vì công việc đang tắt.
 - Phím hiện tại: **Q đạp**, **Space nhảy**, **W tăng tốc +125% trong 4 giây, hồi 2 giây**. Mobile: chạm hai lần đạp, vuốt lên nhảy, xuống tăng tốc; vuốt nhận ngay khi đủ ngưỡng, không chờ nhấc tay.
-- **Xe máy (yêu cầu mới 23/10/2026):** dùng đúng mô hình đã nhận từ Meshy cho xe người chơi, xe máy thường hai chiều, quái xế và xe đậu. Xe chính **trắng–đen**, bốn phối màu còn lại **xanh ngọc, xanh dương, vàng, cam**. Giữ nguyên mô tô CSGT hiện tại theo xác nhận riêng của người dùng. Giữ người lái/động tác, hình học và texture gốc Meshy (kể cả gương/chi tiết nhận diện vốn có), chỉ đổi vùng sơn; yêu cầu không gương/không logo của bản Wave cũ không áp vào mẫu mới này.
+- **Xe máy (yêu cầu mới 23/10/2026):** dùng đúng mô hình đã nhận từ Meshy cho xe người chơi, xe máy thường hai chiều, quái xế và xe đậu. Xe chính **trắng–đen**, bốn phối màu còn lại **xanh ngọc, xanh dương, vàng, cam**. Giữ nguyên mô tô CSGT hiện tại theo xác nhận riêng của người dùng. Động tác giữ nguyên; người lái ngoài CSGT được thay bằng Golden Star Stance có rig (21.9). Giữ hình học và texture gốc xe Meshy (kể cả gương/chi tiết nhận diện vốn có), chỉ đổi vùng sơn; yêu cầu không gương/không logo của bản Wave cũ không áp vào mẫu mới này.
 - **Mọi lần sửa/thêm chức năng đều phải ghi vào tài liệu này**, kể cả thay đổi chưa build hoặc chưa phát hành; ghi rõ trạng thái chưa hoàn tất thay vì bỏ qua.
 
 ### 1.2. Những yêu cầu cũ đã được thay thế
@@ -72,7 +72,7 @@ Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 ### 2.1. Bối cảnh, nhân vật và vòng chơi
 
 - Góc nhìn thứ ba từ phía sau và hơi cao, camera nhìn dọc con đường; xe tự tiến.
-- Nhân vật chính mặc áo đỏ có **ngôi sao vàng đủ 5 cánh** ở ngực/lưng, đội mũ bảo hiểm, đi xe Meshy phối **trắng–đen**. Đây là mẫu người dùng gửi qua Bridge ngày 23/10, thay bản Wave cục bộ; **đã có trên web 1.31.0**.
+- Scene mới dùng nhân vật **Golden Star Stance có rig**: tóc đen, áo đỏ sao vàng ở ngực và chính giữa lưng, quần jeans, giày trắng; không đội mũ theo mẫu đã nhận. Đi xe Meshy trắng–đen. Các tài xế ngoài CSGT dùng cùng người, đổi áo và bỏ sao. Bộ người mới chưa phát hành; web 1.31.0 vẫn dùng người cũ đội mũ.
 - Đường có 4 làn, vạch giữa đường vàng đứt nét, vạch trắng phân làn, vạch biên, vạch qua đường và giao lộ.
 - Hai làn bên trái chủ yếu là xe ngược chiều; hai làn bên phải chủ yếu cùng chiều. Xe ngược chiều có thể lấn qua phía người chơi.
 - Xe máy, sedan, hatchback, taxi, xe giao hàng, xe tải thường và xe tải ngủ gật cùng xuất hiện.
@@ -113,7 +113,7 @@ Không có ga/phanh thủ công. Tốc độ tăng theo thời gian, có nhảy 
 
 ### 2.4. Quái xế và xe tải ngủ gật
 
-- Có xe máy quái xế (hiện dùng thân xe Meshy màu cam, người lái áo đen mũ fullface cam; trước đó thân Wave rồi côn tay kiểu Exciter) và xe mang biển **XE TẢI NGỦ GẬT**.
+- Có xe máy quái xế (hiện dùng thân xe Meshy màu cam, người lái Golden Star Stance áo xám đậm, không sao (scene mới; web 1.31.0 còn mũ fullface cam); trước đó thân Wave rồi côn tay kiểu Exciter) và xe mang biển **XE TẢI NGỦ GẬT**.
 - Có cả cùng chiều lẫn ngược chiều, lấn làn và lạng lách qua phía người chơi.
 - Xe cùng chiều xuất hiện từ ngoài camera phía sau. Mỗi đợt chỉ một xe nguy hiểm trên một làn cùng chiều được chọn ngẫu nhiên, báo mũi tên đỏ–vàng đúng làn trước 2 giây. Nếu còn xe nguy hiểm ngược chiều/chạy từ sau đang di chuyển thì đợi nó va chạm; khi đủ điều kiện lại phải báo đủ 2 giây. Quy tắc còn hiệu lực qua rẽ/rebase.
 - Có thể húc và đẩy xe khác, gây rối giao thông và phản ứng dây chuyền.
@@ -573,27 +573,28 @@ Ba file `left.mp3`, `right.mp3`, `straight.mp3` trong `Assets/PhoViet/Audio/Navi
 
 ## 11. Model, rig, animation và quy trình Blender → Unity
 
-### 11.1. Những bộ model đã dựng lại bằng Blender MCP
+### 11.1. Những bộ model và nguồn dựng
 
 | Bộ | Model/source | Kỹ thuật |
 | --- | --- | --- |
-| Xe máy + người lái **Meshy (23/10/2026)** | HeroScooter, CityScooter, Underbone, SportBike, Racer dùng cùng hình xe đã nhập từ Meshy và màu khác nhau; TrafficPolice vẫn mô tô tuần tra v2 | 17 xương, 7 clip, 3 LOD; khoảng 28,3–30,4k / 11k / 5k tam giác, atlas màu/surface 2048² và normal chung; người lái cũ giữ lại, chỉ căn tay vào tay nắm mới. Xem 21.7 và `Captures/VERIFICATION_MESHY_BIKES.md` |
+| Xe máy + người lái **Meshy (23/10/2026)** | HeroScooter, CityScooter, Underbone, SportBike, Racer dùng cùng hình xe đã nhập từ Meshy và màu khác nhau; TrafficPolice vẫn mô tô tuần tra v2 | Scene mới: người Golden Star Stance có rig, 17 xương semantic/7 clip/3 LOD, 42.939/11k/5k tam giác. Atlas2048², surface/normal/emission chung; người CSGT không đổi. Xem21.9. Bản web1.31.0 dùng người cũ (21.7) |
 | Xe máy + người lái v2 (19/10/2026, **đã thay thế trừ CSGT**) | Tay ga trắng/tay ga nữ/xe số/côn tay/quái xế/CSGT | `Captures/VERIFICATION_BIKES_V2.md`; nguồn `pho_viet_motorcycles.py` vẫn là thư viện người lái/rig/xuất cho bản Wave |
 | Xe bốn bánh | Sedan, Hatchback, Taxi, DeliveryVan, BoxTruck, DrowsyTruck | 6 thiết kế, 15 xương/mẫu, 7 clip, 3 LOD, một material atlas/mẫu |
 | Phố | 12 shop, 3 cây, 1 module vỉa hè | Mesh tĩnh 3 LOD, dùng chung palette 128 px; chữ/mái che được bảo vệ khi giảm chi tiết |
 | Khách | PassengerMale, PassengerFemale | 14 xương/mẫu, 4 clip, 3 LOD, một palette material/mẫu |
 
-Xe máy có vỏ cong, lốp/mâm/phanh/giảm xóc/động cơ/pô, gương/đèn/biển số; người có mặt, mắt, mũ, trang phục và chi tiết áo/sao. Mô tô CSGT có kính/túi hông và nhận diện riêng. Xe lớn có hốc bánh, kính, gương/gạt mưa, lưới tản nhiệt, thùng hàng, gân/cửa/bản lề/khóa.
+Xe máy có vỏ cong, lốp/mâm/phanh/giảm xóc/động cơ/pô, gương/đèn/biển số; người ngoài CSGT dùng khuôn mặt/tóc/trang phục Meshy mới, không mũ; hero có sao ngực và chính giữa lưng. Mô tô CSGT có kính/túi hông và nhận diện riêng. Xe lớn có hốc bánh, kính, gương/gạt mưa, lưới tản nhiệt, thùng hàng, gân/cửa/bản lề/khóa.
 
 Trong scene có **33 `BikeVisualAnimator`**: 19 actor gameplay tính cả người chơi và CSGT, 14 xe đậu có animator ở dãy nguồn. Xe đậu nhân bản ở các nhánh được bake tĩnh để tránh nhân toàn bộ skeleton/animator; không hiểu 33 là tổng mọi hình xe máy được render trên cả 35 module. Có **11 `CarVisualAnimator`** trên các xe bốn bánh giao thông.
 
-Tam giác ví dụ hiện hành: HeroScooter Meshy **30.423 / 10.999 / 4.999**; mỗi xe đích có metadata trong `Art/Bikes/Meshy/*.json`. DrowsyTruck **23.503 / 10.340 / 3.760**. Khách nam **4.688 / 2.338 / 1.091**, khách nữ **5.084 / 2.541 / 1.160** (đang khóa). Bản Wave cũ có 35.604 / 16.020 / 5.200 và không còn được scene dùng trừ rider/rig kế thừa.
+Tam giác ví dụ hiện hành: HeroScooter với người rigged **42.939 / khoảng11.000 / khoảng5.000**; metadata `Art/Bikes/MeshyRiders/*.json`. Bản web1.31.0:30.423/10.999/4.999 trong thư mục Meshy cũ. DrowsyTruck **23.503 / 10.340 / 3.760**. Khách nam **4.688 / 2.338 / 1.091**, khách nữ **5.084 / 2.541 / 1.160** (đang khóa). Bản Wave cũ có 35.604 / 16.020 / 5.200 và không còn được scene dùng trừ rider/rig kế thừa.
 
 ### 11.2. Source chỉnh sửa và điểm vào tái tạo
 
 | File trong `ArtSource/Blender/` | Script | Hàm tái tạo |
 | --- | --- | --- |
-| **`PhoViet_MeshyMotorcycles.blend`** (nguồn xe máy hiện hành, 23/10) | **`prepare_meshy_bike_atlas.py` + `integrate_meshy_bikes.py`** | Tạo atlas bằng Python rồi ghép hình học FBX Meshy với người lái/rig cũ trong Blender, xuất 5 FBX mới vào `Art/Bikes/Meshy/`; không xuất CSGT, không ghi đè Wave/nguồn Meshy. File blend chứa cả 5 rig đã xuất |
+| **`PhoViet_MeshyRiders.blend`** (người hiện hành) | `integrate_meshy_riders.py` + `prepare_meshy_rider_atlas.py` | Blender --phase prepare → Python atlas → Blender --phase build; dùng rig/weights nguồn mới, xuất MeshyRiders; giữ CSGT |
+| **`PhoViet_MeshyMotorcycles.blend`** (nguồn xe1.31.0, 23/10) | **`prepare_meshy_bike_atlas.py` + `integrate_meshy_bikes.py`** | Tạo atlas bằng Python rồi ghép hình học FBX Meshy với người lái/rig cũ trong Blender, xuất 5 FBX mới vào `Art/Bikes/Meshy/`; không xuất CSGT, không ghi đè Wave/nguồn Meshy. File blend chứa cả 5 rig đã xuất |
 | `PhoViet_Motorcycles_Wave.blend` (nguồn cũ giữ lại) | `pho_viet_wave.py` / `pho_viet_motorcycles.py` | Chỉ dùng khi cần bảo trì nguồn cũ; không chạy để thay thế lại bản Meshy hiện hành |
 | `PhoViet_Motorcycles.blend` (v2, giữ nguyên, có sửa cục bộ chưa commit có từ trước) | `pho_viet_motorcycles.py` (`pho_viet_bikes.py` chỉ còn là helper cho script khác; `rebuild_all()` cũ đưa xe về v1) | `build_motorcycles()` dựng lại **cả 6 mẫu v2, sẽ ghi đè FBX Wave** — chỉ dùng khi muốn quay về v2 hoặc để xuất lại riêng CSGT bằng `build_motorcycles(['PV_TrafficPolice'])` |
 | `PhoViet_Cars.blend` | `pho_viet_cars.py` | `build_all()` |
@@ -652,7 +653,7 @@ World text cho bảng tên đường dùng `WorldStreetText.mat` và shader **`P
 Thoát Play Mode trước khi lưu nâng cấp scene. Các menu thường dùng:
 
 - `Phố Việt/Art/Configure Blender bike imports`.
-- **Dùng menu `Phố Việt/Art/Install received Meshy motorcycles (keep police)`**, hoặc `AgentScripts/UpgradeBikesMeshy.cs` → `UpgradeBikesMeshy.Main`. Trình cài mới thay đúng 32 actor ngoài CSGT, bake lại 3 mesh xe đậu nhánh giữ GUID và đổi vật liệu trên 56 bản sao, dựng lại neo đèn/nozzle, làm mới emission users rồi lưu scene. Menu chung `Replace all motorcycles with Blender models` và `UpgradeBikesWave` không phải quy trình cài hiện hành: chúng có thể thay cả CSGT hoặc làm mất neo đèn. `ModelPath` ưu tiên FBX trong `Bikes/Meshy/`, fallback asset cũ nếu chưa có.
+- **Dùng menu `Phố Việt/Art/Install received Meshy motorcycles (keep police)`**, hoặc `AgentScripts/UpgradeBikesMeshy.cs` → `UpgradeBikesMeshy.Main`. Trình cài mới thay đúng 32 actor ngoài CSGT, bake lại 3 mesh xe đậu nhánh giữ GUID và đổi vật liệu trên 56 bản sao, dựng lại neo đèn/nozzle, làm mới emission users rồi lưu scene. Menu chung `Replace all motorcycles with Blender models` và `UpgradeBikesWave` không phải quy trình cài hiện hành: chúng có thể thay cả CSGT hoặc làm mất neo đèn. `ModelPath` ưu tiên `Bikes/MeshyRiders/`, sau đó `Bikes/Meshy/`, cuối cùng asset cũ nếu chưa có. Menu Install received Meshy riders (keep police) cũng dùng chung trình cài.
 - `Phố Việt/Art/Replace all four-wheel vehicles with Blender models`.
 - `Phố Việt/Routes/Install connected junction roads`.
 - `Phố Việt/Art/Install Blender streets`.
@@ -907,7 +908,7 @@ Các kiểm tra điện thoại/iOS bằng browser profile là **mô phỏng lay
 - `wasm2023 = false` để giữ dải tương thích Safari của dự án.
 - Bộ nhớ khởi đầu 128 MB, tối đa 512 MB.
 - `dataCaching = false`, vì service worker phiên bản hóa chịu trách nhiệm cache thay vì hai cache độc lập.
-- Cấu hình phiên bản build hiện 1.31.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
+- Cấu hình phiên bản build hiện 1.32.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
 
 Hậu xử lý build tạo `precache.json`, `build-info.json`, `sw.js` đã thay mã cache và `.nojekyll`. Cache là 16 ký tự hex từ SHA-256 nội dung tài nguyên, không gán tay để làm giả một lần build mới.
 
@@ -1310,6 +1311,58 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Push/Pages/live đã hoàn tất:** commit **`6a0266098bf8fd80cbd6e7b05896ddf04079c3f9`** đã push main, [Pages run 39851261543](https://github.com/denispham1107/taixecongnghe/actions/runs/39851261543) completed/success đúng SHA. **26 live checks đạt**, version/cache và toàn bộ tài nguyên trên [https://denispham1107.github.io/taixecongnghe/](https://denispham1107.github.io/taixecongnghe/) khớp docs đã kiểm tra; WASM thật/start/pause hoạt động, **0 lỗi runtime**. Bằng chứng `Captures/meshy-pages-release.json`, `meshy-live-results.json`, `meshy-live-game.png`, `VERIFICATION_MESHY_WEB_RELEASE.md`.
 - **PWA:** nếu ứng dụng/tab cũ còn chạy, đóng hết rồi mở lại để worker mới kích hoạt; không xóa Coin/kỷ lục hay bắt người dùng xóa toàn bộ dữ liệu. Giữ nguyên giới hạn: browser profile giả lập, chưa đo thiết bị vật lý. Báo cáo phát hành được commit/push riêng sau source/artifact; không rebuild cho tài liệu đơn thuần.
 - **Giới hạn phạm vi Git:** commit bộ Meshy mới, scene/mesh xe đậu, mã tích hợp/đèn/boost, cấu hình phiên bản, tài liệu và docs build tương ứng. Giữ các file Wave/WaveAlpha, .blend cũ, Meshy Bridge/Packages cục bộ chưa liên quan ngoài staging; không reset/xóa công việc Claude Code. Các FBX Meshy cuối đã chứa người lái/rig nên build không phụ thuộc việc xuất lại Wave.
+
+### 21.9. Người Meshy có rig Golden Star Stance (23/10/2026)
+
+- Người dùng thay yêu cầu: bỏ mẫu Vietnam Star Streetwear chưa rig và bản ghép thử; dùng mẫu mới có rig cho mọi người cưỡi xe ngoài CSGT. **Giữ nguyên cả người CSGT và mô tô tuần tra** theo xác nhận riêng, không tự thay đồng phục.
+- Nguồn hiện hành `Assets/MeshyImports/Golden Star Stance_20261023_150430/Meshy_AI_Golden_Star_Stance_biped_Character_output.fbx`. Bản `_150426` là cùng mẫu kèm animation Running, không dùng clip chạy bộ để lái xe. Inspection Blender ghi 27.200 tam giác/29.791 vertex (vertex split do UV), rig smartrig gồm các chi/ngón tay; số trên giao diện Meshy khác số importer sau bỏ mặt suy biến. Bằng chứng `Captures/meshy-rigged-source-inspection.json`.
+- `integrate_meshy_riders.py`: dùng bind geometry và trọng số da của rig nguồn, gom về 13 xương người semantic + 4 xương xe. Chuyển bind T-pose sang tư thế lái, căn cổ tay/ngón vào tay nắm, giữ 7 clip Idle/Ride/KickLeft/KickRight/FallLeft/FallRight/Recover của game. Runtime tham chiếu trực tiếp AnimationClip đã kiểm tra trong `Bikes/Meshy/{asset}.fbx` thay vì clip re-bake từ FBX mới, tránh biến đổi vòng lặp Euler/quaternion qua hai lần xuất. Do đó thư mục Meshy cũ là dependency clip/nguồn xe; không xóa cả thư mục này vì tưởng còn người cũ đang hiển thị. Không dùng cách đo khoảng cách capsule để rig lại người mới. Giữ nguyên 15.739 tam giác xe Meshy, đèn/nozzle và mọi root gameplay. Blender chạy nền độc lập, không phải phiên MCP trực tiếp.
+- Xuất 5 FBX mới vào `Assets/PhoViet/Art/Bikes/MeshyRiders/` và nguồn `ArtSource/Blender/PhoViet_MeshyRiders.blend`. LOD0 42.939 tam giác; LOD1 khoảng 11k; LOD2 khoảng 5k. 17 xương, 7 clip, Bone2, một material mỗi skin. Nguồn rig gốc giữ riêng để tái tạo; không phá xe CSGT.
+- `prepare_meshy_rider_atlas.py` + `MeshyRider_ShirtMask.png`: atlas2048², UV xe ở nửa trên v[.5,1], người ở nửa dưới v[0,.5]. Hero giữ áo đỏ/sao ngực texture gốc, thêm sao lưng ở21.13; City xanh, Underbone kem, Sport tím, Racer xám. Mask lấy theo weights Torso/Pelvis/UpperArm và nới biên UV 9px để không sót mảng đỏ ở vai. Chỉ đổi vùng áo, xóa sao trên áo NPC bằng mask/inpaint; 11.250 pixel mask trước resize. Normal/surface/emission dùng chung 5 mẫu; vùng người emission đen.
+- `PhoVietBikeUpgrade.ModelPath` ưu tiên thư mục mới, `IsMeshyPath` hỗ trợ cả hai thế hệ. AtlasMaterial nạp shared Meshy_Surface; `PhoVietLightingUpgrade` tìm mask trong cùng thư mục. `PhoVietMeshyBikeUpgrade.Install` thay 32 actor (14 xe đậu nguồn), bake 3 mesh Generated giữ GUID cho 56 xe đậu nhánh; loại vật liệu thế hệ trước khỏi emissionMaterials, gắn lại18 bộ đèn và kiểm CSGT trước/sau. Backup scene trong `.tools/PhoViet-before-meshy-rider*.unity`.
+- `CleanupMeshyRiders.cs` đã xóa root và toàn bộ folder import **Vietnam Star Streetwear_20261023_104420** chưa rig bằng AssetDatabase.DeleteAsset sau kiểm không còn skin dùng. Năm asset thử chưa rig trong MeshyRiders được xuất đè bằng mẫu có rig mới; scene không dùng lại chúng. Ba root nguồn Meshy khác giữ để tham chiếu Editor, gán EditorOnly và tắt active để không có người T-pose/Running đứng lẫn trong Play Mode. Các nguồn lịch sử xe/CSGT/clip đã commit và file cục bộ Claude không bị xóa.
+- Ảnh kiểm tra Unity: `Captures/meshy-riders-hero-front.png`, `hero-rear`, `racer`, `police`, `game`, `night`, `night-hero`, `pose-KickLeft/KickRight/FallLeft/FallRight`; đã chụp lại sau sửa mask áo và dùng clip gốc. **10 suite /3.308 điều kiện đạt** (art, đạp nhanh/giao lộ, nhảy/nóc xe, boost, đèn, chế độ quãng đường), cùng5 kiểm tra màu atlas. Bộ kiểm tra và kết quả cuối xem `Captures/VERIFICATION_MESHY_RIDERS.md`; không dùng bằng chứng của bản chưa rig thay cho mẫu có rig.
+- Trạng thái: **đã cài/lưu scene Unity; chưa commit/build WebGL/push/phát hành bộ người mới**. Web vẫn1.31.0. Công việc vẫn khóa cả code lẫn scene, dữ liệu Coin/kỷ lục giữ nguyên. Chỉ nâng phiên bản/build khi có yêu cầu phát hành tiếp theo.
+
+### 21.10. Sửa vai và bàn tay nắm tay lái v2 (23/10/2026; ngón tay được chỉnh tiếp ở21.11)
+
+- Người dùng phản hồi ảnh21.9: vai nhún cao, cẳng tay gác lên tay lái, bàn tay chưa nắm tay nắm. Sửa trên cùng mẫu Golden Star Stance, không thay mặt/trang phục/xe, vẫn giữ CSGT và jobsfalse.
+- `integrate_meshy_riders.py::targets/bind_person`: hạ vị trí vai từ1.492 xuống1.365m, khuỷu đặt `(±.305,1.195,.055)`, cổ tay `(±.395,1.261,.230)`; đầu hạ6,5cm để cổ không kéo dài sau hạ vai. Đỉnh torso/đáy cổ tới `(0,1.415,-.115)`; không nâng vai theo Head của rig cũ nữa.
+- Giữ nhãn group nguồn từng vertex để nhận diện Thumb. Bốn ngón uốn theo tiết diện quanh tay nắm tại khoảng`(±.395,1.237,.315)`; offset độ dày đi theo pháp tuyến vòng cong để tránh cả bàn tay bẹt. Ngón cái có cung đối hướng ôm từ sau xuống dưới, không dùng cùng đường cong với bốn ngón. Lòng tay đi từ cổ tay phía sau đến mặt trên tay nắm; cẳng tay kết thúc trước tay nắm.
+- Áp dụng cả5FBX/3LOD, rebake xe đậu và giữ7clip gốc/17xương semantic. Không thay tốc độ/gameplay/input. `CaptureMeshyRiders.cs` bổ sung ảnh cận bàn tay và chính diện vai để đánh giá hình ảnh; các assertion gameplay cũ không thay thế việc xem ảnh.
+- **Đã lưu scene và kiểm tra:** 7 suite /938 điều kiện đạt (MeshyRiders356, BikeArt156, QuickKick62, JunctionKick216, Jump44, NightJumpLighting88, MeshyLighting16). `Captures/meshy-grip-verification-summary.json` và từng `meshy-grip-Verify*-results.json`. Installer thay32 actor/56xe đậu nhánh, CSGT nguyên trạng,18neođèn đủ, jobsfalse. Preflight không thiếu script/đèn. Đã xem ảnh Unity cận tay, chính diện vai và các pose đạp; ảnh cuối `meshy-grip-grip-close.png`, `meshy-grip-shoulders-front.png`, `meshy-grip-hero-front.png`, `meshy-grip-pose-*.png`.
+- **Chưa commit/build WebGL/push/phát hành**; web vẫn1.31.0. Các con số3.308 của21.9 là kiểm tra bản trước; kết quả938 ở đây được chạy lại trên bản sửa vai/tay cuối. Không tuyên bố đã kiểm thiết bị điện thoại thật.
+
+### 21.11. Cuộn sát các đốt ngón quanh tay nắm v3 (23/10/2026; chiều dài ngón được sửa ở21.12)
+
+- Người dùng chỉ ra ảnh cận v2 vẫn còn ngón thả xuống; các kết quả kiểm tra gameplay ở21.10 không chứng minh tư thế nắm đã đạt. Giữ vai/cổ tay và toàn bộ mẫu, chỉ sửa trường biến dạng bàn tay.
+- `integrate_meshy_riders.py::bind_person`: thay chuỗi nội suy hở bằng cung tròn quanh trục tay nắm. Tâm tiết diệnY/Z`(1.237,.315)`, bán kính đường giữa`.033m`; đốt xa theo chiều dài nguồn`t=.08→.20m` cuộn tới`1.65π`(297°), đưa đầu ngón vòng về sau tay nắm. Độ dày theo pháp tuyến chặn±.007m để mặt trong ôm cao su, tránh ngón bẹt hoặc xuyên sâu. Phần lòng tay nối mềm từ cổ tay tới điểm đầu cung.
+- Ngón cái dùng cung đối hướng từ−90°đến−234°, đi quanh mặt dưới và kẹp đối diện bốn ngón. Giữ mirror chiều rộng hai tay, weights nguồn/17xương/7clip/LOD, màu áo/xe và CSGT. Metadata`ridingPose=relaxed-shoulders-closed-grip-v3`.
+- Xuất lại cả5FBX và nguồn blend, cài/bake các actor/xe đậu như21.9. `CaptureMeshyRiders.cs` thêm ảnh cận tay trái bên cạnh ảnh cận tay phải, đánh giá bằng ảnh thật trong Unity.
+- **Đã lưu scene và kiểm tra:** VerifyMeshyRiders356 + VerifyBikeArt156 = **512 điều kiện đạt** trên v3, gồm cả clip đạp trái/phải/ngã. Không tính lại938 của bản v2 như kiểm tra mới. `Captures/meshy-finger-roll-summary.json`, `meshy-finger-roll-Verify*-results.json`, installer/preflight đều success;32actor/56xe đậu nhánh đã thay, CSGT nguyên trạng,18neođèn đủ, không thiếu script và jobsfalse. Đã xem ảnh cận cả hai tay trong Unity: `Captures/meshy-finger-roll-grip-close.png` (phải), `meshy-finger-roll-grip-left-close.png` (trái). `git diff --check` đạt.
+- **Chưa commit/build WebGL/push/phát hành**; web vẫn1.31.0, chưa kiểm phần cứng mobile cho bản sửa ngón này.
+
+### 21.12. Rút ngắn ngón tay, giữ tư thế nắm v4 (23/10/2026)
+
+- Người dùng xác nhận tư thế nắm v3 đã đúng nhưng ngón cả hai tay quá dài. Chỉ rút đoạn cuộn của các đốt xa, giữ nguyên lòng tay/cổ tay/vai và vị trí/tâm/bán kính tay nắm; không scale toàn bàn tay.
+- `integrate_meshy_riders.py`: `FINGER_ARC_SCALE=.80`, giảm20% chiều dài cung. Bốn ngón từ tối đa297°còn237,6°; ngón cái từ144°còn115,2°, vẫn cuộn đối hướng. Tâm/radius.033m và thickness±.007m giữ nguyên. Các bản thử32% làm dáng nắm bị hở hoặc kéo lòng tay nên không dùng; bản cuối giữ gốc ngón và kích thước lòng tay của v3. Metadata`ridingPose=relaxed-shoulders-closed-grip-v4`, `fingerArcScale=.8`.
+- Xuất lại5FBX/3LOD/blend và cài/rebake32actor/56xe đậu nhánh; CSGT và jobsfalse giữ nguyên. **Đã lưu scene** và xem ảnh cận cả hai tay trên bản v4 cuối: `Captures/meshy-short-fingers-grip-close.png`, `meshy-short-fingers-grip-left-close.png`. VerifyMeshyRiders356 + VerifyBikeArt156 = **512 điều kiện đạt chạy lại cho v4**. Installer/captures/preflight success, CSGT nguyên trạng, không thiếu script/đèn, jobsfalse; `git diff --check` đạt. Bằng chứng `meshy-short-fingers-summary.json` và các JSON cùng tiền tố. **Chưa commit/build WebGL/push/phát hành**, web vẫn1.31.0; chưa thử phần cứng điện thoại thật.
+
+### 21.13. Sao vàng giữa lưng áo nhân vật chính (23/10/2026)
+
+- Thêm đúng một ngôi sao vàng5cánh vào chính giữa lưng áo đỏ của hero, không thêm cho NPC. Giữ sao ngực và tư thế nắm/ngón v4.
+- `ArtSource/Blender/bake_hero_back_star.py`: chạy Blender nền, đọc hình học/UV source Golden Star Stance rồi chiếu polygon10đỉnh lên mặt lưng; tâm đứng`(X=0,Y=1.18m)`, R=.125m, r/R=.381966. Chỉ mặtZ<−.02 được nhận, tránh in xuyên qua ngực. Xuất`ArtSource/Blender/MeshyHero_BackStarMask.png`2048², số pixel mask gốc ghi tại`meshy-back-star-mask.json`; không sửa FBX/texture import nguồn.
+- `prepare_meshy_rider_atlas.py`: dùng mask riêng cho Hero, viền mềm.45pixel nguồn, vàngRGB(1,.82,.09) theo độ sáng vải gốc để giữ nếp áo. Bản hero palette atlas hiện hành được cập nhật; shader/normal/emission và geometry/rig/clip giữ nguyên. Cả3LOD dùng cùng atlas nên đều có sao. Muốn tái tạo: Blender bake_hero_back_star.py trước, rồi Python prepare_meshy_rider_atlas.py. Metadata source.json ghiheroBackStarAdded=true/heroFrontTexturePreserved=true; không còn khẳng định toàn texture Hero giữ nguyên.
+- Đã đối chiếu hash: mọi palette NPC và3sharedmap giữ nguyên; nửa atlas xe của hero cũng nguyên. Kiểm tra`Captures/meshy-back-star-texture-checks.json`. Đã xem ảnh Unity trước/sau và góc chơi, sao5cánh rõ và ở giữa lưng: `Captures/meshy-back-star-hero-rear.png`, `meshy-back-star-game.png`; sao ngực vẫn giữ. Captures/preflight success, scene33actor/1CSGT, không thiếu script/đèn, jobsfalse. Đây là đổi texture; kiểm hash/ảnh và preflight, không chạy lại toàn bộ suite gameplay hoặc xuất lại FBX. **Chưa commit/build WebGL/push/phát hành**, web vẫn1.31.0.
+
+### 21.14. Phát hành bộ nhân vật 1.32.0 (23/10/2026)
+
+- Người dùng yêu cầu trực tiếp “build và phát hành lên web”; đã ủy quyền build, kiểm tra, commit/push main và deploy Pages. Không hỏi lại quyền cùng lần phát hành.
+- Gồm Golden Star Stance có rig,5màu áo, vai/cổ/tay nắm/ngón v4 và sao giữa lưng hero (21.9–21.13); CSGT nguyên trạng, công việc khóa, dữ liệu Coin/kỷ lục giữ nguyên.
+- Cấu hình/PlayerSettings và kỳ vọng web được nâng1.32.0, giữ toàn bộ PWA/mobile/DPR/gzip/WASM một luồng. **15suite/4.588điều kiện native đạt**. Build`build_636fb2e3e84d`Succeeded, 646,526ms,0lỗi/1warning Pipeline thiếu RuntimePipelineConfig đã biết. Tổng khoảng47,15MB; báo cáo packedAssets xác nhận0asset nguồn MeshyImports vào runtime. Output cuối đã copydocs, dọn4hash cũ đúng thư mụcdocs/Build.
+- Cache`96d0c318c468dcab`, UTC`2026-10-23T11:33:20.5868417Z`. `AgentScripts/VerifyWebBundle.py` đạt29kiểm tra bundle/SHA/header gzip/WASM/data/4fileBuild/giới hạn100MB. Local browser **83kiểm tra đạt**: PWA/offline37, khớp tài nguyên+WASM26, fullscreen iPhone/iPad dọc-ngang20,0lỗi runtime. Đã xem ảnh desktop và mobile dọc; ảnh cuối `Captures/riders-release-desktop.png`, `riders-release-portrait.png`, `riders-release-landscape.png`, `riders-release-offline.png`. Đây là giả lập browser, chưa kiểm phần cứng điện thoại thật.
+- **Đang chờ commit/push/Pages/live**. Chỉ xác nhận phát hành sau khi workflow đúng SHA thành công và livekhớp cache/artifact. Bằng chứng `Captures/riders-release-*-results.json`, `riders-release-local-summary.json`, `riders-release-build-summary.json`.
+- Giữ ngoài staging các file Wave/WaveAlpha,5blend cục bộ cũ, Bridge plugin/Packages chưa liên quan. Commit model mới/source rig/texture/scene/Generated/mã cài và bản WebGL tương ứng. Không reset công việc Claude.
 
 ---
 

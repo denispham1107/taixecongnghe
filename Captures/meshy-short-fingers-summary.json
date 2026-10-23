@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "suites": [
+    {
+      "suite": "meshy-short-fingers-VerifyBikeArt-results",
+      "count": 156
+    },
+    {
+      "suite": "meshy-short-fingers-VerifyMeshyRiders-results",
+      "count": 356
+    }
+  ],
+  "total": 512,
+  "fingerArcScale": 0.8,
+  "visualInspected": [
+    "left closeup",
+    "right closeup"
+  ],
+  "webBuild": false,
+  "published": false
+}

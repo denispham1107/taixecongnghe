@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "suites": [
+    {
+      "suite": "meshy-grip-VerifyBikeArt-results",
+      "count": 156
+    },
+    {
+      "suite": "meshy-grip-VerifyJump-results",
+      "count": 44
+    },
+    {
+      "suite": "meshy-grip-VerifyJunctionKick-results",
+      "count": 216
+    },
+    {
+      "suite": "meshy-grip-VerifyMeshyLighting-results",
+      "count": 16
+    },
+    {
+      "suite": "meshy-grip-VerifyMeshyRiders-results",
+      "count": 356
+    },
+    {
+      "suite": "meshy-grip-VerifyNightJumpLighting-results",
+      "count": 88
+    },
+    {
+      "suite": "meshy-grip-VerifyQuickKick-results",
+      "count": 62
+    }
+  ],
+  "total": 938,
+  "build": false,
+  "published": false
+}

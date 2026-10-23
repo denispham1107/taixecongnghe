@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "centre": [
+    0,
+    1.18
+  ],
+  "outerRadius": 0.125,
+  "tips": 5,
+  "sourceMaskPixels": 15320,
+  "sourceUntouched": true
+}

@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyMeshyRelease.cs",
+      "entry": "VerifyMeshyRelease.Main",
+      "timeout_ms": "60000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 581,
+      "executeMs": 28,
+      "assemblyName": "PipelineRunScript_VerifyMeshyRelease_470525e11bad4be280cc0fdc86ee2bbb",
+      "success": true,
+      "result": {
+        "success": true,
+        "scene": "Assets/PhoViet/Scenes/PhoViet.unity",
+        "version": "1.32.0",
+        "bikes": 33,
+        "police": 1,
+        "jobs": false,
+        "missingScripts": 0,
+        "referenceModelsEditorOnly": 3
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

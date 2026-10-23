@@ -31,7 +31,7 @@ public static class VerifyMeshyRelease
             foreach(var skin in bike.visual.GetComponentsInChildren<SkinnedMeshRenderer>(true))
             {
                 string path=AssetDatabase.GetAssetPath(skin.sharedMesh);
-                if(!path.Contains(police?"Bikes/PV_TrafficPolice.fbx":"Bikes/Meshy/"))throw new Exception("Wrong bike mesh "+path);
+                if(police?!path.Contains("Bikes/PV_TrafficPolice.fbx"):path!=PhoViet.Editor.PhoVietBikeUpgrade.ModelPath(bike.AssetName))throw new Exception("Wrong bike mesh "+path);
                 if(skin.sharedMaterial==null||skin.sharedMaterial.shader==null)throw new Exception("Missing material");
             }
         }

@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "version": "1.32.0",
+  "cache": "96d0c318c468dcab",
+  "nativeChecks": 4588,
+  "browserChecks": 83,
+  "staticChecks": 29,
+  "runtimeErrors": 0,
+  "build": {
+    "buildId": "build_636fb2e3e84d",
+    "result": "Succeeded",
+    "buildTimeMs": 646526,
+    "totalSizeBytes": 47153200,
+    "totalErrors": 0,
+    "totalWarnings": 1,
+    "rawMeshyImportsPacked": 0
+  },
+  "published": false
+}

@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "unchanged": [
+    "Meshy_Emission.png unchanged",
+    "Meshy_Normal.png unchanged",
+    "Meshy_Surface.png unchanged",
+    "PV_CityScooter_Palette.png unchanged",
+    "PV_Racer_Palette.png unchanged",
+    "PV_SportBike_Palette.png unchanged",
+    "PV_Underbone_Palette.png unchanged"
+  ],
+  "motorcycleUnchanged": true,
+  "newHeroPixels": 9188,
+  "onlyHeroPaletteChanged": true,
+  "visualInspected": [
+    "rear closeup",
+    "riding camera"
+  ]
+}

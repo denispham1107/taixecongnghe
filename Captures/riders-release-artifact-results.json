@@ -1,0 +1,39 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "checks": [
+    "Live release version and cache match tested build",
+    "Published artifact matches: Build/17384e15e633fbc7d212c5e35f97afc1.wasm.unityweb",
+    "Published artifact matches: Build/1c8957e94a9e5f63fd7d4e70c09358d6.loader.js",
+    "Published artifact matches: Build/a0a963b0bfa77b72eadf2c0bb52988f3.framework.js.unityweb",
+    "Published artifact matches: Build/ae0f7ec55528144c3499b363d5196e28.data.unityweb",
+    "Published artifact matches: FONT-LICENSE.txt",
+    "Published artifact matches: app.js",
+    "Published artifact matches: font.ttf",
+    "Published artifact matches: icons/apple-touch-icon-moto.png",
+    "Published artifact matches: icons/apple-touch-icon.png",
+    "Published artifact matches: icons/icon-192.png",
+    "Published artifact matches: icons/icon-512.png",
+    "Published artifact matches: icons/icon-maskable-512.png",
+    "Published artifact matches: icons/icon-moto-192.png",
+    "Published artifact matches: icons/icon-moto-512.png",
+    "Published artifact matches: icons/icon-moto-maskable-512.png",
+    "Published artifact matches: icons/icon.svg",
+    "Published artifact matches: index.html",
+    "Published artifact matches: manifest.webmanifest",
+    "Published artifact matches: poster.png",
+    "Published artifact matches: style.css",
+    "Published artifact matches: sw.js",
+    "Published artifact matches: precache.json",
+    "Real published Unity WebAssembly initializes",
+    "Published start and pause input smoke completed",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "build": {
+    "version": "1.32.0",
+    "cache": "96d0c318c468dcab",
+    "unity": "6000.5.6f1",
+    "utc": "2026-10-23T11:33:20.5868417Z"
+  },
+  "success": true
+}

@@ -1,0 +1,412 @@
+[
+  {
+    "name": "PV_HeroScooter",
+    "design": "meshy-scooter",
+    "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822\\Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+    "source_triangles": 15739,
+    "bones": 17,
+    "materials": 1,
+    "clips": [
+      "Idle",
+      "Ride",
+      "KickLeft",
+      "KickRight",
+      "FallLeft",
+      "FallRight",
+      "Recover"
+    ],
+    "lod_triangles": [
+      42939,
+      11000,
+      4999
+    ],
+    "anchors": {
+      "headlight": [
+        0.0,
+        1.25,
+        0.5734127759933472
+      ],
+      "taillight": [
+        0.0,
+        0.9950000047683716,
+        -0.8303760290145874
+      ],
+      "exhaust_tip": [
+        0.23,
+        0.4,
+        -1.0
+      ]
+    },
+    "originalRiderPreserved": false,
+    "riderDesign": "meshy-golden-star-rigged",
+    "sourceSkinWeights": true,
+    "sourceRider": "Assets/MeshyImports/Golden Star Stance_20261023_150430/Meshy_AI_Golden_Star_Stance_biped_Character_output.fbx",
+    "sourceRiderTriangles": 27200,
+    "sourceRiderVertices": 29791,
+    "bikeTriangles": 15739,
+    "originalMotorcyclePreserved": true,
+    "helmet": false,
+    "shirtStar": true,
+    "ridingPose": "relaxed-shoulders-closed-grip-v4",
+    "fingerArcScale": 0.8,
+    "shoulderHeight": 1.365,
+    "gripCentre": [
+      0.395,
+      1.237,
+      0.315
+    ],
+    "binding": {
+      "Pelvis": 200,
+      "Torso": 1293,
+      "Head": 16644,
+      "LUpperArm": 685,
+      "LForearm": 2148,
+      "LThigh": 435,
+      "LShin": 979,
+      "LFoot": 1578,
+      "RUpperArm": 590,
+      "RForearm": 2120,
+      "RThigh": 509,
+      "RShin": 1027,
+      "RFoot": 1583
+    },
+    "atlasLayout": {
+      "bike": [
+        0.5,
+        1
+      ],
+      "rider": [
+        0,
+        0.5
+      ]
+    }
+  },
+  {
+    "name": "PV_CityScooter",
+    "design": "meshy-scooter",
+    "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822\\Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+    "source_triangles": 15739,
+    "bones": 17,
+    "materials": 1,
+    "clips": [
+      "Idle",
+      "Ride",
+      "KickLeft",
+      "KickRight",
+      "FallLeft",
+      "FallRight",
+      "Recover"
+    ],
+    "lod_triangles": [
+      42939,
+      11000,
+      4999
+    ],
+    "anchors": {
+      "headlight": [
+        0.0,
+        1.25,
+        0.5734127759933472
+      ],
+      "taillight": [
+        0.0,
+        0.9950000047683716,
+        -0.8303760290145874
+      ],
+      "exhaust_tip": [
+        0.23,
+        0.4,
+        -1.0
+      ]
+    },
+    "originalRiderPreserved": false,
+    "riderDesign": "meshy-golden-star-rigged",
+    "sourceSkinWeights": true,
+    "sourceRider": "Assets/MeshyImports/Golden Star Stance_20261023_150430/Meshy_AI_Golden_Star_Stance_biped_Character_output.fbx",
+    "sourceRiderTriangles": 27200,
+    "sourceRiderVertices": 29791,
+    "bikeTriangles": 15739,
+    "originalMotorcyclePreserved": true,
+    "helmet": false,
+    "shirtStar": false,
+    "ridingPose": "relaxed-shoulders-closed-grip-v4",
+    "fingerArcScale": 0.8,
+    "shoulderHeight": 1.365,
+    "gripCentre": [
+      0.395,
+      1.237,
+      0.315
+    ],
+    "binding": {
+      "Pelvis": 200,
+      "Torso": 1293,
+      "Head": 16644,
+      "LUpperArm": 685,
+      "LForearm": 2148,
+      "LThigh": 435,
+      "LShin": 979,
+      "LFoot": 1578,
+      "RUpperArm": 590,
+      "RForearm": 2120,
+      "RThigh": 509,
+      "RShin": 1027,
+      "RFoot": 1583
+    },
+    "atlasLayout": {
+      "bike": [
+        0.5,
+        1
+      ],
+      "rider": [
+        0,
+        0.5
+      ]
+    }
+  },
+  {
+    "name": "PV_Underbone",
+    "design": "meshy-scooter",
+    "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822\\Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+    "source_triangles": 15739,
+    "bones": 17,
+    "materials": 1,
+    "clips": [
+      "Idle",
+      "Ride",
+      "KickLeft",
+      "KickRight",
+      "FallLeft",
+      "FallRight",
+      "Recover"
+    ],
+    "lod_triangles": [
+      42939,
+      11000,
+      4999
+    ],
+    "anchors": {
+      "headlight": [
+        0.0,
+        1.25,
+        0.5734127759933472
+      ],
+      "taillight": [
+        0.0,
+        0.9950000047683716,
+        -0.8303760290145874
+      ],
+      "exhaust_tip": [
+        0.23,
+        0.4,
+        -1.0
+      ]
+    },
+    "originalRiderPreserved": false,
+    "riderDesign": "meshy-golden-star-rigged",
+    "sourceSkinWeights": true,
+    "sourceRider": "Assets/MeshyImports/Golden Star Stance_20261023_150430/Meshy_AI_Golden_Star_Stance_biped_Character_output.fbx",
+    "sourceRiderTriangles": 27200,
+    "sourceRiderVertices": 29791,
+    "bikeTriangles": 15739,
+    "originalMotorcyclePreserved": true,
+    "helmet": false,
+    "shirtStar": false,
+    "ridingPose": "relaxed-shoulders-closed-grip-v4",
+    "fingerArcScale": 0.8,
+    "shoulderHeight": 1.365,
+    "gripCentre": [
+      0.395,
+      1.237,
+      0.315
+    ],
+    "binding": {
+      "Pelvis": 200,
+      "Torso": 1293,
+      "Head": 16644,
+      "LUpperArm": 685,
+      "LForearm": 2148,
+      "LThigh": 435,
+      "LShin": 979,
+      "LFoot": 1578,
+      "RUpperArm": 590,
+      "RForearm": 2120,
+      "RThigh": 509,
+      "RShin": 1027,
+      "RFoot": 1583
+    },
+    "atlasLayout": {
+      "bike": [
+        0.5,
+        1
+      ],
+      "rider": [
+        0,
+        0.5
+      ]
+    }
+  },
+  {
+    "name": "PV_SportBike",
+    "design": "meshy-scooter",
+    "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822\\Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+    "source_triangles": 15739,
+    "bones": 17,
+    "materials": 1,
+    "clips": [
+      "Idle",
+      "Ride",
+      "KickLeft",
+      "KickRight",
+      "FallLeft",
+      "FallRight",
+      "Recover"
+    ],
+    "lod_triangles": [
+      42939,
+      11000,
+      4999
+    ],
+    "anchors": {
+      "headlight": [
+        0.0,
+        1.25,
+        0.5734127759933472
+      ],
+      "taillight": [
+        0.0,
+        0.9950000047683716,
+        -0.8303760290145874
+      ],
+      "exhaust_tip": [
+        0.23,
+        0.4,
+        -1.0
+      ]
+    },
+    "originalRiderPreserved": false,
+    "riderDesign": "meshy-golden-star-rigged",
+    "sourceSkinWeights": true,
+    "sourceRider": "Assets/MeshyImports/Golden Star Stance_20261023_150430/Meshy_AI_Golden_Star_Stance_biped_Character_output.fbx",
+    "sourceRiderTriangles": 27200,
+    "sourceRiderVertices": 29791,
+    "bikeTriangles": 15739,
+    "originalMotorcyclePreserved": true,
+    "helmet": false,
+    "shirtStar": false,
+    "ridingPose": "relaxed-shoulders-closed-grip-v4",
+    "fingerArcScale": 0.8,
+    "shoulderHeight": 1.365,
+    "gripCentre": [
+      0.395,
+      1.237,
+      0.315
+    ],
+    "binding": {
+      "Pelvis": 200,
+      "Torso": 1293,
+      "Head": 16644,
+      "LUpperArm": 685,
+      "LForearm": 2148,
+      "LThigh": 435,
+      "LShin": 979,
+      "LFoot": 1578,
+      "RUpperArm": 590,
+      "RForearm": 2120,
+      "RThigh": 509,
+      "RShin": 1027,
+      "RFoot": 1583
+    },
+    "atlasLayout": {
+      "bike": [
+        0.5,
+        1
+      ],
+      "rider": [
+        0,
+        0.5
+      ]
+    }
+  },
+  {
+    "name": "PV_Racer",
+    "design": "meshy-scooter",
+    "source": "Assets\\MeshyImports\\Red Honda Scooter Front View_20261023_023822\\Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+    "source_triangles": 15739,
+    "bones": 17,
+    "materials": 1,
+    "clips": [
+      "Idle",
+      "Ride",
+      "KickLeft",
+      "KickRight",
+      "FallLeft",
+      "FallRight",
+      "Recover"
+    ],
+    "lod_triangles": [
+      42939,
+      11000,
+      4999
+    ],
+    "anchors": {
+      "headlight": [
+        0.0,
+        1.25,
+        0.5734127759933472
+      ],
+      "taillight": [
+        0.0,
+        0.9950000047683716,
+        -0.8303760290145874
+      ],
+      "exhaust_tip": [
+        0.23,
+        0.4,
+        -1.0
+      ]
+    },
+    "originalRiderPreserved": false,
+    "riderDesign": "meshy-golden-star-rigged",
+    "sourceSkinWeights": true,
+    "sourceRider": "Assets/MeshyImports/Golden Star Stance_20261023_150430/Meshy_AI_Golden_Star_Stance_biped_Character_output.fbx",
+    "sourceRiderTriangles": 27200,
+    "sourceRiderVertices": 29791,
+    "bikeTriangles": 15739,
+    "originalMotorcyclePreserved": true,
+    "helmet": false,
+    "shirtStar": false,
+    "ridingPose": "relaxed-shoulders-closed-grip-v4",
+    "fingerArcScale": 0.8,
+    "shoulderHeight": 1.365,
+    "gripCentre": [
+      0.395,
+      1.237,
+      0.315
+    ],
+    "binding": {
+      "Pelvis": 200,
+      "Torso": 1293,
+      "Head": 16644,
+      "LUpperArm": 685,
+      "LForearm": 2148,
+      "LThigh": 435,
+      "LShin": 979,
+      "LFoot": 1578,
+      "RUpperArm": 590,
+      "RForearm": 2120,
+      "RThigh": 509,
+      "RShin": 1027,
+      "RFoot": 1583
+    },
+    "atlasLayout": {
+      "bike": [
+        0.5,
+        1
+      ],
+      "rider": [
+        0,
+        0.5
+      ]
+    }
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "variants": [
+    {
+      "asset": "PV_CityScooter_Palette",
+      "redShirtPixels": 52,
+      "hero": false,
+      "pass": true
+    },
+    {
+      "asset": "PV_HeroScooter_Palette",
+      "redShirtPixels": 348150,
+      "hero": true,
+      "pass": true
+    },
+    {
+      "asset": "PV_Racer_Palette",
+      "redShirtPixels": 8,
+      "hero": false,
+      "pass": true
+    },
+    {
+      "asset": "PV_SportBike_Palette",
+      "redShirtPixels": 9,
+      "hero": false,
+      "pass": true
+    },
+    {
+      "asset": "PV_Underbone_Palette",
+      "redShirtPixels": 19,
+      "hero": false,
+      "pass": true
+    }
+  ],
+  "checks": 5
+}

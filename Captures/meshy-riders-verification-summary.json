@@ -1,0 +1,48 @@
+{
+  "success": true,
+  "suites": [
+    {
+      "suite": "meshy-riders-VerifyBikeArt-results",
+      "count": 156
+    },
+    {
+      "suite": "meshy-riders-VerifyBoost-results",
+      "count": 35
+    },
+    {
+      "suite": "meshy-riders-VerifyDistanceMode-results",
+      "count": 31
+    },
+    {
+      "suite": "meshy-riders-VerifyJump-results",
+      "count": 44
+    },
+    {
+      "suite": "meshy-riders-VerifyJunctionKick-results",
+      "count": 216
+    },
+    {
+      "suite": "meshy-riders-VerifyMeshyLighting-results",
+      "count": 16
+    },
+    {
+      "suite": "meshy-riders-VerifyMeshyRiders-results",
+      "count": 356
+    },
+    {
+      "suite": "meshy-riders-VerifyNightJumpLighting-results",
+      "count": 88
+    },
+    {
+      "suite": "meshy-riders-VerifyQuickKick-results",
+      "count": 62
+    },
+    {
+      "suite": "meshy-riders-VerifyRoofRiding-results",
+      "count": 2304
+    }
+  ],
+  "total": 3308,
+  "build": false,
+  "published": false
+}

@@ -18,13 +18,14 @@ namespace PhoViet.Editor
         public static Vector3? Mount(string asset,string name)
         {
             string path=Path.ChangeExtension(PhoVietBikeUpgrade.ModelPath(asset),"json");
-            if(!path.Contains("/Meshy/")||!File.Exists(path))return null;
+            if(!PhoVietBikeUpgrade.IsMeshyPath(path)||!File.Exists(path))return null;
             var info=JsonUtility.FromJson<Metadata>(File.ReadAllText(path));
             float[] p=name=="headlight"?info.anchors.headlight:name=="taillight"?info.anchors.taillight:info.anchors.exhaust_tip;
             return Point(p);
         }
 
         [MenuItem("Phố Việt/Art/Install received Meshy motorcycles (keep police)")]
+        [MenuItem("Phố Việt/Art/Install received Meshy riders (keep police)")]
         public static void MenuInstall(){Debug.Log(JsonUtility.ToJson(Install()));}
         public static object Install()
         {
@@ -32,11 +33,11 @@ namespace PhoViet.Editor
             var game=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();
             if(game==null||game.gameObject.scene.path!="Assets/PhoViet/Scenes/PhoViet.unity")throw new Exception("Open saved PhoViet scene first");
             if(game.daylight==null)throw new Exception("Lighting is required");
-            string backup=".tools/PhoViet-before-meshy.unity";Directory.CreateDirectory(".tools");
+            string backup=".tools/PhoViet-before-meshy-rider.unity";Directory.CreateDirectory(".tools");
             if(!File.Exists(backup))File.Copy(game.gameObject.scene.path,backup);
             // Preserve any in-memory editor changes too; saveAsCopy keeps the active scene path.
-            if(game.gameObject.scene.isDirty&&!File.Exists(".tools/PhoViet-before-meshy-memory.unity"))
-                EditorSceneManager.SaveScene(game.gameObject.scene,".tools/PhoViet-before-meshy-memory.unity",true);
+            if(game.gameObject.scene.isDirty&&!File.Exists(".tools/PhoViet-before-meshy-rider-memory.unity"))
+                EditorSceneManager.SaveScene(game.gameObject.scene,".tools/PhoViet-before-meshy-rider-memory.unity",true);
             var police=game.policeBike.GetComponent<BikeVisualAnimator>();
             var policeVisual=police.visual;string policeBefore=EditorJsonUtility.ToJson(police);
             AssetDatabase.Refresh();
@@ -44,7 +45,7 @@ namespace PhoViet.Editor
             foreach(string asset in PhoVietBikeUpgrade.Assets.Where(a=>a!="PV_TrafficPolice"))
             {
                 string path=PhoVietBikeUpgrade.ModelPath(asset);
-                if(!path.Contains("/Meshy/"))throw new Exception("Missing received model: "+asset);
+                if(!PhoVietBikeUpgrade.IsMeshyPath(path))throw new Exception("Missing received model: "+asset);
                 var info=JsonUtility.FromJson<Metadata>(File.ReadAllText(Path.ChangeExtension(path,"json")));
                 if(info.design!="meshy-scooter"||info.anchors==null)throw new Exception("Invalid model metadata: "+asset);
                 metadata.Add(asset,info);
@@ -96,9 +97,9 @@ namespace PhoViet.Editor
                 foreach(var halo in lamp.halos)halo.source=halo.rear?tail:lamp.head;
                 anchored++;
             }
-            var oldBikeMaterials=PhoVietBikeUpgrade.Assets.Where(a=>a!="PV_TrafficPolice").Select(a=>AssetDatabase.LoadAssetAtPath<Material>("Assets/PhoViet/Art/Bikes/"+a+".mat")).ToArray();
+            var managedNames=metadata.Keys.Select(a=>a+"_Atlas").ToArray();
             var newBikeMaterials=metadata.Keys.Select(a=>AssetDatabase.LoadAssetAtPath<Material>(Path.ChangeExtension(PhoVietBikeUpgrade.ModelPath(a),"mat"))).ToArray();
-            lighting.emissionMaterials=lighting.emissionMaterials.Where(m=>m!=null&&!oldBikeMaterials.Contains(m)).Concat(newBikeMaterials).Distinct().ToArray();
+            lighting.emissionMaterials=lighting.emissionMaterials.Where(m=>m!=null&&!managedNames.Contains(m.name)).Concat(newBikeMaterials).Distinct().ToArray();
             lighting.emissionUsers=game.GetComponentsInChildren<Renderer>(true).Where(r=>r.sharedMaterials.Any(m=>m!=null&&(lighting.emissionMaterials.Contains(m)||m==lighting.streetLens))).ToArray();
             bool policeUnchanged=policeVisual==police.visual&&policeBefore==EditorJsonUtility.ToJson(police);
             if(!policeUnchanged)throw new Exception("Police visual unexpectedly changed");

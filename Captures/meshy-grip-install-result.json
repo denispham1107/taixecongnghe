@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/UpgradeBikesMeshy.cs",
+      "entry": "UpgradeBikesMeshy.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 51,
+      "executeMs": 12598,
+      "assemblyName": "PipelineRunScript_UpgradeBikesMeshy_08b3806e6a2e4e6f98f709ae3546b84e",
+      "success": true,
+      "result": {
+        "success": true,
+        "replaced": 32,
+        "parked": 14,
+        "branchParked": 56,
+        "anchored": 18,
+        "rebaked": [
+          "PV_CityScooter:17333",
+          "PV_Underbone:17333",
+          "PV_SportBike:17333"
+        ],
+        "policeUnchanged": true,
+        "missingLampHeads": 0,
+        "jobsEnabled": false,
+        "scene": "Assets/PhoViet/Scenes/PhoViet.unity"
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "suites": [
+    {
+      "suite": "meshy-finger-roll-VerifyBikeArt-results",
+      "count": 156
+    },
+    {
+      "suite": "meshy-finger-roll-VerifyMeshyRiders-results",
+      "count": 356
+    }
+  ],
+  "total": 512,
+  "visualInspection": [
+    "both hands closeup in Unity"
+  ],
+  "webBuild": false,
+  "published": false
+}

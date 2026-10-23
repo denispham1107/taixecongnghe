@@ -67,7 +67,7 @@ namespace PhoViet.Editor
             foreach(var path in PhoVietBikeUpgrade.Assets.Select(a=>System.IO.Path.ChangeExtension(PhoVietBikeUpgrade.ModelPath(a),"mat").Replace('\\','/')).Concat(PhoVietCarUpgrade.Assets.Select(a=>"Assets/PhoViet/Art/Cars/"+a+".mat")))
             {
                 var material=AssetDatabase.LoadAssetAtPath<Material>(path);if(material==null)throw new Exception("Missing vehicle material: "+path);
-                string emissionPath=path.Contains("/Meshy/")?"Assets/PhoViet/Art/Bikes/Meshy/Meshy_Emission.png":Folder+(path.Contains("/Bikes/")?"PV_BikeEmission":"PV_CarEmission")+".png";
+                string emissionPath=PhoVietBikeUpgrade.IsMeshyPath(path)?System.IO.Path.GetDirectoryName(path).Replace('\\','/')+"/Meshy_Emission.png":Folder+(path.Contains("/Bikes/")?"PV_BikeEmission":"PV_CarEmission")+".png";
                 material.SetTexture("_EmissionMap",AssetDatabase.LoadAssetAtPath<Texture2D>(emissionPath));
                 material.EnableKeyword("_EMISSION");material.SetColor("_EmissionColor",Color.black);EditorUtility.SetDirty(material);emission.Add(material);
             }

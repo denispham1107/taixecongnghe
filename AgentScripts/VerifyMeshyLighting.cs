@@ -11,11 +11,11 @@ public static class VerifyMeshyLighting
         if(!Application.isPlaying)throw new Exception("Play Mode required");
         var g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();var l=g.daylight;
         var checks=new List<string>();Action<bool,string> check=(b,s)=>{if(!b)throw new Exception(s);checks.Add(s);};
-        var image=new Texture2D(2,2);image.LoadImage(File.ReadAllBytes("Assets/PhoViet/Art/Bikes/Meshy/Meshy_Emission.png"));
+        var image=new Texture2D(2,2);image.LoadImage(File.ReadAllBytes(System.IO.Path.GetDirectoryName(PhoViet.Editor.PhoVietBikeUpgrade.ModelPath("PV_HeroScooter"))+"/Meshy_Emission.png"));
         var p=image.GetPixels();int white=p.Count(c=>c.b>.4f&&c.g>.4f),red=p.Count(c=>c.r>.4f&&c.g<.05f);
         check(white>100&&red>50,"UV mask contains actual front white and rear red lamp faces");
         check(white+red<p.Length/8,"Emission is restricted to lenses, not whole white body");
-        check(p.Take(2048*128).All(c=>c.r<.01f&&c.g<.01f&&c.b<.01f),"Rider palette cannot glow at night");
+        check(p.Take(2048*(PhoViet.Editor.PhoVietBikeUpgrade.ModelPath("PV_HeroScooter").Contains("MeshyRiders")?1024:128)).All(c=>c.r<.01f&&c.g<.01f&&c.b<.01f),"Rider palette cannot glow at night");
         UnityEngine.Object.DestroyImmediate(image);
         foreach(string asset in new[]{"PV_HeroScooter","PV_CityScooter","PV_Underbone","PV_SportBike","PV_Racer"})
         {

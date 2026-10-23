@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.31.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.32.0**.
+
+## Nhân vật Meshy — 1.32.0
+
+Nhân vật Golden Star Stance có rig cho mọi tài xế ngoài CSGT; hero áo đỏ sao vàng ở ngực/lưng, NPC nhiều màu áo. Vai tự nhiên hơn, bàn tay ôm tay nắm và ngón đã rút ngắn. Giữ xe hero trắng–đen, CSGT nguyên trạng và chế độ thi quãng đường.
 
 ## Xe máy Meshy — 1.31.0
 

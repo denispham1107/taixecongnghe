@@ -15,9 +15,12 @@ namespace PhoViet.Editor
         // The Meshy replacement is isolated from the previous Blender sources and police model.
         public static string ModelPath(string asset)
         {
+            string rider=Folder+"MeshyRiders/"+asset+".fbx";
+            if(System.IO.File.Exists(rider))return rider;
             string path=Folder+"Meshy/"+asset+".fbx";
             return System.IO.File.Exists(path)?path:Folder+asset+".fbx";
         }
+        public static bool IsMeshyPath(string path)=>path.Contains("/Meshy/")||path.Contains("/MeshyRiders/");
 
         [MenuItem("Phố Việt/Art/Replace all motorcycles with Blender models")]
         public static void UpgradeOpenScene()
@@ -115,7 +118,10 @@ namespace PhoViet.Editor
             lod.SetLODs(new[]{new LOD(.16f,new Renderer[]{rendererList[0]}),new LOD(.055f,new Renderer[]{rendererList[1]}),new LOD(.008f,new Renderer[]{rendererList[2]})});
             lod.localReferencePoint=new Vector3(0,1.1f,0);lod.size=2.25f;
             var player=visual.GetComponent<Animation>()??visual.AddComponent<Animation>();player.playAutomatically=false;player.cullingType=AnimationCullingType.AlwaysAnimate;player.Stop();
-            var clips=AssetDatabase.LoadAllAssetsAtPath(ModelPath(asset)).OfType<AnimationClip>().Where(c=>ClipNames.Contains(c.name)).ToArray();
+            // Reuse the validated game clips directly: re-baking FBX a second time
+            // changes local rotation curves even though the semantic rig is identical.
+            string clipPath=ModelPath(asset).Contains("/MeshyRiders/")?Folder+"Meshy/"+asset+".fbx":ModelPath(asset);
+            var clips=AssetDatabase.LoadAllAssetsAtPath(clipPath).OfType<AnimationClip>().Where(c=>ClipNames.Contains(c.name)).ToArray();
             if(clips.Length!=7)throw new Exception(asset+" must have exactly seven semantic clips");
             var driver=root.GetComponent<BikeVisualAnimator>()??root.gameObject.AddComponent<BikeVisualAnimator>();
             driver.visual=visual.transform;driver.animationPlayer=player;driver.clips=clips;driver.role=role;driver.AssetName=asset;
@@ -131,12 +137,13 @@ namespace PhoViet.Editor
         static Material AtlasMaterial(string asset)
         {
             string folder=System.IO.Path.GetDirectoryName(ModelPath(asset)).Replace('\\','/')+"/";
-            Texture2D texture=ImportTexture(folder+asset+"_Palette.png",true),surface=ImportTexture(folder+asset+"_Surface.png",false);
+            string surfacePath=System.IO.File.Exists(folder+"Meshy_Surface.png")?folder+"Meshy_Surface.png":folder+asset+"_Surface.png";
+            Texture2D texture=ImportTexture(folder+asset+"_Palette.png",true),surface=ImportTexture(surfacePath,false);
             string path=folder+asset+".mat";var material=AssetDatabase.LoadAssetAtPath<Material>(path);
             if(material==null){material=new Material(Shader.Find("Standard"));AssetDatabase.CreateAsset(material,path);}
             material.name=asset+"_Atlas";material.mainTexture=texture;material.color=Color.white;
             material.SetTexture("_MetallicGlossMap",surface);material.EnableKeyword("_METALLICGLOSSMAP");material.SetFloat("_GlossMapScale",1);
-            if(folder.EndsWith("Meshy/",StringComparison.Ordinal))
+            if(IsMeshyPath(folder))
             {
                 material.SetTexture("_BumpMap",ImportTexture(folder+"Meshy_Normal.png",false,true));material.EnableKeyword("_NORMALMAP");material.SetFloat("_BumpScale",1);
                 material.SetTexture("_EmissionMap",ImportTexture(folder+"Meshy_Emission.png",true));material.EnableKeyword("_EMISSION");material.SetColor("_EmissionColor",Color.black);
@@ -147,7 +154,7 @@ namespace PhoViet.Editor
         {
             var importer=AssetImporter.GetAtPath(path) as TextureImporter;
             if(importer==null)throw new Exception("Missing texture "+path);
-            bool meshy=path.Contains("/Meshy/");var filter=meshy?FilterMode.Bilinear:FilterMode.Point;int size=meshy?2048:128;
+            bool meshy=IsMeshyPath(path);var filter=meshy?FilterMode.Bilinear:FilterMode.Point;int size=meshy?2048:128;
             var type=normal?TextureImporterType.NormalMap:TextureImporterType.Default;
             if(importer.sRGBTexture!=srgb||importer.filterMode!=filter||importer.wrapMode!=TextureWrapMode.Clamp||importer.mipmapEnabled!=meshy||importer.maxTextureSize!=size||importer.textureType!=type)
             {

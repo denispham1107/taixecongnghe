@@ -1,0 +1,44 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureMeshyRiders.cs",
+      "entry": "CaptureMeshyRiders.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2521,
+      "executeMs": 1601,
+      "assemblyName": "PipelineRunScript_CaptureMeshyRiders_d1b8a91dce604cfbb4cdc14455efa19f",
+      "success": true,
+      "result": {
+        "success": true,
+        "files": [
+          "Captures/meshy-riders-game.png",
+          "Captures/meshy-riders-hero-rear.png",
+          "Captures/meshy-riders-hero-front.png",
+          "Captures/meshy-riders-pose-KickLeft.png",
+          "Captures/meshy-riders-pose-KickRight.png",
+          "Captures/meshy-riders-pose-FallLeft.png",
+          "Captures/meshy-riders-pose-FallRight.png",
+          "Captures/meshy-riders-chase.png",
+          "Captures/meshy-riders-police.png",
+          "Captures/meshy-riders-racer.png",
+          "Captures/meshy-riders-night.png",
+          "Captures/meshy-riders-night-hero.png"
+        ],
+        "bikes": 5
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,66 @@
+{
+  "success": true,
+  "suites": [
+    {
+      "suite": "riders-release-VerifyBikeArt-results",
+      "count": 156
+    },
+    {
+      "suite": "riders-release-VerifyBoost-results",
+      "count": 35
+    },
+    {
+      "suite": "riders-release-VerifyBoostTrafficIsolation-results",
+      "count": 478
+    },
+    {
+      "suite": "riders-release-VerifyCrashOutcome-results",
+      "count": 51
+    },
+    {
+      "suite": "riders-release-VerifyCrashPoliceNavigation-results",
+      "count": 214
+    },
+    {
+      "suite": "riders-release-VerifyDistanceMode-results",
+      "count": 31
+    },
+    {
+      "suite": "riders-release-VerifyJump-results",
+      "count": 44
+    },
+    {
+      "suite": "riders-release-VerifyJunctionKick-results",
+      "count": 216
+    },
+    {
+      "suite": "riders-release-VerifyMeshyLighting-results",
+      "count": 16
+    },
+    {
+      "suite": "riders-release-VerifyMeshyRiders-results",
+      "count": 356
+    },
+    {
+      "suite": "riders-release-VerifyNightJumpLighting-results",
+      "count": 88
+    },
+    {
+      "suite": "riders-release-VerifyQuickKick-results",
+      "count": 62
+    },
+    {
+      "suite": "riders-release-VerifyRoofRiding-results",
+      "count": 2304
+    },
+    {
+      "suite": "riders-release-VerifySmoothTurns-results",
+      "count": 468
+    },
+    {
+      "suite": "riders-release-VerifyTruckJump-results",
+      "count": 69
+    }
+  ],
+  "total": 4588
+}

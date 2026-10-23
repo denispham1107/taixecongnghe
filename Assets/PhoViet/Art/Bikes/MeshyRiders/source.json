@@ -1,0 +1,49 @@
+{
+  "sourceRider": "Assets/MeshyImports/Golden Star Stance_20261023_150430/Meshy_AI_Golden_Star_Stance_biped_Character_output.fbx",
+  "sourceVertices": 29791,
+  "sourceTriangles": 27200,
+  "normalisedStandingHeight": 1.75,
+  "helmet": false,
+  "policeUnchanged": true,
+  "atlasSize": 2048,
+  "bikeUvY": [
+    0.5,
+    1
+  ],
+  "riderUvY": [
+    0,
+    0.5
+  ],
+  "shirtColours": {
+    "PV_HeroScooter": null,
+    "PV_CityScooter": [
+      0.35,
+      0.68,
+      0.92
+    ],
+    "PV_Underbone": [
+      0.92,
+      0.82,
+      0.57
+    ],
+    "PV_SportBike": [
+      0.52,
+      0.29,
+      0.76
+    ],
+    "PV_Racer": [
+      0.22,
+      0.25,
+      0.29
+    ]
+  },
+  "starPixelsRemoved": 11250,
+  "heroOriginalTexturePreserved": false,
+  "sharedMaps": [
+    "normal",
+    "metallicSmoothness",
+    "emission"
+  ],
+  "heroFrontTexturePreserved": true,
+  "heroBackStarAdded": true
+}
