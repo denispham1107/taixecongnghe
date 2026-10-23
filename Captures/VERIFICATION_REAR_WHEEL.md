@@ -20,6 +20,8 @@ Nguồn tái tạo: `repair_meshy_wheels.py`, được dùng trong `integrate_me
 
 Browser local trên artifact cuối: **40 kiểm tra đạt** = 14 kiểm tra DPR3 dọc/ngang/tablet/xoay lại + 26 kiểm tra tài nguyên/WASM/start/pause; không lỗi runtime. Các JSON `rear-wheel-mobile-results.json`, `rear-wheel-local-results.json` và ảnh mobile ghi bằng chứng. Bộ PWA/offline 37 đã kiểm trên build thử, không cộng vào kết quả artifact cuối.
 
-Pages đang chờ commit/push và xác minh trực tiếp. Đây là kiểm tra Unity/Chrome giả lập; chưa thử điện thoại vật lý hoặc đo FPS/nhiệt độ.
+Đã commit/push và phát hành: source/artifact `8f06a86e3d015e601ca05339757f8b0d5ece6120`, [Pages run 40010075408](https://github.com/denispham1107/taixecongnghe/actions/runs/40010075408) completed/success đúng SHA. **26 kiểm tra live đạt**, không lỗi runtime; binary khớp từng byte và text chuẩn hóa CRLF, WASM/start/pause hoạt động. Bằng chứng `rear-wheel-pages-release.json`, `rear-wheel-live-results.json`. Unity ở Edit Mode; server docs đã dừng. Nếu PWA giữ bản cũ, đóng hết tab/app rồi mở lại, không xóa dữ liệu người chơi.
+
+Đây là kiểm tra Unity/Chrome giả lập; chưa thử điện thoại vật lý hoặc đo FPS/nhiệt độ.
 
 Các file Wave/Bridge/Packages và nguồn Blender khác có sẵn trong working tree không thuộc thay đổi này; giữ nguyên ngoài commit.
