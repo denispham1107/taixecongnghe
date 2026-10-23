@@ -1,0 +1,34 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/UpgradeMobileClarity.cs",
+      "entry": "UpgradeMobileClarity.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2352,
+      "executeMs": 3659,
+      "assemblyName": "PipelineRunScript_UpgradeMobileClarity_8bce51149a54487f85c6ff5f03174547",
+      "success": true,
+      "result": {
+        "success": true,
+        "atlasWidth": 2048,
+        "atlasHeight": 4096,
+        "sourceTile": 2048,
+        "bikes": 33,
+        "jobs": false
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

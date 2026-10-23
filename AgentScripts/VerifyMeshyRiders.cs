@@ -30,16 +30,16 @@ public static class VerifyMeshyRiders
             var imported=AssetDatabase.LoadAllAssetsAtPath(root+".fbx").OfType<Mesh>().ToArray();
             check(imported.Length==3,asset+": three imported skinned LOD meshes");
             var mat=AssetDatabase.LoadAssetAtPath<Material>(root+".mat");
-            check(mat!=null&&mat.mainTexture.width==2048&&mat.GetTexture("_BumpMap")!=null&&mat.GetTexture("_MetallicGlossMap")!=null&&mat.GetTexture("_EmissionMap")!=null,asset+": 2048 atlas with normal, surface and lamp emission maps");
+            check(mat!=null&&mat.mainTexture.width==2048&&mat.mainTexture.height==4096&&mat.GetTexture("_BumpMap")!=null&&mat.GetTexture("_MetallicGlossMap")!=null&&mat.GetTexture("_EmissionMap")!=null,asset+": 2048x4096 atlas with full 2K source tiles, normal, surface and lamp emission maps");
             var tex=new Texture2D(2,2);tex.LoadImage(File.ReadAllBytes(root+"_Palette.png"));
             var pixels=tex.GetPixels();var saturated=pixels.Where(c=>c.maxColorComponent-Mathf.Min(c.r,c.g,c.b)>.35f&&c.maxColorComponent>.4f).ToArray();
             check(saturated.Length>100,asset+": nonempty clothing/body texture");
             // Body region only, not the unchanged rider palette in the bottom 128 rows.
             var source=new Texture2D(2,2);source.LoadImage(File.ReadAllBytes("Assets/MeshyImports/Red Honda Scooter Front View_20261023_023822/meshy_basecolor.png"));
             Color paint=Color.black;int count=0;
-            for(int y=1100;y<1950;y+=9)for(int x=0;x<2048;x+=9)
+            for(int y=2200;y<3900;y+=18)for(int x=0;x<2048;x+=9)
             {
-                var original=source.GetPixelBilinear(x/2048f,(y-1024)/1024f);
+                var original=source.GetPixelBilinear(x/2048f,(y-2048)/2048f);
                 if(original.r>original.g*1.3f&&original.r>original.b*1.3f&&original.r-original.g>.15f)
                 {paint+=tex.GetPixel(x,y);count++;}
             }

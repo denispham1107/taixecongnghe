@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "native": [
+    {
+      "suite": "VerifyMeshyRiders",
+      "count": 356
+    },
+    {
+      "suite": "VerifyBikeArt",
+      "count": 156
+    },
+    {
+      "suite": "VerifyNightJumpLighting",
+      "count": 88
+    },
+    {
+      "suite": "VerifyMobileClarity",
+      "count": 43
+    }
+  ],
+  "nativeCount": 643,
+  "checks": {
+    "texture": 14,
+    "density-unit": 433,
+    "after": 14,
+    "local": 26,
+    "PWA": 37
+  },
+  "version": "1.32.1",
+  "cache": "45680c1d5a472f7c",
+  "physicalDeviceTested": false
+}

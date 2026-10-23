@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.32.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.32.1**.
+
+## Độ nét mobile — 1.32.1
+
+Render theo mật độ màn hình đến DPR3, giới hạn3,2triệu pixel và cập nhật sau xoay màn hình; texture người/xe giữ đủ2K mỗi phần, người chơi dùng mô hình chi tiết cao, khử răng cưa4x.
 
 ## Nhân vật Meshy — 1.32.0
 

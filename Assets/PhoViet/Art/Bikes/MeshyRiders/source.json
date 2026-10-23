@@ -5,7 +5,10 @@
   "normalisedStandingHeight": 1.75,
   "helmet": false,
   "policeUnchanged": true,
-  "atlasSize": 2048,
+  "atlasSize": [
+    2048,
+    4096
+  ],
   "bikeUvY": [
     0.5,
     1
@@ -45,5 +48,9 @@
     "emission"
   ],
   "heroFrontTexturePreserved": true,
-  "heroBackStarAdded": true
+  "heroBackStarAdded": true,
+  "sourceTileSize": [
+    2048,
+    2048
+  ]
 }

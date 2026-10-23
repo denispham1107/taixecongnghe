@@ -71,6 +71,8 @@ namespace PhoViet
             initialized=true;previousState=game.State;Sample("Idle",0);
             if(role==ActorRole.Player)
             {
+                // The chased player stays detailed even in the wider portrait view.
+                var lod=visual.GetComponent<LODGroup>();if(lod!=null)lod.ForceLOD(0);
                 jumpPose.Initialize(visual);
                 if(kickFeet==null&&leftFoot!=null&&rightFoot!=null&&animationPlayer["KickLeft"]!=null&&animationPlayer["KickRight"]!=null)
                 {

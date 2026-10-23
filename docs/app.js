@@ -7,6 +7,13 @@ const standalone = matchMedia('(display-mode: standalone), (display-mode: fullsc
 const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const touchDevice=ios || navigator.maxTouchPoints>0 || matchMedia('(any-pointer: coarse)').matches;
 let immersive=false, menuOpen=false, lastInsets='';
+function gamePixelRatio(width,height){
+  const nativeRatio=Number.isFinite(window.devicePixelRatio)&&window.devicePixelRatio>0?window.devicePixelRatio:1;
+  // Full phone density up to 3x; bound large tablet framebuffers to 3.2 million pixels.
+  const cap=touchDevice?3:2;
+  const budget=touchDevice?3200000:8300000;
+  return Math.min(nativeRatio,cap,Math.sqrt(budget/Math.max(1,width*height)));
+}
 function pauseGame(){if(unityInstance)unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','PauseForBrowser');}
 function setMenu(open){
   menuOpen=Boolean(open);$('toolbar').hidden=immersive&&!menuOpen;
@@ -24,6 +31,8 @@ function syncViewport(){
   if(!unityInstance)return;
   const bounds=canvas.getBoundingClientRect(),css=getComputedStyle($('safe-area-probe'));
   if(!bounds.width||!bounds.height)return;
+  // Unity reads this Module property each frame; recompute after rotate/fullscreen.
+  unityInstance.Module.devicePixelRatio=gamePixelRatio(bounds.width,bounds.height);
   const clamp=v=>Math.max(0,Math.min(.4,v));
   const insets=JSON.stringify({
     left:clamp(((parseFloat(css.paddingLeft)||0)-bounds.left)/bounds.width),
@@ -97,7 +106,7 @@ $('play').addEventListener('click', async () => {
   $('load-status').textContent='Đang tải game, lần đầu có thể mất một chút thời gian…';
   const {loaderUrl,...build}=window.PHO_VIET_BUILD;
   const config={...build,streamingAssetsUrl:'StreamingAssets',
-    devicePixelRatio:Math.min(window.devicePixelRatio || 1,matchMedia('(pointer: coarse)').matches?1.5:2),
+    devicePixelRatio:gamePixelRatio(innerWidth,innerHeight),
     showBanner:(message,type) => {if(type==='error')fail(message);else console.warn(message);}
   };
   const script=document.createElement('script');script.src=loaderUrl;

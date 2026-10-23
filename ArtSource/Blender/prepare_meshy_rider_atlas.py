@@ -1,4 +1,4 @@
-"""2048 single-material bike/person atlases, after Blender --phase prepare.
+"""2048x4096 single-material atlases: a full 2K source tile per bike/person.
 Shared normal/surface/emission textures avoid duplicating GPU data for clothing colours.
 """
 from pathlib import Path
@@ -7,6 +7,8 @@ import numpy as np
 from PIL import Image,ImageFilter
 import json
 ROOT=Path(__file__).resolve().parents[2];OLD=ROOT/'Assets/PhoViet/Art/Bikes/Meshy';OUT=ROOT/'Assets/PhoViet/Art/Bikes/MeshyRiders'
+BIKE=ROOT/'Assets/MeshyImports/Red Honda Scooter Front View_20261023_023822'
+BIKE_COLOURS={'PV_HeroScooter':(.96,.97,1.),'PV_CityScooter':(.07,.70,.64),'PV_Underbone':(.10,.33,.95),'PV_SportBike':(1.,.74,.10),'PV_Racer':(1.,.20,.07)}
 PERSON=ROOT/'Assets/MeshyImports/Golden Star Stance_20261023_150430'
 COLOURS={'PV_HeroScooter':None,'PV_CityScooter':(.35,.68,.92),'PV_Underbone':(.92,.82,.57),'PV_SportBike':(.52,.29,.76),'PV_Racer':(.22,.25,.29)}
 
@@ -42,11 +44,15 @@ def remove_star(pixels,mask):
  result=pixels.copy();result[y0:y1,x0:x1]=a;return result
 
 def atlas(bike,rider,mode='RGB'):
- image=Image.new(mode,(2048,2048));image.paste(bike.resize((2048,1024),Image.Resampling.LANCZOS),(0,0));image.paste(rider.resize((2048,1024),Image.Resampling.LANCZOS),(0,1024));return image
+ # Normalized UV halves stay unchanged; neither 2K source loses vertical detail.
+ assert bike.size==rider.size==(2048,2048),'Expected original 2K source maps'
+ image=Image.new(mode,(2048,4096));image.paste(bike,(0,0));image.paste(rider,(0,2048));return image
 
 def main():
  OUT.mkdir(parents=True,exist_ok=True)
  source=np.asarray(Image.open(PERSON/'meshy_basecolor.png').convert('RGB')).astype(np.float32)/255
+ bike_source=np.asarray(Image.open(BIKE/'meshy_basecolor.png').convert('RGB')).astype(np.float32)/255
+ bike_red=(bike_source[:,:,0]>bike_source[:,:,1]*1.3)&(bike_source[:,:,0]>bike_source[:,:,2]*1.3)&(bike_source[:,:,0]-bike_source[:,:,1]>.08)
  shirt=np.asarray(Image.open(ROOT/'ArtSource/Blender/MeshyRider_ShirtMask.png').convert('L').filter(ImageFilter.MaxFilter(9)))>127
  gold=shirt&(source[:,:,0]>.43)&(source[:,:,1]>.31)&(source[:,:,2]<.38)&(source[:,:,1]>source[:,:,2]*1.45)&(source[:,:,0]>source[:,:,1]*.82)
  star=largest_component(gold);star=np.asarray(Image.fromarray(star.astype('uint8')*255).filter(ImageFilter.MaxFilter(7)))>0
@@ -64,12 +70,13 @@ def main():
    red=shirt&(body[:,:,0]>body[:,:,1]*1.6)&(body[:,:,0]>body[:,:,2]*1.6)&(body[:,:,0]-body[:,:,1]>.08)
    value=body.max(axis=2)
    for channel in range(3):body[:,:,channel][red]=value[red]*colour[channel]
-  bike=Image.open(OLD/f'{name}_Palette.png').convert('RGB').crop((0,0,2048,1920))
+  paint=bike_source.copy();value=bike_source.max(axis=2)
+  for channel in range(3):paint[:,:,channel][bike_red]=value[bike_red]*BIKE_COLOURS[name][channel]
+  bike=Image.fromarray(np.uint8(np.clip(paint,0,1)*255))
   atlas(bike,Image.fromarray(np.uint8(np.clip(body,0,1)*255))).save(OUT/f'{name}_Palette.png')
  for name,source_name in [('Meshy_Normal.png','meshy_normal.png'),('Meshy_Surface.png','meshy_metallic_smoothness.png')]:
-  old=OLD/('Meshy_Normal.png' if 'Normal' in name else 'PV_HeroScooter_Surface.png')
-  atlas(Image.open(old).convert('RGBA').crop((0,0,2048,1920)),Image.open(PERSON/source_name).convert('RGBA'),'RGBA').save(OUT/name)
- emission=Image.new('RGB',(2048,2048));emission.paste(Image.open(OLD/'Meshy_Emission.png').convert('RGB').crop((0,0,2048,1920)).resize((2048,1024),Image.Resampling.LANCZOS),(0,0));emission.save(OUT/'Meshy_Emission.png')
- p=OUT/'source.json';report=json.loads(p.read_text());report.update(shirtColours=COLOURS,starPixelsRemoved=int(star.sum()),heroOriginalTexturePreserved=False,heroFrontTexturePreserved=True,heroBackStarAdded=True,sharedMaps=['normal','metallicSmoothness','emission']);p.write_text(json.dumps(report,indent=2))
+  atlas(Image.open(BIKE/source_name).convert('RGBA'),Image.open(PERSON/source_name).convert('RGBA'),'RGBA').save(OUT/name)
+ emission=Image.new('RGB',(2048,4096));emission.paste(Image.open(OLD/'Meshy_Emission.png').convert('RGB').crop((0,0,2048,1920)).resize((2048,2048),Image.Resampling.LANCZOS),(0,0));emission.save(OUT/'Meshy_Emission.png')
+ p=OUT/'source.json';report=json.loads(p.read_text());report.update(atlasSize=[2048,4096],sourceTileSize=[2048,2048],shirtColours=COLOURS,starPixelsRemoved=int(star.sum()),heroOriginalTexturePreserved=False,heroFrontTexturePreserved=True,heroBackStarAdded=True,sharedMaps=['normal','metallicSmoothness','emission']);p.write_text(json.dumps(report,indent=2))
  print(json.dumps({'success':True,'starPixelsRemoved':int(star.sum()),'variants':len(COLOURS)}))
 if __name__=='__main__':main()

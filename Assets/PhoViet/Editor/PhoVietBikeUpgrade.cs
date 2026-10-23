@@ -154,12 +154,16 @@ namespace PhoViet.Editor
         {
             var importer=AssetImporter.GetAtPath(path) as TextureImporter;
             if(importer==null)throw new Exception("Missing texture "+path);
-            bool meshy=IsMeshyPath(path);var filter=meshy?FilterMode.Bilinear:FilterMode.Point;int size=meshy?2048:128;
+            bool meshy=IsMeshyPath(path),fullSource=path.Contains("/MeshyRiders/");
+            var filter=fullSource?FilterMode.Trilinear:meshy?FilterMode.Bilinear:FilterMode.Point;int size=fullSource?4096:meshy?2048:128;
             var type=normal?TextureImporterType.NormalMap:TextureImporterType.Default;
-            if(importer.sRGBTexture!=srgb||importer.filterMode!=filter||importer.wrapMode!=TextureWrapMode.Clamp||importer.mipmapEnabled!=meshy||importer.maxTextureSize!=size||importer.textureType!=type)
+            if(importer.sRGBTexture!=srgb||importer.filterMode!=filter||importer.wrapMode!=TextureWrapMode.Clamp||importer.mipmapEnabled!=meshy||importer.maxTextureSize!=size||importer.textureType!=type||
+                (fullSource&&(importer.anisoLevel!=4||importer.textureCompression!=TextureImporterCompression.CompressedHQ||importer.compressionQuality!=100)))
             {
                 importer.textureType=type;importer.sRGBTexture=srgb;importer.filterMode=filter;importer.wrapMode=TextureWrapMode.Clamp;
-                importer.mipmapEnabled=meshy;importer.alphaIsTransparency=false;importer.maxTextureSize=size;importer.SaveAndReimport();
+                importer.mipmapEnabled=meshy;importer.alphaIsTransparency=false;importer.maxTextureSize=size;
+                if(fullSource){importer.anisoLevel=4;importer.textureCompression=TextureImporterCompression.CompressedHQ;importer.compressionQuality=100;}
+                importer.SaveAndReimport();
             }
             return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
         }

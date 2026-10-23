@@ -105,7 +105,7 @@ namespace PhoViet
                 QualitySettings.shadowDistance=45;
                 QualitySettings.shadowResolution=ShadowResolution.Low;
                 QualitySettings.shadowCascades=0;
-                QualitySettings.antiAliasing=2;
+                QualitySettings.antiAliasing=4;
             }
 #endif
         }

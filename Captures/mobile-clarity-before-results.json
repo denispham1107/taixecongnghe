@@ -1,0 +1,23 @@
+{
+  "url": "http://127.0.0.1:8765/",
+  "before": true,
+  "checks": [
+    "portrait: actual WebGL framebuffer matches physical density / budget",
+    "portrait: Unity Module density agrees after layout",
+    "No horizontal overflow",
+    "No runtime errors at real phone density"
+  ],
+  "frames": [
+    {
+      "width": 585,
+      "height": 1266,
+      "cssWidth": 390,
+      "cssHeight": 844,
+      "nativeDpr": 3,
+      "moduleDpr": 1.5,
+      "name": "portrait"
+    }
+  ],
+  "errors": [],
+  "success": true
+}

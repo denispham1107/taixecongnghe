@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "count": 14,
+  "checks": [
+    "Meshy_Emission.png: 2048x4096 full source atlas",
+    "Meshy_Normal.png: 2048x4096 full source atlas",
+    "Meshy_Surface.png: 2048x4096 full source atlas",
+    "PV_CityScooter_Palette.png: 2048x4096 full source atlas",
+    "PV_HeroScooter_Palette.png: 2048x4096 full source atlas",
+    "PV_Racer_Palette.png: 2048x4096 full source atlas",
+    "PV_SportBike_Palette.png: 2048x4096 full source atlas",
+    "PV_Underbone_Palette.png: 2048x4096 full source atlas",
+    "Normal Red Honda Scooter Front View_20261023_023822: source pixels preserved exactly without resampling",
+    "Normal Golden Star Stance_20261023_150430: source pixels preserved exactly without resampling",
+    "Surface Red Honda Scooter Front View_20261023_023822: source pixels preserved exactly without resampling",
+    "Surface Golden Star Stance_20261023_150430: source pixels preserved exactly without resampling",
+    "Hero original person texture outside added back star unchanged within 1/255 rounding",
+    "Hero back star has visible yellow pixels"
+  ]
+}
