@@ -44,5 +44,11 @@
   "cache": "441262423309bccc",
   "bundleChecks": 29,
   "finalLocalChecks": 40,
-  "liveVerificationPending": true
+  "liveVerificationPending": false,
+  "sourceCommit": "8f06a86e3d015e601ca05339757f8b0d5ece6120",
+  "pagesRunId": 40010075408,
+  "liveChecks": 26,
+  "runtimeErrors": 0,
+  "pagesStatus": "completed",
+  "pagesConclusion": "success"
 }

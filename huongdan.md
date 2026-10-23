@@ -2,7 +2,7 @@
 
 Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.32.2. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
 
-> **Trạng thái hiện tại: 1.32.1 (đã phát hành bản sửa độ nét mobile và bộ nhân vật Meshy mới), chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
+> **Trạng thái hiện tại: 1.32.2 (đã phát hành bản sửa đuôi xe nhấp nháy, giữ độ nét mobile), chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
 >
 > **Độ nét mobile 1.32.1:** đã phát hành và xác minh 40 kiểm tra live, không lỗi runtime. DPR tối đa 3 / 3,2 triệu pixel, hai vùng texture 2K đầy đủ, người chơi giữ LOD0; chi tiết 21.15.
 >
@@ -22,11 +22,11 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 | Bản chơi công khai | <https://denispham1107.github.io/taixecongnghe/> |
 | Unity Editor | **6000.5.6f1**, cần module Web Build Support để build WebGL |
 | Scene chính | `Assets/PhoViet/Scenes/PhoViet.unity` |
-| Phiên bản game đã phát hành | **1.32.1** — người/xe Meshy, chế độ chỉ thi quãng đường |
-| Commit source + WebGL hiện hành | `557d540b5fbb9bc0ca5eb3da2a2fb8ef519f0e95` |
-| Bằng chứng phát hành hiện hành | `Captures/mobile-clarity-pages-release.json`, `VERIFICATION_MOBILE_CLARITY.md`; SHA commit báo cáo xem Git log |
-| Cache WebGL hiện hành | `45680c1d5a472f7c`; build UTC `2026-10-23T15:20:09.2340891Z` |
-| Pages đã xác minh | Run `39987470876`, completed/success; 40 kiểm tra live đạt; `Captures/mobile-clarity-pages-release.json` |
+| Phiên bản game đã phát hành | **1.32.2** — sửa đuôi xe chớp, giữ độ nét mobile, chỉ thi quãng đường |
+| Commit source + WebGL hiện hành | `8f06a86e3d015e601ca05339757f8b0d5ece6120` |
+| Bằng chứng phát hành hiện hành | `Captures/rear-wheel-pages-release.json`, `VERIFICATION_REAR_WHEEL.md`; SHA commit báo cáo xem Git log |
+| Cache WebGL hiện hành | `441262423309bccc`; build UTC `2026-10-23T19:03:08.0950663Z` |
+| Pages đã xác minh | Run `40010075408`, completed/success đúng source SHA; kết quả browser xem 21.16 |
 | Render pipeline | Built-in Render Pipeline; `m_CustomRenderPipeline` đang là `fileID: 0` |
 | Input | Legacy Input Manager, `activeInputHandler: 0`; dùng `UnityEngine.Input` |
 | Giao diện trong game | IMGUI, `OnGUI`, `GUIStyle`, `GUI.matrix`; không phải Canvas/uGUI |
@@ -1099,7 +1099,7 @@ Không cần rebuild/deploy WebGL chỉ vì sửa chính tài liệu bàn giao. 
 
 ### 18.3. Nội dung có thể gửi kèm cho Claude Code
 
-> Hãy đọc toàn bộ `huongdan.md` tại gốc dự án và `git status` trước khi sửa. Game Phố Việt đã phát hành WebGL/PWA **1.32.1** với bản sửa độ nét mobile ở21.15, với người/xe Meshy nhiều màu, xe chính trắng–đen, CSGT giữ riêng: hiện **chỉ thi quãng đường/kỷ lục, công việc/GPS/khách/Coin HUD đang khóa**, chỉ mở lại khi tôi yêu cầu. Q đạp có áp sát/chạm giày thật, Space nhảy và chạy nóc, W +125%/4 s/hồi 2 s; rẽ giữ tốc độ và đúng số làn; mobile vuốt nhận ngay đủ ngưỡng. Không có ba mạng: té thường kết thúc sau té, té đang bị CSGT đuổi thì nằm chờ cảnh sát tới bắt rồi vào tù. Không ghi đè file Blender cục bộ, không dựng lại scene toàn bộ theo thói quen. Nếu chưa chắc 90% hãy đưa phương án và chờ tôi xác nhận phần đó. Phân chia file/công cụ rõ ràng khi làm song song với Codex; không cùng mutation Unity/Blender. **Mỗi lần sửa/thêm chức năng phải cập nhật đầy đủ huongdan.md ngay trong cùng công việc**, ghi hành vi/triển khai/tham số/kiểm tra và trạng thái source/build/Pages. Đọc lại tài liệu mới nhất trước khi lưu để không mất phần người khác bổ sung.
+> Hãy đọc toàn bộ `huongdan.md` tại gốc dự án và `git status` trước khi sửa. Game Phố Việt đã phát hành WebGL/PWA **1.32.2** với đuôi xe ổn định ở 21.16, giữ độ nét mobile ở 21.15, với người/xe Meshy nhiều màu, xe chính trắng–đen, CSGT giữ riêng: hiện **chỉ thi quãng đường/kỷ lục, công việc/GPS/khách/Coin HUD đang khóa**, chỉ mở lại khi tôi yêu cầu. Q đạp có áp sát/chạm giày thật, Space nhảy và chạy nóc, W +125%/4 s/hồi 2 s; rẽ giữ tốc độ và đúng số làn; mobile vuốt nhận ngay đủ ngưỡng. Không có ba mạng: té thường kết thúc sau té, té đang bị CSGT đuổi thì nằm chờ cảnh sát tới bắt rồi vào tù. Không ghi đè file Blender cục bộ, không dựng lại scene toàn bộ theo thói quen. Nếu chưa chắc 90% hãy đưa phương án và chờ tôi xác nhận phần đó. Phân chia file/công cụ rõ ràng khi làm song song với Codex; không cùng mutation Unity/Blender. **Mỗi lần sửa/thêm chức năng phải cập nhật đầy đủ huongdan.md ngay trong cùng công việc**, ghi hành vi/triển khai/tham số/kiểm tra và trạng thái source/build/Pages. Đọc lại tài liệu mới nhất trước khi lưu để không mất phần người khác bổ sung.
 
 
 ## 19. Nhảy, nóc xe và boost — tham chiếu triển khai hiện hành
@@ -1383,7 +1383,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 
 
-### 21.16. Sửa đuôi/bánh xe nhấp nháy — 1.32.2 đang kiểm tra (24/10/2026)
+### 21.16. Sửa đuôi/bánh xe nhấp nháy — 1.32.2 (24/10/2026)
 
 - Người dùng báo phần đuôi xe chớp khi di chuyển ở mobile dọc/ngang. Đã tái hiện ở 8 góc quay: mặt chắn bùn và các mảng vỏ gần lốp bị gắn nhầm `WheelRear`, tạo mảnh đen ló ra khi quay. Phép chọn cũ dựa vào tâm mặt trong vùng bánh, không xét hết các đỉnh; mẫu AI còn có vùng lốp/chắn bùn dính mặt. Không phải đèn phanh hay thiếu DPR.
 - `ArtSource/Blender/repair_meshy_wheels.py`: chạy Blender nền độc lập, giữ mọi vị trí/UV/normal góc/mặt và tên mesh, chỉ sửa skin weights đủ 5 mẫu ngoài CSGT / cả 3 LOD. Chỉ phần mâm/hub nằm trọn trong bán kính **.245 m** mới quay; rộng tối đa **.09 m trước / .065 m sau**. Lốp/đường bao/chắn bùn cố định theo Frame ở sau, Steering ở trước; vẫn đi cùng nhún/đánh lái/nhảy/ngã. Không xóa mesh, không hạ texture hay vô hiệu hóa góc quay WheelAngle. Xử lý cả mặt có trọng số trộn sau decimate để không còn mảng vỏ bị kéo theo một phần.
@@ -1395,7 +1395,8 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Bảo toàn clip nguồn:** FBX import vào Blender tạo Actions nhưng không tạo lại NLA strips. Helper tái dựng đủ bảy strip trước export để không mất các take Idle/Ride/KickLeft/KickRight/FallLeft/FallRight/Recover. `AgentScripts/RefreshWheelAssets.cs` reimport đồng bộ, kiểm tra đủ bảy clip Legacy ở từng FBX và chuẩn hóa tên/loop. Đã xác nhận cả năm asset; sau đó chạy lại toàn bộ 1.022 điều kiện native và chụp ảnh trên đúng bộ FBX cuối. Clip runtime đã kiểm định vẫn giữ nguyên.
 - **Build cuối:** `build_692689eb6e6a` Succeeded, **29.500 ms**, 0 lỗi / 1 warning Pipeline thiếu config runtime đã biết. Output 1.32.2/cache **`441262423309bccc`**, UTC `2026-10-23T19:03:08.0950663Z`, tổng output 57.353.820 byte; **29 kiểm tra bundle đạt**, tài nguyên precache 57.352.271 byte. Các build thử trước đó đã loại, không publish. Bản cuối đã xác nhận Edit Mode/preflight 1.32.2 trước build.
 - **Browser local trên artifact cuối:** 40 kiểm tra đạt = DPR3 dọc/ngang/tablet/xoay lại 14 + đối chiếu từng tài nguyên/khởi tạo WASM/start/pause 26; không lỗi runtime. Ảnh `rear-wheel-mobile-portrait.png`, `rear-wheel-mobile-landscape.png`; report `rear-wheel-mobile-results.json`, `rear-wheel-local-results.json`. Bộ PWA/offline 37 đã chạy ở build thử trước khi bổ sung lại NLA nguồn; không cộng vào 40 kiểm tra cuối này.
-- Đã sao lưu FBX vào `.tools/rear-wheel-original`, sửa đủ năm mẫu/ba LOD và nguồn Blender; đang kiểm tra WebGL 1.32.2. **Chưa commit/push/phát hành; public vẫn 1.32.1** cho tới khi ghi bằng chứng phát hành ở đây. Chưa thử thiết bị điện thoại vật lý.
+- **Đã commit/push/phát hành:** source/artifact `8f06a86e3d015e601ca05339757f8b0d5ece6120`, [Pages run 40010075408](https://github.com/denispham1107/taixecongnghe/actions/runs/40010075408) completed/success đúng SHA. Bản công khai trả version 1.32.2/cache `441262423309bccc`; **26 kiểm tra live đạt, 0 lỗi runtime**: từng tài nguyên khớp artifact local (binary từng byte, text chuẩn hóa CRLF), WASM khởi tạo/start/pause thành công. Bằng chứng `rear-wheel-live-results.json` và `rear-wheel-pages-release.json`.
+- **Bàn giao:** `Captures/VERIFICATION_REAR_WHEEL.md`, `rear-wheel-pages-release.json` và các JSON/ảnh cùng tiền tố. Unity về Edit Mode, server kiểm tra docs đã dừng. Giữ nguyên công việc Wave/Bridge/Packages và các nguồn Blender khác ngoài commit. Báo cáo phát hành commit/push riêng, không rebuild chỉ vì tài liệu. Chưa thử thiết bị điện thoại vật lý/FPS/nhiệt độ. Đóng hết tab/app rồi mở lại nếu PWA còn bản cũ; không xóa dữ liệu người chơi.
 
 
 ---
