@@ -6,4 +6,4 @@ Full source 2K tiles in 2048x4096 atlases, high-quality compression and filterin
 
 At iPhone CSS390x844, real DPR3: before585x1266, after1170x2532; landscape2532x1170. Large tablet stays2066x1549. Unobscured WebGL gameplay screenshots inspected. Browser emulation does not certify physical phone FPS/temperature.
 
-Publication pending; update with exact source SHA, Pages run and live results. Customer jobs remain locked, CSGT untouched.
+Released source/artifact 557d540b5fbb9bc0ca5eb3da2a2fb8ef519f0e95; Pages run39987470876 completed/success. Public version1.32.1/cache45680c1d5a472f7c: 40 live checks passed (26 artifact/WASM +14 actual DPR3/rotation/tablet),0 runtime errors. Customer jobs remain locked, CSGT untouched. Unity left in Edit Mode; scoped docs test server stopped. Existing Wave/Blender/Packages modifications preserved outside this release.

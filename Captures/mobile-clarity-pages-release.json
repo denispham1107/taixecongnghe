@@ -1,0 +1,14 @@
+{
+  "version": "1.32.1",
+  "sourceCommit": "557d540b5fbb9bc0ca5eb3da2a2fb8ef519f0e95",
+  "runId": 39987470876,
+  "status": "completed",
+  "conclusion": "success",
+  "runUrl": "https://github.com/denispham1107/taixecongnghe/actions/runs/39987470876",
+  "url": "https://denispham1107.github.io/taixecongnghe/",
+  "cache": "45680c1d5a472f7c",
+  "liveVerificationPending": false,
+  "liveChecks": 40,
+  "runtimeErrors": 0,
+  "physicalDeviceTested": false
+}

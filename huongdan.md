@@ -1,8 +1,10 @@
 # PHỐ VIỆT — Tài liệu tính năng, kiến trúc và bàn giao cho Claude Code
 
-Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.32.0. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
+Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.32.1. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
 
-> **Trạng thái hiện tại: 1.32.0 (bộ nhân vật Meshy mới đã phát hành), chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
+> **Trạng thái hiện tại: 1.32.1 (đã phát hành bản sửa độ nét mobile và bộ nhân vật Meshy mới), chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
+>
+> **Độ nét mobile 1.32.1:** đã phát hành và xác minh 40 kiểm tra live, không lỗi runtime. DPR tối đa 3 / 3,2 triệu pixel, hai vùng texture 2K đầy đủ, người chơi giữ LOD0; chi tiết 21.15.
 >
 > **Người/xe Meshy (23/10/2026):** đã phát hành WebGL **1.32.0**: người Golden Star Stance có rig, hero áo đỏ sao vàng ngực/lưng, NPC nhiều màu áo, vai tự nhiên và ngón nắm v4. Xe hero trắng–đen, CSGT giữ nguyên cả người và xe. Pages run `39948530264` thành công, cache `96d0c318c468dcab`; 26kiểm tra live đạt. Xem21.9–21.14. Xe Meshy1.31.0 và các nguồn Wave ở21.5–21.8 là lịch sử.
 >
@@ -20,11 +22,11 @@ Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 | Bản chơi công khai | <https://denispham1107.github.io/taixecongnghe/> |
 | Unity Editor | **6000.5.6f1**, cần module Web Build Support để build WebGL |
 | Scene chính | `Assets/PhoViet/Scenes/PhoViet.unity` |
-| Phiên bản game đã phát hành | **1.32.0** — người/xe Meshy, chế độ chỉ thi quãng đường |
-| Commit source + WebGL hiện hành | `c50614413f412f9f70150412e651494a4c2400b8` |
-| Bằng chứng phát hành hiện hành | `Captures/riders-pages-release.json`, `VERIFICATION_RIDERS_WEB_RELEASE.md`; SHA commit báo cáo xem Git log |
-| Cache WebGL hiện hành | `96d0c318c468dcab`; build UTC `2026-10-23T11:33:20.5868417Z` |
-| Pages đã xác minh | Run `39948530264`, completed/success; 26 kiểm tra live đạt; `Captures/riders-pages-release.json` |
+| Phiên bản game đã phát hành | **1.32.1** — người/xe Meshy, chế độ chỉ thi quãng đường |
+| Commit source + WebGL hiện hành | `557d540b5fbb9bc0ca5eb3da2a2fb8ef519f0e95` |
+| Bằng chứng phát hành hiện hành | `Captures/mobile-clarity-pages-release.json`, `VERIFICATION_MOBILE_CLARITY.md`; SHA commit báo cáo xem Git log |
+| Cache WebGL hiện hành | `45680c1d5a472f7c`; build UTC `2026-10-23T15:20:09.2340891Z` |
+| Pages đã xác minh | Run `39987470876`, completed/success; 40 kiểm tra live đạt; `Captures/mobile-clarity-pages-release.json` |
 | Render pipeline | Built-in Render Pipeline; `m_CustomRenderPipeline` đang là `fileID: 0` |
 | Input | Legacy Input Manager, `activeInputHandler: 0`; dùng `UnityEngine.Input` |
 | Giao diện trong game | IMGUI, `OnGUI`, `GUIStyle`, `GUI.matrix`; không phải Canvas/uGUI |
@@ -691,7 +693,7 @@ Unity có thể chưa cập nhật GPU skin trong đúng frame vừa `Animation.
 
 `app.js` dùng `visualViewport`, `innerWidth/innerHeight`, CSS env safe-area và các lần sync sau xoay máy. Chế độ immersive đặt vùng game phủ viewport; chỉ HUD/nút nhận inset. iOS standalone có xử lý riêng khi `visualViewport.height` trừ safe area. Không ép canvas theo kích thước màn hình vật lý vì iPad split view/cửa sổ có thể nhỏ hơn màn hình.
 
-DPR bản sửa1.32.1: theo mật độ thật tối đa **3 trên mobile/touch**, giới hạn **3,2 triệu pixel**; desktop tối đa2/8,3triệu pixel. Tính lại sau xoay/fullscreen theo diện tích canvas, không dùng scale CSS để làm nét giả. Bản public1.32.0 cũ chặn1,5 trên pointer coarse. Inset gửi theo tỷ lệ viewport, tránh sai khi canvas render ở DPR khác CSS. Trong WebGL player tắt HDR; mobile giảm shadow distance còn 45, bóng thấp, không cascade, MSAA4 để giảm răng cưa (bản1.32.0 dùng2).
+DPR bản sửa1.32.1: theo mật độ thật tối đa **3 trên mobile/touch**, giới hạn **3,2 triệu pixel**; desktop tối đa2/8,3triệu pixel. Tính lại sau xoay/fullscreen theo diện tích canvas, không dùng scale CSS để làm nét giả. Bản1.32.0 trước đây chặn1,5 trên pointer coarse. Inset gửi theo tỷ lệ viewport, tránh sai khi canvas render ở DPR khác CSS. Trong WebGL player tắt HDR; mobile giảm shadow distance còn 45, bóng thấp, không cascade, MSAA4 để giảm răng cưa (bản1.32.0 dùng2).
 
 Cầu nối JavaScript đang gọi tên root chính qua `SendMessage`:
 
@@ -908,7 +910,7 @@ Các kiểm tra điện thoại/iOS bằng browser profile là **mô phỏng lay
 - `wasm2023 = false` để giữ dải tương thích Safari của dự án.
 - Bộ nhớ khởi đầu 128 MB, tối đa 512 MB.
 - `dataCaching = false`, vì service worker phiên bản hóa chịu trách nhiệm cache thay vì hai cache độc lập.
-- Cấu hình phiên bản build hiện 1.32.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
+- Cấu hình phiên bản build hiện 1.32.1; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
 
 Hậu xử lý build tạo `precache.json`, `build-info.json`, `sw.js` đã thay mã cache và `.nojekyll`. Cache là 16 ký tự hex từ SHA-256 nội dung tài nguyên, không gán tay để làm giả một lần build mới.
 
@@ -1097,7 +1099,7 @@ Không cần rebuild/deploy WebGL chỉ vì sửa chính tài liệu bàn giao. 
 
 ### 18.3. Nội dung có thể gửi kèm cho Claude Code
 
-> Hãy đọc toàn bộ `huongdan.md` tại gốc dự án và `git status` trước khi sửa. Game Phố Việt đã phát hành WebGL/PWA **1.32.0**, có bản sửa độ nét mobile1.32.1 ở21.15, với người/xe Meshy nhiều màu, xe chính trắng–đen, CSGT giữ riêng: hiện **chỉ thi quãng đường/kỷ lục, công việc/GPS/khách/Coin HUD đang khóa**, chỉ mở lại khi tôi yêu cầu. Q đạp có áp sát/chạm giày thật, Space nhảy và chạy nóc, W +125%/4 s/hồi 2 s; rẽ giữ tốc độ và đúng số làn; mobile vuốt nhận ngay đủ ngưỡng. Không có ba mạng: té thường kết thúc sau té, té đang bị CSGT đuổi thì nằm chờ cảnh sát tới bắt rồi vào tù. Không ghi đè file Blender cục bộ, không dựng lại scene toàn bộ theo thói quen. Nếu chưa chắc 90% hãy đưa phương án và chờ tôi xác nhận phần đó. Phân chia file/công cụ rõ ràng khi làm song song với Codex; không cùng mutation Unity/Blender. **Mỗi lần sửa/thêm chức năng phải cập nhật đầy đủ huongdan.md ngay trong cùng công việc**, ghi hành vi/triển khai/tham số/kiểm tra và trạng thái source/build/Pages. Đọc lại tài liệu mới nhất trước khi lưu để không mất phần người khác bổ sung.
+> Hãy đọc toàn bộ `huongdan.md` tại gốc dự án và `git status` trước khi sửa. Game Phố Việt đã phát hành WebGL/PWA **1.32.1** với bản sửa độ nét mobile ở21.15, với người/xe Meshy nhiều màu, xe chính trắng–đen, CSGT giữ riêng: hiện **chỉ thi quãng đường/kỷ lục, công việc/GPS/khách/Coin HUD đang khóa**, chỉ mở lại khi tôi yêu cầu. Q đạp có áp sát/chạm giày thật, Space nhảy và chạy nóc, W +125%/4 s/hồi 2 s; rẽ giữ tốc độ và đúng số làn; mobile vuốt nhận ngay đủ ngưỡng. Không có ba mạng: té thường kết thúc sau té, té đang bị CSGT đuổi thì nằm chờ cảnh sát tới bắt rồi vào tù. Không ghi đè file Blender cục bộ, không dựng lại scene toàn bộ theo thói quen. Nếu chưa chắc 90% hãy đưa phương án và chờ tôi xác nhận phần đó. Phân chia file/công cụ rõ ràng khi làm song song với Codex; không cùng mutation Unity/Blender. **Mỗi lần sửa/thêm chức năng phải cập nhật đầy đủ huongdan.md ngay trong cùng công việc**, ghi hành vi/triển khai/tham số/kiểm tra và trạng thái source/build/Pages. Đọc lại tài liệu mới nhất trước khi lưu để không mất phần người khác bổ sung.
 
 
 ## 19. Nhảy, nóc xe và boost — tham chiếu triển khai hiện hành
@@ -1376,7 +1378,8 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Kiểm tra native:** 4 suite / **643 điều kiện**: MeshyRiders 356, BikeArt 156, NightJumpLighting 88, MobileClarity 43. Thêm **14 kiểm tra pixel nguồn/atlas/sao**, **433 kiểm tra công thức DPR**. Native audit xác nhận đủ 8 texture 2048×4096/13 mip, không giữ bản CPU readable. Thống kê bộ nhớ Editor không phải đo GPU điện thoại. Phép kiểm ban đầu đòi đúng số tam giác Blender đã được sửa để tính việc Unity bỏ mặt suy biến; không thay mesh để làm test qua.
 - **Build:** `build_2d0ffed36b84` Succeeded, **293.373 ms**, 0 lỗi / 3 warning đã biết: Pipeline thiếu config runtime và hai field touch cũ không đọc ở nhánh DOM. Artifact **57.336.107 byte**, cache **`45680c1d5a472f7c`**, UTC `2026-10-23T15:20:09.2340891Z`; **29 kiểm tra bundle** đạt.
 - **Browser local:** **77 kiểm tra** đạt = DPR thật 14 + PWA/offline 37 + tài nguyên/WASM 26, 0 lỗi runtime. iPhone CSS 390×844 / DPR3: cũ 585×1266, mới **1170×2532**; ngang **2532×1170**. Tablet CSS1024×768 → 2066×1549; xoay lại phục hồi đúng 1170×2532. Đã xem ảnh cảnh chơi không bị thẻ pause che nhân vật: `mobile-clarity-after-portrait.png`, `mobile-clarity-after-landscape.png`. `VerifyMobileClarity.cjs` chạy DPR3 thật trong browser; các bộ layout cũ dùng DPR1 không thay thế kiểm tra này. **Chưa thử thiết bị vật lý/FPS/nhiệt độ.**
-- **Trạng thái:** source/asset/build/docs đã kiểm tra, chuẩn bị commit/push/Pages 1.32.1; public còn 1.32.0 cho đến khi xác minh phát hành. Bằng chứng `Captures/mobile-clarity-verification-summary.json`, các JSON `mobile-clarity-*`, `VERIFICATION_MOBILE_CLARITY.md`; cập nhật đúng SHA/run/live/cache sau deploy. Giữ ngoài staging mọi thay đổi Wave/Blender/Packages có sẵn.
+- **Đã commit/push/phát hành và xác minh live:** source/artifact **`557d540b5fbb9bc0ca5eb3da2a2fb8ef519f0e95`**, [Pages run 39987470876](https://github.com/denispham1107/taixecongnghe/actions/runs/39987470876) completed/success đúng SHA. **40 kiểm tra live đạt** (26 khớp tài nguyên/WASM + 14 độ nét DPR3 dọc/ngang/tablet/xoay lại), **0 lỗi runtime**. Version 1.32.1/cache `45680c1d5a472f7c` khớp docs đã kiểm tra; binary từng byte, text chuẩn hóa CRLF.
+- **Bàn giao:** `Captures/mobile-clarity-verification-summary.json`, `mobile-clarity-pages-release.json`, các JSON `mobile-clarity-*`, `VERIFICATION_MOBILE_CLARITY.md`. Native suite/ảnh local và ảnh live dùng cùng artifact. Nếu PWA còn dùng bản cũ, đóng hết tab/app rồi mở lại cho worker mới kích hoạt; không xóa dữ liệu người chơi. Unity đã về Edit Mode, server kiểm tra docs đã dừng. Báo cáo phát hành commit/push riêng, không rebuild tài liệu. Mọi thay đổi Wave/Blender/Packages có sẵn vẫn ngoài staging. Chưa thử phần cứng điện thoại thật.
 
 
 ---
