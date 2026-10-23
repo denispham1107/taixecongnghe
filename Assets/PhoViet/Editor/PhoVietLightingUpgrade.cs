@@ -64,10 +64,10 @@ namespace PhoViet.Editor
             foreach(var bike in g.GetComponentsInChildren<BikeVisualAnimator>(true).Where(b=>b.role!=BikeVisualAnimator.ActorRole.Parked))vehicles.Add(Bike(bike,g));
             foreach(var car in g.GetComponentsInChildren<CarVisualAnimator>(true))vehicles.Add(Car(car));
             var emission=new List<Material>();
-            foreach(var path in PhoVietBikeUpgrade.Assets.Select(a=>System.IO.Path.ChangeExtension(PhoVietBikeUpgrade.ModelPath(a),"mat").Replace('\\','/')).Concat(PhoVietCarUpgrade.Assets.Select(a=>"Assets/PhoViet/Art/Cars/"+a+".mat")))
+            foreach(var path in PhoVietBikeUpgrade.Assets.Select(a=>System.IO.Path.ChangeExtension(PhoVietBikeUpgrade.ModelPath(a),"mat").Replace('\\','/')).Concat(g.GetComponentsInChildren<CarVisualAnimator>(true).SelectMany(c=>c.GetComponentsInChildren<SkinnedMeshRenderer>(true)).Select(s=>AssetDatabase.GetAssetPath(s.sharedMaterial))).Distinct())
             {
                 var material=AssetDatabase.LoadAssetAtPath<Material>(path);if(material==null)throw new Exception("Missing vehicle material: "+path);
-                string emissionPath=PhoVietBikeUpgrade.IsMeshyPath(path)?System.IO.Path.GetDirectoryName(path).Replace('\\','/')+"/Meshy_Emission.png":Folder+(path.Contains("/Bikes/")?"PV_BikeEmission":"PV_CarEmission")+".png";
+                string emissionPath=path.StartsWith(PhoVietMeshyCarUpgrade.Folder,StringComparison.Ordinal)?System.IO.Path.ChangeExtension(path,null)+"_Emission.png":PhoVietBikeUpgrade.IsMeshyPath(path)?System.IO.Path.GetDirectoryName(path).Replace('\\','/')+"/Meshy_Emission.png":Folder+(path.Contains("/Bikes/")?"PV_BikeEmission":"PV_CarEmission")+".png";
                 material.SetTexture("_EmissionMap",AssetDatabase.LoadAssetAtPath<Texture2D>(emissionPath));
                 material.EnableKeyword("_EMISSION");material.SetColor("_EmissionColor",Color.black);EditorUtility.SetDirty(material);emission.Add(material);
             }
@@ -138,13 +138,15 @@ namespace PhoViet.Editor
         static DayNightLighting.VehicleLamps Car(CarVisualAnimator car)
         {
             var root=car.transform;ClearAnchors(root);bool heavy=car.wheelRadius>.45f;float y=heavy?1.14f:.89f,z=heavy?3.28f:2.23f;
+            var meshy=car.GetComponent<MeshyCarVariants>();if(meshy!=null){y=meshy.variants[meshy.SelectedVariant].headlight.y;z=meshy.variants[meshy.SelectedVariant].headlight.z;}
             var head=Anchor(root,car.bumperFront,"Quang học đèn xe • tâm pha",new Vector3(0,y,z));var halos=new List<DayNightLighting.Halo>();
             foreach(float side in new[]{-1f,1f})
             {
-                var front=Anchor(root,car.bumperFront,"Quang học đèn xe • pha "+side,new Vector3(side*(heavy?.77f:.60f),y,z));
+                var front=Anchor(root,car.bumperFront,"Quang học đèn xe • pha "+side,new Vector3(side*(meshy!=null?meshy.variants[meshy.SelectedVariant].size.x*.32f:heavy?.77f:.60f),y,z));
                 var tail=Anchor(root,car.bumperRear,"Quang học đèn xe • hậu "+side,new Vector3(side*car.tailX,car.tailY,car.tailZ-.05f));
                 halos.Add(Halo(front,false,.85f));halos.Add(Halo(tail,true,.6f));
             }
+            if(meshy!=null){meshy.headAnchor=head;meshy.frontHalos=halos.Where(h=>!h.rear).Select(h=>h.source).ToArray();meshy.tailHalos=halos.Where(h=>h.rear).Select(h=>h.source).ToArray();}
             return new DayNightLighting.VehicleLamps{root=root,head=head,roadLight=GroundLight(),halos=halos.ToArray()};
         }
         static Mesh RemoveOldFixture(Mesh source,ref int removed)

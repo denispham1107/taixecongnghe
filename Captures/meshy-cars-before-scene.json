@@ -1,0 +1,132 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "var scene=UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene(); var g=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>(); return new {scene=scene.path,scene.isDirty,jobs=g.jobsEnabled,cars=g.vehicles.Where(v=>v.halfWidth>.7f).Select(v=>new {name=v.model.name,asset=v.model.GetComponent<PhoViet.CarVisualAnimator>().AssetName,v.halfWidth,v.halfLength}).ToArray(),roots=scene.GetRootGameObjects().Select(o=>new {o.name,o.activeSelf,o.tag}).ToArray()};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "scene": "Assets/PhoViet/Scenes/PhoViet.unity",
+        "isDirty": true,
+        "jobs": false,
+        "cars": [
+          {
+            "name": "Taxi phố Việt",
+            "asset": "PV_Taxi",
+            "halfWidth": 0.94,
+            "halfLength": 2.45
+          },
+          {
+            "name": "Xe tải giao hàng",
+            "asset": "PV_DeliveryVan",
+            "halfWidth": 0.94,
+            "halfLength": 2.45
+          },
+          {
+            "name": "Taxi phố Việt",
+            "asset": "PV_Taxi",
+            "halfWidth": 0.94,
+            "halfLength": 2.45
+          },
+          {
+            "name": "Ô tô",
+            "asset": "PV_Sedan",
+            "halfWidth": 0.94,
+            "halfLength": 2.45
+          },
+          {
+            "name": "Taxi phố Việt",
+            "asset": "PV_DeliveryVan",
+            "halfWidth": 0.94,
+            "halfLength": 2.45
+          },
+          {
+            "name": "Ô tô",
+            "asset": "PV_Hatchback",
+            "halfWidth": 0.94,
+            "halfLength": 2.45
+          },
+          {
+            "name": "Taxi phố Việt",
+            "asset": "PV_Taxi",
+            "halfWidth": 0.94,
+            "halfLength": 2.45
+          },
+          {
+            "name": "Xe tải giao hàng",
+            "asset": "PV_DeliveryVan",
+            "halfWidth": 0.94,
+            "halfLength": 2.45
+          },
+          {
+            "name": "Xe tải ngủ gật",
+            "asset": "PV_DrowsyTruck",
+            "halfWidth": 1.2,
+            "halfLength": 3.4
+          },
+          {
+            "name": "Xe tải cùng chiều • 1",
+            "asset": "PV_BoxTruck",
+            "halfWidth": 1.2,
+            "halfLength": 3.4
+          },
+          {
+            "name": "Xe tải cùng chiều • 2",
+            "asset": "PV_BoxTruck",
+            "halfWidth": 1.2,
+            "halfLength": 3.4
+          }
+        ],
+        "roots": [
+          {
+            "name": "PHỐ VIỆT • Chuyến xe không ngừng",
+            "activeSelf": true,
+            "tag": "Untagged"
+          },
+          {
+            "name": "Nắng ban mai • chu kỳ ngày đêm",
+            "activeSelf": true,
+            "tag": "Untagged"
+          },
+          {
+            "name": "Red Honda Scooter Front View",
+            "activeSelf": false,
+            "tag": "EditorOnly"
+          },
+          {
+            "name": "Golden Star Stance",
+            "activeSelf": false,
+            "tag": "EditorOnly"
+          },
+          {
+            "name": "Golden Star Stance",
+            "activeSelf": false,
+            "tag": "EditorOnly"
+          },
+          {
+            "name": "Covered cargo truck",
+            "activeSelf": true,
+            "tag": "Untagged"
+          },
+          {
+            "name": "Meshy_Model",
+            "activeSelf": true,
+            "tag": "Untagged"
+          }
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

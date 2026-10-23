@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureMeshyCars.cs",
+      "entry": "CaptureMeshyCars.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2591,
+      "executeMs": 541,
+      "assemblyName": "PipelineRunScript_CaptureMeshyCars_732eff0fa243441e85faa9fc594a7adc",
+      "success": true,
+      "result": {
+        "success": true,
+        "files": [
+          "Captures/meshy-cars-PV_MeshySport-paint0.png",
+          "Captures/meshy-cars-PV_MeshySport-paint2.png",
+          "Captures/meshy-cars-PV_MeshySport-paint3.png",
+          "Captures/meshy-cars-PV_MeshyPickup-paint0.png",
+          "Captures/meshy-cars-PV_MeshyPickup-paint2.png",
+          "Captures/meshy-cars-PV_MeshyPickup-paint3.png",
+          "Captures/meshy-cars-PV_MeshyCovered-paint0.png",
+          "Captures/meshy-cars-PV_MeshyCovered-paint2.png",
+          "Captures/meshy-cars-PV_MeshyCovered-paint3.png",
+          "Captures/meshy-cars-PV_MeshyContainer-paint0.png",
+          "Captures/meshy-cars-PV_MeshyContainer-paint2.png",
+          "Captures/meshy-cars-PV_MeshyContainer-paint3.png"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

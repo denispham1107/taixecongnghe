@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "command": "command editor_status",
+  "data": {
+    "command": "editor_status",
+    "parameters": {},
+    "result": {
+      "status": "ready",
+      "compiling": false,
+      "domainReloadInProgress": false,
+      "playMode": "stopped",
+      "lastHeartbeat": "2026-10-23T20:05:43.2269856Z",
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe",
+      "unityVersion": "6000.5.6f1"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

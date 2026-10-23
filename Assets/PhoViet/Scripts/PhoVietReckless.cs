@@ -72,6 +72,7 @@ namespace PhoViet
             TrafficVehicle v=vehicles.Find(t=>t.eventOnly&&t.model==model);
             if(v==null)return null;
             if(v.active)return null;
+            v.model.GetComponent<MeshyCarVariants>()?.PrepareForSpawn(rng,v);
             int adjacent=oncoming?rng.Next(2):rearLane;
             float rearZ=Mathf.Min(-28,rideCamera.transform.localPosition.z-v.halfLength-12);
             Vector3 spawn=new Vector3(LaneX[adjacent],0,oncoming?105+(float)rng.NextDouble()*15:rearZ-(float)rng.NextDouble()*6);

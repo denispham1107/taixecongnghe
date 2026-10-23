@@ -4,6 +4,8 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 > **Trạng thái hiện tại: 1.32.2 (đã phát hành bản sửa đuôi xe nhấp nháy, giữ độ nét mobile), chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
 >
+> **Scene Unity mới ngày 24/10:** đã thay 11 xe bốn bánh bằng 4 mẫu Meshy, 8 màu sơn chọn lại mỗi lần xuất hiện; 3.002 điều kiện Unity và 28 kiểm tra nguồn đạt. **Bộ ô tô này chưa build/push/phát hành web**, chi tiết 21.17. Bảng phiên bản công khai bên dưới vẫn là 1.32.2.
+>
 > **Độ nét mobile 1.32.1:** đã phát hành và xác minh 40 kiểm tra live, không lỗi runtime. DPR tối đa 3 / 3,2 triệu pixel, hai vùng texture 2K đầy đủ, người chơi giữ LOD0; chi tiết 21.15.
 >
 > **Người/xe Meshy (23/10/2026):** đã phát hành WebGL **1.32.0**: người Golden Star Stance có rig, hero áo đỏ sao vàng ngực/lưng, NPC nhiều màu áo, vai tự nhiên và ngón nắm v4. Xe hero trắng–đen, CSGT giữ nguyên cả người và xe. Pages run `39948530264` thành công, cache `96d0c318c468dcab`; 26kiểm tra live đạt. Xem21.9–21.14. Xe Meshy1.31.0 và các nguồn Wave ở21.5–21.8 là lịch sử.
@@ -49,6 +51,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 - Phím hiện tại: **Q đạp**, **Space nhảy**, **W tăng tốc +125% trong 4 giây, hồi 2 giây**. Mobile: chạm hai lần đạp, vuốt lên nhảy, xuống tăng tốc; vuốt nhận ngay khi đủ ngưỡng, không chờ nhấc tay.
 - **Xe máy (yêu cầu mới 23/10/2026):** dùng đúng mô hình đã nhận từ Meshy cho xe người chơi, xe máy thường hai chiều, quái xế và xe đậu. Xe chính **trắng–đen**, bốn phối màu còn lại **xanh ngọc, xanh dương, vàng, cam**. Giữ nguyên mô tô CSGT hiện tại theo xác nhận riêng của người dùng. Động tác giữ nguyên; người lái ngoài CSGT được thay bằng Golden Star Stance có rig (21.9). Giữ hình học và texture gốc xe Meshy (kể cả gương/chi tiết nhận diện vốn có), chỉ đổi vùng sơn; yêu cầu không gương/không logo của bản Wave cũ không áp vào mẫu mới này.
 - **Mọi lần sửa/thêm chức năng đều phải ghi vào tài liệu này**, kể cả thay đổi chưa build hoặc chưa phát hành; ghi rõ trạng thái chưa hoàn tất thay vì bỏ qua.
+- **Ô tô Meshy (24/10):** người dùng đã chọn dùng cả thể thao/bán tải/tải bạt/container, giữ tỷ lệ; hai mẫu tải được chọn ngẫu nhiên ở tải thường/ngủ gật, mọi xe chọn một trong tám màu sơn khi spawn. Kính/lốp/kim loại giữ màu riêng. Scene đã lưu; web chưa cập nhật. Xem 21.17.
 
 ### 1.2. Những yêu cầu cũ đã được thay thế
 
@@ -581,7 +584,7 @@ Ba file `left.mp3`, `right.mp3`, `straight.mp3` trong `Assets/PhoViet/Audio/Navi
 | --- | --- | --- |
 | Xe máy + người lái **Meshy (23/10/2026)** | HeroScooter, CityScooter, Underbone, SportBike, Racer dùng cùng hình xe đã nhập từ Meshy và màu khác nhau; TrafficPolice vẫn mô tô tuần tra v2 | Scene/web1.32.0: người Golden Star Stance có rig, 17 xương semantic/7 clip/3 LOD, 42.939/11k/5k tam giác. Atlas2048×4096, mỗi vùng người/xe2K đầy đủ; surface/normal/emission chung; người CSGT không đổi. Xem21.9. Bản web1.31.0 dùng người cũ (21.7) |
 | Xe máy + người lái v2 (19/10/2026, **đã thay thế trừ CSGT**) | Tay ga trắng/tay ga nữ/xe số/côn tay/quái xế/CSGT | `Captures/VERIFICATION_BIKES_V2.md`; nguồn `pho_viet_motorcycles.py` vẫn là thư viện người lái/rig/xuất cho bản Wave |
-| Xe bốn bánh | Sedan, Hatchback, Taxi, DeliveryVan, BoxTruck, DrowsyTruck | 6 thiết kế, 15 xương/mẫu, 7 clip, 3 LOD, một material atlas/mẫu |
+| Xe bốn bánh — scene mới 24/10/2026, chưa phát hành web | 4 mẫu Meshy: thể thao, bán tải, tải bạt, đầu kéo container; giữ 6 tên role Sedan/Hatchback/Taxi/DeliveryVan/BoxTruck/DrowsyTruck | 15 xương hoặc 23 ở container 4 trục; 7 clip, 3 LOD, một material/mẫu; màu sơn ngẫu nhiên mỗi lần spawn, hai mẫu tải được chọn lại ở cả tải thường/ngủ gật (21.17) |
 | Phố | 12 shop, 3 cây, 1 module vỉa hè | Mesh tĩnh 3 LOD, dùng chung palette 128 px; chữ/mái che được bảo vệ khi giảm chi tiết |
 | Khách | PassengerMale, PassengerFemale | 14 xương/mẫu, 4 clip, 3 LOD, một palette material/mẫu |
 
@@ -589,7 +592,7 @@ Xe máy có vỏ cong, lốp/mâm/phanh/giảm xóc/động cơ/pô, gương/đ�
 
 Trong scene có **33 `BikeVisualAnimator`**: 19 actor gameplay tính cả người chơi và CSGT, 14 xe đậu có animator ở dãy nguồn. Xe đậu nhân bản ở các nhánh được bake tĩnh để tránh nhân toàn bộ skeleton/animator; không hiểu 33 là tổng mọi hình xe máy được render trên cả 35 module. Có **11 `CarVisualAnimator`** trên các xe bốn bánh giao thông.
 
-Tam giác ví dụ hiện hành: HeroScooter với người rigged **42.939 / khoảng11.000 / khoảng5.000**; metadata `Art/Bikes/MeshyRiders/*.json`. Bản web1.31.0:30.423/10.999/4.999 trong thư mục Meshy cũ. DrowsyTruck **23.503 / 10.340 / 3.760**. Khách nam **4.688 / 2.338 / 1.091**, khách nữ **5.084 / 2.541 / 1.160** (đang khóa). Bản Wave cũ có 35.604 / 16.020 / 5.200 và không còn được scene dùng trừ rider/rig kế thừa.
+Tam giác ví dụ hiện hành: HeroScooter với người rigged **42.939 / khoảng11.000 / khoảng5.000**; metadata `Art/Bikes/MeshyRiders/*.json`. Bản web1.31.0:30.423/10.999/4.999 trong thư mục Meshy cũ. Ô tô Meshy trong scene mới: Sport **16.488/7.254/2.638**, Pickup **20.575/9.053/3.291**, Covered **13.481/5.931/2.156**, Container **7.582/3.335/1.213**; bộ cũ/web 1.32.2 DrowsyTruck **23.503/10.340/3.760**. Khách nam **4.688/2.338/1.091**, khách nữ **5.084/2.541/1.160** (đang khóa). Bản Wave cũ có 35.604/16.020/5.200 và không còn được scene dùng trừ rider/rig kế thừa.
 
 ### 11.2. Source chỉnh sửa và điểm vào tái tạo
 
@@ -599,7 +602,8 @@ Tam giác ví dụ hiện hành: HeroScooter với người rigged **42.939 / kh
 | **`PhoViet_MeshyMotorcycles.blend`** (nguồn xe1.31.0, 23/10) | **`prepare_meshy_bike_atlas.py` + `integrate_meshy_bikes.py`** | Tạo atlas bằng Python rồi ghép hình học FBX Meshy với người lái/rig cũ trong Blender, xuất 5 FBX mới vào `Art/Bikes/Meshy/`; không xuất CSGT, không ghi đè Wave/nguồn Meshy. File blend chứa cả 5 rig đã xuất |
 | `PhoViet_Motorcycles_Wave.blend` (nguồn cũ giữ lại) | `pho_viet_wave.py` / `pho_viet_motorcycles.py` | Chỉ dùng khi cần bảo trì nguồn cũ; không chạy để thay thế lại bản Meshy hiện hành |
 | `PhoViet_Motorcycles.blend` (v2, giữ nguyên, có sửa cục bộ chưa commit có từ trước) | `pho_viet_motorcycles.py` (`pho_viet_bikes.py` chỉ còn là helper cho script khác; `rebuild_all()` cũ đưa xe về v1) | `build_motorcycles()` dựng lại **cả 6 mẫu v2, sẽ ghi đè FBX Wave** — chỉ dùng khi muốn quay về v2 hoặc để xuất lại riêng CSGT bằng `build_motorcycles(['PV_TrafficPolice'])` |
-| `PhoViet_Cars.blend` | `pho_viet_cars.py` | `build_all()` |
+| **`PhoViet_MeshyCars.blend`** (scene mới) | `integrate_meshy_cars.py` + `prepare_meshy_car_textures.py` | Blender nền xuất 4 rig/LOD/7 clip + profile nóc; Python tạo mask sơn/đèn, giữ maps nguồn; Install received Meshy cars |
+| `PhoViet_Cars.blend` (nguồn cũ, có chỉnh cục bộ cần giữ) | `pho_viet_cars.py` | `build_all()` chỉ tái tạo bộ cũ; không dùng để thay bộ Meshy mới |
 | `PhoViet_Streets.blend` | `pho_viet_streets.py` | `build_streets()` |
 | `PhoViet_Passengers.blend` | `pho_viet_passengers.py` | `build_passengers()` |
 | `PhoViet_Jump.blend` | `pho_viet_jump.py` | Chạy script trên rig HeroScooter; xuất action + Resources/PhoVietJump.json |
@@ -1114,7 +1118,7 @@ Không cần rebuild/deploy WebGL chỉ vì sửa chính tài liệu bàn giao. 
 
 `PhoVietJump` quản lý windup 0,24 s, phóng 14,6 m/s, gravity 22 m/s², hồi 2 s từ lúc bắt đầu. Đỉnh thực đo từ mặt đường khoảng 4,844 m. Lúc bay cộng 3 m/s tiến trước W; vẫn steer và có thể boost. Không nhảy lần hai giữa không trung; chỉ nhảy từ đường hoặc roofVehicle đang đỡ, hết pha tiếp đất/cooldown. JumpAir lấy theo vận tốc Y để khớp các độ cao rơi khác nhau, không dùng đồng hồ bay cố định cũ.
 
-`JumpRoofHeight` phân loại model hiện có: sedan/taxi khoảng 1,60 m, hatchback 1,69 m, DeliveryVan 1,91 m, thùng tải 3,175 m/cabin 2,71 m. Đây là profile gameplay theo các asset hiện hành, không phải tự đọc mọi mesh tùy ý. Xe thêm mới/đổi kích thước phải bổ sung profile và kiểm tra cùng collision. Góc pitch/roll vượt 12° không còn mặt đỡ. Xe tải đã va chạm nhưng còn đứng thẳng vẫn có nóc; xe nhỏ knocked/wallCrashed bị loại. Model inactive/pool bị thu hồi cũng không đỡ người chơi.
+Scene Meshy mới dùng `MeshyCarVariants`: kích thước/hình bao và 49 mẫu mặt nóc lấy từ giao tia xuống tam giác thật, đổi đồng thời khi chọn mẫu tải. `JumpRoofHeight` và `RoofSurfaceAt` đọc profile này; không dùng chiều cao xe tải cũ cho container mới. Fallback cho bộ cũ/web 1.32.2: sedan/taxi 1,60 m, hatchback 1,69 m, DeliveryVan 1,91 m, thùng tải 3,175 m/cabin 2,71 m. Góc pitch/roll vượt 12° không còn mặt đỡ. Xe tải đã va chạm nhưng còn đứng thẳng vẫn có nóc; xe nhỏ knocked/wallCrashed bị loại. Model inactive/pool bị thu hồi cũng không đỡ người chơi. Chi tiết và kiểm tra mẫu mới ở 21.17.
 
 Sửa 1.30.5 đồng bộ mặt nóc với **vị trí/yaw của xe tại đúng thời điểm va chạm**, không lấy mặt cuối frame cho va chạm đầu frame. Ô tô xét cả bánh trước và sau, không hạ root vào kính/capo khi bánh sau còn trên nóc cao. Xe tải giữ điểm tựa bánh sau trên thùng tới khi qua mép; sau đó rơi xuống cabin, không snap xuống.
 
@@ -1400,5 +1404,17 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 
 ---
+
+### 21.17. Nhận và tích hợp bốn mẫu ô tô Meshy (24/10/2026, đã lưu scene/chưa phát hành)
+
+- Đã nhận đủ bốn FBX và maps PBR 2048² trong `Assets/MeshyImports/`: `Covered cargo truck_20261024_022230` (13.481 tam giác), `Meshy_Model_20261024_022256` (thể thao, 16.488), `...022318` (bán tải, 20.575), `...022335` (đầu kéo container, 7.582). Giữ nguyên toàn bộ nguồn; kiểm nhận bằng Blender độc lập và JSON `meshy-cars-source-inspection.json`.
+- Người dùng chọn **dùng cả bốn, giữ tỷ lệ và kích thước phù hợp**: thể thao thay sedan/hatchback/taxi, bán tải thay xe giao hàng; hai mẫu tải được chọn ngẫu nhiên mỗi lần spawn của tải thường và tải ngủ gật. Giữ 11 root/pool và sáu tên role để không đổi phân loại hành vi; `ModelAsset` biểu thị hình thực đang dùng. Không dùng tên role để suy ra còn hình xe cũ.
+- `integrate_meshy_cars.py` chạy Blender nền, xuất vào `Assets/PhoViet/Art/Cars/Meshy/`, lưu nguồn mới `PhoViet_MeshyCars.blend`; không ghi đè file Cars/Blender cục bộ có trước. Hướng +Z, dài 4,45 / 4,2 / 6,4 / 12,8 m, scale đồng nhất giữ tỷ lệ nguồn. Fit các trục bánh từ lốp; rim quay riêng, đường bao AI giữ rigid để không chớp như lỗi xe máy. Mẫu thường 15 xương/4 bánh, container 23 xương/8 bánh. Bảy clip Legacy, ba LOD; LOD2 đều dưới 4k. Profile nóc lấy raycast trên mặt tam giác, tránh bịa lỗ trên tấm nóc container ít đỉnh.
+- `prepare_meshy_car_textures.py` giữ nguyên ba map nguồn 2K cho mỗi mẫu, tạo mask chỉ vùng sơn và emission vùng đèn. `PhoVietMeshyCarPaint.shader` dùng Standard lighting/normal/metallic/smoothness, đổi sơn bằng `_PaintColor` qua MaterialPropertyBlock; không nhân màu cả lốp/kính/kim loại. Tám màu, chọn lại lúc xuất hiện, dùng chung vật liệu/texture giữa các slot, không tạo material mới mỗi spawn. Mask đã được chỉnh sau xem ảnh để bỏ lem kính xe tải; vùng bánh dùng nội suy tọa độ từng texel trên tam giác, tránh vừa nhuộm lốp vừa để sót mảng màu gốc ở hốc bánh. Hai nguồn tải không có texel đỏ trong vùng đèn hậu đã chọn: đèn hậu vẫn có hai halo quang học và đèn phanh động; không tô đỏ cả thùng xe để giả emission.
+- `MeshyCarVariants.cs` đổi visual/animation/bánh, kích thước va chạm, profile nóc, neo đèn và đèn phanh cùng lúc. `InitializeDriver` dùng cho spawn thường/ngược/ngang/nguy hiểm và tái sử dụng. Nhánh reckless và sau rẽ chuẩn bị mẫu trước khi kiểm chỗ trống để dùng đúng chiều dài container; nếu chỗ bị chắn, giữ mẫu đã chuẩn bị tới lần thử sau. Lần khôi phục sau tai nạn không đổi màu/mẫu giữa lúc xe đang chạy.
+- `PhoVietMeshyCarUpgrade.Install` thay đúng 11 actor, giữ root, CSGT/người chơi/xe máy, ghép lại 30 binding đèn và emission users. Preview Bridge được giữ ngoài runtime bằng EditorOnly/inactive. Sao lưu cả scene đĩa và scene bẩn vào `.tools` trước thay. Installer/menu xe lớn cũ chuyển sang installer mới khi asset Meshy có mặt; cài lại lighting cũng giữ material emission/neo mới. `PhoVietJump`/`PhoVietCollisions` dùng profile/kích thước mẫu đang chọn; vẫn va chạm thật khi thiếu độ cao, xe nghiêng/lật không thành mặt đỡ.
+- **Kiểm tra hoàn tất:** 11 suite / **3.002 điều kiện đạt**: MeshyCars 1.175, MeshyCarRoofs 256 (64 cú nhảy thật), TrafficDynamics 82, CrashUpgrade 97, BoostTrafficIsolation 478, QuickKick 62, CrashOutcome 51, CrashPoliceNavigation 214, NightJumpLighting 88, DistanceMode 31, SmoothTurns 468. Thêm **28 kiểm tra nguồn**: đủ mọi tam giác gốc LOD0, scale đồng nhất giữ tỷ lệ, không quá bề rộng làn và hash ba map 2K trùng nguồn. `VerifyTrafficDynamics` được chỉnh vị trí fixture theo tổng chiều dài hai thân xe thay khoảng 4,7 m cứng của xe cũ; không sửa vật lý để ép test qua.
+- **Bằng chứng:** `Captures/meshy-cars-verification-summary.json`, từng `meshy-cars-Verify*.json`, source-preservation/texture/export/install JSON và `VERIFICATION_MESHY_CARS.md`. Đã xem ảnh Unity cận cả bốn mẫu với ba màu mỗi mẫu: `meshy-cars-PV_Meshy*-paint*.png`. Mặt nạ màu là bước tinh chỉnh cuối; sau đó chụp lại 12 ảnh và chạy lại MeshyCars 1.175 trên scene cuối. Restore pose Idle trước khi gắn lại neo đèn để không giữ offset từ cản xe bị cong khi tái sử dụng.
+- **Trạng thái:** scene đã cài và lưu, Unity về Edit Mode; source/asset/tài liệu được commit riêng (SHA xem Git log). **Chưa build/push/phát hành bộ ô tô này**; `docs` và web vẫn **1.32.2**, không tăng version chỉ vì thay scene. Công việc vẫn `RideJobsReleased=false`, `jobsEnabled=false`; dữ liệu Coin/kỷ lục, DPR/độ nét mobile và bản sửa đuôi xe máy được giữ. Chưa thử WebGL/điện thoại vật lý/FPS cho bộ xe này. Giữ nguyên ngoài commit mọi Wave/Bridge/Packages và các nguồn Blender cũ có sẵn.
 
 **Nguồn kiểm chứng chính:** mã C# và cấu hình hiện tại trong repo, `ArtSource/Blender`, metadata asset, Git history, các báo cáo `Captures/VERIFICATION_*.md` và JSON kết quả tương ứng. Nếu dự án tiếp tục thay đổi, cập nhật lại tài liệu này theo hành vi thực tế; đừng coi một con số/version/port của ngày bàn giao là thông tin luôn đúng về sau.

@@ -93,8 +93,8 @@ namespace PhoViet
             }
             // Intersect the vertical time interval too: checking height only at the
             // horizontal entry could miss a descending rider or a rising crash body.
-            float ah=a.halfLength>3?3.2f:a.halfWidth>.7f?1.9f:a.knocked?.6f:2.4f;
-            float bh=b.halfLength>3?3.2f:b.halfWidth>.7f?1.9f:b.knocked?.6f:2.4f;
+            float ah=a.model.TryGetComponent<MeshyCarVariants>(out var am)?am.Height:a.halfLength>3?3.2f:a.halfWidth>.7f?1.9f:a.knocked?.6f:2.4f;
+            float bh=b.model.TryGetComponent<MeshyCarVariants>(out var bm)?bm.Height:b.halfLength>3?3.2f:b.halfWidth>.7f?1.9f:b.knocked?.6f:2.4f;
             float y0=a.previousPosition.y-b.previousPosition.y;
             float dy=a.model.localPosition.y-b.model.localPosition.y-y0;
             if(Mathf.Abs(dy)<.000001f){if(y0>bh||y0< -ah)return false;}

@@ -71,6 +71,7 @@ namespace PhoViet
             int choice=rear?vehicles.IndexOf(reserved):FindExitCandidate();
             if(choice<0)return false;var candidate=vehicles[choice];
             if(candidate.active)return false;
+            candidate.model.GetComponent<MeshyCarVariants>()?.PrepareForSpawn(rng,candidate);
             for(int attempt=0;attempt<8;attempt++)
             {
                 int lane=rear?fixedLane:rng.Next(0,2);

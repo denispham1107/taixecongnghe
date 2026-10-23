@@ -39,6 +39,8 @@ namespace PhoViet
   {
    if(v==null||v.model==null||v.halfWidth<=.7f)return -1;
    if(Mathf.Abs(Mathf.DeltaAngle(0,v.model.localEulerAngles.z))>12||Mathf.Abs(Mathf.DeltaAngle(0,v.model.localEulerAngles.x))>12)return -1;
+   var meshy=v.model.GetComponent<MeshyCarVariants>();
+   if(meshy!=null){if(v.halfLength<=3&&(v.knocked||v.wallCrashed))return -1;return meshy.Height;}
    if(v.halfLength>3)return 3.175f;
    if(v.knocked||v.wallCrashed)return -1;
    var a=v.model.GetComponent<CarVisualAnimator>();string n=a!=null?a.AssetName:"";
@@ -60,6 +62,13 @@ namespace PhoViet
   {
    Vector3 local=Quaternion.Inverse(rotation)*(point-position);
    float roof=JumpRoofHeight(v),z=local.z;
+   var meshy=v.model.GetComponent<MeshyCarVariants>();
+   if(meshy!=null)
+   {
+    Vector3 direction=Quaternion.Inverse(rotation)*riderRotation*Vector3.forward;
+    float height=meshy.SupportHeight(z-.73f*direction.z,z+.90f*direction.z);
+    return (position+rotation*new Vector3(local.x,height,local.z)).y+.025f;
+   }
    if(v.halfLength>3)
    {
     // Blender box roof ends at z=1.225, cab roof is 2.71 m high. Keep the

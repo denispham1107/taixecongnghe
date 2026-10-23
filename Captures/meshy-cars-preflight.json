@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "var s=UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();var g=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>();return new {scene=s.path,s.isDirty,jobs=g.jobsEnabled,gate=PhoViet.PhoVietGame.RideJobsReleased,cars=g.vehicles.Count(v=>v.model.GetComponent<PhoViet.MeshyCarVariants>()!=null),missing=UnityEngine.Object.FindObjectsByType<UnityEngine.GameObject>(UnityEngine.FindObjectsInactive.Include,UnityEngine.FindObjectsSortMode.None).Where(o=>o.scene==s).Sum(o=>UnityEditor.GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(o)),lamps=g.daylight.vehicles.Length};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "scene": "Assets/PhoViet/Scenes/PhoViet.unity",
+        "isDirty": false,
+        "jobs": false,
+        "gate": false,
+        "cars": 11,
+        "missing": 0,
+        "lamps": 30
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

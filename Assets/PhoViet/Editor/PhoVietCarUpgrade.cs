@@ -15,6 +15,7 @@ namespace PhoViet.Editor
         [MenuItem("Phố Việt/Art/Replace all four-wheel vehicles with Blender models")]
         public static void UpgradeOpenScene()
         {
+            if(System.IO.File.Exists(PhoVietMeshyCarUpgrade.Folder+"PV_MeshySport.fbx")){PhoVietMeshyCarUpgrade.Install();return;}
             if(Application.isPlaying)throw new Exception("Exit Play Mode first");
             var game=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();if(game==null)throw new Exception("Open PhoViet scene");
             PhoVietCarImport.ConfigureAll();ApplyToGame(game);EditorUtility.SetDirty(game);
@@ -81,7 +82,7 @@ namespace PhoViet.Editor
     public sealed class PhoVietCarImport : AssetPostprocessor
     {
         const string Folder="Assets/PhoViet/Art/Cars/";
-        void OnPreprocessModel(){if(assetPath.StartsWith(Folder,StringComparison.Ordinal))Configure((ModelImporter)assetImporter);}
+        void OnPreprocessModel(){if(assetPath.StartsWith(Folder,StringComparison.Ordinal)){Configure((ModelImporter)assetImporter);if(assetPath.Contains("/Meshy/"))((ModelImporter)assetImporter).meshCompression=ModelImporterMeshCompression.Off;}}
         static void Configure(ModelImporter i)
         {
             i.animationType=ModelImporterAnimationType.Legacy;i.importAnimation=true;i.optimizeGameObjects=false;i.materialImportMode=ModelImporterMaterialImportMode.None;

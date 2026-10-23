@@ -1,0 +1,46 @@
+[
+  {
+    "asset": "PV_MeshyContainer",
+    "size": [
+      2048,
+      2048
+    ],
+    "paintPixels": 432406,
+    "headPixels": 17525,
+    "tailPixels": 0,
+    "sourceMapsCopiedUnchanged": true
+  },
+  {
+    "asset": "PV_MeshyCovered",
+    "size": [
+      2048,
+      2048
+    ],
+    "paintPixels": 160226,
+    "headPixels": 9900,
+    "tailPixels": 0,
+    "sourceMapsCopiedUnchanged": true
+  },
+  {
+    "asset": "PV_MeshyPickup",
+    "size": [
+      2048,
+      2048
+    ],
+    "paintPixels": 781632,
+    "headPixels": 3512,
+    "tailPixels": 20834,
+    "sourceMapsCopiedUnchanged": true
+  },
+  {
+    "asset": "PV_MeshySport",
+    "size": [
+      2048,
+      2048
+    ],
+    "paintPixels": 1601950,
+    "headPixels": 2410,
+    "tailPixels": 36,
+    "sourceMapsCopiedUnchanged": true
+  }
+]

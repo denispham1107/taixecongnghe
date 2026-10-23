@@ -1,0 +1,60 @@
+{
+  "success": true,
+  "nativeSuites": [
+    {
+      "suite": "VerifyMeshyCars",
+      "count": 1175
+    },
+    {
+      "suite": "VerifyMeshyCarRoofs",
+      "count": 256
+    },
+    {
+      "suite": "VerifyTrafficDynamics",
+      "count": 82
+    },
+    {
+      "suite": "VerifyCrashUpgrade",
+      "count": 97
+    },
+    {
+      "suite": "VerifyBoostTrafficIsolation",
+      "count": 478
+    },
+    {
+      "suite": "VerifyQuickKick",
+      "count": 62
+    },
+    {
+      "suite": "VerifyCrashOutcome",
+      "count": 51
+    },
+    {
+      "suite": "VerifyCrashPoliceNavigation",
+      "count": 214
+    },
+    {
+      "suite": "VerifyNightJumpLighting",
+      "count": 88
+    },
+    {
+      "suite": "VerifyDistanceMode",
+      "count": 31
+    },
+    {
+      "suite": "VerifySmoothTurns",
+      "count": 468
+    }
+  ],
+  "nativeCount": 3002,
+  "sourceChecks": 28,
+  "roofCases": 64,
+  "carsReplaced": 11,
+  "models": 4,
+  "paintColors": 8,
+  "jobsEnabled": false,
+  "policeUnchanged": true,
+  "webUpdated": false,
+  "publishedVersion": "1.32.2",
+  "physicalDeviceTested": false
+}

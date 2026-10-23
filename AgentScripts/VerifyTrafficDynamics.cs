@@ -77,7 +77,8 @@ public static class VerifyTrafficDynamics
             check(!straight.hasTurned&&Mathf.Abs(straight.model.localPosition.x+16)<.01f,"Some junction traffic still continues straight");
 
             // Frontal impact: same mass, momentum conserved and energy dissipated, no lateral random force.
-            clean();var a=spawn(1,2,40);var b=spawn(1,2,44.7f);place(a,new Vector3(1.55f,0,40),16);place(b,new Vector3(1.55f,0,44.7f),-16);
+            // Place actual hulls in contact; received car lengths need not match the old 4.9 m fixture.
+            clean();var a=spawn(1,2,40);var b=spawn(1,2,44.7f);place(a,new Vector3(1.55f,0,40),16);place(b,new Vector3(1.55f,0,40+a.halfLength+b.halfLength-.2f),-16);
             float ma=PhoVietGame.VehicleMass(a),mb=PhoVietGame.VehicleMass(b),beforeEnergy=energy(a)+energy(b);
             Vector3 momentum=velocity(a)*ma+velocity(b)*mb;call("ResolveVehicleCollisions",null);
             check(a.knocked&&b.knocked&&g.TrafficCollisions==1,"Two untouched normal vehicles collide with each other");
@@ -88,9 +89,9 @@ public static class VerifyTrafficDynamics
             float afterEnergy=energy(a)+energy(b);call("ResolveVehicleCollisions",null);check(g.TrafficCollisions==1&&energy(a)+energy(b)==afterEnergy,"Persistent contact cannot repeatedly inject impulses");
             check(!g.IsChased&&g.KickCount==0&&g.ChainCount==0,"Automatic traffic collisions do not blame player or summon police");
 
-            clean();a=spawn(1,2,40);b=spawn(1,2,44.7f);place(a,new Vector3(1.55f,0,40),20);place(b,new Vector3(1.55f,0,44.7f),2);call("ResolveVehicleCollisions",null);
+            clean();a=spawn(1,2,40);b=spawn(1,2,44.7f);place(a,new Vector3(1.55f,0,40),20);place(b,new Vector3(1.55f,0,40+a.halfLength+b.halfLength-.2f),2);call("ResolveVehicleCollisions",null);
             check(a.knocked&&b.knocked&&a.knockVelocity.z<20&&b.knockVelocity.z>2,"Rear-end impact slows follower and pushes braked leader forward");
-            clean();a=spawn(2,2,40);b=spawn(0,2,44.3f);place(a,new Vector3(1.55f,0,40),16);place(b,new Vector3(1.55f,0,44.3f),-12);call("ResolveVehicleCollisions",null);
+            clean();a=spawn(2,2,40);b=spawn(0,2,44.3f);place(a,new Vector3(1.55f,0,40),16);place(b,new Vector3(1.55f,0,40+a.halfLength+b.halfLength-.2f),-12);call("ResolveVehicleCollisions",null);
             check(a.knocked&&b.knocked&&Mathf.Abs(a.knockVelocity.z-16)<Mathf.Abs(b.knockVelocity.z+12),"Heavy truck changes velocity less than the motorcycle it hits");
             check(a.knockVelocity.y<1&&b.knockVelocity.y<=2.8f,"A motorcycle cannot launch a medium truck into the sky");
 
@@ -109,7 +110,7 @@ public static class VerifyTrafficDynamics
             check(!a.knocked&&!b.knocked,"Airborne vehicle passing above traffic does not cause phantom contact");
             clean();a=spawn(0,2,50);b=spawn(0,3,50);place(a,new Vector3(-2,0,50),10);place(b,new Vector3(2,0,50),10);call("ResolveVehicleCollisions",null);
             check(!a.knocked&&!b.knocked,"Separated parallel traffic has no false collision");
-            clean();a=spawn(1,2,50);b=spawn(1,2,50);place(a,new Vector3(0,0,50),10);place(b,new Vector3(0,0,54.7f),-10);call("ResolveVehicleCollisions",null);
+            clean();a=spawn(1,2,50);b=spawn(1,2,50);place(a,new Vector3(0,0,50),10);place(b,new Vector3(0,0,50+a.halfLength+b.halfLength-.2f),-10);call("ResolveVehicleCollisions",null);
             for(int i=0;i<1000;i++)call("TickCollisionBody",new object[]{a,.02f});
             check(new Vector2(a.knockVelocity.x,a.knockVelocity.z).magnitude<.01f&&a.model.localPosition.y>=0,"Friction brings a wreck to rest without falling below the road");
             check(a.angularVelocity.magnitude<.01f,"Collision spin damps instead of accelerating forever");

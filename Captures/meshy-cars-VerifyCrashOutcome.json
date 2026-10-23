@@ -1,0 +1,83 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyCrashOutcome.cs",
+      "entry": "VerifyCrashOutcome.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 321,
+      "executeMs": 1282,
+      "assemblyName": "PipelineRunScript_VerifyCrashOutcome_97239f30a5da43ce81a69840261e6297",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 51,
+        "checks": [
+          "No life counter remains in runtime",
+          "First impact starts visible throw: False,-1",
+          "Side impact launches away from contact: False,-1",
+          "First collision ends only after physical fall: False,-1",
+          "Terminal rider stays in fallen skeleton pose: False,-1",
+          "First impact starts visible throw: False,1",
+          "Side impact launches away from contact: False,1",
+          "First collision ends only after physical fall: False,1",
+          "Terminal rider stays in fallen skeleton pose: False,1",
+          "First impact starts visible throw: False,0",
+          "First collision ends only after physical fall: False,0",
+          "Terminal rider stays in fallen skeleton pose: False,0",
+          "First impact starts visible throw: False,2",
+          "First collision ends only after physical fall: False,2",
+          "Terminal rider stays in fallen skeleton pose: False,2",
+          "First impact starts visible throw: True,-1",
+          "Side impact launches away from contact: True,-1",
+          "First collision ends only after physical fall: True,-1",
+          "Terminal rider stays in fallen skeleton pose: True,-1",
+          "First impact starts visible throw: True,1",
+          "Side impact launches away from contact: True,1",
+          "First collision ends only after physical fall: True,1",
+          "Terminal rider stays in fallen skeleton pose: True,1",
+          "First impact starts visible throw: True,0",
+          "First collision ends only after physical fall: True,0",
+          "Terminal rider stays in fallen skeleton pose: True,0",
+          "First impact starts visible throw: True,2",
+          "First collision ends only after physical fall: True,2",
+          "Terminal rider stays in fallen skeleton pose: True,2",
+          "Impact speed still determines physical throw distance",
+          "Pause freezes throw and completion",
+          "Resume returns to fall, never to riding",
+          "Pursuit impact settles but does not show game over",
+          "Rider waits on ground beyond old recovery time",
+          "Waiting rider cannot steer, jump, kick or boost",
+          "Rider waits while police uses original 1.2 second get-up timer",
+          "Police still gets up after exactly 1.2 seconds",
+          "Recovered officer physically approaches and arrests fallen rider",
+          "Capture switches to prison scene",
+          "Nearby police cannot cut off unfinished fall",
+          "Nearby officer captures after landing animation completes",
+          "Officer detours around a stationary car and captures without tunneling",
+          "Begin real turn -1",
+          "Turn crash waits on its actual route position -1",
+          "Officer captures on turned street -1",
+          "Begin real turn 1",
+          "Turn crash waits on its actual route position 1",
+          "Officer captures on turned street 1",
+          "Unfinished trip pays no Coin when ordinary crash ends run",
+          "Police capture during riding remains immediate",
+          "Restart clears terminal and capture state"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

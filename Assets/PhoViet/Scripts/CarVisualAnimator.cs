@@ -24,6 +24,7 @@ namespace PhoViet
         bool wasKnocked;
 
         void OnEnable(){initialized=false;game=null;vehicle=null;clock=0;impactAge=10;WheelAngle=0;SteeringAngle=0;spinSpeed=0;wasKnocked=false;}
+        public void ResetVisualBinding(){OnEnable();}
         public void Initialize()
         {
             if(initialized||visual==null||animationPlayer==null)return;
@@ -87,7 +88,8 @@ namespace PhoViet
                 float a=i*Mathf.PI/6;
                 lowest=Mathf.Min(lowest,wheel.TransformPoint(new Vector3(0,wheelRadius*Mathf.Sin(a),wheelRadius*Mathf.Cos(a))).y);
             }
-            bool heavy=wheelRadius>.45f;float width=heavy?1.14f:.90f,top=heavy?3.18f:AssetName=="PV_DeliveryVan"?2.14f:1.73f,length=heavy?3.23f:2.15f;
+            var meshy=GetComponent<MeshyCarVariants>();
+            bool heavy=wheelRadius>.45f;float width=meshy!=null?vehicle.halfWidth:heavy?1.14f:.90f,top=meshy!=null?meshy.Height:heavy?3.18f:AssetName=="PV_DeliveryVan"?2.14f:1.73f,length=meshy!=null?vehicle.halfLength:heavy?3.23f:2.15f;
             for(int s=-1;s<=1;s+=2)for(int z=-1;z<=1;z+=2)
                 lowest=Mathf.Min(lowest,visual.TransformPoint(new Vector3(s*width,top,z*length)).y);
             return lowest;

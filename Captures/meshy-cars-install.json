@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/UpgradeCarsMeshy.cs",
+      "entry": "UpgradeCarsMeshy.Main",
+      "timeout_ms": "180000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 56,
+      "executeMs": 7611,
+      "assemblyName": "PipelineRunScript_UpgradeCarsMeshy_9b987e90cadc47beb984418347666216",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 11,
+        "models": [
+          "PV_MeshySport",
+          "PV_MeshyPickup",
+          "PV_MeshyCovered",
+          "PV_MeshyContainer"
+        ],
+        "heavyVariants": 2,
+        "policeUnchanged": true,
+        "jobsEnabled": false
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

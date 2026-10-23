@@ -22,6 +22,8 @@ namespace PhoViet
         }
         void InitializeDriver(TrafficVehicle v)
         {
+            var meshy=v.model.GetComponent<MeshyCarVariants>();
+            if(meshy!=null)meshy.SelectForSpawn(rng,v);
             v.spawnGeneration++;
             v.previousCrashWidth=-1;
             v.recovery=null;
