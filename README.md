@@ -6,9 +6,9 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 **[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.32.2**.
 
-## Ô tô Meshy — scene Unity mới, chưa phát hành web
+## Ô tô Meshy — chuẩn bị phát hành 1.33.0
 
-Đã thay 11 xe bốn bánh bằng xe thể thao, bán tải, tải bạt và container do người dùng gửi. Mỗi lần xuất hiện chọn lại một trong tám màu sơn; hai mẫu tải dùng chung nhóm tải thường/ngủ gật. Giữ tỷ lệ nguồn, texture 2K, đèn và profile nóc theo mẫu đang chọn. Chi tiết triển khai/kiểm tra ở `huongdan.md` mục 21.17.
+Đã thay 11 xe bốn bánh bằng xe thể thao, bán tải, tải bạt và container do người dùng gửi. Mỗi lần xuất hiện chọn lại một trong tám màu sơn; hai mẫu tải dùng chung nhóm tải thường/ngủ gật. Giữ tỷ lệ nguồn, texture 2K, đèn và profile nóc theo mẫu đang chọn. Chi tiết triển khai/kiểm tra ở `huongdan.md` mục 21.17–21.18. Bản WebGL 1.33.0 đang được build và kiểm tra trước khi phát hành.
 
 ## Bánh xe ổn định — 1.32.2
 

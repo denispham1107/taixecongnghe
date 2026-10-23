@@ -36,8 +36,19 @@ public static class VerifyMeshyRelease
             }
         }
         if(bikes.Length!=33||game.daylight.vehicles.Any(v=>v.head==null||v.halos.Any(h=>h.source==null)))throw new Exception("Incomplete visuals or lamps");
+        var cars=game.GetComponentsInChildren<MeshyCarVariants>(true);
+        if(cars.Length!=11||game.daylight.vehicles.Length!=30)throw new Exception("Incomplete Meshy cars or lamp bindings");
+        foreach(var car in cars)foreach(var variant in car.variants)
+        {
+            if(variant.skins.Length!=3||variant.clips.Length!=7||variant.clips.Any(c=>c==null||!c.legacy)||variant.roofProfile.Length!=49)throw new Exception("Incomplete car variant "+variant.asset);
+            foreach(var skin in variant.skins)
+            {
+                var mesh=skin as SkinnedMeshRenderer;
+                if(mesh==null||!AssetDatabase.GetAssetPath(mesh.sharedMesh).StartsWith("Assets/PhoViet/Art/Cars/Meshy/",StringComparison.Ordinal)||skin.sharedMaterial==null||skin.sharedMaterial.shader.name!="PhoViet/Meshy Car Paint")throw new Exception("Wrong car mesh/material "+variant.asset);
+            }
+        }
         if(game.gameObject.scene.isDirty)EditorSceneManager.SaveScene(game.gameObject.scene);
         AssetDatabase.SaveAssets();
-        return new{success=true,scene=game.gameObject.scene.path,version=PlayerSettings.bundleVersion,bikes=bikes.Length,police=bikes.Count(b=>b.AssetName=="PV_TrafficPolice"),jobs=game.jobsEnabled,missingScripts,referenceModelsEditorOnly=referenceModels};
+        return new{success=true,scene=game.gameObject.scene.path,version=PlayerSettings.bundleVersion,bikes=bikes.Length,cars=cars.Length,lamps=game.daylight.vehicles.Length,police=bikes.Count(b=>b.AssetName=="PV_TrafficPolice"),jobs=game.jobsEnabled,missingScripts,referenceModelsEditorOnly=referenceModels};
     }
 }

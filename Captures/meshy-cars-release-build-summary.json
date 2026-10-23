@@ -1,0 +1,52 @@
+{
+  "status": "completed",
+  "buildId": "build_6bd4eaf57194",
+  "result": "Succeeded",
+  "totalErrors": 0,
+  "totalWarnings": 1,
+  "buildTimeMs": 6238,
+  "totalSizeBytes": 86476927,
+  "warnings": [
+    {
+      "message": "Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds."
+    }
+  ],
+  "sourceImportsInRuntime": 0,
+  "meshyRuntimeAssets": [
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer.fbx",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer.mat",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Emission.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Normal.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_PaintMask.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Palette.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Surface.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered.fbx",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered.mat",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Emission.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Normal.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_PaintMask.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Palette.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Surface.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup.fbx",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup.mat",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Emission.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Normal.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_PaintMask.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Palette.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Surface.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport.fbx",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport.mat",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Emission.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Normal.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_PaintMask.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Palette.png",
+    "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Surface.png"
+  ],
+  "packedAssetReportBuild": "build_87f6124f1585",
+  "packedReportNote": "Final incremental build reuses identical resources: both builds cache f730cee9fbafa12d; final packedAssets is empty. Asset inventory from preceding full build.",
+  "cache": "f730cee9fbafa12d",
+  "version": "1.33.0",
+  "utc": "2026-10-23T20:24:30.7102647Z",
+  "fullBuildTimeMs": 329081,
+  "physicalDeviceTested": false
+}

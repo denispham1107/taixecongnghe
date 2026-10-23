@@ -4,7 +4,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 > **Trạng thái hiện tại: 1.32.2 (đã phát hành bản sửa đuôi xe nhấp nháy, giữ độ nét mobile), chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
 >
-> **Scene Unity mới ngày 24/10:** đã thay 11 xe bốn bánh bằng 4 mẫu Meshy, 8 màu sơn chọn lại mỗi lần xuất hiện; 3.002 điều kiện Unity và 28 kiểm tra nguồn đạt. **Bộ ô tô này chưa build/push/phát hành web**, chi tiết 21.17. Bảng phiên bản công khai bên dưới vẫn là 1.32.2.
+> **Scene Unity mới ngày 24/10:** đã thay 11 xe bốn bánh bằng 4 mẫu Meshy, 8 màu sơn chọn lại mỗi lần xuất hiện; 3.002 điều kiện Unity và 28 kiểm tra nguồn đạt. **Bộ ô tô đã build 1.33.0 và qua 77 kiểm tra browser local + 29 kiểm tra bundle, đang chờ push/Pages/live**, chi tiết 21.17–21.18. Bảng phiên bản công khai bên dưới vẫn là 1.32.2.
 >
 > **Độ nét mobile 1.32.1:** đã phát hành và xác minh 40 kiểm tra live, không lỗi runtime. DPR tối đa 3 / 3,2 triệu pixel, hai vùng texture 2K đầy đủ, người chơi giữ LOD0; chi tiết 21.15.
 >
@@ -914,7 +914,7 @@ Các kiểm tra điện thoại/iOS bằng browser profile là **mô phỏng lay
 - `wasm2023 = false` để giữ dải tương thích Safari của dự án.
 - Bộ nhớ khởi đầu 128 MB, tối đa 512 MB.
 - `dataCaching = false`, vì service worker phiên bản hóa chịu trách nhiệm cache thay vì hai cache độc lập.
-- Cấu hình phiên bản build hiện 1.32.2; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
+- Cấu hình phiên bản build hiện 1.33.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
 
 Hậu xử lý build tạo `precache.json`, `build-info.json`, `sw.js` đã thay mã cache và `.nojekyll`. Cache là 16 ký tự hex từ SHA-256 nội dung tài nguyên, không gán tay để làm giả một lần build mới.
 
@@ -1405,7 +1405,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 ---
 
-### 21.17. Nhận và tích hợp bốn mẫu ô tô Meshy (24/10/2026, đã lưu scene/chưa phát hành)
+### 21.17. Nhận và tích hợp bốn mẫu ô tô Meshy (24/10/2026, scene đã lưu; phát hành xem 21.18)
 
 - Đã nhận đủ bốn FBX và maps PBR 2048² trong `Assets/MeshyImports/`: `Covered cargo truck_20261024_022230` (13.481 tam giác), `Meshy_Model_20261024_022256` (thể thao, 16.488), `...022318` (bán tải, 20.575), `...022335` (đầu kéo container, 7.582). Giữ nguyên toàn bộ nguồn; kiểm nhận bằng Blender độc lập và JSON `meshy-cars-source-inspection.json`.
 - Người dùng chọn **dùng cả bốn, giữ tỷ lệ và kích thước phù hợp**: thể thao thay sedan/hatchback/taxi, bán tải thay xe giao hàng; hai mẫu tải được chọn ngẫu nhiên mỗi lần spawn của tải thường và tải ngủ gật. Giữ 11 root/pool và sáu tên role để không đổi phân loại hành vi; `ModelAsset` biểu thị hình thực đang dùng. Không dùng tên role để suy ra còn hình xe cũ.
@@ -1415,6 +1415,14 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - `PhoVietMeshyCarUpgrade.Install` thay đúng 11 actor, giữ root, CSGT/người chơi/xe máy, ghép lại 30 binding đèn và emission users. Preview Bridge được giữ ngoài runtime bằng EditorOnly/inactive. Sao lưu cả scene đĩa và scene bẩn vào `.tools` trước thay. Installer/menu xe lớn cũ chuyển sang installer mới khi asset Meshy có mặt; cài lại lighting cũng giữ material emission/neo mới. `PhoVietJump`/`PhoVietCollisions` dùng profile/kích thước mẫu đang chọn; vẫn va chạm thật khi thiếu độ cao, xe nghiêng/lật không thành mặt đỡ.
 - **Kiểm tra hoàn tất:** 11 suite / **3.002 điều kiện đạt**: MeshyCars 1.175, MeshyCarRoofs 256 (64 cú nhảy thật), TrafficDynamics 82, CrashUpgrade 97, BoostTrafficIsolation 478, QuickKick 62, CrashOutcome 51, CrashPoliceNavigation 214, NightJumpLighting 88, DistanceMode 31, SmoothTurns 468. Thêm **28 kiểm tra nguồn**: đủ mọi tam giác gốc LOD0, scale đồng nhất giữ tỷ lệ, không quá bề rộng làn và hash ba map 2K trùng nguồn. `VerifyTrafficDynamics` được chỉnh vị trí fixture theo tổng chiều dài hai thân xe thay khoảng 4,7 m cứng của xe cũ; không sửa vật lý để ép test qua.
 - **Bằng chứng:** `Captures/meshy-cars-verification-summary.json`, từng `meshy-cars-Verify*.json`, source-preservation/texture/export/install JSON và `VERIFICATION_MESHY_CARS.md`. Đã xem ảnh Unity cận cả bốn mẫu với ba màu mỗi mẫu: `meshy-cars-PV_Meshy*-paint*.png`. Mặt nạ màu là bước tinh chỉnh cuối; sau đó chụp lại 12 ảnh và chạy lại MeshyCars 1.175 trên scene cuối. Restore pose Idle trước khi gắn lại neo đèn để không giữ offset từ cản xe bị cong khi tái sử dụng.
-- **Trạng thái:** scene đã cài và lưu, Unity về Edit Mode; source/asset/tài liệu được commit riêng (SHA xem Git log). **Chưa build/push/phát hành bộ ô tô này**; `docs` và web vẫn **1.32.2**, không tăng version chỉ vì thay scene. Công việc vẫn `RideJobsReleased=false`, `jobsEnabled=false`; dữ liệu Coin/kỷ lục, DPR/độ nét mobile và bản sửa đuôi xe máy được giữ. Chưa thử WebGL/điện thoại vật lý/FPS cho bộ xe này. Giữ nguyên ngoài commit mọi Wave/Bridge/Packages và các nguồn Blender cũ có sẵn.
+- **Trạng thái:** scene đã cài và lưu, Unity về Edit Mode; source/asset/tài liệu được commit riêng (SHA xem Git log). **Đã build/kiểm tra WebGL 1.33.0 theo yêu cầu phát hành tiếp theo, đang chờ push/Pages/live ở 21.18**; `docs` là 1.33.0, bản công khai vẫn 1.32.2 ở thời điểm trước push. Công việc vẫn `RideJobsReleased=false`, `jobsEnabled=false`; dữ liệu Coin/kỷ lục, DPR/độ nét mobile và bản sửa đuôi xe máy được giữ. WebGL được kiểm ở 21.18; chưa thử điện thoại vật lý/FPS cho bộ xe này. Giữ nguyên ngoài commit mọi Wave/Bridge/Packages và các nguồn Blender cũ có sẵn.
+
+### 21.18. Build/phát hành bộ ô tô Meshy — 1.33.0 (24/10/2026, đang thực hiện)
+
+- Người dùng yêu cầu trực tiếp “build và phát hành web”, cho phép build, kiểm tra, commit/push main và GitHub Pages trong cùng công việc; không cần hỏi lại quyền phát hành.
+- Nâng cấu hình/PlayerSettings và kỳ vọng các kiểm tra web lên 1.33.0. Source ô tô ở commit `ac45183`; kế thừa 3.002 điều kiện Unity + 28 kiểm tra nguồn ở 21.17, không gọi đó là các suite đã chạy lại cho lần build này.
+- Preflight kiểm đúng scene, jobs khóa, 33 xe máy/CSGT nguyên trạng, 11 root ô tô Meshy, đủ mẫu/LOD/clip/material/neo đèn. Giữ PWA, DPR3/3,2triệu pixel và bản sửa bánh xe. Không đưa các thay đổi Wave/Bridge/Packages có sẵn vào staging.
+- **Build cuối:** `build_6bd4eaf57194` Succeeded, 6.238 ms (incremental sau build đầy đủ 329.081 ms), 0 lỗi/1 warning Pipeline đã biết; 86.476.927 byte. Build đầy đủ có cảnh báo mã editor chưa compile nên đã chờ ready/reconfigure rồi build lại; không phát hành lần thử. Hai lần dùng cùng tài nguyên/cache `f730cee9fbafa12d`; báo cáo packedAssets của lần đầy đủ xác nhận 0 nguồn MeshyImports vào runtime và đủ 4 material/texture ô tô; lần incremental không lặp inventory. UTC cuối `2026-10-23T20:24:30.7102647Z`. Bằng chứng `meshy-cars-release-build-summary.json`.
+- Đã copy output cuối sang docs và dọn đúng 4 file hash cũ; **29 kiểm tra bundle đạt**. Kiểm tra browser DPR3 đạt 14 điều kiện (1170×2532 dọc, 2532×1170 ngang, 2066×1549 tablet, xoay lại đúng), 0 lỗi runtime; đã xem hai ảnh cảnh chơi với xe tải Meshy màu xanh và xe thể thao phía xa. **Browser local hoàn tất 77 điều kiện** = DPR3 14 + PWA/offline/cảm ứng 37 + đối chiếu tài nguyên/WASM 26; 0 lỗi runtime. `meshy-cars-{mobile,pwa,local}-results.json`, ảnh dọc/ngang và desktop/offline. `git diff --check` đạt. Đang commit/push để phát hành, chưa xác minh Pages/live; web công khai trước push là 1.32.2. Chưa kiểm điện thoại vật lý/FPS/nhiệt độ.
 
 **Nguồn kiểm chứng chính:** mã C# và cấu hình hiện tại trong repo, `ArtSource/Blender`, metadata asset, Git history, các báo cáo `Captures/VERIFICATION_*.md` và JSON kết quả tương ứng. Nếu dự án tiếp tục thay đổi, cập nhật lại tài liệu này theo hành vi thực tế; đừng coi một con số/version/port của ngày bàn giao là thông tin luôn đúng về sau.
