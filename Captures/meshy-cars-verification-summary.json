@@ -54,7 +54,8 @@
   "paintColors": 8,
   "jobsEnabled": false,
   "policeUnchanged": true,
-  "webUpdated": false,
-  "publishedVersion": "1.32.2",
-  "physicalDeviceTested": false
+  "webUpdated": true,
+  "publishedVersion": "1.33.0",
+  "physicalDeviceTested": false,
+  "releaseProof": "meshy-cars-pages-release.json"
 }

@@ -19,4 +19,4 @@ Mỗi lần spawn/tái sử dụng chọn lại một trong tám màu. Mặt n�
 
 Nguồn mới: `ArtSource/Blender/PhoViet_MeshyCars.blend`, `integrate_meshy_cars.py`, `prepare_meshy_car_textures.py`; output `Assets/PhoViet/Art/Cars/Meshy/`. Cài bằng menu **Phố Việt/Art/Install received Meshy cars** hoặc `UpgradeCarsMeshy.Main`. Không ghi đè nguồn Cars/Blender cũ có thay đổi cục bộ. Bản mẫu Bridge giữ EditorOnly/inactive; nguồn import được bảo toàn.
 
-Scene đã lưu; CSGT/xe máy/nhân vật, 30 binding đèn, khóa công việc và dữ liệu người chơi giữ nguyên. Unity trả Edit Mode. Chưa build/push/phát hành bộ này; web/`docs` vẫn 1.32.2. Chưa thử WebGL hoặc thiết bị di động vật lý/FPS/nhiệt độ cho bộ ô tô mới.
+Scene đã lưu; CSGT/xe máy/nhân vật, 30 binding đèn, khóa công việc và dữ liệu người chơi giữ nguyên. Unity trả Edit Mode. Đã build/push/phát hành WebGL1.33.0, 77 kiểm tra local + 29 bundle + 26 live đạt (xem `VERIFICATION_MESHY_CARS_WEB.md` và mục21.18 huongdan). Chưa thử thiết bị di động vật lý/FPS/nhiệt độ cho bộ ô tô mới.
