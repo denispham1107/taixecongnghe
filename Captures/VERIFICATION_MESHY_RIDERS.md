@@ -1,6 +1,6 @@
 # Kiểm tra người Meshy có rig — Golden Star Stance
 
-Ngày 23/10/2026. Scene native đã lưu. Chưa commit, chưa build WebGL/push/phát hành; web vẫn1.31.0.
+Ngày 23/10/2026. Scene native đã lưu. đã commit/build/push/phát hành1.32.0 (xem VERIFICATION_RIDERS_WEB_RELEASE.md); web vẫn1.31.0.
 
 Dùng chính FBX Character_output có rig từ folder Golden Star Stance_20261023_150430. Bộ người chưa rig trước đó đã bị xóa khỏi Assets/scene. 32 actor ngoài CSGT và56 xe đậu nhánh được thay; người và xe CSGT giữ nguyên. Jobs=false.
 
@@ -25,4 +25,5 @@ Preflight kiểm đúng scene,33 actor/1 CSGT, không thiếu script/đèn, jobs
 
 Đã xem ảnh Unity hero trước/sau, Racer sau đổi áo, pose đạp và ảnh Blender bind; ảnh ngày/đêm/CSGT tại meshy-riders-*.png. Runtime dùng clip gốc Meshy bike để tránh sai rotation sau FBX re-bake. Mô hình người mới có17xương semantic/7clip/3LOD, bản nguồn rig vẫn giữ để tái tạo.
 
-Giới hạn: kiểm trong Unity Editor; chưa đo FPS trên điện thoại thật hoặc kiểm WebGL mới. Không thay đổi gameplay hay mở công việc.
+Giới hạn: kiểm trong Unity Editor; chưa đo FPS trên điện thoại thật. WebGL1.32.0 đã kiểm local và live. Không thay đổi gameplay hay mở công việc.
+Cập nhật: bộ nhân vật và sao lưng đã lên web1.32.0, Pages39948530264,26kiểm tra live đạt. Các giới hạn kiểm phần cứng vẫn giữ.

@@ -1,6 +1,6 @@
 # Sửa tư thế vai và nắm tay lái
 
-23/10/2026. Đã cài/lưu trong Unity, chưa commit/build/push/phát hành.
+23/10/2026. Đã cài/lưu trong Unity, đã commit/build/push/phát hành1.32.0 (xem VERIFICATION_RIDERS_WEB_RELEASE.md).
 
 Áp dụng5mẫu ngoài CSGT/32actor/56xe đậu nhánh. Vai1.365m, đầu hạ.065m, torsoend1.415m, khuỷu(±.305,1.195,.055), cổ tay(±.395,1.261,.230). Các ngón ôm quanh grip(±.395,1.237,.315), ngón cái đối hướng, bàn tay mirror đúng hai bên. Source/17bone/clip/xe/công việc tắt giữ nguyên.
 
@@ -18,4 +18,5 @@ Tổng 938 điều kiện/7suite đạt. `git diff --check` đạt.
 
 Ảnh chính: meshy-grip-shoulders-front.png và meshy-grip-grip-close.png; đã xem ảnh Unity cuối. Kết quả install/captures/preflight và summary cùng tiền tố meshy-grip. Không suy diễn chỉ từ assertion gameplay rằng mô hình đã đẹp; ảnh cận được dùng để sửa thêm vị trí bàn tay trước chốt.
 
-Giới hạn: chưa build WebGL hay thử trên điện thoại thật cho bản này; bản công khai1.31.0 chưa đổi.
+Đã build/phát hành1.32.0; giới hạn còn lại: chưa thử điện thoại thật.
+Cập nhật: bộ nhân vật và sao lưng đã lên web1.32.0, Pages39948530264,26kiểm tra live đạt. Các giới hạn kiểm phần cứng vẫn giữ.
