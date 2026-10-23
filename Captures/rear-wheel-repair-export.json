@@ -1,0 +1,117 @@
+[
+  {
+    "asset": "PV_HeroScooter",
+    "meshes": [
+      {
+        "mesh": "PV_HeroScooter_LOD2",
+        "stationaryFacesRestored": 319,
+        "rotatingFaces": 550,
+        "faces": 4991
+      },
+      {
+        "mesh": "PV_HeroScooter_Body",
+        "stationaryFacesRestored": 1266,
+        "rotatingFaces": 1468,
+        "faces": 42939
+      },
+      {
+        "mesh": "PV_HeroScooter_LOD1",
+        "stationaryFacesRestored": 493,
+        "rotatingFaces": 780,
+        "faces": 10997
+      }
+    ]
+  },
+  {
+    "asset": "PV_CityScooter",
+    "meshes": [
+      {
+        "mesh": "PV_CityScooter_LOD2",
+        "stationaryFacesRestored": 319,
+        "rotatingFaces": 550,
+        "faces": 4991
+      },
+      {
+        "mesh": "PV_CityScooter_LOD1",
+        "stationaryFacesRestored": 493,
+        "rotatingFaces": 780,
+        "faces": 10997
+      },
+      {
+        "mesh": "PV_CityScooter_Body",
+        "stationaryFacesRestored": 1266,
+        "rotatingFaces": 1468,
+        "faces": 42939
+      }
+    ]
+  },
+  {
+    "asset": "PV_Underbone",
+    "meshes": [
+      {
+        "mesh": "PV_Underbone_LOD1",
+        "stationaryFacesRestored": 493,
+        "rotatingFaces": 780,
+        "faces": 10997
+      },
+      {
+        "mesh": "PV_Underbone_Body",
+        "stationaryFacesRestored": 1266,
+        "rotatingFaces": 1468,
+        "faces": 42939
+      },
+      {
+        "mesh": "PV_Underbone_LOD2",
+        "stationaryFacesRestored": 319,
+        "rotatingFaces": 550,
+        "faces": 4991
+      }
+    ]
+  },
+  {
+    "asset": "PV_SportBike",
+    "meshes": [
+      {
+        "mesh": "PV_SportBike_LOD1",
+        "stationaryFacesRestored": 493,
+        "rotatingFaces": 780,
+        "faces": 10997
+      },
+      {
+        "mesh": "PV_SportBike_Body",
+        "stationaryFacesRestored": 1266,
+        "rotatingFaces": 1468,
+        "faces": 42939
+      },
+      {
+        "mesh": "PV_SportBike_LOD2",
+        "stationaryFacesRestored": 319,
+        "rotatingFaces": 550,
+        "faces": 4991
+      }
+    ]
+  },
+  {
+    "asset": "PV_Racer",
+    "meshes": [
+      {
+        "mesh": "PV_Racer_LOD2",
+        "stationaryFacesRestored": 319,
+        "rotatingFaces": 550,
+        "faces": 4991
+      },
+      {
+        "mesh": "PV_Racer_LOD1",
+        "stationaryFacesRestored": 493,
+        "rotatingFaces": 780,
+        "faces": 10997
+      },
+      {
+        "mesh": "PV_Racer_Body",
+        "stationaryFacesRestored": 1266,
+        "rotatingFaces": 1468,
+        "faces": 42939
+      }
+    ]
+  }
+]

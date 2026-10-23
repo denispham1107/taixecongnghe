@@ -1,0 +1,48 @@
+{
+  "success": true,
+  "nativeSuites": [
+    {
+      "suite": "VerifyMeshyRiders",
+      "count": 356
+    },
+    {
+      "suite": "VerifyWheelStability",
+      "count": 242
+    },
+    {
+      "suite": "VerifyBikeArt",
+      "count": 156
+    },
+    {
+      "suite": "VerifyQuickKick",
+      "count": 62
+    },
+    {
+      "suite": "VerifyJump",
+      "count": 44
+    },
+    {
+      "suite": "VerifyNightJumpLighting",
+      "count": 88
+    },
+    {
+      "suite": "VerifyMobileClarity",
+      "count": 43
+    },
+    {
+      "suite": "VerifyDistanceMode",
+      "count": 31
+    }
+  ],
+  "nativeCount": 1022,
+  "sourceAssetsWithSevenClips": 5,
+  "physicalDeviceTested": false,
+  "wheelCases": 30,
+  "spinAngles": 6,
+  "maxOuterDrift": 0,
+  "version": "1.32.2",
+  "cache": "441262423309bccc",
+  "bundleChecks": 29,
+  "finalLocalChecks": 40,
+  "liveVerificationPending": true
+}

@@ -7,6 +7,8 @@ Never edits the received source or the user's previous Blender projects.
 import bpy,bmesh,numpy as np,json,math,sys
 from pathlib import Path
 from mathutils import Vector,Matrix
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from repair_meshy_wheels import repair as repair_wheel_binding
 
 ROOT=Path(__file__).resolve().parents[2]
 SOURCE=ROOT/'Assets/MeshyImports/Golden Star Stance_20261023_150430/Meshy_AI_Golden_Star_Stance_biped_Character_output.fbx'
@@ -189,12 +191,14 @@ def build(name,prototype):
  bpy.ops.object.select_all(action='DESELECT');bike.select_set(True);person.select_set(True);bpy.context.view_layer.objects.active=bike;bpy.ops.object.join()
  bike.name=name+'_Body';bike.data.name=name+'_Mesh';bike.data.materials.clear();bike.data.materials.append(mat)
  for p in bike.data.polygons:p.material_index=0
+ repair_wheel_binding(bike)
  rig.name=name+'_Rig';rig.data.name=name+'_Skeleton';bike.data.calc_loop_triangles();lods=[len(bike.data.loop_triangles)]
  for level,budget in [(1,11000),(2,5000)]:
   o=bike.copy();o.data=bike.data.copy();o.name=name+'_LOD'+str(level);bpy.context.scene.collection.objects.link(o);o.modifiers.clear()
   decimate=o.modifiers.new('MobileLOD','DECIMATE');decimate.ratio=budget/lods[0];decimate.use_collapse_triangulate=True
   bpy.context.view_layer.objects.active=o;bpy.ops.object.modifier_apply(modifier=decimate.name)
   arm=o.modifiers.new('RiderAndMotorcycle','ARMATURE');arm.object=rig;o.data.calc_loop_triangles();lods.append(len(o.data.loop_triangles))
+  repair_wheel_binding(o)
  for clip in CLIPS:
   action=next(a for a in bpy.data.actions if a.name.endswith('|'+clip));action.name=name+'_'+clip
   track=rig.animation_data.nla_tracks.new();track.name=clip;track.strips.new(clip,int(action.frame_range[0]),action)
@@ -204,7 +208,7 @@ def build(name,prototype):
  bpy.context.view_layer.objects.active=rig
  bpy.ops.export_scene.fbx(filepath=str(OUT/f'{name}.fbx'),use_selection=True,object_types={'ARMATURE','MESH'},axis_forward='-Z',axis_up='Y',global_scale=1,apply_unit_scale=True,apply_scale_options='FBX_SCALE_UNITS',add_leaf_bones=False,use_armature_deform_only=True,mesh_smooth_type='FACE',bake_anim=True,bake_anim_use_all_actions=False,bake_anim_use_nla_strips=True,bake_anim_simplify_factor=.35,path_mode='RELATIVE',embed_textures=False)
  old=json.loads((BIKES/f'{name}.json').read_text());info=dict(old)
- info.update(riderDesign='meshy-golden-star-rigged',sourceSkinWeights=True,sourceRider=str(SOURCE.relative_to(ROOT)).replace('\\','/'),sourceRiderTriangles=prototype[3],sourceRiderVertices=len(prototype[0]),bikeTriangles=bike_triangles,originalRiderPreserved=False,originalMotorcyclePreserved=True,helmet=False,shirtStar=name=='PV_HeroScooter',ridingPose='relaxed-shoulders-closed-grip-v4',fingerArcScale=FINGER_ARC_SCALE,shoulderHeight=1.365,gripCentre=[.395,1.237,.315],lod_triangles=lods,binding=counts,atlasLayout={'bike':[.5,1],'rider':[0,.5]})
+ info.update(riderDesign='meshy-golden-star-rigged',sourceSkinWeights=True,sourceRider=str(SOURCE.relative_to(ROOT)).replace('\\','/'),sourceRiderTriangles=prototype[3],sourceRiderVertices=len(prototype[0]),bikeTriangles=bike_triangles,originalRiderPreserved=False,originalMotorcyclePreserved=True,helmet=False,shirtStar=name=='PV_HeroScooter',ridingPose='relaxed-shoulders-closed-grip-v4',fingerArcScale=FINGER_ARC_SCALE,shoulderHeight=1.365,gripCentre=[.395,1.237,.315],lod_triangles=lods,binding=counts,atlasLayout={'bike':[.5,1],'rider':[0,.5]},wheelBinding='stable-rim-only-v1')
  (OUT/f'{name}.json').write_text(json.dumps(info,indent=2));print('EXPORTED',json.dumps(info),flush=True)
  return info
 

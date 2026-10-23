@@ -78,5 +78,6 @@
       0,
       0.5
     ]
-  }
+  },
+  "wheelBinding": "stable-rim-only-v1"
 }

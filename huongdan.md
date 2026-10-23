@@ -1,6 +1,6 @@
 # PHỐ VIỆT — Tài liệu tính năng, kiến trúc và bàn giao cho Claude Code
 
-Cập nhật toàn diện: **23/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.32.1. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
+Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.32.2. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
 
 > **Trạng thái hiện tại: 1.32.1 (đã phát hành bản sửa độ nét mobile và bộ nhân vật Meshy mới), chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.**
 >
@@ -631,7 +631,7 @@ Lệnh rebuild có ghi đè tài nguyên do script quản lý. Lưu thay đổi 
 | Khách | `Idle`, `Walk`, `Board`, `Sit` |
 | Nhảy người chơi | `JumpTakeoff`, `JumpAir`, `LandBoth`, `LandFront`, `LandRear`; `JumpDemo` dùng xem thử Blender |
 
-Các importer dùng **Legacy Animation**, không phải Animator Controller/Mecanim. Controller script chọn clip, đặt normalized time, speed = 0 rồi `Animation.Sample` để khớp trạng thái gameplay. `BikeVisualAnimator`/`CarVisualAnimator` cập nhật visual trong `LateUpdate`; bánh được quay theo vận tốc thật, bánh trước xe lớn đánh lái theo chuyển hướng. Khi pause, pose/bánh được giữ.
+Các importer dùng **Legacy Animation**, không phải Animator Controller/Mecanim. Với xe Meshy từ 1.32.2, phần mâm/hub quay còn đường bao lốp và các mặt chắn bùn dính trong mẫu AI giữ rigid theo Frame/Steering, tránh mảnh vỏ quay sai (21.16). Controller script chọn clip, đặt normalized time, speed = 0 rồi `Animation.Sample` để khớp trạng thái gameplay. `BikeVisualAnimator`/`CarVisualAnimator` cập nhật visual trong `LateUpdate`; bánh được quay theo vận tốc thật, bánh trước xe lớn đánh lái theo chuyển hướng. Khi pause, pose/bánh được giữ.
 
 Root vật lý/pool là đối tượng ổn định. FBX/skin nằm ở model con. Animator chỉ thay bone/visual; không tự điều khiển root hay thay kích thước va chạm theo mesh mới. Hướng va chạm từ physics được chuyển sang hệ local của visual để chọn clip cản/gương đúng phía. Cú ngã/tiếp đất có hiệu chỉnh visual để không xuyên mặt đường; luật thua vẫn thuộc gameplay.
 
@@ -910,7 +910,7 @@ Các kiểm tra điện thoại/iOS bằng browser profile là **mô phỏng lay
 - `wasm2023 = false` để giữ dải tương thích Safari của dự án.
 - Bộ nhớ khởi đầu 128 MB, tối đa 512 MB.
 - `dataCaching = false`, vì service worker phiên bản hóa chịu trách nhiệm cache thay vì hai cache độc lập.
-- Cấu hình phiên bản build hiện 1.32.1; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
+- Cấu hình phiên bản build hiện 1.32.2; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
 
 Hậu xử lý build tạo `precache.json`, `build-info.json`, `sw.js` đã thay mã cache và `.nojekyll`. Cache là 16 ký tự hex từ SHA-256 nội dung tài nguyên, không gán tay để làm giả một lần build mới.
 
@@ -1380,6 +1380,22 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Browser local:** **77 kiểm tra** đạt = DPR thật 14 + PWA/offline 37 + tài nguyên/WASM 26, 0 lỗi runtime. iPhone CSS 390×844 / DPR3: cũ 585×1266, mới **1170×2532**; ngang **2532×1170**. Tablet CSS1024×768 → 2066×1549; xoay lại phục hồi đúng 1170×2532. Đã xem ảnh cảnh chơi không bị thẻ pause che nhân vật: `mobile-clarity-after-portrait.png`, `mobile-clarity-after-landscape.png`. `VerifyMobileClarity.cjs` chạy DPR3 thật trong browser; các bộ layout cũ dùng DPR1 không thay thế kiểm tra này. **Chưa thử thiết bị vật lý/FPS/nhiệt độ.**
 - **Đã commit/push/phát hành và xác minh live:** source/artifact **`557d540b5fbb9bc0ca5eb3da2a2fb8ef519f0e95`**, [Pages run 39987470876](https://github.com/denispham1107/taixecongnghe/actions/runs/39987470876) completed/success đúng SHA. **40 kiểm tra live đạt** (26 khớp tài nguyên/WASM + 14 độ nét DPR3 dọc/ngang/tablet/xoay lại), **0 lỗi runtime**. Version 1.32.1/cache `45680c1d5a472f7c` khớp docs đã kiểm tra; binary từng byte, text chuẩn hóa CRLF.
 - **Bàn giao:** `Captures/mobile-clarity-verification-summary.json`, `mobile-clarity-pages-release.json`, các JSON `mobile-clarity-*`, `VERIFICATION_MOBILE_CLARITY.md`. Native suite/ảnh local và ảnh live dùng cùng artifact. Nếu PWA còn dùng bản cũ, đóng hết tab/app rồi mở lại cho worker mới kích hoạt; không xóa dữ liệu người chơi. Unity đã về Edit Mode, server kiểm tra docs đã dừng. Báo cáo phát hành commit/push riêng, không rebuild tài liệu. Mọi thay đổi Wave/Blender/Packages có sẵn vẫn ngoài staging. Chưa thử phần cứng điện thoại thật.
+
+
+
+### 21.16. Sửa đuôi/bánh xe nhấp nháy — 1.32.2 đang kiểm tra (24/10/2026)
+
+- Người dùng báo phần đuôi xe chớp khi di chuyển ở mobile dọc/ngang. Đã tái hiện ở 8 góc quay: mặt chắn bùn và các mảng vỏ gần lốp bị gắn nhầm `WheelRear`, tạo mảnh đen ló ra khi quay. Phép chọn cũ dựa vào tâm mặt trong vùng bánh, không xét hết các đỉnh; mẫu AI còn có vùng lốp/chắn bùn dính mặt. Không phải đèn phanh hay thiếu DPR.
+- `ArtSource/Blender/repair_meshy_wheels.py`: chạy Blender nền độc lập, giữ mọi vị trí/UV/normal góc/mặt và tên mesh, chỉ sửa skin weights đủ 5 mẫu ngoài CSGT / cả 3 LOD. Chỉ phần mâm/hub nằm trọn trong bán kính **.245 m** mới quay; rộng tối đa **.09 m trước / .065 m sau**. Lốp/đường bao/chắn bùn cố định theo Frame ở sau, Steering ở trước; vẫn đi cùng nhún/đánh lái/nhảy/ngã. Không xóa mesh, không hạ texture hay vô hiệu hóa góc quay WheelAngle. Xử lý cả mặt có trọng số trộn sau decimate để không còn mảng vỏ bị kéo theo một phần.
+- Cách thử chỉ chặn ngoài bán kính .344 m vẫn nhận sót các mặt dính nên đã bỏ; bản cuối ổn định đường bao lốp, phần mâm vẫn quay. Metadata `wheelBinding=stable-rim-only-v1`. `integrate_meshy_riders.py` gọi cùng helper cho LOD0 và sau decimate LOD1/2 để tái tạo không quay lại lỗi. Nguồn `PhoViet_MeshyRiders.blend` lưu lại cả 5 rig tương ứng. Không sửa nguồn MeshyImports, clip runtime cũ, Wave hoặc bộ CSGT.
+- `AgentScripts/CaptureRearWheel.cs`: lấy mesh đã BakeMesh và render proxy riêng cho từng góc, tránh GPU skin cache dùng lại hình trong cùng frame. Bằng chứng `rear-wheel-before-sheet.png` / `rear-wheel-after-sheet.png`: đã xem đủ 8 góc, bản cuối hết các mảng đen bắn ra. `VerifyWheelStability.cs` đã kiểm tra bánh trước/sau, 5 mẫu, 3 LOD qua nhiều góc; vừa đo mâm quay thật vừa đo đường bao đứng yên, không chỉ kiểm số lượng bone.
+- Giữ toàn bộ sửa độ nét 1.32.1: atlas2048×4096, hai vùng2K, DPR3/3,2triệu pixel, LOD0 player/MSAA4. Công việc vẫn khóa, Coin/kỷ lục và mọi logic điều khiển/va chạm giữ nguyên. Xe đậu bake không phải xuất lại vì dáng rest/UV không đổi; scene không được dựng lại.
+- **Kiểm tra native:** 8 suite / **1.022 điều kiện đạt**: MeshyRiders356, WheelStability242, BikeArt156, QuickKick62, Jump44, NightJumpLighting88, MobileClarity43, DistanceMode31. WheelStability đo đủ30 trường hợp (5 mẫu ×3LOD ×2bánh), mỗi trường hợp6góc; sai lệch đường bao lớn nhất0m, mâm vẫn chuyển động. Phép đo BakeMesh dùng scale để đúng với NPC/xe đậu scale.86; chạy trong phiên Play Mode sạch sau khi Editor recompile. Bằng chứng `rear-wheel-verification-summary.json` và các JSON cùng tiền tố.
+- **Giữ dáng:** so ảnh góc quay0 trước/sau cùng camera cho silhouetteIoU=1,0; chênh lệch pixel trung bình0,00103/255, từ sai số xuất/normal rất nhỏ. Toàn bộ mặt vẫn giữ, không giảm chi tiết hoặc xóa phần đuôi để che lỗi.
+- **Bảo toàn clip nguồn:** FBX import vào Blender tạo Actions nhưng không tạo lại NLA strips. Helper tái dựng đủ bảy strip trước export để không mất các take Idle/Ride/KickLeft/KickRight/FallLeft/FallRight/Recover. `AgentScripts/RefreshWheelAssets.cs` reimport đồng bộ, kiểm tra đủ bảy clip Legacy ở từng FBX và chuẩn hóa tên/loop. Đã xác nhận cả năm asset; sau đó chạy lại toàn bộ 1.022 điều kiện native và chụp ảnh trên đúng bộ FBX cuối. Clip runtime đã kiểm định vẫn giữ nguyên.
+- **Build cuối:** `build_692689eb6e6a` Succeeded, **29.500 ms**, 0 lỗi / 1 warning Pipeline thiếu config runtime đã biết. Output 1.32.2/cache **`441262423309bccc`**, UTC `2026-10-23T19:03:08.0950663Z`, tổng output 57.353.820 byte; **29 kiểm tra bundle đạt**, tài nguyên precache 57.352.271 byte. Các build thử trước đó đã loại, không publish. Bản cuối đã xác nhận Edit Mode/preflight 1.32.2 trước build.
+- **Browser local trên artifact cuối:** 40 kiểm tra đạt = DPR3 dọc/ngang/tablet/xoay lại 14 + đối chiếu từng tài nguyên/khởi tạo WASM/start/pause 26; không lỗi runtime. Ảnh `rear-wheel-mobile-portrait.png`, `rear-wheel-mobile-landscape.png`; report `rear-wheel-mobile-results.json`, `rear-wheel-local-results.json`. Bộ PWA/offline 37 đã chạy ở build thử trước khi bổ sung lại NLA nguồn; không cộng vào 40 kiểm tra cuối này.
+- Đã sao lưu FBX vào `.tools/rear-wheel-original`, sửa đủ năm mẫu/ba LOD và nguồn Blender; đang kiểm tra WebGL 1.32.2. **Chưa commit/push/phát hành; public vẫn 1.32.1** cho tới khi ghi bằng chứng phát hành ở đây. Chưa thử thiết bị điện thoại vật lý.
 
 
 ---

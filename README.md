@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.32.1**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.32.2**.
+
+## Bánh xe ổn định — 1.32.2
+
+Sửa các mảng chắn bùn/vỏ bị kéo quay theo bánh của xe Meshy. Mâm vẫn quay theo tốc độ, đường bao lốp và đuôi xe giữ ổn định; áp dụng cả ba LOD và các phối màu ngoài CSGT. Giữ độ nét mobile 1.32.1.
 
 ## Độ nét mobile — 1.32.1
 

@@ -1,0 +1,143 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyMobileClarity.cs",
+      "entry": "VerifyMobileClarity.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 122,
+      "executeMs": 23,
+      "assemblyName": "PipelineRunScript_VerifyMobileClarity_394bec8763244ecdb94b625e9a72947f",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 43,
+        "checks": [
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Emission.png: imported full resolution survives platform settings",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Emission.png: complete mip chain prevents distant shimmer",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Emission.png: oblique texture filtering",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Emission.png: high quality compression",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Emission.png: no duplicate readable CPU texture retained",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Normal.png: imported full resolution survives platform settings",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Normal.png: complete mip chain prevents distant shimmer",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Normal.png: oblique texture filtering",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Normal.png: high quality compression",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Normal.png: no duplicate readable CPU texture retained",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Surface.png: imported full resolution survives platform settings",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Surface.png: complete mip chain prevents distant shimmer",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Surface.png: oblique texture filtering",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Surface.png: high quality compression",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Surface.png: no duplicate readable CPU texture retained",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_CityScooter_Palette.png: imported full resolution survives platform settings",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_CityScooter_Palette.png: complete mip chain prevents distant shimmer",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_CityScooter_Palette.png: oblique texture filtering",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_CityScooter_Palette.png: high quality compression",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_CityScooter_Palette.png: no duplicate readable CPU texture retained",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_HeroScooter_Palette.png: imported full resolution survives platform settings",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_HeroScooter_Palette.png: complete mip chain prevents distant shimmer",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_HeroScooter_Palette.png: oblique texture filtering",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_HeroScooter_Palette.png: high quality compression",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_HeroScooter_Palette.png: no duplicate readable CPU texture retained",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Racer_Palette.png: imported full resolution survives platform settings",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Racer_Palette.png: complete mip chain prevents distant shimmer",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Racer_Palette.png: oblique texture filtering",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Racer_Palette.png: high quality compression",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Racer_Palette.png: no duplicate readable CPU texture retained",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_SportBike_Palette.png: imported full resolution survives platform settings",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_SportBike_Palette.png: complete mip chain prevents distant shimmer",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_SportBike_Palette.png: oblique texture filtering",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_SportBike_Palette.png: high quality compression",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_SportBike_Palette.png: no duplicate readable CPU texture retained",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Underbone_Palette.png: imported full resolution survives platform settings",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Underbone_Palette.png: complete mip chain prevents distant shimmer",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Underbone_Palette.png: oblique texture filtering",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Underbone_Palette.png: high quality compression",
+          "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Underbone_Palette.png: no duplicate readable CPU texture retained",
+          "Five color atlases plus three shared maps, no per-actor duplicates",
+          "Jobs remain locked",
+          "Hero full-detail source survives FBX import without LOD decimation"
+        ],
+        "textures": [
+          {
+            "path": "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Emission.png",
+            "width": 2048,
+            "height": 4096,
+            "format": "DXT1",
+            "mips": 13,
+            "bytes": 11185776
+          },
+          {
+            "path": "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Normal.png",
+            "width": 2048,
+            "height": 4096,
+            "format": "DXT5",
+            "mips": 13,
+            "bytes": 22370624
+          },
+          {
+            "path": "Assets/PhoViet/Art/Bikes/MeshyRiders\\Meshy_Surface.png",
+            "width": 2048,
+            "height": 4096,
+            "format": "DXT5",
+            "mips": 13,
+            "bytes": 22370624
+          },
+          {
+            "path": "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_CityScooter_Palette.png",
+            "width": 2048,
+            "height": 4096,
+            "format": "DXT1",
+            "mips": 13,
+            "bytes": 11185776
+          },
+          {
+            "path": "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_HeroScooter_Palette.png",
+            "width": 2048,
+            "height": 4096,
+            "format": "DXT1",
+            "mips": 13,
+            "bytes": 11185776
+          },
+          {
+            "path": "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Racer_Palette.png",
+            "width": 2048,
+            "height": 4096,
+            "format": "DXT1",
+            "mips": 13,
+            "bytes": 11185776
+          },
+          {
+            "path": "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_SportBike_Palette.png",
+            "width": 2048,
+            "height": 4096,
+            "format": "DXT1",
+            "mips": 13,
+            "bytes": 11185776
+          },
+          {
+            "path": "Assets/PhoViet/Art/Bikes/MeshyRiders\\PV_Underbone_Palette.png",
+            "width": 2048,
+            "height": 4096,
+            "format": "DXT1",
+            "mips": 13,
+            "bytes": 11185776
+          }
+        ],
+        "totalImportedTextureBytes": 111855904,
+        "heroTriangles": 42917
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

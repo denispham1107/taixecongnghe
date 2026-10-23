@@ -1,0 +1,92 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/RefreshWheelAssets.cs",
+      "entry": "RefreshWheelAssets.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 163,
+      "executeMs": 10372,
+      "assemblyName": "PipelineRunScript_RefreshWheelAssets_df4b365381a14545b9f90074e5843f83",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 5,
+        "assets": [
+          {
+            "asset": "PV_HeroScooter",
+            "clips": [
+              "Idle",
+              "Ride",
+              "KickLeft",
+              "KickRight",
+              "FallLeft",
+              "FallRight",
+              "Recover"
+            ]
+          },
+          {
+            "asset": "PV_CityScooter",
+            "clips": [
+              "Idle",
+              "Ride",
+              "KickLeft",
+              "KickRight",
+              "FallLeft",
+              "FallRight",
+              "Recover"
+            ]
+          },
+          {
+            "asset": "PV_Underbone",
+            "clips": [
+              "Idle",
+              "Ride",
+              "KickLeft",
+              "KickRight",
+              "FallLeft",
+              "FallRight",
+              "Recover"
+            ]
+          },
+          {
+            "asset": "PV_SportBike",
+            "clips": [
+              "Idle",
+              "Ride",
+              "KickLeft",
+              "KickRight",
+              "FallLeft",
+              "FallRight",
+              "Recover"
+            ]
+          },
+          {
+            "asset": "PV_Racer",
+            "clips": [
+              "Idle",
+              "Ride",
+              "KickLeft",
+              "KickRight",
+              "FallLeft",
+              "FallRight",
+              "Recover"
+            ]
+          }
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
