@@ -6,7 +6,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 >
 > **Bộ ô tô Meshy1.33.0 (được giữ trong1.34.0):** đã thay 11 xe bốn bánh bằng 4 mẫu Meshy, 8 màu sơn chọn lại mỗi lần xuất hiện; 3.002 điều kiện Unity và 28 kiểm tra nguồn đạt. **Đã build/push/phát hành 1.33.0**, qua 77 kiểm tra browser local + 29 kiểm tra bundle + 26 kiểm tra live, 0 lỗi runtime; Pages run `40021075002` thành công. Chi tiết 21.17–21.18.
 >
-> **1.35.0 (21.28–21.32, Claude Code):** zoom màn hình dọc gần hơn 10% (PortraitWorldScale .5775), nhà cao tầng phía sau có vách kính trong suốt/văn phòng sáng đèn, đổi làn kiểu đánh lái và lấy lại thăng bằng từ từ; sửa test tải Meshy (21.30). Build `build_8f58593f4444`, cache `d06d08624dba54fc`; trạng thái push/Pages/live ở 21.32.
+> **1.35.0 (21.28–21.32, Claude Code):** zoom màn hình dọc gần hơn 10% (PortraitWorldScale .5775), nhà cao tầng phía sau có vách kính trong suốt/văn phòng sáng đèn, đổi làn kiểu đánh lái và lấy lại thăng bằng từ từ; sửa test tải Meshy (21.30). Build `build_8f58593f4444`, cache `d06d08624dba54fc`; **đã phát hành**: commit `b8c7b9f`, Pages run `40078793874`, 26 kiểm tra live đạt, 0 lỗi runtime (21.32).
 >
 > **Phố Sài Gòn — đã phát hành1.34.0:** giữ toàn bộ cập nhật Claude21.19–21.26: 12shop/kính/nội thất/biển tủ, cây/chậu/vỉa hè/đồ vật, đèn cong/tín hiệu và mây, bỏ người đứng và xe đẩy cũ. Hồi quy mới1.642điều kiện Unity,29bundle,77browser local và26live đạt;0lỗi runtime. Pages run`40069532577` thành công, cache`28a1dc1e64a78083`. VerifyJump đã dùng chiều cao Meshy; lỗi CSGT chập chờn lịch sử chưa tái hiện ở hai lần chạy mới. Chi tiết21.27.
 >
@@ -29,10 +29,10 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 | Unity Editor | **6000.5.6f1**, cần module Web Build Support để build WebGL |
 | Scene chính | `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Phiên bản game đã phát hành | **1.35.0** — đổi làn đánh lái, nhà cao tầng kính, zoom dọc +10% trên phố Sài Gòn; chỉ thi quãng đường |
-| Commit source + WebGL hiện hành | xem 21.32 (commit “Release lane steering, glass towers and portrait zoom in WebGL 1.35.0”) |
+| Commit source + WebGL hiện hành | `b8c7b9f5d69da959a4f55ae65f98cc8b574fda19` |
 | Bằng chứng phát hành hiện hành | `Captures/release-1.35-*.json`, `VERIFICATION_RELEASE_1_35.md`; bản trước `saigon-release-pages.json` |
 | Cache WebGL hiện hành | `d06d08624dba54fc`; build UTC `2026-10-24T08:23:22.2948967Z` |
-| Pages đã xác minh | xem 21.32 (bản trước: run `40069532577` cho 1.34.0) |
+| Pages đã xác minh | Run `40078793874`, completed/success đúng source SHA; 26 kiểm tra live đạt (21.32) |
 | Render pipeline | Built-in Render Pipeline; `m_CustomRenderPipeline` đang là `fileID: 0` |
 | Input | Legacy Input Manager, `activeInputHandler: 0`; dùng `UnityEngine.Input` |
 | Giao diện trong game | IMGUI, `OnGUI`, `GUIStyle`, `GUI.matrix`; không phải Canvas/uGUI |
@@ -1594,6 +1594,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Hồi quy native trước build:** 22 suite / 5.544 điều kiện (21.31) trên đúng mã/scene phát hành. Preflight `VerifySaigonRelease` (Edit Mode): scene đã lưu, jobs khóa, 735 nhóm/8.050 hộp vật cản, 1.260 LOD phố, 1.350 renderer kính, 420 bóng tín hiệu, không thiếu dependency → `Captures/release-1.35-preflight.json`.
 - **Build:** `build_8f58593f4444` **Succeeded**, 250.356 ms, 0 lỗi / 3 cảnh báo đã biết (Pipeline thiếu RuntimePipelineConfig; `dragging`, `hudTouchChoice` không đọc ở nhánh DOM). Cache **`d06d08624dba54fc`**, UTC `2026-10-24T08:23:22.2948967Z`, tài nguyên precache 88.417.715 byte (data 81.173.476 byte, dưới giới hạn 100 MB). Đã chép sang `docs`, dọn đúng 3 file hash cũ trong `docs/Build` sau kiểm tra đường dẫn; còn đúng 4 file Build.
 - **Kiểm tra artifact local:** 29 kiểm tra bundle (`release-1.35-bundle-checks.json`; script ghi đè `saigon-release-bundle-checks.json` đã được khôi phục về bằng chứng 1.34.0). Trình duyệt local **77 điều kiện, 0 lỗi runtime**: DPR3 dọc/ngang/tablet/xoay lại 14 (`release-1.35-mobile-results.json`, đã xem ảnh dọc với zoom mới/nhà cao tầng), đối chiếu tài nguyên + WASM 26 (`release-1.35-local-results.json`), PWA/offline/cảm ứng 37 (`browser-release-1.35-pwa.json`, bị gitignore). Playwright dùng qua `NODE_PATH` tới bộ phụ thuộc Node có sẵn trên máy; không cài thêm. Giả lập trình duyệt, chưa thử điện thoại vật lý/FPS.
-- **Commit/push/Pages/live:** đang thực hiện — cập nhật SHA, run Pages và kết quả live ngay bên dưới sau khi xong.
+- **Phát hành hoàn tất:** source/artifact **`b8c7b9f5d69da959a4f55ae65f98cc8b574fda19`** đã push main, [Pages run 40078793874](https://github.com/denispham1107/taixecongnghe/actions/runs/40078793874) completed/success đúng SHA. Bản công khai trả version 1.35.0 / cache `d06d08624dba54fc`; **26 kiểm tra live đạt, 0 lỗi runtime** (từng tài nguyên khớp artifact đã kiểm, binary từng byte/text chuẩn hóa CRLF; WASM thật khởi tạo/start/pause). Bằng chứng `Captures/release-1.35-live-results.json`, `release-1.35-pages.json`, ảnh `release-1.35-live-game.png`, `VERIFICATION_RELEASE_1_35.md`. Trạng thái Pages đọc qua GitHub API công khai (công cụ `.tools/GetMeshyPagesRun.ps1` không lấy được credential trong phiên này; không in hay lưu token).
+- **Bàn giao:** Unity Edit Mode, server docs kiểm tra đã dừng, jobs khóa, dữ liệu Coin/kỷ lục không đổi. Báo cáo phát hành commit/push riêng, không rebuild cho tài liệu. Nếu PWA còn bản cũ, đóng hết tab/app Phố Việt rồi mở lại; không xóa dữ liệu. Chưa thử điện thoại vật lý/FPS/nhiệt độ.
 
 **Nguồn kiểm chứng chính:** mã C# và cấu hình hiện tại trong repo, `ArtSource/Blender`, metadata asset, Git history, các báo cáo `Captures/VERIFICATION_*.md` và JSON kết quả tương ứng. Nếu dự án tiếp tục thay đổi, cập nhật lại tài liệu này theo hành vi thực tế; đừng coi một con số/version/port của ngày bàn giao là thông tin luôn đúng về sau.

@@ -18,4 +18,7 @@
 
 ## Phát hành
 
-Đang thực hiện — xem cập nhật bên dưới.
+- Source/artifact `b8c7b9f5d69da959a4f55ae65f98cc8b574fda19`, push main.
+- Pages run 40078793874 completed/success đúng SHA: https://github.com/denispham1107/taixecongnghe/actions/runs/40078793874
+- Live: version 1.35.0 / cache `d06d08624dba54fc`; 26 kiểm tra đạt, 0 lỗi runtime (`release-1.35-live-results.json`, `release-1.35-pages.json`, ảnh `release-1.35-live-game.png`).
+- Chưa thử điện thoại vật lý/FPS.

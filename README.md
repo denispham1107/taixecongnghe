@@ -8,7 +8,7 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Đổi làn đánh lái, nhà cao tầng, zoom dọc — 1.35.0
 
-Đổi làn bằng A/D/←/→ hoặc vuốt ngang giờ đi theo đường cong: đầu xe và người lái quay theo hướng đi, nghiêng theo hướng đó rồi vừa chạy tới vừa trả lái, dựng xe từ từ. Nhà cao tầng phía sau có vách kính trong suốt nhìn thấy văn phòng sáng đèn, hông có cửa sổ khung, mái có thiết bị. Màn hình dọc zoom gần hơn 10%. Công việc vẫn tắt. Chi tiết ở `huongdan.md` mục 21.28–21.32.
+Đổi làn bằng A/D/←/→ hoặc vuốt ngang giờ đi theo đường cong: đầu xe và người lái quay theo hướng đi, nghiêng theo hướng đó rồi vừa chạy tới vừa trả lái, dựng xe từ từ. Nhà cao tầng phía sau có vách kính trong suốt nhìn thấy văn phòng sáng đèn, hông có cửa sổ khung, mái có thiết bị. Màn hình dọc zoom gần hơn 10%. Công việc vẫn tắt. Đã build/push/phát hành, 26 kiểm tra live đạt, 0 lỗi runtime. Chi tiết ở `huongdan.md` mục 21.28–21.32.
 
 ## Phố Sài Gòn —1.34.0
 
