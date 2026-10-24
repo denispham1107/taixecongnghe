@@ -21,4 +21,5 @@
 - Source/artifact `c49059c6dc83ef970c758c6e2147b48890feb260`, push main.
 - Pages run 40090621801 completed/success đúng SHA: https://github.com/denispham1107/taixecongnghe/actions/runs/40090621801
 - Live: version 1.36.0 / cache `2ad4c813b6952999`; 26 kiểm tra đạt, 0 lỗi runtime (`release-1.36-live-results.json`, `release-1.36-pages.json`, ảnh `release-1.36-live-game.png`).
+- Kiểm tra lại sau phát hành: chơi thật bản live bằng Chrome GPU 150 khung hình, thấy xe tăng 2 lần (`release-1.36-live-tank-junction.png`, `release-1.36-live-tank.png` — người chơi tông xe tăng thì té, xe tăng không bị đẩy). Editor `ProbeTankGameplay`: 42 xe tăng/600 s chơi tự nhiên (~1 xe/14 s).
 - Chưa thử điện thoại vật lý/FPS.
