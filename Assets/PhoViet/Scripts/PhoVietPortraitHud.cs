@@ -4,7 +4,7 @@ namespace PhoViet
 {
  public partial class PhoVietGame
  {
-  const float PortraitWorldScale=.75f*.70f; // A further 30% smaller than the 1.27.1 portrait view.
+  const float PortraitWorldScale=.75f*.70f*1.10f; // 1.27.2 view (30% smaller than 1.27.1) zoomed 10% closer on 24/10/2026.
   const float PortraitBarTop=10,PortraitBarHeight=96,PortraitNoticeTop=112,PortraitNoticeHeight=28;
   static readonly Color PortraitGlass=new Color(.07f,.19f,.21f,.64f);
   bool swipeCanSteer;

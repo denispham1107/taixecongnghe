@@ -71,6 +71,11 @@ namespace PhoViet
         public string CurrentStreet => RouteStreet;
         public static readonly float[] LaneX={-4.65f,-1.55f,1.55f,4.65f};
         float spawnTimer, fallTime, timeRiding, lastX, lean, streak, noticeTimer;
+        // Đổi làn kiểu đánh lái (24/10/2026): vận tốc ngang tăng/giảm êm theo chữ S, đầu xe quay theo
+        // hướng di chuyển (chỉ phần hình, hộp va chạm giữ hướng đường) và nghiêng vào phía đang rẽ.
+        const float LaneSpeed=15,LaneAccel=150,LaneBrake=60,SteerReturn=4.5f,MaxSteerYaw=26,MaxSteerLean=24;
+        float laneVelocity,steerYaw;
+        public float RiderSteerYaw=>State==RideState.Riding&&!IsTurning?steerYaw:0;
         float nextIntersectionDistance;
         Vector2 swipeStart; bool dragging;
         System.Random rng=new System.Random();
@@ -123,7 +128,7 @@ namespace PhoViet
             CancelSwipe();
             int seed;do{seed=Guid.NewGuid().GetHashCode()&int.MaxValue;}while(seed==RunSeed);
             RunSeed=seed;rng=new System.Random(seed);
-            State=RideState.Ready;Distance=0;Speed=0;CurrentLane=2;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;noticeTimer=0;
+            State=RideState.Ready;Distance=0;Speed=0;CurrentLane=2;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;laneVelocity=0;steerYaw=0;noticeTimer=0;
             nextIntersectionDistance=VietnamStreet.IntersectionCenter;ScheduledIntersections=0;
             ResetCityJobs();
             ResetRoutes();
@@ -300,8 +305,25 @@ namespace PhoViet
             oldRiderZ=rider.localPosition.z;
             oldRiderYaw=IsTurning?TurnYaw:0;
             float baseX=oldX-kickAppliedOffset.x;
-            float x=ServiceStopped?baseX:Mathf.MoveTowards(baseX,LaneX[CurrentLane],dt*15);
-            lean=Mathf.Lerp(lean,(baseX-x)*-35,dt*10);
+            float x=baseX,target=LaneX[CurrentLane],gap=target-baseX;
+            if(ServiceStopped)laneVelocity=0;
+            else
+            {
+                // Băng qua làn nhanh (tăng tốc 150 m/s²) rồi hãm đều 60 m/s² khi gần làn đích để vào làn êm.
+                float desired=Mathf.Sign(gap)*Mathf.Min(LaneSpeed,Mathf.Sqrt(2*LaneBrake*Mathf.Abs(gap)));
+                float rate=Mathf.Abs(desired)<Mathf.Abs(laneVelocity)?LaneBrake:LaneAccel;
+                laneVelocity=Mathf.MoveTowards(laneVelocity,desired,rate*dt);x=baseX+laneVelocity*dt;
+                if(gap==0||(target-x)*gap<=0){x=target;laneVelocity=0;}
+            }
+            // Đầu xe chỉ theo hướng chuyển động; khi đang đạp áp sát giữ thẳng để giày khớp mẫu chạm đã đo.
+            float steerTarget=IsTurning||KickAssistActive?0:Mathf.Clamp(Mathf.Atan2(laneVelocity,Mathf.Max(Speed,8))*Mathf.Rad2Deg,-MaxSteerYaw,MaxSteerYaw);
+            // Bẻ lái vào nhanh, trả lái chậm: đầu xe thẳng lại và xe dựng lên từ từ (~0,5 s) trong khi vẫn chạy tới.
+            bool returning=Mathf.Abs(steerTarget)<Mathf.Abs(steerYaw)&&!IsTurning&&!KickAssistActive;
+            steerYaw=Mathf.Lerp(steerYaw,steerTarget,1-Mathf.Exp(-dt*(returning?SteerReturn:18)));
+            // Nghiêng theo hướng đầu xe: bẻ sang phải thì nghiêng phải, trả lái thì dựng lên từ từ cùng lúc.
+            // Dương = nghiêng trái, cùng quy ước cua giao lộ.
+            float leanTarget=-Mathf.Clamp(steerYaw*.85f,-MaxSteerLean,MaxSteerLean);
+            lean=Mathf.Lerp(lean,leanTarget,1-Mathf.Exp(-dt*9));
             if(!IsTurning){rider.localPosition=new Vector3(x,jumpHeight,0);rider.localRotation=Quaternion.Euler(0,0,lean);}
             BeginOrContinueTurn(Speed*dt);
             {var p=rider.localPosition;p.y=jumpHeight;rider.localPosition=p;}

@@ -1,0 +1,53 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyPortraitHud.cs",
+      "entry": "VerifyPortraitHud.Main",
+      "timeout_ms": "300000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 812,
+      "executeMs": 69,
+      "assemblyName": "PipelineRunScript_VerifyPortraitHud_06b465cbc8d24ed2a4b0ea4fa5923fe2",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 21,
+        "checks": [
+          "Rider projects at 77 percent of 1.27.1 portrait size (70% zoomed 10% closer): chase=False, lane=0",
+          "Wider view keeps full-screen viewport: False,0",
+          "Rider projects at 77 percent of 1.27.1 portrait size (70% zoomed 10% closer): chase=False, lane=1",
+          "Wider view keeps full-screen viewport: False,1",
+          "Rider projects at 77 percent of 1.27.1 portrait size (70% zoomed 10% closer): chase=False, lane=2",
+          "Wider view keeps full-screen viewport: False,2",
+          "Rider projects at 77 percent of 1.27.1 portrait size (70% zoomed 10% closer): chase=False, lane=3",
+          "Wider view keeps full-screen viewport: False,3",
+          "Rider projects at 77 percent of 1.27.1 portrait size (70% zoomed 10% closer): chase=True, lane=0",
+          "Wider view keeps full-screen viewport: True,0",
+          "Rider projects at 77 percent of 1.27.1 portrait size (70% zoomed 10% closer): chase=True, lane=1",
+          "Wider view keeps full-screen viewport: True,1",
+          "Rider projects at 77 percent of 1.27.1 portrait size (70% zoomed 10% closer): chase=True, lane=2",
+          "Wider view keeps full-screen viewport: True,2",
+          "Rider projects at 77 percent of 1.27.1 portrait size (70% zoomed 10% closer): chase=True, lane=3",
+          "Wider view keeps full-screen viewport: True,3",
+          "Single tap in the former controls area does not kick",
+          "Double tap in cleared bottom gameplay space still starts the assisted kick",
+          "Merged HUD/pause area cannot trigger a kick",
+          "Home-indicator safe area remains excluded",
+          "World below compact HUD remains interactive with safe insets"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

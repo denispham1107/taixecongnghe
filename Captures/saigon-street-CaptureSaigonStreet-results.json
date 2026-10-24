@@ -10,9 +10,9 @@
     },
     "result": {
       "diagnostics": [],
-      "compileMs": 1160,
-      "executeMs": 2374,
-      "assemblyName": "PipelineRunScript_CaptureSaigonStreet_7cefee19ae564853b082cf0cda6f1f30",
+      "compileMs": 857,
+      "executeMs": 2286,
+      "assemblyName": "PipelineRunScript_CaptureSaigonStreet_1204e6e4de584929af9df76bd6fd3f09",
       "success": true,
       "result": {
         "success": true

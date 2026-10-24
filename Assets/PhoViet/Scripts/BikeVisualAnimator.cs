@@ -132,7 +132,9 @@ namespace PhoViet
             // handlebars, panniers and the rider settle above the road rather than through it.
             float recovery=role==ActorRole.Police&&falling?1-Mathf.Clamp01(game.PoliceFallRemaining/.35f):0;
             float signedRoll=Mathf.DeltaAngle(0,transform.localEulerAngles.z);
-            visual.localRotation=baseVisualRotation*Quaternion.Euler(0,0,-signedRoll*recovery);
+            // Người chơi đổi làn: thân xe quay theo hướng lái quanh trục đứng của xe (chỉ phần hình).
+            Quaternion steer=role==ActorRole.Player?Quaternion.Euler(0,game.RiderSteerYaw,0):Quaternion.identity;
+            visual.localRotation=steer*baseVisualRotation*Quaternion.Euler(0,0,-signedRoll*recovery);
             visual.position=transform.TransformPoint(baseVisualPosition);
             if(role==ActorRole.Player&&game.State==PhoVietGame.RideState.Riding)game.PoseJumpPassenger(0,0);
             if(role==ActorRole.Player&&game.State==PhoVietGame.RideState.Riding&&game.RiderJumpActive)
@@ -142,8 +144,8 @@ namespace PhoViet
                 pitch=jumpBalancePitch;
                 Quaternion balance=Quaternion.Euler(pitch,0,0);
                 Vector3 rearContact=new Vector3(0,0,-.73f);
-                visual.localRotation=baseVisualRotation*balance;
-                visual.localPosition=baseVisualPosition+rearContact-balance*rearContact;
+                visual.localRotation=steer*baseVisualRotation*balance;
+                visual.localPosition=baseVisualPosition+steer*(rearContact-balance*rearContact);
                 float lift=Mathf.Max(0,transform.position.y+.008f-LowestSupport());
                 visual.position+=Vector3.up*lift;
                 game.PoseJumpPassenger(pitch,visual.localPosition.y);

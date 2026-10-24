@@ -39,6 +39,8 @@ namespace PhoViet
    ResetCrashPoliceNavigation();
    crashTurnRotation=Quaternion.Euler(0,IsTurning?TurnYaw:0,0);
    QueuedTurn=0;fallTime=0;settledTime=0;RiderFallTravel=0;
+   // Hướng đầu xe lúc đánh lái trở thành hướng thật của cú ngã, không bật về thẳng.
+   rider.localRotation=Quaternion.Euler(0,steerYaw,0)*rider.localRotation;steerYaw=0;laneVelocity=0;
    riderFallVelocity=before;riderFallEuler=rider.localEulerAngles;
    riderFallEuler.x=Mathf.DeltaAngle(0,riderFallEuler.x);riderFallEuler.z=Mathf.DeltaAngle(0,riderFallEuler.z);riderFallSpin=Vector3.zero;
    before.y=jumpVelocity;ResetJump();CancelBoost();

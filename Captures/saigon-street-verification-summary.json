@@ -403,5 +403,30 @@
   },
   "publishedVersion": "1.34.0",
   "currentReleaseProof": "saigon-release-pages.json",
-  "historicalSuiteNote": "Initial suites and subsequent art stages retained as Claude evidence. New release regression: saigon-release-verification-summary.json (1642 native,77 local,26 live)."
+  "historicalSuiteNote": "Initial suites and subsequent art stages retained as Claude evidence. New release regression: saigon-release-verification-summary.json (1642 native,77 local,26 live).",
+  "portrait_zoom_towers": {
+    "after_release": "1.34.0",
+    "portrait_world_scale": 0.5775,
+    "portrait_fov": 95.62,
+    "suites": {
+      "VerifyStreetArt": 333,
+      "VerifyCrashUpgrade": 93,
+      "VerifyGameplay": 23,
+      "VerifyJunctionRoutes": 92,
+      "VerifyDistanceMode": 31,
+      "VerifyNightJumpLighting": 88,
+      "VerifyCrashOutcome": 51,
+      "VerifySmoothTurns": 468,
+      "VerifyQuickKick": 62,
+      "VerifyJunctionKick": 216,
+      "VerifyBoost": 35,
+      "VerifyGestures": 39,
+      "VerifyMeshyCarRoofs": 256,
+      "VerifyMeshyLighting": 16,
+      "VerifyCrashPoliceNavigation": 214,
+      "VerifyPortraitHud": 21,
+      "VerifyMobileCamera": 8
+    },
+    "build": "not built"
+  }
 }

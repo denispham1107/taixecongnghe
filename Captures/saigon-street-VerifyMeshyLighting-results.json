@@ -10,9 +10,9 @@
     },
     "result": {
       "diagnostics": [],
-      "compileMs": 72,
-      "executeMs": 590,
-      "assemblyName": "PipelineRunScript_VerifyMeshyLighting_a6f25f232a414fa18eea2feecaa36e15",
+      "compileMs": 76,
+      "executeMs": 697,
+      "assemblyName": "PipelineRunScript_VerifyMeshyLighting_726f7bca29ae4538aad9216e0fa809e3",
       "success": true,
       "result": {
         "success": true,

@@ -276,9 +276,9 @@
     "generator": "pho_viet_saigon_streets.py",
     "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
     "lod_triangles": [
-      18410,
-      9542,
-      3235
+      26848,
+      14424,
+      3761
     ],
     "materials": 1,
     "palette_grid": [
@@ -962,9 +962,9 @@
     "generator": "pho_viet_saigon_streets.py",
     "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
     "lod_triangles": [
-      15012,
-      8964,
-      3525
+      21180,
+      12548,
+      3923
     ],
     "materials": 1,
     "palette_grid": [
@@ -1427,9 +1427,9 @@
     "generator": "pho_viet_saigon_streets.py",
     "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
     "lod_triangles": [
-      19278,
-      10358,
-      3835
+      26198,
+      14358,
+      4259
     ],
     "materials": 1,
     "palette_grid": [
@@ -2256,9 +2256,9 @@
     "generator": "pho_viet_saigon_streets.py",
     "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
     "lod_triangles": [
-      16312,
-      8540,
-      3265
+      23978,
+      12986,
+      3745
     ],
     "materials": 1,
     "palette_grid": [

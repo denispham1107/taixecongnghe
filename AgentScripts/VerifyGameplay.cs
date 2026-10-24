@@ -25,10 +25,11 @@ public static class VerifyGameplay
             typeof(PhoVietGame).GetField("spawnTimer",BindingFlags.Instance|BindingFlags.NonPublic).SetValue(g,10000f);
             check(g.State==PhoVietGame.RideState.Riding&&g.Speed>0,"Start begins ride");
             for(int i=0;i<8;i++)g.MoveLane(-1);check(g.CurrentLane==0,"Left lane clamps to road");
-            for(int i=0;i<25;i++)step(.02f);
+            // Đổi làn kiểu đánh lái (24/10/2026) tăng tốc rồi hãm êm: 2 làn ~0,59 s, 3 làn ~0,8 s (kiểu trượt cũ 0,41/0,62 s).
+            for(int i=0;i<35;i++)step(.02f);
             check(Mathf.Abs(g.rider.localPosition.x-PhoVietGame.LaneX[0])<.01f,"Lane transition reaches left lane smoothly");
             for(int i=0;i<8;i++)g.MoveLane(1);check(g.CurrentLane==3,"Right lane clamps to road");
-            for(int i=0;i<40;i++)step(.02f);
+            for(int i=0;i<50;i++)step(.02f);
             check(Mathf.Abs(g.rider.localPosition.x-PhoVietGame.LaneX[3])<.01f,"Lane transition reaches right lane");
             float distance=g.Distance;g.TogglePause();check(g.State==PhoVietGame.RideState.Paused,"Pause state");
             g.MoveLane(-1);check(g.CurrentLane==3&&g.Distance==distance,"Pause blocks lane input");g.TogglePause();

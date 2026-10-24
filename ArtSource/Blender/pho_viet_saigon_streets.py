@@ -781,12 +781,80 @@ def blade_sign(g, text, color, x, y):
             g.add(gg.v, gg.f, 'white', ('d', (side, 0, 0)), 'Lettering')
 
 def back_tower(g, seed):
-    # Nhà cao tầng phía sau tạo đường chân trời đô thị như ảnh mẫu.
-    h = 24+(seed*7) % 13; col = ('sky', 'stone', 'white', 'mint')[seed % 4]
-    g.cube((0, h/2, 9.0), (7.2, h, 7.0), col, skip=('-y',))
-    for k in range(int(h/3.2)):
-        g.cube((0, 2.6+k*3.2, 5.47), (6.6, .9, .06), 'glassLight', skip=('+z',))
-    g.cube((0, h+.6, 9.0), (3.0, 1.2, 3.0), 'stone', skip=('-y',))
+    """Nhà cao tầng phía sau dãy phố (21.27): mặt chính diện quay ra đường là vách kính lớn trong suốt
+    (submesh PV_StreetGlass) chia ô bằng đố, dải sàn từng tầng; nhìn xuyên thấy văn phòng sáng đèn
+    (sàn, trần, máng đèn, bàn, vách sau). Hai hông có cửa sổ theo tầng, mái có lan can, phòng kỹ thuật,
+    bồn nước, cục lạnh, ăng-ten. Ba kiểu theo seed: tường kính đố tối, khung bê tông + ban công kính, lam đứng."""
+    d = g.d; style = seed % 3
+    floors = 8+(seed*3) % 4; fh = 3.2; h = floors*fh+.8
+    shell = ('stone', 'white', 'sky', 'mint')[seed % 4]
+    frame = ('darkFrame', 'white', 'steel')[style]
+    spandrel = ('glass', shell, 'ironGrey')[style]
+    x0, x1, zf, zb = -3.6, 3.6, 5.5, 12.5; inner = 2.0
+    # Lõi đặc phía sau phần văn phòng, hai hông bao phần văn phòng, đáy không cần.
+    g.cube((0, h/2, (zf+inner+zb)/2), (x1-x0, h, zb-zf-inner), shell, skip=('-y', '-z'))
+    for x in (x0+.06, x1-.06): g.cube((x, h/2, zf+inner/2), (.12, h, inner), shell, skip=('-y',))
+    # Cột góc mặt tiền.
+    for x in (x0, x1): g.cube((x, h/2, zf-.08), (.36, h, .32), shell, skip=('-y',))
+    pitch = 1.2 if style != 2 else 1.8
+    nm = int((x1-x0)/pitch)
+    for k in range(floors):
+        y0 = k*fh; yt = y0+fh
+        # Dải sàn/tường lửng ngoài mặt kính.
+        g.cube((0, y0+.28, zf-.06), (x1-x0, .56, .2), spandrel)
+        if style == 1 and d < 2:
+            # Ban công kính: sàn nhô + lan can kính + tay vịn.
+            g.cube((0, y0+.62, zf-.55), (x1-x0-.4, .12, .9), shell)
+            g.quad([(x0+.25, y0+.68, zf-.98), (x1-.25, y0+.68, zf-.98), (x1-.25, y0+1.62, zf-.98), (x0+.25, y0+1.62, zf-.98)], 'glassLight', (0, 0, -1), 'Glass')
+            g.cube((0, y0+1.64, zf-.98), (x1-x0-.5, .05, .06), 'chrome')
+        # Mặt kính lớn trong suốt (một tấm/tầng, chia ô bằng đố).
+        g.quad([(x0+.18, y0+.56, zf), (x1-.18, y0+.56, zf), (x1-.18, yt, zf), (x0+.18, yt, zf)], 'glassLight', (0, 0, -1), 'Glass')
+        if d < 2:
+            for m in range(1, nm):
+                x = x0+m*(x1-x0)/nm
+                if style == 2: g.cube((x, (y0+.56+yt)/2, zf-.25), (.1, yt-y0-.56, .5), frame)   # lam đứng
+                else: g.cube((x, (y0+.56+yt)/2, zf-.04), (.07, yt-y0-.56, .1), frame)
+            if d == 0: g.cube((0, y0+2.5, zf-.04), (x1-x0-.36, .05, .08), frame)          # đố ngang ô thoáng
+        # Văn phòng phía sau kính: sàn, trần có máng đèn, vách sau, bàn làm việc.
+        g.quad([(x0+.12, y0+.56, zf), (x1-.12, y0+.56, zf), (x1-.12, y0+.56, zf+inner), (x0+.12, y0+.56, zf+inner)], 'stone', (0, 1, 0))
+        g.quad([(x0+.12, yt-.02, zf), (x1-.12, yt-.02, zf), (x1-.12, yt-.02, zf+inner), (x0+.12, yt-.02, zf+inner)], 'white', (0, -1, 0))
+        g.panel((0, (y0+.56+yt)/2, zf+inner), x1-x0-.24, yt-y0-.56, ('interiorWall', 'sky', 'trim')[(k+seed) % 3])
+        for lx in ((-2.2, 0, 2.2) if d < 2 else (0,)):
+            g.quad([(lx-.7, yt-.04, zf+.7), (lx+.7, yt-.04, zf+.7), (lx+.7, yt-.04, zf+.95), (lx-.7, yt-.04, zf+.95)], 'lamp', (0, -1, 0))
+        if d == 0:
+            for bx in (-2.1, .9):
+                g.cube((bx, y0+1.3, zf+1.1), (1.3, .05, .6), 'woodLight'); g.cube((bx, y0+.92, zf+1.38), (1.3, .72, .04), 'woodLight')
+                g.cube((bx+.2, y0+1.55, zf+1.25), (.42, .3, .03), 'darkFrame')
+            if (k+seed) % 2: g.cube((3.0, y0+1.05, zf+1.6), (.4, .9, .4), 'potGrey'); g.blob((3.0, y0+1.75, zf+1.6), (.32, .4, .32), 'leaf3', n=6, m=3)
+        # Hông nhà (thấy khi nhìn dọc trục đường): gờ tầng, cửa sổ lớn có khung, đố đứng/ngang, bậu.
+        for side in (-1, 1):
+            xs = side*(x1+.012)
+            g.cube((side*(x1+.05), y0+.08, 9.0), (.1, .16, zb-zf), 'trim' if style != 1 else frame)
+            if d == 2: continue
+            for wz in (7.25, 9.25, 11.25):
+                g.quad([(xs, y0+.75, wz-.75), (xs, y0+.75, wz+.75), (xs, y0+2.75, wz+.75), (xs, y0+2.75, wz-.75)], 'glassLight' if style == 0 else 'glass', (side, 0, 0))
+                fx = side*(x1+.04)
+                for zz in (wz-.78, wz+.78): g.cube((fx, y0+1.75, zz), (.07, 2.06, .07), frame if style != 1 else 'white')
+                for yy in (y0+.72, y0+2.78): g.cube((fx, yy, wz), (.07, .07, 1.62), frame if style != 1 else 'white')
+                if d == 0:
+                    g.cube((fx, y0+1.75, wz), (.05, 2.0, .05), frame if style != 1 else 'white')
+                    g.cube((fx, y0+2.15, wz), (.05, .05, 1.5), frame if style != 1 else 'white')
+                    g.cube((side*(x1+.1), y0+.66, wz), (.14, .05, 1.7), 'trim')
+    # Mái: lan can, đỉnh mặt tiền, phòng kỹ thuật, bồn nước, cục lạnh, ăng-ten.
+    g.cube((0, h+.05, 9.0), (x1-x0+.1, .1, zb-zf+.1), shell)
+    g.cube((0, h+.55, zf+.05), (x1-x0+.1, 1.0, .2), shell)
+    g.cube((0, h+1.08, zf-.02), (x1-x0+.2, .1, .3), frame)
+    for x in (x0+.05, x1-.05): g.cube((x, h+.5, 9.0), (.12, .9, zb-zf), shell)
+    g.cube((0, h+.5, zb-.05), (x1-x0, .9, .12), shell)
+    g.cube((-1.2, h+1.25, 10.4), (2.6, 2.4, 2.6), 'stone', skip=('-y',))
+    if d < 2:
+        g.cube((-1.2, h+.9, 9.08), (.9, 1.7, .04), 'ironGrey', skip=('+z',))
+        g.cyl((1.8, h+.1, 10.6), (1.8, h+1.5, 10.6), .55, 'chrome', n=10 if d == 0 else 6)
+        for ax in (1.0, 2.4): g.cube((ax, h+.45, 7.4), (.9, .7, .6), 'white')
+        g.cyl((-1.8, h+2.45, 10.4), (-1.8, h+5.0, 10.4), .03, 'steel', n=4)
+        if d == 0:
+            g.cyl((-1.8, h+3.6, 10.4), (-1.3, h+3.6, 10.4), .015, 'steel', n=3)
+            for ax in (1.0, 2.4): g.disc((ax-.1, h+.45, 7.095), .22, 'ironGrey', n=8)
 
 def shop(i, detail):
     spec = SHOPS[i]; g = Geo(detail); obstacles = []; r = random.Random(500+i)

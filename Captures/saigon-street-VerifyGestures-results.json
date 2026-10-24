@@ -10,9 +10,9 @@
     },
     "result": {
       "diagnostics": [],
-      "compileMs": 206,
-      "executeMs": 258,
-      "assemblyName": "PipelineRunScript_VerifyGestures_45cf6311d8f94a2d8595a2318991e410",
+      "compileMs": 274,
+      "executeMs": 286,
+      "assemblyName": "PipelineRunScript_VerifyGestures_6b02d086dcc243d785be62b35833f054",
       "success": true,
       "result": {
         "success": true,
@@ -58,8 +58,8 @@
           "Swipe returning to start cannot count as tap",
           "Long hold is not double-tap component"
         ],
-        "width": 1065,
-        "height": 599
+        "width": 540,
+        "height": 960
       }
     },
     "target": {

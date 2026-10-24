@@ -10,9 +10,9 @@
     },
     "result": {
       "diagnostics": [],
-      "compileMs": 275,
-      "executeMs": 10324,
-      "assemblyName": "PipelineRunScript_VerifyMeshyCarRoofs_6b5889bcfe43486788015902984c9d1e",
+      "compileMs": 70,
+      "executeMs": 10183,
+      "assemblyName": "PipelineRunScript_VerifyMeshyCarRoofs_d288796ae57c4bb094515f26ea5fa14f",
       "success": true,
       "result": {
         "success": true,

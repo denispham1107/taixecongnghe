@@ -4,7 +4,7 @@ root=Path('docs');info=json.loads((root/'build-info.json').read_text());files=js
 def check(label,value):
  assert value,label
  checks.append(label)
-check('Version is 1.34.0',info['version']=='1.34.0')
+check('Version is 1.35.0',info['version']=='1.35.0')
 check('Offline files are unique',len(files)==len(set(files)))
 digest=hashlib.sha256()
 for f in files:

@@ -96,3 +96,9 @@ nguyên bộ cũ (đèn đường, đèn tín hiệu và bầu trời đã làm 
 ## Phát hành WebGL1.34.0 (24/10/2026)
 
 Đã đọc/đối chiếu toàn bộ cập nhật Claude, giữ scene/art; build/push/phát hành và xác minh live hoàn tất. Hồi quy mới1.642điều kiện Unity,29bundle,77browser local,26live đạt; không cộng dồn kết quả lịch sử bên trên. VerifyJump đã sửa kỳ vọng chiều cao theo Meshy. Bằng chứng `VERIFICATION_SAIGON_WEB_RELEASE.md`, `saigon-release-pages.json`.
+
+## Lần chín (sau 1.34.0): zoom dọc +10%, nhà cao tầng chi tiết (24/10/2026)
+
+- `PortraitWorldScale` .525 → .5775 (FOV dọc ≈95,62°). VerifyPortraitHud 21 (kỳ vọng 77%, sửa điều kiện đạp cũ), VerifyMobileCamera 8.
+- `back_tower` mới: vách kính trong suốt theo tầng, văn phòng sáng đèn phía sau, 3 kiểu, hông có cửa sổ khung, mái có thiết bị.
+- 17 suite / 2.046 điều kiện đạt. Ảnh `saigon-street-towers-high.png`, `saigon-street-tower-front.png`, `saigon-street-portrait-zoom.png`. Chưa build.

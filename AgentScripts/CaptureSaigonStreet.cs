@@ -63,6 +63,28 @@ public static class CaptureSaigonStreet
   finally{c.transform.position=pos;c.transform.rotation=rot;c.fieldOfView=fov;}
   return new{success=true,shots};
  }
+ // Nhà cao tầng phía sau (21.27): góc cao trên trục đường như ảnh người dùng gửi, và cận mặt kính một tòa.
+ public static object Towers()
+ {
+  var g=Object.FindAnyObjectByType<PhoVietGame>();var c=g.rideCamera;var pos=c.transform.position;var rot=c.transform.rotation;float fov=c.fieldOfView;
+  try
+  {
+   c.transform.position=new Vector3(0,30,-14);c.transform.LookAt(new Vector3(0,8,60));c.fieldOfView=60;Capture(c,"saigon-street-towers-high");
+   Transform shop=null;foreach(var t in g.roadRows[0].tiles[1].GetComponentsInChildren<Transform>(true))if(t.name=="Blender • "+VietnamStreet.Shops[7]){shop=t;break;}
+   c.transform.position=shop.TransformPoint(new Vector3(-6,22,-14));c.transform.LookAt(shop.TransformPoint(new Vector3(0,22,6)));c.fieldOfView=55;Capture(c,"saigon-street-tower-front");
+  }
+  finally{c.transform.position=pos;c.transform.rotation=rot;c.fieldOfView=fov;}
+  return new{success=true};
+ }
+ // Góc chơi màn hình dọc thật (Game View 540×960) sau khi zoom gần hơn 10% (21.27).
+ public static object Portrait()
+ {
+  var g=Object.FindAnyObjectByType<PhoVietGame>();var c=g.rideCamera;
+  var rt=new RenderTexture(540,960,24);var t=new Texture2D(540,960,TextureFormat.RGB24,false);var old=c.targetTexture;var active=RenderTexture.active;float aspect=c.aspect;
+  c.aspect=540f/960f;c.targetTexture=rt;c.Render();RenderTexture.active=rt;t.ReadPixels(new Rect(0,0,540,960),0,0);t.Apply();System.IO.File.WriteAllBytes("Captures/saigon-street-portrait-zoom.png",t.EncodeToPNG());
+  c.targetTexture=old;c.aspect=aspect;RenderTexture.active=active;Object.DestroyImmediate(t);Object.DestroyImmediate(rt);
+  return new{success=true,fov=c.fieldOfView};
+ }
  static object Run(string prefix)
  {
   var g=Object.FindAnyObjectByType<PhoVietGame>();var c=g.rideCamera;

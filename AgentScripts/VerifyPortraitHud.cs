@@ -24,13 +24,14 @@ public static class VerifyPortraitHud
     call("PositionCamera",new object[]{true});float expanded=g.rideCamera.fieldOfView;
     var renderer=g.rider.GetComponentInChildren<SkinnedMeshRenderer>();float now=projectedHeight(renderer);
     g.rideCamera.fieldOfView=2*Mathf.Atan(Mathf.Tan(65*Mathf.Deg2Rad*.5f)/.75f)*Mathf.Rad2Deg;float before=projectedHeight(renderer);g.rideCamera.fieldOfView=expanded;
-    check(Mathf.Abs(now/before-.70f)<.001f,"Rider projects at 70 percent of 1.27.1 portrait size: chase="+chased+", lane="+lane);
+    check(Mathf.Abs(now/before-.77f)<.001f,"Rider projects at 77 percent of 1.27.1 portrait size (70% zoomed 10% closer): chase="+chased+", lane="+lane);
     check(g.rideCamera.rect==new Rect(0,0,1,1),"Wider view keeps full-screen viewport: "+chased+","+lane);
    }
    g.RestartRide();foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}
    var bike=g.SpawnTraffic(3,0,1);var bottom=new Vector2(Screen.width*.5f,Screen.height*.05f);
    check(!g.RegisterTap(bottom,10),"Single tap in the former controls area does not kick");
-   check(g.RegisterTap(bottom,10.2f)&&bike.knocked,"Double tap in cleared bottom gameplay space still kicks");
+   // Từ 1.30.3 cú đạp áp sát rồi mới hất khi giày chạm (VerifyQuickKick); chạm hai lần phải bắt đầu cú đạp đó.
+   check(g.RegisterTap(bottom,10.2f)&&g.KickAssistActive,"Double tap in cleared bottom gameplay space still starts the assisted kick");
    set("lastTapTime",-100f);g.RegisterTap(new Vector2(Screen.width*.5f,Screen.height-40),12);
    check((float)typeof(PhoVietGame).GetField("lastTapTime",F).GetValue(g)==-100,"Merged HUD/pause area cannot trigger a kick");
    g.ApplyBrowserInsets("{\"top\":0.06,\"bottom\":0.04,\"left\":0.03,\"right\":0.03}");
