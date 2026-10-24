@@ -186,8 +186,8 @@
     "RideJobsReleased": false,
     "jobsEnabled": false
   },
-  "build": "not built",
-  "commit": "not committed",
+  "build": "WebGL1.34.0 Succeeded",
+  "commit": "de04b2954376c63af3920629f390834494ba0334",
   "fixtures_and_clouds": {
     "signals": 140,
     "lamps": 70,
@@ -400,5 +400,8 @@
       "VerifyMeshyCarRoofs": 256,
       "VerifyMeshyLighting": 16
     }
-  }
+  },
+  "publishedVersion": "1.34.0",
+  "currentReleaseProof": "saigon-release-pages.json",
+  "historicalSuiteNote": "Initial suites and subsequent art stages retained as Claude evidence. New release regression: saigon-release-verification-summary.json (1642 native,77 local,26 live)."
 }

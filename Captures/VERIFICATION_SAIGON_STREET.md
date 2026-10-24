@@ -92,3 +92,7 @@ nguyên bộ cũ (đèn đường, đèn tín hiệu và bầu trời đã làm 
 
 - `AgentScripts/RemoveBreadCart.cs`: gỡ 2.912 tam giác xe đẩy khỏi mesh gộp, xóa 70 nhóm chữ, bỏ hộp vật cản (8.050 hộp).
 - 15 suite / 2.017 điều kiện đạt (StreetArt 333, CrashUpgrade 93 sau khi bỏ loại vật cản không còn tồn tại). Ảnh `saigon-street-bunbo-cart-removed.png`.
+
+## Phát hành WebGL1.34.0 (24/10/2026)
+
+Đã đọc/đối chiếu toàn bộ cập nhật Claude, giữ scene/art; build/push/phát hành và xác minh live hoàn tất. Hồi quy mới1.642điều kiện Unity,29bundle,77browser local,26live đạt; không cộng dồn kết quả lịch sử bên trên. VerifyJump đã sửa kỳ vọng chiều cao theo Meshy. Bằng chứng `VERIFICATION_SAIGON_WEB_RELEASE.md`, `saigon-release-pages.json`.

@@ -48,12 +48,16 @@
   "policeNote": "Passed before and after suite chain. Historical intermittent failure was not reproduced; no police runtime changes. Repeat is not added to unique condition count.",
   "jobsEnabled": false,
   "physicalDeviceTested": false,
-  "webPublished": false,
+  "webPublished": true,
   "build": "Succeeded",
   "buildId": "build_7f1d3b13c181",
   "version": "1.34.0",
   "cache": "28a1dc1e64a78083",
   "localBrowserCount": 77,
   "bundleCount": 29,
-  "runtimeErrors": 0
+  "runtimeErrors": 0,
+  "sourceCommit": "de04b2954376c63af3920629f390834494ba0334",
+  "pagesRun": 40069532577,
+  "liveChecks": 26,
+  "releaseProof": "saigon-release-pages.json"
 }

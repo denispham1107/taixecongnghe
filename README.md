@@ -4,11 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.33.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.34.0**.
 
-## Phố Sài Gòn — chuẩn bị phát hành 1.34.0
+## Phố Sài Gòn —1.34.0
 
-Cảnh quan mới của Claude Code: 12 mẫu nhà phố, cửa kính nhìn vào nội thất, biển tên trên tủ, cây xanh và cây chậu, vỉa hè/đồ vật chi tiết, cột đèn đường cong, tín hiệu cần vươn và mây trời. Đã bỏ người đứng vỉa hè và xe đẩy bánh mì cũ. Giữ bộ xe Meshy, điều khiển và chế độ thi quãng đường; công việc vẫn tắt. Chi tiết triển khai ở `huongdan.md` mục21.19–21.27.
+Cảnh quan mới của Claude Code: 12 mẫu nhà phố, cửa kính nhìn vào nội thất, biển tên trên tủ, cây xanh và cây chậu, vỉa hè/đồ vật chi tiết, cột đèn đường cong, tín hiệu cần vươn và mây trời. Đã bỏ người đứng vỉa hè và xe đẩy bánh mì cũ. Giữ bộ xe Meshy, điều khiển và chế độ thi quãng đường; công việc vẫn tắt. Đã build/push/phát hành và xác minh26kiểm tra live,0lỗi runtime. Chi tiết triển khai ở `huongdan.md` mục21.19–21.27.
 
 ## Ô tô Meshy — 1.33.0
 
