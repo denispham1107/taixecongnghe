@@ -1,4 +1,4 @@
-using System;using System.Reflection;using System.Collections.Generic;using UnityEngine;using PhoViet;
+using System;using System.Linq;using System.Reflection;using System.Collections.Generic;using UnityEngine;using PhoViet;
 public static class VerifyRoofRiding
 {
  const BindingFlags F=BindingFlags.Instance|BindingFlags.NonPublic;
@@ -11,7 +11,7 @@ public static class VerifyRoofRiding
   Func<string,object[],object> call=(n,a)=>typeof(PhoVietGame).GetMethod(n,F).Invoke(g,a);
   Action<float> tick=dt=>call("TickRide",new object[]{dt});
   Action reset=()=>{g.jobsEnabled=false;g.trafficSurprises=false;g.recklessTrafficEnabled=false;g.turnExitTrafficEnabled=false;g.RestartRide();foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("spawnTimer",10000f);set("nextIntersectionDistance",float.PositiveInfinity);};
-  var checks=new List<string>();var failures=new List<string>();int cases=0,lateCases=0;
+  var checks=new List<string>();var failures=new List<string>();int cases=0,lateCases=0,stepCases=0;
   Action<bool,string> check=(ok,s)=>{if(ok)checks.Add(s);else failures.Add(s);};
   try
   {
@@ -30,8 +30,10 @@ public static class VerifyRoofRiding
      var flight=new List<Vector3>{new Vector3(0,0,0)};
      for(int i=0;i<300;i++){oldHeight=g.RiderJumpHeight;oldDistance=g.Distance;tick(dt);time+=dt;flight.Add(new Vector3(time,g.RiderJumpHeight,g.Distance-startDistance));if(g.RiderJumpHeight>peak){peak=g.RiderJumpHeight;apex=time;}if(oldHeight>roof&&g.RiderJumpHeight<=roof)break;}
      float fraction=Mathf.InverseLerp(oldHeight,g.RiderJumpHeight,roof),contactTime=time-dt+fraction*dt,contactDistance=Mathf.Lerp(oldDistance,g.Distance,fraction);
-     foreach(float speed in new[]{-12f,0f,7f,28f})foreach(float offset in new[]{-.5f,0f,.5f})
+     foreach(float nominal in new[]{-12f,0f,7f,28f})foreach(float offset in new[]{-.5f,0f,.5f})
      {
+      // Xe tăng Meshy chỉ chạy 40% tốc độ ô tô (speedScale, 21.33): thử ở tốc độ thật nó có thể có.
+      float speed=nominal*(meshy!=null?meshy.variants[variant].speedScale:1);
       float spawnZ=contactDistance-speed*contactTime+offset;
       // A late jump: the vehicle body reaches the free-flight path while the rider is still
       // climbing below it (e.g. a 12.8 m container overtaking at 28 m/s arrives 0.3 s after
@@ -55,6 +57,14 @@ public static class VerifyRoofRiding
        check(g.State==PhoVietGame.RideState.Falling,"Late jump is a real impact and fall: "+label);
        check(crashAt>0&&crashAt<=apex+dt,"Late-jump impact happens while still climbing, before the planned touchdown: "+label);
       }
+      else if(meshy!=null&&meshy.variants[variant].armored&&g.State==PhoVietGame.RideState.Falling&&supportTime>0)
+      {
+       // Xe tăng (21.33): đáp lên nòng pháo/sàn trước (~1,40 m) rồi gặp tháp pháo cao hơn (~1,7–1,8 m) là va chạm thật
+       // theo luật "đang trên nóc gặp phần cao hơn thì đâm" (JumpClearsVehicle), như đâm vách thùng từ cabin thấp.
+       // Chỉ chấp nhận khi đã thực sự được nóc đỡ và phía sau phần trước có phần cao hơn ≥0,2 m.
+       stepCases++;var prof=meshy.variants[variant].roofProfile;float front=prof[prof.Length-1].y,highest=prof.Max(q=>q.y);
+       check(supported&&highest-front>.2f,"Tank landing on the low front then meeting the higher turret is a real step impact: "+label+",rise="+(highest-front));
+      }
       else
       {
        check(supported,"Real ballistic jump contacts roof: "+label);
@@ -65,7 +75,7 @@ public static class VerifyRoofRiding
      }
     }
    }
-   return new{success=failures.Count==0,count=checks.Count,cases,lateCases,failures,checks};
+   return new{success=failures.Count==0,count=checks.Count,cases,lateCases,stepCases,failures,checks};
   }
   finally{g.jobsEnabled=jobs;g.recklessTrafficEnabled=danger;g.trafficSurprises=surprises;g.turnExitTrafficEnabled=exits;PlayerPrefs.SetInt("PhoViet.Coins.v1",coins);PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.Save();g.ResetRide();Time.timeScale=scale;}
  }

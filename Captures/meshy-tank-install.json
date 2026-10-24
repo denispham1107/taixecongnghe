@@ -1,0 +1,41 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InstallMeshyTank.cs",
+      "entry": "InstallMeshyTank.Main",
+      "timeout_ms": "600000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 1416,
+      "executeMs": 7750,
+      "assemblyName": "PipelineRunScript_InstallMeshyTank_134e2b1cbe734087875974fe5c95eeda",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 11,
+        "models": [
+          "PV_MeshySport",
+          "PV_MeshyPickup",
+          "PV_MeshyCovered",
+          "PV_MeshyContainer",
+          "PV_MeshyTank"
+        ],
+        "heavyVariants": 2,
+        "tankSlots": 5,
+        "policeUnchanged": true,
+        "jobsEnabled": false
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

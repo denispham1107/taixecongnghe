@@ -117,7 +117,7 @@ namespace PhoViet
             if(fresh)
             {
                 Vector3 velocity=BodyVelocity(hit);float closing=-Vector2.Dot(Flat(velocity-policeVelocity),normal);
-                if(closing>.35f&&!hit.wallCrashed)
+                if(closing>.35f&&!hit.wallCrashed&&!hit.armored)
                 {
                     float impulse=1.12f*closing/(1/VehicleMass(policeBody)+1/VehicleMass(hit));
                     Vector2 push=normal*impulse;

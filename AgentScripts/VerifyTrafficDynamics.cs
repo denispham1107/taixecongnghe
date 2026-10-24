@@ -19,12 +19,25 @@ public static class VerifyTrafficDynamics
         Action<string,object[]> call=(n,a)=>typeof(PhoVietGame).GetMethod(n,F).Invoke(g,a);
         Action<float> tick=dt=>call("TickRide",new object[]{dt});
         Action clean=()=>{g.RestartRide();foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("spawnTimer",10000);set("nextIntersectionDistance",float.PositiveInfinity);g.recklessTrafficEnabled=false;};
+        // Xe băng ngang thường cho các bài thử này: bỏ qua lượt ra xe tăng (21.33).
+        Func<int,bool,float,float,PhoVietGame.TrafficVehicle> cross=(direction,car,speed,delay)=>
+        {
+            var v=g.SpawnCrossTraffic(direction,70,car,speed,delay);
+            for(int retry=0;retry<40&&v!=null&&v.armored;retry++){v.active=false;v.model.gameObject.SetActive(false);v=g.SpawnCrossTraffic(direction,70,car,speed,delay);}
+            return v;
+        };
+        Func<PhoVietGame.TrafficVehicle,bool> truck=v=>v.model.GetComponent<MeshyCarVariants>()?.variants.Any(x=>x.asset=="PV_MeshyCovered")==true;
         Func<int,int,float,PhoVietGame.TrafficVehicle> spawn=(kind,lane,z)=>
         {
-            int index=g.vehicles.FindIndex(v=>!v.eventOnly&&!v.active&&(kind==2?v.halfLength>3:kind==1?v.halfWidth>.7f&&v.halfLength<3&&!v.model.name.Contains("tải"):v.halfWidth<.7f));
+            // Phân loại theo vai trò ô (xe tải có mẫu Covered), không theo hình đang chọn: ô xe con có thể đang mang hình xe tăng 7 m (21.33).
+            int index=g.vehicles.FindIndex(v=>!v.eventOnly&&!v.active&&(kind==2?truck(v):kind==1?v.halfWidth>.7f&&!truck(v)&&!v.model.name.Contains("tải"):v.halfWidth<.7f));
             if(index<0)throw new Exception("No pool entry for kind="+kind);
             // These fixtures isolate brakes/lane changes; a nearby recycled junction must not randomly start a road turn.
-            var v=g.SpawnTraffic(lane,z,index);v.hasTurned=true;v.brakeCooldown=10000;v.laneCooldown=10000;return v;
+            var v=g.SpawnTraffic(lane,z,index);
+            // Các bài thử vật lý xe–xe này dành cho ô tô thường; xe tăng (khối lượng vô hạn) có VerifyMeshyTank riêng.
+            for(int retry=0;retry<40&&v.armored;retry++){v.active=false;v.model.gameObject.SetActive(false);v=g.SpawnTraffic(lane,z,index);}
+            if(v.armored)throw new Exception("Could not spawn an ordinary car for kind="+kind);
+            v.hasTurned=true;v.brakeCooldown=10000;v.laneCooldown=10000;return v;
         };
         Action<PhoVietGame.TrafficVehicle,Vector3,float> place=(v,p,s)=>{v.model.localPosition=p;v.previousPosition=p;v.speed=s;v.baseTrafficSpeed=s;v.motionVelocity=Vector3.zero;v.model.localRotation=Quaternion.Euler(0,s<0?180:0,0);};
         Func<PhoVietGame.TrafficVehicle,Vector3> velocity=v=>v.knocked?v.knockVelocity:new Vector3(0,0,v.speed);
@@ -32,7 +45,7 @@ public static class VerifyTrafficDynamics
         try
         {
             Time.timeScale=0;g.trafficSurprises=true;
-            check(g.vehicles.Count(v=>!v.eventOnly&&v.halfLength>3)==2,"Saved scene includes two ordinary medium trucks");
+            check(g.vehicles.Count(v=>!v.eventOnly&&truck(v))==2,"Saved scene includes two ordinary medium trucks");
             foreach(int kind in new[]{0,1,2})
             {
                 clean();var v=spawn(kind,3,25);float old=v.speed;
@@ -61,7 +74,7 @@ public static class VerifyTrafficDynamics
 
             foreach(int direction in new[]{-1,1})foreach(int choice in new[]{-1,1})foreach(bool car in new[]{false,true})
             {
-                clean();var v=g.SpawnCrossTraffic(direction,70,car,8);v.turnChoice=choice;float largestStep=0;Vector3 before=v.model.localPosition;
+                clean();var v=cross(direction,car,8,0);v.turnChoice=choice;float largestStep=0;Vector3 before=v.model.localPosition;
                 for(int i=0;i<250&&v.crossing;i++)
                 {
                     call("TickIntersectionVehicle",new object[]{v,.02f});largestStep=Mathf.Max(largestStep,(v.model.localPosition-before).magnitude);before=v.model.localPosition;
@@ -71,9 +84,9 @@ public static class VerifyTrafficDynamics
                 check(largestStep<.6f,"Turning motion stays continuous along a road arc: "+direction+","+choice+","+car);
                 check(Mathf.Abs(v.model.localPosition.x-PhoVietGame.LaneX[v.lane])<.001f&&(sign>0?v.lane>=2:v.lane<2),"Turn exits into correct directional lane: "+direction+","+choice+","+car);
             }
-            clean();var waiting=g.SpawnCrossTraffic(1,70,false,8,1);waiting.turnChoice=1;call("TickIntersectionVehicle",new object[]{waiting,.2f});
+            clean();var waiting=cross(1,false,8,1);waiting.turnChoice=1;call("TickIntersectionVehicle",new object[]{waiting,.2f});
             check(!waiting.turning&&waiting.model.localPosition.x==-16,"Waiting crossing vehicle cannot turn before release");
-            clean();var straight=g.SpawnCrossTraffic(-1,70,true,8);straight.turnChoice=0;for(int i=0;i<200;i++)call("TickIntersectionVehicle",new object[]{straight,.02f});
+            clean();var straight=cross(-1,true,8,0);straight.turnChoice=0;for(int i=0;i<200;i++)call("TickIntersectionVehicle",new object[]{straight,.02f});
             check(!straight.hasTurned&&Mathf.Abs(straight.model.localPosition.x+16)<.01f,"Some junction traffic still continues straight");
 
             // Frontal impact: same mass, momentum conserved and energy dissipated, no lateral random force.

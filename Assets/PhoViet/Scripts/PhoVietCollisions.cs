@@ -121,8 +121,10 @@ namespace PhoViet
                 Vector2 contact=(impactA+impactB)*.5f,leverA=contact-impactA,leverB=contact-impactB;
                 Vector3 av=BodyVelocity(a),bv=BodyVelocity(b);
                 Vector2 relative=Flat(bv-av)+SpinVelocity(b,leverB)-SpinVelocity(a,leverA);float closing=-Vector2.Dot(relative,normal);
-                float invA=a.wallCrashed?0:1/VehicleMass(a),invB=b.wallCrashed?0:1/VehicleMass(b),sum=invA+invB;
-                float invIA=a.wallCrashed?0:1/BodyInertia(a),invIB=b.wallCrashed?0:1/BodyInertia(b);
+                // Xe tăng như vật khối lượng vô hạn: giữ hướng/tốc độ, xe kia nhận toàn bộ xung lực và văng ra.
+                bool fixedA=a.wallCrashed||a.armored,fixedB=b.wallCrashed||b.armored;
+                float invA=fixedA?0:1/VehicleMass(a),invB=fixedB?0:1/VehicleMass(b),sum=invA+invB;
+                float invIA=fixedA?0:1/BodyInertia(a),invIB=fixedB?0:1/BodyInertia(b);
                 if(sum<=0)continue;
                 if(closing<.35f)
                 {
@@ -141,13 +143,13 @@ namespace PhoViet
                 bool credited=a.knockFromPlayer||b.knockFromPlayer;
                 bool newA=!a.knocked,newB=!b.knocked;
                 if((a.isReckless&&newB)||(b.isReckless&&newA))RecklessRamCount++;
-                if(!a.wallCrashed)ActivateCollisionBody(a,av,aAfter,-push,contact-impactA,credited,newA,closing);
-                if(!b.wallCrashed)ActivateCollisionBody(b,bv,bAfter,push,contact-impactB,credited,newB,closing);
+                if(!fixedA)ActivateCollisionBody(a,av,aAfter,-push,contact-impactA,credited,newA,closing);
+                if(!fixedB)ActivateCollisionBody(b,bv,bAfter,push,contact-impactB,credited,newB,closing);
                 if(at>0)
                 {
                     // Restore the impact position for a swept hit, preventing vehicles passing through each other.
-                    if(!a.wallCrashed)a.model.localPosition=Vector3.Lerp(a.previousPosition,a.model.localPosition,at);
-                    if(!b.wallCrashed)b.model.localPosition=Vector3.Lerp(b.previousPosition,b.model.localPosition,at);
+                    if(!fixedA)a.model.localPosition=Vector3.Lerp(a.previousPosition,a.model.localPosition,at);
+                    if(!fixedB)b.model.localPosition=Vector3.Lerp(b.previousPosition,b.model.localPosition,at);
                 }
                 else if(depth>0)SeparateBodies(a,b,normal,Mathf.Min(depth,2),invA/sum,invB/sum);
                 contactUntil[i,j]=timeRiding+.12f;TrafficCollisions++;
@@ -157,8 +159,8 @@ namespace PhoViet
         static void SeparateBodies(TrafficVehicle a,TrafficVehicle b,Vector2 normal,float depth,float shareA,float shareB)
         {
             Vector3 separation=new Vector3(normal.x,0,normal.y)*(depth+.01f);
-            if(!a.wallCrashed)a.model.localPosition-=separation*shareA;
-            if(!b.wallCrashed)b.model.localPosition+=separation*shareB;
+            if(!a.wallCrashed&&!a.armored)a.model.localPosition-=separation*shareA;
+            if(!b.wallCrashed&&!b.armored)b.model.localPosition+=separation*shareB;
         }
         void ActivateCollisionBody(TrafficVehicle v,Vector3 before,Vector3 after,Vector2 impulse,Vector2 lever,bool credited,bool newlyHit,float closing)
         {

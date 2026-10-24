@@ -17,6 +17,9 @@ namespace PhoViet
             public Vector3 size,headlight,taillight;
             public Vector2[] roofProfile;
             public float wheelRadius;
+            // Xe tăng: trọng số chọn ngẫu nhiên, không bị xung lực, chạy chậm, giữ một màu gốc.
+            public float weight=1,speedScale=1;
+            public bool armored,fixedPaint;
         }
         public Variant[] variants;
         public CarVisualAnimator driver;
@@ -33,13 +36,22 @@ namespace PhoViet
         static readonly int Paint=Shader.PropertyToID("_PaintColor");
         bool prepared;
 
-        public void SelectForSpawn(System.Random random,PhoVietGame.TrafficVehicle vehicle)
+        public bool Armored=>variants[SelectedVariant].armored;
+        public void SelectForSpawn(System.Random random,PhoVietGame.TrafficVehicle vehicle,bool allowArmored=true)
         {
             if(prepared){prepared=false;return;}
-            Select(random.Next(variants.Length),random.Next(Paints.Length),vehicle);
+            // Chọn theo trọng số; mẫu bọc thép bị loại khi xe phải vượt lên từ phía sau.
+            float total=0;foreach(var v in variants)if(allowArmored||!v.armored)total+=Mathf.Max(0,v.weight);
+            float pick=(float)random.NextDouble()*total;int index=0;
+            for(int i=0;i<variants.Length;i++)
+            {
+                if(!allowArmored&&variants[i].armored)continue;
+                index=i;pick-=Mathf.Max(0,variants[i].weight);if(pick<0)break;
+            }
+            Select(index,random.Next(Paints.Length),vehicle);
         }
-        public void PrepareForSpawn(System.Random random,PhoVietGame.TrafficVehicle vehicle)
-        {if(prepared)return;SelectForSpawn(random,vehicle);prepared=true;}
+        public void PrepareForSpawn(System.Random random,PhoVietGame.TrafficVehicle vehicle,bool allowArmored=true)
+        {if(prepared)return;SelectForSpawn(random,vehicle,allowArmored);prepared=true;}
         public void Select(int index,int paint,PhoVietGame.TrafficVehicle vehicle)
         {
             SelectedVariant=index;PaintIndex=paint;var v=variants[index];
@@ -54,6 +66,7 @@ namespace PhoViet
             if(Application.isPlaying)driver.Initialize();
             // Preserve AssetName's gameplay role; ModelAsset identifies the received shape.
             vehicle.halfWidth=v.size.x*.5f;vehicle.halfLength=v.size.z*.5f;
+            vehicle.armored=v.armored;vehicle.speedScale=v.speedScale>0?v.speedScale:1;
             var sign=transform.Find("Biển xe nguy hiểm");if(sign!=null)sign.localPosition=new Vector3(0,v.size.y+.4f,0);
             if(headAnchor!=null)Mount(headAnchor,v.bumperFront,v.headlight);
             for(int i=0;i<frontHalos.Length;i++)Mount(frontHalos[i],v.bumperFront,new Vector3((i==0?-1:1)*v.size.x*.32f,v.headlight.y,v.headlight.z));
@@ -63,7 +76,7 @@ namespace PhoViet
                 for(int i=0;i<vehicle.brakeLights.childCount;i++)vehicle.brakeLights.GetChild(i).localPosition=new Vector3((i==0?-1:1)*v.taillight.x,v.taillight.y,v.taillight.z);
             }
             foreach(var variant in variants)foreach(var skin in variant.skins)
-            {skin.GetPropertyBlock(block);block.SetColor(Paint,Paints[paint]);skin.SetPropertyBlock(block);}
+            {skin.GetPropertyBlock(block);block.SetColor(Paint,variant.fixedPaint?Color.white:Paints[paint]);skin.SetPropertyBlock(block);}
         }
         void Mount(Transform anchor,Transform bone,Vector3 local)
         {anchor.SetParent(bone,false);anchor.position=transform.TransformPoint(local);anchor.rotation=transform.rotation;}

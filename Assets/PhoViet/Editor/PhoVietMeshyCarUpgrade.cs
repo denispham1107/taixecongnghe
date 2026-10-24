@@ -12,10 +12,12 @@ namespace PhoViet.Editor
     public static class PhoVietMeshyCarUpgrade
     {
         public const string Folder="Assets/PhoViet/Art/Cars/Meshy/";
-        public static readonly string[] Models={"PV_MeshySport","PV_MeshyPickup","PV_MeshyCovered","PV_MeshyContainer"};
+        public static readonly string[] Models={"PV_MeshySport","PV_MeshyPickup","PV_MeshyCovered","PV_MeshyContainer","PV_MeshyTank"};
+        // Xe tăng (24/10/2026) là mẫu thứ hai của 3 ô xe con, xuất hiện 1/3 số lần (trọng số .5 so với xe thể thao 1).
+        public const float TankWeight=.5f;
         [Serializable] sealed class Axle {public float x,y,z,radius;}
         [Serializable] sealed class Metadata
-        {public string name,design;public float[] size,headlight,taillight;public Axle[] axles;public float wheel_radius;}
+        {public string name,design;public float[] size,headlight,taillight;public Axle[] axles;public float wheel_radius,speedScale;public bool armored,fixedPaint;}
         // JsonUtility does not support nested arrays; read the profile as explicit samples.
         [Serializable] sealed class RoofData {public Vector2[] samples;}
         static Vector3 V(float[] p)=>new Vector3(p[0],p[1],p[2]);
@@ -48,7 +50,7 @@ namespace PhoViet.Editor
                 vehicle.brakeLights=null;
                 var component=root.GetComponent<MeshyCarVariants>()??root.gameObject.AddComponent<MeshyCarVariants>();component.driver=driver;
                 component.headAnchor=lamp.head;component.frontHalos=lamp.halos.Where(h=>!h.rear).Select(h=>h.source).ToArray();component.tailHalos=lamp.halos.Where(h=>h.rear).Select(h=>h.source).ToArray();
-                string[] names=role=="PV_BoxTruck"||role=="PV_DrowsyTruck"?new[]{Models[2],Models[3]}:role=="PV_DeliveryVan"?new[]{Models[1]}:new[]{Models[0]};
+                string[] names=role=="PV_BoxTruck"||role=="PV_DrowsyTruck"?new[]{Models[2],Models[3]}:role=="PV_DeliveryVan"?new[]{Models[1]}:new[]{Models[0],Models[4]};
                 component.variants=names.Select(name=>Create(root,name)).ToArray();component.Select(0,count%8,vehicle);
                 var sign=root.Find("Biển xe nguy hiểm");if(sign!=null)sign.localPosition=new Vector3(0,component.Height+.4f,0);
                 EditorUtility.SetDirty(component);EditorUtility.SetDirty(driver);count++;
@@ -63,7 +65,7 @@ namespace PhoViet.Editor
             if(policeBefore!=EditorJsonUtility.ToJson(police))throw new Exception("Police changed");
             if(game.jobsEnabled||PhoVietGame.RideJobsReleased)throw new Exception("Jobs must stay locked");
             EditorUtility.SetDirty(game);EditorUtility.SetDirty(game.daylight);AssetDatabase.SaveAssets();EditorSceneManager.MarkSceneDirty(game.gameObject.scene);EditorSceneManager.SaveScene(game.gameObject.scene);
-            return new{success=true,count,models=Models,heavyVariants=2,policeUnchanged=true,jobsEnabled=game.jobsEnabled};
+            return new{success=true,count,models=Models,heavyVariants=2,tankSlots=game.vehicles.Count(v=>v.model.GetComponent<MeshyCarVariants>()?.variants.Any(x=>x.armored)==true),policeUnchanged=true,jobsEnabled=game.jobsEnabled};
         }
         static void Configure(string name)
         {
@@ -94,7 +96,8 @@ namespace PhoViet.Editor
             var clips=AssetDatabase.LoadAllAssetsAtPath(Folder+name+".fbx").OfType<AnimationClip>().Where(c=>PhoVietCarUpgrade.ClipNames.Contains(c.name)).ToArray();if(clips.Length!=7)throw new Exception(name+": clips");
             var bones=go.GetComponentsInChildren<Transform>(true);var suffix=new List<string>();for(int a=0;a<info.axles.Length;a++){string end=a==0?"F":a==1?"R":"R"+a;suffix.Add(end+"L");suffix.Add(end+"R");}
             return new MeshyCarVariants.Variant{asset=name,visual=go.transform,body=bones.Single(t=>t.name=="Body"),bumperFront=bones.Single(t=>t.name=="BumperFront"),bumperRear=bones.Single(t=>t.name=="BumperRear"),
-                wheels=suffix.Select(s=>bones.Single(t=>t.name=="Wheel"+s)).ToArray(),steering=suffix.Select(s=>bones.Single(t=>t.name=="Steer"+s)).ToArray(),skins=skins,animationPlayer=player,clips=clips,size=V(info.size),wheelRadius=info.wheel_radius,headlight=V(info.headlight),taillight=V(info.taillight),roofProfile=profile.samples};
+                wheels=suffix.Select(s=>bones.Single(t=>t.name=="Wheel"+s)).ToArray(),steering=suffix.Select(s=>bones.Single(t=>t.name=="Steer"+s)).ToArray(),skins=skins,animationPlayer=player,clips=clips,size=V(info.size),wheelRadius=info.wheel_radius,headlight=V(info.headlight),taillight=V(info.taillight),roofProfile=profile.samples,
+                armored=info.armored,fixedPaint=info.fixedPaint,speedScale=info.speedScale>0?info.speedScale:1,weight=info.armored?TankWeight:1};
         }
     }
 }

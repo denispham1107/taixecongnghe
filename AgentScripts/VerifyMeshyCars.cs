@@ -21,7 +21,8 @@ public static class VerifyMeshyCars
    foreach(var v in cars)
    {
     var c=v.model.GetComponent<MeshyCarVariants>();var d=c.driver;v.active=true;v.model.gameObject.SetActive(true);v.model.localRotation=Quaternion.identity;v.model.localPosition=new Vector3(0,0,30);
-    check(c.variants.Length==(v.eventOnly||d.AssetName=="PV_BoxTruck"?2:1),v.model.name+": correct civilian/dual truck variants");
+    // Từ 21.33 ô sedan/hatchback/taxi có thêm mẫu xe tăng Meshy; xe giao hàng giữ một mẫu.
+    check(c.variants.Length==(v.eventOnly||d.AssetName=="PV_BoxTruck"?2:d.AssetName=="PV_DeliveryVan"?1:2),v.model.name+": correct civilian/dual truck/tank variants");
     for(int i=0;i<c.variants.Length;i++)
     {
      c.Select(i,3,v);var e=c.variants[i];v.speed=v.baseTrafficSpeed=14;d.Advance(.1f);

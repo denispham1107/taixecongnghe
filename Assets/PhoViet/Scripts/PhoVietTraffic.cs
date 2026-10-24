@@ -23,7 +23,10 @@ namespace PhoViet
         void InitializeDriver(TrafficVehicle v)
         {
             var meshy=v.model.GetComponent<MeshyCarVariants>();
+            v.armored=false;v.speedScale=1;
             if(meshy!=null)meshy.SelectForSpawn(rng,v);
+            // Xe tăng luôn chậm hơn 60%: mọi tốc độ đặt lúc xuất hiện (dọc/ngược/băng ngang) nhân speedScale.
+            if(v.speedScale!=1){v.speed*=v.speedScale;v.baseTrafficSpeed=v.speed;v.crossSpeed*=v.speedScale;}
             v.spawnGeneration++;
             v.previousCrashWidth=-1;
             v.recovery=null;

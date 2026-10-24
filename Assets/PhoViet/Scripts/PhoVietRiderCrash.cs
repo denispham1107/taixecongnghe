@@ -58,11 +58,12 @@ namespace PhoViet
    // direction instead of an arbitrary side, including for very fast swept hits.
    if(closing<.35f&&relative.sqrMagnitude>.1f){normal=-relative.normalized;closing=relative.magnitude;}
    closing=Mathf.Max(.35f,closing);LastRiderImpactSpeed=closing;
-   float invA=1f/220,invB=hit==null||hit.wallCrashed?0:1f/VehicleMass(hit);
+   bool hitFixed=hit==null||hit.wallCrashed||hit.armored;
+   float invA=1f/220,invB=hitFixed?0:1f/VehicleMass(hit);
    Vector2 lever=Flat(contact-rider.localPosition),otherLever=hit==null?Vector2.zero:Flat(contact-hit.model.localPosition);
    float torque=LeverCross(lever,normal),otherTorque=LeverCross(otherLever,normal);
    float inertia=220*(4*.33f*.33f+4*.91f*.91f)/12;
-   float denominator=invA+invB+torque*torque/inertia+(hit==null||hit.wallCrashed?0:otherTorque*otherTorque/BodyInertia(hit));
+   float denominator=invA+invB+torque*torque/inertia+(hitFixed?0:otherTorque*otherTorque/BodyInertia(hit));
    float impulse=1.12f*closing/denominator;
    Vector2 tangent=new Vector2(-normal.y,normal.x);
    float friction=Mathf.Clamp(-Vector2.Dot(relative,tangent)/(invA+invB),-impulse*.24f,impulse*.24f);
@@ -77,7 +78,7 @@ namespace PhoViet
    fallTargetRoll=side*78;fallTargetPitch=side==0?Mathf.Clamp(-localDelta.z*4,-78,78):Mathf.Clamp(-localDelta.z*1.5f,-24,24);
    if(Mathf.Abs(fallTargetRoll)+Mathf.Abs(fallTargetPitch)<20)fallTargetPitch=55;
    riderFallSpin+=new Vector3(Mathf.Clamp(-localDelta.z*2.5f,-110,110),Mathf.Clamp(-LeverCross(lever,push)/inertia*Mathf.Rad2Deg,-180,180),Mathf.Clamp(-localDelta.x*9,-170,170));
-   if(hit!=null&&!hit.wallCrashed)
+   if(!hitFixed)
    {
     Vector3 otherAfter=other+new Vector3(push.x,0,push.y)*invB;
     ActivateCollisionBody(hit,other,otherAfter,push,otherLever,false,!hit.knocked,closing);TrafficCollisions++;

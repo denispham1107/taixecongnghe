@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +28,8 @@ public static class VerifyCrashPoliceNavigation
   };
   Func<Vector3,float,PhoVietGame.TrafficVehicle> truck=(p,yaw)=>
   {
-   int index=g.vehicles.FindIndex(v=>!v.active&&!v.eventOnly&&v.halfLength>3);var v=g.SpawnTraffic(2,p.z,index);
+   // Chọn theo vai trò ô xe tải (có mẫu Covered), không theo hình đang chọn: ô xe con có thể đang là xe tăng 7 m (21.33).
+   int index=g.vehicles.FindIndex(v=>!v.active&&!v.eventOnly&&v.model.GetComponent<MeshyCarVariants>()?.variants.Any(x=>x.asset=="PV_MeshyCovered")==true);var v=g.SpawnTraffic(2,p.z,index);
    v.model.localPosition=v.previousPosition=p;v.model.localRotation=Quaternion.Euler(0,yaw,0);v.previousYaw=yaw;
    v.speed=v.baseTrafficSpeed=0;v.motionVelocity=Vector3.zero;v.knockVelocity=Vector3.zero;v.wallCrashed=v.knocked=false;v.recovery=null;
    v.routeDetached=true;v.routeVelocity=Vector3.zero;return v;

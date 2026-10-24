@@ -38,6 +38,9 @@ namespace PhoViet
             public Vector3 routeVelocity;
             public Vector3 routeEffectOffset;
             public float rearEntryBoost;
+            // Xe tăng Meshy (24/10/2026): khối lượng vô hạn trong va chạm, tốc độ ×speedScale (0,4 = chậm hơn 60%).
+            [NonSerialized] public bool armored;
+            [NonSerialized] public float speedScale=1;
             public int jobYieldLane=-1;
             [NonSerialized] public int spawnGeneration;
             [NonSerialized] public float previousCrashWidth=-1;

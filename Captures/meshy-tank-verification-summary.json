@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-24",
+  "feature": "Meshy tank Iron Sentinel as random car-slot traffic",
+  "source": "Assets/MeshyImports/Iron Sentinel_20261024_170520",
+  "asset": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank.fbx",
+  "lodTriangles": [
+    14153,
+    6227,
+    2264
+  ],
+  "size": [
+    2.51,
+    2.1,
+    7.0
+  ],
+  "slots": 5,
+  "weight": 0.5,
+  "speedScale": 0.4,
+  "suites": {
+    "VerifyMeshyTank": 1129,
+    "VerifyMeshyCars": 1266,
+    "VerifyMeshyCarRoofs": 256,
+    "VerifyTrafficDynamics": 82,
+    "VerifyCrashUpgrade": 93,
+    "VerifyRiderContacts": 45,
+    "VerifyCrashOutcome": 51,
+    "VerifyGameplay": 23,
+    "VerifyDistanceMode": 31,
+    "VerifyQuickKick": 62,
+    "VerifyJunctionKick": 216,
+    "VerifySmoothTurns": 468,
+    "VerifyJump": 44,
+    "VerifyTruckJump": 125,
+    "VerifyRoofRiding": 4206,
+    "VerifyBoost": 35,
+    "VerifyBoostTrafficIsolation": 478,
+    "VerifyNightJumpLighting": 88,
+    "VerifyLaneSteering": 123,
+    "VerifyStreetArt": 333,
+    "VerifyJunctionRoutes": 92,
+    "VerifyRoadDrivers": 45,
+    "VerifyCrashPoliceNavigation": 214,
+    "VerifyMeshyLighting": 16
+  },
+  "totalConditions": 9521,
+  "tankData": [
+    "tankShare = 0.3116667",
+    "sameDirectionSpeedRatio = 0.3940849",
+    "tankMean = 3.58",
+    "carMean = 9.084337",
+    "car-rear-ends-tank = { velocityChange = 16.82544, otherBefore = (0.00, 0.00, 16.00), otherAtHit = (0.00, 0.86, -0.80) }",
+    "tank-rear-ends-car = { velocityChange = 8.852945, otherBefore = (0.00, 0.00, 0.50), otherAtHit = (0.00, 0.23, 9.35) }",
+    "bike-rear-ends-tank = { velocityChange = 16.92377, otherBefore = (0.00, 0.00, 16.00), otherAtHit = (0.00, 2.02, -0.80) }",
+    "tank-meets-oncoming-car = { velocityChange = 13.89108, otherBefore = (0.00, 0.00, -10.00), otherAtHit = (0.00, 0.63, 3.88) }"
+  ],
+  "build": "not built",
+  "commit": "not committed"
+}
