@@ -69,7 +69,9 @@ public static class VerifyJump
    check(g.blocks.TrueForAll(b=>Mathf.Abs(b.position.y)<.01f),"Turning in air does not lift or sink the streets");
    reset();var body=spawn("PV_Sedan");g.TryJump();tick(.02f);check(g.State==PhoVietGame.RideState.Falling,"Insufficient takeoff clearance hits car body and starts a physical crash");
    check(!g.RiderAirborne&&!g.RiderJumpActive,"Crash clears jump and roof state");
-   reset();var truck=g.vehicles.Find(v=>v.halfLength>3);truck.model.localRotation=Quaternion.identity;check(PhoVietGame.JumpRoofHeight(truck)>3,"Upright medium box/drowsy trucks now have eligible roofs");
+   reset();var truck=g.vehicles.Find(v=>v.halfLength>3);truck.model.localRotation=Quaternion.identity;
+   float truckRoof=PhoVietGame.JumpRoofHeight(truck);var truckVisual=truck.model.GetComponent<MeshyCarVariants>();
+   check(truckRoof>0&&(truckVisual==null?truckRoof>3:truckRoof<=truckVisual.Height+.05f),"Upright truck has an eligible roof within its actual selected model height (Meshy trucks replace the old >3m body)");
    reset();call("StartChase",new object[0]);var collision=spawn("PV_Sedan");g.TryJump();tick(.02f);
    check(g.State==PhoVietGame.RideState.Falling,"Body collision during pursuit still starts a physical crash");
    reset();call("StartChase",new object[0]);g.TryJump();g.Arrest();check(g.State==PhoVietGame.RideState.Arrested,"Police capture still ends immediately during a jump");

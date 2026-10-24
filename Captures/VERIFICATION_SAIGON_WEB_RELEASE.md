@@ -1,0 +1,13 @@
+# Phố Việt 1.34.0 — cảnh phố Sài Gòn (24/10/2026)
+
+Người dùng yêu cầu đọc toàn bộ thay đổi Claude rồi build/phát hành web. Đã đọc hết huongdan.md và mã mới, giữ tác phẩm/scene Claude; không chạy lại installer/rebuild phố hoặc Blender. Cảnh ngày/đêm và đồ vật được đối chiếu bằng ảnh; không tuyên bố đo điện thoại vật lý.
+
+- Phạm vi: 12 mặt tiền/kính/nội thất/biển tủ, 3 cây/chậu/vỉa hè, đèn cong/tín hiệu và mây; gỡ người đứng/xe đẩy. 735 nhóm /8.050 hộp, 1.260 LOD phố, 1.350 renderer kính, 420 bóng tín hiệu. Giữ 4 ô tô Meshy, 33 xe máy/CSGT, 30 binding đèn xe và jobs khóa.
+- 10 suite / **1.642 điều kiện Unity đạt**, xem `saigon-release-verification-summary.json` và `saigon-release-Verify*-results.json`: StreetArt333, CrashUpgrade93, JunctionRoutes92, SmoothTurns468, NightJumpLighting88, MeshyCarRoofs256, DistanceMode31, Jump44, Gameplay23, CrashPoliceNavigation214.
+- CSGT đạt thêm214 khi chạy sau chuỗi hồi quy (không cộng trùng vào1.642). Lỗi chập chờn Claude ghi lại chưa tái hiện; không đổi runtime CSGT hoặc tuyên bố đã sửa lỗi này.
+- `VerifyJump` dùng chiều cao mẫu Meshy hiện chọn thay kỳ vọng >3m của mẫu tải cũ. Giữ mọi kiểm tra nhảy/đáp/va chạm thật; MeshyCarRoofs có64 quỹ đạo thật. Không sửa vật lý hoặc tăng kích thước mẫu để làm test pass.
+- Preflight Edit Mode xác nhận đúng scene, không bẩn/thiếu tài nguyên; source scene/art không đổi trong kiểm tra (SHA256 đối chiếu snapshot trước thử). `saigon-release-model-preflight.json`, `saigon-release-scene-preflight.json`, `saigon-release-final-preflight.json`.
+- **Build** `build_7f1d3b13c181` Succeeded,244.124ms,88.100.101byte,0lỗi/3warning đã biết (Pipeline config,dragging,hudTouchChoice). Cache`28a1dc1e64a78083`,UTC`2026-10-24T05:24:29.4681080Z`; packedAssets xác nhận kính/palette/Generated mới,0nguồn MeshyImports vào runtime. **29 kiểm tra bundle đạt**, đúng4hash cuối, precache88.098.552byte. Đang kiểm browser local trước push; web hiện1.33.0. Các file Wave/Blender cũ/Packages/Bridge ngoài phạm vi giữ nguyên ngoài staging.
+
+- **Browser local77điều kiện đạt**: DPR3 dọc/ngang/tablet/xoay lại14, PWA/offline/keyboard/touch37, đối chiếu tài nguyên/WASM26;0lỗi runtime. Đã xem `saigon-release-mobile-{portrait,landscape}.png`; cảnh phố/kính/cây/biển mới hiển thị đúng. Báo cáo `saigon-release-{mobile,pwa,local}-results.json`.
+- Chuẩn bị commit/push và chờ Pages/live; chưa coi là bản công khai mới. Unity Edit Mode; chưa thử phần cứng điện thoại/FPS/nhiệt độ.

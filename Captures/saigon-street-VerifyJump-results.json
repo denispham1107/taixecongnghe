@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyJump.cs",
+      "entry": "VerifyJump.Main",
+      "timeout_ms": "1200000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 115,
+      "executeMs": 980,
+      "assemblyName": "PipelineRunScript_VerifyJump_cc1a287985c94c199db16b7dd7877b70",
+      "success": false,
+      "error": "Runtime Error",
+      "errorDetails": "Exception: Upright medium box/drowsy trucks now have eligible roofs\n  at VerifyJump+<>c__DisplayClass1_0.<Main>b__0 (System.Boolean b, System.String s) [0x0001d] in C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\AgentScripts\\VerifyJump.cs:14 \r\n  at VerifyJump.Main () [0x00c91] in C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\AgentScripts\\VerifyJump.cs:72 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <816f70bc2a9c4332b0bd119906a8d40e>:0 "
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

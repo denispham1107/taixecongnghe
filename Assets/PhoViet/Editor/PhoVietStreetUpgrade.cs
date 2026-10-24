@@ -22,13 +22,29 @@ namespace PhoViet.Editor
     for(int i=0;i<8;i++){var t=Place("PV_StreetPavement",p,new Vector3(s*9.1f,0,i<7?4.2f+i*8.4f:60.9f),s>0?0:180);if(i==7)t.localScale=new Vector3(1,1,.5f);}
    };
   }
+  // Shop có submesh thứ hai là vách kính cửa hàng (pho_viet_saigon_streets.py, slot PV_StreetGlass).
+  public static Material[] Materials(Renderer r)
+  {
+   if(material==null)material=AssetDatabase.LoadAssetAtPath<Material>(Folder+"PV_StreetAtlas.mat");
+   var mesh=r.GetComponent<MeshFilter>().sharedMesh;return mesh!=null&&mesh.subMeshCount>1?new[]{material,Glass()}:new[]{material};
+  }
+  public static Material Glass()
+  {
+   var glass=AssetDatabase.LoadAssetAtPath<Material>(Folder+"PV_StreetGlass.mat");
+   if(glass==null){glass=new Material(Shader.Find("Standard")){name="PV_StreetGlass"};AssetDatabase.CreateAsset(glass,Folder+"PV_StreetGlass.mat");}
+   // Standard Transparent: kính xanh nhạt trong suốt, phản chiếu nhẹ, không ghi depth.
+   glass.SetFloat("_Mode",3);glass.color=new Color(.78f,.9f,.97f,.2f);glass.SetFloat("_Glossiness",.92f);glass.SetFloat("_Metallic",.05f);
+   glass.SetInt("_SrcBlend",(int)UnityEngine.Rendering.BlendMode.One);glass.SetInt("_DstBlend",(int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);glass.SetInt("_ZWrite",0);
+   glass.DisableKeyword("_ALPHATEST_ON");glass.DisableKeyword("_ALPHABLEND_ON");glass.EnableKeyword("_ALPHAPREMULTIPLY_ON");glass.renderQueue=(int)UnityEngine.Rendering.RenderQueue.Transparent;
+   EditorUtility.SetDirty(glass);return glass;
+  }
   static Transform Place(string asset,Transform parent,Vector3 position,float yaw)
   {
    var source=AssetDatabase.LoadAssetAtPath<GameObject>(Folder+asset+".fbx");if(source==null)throw new Exception("Missing "+asset);
    var t=StreetArt.Group(asset,parent,position);t.localRotation=Quaternion.Euler(0,yaw,0);
    var go=(GameObject)PrefabUtility.InstantiatePrefab(source,t);go.transform.localPosition=Vector3.zero;go.transform.localRotation=source.transform.localRotation;go.transform.localScale=source.transform.localScale;
    var renderers=go.GetComponentsInChildren<MeshRenderer>(true).OrderBy(r=>r.name).ToArray();if(renderers.Length!=3)throw new Exception(asset+": expected three LODs");
-   foreach(var r in renderers){r.sharedMaterial=material;r.enabled=true;r.gameObject.SetActive(true);}
+   foreach(var r in renderers){r.sharedMaterials=Materials(r);r.enabled=true;r.gameObject.SetActive(true);}
    var lod=go.GetComponent<LODGroup>()??go.AddComponent<LODGroup>();lod.SetLODs(new[]{new LOD(.18f,new Renderer[]{renderers[0]}),new LOD(.07f,new Renderer[]{renderers[1]}),new LOD(.006f,new Renderer[]{renderers[2]})});lod.RecalculateBounds();return t;
   }
   [MenuItem("Phố Việt/Art/Install Blender streets")]

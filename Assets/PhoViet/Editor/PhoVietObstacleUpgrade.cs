@@ -10,7 +10,7 @@ namespace PhoViet.Editor
  {
   public static object Install()
   {
-   if(Application.isPlaying)throw new Exception("Exit Play Mode");var g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();int sets=0,boxes=0;
+   if(Application.isPlaying)throw new Exception("Exit Play Mode");cache.Clear();var g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();int sets=0,boxes=0;
    foreach(var row in g.roadRows)foreach(var tile in row.tiles)
    {
     var props=new List<StreetObstacleSet.Obstacle>();
@@ -18,7 +18,6 @@ namespace PhoViet.Editor
     foreach(float side in new[]{-1f,1f})
     {
      add("Xe máy đậu",new Vector3(side*9.2f,1,21),new Vector3(1.35f,1.5f,1.6f));
-     add("Xe đẩy bán hàng",new Vector3(side*8.5f,1.2f,43),new Vector3(1.6f,2.4f,1.9f));
      add("Cột đèn đường",new Vector3(side*7.6f,3.4f,28),new Vector3(.25f,6.8f,.25f));
      add("Cột điện",new Vector3(side*10.1f,4.4f,56),new Vector3(.3f,8.8f,.3f));
     }
@@ -29,31 +28,37 @@ namespace PhoViet.Editor
      Action<string,Vector3,Vector3> put=(k,p,s)=>list.Add(new StreetObstacleSet.Obstacle(k,p,s));
      if(t.name.StartsWith("Blender • ",StringComparison.Ordinal))
      {
-      int seed=Array.IndexOf(VietnamStreet.Shops,t.name.Substring("Blender • ".Length));if(seed<0)continue;
-      float height=8.4f+(seed%4)*2.65f;
-      put("Nhà cửa",new Vector3(0,height/2,0),new Vector3(7.7f,height,7.8f));
-      put("Bảng hiệu",new Vector3(0,3.86f,-4.01f),new Vector3(7.1f,1.28f,.24f));
-      put("Mái hiên",new Vector3(0,2.93f,-4.7f),new Vector3(7.1f,.18f,1.3f));
-      if(seed==3||seed==4||seed==11)
-      {foreach(float x in new[]{-2.45f,1.8f})put("Kệ tạp hóa",new Vector3(x,1.1f,-4.3f),new Vector3(1.8f,1.8f,.65f));}
-      else if(seed==5||seed==9)
-      {put("Tủ dụng cụ sửa xe",new Vector3(-2.2f,.88f,-4.45f),new Vector3(1.35f,1.15f,.65f));put("Chồng lốp xe",new Vector3(1.6f,.75f,-4.45f),new Vector3(1,.95f,1));}
-      else
-      {
-       put("Quầy thức ăn",new Vector3(1.8f,1,-4.36f),new Vector3(2.2f,1.4f,.8f));
-       foreach(float x in new[]{-2.2f,-.5f})
-       {put("Bàn ăn",new Vector3(x,.65f,-4.95f),new Vector3(1.15f,.75f,1.1f));foreach(float z in new[]{-5.65f,-4.2f})put("Ghế nhựa",new Vector3(x,.5f,z),new Vector3(.42f,.43f,.42f));}
-      }
+      var model=t.Cast<Transform>().FirstOrDefault(c=>c.name.StartsWith("PV_StreetShop",StringComparison.Ordinal));if(model==null)continue;
+      // Hộp vật cản do pho_viet_saigon_streets.py ghi cùng FBX, khớp hình học shop đang render.
+      foreach(var o in Metadata(model.name).obstacles)put(o.kind,new Vector3(o.center[0],o.center[1],o.center[2]),new Vector3(o.size[0],o.size[1],o.size[2]));
      }
      else if(t.name.StartsWith("PV_StreetTree",StringComparison.Ordinal)&&t.parent==tile)
-     {put("Thân cây",new Vector3(.08f,2.7f,0),new Vector3(.38f,5.4f,.38f));put("Bồn gốc cây",new Vector3(0,.25f,0),new Vector3(1.45f,.5f,1.45f));}
+     {foreach(var o in Metadata(t.name).obstacles)put(o.kind,new Vector3(o.center[0],o.center[1],o.center[2]),new Vector3(o.size[0],o.size[1],o.size[2]));}
      else continue;
      Assign(t,list);sets++;boxes+=list.Count;
     }
    }
    EditorSceneManager.MarkSceneDirty(g.gameObject.scene);EditorSceneManager.SaveScene(g.gameObject.scene);return new{success=true,sets,boxes};
   }
+  static readonly Dictionary<string,StreetArtMetadata> cache=new Dictionary<string,StreetArtMetadata>();
+  static StreetArtMetadata Metadata(string asset)
+  {
+   if(cache.TryGetValue(asset,out var m))return m;
+   m=StreetArtMetadata.Load(asset);if(m.obstacles==null||m.obstacles.Length==0)throw new Exception(asset+": no obstacle boxes");cache[asset]=m;return m;
+  }
   static void Assign(Transform t,List<StreetObstacleSet.Obstacle> list)
   {var set=t.GetComponent<StreetObstacleSet>()??t.gameObject.AddComponent<StreetObstacleSet>();set.obstacles=list.ToArray();EditorUtility.SetDirty(set);}
+ }
+ // JSON do pho_viet_saigon_streets.py ghi cạnh mỗi FBX phố. Đặt trong assembly Editor để
+ // JsonUtility đọc được mảng lớp lồng (assembly tạm của run_script không đọc được).
+ [Serializable] public sealed class StreetArtMetadata
+ {
+  [Serializable] public sealed class Box{public string kind;public float[] center;public float[] size;}
+  public string name;public string generator;public int[] lod_triangles;public int[] leaf_counts;public int[] palette_grid;public float height;public Box[] obstacles;
+  public static StreetArtMetadata Load(string asset)
+  {
+   var text=AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/PhoViet/Art/Streets/"+asset+".json");if(text==null)throw new Exception("Missing street metadata "+asset);
+   return JsonUtility.FromJson<StreetArtMetadata>(text.text);
+  }
  }
 }

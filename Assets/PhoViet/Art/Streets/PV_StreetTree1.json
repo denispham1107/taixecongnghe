@@ -1,18 +1,51 @@
 {
   "name": "PV_StreetTree1",
+  "generator": "pho_viet_saigon_streets.py",
+  "reference": "ArtSource/Reference/Street/tree_reference.webp",
   "lod_triangles": [
-    30076,
-    12316,
-    7132
+    29026,
+    12414,
+    5446
   ],
   "materials": 1,
+  "palette_grid": [
+    8,
+    8
+  ],
   "sign_front_z": null,
   "wall_front_z": null,
-  "decorative_pots": 0,
   "protected_awning_strips": 0,
   "leaf_counts": [
-    864,
-    432,
-    216
+    3520,
+    1500,
+    660
+  ],
+  "obstacles": [
+    {
+      "kind": "Thân cây",
+      "center": [
+        0.03,
+        2.0,
+        0
+      ],
+      "size": [
+        0.42,
+        4.0,
+        0.42
+      ]
+    },
+    {
+      "kind": "Bồn gốc cây",
+      "center": [
+        0,
+        0.25,
+        0
+      ],
+      "size": [
+        1.45,
+        0.5,
+        1.45
+      ]
+    }
   ]
 }

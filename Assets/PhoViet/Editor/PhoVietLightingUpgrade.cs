@@ -31,7 +31,7 @@ namespace PhoViet.Editor
             redGlow=Optical("PV_RedGlare","PV_OpticalGlare",new Color(1,.025f,.05f,.4f));
             lens=Standard("PV_StreetLEDLens","F4FAFF",.1f,.85f);lens.EnableKeyword("_EMISSION");
             var model=AssetDatabase.LoadAssetAtPath<GameObject>(Folder+"PV_LEDStreetLamp.fbx");if(model==null)throw new Exception("Blender LED model missing");
-            var metal=Standard("PV_StreetLEDMetal","344553",.4f,.5f);var silver=Standard("PV_StreetLEDSilver","BFCED8",.45f,.55f);
+            var metal=Standard("PV_StreetLEDMetal","8C959C",.35f,.45f);var silver=Standard("PV_StreetLEDSilver","BFCED8",.45f,.55f);
             var streets=new List<DayNightLighting.StreetLamp>();var cleaned=new Dictionary<Mesh,Mesh>();int trianglesRemoved=0;
             foreach(var row in g.roadRows)foreach(var block in row.tiles)
             {
@@ -54,8 +54,9 @@ namespace PhoViet.Editor
                         var lod=instance.GetComponent<LODGroup>();if(lod==null)lod=instance.AddComponent<LODGroup>();
                         lod.SetLODs(new[]{new LOD(.13f,new Renderer[]{lodRenderers[0]}),new LOD(.05f,new Renderer[]{lodRenderers[1]}),new LOD(.005f,new Renderer[]{lodRenderers[2]})});lod.RecalculateBounds();
                     }
-                    var source=Group("Tâm quang học LED",unit,new Vector3(1.45f,6.64f,0));source.localRotation=Quaternion.Euler(90,0,0);
-                    var pool=Overlay("Vệt sáng đèn đường",group,streetPool,true);pool.transform.localPosition=new Vector3(side*6.15f,.038f,28);pool.transform.localScale=new Vector3(18,1,18);
+                    // Tâm bầu đèn cong của bộ phố Sài Gòn (pho_viet_saigon_streets.py: LAMP_REACH/LAMP_HEIGHT).
+                    var source=Group("Tâm quang học LED",unit,new Vector3(2.35f,8.48f,0));source.localRotation=Quaternion.Euler(90,0,0);
+                    var pool=Overlay("Vệt sáng đèn đường",group,streetPool,true);pool.transform.localPosition=new Vector3(side*(7.6f-2.35f),.038f,28);pool.transform.localScale=new Vector3(18,1,18);
                     var glow=Overlay("Quầng đèn đường",group,whiteGlow,false);glow.transform.localScale=Vector3.one*.9f;
                     streets.Add(new DayNightLighting.StreetLamp{source=source,pool=pool,glow=glow});
                 }

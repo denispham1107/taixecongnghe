@@ -1,0 +1,29 @@
+{
+  "name": "PV_TrafficSignal",
+  "generator": "pho_viet_saigon_streets.py",
+  "lod_triangles": [
+    358,
+    304,
+    158
+  ],
+  "obstacles": [
+    {
+      "kind": "Cột đèn tín hiệu",
+      "center": [
+        0,
+        3.9,
+        0
+      ],
+      "size": [
+        0.3,
+        7.8,
+        0.3
+      ]
+    }
+  ],
+  "head_center": [
+    3.0,
+    6.82,
+    0
+  ]
+}

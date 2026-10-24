@@ -67,7 +67,7 @@ public static class VerifyCrashUpgrade
     v.fire.Simulate(.5f,true,false);v.smoke.Simulate(1.5f,true,false);check(v.fire.particleCount>0&&v.smoke.particleCount>0,"Blender fire and smoke emit actual animated particles: truck="+truck);
    }
    reset();var sets=g.scenery.GetComponentsInChildren<StreetObstacleSet>(true);check(sets.Length==735&&sets.Sum(s=>s.obstacles.Length)>4000,"Every main/branch street has saved lightweight scenery collision proxies");
-   foreach(string kind in new[]{"Nhà cửa","Thân cây","Bàn ăn","Ghế nhựa","Quầy thức ăn","Kệ tạp hóa","Tủ dụng cụ sửa xe","Xe đẩy bán hàng","Cột đèn đường","Mái hiên"})
+   foreach(string kind in new[]{"Nhà cửa","Thân cây","Bàn ăn","Ghế nhựa","Quầy thức ăn","Kệ tạp hóa","Tủ dụng cụ sửa xe","Cột đèn đường","Mái hiên"})
    {
     var s=sets.First(x=>x.gameObject.activeInHierarchy&&x.obstacles.Any(b=>b.kind==kind));var original=s.obstacles;var one=original.First(b=>b.kind==kind);Vector3 position=s.transform.position;
     try

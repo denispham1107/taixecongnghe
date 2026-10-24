@@ -1,0 +1,404 @@
+{
+  "date": "2026-10-24",
+  "feature": "Saigon street scenery from reference image",
+  "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
+  "source": "ArtSource/Blender/pho_viet_saigon_streets.py -> ArtSource/Blender/PhoViet_SaigonStreets.blend",
+  "install": "AgentScripts/InstallSaigonStreets.cs",
+  "suites": [
+    {
+      "suite": "VerifyStreetArt",
+      "success": true,
+      "count": 323,
+      "error": null
+    },
+    {
+      "suite": "VerifyDistanceMode",
+      "success": true,
+      "count": 31,
+      "error": null
+    },
+    {
+      "suite": "VerifyQuickKick",
+      "success": true,
+      "count": 62,
+      "error": null
+    },
+    {
+      "suite": "VerifyJunctionKick",
+      "success": true,
+      "count": 216,
+      "error": null
+    },
+    {
+      "suite": "VerifySmoothTurns",
+      "success": true,
+      "count": 468,
+      "error": null
+    },
+    {
+      "suite": "VerifyJump",
+      "success": false,
+      "count": null,
+      "error": "Exception: Upright medium box/drowsy trucks now have eligible roofs"
+    },
+    {
+      "suite": "VerifyBoost",
+      "success": true,
+      "count": 35,
+      "error": null
+    },
+    {
+      "suite": "VerifyCrashOutcome",
+      "success": true,
+      "count": 51,
+      "error": null
+    },
+    {
+      "suite": "VerifyGestures",
+      "success": true,
+      "count": 39,
+      "error": null
+    },
+    {
+      "suite": "VerifyCrashUpgrade",
+      "success": true,
+      "count": 97,
+      "error": null
+    },
+    {
+      "suite": "VerifyCrashPoliceNavigation",
+      "success": true,
+      "count": 214,
+      "error": null
+    },
+    {
+      "suite": "VerifyJunctionRoutes",
+      "success": true,
+      "count": 92,
+      "error": null
+    },
+    {
+      "suite": "VerifyGameplay",
+      "success": true,
+      "count": 23,
+      "error": null
+    },
+    {
+      "suite": "VerifyMeshyCarRoofs",
+      "success": true,
+      "count": 256,
+      "error": null
+    }
+  ],
+  "passed_conditions": 1907,
+  "passed_suites": 13,
+  "obstacle_sets": 735,
+  "obstacle_boxes": 7955,
+  "lod_groups": 1260,
+  "lod_triangles": {
+    "PV_StreetShop00": [
+      6463,
+      3524,
+      1944
+    ],
+    "PV_StreetShop01": [
+      8413,
+      4965,
+      2287
+    ],
+    "PV_StreetShop02": [
+      4309,
+      3069,
+      1801
+    ],
+    "PV_StreetShop03": [
+      7346,
+      4578,
+      1972
+    ],
+    "PV_StreetShop04": [
+      6627,
+      4687,
+      2361
+    ],
+    "PV_StreetShop05": [
+      4865,
+      3009,
+      1559
+    ],
+    "PV_StreetShop06": [
+      6811,
+      3682,
+      2054
+    ],
+    "PV_StreetShop07": [
+      8703,
+      5171,
+      2477
+    ],
+    "PV_StreetShop08": [
+      6681,
+      4121,
+      2203
+    ],
+    "PV_StreetShop09": [
+      5045,
+      3561,
+      1845
+    ],
+    "PV_StreetShop10": [
+      7835,
+      4603,
+      2589
+    ],
+    "PV_StreetShop11": [
+      8494,
+      4886,
+      1944
+    ],
+    "PV_StreetTree0": [
+      21026,
+      10190,
+      4670
+    ],
+    "PV_StreetTree1": [
+      21026,
+      10190,
+      4670
+    ],
+    "PV_StreetTree2": [
+      21026,
+      10190,
+      4670
+    ],
+    "PV_StreetPavement": [
+      1258,
+      474,
+      156
+    ]
+  },
+  "previous_lod0": {
+    "shops_sum": 229458,
+    "tree": 30076,
+    "pavement": 15500
+  },
+  "jobs": {
+    "RideJobsReleased": false,
+    "jobsEnabled": false
+  },
+  "build": "not built",
+  "commit": "not committed",
+  "fixtures_and_clouds": {
+    "signals": 140,
+    "lamps": 70,
+    "removed_old_signal_triangles": 5824,
+    "suites": {
+      "VerifyStreetArt": 330,
+      "VerifyNightJumpLighting": 88,
+      "VerifyMeshyLighting": 16,
+      "VerifyCrashUpgrade": 97,
+      "VerifyJunctionRoutes": 92,
+      "VerifyGameplay": 23,
+      "VerifyDistanceMode": 31,
+      "VerifySmoothTurns": 468,
+      "VerifyCrashOutcome": 51,
+      "VerifyQuickKick": 62,
+      "VerifyJunctionKick": 216,
+      "VerifyBoost": 35,
+      "VerifyGestures": 39,
+      "VerifyMeshyCarRoofs": 256
+    },
+    "crash_police_navigation": "failed once in combined run (Unbounded police movement in Moving traffic), passed 214 in two standalone reruns",
+    "lamp_lod_triangles": [
+      778,
+      378,
+      228
+    ],
+    "signal_lod_triangles": [
+      358,
+      304,
+      158
+    ]
+  },
+  "trees_and_people": {
+    "tree_lod_triangles": [
+      24226,
+      11790,
+      5630
+    ],
+    "leaf_counts": [
+      3000,
+      1450,
+      680
+    ],
+    "removed_person_triangles": 49560,
+    "cleaned_meshes": 42,
+    "suites": {
+      "VerifyStreetArt": 331,
+      "VerifyCrashUpgrade": 97,
+      "VerifyGameplay": 23,
+      "VerifyJunctionRoutes": 92,
+      "VerifyDistanceMode": 31,
+      "VerifyNightJumpLighting": 88,
+      "VerifyCrashOutcome": 51,
+      "VerifyCrashPoliceNavigation": 214,
+      "VerifySmoothTurns": 468,
+      "VerifyQuickKick": 62,
+      "VerifyJunctionKick": 216,
+      "VerifyBoost": 35,
+      "VerifyGestures": 39,
+      "VerifyMeshyCarRoofs": 256,
+      "VerifyMeshyLighting": 16
+    },
+    "parked_bike_riders": "kept, awaiting user choice"
+  },
+  "glass_storefronts": {
+    "glass_renderers": 1350,
+    "shop_lod_triangles": {
+      "min": [
+        5453,
+        3417,
+        1641
+      ],
+      "max": [
+        10613,
+        6273,
+        2913
+      ]
+    },
+    "suites": {
+      "VerifyStreetArt": 332,
+      "VerifyCrashUpgrade": 97,
+      "VerifyGameplay": 23,
+      "VerifyJunctionRoutes": 92,
+      "VerifyDistanceMode": 31,
+      "VerifyNightJumpLighting": 88,
+      "VerifyCrashOutcome": 51,
+      "VerifyCrashPoliceNavigation": 214,
+      "VerifySmoothTurns": 468,
+      "VerifyQuickKick": 62,
+      "VerifyJunctionKick": 216,
+      "VerifyBoost": 35,
+      "VerifyGestures": 39,
+      "VerifyMeshyCarRoofs": 256,
+      "VerifyMeshyLighting": 16
+    }
+  },
+  "detailed_props": {
+    "obstacle_boxes": 8120,
+    "shop_lod_triangles": {
+      "min": [
+        6309,
+        3833,
+        1713
+      ],
+      "max": [
+        13338,
+        7698,
+        3196
+      ]
+    },
+    "suites": {
+      "VerifyStreetArt": 332,
+      "VerifyCrashUpgrade": 97,
+      "VerifyGameplay": 23,
+      "VerifyJunctionRoutes": 92,
+      "VerifyDistanceMode": 31,
+      "VerifyNightJumpLighting": 88,
+      "VerifyCrashOutcome": 51,
+      "VerifyCrashPoliceNavigation": 214,
+      "VerifySmoothTurns": 468,
+      "VerifyQuickKick": 62,
+      "VerifyJunctionKick": 216,
+      "VerifyBoost": 35,
+      "VerifyGestures": 39,
+      "VerifyMeshyCarRoofs": 256,
+      "VerifyMeshyLighting": 16
+    },
+    "crash_police_navigation": "failed once in combined run, passed 214 in two standalone reruns",
+    "stool_obstacle_note": "0.36 m box broke VerifyCrashUpgrade overlap-exit probe; restored 0.42 m"
+  },
+  "reference_tree": {
+    "reference": "ArtSource/Reference/Street/tree_reference.webp",
+    "tree_lod_triangles": [
+      29026,
+      12414,
+      5446
+    ],
+    "leaf_counts": [
+      3520,
+      1500,
+      660
+    ],
+    "suites_passed": {
+      "VerifyStreetArt": 332,
+      "VerifyCrashUpgrade": 97,
+      "VerifyGameplay": 23,
+      "VerifyJunctionRoutes": 92,
+      "VerifyDistanceMode": 31,
+      "VerifyNightJumpLighting": 88,
+      "VerifyCrashOutcome": 51,
+      "VerifySmoothTurns": 468,
+      "VerifyQuickKick": 62,
+      "VerifyJunctionKick": 216,
+      "VerifyBoost": 35,
+      "VerifyGestures": 39,
+      "VerifyMeshyCarRoofs": 256,
+      "VerifyMeshyLighting": 16
+    },
+    "crash_police_navigation": "failed in the long 15-suite run; passed 214 in 3 standalone runs and 2 runs right after CrashOutcome"
+  },
+  "cabinet_name_panels": {
+    "shop_lod_triangles": {
+      "min": [
+        9025,
+        4933,
+        1965
+      ],
+      "max": [
+        19278,
+        10358,
+        3835
+      ]
+    },
+    "suites": {
+      "VerifyStreetArt": 332,
+      "VerifyCrashUpgrade": 97,
+      "VerifyGameplay": 23,
+      "VerifyJunctionRoutes": 92,
+      "VerifyDistanceMode": 31,
+      "VerifyNightJumpLighting": 88,
+      "VerifyCrashOutcome": 51,
+      "VerifyCrashPoliceNavigation": 214,
+      "VerifySmoothTurns": 468,
+      "VerifyQuickKick": 62,
+      "VerifyJunctionKick": 216,
+      "VerifyBoost": 35,
+      "VerifyGestures": 39,
+      "VerifyMeshyCarRoofs": 256,
+      "VerifyMeshyLighting": 16
+    }
+  },
+  "bread_cart_removed": {
+    "removed_triangles": 2912,
+    "groups": 70,
+    "obstacle_boxes": 8050,
+    "suites": {
+      "VerifyStreetArt": 333,
+      "VerifyCrashUpgrade": 93,
+      "VerifyGameplay": 23,
+      "VerifyJunctionRoutes": 92,
+      "VerifyDistanceMode": 31,
+      "VerifyNightJumpLighting": 88,
+      "VerifyCrashOutcome": 51,
+      "VerifyCrashPoliceNavigation": 214,
+      "VerifySmoothTurns": 468,
+      "VerifyQuickKick": 62,
+      "VerifyJunctionKick": 216,
+      "VerifyBoost": 35,
+      "VerifyGestures": 39,
+      "VerifyMeshyCarRoofs": 256,
+      "VerifyMeshyLighting": 16
+    }
+  }
+}

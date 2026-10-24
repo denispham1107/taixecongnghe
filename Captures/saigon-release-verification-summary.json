@@ -1,0 +1,59 @@
+{
+  "success": true,
+  "versionPlanned": "1.34.0",
+  "nativeSuites": [
+    {
+      "suite": "VerifyCrashPoliceNavigation",
+      "count": 214
+    },
+    {
+      "suite": "VerifyStreetArt",
+      "count": 333
+    },
+    {
+      "suite": "VerifyCrashUpgrade",
+      "count": 93
+    },
+    {
+      "suite": "VerifyJunctionRoutes",
+      "count": 92
+    },
+    {
+      "suite": "VerifySmoothTurns",
+      "count": 468
+    },
+    {
+      "suite": "VerifyNightJumpLighting",
+      "count": 88
+    },
+    {
+      "suite": "VerifyMeshyCarRoofs",
+      "count": 256
+    },
+    {
+      "suite": "VerifyDistanceMode",
+      "count": 31
+    },
+    {
+      "suite": "VerifyJump",
+      "count": 44
+    },
+    {
+      "suite": "VerifyGameplay",
+      "count": 23
+    }
+  ],
+  "nativeCount": 1642,
+  "policeRepeatedAfterSuites": 214,
+  "policeNote": "Passed before and after suite chain. Historical intermittent failure was not reproduced; no police runtime changes. Repeat is not added to unique condition count.",
+  "jobsEnabled": false,
+  "physicalDeviceTested": false,
+  "webPublished": false,
+  "build": "Succeeded",
+  "buildId": "build_7f1d3b13c181",
+  "version": "1.34.0",
+  "cache": "28a1dc1e64a78083",
+  "localBrowserCount": 77,
+  "bundleCount": 29,
+  "runtimeErrors": 0
+}

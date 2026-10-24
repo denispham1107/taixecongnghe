@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureSaigonStreet.cs",
+      "entry": "CaptureSaigonStreet.DayNight",
+      "timeout_ms": "1200000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 1160,
+      "executeMs": 2374,
+      "assemblyName": "PipelineRunScript_CaptureSaigonStreet_7cefee19ae564853b082cf0cda6f1f30",
+      "success": true,
+      "result": {
+        "success": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -12,8 +12,9 @@ namespace PhoViet
         public static System.Action<Transform,float,float> TreeFactory;
         public static System.Action<Transform,float> PavementFactory;
         public static readonly string[] Streets={"Trần Hưng Đạo","Quang Trung","Hai Bà Trưng","Lê Lợi","Lý Thường Kiệt","Lý Nam Đế","Đinh Bộ Lĩnh"};
-        public static readonly string[] Shops={"QUÁN PHỞ","HỦ TIẾU","MÌ GÕ","TẠP HÓA CÔ BA","BÁCH HÓA AN TÂM","SỬA XE TẤN PHÁT","CÀ PHÊ VỈA HÈ","BÁNH MÌ SÀI GÒN","CƠM TẤM","TIỆM SỬA XE HAI LÚA","BÚN BÒ HUẾ","TẠP HÓA MINH CHÂU"};
-        static readonly string[] Subs={"BÒ TÁI • NẠM • GẦU   /   TỪ 35K","NƯỚC LÈO THANH • SỢI DAI NGON","NÓNG HỔI MỖI NGÀY • KÍNH MỜI","GẠO • SỮA • BÁNH KẸO • GIA VỊ","ĐỦ ĐẦY MỖI NGÀY • GIÁ BÌNH DÂN","VÁ VỎ • THAY NHỚT • BẢO DƯỠNG","CÀ PHÊ SỮA ĐÁ • TRÀ TẮC","GIÒN THƠM • ĐẬM VỊ VIỆT","SƯỜN • BÌ • CHẢ • TRỨNG","HONDA • YAMAHA • SỬA CHỮA","ĐẬM ĐÀ HƯƠNG VỊ CỐ ĐÔ","MỞ CỬA TỪ 6:00 ĐẾN 22:00"};
+        // Trùng tên hiển thị trên biển của bộ phố Sài Gòn (pho_viet_saigon_streets.py, chỉ số PV_StreetShop00..11).
+        public static readonly string[] Shops={"PHỞ BÒ - GÀ","TIỆM TRÀ","BÁNH MÌ","TẠP HÓA","THUỐC TÂY","SỬA XE","CÀ PHÊ SÀI GÒN","CƠM TẤM","BÚN BÒ HUẾ","HỦ TIẾU NAM VANG","SINH TỐ","TIỆM BÁNH"};
+        static readonly string[] Subs={"TÁI • NẠM • GẦU • BÒ VIÊN","TRÀ SỮA • TRÀ TRÁI CÂY","CHẢ CÁ • PATE • XÍU MẠI","BÁCH HÓA TỔNG HỢP","NHÀ THUỐC • MỞ CỬA 24H","VÁ VỎ • THAY NHỚT • RỬA XE","CÀ PHÊ SỮA ĐÁ • BẠC XỈU","SƯỜN • BÌ • CHẢ","ĐẬM ĐÀ HƯƠNG VỊ CỐ ĐÔ","NAM VANG • MÌ • SA TẾ","NƯỚC ÉP • TRÁI CÂY TƯƠI","BÁNH NGỌT • BÁNH KEM"};
         static readonly Color[] Facades={Hex("E7C48C"),Hex("A6C9C2"),Hex("E4AA94"),Hex("DBD5BB"),Hex("A3B9CD"),Hex("D7BC7F"),Hex("B5C4A0")};
         static readonly Color[] SignColors={Hex("A9382E"),Hex("196E72"),Hex("B74B31"),Hex("276563"),Hex("326A8C"),Hex("274A69"),Hex("684B39")};
         public static Transform Build(Transform parent,int index,List<Renderer> lights)
@@ -46,10 +47,11 @@ namespace PhoViet
                 }
                 if(PavementFactory!=null)Box("Vạch biên",r,new Vector3(side*6.72f,.01f,31),new Vector3(.11f,.015f,61),Cream);
                 for(int b=0;b<7;b++) Shop(r,side,4+b*8.4f,index*7+b+(side>0?3:0));
-                for(int t=0;t<3;t++) {if(TreeFactory!=null)TreeFactory(r,side*8.2f,10+t*20);else Tree(r,side*8.2f,10+t*20);Person(r,new Vector3(side*8.15f,.26f,15+t*18),SignColors[(index+t)%7],side*65);}
+                // Người đứng vỉa hè đã bỏ theo yêu cầu 24/10/2026; chỉ còn cây ven đường.
+                for(int t=0;t<3;t++) {if(TreeFactory!=null)TreeFactory(r,side*8.2f,10+t*20);else Tree(r,side*8.2f,10+t*20);}
                 // Parked scooters, tables and a pavement food cart.
                 var parked=Motorcycle(r,"Xe máy đậu trên vỉa hè",Teal,Hex("426367"),false); parked.localPosition=new Vector3(side*9.2f,.27f,21);parked.localEulerAngles=new Vector3(0,side*50,0);parked.localScale=Vector3.one*.86f;
-                Cart(r,new Vector3(side*8.5f,.24f,43),side);
+                // Xe đẩy bánh mì cũ đã bỏ 24/10/2026: che tủ kính Bún Bò Huế; phố có tiệm BÁNH MÌ riêng.
                 Lamp(r,side*7.6f,28,side);
                 Signal(r,side*7.65f,61,index,lights);
                 Signal(r,side*7.65f,78,index+1,lights);
@@ -161,14 +163,6 @@ namespace PhoViet
             Rod("Cột đèn đường",p,new Vector3(x,.2f,z),new Vector3(x,6.8f,z),.07f,Ink);
             Rod("Cần đèn đường",p,new Vector3(x,6.8f,z),new Vector3(x-s*1.5f,6.8f,z),.06f,Ink);
             Box("Đèn đường",p,new Vector3(x-s*1.5f,6.72f,z),new Vector3(.8f,.16f,.38f),Cream);
-        }
-        static void Cart(Transform p,Vector3 pos,float s)
-        {
-            var r=Group("Xe bánh mì",p,pos);
-            Box("Tủ xe",r,new Vector3(0,.8f,0),new Vector3(.85f,1.15f,1.5f),Teal);
-            Box("Mái xe",r,new Vector3(0,2,0),new Vector3(1.2f,.14f,1.9f),Red);
-            foreach(float z in new[]{-.65f,.65f})Rod("Khung tủ",r,new Vector3(0,1.3f,z),new Vector3(0,2,z),.035f,Cream);
-            Sign(r,"BÁNH MÌ","NÓNG GIÒN • 20K",new Vector3(0,1.65f,-.8f),Red,0,1.7f);
         }
     }
 }

@@ -1,14 +1,129 @@
 {
   "name": "PV_StreetShop05",
+  "generator": "pho_viet_saigon_streets.py",
+  "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
   "lod_triangles": [
-    11763,
-    6721,
-    3749
+    9025,
+    4933,
+    1965
   ],
   "materials": 1,
-  "sign_front_z": -4.158,
+  "palette_grid": [
+    8,
+    8
+  ],
+  "sign_front_z": -4.118,
   "wall_front_z": -3.9,
-  "decorative_pots": 0,
-  "protected_awning_strips": 12,
-  "leaf_counts": []
+  "protected_awning_strips": 14,
+  "leaf_counts": [],
+  "height": 10.9,
+  "display": "SỬA XE",
+  "kind": "repair",
+  "floors": 3,
+  "obstacles": [
+    {
+      "kind": "Nhà cửa",
+      "center": [
+        0,
+        5.45,
+        0
+      ],
+      "size": [
+        8.36,
+        10.9,
+        7.8
+      ]
+    },
+    {
+      "kind": "Chồng lốp xe",
+      "center": [
+        2.5,
+        0.45,
+        -4.55
+      ],
+      "size": [
+        0.8,
+        0.9,
+        0.8
+      ]
+    },
+    {
+      "kind": "Tủ dụng cụ sửa xe",
+      "center": [
+        -2.2,
+        0.47,
+        -4.4
+      ],
+      "size": [
+        1.05,
+        0.95,
+        0.55
+      ]
+    },
+    {
+      "kind": "Mái hiên",
+      "center": [
+        0,
+        2.95,
+        -4.7
+      ],
+      "size": [
+        7.4,
+        0.5,
+        1.4
+      ]
+    },
+    {
+      "kind": "Bảng hiệu",
+      "center": [
+        0,
+        4.1,
+        -4.0
+      ],
+      "size": [
+        7.6,
+        1.6,
+        0.26
+      ]
+    },
+    {
+      "kind": "Ban công",
+      "center": [
+        0,
+        8.5,
+        -4.4
+      ],
+      "size": [
+        7.4,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "kind": "Chậu cây lớn",
+      "center": [
+        3.45,
+        1.0924999999999998,
+        -5.6
+      ],
+      "size": [
+        0.69,
+        2.1849999999999996,
+        0.69
+      ]
+    },
+    {
+      "kind": "Thùng rác",
+      "center": [
+        -1.6,
+        0.48,
+        -5.65
+      ],
+      "size": [
+        0.55,
+        0.95,
+        0.6
+      ]
+    }
+  ]
 }

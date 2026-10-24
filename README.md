@@ -6,6 +6,10 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 **[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.33.0**.
 
+## Phố Sài Gòn — chuẩn bị phát hành 1.34.0
+
+Cảnh quan mới của Claude Code: 12 mẫu nhà phố, cửa kính nhìn vào nội thất, biển tên trên tủ, cây xanh và cây chậu, vỉa hè/đồ vật chi tiết, cột đèn đường cong, tín hiệu cần vươn và mây trời. Đã bỏ người đứng vỉa hè và xe đẩy bánh mì cũ. Giữ bộ xe Meshy, điều khiển và chế độ thi quãng đường; công việc vẫn tắt. Chi tiết triển khai ở `huongdan.md` mục21.19–21.27.
+
 ## Ô tô Meshy — 1.33.0
 
 Đã thay 11 xe bốn bánh bằng xe thể thao, bán tải, tải bạt và container do người dùng gửi. Mỗi lần xuất hiện chọn lại một trong tám màu sơn; hai mẫu tải dùng chung nhóm tải thường/ngủ gật. Giữ tỷ lệ nguồn, texture 2K, đèn và profile nóc theo mẫu đang chọn. Chi tiết triển khai/kiểm tra ở `huongdan.md` mục 21.17–21.18. Đã build/phát hành và xác minh 26 kiểm tra live, 0 lỗi runtime; giữ độ nét mobile và bản sửa đuôi xe.

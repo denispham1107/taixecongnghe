@@ -1,0 +1,29 @@
+{
+  "name": "PV_LEDStreetLamp",
+  "generator": "pho_viet_saigon_streets.py",
+  "lod_triangles": [
+    778,
+    378,
+    228
+  ],
+  "obstacles": [
+    {
+      "kind": "Cột đèn đường",
+      "center": [
+        0,
+        3.8,
+        0
+      ],
+      "size": [
+        0.25,
+        7.6,
+        0.25
+      ]
+    }
+  ],
+  "optical_center": [
+    2.35,
+    8.48,
+    0
+  ]
+}
