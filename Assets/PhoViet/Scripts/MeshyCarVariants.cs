@@ -39,7 +39,9 @@ namespace PhoViet
         public bool Armored=>variants[SelectedVariant].armored;
         public void SelectForSpawn(System.Random random,PhoVietGame.TrafficVehicle vehicle,bool allowArmored=true)
         {
-            if(prepared){prepared=false;return;}
+            // Mẫu đã chọn trước (xe tăng theo lịch 9 s, xe ra sau cua): giữ mẫu, gán lại cờ xe tăng/tốc độ
+            // vì InitializeDriver đã xóa chúng trước khi gọi hàm này.
+            if(prepared){prepared=false;var chosen=variants[SelectedVariant];vehicle.armored=chosen.armored;vehicle.speedScale=chosen.speedScale>0?chosen.speedScale:1;return;}
             // Chọn theo trọng số; mẫu bọc thép bị loại khi xe phải vượt lên từ phía sau.
             float total=0;foreach(var v in variants)if(allowArmored||!v.armored)total+=Mathf.Max(0,v.weight);
             float pick=(float)random.NextDouble()*total;int index=0;
@@ -50,6 +52,9 @@ namespace PhoViet
             }
             Select(index,random.Next(Paints.Length),vehicle);
         }
+        public int ArmoredIndex=>Array.FindIndex(variants,v=>v.armored);
+        // Chọn trước đúng một mẫu (vd. xe tăng theo lịch) cho lần xuất hiện kế tiếp.
+        public void PrepareVariant(int index,PhoVietGame.TrafficVehicle vehicle){Select(index,0,vehicle);prepared=true;}
         public void PrepareForSpawn(System.Random random,PhoVietGame.TrafficVehicle vehicle,bool allowArmored=true)
         {if(prepared)return;SelectForSpawn(random,vehicle,allowArmored);prepared=true;}
         public void Select(int index,int paint,PhoVietGame.TrafficVehicle vehicle)

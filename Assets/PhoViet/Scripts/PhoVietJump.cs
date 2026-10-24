@@ -37,7 +37,7 @@ namespace PhoViet
   // wreck remains a collision obstacle rather than becoming an invisible platform.
   public static float JumpRoofHeight(TrafficVehicle v)
   {
-   if(v==null||v.model==null||v.halfWidth<=.7f)return -1;
+   if(v==null||v.model==null||v.halfWidth<=.7f||v.riverFalling)return -1;
    if(Mathf.Abs(Mathf.DeltaAngle(0,v.model.localEulerAngles.z))>12||Mathf.Abs(Mathf.DeltaAngle(0,v.model.localEulerAngles.x))>12)return -1;
    var meshy=v.model.GetComponent<MeshyCarVariants>();
    if(meshy!=null){if(v.halfLength<=3&&(v.knocked||v.wallCrashed))return -1;return meshy.Height;}

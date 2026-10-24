@@ -1,0 +1,85 @@
+{
+  "name": "PV_RiverBridge",
+  "generator": "pho_viet_river_bridge.py",
+  "reference": "ArtSource/Reference/River/river_bridge_reference.png",
+  "lod_triangles": [
+    52754,
+    15856,
+    2352
+  ],
+  "slots": [
+    "PV_StreetAtlas",
+    "PV_RiverMurk",
+    "PV_RiverWater",
+    "PV_RiverGroundMask",
+    "PV_RiverAsphalt",
+    "PV_RiverLineWhite",
+    "PV_RiverLineYellow"
+  ],
+  "blender_slots": [
+    "PV_StreetAtlas",
+    "PV_RiverWater",
+    "PV_RiverMurk",
+    "PV_RiverGroundMask",
+    "PV_RiverAsphalt",
+    "PV_RiverLineWhite",
+    "PV_RiverLineYellow"
+  ],
+  "water": [
+    16.8,
+    42.0
+  ],
+  "water_y": -5.0,
+  "bed_y": -9.5,
+  "murk": [
+    -8.7,
+    -7.6,
+    -6.6,
+    -5.7
+  ],
+  "deck_half": 3.1,
+  "curb": 3.4,
+  "rail": 3.7,
+  "side": 95.0,
+  "ground_top": -0.25,
+  "lamps": [
+    22.0,
+    36.8
+  ],
+  "lamp_x": 3.55,
+  "boats": [
+    {
+      "asset": "PV_RiverBoat0",
+      "x": -31.0,
+      "z": 38.7,
+      "yaw": 0.0
+    },
+    {
+      "asset": "PV_RiverBoat1",
+      "x": 27.0,
+      "z": 20.0,
+      "yaw": 180.0
+    },
+    {
+      "asset": "PV_RiverBoat1",
+      "x": -58.0,
+      "z": 19.8,
+      "yaw": 0.0
+    },
+    {
+      "asset": "PV_RiverBoat0",
+      "x": 62.0,
+      "z": 38.6,
+      "yaw": 180.0
+    }
+  ],
+  "materials": [
+    "PV_StreetAtlas",
+    "PV_RiverWater",
+    "PV_RiverMurk",
+    "PV_RiverGroundMask",
+    "PV_RiverAsphalt",
+    "PV_RiverLineWhite",
+    "PV_RiverLineYellow"
+  ]
+}

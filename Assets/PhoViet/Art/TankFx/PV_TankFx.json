@@ -1,0 +1,24 @@
+{
+  "generator": "pho_viet_tank_fx.py",
+  "shell_lod_triangles": [
+    228,
+    164,
+    84
+  ],
+  "muzzle": {
+    "file": "PV_TankFx_Muzzle.png",
+    "grid": [
+      2,
+      2
+    ]
+  },
+  "explosion": {
+    "file": "PV_TankFx_Explosion.png",
+    "grid": [
+      4,
+      2
+    ]
+  },
+  "warning": "PV_TankFx_Warning.png",
+  "frame": 256
+}

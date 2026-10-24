@@ -9,7 +9,7 @@ namespace PhoViet
    if(rideCamera==null||(State!=RideState.Riding&&State!=RideState.Paused))return;
    for(int lane=2;lane<=3;lane++)if(RearLaneWarningVisible(lane))DrawRearLaneWarning(lane);
   }
-  bool RearLaneWarningVisible(int lane)=>(RearRecklessWarningVisible&&rearRecklessLane==lane)||OrdinaryRearWarningVisible(lane);
+  bool RearLaneWarningVisible(int lane)=>previewRearWarnings||(RearRecklessWarningVisible&&rearRecklessLane==lane)||OrdinaryRearWarningVisible(lane);
   Vector3 RearWarningScreenPosition(int lane,float z,float pixels,Rect area)
   {
    var point=rideCamera.WorldToScreenPoint(transform.TransformPoint(new Vector3(LaneX[lane],.03f,z)));
@@ -36,6 +36,8 @@ namespace PhoViet
    if(screen.z<=0)return;
    float size=pixels/uiScale,x=(Mathf.Clamp(screen.x,area.xMin+pixels*.6f,area.xMax-pixels*.6f)-area.x)/uiScale;
    float y=(bottom-area.y)/uiScale,pulse=.5f+.5f*Mathf.Sin(Time.unscaledTime*Mathf.PI*7);
+   // Mẫu mới (21.42) thay toàn bộ khung/mũi tên/vạch cũ.
+   if(rearWarningStyle>=0){DrawRearWarningStyle(rearWarningStyle,x,y,size,pulse);return;}
    Panel(new Rect(x-size*.58f,y-size*.54f,size*1.16f,size*1.1f),new Color(1,.24f,.05f,.12f+pulse*.16f),size*.4f);
    Panel(new Rect(x-size*.44f,y-size*.45f,size*.88f,size*.95f),new Color(.07f,.17f,.18f,.86f),size*.2f);
    if(rearWarningArrow==null)CreateRearWarningArrow();

@@ -152,7 +152,9 @@ namespace PhoViet
                 CurrentClip=game.RiderJumpClip;
             }
             else {jumpBalancePitch=jumpPitchVelocity=0;}
-            if(falling||recovering)visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.012f-LowestSupport());
+            // Rơi/chìm dưới sông thì không nâng hình lên mặt đường (trước đây làm xe/người như nổi ngang mặt đường).
+            bool inRiver=role==ActorRole.Player?game.RiderInRiver:(vehicle!=null&&vehicle.riverFalling)||game.InRiverWater(transform);
+            if((falling||recovering)&&!inRiver)visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.012f-LowestSupport());
         }
         void Sample(string name,float normalized)
         {

@@ -21,6 +21,8 @@ namespace PhoViet
         }
         public PhoVietGame game;
         public MorningFog morningFog;
+        // Kiểu ánh sáng buổi sáng có sương (MorningLook.All, 21.41); -1 = ánh sáng gốc.
+        public int morningLook=-1;
         public TextAsset authoredProfile;
         public Light sun,moon;
         public Material sky,streetLens;
@@ -130,10 +132,29 @@ namespace PhoViet
                 runtimeSky.SetFloat("_Night",NightLevel);runtimeSky.SetVector("_SunDirection",sun!=null?-sun.transform.forward:Vector3.up);
                 runtimeSky.SetVector("_MoonDirection",moon!=null?-moon.transform.forward:Vector3.up);runtimeSky.SetMatrix("_SkyFrame",Matrix4x4.Rotate(Quaternion.Inverse(solarFrame)));
             }
+            ApplyMorningLook(ref horizon);
             if(game.rideCamera!=null){game.rideCamera.backgroundColor=horizon;game.rideCamera.clearFlags=CameraClearFlags.Skybox;}
             Shader.SetGlobalFloat(NightLights,LampLevel);
             foreach(var material in managedEmission)if(material!=null){material.SetColor("_EmissionColor",Color.white*(LampLevel*2.1f));material.EnableKeyword("_EMISSION");}
             if(runtimeLens!=null){runtimeLens.SetColor("_EmissionColor",Color.white*(LampLevel*6));runtimeLens.EnableKeyword("_EMISSION");}
+        }
+        // Pha kiểu sáng sớm theo độ đậm sương: đầu lượt đúng kiểu đã chọn, sương tan thì về ánh sáng ngày.
+        void ApplyMorningLook(ref Color horizon)
+        {
+            var look=MorningLook.Get(morningLook);
+            if(morningFog!=null)morningFog.SetLook(look!=null?look.fog:(Color?)null,look!=null?look.fogDensity:1);
+            float w=look!=null&&morningFog!=null?morningFog.Strength*(1-NightLevel):0;
+            if(w<=0)return;
+            if(sun!=null)
+            {
+                sun.color=Color.Lerp(sun.color,look.sun,w);sun.intensity=Mathf.Lerp(sun.intensity,look.sunIntensity,w);
+                sun.transform.localRotation=solarFrame*Quaternion.Euler(Mathf.Lerp(Mathf.Lerp(52,-12,NightLevel),look.sunPitch,w),-32,0);
+            }
+            RenderSettings.ambientSkyColor=Color.Lerp(RenderSettings.ambientSkyColor,look.ambientSky,w);
+            RenderSettings.ambientEquatorColor=Color.Lerp(RenderSettings.ambientEquatorColor,look.ambientEquator,w);
+            RenderSettings.ambientGroundColor=Color.Lerp(RenderSettings.ambientGroundColor,look.ambientGround,w);
+            horizon=Color.Lerp(horizon,look.horizon,w);RenderSettings.fogColor=Color.Lerp(RenderSettings.fogColor,look.fog,w);
+            if(runtimeSky!=null){runtimeSky.SetColor("_Zenith",Color.Lerp(runtimeSky.GetColor("_Zenith"),look.zenith,w));runtimeSky.SetColor("_Horizon",horizon);if(sun!=null)runtimeSky.SetVector("_SunDirection",-sun.transform.forward);}
         }
         void LateUpdate()
         {

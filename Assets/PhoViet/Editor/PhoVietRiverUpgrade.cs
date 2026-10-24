@@ -1,0 +1,204 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.Rendering;
+using static PhoViet.StreetArt;
+
+namespace PhoViet.Editor
+{
+    // Cài cầu vượt sông (24/10/2026, huongdan.md 21.35) vào cả 35 khối phố của 5 dãy đường.
+    // Mỗi khối có thêm "Cầu vượt sông • Blender" (tắt sẵn) + RiverBlock; runtime chọn khối nào thành cầu.
+    public static class PhoVietRiverUpgrade
+    {
+        public const string Folder="Assets/PhoViet/Art/River/";
+        const string Root="Cầu vượt sông • Blender";
+        [Serializable] sealed class BoatInfo{public string asset;public float x,z,yaw;}
+        [Serializable] sealed class Info{public float[] water;public float water_y,deck_half,lamp_x;public float[] lamps;public BoatInfo[] boats;public string[] slots;}
+
+        [MenuItem("Phố Việt/Art/Install river bridge blocks")]
+        public static object Install()
+        {
+            if(Application.isPlaying)throw new Exception("Exit Play Mode first");
+            var g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();if(g==null)throw new Exception("Open PhoViet scene first");
+            AssetDatabase.Refresh();
+            foreach(string name in new[]{"PV_RiverBridge","PV_RiverBoat0","PV_RiverBoat1"})
+            {
+                var importer=AssetImporter.GetAtPath(Folder+name+".fbx") as ModelImporter;if(importer==null)throw new Exception("Missing "+name+".fbx");
+                importer.materialImportMode=ModelImporterMaterialImportMode.None;importer.importAnimation=false;importer.importCameras=false;importer.importLights=false;
+                importer.addCollider=false;importer.globalScale=1;importer.isReadable=false;importer.importNormals=ModelImporterNormals.Import;
+                importer.bakeAxisConversion=false;importer.SaveAndReimport();
+            }
+            var info=JsonUtility.FromJson<Info>(System.IO.File.ReadAllText(Folder+"PV_RiverBridge.json"));
+            var model=AssetDatabase.LoadAssetAtPath<GameObject>(Folder+"PV_RiverBridge.fbx");
+            var boats=new Dictionary<string,GameObject>();foreach(var b in info.boats)if(!boats.ContainsKey(b.asset))boats[b.asset]=AssetDatabase.LoadAssetAtPath<GameObject>(Folder+b.asset+".fbx");
+            var atlas=AssetDatabase.LoadAssetAtPath<Material>("Assets/PhoViet/Art/Streets/PV_StreetAtlas.mat");if(atlas==null)throw new Exception("Missing street atlas");
+            var water=Asset("PV_RiverWater.mat",()=>new Material(Shader.Find("PhoViet/River Water")));water.shader=Shader.Find("PhoViet/River Water");
+            // Xanh ngọc như ảnh mẫu, sóng nhấp nhô rõ; đặt lại mỗi lần cài để vật liệu cũ không giữ số cũ.
+            water.SetColor("_ShallowColor",new Color(.2f,.68f,.74f));water.SetColor("_DeepColor",new Color(.04f,.33f,.45f));
+            water.SetColor("_SkyColor",new Color(.85f,.95f,1));water.SetColor("_FoamColor",new Color(.94f,.98f,1));
+            water.SetFloat("_WaveHeight",1.35f);water.SetFloat("_WaveSpeed",1);water.SetFloat("_Alpha",.78f);water.SetFloat("_Sparkle",1.6f);water.SetFloat("_ShadowStrength",.62f);water.SetFloat("_WaterY",info.water_y);
+            var mask=Asset("PV_RiverGroundMask.mat",()=>new Material(Shader.Find("PhoViet/River Ground Mask")));mask.shader=Shader.Find("PhoViet/River Ground Mask");
+            var murk=Asset("PV_RiverMurk.mat",()=>new Material(Shader.Find("PhoViet/River Murk")));murk.shader=Shader.Find("PhoViet/River Murk");
+            // Vật liệu nhựa đường/vạch kẻ lấy đúng của mesh gộp khối phố để mặt cầu liền màu với đường.
+            var sample=g.roadRows[0].tiles[1];
+            Material TileMat(string color)=>sample.Find("Geometry • PV_"+color+"FFFalse").GetComponent<MeshRenderer>().sharedMaterial;
+            var slotMats=new Dictionary<string,Material>{{"PV_StreetAtlas",atlas},{"PV_RiverWater",water},{"PV_RiverGroundMask",mask},{"PV_RiverMurk",murk},
+                {"PV_RiverAsphalt",TileMat("555D5D")},{"PV_RiverLineWhite",TileMat("FFF1CF")},{"PV_RiverLineYellow",TileMat("FFD35A")}};
+            // Nền thành phố bỏ qua lòng sông nhờ stencil.
+            var groundRenderer=g.GetComponentsInChildren<MeshRenderer>(true).First(r=>r.name=="Nền thành phố");
+            var oldGround=groundRenderer.sharedMaterial;
+            var ground=Asset("PV_CityGround.mat",()=>new Material(Shader.Find("PhoViet/City Ground")));ground.shader=Shader.Find("PhoViet/City Ground");
+            if(oldGround!=ground){ground.color=oldGround.color;ground.SetFloat("_Glossiness",oldGround.HasProperty("_Glossiness")?oldGround.GetFloat("_Glossiness"):.12f);ground.SetFloat("_Metallic",0);}
+            groundRenderer.sharedMaterial=ground;
+            // Đèn cầu: đúng mẫu đèn LED phố và hệ quang học ngày–đêm đang dùng.
+            var lampModel=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/PhoViet/Art/Lighting/PV_LEDStreetLamp.fbx");
+            Material L(string n)=>AssetDatabase.LoadAssetAtPath<Material>("Assets/PhoViet/Art/Lighting/"+n+".mat");
+            var lampMats=new[]{L("PV_StreetLEDMetal"),L("PV_StreetLEDSilver"),L("PV_StreetLEDLens")};
+            var floorQuad=AssetDatabase.LoadAssetAtPath<Mesh>("Assets/PhoViet/Art/Lighting/PV_OpticalGround.asset");
+            var haloQuad=AssetDatabase.LoadAssetAtPath<Mesh>("Assets/PhoViet/Art/Lighting/PV_OpticalHalo.asset");
+            var streetPool=L("PV_StreetSpill");var whiteGlow=L("PV_WhiteGlare");
+            if(lampModel==null||lampMats.Any(m=>m==null)||floorQuad==null||haloQuad==null||streetPool==null||whiteGlow==null)throw new Exception("Missing street lamp assets");
+            var lighting=g.daylight;if(lighting==null)throw new Exception("Day-night lighting not installed");
+            var streets=lighting.streets.Where(s=>s.source!=null&&!s.source.GetComponentsInParent<Transform>(true).Any(t=>t.name==Root)).ToList();
+            var clipped=new Dictionary<Mesh,Mesh>();int tiles=0,hidden=0,clips=0,lamps=0,boatCount=0;
+            System.IO.Directory.CreateDirectory(Folder+"Clipped");
+            foreach(var row in g.roadRows)foreach(var tile in row.tiles)
+            {
+                var old=tile.Find(Root);if(old!=null)UnityEngine.Object.DestroyImmediate(old.gameObject);
+                var block=tile.GetComponent<RiverBlock>();if(block==null)block=tile.gameObject.AddComponent<RiverBlock>();
+                // Trả mesh gộp gốc trước khi tính lại (cài lặp lại an toàn).
+                for(int i=0;i<block.clipFilters.Length;i++)if(block.clipFilters[i]!=null&&block.fullMeshes[i]!=null)block.clipFilters[i].sharedMesh=block.fullMeshes[i];
+                foreach(var item in block.streetOnly)if(item!=null)item.SetActive(true);
+                var street=new List<GameObject>();var filters=new List<MeshFilter>();var full=new List<Mesh>();var cut=new List<Mesh>();
+                foreach(Transform child in tile)
+                {
+                    if(!TileRange(tile,child,out float z0,out float z1)||z1<=RiverBlock.Near+.4f||z0>=RiverBlock.Far-.4f)continue;
+                    var filter=child.GetComponent<MeshFilter>();
+                    if(filter!=null&&filter.sharedMesh!=null&&child.childCount==0&&child.GetComponent<StreetObstacleSet>()==null&&(child.name.StartsWith("Geometry • ",StringComparison.Ordinal)||child.name.StartsWith("Vạch mũi tên",StringComparison.Ordinal)))
+                    {
+                        if(child.localPosition!=Vector3.zero||child.localRotation!=Quaternion.identity||child.localScale!=Vector3.one)throw new Exception("Unexpected merged mesh transform: "+child.name);
+                        if(!clipped.TryGetValue(filter.sharedMesh,out var c)){c=ClipRiver(filter.sharedMesh);clipped.Add(filter.sharedMesh,c);}
+                        filters.Add(filter);full.Add(filter.sharedMesh);cut.Add(c);clips++;
+                    }
+                    else {street.Add(child.gameObject);hidden++;}
+                }
+                var root=(GameObject)PrefabUtility.InstantiatePrefab(model,tile);root.name=Root;
+                root.transform.localPosition=Vector3.zero;root.transform.localRotation=Quaternion.identity;root.transform.localScale=Vector3.one;
+                SetupLods(root,info.slots,slotMats,ShadowCastingMode.On);
+                foreach(var b in info.boats)
+                {
+                    var boat=(GameObject)PrefabUtility.InstantiatePrefab(boats[b.asset],root.transform);boat.name="Thuyền neo • "+b.asset;
+                    var rest=new Vector3(b.x,info.water_y,b.z);boat.transform.localPosition=rest;boat.transform.localRotation=Quaternion.Euler(0,b.yaw,0);
+                    SetupLods(boat,new[]{"PV_StreetAtlas"},slotMats,ShadowCastingMode.On);
+                    var bob=boat.AddComponent<RiverBoat>();bob.restPosition=rest;bob.restYaw=b.yaw;bob.phase=b.x*.37f+b.z*.11f;boatCount++;
+                }
+                var lampGroup=Group("Đèn cầu • Blender",root.transform);
+                foreach(float side in new[]{-1f,1f})foreach(float z in info.lamps)
+                {
+                    var unit=Group("Đèn LED cầu • "+side,lampGroup,new Vector3(side*info.lamp_x,0,z));unit.localRotation=Quaternion.Euler(0,side>0?180:0,0);
+                    var instance=(GameObject)PrefabUtility.InstantiatePrefab(lampModel,unit);instance.name="Blender • đèn đường LED";
+                    instance.transform.localPosition=Vector3.zero;instance.transform.localRotation=lampModel.transform.localRotation;instance.transform.localScale=lampModel.transform.localScale;
+                    foreach(var r in instance.GetComponentsInChildren<MeshRenderer>(true)){r.sharedMaterials=lampMats;r.shadowCastingMode=ShadowCastingMode.On;r.receiveShadows=true;}
+                    var lodRenderers=instance.GetComponentsInChildren<MeshRenderer>(true).OrderBy(r=>r.name.Contains("_LOD2")?2:r.name.Contains("_LOD1")?1:0).ToArray();
+                    if(lodRenderers.Length==3){var lod=instance.GetComponent<LODGroup>();if(lod==null)lod=instance.AddComponent<LODGroup>();lod.SetLODs(new[]{new LOD(.13f,new Renderer[]{lodRenderers[0]}),new LOD(.05f,new Renderer[]{lodRenderers[1]}),new LOD(.005f,new Renderer[]{lodRenderers[2]})});lod.RecalculateBounds();}
+                    var source=Group("Tâm quang học LED",unit,new Vector3(2.35f,8.48f,0));source.localRotation=Quaternion.Euler(90,0,0);
+                    var pool=Overlay("Vệt sáng đèn cầu",lampGroup,streetPool,floorQuad);pool.transform.localPosition=new Vector3(side*(info.lamp_x-2.35f),.038f,z);pool.transform.localScale=new Vector3(14,1,14);
+                    var glow=Overlay("Quầng đèn cầu",lampGroup,whiteGlow,haloQuad);glow.transform.localScale=Vector3.one*.9f;
+                    streets.Add(new DayNightLighting.StreetLamp{source=source,pool=pool,glow=glow});lamps++;
+                }
+                block.bridge=root;block.streetOnly=street.ToArray();block.clipFilters=filters.ToArray();block.fullMeshes=full.ToArray();block.clippedMeshes=cut.ToArray();
+                block.SetBridge(false);EditorUtility.SetDirty(block);tiles++;
+            }
+            lighting.streets=streets.ToArray();
+            var lens=lampMats[2];
+            lighting.emissionUsers=lighting.emissionUsers.Where(r=>r!=null).Concat(g.GetComponentsInChildren<Renderer>(true).Where(r=>r.sharedMaterials.Contains(lens))).Distinct().ToArray();
+            EditorUtility.SetDirty(lighting);EditorUtility.SetDirty(g);EditorUtility.SetDirty(ground);EditorUtility.SetDirty(water);EditorUtility.SetDirty(mask);EditorUtility.SetDirty(murk);
+            AssetDatabase.SaveAssets();EditorSceneManager.MarkSceneDirty(g.gameObject.scene);EditorSceneManager.SaveScene(g.gameObject.scene);
+            return new{success=true,tiles,hiddenPerTile=hidden/(float)Mathf.Max(1,tiles),clippedMeshes=clipped.Count,clips,lamps,boats=boatCount,streets=lighting.streets.Length,jobs=g.jobsEnabled};
+        }
+        static bool TileRange(Transform tile,Transform child,out float z0,out float z1)
+        {
+            z0=float.MaxValue;z1=float.MinValue;bool any=false;
+            foreach(var r in child.GetComponentsInChildren<Renderer>(true))
+            {
+                var b=r.bounds;
+                for(int i=0;i<8;i++)
+                {
+                    var corner=new Vector3((i&1)==0?b.min.x:b.max.x,(i&2)==0?b.min.y:b.max.y,(i&4)==0?b.min.z:b.max.z);
+                    float z=tile.InverseTransformPoint(corner).z;z0=Mathf.Min(z0,z);z1=Mathf.Max(z1,z);any=true;
+                }
+            }
+            return any;
+        }
+        static void SetupLods(GameObject root,string[] slots,Dictionary<string,Material> mats,ShadowCastingMode shadows)
+        {
+            var renderers=root.GetComponentsInChildren<MeshRenderer>(true).Where(r=>r.transform.parent==root.transform).OrderBy(r=>r.name.Contains("_LOD2")?2:r.name.Contains("_LOD1")?1:0).ToArray();
+            foreach(var r in renderers)
+            {
+                int count=r.GetComponent<MeshFilter>().sharedMesh.subMeshCount;
+                r.sharedMaterials=Enumerable.Range(0,count).Select(i=>mats[slots[Mathf.Min(i,slots.Length-1)]]).ToArray();
+                // Mesh xuất từ Blender còn trục Z lên: xoay -90° quanh X để trùng hệ khối phố (x ngang, y lên, z dọc đường).
+                // Shader nước đổi ngược trục này (ToTile/FromTile) để tính sóng/bóng trên mặt nằm ngang.
+                r.transform.localRotation=Quaternion.Euler(-90,0,0);
+                r.shadowCastingMode=shadows;r.receiveShadows=true;r.gameObject.SetActive(true);
+            }
+            if(renderers.Length!=3)throw new Exception("Expected three LODs in "+root.name);
+            var lod=root.GetComponent<LODGroup>();if(lod==null)lod=root.AddComponent<LODGroup>();
+            lod.SetLODs(new[]{new LOD(.12f,new Renderer[]{renderers[0]}),new LOD(.04f,new Renderer[]{renderers[1]}),new LOD(.002f,new Renderer[]{renderers[2]})});lod.RecalculateBounds();
+        }
+        static Renderer Overlay(string name,Transform parent,Material material,Mesh mesh)
+        {var t=Group(name,parent);t.gameObject.AddComponent<MeshFilter>().sharedMesh=mesh;var r=t.gameObject.AddComponent<MeshRenderer>();r.sharedMaterial=material;r.shadowCastingMode=ShadowCastingMode.Off;r.receiveShadows=false;return r;}
+        static T Asset<T>(string file,Func<T> create) where T:UnityEngine.Object
+        {var value=AssetDatabase.LoadAssetAtPath<T>(Folder+file);if(value==null){value=create();AssetDatabase.CreateAsset(value,Folder+file);}return value;}
+
+        // Cắt bỏ phần mesh gộp nằm trong dải z (Near, Far): giữ hai bờ, mở lòng sông cho mô hình cầu.
+        public static Mesh ClipRiver(Mesh source)
+        {
+            string path=Folder+"Clipped/"+source.name.Replace(' ','_')+"_"+AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(source)).Substring(0,8)+".asset";
+            var v=source.vertices;var n=source.normals;var uv=source.uv;var tan=source.tangents;var col=source.colors;
+            bool hasN=n.Length==v.Length,hasUv=uv.Length==v.Length,hasT=tan.Length==v.Length,hasC=col.Length==v.Length;
+            var outV=new List<Vector3>();var outN=new List<Vector3>();var outUv=new List<Vector2>();var outT=new List<Vector4>();var outC=new List<Color>();
+            var subs=new List<List<int>>();
+            for(int s=0;s<source.subMeshCount;s++)
+            {
+                var tris=source.GetTriangles(s);var list=new List<int>();subs.Add(list);
+                for(int i=0;i<tris.Length;i+=3)
+                {
+                    var poly=new List<Vert>{Make(tris[i]),Make(tris[i+1]),Make(tris[i+2])};
+                    foreach(var part in new[]{Clip(poly,RiverBlock.Near,true),Clip(poly,RiverBlock.Far,false)})
+                    {
+                        if(part.Count<3)continue;int start=outV.Count;
+                        foreach(var p in part){outV.Add(p.p);outN.Add(p.n);outUv.Add(p.uv);outT.Add(p.t);outC.Add(p.c);}
+                        for(int k=1;k+1<part.Count;k++){list.Add(start);list.Add(start+k);list.Add(start+k+1);}
+                    }
+                }
+            }
+            Vert Make(int i)=>new Vert{p=v[i],n=hasN?n[i]:Vector3.up,uv=hasUv?uv[i]:Vector2.zero,t=hasT?tan[i]:Vector4.zero,c=hasC?col[i]:Color.white};
+            var mesh=new Mesh{name=source.name+"_River",indexFormat=outV.Count>65000?IndexFormat.UInt32:IndexFormat.UInt16};
+            mesh.SetVertices(outV);if(hasN)mesh.SetNormals(outN);if(hasUv)mesh.SetUVs(0,outUv);if(hasT)mesh.SetTangents(outT);if(hasC)mesh.SetColors(outC);
+            mesh.subMeshCount=subs.Count;for(int s=0;s<subs.Count;s++)mesh.SetTriangles(subs[s],s);
+            mesh.RecalculateBounds();
+            var existing=AssetDatabase.LoadAssetAtPath<Mesh>(path);
+            if(existing!=null){EditorUtility.CopySerialized(mesh,existing);UnityEngine.Object.DestroyImmediate(mesh);return existing;}
+            AssetDatabase.CreateAsset(mesh,path);return mesh;
+        }
+        struct Vert{public Vector3 p,n;public Vector2 uv;public Vector4 t;public Color c;}
+        static Vert Lerp(Vert a,Vert b,float t)=>new Vert{p=Vector3.Lerp(a.p,b.p,t),n=Vector3.Lerp(a.n,b.n,t).normalized,uv=Vector2.Lerp(a.uv,b.uv,t),t=Vector4.Lerp(a.t,b.t,t),c=Color.Lerp(a.c,b.c,t)};
+        // Sutherland–Hodgman theo một mặt phẳng z: below=true giữ z ≤ plane, false giữ z ≥ plane.
+        static List<Vert> Clip(List<Vert> poly,float plane,bool below)
+        {
+            var result=new List<Vert>();
+            for(int i=0;i<poly.Count;i++)
+            {
+                var a=poly[i];var b=poly[(i+1)%poly.Count];
+                float da=below?plane-a.p.z:a.p.z-plane,db=below?plane-b.p.z:b.p.z-plane;
+                if(da>=0)result.Add(a);
+                if((da>=0)!=(db>=0))result.Add(Lerp(a,b,da/(da-db)));
+            }
+            return result;
+        }
+    }
+}

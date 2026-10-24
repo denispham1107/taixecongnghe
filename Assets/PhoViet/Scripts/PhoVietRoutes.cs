@@ -45,7 +45,7 @@ namespace PhoViet
                 for(int j=0;j<row.tiles.Count;j++){row.tiles[j].localPosition=new Vector3(0,0,(j-(i==0?1:0))*80);row.tiles[j].localRotation=Quaternion.identity;}
             }
             foreach(var row in roadRows)CacheStreetLabels(row);
-            blocks=new List<Transform>(roadRows[0].tiles);LabelRow(mainRow,RouteStreet);PrepareBranches(70);
+            blocks=new List<Transform>(roadRows[0].tiles);AssignRiverRow(roadRows[0].tiles,2);LabelRow(mainRow,RouteStreet);PrepareBranches(70);
         }
         string PickStreet()
         {
@@ -78,6 +78,7 @@ namespace PhoViet
                 float side=index==leftRow?-1:1;var row=roadRows[index];row.root.gameObject.SetActive(true);
                 row.root.localPosition=new Vector3(side*10,0,distance);row.root.localRotation=Quaternion.Euler(0,side*90,0);
                 for(int j=0;j<row.tiles.Count;j++){row.tiles[j].localPosition=new Vector3(0,0,j*80);row.tiles[j].localRotation=Quaternion.identity;}
+                AssignRiverRow(row.tiles,1);
                 LabelRow(index,junctionStreet);
             }
             CityJunctionPrepared();
@@ -105,7 +106,8 @@ namespace PhoViet
         void ScrollRoutes(float delta)
         {
             if(RoutesReady)foreach(var row in roadRows)if(row!=roadRows[mainRow]&&row.root.gameObject.activeSelf)row.root.localPosition-=Vector3.forward*delta;
-            foreach(var b in blocks){b.localPosition-=Vector3.forward*delta;if(b.localPosition.z<-160)b.localPosition+=Vector3.forward*80*blocks.Count;}
+            ScrollTankFire(delta);
+            foreach(var b in blocks){b.localPosition-=Vector3.forward*delta;if(b.localPosition.z<-160){b.localPosition+=Vector3.forward*80*blocks.Count;AssignRecycledRiverBlock(b);}}
             for(int i=0;i<routeTrail.Count;i++){var p=routeTrail[i];p.point-=Vector3.forward*delta;routeTrail[i]=p;}
         }
         void BeginOrContinueTurn(float delta)
@@ -139,6 +141,8 @@ namespace PhoViet
         {StartJunctionTurnAt(late,NextJunctionDistance);}
         void StartJunctionTurnAt(bool late,float junctionDistance)
         {
+            // Thế giới sắp quay 90°: hủy đạn/cảnh báo đang bay (21.38).
+            ClearShells();
             IsTurning=true;turnSide=QueuedTurn;QueuedTurn=0;turnStart=rider.localPosition;turnStart.y=0;
             turnRadius=Mathf.Max(4,junctionDistance-turnSide*LaneX[CurrentLane]);turnTravel=0;TurnYaw=0;lateTurn=late;
             if(late)

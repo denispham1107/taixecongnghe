@@ -149,7 +149,7 @@ namespace PhoViet
             Vector3 p=v.model.localPosition;Vector2 half=VehicleFootprint(v);
             float route=Mathf.Repeat(RoadProgress+p.z,VietnamStreet.Length);
             // Shop rows stop before the junction: an empty cross street is never a wall.
-            if(Mathf.Abs(p.x)+half.x<9.3f||route>58.4f)return;
+            if(Mathf.Abs(p.x)+half.x<9.3f||route>58.4f||RiverZoneAt(p))return;
             float side=Mathf.Sign(p.x);p.x=side*(9.3f-half.x);p.y=0;
             if(!v.isReckless){v.model.localPosition=p;v.knockVelocity.x=-v.knockVelocity.x*.25f;return;}
             v.model.GetComponent<CarVisualAnimator>()?.ReceiveImpact(v.model.InverseTransformDirection(transform.TransformDirection(new Vector3(-side,0,0))),15);

@@ -41,6 +41,13 @@ namespace PhoViet
             // Xe tăng Meshy (24/10/2026): khối lượng vô hạn trong va chạm, tốc độ ×speedScale (0,4 = chậm hơn 60%).
             [NonSerialized] public bool armored;
             [NonSerialized] public float speedScale=1;
+            // Cầu vượt sông (21.35): xe ra ngoài mặt cầu trên lòng sông rơi xuống nước.
+            [NonSerialized] public bool riverFalling,riverSplashed;
+            [NonSerialized] public float riverAge,riverRipple,riverBubble;
+            [NonSerialized] public Vector3 riverVelocity,riverSpin;
+            [NonSerialized] public Transform riverTile;
+            // Xe tăng bắn (21.38): đếm ngược tới phát bắn kế tiếp.
+            [NonSerialized] public float tankFireTimer;
             public int jobYieldLane=-1;
             [NonSerialized] public int spawnGeneration;
             [NonSerialized] public float previousCrashWidth=-1;
@@ -134,6 +141,7 @@ namespace PhoViet
             State=RideState.Ready;Distance=0;Speed=0;CurrentLane=2;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;laneVelocity=0;steerYaw=0;noticeTimer=0;
             nextIntersectionDistance=VietnamStreet.IntersectionCenter;ScheduledIntersections=0;
             ResetCityJobs();
+            ResetRivers();
             ResetRoutes();
             ResetActions();
             ResetReckless();
@@ -141,6 +149,7 @@ namespace PhoViet
             ResetRiderImpact();
             ResetJump();
             ResetBoost();
+            ResetTankBarrage();
             if(rider!=null){rider.localPosition=new Vector3(LaneX[2],0,0);rider.localRotation=Quaternion.identity;}
             lastX=LaneX[2];
             for(int i=0;i<blocks.Count;i++)blocks[i].localPosition=new Vector3(0,0,(i-1)*VietnamStreet.Length);
@@ -176,7 +185,7 @@ namespace PhoViet
             v.lane=lane;v.active=true;v.speed=lane<2?-rng.Next(10,17):rng.Next(7,12);
             v.baseTrafficSpeed=v.speed;
             v.model.gameObject.SetActive(true);v.model.localPosition=new Vector3(LaneX[lane],0,z);v.model.localRotation=Quaternion.Euler(0,lane<2?180:0,0);
-            InitializeDriver(v);
+            InitializeDriver(v);KeepSpawnOnBridge(v);
             return v;
         }
         public TrafficVehicle SpawnCrossTraffic(int direction,float z,bool car,float crossSpeed,float delay=0)
@@ -272,6 +281,7 @@ namespace PhoViet
             }
             UpdateWork(Mathf.Min(Time.deltaTime,.05f));
             if(State==RideState.Falling)TickRiderCrash(Mathf.Min(Time.deltaTime,.05f));
+            if(State==RideState.GameOver){TickRiverAftermath(Mathf.Min(Time.deltaTime,.05f));TickShells(Mathf.Min(Time.deltaTime,.05f));}
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
             if(State==RideState.Arrested)TickArrest(Time.deltaTime);
             AnimateLights();PositionCamera(false);
@@ -336,6 +346,7 @@ namespace PhoViet
             riderVelocityValid=true;
             riderBody.previousPosition=new Vector3(oldX,jumpPreviousHeight,oldRiderZ);riderBody.previousYaw=oldRiderYaw;riderBody.knocked=false;
             TickTrafficMotion(dt);
+            TickTankBarrage(dt);if(State!=RideState.Riding)return;
             ResolveJumpSurface(dt);
             TickRearRecklessWarning(dt);
             TickOrdinaryRearWarnings(dt);
@@ -343,6 +354,7 @@ namespace PhoViet
             TickAssistedKickContact(dt);
             if(!ServiceStopped&&Speed>.1f)rearDepartureProtection=Mathf.Max(0,rearDepartureProtection-dt);
             x=rider.localPosition.x;lastX=x;
+            if(CheckRiderRiver())return;
             RetireTraffic(true);
             TickChase(dt);AnimateKick();
             if(State!=RideState.Riding)return;
@@ -368,6 +380,7 @@ namespace PhoViet
                 Vector3 previous=v.model.localPosition;
                 v.previousPosition=previous;v.previousYaw=v.model.localEulerAngles.y;v.previousCrashWidth=BodyWidth(v);v.playerGrace=Mathf.Max(0,v.playerGrace-dt);
                 ScrollTrafficRecovery(v,Vector3.forward*Speed*dt);
+                if(v.riverFalling){TickVehicleRiverFall(v,dt);if(dt>0)v.motionVelocity=v.riverVelocity;continue;}
                 if(v.wallCrashed)TickWallWreck(v,dt);
                 else if(TickTrafficRecovery(v,dt)){}
                 else if(v.knocked)TickKnockedVehicle(v,dt);
@@ -387,6 +400,7 @@ namespace PhoViet
                 BrakeBeforeStoppedRider(v);
                 YieldRearForService(v);
                 if((v.isReckless||v.knocked)&&!v.wallCrashed&&!v.routeDetached)CheckBuildingImpact(v);
+                if(RiverCandidate(v)&&OverRiver(v.model.localPosition)){BeginVehicleRiverFall(v,previous,dt);if(dt>0)v.motionVelocity=v.riverVelocity;continue;}
                 if(dt>0)v.motionVelocity=v.wallCrashed?Vector3.zero:v.knocked?v.knockVelocity:(v.model.localPosition-previous)/dt+Vector3.forward*Speed;
             }
             ResolveVehicleCollisions();
@@ -402,7 +416,7 @@ namespace PhoViet
                 Vector3 p=v.model.localPosition;
                 if(countPasses&&previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-rider.localPosition.x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
                 if(v.recovery!=null)continue;
-                if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || (v.enteringFromBehind&&!v.isReckless&&p.z< -95) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&v.knockAge>8) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
+                if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || (v.enteringFromBehind&&!v.isReckless&&p.z< -95) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&v.knockAge>8) || (v.riverFalling&&(v.riverAge>9||v.riverAge>3&&v.model.localPosition.y<=RiverBlock.BedY+.41f)) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
             }
         }
         public void Crash()
@@ -431,11 +445,21 @@ namespace PhoViet
             if(!followsCrash)center.y=jumpHeight*.45f;
             float lateral=IsTurning||followsCrash?LaneX[CurrentLane]:x;
             Vector3 target=center+heading*new Vector3(lateral*(narrow?.85f:.25f),IsChased?7.8f:7.15f,IsChased?-14f:-9.6f);
+            // Rơi xuống sông: camera ở lại trên mặt cầu (không đi theo ra ngoài, không đâm vào nhà ven sông),
+            // nhìn xuống chỗ người chơi chìm dần.
+            bool riverView=RiderInRiver;Vector3 riverLook=Vector3.zero;
+            if(riverView)
+            {
+                // Không lùi sau bờ kè gần (sẽ bị kè che): đứng phía trên mép nước, nhìn thẳng xuống chỗ chìm.
+                var r=rider.localPosition;float watch=Mathf.Max(r.y,RiverBlock.WaterY);
+                target=new Vector3(Mathf.Clamp(r.x*.45f,-2.6f,2.6f),8.2f,Mathf.Max(r.z-8.5f,RiverCameraMinZ()-1.5f));
+                riverLook=new Vector3(r.x,watch,r.z+1.2f);
+            }
             // Keep a similar following distance at every riding speed. A fixed
             // time lag let a boosted bike leave the frame during a short corner.
             float cornerTracking=IsTurning||cameraTurnBlend>0?Mathf.Max(1,Speed/17):1;
             rideCamera.transform.localPosition=snap?target:Vector3.Lerp(rideCamera.transform.localPosition,target,1-Mathf.Exp(-cameraDt*5*cornerTracking));
-            Vector3 look=center+heading*new Vector3(lateral*(narrow?.85f:.18f),1.2f,8);
+            Vector3 look=riverView?riverLook:center+heading*new Vector3(lateral*(narrow?.85f:.18f),1.2f,8);
             Quaternion rotation=Quaternion.LookRotation(transform.TransformPoint(look)-rideCamera.transform.position,Vector3.up);
             rideCamera.transform.rotation=!snap&&(IsTurning||cameraTurnBlend>0)?Quaternion.Slerp(rideCamera.transform.rotation,rotation,1-Mathf.Exp(-cameraDt*9*cornerTracking)):rotation;
             // Perspective zoom: tan(FOV/2) scales inversely with apparent size.
@@ -508,7 +532,7 @@ namespace PhoViet
             float w=portrait?432:480,h=paused?340:465,x=(uiW-w)/2,y=(uiH-h)/2;
             Panel(new Rect(x,y,w,h),Cream,18);
             Txt(paused?"NGHỈ MỘT CHÚT":"KẾT THÚC CHUYẾN XE",x+28,y+28,w-56,25,12,Red);
-            Txt(paused?"Dừng chân bên phố.":"Chuyến đi kết thúc!",x+27,y+69,w-54,70,portrait?31:36,Ink);
+            Txt(paused?"Dừng chân bên phố.":RiderInRiver?"Rơi xuống sông!":KilledByShell?"Trúng đạn xe tăng!":"Chuyến đi kết thúc!",x+27,y+69,w-54,70,portrait?31:36,Ink);
             if(paused)
             {
                 Txt("Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.",x+28,y+140,w-56,50,16,Teal);

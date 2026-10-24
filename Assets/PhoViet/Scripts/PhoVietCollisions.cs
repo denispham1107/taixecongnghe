@@ -76,6 +76,7 @@ namespace PhoViet
         bool VehicleContact(TrafficVehicle a,TrafficVehicle b,out Vector2 normal,out float at,out float penetration)
         {
             normal=Vector2.zero;at=0;penetration=0;
+            if(a.riverFalling||b.riverFalling)return false;
             Vector2 from=Flat(b.previousPosition-a.previousPosition),to=Flat(b.model.localPosition-a.model.localPosition),delta=to-from;
             float enter=0,leave=1,minDepth=float.MaxValue;Vector2 entryNormal=Vector2.zero,minNormal=Vector2.zero;
             for(int i=0;i<4;i++)

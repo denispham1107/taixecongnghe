@@ -1,0 +1,157 @@
+{
+  "date": "2026-10-24",
+  "feature": "river bridge, sinking, deep water and visual fix (huongdan.md 21.35-21.37)",
+  "riversEnabledForLegacySuites": false,
+  "realtime": {
+    "riderY": -8.8,
+    "riderVisualMaxY": -6.18,
+    "waterY": -5.0,
+    "state": "GameOver",
+    "images": [
+      "realtime-river-1.png",
+      "realtime-river-2.png",
+      "realtime-river-3.png",
+      "realtime-river-4.png"
+    ]
+  },
+  "suites": [
+    {
+      "suite": "VerifyBoost",
+      "success": true,
+      "conditions": 35
+    },
+    {
+      "suite": "VerifyBoostTrafficIsolation",
+      "success": true,
+      "conditions": 478
+    },
+    {
+      "suite": "VerifyCrashOutcome",
+      "success": true,
+      "conditions": 51
+    },
+    {
+      "suite": "VerifyCrashPoliceNavigation",
+      "success": true,
+      "conditions": 214
+    },
+    {
+      "suite": "VerifyCrashUpgrade",
+      "success": true,
+      "conditions": 93
+    },
+    {
+      "suite": "VerifyDistanceMode",
+      "success": true,
+      "conditions": 31
+    },
+    {
+      "suite": "VerifyGameplay",
+      "success": true,
+      "conditions": 23
+    },
+    {
+      "suite": "VerifyJump",
+      "success": true,
+      "conditions": 44
+    },
+    {
+      "suite": "VerifyJunctionKick",
+      "success": true,
+      "conditions": 216
+    },
+    {
+      "suite": "VerifyJunctionRoutes",
+      "success": true,
+      "conditions": 92
+    },
+    {
+      "suite": "VerifyLaneSteering",
+      "success": true,
+      "conditions": 123
+    },
+    {
+      "suite": "VerifyMeshyCarRoofs",
+      "success": true,
+      "conditions": 256
+    },
+    {
+      "suite": "VerifyMeshyCars",
+      "success": true,
+      "conditions": 1266
+    },
+    {
+      "suite": "VerifyMeshyLighting",
+      "success": true,
+      "conditions": 16
+    },
+    {
+      "suite": "VerifyMeshyTank",
+      "success": true,
+      "conditions": 1141
+    },
+    {
+      "suite": "VerifyMobileCamera",
+      "success": true,
+      "conditions": 8
+    },
+    {
+      "suite": "VerifyNightJumpLighting",
+      "success": true,
+      "conditions": 88
+    },
+    {
+      "suite": "VerifyPortraitHud",
+      "success": true,
+      "conditions": 21
+    },
+    {
+      "suite": "VerifyQuickKick",
+      "success": true,
+      "conditions": 62
+    },
+    {
+      "suite": "VerifyRiderContacts",
+      "success": true,
+      "conditions": 45
+    },
+    {
+      "suite": "VerifyRiverBridge",
+      "success": true,
+      "conditions": 136
+    },
+    {
+      "suite": "VerifyRoadDrivers",
+      "success": true,
+      "conditions": 45
+    },
+    {
+      "suite": "VerifyRoofRiding",
+      "success": true,
+      "conditions": 4206
+    },
+    {
+      "suite": "VerifySmoothTurns",
+      "success": true,
+      "conditions": 468
+    },
+    {
+      "suite": "VerifyStreetArt",
+      "success": true,
+      "conditions": 333
+    },
+    {
+      "suite": "VerifyTrafficDynamics",
+      "success": true,
+      "conditions": 82
+    },
+    {
+      "suite": "VerifyTruckJump",
+      "success": true,
+      "conditions": 125
+    }
+  ],
+  "total": 9698,
+  "build": "not built",
+  "commit": "not committed"
+}

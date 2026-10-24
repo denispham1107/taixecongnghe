@@ -58,6 +58,9 @@ namespace PhoViet
             bool visible=Strength>0&&volume!=null&&lighting!=null&&lighting.game!=null&&lighting.game.State!=PhoVietGame.RideState.Jailed;
             if(enabled!=visible)enabled=visible;
         }
+        // Kiểu ánh sáng sáng sớm (21.41): màu và độ đậm sương theo kiểu đã chọn; null = màu gốc của profile.
+        Color? lookColor;float lookDensity=1;
+        public void SetLook(Color? color,float density){lookColor=color;lookDensity=Mathf.Max(0,density);}
         public void Hide(){Strength=0;enabled=false;}
         void OnRenderImage(RenderTexture source,RenderTexture destination)
         {
@@ -67,10 +70,10 @@ namespace PhoViet
             volume.SetVector("_RayBL",transform.TransformVector(corners[0]));volume.SetVector("_RayTL",transform.TransformVector(corners[1]));
             volume.SetVector("_RayTR",transform.TransformVector(corners[2]));volume.SetVector("_RayBR",transform.TransformVector(corners[3]));
             volume.SetVector("_CameraPosition",transform.position);volume.SetMatrix("_WorldToField",WorldToField);
-            volume.SetVector("_FogParams",new Vector4(profile.density*Strength,profile.heightFalloff,profile.maximumDistance,ElapsedSeconds));
+            volume.SetVector("_FogParams",new Vector4(profile.density*Strength*lookDensity,profile.heightFalloff,profile.maximumDistance,ElapsedSeconds));
             volume.SetVector("_Atlas",new Vector4(profile.gridSize,profile.atlasColumns,profile.atlasRows,profile.tileSize));
             volume.SetVector("_Period",new Vector4(profile.period[0],profile.period[1],profile.period[2],0));
-            volume.SetColor("_FogColor",StreetArt.Hex(profile.color));
+            volume.SetColor("_FogColor",lookColor??StreetArt.Hex(profile.color));
             Graphics.Blit(source,destination,volume);
         }
         void OnDestroy(){if(volume!=null){if(Application.isPlaying)Destroy(volume);else DestroyImmediate(volume);}}

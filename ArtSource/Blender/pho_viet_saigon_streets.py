@@ -23,8 +23,9 @@ def hexcol(h): return tuple((int(h[i:i+2], 16)/255)**2.2 for i in (0, 2, 4))+(1,
 
 # 64 màu = lưới 8x8 ô 16 px trong PNG 128 px (Point filter, không mip).
 PAL = {
- # Mặt tiền kem/vàng/be như ảnh mẫu
- 'cream':'F4E6C4','butter':'F2D58C','beige':'E6CFA6','peach':'F0C9A4','mint':'CFE3D0','sky':'C9DCE6','sand':'E9C27A','stone':'D9D4C7',
+ # Mặt tiền nhiều màu (21.43: trước đây kem/vàng/be gần như toàn vàng, nay mỗi tiệm một màu, chỉ một tiệm vàng):
+ # cream=trắng ngà, butter=vàng, beige=hồng phấn, peach=cam san hô, mint=xanh bạc hà, sky=xanh da trời, sand=tím oải hương
+ 'cream':'F3EADB','butter':'F5D06B','beige':'EDB3BC','peach':'F2A487','mint':'A9DCC4','sky':'A7CBEA','sand':'C8B7E6','stone':'D9D4C7',
  # Viền/cửa/kính
  'white':'FBF8F0','trim':'EFE6D2','glass':'3E5A66','glassLight':'8FB3C0','frame':'F6F3EA','darkFrame':'2B2F33','iron':'1E2124','ironGrey':'4A4F55',
  # Mái ngói, gỗ, tường trong
@@ -162,16 +163,16 @@ class Geo:
 # Tên hiển thị trùng VietnamStreet.Shops để vật cản/kiểm tra nhận diện đúng.
 SHOPS = [
  dict(name='PHỞ BÒ - GÀ', main='PHỞ', side='BÒ - GÀ', sub='', board='white', ink='red', subink='red', stripe=('awnRed', 'awnWhite'), facade='cream', kind='pho', floors=3, roof='tile', menu=('PHỞ', ['Tái - Nạm  40K', 'Gầu  40K', 'Bò viên  35K', 'Gà  35K'])),
- dict(name='TIỆM TRÀ', main='TIỆM TRÀ', sub='TRÀ SỮA - TRÀ TRÁI CÂY', board='green', ink='white', subink='white', stripe=('awnGreen', 'awnWhite'), facade='butter', kind='tea', floors=4, roof='flat', icon='leaf'),
+ dict(name='TIỆM TRÀ', main='TIỆM TRÀ', sub='TRÀ SỮA - TRÀ TRÁI CÂY', board='green', ink='white', subink='white', stripe=('awnGreen', 'awnWhite'), facade='mint', kind='tea', floors=4, roof='flat', icon='leaf'),
  dict(name='BÁNH MÌ', main='BÁNH MÌ', sub='CHẢ CÁ - PATE - XÍU MẠI', board='white', ink='red', subink='redDark', stripe=('awnRed', 'awnWhite'), facade='peach', kind='banhmi', floors=2, roof='tile'),
- dict(name='TẠP HÓA', main='TẠP HÓA', sub='BÁCH HÓA TỔNG HỢP', board='red', ink='white', subink='white', stripe=('awnRed', 'awnWhite'), facade='beige', kind='grocery', floors=3, roof='flat', icon='star'),
- dict(name='THUỐC TÂY', main='THUỐC TÂY', sub='NHÀ THUỐC - MỞ CỬA 24H', board='white', ink='blue', subink='green', stripe=('awnBlue', 'awnWhite'), facade='sky', kind='pharmacy', floors=4, roof='tile', icon='cross'),
+ dict(name='TẠP HÓA', main='TẠP HÓA', sub='BÁCH HÓA TỔNG HỢP', board='red', ink='white', subink='white', stripe=('awnRed', 'awnWhite'), facade='sky', kind='grocery', floors=3, roof='flat', icon='star'),
+ dict(name='THUỐC TÂY', main='THUỐC TÂY', sub='NHÀ THUỐC - MỞ CỬA 24H', board='white', ink='blue', subink='green', stripe=('awnBlue', 'awnWhite'), facade='beige', kind='pharmacy', floors=4, roof='tile', icon='cross'),
  dict(name='SỬA XE', main='SỬA XE', sub='VÁ VỎ - THAY NHỚT - RỬA XE', board='navy', ink='yellow', subink='white', stripe=('awnBlue', 'awnWhite'), facade='stone', kind='repair', floors=2, roof='flat'),
- dict(name='CÀ PHÊ SÀI GÒN', main='CÀ PHÊ', script='Sài Gòn', sub='', board='green', ink='white', subink='yellow', stripe=('awnGreen', 'awnWhite'), facade='cream', kind='cafe', floors=3, roof='tile', menu=('CÀ PHÊ', ['Cà phê sữa  20K', 'Cà phê đá  18K', 'Bạc xỉu  25K', 'Trà tắc  15K'])),
+ dict(name='CÀ PHÊ SÀI GÒN', main='CÀ PHÊ', script='Sài Gòn', sub='', board='green', ink='white', subink='yellow', stripe=('awnGreen', 'awnWhite'), facade='sand', kind='cafe', floors=3, roof='tile', menu=('CÀ PHÊ', ['Cà phê sữa  20K', 'Cà phê đá  18K', 'Bạc xỉu  25K', 'Trà tắc  15K'])),
  dict(name='CƠM TẤM', main='CƠM TẤM', sub='SƯỜN - BÌ - CHẢ', board='yellow', ink='red', subink='redDark', stripe=('awnYellow', 'awnWhite'), facade='mint', kind='food', floors=4, roof='flat'),
- dict(name='BÚN BÒ HUẾ', main='BÚN BÒ HUẾ', sub='ĐẬM ĐÀ HƯƠNG VỊ CỐ ĐÔ', board='red', ink='yellow', subink='white', stripe=('awnRed', 'awnWhite'), facade='sand', kind='food', floors=3, roof='tile'),
- dict(name='HỦ TIẾU NAM VANG', main='HỦ TIẾU', sub='NAM VANG - MÌ - SA TẾ', board='orange', ink='white', subink='white', stripe=('awnYellow', 'awnWhite'), facade='cream', kind='food', floors=2, roof='flat'),
- dict(name='SINH TỐ', main='SINH TỐ', sub='NƯỚC ÉP - TRÁI CÂY TƯƠI', board='pink', ink='white', subink='white', stripe=('awnGreen', 'awnWhite'), facade='butter', kind='tea', floors=3, roof='tile', icon='leaf'),
+ dict(name='BÚN BÒ HUẾ', main='BÚN BÒ HUẾ', sub='ĐẬM ĐÀ HƯƠNG VỊ CỐ ĐÔ', board='red', ink='yellow', subink='white', stripe=('awnRed', 'awnWhite'), facade='sky', kind='food', floors=3, roof='tile'),
+ dict(name='HỦ TIẾU NAM VANG', main='HỦ TIẾU', sub='NAM VANG - MÌ - SA TẾ', board='orange', ink='white', subink='white', stripe=('awnYellow', 'awnWhite'), facade='butter', kind='food', floors=2, roof='flat'),
+ dict(name='SINH TỐ', main='SINH TỐ', sub='NƯỚC ÉP - TRÁI CÂY TƯƠI', board='pink', ink='white', subink='white', stripe=('awnGreen', 'awnWhite'), facade='sand', kind='tea', floors=3, roof='tile', icon='leaf'),
  dict(name='TIỆM BÁNH', main='TIỆM BÁNH', sub='BÁNH NGỌT - BÁNH KEM', board='blue', ink='white', subink='yellow', stripe=('awnBlue', 'awnWhite'), facade='peach', kind='bakery', floors=4, roof='flat'),
 ]
 WIDTH = 8.36; HX = WIDTH/2; WALL = -3.9; GROUND = 4.9; STOREY = 3.0
@@ -264,9 +265,9 @@ def interior(g, spec):
         for xi in range(12):
             for zi in range(5):
                 x = -3.42+xi*.62; z = WALL+.34+zi*.68
-                g.quad([(x-.31, .25, z-.34), (x+.31, .25, z-.34), (x+.31, .25, z+.34), (x-.31, .25, z+.34)], 'trim' if (xi+zi) % 2 else 'beige', (0, 1, 0))
+                g.quad([(x-.31, .25, z-.34), (x+.31, .25, z-.34), (x+.31, .25, z+.34), (x-.31, .25, z+.34)], 'trim' if (xi+zi) % 2 else 'paveCream', (0, 1, 0))
     else:
-        g.quad([(-3.72, .25, WALL), (3.72, .25, WALL), (3.72, .25, back), (-3.72, .25, back)], 'beige', (0, 1, 0))
+        g.quad([(-3.72, .25, WALL), (3.72, .25, WALL), (3.72, .25, back), (-3.72, .25, back)], 'paveCream', (0, 1, 0))
     for x in (-2.4, 0, 2.4):
         for z in ((WALL+1.0, WALL+2.4) if d == 0 else (WALL+1.6,)):
             g.cube((x, 3.12, z), (.4, .06, .4), 'lamp')
@@ -282,7 +283,7 @@ def interior(g, spec):
             for cz, bz in ((-.55, -1), (.55, 1)): cafe_chair(g, tx, WALL+1.5+cz, bz)
         if d < 2:
             # Hũ cà phê/ly trên kệ và đèn thả bóng tròn trên quầy.
-            for k in range(6): g.cyl((-3.0+k*.5, 1.31, back-.35), (-3.0+k*.5, 1.5, back-.35), .07, ('woodDark', 'white', 'sand')[k % 3], n=6)
+            for k in range(6): g.cyl((-3.0+k*.5, 1.31, back-.35), (-3.0+k*.5, 1.5, back-.35), .07, ('woodDark', 'white', 'awnYellow')[k % 3], n=6)
         if d < 2:
             for j in range(8): g.leaf((3.35, .9, back-.4), (cos(j*.8)*.5, 1, sin(j*.8)*.5), .55, .16, ('leaf2', 'leaf3')[j % 2])
             g.cube((3.35, .55, back-.4), (.4, .6, .4), 'potGrey')
@@ -528,7 +529,7 @@ def food_cabinet(g, x, z, kind, obstacles, spec):
     g.quad([(x0, gy1+.021, zf), (x1, gy1+.021, zf), (x1, gy1+.021, zb), (x0, gy1+.021, zb)], 'glassLight', (0, 1, 0), 'Glass')
     if d < 2:
         g.cube((x, 1.22, z), (w-.06, .02, .55), 'chrome')
-        foods = ('leaf3', 'white', 'peach', 'leaf4', 'redDark', 'sand') if kind != 'banhmi' else ('woodLight', 'woodLight', 'leaf3', 'redDark', 'woodLight', 'peach')
+        foods = ('leaf3', 'white', 'orange', 'leaf4', 'redDark', 'awnYellow') if kind != 'banhmi' else ('woodLight', 'woodLight', 'leaf3', 'redDark', 'woodLight', 'orange')
         for k in range(6):
             fx = x0+.18+k*(w-.36)/5
             for yy in (.98, 1.24):
@@ -583,8 +584,8 @@ def crates(g, x, z, obstacles):
     for k, (col, dy) in enumerate((('yellow', .16), ('yellow', .48), ('red', .8))):
         g.cube((x, dy, z), (.62, .3, .42), col)
         if d < 2:
-            g.cube((x, dy+.04, z-.215), (.5, .08, .01), 'sand', skip=('+z',))
-            for sx in (-.2, 0, .2): g.cube((x+sx, dy-.05, z-.215), (.12, .1, .01), 'sand', skip=('+z',))
+            g.cube((x, dy+.04, z-.215), (.5, .08, .01), 'awnYellow', skip=('+z',))
+            for sx in (-.2, 0, .2): g.cube((x+sx, dy-.05, z-.215), (.12, .1, .01), 'awnYellow', skip=('+z',))
     if d == 0:
         for k in range(6): g.cyl((x-.22+(k % 3)*.22, .95, z-.09+(k//3)*.18), (x-.22+(k % 3)*.22, 1.12, z-.09+(k//3)*.18), .035, 'leaf3', n=5)
     obstacles.append(('Két hàng', (x, .5, z), (.65, 1.0, .45)))

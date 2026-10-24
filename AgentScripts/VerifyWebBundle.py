@@ -4,7 +4,7 @@ root=Path('docs');info=json.loads((root/'build-info.json').read_text());files=js
 def check(label,value):
  assert value,label
  checks.append(label)
-check('Version is 1.36.0',info['version']=='1.36.0')
+check('Version is 1.37.0',info['version']=='1.37.0')
 check('Offline files are unique',len(files)==len(set(files)))
 digest=hashlib.sha256()
 for f in files:
@@ -19,5 +19,5 @@ check('Exactly four loader/framework/WASM/data files',len([p for p in (root/'Bui
 check('Only the final four binary build assets exist',set(p.name for p in (root/'Build').iterdir() if p.is_file())=={Path(f).name for f in files if f.startswith('Build/')})
 check('No GitHub file exceeds 100 MB',all((root/f).stat().st_size<100_000_000 for f in files))
 report={'success':True,'count':len(checks),'checks':checks,'version':info['version'],'cache':info['cache'],'bytes':sum((root/f).stat().st_size for f in files)}
-Path('Captures/release-1.36-bundle-checks.json').write_text(json.dumps(report,indent=2)+'\n')
+Path('Captures/release-1.37-bundle-checks.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k!='checks'}))

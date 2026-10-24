@@ -8,6 +8,7 @@ namespace PhoViet
     {
         public const float Length=80;
         public const float IntersectionCenter=70;
+        public static readonly float[] TreeZ={8.2f,33.4f,50.2f};
         public static System.Action<Transform,float,float,int> ShopFactory;
         public static System.Action<Transform,float,float> TreeFactory;
         public static System.Action<Transform,float> PavementFactory;
@@ -48,7 +49,8 @@ namespace PhoViet
                 if(PavementFactory!=null)Box("Vạch biên",r,new Vector3(side*6.72f,.01f,31),new Vector3(.11f,.015f,61),Cream);
                 for(int b=0;b<7;b++) Shop(r,side,4+b*8.4f,index*7+b+(side>0?3:0));
                 // Người đứng vỉa hè đã bỏ theo yêu cầu 24/10/2026; chỉ còn cây ven đường.
-                for(int t=0;t<3;t++) {if(TreeFactory!=null)TreeFactory(r,side*8.2f,10+t*20);else Tree(r,side*8.2f,10+t*20);}
+                // Cây đứng ở khe giữa hai mái hiên (ranh giới hai tiệm 4+8,4n ± 4,2) để không xuyên mái che (21.43).
+                for(int t=0;t<3;t++) {if(TreeFactory!=null)TreeFactory(r,side*8.2f,TreeZ[t]);else Tree(r,side*8.2f,TreeZ[t]);}
                 // Parked scooters, tables and a pavement food cart.
                 var parked=Motorcycle(r,"Xe máy đậu trên vỉa hè",Teal,Hex("426367"),false); parked.localPosition=new Vector3(side*9.2f,.27f,21);parked.localEulerAngles=new Vector3(0,side*50,0);parked.localScale=Vector3.one*.86f;
                 // Xe đẩy bánh mì cũ đã bỏ 24/10/2026: che tủ kính Bún Bò Huế; phố có tiệm BÁNH MÌ riêng.

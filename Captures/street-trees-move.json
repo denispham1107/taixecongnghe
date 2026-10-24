@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/MoveStreetTrees.cs",
+      "entry": "MoveStreetTrees.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 500,
+      "executeMs": 80,
+      "assemblyName": "PipelineRunScript_MoveStreetTrees_f76a39c93f42415a9b9d97fad7de096b",
+      "success": true,
+      "result": {
+        "success": true,
+        "moved": 210,
+        "conflicts": [],
+        "conflictKinds": []
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

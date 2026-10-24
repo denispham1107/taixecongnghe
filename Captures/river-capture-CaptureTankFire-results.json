@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureTankFire.cs",
+      "entry": "CaptureTankFire.Main",
+      "timeout_ms": "1200000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 768,
+      "executeMs": 1459,
+      "assemblyName": "PipelineRunScript_CaptureTankFire_2e9276d1c6d94578b9690a2abddf325b",
+      "success": true,
+      "result": {
+        "success": true,
+        "shots": [
+          "tank-fire-muzzle",
+          "tank-fire-muzzle-close",
+          "tank-fire-flight",
+          "tank-fire-blast-miss",
+          "tank-fire-blast-miss-2",
+          "tank-fire-incoming",
+          "tank-fire-hit",
+          "tank-fire-hit-after"
+        ],
+        "notes": [
+          "shellsInFlight=2",
+          "afterMiss state=Riding blasts=1",
+          "hitShell=True",
+          "hit state=Falling killed=True"
+        ],
+        "fired": 3,
+        "blasts": 3
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

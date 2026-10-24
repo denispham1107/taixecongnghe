@@ -1,0 +1,16 @@
+{
+  "name": "PV_RiverBoat1",
+  "generator": "pho_viet_river_bridge.py",
+  "reference": "ArtSource/Reference/River/river_bridge_reference.png",
+  "lod_triangles": [
+    420,
+    228,
+    120
+  ],
+  "slots": [
+    "PV_StreetAtlas"
+  ],
+  "blender_slots": [
+    "PV_StreetAtlas"
+  ]
+}

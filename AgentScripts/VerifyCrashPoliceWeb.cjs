@@ -10,7 +10,7 @@ async function jailPanel(png){
  return {visible:n>0&&red/n>.6,redRatio:red/n,width:w,height:h};
 }
 async function main(){
- const build=await(await fetch(new URL('build-info.json',url))).json();result.build=build;check('Tested WebGL release is 1.36.0',build.version==='1.36.0');
+ const build=await(await fetch(new URL('build-info.json',url))).json();result.build=build;check('Tested WebGL release is 1.37.0',build.version==='1.37.0');
  const browser=await chromium.launch({channel:'chrome',headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  try{
   for(const [label,options] of [['desktop',{viewport:{width:1024,height:640}}],['phone-portrait',{...devices['Pixel 7'],deviceScaleFactor:1}],['phone-landscape',{...devices['Pixel 7'],deviceScaleFactor:1,viewport:{width:844,height:390}}]]){

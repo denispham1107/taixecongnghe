@@ -1,0 +1,41 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureMorningLooks.cs",
+      "entry": "CaptureMorningLooks.Main",
+      "timeout_ms": "1200000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 691,
+      "executeMs": 1479,
+      "assemblyName": "PipelineRunScript_CaptureMorningLooks_162f2a847d1345b7881a3a5685f7c184",
+      "success": true,
+      "result": {
+        "success": true,
+        "shots": [
+          "morning-look-goc-day-suong",
+          "morning-look-goc-suong-tan",
+          "morning-look-a-day-suong",
+          "morning-look-a-suong-tan",
+          "morning-look-b-day-suong",
+          "morning-look-b-suong-tan",
+          "morning-look-c-day-suong",
+          "morning-look-c-suong-tan",
+          "morning-look-d-day-suong",
+          "morning-look-d-suong-tan"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -72,7 +72,8 @@ namespace PhoViet
             }
             lastYaw=yaw;WheelAngle=Mathf.Repeat(WheelAngle+spinSpeed/wheelRadius*Mathf.Rad2Deg*dt,360);PoseWheels();
             visual.position=transform.position;
-            if(vehicle.knocked)visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.01f-LowestSupport());
+            // Xe rơi/chìm dưới sông không bị nâng hình lên mặt đường.
+            if(vehicle.knocked&&!vehicle.riverFalling&&!game.InRiverWater(transform))visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.01f-LowestSupport());
             // Dynamic brake overlays follow animated body suspension and impact rotation.
             if(vehicle.brakeLights!=null&&body!=null)
             {

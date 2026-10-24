@@ -16,7 +16,8 @@ namespace PhoViet.Editor
    if(material==null){material=new Material(Shader.Find("Standard"));AssetDatabase.CreateAsset(material,Folder+"PV_StreetAtlas.mat");}
    material.mainTexture=AssetDatabase.LoadAssetAtPath<Texture2D>(Folder+"PV_StreetPalette.png");material.color=Color.white;material.SetFloat("_Glossiness",.12f);EditorUtility.SetDirty(material);
    VietnamStreet.ShopFactory=(p,s,z,seed)=>{int i=seed%12;var t=Place("PV_StreetShop"+i.ToString("00"),p,new Vector3(s*13.2f,0,z),s*90);t.name="Blender • "+VietnamStreet.Shops[i];};
-   VietnamStreet.TreeFactory=(p,x,z)=>Place("PV_StreetTree"+((int)z%3),p,new Vector3(x,0,z),0);
+   // Giữ đúng mẫu cây cũ theo thứ tự vị trí (trước 21.43 ở z 10/30/50 → mẫu 1/0/2).
+   VietnamStreet.TreeFactory=(p,x,z)=>Place("PV_StreetTree"+new[]{1,0,2}[System.Array.IndexOf(VietnamStreet.TreeZ,z)<0?0:System.Array.IndexOf(VietnamStreet.TreeZ,z)],p,new Vector3(x,0,z),0);
    VietnamStreet.PavementFactory=(p,s)=>
    {
     for(int i=0;i<8;i++){var t=Place("PV_StreetPavement",p,new Vector3(s*9.1f,0,i<7?4.2f+i*8.4f:60.9f),s>0?0:180);if(i==7)t.localScale=new Vector3(1,1,.5f);}

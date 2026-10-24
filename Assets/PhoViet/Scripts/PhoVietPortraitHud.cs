@@ -90,7 +90,7 @@ namespace PhoViet
   {
    if(State!=RideState.Riding&&State!=RideState.Falling)return;
    if(noticeTimer<=0&&State==RideState.Riding)return;
-   string message=State==RideState.Falling?(CrashDuringPursuit?(RiderFallComplete?"ĐÃ TÉ · CHỜ CSGT ĐẾN BẮT":"VA CHẠM · CSGT ĐANG ĐẾN"):"VA CHẠM · CHUYẾN ĐI KẾT THÚC"):notice;
+   string message=State==RideState.Falling&&RiderInRiver?"RƠI XUỐNG SÔNG · CHUYẾN ĐI KẾT THÚC":State==RideState.Falling&&KilledByShell?"TRÚNG ĐẠN XE TĂNG · CHUYẾN ĐI KẾT THÚC":State==RideState.Falling?(CrashDuringPursuit?(RiderFallComplete?"ĐÃ TÉ · CHỜ CSGT ĐẾN BẮT":"VA CHẠM · CSGT ĐANG ĐẾN"):"VA CHẠM · CHUYẾN ĐI KẾT THÚC"):notice;
    if(portrait)
    {
     float width=uiW-20;Panel(new Rect(10,PortraitNoticeY,width,PortraitNoticeHeight),new Color(.07f,.19f,.21f,.70f),7);

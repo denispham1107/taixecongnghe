@@ -24,7 +24,7 @@ namespace PhoViet
         {
             var meshy=v.model.GetComponent<MeshyCarVariants>();
             v.armored=false;v.speedScale=1;
-            if(meshy!=null)meshy.SelectForSpawn(rng,v);
+            if(meshy!=null)meshy.SelectForSpawn(rng,v,randomTanks);
             // Xe tăng luôn chậm hơn 60%: mọi tốc độ đặt lúc xuất hiện (dọc/ngược/băng ngang) nhân speedScale.
             if(v.speedScale!=1){v.speed*=v.speedScale;v.baseTrafficSpeed=v.speed;v.crossSpeed*=v.speedScale;}
             v.spawnGeneration++;
@@ -33,6 +33,7 @@ namespace PhoViet
             v.jobYieldLane=-1;
             v.routeDetached=false;v.routeVelocity=Vector3.zero;v.rearEntryBoost=0;
             v.roadTurning=false;v.roadDecisionAt=float.NaN;v.roadTurnAngle=0;
+            v.riverFalling=false;v.riverSplashed=false;v.riverAge=0;v.tankFireTimer=.35f;
             v.knocked=false;v.wallCrashed=false;v.knockFromPlayer=false;v.knockVelocity=Vector3.zero;v.knockAge=0;v.playerGrace=0;
             v.enteringFromBehind=false;
             v.brakeRemaining=0;v.brakeCooldown=1.1f+(float)rng.NextDouble()*1.7f;
@@ -83,6 +84,7 @@ namespace PhoViet
             }
             v.brakeCooldown-=dt;v.laneCooldown-=dt;
             if(TryBeginRoadTurn(v,dt)){TickRoadTurn(v,dt);return;}
+            MergeForBridge(v);
             if(trafficSurprises&&!v.isReckless&&dt>0)
             {
                 if(same&&v.brakeCooldown<=0&&p.z>-4&&p.z<60)
@@ -96,7 +98,8 @@ namespace PhoViet
                     if(rng.NextDouble()<(parallel?.85:same?.35:.7))
                     {
                         int targetLane=same?(v.lane==2?3:2):Mathf.Clamp(v.lane+(v.lane==0?1:v.lane==3?-1:rng.Next(2)==0?-1:1),0,3);
-                        BeginSuddenLaneChange(v,targetLane);
+                        // Gần/đang trên cầu: xe thường không tạt ra làn ngoài (sẽ rơi xuống sông).
+                        if(!OuterLaneNearBridge(p,targetLane))BeginSuddenLaneChange(v,targetLane);
                     }
                     else v.laneCooldown=.4f;
                 }

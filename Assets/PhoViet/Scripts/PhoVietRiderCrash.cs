@@ -89,6 +89,8 @@ namespace PhoViet
   {
    if(dt<=0||!RiderCrashActive||State==RideState.Paused)return;
    fallTime+=dt;timeRiding+=dt;TickActionTimers(dt);TickBoost(dt);
+   TickShells(dt);
+   if(RiderInRiver){TickRiderRiver(dt);return;}
    Vector3 previous=rider.localPosition;
    Speed=Mathf.Max(0,riderFallVelocity.z);
    float scroll=Speed*dt;Distance+=scroll;ScrollRoutes(scroll);
@@ -108,7 +110,9 @@ namespace PhoViet
     rider.localRotation=Quaternion.Euler(riderFallEuler);
     float edge=9.3f-VehicleFootprint(riderBody).x;
     float road=Mathf.Repeat(RoadProgress+p.z,VietnamStreet.Length);
-    if(road<58.4f&&Mathf.Abs(p.x)>edge)
+    // Trượt ra khỏi mặt cầu trên lòng sông thì rơi xuống nước thay vì chạm mặt tiền nhà.
+    if(p.y<=.05f&&OverRiver(p)){rider.localPosition=p;EnterRiver();riderFallVelocity.y=.4f;return;}
+    if(road<58.4f&&Mathf.Abs(p.x)>edge&&!RiverZoneAt(p))
     {p.x=Mathf.Sign(p.x)*edge;riderFallVelocity.x=-riderFallVelocity.x*.12f;riderFallSpin.y*=.4f;}
     RiderFallTravel+=Flat(p-previous+Vector3.forward*scroll).magnitude;rider.localPosition=p;
    }

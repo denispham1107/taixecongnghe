@@ -1,0 +1,41 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureRiverSink.cs",
+      "entry": "CaptureRiverSink.Main",
+      "timeout_ms": "1200000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 1283,
+      "executeMs": 1044,
+      "assemblyName": "PipelineRunScript_CaptureRiverSink_0ad6e7dc6f614a1d93353aa9e90084ad",
+      "success": true,
+      "result": {
+        "success": true,
+        "shots": [
+          "river-water-surface",
+          "river-sink-splash",
+          "river-sink-going-under",
+          "river-sink-end-card",
+          "river-sink-deep",
+          "river-water-shadow"
+        ],
+        "riderY": -8.610582,
+        "state": "GameOver",
+        "ripples": 10,
+        "bubbles": 36
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

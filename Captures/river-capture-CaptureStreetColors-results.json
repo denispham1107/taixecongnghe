@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureStreetColors.cs",
+      "entry": "CaptureStreetColors.Main",
+      "timeout_ms": "1200000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 786,
+      "executeMs": 648,
+      "assemblyName": "PipelineRunScript_CaptureStreetColors_4216ecec542247c49c81ebfb32ceecd7",
+      "success": true,
+      "result": {
+        "success": true,
+        "shots": [
+          "street-colors-ride",
+          "street-trees-left",
+          "street-trees-right",
+          "street-colors-wide",
+          "street-tree-gap-close"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
