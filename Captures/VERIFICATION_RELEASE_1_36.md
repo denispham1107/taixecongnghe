@@ -18,5 +18,7 @@
 
 ## Phát hành
 
-- Đang commit/push main; SHA, Pages run và kiểm tra live ghi bổ sung sau khi xác minh.
+- Source/artifact `c49059c6dc83ef970c758c6e2147b48890feb260`, push main.
+- Pages run 40090621801 completed/success đúng SHA: https://github.com/denispham1107/taixecongnghe/actions/runs/40090621801
+- Live: version 1.36.0 / cache `2ad4c813b6952999`; 26 kiểm tra đạt, 0 lỗi runtime (`release-1.36-live-results.json`, `release-1.36-pages.json`, ảnh `release-1.36-live-game.png`).
 - Chưa thử điện thoại vật lý/FPS.

@@ -8,7 +8,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 >
 > **1.35.0 (21.28–21.32, Claude Code):** zoom màn hình dọc gần hơn 10% (PortraitWorldScale .5775), nhà cao tầng phía sau có vách kính trong suốt/văn phòng sáng đèn, đổi làn kiểu đánh lái và lấy lại thăng bằng từ từ; sửa test tải Meshy (21.30). Build `build_8f58593f4444`, cache `d06d08624dba54fc`; **đã phát hành**: commit `b8c7b9f`, Pages run `40078793874`, 26 kiểm tra live đạt, 0 lỗi runtime (21.32).
 >
-> **1.36.0 (21.33–21.34, Claude Code):** thêm **xe tăng Meshy “Iron Sentinel”** vào giao thông: xuất hiện ngẫu nhiên ở 5 ô xe con (~1/3 số lần), một màu gốc, chậm hơn 60%, va chạm không đổi hướng/không dừng — mọi phương tiện khác (kể cả người chơi, CSGT) văng ra. 24 suite / 9.521 điều kiện Unity đạt; build `build_fa643a0c8cd3`, cache `2ad4c813b6952999`; 29 bundle + 77 browser local đạt, 0 lỗi runtime. Push/Pages/live: xem 21.34.
+> **1.36.0 (21.33–21.34, Claude Code):** thêm **xe tăng Meshy “Iron Sentinel”** vào giao thông: xuất hiện ngẫu nhiên ở 5 ô xe con (~1/3 số lần), một màu gốc, chậm hơn 60%, va chạm không đổi hướng/không dừng — mọi phương tiện khác (kể cả người chơi, CSGT) văng ra. 24 suite / 9.521 điều kiện Unity đạt; build `build_fa643a0c8cd3`, cache `2ad4c813b6952999`; 29 bundle + 77 browser local đạt, 0 lỗi runtime. **Đã phát hành**: commit `c49059c`, Pages run `40090621801` thành công, 26 kiểm tra live đạt, 0 lỗi runtime (21.34).
 >
 > **Phố Sài Gòn — đã phát hành1.34.0:** giữ toàn bộ cập nhật Claude21.19–21.26: 12shop/kính/nội thất/biển tủ, cây/chậu/vỉa hè/đồ vật, đèn cong/tín hiệu và mây, bỏ người đứng và xe đẩy cũ. Hồi quy mới1.642điều kiện Unity,29bundle,77browser local và26live đạt;0lỗi runtime. Pages run`40069532577` thành công, cache`28a1dc1e64a78083`. VerifyJump đã dùng chiều cao Meshy; lỗi CSGT chập chờn lịch sử chưa tái hiện ở hai lần chạy mới. Chi tiết21.27.
 >
@@ -31,10 +31,10 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 | Unity Editor | **6000.5.6f1**, cần module Web Build Support để build WebGL |
 | Scene chính | `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Phiên bản game đã phát hành | **1.36.0** — xe tăng Meshy trong giao thông, trên nền 1.35.0 (đổi làn đánh lái, nhà cao tầng kính, zoom dọc); chỉ thi quãng đường |
-| Commit source + WebGL hiện hành | `b8c7b9f5d69da959a4f55ae65f98cc8b574fda19` |
+| Commit source + WebGL hiện hành | `c49059c6dc83ef970c758c6e2147b48890feb260` |
 | Bằng chứng phát hành hiện hành | `Captures/release-1.36-*.json`, `VERIFICATION_RELEASE_1_36.md`; bản trước `release-1.35-*.json` |
 | Cache WebGL hiện hành | `2ad4c813b6952999`; build UTC `2026-10-24T11:18:50.2444606Z` |
-| Pages đã xác minh | Run `40078793874`, completed/success đúng source SHA; 26 kiểm tra live đạt (21.32) |
+| Pages đã xác minh | Run `40090621801`, completed/success đúng source SHA; 26 kiểm tra live đạt (21.34) |
 | Render pipeline | Built-in Render Pipeline; `m_CustomRenderPipeline` đang là `fileID: 0` |
 | Input | Legacy Input Manager, `activeInputHandler: 0`; dùng `UnityEngine.Input` |
 | Giao diện trong game | IMGUI, `OnGUI`, `GUIStyle`, `GUI.matrix`; không phải Canvas/uGUI |
@@ -1623,6 +1623,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Hồi quy native trước build:** 24 suite / 9.521 điều kiện (21.33) trên đúng mã/scene phát hành. Preflight `VerifySaigonRelease` (Edit Mode): scene đã lưu, version 1.36.0, jobs khóa, 735 nhóm/8.050 hộp vật cản, 1.260 LOD phố, 1.350 renderer kính, 420 bóng tín hiệu → `Captures/release-1.36-preflight.json`.
 - **Build:** `build_fa643a0c8cd3` **Succeeded**, 244.218 ms, 0 lỗi / 4 cảnh báo: 3 cảnh báo đã biết (Pipeline thiếu RuntimePipelineConfig; `dragging`, `hudTouchChoice` không đọc) + “uncompiled code changes” do sửa chuỗi version trong `PhoVietWebBuild.cs` (Editor) ngay trước build — `bundleVersion`/`build-info.json` đã đúng 1.36.0 qua `ConfigureWebRelease`, mã game runtime không đổi so với bản đã test. Cache **`2ad4c813b6952999`**, UTC `2026-10-24T11:18:50.2444606Z`, tài nguyên precache 96.312.131 byte (data 89.067.822 byte, tăng ~7,9 MB do xe tăng; dưới giới hạn 100 MB/file). Đã chép sang `docs`, dọn đúng 3 file hash cũ trong `docs/Build` sau kiểm tra đường dẫn; còn đúng 4 file Build.
 - **Kiểm tra artifact local:** 29 kiểm tra bundle (`release-1.36-bundle-checks.json`). Trình duyệt local **77 điều kiện, 0 lỗi runtime**: DPR3 dọc/ngang/tablet/xoay lại 14 (`release-1.36-mobile-results.json`, ảnh `release-1.36-mobile-portrait.png`/`-landscape.png`), đối chiếu tài nguyên + WASM 26 (`release-1.36-local-results.json`), PWA/offline/cảm ứng 37 (`browser-release-1.36-pwa.json`, bị gitignore). Playwright qua `NODE_PATH` tới bộ phụ thuộc Node có sẵn trên máy. Giả lập trình duyệt, chưa thử điện thoại vật lý/FPS.
-- **Phát hành:** đang commit/push main; SHA, Pages run và kiểm tra live sẽ ghi tiếp vào mục này và `Captures/VERIFICATION_RELEASE_1_36.md`.
+- **Phát hành hoàn tất:** source/artifact **`c49059c6dc83ef970c758c6e2147b48890feb260`** đã push main, [Pages run 40090621801](https://github.com/denispham1107/taixecongnghe/actions/runs/40090621801) completed/success đúng SHA. Bản công khai trả version 1.36.0 / cache `2ad4c813b6952999`; **26 kiểm tra live đạt, 0 lỗi runtime** (tài nguyên khớp artifact đã kiểm; WASM thật khởi tạo/start/pause). Bằng chứng `Captures/release-1.36-live-results.json`, `release-1.36-pages.json`, ảnh `release-1.36-live-game.png`, `VERIFICATION_RELEASE_1_36.md`. Trạng thái Pages đọc qua GitHub API công khai (không in hay lưu token).
+- **Bàn giao:** Unity Edit Mode, server docs kiểm tra đã dừng, jobs khóa, dữ liệu Coin/kỷ lục không đổi. Báo cáo phát hành commit/push riêng, không rebuild cho tài liệu. Nếu PWA còn bản cũ, đóng hết tab/app Phố Việt rồi mở lại; không xóa dữ liệu. Chưa thử điện thoại vật lý/FPS/nhiệt độ.
 
 **Nguồn kiểm chứng chính:** mã C# và cấu hình hiện tại trong repo, `ArtSource/Blender`, metadata asset, Git history, các báo cáo `Captures/VERIFICATION_*.md` và JSON kết quả tương ứng. Nếu dự án tiếp tục thay đổi, cập nhật lại tài liệu này theo hành vi thực tế; đừng coi một con số/version/port của ngày bàn giao là thông tin luôn đúng về sau.

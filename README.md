@@ -8,7 +8,7 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Xe tăng trên phố — 1.36.0
 
-Mẫu xe tăng Meshy "Iron Sentinel" do người dùng gửi xuất hiện ngẫu nhiên ở các chỗ ô tô con (khoảng 1/3 số lần), giữ đúng một màu gốc và luôn chạy chậm hơn ô tô khác 60%. Khi va chạm, xe tăng không dừng, không đổi hướng; ô tô, xe máy, người chơi và CSGT va vào đều bị văng ra. Xe tăng không vượt lên từ phía sau. Công việc vẫn tắt. Chi tiết ở `huongdan.md` mục 21.33–21.34.
+Mẫu xe tăng Meshy "Iron Sentinel" do người dùng gửi xuất hiện ngẫu nhiên ở các chỗ ô tô con (khoảng 1/3 số lần), giữ đúng một màu gốc và luôn chạy chậm hơn ô tô khác 60%. Khi va chạm, xe tăng không dừng, không đổi hướng; ô tô, xe máy, người chơi và CSGT va vào đều bị văng ra. Xe tăng không vượt lên từ phía sau. Công việc vẫn tắt. Đã build/push/phát hành, 26 kiểm tra live đạt, 0 lỗi runtime. Chi tiết ở `huongdan.md` mục 21.33–21.34.
 
 ## Đổi làn đánh lái, nhà cao tầng, zoom dọc — 1.35.0
 
