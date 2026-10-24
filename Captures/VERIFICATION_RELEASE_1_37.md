@@ -39,4 +39,12 @@
 
 ## Phát hành
 
-- Đang commit/push main. SHA, Pages run và kiểm tra live sẽ ghi tiếp vào đây.
+- Source/artifact `f8d1be0a7039aae6a52afab3d733d8736aa6f9f3`, push main.
+- Pages run 40124389275 completed/success đúng SHA: https://github.com/denispham1107/taixecongnghe/actions/runs/40124389275
+- Live: version 1.37.0 / cache `5018a747f9b8d80c`; 26 kiểm tra đạt, 0 lỗi runtime (`release-1.37-live-results.json`, `release-1.37-pages.json`, ảnh `release-1.37-live-game.png`).
+- Chơi thật bản live bằng Chrome GPU:
+  - Bot đổi làn ngẫu nhiên chạy tới 264 m, qua cầu sông.
+  - Đạn xe tăng nổ cạnh người chơi (`release-1.37-live-bridge-blast.png`); xe máy rơi xuống sông (`release-1.37-live-river-fall.png`).
+  - Gọi thêm `SpawnScheduledTank` qua `SendMessage`: thấy vòng cảnh báo đỏ (`release-1.37-live-tank-warning.png`), nổ khói và thẻ "Trúng đạn xe tăng!" (`release-1.37-live-tank-hit.png`).
+  - 0 lỗi trang.
+- Chưa thử điện thoại vật lý/FPS.
