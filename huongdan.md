@@ -14,11 +14,15 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 >
 > **1.38.0 (21.45–21.53, Claude Code):** mặt sông kiểu gương theo ảnh mẫu (phản chiếu thật trời/mây/kè/cầu/nhà, gợn rung, thân nước xanh đen, sát kè ngả bùn) và cầu dài gấp đôi **50,4 m** chạy suốt giữa hai giao lộ; hai bờ ngắn lát vỉa hè + quảng trường ven sông; sửa nền đường thừa cạnh hai đầu cầu và ẩn nhà đường ngang đứng trên mặt sông (21.47); dựng dãy nhà lấp kín hai bờ, bỏ lan can dài ở góc ngã tư (21.48), nay là căn hộ cao cấp 6–9 tầng có ban công lan can kính và vách kính trong suốt hướng sông (21.49), ~70% phòng sáng đèn ban đêm (21.51); sửa nhà lơ lửng trên sông khi té/rơi sông (21.52). 28 suite / 9.770 điều kiện đạt (21.52); gương tốn ~2,8 ms/khung trong Editor. Build `build_13392e2af78d`, cache `1ffc9c93f6c6d874`; 29 bundle + 77 browser local đạt, 0 lỗi runtime. **Đã phát hành**: commit `bec6ce1`, Pages run `40180769646` thành công, 26 kiểm tra live đạt, 0 lỗi runtime (21.53).
 >
+> **Sau 1.38.0 — chưa build/phát hành (21.54–21.55, Claude Code):** đổi làn theo đường cong bậc 5 mượt như cua giao lộ (độ giật ngang ~5 lần nhỏ hơn, đầu xe quay êm, 21.55); khu sông/cầu nhẹ hơn mà không đổi thiết kế/hiệu ứng: căn hộ tách LOD từng khối, bóng đổ bằng bản LOD thô, gợn nước đọc nhiễu nướng sẵn, lớp nước đục chỉ vẽ khi có vật chìm, gương dùng LOD1+. Trong Editor, cả khối cầu từ ~10–12 ms/khung còn ~0,6 ms.
+>
 > **Phố Sài Gòn — đã phát hành1.34.0:** giữ toàn bộ cập nhật Claude21.19–21.26: 12shop/kính/nội thất/biển tủ, cây/chậu/vỉa hè/đồ vật, đèn cong/tín hiệu và mây, bỏ người đứng và xe đẩy cũ. Hồi quy mới1.642điều kiện Unity,29bundle,77browser local và26live đạt;0lỗi runtime. Pages run`40069532577` thành công, cache`28a1dc1e64a78083`. VerifyJump đã dùng chiều cao Meshy; lỗi CSGT chập chờn lịch sử chưa tái hiện ở hai lần chạy mới. Chi tiết21.27.
 >
 > **Độ nét mobile 1.32.1:** đã phát hành và xác minh 40 kiểm tra live, không lỗi runtime. DPR tối đa 3 / 3,2 triệu pixel, hai vùng texture 2K đầy đủ, người chơi giữ LOD0; chi tiết 21.15.
 >
 > **Người/xe Meshy (23/10/2026):** đã phát hành WebGL **1.32.0**: người Golden Star Stance có rig, hero áo đỏ sao vàng ngực/lưng, NPC nhiều màu áo, vai tự nhiên và ngón nắm v4. Xe hero trắng–đen, CSGT giữ nguyên cả người và xe. Pages run `39948530264` thành công, cache `96d0c318c468dcab`; 26kiểm tra live đạt. Xem21.9–21.14. Xe Meshy1.31.0 và các nguồn Wave ở21.5–21.8 là lịch sử.
+>
+> **Bàn giao nhanh (26/10/2026, 21.56):** mỗi phiên Codex/Claude Code bắt đầu bằng `BANGIAO.md` (ngắn) + Git, chỉ mở mục liên quan của tài liệu này. Mỗi lần sửa/thêm chức năng/build/phát hành phải cập nhật cả `BANGIAO.md`.
 >
 > **Quy tắc bắt buộc từ 22/10/2026:** mỗi lần thay đổi, sửa lỗi hoặc thêm chức năng phải cập nhật đầy đủ `huongdan.md` trong cùng công việc. Ghi hành vi mới, cách triển khai/file liên quan, tham số, quyết định thay thế, kiểm tra và trạng thái commit/build/phát hành; cập nhật mục cũ bị thay thế. Đây là tài liệu dùng chung cho Codex và Claude Code.
 
@@ -1103,14 +1107,14 @@ Không duy trì mỗi phiên bản như một nhánh gameplay độc lập. Bả
 
 ### 18.1. Bắt đầu một phiên làm việc
 
-1. Đọc tài liệu này, yêu cầu mới nhất của người dùng và `git status --short`/branch/remote. Đọc `AGENTS.md` hoặc hướng dẫn dự án nếu có thêm về sau.
+1. Đọc `BANGIAO.md` (bàn giao nhanh, 21.56), yêu cầu mới nhất của người dùng và `git status --short`/`git log --oneline -5`. Chỉ mở các mục của tài liệu này liên quan đến yêu cầu theo bảng tra cứu trong `BANGIAO.md`; không đọc lại toàn bộ tài liệu/mã nguồn mỗi phiên.
 2. Xác định scope và những gì chưa chắc chắn; nếu dưới 90%, hỏi phương án trước khi làm phần đó.
 3. Mở đúng scene, kiểm tra Unity CLI/MCP đang trỏ đúng project; không dùng port/PID cũ như hằng số.
 4. Xác định source file + scene/asset bị ảnh hưởng, kiểm tra trạng thái đang Play/Edit và các chỉnh sửa chưa commit.
 5. Nếu nhiều agent/công cụ cùng làm, phân công file rõ ràng và báo cho người dùng; không cùng lúc sửa scene hoặc chạy mutation vào cùng Unity/Blender. Không tự spawn/nhắn một agent khác nếu chưa được cho phép theo môi trường làm việc.
 6. Thực hiện thay đổi nhỏ đúng phạm vi, giữ các hợp đồng gameplay nêu trên. Đọc lại Git diff trước khi sửa cùng partial class hoặc shared scene; thống nhất người phụ trách import/build/scene với người dùng nếu hai công cụ đang cùng chạy.
 7. Chạy kiểm tra phù hợp, xem ảnh/render nếu có thay hình, rồi mới build/deploy khi phạm vi đã được người dùng cho phép.
-8. **Bắt buộc cập nhật huongdan.md trong cùng lần sửa/thêm chức năng**, gồm sửa mục cũ và thêm chi tiết mới: yêu cầu/quyết định, hành vi, file/hàm/tham số/asset/scene, kiểm tra/bằng chứng, build/version/cache/SHA/run/live nếu đã có; nếu chưa xong/chưa publish phải nói rõ. Không đợi người dùng nhắc, không chỉ ghi ở README/report riêng.
+8. **Bắt buộc cập nhật huongdan.md và `BANGIAO.md` trong cùng lần sửa/thêm chức năng**, gồm sửa mục cũ và thêm chi tiết mới: yêu cầu/quyết định, hành vi, file/hàm/tham số/asset/scene, kiểm tra/bằng chứng, build/version/cache/SHA/run/live nếu đã có; nếu chưa xong/chưa publish phải nói rõ. Không đợi người dùng nhắc, không chỉ ghi ở README/report riêng.
 9. Báo rõ thay gì, vì sao, kiểm tra/source/commit/push/Pages và hạn chế. Nếu người cùng làm đã sửa huongdan.md, đọc lại rồi gộp phần bổ sung, không ghi đè nguyên file từ bản cũ.
 
 ### 18.2. Gợi ý chọn nhóm kiểm tra theo thay đổi
@@ -1132,6 +1136,8 @@ Không duy trì mỗi phiên bản như một nhánh gameplay độc lập. Bả
 Không cần rebuild/deploy WebGL chỉ vì sửa chính tài liệu bàn giao. Ngược lại, thay gameplay/art mà muốn cập nhật bản người chơi phải đi hết chuỗi source → build → docs → deploy → live check.
 
 ### 18.3. Nội dung có thể gửi kèm cho Claude Code
+
+Từ 26/10/2026 (21.56) **không cần gửi prompt dài này nữa**: `AGENTS.md` (Codex tự đọc) và `CLAUDE.md` (Claude Code tự đọc) yêu cầu đọc `BANGIAO.md` + Git đầu mỗi phiên; người dùng chỉ cần gõ yêu cầu mới. Đoạn dưới giữ làm lịch sử (trạng thái 1.34.0, đã cũ):
 
 > Hãy đọc toàn bộ `huongdan.md` tại gốc dự án và `git status` trước khi sửa. Game Phố Việt đã phát hành WebGL/PWA **1.34.0** với cảnh phố Sài Gòn/kính/nội thất/cây/đèn/mây mới của Claude ở21.19–21.27, giữ 4 mẫu ô tô Meshy và 8 màu sơn ngẫu nhiên mỗi lần xuất hiện ở 21.17–21.18, đuôi xe ổn định ở 21.16, giữ độ nét mobile ở 21.15, người/xe máy Meshy nhiều màu, xe chính trắng–đen, CSGT giữ riêng: hiện **chỉ thi quãng đường/kỷ lục, công việc/GPS/khách/Coin HUD đang khóa**, chỉ mở lại khi tôi yêu cầu. Q đạp có áp sát/chạm giày thật, Space nhảy và chạy nóc, W +125%/4 s/hồi 2 s; rẽ giữ tốc độ và đúng số làn; mobile vuốt nhận ngay đủ ngưỡng. Không có ba mạng: té thường kết thúc sau té, té đang bị CSGT đuổi thì nằm chờ cảnh sát tới bắt rồi vào tù. Không ghi đè file Blender cục bộ, không dựng lại scene toàn bộ theo thói quen. Nếu chưa chắc 90% hãy đưa phương án và chờ tôi xác nhận phần đó. Phân chia file/công cụ rõ ràng khi làm song song với Codex; không cùng mutation Unity/Blender. **Mỗi lần sửa/thêm chức năng phải cập nhật đầy đủ huongdan.md ngay trong cùng công việc**, ghi hành vi/triển khai/tham số/kiểm tra và trạng thái source/build/Pages. Đọc lại tài liệu mới nhất trước khi lưu để không mất phần người khác bổ sung.
 
@@ -1999,5 +2005,123 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
   - Live: version 1.38.0 / cache `1ffc9c93f6c6d874`; `VerifyPublishedGame` **26 kiểm tra đạt, 0 lỗi runtime** (`release-1.38-live-results.json`).
 - **Chơi thật bản live (Chrome GPU, 3 lượt, 0 lỗi trang):** thấy cầu dài giữa hai ngã tư, mặt sông gương phản chiếu dãy căn hộ kính bờ xa, biển CẦU HẸP và gờ vàng–đen ở mép kè (`release-1.38-live-bridge.png`, `release-1.38-live-bridge-2.png`). Bot không lái nên té ở 56–80 m, ngay giao lộ trước cầu đầu tiên.
 - **Chưa làm:** chưa thử điện thoại vật lý/FPS; chưa đo chi phí gương phản chiếu trên thiết bị thật.
+
+### 21.54. Giảm tải khu sông/cầu mà không đổi thiết kế và hiệu ứng (25/10/2026, Claude Code — scene đã lưu, chưa build)
+
+- **Yêu cầu:** “Mặt nước hiện giờ quá nặng, có cách nào giảm nhẹ bớt không nhưng không được làm thay đổi thiết kế và hiệu ứng.”
+- **Cách đo (`AgentScripts/ProbeWaterCost.cs`):** Play Mode, vSync tắt, người chơi giữa cầu dài; các biến thể chạy **xen kẽ 4 vòng × 60 khung** (bỏ 15 khung đầu mỗi lần), lấy trung vị; ghi `Captures/river-water-cost.json`, ms/khung và chênh với hiện tại.
+  - Đo kiểu một lượt liên tiếp (21.54 ban đầu) bị trôi 5–18 ms giữa đầu và cuối lượt, nên chỉ dùng số xen kẽ.
+  - Game view 1440×900 trong Editor. Số tuyệt đối gồm cả chi phí Editor, chỉ dùng để so tương đối.
+- **Trước khi tối ưu** (`Captures/river-water-cost-before.json`): hiện tại 50,7 ms. Bỏ từng phần thì giảm:
+
+  | Phần bỏ đi | Giảm (ms) |
+  | --- | --- |
+  | Mặt cầu + mặt nước | −10,5 |
+  | Ẩn căn hộ | −7,6 |
+  | Shader mặt nước thành màu phẳng | −6,3 |
+  | Mặt cầu/nước không đổ bóng | −5,1 |
+  | Căn hộ không đổ bóng | −5,1 |
+  | Tắt gương phản chiếu | −4,1 |
+  | Shader nước đục thành màu phẳng | −3,9 |
+
+- **Tối ưu (không đổi hình):**
+  1. **Căn hộ tách LOD từng khối (Blender MCP, `pho_viet_river_bridge.py`):**
+     - `riverside_specs()`, `apartment_parts()` và `export_parts()` xuất `Assets/PhoViet/Art/River/PV_RiverApartments.fbx`: 24 phần `PV_RiverApt00…23`, mỗi phần là empty + `_LOD0/1/2`, đỉnh ở hệ khối phố, slot Atlas/StreetGlass/RiverRoomLight.
+     - `PV_RiverBridge` không còn căn hộ: LOD 52.736 / 13.782 / 3.654. Vật cản căn hộ vẫn ở JSON cầu.
+     - Trước đây cả khối cầu 190 m là **một LODGroup**: khi đứng gần cầu, mọi tòa (kể cả tòa cách 90 m hay sau lưng) vẽ LOD0, tức 108.682 tam giác căn hộ.
+     - `PhoVietRiverUpgrade` đặt “Căn hộ ven sông • Blender” dưới cầu, mỗi khối một LODGroup ngưỡng `ApartmentLods` .3 / .08 / .006 (khối ~25 m: LOD0 trong ~80 m).
+     - Xóa LODGroup gốc mà trình nhập FBX tự thêm (bao cả 24 khối).
+  2. **Bóng đổ bằng bản thô:** `SetupLods(..., proxyLevel)` thêm “Bóng • …” là bản sao `ShadowsOnly` của LOD2 (căn hộ) / LOD1 (mặt cầu–nước), gắn vào các mức LOD chi tiết hơn; các LOD chi tiết tắt đổ bóng.
+     - Khối bao giống nhau nên bóng trên đường, vỉa hè và mặt nước (bóng giải tích của shader nước không đổi) trông như cũ, nhưng mỗi tầng shadow map vẽ ít tam giác hơn nhiều.
+  3. **Nhiễu nướng sẵn cho gợn nước:** `Assets/PhoViet/Scripts/RiverNoise.cs` tạo lúc chạy texture 256×256 lặp liền mạch (lưới 64 ô, 4 texel/ô): R = nhiễu giá trị nội suy smoothstep như hàm `Noise` cũ, G/B = đạo hàm.
+     - `RiverWaterMirror.shader` đọc `_RiverNoise` thay cho 4 phép băm + nội suy mỗi lần gọi `Noise`.
+     - Gợn lấy độ dốc trực tiếp từ đạo hàm (`RippleSlope`) thay cho 3 lần tính `Ripple` để sai phân: từ 27 phép băm/điểm ảnh còn 3 lần đọc texture.
+     - Màu loang thân nước và đường nước vỗ cũng đọc texture.
+  4. **Lớp nước đục chỉ vẽ khi có vật dưới nước:** `RiverMurk.shader` bỏ đỉnh ra ngoài khung cắt khi `_RiverMurkOn` = 0.
+     - `PhoVietRiver.UpdateRiverMurk()` bật khi người chơi rơi sông hoặc có xe đang rơi/chìm; gọi mỗi Update, khi bắt đầu rơi và trong `TickRiverAftermath`.
+     - Lúc không có gì dưới nước, 4 lớp nằm sau mặt nước đục ≥ 93% nên đóng góp < 1% màu; khi có vật chìm, hiệu ứng mờ dần theo độ sâu giữ nguyên.
+  5. **Ảnh phản chiếu dùng LOD1+** (`RiverReflection.maxLod` = 1): ảnh gương 42% độ phân giải đã làm nhòe, nên LOD0 không thêm chi tiết thấy được.
+  - Không đổi màu, vật liệu, thông số shader, thiết kế nhà hay cầu.
+- **Sau khi tối ưu** (`river-water-cost.json`, cùng góc):
+
+  | Phần bỏ đi | Trước (ms) | Sau (ms) |
+  | --- | --- | --- |
+  | Mặt cầu + nước | 10,5 | 4,3 |
+  | Shader mặt nước | 6,3 | 1,7 |
+  | Nước đục | 3,9 | 0,3 |
+  | Bóng mặt cầu | 5,1 | 2,1 |
+  | Bóng căn hộ | 5,1 | 2,0 |
+  | Gương | 4,1 | 2,1 |
+  | Căn hộ | 7,6 | 6,6 |
+
+  - **Ẩn cả khối cầu chỉ còn chênh +0,6 ms** (gần như không tốn so với phố thường), so với ~10–12 ms trước đó.
+  - Số tuyệt đối của lượt sau (53,2) cao hơn lượt trước (50,7) do máy bận khác nhau giữa hai lượt; chênh tương đối mới là số đáng tin.
+- **Hình ảnh:** `Captures/river-perf-sheet.png`, trước (`Captures/perf-before/`) và sau cùng 5 góc.
+  - Chênh điểm ảnh trung bình 0,8–8,7/255; phần lớn do mây và gợn sóng chạy theo thời gian (ảnh chụp ở thời điểm khác nhau).
+  - Gợn sóng nhỏ trông mịn hơn một chút, vì đạo hàm từ texture 4 texel/ô thay cho sai phân bước 0,11 m. Hình mặt tiền, phản chiếu và bóng giống nhau.
+- **Kiểm tra (`VerifyRiverBridge` 160 điều kiện):**
+  - 24 LODGroup căn hộ, 72 renderer + 24 proxy bóng (LOD2 ShadowsOnly, LOD chi tiết không đổ bóng);
+  - proxy bóng LOD1 của cầu;
+  - texture `_RiverNoise` 256 lặp; gương LOD1+;
+  - nước đục bật khi người chơi chìm và tắt khi không có gì dưới nước;
+  - cùng các điều kiện cũ (kính, đèn phòng, phản chiếu chỉ khi có sông).
+  - Hồi quy đầy đủ (Play Mode): **28 suite / 9.791 điều kiện đạt**. Gồm VerifyRiverBridge 160, TankBarrage 72, CrashPoliceNavigation 214, RoofRiding 4.206, StreetArt 333, NightJumpLighting 88, PortraitHud 21, MobileCamera 8. Sau khi chạy, Editor ở Edit Mode, scene không bẩn.
+- **Chưa làm:** chưa đo trên điện thoại/WebGL thật.
+- **Trạng thái:** scene đã lưu (jobs khóa). **Chưa commit/build/push**; web vẫn 1.38.0.
+
+### 21.55. Đổi làn mượt như cua giao lộ (25/10/2026, Claude Code — source, chưa build)
+
+- **Yêu cầu:** nhấn trái/phải (A/D, ←/→) hoặc vuốt trái/phải trên mobile, nhân vật đổi làn chưa mượt như khi rẽ ở giao lộ; điều chỉnh hiệu ứng di chuyển cho thật mượt.
+- **Nguyên nhân (đo bằng mô phỏng và trong Unity, dt 1/60, tốc độ 17):**
+  - 21.29/21.31 đẩy xe ngang với gia tốc **bật ngay 150 m/s²**, rồi hãm đều 60 m/s², rồi dừng. Gia tốc ngang nhảy bậc 3 lần: đầu, giữa và lúc chạm làn.
+  - Độ giật tối đa **14.085 m/s³**, gia tốc tối đa 249 m/s².
+  - Góc đầu xe đi qua bộ lọc bậc một hệ số 18/s nên tốc độ quay nhảy ngay **279°/s** ở khung đầu tiên.
+  - Cua giao lộ (`PhoVietRoutes.BeginOrContinueTurn`) thì đi theo đường cong bậc 5, độ cong bằng 0 ở chỗ nối, nên không có bước nhảy.
+- **Sửa (`PhoVietGame.cs`):**
+  - **Đường cong đổi làn bậc 5** (`AdvanceLaneCurve`, `LaneCurveValue`):
+    - Từ trạng thái hiện tại (vị trí, vận tốc, gia tốc ngang) tới tâm làn đích với vận tốc = gia tốc = 0, theo dạng minimum-jerk.
+    - Hệ số: c1 = v·T, c2 = a·T²/2, A = D−c1−c2, B = −c1−2c2, C = −2c2; c3 = 10A−4B+C/2, c4 = −15A+7B−C, c5 = 6A−3B+C/2.
+    - Thời gian `T = 0,36·√(|D|/3,1)`, kẹp 0,18–0,62 s: một làn 0,36 s, hai làn ~0,51 s.
+    - Đang lao về phía đích thì `T ≤ 1,6·|D|/|v|` để không vượt quá làn.
+    - Đổi làn đích giữa chừng (bấm liên tiếp, đổi ý) lập đường cong mới từ trạng thái hiện tại, nên vị trí, vận tốc và gia tốc vẫn liên tục.
+    - Nếu vị trí bị dời khỏi đường cong quá 2 cm (va chạm, đạp áp sát, quay về làn sau cua) cũng lập lại.
+  - **Góc đầu xe** = tiếp tuyến đường đi `atan2(v_ngang, max(Speed, 8))`, bão hòa mềm `26·tanh(góc/26)` thay cho cắt cứng ±26°.
+    - Làm mượt bậc hai `SmoothDamp`: bẻ vào 0,09 s, trả lái 0,24 s. Vẫn lấy lại thăng bằng từ từ như 21.31.
+  - Độ nghiêng = −0,85 × góc đầu xe (±24°), `SmoothDamp` 0,12 s.
+  - `ClearLaneMotion()` đặt lại trạng thái ở `ResetRide`, khi té (`PhoVietRiderCrash`), rơi sông (`PhoVietRiver`) và sau cua (`PhoVietRoutes`).
+  - Bỏ `LaneSpeed/LaneAccel/LaneBrake/SteerReturn`.
+  - Hộp va chạm vẫn đi theo vị trí thật, không xoay; góc lái chỉ xoay phần hình như 21.29.
+- **Kết quả (trong Unity, dt 1/60, khớp mô phỏng):**
+
+  | | Cũ | Mới |
+  | --- | --- | --- |
+  | Độ giật ngang (m/s³) | 14.085 | **2.800** (~5 lần êm hơn) |
+  | Gia tốc ngang tối đa (m/s²) | 249 | **137** |
+  | Tốc độ quay đầu xe (°/s) | 279 | **155** (124 ở tốc độ 30) |
+  | Gia tốc quay đầu xe (°/s²) | 3.747 | **2.417** |
+  | 90% làn (s) | 0,27 | **0,28** (vẫn né kịp) |
+  | Vào hẳn tâm làn (s) | 0,32 | **0,35** |
+  | Đỉnh góc đầu xe (°) | 25,6 | **22,6** (18,8 ở tốc độ 30) |
+  | Từ đỉnh tới thẳng (s) | 0,63 | **0,50** |
+
+  - Biểu đồ so sánh: `Captures/lane-smooth-curves.png`.
+  - Mô phỏng chọn thông số: `lanesim.py`/`lanesim2.py` trong thư mục tạm của phiên, không lưu repo.
+- **Kiểm tra:**
+  - `VerifyLaneSteering` **131 điều kiện** (thêm 8): ở dt 1/60, gia tốc ngang ≤ 160 m/s² và độ giật ≤ 4.000 m/s³; đầu xe quay ≤ 190°/s và ≤ 3.000°/s². Bản cũ trượt cả hai.
+  - Các điều kiện cũ vẫn đạt: 90% làn ≤ 0,36 s, không vượt, trả lái ≥ 0,3 s và ≤ 125°/s, nghiêng đúng phía, dựng thẳng, đổi ý không giật. Bước tối đa mỗi khung khi đổi ý nới 0,26 → 0,34 m vì đỉnh vận tốc ngang ~16 m/s.
+  - `VerifyGameplay` 23 đạt (đổi 2/3 làn trong thời hạn cũ).
+  - Hồi quy đầy đủ (Play Mode): **28 suite / 9.815 điều kiện đạt**. Gồm LaneSteering 131, Gameplay 23, SmoothTurns 468, QuickKick 62, JunctionKick 216, RiderContacts 45, CrashOutcome 51, RoofRiding 4.206, RiverBridge 160, TankBarrage 69, CrashPoliceNavigation 214, PortraitHud 21, MobileCamera 8. Sau khi chạy, Editor ở Edit Mode, scene không bẩn.
+- **Ghi chú môi trường:** trong phiên này, ghi đè `Captures/river-bridge-*-results.json` và `saigon-street-*-results.json` bị “Permission denied” lúc chạy. Kết quả hồi quy lần này ghi vào thư mục tạm của phiên, không phải repo.
+- **Trạng thái:** chỉ đổi mã (`PhoVietGame.cs`, `PhoVietRiderCrash.cs`, `PhoVietRiver.cs`, `PhoVietRoutes.cs`) và test; scene không đổi. **Chưa commit/build/push**; web vẫn 1.38.0.
+
+### 21.56. File bàn giao nhanh `BANGIAO.md` để Codex/Claude Code nhận việc không cần prompt lại (26/10/2026, Claude Code — chỉ tài liệu)
+
+- **Yêu cầu:** sau mỗi lần Claude Code làm/phát hành chức năng, người dùng chỉ cần qua Codex gõ yêu cầu mới; Codex phải tự biết trạng thái mới nhất, không cần dán lại prompt “đọc toàn bộ code và huongdan.md” (lần trước Codex mất ~37 phút đọc lại tài liệu ≈385 KB).
+- **Cách làm:**
+  - Thêm `BANGIAO.md` ở gốc: trạng thái/bản phát hành hiện hành, việc vừa làm, việc đang dở, luật đã chốt, bảng “sửa gì → đọc mục nào/file nào”, quy trình mỗi yêu cầu. Giữ ngắn (≈100 dòng).
+  - `AGENTS.md` (Codex tự đọc khi mở dự án): đầu mỗi phiên đọc `BANGIAO.md` + `git status --short` + `git log --oneline -5`; không đọc lại toàn bộ `huongdan.md`/mã nguồn, chỉ mở mục/file liên quan; nếu Git có commit mới hơn bản ghi trong `BANGIAO.md` thì đọc thêm mục 21.x mới nhất. Thêm quy tắc bắt buộc cập nhật `BANGIAO.md` cùng `huongdan.md` mỗi lần sửa/thêm chức năng/build/phát hành.
+  - Thêm `CLAUDE.md` chỉ chứa `@AGENTS.md` để Claude Code nạp cùng bộ quy tắc.
+- **Thay thế:** prompt mẫu cũ ở 18.3 (ghi 1.34.0) đã lỗi thời; 18.1 và 18.3 nay trỏ về `BANGIAO.md`.
+- **Kiểm tra:** chỉ tài liệu; không cần build. **Đã commit riêng 4 file** (`AGENTS.md`, `CLAUDE.md`, `BANGIAO.md`, `huongdan.md`) và push `main`; mã/scene/asset của 21.54–21.55 vẫn chưa commit, web vẫn 1.38.0.
 
 **Nguồn kiểm chứng chính:** mã C# và cấu hình hiện tại trong repo, `ArtSource/Blender`, metadata asset, Git history, các báo cáo `Captures/VERIFICATION_*.md` và JSON kết quả tương ứng. Nếu dự án tiếp tục thay đổi, cập nhật lại tài liệu này theo hành vi thực tế; đừng coi một con số/version/port của ngày bàn giao là thông tin luôn đúng về sau.
