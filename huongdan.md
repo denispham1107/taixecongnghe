@@ -2,7 +2,7 @@
 
 Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.34.0. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
 
-> **Trạng thái hiện tại: 1.37.0 (cầu vượt sông, xe tăng mỗi 9 giây bắn đạn pháo, ánh sáng sương sáng sớm D, mũi tên báo xe sau D, cây dời khỏi mái che và mặt tiền nhiều màu; trên nền 1.36.0 xe tăng Meshy “Iron Sentinel”, 1.35.0: đổi làn kiểu đánh lái, nhà cao tầng kính trong suốt, zoom dọc +10%, trên nền phố Sài Gòn 1.34.0; giữ xe Meshy/độ nét mobile), chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.** Chi tiết phát hành 21.44.
+> **Trạng thái hiện tại: 1.38.0 (sông gương, cầu dài gấp đôi 50,4 m, căn hộ kính ven sông sáng đèn ban đêm; trên nền 1.37.0: cầu vượt sông, xe tăng mỗi 9 giây bắn đạn pháo, ánh sáng sương sáng sớm D, mũi tên báo xe sau D, cây dời khỏi mái che và mặt tiền nhiều màu; trên nền 1.36.0 xe tăng Meshy “Iron Sentinel”, 1.35.0: đổi làn kiểu đánh lái, nhà cao tầng kính trong suốt, zoom dọc +10%, trên nền phố Sài Gòn 1.34.0; giữ xe Meshy/độ nét mobile), chỉ thi quãng đường/kỷ lục. Toàn bộ công việc đưa đón/trả khách, GPS, khách và Coin trên HUD đang tắt. Chỉ mở lại khi người dùng yêu cầu rõ ràng. Không tự bật cờ công việc khi nâng cấp model, sửa lỗi hoặc build.** Chi tiết phát hành 21.53.
 >
 > **Bộ ô tô Meshy1.33.0 (được giữ trong1.34.0):** đã thay 11 xe bốn bánh bằng 4 mẫu Meshy, 8 màu sơn chọn lại mỗi lần xuất hiện; 3.002 điều kiện Unity và 28 kiểm tra nguồn đạt. **Đã build/push/phát hành 1.33.0**, qua 77 kiểm tra browser local + 29 kiểm tra bundle + 26 kiểm tra live, 0 lỗi runtime; Pages run `40021075002` thành công. Chi tiết 21.17–21.18.
 >
@@ -11,6 +11,8 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 > **1.36.0 (21.33–21.34, Claude Code):** thêm **xe tăng Meshy “Iron Sentinel”** vào giao thông: xuất hiện ngẫu nhiên ở 5 ô xe con (~1/3 số lần), một màu gốc, chậm hơn 60%, va chạm không đổi hướng/không dừng — mọi phương tiện khác (kể cả người chơi, CSGT) văng ra. 24 suite / 9.521 điều kiện Unity đạt; build `build_fa643a0c8cd3`, cache `2ad4c813b6952999`; 29 bundle + 77 browser local đạt, 0 lỗi runtime. **Đã phát hành**: commit `c49059c`, Pages run `40090621801` thành công, 26 kiểm tra live đạt, 0 lỗi runtime (21.34).
 >
 > **1.37.0 (21.35–21.44, Claude Code):** **xe tăng mỗi 9 giây chạy ngược chiều, bắn đạn pháo vào 1 trong 4 làn phía trước — mỗi 1,0 s ở tốc độ khởi đầu, càng nhanh càng dày tới tối thiểu 0,4 s (21.39), có vòng cảnh báo đỏ dưới đất; trúng hoặc trong bán kính nổ 2,2 m là văng ra và kết thúc; xe khác trong bán kính cũng văng (21.38).** Ngoài ra thêm **cầu vượt sông** theo ảnh mẫu (Blender MCP): khối phố phía trước có 50% thành cầu, không quá 2 khối phố liền nhau nên đi một lúc là gặp sông; cầu chỉ 2 làn giữa, kè đá, dây leo, lan can trắng có chậu hoa, cờ, đèn, thuyền neo. Ra ngoài 2 làn cầu trên mặt sông là rơi xuống sông và **chìm dần xuống đáy** (bắn nước, bọt khí, vòng gợn sóng; không còn đứng hình lơ lửng sau thẻ kết thúc — 21.36); mặt nước sâu **5 m** dưới mặt đường (21.37; hình xe/người không còn bị nâng lên mặt đường khi ở dưới sông), trong, nhấp nhô, có bóng cầu/kè/trụ và bọt sát kè; người chơi rơi = kết thúc chuyến; xe thường tự nhập làn cầu, xe lạng lách/bị văng ra ngoài thì rơi. Thêm: ánh sáng sáng sớm có sương kiểu **D** (nắng vàng nhạt, sương xám bạc — 21.41), mũi tên báo xe phía sau kiểu **D** (ba mũi tên chạy lên — 21.42), cây dời vào khe giữa hai mái che và mặt tiền tiệm nhiều màu (21.43). 28 suite / 9.762 điều kiện Unity đạt; build `build_9c295f769ef8`, cache `5018a747f9b8d80c`; 29 bundle + 77 browser local đạt, 0 lỗi runtime. **Đã phát hành**: commit `f8d1be0`, Pages run `40124389275` thành công, 26 kiểm tra live đạt, 0 lỗi runtime; chơi thật bản live thấy cầu sông, rơi sông và đạn xe tăng nổ (21.44).
+>
+> **1.38.0 (21.45–21.53, Claude Code):** mặt sông kiểu gương theo ảnh mẫu (phản chiếu thật trời/mây/kè/cầu/nhà, gợn rung, thân nước xanh đen, sát kè ngả bùn) và cầu dài gấp đôi **50,4 m** chạy suốt giữa hai giao lộ; hai bờ ngắn lát vỉa hè + quảng trường ven sông; sửa nền đường thừa cạnh hai đầu cầu và ẩn nhà đường ngang đứng trên mặt sông (21.47); dựng dãy nhà lấp kín hai bờ, bỏ lan can dài ở góc ngã tư (21.48), nay là căn hộ cao cấp 6–9 tầng có ban công lan can kính và vách kính trong suốt hướng sông (21.49), ~70% phòng sáng đèn ban đêm (21.51); sửa nhà lơ lửng trên sông khi té/rơi sông (21.52). 28 suite / 9.770 điều kiện đạt (21.52); gương tốn ~2,8 ms/khung trong Editor. Build `build_13392e2af78d`, cache `1ffc9c93f6c6d874`; 29 bundle + 77 browser local đạt, 0 lỗi runtime. Push/Pages/live: xem 21.53.
 >
 > **Phố Sài Gòn — đã phát hành1.34.0:** giữ toàn bộ cập nhật Claude21.19–21.26: 12shop/kính/nội thất/biển tủ, cây/chậu/vỉa hè/đồ vật, đèn cong/tín hiệu và mây, bỏ người đứng và xe đẩy cũ. Hồi quy mới1.642điều kiện Unity,29bundle,77browser local và26live đạt;0lỗi runtime. Pages run`40069532577` thành công, cache`28a1dc1e64a78083`. VerifyJump đã dùng chiều cao Meshy; lỗi CSGT chập chờn lịch sử chưa tái hiện ở hai lần chạy mới. Chi tiết21.27.
 >
@@ -32,10 +34,10 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 | Bản chơi công khai | <https://denispham1107.github.io/taixecongnghe/> |
 | Unity Editor | **6000.5.6f1**, cần module Web Build Support để build WebGL |
 | Scene chính | `Assets/PhoViet/Scenes/PhoViet.unity` |
-| Phiên bản game đã phát hành | **1.37.0** — cầu vượt sông, xe tăng mỗi 9 giây bắn đạn, ánh sáng sương D, mũi tên báo xe sau D, cây/mặt tiền mới; trên nền 1.36.0 (xe tăng Meshy) và 1.35.0; chỉ thi quãng đường |
+| Phiên bản game đã phát hành | **1.38.0** — sông gương, cầu dài 50,4 m, căn hộ kính ven sông sáng đèn đêm, sửa nhà lơ lửng/CSGT; trên nền 1.37.0 (cầu sông, xe tăng bắn đạn, ánh sáng/mũi tên D); chỉ thi quãng đường |
 | Commit source + WebGL hiện hành | `f8d1be0a7039aae6a52afab3d733d8736aa6f9f3` |
-| Bằng chứng phát hành hiện hành | `Captures/release-1.37-*.json`, `VERIFICATION_RELEASE_1_37.md`; bản trước `release-1.36-*.json` |
-| Cache WebGL hiện hành | `5018a747f9b8d80c`; build UTC `2026-10-24T19:00:32.4293158Z` |
+| Bằng chứng phát hành hiện hành | `Captures/release-1.38-*.json`, `VERIFICATION_RELEASE_1_38.md`; bản trước `release-1.37-*.json` |
+| Cache WebGL hiện hành | `1ffc9c93f6c6d874`; build UTC `2026-10-25T09:11:28.4593563Z` |
 | Pages đã xác minh | Run `40124389275`, completed/success đúng source SHA; 26 kiểm tra live đạt (21.44) |
 | Render pipeline | Built-in Render Pipeline; `m_CustomRenderPipeline` đang là `fileID: 0` |
 | Input | Legacy Input Manager, `activeInputHandler: 0`; dùng `UnityEngine.Input` |
@@ -124,7 +126,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 - Xe thường ngược chiều cũng đổi làn, có thể vượt vạch vàng sang làn người chơi rồi quay lại; không đổi thành xe cùng chiều chỉ vì đổi làn.
 - Xe băng ngang ở giao lộ đi từ cả hai phía; số lượng, tốc độ và tỷ lệ xe lớn tăng theo độ khó. Có xe đi thẳng và có xe rẽ vào đường chính.
 - Xe chạy dọc đường cũng có thể rẽ trái/phải qua đường nhánh bằng quỹ đạo cong.
-- Xe có thể va chạm và bị hất văng. Sau **3 giây từ lần va chạm mới nhất**, xe giao thông tự dựng (hoạt ảnh khoảng 0,65 s), nhập làn trống gần nhất đúng chiều cũ và chạy tiếp; nếu đang rẽ thì hoàn thành đích rẽ đã chọn. CSGT giữ 1,2 s. Ngoại lệ xe nguy hiểm đâm nhà cháy nằm lại.
+- Xe có thể va chạm và bị hất văng. Sau **3 giây từ lần va chạm mới nhất**, xe giao thông tự dựng (hoạt ảnh tối thiểu 0,65 s, kéo dài khi xe dài phải xoay/trượt xa — 21.50), nhập làn trống gần nhất đúng chiều cũ ở nửa đường xe đang đứng và chạy tiếp; nếu đang rẽ thì hoàn thành đích rẽ đã chọn. CSGT giữ 1,2 s. Ngoại lệ xe nguy hiểm đâm nhà cháy nằm lại.
 - Xe thường vượt từ dưới màn hình lên có mũi tên đỏ viền vàng ở đúng làn ít nhất 2 giây trước khi xuất hiện; không áp dụng cảnh báo này cho xe từ phía trên hoặc xe băng ngang.
 - Sau khi người chơi rẽ xong, có đợt xe ngẫu nhiên từ phía sau vượt lên và từ hướng ngược chiều đi tới.
 - Đèn giao thông hiện là cảnh vật có đổi màu; game chưa dùng đèn để buộc tất cả xe dừng/nhường theo luật giao thông.
@@ -160,7 +162,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 - 12 mẫu cửa hàng: PHỞ BÒ - GÀ, TIỆM TRÀ, BÁNH MÌ, TẠP HÓA, THUỐC TÂY, SỬA XE, CÀ PHÊ SÀI GÒN, CƠM TẤM, BÚN BÒ HUẾ, HỦ TIẾU NAM VANG, SINH TỐ, TIỆM BÁNH (`VietnamStreet.Shops`, trùng chữ trên biển và tên đối tượng `Blender • …`).
 - Có 48 tên đường Việt Nam trong `RouteNames`, gồm các tên người dùng chỉ định và các tên bổ sung; cùng một trục phố giữ cùng tên trong lượt hiện tại.
 - Biển hiệu đã dựng song song, sát mặt tiền; chữ không xuyên qua nhà bên cạnh. Biển dọc chỉ nằm trong bề rộng tiệm. Mặt tiền vẫn ở |x| = 9,3 m nên luật đâm nhà, làn và vật cản giữ nguyên.
-- **Cầu vượt sông (21.35):** khối phố có thể thay đoạn nhà giữa bằng sông xanh ngọc chảy ngang (z 16,8–42 trong khối, kéo dài ±95 m), kè đá xám xếp khối có dây leo rủ, lối dạo lát gạch + lan can sắt + chậu cây, cầu tàu gỗ và 4 thuyền gỗ mái xanh/xanh dương chở hàng nhấp nhô. Cầu 2 làn có vạch vàng giữa, vạch trắng mép, gờ bó + lan can trắng con tiện, hộp hoa giấy hồng trên đầu cột, 4 đèn LED cong như phố kèm cờ đỏ sao vàng, trụ đá dưới nước. Hai đầu cầu giữ nhà/vỉa hè/giao lộ nên liền mạch; làn ngoài kết thúc ở mép kè có vạch chéo thu hẹp, gờ vàng–đen và biển “CẦU HẸP 2 LÀN”.
+- **Cầu vượt sông (21.35; dài 50,4 m và nước gương từ 21.46):** khối phố có thể thay đoạn giữa hai giao lộ bằng sông chảy ngang (**z 4,8–55,2** trong khối từ 21.46, trước đó 16,8–42; kéo dài ±95 m), mặt nước gương phản chiếu thật (21.45–21.46), kè đá xám xếp khối có dây leo rủ, lối dạo lát gạch + lan can sắt + chậu cây, cầu tàu gỗ và 4 thuyền gỗ mái xanh/xanh dương chở hàng nhấp nhô. Cầu 2 làn có vạch vàng giữa, vạch trắng mép, gờ bó + lan can trắng con tiện, hộp hoa giấy hồng trên đầu cột, 4 đèn LED cong như phố kèm cờ đỏ sao vàng, trụ đá dưới nước. Hai đầu cầu giữ nhà/vỉa hè/giao lộ nên liền mạch; làn ngoài kết thúc ở mép kè có vạch chéo thu hẹp, gờ vàng–đen và biển “CẦU HẸP 2 LÀN”.
 
 ### 2.7. Công việc, hành khách, Coin và GPS — đang tắt
 
@@ -441,7 +443,7 @@ Runtime còn các trường grace lịch sử nhưng **khi IsChased=true không 
 
 ### 7.5. Hồi phục NPC và va chạm cảnh vật
 
-`PhoVietTrafficRecovery` ghi hướng/tốc độ/làn/hệ trục/đích rẽ trước xung lực đầu tiên. Va chạm mới đặt lại age. Sau 3 s, tìm làn trống đúng chiều, dựng 0,65 s rồi đi tiếp; đường rẽ lưu nối từ vị trí ngã tới đích cũ. Pose, vận tốc và đường phục hồi phải scroll/rebase cùng thế giới. Giữ slot đủ lâu để xe hồi phục; bị tông lúc đang dựng cũng phải nhận lực và reset timer. CSGT giữ cơ chế 1,2 s, không dùng hệ 3 s. Xe nguy hiểm wallCrashed nằm cháy không hồi phục.
+`PhoVietTrafficRecovery` ghi hướng/tốc độ/làn/hệ trục/đích rẽ trước xung lực đầu tiên. Va chạm mới đặt lại age. Sau 3 s, tìm làn trống đúng chiều, dựng ≥0,65 s (thời gian = max(0,65; 1,5×(quãng trượt + góc xoay×nửa chiều dài)/10 m/s), để điểm xa nhất của thân không quét nhanh hơn 10 m/s) rồi đi tiếp; chỉ lấy hệ trục phố ngang khi xe thật sự băng ngang hoặc tâm xe nằm trong bốn làn của phố ngang (≤6,2 m từ tâm ngã tư), hướng chạy gần vuông góc với đường thì chọn chiều làn theo nửa đường xe đang đứng (21.50); đường rẽ lưu nối từ vị trí ngã tới đích cũ. Pose, vận tốc và đường phục hồi phải scroll/rebase cùng thế giới. Giữ slot đủ lâu để xe hồi phục; bị tông lúc đang dựng cũng phải nhận lực và reset timer. CSGT giữ cơ chế 1,2 s, không dùng hệ 3 s. Xe nguy hiểm wallCrashed nằm cháy không hồi phục.
 
 `PhoVietObstacleUpgrade` tạo **735 nhóm / 8.050 hộp** nhẹ (phố Sài Gòn 24/10 sau 21.26, bỏ hộp “Xe đẩy bán hàng”; 21.23: 8.120; bản 21.19 5.515–7.955, trước nữa 4.575) theo nhà, biển, mái hiên, ban công, quầy, bàn ghế, chậu cây, thùng rác, tủ nước, kệ, dù, bảng thực đơn, cây, xe đậu và cột trên 5 road rows. Hộp shop/cây đọc từ JSON Blender. `StreetObstacleSet` lưu hộp trong local của cụm; `PhoVietSceneryContacts` quét trong đúng hệ trục kể cả row đã xoay và xét cao để nhảy qua vật thấp. Cảnh vật đứng yên, chỉ xe/người văng; không gắn mesh collider/PhysX thứ hai cho toàn cảnh. Đây là số đã kiểm tra của cảnh hiện hành, cần tái kiểm sau dựng lại scene.
 
@@ -469,7 +471,7 @@ Trở về bắt đầu trong nhịp thu chân. MoveLane/nhảy/W/va chạm/bị
 
 ### 8.4. Khi người chơi đã té trong cuộc đuổi (1.30.2)
 
-`CrashDuringPursuit` chốt lúc va chạm. Sau khi té hoàn tất, người chơi nằm lại; không tự lái/nhảy/boost/đạp hoặc chạy tiếp. `PhoVietCrashPoliceNavigation.cs` ưu tiên đường thẳng nếu thoáng, nếu chắn lập **A* lưới 1,2 m**, lưu waypoint và có thể chạy tạm xa để vòng ra khỏi túi xe. Mỗi bước kiểm tra thân có yaw, vật cản và dự đoán xe di chuyển; cập nhật đường khi vật cản/mục tiêu thay đổi, scroll và rebase waypoint đúng hệ.
+`CrashDuringPursuit` chốt lúc va chạm. Sau khi té hoàn tất, người chơi nằm lại; không tự lái/nhảy/boost/đạp hoặc chạy tiếp. `PhoVietCrashPoliceNavigation.cs` ưu tiên đường thẳng nếu thoáng, nếu chắn lập **A* lưới 1,2 m**, lưu waypoint và có thể chạy tạm xa để vòng ra khỏi túi xe. Mỗi bước kiểm tra thân có yaw bằng quét SAT hai hộp xoay thật (không dùng AABB của xe xoay), đệm 0,08 m chỉ cho xe đang chạy/xoay/đứng dậy (xe đứng yên dùng hình thật), sau va chạm CSGT được đẩy ra cách thân xe 0,1 m (> đệm) để không tự khóa mọi hướng đi (21.50); vật cản và dự đoán xe di chuyển; cập nhật đường khi vật cản/mục tiêu thay đổi, scroll và rebase waypoint đúng hệ.
 
 Mục tiêu bắt là điểm có thể đứng quanh người té, không cố đi vào tâm đang nằm trong xe. Hỗ trợ hai nhánh mặt đường khi té giữa cua. Không có đường thì chờ tính lại, không xuyên/teleport/bắt từ xa bằng timer. CSGT té thì đợi dựng 1,2 s. Chỉ khi đã đứng dậy, người chơi té xong và khoảng cách thực <=2,2 m mới `Arrest` → `TickArrest` khoảng 1,1 s → `Jailed`. Jail là đối tượng riêng cùng scene; camera và ánh sáng riêng, có nút chơi lại.
 
@@ -942,7 +944,7 @@ Các kiểm tra điện thoại/iOS bằng browser profile là **mô phỏng lay
 - `wasm2023 = false` để giữ dải tương thích Safari của dự án.
 - Bộ nhớ khởi đầu 128 MB, tối đa 512 MB.
 - `dataCaching = false`, vì service worker phiên bản hóa chịu trách nhiệm cache thay vì hai cache độc lập.
-- Cấu hình phiên bản build hiện 1.37.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
+- Cấu hình phiên bản build hiện 1.38.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
 
 Hậu xử lý build tạo `precache.json`, `build-info.json`, `sw.js` đã thay mã cache và `.nojekyll`. Cache là 16 ký tự hex từ SHA-256 nội dung tài nguyên, không gán tay để làm giả một lần build mới.
 
@@ -1516,7 +1518,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Bố trí (`sidewalk`):** cà phê hai bộ bàn + 4 ghế, chậu cây nhỏ, bảng chữ A; phở/cơm/bún/hủ tiếu/bánh mì: tủ kính + nồi, 2 bàn gỗ × 4 ghế nhựa đỏ, bảng chữ A (phở); trà/sinh tố: dù vàng–trắng, quầy ly màu, bàn trắng + ghế đỏ; tạp hóa: tủ nước, kệ sắt, két; thuốc/bánh: tủ kính trưng bày; sửa xe: lốp, tủ đồ nghề. Lối vào cửa để trống. Trong tiệm: bàn ghế dùng cùng mẫu (cà phê ghế tựa, quán ăn bàn gỗ + ghế nhựa đỏ), hũ cà phê trên kệ, chồng tô, rổ rau, đèn lồng đỏ (quán ăn).
 - **Vật cản:** 735 nhóm / **8.120 hộp** (thêm nồi nước dùng, bảng chữ A, tủ/kệ/két mới). Hộp ghế nhựa giữ 0,42 × 0,46 × 0,42 m như bộ đã kiểm định: thử thu nhỏ còn 0,36 m làm `VerifyCrashUpgrade` (“Rider can steer away … Ghế nhựa”) báo lỗi vì điểm thử nằm sau tâm hộp, nên đã trả lại kích thước cũ thay vì sửa test.
 - **Ngân sách:** LOD0 shop 6.309–13.338 tam giác, LOD1 3.833–7.698, LOD2 1.713–3.196; vẫn dưới 27.879 của bộ shop 1.13.
-- **Kiểm tra (Play Mode, art cuối):** StreetArt 332, CrashUpgrade 97, Gameplay 23, JunctionRoutes 92, DistanceMode 31, NightJumpLighting 88, CrashOutcome 51, SmoothTurns 468, QuickKick 62, JunctionKick 216, Boost 35, Gestures 39, MeshyCarRoofs 256, MeshyLighting 16 đạt trong lượt chạy chung; **CrashPoliceNavigation** báo “Unbounded police movement in Moving traffic…” trong lượt chạy chung (lần thứ hai trong ngày) rồi **đạt 214 ở hai lần chạy lại riêng**. Kịch bản dùng giao thông ngẫu nhiên; không đổi mã CSGT/vật cản liên quan — cần theo dõi/làm ổn định test riêng. Tổng 15 suite / 2.020 điều kiện đạt khi tính lần chạy lại.
+- **Kiểm tra (Play Mode, art cuối):** StreetArt 332, CrashUpgrade 97, Gameplay 23, JunctionRoutes 92, DistanceMode 31, NightJumpLighting 88, CrashOutcome 51, SmoothTurns 468, QuickKick 62, JunctionKick 216, Boost 35, Gestures 39, MeshyCarRoofs 256, MeshyLighting 16 đạt trong lượt chạy chung; **CrashPoliceNavigation** báo “Unbounded police movement in Moving traffic…” trong lượt chạy chung (lần thứ hai trong ngày) rồi **đạt 214 ở hai lần chạy lại riêng**. Kịch bản dùng giao thông ngẫu nhiên; không đổi mã CSGT/vật cản liên quan — cần theo dõi/làm ổn định test riêng (nguyên nhân thật và bản sửa: 21.50). Tổng 15 suite / 2.020 điều kiện đạt khi tính lần chạy lại.
 - **Ảnh:** `Captures/saigon-street-shops-sheet.png` (cận 12 loại tiệm, `CaptureSaigonStreet.Shops`), `saigon-street-shop-00..11.png`, `saigon-street-after-*`, `saigon-street-day-*`, `saigon-street-night-*`, `saigon-street-comparison.png`.
 - **Trạng thái:** scene đã lưu, Unity Edit Mode, jobs khóa. **Đã commit/build/push/phát hành1.34.0, bằng chứng ở21.27** (trạng thái chờ của lần dựng đã kết thúc). Người ngồi trên xe máy đậu vỉa hè vẫn giữ (chờ người dùng chọn, 21.21).
 
@@ -1527,7 +1529,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Blender `pho_viet_saigon_streets.py::tree`:** thân côn r 0,10→0,065 m tới ~3,7–4 m (lệch nhẹ theo seed), 5 cành chính r 0,055→0,032 m tới nút trong tán, cành con nối nút gần nhất tới 40/30/20 cụm lá (bán kính cụm 0,36–0,55 m, vỏ tán 0,6–1,05). Mỗi cụm 88/50/33 lá xếp chùm quanh tâm cụm, mặt lá quay ra ngoài và hơi lên; lá dài 0,21–0,30 m (LOD xa phóng 1,3/1,6). `Geo.leaf` thêm tham số `wpos` (vị trí chỗ rộng nhất) để lá bầu dục thay vì hình thoi nhọn. Màu theo độ cao/khoảng cách tới tâm tán; palette đổi `leaf1 4C8E2A`, `leaf2 5FA834`, `leaf3 78BE42`, `leaf4 9CD25C`, `leaf5 2F5F1F`, `trunk 8E8B86` (xám). Các cây/chậu/hoa khác dùng chung các màu lá này nên cũng tươi hơn.
 - **Ngân sách:** 29.026 / 12.414 / 5.446 tam giác (dưới mức 30.076 của bộ cây 1.13); lá 3.520 / 1.500 / 660. Vật cản thân/bồn giữ nguyên.
 - **Unity:** cài bằng `InstallSaigonStreets` (reimport, bounds, vật cản). Ảnh so sánh `Captures/saigon-street-tree-comparison.png` (ảnh mẫu bên trái, cây trong Unity bên phải, `CaptureSaigonStreet.Tree`), `saigon-street-tree-closeup.png`; ảnh ngày/đêm và so sánh phố đã chụp lại.
-- **Kiểm tra (Play Mode):** StreetArt 332, CrashUpgrade 97, Gameplay 23, JunctionRoutes 92, DistanceMode 31, NightJumpLighting 88, CrashOutcome 51, SmoothTurns 468, QuickKick 62, JunctionKick 216, Boost 35, Gestures 39, MeshyCarRoofs 256, MeshyLighting 16 đạt. **CrashPoliceNavigation** lại lỗi “Unbounded police movement in Moving traffic…” trong lượt chạy dài 15 suite (lần thứ ba trong ngày) nhưng **đạt 214 ở 5 lần chạy riêng/ngay sau CrashOutcome**; lỗi gắn với chuỗi suite dài trong một phiên Play Mode, không phải hình học cây. Cần một việc riêng để làm ổn định kiểm tra này (xem trạng thái tích lũy giữa các suite, PoliceSpeed/dt).
+- **Kiểm tra (Play Mode):** StreetArt 332, CrashUpgrade 97, Gameplay 23, JunctionRoutes 92, DistanceMode 31, NightJumpLighting 88, CrashOutcome 51, SmoothTurns 468, QuickKick 62, JunctionKick 216, Boost 35, Gestures 39, MeshyCarRoofs 256, MeshyLighting 16 đạt. **CrashPoliceNavigation** lại lỗi “Unbounded police movement in Moving traffic…” trong lượt chạy dài 15 suite (lần thứ ba trong ngày) nhưng **đạt 214 ở 5 lần chạy riêng/ngay sau CrashOutcome**; không phải hình học cây. (Giả thuyết “gắn với chuỗi suite dài” sau này được chứng minh là sai: lỗi xảy ra cả khi chạy riêng, do xe tải hồi phục trượt 15–20 m và CSGT bị khóa cạnh xe — đã sửa ở 21.50.)
 - **Trạng thái:** scene đã lưu, Unity Edit Mode, jobs khóa. **Đã commit/build/push/phát hành1.34.0, bằng chứng ở21.27** (trạng thái chờ của lần dựng đã kết thúc).
 
 ### 21.25. Bảng tên tiệm dưới tủ kính và cây chậu kiểu cây mẫu (24/10/2026, Claude Code — đã phát hành1.34.0 ở21.27)
@@ -1638,7 +1640,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 ### 21.35. Cầu vượt sông theo ảnh mẫu (24/10/2026, Claude Code — phát hành 1.37.0 ở 21.44)
 
 - **Yêu cầu:** quan sát ảnh mẫu (`ArtSource/Reference/River/river_bridge_reference.png`: cầu 2 làn vạch vàng giữa, lan can trắng có chậu hoa hồng, cột đèn cong treo cờ đỏ sao vàng, sông xanh ngọc, kè đá có dây leo, thuyền gỗ mái che chở hàng, phố hai bên) và dùng Blender MCP dựng thêm cầu/sông/thuyền; liền mạch với phố cũ; đi một lúc là phải gặp cầu (người dùng giải thích “50%” chỉ để diễn đạt ý này); cầu đúng 2 làn; người chơi hoặc phương tiện không đi đúng 2 làn cầu thì rơi xuống sông; người chơi rơi là kết thúc; xe lạng lách ra ngoài phạm vi cầu cũng rơi. Người dùng chọn: **2 làn giữa** và **xe thường tự nhập làn cầu**.
-- **Bố cục khối cầu (tọa độ khối 80 m, `RiverBlock`):** mặt nước z **16,8–42,0** (đúng mép tấm vỉa hè 8,4 m), cao −2,3 m (**đã hạ xuống −3,2 m, đáy −7,4 m ở 21.36**), kéo dài x ±95 m (sương che phần xa, đầu sông có vách đá). Hai bờ z 0–16,8 và 42–63 giữ nguyên nhà phố/vỉa hè/cây/biển/đèn tín hiệu và giao lộ z 63–77 → liền mạch; nhà ở hai bờ thành nhà ven sông, nhà của đường ngang ở giao lộ phía trước thành dãy nhà bờ bên kia. Bề rộng sông bị giới hạn bởi chiều sâu nhà của đường ngang (tới 25,8 m tính từ mặt tiền) nên mặt nước ~25 m.
+- **Bố cục khối cầu (tọa độ khối 80 m, `RiverBlock`):** *(lịch sử — từ 21.46 mặt nước z 4,8–55,2, hai bờ ngắn lát lại, xem 21.46)* mặt nước z **16,8–42,0** (đúng mép tấm vỉa hè 8,4 m), cao −2,3 m (**đã hạ xuống −3,2 m, đáy −7,4 m ở 21.36**), kéo dài x ±95 m (sương che phần xa, đầu sông có vách đá). Hai bờ z 0–16,8 và 42–63 giữ nguyên nhà phố/vỉa hè/cây/biển/đèn tín hiệu và giao lộ z 63–77 → liền mạch; nhà ở hai bờ thành nhà ven sông, nhà của đường ngang ở giao lộ phía trước thành dãy nhà bờ bên kia. Bề rộng sông bị giới hạn bởi chiều sâu nhà của đường ngang (tới 25,8 m tính từ mặt tiền) nên mặt nước ~25 m.
 - **Mô hình Blender (`pho_viet_river_bridge.py`, nguồn `PhoViet_RiverBridge.blend`, dựng trong Blender MCP đang mở, scene riêng `PV_RiverBridge`):** mặt nước + mặt nạ stencil; kè đá xếp khối so le 6 hàng, vệt ẩm sát nước, gờ đá; 24 cụm dây leo rủ; lối dạo lát gạch |x| 26–95 có lan can sắt (lan can kè chỉ từ |x| 7,15 trở ra — **làn ngoài của đường không có lan can** để xe đi thẳng rơi được); chậu cây kiểu cây mẫu; cầu: mặt nhựa đường 2 làn |x| ≤ 3,1, vạch trắng mép, vạch vàng đứt cùng nhịp phố, gờ bó trắng 3,1–3,4, lan can trắng 3,4–3,7 cột vuông 2,1 m + con tiện, 8 hộp hoa giấy hồng, 4 cờ trên cột đèn, dầm, 2 trụ đá + mố; vạch chéo thu hẹp làn ngoài ở hai bờ, gờ vàng–đen mép kè, 2 biển tam giác “CẦU HẸP 2 LÀN”; 4 cầu tàu gỗ. Thuyền `PV_RiverBoat0` (9 m, mái vòm xanh lá, ca bin, cờ) và `PV_RiverBoat1` (6,4 m, mái xanh dương), hàng hóa nhiều màu. LOD 45.474/15.008/2.312 tam giác (thuyền 496/304/196 và 420/228/120). Unity tách submesh theo thứ tự vật liệu xuất hiện lần đầu, nên JSON ghi `slots` theo thứ tự đó (lần đầu gán theo slot Blender làm atlas nhận nhầm vật liệu mặt nạ — đã sửa).
 - **Unity — cài đặt (`PhoVietRiverUpgrade.Install`, menu “Phố Việt/Art/Install river bridge blocks”, chạy qua `AgentScripts/InstallRiverBridge.cs`):** cả **35 khối** của 5 dãy đường: thêm `RiverBlock` và con “Cầu vượt sông • Blender” (FBX xoay −90° X vì mesh còn trục Z lên; LODGroup .12/.04/.002), 4 thuyền `RiverBoat` (nhấp nhô/lắc nhẹ), 4 đèn LED phố (`PV_LEDStreetLamp`, x ±3,55, z 22/36,8) đăng ký vào `DayNightLighting.streets` (thêm 140) và `emissionUsers`. Mỗi khối ghi `streetOnly` (17 đối tượng có z nằm trên lòng sông: 6 nhà, 6 tấm vỉa hè, 2 cây, 2 xe máy đậu, nhóm đèn phố) và thay 6 mesh gộp `Geometry • …` bằng bản **cắt bỏ dải z 16,8–42** (Sutherland–Hodgman, giữ pháp tuyến/UV/tangent; 42 mesh asset trong `Art/River/Clipped/`). Vật liệu: atlas phố, `PV_RiverWater` (shader `PhoViet/River Water`), `PV_RiverGroundMask` (`PhoViet/River Ground Mask`), nhựa đường/vạch trắng/vạch vàng lấy đúng vật liệu mesh gộp của phố. “Nền thành phố” đổi sang `PV_CityGround` (`PhoViet/City Ground`, Standard + stencil NotEqual 1) — mặt nạ ở hàng đợi Geometry−1 ghi stencil trên lòng sông nên nền không che nước. Cài lặp lại an toàn (trả mesh gốc/hiện đối tượng trước khi tính lại). Kết quả `Captures/river-bridge-install.json`.
 - **Shader nước (bản đầu, đã thay ở 21.36):** sóng sin nhiều hướng tính theo tọa độ khối (sóng đi cùng khối khi phố cuộn), màu sâu/nông, phản chiếu trời theo Fresnel từ cubemap phản chiếu, lấp lánh nắng, sương; không nhận bóng (độ sâu ở lòng sông là của nền thành phố).
@@ -1743,5 +1745,254 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Phát hành:** source/artifact `f8d1be0a7039aae6a52afab3d733d8736aa6f9f3`, push main. Pages run **40124389275** completed/success đúng SHA (`Captures/release-1.37-pages.json`). Live: version 1.37.0 / cache `5018a747f9b8d80c`; `VerifyPublishedGame` **26 kiểm tra đạt, 0 lỗi runtime** (`release-1.37-live-results.json`, ảnh `release-1.37-live-game.png`).
 - **Chơi thật bản live (Chrome GPU, 0 lỗi trang):** bot đổi làn ngẫu nhiên chạy tới 264 m, qua cầu sông thấy mặt nước, kè, lan can và một đạn xe tăng nổ cạnh người chơi (`release-1.37-live-bridge-blast.png`), xe máy rơi xuống sông (`release-1.37-live-river-fall.png`). Gọi thêm `SpawnScheduledTank` qua `SendMessage` ngay đầu lượt để quay cảnh bắn: vòng cảnh báo đỏ dưới đất (`release-1.37-live-tank-warning.png`), nổ khói và thẻ “Trúng đạn xe tăng!” (`release-1.37-live-tank-hit.png`). Nhịp 9 giây tự nhiên đã đo trong Unity thời gian thực (21.40); trên web người chơi bot thường thua trước 9 giây nên không dùng làm phép đo nhịp.
 - **Chưa làm:** chưa thử điện thoại vật lý/FPS.
+
+### 21.45. Mặt sông kiểu gương theo ảnh mẫu — bản xem trước (25/10/2026, Claude Code — người dùng duyệt, đưa vào game ở 21.46)
+
+- **Yêu cầu:** người dùng thấy mặt sông dưới cầu “còn giả tạo quá”, gửi ảnh mẫu (`ArtSource/Reference/River/river_water_reference.jpg`, sông dưới cầu thép xanh) và yêu cầu dựng lại mặt nước giống ảnh, **chụp gửi xác nhận trước rồi mới đưa vào game**.
+- **Quan sát ảnh mẫu:** mặt nước là gương — phản chiếu trời xanh, mây trắng sáng, bờ/cây tối và cầu; gợn nhỏ làm hình phản chiếu rung và hơi kéo dọc, mềm; thân nước xanh đen sâu, sát bờ ngả bùn ô liu; cầu đổ bóng làm tối mặt nước; ánh nắng lấp lánh rất ít; nước lặng, **không có mảng bọt trắng**. Nước cũ (21.37) chỉ là màu xanh ngọc đồng đều, phản chiếu màu trời giả, nhiều bọt sát kè — không phản chiếu gì của cảnh.
+- **Cách làm (bản xem trước):**
+  - `Assets/PhoViet/Scripts/RiverReflection.cs` (mới): camera gương lật qua mặt nước (ma trận phản chiếu + mặt phẳng cắt xiên ở mực nước), render vào `_RiverReflectionTex` mỗi khung khi có khối cầu trong tầm nhìn. Độ phân giải 42% màn hình, tối đa 768 px; tắt bóng đổ/đèn điểm, LOD bias ×0,5, xa tối đa 150 m để nhẹ cho WebGL. Không có cầu trong tầm nhìn thì không render.
+  - `Assets/PhoViet/Scripts/RiverWaterMirror.shader` (mới, “PhoViet/River Water Mirror”): giữ lưới sóng/bóng giải tích của nước cũ nhưng sóng êm hơn (cao ×0,35, tốc ×0,7). Phản chiếu thật lệch theo gợn (ngang nhẹ, dọc ×1,6), làm mềm 5 mẫu nhòe dọc, tô xanh (0,68/0,79/0,88). Thân nước xanh đen `(0,015;0,075;0,12)`, sát kè 2,2 m ngả bùn. Độ phản chiếu 0,5→0,94 theo Fresnel. Chỉ còn một đường nước vỗ mảnh sát kè/trụ, lấp lánh nắng nhỏ, độ đục 0,93. Bỏ qua chính nó khi đang render ảnh phản chiếu (`_RiverReflecting`).
+  - `CityGround.shader`: thêm `clip` khi `_RiverReflecting=1`. Lý do: tấm nền thành phố (có mặt dưới) bị vẽ vào ảnh phản chiếu, che hết trời giữa lòng sông. Ngoài lúc render phản chiếu thì không đổi gì.
+- **Chưa đưa vào game:** scene và `PV_RiverWater.mat` không đổi, chưa gắn `RiverReflection` vào camera. `AgentScripts/CaptureRiverMirror.cs` chỉ thay vật liệu và gắn camera gương tạm thời trong Play Mode, chụp trước/sau cùng khung hình rồi trả lại như cũ.
+- **Ảnh duyệt:** `Captures/river-mirror-sheet.png` (ảnh mẫu + 5 cặp trước/sau: trên cầu góc chơi, từ bờ, nhìn dọc sông, từ mặt cầu, trên cầu ban đêm); ảnh lẻ `Captures/river-mirror-before/after-*.png`; ảnh gỡ lỗi texture phản chiếu `river-mirror-debug-*.png`.
+- **Khi người dùng duyệt:**
+  - Đổi shader của `PV_RiverWater.mat` sang River Water Mirror, gắn `RiverReflection` (game = PhoVietGame) lên camera chơi và lưu scene.
+  - Thêm kiểm tra vào VerifyRiverBridge, chạy lại hồi quy.
+  - Đo chi phí khung hình trên bản web; nếu nặng thì giảm `resolution`/`farClip`.
+- **Trạng thái:** người dùng duyệt (“Đưa vào game”) và đã cài ở 21.46. Đã build/phát hành trong **1.38.0** (21.53); lúc viết mục này web còn 1.37.0.
+
+### 21.46. Đưa mặt sông gương vào game và cầu dài gấp đôi 50,4 m (25/10/2026, Claude Code — scene đã lưu; phát hành 1.38.0 ở 21.53)
+
+- **Yêu cầu:** “Đưa vào game đồng thời cho chiều dài cây cầu dài hơn gấp đôi nhé” (sau khi xem ảnh duyệt 21.45).
+  - Người dùng chọn “Gấp đôi, giữ ngã tư”. Lý do phải chọn: mỗi khối 80 m đều có giao lộ ở z 70, vạch mũi tên của nó trải 55,4–84,6, nên khoảng trống thẳng giữa hai giao lộ chỉ khoảng 50,8 m.
+  - Hai phương án bị loại: bỏ giao lộ ở khối có cầu, hoặc chỉ dài gấp rưỡi.
+- **Bố cục mới (tọa độ khối):**
+  - Mặt sông **z 4,8–55,2 = 50,4 m** (bản cũ 16,8–42 = 25,2 m). Sông bắt đầu ngay sau vạch mũi tên của giao lộ trước (kết thúc 4,6) và dừng sát vạch mũi tên giao lộ sau (bắt đầu 55,4).
+  - Vạch dừng ở 56, đèn tín hiệu ở 60,6/77,6, biển tên đường và tấm vỉa hè 58,8–63 giữ nguyên.
+  - Hai trụ cầu ở **21,6 và 38,4** chia 3 nhịp 16,8 m.
+  - **8 đèn LED cầu** mỗi khối (z 10 / 23,4 / 36,6 / 50 × hai bên), 6 hộp hoa trên lan can mỗi bên.
+  - Vạch vàng đứt chạy suốt cầu (tâm 6 + 4k). Vẫn 4 thuyền neo.
+  - Bỏ vạch chéo thu hẹp làn vì không còn chỗ. Giữ gờ vàng–đen ở mép kè hai làn ngoài.
+  - Biển “CẦU HẸP 2 LÀN” dời lên vỉa hè hai bờ (z 2,9 và 57,2).
+  - Đi thẳng ở làn ngoài ra khỏi giao lộ là rơi ngay ở 4,8, nên người chơi phải vào 2 làn giữa từ trong giao lộ. Xe thường tự nhập làn trong 45 m trước cầu như cũ.
+- **Hai bờ ngắn** (0–4,8 và 55,2–58,8):
+  - Các tấm vỉa hè 8,4 m và tiệm chồng lên đoạn này đều bị ẩn. Hàm mới `bank_land()` trong `pho_viet_river_bridge.py` lát lại *(quảng trường/ghế đá/lối dạo đã thay bằng dãy nhà ống ven sông ở 21.48)*:
+    - vỉa hè caro kem–đất nung đúng lưới gạch 0,6 m và độ cao của `PV_StreetPavement`, có gờ bó vỉa;
+    - quảng trường ven sông |x| 11,2–26 lát bàn cờ kem–xám 1,2 m, mỗi bờ mỗi bên 2 chậu cây và 1 ghế đá quay ra sông.
+  - Mỗi khối cầu ẩn 37 vật (vỉa hè, 14 tiệm, 6 cây, xe đậu, chiếu sáng phố). Đèn tín hiệu, vạch mũi tên, biển tên đường giữ nguyên.
+- **Blender MCP:** chạy lại `build_river_bridge()` trong `PhoViet_RiverBridge.blend` (đã ghi lại nguồn).
+  - LOD tam giác: **73.060 / 21.130 / 3.662** (bản 21.37: 52.754 / 15.856 / 2.352).
+  - Lưới mặt nước LOD0 152×40 ô. Thứ tự slot vật liệu không đổi.
+  - Hai thuyền không đổi hình nên trả về bản Git để tránh thay đổi nhị phân thừa.
+- **Unity:**
+  - `RiverBlock.Near/Far = 4,8/55,2`. Installer kiểm tra hai số này khớp JSON, nếu lệch thì dừng.
+  - `PhoVietRiverUpgrade`:
+    - Đổi `PV_RiverWater.mat` sang shader **PhoViet/River Water Mirror** và đặt lại mọi thông số như bản đã duyệt 21.45.
+    - `_Banks` lấy theo JSON, `_Piers` lấy từ JSON mới `piers`.
+    - Gắn `RiverReflection` lên camera chơi (resolution .42, maxSize 768, farClip 120). `PhoVietGame.BuildWorld` cũng gắn khi dựng lại thế giới.
+    - Đặt tên **layer 8 = `PV_RiverReflect`** trong TagManager. Gán lớp này cho mô hình cầu (kè, cầu, thuyền, đèn cầu) và mọi tòa nhà “Blender • …”: 5.145 transform.
+  - Camera gương chỉ vẽ lớp `PV_RiverReflect` cùng bầu trời. Không vẽ vỉa hè, cây, đèn tín hiệu, mặt đường, xe: các thứ này gần như không thấy từ mặt nước mà tốn draw call.
+  - Culling của camera gương dùng phối cảnh thường giới hạn farClip. Ma trận xiên làm méo mặt phẳng xa nên trước đó không loại được gì.
+  - Các tham số còn lại: `interval` (mặc định 1, render mỗi khung), `noShadows/lowerLod/noPixelLights` (mặc định bật), `allLayers` (chỉ để so sánh).
+  - Không có lớp nào khác dùng layer, vì game không dùng Physics/LayerMask.
+  - Cài lại 35 khối: 280 đèn cầu, 140 thuyền, 70 mesh cắt.
+- **Hiệu năng (Editor, Play Mode, vSync tắt, 280 khung mỗi pha, có sông trong khung):**
+  - Trung vị khung hình **51,9 ms khi tắt gương, 54,7 ms khi bật**, tức gương tốn khoảng **2,8 ms (~5%)**. Đo bằng `AgentScripts/ProbeMirrorFrames.cs`, kết quả ở `Captures/river-mirror-frames.json`.
+  - Phép đo `camera.Render()` lặp từng lần cho kết quả 18–41 ms dao động vô lý, nên đã bỏ.
+  - Chưa đo trên điện thoại/WebGL thật.
+- **Kiểm tra:**
+  - `VerifyRiverBridge` thêm các điều kiện:
+    - sông 50,4 m nằm giữa hai vạch mũi tên giao lộ;
+    - `_Banks/_Piers` của nước khớp sông dài;
+    - camera chơi có `RiverReflection`;
+    - có sông trong khung thì render ảnh phản chiếu, không có sông thì không render (tắt cầu ở mọi dãy đường, kể cả đường nhánh);
+    - 280 đèn cầu.
+  - Các vị trí test đổi theo sông mới (83/137 ngoài sông).
+  - Xe cùng chiều nhập làn sinh ở 50 m với tốc độ 14 m/s. Xe máy 7 m/s bị người chơi vượt trước khi tới cầu nên lần chạy đầu trượt; đây là lỗi test, không phải lỗi game.
+  - `CaptureRiverBridge` thêm góc toàn cảnh, bờ gần, bờ xa, và tắt xe tăng bắn khi chụp. `CaptureRiverMirror` chỉ dùng cho bản xem trước, giờ sẽ dừng nếu scene đã có nước gương.
+  - Ảnh `Captures/river-bridge-long-sheet.png` gồm 8 góc: toàn cảnh, tới ngã tư trước cầu, giữa cầu, nhìn dọc sông, bờ gần, bờ xa, thuyền/kè, ban đêm.
+  - Hồi quy sau khi cài (Play Mode): **28 suite / 9.751 điều kiện đạt**. Gồm VerifyRiverBridge 142 (chạy riêng 3 lần liền đều 142), TankBarrage 69, RoofRiding 4.206, MeshyCars 1.266, MeshyTank 1.119, StreetArt 333, JunctionRoutes 92, NightJumpLighting 88, PortraitHud 21, MobileCamera 8. Sau khi chạy, scene ở Edit Mode, không bẩn.
+- **Trạng thái:** scene đã lưu (jobs khóa). **Đã build/phát hành trong **1.38.0** (21.53); lúc viết mục này web còn 1.37.0.
+
+### 21.47. Sửa nền đường thừa và nhà lơ lửng ở hai đầu cầu dài (25/10/2026, Claude Code — scene đã lưu; phát hành 1.38.0 ở 21.53)
+
+- **Báo lỗi (ảnh chơi trong Unity):**
+  - Dư 4 mảng nền đường (khung đỏ): mảng xám có vạch trắng ở hai làn ngoài, kéo từ mép kè ra mặt sông ở cả hai đầu cầu.
+  - Nhà lơ lửng trên mặt sông ở đầu cầu và bên kia cầu (khung xanh). Người dùng cho phép kéo sát nền hoặc ẩn/xóa tùy chọn.
+- **Nguyên nhân 1 (nền đường thừa):** mesh gộp đã cắt đúng (đếm tam giác: 0 tam giác trên mặt sông).
+  - Khi cài lại, `PhoVietRiverUpgrade.ClipRiver` ghi vào asset có sẵn bằng `EditorUtility.CopySerialized`. Dữ liệu lưu đã đổi, nhưng bản mesh trên GPU của Editor đang mở vẫn là bản cắt cũ 16,8–42. Vì vậy trong Play Mode đoạn 4,8–16,8 và 42–55,2 còn hiện mặt đường làn ngoài.
+  - Đã xác định bằng cách lần lượt tắt từng nhóm renderer: tắt mesh gộp “Geometry •” thì mất mảng xám; mô hình cầu không có mặt nào ở đó.
+  - **Sửa:** `ClipRiver` ghi thẳng vào mesh có sẵn qua API Mesh (`Clear`, `SetVertices`/`SetTriangles`…, `UploadMeshData(false)`), rồi cài lại 35 khối. Bản build đọc dữ liệu lưu nên không bị lỗi này, nhưng Editor của người dùng thì có.
+- **Nguyên nhân 2 (nhà lơ lửng):** dãy nhà của đường ngang ở giao lộ trước/sau (tiệm của các dãy đường nhánh, sâu tới 25,8 m tính từ mặt tiền) từng nằm ngoài sông 16,8–42. Với sông 4,8–55,2, chúng đứng một phần trên mặt sông.
+  - **Sửa — ẩn khi đứng trên sông:** `PhoVietRiver.HideBuildingsOverRiver()` chạy đầu mỗi `TickRide`.
+    - Mặt bằng mỗi tòa “Blender • …” của mọi khối được tính một lần trong hệ khối, từ bounds mesh, nên dùng được cả khi đang ẩn.
+    - Tòa nào của khối **khác** chồng lên dải mặt sông (|x| < 95, z 5,1–54,9) của một khối cầu đang bật thì ẩn; hết chồng thì hiện lại.
+    - Không bật lại tòa mà chính khối của nó đang là cầu đã ẩn (streetOnly).
+    - Chỉ xét các cặp khối trong vòng 260 m.
+    - `ResetRivers` trả lại mọi tòa đã ẩn. `BuildingsHiddenOverRiver` đếm số tòa đang ẩn.
+- **Kiểm tra:**
+  - `VerifyRiverBridge` **145 điều kiện** đạt, thêm: chạy tự nhiên tới cầu dài; nhà đường ngang trên sông được ẩn, không tòa nào khác đứng trên mặt nước; chơi lại thì hiện lại đủ. `VerifyStreetArt` 333 đạt.
+  - Ảnh `Captures/river-ends-fix-sheet.png`: trước/sau ở đầu cầu, tới ngã tư, cuối cầu và nhìn từ trên.
+  - Script gỡ lỗi `AgentScripts/ProbeRiverPatch.cs` (đếm tam giác mesh gộp trên mặt sông) và `AgentScripts/CaptureRiverEnds.cs` (chạy tự nhiên tới cầu, chụp hai đầu).
+  - Hồi quy đầy đủ sau sửa (Play Mode): **28 suite / 9.782 điều kiện đạt**. Gồm VerifyRiverBridge 145 (khi chạy tự nhiên tới cầu ẩn 64 tòa đường ngang, 0 tòa còn đứng trên mặt sông), TankBarrage 72, RoofRiding 4.206, MeshyTank 1.144, StreetArt 333, PortraitHud 21, MobileCamera 8. Sau khi chạy, Editor ở Edit Mode, scene không bẩn.
+- **Trạng thái:** scene đã lưu (jobs khóa). **Đã build/phát hành trong **1.38.0** (21.53); lúc viết mục này web còn 1.37.0.
+
+### 21.48. Dãy nhà ống ven sông lấp đất trống, bỏ hàng rào dài ở góc ngã tư (25/10/2026, Claude Code — scene đã lưu; phát hành 1.38.0 ở 21.53)
+
+- **Báo lỗi (ảnh chơi trong Unity):**
+  - Khung xanh: hàng rào bên trái hiển thị như chắn ngã tư nhưng xe vẫn quẹo trái được.
+  - Khung đỏ: đất trống không nhà cửa ở góc ngã tư và hai bờ sông, nhìn từ xa không thấy nhà.
+  - Người dùng yêu cầu dựng thêm nhà vào các vùng này và không được để nhà lòi ra/lơ lửng trên sông.
+- **Nguyên nhân:** sau 21.47, dãy nhà của đường ngang đứng trên sông bị ẩn. Giữa vỉa hè đường ngang và kè chỉ còn dải rộng **3,6 m** (z 1,2–4,8 ở bờ gần, 55,2–58,8 ở bờ xa, đo trên khối cầu khi chạy tự nhiên). Dải này chỉ có quảng trường lát gạch và lan can sắt dài từ |x| 7,15 tới 95. Vì vậy góc ngã tư trống trơn, lan can nhìn như chắn ngang lối rẽ.
+- **Sửa (Blender MCP, `pho_viet_river_bridge.py`):**
+  - **Dãy nhà ống ven sông `riverside_row()`/`house()`** *(thay bằng khối căn hộ cao cấp ở 21.49)*:
+    - Nhà sâu 3 m: bờ gần z 1,5–4,5, mặt tiền quay ra đường ngang (−z); bờ xa z 55,5–58,5, mặt tiền +z. Lưng nhà quay ra sông.
+    - Chạy từ |x| 11,4 (sau vỉa hè đường chính) tới 95 (hết sông). Mỗi bên đường chính rộng ngẫu nhiên 4,2–7 m có hạt giống, tổng cộng **61 nhà mỗi khối cầu**.
+    - 2–5 tầng (trệt 3,6 m, tầng trên 3 m), màu mặt tiền từ 10 màu bảng phố.
+    - Tầng trệt: 60% mặt kính cửa hàng khung trắng có dải đèn, còn lại cửa cuốn xám. Có hộp cuốn, biển hiệu chữ Việt (TẠP HÓA, NHÀ TRỌ, CƠM BÌNH DÂN, SỬA ĐIỆN, TIỆM VÀNG…). 45% nhà có mái hiên sọc.
+    - Tầng trên: cửa sổ khung trắng, ban công lan can sắt xen kẽ có chậu hoa, cục nóng.
+    - Lưng nhà: cửa sổ mỗi tầng, cục nóng sâu 0,26 m.
+    - Mái ngói hai dốc hoặc sân thượng có tường chắn và bồn nước inox.
+  - Không phần nào lấn mặt nước. Đã kiểm trong Blender: đỉnh nhà xa nhất 4,76 (kè 4,8) và 55,24 (kè 55,2).
+  - `bank_land()` chỉ còn vỉa hè caro của đường chính (|x| 7–11,2), nền lát dưới dãy nhà và **một đoạn lan can ngắn** ở góc đường chính (|x| 7,2–11,4) cạnh mố cầu. Đã bỏ quảng trường, ghế đá, chậu cây và lối dạo/lan can dài (`promenade` không còn dùng).
+  - Dãy nhà là một phần mô hình cầu nên chỉ hiện khi khối là cầu, nằm trên lớp phản chiếu (soi bóng xuống sông).
+  - LOD tam giác **101.712 / 33.504 / 4.386** (21.46: 73.060 / 21.130 / 3.662).
+- **Vật cản:** JSON mô hình có thêm `obstacles` (61 hộp “Nhà ven sông”). `PhoVietRiverUpgrade` gắn `StreetObstacleSet` lên “Cầu vượt sông • Blender” của từng khối: 2.135 hộp. Vật cản chỉ có hiệu lực khi khối là cầu, vì `SceneryContact` bỏ qua đối tượng không hoạt động.
+- **Kiểm tra:**
+  - `VerifyRiverBridge` thêm 3 điều kiện:
+    - mỗi khối cầu có dãy nhà ven sông và vật cản (≥ 50);
+    - mọi nhà nằm trên bờ ngắn, cách vỉa hè đường chính, không chồng mặt sông;
+    - tổng bề rộng nhà phủ kín cả hai bờ từ vỉa hè tới hết sông.
+  - Ảnh `Captures/river-houses-sheet.png`: ngã tư trước/sau cầu, đường ngang ven sông, trên cầu, toàn cảnh, nhìn từ trên. Script chụp `AgentScripts/CaptureRiverJunction.cs` chạy tự nhiên tới cầu, chụp và đo mép đường ngang trong hệ khối cầu.
+  - Sửa trong lúc kiểm tra:
+    - Dãy nhà ban đầu dừng khi còn dưới 3 m, để hở tới 3 m ở cuối sông. Giờ nhà cuối dãy nhận phần dư, mỗi bờ phủ đúng 167,2 m (2 × 83,6).
+    - `VerifyCrashUpgrade` giờ đếm riêng 735 bộ vật cản phố và 35 bộ của dãy nhà ven sông.
+  - Lần chạy đầu `VerifyCrashPoliceNavigation` trượt một lần (“Unbounded police movement in Moving traffic changes the planned route”), chạy lại 5/6 lần đạt. Đây là lỗi CSGT chập chờn đã ghi từ trước. Suite này chạy với sông tắt, nên không có cầu, vật cản dãy nhà hay ẩn nhà nào hoạt động. (Nguyên nhân thật và bản sửa: 21.50.)
+  - Hồi quy đầy đủ cuối (Play Mode): **28 suite / 9.753 điều kiện đạt**. Gồm VerifyRiverBridge 148, CrashUpgrade 93, CrashPoliceNavigation 214, TankBarrage 69, RoofRiding 4.206, MeshyTank 1.115, StreetArt 333. Sau khi chạy, Editor ở Edit Mode, scene không bẩn.
+- **Trạng thái:** scene đã lưu (jobs khóa). **Đã build/phát hành trong **1.38.0** (21.53); lúc viết mục này web còn 1.37.0.
+
+### 21.49. Căn hộ cao cấp kính và ban công ở hai bờ sông (25/10/2026, Claude Code — scene đã lưu; phát hành 1.38.0 ở 21.53)
+
+- **Yêu cầu:** (ảnh chơi, thẻ “Trúng đạn xe tăng!” trên cầu) nhà bên kia cầu quá sơ sài, đơn điệu. Thiết kế lại thành nhà cao tầng giống thật, kiểu căn hộ chung cư cao cấp có ban công và cửa kính trong suốt.
+- **Thiết kế (Blender MCP, `pho_viet_river_bridge.py`):** `house()` đổi thành `apartment_block()`; `riverside_row()` xếp khối rộng 10–16,8 m. Khối cuối nhận phần dư để mỗi bờ vẫn phủ đúng |x| 11,4–95, tổng **24 khối mỗi khối cầu**. Vẫn sâu 3 m, mặt bằng như 21.48, nên không phần nào lấn mặt nước: đỉnh xa nhất 4,758 và 55,243, kè 4,8 và 55,2.
+  - **Chiều cao:** 6–9 tầng (trệt 3,6 m, tầng trên 3 m), vỏ trắng/đá/kem/xanh nhạt.
+  - **Mặt hướng sông (thấy từ cầu):**
+    - Mỗi tầng có gờ sàn ở lưng nhà và lan can kính trong suốt kèm tay vịn inox.
+    - **Ban công lõm 1 m** để không nhô ra sông.
+    - **Vách kính trong suốt sàn–trần** chia ô bằng đố, theo 3 kiểu: đố tối, lam đứng, khung trắng.
+    - Sau kính là phòng sâu 1,25 m: trần có đèn, vách sau 6 màu ấm, sofa, cây cảnh; ngoài ban công có chậu cây.
+    - Mái là sân thượng vườn có lan can kính và phòng kỹ thuật.
+  - **Mặt đường ngang:** 2–3 gian cửa hàng tầng trệt (kính có dải đèn hoặc cửa cuốn, biển chữ như TẠP HÓA, SPA, NGÂN HÀNG, MINI MART, BẤT ĐỘNG SẢN…, mái hiên). Các tầng trên có cửa sổ khung trắng, ban công sắt xen kẽ, cục nóng.
+  - **Kính trong suốt:** mặt tag `Glass` dùng submesh vật liệu `PV_StreetGlass` của phố (cùng kính cửa hàng và tòa văn phòng 21.27). `to_mesh` của script phố thêm slot này; `river_mesh` nối các slot sông sau nó.
+    - Thứ tự slot Unity mới: PV_StreetAtlas, PV_RiverMurk, PV_RiverWater, PV_RiverGroundMask, **PV_StreetGlass**, PV_RiverAsphalt, PV_RiverLineWhite, PV_RiverLineYellow.
+    - `PhoVietRiverUpgrade` ánh xạ PV_StreetGlass tới `Assets/PhoViet/Art/Streets/PV_StreetGlass.mat`; nếu thiếu vật liệu thì dừng.
+  - LOD tam giác **161.094 / 64.188 / 15.014** (21.48: 101.712 / 33.504 / 4.386). Vật cản 24 hộp “Nhà ven sông” mỗi khối, tổng 840.
+- **Kiểm tra:**
+  - `VerifyRiverBridge`: mỗi khối cầu có ≥ 16 khối căn hộ cao ≥ 18 m có vật cản; renderer cầu có vật liệu kính `PV_StreetGlass`. Các điều kiện 21.48 (không lấn sông, phủ kín hai bờ) vẫn giữ.
+  - `CaptureRiverBridge` thêm 3 góc: từ cầu nhìn sang căn hộ, cận cảnh từ trên mặt sông, ban đêm. Góc toàn cảnh nâng lên 40 m vì nhà cao.
+  - Ảnh `Captures/river-apartments-sheet.png`.
+  - Hồi quy đầy đủ (Play Mode): **27/28 suite đạt** (VerifyRiverBridge 149, TankBarrage 69, MeshyTank 1.133, RoofRiding 4.206, StreetArt 333, CrashUpgrade 93, PortraitHud 21, MobileCamera 8…).
+  - `VerifyCrashPoliceNavigation` trượt ở “Unbounded police movement in Moving traffic changes the planned route”; chạy lại 3 lần: 2 đạt (214), 1 trượt cùng chỗ.
+  - Đây là lỗi CSGT chập chờn đã ghi từ trước (21.27, 21.48), không liên quan thay đổi này: suite chạy với sông tắt, logic CSGT không dùng vật cản cảnh (`SceneryContact` chỉ dùng cho người chơi/đạp).
+  - Từ 21.48 tần suất trượt có vẻ cao hơn (3 lần/9 lần chạy, trước đó 0/4) nên cần điều tra riêng — đã điều tra và sửa ở 21.50 (không liên quan cầu/sông).
+  - Sau khi chạy, Editor ở Edit Mode, scene không bẩn.
+- **Đèn phòng ban đêm:** đã làm ở 21.51.
+- **Trạng thái:** scene đã lưu (jobs khóa). **Đã build/phát hành trong **1.38.0** (21.53); lúc viết mục này web còn 1.37.0.
+
+### 21.50. Sửa lỗi chập chờn “Unbounded police movement” của VerifyCrashPoliceNavigation (25/10/2026, Claude Code — source; phát hành 1.38.0 ở 21.53)
+
+- **Triệu chứng:** ca “Moving traffic changes the planned route” trượt khoảng 1/3–1/6 số lần chạy: xe CSGT dịch quá `max(12, PoliceSpeed+2)·dt + 0,2` m trong một tick. Lỗi xảy ra cả khi chạy suite riêng, nên giả thuyết “trạng thái tích lũy giữa các suite” (21.24) là sai.
+- **Không liên quan cầu/sông (21.48–21.49):** suite chạy với `riversEnabled=false`. `HideBuildingsOverRiver()` mỗi tick chỉ bật/tắt hiển thị nhà ven sông, không dùng `rng`, không đụng xe hay CSGT, và CSGT không dùng vật cản cảnh. Chênh lệch 0/4 → 3/9 là dao động ngẫu nhiên của số lần chạy nhỏ.
+- **Nguồn ngẫu nhiên:** mỗi `RestartRide()` gieo `RunSeed` mới. Ô xe tải bốc ngẫu nhiên Covered (6,4 m) hay Container (12,8 m) cho từng xe trong ca, và chuỗi va chạm CSGT ↔ xe tải ↔ xe tải phụ thuộc tổ hợp đó.
+- **Nguyên nhân 1 (lỗi game, gốc của “Unbounded”):** `RememberTrafficCourse` coi mọi xe có `routeDetached` bị hất chủ yếu theo trục x là xe băng ngang.
+  - Xe được gán hệ trục của **ngã tư gần nhất**, dù ngã tư cách 15–20 m (xe đang nằm giữa đoạn thẳng).
+  - Sau 3 s, pha đứng dậy nội suy 0,65 s tới làn của phố ngang đó, tức xe trượt **15–20 m trong 0,65 s** (~35–46 m/s, đo được `slide=20.5`, đích z≈−11,6), xuyên qua CSGT đang ngã. `ResolvePoliceContact` đẩy CSGT 0,46–0,50 m/tick.
+  - Trong game, mọi xe đều `routeDetached` sau khi người chơi rẽ, nên xe bị hất ngang sau khi rẽ cũng có thể trượt như vậy.
+- **Sửa (`PhoVietTrafficRecovery.cs`):**
+  - Chỉ dùng hệ trục phố ngang khi `v.crossing`, hoặc tâm xe cách tâm ngã tư ≤ `|LaneX[3]|+1,55` = 6,2 m (trong bốn làn phố ngang).
+  - Hướng chạy gần vuông góc với hệ trục thì dấu của nó không cho biết chiều làn. Khi đó chọn chiều theo nửa đường xe đang đứng, thay vì có thể kéo sang làn ngược chiều bên kia (đo được trượt 9,6 m).
+  - Thời gian đứng dậy `StandDuration = max(0,65; standTime)`, với `standTime = 1,5·(quãng trượt + |Δyaw|·max(nửa dài, nửa rộng)) / StandUpSweepSpeed` (10 m/s; 1,5 là đỉnh đạo hàm SmoothStep). Xe máy/xe con nhích vào làn vẫn 0,65 s; container xoay ~90° mất ~3,3 s thay vì quét đầu xe ước tính ~23 m/s. `StandUpProgress` (hoạt ảnh Recover của xe máy) chia theo `StandDuration`.
+- **Nguyên nhân 2 (lỗi game, lộ ra khi xe tải không còn trượt đi):** CSGT kẹt cạnh xe tải đứng yên suốt 35 s (`reaches fallen rider… gap≈11,7`).
+  - `RoutePolicePathClear` dùng AABB của thân xe đã xoay cộng đệm 0,08 m. Container nằm chéo 43° có AABB ~10,6×11 m phủ cả mặt đường trống. Ngay cả xe Covered lệch 4° cũng khiến CSGT cách thân thật 2–7 cm bị coi là nằm trong hộp.
+  - Phép quét từ điểm xuất phát chồng lấn chặn **mọi** hướng (đầu dò 16 hướng đều chặn, A* rỗng).
+  - Va chạm chỉ đẩy CSGT ra 2,5 cm (nhỏ hơn đệm), còn va chạm giữa lúc quét đặt CSGT sát thân (khe 0).
+- **Sửa (`PhoVietRoutePolice.cs`, `PhoVietPolice.cs`):**
+  - Quét SAT 4 trục giữa hộp CSGT xoay theo hướng bước đi và hộp xe xoay thật (cùng toán `ContactHalfSpace` của `VehicleContact`; xe máy ngã dùng nửa rộng ≥1,05 như `VehicleFootprint`).
+  - Đệm `PolicePathPadding=0,08` chỉ áp cho xe có vận tốc, quay hoặc đang đứng dậy (để bù sai số ngoại suy 0,15 s); xe đứng yên dùng hình thật.
+  - Trong chế độ té/cua (`RiderCrashActive||routePolice`), sau va chạm CSGT được đẩy ra thêm `PolicePathPadding+0,02` theo pháp tuyến (đuổi đường thẳng giữ 2,5 cm cũ).
+- **Đã thử và bỏ:**
+  - Bắt xe tải chờ khi CSGT trong vùng quét đứng dậy: gây khóa chết, vì xe tải chờ CSGT còn CSGT bị hai xe tải chắn lối.
+  - Cho phép “bước thoát” khi xuất phát trong hộp, theo độ sâu AABB/trục nông nhất: làm hỏng ca túi ba xe tải 12–20/20 lần.
+- **Không đổi test:** `AgentScripts/VerifyCrashPoliceNavigation.cs` giữ nguyên (214 điều kiện, giới hạn bước như cũ). Script chẩn đoán chỉ nằm ở scratchpad phiên (bản sao suite có ghi trạng thái xe/hồi phục ở bước lỗi, đầu dò 16 hướng/A*), không đưa vào repo.
+- **Kiểm tra (Play Mode, trình chạy cũ: chỉ khi `Application.isPlaying` mới đặt `riversEnabled=false; tankBarrageEnabled=false; randomTanks=true; ResetRide()`):**
+  - Trước sửa: bản sao suite có ghi chép trượt 1/6 và 1/8 lượt; 5/8 lượt có xe đứng dậy trượt 15,5–20,5 m.
+  - Sau sửa: bản sao có ghi chép **20/20** lượt đạt, không còn lần đứng dậy nào trượt >1,6 m. File test thật **10/10 lượt liên tiếp đạt 214**.
+  - Hồi quy cùng trình chạy, sau bản sửa cuối: **19 suite / 7.747 điều kiện đạt**. Gồm CrashPoliceNavigation 214, CrashUpgrade 93, CrashOutcome 51, RiderContacts 45, TrafficDynamics 82, BikeArt 156 (hoạt ảnh Recover), RearRandomPolice 60, Pursuit 39, JunctionKick 216, QuickKick 62, RoadDrivers 45, SmoothTurns 468, JunctionRoutes 92, Gameplay 23, DistanceMode 31, Reckless 120, BoostTrafficIsolation 478, MeshyCars 1.266, RoofRiding 4.206. Không chạy RiverBridge/TankBarrage (một phiên khác đang sửa file cầu/sông).
+  - Sau khi chạy, Editor ở Edit Mode; `PV_Racer.mat`/`PV_TrafficPolice.mat` không bị đổi.
+- **Trạng thái:** chỉ sửa mã nguồn 3 file (`PhoVietTrafficRecovery.cs`, `PhoVietRoutePolice.cs`, `PhoVietPolice.cs`). Không đổi scene/asset; jobs vẫn khóa (`RideJobsReleased=false`, `jobsEnabled=false`). **Đã build/phát hành trong **1.38.0** (21.53); lúc viết mục này web còn 1.37.0.
+
+### 21.51. Phòng căn hộ sau kính sáng đèn ban đêm (25/10/2026, Claude Code — scene đã lưu; phát hành 1.38.0 ở 21.53)
+
+- **Yêu cầu:** “Cho các phòng căn hộ sau kính sáng đèn vào ban đêm nhé” (tiếp 21.49).
+- **Shader mới `Assets/PhoViet/Scripts/ApartmentRoom.shader` (“PhoViet/Apartment Room”):** Standard bề mặt dùng bảng màu phố `PV_StreetPalette.png`, nên ban ngày giống hệt atlas.
+  - Emission = màu bảng phố × `_Warm` (1; 0,86; 0,66) × `_Glow` 1,15 × global **`_PVNightLights`**. `DayNightLighting.ApplyEnvironment` đã đặt global này mỗi khung bằng `LampLevel`: cùng nhịp bật đèn đường, sáng dần lúc chạng vạng, tắt lúc sáng.
+  - Không thêm danh sách vật liệu hay mã runtime nào.
+- **Blender MCP (`pho_viet_river_bridge.py`):** tag mới `Room` → submesh `PV_RiverRoomLight`.
+  - Mỗi tầng căn hộ bật đèn theo hàm băm `(k·7 + |cx|·13 + |zf|·7) % 10 < 7`, tức **~70% phòng sáng**. Hàm băm giống nhau ở mọi LOD.
+  - Phòng sáng dùng vách tông ấm `LIT_INTERIORS` (interiorWall, interior, cream, woodLight, peach, trim) và máng đèn trần `lamp` có tag `Room`. Phòng tắt dùng vách thường.
+  - Dải đèn cửa hàng tầng trệt **không** gắn tag: nó chỉ có ở LOD0, nên gắn sẽ làm lệch thứ tự slot giữa các LOD (export kiểm tra thứ tự giống nhau).
+  - Thứ tự slot mới: PV_StreetAtlas, PV_RiverMurk, PV_RiverWater, PV_RiverGroundMask, PV_StreetGlass, **PV_RiverRoomLight**, PV_RiverAsphalt, PV_RiverLineWhite, PV_RiverLineYellow. LOD tam giác 161.418 / 64.188 / 15.014.
+- **Unity:** `PhoVietRiverUpgrade` tạo/cập nhật `Assets/PhoViet/Art/River/PV_RiverRoomLight.mat` (Apartment Room + PV_StreetPalette, Glow 1,15, Warm, Smoothness 0,2); nếu thiếu bảng màu thì dừng. Đã cài lại 35 khối, scene đã lưu.
+  - Phòng sáng nằm trên lớp phản chiếu (`PV_RiverReflect`) nên ánh đèn soi bóng xuống mặt sông.
+- **Kiểm tra:**
+  - `VerifyRiverBridge` thêm 2 điều kiện: mọi LOD cầu có vật liệu Apartment Room có bảng màu; `_PVNightLights` > 0,95 lúc nửa đêm của chu kỳ và < 0,05 lúc đầu ngày.
+  - `CaptureRiverBridge` thêm góc đêm cận cảnh và chạng vạng (30% chu kỳ).
+  - Ảnh `Captures/river-apartments-night-sheet.png`: ngày, chạng vạng, đêm, đêm cận cảnh, góc chơi trên cầu ban đêm, ngày cận cảnh.
+  - Hồi quy đầy đủ (Play Mode, gồm cả sửa CSGT 21.50): **28 suite / 9.751 điều kiện đạt**. Gồm VerifyRiverBridge 151, TankBarrage 69, CrashPoliceNavigation 214, RoofRiding 4.206, MeshyTank 1.111, StreetArt 333, NightJumpLighting 88, PortraitHud 21, MobileCamera 8. Sau khi chạy, Editor ở Edit Mode, scene không bẩn.
+- **Trạng thái:** scene đã lưu (jobs khóa). **Đã build/phát hành trong **1.38.0** (21.53); lúc viết mục này web còn 1.37.0.
+
+### 21.52. Nhà đường ngang hiện lơ lửng trên sông khi té/rơi sông (25/10/2026, Claude Code — scene không đổi; phát hành 1.38.0 ở 21.53)
+
+- **Báo lỗi (ảnh chơi trong Unity, thẻ “RƠI XUỐNG SÔNG”):** khi người chơi va chạm, nhà ở bên kia cầu “chuyển cảnh” thành nhà bay lơ lửng trên mặt nước. Người dùng yêu cầu kiểm tra lại toàn bộ.
+- **Nguyên nhân:** `HideBuildingsOverRiver()` (21.47) chỉ chạy ở đầu `TickRide`, tức chỉ khi đang chạy xe. Nhưng khi té (`TickRiderCrash`) và khi rơi/chìm sông (`SinkRider`, cả sau thẻ kết thúc qua `TickRiverAftermath`), phố **vẫn cuộn** qua `ScrollRoutes`:
+  - khối bị đẩy ra sau được đưa lên phía trước và có thể thành khối cầu mới (`AssignRecycledRiverBlock` → `SetBridge` bật lại nhà/vỉa hè);
+  - các dãy đường nhánh dịch theo.
+  - Vì vậy trạng thái ẩn/hiện nhà đứng yên theo vị trí cũ.
+  - `PrepareBranches` (đặt hai dãy đường ngang của giao lộ kế tiếp, cả lúc reset/rẽ) cũng không gọi lại.
+- **Sửa:** gọi `HideBuildingsOverRiver()` ở cuối `ScrollRoutes` (mọi đường cuộn phố: chạy, té, chìm sông, sau thẻ kết thúc) và cuối `PrepareBranches` (`PhoVietRoutes.cs`). Lời gọi ở đầu `TickRide` giữ nguyên. Không đổi scene/asset.
+- **Kiểm tra (`VerifyRiverBridge`, 153 điều kiện):** hàm `floating()` đếm tòa “Blender • …” đang hiện của khối khác đứng trên mặt nước của **bất kỳ** khối cầu đang bật nào, kèm tên ví dụ khi trượt. Kiểm tra ở các thời điểm:
+  - chạy tự nhiên tới cầu;
+  - té ngay trước cầu và trượt 14 m/s, kiểm từng khung suốt pha té + 3 s sau thẻ kết thúc;
+  - đi làn ngoài rơi xuống sông rồi chìm 8 s, kiểm mỗi 5–10 khung;
+  - sau khi chơi lại (màn hình sẵn sàng).
+  - Lần chạy đầu ngay sau khi Unity biên dịch lại trượt một lần ở kiểm tra “sau khi chơi lại”. 6 lần chạy sau và probe 12 lượt (chơi lại / rơi sông rồi chơi lại) đều 0 nhà lơ lửng; chưa tái hiện được, đã thêm thông tin chẩn đoán vào thông báo.
+  - Không chạy được bản mã cũ để tái hiện, vì vào Play Mode là Unity biên dịch bản mới.
+- **Ảnh:** `AgentScripts/CaptureRiverCrash.cs` chạy tự nhiên tới cầu, chụp rơi sông ở đầu cầu, ở cuối cầu (gần dãy căn hộ bờ xa như ảnh người dùng) và té trên đường trước cầu → `Captures/river-crash-sheet.png`.
+- **Hồi quy đầy đủ (Play Mode): 28 suite / 9.770 điều kiện đạt.** Gồm VerifyRiverBridge 153, TankBarrage 69, CrashPoliceNavigation 214, CrashOutcome 51, RiderContacts 45, RoofRiding 4.206, StreetArt 333. Sau khi chạy, Editor ở Edit Mode, scene không bẩn.
+- **Trạng thái:** Đã build/phát hành trong **1.38.0** (21.53).
+
+### 21.53. Build/phát hành 1.38.0 — sông gương, cầu dài, căn hộ kính, sửa nhà lơ lửng và CSGT (25/10/2026, Claude Code)
+
+- **Ủy quyền:** người dùng yêu cầu trực tiếp “Build WebGL và phát hành lên web nhé” sau khi nhận báo cáo 21.52, gồm commit, build, push main và GitHub Pages.
+- **Phạm vi:**
+  - 21.45–21.46: mặt sông gương và cầu dài 50,4 m.
+  - 21.47: nền đường thừa, nhà đường ngang trên sông.
+  - 21.48–21.49: dãy nhà rồi căn hộ kính ven sông.
+  - 21.50: sửa CSGT, do phiên phụ “Điều tra lỗi chập chờn VerifyCrashPoliceNavigation” làm, đã đọc lại diff.
+  - 21.51: phòng sáng đèn đêm.
+  - 21.52: nhà lơ lửng khi té/rơi sông.
+  - Công việc vẫn khóa (`RideJobsReleased=false`, `jobsEnabled=false`). Cờ scene: `riversEnabled=1`, `tankBarrageEnabled=1`, `randomTanks=0`, `morningLook=3`, `rearWarningStyle=3`. Layer 8 `PV_RiverReflect` (TagManager) đi kèm.
+  - Không kéo vào commit: 5 `.blend` cục bộ cũ, `Art/Bikes/` cũ, Wave/WaveAlpha, `Assets/ai.meshy`, `Packages/*`, blend ánh sáng/sương của người dùng, ảnh/JSON lịch sử đổi do chạy lại test.
+- **Version:** 1.37.0 → **1.38.0** ở `PhoVietWebBuild.cs`, `ConfigureWebRelease.cs`, `PlayerSettings.bundleVersion`, kỳ vọng `VerifyWeb.cjs`, `VerifyFullscreenGame.cjs`, `VerifyCrashPoliceWeb.cjs`, `VerifyMorningFogWeb.cjs`, `VerifyWebBundle.py` (ghi `release-1.38-bundle-checks.json`). README thêm mục 1.38.0.
+- **Hồi quy native trên đúng mã phát hành:** 28 suite / 9.770 điều kiện (21.52, gồm sửa CSGT 21.50). Sau đó chỉ đổi chuỗi version và preflight.
+- **Preflight `VerifySaigonRelease`:** sửa để đếm riêng 35 bộ vật cản dãy căn hộ ven sông (trước đó đòi đúng 735 bộ nên trượt). Kết quả: scene đã lưu, version 1.38.0, jobs khóa, 735 bộ / 8.050 hộp phố + 35 bộ ven sông, 1.260 LOD phố, 1.350 renderer kính, 420 tín hiệu → `release-1.38-preflight.json`.
+- **Build:**
+  - `build_13392e2af78d` **Succeeded**, 310.288 ms, 0 lỗi / 3 cảnh báo đã biết.
+  - Cache **`1ffc9c93f6c6d874`**, UTC `2026-10-25T09:11:28.4593563Z`.
+  - Precache 98.876.670 byte; data 91.584.962 byte, tăng ~0,7 MB, **còn ~8,4 MB tới giới hạn 100 MB/file của GitHub**.
+  - Đã chép sang `docs`, dọn đúng 4 file hash cũ.
+- **Kiểm tra artifact local:** 29 kiểm tra bundle. Trình duyệt local **77 điều kiện, 0 lỗi runtime**: DPR3 dọc/ngang/tablet/xoay lại 14 (`release-1.38-mobile-results.json`), tài nguyên + WASM 26 (`release-1.38-local-results.json`), PWA/offline/cảm ứng 37 (`browser-release-1.38-pwa.json`, bị gitignore). Giả lập trình duyệt, chưa thử điện thoại vật lý/FPS (gương phản chiếu chưa đo trên thiết bị thật).
+- **Phát hành:** đang commit/push main; SHA, Pages run và kiểm tra live sẽ ghi tiếp vào mục này và `Captures/VERIFICATION_RELEASE_1_38.md`.
 
 **Nguồn kiểm chứng chính:** mã C# và cấu hình hiện tại trong repo, `ArtSource/Blender`, metadata asset, Git history, các báo cáo `Captures/VERIFICATION_*.md` và JSON kết quả tương ứng. Nếu dự án tiếp tục thay đổi, cập nhật lại tài liệu này theo hành vi thực tế; đừng coi một con số/version/port của ngày bàn giao là thông tin luôn đúng về sau.

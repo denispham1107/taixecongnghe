@@ -118,7 +118,7 @@ namespace PhoViet
                 vehicles.Add(new TrafficVehicle {model=t,halfWidth=car?.94f:.43f,halfLength=car?2.45f:1.1f});
             }
             var cameraGo=new GameObject("Main Camera");cameraGo.transform.SetParent(transform,false);rideCamera=cameraGo.AddComponent<Camera>();cameraGo.tag="MainCamera";
-            cameraGo.AddComponent<AudioListener>();rideCamera.fieldOfView=55;rideCamera.nearClipPlane=.15f;rideCamera.farClipPlane=190;rideCamera.backgroundColor=Hex("BCD8D5");
+            cameraGo.AddComponent<AudioListener>();cameraGo.AddComponent<RiverReflection>().game=this;rideCamera.fieldOfView=55;rideCamera.nearClipPlane=.15f;rideCamera.farClipPlane=190;rideCamera.backgroundColor=Hex("BCD8D5");
             rideCamera.clearFlags=CameraClearFlags.SolidColor;rideCamera.allowHDR=true;
             PositionCamera(true);
         }
@@ -292,6 +292,7 @@ namespace PhoViet
         }
         void TickRide(float dt)
         {
+            HideBuildingsOverRiver();
             // Short, bounded control steps keep the shoe and turning target in
             // contact at mobile frame rates without changing total game time.
             if(KickAssistActive&&dt>.0101f)

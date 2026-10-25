@@ -10,9 +10,9 @@
     },
     "result": {
       "diagnostics": [],
-      "compileMs": 230,
-      "executeMs": 1873,
-      "assemblyName": "PipelineRunScript_VerifyTankBarrage_8234b1c72b284baf978c77ad7ceba3ee",
+      "compileMs": 199,
+      "executeMs": 2508,
+      "assemblyName": "PipelineRunScript_VerifyTankBarrage_0c57722eecb74747a07e185e550a8459",
       "success": true,
       "result": {
         "success": true,
@@ -90,7 +90,7 @@
         ],
         "data": [
           "tankSpawnTimes=9.00,18.00,27.00,36.00",
-          "shots=12 lanes=230013011102 gaps=0.87,0.83,0.70,0.70,0.57,0.53,0.43,0.43",
+          "shots=12 lanes=000031003321 gaps=0.87,0.83,0.70,0.70,0.57,0.53,0.43,0.43",
           "fastSpeed=30.0 fastGaps=0.43,0.43",
           "hitAfter=1.57"
         ]

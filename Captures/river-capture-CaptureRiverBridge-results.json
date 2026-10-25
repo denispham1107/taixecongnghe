@@ -10,14 +10,14 @@
     },
     "result": {
       "diagnostics": [],
-      "compileMs": 215,
-      "executeMs": 946,
-      "assemblyName": "PipelineRunScript_CaptureRiverBridge_1b208f016b864feeb9f9d5750bd73aaa",
+      "compileMs": 1765,
+      "executeMs": 1634,
+      "assemblyName": "PipelineRunScript_CaptureRiverBridge_614de033be134b0c95d859d663e5490f",
       "success": true,
       "result": {
         "success": true,
-        "distance": 98.012825,
-        "bridges": 1
+        "distance": 104.036461,
+        "bridges": 2
       }
     },
     "target": {

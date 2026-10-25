@@ -10,9 +10,9 @@
     },
     "result": {
       "diagnostics": [],
-      "compileMs": 184,
-      "executeMs": 150,
-      "assemblyName": "PipelineRunScript_VerifyMeshyCars_fa68909d44c84cd9bbb83954bd7c0cf8",
+      "compileMs": 283,
+      "executeMs": 158,
+      "assemblyName": "PipelineRunScript_VerifyMeshyCars_709c4ed1629b49cca72c7e68d84b9458",
       "success": true,
       "result": {
         "success": true,
@@ -1305,16 +1305,16 @@
             "slot": 6,
             "colors": 8,
             "models": [
-              "PV_MeshySport",
-              "PV_MeshyTank"
+              "PV_MeshyTank",
+              "PV_MeshySport"
             ]
           },
           {
             "slot": 9,
             "colors": 8,
             "models": [
-              "PV_MeshyTank",
-              "PV_MeshySport"
+              "PV_MeshySport",
+              "PV_MeshyTank"
             ]
           },
           {
@@ -1328,8 +1328,8 @@
             "slot": 15,
             "colors": 8,
             "models": [
-              "PV_MeshyTank",
-              "PV_MeshySport"
+              "PV_MeshySport",
+              "PV_MeshyTank"
             ]
           },
           {
@@ -1351,16 +1351,16 @@
             "slot": 25,
             "colors": 8,
             "models": [
-              "PV_MeshyContainer",
-              "PV_MeshyCovered"
+              "PV_MeshyCovered",
+              "PV_MeshyContainer"
             ]
           },
           {
             "slot": 26,
             "colors": 8,
             "models": [
-              "PV_MeshyContainer",
-              "PV_MeshyCovered"
+              "PV_MeshyCovered",
+              "PV_MeshyContainer"
             ]
           },
           {

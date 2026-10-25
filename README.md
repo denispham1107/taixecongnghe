@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.37.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.38.0**.
+
+## Sông gương, cầu dài gấp đôi, căn hộ kính ven sông — 1.38.0
+
+Mặt sông thành gương như ảnh mẫu: phản chiếu thật trời, mây, kè đá, cầu và nhà, có gợn rung, nước xanh đen, sát kè ngả màu bùn. Cầu dài gấp đôi (50,4 m) chạy suốt giữa hai ngã tư, giữ nguyên mọi ngã tư. Hai bờ là dãy căn hộ cao cấp 6–9 tầng: ban công lan can kính, vách kính trong suốt từ sàn tới trần, khoảng 70% phòng sáng đèn ấm vào ban đêm, soi bóng xuống sông; tầng trệt mặt đường ngang là dãy cửa hàng. Sửa nền đường thừa cạnh đầu cầu, hàng rào chắn góc ngã tư, nhà đường ngang lơ lửng trên sông (cả khi té hay rơi sông) và lỗi CSGT trượt xuyên xe tải. Công việc vẫn tắt. Chi tiết ở `huongdan.md` mục 21.45–21.53.
 
 ## Cầu sông, xe tăng bắn đạn, phố nhiều màu — 1.37.0
 

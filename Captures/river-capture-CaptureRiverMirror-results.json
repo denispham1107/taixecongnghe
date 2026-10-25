@@ -1,0 +1,45 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureRiverMirror.cs",
+      "entry": "CaptureRiverMirror.Main",
+      "timeout_ms": "1200000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 1010,
+      "executeMs": 1902,
+      "assemblyName": "PipelineRunScript_CaptureRiverMirror_4cf123e7313f45efbd5959f94cd46c85",
+      "success": true,
+      "result": {
+        "success": true,
+        "swapped": 105,
+        "shots": [
+          "river-mirror-before-ride",
+          "river-mirror-before-bank",
+          "river-mirror-before-side",
+          "river-mirror-before-deck",
+          "river-mirror-after-ride",
+          "river-mirror-after-bank",
+          "river-mirror-after-side",
+          "river-mirror-after-deck",
+          "river-mirror-debug-view",
+          "river-mirror-after-onbridge",
+          "river-mirror-after-night",
+          "river-mirror-before-onbridge",
+          "river-mirror-before-night"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

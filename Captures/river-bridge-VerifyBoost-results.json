@@ -10,9 +10,9 @@
     },
     "result": {
       "diagnostics": [],
-      "compileMs": 203,
-      "executeMs": 345,
-      "assemblyName": "PipelineRunScript_VerifyBoost_7ab25feb02294425b50e06a28295e091",
+      "compileMs": 91,
+      "executeMs": 270,
+      "assemblyName": "PipelineRunScript_VerifyBoost_70d645a11dc542f091b94a7d9cbe3ad5",
       "success": true,
       "result": {
         "success": true,

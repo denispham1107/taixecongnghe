@@ -66,7 +66,10 @@ public static class VerifyCrashUpgrade
     check(v.fire.textureSheetAnimation.numTilesX==4&&v.fire.textureSheetAnimation.numTilesY==2&&v.fire.GetComponent<ParticleSystemRenderer>().sharedMaterial.shader.name=="PhoViet/Wreck Flame","Eight-frame physical fire and emissive material installed: truck="+truck);
     v.fire.Simulate(.5f,true,false);v.smoke.Simulate(1.5f,true,false);check(v.fire.particleCount>0&&v.smoke.particleCount>0,"Blender fire and smoke emit actual animated particles: truck="+truck);
    }
-   reset();var sets=g.scenery.GetComponentsInChildren<StreetObstacleSet>(true);check(sets.Length==735&&sets.Sum(s=>s.obstacles.Length)>4000,"Every main/branch street has saved lightweight scenery collision proxies");
+   reset();var allSets=g.scenery.GetComponentsInChildren<StreetObstacleSet>(true);
+   // Từ 21.48 mỗi khối cầu (“Cầu vượt sông • Blender”) có thêm một bộ vật cản cho dãy nhà ven sông.
+   var sets=allSets.Where(s=>s.name!="Cầu vượt sông • Blender").ToArray();int riverSets=allSets.Length-sets.Length;
+   check(sets.Length==735&&sets.Sum(s=>s.obstacles.Length)>4000&&riverSets==35,"Every main/branch street has saved lightweight scenery collision proxies (+35 riverside house sets)");
    foreach(string kind in new[]{"Nhà cửa","Thân cây","Bàn ăn","Ghế nhựa","Quầy thức ăn","Kệ tạp hóa","Tủ dụng cụ sửa xe","Cột đèn đường","Mái hiên"})
    {
     var s=sets.First(x=>x.gameObject.activeInHierarchy&&x.obstacles.Any(b=>b.kind==kind));var original=s.obstacles;var one=original.First(b=>b.kind==kind);Vector3 position=s.transform.position;

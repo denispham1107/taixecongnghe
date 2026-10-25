@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureRiverCrash.cs",
+      "entry": "CaptureRiverCrash.Main",
+      "timeout_ms": "1200000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2138,
+      "executeMs": 3137,
+      "assemblyName": "PipelineRunScript_CaptureRiverCrash_1c9df7cc45234384a5af4755747359da",
+      "success": true,
+      "result": {
+        "success": true,
+        "shots": [
+          "river-crash-fall",
+          "river-crash-sunk",
+          "river-crash-far-fall",
+          "river-crash-far-sunk",
+          "river-crash-road",
+          "river-crash-road-end"
+        ],
+        "hidden": 155,
+        "farInfo": "start gap=62.2 state=Riding end state=Falling inRiver=True gap=8.7"
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

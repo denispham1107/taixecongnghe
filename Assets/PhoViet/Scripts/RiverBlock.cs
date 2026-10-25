@@ -3,12 +3,12 @@ namespace PhoViet
 {
  // Một khối phố 80 m có thể thành khối cầu vượt sông (24/10/2026, pho_viet_river_bridge.py).
  // Bật cầu: hiện mô hình cầu/sông/thuyền, ẩn nhà–cây–vỉa hè nằm trên lòng sông và thay
- // các mesh gộp của khối (mặt đường, vạch, dây điện) bằng bản đã cắt bỏ đoạn z 16,8–42.
+ // các mesh gộp của khối (mặt đường, vạch, dây điện) bằng bản đã cắt bỏ đoạn z Near–Far (4,8–55,2 từ 25/10/2026; trước đó 16,8–42).
  public sealed class RiverBlock:MonoBehaviour
  {
   // Mặt nước giữa hai bờ kè (tọa độ khối), mép mặt cầu tính rơi, cao độ mặt nước.
   // Mặt nước thấp hơn mặt đường 5 m; đáy sông −9,5 m (vật chìm dần xuống tới đáy).
-  public const float Near=16.8f,Far=42f,DeckHalf=3.35f,WaterY=-5f,BedY=-9.5f;
+  public const float Near=4.8f,Far=55.2f,DeckHalf=3.35f,WaterY=-5f,BedY=-9.5f;
   public GameObject bridge;
   public GameObject[] streetOnly=new GameObject[0];
   public MeshFilter[] clipFilters=new MeshFilter[0];

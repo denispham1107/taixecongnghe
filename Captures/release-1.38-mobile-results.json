@@ -1,0 +1,60 @@
+{
+  "url": "http://127.0.0.1:8765/docs/",
+  "before": false,
+  "checks": [
+    "portrait: actual WebGL framebuffer matches physical density / budget",
+    "portrait: Unity Module density agrees after layout",
+    "portrait: bounded framebuffer",
+    "landscape: actual WebGL framebuffer matches physical density / budget",
+    "landscape: Unity Module density agrees after layout",
+    "landscape: bounded framebuffer",
+    "tablet: actual WebGL framebuffer matches physical density / budget",
+    "tablet: Unity Module density agrees after layout",
+    "tablet: bounded framebuffer",
+    "portrait-again: actual WebGL framebuffer matches physical density / budget",
+    "portrait-again: Unity Module density agrees after layout",
+    "portrait-again: bounded framebuffer",
+    "No horizontal overflow",
+    "No runtime errors at real phone density"
+  ],
+  "frames": [
+    {
+      "width": 1170,
+      "height": 2532,
+      "cssWidth": 390,
+      "cssHeight": 844,
+      "nativeDpr": 3,
+      "moduleDpr": 3,
+      "name": "portrait"
+    },
+    {
+      "width": 2532,
+      "height": 1170,
+      "cssWidth": 844,
+      "cssHeight": 390,
+      "nativeDpr": 3,
+      "moduleDpr": 3,
+      "name": "landscape"
+    },
+    {
+      "width": 2066,
+      "height": 1549,
+      "cssWidth": 1024,
+      "cssHeight": 768,
+      "nativeDpr": 3,
+      "moduleDpr": 2.0171788261496966,
+      "name": "tablet"
+    },
+    {
+      "width": 1170,
+      "height": 2532,
+      "cssWidth": 390,
+      "cssHeight": 844,
+      "nativeDpr": 3,
+      "moduleDpr": 3,
+      "name": "portrait-again"
+    }
+  ],
+  "errors": [],
+  "success": true
+}

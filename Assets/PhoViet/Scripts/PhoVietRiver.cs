@@ -28,6 +28,91 @@ namespace PhoViet
   {
    riverRng=new System.Random(RunSeed^0x5bd1e995);BridgeBlocksAssigned=0;StreetBlocksAssigned=0;
    VehiclesFellInRiver=0;BridgeMerges=0;RiderInRiver=false;riderRiverSplashed=false;riderRiverTime=0;
+   RestoreBuildingsOverRiver();
+  }
+  // Gọi ở đầu TickRide, cuối ScrollRoutes (cả khi té/rơi sông vẫn cuộn phố) và cuối PrepareBranches (21.52).
+  // Sông dài 50,4 m (21.46) chạy suốt giữa hai giao lộ nên các tòa nhà của đường ngang (dãy đường nhánh, sâu tới
+  // 25,8 m tính từ mặt tiền) đứng một phần trên lòng sông ở hai đầu cầu (21.47). Mỗi khung: tòa nhà nào của khối
+  // KHÁC có mặt bằng chồng lên dải mặt sông của một khối cầu đang bật thì ẩn; hết chồng thì hiện lại (trừ khi chính
+  // khối của nó đang là cầu và đã ẩn nó). Mặt bằng tính một lần từ bounds mesh trong hệ khối nên dùng được cả khi đang ẩn.
+  sealed class RiverBuilding{public GameObject go;public Transform tile;public RiverBlock own;public bool ownStreetOnly;public Vector2 min,max;public bool hidden;}
+  List<RiverBuilding> riverBuildings;
+  readonly Dictionary<Transform,List<RiverBuilding>> riverBuildingTiles=new Dictionary<Transform,List<RiverBuilding>>();
+  public int BuildingsHiddenOverRiver {get;private set;}
+  const float RiverHalfWidth=95f;
+  void PrepareRiverBuildings()
+  {
+   riverBuildings=new List<RiverBuilding>();riverBuildingTiles.Clear();
+   if(roadRows==null)return;
+   foreach(var row in roadRows)foreach(var tile in row.tiles)
+   {
+    var own=RiverOf(tile);var list=new List<RiverBuilding>();riverBuildingTiles[tile]=list;
+    foreach(Transform child in tile)
+    {
+     if(!child.name.StartsWith("Blender • ",System.StringComparison.Ordinal))continue;
+     Vector2 lo=new Vector2(float.MaxValue,float.MaxValue),hi=new Vector2(float.MinValue,float.MinValue);bool any=false;
+     foreach(var mf in child.GetComponentsInChildren<MeshFilter>(true))
+     {
+      if(mf.sharedMesh==null)continue;var b=mf.sharedMesh.bounds;
+      for(int i=0;i<8;i++)
+      {
+       var c=new Vector3((i&1)==0?b.min.x:b.max.x,(i&2)==0?b.min.y:b.max.y,(i&4)==0?b.min.z:b.max.z);
+       var l=tile.InverseTransformPoint(mf.transform.TransformPoint(c));lo=Vector2.Min(lo,new Vector2(l.x,l.z));hi=Vector2.Max(hi,new Vector2(l.x,l.z));any=true;
+      }
+     }
+     if(!any)continue;
+     var item=new RiverBuilding{go=child.gameObject,tile=tile,own=own,ownStreetOnly=own!=null&&System.Array.IndexOf(own.streetOnly,child.gameObject)>=0,min=lo,max=hi};
+     riverBuildings.Add(item);list.Add(item);
+    }
+   }
+  }
+  void HideBuildingsOverRiver()
+  {
+   if(riverBuildings==null)PrepareRiverBuildings();
+   foreach(var item in riverBuildings)item.hidden=false;
+   if(riversEnabled&&roadRows!=null)
+    foreach(var row in roadRows)foreach(var bridgeTile in row.tiles)
+    {
+     var block=RiverOf(bridgeTile);if(block==null||!block.IsBridge||!bridgeTile.gameObject.activeInHierarchy)continue;
+     var toBridge=bridgeTile.worldToLocalMatrix;
+     foreach(var pair in riverBuildingTiles)
+     {
+      var tile=pair.Key;if(tile==bridgeTile||pair.Value.Count==0)continue;
+      if((tile.position-bridgeTile.position).sqrMagnitude>260f*260f)continue;
+      var m=toBridge*tile.localToWorldMatrix;
+      foreach(var item in pair.Value)
+      {
+       if(item.hidden)continue;
+       float x0=float.MaxValue,x1=float.MinValue,z0=float.MaxValue,z1=float.MinValue;
+       for(int k=0;k<4;k++)
+       {
+        var p=m.MultiplyPoint3x4(new Vector3((k&1)==0?item.min.x:item.max.x,0,(k&2)==0?item.min.y:item.max.y));
+        x0=Mathf.Min(x0,p.x);x1=Mathf.Max(x1,p.x);z0=Mathf.Min(z0,p.z);z1=Mathf.Max(z1,p.z);
+       }
+       if(x1>-RiverHalfWidth&&x0<RiverHalfWidth&&z1>RiverBlock.Near+.3f&&z0<RiverBlock.Far-.3f)item.hidden=true;
+      }
+     }
+    }
+   int count=0;
+   foreach(var item in riverBuildings)
+   {
+    bool ownHidden=item.ownStreetOnly&&item.own!=null&&item.own.IsBridge;
+    bool want=!item.hidden&&!ownHidden;
+    if(item.go.activeSelf!=want&&(item.hidden||!ownHidden))item.go.SetActive(want);
+    if(item.hidden)count++;
+   }
+   BuildingsHiddenOverRiver=count;
+  }
+  void RestoreBuildingsOverRiver()
+  {
+   if(riverBuildings==null)return;
+   foreach(var item in riverBuildings)
+   {
+    if(!item.hidden)continue;item.hidden=false;
+    bool ownHidden=item.ownStreetOnly&&item.own!=null&&item.own.IsBridge;
+    if(!ownHidden)item.go.SetActive(true);
+   }
+   BuildingsHiddenOverRiver=0;
   }
   // Khối thứ j của một dãy (tăng dần theo z); khối đầu tiên được ép là phố.
   void AssignRiverRow(List<Transform> tiles,int firstRiver)

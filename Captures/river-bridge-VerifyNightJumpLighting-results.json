@@ -10,16 +10,16 @@
     },
     "result": {
       "diagnostics": [],
-      "compileMs": 201,
-      "executeMs": 416,
-      "assemblyName": "PipelineRunScript_VerifyNightJumpLighting_dee521986d384eb1ac1a565afd3ed6f5",
+      "compileMs": 190,
+      "executeMs": 470,
+      "assemblyName": "PipelineRunScript_VerifyNightJumpLighting_36e0754761dd41ba8c1b96c6646d80ef",
       "success": true,
       "result": {
         "success": true,
         "count": 88,
-        "maximumLampHeight": 6.251562,
-        "minimumBeamY": -0.256263882,
-        "maximumBeamY": 0.338374585,
+        "maximumLampHeight": 6.251487,
+        "minimumBeamY": -0.256274283,
+        "maximumBeamY": 0.338375837,
         "checks": [
           "Projection shader compiles without errors",
           "Lighting LateUpdate runs after the bike and car pose updates",

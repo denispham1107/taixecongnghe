@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureRiverEnds.cs",
+      "entry": "CaptureRiverEnds.Main",
+      "timeout_ms": "1200000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 1577,
+      "executeMs": 1537,
+      "assemblyName": "PipelineRunScript_CaptureRiverEnds_d51c2e0a6e7b4d60bcfa5c9501e2c766",
+      "success": true,
+      "result": {
+        "success": true,
+        "shots": [
+          "river-ends-near",
+          "river-ends-entering",
+          "river-ends-far",
+          "river-ends-top"
+        ],
+        "data": [
+          "distance=150.9"
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

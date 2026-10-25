@@ -10,9 +10,9 @@
     },
     "result": {
       "diagnostics": [],
-      "compileMs": 327,
-      "executeMs": 1021,
-      "assemblyName": "PipelineRunScript_VerifyCrashUpgrade_3e04bccf623e441d8c5a2ad3cd62f0e2",
+      "compileMs": 192,
+      "executeMs": 1078,
+      "assemblyName": "PipelineRunScript_VerifyCrashUpgrade_a5827c9032d24246bf302bd366ceabd8",
       "success": true,
       "result": {
         "success": true,
@@ -61,7 +61,7 @@
           "Fire uses Blender flipbooks without capsule/sphere flame meshes: truck=True",
           "Eight-frame physical fire and emissive material installed: truck=True",
           "Blender fire and smoke emit actual animated particles: truck=True",
-          "Every main/branch street has saved lightweight scenery collision proxies",
+          "Every main/branch street has saved lightweight scenery collision proxies (+35 riverside house sets)",
           "Swept scenery contact detects Nhà cửa",
           "Rider can steer away from existing overlap after recovering near Nhà cửa",
           "Jumping clearly above Nhà cửa avoids a false collision",

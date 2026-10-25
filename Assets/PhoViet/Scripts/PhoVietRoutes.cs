@@ -82,6 +82,7 @@ namespace PhoViet
                 LabelRow(index,junctionStreet);
             }
             CityJunctionPrepared();
+            HideBuildingsOverRiver();
         }
         public static bool CanTurnFromLane(int direction,int lane)=>lane>=0&&lane<4&&(direction<0?lane<=1:direction>0&&lane>=2);
         bool SelectJunctionTurn(int direction)
@@ -109,6 +110,8 @@ namespace PhoViet
             ScrollTankFire(delta);
             foreach(var b in blocks){b.localPosition-=Vector3.forward*delta;if(b.localPosition.z<-160){b.localPosition+=Vector3.forward*80*blocks.Count;AssignRecycledRiverBlock(b);}}
             for(int i=0;i<routeTrail.Count;i++){var p=routeTrail[i];p.point-=Vector3.forward*delta;routeTrail[i]=p;}
+            // Phố còn cuộn khi té/rơi sông (TickRiderCrash, SinkRider): ẩn lại nhà đường ngang đứng trên sông theo vị trí mới (21.52).
+            HideBuildingsOverRiver();
         }
         void BeginOrContinueTurn(float delta)
         {

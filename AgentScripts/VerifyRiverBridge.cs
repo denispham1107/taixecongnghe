@@ -1,5 +1,5 @@
 using System;using System.Linq;using System.Reflection;using System.Collections.Generic;using UnityEngine;using PhoViet;
-// Cầu vượt sông (24/10/2026, huongdan.md 21.35): luật xuất hiện, cầu 2 làn giữa, rơi xuống sông cho người chơi và xe.
+// Cầu vượt sông (24/10/2026, huongdan.md 21.35; dài 50,4 m + nước gương 21.46): luật xuất hiện, cầu 2 làn giữa, rơi xuống sông cho người chơi và xe.
 public static class VerifyRiverBridge
 {
  const BindingFlags F=BindingFlags.Instance|BindingFlags.NonPublic;
@@ -46,10 +46,28 @@ public static class VerifyRiverBridge
    var ground=g.GetComponentsInChildren<MeshRenderer>(true).First(r=>r.name=="Nền thành phố");
    check(ground.sharedMaterial.shader.name=="PhoViet/City Ground","City ground skips the river cut through the stencil mask");
    var bridgeRenderers=sample.bridge.GetComponentsInChildren<MeshRenderer>(true).Where(r=>r.name.StartsWith("PV_RiverBridge_LOD",StringComparison.Ordinal)).ToArray();
-   check(bridgeRenderers.All(r=>r.sharedMaterials.Any(m=>m.shader.name=="PhoViet/River Murk")&&r.sharedMaterials.First(m=>m.shader.name=="PhoViet/River Water").renderQueue>=3000),"Water is a translucent wavy surface over murky depth layers");
-   check(bridgeRenderers.Length==3&&bridgeRenderers.All(r=>r.sharedMaterials.Any(m=>m.shader.name=="PhoViet/River Water")&&r.sharedMaterials.Any(m=>m.shader.name=="PhoViet/River Ground Mask")&&r.sharedMaterials.Any(m=>m.name=="PV_StreetAtlas")),"Bridge LODs use the street atlas, river water and ground mask materials");
+   check(bridgeRenderers.All(r=>r.sharedMaterials.Any(m=>m.shader.name=="PhoViet/River Murk")&&r.sharedMaterials.First(m=>m.shader.name=="PhoViet/River Water Mirror").renderQueue>=3000),"Water is a translucent mirror surface over murky depth layers");
+   check(bridgeRenderers.Length==3&&bridgeRenderers.All(r=>r.sharedMaterials.Any(m=>m.shader.name=="PhoViet/River Water Mirror")&&r.sharedMaterials.Any(m=>m.shader.name=="PhoViet/River Ground Mask")&&r.sharedMaterials.Any(m=>m.name=="PV_StreetAtlas")),"Bridge LODs use the street atlas, river water and ground mask materials");
    check(sample.bridge.GetComponentsInChildren<RiverBoat>(true).Length==4,"Each river carries four moored boats that bob on the water");
-   check(g.daylight.streets.Count(s=>s.source!=null&&s.source.GetComponentsInParent<Transform>(true).Any(t=>t.name=="Cầu vượt sông • Blender"))==140,"Four bridge lamps per block are part of the day-night street lighting");
+   check(g.daylight.streets.Count(s=>s.source!=null&&s.source.GetComponentsInParent<Transform>(true).Any(t=>t.name=="Cầu vượt sông • Blender"))==280,"Eight bridge lamps per block are part of the day-night street lighting");
+   // ---- Cầu dài gấp đôi (25/10/2026): 50,4 m, nằm giữa vạch mũi tên của hai giao lộ
+   check(Mathf.Abs(RiverBlock.Far-RiverBlock.Near-50.4f)<.01f,"The river under the bridge is 50.4 m long, double the first 25.2 m");
+   var arrows=sample.transform.Cast<Transform>().First(t=>t.name.StartsWith("Vạch mũi tên",StringComparison.Ordinal)).GetComponent<Renderer>().bounds;
+   check(RiverBlock.Near>=4.6f&&sample.transform.InverseTransformPoint(arrows.min).z>=RiverBlock.Far,"The long river stays between the previous and next junction arrow markings");
+   var waterMat=bridgeRenderers[0].sharedMaterials.First(m=>m.shader.name=="PhoViet/River Water Mirror");
+   check(Mathf.Abs(waterMat.GetVector("_Banks").x-RiverBlock.Near)<.01f&&Mathf.Abs(waterMat.GetVector("_Banks").y-RiverBlock.Far)<.01f&&Mathf.Abs(waterMat.GetVector("_Piers").x-(RiverBlock.Near+16.8f))<.01f&&Mathf.Abs(waterMat.GetVector("_Piers").y-(RiverBlock.Far-16.8f))<.01f,"Water shadows use the long river banks and its two piers");
+   // Dãy nhà ống ven sông (21.48): lấp bờ ngắn giữa đường ngang và kè, không lấn mặt nước, có vật cản.
+   var houses=sample.bridge.GetComponent<StreetObstacleSet>();
+   check(houses!=null&&houses.obstacles.Length>=16&&houses.obstacles.All(o=>o.kind=="Nhà ven sông"&&o.bounds.size.y>=18),"Each bridge block carries a row of 6–9 storey riverside apartment blocks with collision boxes ("+(houses!=null?houses.obstacles.Length:0)+")");
+   check(bridgeRenderers.All(r=>r.sharedMaterials.Any(m=>m!=null&&m.name=="PV_StreetGlass")),"Riverside apartments use the street's transparent glass for balconies and floor-to-ceiling windows");
+   var roomMat=bridgeRenderers[0].sharedMaterials.FirstOrDefault(m=>m!=null&&m.shader.name=="PhoViet/Apartment Room");
+   check(roomMat!=null&&roomMat.GetTexture("_MainTex")!=null&&bridgeRenderers.All(r=>r.sharedMaterials.Contains(roomMat)),"Apartment rooms behind the glass have a night-lit material in every LOD");
+   g.daylight.SetCycleTime(g.daylight.CycleSeconds*.5f);float nightLights=Shader.GetGlobalFloat("_PVNightLights");g.daylight.SetCycleTime(0);float dayLights=Shader.GetGlobalFloat("_PVNightLights");
+   check(nightLights>.95f&&dayLights<.05f,"Apartment rooms glow at night and switch off by day (_PVNightLights "+nightLights.ToString("F2")+"/"+dayLights.ToString("F2")+")");
+   check(houses.obstacles.All(o=>Mathf.Abs(o.bounds.center.x)-o.bounds.extents.x>=11.2f&&(o.bounds.max.z<=RiverBlock.Near-.25f&&o.bounds.min.z>=0||o.bounds.min.z>=RiverBlock.Far+.25f&&o.bounds.max.z<=58.8f)),"Riverside houses stand on the short banks, clear of the main sidewalk and never over the water");
+   check(houses.obstacles.Where(o=>o.bounds.center.z<30).Sum(o=>o.bounds.size.x)>=2*(95-11.4f)-.5f&&houses.obstacles.Where(o=>o.bounds.center.z>30).Sum(o=>o.bounds.size.x)>=2*(95-11.4f)-.5f,"Houses fill both banks from the main sidewalk to the end of the river, no empty land");
+   var reflection=g.rideCamera.GetComponent<RiverReflection>();
+   check(reflection!=null&&reflection.game==g&&reflection.enabled,"The ride camera renders the river mirror reflection");
    // ---- Luật xuất hiện: khối xuất phát là phố, không 2 cầu liền nhau, không quá 2 khối phố liền nhau
    // Tắt xe tăng bắn (21.38) để đạn pháo không làm người chơi thua giữa đường thử cầu.
    g.recklessTrafficEnabled=false;g.trafficSurprises=false;g.turnExitTrafficEnabled=false;g.riversEnabled=true;g.tankBarrageEnabled=false;
@@ -78,8 +96,15 @@ public static class VerifyRiverBridge
    check(g.BridgeBlocksAssigned>0&&g.StreetBlocksAssigned>0,"Both bridge and street blocks are generated");
    // ---- Vị trí trên cầu / ngoài cầu
    prepare(80);
-   check(!g.OverRiver(new Vector3(1.55f,0,100))&&!g.OverRiver(new Vector3(-1.55f,0,120))&&g.OverRiver(new Vector3(4.65f,0,100))&&g.OverRiver(new Vector3(-4.65f,0,121))&&!g.OverRiver(new Vector3(4.65f,0,95))&&!g.OverRiver(new Vector3(4.65f,0,123)),"Only the two centre lanes are deck over the water; outer lanes end at the embankments");
+   check(!g.OverRiver(new Vector3(1.55f,0,100))&&!g.OverRiver(new Vector3(-1.55f,0,120))&&g.OverRiver(new Vector3(4.65f,0,100))&&g.OverRiver(new Vector3(-4.65f,0,121))&&!g.OverRiver(new Vector3(4.65f,0,83))&&!g.OverRiver(new Vector3(4.65f,0,137)),"Only the two centre lanes are deck over the water; outer lanes end at the embankments");
    check(g.RiverZoneAt(new Vector3(0,0,100))&&!g.RiverZoneAt(new Vector3(0,0,60)),"River zone follows the bridge block");
+   // Ảnh phản chiếu chỉ render khi có sông trong khung nhìn.
+   Func<float> renderFlag=()=>{var rt=RenderTexture.GetTemporary(320,180,16);var old=g.rideCamera.targetTexture;g.rideCamera.targetTexture=rt;g.rideCamera.Render();g.rideCamera.targetTexture=old;RenderTexture.ReleaseTemporary(rt);return Shader.GetGlobalFloat("_RiverReflectionOn");};
+   typeof(PhoVietGame).GetMethod("PositionRideCamera",F).Invoke(g,new object[]{true,0f});
+   check(renderFlag()>.5f&&Shader.GetGlobalTexture("_RiverReflectionTex")!=null,"A river in view gets a live mirror reflection");
+   foreach(var t in g.roadRows.SelectMany(r=>r.tiles))t.GetComponent<RiverBlock>().SetBridge(false);
+   check(renderFlag()<.5f,"No reflection is rendered when no river is in view");
+   prepare(80);
    // ---- Người chơi đổi làn ra ngoài trên cầu: rơi xuống sông, kết thúc chuyến
    prepare(80);lane(2);g.StartRide();
    for(int i=0;i<600&&g.Distance<80+RiverBlock.Near+6;i++)tick(1/60f);
@@ -125,7 +150,9 @@ public static class VerifyRiverBridge
    check(g.RiderInRiver&&g.State==PhoVietGame.RideState.GameOver&&g.rider.localPosition.y<RiverBlock.WaterY,"A crash that slides off the deck ends in the river");
    // ---- Xe thường cùng chiều ở làn ngoài tự nhập làn cầu
    prepare(80);lane(1);g.StartRide();
-   var same=ordinary(3,55);check(same!=null&&same.lane==3,"Same-direction car spawned in the outer lane before the bridge");
+   var same=ordinary(3,50);check(same!=null&&same.lane==3,"Same-direction car spawned in the outer lane before the bridge");
+   // Đủ nhanh để tới cầu (bắt đầu 84,8) trước khi người chơi vượt (xe máy chậm 7 m/s sẽ bị vượt trước cầu).
+   same.speed=same.baseTrafficSpeed=14;
    bool sameOnDeck=false;
    for(int i=0;i<60*10&&same.active;i++)
    {
@@ -178,6 +205,64 @@ public static class VerifyRiverBridge
    prepare(80);var a=g.SpawnTraffic(2,105);var b2=g.SpawnTraffic(1,106);a.riverFalling=true;
    var contact=typeof(PhoVietGame).GetMethod("VehicleContact",F);var args=new object[]{a,b2,null,null,null};
    check(!(bool)contact.Invoke(g,args),"Falling vehicles take no part in collisions");
+   // ---- Nhà đường ngang trên lòng sông dài (21.47): chạy tự nhiên tới cầu, không tòa nhà nào của khối khác đứng trên mặt sông
+   g.recklessTrafficEnabled=false;g.trafficSurprises=false;g.turnExitTrafficEnabled=false;g.riversEnabled=true;g.tankBarrageEnabled=false;
+   g.RestartRide();g.StartRide();Transform reached=null;
+   for(int i=0;i<60*120&&g.State==PhoVietGame.RideState.Riding;i++)
+   {
+    tick(1/60f);set("spawnTimer",100000f);foreach(var v in g.vehicles)if(v.active){v.active=false;v.model.gameObject.SetActive(false);}
+    reached=g.blocks.Where(t=>t.GetComponent<RiverBlock>().IsBridge&&t.localPosition.z+RiverBlock.Near-g.rider.localPosition.z<14&&t.localPosition.z+RiverBlock.Far>g.rider.localPosition.z).OrderBy(t=>t.localPosition.z).FirstOrDefault();
+    if(reached!=null)break;
+   }
+   check(reached!=null,"A natural ride reaches a long river bridge");
+   // Đếm tòa nhà đang hiện của khối khác đứng trên mặt nước của BẤT KỲ khối cầu đang bật nào.
+   string floatExample="";
+   Func<int> floating=()=>
+   {
+    int n=0;floatExample="";var bridges=g.roadRows.SelectMany(r=>r.tiles).Where(t=>t.gameObject.activeInHierarchy&&t.GetComponent<RiverBlock>().IsBridge).ToArray();
+    foreach(var t in g.roadRows.SelectMany(r=>r.tiles))foreach(Transform child in t)
+    {
+     if(!child.name.StartsWith("Blender • ",StringComparison.Ordinal)||!child.gameObject.activeInHierarchy)continue;
+     var rs=child.GetComponentsInChildren<Renderer>();if(rs.Length==0)continue;var bb=rs[0].bounds;foreach(var r in rs)bb.Encapsulate(r.bounds);
+     foreach(var br in bridges)
+     {
+      if(br==t)continue;float x0=float.MaxValue,x1=float.MinValue,z0=float.MaxValue,z1=float.MinValue;
+      for(int k=0;k<4;k++){var p=br.InverseTransformPoint(new Vector3((k&1)==0?bb.min.x:bb.max.x,0,(k&2)==0?bb.min.z:bb.max.z));x0=Mathf.Min(x0,p.x);x1=Mathf.Max(x1,p.x);z0=Mathf.Min(z0,p.z);z1=Mathf.Max(z1,p.z);}
+      if(x1>-95&&x0<95&&z1>RiverBlock.Near+.5f&&z0<RiverBlock.Far-.5f){n++;if(floatExample=="")floatExample=t.parent.name+"/"+t.name+"/"+child.name+" over "+br.parent.name+"/"+br.name+" x["+x0.ToString("F0")+","+x1.ToString("F0")+"] z["+z0.ToString("F1")+","+z1.ToString("F1")+"] state="+g.State+" dist="+g.Distance.ToString("F0");break;}
+     }
+    }
+    return n;
+   };
+   int overlapping=floating();
+   data.Add("buildingsHiddenOverRiver="+g.BuildingsHiddenOverRiver+" overlapping="+overlapping);
+   check(g.BuildingsHiddenOverRiver>0&&overlapping==0,"Cross-street buildings standing over the long river are hidden, none float over the water");
+   // ---- 21.52: va chạm/té ngay trước cầu, phố vẫn cuộn khi xe trượt và khi rơi sông chìm dần — nhà không được hiện lại trên sông
+   int worstCrash=0,crashFrames=0;
+   g.Crash();set("riderFallVelocity",new Vector3(0,0,14));
+   for(int i=0;i<60*6&&g.State==PhoVietGame.RideState.Falling;i++){tick(1/60f);worstCrash=Mathf.Max(worstCrash,floating());crashFrames++;}
+   var aftermathTick=typeof(PhoVietGame).GetMethod("TickRiverAftermath");
+   for(int i=0;i<60*3;i++){aftermathTick.Invoke(g,new object[]{1/60f});if(i%10==0)worstCrash=Mathf.Max(worstCrash,floating());}
+   data.Add("crashFrames="+crashFrames+" worstFloatingDuringCrash="+worstCrash+" state="+g.State);
+   check(crashFrames>10&&worstCrash==0,"While the rider crashes and slides before a bridge, no cross-street building reappears over the river");
+   // Rơi xuống sông: đi làn ngoài thẳng vào mép kè, chìm dần, phố còn cuộn.
+   int worstSink=0;bool sank=false;
+   for(int attempt=0;attempt<6&&!sank;attempt++)
+   {
+    g.RestartRide();g.StartRide();
+    for(int i=0;i<60*120&&g.State==PhoVietGame.RideState.Riding;i++)
+    {
+     tick(1/60f);set("spawnTimer",100000f);foreach(var v in g.vehicles)if(v.active){v.active=false;v.model.gameObject.SetActive(false);}
+     var near=g.blocks.Where(t=>t.GetComponent<RiverBlock>().IsBridge&&t.localPosition.z+RiverBlock.Near-g.rider.localPosition.z<30&&t.localPosition.z+RiverBlock.Near>g.rider.localPosition.z).FirstOrDefault();
+     if(near!=null&&g.CurrentLane!=3)lane(3);
+    }
+    sank=g.RiderInRiver;
+    for(int i=0;i<60*4&&g.State!=PhoVietGame.RideState.GameOver;i++){tick(1/60f);if(i%5==0)worstSink=Mathf.Max(worstSink,floating());}
+    for(int i=0;i<60*4;i++){aftermathTick.Invoke(g,new object[]{1/60f});if(i%10==0)worstSink=Mathf.Max(worstSink,floating());}
+   }
+   data.Add("riverFallSank="+sank+" worstFloatingDuringSink="+worstSink);
+   check(sank&&worstSink==0,"While the rider falls and sinks in the river, no cross-street building floats over the water"+(worstSink>0?" ["+floatExample+"]":""));
+   g.RestartRide();
+   int afterRestart=floating();check(afterRestart==0,"After a restart (ready screen, before riding) no cross-street building stands over a river"+(afterRestart>0?" ["+afterRestart+": "+floatExample+"]":""));
    return new{success=true,count=checks.Count,checks=checks.ToArray(),data=data.ToArray()};
   }
   finally

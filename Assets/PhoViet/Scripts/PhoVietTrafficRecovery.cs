@@ -8,15 +8,17 @@ namespace PhoViet
   {
    [NonSerialized] public TrafficRecovery recovery;
    public bool IsStandingUp=>recovery!=null&&recovery.phase==1;
-   public float StandUpProgress=>IsStandingUp?Mathf.Clamp01(recovery.standAge/.65f):0;
+   public float StandUpProgress=>IsStandingUp?Mathf.Clamp01(recovery.standAge/recovery.StandDuration):0;
   }
   public sealed class TrafficRecovery
   {
-   public float age,standAge,speed,curveAt,curveLength;
+   public float age,standAge,standTime,speed,curveAt,curveLength;
    public int phase,lane;public bool finishTurn,reckless,crossing;
    public Vector3 forward,right,roadOrigin,heading,goal,endHeading,standStart,standTarget,a,b,c,d;
    public Quaternion standRotation;
+   public float StandDuration=>Mathf.Max(.65f,standTime);
   }
+  const float StandUpSweepSpeed=10;
   void RememberTrafficCourse(TrafficVehicle v)
   {
    if(v.wallCrashed||!vehicles.Contains(v))return; // Police keep their separate 1.2-second recovery.
@@ -29,10 +31,17 @@ namespace PhoViet
     r.forward=Vector3.forward;r.right=Vector3.right;r.roadOrigin=new Vector3(0,0,v.model.localPosition.z);
     if(v.crossing||v.routeDetached&&Mathf.Abs(velocity.x)>Mathf.Abs(velocity.z))
     {
-     float centre=v.model.localPosition.z,best=float.PositiveInfinity;
-     foreach(var tile in blocks){float z=tile.localPosition.z+VietnamStreet.IntersectionCenter;float distance=Mathf.Abs(z-centre);if(distance<best){best=distance;r.roadOrigin=new Vector3(v.model.localPosition.x,0,z);}}
-     r.forward=Vector3.right;r.right=Vector3.back;
+     float centre=v.model.localPosition.z,best=float.PositiveInfinity;Vector3 junction=r.roadOrigin;
+     foreach(var tile in blocks){float z=tile.localPosition.z+VietnamStreet.IntersectionCenter;float distance=Mathf.Abs(z-centre);if(distance<best){best=distance;junction=new Vector3(v.model.localPosition.x,0,z);}}
+     // Xe bị hất ngang giữa đoạn thẳng không nằm trên phố ngang: lấy làn của ngã tư xa
+     // làm đích đứng dậy sẽ trượt xuyên 15–20 m trong 0,65 s (21.50). Chỉ dùng khung phố
+     // ngang khi tâm xe còn trong bốn làn của phố ngang.
+     if(v.crossing||best<=Mathf.Abs(LaneX[3])+1.55f){r.roadOrigin=junction;r.forward=Vector3.right;r.right=Vector3.back;}
     }
+    // Hướng chạy gần như vuông góc với đường thì dấu của nó không cho biết chiều làn; giữ
+    // xe ở nửa đường nó đang đứng thay vì kéo sang làn ngược chiều bên kia (tới 9,6 m).
+    if(Mathf.Abs(Vector3.Dot(r.heading,r.forward))<Mathf.Abs(Vector3.Dot(r.heading,r.right)))
+     r.heading=r.forward*(Vector3.Dot(v.model.localPosition-r.roadOrigin,r.right)>=0?1:-1);
     float direction=Vector3.Dot(r.heading,r.forward);r.lane=direction>=0?2:0;
     if(v.roadTurning)
     {
@@ -95,12 +104,17 @@ namespace PhoViet
     }
     else if(!RecoveryLaneClear(v,target))return false;
     r.phase=1;r.standAge=0;r.standStart=p;r.standTarget=target;r.standRotation=v.model.localRotation;
+    // Đứng dậy vẫn 0,65 s khi chỉ nhích vào làn; xe dài phải xoay/trượt xa thì kéo dài để
+    // điểm xa nhất của thân không quét nhanh hơn StandUpSweepSpeed (SmoothStep đỉnh ×1,5),
+    // không hất CSGT/xe máy đang ngã như bị dịch chuyển tức thời (21.50).
+    float turn=Mathf.Abs(Mathf.DeltaAngle(v.model.localEulerAngles.y,Mathf.Atan2(r.heading.x,r.heading.z)*Mathf.Rad2Deg))*Mathf.Deg2Rad;
+    r.standTime=1.5f*(Vector3.Distance(p,target)+turn*Mathf.Max(v.halfLength,v.halfWidth))/StandUpSweepSpeed;
     v.knockVelocity=Vector3.zero;v.angularVelocity=Vector3.zero;v.speed=0;
    }
-   r.standAge=Mathf.Min(.65f,r.standAge+dt);float t=Mathf.SmoothStep(0,1,r.standAge/.65f);
+   float duration=r.StandDuration;r.standAge=Mathf.Min(duration,r.standAge+dt);float t=Mathf.SmoothStep(0,1,r.standAge/duration);
    v.model.localPosition=Vector3.Lerp(r.standStart,r.standTarget,t);
    v.model.localRotation=Quaternion.Slerp(r.standRotation,Quaternion.LookRotation(r.heading,Vector3.up),t);
-   if(r.standAge<.65f)return true;
+   if(r.standAge<duration)return true;
    v.knocked=false;v.physicalCrash=false;v.knockAge=0;v.knockVelocity=Vector3.zero;v.angularVelocity=Vector3.zero;
    v.changingLane=v.turning=v.roadTurning=v.enteringFromBehind=false;v.brakeRemaining=0;v.laneCooldown=1.5f;v.brakeCooldown=1.5f;
    v.speed=v.baseTrafficSpeed=r.speed*Mathf.Sign(Vector3.Dot(r.heading,r.forward));v.lane=r.lane;v.motionVelocity=r.heading*r.speed;v.crossing=false;v.isReckless=r.reckless;
