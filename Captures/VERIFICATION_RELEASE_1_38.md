@@ -36,4 +36,8 @@
 
 ## Phát hành
 
-- Đang commit/push main. SHA, Pages run và kiểm tra live sẽ ghi tiếp vào đây.
+- Source/artifact `bec6ce1`, push main.
+- Pages run 40180769646 completed/success đúng SHA: https://github.com/denispham1107/taixecongnghe/actions/runs/40180769646
+- Live: version 1.38.0 / cache `1ffc9c93f6c6d874`; 26 kiểm tra đạt, 0 lỗi runtime (`release-1.38-live-results.json`, `release-1.38-pages.json`).
+- Chơi thật bản live bằng Chrome GPU (3 lượt, 0 lỗi trang): thấy cầu dài, mặt sông gương phản chiếu dãy căn hộ kính bờ xa (`release-1.38-live-bridge.png`, `release-1.38-live-bridge-2.png`).
+- Chưa thử điện thoại vật lý/FPS; chưa đo chi phí gương trên thiết bị thật.
