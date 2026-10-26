@@ -1,0 +1,68 @@
+{
+  "name": "PV_UrbanRider",
+  "design": "urban-rider-combined",
+  "source": "Assets/MeshyImports/Urban Rider_20261027_035549/Meshy_AI_Urban_Rider_20261026_texture.fbx",
+  "sourceTriangles": 2664028,
+  "triangles": 42000,
+  "size": [
+    1.1008462864804367,
+    2.15,
+    2.2673735505826076
+  ],
+  "bones": 19,
+  "frontAxle": [
+    0,
+    0.3872799495281759,
+    0.6915542766178652
+  ],
+  "rearAxle": [
+    0,
+    0.32481301166351356,
+    -0.6415542766178651
+  ],
+  "frontRadius": 0.381557063726075,
+  "rearRadius": 0.32168745419528577,
+  "steeringPivot": [
+    0,
+    1.04,
+    0.33
+  ],
+  "steeringAxis": [
+    0,
+    0.96,
+    -0.28
+  ],
+  "clips": [
+    "Idle",
+    "Ride",
+    "KickLeft",
+    "KickRight",
+    "FallLeft",
+    "FallRight",
+    "Recover"
+  ],
+  "anchors": {
+    "headlight": [
+      0,
+      1.17,
+      0.46
+    ],
+    "taillight": [
+      0,
+      0.88,
+      -0.9
+    ],
+    "exhaust_tip": [
+      0.24,
+      0.4,
+      -0.84
+    ]
+  },
+  "collisionHalfWidth": 0.33,
+  "collisionHalfLength": 1.1801609043114665,
+  "lod_triangles": [
+    42000,
+    18480,
+    6720
+  ]
+}

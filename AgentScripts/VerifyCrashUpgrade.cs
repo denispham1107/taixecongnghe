@@ -38,7 +38,8 @@ public static class VerifyCrashUpgrade
    reset();var repeated=spawn(false,false);hit(repeated);for(int i=0;i<100;i++)tick(.02f);hit(repeated);for(int i=0;i<100;i++)tick(.02f);
    check(repeated.knocked&&!repeated.IsStandingUp,"A second impact restarts the full three-second wait");for(int i=0;i<90;i++)tick(.02f);check(!repeated.knocked,"Repeated-hit vehicle eventually recovers after the latest impact");
    reset();var posing=spawn(false,false);var animator=posing.model.GetComponent<BikeVisualAnimator>();animator.Initialize();var sample=typeof(BikeVisualAnimator).GetMethod("Sample",F);
-   sample.Invoke(animator,new object[]{"Ride",.25f});var pose=animator.visual.GetComponentsInChildren<Transform>(true);var rotations=pose.Select(t=>t.localRotation).ToArray();var positions=pose.Select(t=>t.localPosition).ToArray();
+   sample.Invoke(animator,new object[]{"Ride",.25f});// Compare skeleton bones; the visual root may receive a tyre/ground support lift.
+   var pose=animator.visual.GetComponentsInChildren<Transform>(true).Where(t=>t!=animator.visual).ToArray();var rotations=pose.Select(t=>t.localRotation).ToArray();var positions=pose.Select(t=>t.localPosition).ToArray();
    hit(posing);posing.recovery.phase=1;posing.recovery.standAge=.32f;animator.Advance(.01f);posing.knocked=false;posing.recovery=null;animator.Advance(0);sample.Invoke(animator,new object[]{"Ride",.25f});
    var changed=pose.Select((t,i)=>new{t.name,angle=Quaternion.Angle(t.localRotation,rotations[i]),distance=Vector3.Distance(t.localPosition,positions[i])}).Where(p=>p.angle>=.1f||p.distance>=.001f).ToArray();
    check(changed.Length==0,"Returning to Ride clears all unkeyed recovery-bone poses, including raised arms: "+string.Join(",",changed.Select(p=>p.name+" angle="+p.angle+" move="+p.distance)));

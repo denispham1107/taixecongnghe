@@ -4,7 +4,7 @@ root=Path(sys.argv[1] if len(sys.argv)>1 else 'docs');info=json.loads((root/'bui
 def check(label,value):
  assert value,label
  checks.append(label)
-check('Version is 1.40.0',info['version']=='1.40.0')
+check('Version is 1.41.0',info['version']=='1.41.0')
 check('Offline files are unique',len(files)==len(set(files)))
 digest=hashlib.sha256()
 for f in files:
@@ -30,5 +30,5 @@ if (root/'web-data-parts.json').is_file():
 else:
  check('Data larger than Git limit is materialized runtime output',all((root/f).stat().st_size<100_000_000 or '.data.unityweb' in f for f in files))
 report={'success':True,'count':len(checks),'checks':checks,'version':info['version'],'cache':info['cache'],'bytes':sum((root/f).stat().st_size for f in files)}
-Path('Captures/release-1.40-bundle-checks.json').write_text(json.dumps(report,indent=2)+'\n')
+Path('Captures/release-1.41-bundle-checks.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k!='checks'}))

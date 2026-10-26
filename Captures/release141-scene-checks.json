@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "count": 14,
+  "checks": [
+    "Release version is 1.41.0",
+    "Blue Supercar at the confirmed 85 percent scale",
+    "Scaled dimensions/four lift sockets/two exhausts saved",
+    "Jobs remain locked",
+    "Rivers and installed dinosaur enabled",
+    "Traffic pool and original police retained",
+    "No former player motorcycle animator",
+    "All 31 civilian ridden bikes use Urban Rider",
+    "Police keeps its original person and motorcycle",
+    "56 branch parked motorcycles use Urban Rider",
+    "Correct release scene open",
+    "No raw or previous civilian model dependencies",
+    "Every scene dependency exists",
+    "No missing scripts"
+  ],
+  "dependencies": 391,
+  "scale": 0.85,
+  "size": "(1.760576, 0.914984, 3.740000)",
+  "version": "1.41.0"
+}

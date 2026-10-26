@@ -14,6 +14,8 @@ namespace PhoViet
         public AnimationClip[] clips;
         public Transform frontWheel,rearWheel;
         public string AssetName;
+        public UrbanRiderMotion urbanMotion;
+        float rearWheelAngle;
         public string CurrentClip {get;private set;}="Idle";
         public float SampleTime {get;private set;}
         public float WheelAngle {get;private set;}
@@ -69,6 +71,7 @@ namespace PhoViet
             foreach(var clip in clips)if(clip!=null)animationPlayer.AddClip(clip,clip.name);
             foreach(AnimationState state in animationPlayer){state.enabled=false;state.weight=0;state.speed=0;}
             initialized=true;previousState=game.State;Sample("Idle",0);
+            if(urbanMotion!=null)urbanMotion.Initialize();
             if(role==ActorRole.Player)
             {
                 // The chased player stays detailed even in the wider portrait view.
@@ -92,10 +95,10 @@ namespace PhoViet
         {
             Initialize();if(!initialized||game==null)return;
             if(game.State==PhoVietGame.RideState.Paused)
-            {RotateWheel(frontWheel,frontRest);RotateWheel(rearWheel,rearRest);return;}
+            {RotateWheels();return;}
             if(role==ActorRole.Traffic&&(vehicle==null||!vehicle.active))return;
             if(role==ActorRole.Parked)
-            {clock+=dt;Sample("Idle",Mathf.Repeat(clock,2.4f)/2.4f);return;}
+            {clock+=dt;Sample("Idle",Mathf.Repeat(clock,2.4f)/2.4f);if(urbanMotion!=null)urbanMotion.Advance(dt,false);return;}
             if(game.State==PhoVietGame.RideState.Ready&&previousState!=game.State)
             {clock=0;fallAge=0;WheelAngle=0;}
             previousState=game.State;clock+=dt;
@@ -126,8 +129,12 @@ namespace PhoViet
                 else {clip="Idle";normalized=Mathf.Repeat(clock,2.4f)/2.4f;speed=0;}
             }
             Sample(clip,normalized);
-            if(!falling&&!recovering)WheelAngle=Mathf.Repeat(WheelAngle+speed/.34f*Mathf.Rad2Deg*dt,360);
-            RotateWheel(frontWheel,frontRest);RotateWheel(rearWheel,rearRest);
+            if(!falling&&!recovering)
+            {
+                float spinSpeed=urbanMotion!=null?Mathf.Abs(speed):speed;
+                WheelAngle=Mathf.Repeat(WheelAngle+spinSpeed/(urbanMotion!=null?urbanMotion.frontRadius:.34f)*Mathf.Rad2Deg*dt,360);
+                rearWheelAngle=Mathf.Repeat(rearWheelAngle+spinSpeed/(urbanMotion!=null?urbanMotion.rearRadius:.34f)*Mathf.Rad2Deg*dt,360);
+            }
             // Physics owns the outer vehicle roll. Lift only its visual skin so fallen
             // handlebars, panniers and the rider settle above the road rather than through it.
             float recovery=role==ActorRole.Police&&falling&&!game.PoliceInRiver?1-Mathf.Clamp01(game.PoliceFallRemaining/.35f):0;
@@ -152,9 +159,11 @@ namespace PhoViet
                 CurrentClip=game.RiderJumpClip;
             }
             else {jumpBalancePitch=jumpPitchVelocity=0;}
+            if(urbanMotion!=null)urbanMotion.Advance(dt,falling||recovering);
+            RotateWheels();
             // Rơi/chìm dưới sông thì không nâng hình lên mặt đường (trước đây làm xe/người như nổi ngang mặt đường).
             bool inRiver=role==ActorRole.Player?game.RiderInRiver:(vehicle!=null&&vehicle.riverFalling)||game.InRiverWater(transform);
-            if((falling||recovering)&&!inRiver)visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.012f-LowestSupport());
+            if((falling||recovering||urbanMotion!=null)&&!inRiver)visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.012f-LowestSupport());
         }
         void Sample(string name,float normalized)
         {
@@ -168,6 +177,15 @@ namespace PhoViet
             state.time=Mathf.Clamp01(normalized)*state.length;animationPlayer.Sample();
             CurrentClip=name;SampleTime=state.time;
         }
+        void RotateWheels()
+        {
+            if(urbanMotion!=null)
+            {
+                frontWheel.localRotation=Quaternion.AngleAxis(WheelAngle,urbanMotion.FrontSpinAxis)*urbanMotion.FrontRest;
+                rearWheel.localRotation=Quaternion.AngleAxis(rearWheelAngle,urbanMotion.RearSpinAxis)*urbanMotion.RearRest;
+            }
+            else {RotateWheel(frontWheel,frontRest);RotateWheel(rearWheel,rearRest);}
+        }
         void RotateWheel(Transform wheel,Quaternion rest)
         {
             if(wheel==null)return;
@@ -176,10 +194,10 @@ namespace PhoViet
         }
         float LowestSupport()
         {
-            float lowest=float.PositiveInfinity;
+            float lowest=urbanMotion!=null?urbanMotion.LowestWheelSupport():float.PositiveInfinity;
             // Tyre outlines follow the visual's actual roll/pitch, including the smooth
             // police recovery. This is visual ground contact; no gameplay body is moved.
-            for(int wheel=0;wheel<2;wheel++)for(int i=0;i<8;i++)for(int side=-1;side<=1;side+=2)
+            for(int wheel=0;wheel<(urbanMotion!=null?0:2);wheel++)for(int i=0;i<8;i++)for(int side=-1;side<=1;side+=2)
             {
                 float z=wheel==0?-.73f:.78f;
                 float a=i*Mathf.PI*.25f;

@@ -1,0 +1,207 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifySupercarPlayer.cs",
+      "entry": "VerifySupercarPlayer.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 263,
+      "executeMs": 4005,
+      "assemblyName": "PipelineRunScript_VerifySupercarPlayer_8567347f0b954c14a6793a6df053ed27",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 76,
+        "failures": [],
+        "checks": [
+          "Player uses only the received car, no old rider or motorcycle",
+          "Player collision footprint matches real car dimensions",
+          "Three LODs, four wheel pivots and seven Blender clips",
+          "NPC motorcycles and police retained",
+          "Jobs remain locked",
+          "Target selected: ram dt=0.016,lane=2,incoming=False",
+          "No remote force at input: ram dt=0.016,lane=2,incoming=False",
+          "One swept panel contact: ram dt=0.016,lane=2,incoming=False",
+          "Safe return to original lane: ram dt=0.016,lane=2,incoming=False",
+          "Smooth lane-centre settling after ram: ram dt=0.016,lane=2,incoming=False",
+          "Target selected: ram dt=0.016,lane=2,incoming=True",
+          "No remote force at input: ram dt=0.016,lane=2,incoming=True",
+          "One swept panel contact: ram dt=0.016,lane=2,incoming=True",
+          "Safe return to original lane: ram dt=0.016,lane=2,incoming=True",
+          "Smooth lane-centre settling after ram: ram dt=0.016,lane=2,incoming=True",
+          "Target selected: ram dt=0.016,lane=3,incoming=False",
+          "No remote force at input: ram dt=0.016,lane=3,incoming=False",
+          "One swept panel contact: ram dt=0.016,lane=3,incoming=False",
+          "Safe return to original lane: ram dt=0.016,lane=3,incoming=False",
+          "Smooth lane-centre settling after ram: ram dt=0.016,lane=3,incoming=False",
+          "Target selected: ram dt=0.016,lane=3,incoming=True",
+          "No remote force at input: ram dt=0.016,lane=3,incoming=True",
+          "One swept panel contact: ram dt=0.016,lane=3,incoming=True",
+          "Safe return to original lane: ram dt=0.016,lane=3,incoming=True",
+          "Smooth lane-centre settling after ram: ram dt=0.016,lane=3,incoming=True",
+          "Target selected: ram dt=0.033,lane=2,incoming=False",
+          "No remote force at input: ram dt=0.033,lane=2,incoming=False",
+          "One swept panel contact: ram dt=0.033,lane=2,incoming=False",
+          "Safe return to original lane: ram dt=0.033,lane=2,incoming=False",
+          "Smooth lane-centre settling after ram: ram dt=0.033,lane=2,incoming=False",
+          "Target selected: ram dt=0.033,lane=2,incoming=True",
+          "No remote force at input: ram dt=0.033,lane=2,incoming=True",
+          "One swept panel contact: ram dt=0.033,lane=2,incoming=True",
+          "Safe return to original lane: ram dt=0.033,lane=2,incoming=True",
+          "Smooth lane-centre settling after ram: ram dt=0.033,lane=2,incoming=True",
+          "Target selected: ram dt=0.033,lane=3,incoming=False",
+          "No remote force at input: ram dt=0.033,lane=3,incoming=False",
+          "One swept panel contact: ram dt=0.033,lane=3,incoming=False",
+          "Safe return to original lane: ram dt=0.033,lane=3,incoming=False",
+          "Smooth lane-centre settling after ram: ram dt=0.033,lane=3,incoming=False",
+          "Target selected: ram dt=0.033,lane=3,incoming=True",
+          "No remote force at input: ram dt=0.033,lane=3,incoming=True",
+          "One swept panel contact: ram dt=0.033,lane=3,incoming=True",
+          "Safe return to original lane: ram dt=0.033,lane=3,incoming=True",
+          "Smooth lane-centre settling after ram: ram dt=0.033,lane=3,incoming=True",
+          "Target selected: ram dt=0.05,lane=2,incoming=False",
+          "No remote force at input: ram dt=0.05,lane=2,incoming=False",
+          "One swept panel contact: ram dt=0.05,lane=2,incoming=False",
+          "Safe return to original lane: ram dt=0.05,lane=2,incoming=False",
+          "Smooth lane-centre settling after ram: ram dt=0.05,lane=2,incoming=False",
+          "Target selected: ram dt=0.05,lane=2,incoming=True",
+          "No remote force at input: ram dt=0.05,lane=2,incoming=True",
+          "One swept panel contact: ram dt=0.05,lane=2,incoming=True",
+          "Safe return to original lane: ram dt=0.05,lane=2,incoming=True",
+          "Smooth lane-centre settling after ram: ram dt=0.05,lane=2,incoming=True",
+          "Target selected: ram dt=0.05,lane=3,incoming=False",
+          "No remote force at input: ram dt=0.05,lane=3,incoming=False",
+          "One swept panel contact: ram dt=0.05,lane=3,incoming=False",
+          "Safe return to original lane: ram dt=0.05,lane=3,incoming=False",
+          "Smooth lane-centre settling after ram: ram dt=0.05,lane=3,incoming=False",
+          "Target selected: ram dt=0.05,lane=3,incoming=True",
+          "No remote force at input: ram dt=0.05,lane=3,incoming=True",
+          "One swept panel contact: ram dt=0.05,lane=3,incoming=True",
+          "Safe return to original lane: ram dt=0.05,lane=3,incoming=True",
+          "Smooth lane-centre settling after ram: ram dt=0.05,lane=3,incoming=True",
+          "Vehicle blocking approach cancels ram",
+          "Jump input retained",
+          "Ballistic car jump lands safely",
+          "Boost input retained",
+          "Car keeps +125 percent / 4 seconds / 2 seconds recovery",
+          "Boost smoke attached to animated car exhaust",
+          "Headlights and tail lamps follow airborne car",
+          "Ordinary frontal impact still crashes",
+          "Ordinary car crash settles then ends the run",
+          "Police physically reaches the crashed car before arrest",
+          "Car pursuit crash still completes jail transition"
+        ],
+        "cases": [
+          {
+            "label": "ram dt=0.016,lane=2,incoming=False",
+            "at": 0.112000011,
+            "state": "Riding",
+            "gap": 0,
+            "x": 1.54583979,
+            "target": "(7.45, 0.00, 2.94)"
+          },
+          {
+            "label": "ram dt=0.016,lane=2,incoming=True",
+            "at": 0.256,
+            "state": "Riding",
+            "gap": 0,
+            "x": 1.54087889,
+            "target": "(7.38, 0.00, -8.40)"
+          },
+          {
+            "label": "ram dt=0.016,lane=3,incoming=False",
+            "at": 0.112000011,
+            "state": "Riding",
+            "gap": 0,
+            "x": 4.65416,
+            "target": "(-1.25, 0.00, 2.94)"
+          },
+          {
+            "label": "ram dt=0.016,lane=3,incoming=True",
+            "at": 0.256,
+            "state": "Riding",
+            "gap": 0,
+            "x": 4.659121,
+            "target": "(-1.18, 0.00, -8.40)"
+          },
+          {
+            "label": "ram dt=0.033,lane=2,incoming=False",
+            "at": 0.132,
+            "state": "Riding",
+            "gap": 0,
+            "x": 1.54392242,
+            "target": "(7.56, 0.00, 3.09)"
+          },
+          {
+            "label": "ram dt=0.033,lane=2,incoming=True",
+            "at": 0.263999969,
+            "state": "Riding",
+            "gap": 0,
+            "x": 1.533328,
+            "target": "(7.36, 0.00, -8.45)"
+          },
+          {
+            "label": "ram dt=0.033,lane=3,incoming=False",
+            "at": 0.132,
+            "state": "Riding",
+            "gap": 0,
+            "x": 4.65607738,
+            "target": "(-1.36, 0.00, 3.09)"
+          },
+          {
+            "label": "ram dt=0.033,lane=3,incoming=True",
+            "at": 0.263999969,
+            "state": "Riding",
+            "gap": 0,
+            "x": 4.66667175,
+            "target": "(-1.16, 0.00, -8.45)"
+          },
+          {
+            "label": "ram dt=0.05,lane=2,incoming=False",
+            "at": 0.15,
+            "state": "Riding",
+            "gap": 0,
+            "x": 1.54571164,
+            "target": "(7.73, 0.00, 3.28)"
+          },
+          {
+            "label": "ram dt=0.05,lane=2,incoming=True",
+            "at": 0.3,
+            "state": "Riding",
+            "gap": 0,
+            "x": 1.53881443,
+            "target": "(7.68, 0.00, -9.61)"
+          },
+          {
+            "label": "ram dt=0.05,lane=3,incoming=False",
+            "at": 0.15,
+            "state": "Riding",
+            "gap": 0,
+            "x": 4.65428829,
+            "target": "(-1.53, 0.00, 3.28)"
+          },
+          {
+            "label": "ram dt=0.05,lane=3,incoming=True",
+            "at": 0.3,
+            "state": "Riding",
+            "gap": 0,
+            "x": 4.66118574,
+            "target": "(-1.48, 0.00, -9.61)"
+          }
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

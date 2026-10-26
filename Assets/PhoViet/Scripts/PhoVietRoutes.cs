@@ -225,6 +225,7 @@ namespace PhoViet
             {
                 if(!v.active)continue;
                 v.model.localPosition=inverse*(v.model.localPosition-origin);v.model.localRotation=inverse*v.model.localRotation;
+                v.model.GetComponent<UrbanRiderMotion>()?.Rebase(-turnSide*90);
                 v.previousPosition=inverse*(v.previousPosition-origin);v.previousYaw-=turnSide*90;v.initialYaw-=turnSide*90;
                 v.knockVelocity=inverse*v.knockVelocity;v.motionVelocity=inverse*v.motionVelocity;v.crashEuler.y-=turnSide*90;
                 if(v.riverFalling){v.riverVelocity=inverse*v.riverVelocity;v.riverSpin=inverse*v.riverSpin;v.riverRestRotation=inverse*v.riverRestRotation;}

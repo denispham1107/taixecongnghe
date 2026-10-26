@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.40.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.41.0**.
+
+## Xe máy Urban Rider, đánh lái đồng bộ — 1.41.0
+
+Thay toàn bộ xe máy dân sự có người bằng Urban Rider mới: 31 xe chuyển động/đỗ và 56 xe đỗ ở đường nhánh. Cổ xe, ghi đông, bánh trước, bàn tay và thân người lái cùng chuyển động khi đổi làn hoặc rẽ. Đổi làn theo đường cong mượt, nghiêng rồi lấy lại thăng bằng từ từ; xe và áo có nhiều màu. Giữ nguyên cả người/mô tô CSGT và xe đua Blue Supercar của người chơi. Công việc vẫn tắt. Chi tiết triển khai ở `huongdan.md` mục 21.67–21.68.
 
 ## Xe đua Blue Supercar, khủng long và xe chìm sông — 1.40.0
 

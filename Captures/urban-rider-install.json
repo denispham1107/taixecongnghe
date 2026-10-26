@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InstallUrbanRider.cs",
+      "entry": "InstallUrbanRider.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 1886,
+      "executeMs": 13680,
+      "assemblyName": "PipelineRunScript_InstallUrbanRider_1dcb35da55834e55a072a513b19a0909",
+      "success": true,
+      "result": {
+        "success": true,
+        "replaced": 31,
+        "traffic": 17,
+        "parked": 14,
+        "baked": 56,
+        "anchored": 17,
+        "previews": 0,
+        "policeUnchanged": true,
+        "playerUnchanged": true,
+        "jobsEnabled": false
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

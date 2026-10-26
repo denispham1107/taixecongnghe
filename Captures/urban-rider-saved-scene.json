@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "sceneDirty": false,
+  "jobs": false,
+  "urban": 31,
+  "police": 1,
+  "playerCar": true,
+  "baked": 56,
+  "rawDependency": [],
+  "oldCivilianModels": [],
+  "urbanAssets": [
+    "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+    "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Normal.png",
+    "Assets/PhoViet/Art/UrbanRider/PV_SportBike.mat",
+    "Assets/PhoViet/Art/UrbanRider/PV_CityScooter.mat",
+    "Assets/PhoViet/Art/UrbanRider/PV_UrbanParked_PV_Underbone.asset",
+    "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Regions.png",
+    "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Emission.png",
+    "Assets/PhoViet/Art/UrbanRider/PV_Underbone.mat",
+    "Assets/PhoViet/Art/UrbanRider/PV_UrbanParked_PV_SportBike.asset",
+    "Assets/PhoViet/Art/UrbanRider/PV_HeroScooter.mat",
+    "Assets/PhoViet/Art/UrbanRider/PV_UrbanParked_PV_CityScooter.asset",
+    "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Surface.png",
+    "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Palette.png",
+    "Assets/PhoViet/Art/UrbanRider/PV_Racer.mat"
+  ],
+  "missingScripts": 0
+}

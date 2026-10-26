@@ -71,7 +71,7 @@ namespace PhoViet
             if(!v.active||v.knocked||v.crossing||v.isReckless||v.roadTurning||v.routeDetached||v.baseTrafficSpeed==0||v.changingLane||lane<0||lane>3||lane==v.lane)return false;
             if(v.baseTrafficSpeed>0&&lane<2)return false;
             v.changeFromX=v.model.localPosition.x;v.targetX=LaneX[lane];v.changeProgress=0;
-            v.changeDuration=v.halfLength>3?.9f:v.halfWidth>.7f?.7f:.52f;
+            v.changeDuration=v.model.GetComponent<UrbanRiderMotion>()!=null?Mathf.Clamp(12/Mathf.Max(Mathf.Abs(v.speed),6),.65f,1.6f):v.halfLength>3?.9f:v.halfWidth>.7f?.7f:.52f;
             v.changingLane=true;v.lane=lane;v.laneCooldown=2.2f+(float)rng.NextDouble()*1.8f;SuddenLaneChanges++;return true;
         }
         void TickLongitudinalVehicle(TrafficVehicle v,float dt)
@@ -110,14 +110,18 @@ namespace PhoViet
             v.brakeRemaining=Mathf.Max(0,v.brakeRemaining-dt);
             if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(v.brakeRemaining>0);
             float previousX=p.x;
+            bool urban=v.model.GetComponent<UrbanRiderMotion>()!=null;
+            float urbanSideways=0;
             if(v.changingLane)
             {
                 v.changeProgress=Mathf.Min(1,v.changeProgress+dt/v.changeDuration);
-                p.x=Mathf.Lerp(v.changeFromX,v.targetX,Mathf.SmoothStep(0,1,v.changeProgress));
+                float u=v.changeProgress;
+                p.x=Mathf.Lerp(v.changeFromX,v.targetX,urban?u*u*u*(10+u*(-15+6*u)):Mathf.SmoothStep(0,1,u));
+                if(urban)urbanSideways=(v.targetX-v.changeFromX)*30*u*u*(1-u)*(1-u)/v.changeDuration;
                 if(v.changeProgress>=1)v.changingLane=false;
             }
             p.z+=(v.speed-Speed)*dt;v.model.localPosition=p;
-            float sideways=dt>0?(p.x-previousX)/dt:0;
+            float sideways=urban?urbanSideways:dt>0?(p.x-previousX)/dt:0;
             float yaw=Mathf.Atan2(sideways,v.speed)*Mathf.Rad2Deg;
             v.model.localRotation=Quaternion.Euler(0,yaw,v.halfWidth<.7f?-sideways*1.7f:0);
         }

@@ -1,0 +1,177 @@
+{
+  "status": "completed",
+  "buildId": "build_2bfab4572e28",
+  "result": "Succeeded",
+  "platform": "WebGL",
+  "totalSizeBytes": 116988191,
+  "buildTimeMs": 284363,
+  "totalErrors": 0,
+  "totalWarnings": 3,
+  "warnings": [
+    {
+      "message": "Pipeline: No RuntimePipelineConfig asset found (Project Settings > Pipeline > Runtime). Pipeline will be disabled in Player builds."
+    },
+    {
+      "message": "warning CS0414: The field 'PhoVietGame.hudTouchChoice' is assigned but its value is never used",
+      "file": "Assets\\PhoViet\\Scripts\\PhoVietPortraitHud.cs"
+    },
+    {
+      "message": "warning CS0414: The field 'PhoVietGame.dragging' is assigned but its value is never used",
+      "file": "Assets\\PhoViet\\Scripts\\PhoVietGame.cs"
+    }
+  ],
+  "urbanAssets": [
+    {
+      "assetPath": "Assets/PhoViet/Scripts/UrbanRiderMotion.cs",
+      "type": "MonoScript",
+      "guid": "adce600fb789c924bacfcae56803d881",
+      "sizeBytes": 92
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_CityScooter.mat",
+      "type": "Material",
+      "guid": "373dc89d567624b4084995ac405e4490",
+      "sizeBytes": 388
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_HeroScooter.mat",
+      "type": "Material",
+      "guid": "284d8a1e5d6be8f44b836afab707bf19",
+      "sizeBytes": 388
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_Racer.mat",
+      "type": "Material",
+      "guid": "11f40a1724a9faa4e86a765d1657e0e1",
+      "sizeBytes": 380
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_SportBike.mat",
+      "type": "Material",
+      "guid": "8e6bdced6b5579e449a63b365657d4fd",
+      "sizeBytes": 384
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_Underbone.mat",
+      "type": "Material",
+      "guid": "29eda8500495d634b82230975ed4657c",
+      "sizeBytes": 384
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Regions.png",
+      "type": "Texture2D",
+      "guid": "3d96160d5331ad94ca6749c3910e0493",
+      "sizeBytes": 16777352
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Normal.png",
+      "type": "Texture2D",
+      "guid": "49afba933de37a040b1696bff594e267",
+      "sizeBytes": 22369752
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Emission.png",
+      "type": "Texture2D",
+      "guid": "811da7f8052ae65458e80ce095f8b0e7",
+      "sizeBytes": 16777352
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Palette.png",
+      "type": "Texture2D",
+      "guid": "dc67f6925824f464f918c10c0acc074d",
+      "sizeBytes": 16777352
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Surface.png",
+      "type": "Texture2D",
+      "guid": "fb6e09de4c227f44bb1adbd064bc5e92",
+      "sizeBytes": 22369756
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "type": "Mesh",
+      "guid": "d8eba573966f8a446af3402ede40f07a",
+      "sizeBytes": 3418100
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "type": "Mesh",
+      "guid": "d8eba573966f8a446af3402ede40f07a",
+      "sizeBytes": 2481172
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanParked_PV_CityScooter.asset",
+      "type": "Mesh",
+      "guid": "f99e0bbececb29142a1d0916f662f797",
+      "sizeBytes": 1532196
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanParked_PV_SportBike.asset",
+      "type": "Mesh",
+      "guid": "5d8eab9d96786694886d575f6625ce2b",
+      "sizeBytes": 1532192
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanParked_PV_Underbone.asset",
+      "type": "Mesh",
+      "guid": "000878feacd07914c9e2aef67cee363a",
+      "sizeBytes": 1532192
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "type": "Mesh",
+      "guid": "d8eba573966f8a446af3402ede40f07a",
+      "sizeBytes": 1124692
+    },
+    {
+      "assetPath": "Assets/PhoViet/Scripts/UrbanRider.shader",
+      "type": "Shader",
+      "guid": "edcfe9d7e9951a24d8ca62279b61b154",
+      "sizeBytes": 48592
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "type": "AnimationClip",
+      "guid": "d8eba573966f8a446af3402ede40f07a",
+      "sizeBytes": 144804
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "type": "AnimationClip",
+      "guid": "d8eba573966f8a446af3402ede40f07a",
+      "sizeBytes": 144800
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "type": "AnimationClip",
+      "guid": "d8eba573966f8a446af3402ede40f07a",
+      "sizeBytes": 144796
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "type": "AnimationClip",
+      "guid": "d8eba573966f8a446af3402ede40f07a",
+      "sizeBytes": 144796
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "type": "AnimationClip",
+      "guid": "d8eba573966f8a446af3402ede40f07a",
+      "sizeBytes": 144800
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "type": "AnimationClip",
+      "guid": "d8eba573966f8a446af3402ede40f07a",
+      "sizeBytes": 144800
+    },
+    {
+      "assetPath": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "type": "AnimationClip",
+      "guid": "d8eba573966f8a446af3402ede40f07a",
+      "sizeBytes": 144804
+    }
+  ],
+  "rawUrbanSourceIncluded": false,
+  "oldCivilianModelsIncluded": false
+}

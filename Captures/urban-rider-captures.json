@@ -1,0 +1,47 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureUrbanRider.cs",
+      "entry": "CaptureUrbanRider.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2762,
+      "executeMs": 1532,
+      "assemblyName": "PipelineRunScript_CaptureUrbanRider_7d6c620ebd2b4797b2263150d01814c8",
+      "success": true,
+      "result": {
+        "success": true,
+        "files": [
+          "Captures/urban-rider-front.png",
+          "Captures/urban-rider-side.png",
+          "Captures/urban-rider-rear.png",
+          "Captures/urban-rider-steering.png",
+          "Captures/urban-rider-grip.png",
+          "Captures/urban-rider-corner.png",
+          "Captures/urban-rider-colour-PV_CityScooter.png",
+          "Captures/urban-rider-colour-PV_Underbone.png",
+          "Captures/urban-rider-colour-PV_SportBike.png",
+          "Captures/urban-rider-colour-PV_Racer.png",
+          "Captures/urban-rider-game-landscape.png",
+          "Captures/urban-rider-night.png"
+        ],
+        "steering": 2.672991e-32,
+        "lean": -1.48160989e-26,
+        "leftError": 1.1920929e-7,
+        "rightError": 1.1920929e-7
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
