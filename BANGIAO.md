@@ -10,32 +10,34 @@ Cập nhật lần cuối: **26/10/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.38.0** — commit `bec6ce1`, ghi nhận `452243c`; Pages run `40180769646`; cache `1ffc9c93f6c6d874` |
+| Bản đã phát hành | **1.39.0** — commit `17aa0b2`; Pages run `40268861830` success; cache `770899e40e23f8e2`; **26 kiểm tra live đạt/0lỗi runtime** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Chế độ chơi | Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
-| Người chơi trong source/scene | **Người áo đỏ sao vàng ngực/lưng trên xe máy xanh dương–đen**; Q/chạm hai lần áp sát rồi đạp, Space/vuốt lên nhảy, W/vuốt xuống boost (21.58). Web1.38.0 còn xe trắng–đen |
+| Người chơi trong source/scene | **Người áo đỏ sao vàng ngực/lưng trên xe máy xanh dương–đen**; Q/chạm hai lần áp sát rồi đạp, Space/vuốt lên nhảy, W/vuốt xuống boost (21.58). Đã có trên web1.39.0 |
 | Điều khiển/nhảy trong source | **21.60:** chuyển làn0,72 s, trả lái/dựng xe tới~2 s; nhảy theo tốc độ lúc cất cánh (17 m/s~3,63 m,30 m/s~4,84 m), W có tính; W giữa không trung chỉ tăng độ cao cú sau |
-| Thay đổi chưa build/chưa commit | 21.54 giảm tải sông/cầu, 21.55 đường cong đổi làn của Claude; **21.58 khôi phục player xe máy xanh–đen**, thêm21.60 đổi làn chậm/nhảy theo tốc độ;21.59 ghi tiến độ giữa phiên, thay lựa chọn Petshop/húc21.57. Giữ các asset/code21.57 lưu trữ và các `.blend`/FBX/Captures cục bộ, không reset |
+| Thay đổi chưa build/chưa commit | Các thay đổi21.54–21.55,21.58–21.60 đã phát hành trong1.39.0; giữ các art/.blend/Captures cục bộ và lịch sử Wave không liên quan, không reset/commit tự động |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-1. **21.60, chưa build/phát hành:** đổi làn0,72 s và phục hồi nghiêng chậm; nhảy thấp25% ở tốc độ đầu, tăng đều theo tốc độ lúc cất cánh/W; W giữa không trung giữ cú đang bay. **6 suite/541 điều kiện Unity đạt**, xem trace/ảnh; chi tiết huongdan21.60.
-2. **21.58, chưa build/phát hành:** khôi phục đúng hero áo đỏ sao vàng/ngón nắm v4 và xe máy Meshy, sơn xanh dương–đen; Q trở lại đạp, nhảy/boost/đèn/khói cũ. NPC28/CSGT giữ nguyên. **4 suite / 229 điều kiện Unity đạt**, xem ảnh trước/sau; người/sao và phần đen trong atlas không đổi. Thay lựa chọn player Petshop21.57.
-3. **Sau 1.38.0, chưa phát hành:** đổi làn mượt như cua (21.55); khu sông/cầu từ ~10–12 ms còn ~0,6 ms/khung trong Editor (21.54).
+- **1.39.0 đã phát hành (21.61):** commit17aa0b2, Pages40268861830 thành công; build0lỗi/3warning,29bundle +37web/offline/touch +20fullscreen +26live đạt,0lỗi runtime. Unity Edit Mode/scene sạch, jobs khóa.
+
+1. **21.60, đã có trên web1.39.0:** đổi làn0,72 s và phục hồi nghiêng chậm; nhảy thấp25% ở tốc độ đầu, tăng đều theo tốc độ lúc cất cánh/W; W giữa không trung giữ cú đang bay. **6 suite/541 điều kiện Unity đạt**, xem trace/ảnh; chi tiết huongdan21.60.
+2. **21.58, đã có trên web1.39.0:** khôi phục đúng hero áo đỏ sao vàng/ngón nắm v4 và xe máy Meshy, sơn xanh dương–đen; Q trở lại đạp, nhảy/boost/đèn/khói cũ. NPC28/CSGT giữ nguyên. **4 suite / 229 điều kiện Unity đạt**, xem ảnh trước/sau; người/sao và phần đen trong atlas không đổi. Thay lựa chọn player Petshop21.57.
+3. **Đã có trên web1.39.0:** đổi làn mượt như cua (21.55); khu sông/cầu từ ~10–12 ms còn ~0,6 ms/khung trong Editor (21.54).
 4. **1.38.0:** mặt sông gương, cầu dài 50,4 m giữa hai giao lộ, căn hộ kính 6–9 tầng ven sông sáng đèn đêm, sửa nhà lơ lửng trên sông, sửa test CSGT chập chờn (21.45–21.53).
 5. **1.37.0:** cầu vượt sông 2 làn giữa, rơi sông = kết thúc; xe tăng mỗi 9 giây chạy ngược chiều bắn đạn vào 1/4 làn phía trước (1,0 s → tối thiểu 0,4 s theo tốc độ), bán kính nổ 2,2 m; ánh sáng sương sớm D, mũi tên báo xe sau D (21.35–21.44).
 6. **1.36.0:** xe tăng Meshy “Iron Sentinel” (21.33–21.34). **1.35.0:** đổi làn kiểu đánh lái, nhà kính, zoom dọc +10% (21.28–21.32). **1.34.0:** phố Sài Gòn (21.19–21.27).
 
 ## 3. Đang dở / cần người dùng quyết
 
-> **Tiến độ việc đang làm** (cập nhật ở mỗi mốc của việc dài; xóa khi xong): Yêu cầu: build/phát hành1.39.0 · Đã xong: build_95d39d4c9def thành công0lỗi/3warning, bundle29 + Chrome37 + fullscreen20 đạt/0lỗi runtime, docs cache770899e40e23f8e2 · Bước kế tiếp: commit/push/Pages/live · File đang sửa: version/README/tài liệu/build docs · Unity: Edit Mode, build xong; Blender: không thao tác · Cập nhật:26/10/2026,Codex
+> **Tiến độ việc đang làm** (cập nhật ở mỗi mốc của việc dài; xóa khi xong): _không có việc đang làm dở._
 > Mẫu: `Yêu cầu: … · Đã xong: … · Bước kế tiếp: … · File đang sửa: … · Unity/Blender: … · Cập nhật: <ngày giờ>, <agent>`
 
-- 21.54–21.55,21.58–21.60 chưa build/commit/phát hành. Chỉ build/phát hành khi người dùng yêu cầu.
-- Petshop/húc21.57 đã ngưng dùng từ21.58; giữ asset/code lưu trữ, **không tự chạy lại installer Petshop**. Các test/giới hạn cua cực muộn riêng cho ô tô21.57 không mô tả player hiện tại. Chưa thử mobile/WebGL mới.
+- 1.39.0 đã build/commit/push/phát hành và kiểm tra live xong; không có việc phát hành dở.
+- Petshop/húc21.57 đã ngưng dùng từ21.58; giữ asset/code lưu trữ, **không tự chạy lại installer Petshop**. Các test/giới hạn cua cực muộn riêng cho ô tô21.57 không mô tả player hiện tại. Đã kiểm tra WebGL mobile mô phỏng dọc/ngang; chưa thử Safari trên điện thoại thật.
 - Các file Wave cũ chưa theo dõi (`UpgradeBikesWave.cs`, `PhoViet_Motorcycles_Wave.blend`…) là lịch sử; **không xóa/commit/dùng** nếu chưa được yêu cầu.
 
 ## 4. Luật đã chốt — không tự đổi
@@ -45,7 +47,7 @@ Cập nhật lần cuối: **26/10/2026 — Codex**
 - Đạp quái xế tự vệ không gọi mới CSGT; đạp xe thường thì bị truy đuổi.
 - Phím: **Q đạp, Space nhảy, W tăng tốc +125%/4 s/hồi 2 s**; mobile: chạm hai lần đạp, vuốt lên nhảy, vuốt xuống tăng tốc, nhận ngay khi đủ ngưỡng.
 - Hai làn trái rẽ trái, hai làn phải rẽ phải, giữ số làn sau cua, cua không giảm tốc.
-- Source21.58: hero Golden Star Stance áo đỏ sao vàng ngực/lưng, xe máy **xanh dương–đen**. Web1.38.0 còn trắng–đen. NPC xe máy nhiều màu/áo khác, CSGT giữ nguyên cả người và xe; ô tô NPC4 mẫu×8 màu, xe tăng màu gốc/chậm60%/không bị đẩy.
+- Source21.58: hero Golden Star Stance áo đỏ sao vàng ngực/lưng, xe máy **xanh dương–đen**. Đã có trên web1.39.0. NPC xe máy nhiều màu/áo khác, CSGT giữ nguyên cả người và xe; ô tô NPC4 mẫu×8 màu, xe tăng màu gốc/chậm60%/không bị đẩy.
 - Phong cách bán hiện thực vui nhộn, tối ưu điện thoại/WebGL.
 - Không bật lại công việc khi nâng cấp/sửa lỗi/build. Giữ dữ liệu Coin và mã jobs.
 - Không ghi đè/reset file Blender cục bộ, không dựng lại cả scene bằng builder lịch sử.
@@ -68,7 +70,7 @@ Cập nhật lần cuối: **26/10/2026 — Codex**
 | Model Blender/Meshy → Unity | 11, 13, 21.7, 21.17 | `Editor/PhoVietMeshy*Upgrade.cs`, `ArtSource/Blender/` |
 | Công việc/Coin (đang khóa) | 10, 21.1 | `PhoVietJobs.cs`, `PhoVietJobGui.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
-| Build WebGL, phát hành Pages | 15.2 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/ConfigureWebRelease.cs` |
+| Build WebGL, phát hành Pages | 15.2, 21.61 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/ConfigureWebRelease.cs` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.
 
