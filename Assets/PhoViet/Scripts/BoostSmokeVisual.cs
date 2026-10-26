@@ -22,6 +22,7 @@ namespace PhoViet
    var visual=GetComponent<BikeVisualAnimator>();
    nozzle=new GameObject("Khói trắng phản lực • Blender").transform;
    Transform socket=null;
+   var car=GetComponent<PlayerCarVisual>();if(car!=null)socket=car.exhaustMount;
    if(visual!=null&&visual.visual!=null)
     foreach(var t in visual.visual.GetComponentsInChildren<Transform>(true))if(t.name=="PV_MeshyExhaust"){socket=t;break;}
    nozzle.SetParent(socket!=null?socket:visual!=null?visual.visual:transform,false);

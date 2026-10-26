@@ -8,6 +8,22 @@ namespace PhoViet
   void CacheStreetObstacles(){streetObstacles=scenery!=null?scenery.GetComponentsInChildren<StreetObstacleSet>(true):new StreetObstacleSet[0];LastSceneryImpact="";}
   bool SceneryContact(Vector3 from,Vector3 to,out Vector2 normal,out float at,out string kind)
   {
+   if(!IsPlayerCar||!IsTurning)return SceneryContactAtRotation(from,to,rider.localRotation,out normal,out at,out kind);
+   // Using a long car's final heading for the whole sweep invents contact at
+   // its old position. Intersect short segments with the interpolated heading.
+   Quaternion before=Quaternion.Euler(0,oldRiderYaw,0),after=rider.localRotation;
+   int steps=Mathf.Clamp(Mathf.CeilToInt(Quaternion.Angle(before,after)/3),1,64);
+   normal=Vector2.zero;at=2;kind="";
+   for(int i=0;i<steps;i++)
+   {
+    float a=i/(float)steps,b=(i+1)/(float)steps;
+    if(!SceneryContactAtRotation(Vector3.Lerp(from,to,a),Vector3.Lerp(from,to,b),Quaternion.Slerp(before,after,(a+b)*.5f),out var n,out float t,out string k))continue;
+    normal=n;at=Mathf.Lerp(a,b,t);kind=k;return true;
+   }
+   return false;
+  }
+  bool SceneryContactAtRotation(Vector3 from,Vector3 to,Quaternion rotation,out Vector2 normal,out float at,out string kind)
+  {
    normal=Vector2.zero;at=2;kind="";
    if(streetObstacles==null)CacheStreetObstacles();
    foreach(var set in streetObstacles)
@@ -16,12 +32,12 @@ namespace PhoViet
     var group=set.LocalBounds;Vector3 origin=transform.InverseTransformPoint(set.transform.TransformPoint(group.center));float radius=group.extents.magnitude+1.1f;
     if(Mathf.Abs(origin.x-to.x)>radius+Mathf.Abs(to.x-from.x)||Mathf.Abs(origin.z-to.z)>radius+Mathf.Abs(to.z-from.z))continue;
     Vector3 a=set.transform.InverseTransformPoint(transform.TransformPoint(from)),b=set.transform.InverseTransformPoint(transform.TransformPoint(to));
-    Vector3 forward=set.transform.InverseTransformDirection(transform.TransformDirection(rider.localRotation*Vector3.forward));
-    Vector3 right=set.transform.InverseTransformDirection(transform.TransformDirection(rider.localRotation*Vector3.right));
-    var extent=new Vector3(Mathf.Abs(forward.x)*.91f+Mathf.Abs(right.x)*.33f,0,Mathf.Abs(forward.z)*.91f+Mathf.Abs(right.z)*.33f);
+    Vector3 forward=set.transform.InverseTransformDirection(transform.TransformDirection(rotation*Vector3.forward));
+    Vector3 right=set.transform.InverseTransformDirection(transform.TransformDirection(rotation*Vector3.right));
+    var extent=new Vector3(Mathf.Abs(forward.x)*PlayerHalfLength+Mathf.Abs(right.x)*PlayerHalfWidth,0,Mathf.Abs(forward.z)*PlayerHalfLength+Mathf.Abs(right.z)*PlayerHalfWidth);
     foreach(var obstacle in set.obstacles)
     {
-     var bounds=obstacle.bounds;Vector3 min=bounds.min-extent,max=bounds.max+extent;min.y-=2.15f;
+     var bounds=obstacle.bounds;Vector3 min=bounds.min-extent,max=bounds.max+extent;min.y-=PlayerHeight;
      Vector3 delta=b-a;float enter=0,leave=1;Vector3 face=Vector3.zero;bool valid=true;
      for(int axis=0;axis<3;axis++)
      {

@@ -36,10 +36,11 @@ namespace PhoViet
   float KickSideGap(TrafficVehicle v)
   {
    Vector3 side=Quaternion.Inverse(v.model.localRotation)*(KickRoadFrame*Vector3.right);
-   return Mathf.Abs(side.x)*v.halfWidth+Mathf.Abs(side.z)*v.halfLength+Mathf.Max(.40f,.50f-.14f*Mathf.Abs(side.z));
+   return Mathf.Abs(side.x)*v.halfWidth+Mathf.Abs(side.z)*v.halfLength+(IsPlayerCar?PlayerHalfWidth+.10f:Mathf.Max(.40f,.50f-.14f*Mathf.Abs(side.z)));
   }
   float KickAimForward(TrafficVehicle v,float side)
   {
+   if(IsPlayerCar)return 0;
    Quaternion inverse=Quaternion.Inverse(v.model.localRotation);Vector3 f=inverse*(KickRoadFrame*Vector3.forward);
    Vector3 p=inverse*(KickRoadFrame*Vector3.right)*(side*(.74f-KickSideGap(v)));
    float lo=-2,hi=2;
@@ -80,7 +81,7 @@ namespace PhoViet
   bool BeginAssistedKick()
   {
    if(State!=RideState.Riding||ServiceStopped||RiderJumpActive||RiderOnRoof||KickAssistActive||kickCooldown>0)return false;
-   var animator=rider.GetComponent<BikeVisualAnimator>();if(animator==null||!animator.HasKickContactPose)return false;
+   var animator=rider.GetComponent<BikeVisualAnimator>();if(!IsPlayerCar&&(animator==null||!animator.HasKickContactPose))return false;
    TrafficVehicle selected=null;float closest=float.MaxValue;Quaternion inverse=Quaternion.Inverse(KickRoadFrame);
    foreach(var v in vehicles)
    {
@@ -88,7 +89,7 @@ namespace PhoViet
     Vector3 d=inverse*(v.model.localPosition-rider.localPosition),velocity=inverse*KickTrafficVelocity(v);
     bool oncoming=velocity.z< -1;
     bool parallel=Mathf.Abs(Vector3.Dot(v.model.forward,transform.TransformDirection(KickRoadFrame*Vector3.forward)))>.75f;
-    if(Mathf.Abs(d.x)<.75f||Mathf.Abs(d.x)>3.65f||(parallel&&!oncoming&&Mathf.Abs(d.z)>2)||((oncoming||!parallel)&&(d.z<0||d.z>16)))continue;
+    if(Mathf.Abs(d.x)<(IsPlayerCar?PlayerHalfWidth+v.halfWidth+.04f:.75f)||Mathf.Abs(d.x)>3.65f||(parallel&&!oncoming&&Mathf.Abs(d.z)>2)||((oncoming||!parallel)&&(d.z<0||d.z>16)))continue;
     float gap=KickSideGap(v),approach=Mathf.Max(0,Mathf.Abs(d.x)-gap)/KickSideSpeed;
     float intercept=KickInterceptSpeed(v,d,WorkSpeedLimit(Mathf.Max(Speed,TrafficPaceSpeed)),approach+KickFootLead);
     float relative=velocity.z-intercept,arrival=d.z+relative*(approach+KickFootLead);
@@ -151,21 +152,34 @@ namespace PhoViet
    foreach(var v in vehicles)
    {
     if(!v.active||v.model.localPosition.y>2.4f)continue;
+    if(IsPlayerCar&&KickSwingActive&&!kickHit&&v==kickTarget&&KickTargetValid(v)&&v.spawnGeneration==kickTargetSpawn)continue;
     Vector3 future=v.model.localPosition+(KickTrafficVelocity(v)-Vector3.forward*roadSpeed)*horizon;
     if(KickBodySweep(v,from,to,future,q,horizon))return false;
    }
    if(SceneryContact(from,to,out _,out _,out _))return false;
    return true;
   }
-  static bool KickBodySweep(TrafficVehicle v,Vector3 from,Vector3 to,Vector3 future,Quaternion frame,float horizon)
+  bool KickBodySweep(TrafficVehicle v,Vector3 from,Vector3 to,Vector3 future,Quaternion frame,float horizon)
   {
    Vector2 right=Flat(frame*Vector3.right),forward=Flat(frame*Vector3.forward);
    Vector2 delta=Flat(future-to)-Flat(v.model.localPosition-from),offset=Flat(v.model.localPosition-from);
+   if(IsPlayerCar&&kickHit&&v==kickTarget&&v.spawnGeneration==kickTargetSpawn&&v.knocked)
+   {
+    // A contact starts with touching panels. Permit a monotonic separating
+    // return, rather than treating that initial touch as a blocked exit.
+    for(int i=0;i<4;i++)
+    {
+     Vector2 axis=i==0?right:i==1?forward:i==2?BodyRight(v):BodyForward(v);
+     float radius=ProjectedRadius(v,axis)+Mathf.Abs(Vector2.Dot(right,axis))*PlayerHalfWidth+Mathf.Abs(Vector2.Dot(forward,axis))*PlayerHalfLength;
+     float p=Vector2.Dot(offset,axis),end=p+Vector2.Dot(delta,axis);
+     if(Mathf.Abs(p)>=radius-.08f&&Mathf.Sign(p)==Mathf.Sign(end)&&Mathf.Abs(end)>radius+.10f&&Mathf.Abs(end)>Mathf.Abs(p))return false;
+    }
+   }
    float enter=0,leave=1;
    for(int i=0;i<4;i++)
    {
     Vector2 axis=i==0?right:i==1?forward:i==2?BodyRight(v):BodyForward(v);
-    float radius=ProjectedRadius(v,axis)+Mathf.Abs(Vector2.Dot(right,axis))*.33f+Mathf.Abs(Vector2.Dot(forward,axis))*.91f+.04f;
+    float radius=ProjectedRadius(v,axis)+Mathf.Abs(Vector2.Dot(right,axis))*PlayerHalfWidth+Mathf.Abs(Vector2.Dot(forward,axis))*PlayerHalfLength+.04f;
     float growth=0;
     if(v.knocked&&v.halfWidth<.7f&&!v.physicalCrash)
     {
@@ -197,7 +211,7 @@ namespace PhoViet
     kickApproachAge+=dt;Quaternion q=KickRoadFrame,inverse=Quaternion.Inverse(q);
     Vector3 nextTarget=kickTarget.model.localPosition+(KickTrafficVelocity(kickTarget)-Vector3.forward*Speed)*dt;
     Vector3 d=inverse*(nextTarget-baseline);float gap=KickSideGap(kickTarget);
-    float desired=d.x-kickDirection*gap;
+    float desired=d.x-kickDirection*(gap-(IsPlayerCar&&KickSwingActive?.15f:0));
     Vector3 offset=q*Vector3.right*Mathf.MoveTowards(Vector3.Dot(oldOffset,q*Vector3.right),desired,KickSideSpeed*dt);
     Vector3 candidate=baseline+offset;
     if(kickApproachAge>.55f||!KickAssistPathClear(previous,candidate,dt)){CancelAssistedKick();}
@@ -207,7 +221,9 @@ namespace PhoViet
      Vector3 beside=inverse*(nextTarget-candidate);float relative=(inverse*KickTrafficVelocity(kickTarget)).z-Speed*KickTravelRatio();
      bool nearSide=Mathf.Abs(Mathf.Abs(beside.x)-gap)<.07f;
      float aim=KickAimForward(kickTarget,kickDirection);
-     bool timed=kickOncoming?Mathf.Abs(beside.z+relative*KickFootLead-aim)<=kickTarget.halfLength+.25f:Mathf.Abs(beside.z-aim)<=.9f;
+     // A car must wait until the motorcycle is beside its side panel. The old
+     // foot lead starts too early for a 3.8 m bumper and causes a frontal crash.
+     bool timed=IsPlayerCar?Mathf.Abs(beside.z)<=PlayerHalfLength-.35f:kickOncoming?Mathf.Abs(beside.z+relative*KickFootLead-aim)<=kickTarget.halfLength+.25f:Mathf.Abs(beside.z-aim)<=.9f;
      if(assistedKick==AssistedKickPhase.Approach&&nearSide&&timed)
      {assistedKick=AssistedKickPhase.Swing;kickSwingAge=0;rider.GetComponent<BikeVisualAnimator>()?.Kick(kickDirection);}
      else if(kickOncoming&&beside.z< -kickTarget.halfLength-.2f)CancelAssistedKick();
@@ -239,6 +255,7 @@ namespace PhoViet
    if(!kickHit&&(!KickTargetValid(kickTarget)||kickTarget.spawnGeneration!=kickTargetSpawn)){CancelAssistedKick();return;}
    if(!kickHit)
    {
+    if(IsPlayerCar){if(kickSwingAge>=KickSwingDuration){kickTarget=null;assistedKick=AssistedKickPhase.Return;}return;}
     var animator=rider.GetComponent<BikeVisualAnimator>();
     // Subsample the actual animated shoe and the moving target. A fast oncoming
     // bike can cross the whole foot window within one rendered frame.
@@ -273,7 +290,7 @@ namespace PhoViet
    Vector3 away=KickRoadFrame*Vector3.right*kickDirection;float outward=Vector3.Dot(velocity,away);
    KnockVehicle(kickTarget,kickDirection,false);kickTarget.knockVelocity=velocity+away*(Mathf.Max(9,outward+9)-outward);kickTarget.knockVelocity.y=2.2f;
    if(!selfDefense)StartChase();
-   notice=selfDefense?"TỰ VỆ: HẠ QUÁI XẾ · KHÔNG GỌI CSGT":kickDirection>0?"ĐẠP PHẢI!  CSGT ĐANG ĐẾN":"ĐẠP TRÁI!  CSGT ĐANG ĐẾN";noticeTimer=1.5f;
+   notice=selfDefense?"TỰ VỆ: HẠ QUÁI XẾ · KHÔNG GỌI CSGT":PlayerAction+(kickDirection>0?" PHẢI!  CSGT ĐANG ĐẾN":" TRÁI!  CSGT ĐANG ĐẾN");noticeTimer=1.5f;
   }
  }
 }

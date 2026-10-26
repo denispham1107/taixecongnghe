@@ -16,6 +16,11 @@ namespace PhoViet
             {
                 if(!v.active||(!IsChased&&v.playerGrace>0)||v.model.localPosition.y>=2.4f)continue;
                 if(!VehicleContact(riderBody,v,out Vector2 normal,out float at,out float depth)||at>=earliest)continue;
+                if(IsPlayerCar&&kickHit&&v==kickTarget&&v.spawnGeneration==kickTargetSpawn&&at<.0001f&&depth<.001f)
+                {
+                    Vector2 separation=Flat(v.model.localPosition-v.previousPosition-rider.localPosition+riderBody.previousPosition);
+                    if(Vector2.Dot(separation,normal)>0)continue;
+                }
                 if((jumpHeight>.05f||jumpPreviousHeight>.05f)&&JumpClearsVehicle(v,at))continue;
                 earliest=at;hit=v;hitNormal=normal;
             }
@@ -23,6 +28,7 @@ namespace PhoViet
             if(ResolveSceneryImpact(riderBody.previousPosition,riderBefore,earliest)){riderVelocityValid=false;return false;}
             if(hit!=null)
             {
+                if(TryResolvePlayerRam(hit,hitNormal,earliest)){riderVelocityValid=false;return true;}
                 Vector3 before=riderVelocityValid?riderRoadVelocity:Quaternion.Euler(0,IsTurning?TurnYaw:0,0)*Vector3.forward*Speed;
                 rider.localPosition=Vector3.Lerp(riderBody.previousPosition,rider.localPosition,earliest);
                 hit.model.localPosition=Vector3.Lerp(hit.previousPosition,hit.model.localPosition,earliest);

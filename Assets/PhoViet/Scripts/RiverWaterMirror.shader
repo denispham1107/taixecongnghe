@@ -43,6 +43,7 @@ Shader "PhoViet/River Water Mirror"
             fixed4 _DeepColor,_ShallowColor,_EdgeColor,_ReflectTint,_FoamColor;
             float _Reflectivity,_Distort,_Ripple,_EdgeWidth,_WaveHeight,_WaveSpeed,_Alpha,_Sparkle,_ShadowStrength;
             float4 _Deck,_Banks,_Piers;float _WaterY;
+            sampler2D _RiverNoise;   // RiverNoise.cs: R giá trị, G/B đạo hàm (21.54)
             sampler2D _RiverReflectionTex;float4 _RiverReflectionTex_TexelSize;float _RiverReflectionOn,_RiverReflecting;
             struct v2f { float4 pos:SV_POSITION; float3 obj:TEXCOORD0; float3 world:TEXCOORD1; float4 screen:TEXCOORD2; UNITY_FOG_COORDS(3) };
 
@@ -60,12 +61,14 @@ Shader "PhoViet/River Water Mirror"
             }
             float3 ToTile(float3 m){return float3(m.x,m.z,-m.y);}
             float3 FromTile(float3 t){return float3(t.x,-t.z,t.y);}
-            float Hash(float2 p){p=frac(p*float2(123.34,456.21));p+=dot(p,p+45.32);return frac(p.x*p.y);}
-            float Noise(float2 p)
+            // Nhiễu giá trị nướng sẵn (RiverNoise.cs, lưới lặp 64 ô, 4 texel/ô): một lần đọc texture cho giá trị và đạo hàm,
+            // thay cho 4 phép băm + nội suy mỗi lần gọi và 2 lần gọi thêm để lấy sai phân (21.54).
+            float3 NoiseD(float2 p)
             {
-                float2 i=floor(p),f=frac(p);f=f*f*(3-2*f);
-                return lerp(lerp(Hash(i),Hash(i+float2(1,0)),f.x),lerp(Hash(i+float2(0,1)),Hash(i+float2(1,1)),f.x),f.y);
+                float3 n=tex2Dlod(_RiverNoise,float4(p/64.0+0.5/256.0,0,0)).rgb;
+                return float3(n.r,(n.gb-0.5)*3.0);
             }
+            float Noise(float2 p){return NoiseD(p).x;}
             v2f vert(appdata_base v)
             {
                 v2f o;float2 slope;
@@ -93,10 +96,11 @@ Shader "PhoViet/River Water Mirror"
                 if(l.z>1e-3){float t=(_Banks.y-p.z)/l.z;if(p.y+t*l.y<_Banks.z)s=1;}
                 return s;
             }
-            // Gợn lăn tăn nhiều hướng, trôi chậm theo dòng (trục x của khối là chiều dòng chảy).
-            float Ripple(float2 p,float t)
+            // Gợn lăn tăn nhiều hướng, trôi chậm theo dòng (trục x của khối là chiều dòng chảy); trả về độ dốc (đạo hàm theo x/z).
+            float2 RippleSlope(float2 p,float t)
             {
-                return Noise(p*float2(0.9,1.6)+float2(t*0.32,t*0.05))*0.55+Noise(p*float2(2.2,3.4)-float2(t*0.55,-t*0.12))*0.33+Noise(p*5.3+float2(-t*0.9,t*0.4))*0.12;
+                const float2 s0=float2(0.9,1.6),s1=float2(2.2,3.4),s2=float2(5.3,5.3);
+                return NoiseD(p*s0+float2(t*0.32,t*0.05)).yz*s0*0.55+NoiseD(p*s1-float2(t*0.55,-t*0.12)).yz*s1*0.33+NoiseD(p*s2+float2(-t*0.9,t*0.4)).yz*s2*0.12;
             }
             fixed4 frag(v2f i):SV_Target
             {
@@ -106,9 +110,7 @@ Shader "PhoViet/River Water Mirror"
                 Height(i.obj.xz,t,slope);
                 float dist=distance(_WorldSpaceCameraPos,i.world);
                 float detail=saturate(1-dist/80);
-                const float e=0.11;
-                float r0=Ripple(i.obj.xz,t),rx=Ripple(i.obj.xz+float2(e,0),t),rz=Ripple(i.obj.xz+float2(0,e),t);
-                float2 g=slope+float2(rx-r0,rz-r0)/e*_Ripple*lerp(0.35,1,detail);
+                float2 g=slope+RippleSlope(i.obj.xz,t)*_Ripple*lerp(0.35,1,detail);
                 float3 n=normalize(UnityObjectToWorldNormal(FromTile(normalize(float3(-g.x,1,-g.y)))));
                 float3 v=normalize(_WorldSpaceCameraPos-i.world);
                 float3 l=normalize(_WorldSpaceLightPos0.xyz);

@@ -1,0 +1,323 @@
+{
+  "name": "PV_RiverApartments",
+  "generator": "pho_viet_river_bridge.py",
+  "parts": [
+    {
+      "name": "PV_RiverApt00",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4671,
+        2358,
+        498
+      ]
+    },
+    {
+      "name": "PV_RiverApt01",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4576,
+        1976,
+        446
+      ]
+    },
+    {
+      "name": "PV_RiverApt02",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        3333,
+        1486,
+        392
+      ]
+    },
+    {
+      "name": "PV_RiverApt03",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        5498,
+        2460,
+        498
+      ]
+    },
+    {
+      "name": "PV_RiverApt04",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4160,
+        1920,
+        500
+      ]
+    },
+    {
+      "name": "PV_RiverApt05",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        5349,
+        2556,
+        486
+      ]
+    },
+    {
+      "name": "PV_RiverApt06",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        3615,
+        1684,
+        420
+      ]
+    },
+    {
+      "name": "PV_RiverApt07",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4952,
+        2422,
+        458
+      ]
+    },
+    {
+      "name": "PV_RiverApt08",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4586,
+        2104,
+        510
+      ]
+    },
+    {
+      "name": "PV_RiverApt09",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        3684,
+        1804,
+        432
+      ]
+    },
+    {
+      "name": "PV_RiverApt10",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4166,
+        2072,
+        418
+      ]
+    },
+    {
+      "name": "PV_RiverApt11",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        5299,
+        2488,
+        526
+      ]
+    },
+    {
+      "name": "PV_RiverApt12",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4954,
+        2164,
+        486
+      ]
+    },
+    {
+      "name": "PV_RiverApt13",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4004,
+        1908,
+        512
+      ]
+    },
+    {
+      "name": "PV_RiverApt14",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4350,
+        2012,
+        458
+      ]
+    },
+    {
+      "name": "PV_RiverApt15",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        5390,
+        2334,
+        510
+      ]
+    },
+    {
+      "name": "PV_RiverApt16",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        3637,
+        1720,
+        432
+      ]
+    },
+    {
+      "name": "PV_RiverApt17",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4565,
+        2180,
+        468
+      ]
+    },
+    {
+      "name": "PV_RiverApt18",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4597,
+        2012,
+        458
+      ]
+    },
+    {
+      "name": "PV_RiverApt19",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4335,
+        1952,
+        446
+      ]
+    },
+    {
+      "name": "PV_RiverApt20",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        5544,
+        2584,
+        550
+      ]
+    },
+    {
+      "name": "PV_RiverApt21",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4180,
+        1904,
+        458
+      ]
+    },
+    {
+      "name": "PV_RiverApt22",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4933,
+        2274,
+        498
+      ]
+    },
+    {
+      "name": "PV_RiverApt23",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        4304,
+        2032,
+        500
+      ]
+    }
+  ],
+  "lod_triangles": [
+    108682,
+    50406,
+    11360
+  ]
+}

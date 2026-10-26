@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "size": [
+    2048,
+    4096
+  ],
+  "paintPixels": 1223071,
+  "colour": "blue-black",
+  "blue": [
+    0.03500000014901161,
+    0.30000001192092896,
+    0.8999999761581421
+  ],
+  "riderAndStarsUnchanged": true,
+  "blackTrimUnchanged": true,
+  "sourceAtlasUnchanged": true,
+  "texture": "Assets\\PhoViet\\Art\\Bikes\\MeshyRiders\\PV_HeroScooter_BlueBlack_Palette.png"
+}

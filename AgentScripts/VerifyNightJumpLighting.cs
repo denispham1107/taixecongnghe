@@ -36,7 +36,9 @@ public static class VerifyNightJumpLighting
             var block=new MaterialPropertyBlock();nearest[0].pool.GetPropertyBlock(block);
             check(block.GetColor("_Tint").a>=.43f,"Blender street-light pool has stronger visible illumination");
             check(l.ActiveRealtimeLights==6&&QualitySettings.pixelLightCount<=4,"Light count stays within existing mobile budget under traffic load");
-            reset();var hero=g.rider.GetComponent<BikeVisualAnimator>();var binding=l.vehicles.Single(v=>v.player);
+            // From21.59 the full former jump height requires 30 m/s. Keep
+            // this high-altitude lighting fixture at that takeoff speed.
+            reset();set("timeRiding",100f);var hero=g.rider.GetComponent<BikeVisualAnimator>();var binding=l.vehicles.Single(v=>v.player);
             hero.Advance(.01f);l.UpdateLamps();float groundHead=binding.head.position.y,maxHead=groundHead,minAim=1,maxAim=-1,maxFootprint=0;
             check(g.TryJump(),"Nighttime jump starts normally");
             for(int step=0;step<180;step++)

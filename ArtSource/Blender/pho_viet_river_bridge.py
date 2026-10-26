@@ -407,17 +407,36 @@ def apartment_block(g, x0, x1, zf, f, rng, obstacles):
     else:
         g.cube((cx, h+.7, back(.08)), (w, 1.0, .16), shell)
 
-def riverside_row(g, zf, f, seed, obstacles):
-    """Dãy khối căn hộ hai bên đường chính (|x| 11,4 → 95) trên bờ ngắn, rộng 10–17 m có hạt giống
-    (cùng hạt cho mọi LOD nên các LOD khớp nhau); khối cuối nhận phần dư để dãy chạy tới đúng hết sông."""
-    for side in (-1, 1):
-        rng = random.Random(seed+(7 if side > 0 else 0)); x = 11.4
-        while x < SIDE-.01:
-            w = rng.choice([10.0, 11.5, 12.6, 14.0, 15.4, 16.8])
-            if SIDE-x-w < 8.0: w = SIDE-x
-            a, b = sorted((side*x, side*(x+w)))
-            apartment_block(g, a, b, zf, f, random.Random(rng.randrange(1 << 30)), obstacles)
-            x += w
+def riverside_specs():
+    """Danh sách khối căn hộ hai bờ: (x0, x1, zf, hướng, hạt giống). Dãy chạy hai bên đường chính (|x| 11,4 → 95),
+    rộng 10–17 m có hạt giống; khối cuối nhận phần dư để dãy chạy tới đúng hết sông."""
+    specs = []
+    for zf, f, seed in ((W0-.3-HOUSE_DEPTH, -1, 11), (W1+.3+HOUSE_DEPTH, 1, 23)):
+        for side in (-1, 1):
+            rng = random.Random(seed+(7 if side > 0 else 0)); x = 11.4
+            while x < SIDE-.01:
+                w = rng.choice([10.0, 11.5, 12.6, 14.0, 15.4, 16.8])
+                if SIDE-x-w < 8.0: w = SIDE-x
+                a, b = sorted((side*x, side*(x+w)))
+                specs.append((a, b, zf, f, rng.randrange(1 << 30)))
+                x += w
+    return specs
+
+def riverside_obstacles():
+    obstacles = []
+    for a, b, zf, f, seed in riverside_specs(): apartment_block(Geo(2), a, b, zf, f, random.Random(seed), obstacles)
+    return obstacles
+
+def apartment_parts():
+    """Mỗi khối căn hộ là một mô hình riêng có 3 LOD (21.54): Unity chọn LOD và loại khỏi khung nhìn theo từng khối,
+    thay vì cả khối cầu 190 m dùng chung một LOD (tòa xa 90 m vẫn ở LOD0). Đỉnh vẫn ở hệ tọa độ khối phố."""
+    parts = []
+    for k, (a, b, zf, f, seed) in enumerate(riverside_specs()):
+        parts.append(('PV_RiverApt%02d' % k, [None]*3, (a, b, zf, f, seed)))
+    for name, geos, (a, b, zf, f, seed) in parts:
+        for d in range(3):
+            g = Geo(d); apartment_block(g, a, b, zf, f, random.Random(seed), []); geos[d] = g
+    return [(n, gs) for n, gs, _ in parts]
 
 def jetty(g, x, z, facing):
     """Cầu tàu gỗ nhỏ và cọc neo cạnh thuyền."""
@@ -436,9 +455,7 @@ def bridge_tile(d):
     for x in (-SIDE, SIDE):  # đầu sông xa hai bên, chìm trong sương
         g.quad([(x, WALL_BOTTOM, W0), (x, WALL_BOTTOM, W1), (x, GROUND_TOP, W1), (x, GROUND_TOP, W0)], 'potGrey', (-x, 0, 0))
     bank_land(g, 0.0, W0-.02, 1); bank_land(g, W1+.02, PAVE_END, -1)
-    obstacles = []
-    riverside_row(g, W0-.3-HOUSE_DEPTH, -1, 11, obstacles)
-    riverside_row(g, W1+.3+HOUSE_DEPTH, 1, 23, obstacles)
+    obstacles = riverside_obstacles()   # căn hộ là mô hình riêng PV_RiverApartments (21.54); vật cản vẫn ghi ở JSON cầu
     for k, x in enumerate([-80, -66, -51, -39, -22, -12, 12, 20, 34, 47, 70, 86]):
         hanging_green(g, x, W0, 1, 100+k, 2.2+(k % 3)*.6)
         hanging_green(g, x+5, W1, -1, 300+k, 2.0+(k % 2)*.8)
@@ -550,6 +567,39 @@ def export(name, geos, coll, offset, mats):
     for o in objs[1:]: o.hide_set(True); o.hide_render = True
     return info
 
+def export_parts(name, parts, coll, offset, mats):
+    """Một FBX gồm nhiều phần, mỗi phần là empty + 3 LOD (21.54). JSON ghi thứ tự slot Unity cho từng phần."""
+    root = bpy.data.objects.new(name, None); coll.objects.link(root); objs = []; info_parts = []
+    def first_use(me):
+        order = []
+        for poly in me.polygons:
+            n = me.materials[poly.material_index].name
+            if n not in order: order.append(n)
+        return order
+    for pname, geos in parts:
+        pe = bpy.data.objects.new(pname, None); coll.objects.link(pe); pe.parent = root
+        lod_objs = []
+        for level, g in enumerate(geos):
+            ob = river_mesh(pname+'_LOD'+str(level), g, coll, mats); ob.parent = pe; lod_objs.append(ob); objs.append(ob)
+        orders = [first_use(o.data) for o in lod_objs]
+        assert all(o == orders[0] for o in orders), (pname, orders)
+        counts = []
+        for o in lod_objs: o.data.calc_loop_triangles(); counts.append(len(o.data.loop_triangles))
+        info_parts.append(dict(name=pname, slots=orders[0], lod_triangles=counts))
+    bpy.ops.object.select_all(action='DESELECT'); root.select_set(True)
+    for o in coll.objects:
+        if o == root or o.parent == root or (o.parent and o.parent.parent == root): o.select_set(True)
+    bpy.context.view_layer.objects.active = objs[0]
+    bpy.ops.export_scene.fbx(filepath=OUT+'/'+name+'.fbx', use_selection=True, object_types={'EMPTY', 'MESH'}, axis_forward='-Z', axis_up='Y',
+        apply_unit_scale=True, apply_scale_options='FBX_SCALE_UNITS', bake_anim=False, add_leaf_bones=False, use_mesh_modifiers=True, mesh_smooth_type='FACE')
+    info = dict(name=name, generator='pho_viet_river_bridge.py', parts=info_parts,
+                lod_triangles=[sum(p['lod_triangles'][d] for p in info_parts) for d in range(3)])
+    with open(OUT+'/'+name+'.json', 'w', encoding='utf8') as f: json.dump(info, f, ensure_ascii=False, indent=2)
+    root.location = offset
+    for o in objs:
+        if not o.name.endswith('_LOD0'): o.hide_set(True); o.hide_render = True
+    return info
+
 def build_river_bridge():
     global MAT, OUT
     os.makedirs(OUT, exist_ok=True)
@@ -568,9 +618,10 @@ def build_river_bridge():
         river_out = OUT; OUT = ROOT+'/Assets/PhoViet/Art/Streets'; MAT = palette_material(); OUT = river_out
     mats = river_materials(); results = []
     results.append(export('PV_RiverBridge', [bridge_tile(d) for d in range(3)], coll, (0, 0, 0), mats))
+    results.append(export_parts('PV_RiverApartments', apartment_parts(), coll, (0, 60, 0), mats))
     for kind in (0, 1):
         results.append(export('PV_RiverBoat'+str(kind), [boat(kind, d) for d in range(3)], coll, (0, -20-kind*12, 0), mats))
     # Lưu nguồn riêng chỉ gồm scene cầu (không ghi đè PhoViet_SaigonStreets.blend đang mở).
     ids = {sc, coll}|set(coll.objects)|{o.data for o in coll.objects if o.data}|set(mats.values())|{MAT}
     bpy.data.libraries.write(SOURCE, ids, fake_user=True)
-    return dict(success=True, results=[(r['name'], r['lod_triangles'], r['slots']) for r in results])
+    return dict(success=True, results=[(r['name'], r['lod_triangles'], r.get('slots', len(r.get('parts', [])))) for r in results])

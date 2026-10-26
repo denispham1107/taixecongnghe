@@ -59,9 +59,22 @@ public static class VerifyRiverBridge
    // Dãy nhà ống ven sông (21.48): lấp bờ ngắn giữa đường ngang và kè, không lấn mặt nước, có vật cản.
    var houses=sample.bridge.GetComponent<StreetObstacleSet>();
    check(houses!=null&&houses.obstacles.Length>=16&&houses.obstacles.All(o=>o.kind=="Nhà ven sông"&&o.bounds.size.y>=18),"Each bridge block carries a row of 6–9 storey riverside apartment blocks with collision boxes ("+(houses!=null?houses.obstacles.Length:0)+")");
-   check(bridgeRenderers.All(r=>r.sharedMaterials.Any(m=>m!=null&&m.name=="PV_StreetGlass")),"Riverside apartments use the street's transparent glass for balconies and floor-to-ceiling windows");
-   var roomMat=bridgeRenderers[0].sharedMaterials.FirstOrDefault(m=>m!=null&&m.shader.name=="PhoViet/Apartment Room");
-   check(roomMat!=null&&roomMat.GetTexture("_MainTex")!=null&&bridgeRenderers.All(r=>r.sharedMaterials.Contains(roomMat)),"Apartment rooms behind the glass have a night-lit material in every LOD");
+   // Căn hộ là 24 mô hình riêng, mỗi khối LODGroup riêng (21.54).
+   var aptRoot=sample.bridge.transform.Find("Căn hộ ven sông • Blender");
+   var aptLods=aptRoot!=null?aptRoot.GetComponentsInChildren<LODGroup>(true):new LODGroup[0];
+   var aptRenderers=aptRoot!=null?aptRoot.GetComponentsInChildren<MeshRenderer>(true).Where(r=>r.name.StartsWith("PV_RiverApt",StringComparison.Ordinal)).ToArray():new MeshRenderer[0];
+   var aptProxies=aptRoot!=null?aptRoot.GetComponentsInChildren<MeshRenderer>(true).Where(r=>r.name.StartsWith("Bóng • ",StringComparison.Ordinal)).ToArray():new MeshRenderer[0];
+   check(aptLods.Length==24&&aptLods.All(l=>l.lodCount==3&&l.GetLODs()[0].screenRelativeTransitionHeight>=.25f)&&aptRenderers.Length==72,"Each riverside apartment block has its own three-level LOD group ("+aptLods.Length+" groups)");
+   check(bridgeRenderers.All(r=>!r.sharedMaterials.Any(m=>m!=null&&m.name=="PV_StreetGlass")),"The bridge/water model itself no longer carries the apartments");
+   check(aptRenderers.All(r=>r.sharedMaterials.Any(m=>m!=null&&m.name=="PV_StreetGlass")&&r.gameObject.layer==RiverReflection.ReflectLayer),"Riverside apartments use the street's transparent glass and appear in the river reflection");
+   // Giảm tải 21.54: bóng đổ do bản LOD2 (căn hộ) / LOD1 (cầu) vẽ riêng; LOD chi tiết hơn không vẽ vào shadow map.
+   check(aptProxies.Length==24&&aptProxies.All(r=>r.shadowCastingMode==UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly&&r.name.EndsWith("_LOD2",StringComparison.Ordinal))
+     &&aptRenderers.Where(r=>!r.name.EndsWith("_LOD2",StringComparison.Ordinal)).All(r=>r.shadowCastingMode==UnityEngine.Rendering.ShadowCastingMode.Off),"Apartment shadows come from a LOD2 shadow-only proxy, detailed LODs skip the shadow map");
+   var deckProxy=sample.bridge.transform.Cast<Transform>().FirstOrDefault(t=>t.name=="Bóng • PV_RiverBridge_LOD1");
+   check(deckProxy!=null&&deckProxy.GetComponent<MeshRenderer>().shadowCastingMode==UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly&&bridgeRenderers.First(r=>r.name.EndsWith("_LOD0",StringComparison.Ordinal)).shadowCastingMode==UnityEngine.Rendering.ShadowCastingMode.Off,"Bridge deck shadows come from a LOD1 shadow-only proxy");
+   check(Shader.GetGlobalTexture("_RiverNoise") is Texture2D nz&&nz.width==256&&nz.wrapMode==TextureWrapMode.Repeat&&g.rideCamera.GetComponent<RiverReflection>().maxLod==1,"Water ripples read a baked tiling noise texture; the reflection camera renders LOD1+");
+   var roomMat=aptRenderers.Length>0?aptRenderers[0].sharedMaterials.FirstOrDefault(m=>m!=null&&m.shader.name=="PhoViet/Apartment Room"):null;
+   check(roomMat!=null&&roomMat.GetTexture("_MainTex")!=null&&aptRenderers.All(r=>r.sharedMaterials.Contains(roomMat)),"Apartment rooms behind the glass have a night-lit material in every LOD");
    g.daylight.SetCycleTime(g.daylight.CycleSeconds*.5f);float nightLights=Shader.GetGlobalFloat("_PVNightLights");g.daylight.SetCycleTime(0);float dayLights=Shader.GetGlobalFloat("_PVNightLights");
    check(nightLights>.95f&&dayLights<.05f,"Apartment rooms glow at night and switch off by day (_PVNightLights "+nightLights.ToString("F2")+"/"+dayLights.ToString("F2")+")");
    check(houses.obstacles.All(o=>Mathf.Abs(o.bounds.center.x)-o.bounds.extents.x>=11.2f&&(o.bounds.max.z<=RiverBlock.Near-.25f&&o.bounds.min.z>=0||o.bounds.min.z>=RiverBlock.Far+.25f&&o.bounds.max.z<=58.8f)),"Riverside houses stand on the short banks, clear of the main sidewalk and never over the water");
@@ -104,6 +117,7 @@ public static class VerifyRiverBridge
    check(renderFlag()>.5f&&Shader.GetGlobalTexture("_RiverReflectionTex")!=null,"A river in view gets a live mirror reflection");
    foreach(var t in g.roadRows.SelectMany(r=>r.tiles))t.GetComponent<RiverBlock>().SetBridge(false);
    check(renderFlag()<.5f,"No reflection is rendered when no river is in view");
+   check(!g.RiverMurkVisible&&Shader.GetGlobalFloat("_RiverMurkOn")<.5f,"Murky depth layers are skipped while nothing is under water (21.54)");
    prepare(80);
    // ---- Người chơi đổi làn ra ngoài trên cầu: rơi xuống sông, kết thúc chuyến
    prepare(80);lane(2);g.StartRide();
@@ -114,6 +128,7 @@ public static class VerifyRiverBridge
    data.Add("laneChangeFall="+fellAt.ToString("F2")+"s minY="+minY.ToString("F2"));
    check(fellAt>=0&&fellAt<.6f,"Steering off the two-lane bridge drops the rider into the river");
    check(minY<RiverBlock.WaterY,"Rider falls below the water surface");
+   check(g.RiverMurkVisible&&Shader.GetGlobalFloat("_RiverMurkOn")>.5f,"Murky depth layers turn on while the rider sinks (21.54)");
    check(g.State==PhoVietGame.RideState.GameOver&&g.RiderInRiver,"Falling into the river ends the ride");
    var aftermath=typeof(PhoVietGame).GetMethod("TickRiverAftermath");
    float yAtEnd=g.rider.localPosition.y;

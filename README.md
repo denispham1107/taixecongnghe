@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.38.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.39.0**.
+
+## Đổi làn từ từ, nhảy theo tốc độ, xe xanh–đen — 1.39.0
+
+Người chơi áo đỏ sao vàng cưỡi xe máy xanh dương–đen. Đổi làn trong khoảng 0,72 giây, giữ nghiêng rồi từ từ dựng xe; nhảy ở tốc độ đầu thấp hơn 25%, độ cao tăng đều theo tốc độ lúc cất cánh, kể cả W. Tăng tốc giữa không trung chỉ làm cú sau nhảy cao hơn. Khu sông/cầu được giảm tải, giữ phản chiếu và cảnh quan. Công việc vẫn tắt. Chi tiết và kết quả phát hành ở `huongdan.md` mục 21.54–21.61.
 
 ## Sông gương, cầu dài gấp đôi, căn hộ kính ven sông — 1.38.0
 

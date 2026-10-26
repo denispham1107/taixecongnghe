@@ -116,12 +116,15 @@ namespace PhoViet
         void BeginOrContinueTurn(float delta)
         {
             if(!RoutesReady)return;
-            if(!IsTurning&&QueuedTurn!=0&&NextJunctionDistance<=11.65f)
+            // The wider car starts closer to the open junction centre so its
+            // rear corner does not clip sidewalk planters on the inside lane.
+            float entry=IsPlayerCar?9f:11.65f;
+            if(!IsTurning&&QueuedTurn!=0&&NextJunctionDistance<=entry)
             {
                 if(!CanTurnFromLane(QueuedTurn,CurrentLane)||Mathf.Abs(rider.localPosition.x-LaneX[CurrentLane])>.65f){QueuedTurn=0;return;}
                 // The world has already scrolled this frame. Spend only the part of
                 // its distance after the entry line on the curve, without a dead frame.
-                float afterEntry=Mathf.Clamp(11.65f-NextJunctionDistance,0,delta);
+                float afterEntry=Mathf.Clamp(entry-NextJunctionDistance,0,delta);
                 StartJunctionTurnAt(false,NextJunctionDistance+afterEntry);
                 delta=afterEntry;
             }
@@ -137,7 +140,7 @@ namespace PhoViet
             // road. Clamping speed here used to brake the bike just before rebasing.
             float exitDistance=Mathf.Max(0,turnTravel-turnLength);
             rider.localPosition=TurnPoint(t)+Vector3.right*turnSide*exitDistance-Vector3.forward*turnTravel;
-            rider.localRotation=Quaternion.Euler(0,TurnYaw,-turnSide*(lateTurn?16:18)*Mathf.Sin(t*Mathf.PI));
+            rider.localRotation=Quaternion.Euler(0,TurnYaw,-turnSide*(IsPlayerCar?5:lateTurn?16:18)*Mathf.Sin(t*Mathf.PI));
             lastX=rider.localPosition.x;
         }
         void StartJunctionTurn(bool late)
@@ -152,7 +155,7 @@ namespace PhoViet
             {
                 // A late input needs room to align with the same exit lane. A tangent-
                 // continuous curve keeps the bike inside the union of the two roads.
-                turnControl1=turnStart+Vector3.forward*3;
+                turnControl1=turnStart+Vector3.forward*(IsPlayerCar?.5f:3);
                 turnEnd=new Vector3(turnSide*20,0,junctionDistance-turnSide*LaneX[CurrentLane]);
                 turnControl2=turnEnd-Vector3.right*turnSide*6;
             }
@@ -236,7 +239,7 @@ namespace PhoViet
             chosen.root.localPosition=Vector3.zero;chosen.root.localRotation=Quaternion.identity;
             for(int i=0;i<positions.Length;i++){chosen.tiles[i].localPosition=positions[i];chosen.tiles[i].localRotation=Quaternion.identity;}
             blocks=new List<Transform>(chosen.tiles);roadOffset=-Distance-positions[0].z;
-            rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0)+kickAppliedOffset;rider.localRotation=Quaternion.identity;lean=0;laneVelocity=0;steerYaw=0;lastX=rider.localPosition.x;oldRiderZ=rider.localPosition.z;
+            rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0)+kickAppliedOffset;rider.localRotation=Quaternion.identity;lean=0;ClearLaneMotion();steerYaw=0;lastX=rider.localPosition.x;oldRiderZ=rider.localPosition.z;
             if(daylight!=null)daylight.Rebase(inverse,origin);
             TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;cameraTurnBlend=.7f;turnEndAt=Distance;
             float nearest=float.MaxValue;foreach(var b in blocks){float z=b.localPosition.z+70;if(z>12)nearest=Mathf.Min(nearest,z);}

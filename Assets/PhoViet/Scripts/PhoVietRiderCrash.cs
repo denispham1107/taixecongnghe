@@ -24,7 +24,7 @@ namespace PhoViet
    ResetCrashPoliceNavigation();
    riderFallVelocity=Vector3.zero;riderFallSpin=Vector3.zero;riderRoadVelocity=Vector3.zero;riderVelocityValid=false;
    riderContactUntil=new float[vehicles.Count];
-   riderBody=new TrafficVehicle{model=rider,halfWidth=.33f,halfLength=.91f};
+   riderBody=new TrafficVehicle{model=rider,halfWidth=PlayerHalfWidth,halfLength=PlayerHalfLength};
    CacheStreetObstacles();
   }
   void SaveRideRecord()
@@ -40,7 +40,7 @@ namespace PhoViet
    crashTurnRotation=Quaternion.Euler(0,IsTurning?TurnYaw:0,0);
    QueuedTurn=0;fallTime=0;settledTime=0;RiderFallTravel=0;
    // Hướng đầu xe lúc đánh lái trở thành hướng thật của cú ngã, không bật về thẳng.
-   rider.localRotation=Quaternion.Euler(0,steerYaw,0)*rider.localRotation;steerYaw=0;laneVelocity=0;
+   rider.localRotation=Quaternion.Euler(0,steerYaw,0)*rider.localRotation;steerYaw=0;ClearLaneMotion();
    riderFallVelocity=before;riderFallEuler=rider.localEulerAngles;
    riderFallEuler.x=Mathf.DeltaAngle(0,riderFallEuler.x);riderFallEuler.z=Mathf.DeltaAngle(0,riderFallEuler.z);riderFallSpin=Vector3.zero;
    before.y=jumpVelocity;ResetJump();CancelBoost();
@@ -59,10 +59,10 @@ namespace PhoViet
    if(closing<.35f&&relative.sqrMagnitude>.1f){normal=-relative.normalized;closing=relative.magnitude;}
    closing=Mathf.Max(.35f,closing);LastRiderImpactSpeed=closing;
    bool hitFixed=hit==null||hit.wallCrashed||hit.armored;
-   float invA=1f/220,invB=hitFixed?0:1f/VehicleMass(hit);
+   float mass=VehicleMass(riderBody),invA=1f/mass,invB=hitFixed?0:1f/VehicleMass(hit);
    Vector2 lever=Flat(contact-rider.localPosition),otherLever=hit==null?Vector2.zero:Flat(contact-hit.model.localPosition);
    float torque=LeverCross(lever,normal),otherTorque=LeverCross(otherLever,normal);
-   float inertia=220*(4*.33f*.33f+4*.91f*.91f)/12;
+   float inertia=BodyInertia(riderBody);
    float denominator=invA+invB+torque*torque/inertia+(hitFixed?0:otherTorque*otherTorque/BodyInertia(hit));
    float impulse=1.12f*closing/denominator;
    Vector2 tangent=new Vector2(-normal.y,normal.x);

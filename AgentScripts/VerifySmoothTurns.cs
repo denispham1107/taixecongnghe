@@ -44,7 +44,10 @@ public static class VerifySmoothTurns
      float before=g.Distance;tick(dt);clear();
      float normal=Mathf.Min(17+g.DifficultyTime*.12f,30),expected=normal*(g.BoostActive?PhoVietGame.BoostMultiplier:1);
      speedOK&=Mathf.Abs(g.Speed-expected)<.001f;
-     distanceOK&=Mathf.Abs((g.Distance-before)-g.Speed*dt)<.0002f;
+     // The car uses 5 ms collision/control steps through a corner. Its speed
+     // increases continuously inside the frame; integrate within 1 mm rather
+     // than expecting the final substep speed over the whole frame.
+     distanceOK&=Mathf.Abs((g.Distance-before)-g.Speed*dt)<(g.IsPlayerCar?.001f:.0002f);
      Vector3 point=anchor.InverseTransformPoint(g.rider.position);
      float ratio=Vector3.Distance(point,previous)/(g.Speed*dt);
      // This is a chord, not arc length: a very late turn can bend back inside
@@ -53,7 +56,7 @@ public static class VerifySmoothTurns
      previous=point;
     }while(g.CompletedTurns==0&&g.State==PhoVietGame.RideState.Riding&&guard++<700);
     string key="lane "+lane+", near "+near+", profile "+profile+", dt "+dt;
-    check(speedOK,key+": actual speed retains straight cruise/boost through entry, arc and final frame");
+    check(speedOK,key+": actual speed retains straight cruise/boost through entry, arc and final frame; state="+g.State+", scenery="+g.LastSceneryImpact+", shell="+g.KilledByShell+", pos="+g.rider.localPosition+", seed="+g.RunSeed);
     check(distanceOK,key+": every frame advances the full speed times delta, without a shortened exit frame");
     check(moving,key+": measured travel against stationary road has no stalled/teleported frame ("+minRatio.ToString("F4")+".."+maxRatio.ToString("F4")+")");
     check(guard<700&&g.State==PhoVietGame.RideState.Riding&&g.CompletedTurns==1&&g.CurrentStreet==street&&g.CurrentLane==lane,key+": connected turn completes into the same lane and correct street");

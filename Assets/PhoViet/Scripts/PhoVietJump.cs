@@ -7,15 +7,21 @@ namespace PhoViet
   public bool RiderOnRoof=>roofVehicle!=null;
   public bool RiderJumpActive=>jumpWindup>0||jumpFlying||jumpLanding>0;
   public string RiderJumpClip=>jumpWindup>0?"JumpTakeoff":jumpFlying?"JumpAir":landingClip;
-  public float RiderJumpPose=>jumpWindup>0?1-jumpWindup/.24f:jumpFlying?Mathf.Clamp01(.5f-jumpVelocity/(2*JumpLaunch)):1-jumpLanding/.48f;
+  public float RiderJumpPose=>jumpWindup>0?1-jumpWindup/.24f:jumpFlying?Mathf.Clamp01(.5f-jumpVelocity/(2*jumpLaunchVelocity)):1-jumpLanding/.48f;
   public float RiderJumpHeight=>jumpHeight;
   public float RiderJumpCooldown=>jumpCooldown;
+  public float RiderJumpTakeoffSpeed {get;private set;}
+  public float RiderJumpApex=>jumpLaunchVelocity*jumpLaunchVelocity/(2*JumpGravity);
   float jumpHeight,jumpVelocity,jumpCooldown,jumpWindup,jumpLanding,jumpFlightAge,jumpPreviousHeight;
   bool jumpFlying;
   string landingClip="LandBoth";
   TrafficVehicle roofVehicle,previousRoofVehicle,roofContactVehicle;
   float roofContactHeight;
   const float JumpGravity=22f,JumpLaunch=14.6f;
+  float jumpLaunchVelocity=JumpLaunch;
+  // At 17 m/s height is 75% of the previous jump; at 30 it is 100%.
+  // W contributes its real speed, and faster speeds continue the same slope.
+  public static float JumpHeightAtSpeed(float speed)=>JumpLaunch*JumpLaunch/(2*JumpGravity)*(.75f+Mathf.Max(0,speed-17)/52f);
   public static bool IsJumpSwipe(Vector2 delta,float width)=>delta.y>width*.12f&&delta.y>Mathf.Abs(delta.x)*1.3f;
   public void PoseJumpPassenger(float pitch,float lift)
   {
@@ -25,7 +31,7 @@ namespace PhoViet
    customer.localRotation=balance;
   }
   void ResetJump()
-  {jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=roofContactHeight=0;jumpFlying=false;roofVehicle=previousRoofVehicle=roofContactVehicle=null;landingClip="LandBoth";}
+  {jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=roofContactHeight=0;jumpLaunchVelocity=JumpLaunch;RiderJumpTakeoffSpeed=0;jumpFlying=false;roofVehicle=previousRoofVehicle=roofContactVehicle=null;landingClip="LandBoth";}
   public bool TryJump()
   {
    if(State!=RideState.Riding||ServiceStopped||jumpFlying||jumpWindup>0||jumpCooldown>0||jumpLanding>0)return false;
@@ -54,7 +60,7 @@ namespace PhoViet
    Vector3 local=Quaternion.Inverse(rotation)*(point-position);
    // Support lasts until the trailing wheel/body clears the bonnet, rather than
    // dropping the bike while its rear half is still overlapping the same car.
-   return Mathf.Abs(local.x)<v.halfWidth-.14f+padding&&Mathf.Abs(local.z)<v.halfLength+.92f+padding;
+   return Mathf.Abs(local.x)<Mathf.Max(.10f,v.halfWidth-(IsPlayerCar?.70f:.14f))+padding&&Mathf.Abs(local.z)<v.halfLength+(IsPlayerCar?PlayerHalfLength:.92f)+padding;
   }
   float RoofSurface(TrafficVehicle v,Vector3 point)
    =>RoofSurfaceAt(v,point,v.model.localPosition,v.model.localRotation,rider.localRotation);
@@ -66,7 +72,7 @@ namespace PhoViet
    if(meshy!=null)
    {
     Vector3 direction=Quaternion.Inverse(rotation)*riderRotation*Vector3.forward;
-    float height=meshy.SupportHeight(z-.73f*direction.z,z+.90f*direction.z);
+    float height=meshy.SupportHeight(z-PlayerRearAxle*direction.z,z+PlayerFrontAxle*direction.z);
     return (position+rotation*new Vector3(local.x,height,local.z)).y+.025f;
    }
    if(v.halfLength>3)
@@ -75,7 +81,7 @@ namespace PhoViet
     // rear wheel supported on the box until it clears that edge, then fall
     // onto the lower cab instead of snapping downward or floating over it.
     Vector3 relativeForward=Quaternion.Inverse(rotation)*riderRotation*Vector3.forward;
-    float rearZ=z-.73f*relativeForward.z;
+    float rearZ=z-PlayerRearAxle*relativeForward.z;
     float truckSurface=rearZ<=1.225f?roof:rearZ<=2.75f?2.71f:
       Mathf.Lerp(2.71f,1.0f,Mathf.Clamp01((rearZ-2.75f)/.48f));
     return (position+rotation*new Vector3(local.x,truckSurface,local.z)).y+.025f;
@@ -84,7 +90,7 @@ namespace PhoViet
    // Both wheels support the bike. Sampling only its centre drops it into the
    // windscreen/bonnet while its trailing wheel is still on the higher roof.
    Vector3 forward=Quaternion.Inverse(rotation)*riderRotation*Vector3.forward;
-   float a=z-.73f*forward.z,b=z+.90f*forward.z;
+   float a=z-PlayerRearAxle*forward.z,b=z+PlayerFrontAxle*forward.z;
    float surface=Mathf.Max(CarRoofProfile(roof,a),CarRoofProfile(roof,b));
    if(Mathf.Min(a,b)<=.15f&&Mathf.Max(a,b)>=-.85f)surface=roof;
    return (position+rotation*new Vector3(local.x,surface,local.z)).y+.025f;
@@ -98,13 +104,15 @@ namespace PhoViet
   void TickJump(float dt)
   {
    previousRoofVehicle=roofVehicle;roofContactVehicle=null;roofContactHeight=0;jumpPreviousHeight=jumpHeight;jumpCooldown=Mathf.Max(0,jumpCooldown-dt);jumpLanding=Mathf.Max(0,jumpLanding-dt);
+   float flightDt=dt;
    if(jumpWindup>0)
    {
+    flightDt=Mathf.Max(0,dt-jumpWindup);
     jumpWindup=Mathf.Max(0,jumpWindup-dt);
-    if(jumpWindup==0){jumpFlying=true;jumpVelocity=JumpLaunch;jumpFlightAge=0;roofVehicle=null;}
+    if(jumpWindup==0){RiderJumpTakeoffSpeed=Speed;jumpLaunchVelocity=Mathf.Sqrt(2*JumpGravity*JumpHeightAtSpeed(Speed));jumpFlying=true;jumpVelocity=jumpLaunchVelocity;jumpFlightAge=0;roofVehicle=null;}
    }
    if(jumpFlying)
-   {jumpHeight+=jumpVelocity*dt-.5f*JumpGravity*dt*dt;jumpVelocity-=JumpGravity*dt;jumpFlightAge+=dt;}
+   {jumpHeight+=jumpVelocity*flightDt-.5f*JumpGravity*flightDt*flightDt;jumpVelocity-=JumpGravity*flightDt;jumpFlightAge+=flightDt;}
   }
   void ResolveJumpSurface(float dt)
   {
@@ -151,7 +159,7 @@ namespace PhoViet
   bool FindRoofLanding(TrafficVehicle v,Vector3 point,float dt,out float at,out float height)
   {
    at=2;height=0;float freeHeight=jumpHeight;
-   float radius=Mathf.Max(v.halfLength,v.halfWidth)+1.05f;
+   float radius=Mathf.Max(v.halfLength,v.halfWidth)+PlayerHalfLength+.14f;
    if(!SweptOverlap(Flat(v.previousPosition-riderBody.previousPosition),Flat(v.model.localPosition-point),Vector2.one*radius))return false;
    float travel=((point-riderBody.previousPosition)-(v.model.localPosition-v.previousPosition)).magnitude;
    int steps=Mathf.Clamp(Mathf.CeilToInt(Mathf.Max(dt/.005f,travel/.1f)),2,128);
@@ -197,7 +205,7 @@ namespace PhoViet
      Quaternion riderRotation=Quaternion.Slerp(Quaternion.Euler(0,oldRiderYaw,0),rider.localRotation,t);
      Vector3 point=Vector3.Lerp(from,to,t),position=Vector3.Lerp(v.previousPosition,v.model.localPosition,t);
      Vector3 local=Quaternion.Inverse(vehicleRotation)*(point-position),f=Quaternion.Inverse(vehicleRotation)*riderRotation*Vector3.forward;
-     if(Mathf.Abs(local.x)>v.halfWidth+Mathf.Abs(f.z)*.33f+Mathf.Abs(f.x)*.91f||Mathf.Abs(local.z)>v.halfLength+Mathf.Abs(f.x)*.33f+Mathf.Abs(f.z)*.91f)continue;
+     if(Mathf.Abs(local.x)>v.halfWidth+Mathf.Abs(f.z)*PlayerHalfWidth+Mathf.Abs(f.x)*PlayerHalfLength||Mathf.Abs(local.z)>v.halfLength+Mathf.Abs(f.x)*PlayerHalfWidth+Mathf.Abs(f.z)*PlayerHalfLength)continue;
      top=RoofSurfaceAt(v,point,position,vehicleRotation,riderRotation);
      // A supported wheel follows the roof profile, not the straight chord from
      // one frame's height to the next. A higher cargo wall still blocks it.

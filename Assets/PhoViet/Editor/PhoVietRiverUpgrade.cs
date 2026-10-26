@@ -17,6 +17,8 @@ namespace PhoViet.Editor
         const string Root="Cầu vượt sông • Blender";
         [Serializable] sealed class BoatInfo{public string asset;public float x,z,yaw;}
         [Serializable] sealed class ObstacleInfo{public string kind;public float[] center,size;}
+        [Serializable] sealed class PartInfo{public string name;public string[] slots;}
+        [Serializable] sealed class PartsInfo{public PartInfo[] parts;}
         [Serializable] sealed class Info{public float[] water;public float water_y,deck_half,lamp_x;public float[] lamps,piers;public BoatInfo[] boats;public ObstacleInfo[] obstacles;public string[] slots;}
 
         [MenuItem("Phố Việt/Art/Install river bridge blocks")]
@@ -25,7 +27,7 @@ namespace PhoViet.Editor
             if(Application.isPlaying)throw new Exception("Exit Play Mode first");
             var g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();if(g==null)throw new Exception("Open PhoViet scene first");
             AssetDatabase.Refresh();
-            foreach(string name in new[]{"PV_RiverBridge","PV_RiverBoat0","PV_RiverBoat1"})
+            foreach(string name in new[]{"PV_RiverBridge","PV_RiverApartments","PV_RiverBoat0","PV_RiverBoat1"})
             {
                 var importer=AssetImporter.GetAtPath(Folder+name+".fbx") as ModelImporter;if(importer==null)throw new Exception("Missing "+name+".fbx");
                 importer.materialImportMode=ModelImporterMaterialImportMode.None;importer.importAnimation=false;importer.importCameras=false;importer.importLights=false;
@@ -34,6 +36,9 @@ namespace PhoViet.Editor
             }
             var info=JsonUtility.FromJson<Info>(System.IO.File.ReadAllText(Folder+"PV_RiverBridge.json"));
             var model=AssetDatabase.LoadAssetAtPath<GameObject>(Folder+"PV_RiverBridge.fbx");
+            // Căn hộ ven sông là mô hình riêng, mỗi khối một LODGroup (21.54).
+            var aptInfo=JsonUtility.FromJson<PartsInfo>(System.IO.File.ReadAllText(Folder+"PV_RiverApartments.json"));
+            var aptModel=AssetDatabase.LoadAssetAtPath<GameObject>(Folder+"PV_RiverApartments.fbx");if(aptModel==null)throw new Exception("Missing PV_RiverApartments.fbx");
             var boats=new Dictionary<string,GameObject>();foreach(var b in info.boats)if(!boats.ContainsKey(b.asset))boats[b.asset]=AssetDatabase.LoadAssetAtPath<GameObject>(Folder+b.asset+".fbx");
             var atlas=AssetDatabase.LoadAssetAtPath<Material>("Assets/PhoViet/Art/Streets/PV_StreetAtlas.mat");if(atlas==null)throw new Exception("Missing street atlas");
             // Mặt sông kiểu gương theo ảnh mẫu người dùng (21.45–21.46): phản chiếu thật từ RiverReflection trên camera chơi,
@@ -79,7 +84,7 @@ namespace PhoViet.Editor
             if(lampModel==null||lampMats.Any(m=>m==null)||floorQuad==null||haloQuad==null||streetPool==null||whiteGlow==null)throw new Exception("Missing street lamp assets");
             var lighting=g.daylight;if(lighting==null)throw new Exception("Day-night lighting not installed");
             var streets=lighting.streets.Where(s=>s.source!=null&&!s.source.GetComponentsInParent<Transform>(true).Any(t=>t.name==Root)).ToList();
-            var clipped=new Dictionary<Mesh,Mesh>();int tiles=0,hidden=0,clips=0,lamps=0,boatCount=0,houses=0;
+            var clipped=new Dictionary<Mesh,Mesh>();int tiles=0,hidden=0,clips=0,lamps=0,boatCount=0,houses=0,aptParts=0;
             System.IO.Directory.CreateDirectory(Folder+"Clipped");
             foreach(var row in g.roadRows)foreach(var tile in row.tiles)
             {
@@ -103,7 +108,19 @@ namespace PhoViet.Editor
                 }
                 var root=(GameObject)PrefabUtility.InstantiatePrefab(model,tile);root.name=Root;
                 root.transform.localPosition=Vector3.zero;root.transform.localRotation=Quaternion.identity;root.transform.localScale=Vector3.one;
-                SetupLods(root,info.slots,slotMats,ShadowCastingMode.On);
+                SetupLods(root,info.slots,slotMats,ShadowCastingMode.On,null,1);
+                // 24 khối căn hộ, mỗi khối LODGroup riêng: tòa gần giữ LOD0 đầy đủ, tòa xa dùng LOD1/LOD2, tòa ngoài khung
+                // nhìn không vẽ (trước đây cả khối cầu 190 m chung một LOD nên tòa xa 90 m vẫn ở LOD0 — 21.54).
+                var apts=(GameObject)PrefabUtility.InstantiatePrefab(aptModel,root.transform);apts.name="Căn hộ ven sông • Blender";
+                apts.transform.localPosition=Vector3.zero;apts.transform.localRotation=Quaternion.identity;apts.transform.localScale=Vector3.one;
+                // Trình nhập FBX tự thêm một LODGroup ở gốc (thấy tên _LODn bên dưới), bao cả 24 khối — bỏ để từng khối tự chọn LOD.
+                var rootLod=apts.GetComponent<LODGroup>();if(rootLod!=null)UnityEngine.Object.DestroyImmediate(rootLod);
+                foreach(var part in aptInfo.parts)
+                {
+                    var pt=apts.transform.Find(part.name);if(pt==null)throw new Exception("Missing apartment part "+part.name);
+                    pt.localPosition=Vector3.zero;pt.localRotation=Quaternion.identity;pt.localScale=Vector3.one;
+                    SetupLods(pt.gameObject,part.slots,slotMats,ShadowCastingMode.On,ApartmentLods,2);aptParts++;
+                }
                 // Vật cản của dãy nhà ống ven sông (21.48): hộp trong hệ khối, chỉ có hiệu lực khi khối là cầu (root bật).
                 if(info.obstacles!=null&&info.obstacles.Length>0)
                 {
@@ -151,10 +168,10 @@ namespace PhoViet.Editor
             }
             // Camera chơi render ảnh phản chiếu mặt sông.
             var reflection=g.rideCamera.GetComponent<RiverReflection>();if(reflection==null)reflection=g.rideCamera.gameObject.AddComponent<RiverReflection>();
-            reflection.game=g;reflection.resolution=.42f;reflection.maxSize=768;reflection.farClip=120;reflection.clipOffset=.05f;EditorUtility.SetDirty(reflection);
+            reflection.game=g;reflection.resolution=.42f;reflection.maxSize=768;reflection.farClip=120;reflection.clipOffset=.05f;reflection.maxLod=1;EditorUtility.SetDirty(reflection);
             EditorUtility.SetDirty(lighting);EditorUtility.SetDirty(g);EditorUtility.SetDirty(ground);EditorUtility.SetDirty(water);EditorUtility.SetDirty(mask);EditorUtility.SetDirty(murk);
             AssetDatabase.SaveAssets();EditorSceneManager.MarkSceneDirty(g.gameObject.scene);EditorSceneManager.SaveScene(g.gameObject.scene);
-            return new{success=true,reflectLayers,houses,tiles,hiddenPerTile=hidden/(float)Mathf.Max(1,tiles),clippedMeshes=clipped.Count,clips,lamps,boats=boatCount,streets=lighting.streets.Length,jobs=g.jobsEnabled};
+            return new{success=true,reflectLayers,houses,aptParts,tiles,hiddenPerTile=hidden/(float)Mathf.Max(1,tiles),clippedMeshes=clipped.Count,clips,lamps,boats=boatCount,streets=lighting.streets.Length,jobs=g.jobsEnabled};
         }
         static bool TileRange(Transform tile,Transform child,out float z0,out float z1)
         {
@@ -170,8 +187,14 @@ namespace PhoViet.Editor
             }
             return any;
         }
-        static void SetupLods(GameObject root,string[] slots,Dictionary<string,Material> mats,ShadowCastingMode shadows)
+        // Ngưỡng LOD theo chiều cao màn hình của từng khối căn hộ (~25 m): LOD0 trong ~80 m, LOD1 tới ~300 m.
+        static readonly float[] DefaultLods={.12f,.04f,.002f},ApartmentLods={.3f,.08f,.006f};
+        // proxyLevel ≥ 0: các LOD chi tiết hơn KHÔNG đổ bóng; một bản sao "ShadowsOnly" của LOD proxyLevel đổ bóng thay
+        // (cùng khối bao nên bóng trông như cũ, nhưng shadow map vẽ ít tam giác hơn nhiều — 21.54).
+        static void SetupLods(GameObject root,string[] slots,Dictionary<string,Material> mats,ShadowCastingMode shadows,float[] thresholds=null,int proxyLevel=-1)
         {
+            thresholds=thresholds??DefaultLods;
+            foreach(Transform old in root.transform.Cast<Transform>().ToArray())if(old.name.StartsWith("Bóng • ",StringComparison.Ordinal))UnityEngine.Object.DestroyImmediate(old.gameObject);
             var renderers=root.GetComponentsInChildren<MeshRenderer>(true).Where(r=>r.transform.parent==root.transform).OrderBy(r=>r.name.Contains("_LOD2")?2:r.name.Contains("_LOD1")?1:0).ToArray();
             foreach(var r in renderers)
             {
@@ -183,8 +206,19 @@ namespace PhoViet.Editor
                 r.shadowCastingMode=shadows;r.receiveShadows=true;r.gameObject.SetActive(true);
             }
             if(renderers.Length!=3)throw new Exception("Expected three LODs in "+root.name);
+            var levels=new[]{new List<Renderer>{renderers[0]},new List<Renderer>{renderers[1]},new List<Renderer>{renderers[2]}};
+            if(proxyLevel>=0&&proxyLevel<3)
+            {
+                var src=renderers[proxyLevel];
+                var proxy=new GameObject("Bóng • "+src.name);proxy.transform.SetParent(root.transform,false);
+                proxy.transform.localPosition=src.transform.localPosition;proxy.transform.localRotation=src.transform.localRotation;proxy.transform.localScale=src.transform.localScale;
+                proxy.layer=src.gameObject.layer;
+                proxy.AddComponent<MeshFilter>().sharedMesh=src.GetComponent<MeshFilter>().sharedMesh;
+                var pr=proxy.AddComponent<MeshRenderer>();pr.sharedMaterials=src.sharedMaterials;pr.shadowCastingMode=ShadowCastingMode.ShadowsOnly;pr.receiveShadows=false;
+                for(int i=0;i<proxyLevel;i++){renderers[i].shadowCastingMode=ShadowCastingMode.Off;levels[i].Add(pr);}
+            }
             var lod=root.GetComponent<LODGroup>();if(lod==null)lod=root.AddComponent<LODGroup>();
-            lod.SetLODs(new[]{new LOD(.12f,new Renderer[]{renderers[0]}),new LOD(.04f,new Renderer[]{renderers[1]}),new LOD(.002f,new Renderer[]{renderers[2]})});lod.RecalculateBounds();
+            lod.SetLODs(new[]{new LOD(thresholds[0],levels[0].ToArray()),new LOD(thresholds[1],levels[1].ToArray()),new LOD(thresholds[2],levels[2].ToArray())});lod.RecalculateBounds();
         }
         static Renderer Overlay(string name,Transform parent,Material material,Mesh mesh)
         {var t=Group(name,parent);t.gameObject.AddComponent<MeshFilter>().sharedMesh=mesh;var r=t.gameObject.AddComponent<MeshRenderer>();r.sharedMaterial=material;r.shadowCastingMode=ShadowCastingMode.Off;r.receiveShadows=false;return r;}

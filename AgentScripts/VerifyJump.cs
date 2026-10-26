@@ -31,7 +31,7 @@ public static class VerifyJump
    tick(.12f);check(!g.RiderAirborne&&g.RiderJumpClip=="JumpTakeoff","Wheelie precedes takeoff");
    var hero=g.rider.GetComponent<BikeVisualAnimator>();hero.Advance(.01f);check(hero.CurrentClip=="JumpTakeoff","Blender takeoff action is sampled by the rider animator");
    float maximum=0;for(int i=0;i<80;i++){tick(.02f);maximum=Mathf.Max(maximum,g.RiderJumpHeight);}
-   check(maximum>4.7f&&maximum<5f,"Ballistic jump reaches raised fixed height above all truck roofs");
+   check(maximum>3.60f&&maximum<3.70f&&Mathf.Abs(maximum-g.RiderJumpApex)<.005f,"Starting-speed jump is 25 percent lower and matches its ballistic apex");
    check(!g.RiderAirborne&&g.RiderJumpHeight==0,"Unobstructed jump lands on road");
    check(g.State==PhoVietGame.RideState.Riding,"Safe landing does not collide");
    check(!g.TryJump(),"Two-second cooldown persists after landing");for(int i=0;i<40;i++)tick(.02f);

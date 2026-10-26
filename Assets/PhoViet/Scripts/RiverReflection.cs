@@ -14,7 +14,7 @@ namespace PhoViet
   [Range(.2f,1f)] public float resolution=.42f;
   public int maxSize=768;
   public float farClip=120f,clipOffset=.05f;
-  public int maxLod=0;          // ép LOD thô hơn trong ảnh phản chiếu (QualitySettings.maximumLODLevel)
+  public int maxLod=1;          // ép LOD thô hơn trong ảnh phản chiếu (QualitySettings.maximumLODLevel); ảnh đã nhòe nên LOD1 đủ (21.54)
   public const int ReflectLayer=8;   // "PV_RiverReflect"
   public bool allLayers;        // true: phản chiếu mọi thứ (chỉ để so sánh/đo)
   [Min(1)] public int interval=1;   // render ảnh phản chiếu mỗi N lần camera vẽ (giữ ảnh cũ ở các lần còn lại)
@@ -25,7 +25,7 @@ namespace PhoViet
   readonly Dictionary<RiverBlock,Renderer> water=new Dictionary<RiverBlock,Renderer>();
   static bool rendering;
   static readonly int TexId=Shader.PropertyToID("_RiverReflectionTex"),OnId=Shader.PropertyToID("_RiverReflectionOn"),ReflectingId=Shader.PropertyToID("_RiverReflecting");
-  void OnEnable(){view=GetComponent<Camera>();}
+  void OnEnable(){view=GetComponent<Camera>();RiverNoise.Ensure();}
   void OnDisable()
   {
    Shader.SetGlobalFloat(OnId,0);

@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "bike": "PV_HeroScooter",
+  "role": "Player",
+  "car": false,
+  "kickPose": true,
+  "skins": 3,
+  "materials": [
+    "PV_HeroScooter_BlueBlack_Atlas"
+  ],
+  "halfWidth": 0.33,
+  "halfLength": 0.91,
+  "lamps": 2,
+  "jobsLocked": true
+}

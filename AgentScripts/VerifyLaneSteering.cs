@@ -1,6 +1,7 @@
 using System;using System.Reflection;using System.Collections.Generic;using UnityEngine;using PhoViet;
 // Đổi làn kiểu đánh lái (24/10/2026): quỹ đạo chữ S êm, đầu xe quay theo hướng đi, nghiêng đúng phía,
-// hộp va chạm giữ hướng đường; chụp ảnh giữa lúc đổi làn để xem bằng mắt.
+// hộp va chạm giữ hướng đường; chụp ảnh giữa lúc đổi làn để xem bằng mắt. Từ 21.55: đường cong bậc 5 êm như cua giao lộ
+// (gia tốc ngang liên tục, độ giật nhỏ, đầu xe quay êm).
 public static class VerifyLaneSteering
 {
  const BindingFlags F=BindingFlags.Instance|BindingFlags.NonPublic;
@@ -22,8 +23,9 @@ public static class VerifyLaneSteering
     int from=dir>0?1:2;reset(from);set("timeRiding",(speed-17)/.12f/3f);tick(dt);
     string label=$"dt={dt:0.000},dir={dir},speed={speed}";float x0=g.rider.localPosition.x,target=PhoVietGame.LaneX[from+dir];
     g.MoveLane(dir);check(g.CurrentLane==from+dir,"A/D or swipe selects the adjacent lane: "+label);
-    float t=0,reached=-1,ninety=-1,peakYaw=0,peakAt=0,upright=-1,maxDrop=0,lastYaw=0,firstLean=0,lastX=x0,maxRootYaw=0;bool monotonic=true,overshoot=false;
-    for(int i=0;i<200&&t<1.5f;i++)
+    float t=0,reached=-1,ninety=-1,peakYaw=0,peakAt=0,upright=-1,maxDrop=0,lastYaw=0,firstLean=0,lastX=x0,maxRootYaw=0,bankAtCentre=0,bankRecovered=-1;bool monotonic=true,overshoot=false;
+    var xs=new List<float>{x0};var yaws=new List<float>{0};var rolls=new List<float>{0};
+    for(int i=0;i<200&&t<2.4f;i++)
     {
      tick(dt);t+=dt;float x=g.rider.localPosition.x;
      if((x-lastX)*dir<-1e-5f)monotonic=false;if((x-target)*dir>1e-4f)overshoot=true;lastX=x;
@@ -33,22 +35,39 @@ public static class VerifyLaneSteering
      if(ninety<0&&Mathf.Abs(x-x0)>=.9f*Mathf.Abs(target-x0))ninety=t;
      float roll=Mathf.DeltaAngle(0,g.rider.localEulerAngles.z);if(firstLean==0&&Mathf.Abs(roll)>.5f)firstLean=roll;
      maxRootYaw=Mathf.Max(maxRootYaw,Mathf.Abs(Mathf.DeltaAngle(0,g.rider.localEulerAngles.y)));
-     if(reached<0&&Mathf.Abs(x-target)<.01f)reached=t;
+     if(reached<0&&Mathf.Abs(x-target)<.01f){reached=t;bankAtCentre=Mathf.Abs(roll);}
+     if(reached>0&&bankRecovered<0&&Mathf.Abs(roll)<2)bankRecovered=t;
+     xs.Add(x);yaws.Add(yaw);rolls.Add(roll);
     }
-    check(ninety>0&&ninety<=.36f,"90% of the lane is crossed quickly enough for dodging (<=0.36 s): "+label+",t="+ninety);
-    check(reached>0&&reached<=1.2f,"Bike settles exactly on the lane centre (<=1.2 s): "+label+",t="+reached);
-    check(upright-peakAt>=.3f,"Nose straightens gradually while riding on, not snapping (>=0.3 s from peak to <2°): "+label+",t="+(upright-peakAt));
-    check(maxDrop<=125,"No abrupt straightening: steering returns at most 125°/s: "+label+",rate="+maxDrop);
+    check(ninety>=.50f&&ninety<=.65f,"Lane transfer is deliberately gradual: 90% takes 0.50–0.65 s: "+label+",t="+ninety);
+    check(reached>=.60f&&reached<=.80f,"Bike reaches lane centre gradually in 0.60–0.80 s: "+label+",t="+reached);
+    check(upright-peakAt>=.6f,"Steering recovery lasts at least 0.6 s after peak: "+label+",t="+(upright-peakAt));
+    check(maxDrop<=90,"No abrupt straightening: steering returns at most 90°/s: "+label+",rate="+maxDrop);
     check(monotonic&&!overshoot,"Smooth S-path moves only toward the new lane and never overshoots: "+label);
     check(peakYaw*dir>6&&Mathf.Abs(peakYaw)<=26.01f,"Bike nose turns toward the travel direction (6–26°): "+label+",yaw="+peakYaw);
     check(firstLean*dir<0,"Bike first leans into the turn (right = negative roll, same as junction turns): "+label+",lean="+firstLean);
     check(Mathf.Abs(g.RiderSteerYaw)<1.5f&&Mathf.Abs(Mathf.DeltaAngle(0,g.rider.localEulerAngles.z))<2f,"Bike straightens and stands up after the lane change: "+label+",yaw="+g.RiderSteerYaw+",roll="+Mathf.DeltaAngle(0,g.rider.localEulerAngles.z)+",x="+g.rider.localPosition.x+",t="+t);
     check(maxRootYaw<.01f,"Gameplay body keeps the road heading; steering yaw is visual only: "+label);
-    cases.Add(new{label,ninety,reached,peakYaw,peakAt,upright,maxDrop,firstLean});
+    check(bankAtCentre>3,"Bike keeps its bank as it arrives at the new lane rather than instantly standing up: "+label+",bank="+bankAtCentre);
+    check(bankRecovered-reached>=.55f,"Bank recovery continues gradually for at least 0.55 s after reaching the lane: "+label+",time="+(bankRecovered-reached));
+    // Độ êm (21.55): gia tốc ngang liên tục (độ giật nhỏ), đầu xe quay êm — đo bằng sai phân vị trí/góc theo từng khung.
+    float maxAcc=0,maxJerk=0,maxYawRate=0,maxYawAcc=0;
+    for(int k=3;k<xs.Count;k++)
+    {
+     float v1=(xs[k-2]-xs[k-3])/dt,v2=(xs[k-1]-xs[k-2])/dt,v3=(xs[k]-xs[k-1])/dt,a1=(v2-v1)/dt,a2=(v3-v2)/dt;
+     maxAcc=Mathf.Max(maxAcc,Mathf.Abs(a2));maxJerk=Mathf.Max(maxJerk,Mathf.Abs(a2-a1)/dt);
+     float r1=(yaws[k-1]-yaws[k-2])/dt,r2=(yaws[k]-yaws[k-1])/dt;maxYawRate=Mathf.Max(maxYawRate,Mathf.Abs(r2));maxYawAcc=Mathf.Max(maxYawAcc,Mathf.Abs(r2-r1)/dt);
+    }
+    if(dt<.02f)
+    {
+     check(maxAcc<=50&&maxJerk<=800,"Lateral acceleration and jerk stay bounded after slowing the lane transfer: "+label+",acc="+maxAcc.ToString("F0")+",jerk="+maxJerk.ToString("F0"));
+     check(maxYawRate<=90&&maxYawAcc<=800,"Gradual steering has bounded angular speed and acceleration: "+label+",rate="+maxYawRate.ToString("F0")+",acc="+maxYawAcc.ToString("F0"));
+    }
+    cases.Add(new{label,dt,ninety,reached,peakYaw,peakAt,upright,maxDrop,firstLean,bankAtCentre,bankRecovered,maxAcc,maxJerk,maxYawRate,maxYawAcc,xs,yaws,rolls});
    }
    // Phần hình thực sự quay theo hướng lái.
    reset(1);tick(1/60f);visual.Advance(0);var straight=Quaternion.Inverse(g.rider.rotation)*visual.visual.rotation;
-   g.MoveLane(1);for(int i=0;i<8;i++)tick(1/60f);visual.Advance(0);
+   g.MoveLane(1);for(int i=0;i<21;i++)tick(1/60f);visual.Advance(0);
    var turned=Quaternion.Inverse(g.rider.rotation)*visual.visual.rotation;var delta=(turned*Quaternion.Inverse(straight)).eulerAngles;
    check(g.RiderSteerYaw>6,"Steering is active mid lane change");
    check(Mathf.Abs(Mathf.DeltaAngle(delta.y,g.RiderSteerYaw))<.5f&&Mathf.Abs(Mathf.DeltaAngle(0,delta.x))<.5f&&Mathf.Abs(Mathf.DeltaAngle(0,delta.z))<.5f,"Rider and motorcycle model rotate about the vertical axis by exactly the steering yaw: "+delta+" vs "+g.RiderSteerYaw);
@@ -59,9 +78,9 @@ public static class VerifyLaneSteering
    for(int i=0;i<90;i++){tick(1/60f);float x=g.rider.localPosition.x;if(Mathf.Abs(x-px)>LaneStep())jump=true;px=x;if(Mathf.Abs(x-PhoVietGame.LaneX[1])<.01f&&back==0)back=i/60f;}
    check(!jump&&back>0,"Reversing mid change returns to the original lane without a position jump");
    // Chuỗi ảnh một lần sang phải: 0,10 / 0,25 / 0,45 / 0,65 / 0,90 s để xem lấy lại thăng bằng từ từ.
-   reset(1);tick(1/60f);g.MoveLane(1);float clock=0;int shot=0;float[] at={.1f,.25f,.45f,.65f,.9f};
-   for(int i=0;i<60&&shot<at.Length;i++){tick(1/60f);clock+=1/60f;if(clock>=at[shot]-1e-4f){visual.Advance(0);Capture(g,"lane-steering-seq-"+shot);shot++;}}
-   return new{success=true,count=checks.Count,checks,cases};
+   reset(1);tick(1/60f);g.MoveLane(1);float clock=0;int shot=0;float[] at={.2f,.4f,.7f,1f,1.3f,1.7f,2.2f};
+   for(int i=0;i<145&&shot<at.Length;i++){tick(1/60f);clock+=1/60f;if(clock>=at[shot]-1e-4f){visual.Advance(0);Capture(g,"lane-steering-seq-"+shot);shot++;}}
+   var result=new{success=true,count=checks.Count,checks,cases};System.IO.File.WriteAllText("Captures/lane-gradual-checks.json",Newtonsoft.Json.JsonConvert.SerializeObject(result,Newtonsoft.Json.Formatting.Indented));return result;
   }
   finally
   {
@@ -69,7 +88,7 @@ public static class VerifyLaneSteering
    PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.SetInt("PhoViet.Coins.v1",coins);PlayerPrefs.Save();g.ResetRide();
   }
  }
- static float LaneStep()=>15f/60f+.01f;
+ static float LaneStep()=>20f/60f+.01f;   // đỉnh vận tốc ngang ~16 m/s (đường cong bậc 5, 21.55)
  static void Capture(PhoVietGame g,string name)
  {
   var c=g.rideCamera;var rt=new RenderTexture(1280,720,24);var t=new Texture2D(1280,720,TextureFormat.RGB24,false);var old=c.targetTexture;var active=RenderTexture.active;

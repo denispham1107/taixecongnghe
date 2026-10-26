@@ -167,7 +167,7 @@ namespace PhoViet
             Panel(new Rect(x,y,w,h),Cream,18);
             Txt("CSGT ĐÃ ĐƯA BẠN VÀO TÙ",x+26,y+24,w-52,24,12,Red);
             Txt("ĐÃ BỊ BẮT",x+24,y+62,w-48,62,portrait?34:40,Ink);
-            Txt("Quãng đường  "+Mathf.Max(0,Mathf.FloorToInt(Distance))+" m\nĐạp xe  "+KickCount+"   ·   Dây chuyền  "+ChainCount,x+26,y+132,w-52,62,16,Teal);
+            Txt("Quãng đường  "+Mathf.Max(0,Mathf.FloorToInt(Distance))+" m\n"+(IsPlayerCar?"Húc xe  ":"Đạp xe  ")+KickCount+"   ·   Dây chuyền  "+ChainCount,x+26,y+132,w-52,62,16,Teal);
             if(Btn("CHƠI LẠI   →",new Rect(x+26,y+(portrait?203:230),w-52,54),Red,Cream,18))RestartRide();
             if(!portrait&&Btn("VỀ ĐẦU PHỐ",new Rect(x+26,y+300,w-52,32),Cream,Teal,13))ResetRide();
         }

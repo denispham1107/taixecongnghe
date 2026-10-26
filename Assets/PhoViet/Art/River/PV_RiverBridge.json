@@ -3,31 +3,27 @@
   "generator": "pho_viet_river_bridge.py",
   "reference": "ArtSource/Reference/River/river_bridge_reference.png",
   "lod_triangles": [
-    161418,
-    64188,
-    15014
+    52736,
+    13782,
+    3654
   ],
   "slots": [
     "PV_StreetAtlas",
     "PV_RiverMurk",
     "PV_RiverWater",
     "PV_RiverGroundMask",
-    "PV_StreetGlass",
-    "PV_RiverRoomLight",
     "PV_RiverAsphalt",
     "PV_RiverLineWhite",
     "PV_RiverLineYellow"
   ],
   "blender_slots": [
     "PV_StreetAtlas",
-    "PV_StreetGlass",
     "PV_RiverWater",
     "PV_RiverMurk",
     "PV_RiverGroundMask",
     "PV_RiverAsphalt",
     "PV_RiverLineWhite",
-    "PV_RiverLineYellow",
-    "PV_RiverRoomLight"
+    "PV_RiverLineYellow"
   ],
   "obstacles": [
     {

@@ -83,8 +83,13 @@ namespace PhoViet
         float spawnTimer, fallTime, timeRiding, lastX, lean, streak, noticeTimer;
         // Đổi làn kiểu đánh lái (24/10/2026): vận tốc ngang tăng/giảm êm theo chữ S, đầu xe quay theo
         // hướng di chuyển (chỉ phần hình, hộp va chạm giữ hướng đường) và nghiêng vào phía đang rẽ.
-        const float LaneSpeed=15,LaneAccel=150,LaneBrake=60,SteerReturn=4.5f,MaxSteerYaw=26,MaxSteerLean=24;
-        float laneVelocity,steerYaw;
+        // Đổi làn theo đường cong bậc 5 (25/10/2026, huongdan.md 21.55): vị trí, vận tốc và gia tốc ngang đều liên tục, gia tốc
+        // bằng 0 ở hai đầu như cua giao lộ (đường cong bậc 5, độ cong 0 ở chỗ nối). Thời gian một làn LaneTime, nhiều làn theo √quãng.
+        // Đầu xe theo tiếp tuyến đường đi (bão hòa mềm ±MaxSteerYaw), làm mượt bậc hai: bẻ vào SteerIn, trả lái chậm SteerOut.
+        const float LaneTime=.72f,SteerIn=.16f,SteerOut=.45f,LeanIn=.20f,LeanOut=.45f,LeanHold=.18f,MaxSteerYaw=26,MaxSteerLean=24;
+        float laneVelocity,steerYaw,laneAccel,steerYawSpeed,leanSpeed;
+        float leanHoldRemaining,heldLeanTarget;
+        readonly float[] laneCurve=new float[6];float laneCurveTime,laneClock,laneGoal;bool lanePlanned;
         public float RiderSteerYaw=>State==RideState.Riding&&!IsTurning?steerYaw:0;
         float nextIntersectionDistance;
         Vector2 swipeStart; bool dragging;
@@ -138,7 +143,7 @@ namespace PhoViet
             CancelSwipe();
             int seed;do{seed=Guid.NewGuid().GetHashCode()&int.MaxValue;}while(seed==RunSeed);
             RunSeed=seed;rng=new System.Random(seed);
-            State=RideState.Ready;Distance=0;Speed=0;CurrentLane=2;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;laneVelocity=0;steerYaw=0;noticeTimer=0;
+            State=RideState.Ready;Distance=0;Speed=0;CurrentLane=2;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;steerYaw=0;ClearLaneMotion();noticeTimer=0;
             nextIntersectionDistance=VietnamStreet.IntersectionCenter;ScheduledIntersections=0;
             ResetCityJobs();
             ResetRivers();
@@ -284,20 +289,50 @@ namespace PhoViet
             if(State==RideState.GameOver){TickRiverAftermath(Mathf.Min(Time.deltaTime,.05f));TickShells(Mathf.Min(Time.deltaTime,.05f));}
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
             if(State==RideState.Arrested)TickArrest(Time.deltaTime);
-            AnimateLights();PositionCamera(false);
+            UpdateRiverMurk();AnimateLights();PositionCamera(false);
             UpdateJobMarker();
             UpdateDangerSigns();
             if(engine!=null){engine.mute=!sound;engine.pitch=.85f+Speed/45f;}
             if(siren!=null)siren.mute=!sound;
         }
+        // Đường cong đổi làn bậc 5 từ (vị trí, vận tốc, gia tốc) hiện tại tới làn đích với vận tốc và gia tốc 0 (21.55).
+        // Lập lại khi đổi làn đích, hoặc khi vị trí bị dời khỏi đường cong (va chạm, đạp áp sát, quay về làn sau cua…).
+        float AdvanceLaneCurve(float baseX,float target,float dt)
+        {
+            if(lanePlanned&&(laneGoal!=target||Mathf.Abs(LaneCurveValue(Mathf.Min(1,laneClock/laneCurveTime),0)-baseX)>.02f))lanePlanned=false;
+            if(!lanePlanned)
+            {
+                float d=target-baseX;
+                if(Mathf.Abs(d)<1e-4f&&Mathf.Abs(laneVelocity)<1e-3f){laneVelocity=0;laneAccel=0;return target;}
+                float T=Mathf.Clamp(LaneTime*Mathf.Sqrt(Mathf.Max(Mathf.Abs(d),.3f)/3.1f),.32f,1.20f);
+                // Đang lao về phía đích thì rút ngắn để không vượt quá làn.
+                if(laneVelocity*d>0)T=Mathf.Max(.16f,Mathf.Min(T,1.6f*Mathf.Abs(d)/Mathf.Abs(laneVelocity)));
+                float c1=laneVelocity*T,c2=laneAccel*T*T*.5f,a=d-c1-c2,b=-c1-2*c2,c=-2*c2;
+                laneCurve[0]=baseX;laneCurve[1]=c1;laneCurve[2]=c2;laneCurve[3]=10*a-4*b+c*.5f;laneCurve[4]=-15*a+7*b-c;laneCurve[5]=6*a-3*b+c*.5f;
+                laneCurveTime=T;laneClock=0;laneGoal=target;lanePlanned=true;
+            }
+            laneClock+=dt;float u=Mathf.Min(1,laneClock/laneCurveTime);
+            float x=LaneCurveValue(u,0);laneVelocity=LaneCurveValue(u,1)/laneCurveTime;laneAccel=LaneCurveValue(u,2)/(laneCurveTime*laneCurveTime);
+            if(u>=1){lanePlanned=false;laneVelocity=0;laneAccel=0;return target;}
+            return x;
+        }
+        float LaneCurveValue(float u,int derivative)
+        {
+            var c=laneCurve;
+            if(derivative==0)return c[0]+u*(c[1]+u*(c[2]+u*(c[3]+u*(c[4]+u*c[5]))));
+            if(derivative==1)return c[1]+u*(2*c[2]+u*(3*c[3]+u*(4*c[4]+u*5*c[5])));
+            return 2*c[2]+u*(6*c[3]+u*(12*c[4]+u*20*c[5]));
+        }
+        void ClearLaneMotion(){laneVelocity=0;laneAccel=0;lanePlanned=false;steerYawSpeed=0;leanSpeed=0;leanHoldRemaining=heldLeanTarget=0;}
         void TickRide(float dt)
         {
             HideBuildingsOverRiver();
             // Short, bounded control steps keep the shoe and turning target in
             // contact at mobile frame rates without changing total game time.
-            if(KickAssistActive&&dt>.0101f)
+            float controlStep=IsPlayerCar?.005f:.01f;
+            if((KickAssistActive||IsPlayerCar&&IsTurning)&&dt>controlStep+.0001f)
             {
-                int steps=Mathf.CeilToInt(dt/.01f);float step=dt/steps;
+                int steps=Mathf.CeilToInt(dt/controlStep);float step=dt/steps;
                 for(int i=0;i<steps&&State==RideState.Riding;i++)TickRide(step);
                 return;
             }
@@ -305,7 +340,6 @@ namespace PhoViet
             AdvanceDaylight(dt);
             TickWorkMotion(dt);
             TickActionTimers(dt);
-            TickJump(dt);
             TickBoost(dt);
             if(!ServiceStopped)timeRiding+=dt;cruiseSpeed=Mathf.Min(17+DifficultyTime*.12f,30)+(IsChased?chaseBoost:0);
             Speed=cruiseSpeed;
@@ -314,30 +348,34 @@ namespace PhoViet
             Speed=WorkSpeedLimit(Speed);
             Speed=WorkSpeedLimit(AssistedKickSpeed(Speed,previousSpeed,dt));
             Speed=JobAcceptanceSpeedLimit(Speed);
+            // Sample the final road speed (including W and any service limit)
+            // at takeoff, before the existing +3 m/s airborne travel bonus.
+            bool wasFlying=jumpFlying;TickJump(dt);
+            if(!wasFlying&&jumpFlying)Speed=JobAcceptanceSpeedLimit(WorkSpeedLimit(Speed+3*(BoostActive?BoostMultiplier:1)));
             Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;
             oldRiderZ=rider.localPosition.z;
             oldRiderYaw=IsTurning?TurnYaw:0;
             float baseX=oldX-kickAppliedOffset.x;
             float x=baseX,target=LaneX[CurrentLane],gap=target-baseX;
-            if(ServiceStopped)laneVelocity=0;
-            else
-            {
-                // Băng qua làn nhanh (tăng tốc 150 m/s²) rồi hãm đều 60 m/s² khi gần làn đích để vào làn êm.
-                float desired=Mathf.Sign(gap)*Mathf.Min(LaneSpeed,Mathf.Sqrt(2*LaneBrake*Mathf.Abs(gap)));
-                float rate=Mathf.Abs(desired)<Mathf.Abs(laneVelocity)?LaneBrake:LaneAccel;
-                laneVelocity=Mathf.MoveTowards(laneVelocity,desired,rate*dt);x=baseX+laneVelocity*dt;
-                if(gap==0||(target-x)*gap<=0){x=target;laneVelocity=0;}
-            }
-            // Đầu xe chỉ theo hướng chuyển động; khi đang đạp áp sát giữ thẳng để giày khớp mẫu chạm đã đo.
-            float steerTarget=IsTurning||KickAssistActive?0:Mathf.Clamp(Mathf.Atan2(laneVelocity,Mathf.Max(Speed,8))*Mathf.Rad2Deg,-MaxSteerYaw,MaxSteerYaw);
-            // Bẻ lái vào nhanh, trả lái chậm: đầu xe thẳng lại và xe dựng lên từ từ (~0,5 s) trong khi vẫn chạy tới.
+            if(ServiceStopped){laneVelocity=0;laneAccel=0;lanePlanned=false;}
+            else x=AdvanceLaneCurve(baseX,target,dt);
+            // Đầu xe theo tiếp tuyến đường đi; khi đang đạp áp sát giữ thẳng để giày khớp mẫu chạm đã đo.
+            float rawSteer=IsTurning||KickAssistActive?0:Mathf.Atan2(laneVelocity,Mathf.Max(Speed,8))*Mathf.Rad2Deg;
+            float steerTarget=MaxSteerYaw*(float)Math.Tanh(rawSteer/MaxSteerYaw);
+            // Enter the new heading gently and take longer to return the steering.
             bool returning=Mathf.Abs(steerTarget)<Mathf.Abs(steerYaw)&&!IsTurning&&!KickAssistActive;
-            steerYaw=Mathf.Lerp(steerYaw,steerTarget,1-Mathf.Exp(-dt*(returning?SteerReturn:18)));
+            steerYaw=Mathf.SmoothDamp(steerYaw,steerTarget,ref steerYawSpeed,returning?SteerOut:SteerIn,Mathf.Infinity,dt);
             // Nghiêng theo hướng đầu xe: bẻ sang phải thì nghiêng phải, trả lái thì dựng lên từ từ cùng lúc.
             // Dương = nghiêng trái, cùng quy ước cua giao lộ.
-            float leanTarget=-Mathf.Clamp(steerYaw*.85f,-MaxSteerLean,MaxSteerLean);
-            lean=Mathf.Lerp(lean,leanTarget,1-Mathf.Exp(-dt*9));
+            float leanTarget=-Mathf.Clamp(steerYaw*(IsPlayerCar?.18f:.85f),IsPlayerCar?-5:-MaxSteerLean,IsPlayerCar?5:MaxSteerLean);
+            // Briefly keep the established bank, then recover with a slower
+            // second-order response. A new direction immediately cancels the hold.
+            if(!returning||IsTurning||KickAssistActive||ServiceStopped||leanTarget*heldLeanTarget<0)
+            {heldLeanTarget=leanTarget;leanHoldRemaining=LeanHold;}
+            else
+            {leanHoldRemaining=Mathf.Max(0,leanHoldRemaining-dt);if(leanHoldRemaining<=0)heldLeanTarget=leanTarget;}
+            lean=Mathf.SmoothDamp(lean,heldLeanTarget,ref leanSpeed,returning?LeanOut:LeanIn,Mathf.Infinity,dt);
             if(!IsTurning){rider.localPosition=new Vector3(x,jumpHeight,0);rider.localRotation=Quaternion.Euler(0,0,lean);}
             BeginOrContinueTurn(Speed*dt);
             {var p=rider.localPosition;p.y=jumpHeight;rider.localPosition=p;}
@@ -518,9 +556,9 @@ namespace PhoViet
             if(!portrait)
             {
                 float by=uiH-82;Panel(new Rect(48,by,754,43),WelcomeGlass,12);
-                Txt("← → / A D: ĐỔI LÀN     Q: ĐẠP     SPACE: NHẢY     W: TĂNG TỐC     P: TẠM DỪNG",64,by+13,724,23,11,Ink);
+                Txt("← → / A D: ĐỔI LÀN     Q: "+PlayerAction+"     SPACE: NHẢY     W: TĂNG TỐC     P: TẠM DỪNG",64,by+13,724,23,11,Ink);
             }
-            else {Panel(new Rect(18,uiH-54,uiW-36,30),WelcomeGlass,10);Txt("VUỐT: ĐỔI LÀN / NHẢY / TĂNG TỐC  ·  CHẠM 2 LẦN: ĐẠP",25,uiH-46,uiW-50,21,9,Ink,TextAnchor.MiddleCenter);}
+            else {Panel(new Rect(18,uiH-54,uiW-36,30),WelcomeGlass,10);Txt("VUỐT: ĐỔI LÀN / NHẢY / TĂNG TỐC  ·  CHẠM 2 LẦN: "+PlayerAction+"",25,uiH-46,uiW-50,21,9,Ink,TextAnchor.MiddleCenter);}
         }
         void Hud()
         {

@@ -28,8 +28,18 @@ namespace PhoViet
   {
    riverRng=new System.Random(RunSeed^0x5bd1e995);BridgeBlocksAssigned=0;StreetBlocksAssigned=0;
    VehiclesFellInRiver=0;BridgeMerges=0;RiderInRiver=false;riderRiverSplashed=false;riderRiverTime=0;
-   RestoreBuildingsOverRiver();
+   RestoreBuildingsOverRiver();RiverNoise.Ensure();UpdateRiverMurk();
   }
+  // Lớp nước đục chỉ vẽ khi có người chơi/xe dưới nước (21.54): lúc khác chúng nằm sau mặt nước đục ≥ 93%, không thấy.
+  static readonly int MurkOn=Shader.PropertyToID("_RiverMurkOn");
+  public bool RiverMurkVisible {get;private set;}
+  void UpdateRiverMurk()
+  {
+   bool on=RiderInRiver;
+   if(!on&&vehicles!=null)foreach(var v in vehicles)if(v.active&&v.riverFalling){on=true;break;}
+   if(on!=RiverMurkVisible||!murkSet){RiverMurkVisible=on;murkSet=true;Shader.SetGlobalFloat(MurkOn,on?1:0);}
+  }
+  bool murkSet;
   // Gọi ở đầu TickRide, cuối ScrollRoutes (cả khi té/rơi sông vẫn cuộn phố) và cuối PrepareBranches (21.52).
   // Sông dài 50,4 m (21.46) chạy suốt giữa hai giao lộ nên các tòa nhà của đường ngang (dãy đường nhánh, sâu tới
   // 25,8 m tính từ mặt tiền) đứng một phần trên lòng sông ở hai đầu cầu (21.47). Mỗi khung: tòa nhà nào của khối
@@ -213,14 +223,14 @@ namespace PhoViet
    riderFallVelocity=new Vector3(side*(1.6f+Mathf.Min(Mathf.Abs(laneVelocity),6)*.3f),1.5f,Speed*.45f);
    riderFallEuler=rider.localEulerAngles;riderFallEuler.x=Mathf.DeltaAngle(0,riderFallEuler.x);riderFallEuler.z=Mathf.DeltaAngle(0,riderFallEuler.z);
    riderFallSpin=new Vector3(55,side*20,-side*95);fallTargetRoll=-side*78;fallTargetPitch=40;
-   steerYaw=0;laneVelocity=0;ResetJump();CancelBoost();
+   steerYaw=0;ClearLaneMotion();ResetJump();CancelBoost();
    State=RideState.Falling;riderBody.knocked=true;EnterRiver();
    Speed=riderFallVelocity.z;engine?.Stop();navigationAudio?.Stop();kickTime=0;
    if(sound)fx?.PlayOneShot(crashClip,.45f);SaveRideRecord();
   }
   void EnterRiver()
   {
-   RiderInRiver=true;riderRiverSplashed=false;riderRiverTime=0;riderRippleTimer=0;riderBubbleTimer=0;
+   RiderInRiver=true;riderRiverSplashed=false;riderRiverTime=0;riderRippleTimer=0;riderBubbleTimer=0;UpdateRiverMurk();
    RiverZone(rider.localPosition,out _,out riderRiverTile);
    notice="RƠI XUỐNG SÔNG · CHUYẾN ĐI KẾT THÚC";noticeTimer=4;
   }
@@ -267,6 +277,7 @@ namespace PhoViet
   // Sau khi chuyến kết thúc: người/xe đang rơi hoặc đang chìm vẫn tiếp tục cho tới đáy (phố đứng yên).
   public void TickRiverAftermath(float dt)
   {
+   UpdateRiverMurk();
    if(dt<=0||State!=RideState.GameOver)return;
    Speed=0;
    if(RiderInRiver&&rider.localPosition.y>RiverBlock.BedY+.71f)SinkRider(dt,false);
@@ -290,7 +301,7 @@ namespace PhoViet
   {
    Vector3 velocity=dt>0?(v.model.localPosition-previous)/dt+Vector3.forward*Speed:v.motionVelocity;
    float side=Mathf.Sign(v.model.localPosition.x);
-   v.riverFalling=true;v.riverAge=0;v.riverSplashed=false;v.riverRipple=0;v.riverBubble=0;
+   v.riverFalling=true;v.riverAge=0;v.riverSplashed=false;v.riverRipple=0;v.riverBubble=0;UpdateRiverMurk();
    v.riverVelocity=new Vector3(Mathf.Clamp(velocity.x,-4,4)+side*.8f,Mathf.Max(velocity.y,.5f),velocity.z);
    RiverZone(v.model.localPosition,out _,out v.riverTile);
    v.riverSpin=new Vector3(Mathf.Clamp(velocity.z*2.2f,-40,40),0,-side*(v.halfWidth>.7f?38:90));
