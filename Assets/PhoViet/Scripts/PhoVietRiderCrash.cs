@@ -40,7 +40,7 @@ namespace PhoViet
    crashTurnRotation=Quaternion.Euler(0,IsTurning?TurnYaw:0,0);
    QueuedTurn=0;fallTime=0;settledTime=0;RiderFallTravel=0;
    // Hướng đầu xe lúc đánh lái trở thành hướng thật của cú ngã, không bật về thẳng.
-   rider.localRotation=Quaternion.Euler(0,steerYaw,0)*rider.localRotation;steerYaw=0;ClearLaneMotion();
+   if(!IsPlayerCar)rider.localRotation=Quaternion.Euler(0,steerYaw,0)*rider.localRotation;steerYaw=0;ClearLaneMotion();
    riderFallVelocity=before;riderFallEuler=rider.localEulerAngles;
    riderFallEuler.x=Mathf.DeltaAngle(0,riderFallEuler.x);riderFallEuler.z=Mathf.DeltaAngle(0,riderFallEuler.z);riderFallSpin=Vector3.zero;
    before.y=jumpVelocity;ResetJump();CancelBoost();
@@ -117,9 +117,10 @@ namespace PhoViet
     RiderFallTravel+=Flat(p-previous+Vector3.forward*scroll).magnitude;rider.localPosition=p;
    }
    TickTrafficMotion(dt);
+   TickDinosaurs(dt,false);
    ResolveFallenRiderContacts(previous);
    ResolveFallenScenery(previous);
-   TickChase(dt);RetireTraffic(false);
+   TickChase(dt);TickPoliceRiver(dt);RetireTraffic(false);
    if(State==RideState.Arrested)return;
    if(!IsTurning)EndRouteFrame(dt);
    if(rider.localPosition.y<=.001f&&riderFallVelocity.sqrMagnitude<.1f&&fallTime>.4f)

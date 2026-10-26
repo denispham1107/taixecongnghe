@@ -7,8 +7,8 @@ namespace PhoViet
   public float PlayerHalfWidth=>IsPlayerCar?rider.GetComponent<PlayerCarVisual>().size.x*.5f:.33f;
   public float PlayerHalfLength=>IsPlayerCar?rider.GetComponent<PlayerCarVisual>().size.z*.5f:.91f;
   public float PlayerHeight=>IsPlayerCar?rider.GetComponent<PlayerCarVisual>().size.y:2.15f;
-  float PlayerRearAxle=>IsPlayerCar?1.1643f:.73f;
-  float PlayerFrontAxle=>IsPlayerCar?1.2105f:.90f;
+  float PlayerRearAxle=>IsPlayerCar?rider.GetComponent<PlayerCarVisual>().rearAxle:.73f;
+  float PlayerFrontAxle=>IsPlayerCar?rider.GetComponent<PlayerCarVisual>().frontAxle:.90f;
   string PlayerAction=>IsPlayerCar?"HÚC":"ĐẠP";
   public string LastRamContact {get;private set;}="";
 

@@ -26,7 +26,7 @@ namespace PhoViet.Editor
             PlayerSettings.WebGL.initialMemorySize=128;
             PlayerSettings.WebGL.maximumMemorySize=512;
             PlayerSettings.runInBackground=false;
-            PlayerSettings.bundleVersion="1.39.0";
+            PlayerSettings.bundleVersion="1.40.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
@@ -77,6 +77,15 @@ namespace PhoViet.Editor
 
         static void FinalizeWebOutput(string root)
         {
+            // Git checks out text with LF. Canonicalize before hashing so the
+            // reconstructed Pages artifact has exactly the tested cache identity.
+            foreach(string path in Directory.GetFiles(root,"*",SearchOption.AllDirectories))
+            {
+                string extension=Path.GetExtension(path).ToLowerInvariant();
+                if(!new[]{".html",".css",".js",".json",".webmanifest",".svg",".txt"}.Contains(extension))continue;
+                string value=File.ReadAllText(path).Replace("\r\n","\n").Replace("\r","\n");
+                File.WriteAllText(path,value,new System.Text.UTF8Encoding(false));
+            }
             // Hash file contents, including the shell, so each release has an atomic offline cache.
             var files=Directory.GetFiles(root,"*",SearchOption.AllDirectories)
                 .Where(p=>!p.EndsWith(".meta")&&!p.EndsWith(".map")&&!p.EndsWith(".br"))

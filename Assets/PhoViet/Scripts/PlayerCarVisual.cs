@@ -7,6 +7,10 @@ namespace PhoViet
  {
   public Transform visual,body,exhaustMount;
   public Transform[] wheels,steering;
+  public Transform[] exhaustMounts,jumpMounts;
+  public float frontAxle=1.2105f,rearAxle=1.1643f;
+  public float WheelSteerAngle {get;private set;}
+  public float ModelScale=>visual!=null?Mathf.Max(.001f,Mathf.Abs(visual.localScale.x)):1;
   public Animation animationPlayer;
   public AnimationClip[] clips;
   public Vector3 size=new Vector3(1.889312f,1.949565f,3.8f);
@@ -37,19 +41,21 @@ namespace PhoViet
    if(moving&&game.RiderJumpActive)
    {
     float t=game.RiderJumpPose;
-    target=game.RiderJumpClip=="JumpTakeoff"?-10*Mathf.Sin(t*Mathf.PI*.5f):game.RiderAirborne?Mathf.Lerp(-8,9,t):game.RiderJumpClip=="LandFront"?7*(1-t):game.RiderJumpClip=="LandRear"?-7*(1-t):2*Mathf.Sin(t*Mathf.PI*2)*(1-t);
+    target=game.RiderJumpClip=="JumpTakeoff"?-3*Mathf.Sin(t*Mathf.PI*.5f):game.RiderAirborne?Mathf.Lerp(-3,4,t):game.RiderJumpClip=="LandFront"?3*(1-t):game.RiderJumpClip=="LandRear"?-3*(1-t):2*Mathf.Sin(t*Mathf.PI*2)*(1-t);
    }
    Pitch=Mathf.SmoothDamp(Pitch,target,ref pitchVelocity,.085f,Mathf.Infinity,dt);
-   visual.localPosition=Vector3.zero;visual.localRotation=Quaternion.Euler(Pitch,game.RiderSteerYaw,0);
+   visual.localPosition=Vector3.zero;visual.localRotation=Quaternion.Euler(Pitch,0,0);
    // Pitch about the road without driving an axle below its support surface.
-   if(moving)visual.localPosition=Vector3.up*Mathf.Max(0,Mathf.Sin(Mathf.Abs(Pitch)*Mathf.Deg2Rad)*1.21f);
+   if(moving)visual.localPosition=Vector3.up*Mathf.Max(0,Mathf.Sin(Mathf.Abs(Pitch)*Mathf.Deg2Rad)*Mathf.Max(frontAxle,rearAxle));
    if(moving)WheelAngle=Mathf.Repeat(WheelAngle+game.Speed/wheelRadius*Mathf.Rad2Deg*dt,360);
-   for(int i=0;i<wheels.Length;i++){steering[i].localRotation=Quaternion.Euler(0,i<2?Mathf.Clamp(game.RiderSteerYaw,-28,28):0,0);wheels[i].localRotation=Quaternion.Euler(WheelAngle,0,0);}
+   float delta=Mathf.Atan((frontAxle+rearAxle)*game.RiderLateralAcceleration/Mathf.Max(64,game.Speed*game.Speed))*Mathf.Rad2Deg;
+   WheelSteerAngle=Mathf.Lerp(WheelSteerAngle,Mathf.Clamp(delta,-24,24),1-Mathf.Exp(-dt*16));
+   for(int i=0;i<wheels.Length;i++){steering[i].localRotation=Quaternion.Euler(0,i<2?WheelSteerAngle:0,0);wheels[i].localRotation=Quaternion.Euler(WheelAngle,0,0);}
    if(game.RiderCrashActive&&!game.RiderInRiver)
    {
     float low=float.PositiveInfinity;
     for(int x=-1;x<=1;x+=2)for(int z=-1;z<=1;z+=2)for(int y=0;y<=1;y++)
-     low=Mathf.Min(low,visual.TransformPoint(new Vector3(x*size.x*.5f,y*size.y,z*size.z*.5f)).y);
+     low=Mathf.Min(low,visual.TransformPoint(new Vector3(x*size.x*.5f,y*size.y,z*size.z*.5f)/ModelScale).y);
     visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.01f-low);
    }
   }

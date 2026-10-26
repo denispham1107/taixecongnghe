@@ -1,0 +1,44 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CaptureDinosaur.cs",
+      "entry": "CaptureDinosaur.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [
+        {
+          "severity": "warning",
+          "message": "'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+          "line": 23,
+          "column": 181,
+          "id": "CS0618",
+          "source": "var copies=new System.Collections.Generic.List<GameObject>();var meshes=new System.Collections.Generic.List<Mesh>();var skins=UnityEngine.Object.FindObjectsByType<DinosaurVisual>(FindObjectsSortMode.None);"
+        },
+        {
+          "severity": "warning",
+          "message": "'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+          "line": 23,
+          "column": 128,
+          "id": "CS0618",
+          "source": "var copies=new System.Collections.Generic.List<GameObject>();var meshes=new System.Collections.Generic.List<Mesh>();var skins=UnityEngine.Object.FindObjectsByType<DinosaurVisual>(FindObjectsSortMode.None);"
+        }
+      ],
+      "compileMs": 209,
+      "executeMs": 706,
+      "assemblyName": "PipelineRunScript_CaptureDinosaur_560c46bc6abe4df4a2b3bbb356733f3f",
+      "success": true,
+      "result": "{ success = True, tail0 = (-0.35, 2.21, 17.21), tailTip = (-1.13, 0.71, 12.08), SweepAge = 1.18 }"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

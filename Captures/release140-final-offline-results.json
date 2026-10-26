@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "Final version/cache installs every runtime resource",
+    "Final shell loads offline",
+    "Final WASM starts with network disabled",
+    "Boost, four-jet jump and pause input accepted offline",
+    "No runtime errors with final cache"
+  ],
+  "errors": [],
+  "build": {
+    "version": "1.40.0",
+    "cache": "10d5883fe6b0325f",
+    "unity": "6000.5.6f1",
+    "utc": "2026-10-26T19:09:27.6271747Z"
+  },
+  "success": true
+}

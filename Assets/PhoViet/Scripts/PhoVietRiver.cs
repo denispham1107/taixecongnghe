@@ -28,6 +28,7 @@ namespace PhoViet
   {
    riverRng=new System.Random(RunSeed^0x5bd1e995);BridgeBlocksAssigned=0;StreetBlocksAssigned=0;
    VehiclesFellInRiver=0;BridgeMerges=0;RiderInRiver=false;riderRiverSplashed=false;riderRiverTime=0;
+   if(policeBody!=null){policeBody.riverFalling=false;policeBody.active=false;}
    RestoreBuildingsOverRiver();RiverNoise.Ensure();UpdateRiverMurk();
   }
   // Lớp nước đục chỉ vẽ khi có người chơi/xe dưới nước (21.54): lúc khác chúng nằm sau mặt nước đục ≥ 93%, không thấy.
@@ -35,7 +36,7 @@ namespace PhoViet
   public bool RiverMurkVisible {get;private set;}
   void UpdateRiverMurk()
   {
-   bool on=RiderInRiver;
+   bool on=RiderInRiver||PoliceInRiver;
    if(!on&&vehicles!=null)foreach(var v in vehicles)if(v.active&&v.riverFalling){on=true;break;}
    if(on!=RiverMurkVisible||!murkSet){RiverMurkVisible=on;murkSet=true;Shader.SetGlobalFloat(MurkOn,on?1:0);}
   }
@@ -161,11 +162,26 @@ namespace PhoViet
   bool RiverZone(Vector3 p,out Vector3 local,out Transform tile)
   {
    local=Vector3.zero;tile=null;
-   foreach(var b in blocks)
+   if(!riversEnabled)return false;
+   Vector3 world=transform.TransformPoint(p);
+   if(roadRows!=null&&roadRows.Count>0)
    {
-    var block=RiverOf(b);if(block==null||!block.IsBridge||!b.gameObject.activeInHierarchy)continue;
-    var l=b.InverseTransformPoint(transform.TransformPoint(p));
-    if(l.z>RiverBlock.Near&&l.z<RiverBlock.Far){local=l;tile=b;return true;}
+    foreach(var row in roadRows)if(RiverZoneInTiles(row.tiles,world,ref local,ref tile))return true;
+   }
+   else if(RiverZoneInTiles(blocks,world,ref local,ref tile))return true;
+   return tile!=null;
+  }
+  bool RiverZoneInTiles(List<Transform> tiles,Vector3 world,ref Vector3 local,ref Transform tile)
+  {
+   foreach(var b in tiles)
+   {
+    if(!b.gameObject.activeInHierarchy)continue;
+    var block=RiverOf(b);if(block==null||!block.IsBridge)continue;
+    var l=b.InverseTransformPoint(world);
+    if(l.z<=RiverBlock.Near||l.z>=RiverBlock.Far||Mathf.Abs(l.x)>RiverHalfWidth)continue;
+    // Prefer a real supporting deck if two visible street frames overlap.
+    if(Mathf.Abs(l.x)<=RiverBlock.DeckHalf){local=l;tile=b;return true;}
+    if(tile==null){local=l;tile=b;}
    }
    return false;
   }
@@ -218,7 +234,7 @@ namespace PhoViet
    CrashDuringPursuit=false;RiderFallComplete=false;CancelSwipe();CancelAssistedKick(false);ResetCrashPoliceNavigation();
    crashTurnRotation=Quaternion.identity;QueuedTurn=0;fallTime=0;settledTime=0;RiderFallTravel=0;
    float side=Mathf.Sign(rider.localPosition.x);
-   rider.localRotation=Quaternion.Euler(0,steerYaw,0)*rider.localRotation;
+   if(!IsPlayerCar)rider.localRotation=Quaternion.Euler(0,steerYaw,0)*rider.localRotation;
    // Lật qua lan can rồi rơi gần chân cầu (không lao xa giữa sông/qua bờ kè).
    riderFallVelocity=new Vector3(side*(1.6f+Mathf.Min(Mathf.Abs(laneVelocity),6)*.3f),1.5f,Speed*.45f);
    riderFallEuler=rider.localEulerAngles;riderFallEuler.x=Mathf.DeltaAngle(0,riderFallEuler.x);riderFallEuler.z=Mathf.DeltaAngle(0,riderFallEuler.z);
@@ -266,6 +282,7 @@ namespace PhoViet
    Speed=Mathf.Max(0,riderFallVelocity.z);float scroll=Speed*dt;Distance+=scroll;ScrollRoutes(scroll);
    SinkRider(dt,true);
    TickTrafficMotion(dt);RetireTraffic(false);
+   TickPoliceRiver(dt);
    if(!IsTurning)EndRouteFrame(dt);
    if(riderRiverSplashed)
    {
@@ -281,11 +298,21 @@ namespace PhoViet
    if(dt<=0||State!=RideState.GameOver)return;
    Speed=0;
    if(RiderInRiver&&rider.localPosition.y>RiverBlock.BedY+.71f)SinkRider(dt,false);
-   foreach(var v in vehicles)if(v.active&&v.riverFalling)
+   foreach(var v in vehicles)if(v.active)
    {
+    Vector3 previous=v.model.localPosition;
+    if(!v.riverFalling)
+    {
+     TryBeginVehicleRiverFall(v,previous,dt);
+     // Impact flight can leave the deck after the end card has appeared.
+     if(!v.riverFalling&&(v.knocked||v.physicalCrash)&&!v.wallCrashed)
+     {TickKnockedVehicle(v,dt);TryBeginVehicleRiverFall(v,previous,dt);}
+    }
+    if(!v.riverFalling)continue;
     TickVehicleRiverFall(v,dt,false);
     if(v.riverAge>9||v.model.localPosition.y<=RiverBlock.BedY+.41f&&v.riverAge>3){v.active=false;v.model.gameObject.SetActive(false);v.riverFalling=false;}
    }
+   TickPoliceRiver(dt,false);UpdateRiverMurk();
   }
   const float SinkSpeed=.75f;
   // Mép nước phía bờ gần (hệ game) của khúc sông người chơi rơi xuống, cộng 1 m: camera không lùi sau kè.
@@ -296,21 +323,29 @@ namespace PhoViet
   }
 
   // ------------------------------------------------------------ xe rơi xuống sông
-  bool RiverCandidate(TrafficVehicle v)=>v.active&&!v.riverFalling&&!v.crossing&&!v.routeDetached&&!v.roadTurning&&!v.wallCrashed&&v.recovery==null&&v.model.localPosition.y<.6f;
+  bool RiverCandidate(TrafficVehicle v)=>v.active&&!v.riverFalling&&(v.knocked||v.physicalCrash||v.recovery!=null||v.model.localPosition.y<.6f);
+  bool TryBeginVehicleRiverFall(TrafficVehicle v,Vector3 previous,float dt)
+  {if(!RiverCandidate(v)||!OverRiver(v.model.localPosition))return false;BeginVehicleRiverFall(v,previous,dt);return true;}
   void BeginVehicleRiverFall(TrafficVehicle v,Vector3 previous,float dt)
   {
-   Vector3 velocity=dt>0?(v.model.localPosition-previous)/dt+Vector3.forward*Speed:v.motionVelocity;
+   Vector3 velocity=v.knocked||v.physicalCrash?v.knockVelocity:v.motionVelocity.sqrMagnitude>.0001f?v.motionVelocity:dt>0?(v.model.localPosition-previous)/dt+Vector3.forward*Speed:BodyVelocity(v);
    float side=Mathf.Sign(v.model.localPosition.x);
    v.riverFalling=true;v.riverAge=0;v.riverSplashed=false;v.riverRipple=0;v.riverBubble=0;UpdateRiverMurk();
-   v.riverVelocity=new Vector3(Mathf.Clamp(velocity.x,-4,4)+side*.8f,Mathf.Max(velocity.y,.5f),velocity.z);
+   v.riverVelocity=new Vector3(Mathf.Clamp(velocity.x,-4,4)+side*.8f,velocity.y,velocity.z);
    RiverZone(v.model.localPosition,out _,out v.riverTile);
    v.riverSpin=new Vector3(Mathf.Clamp(velocity.z*2.2f,-40,40),0,-side*(v.halfWidth>.7f?38:90));
+   v.riverRestRotation=Quaternion.Euler(0,v.model.localEulerAngles.y,-side*(v.halfWidth>.7f?65:82));
+   if(!v.knocked)v.knockAge=0;v.knocked=true;v.wallCrashed=false;
+   if(v.crashEffect!=null)v.crashEffect.gameObject.SetActive(false);
+   if(v.fire!=null)v.fire.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);
+   if(v.smoke!=null)v.smoke.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);
+   v.recovery=null;v.crossing=false;v.routeDetached=false;v.roadTurning=false;v.turning=false;
    v.changingLane=false;v.brakeRemaining=0;if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(false);
    VehiclesFellInRiver++;
   }
   void TickVehicleRiverFall(TrafficVehicle v,float dt,bool scrolling=true)
   {
-   v.riverAge+=dt;var p=v.model.localPosition;
+   v.riverAge+=dt;v.knockAge+=dt;var p=v.model.localPosition;
    if(!v.riverSplashed)v.riverVelocity.y-=9.81f*dt;
    else
    {
@@ -328,8 +363,35 @@ namespace PhoViet
    if(p.y<RiverBlock.BedY+.4f){p.y=RiverBlock.BedY+.4f;v.riverVelocity=Vector3.zero;}
    if(KeepInRiver(v.riverTile,ref p,v.halfLength*.6f))v.riverVelocity.z=0;
    v.model.localPosition=p;
-   v.model.localRotation=Quaternion.Euler(v.riverSpin*dt*(v.riverSplashed?.2f:1))*v.model.localRotation;
+   v.model.localRotation=v.riverSplashed?Quaternion.RotateTowards(v.model.localRotation,v.riverRestRotation,dt*65):Quaternion.Euler(v.riverSpin*dt)*v.model.localRotation;
    if(v.riverSplashed)SinkingSurface(v.riverTile,p,ref v.riverRipple,ref v.riverBubble,dt,v.halfWidth>.7f?1.5f:1f);
+  }
+
+  public bool PoliceInRiver=>policeBody!=null&&policeBody.riverFalling;
+  public float PoliceRiverAge=>policeBody!=null?policeBody.riverAge:0;
+  bool CheckPoliceRiver(Vector3 previous,float dt)
+  {return policeBike!=null&&BeginPoliceRiver(dt>0?(policeBike.localPosition-previous)/dt+Vector3.forward*Speed:Vector3.zero);}
+  bool BeginPoliceRiver(Vector3 velocity)
+  {
+   if(PoliceInRiver)return true;
+   if(policeBike==null||!policeBike.gameObject.activeSelf||!OverRiver(policeBike.localPosition))return false;
+   if(policeBody==null)policeBody=new TrafficVehicle{model=policeBike,halfWidth=.5f,halfLength=1.2f};
+   policeBody.active=true;policeBody.knocked=false;policeBody.physicalCrash=false;
+   policeBody.motionVelocity=velocity;
+   BeginVehicleRiverFall(policeBody,policeBike.localPosition,0);
+   IsChased=false;routePolice=false;PoliceSpeed=0;PoliceFallRemaining=0;chaseBoost=0;
+   dinosaurPoliceVelocity=Vector3.zero;CrashDuringPursuit=false;ResetCrashPoliceNavigation();siren?.Stop();
+   notice=State==RideState.Falling?"CSGT RƠI SÔNG · CHUYẾN ĐI KẾT THÚC":"CSGT RƠI SÔNG · ĐÃ THOÁT TRUY ĐUỔI";noticeTimer=3;
+   return true;
+  }
+  void TickPoliceRiver(float dt,bool scrolling=true)
+  {
+   if(dt<=0||policeBike==null||!policeBike.gameObject.activeSelf)return;
+   if(!PoliceInRiver)CheckPoliceRiver(policeBody!=null?policeBody.previousPosition:policeBike.localPosition,dt);
+   if(!PoliceInRiver)return;
+   TickVehicleRiverFall(policeBody,dt,scrolling);
+   if(policeBody.riverAge>9||(policeBike.localPosition.y<=RiverBlock.BedY+.41f&&policeBody.riverAge>3))
+   {policeBike.gameObject.SetActive(false);policeBody.active=false;policeBody.riverFalling=false;UpdateRiverMurk();}
   }
 
   // ------------------------------------------------------------ hiệu ứng mặt nước

@@ -45,6 +45,7 @@ namespace PhoViet
             [NonSerialized] public bool riverFalling,riverSplashed;
             [NonSerialized] public float riverAge,riverRipple,riverBubble;
             [NonSerialized] public Vector3 riverVelocity,riverSpin;
+            [NonSerialized] public Quaternion riverRestRotation;
             [NonSerialized] public Transform riverTile;
             // Xe tăng bắn (21.38): đếm ngược tới phát bắn kế tiếp.
             [NonSerialized] public float tankFireTimer;
@@ -90,6 +91,8 @@ namespace PhoViet
         float laneVelocity,steerYaw,laneAccel,steerYawSpeed,leanSpeed;
         float leanHoldRemaining,heldLeanTarget;
         readonly float[] laneCurve=new float[6];float laneCurveTime,laneClock,laneGoal;bool lanePlanned;
+        public float RiderLateralAcceleration=>laneAccel;
+        public float RiderLateralVelocity=>laneVelocity;
         public float RiderSteerYaw=>State==RideState.Riding&&!IsTurning?steerYaw:0;
         float nextIntersectionDistance;
         Vector2 swipeStart; bool dragging;
@@ -155,6 +158,7 @@ namespace PhoViet
             ResetJump();
             ResetBoost();
             ResetTankBarrage();
+            ResetDinosaurs();
             if(rider!=null){rider.localPosition=new Vector3(LaneX[2],0,0);rider.localRotation=Quaternion.identity;}
             lastX=LaneX[2];
             for(int i=0;i<blocks.Count;i++)blocks[i].localPosition=new Vector3(0,0,(i-1)*VietnamStreet.Length);
@@ -299,20 +303,24 @@ namespace PhoViet
         // Lập lại khi đổi làn đích, hoặc khi vị trí bị dời khỏi đường cong (va chạm, đạp áp sát, quay về làn sau cua…).
         float AdvanceLaneCurve(float baseX,float target,float dt)
         {
+            // A car follows the same smooth lane path per metre travelled.
+            // Re-evaluate pace each frame so W also speeds up a turn in progress.
+            float pace=IsPlayerCar?Mathf.Max(Speed,1)/17f:1;
             if(lanePlanned&&(laneGoal!=target||Mathf.Abs(LaneCurveValue(Mathf.Min(1,laneClock/laneCurveTime),0)-baseX)>.02f))lanePlanned=false;
             if(!lanePlanned)
             {
                 float d=target-baseX;
                 if(Mathf.Abs(d)<1e-4f&&Mathf.Abs(laneVelocity)<1e-3f){laneVelocity=0;laneAccel=0;return target;}
-                float T=Mathf.Clamp(LaneTime*Mathf.Sqrt(Mathf.Max(Mathf.Abs(d),.3f)/3.1f),.32f,1.20f);
+                float duration=IsPlayerCar?1.35f:LaneTime;
+                float T=Mathf.Clamp(duration*Mathf.Sqrt(Mathf.Max(Mathf.Abs(d),.3f)/3.1f),IsPlayerCar?.60f:.32f,IsPlayerCar?2.6f:1.20f);
                 // Đang lao về phía đích thì rút ngắn để không vượt quá làn.
-                if(laneVelocity*d>0)T=Mathf.Max(.16f,Mathf.Min(T,1.6f*Mathf.Abs(d)/Mathf.Abs(laneVelocity)));
-                float c1=laneVelocity*T,c2=laneAccel*T*T*.5f,a=d-c1-c2,b=-c1-2*c2,c=-2*c2;
+                if(laneVelocity*d>0)T=Mathf.Max(.16f,Mathf.Min(T,1.6f*Mathf.Abs(d)*pace/Mathf.Abs(laneVelocity)));
+                float c1=laneVelocity*T/pace,c2=laneAccel*T*T*.5f/(pace*pace),a=d-c1-c2,b=-c1-2*c2,c=-2*c2;
                 laneCurve[0]=baseX;laneCurve[1]=c1;laneCurve[2]=c2;laneCurve[3]=10*a-4*b+c*.5f;laneCurve[4]=-15*a+7*b-c;laneCurve[5]=6*a-3*b+c*.5f;
                 laneCurveTime=T;laneClock=0;laneGoal=target;lanePlanned=true;
             }
-            laneClock+=dt;float u=Mathf.Min(1,laneClock/laneCurveTime);
-            float x=LaneCurveValue(u,0);laneVelocity=LaneCurveValue(u,1)/laneCurveTime;laneAccel=LaneCurveValue(u,2)/(laneCurveTime*laneCurveTime);
+            laneClock+=dt*pace;float u=Mathf.Min(1,laneClock/laneCurveTime);
+            float x=LaneCurveValue(u,0);laneVelocity=LaneCurveValue(u,1)*pace/laneCurveTime;laneAccel=LaneCurveValue(u,2)*pace*pace/(laneCurveTime*laneCurveTime);
             if(u>=1){lanePlanned=false;laneVelocity=0;laneAccel=0;return target;}
             return x;
         }
@@ -355,7 +363,7 @@ namespace PhoViet
             Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;
             oldRiderZ=rider.localPosition.z;
-            oldRiderYaw=IsTurning?TurnYaw:0;
+            oldRiderYaw=IsPlayerCar?rider.localEulerAngles.y:IsTurning?TurnYaw:0;
             float baseX=oldX-kickAppliedOffset.x;
             float x=baseX,target=LaneX[CurrentLane],gap=target-baseX;
             if(ServiceStopped){laneVelocity=0;laneAccel=0;lanePlanned=false;}
@@ -365,18 +373,18 @@ namespace PhoViet
             float steerTarget=MaxSteerYaw*(float)Math.Tanh(rawSteer/MaxSteerYaw);
             // Enter the new heading gently and take longer to return the steering.
             bool returning=Mathf.Abs(steerTarget)<Mathf.Abs(steerYaw)&&!IsTurning&&!KickAssistActive;
-            steerYaw=Mathf.SmoothDamp(steerYaw,steerTarget,ref steerYawSpeed,returning?SteerOut:SteerIn,Mathf.Infinity,dt);
+            steerYaw=Mathf.SmoothDamp(steerYaw,steerTarget,ref steerYawSpeed,IsPlayerCar?(returning?.13f:.08f):returning?SteerOut:SteerIn,Mathf.Infinity,dt);
             // Nghiêng theo hướng đầu xe: bẻ sang phải thì nghiêng phải, trả lái thì dựng lên từ từ cùng lúc.
             // Dương = nghiêng trái, cùng quy ước cua giao lộ.
-            float leanTarget=-Mathf.Clamp(steerYaw*(IsPlayerCar?.18f:.85f),IsPlayerCar?-5:-MaxSteerLean,IsPlayerCar?5:MaxSteerLean);
+            float leanTarget=IsPlayerCar?Mathf.Clamp(laneAccel*.18f,-2.5f,2.5f):-Mathf.Clamp(steerYaw*.85f,-MaxSteerLean,MaxSteerLean);
             // Briefly keep the established bank, then recover with a slower
             // second-order response. A new direction immediately cancels the hold.
-            if(!returning||IsTurning||KickAssistActive||ServiceStopped||leanTarget*heldLeanTarget<0)
+            if(IsPlayerCar||!returning||IsTurning||KickAssistActive||ServiceStopped||leanTarget*heldLeanTarget<0)
             {heldLeanTarget=leanTarget;leanHoldRemaining=LeanHold;}
             else
             {leanHoldRemaining=Mathf.Max(0,leanHoldRemaining-dt);if(leanHoldRemaining<=0)heldLeanTarget=leanTarget;}
-            lean=Mathf.SmoothDamp(lean,heldLeanTarget,ref leanSpeed,returning?LeanOut:LeanIn,Mathf.Infinity,dt);
-            if(!IsTurning){rider.localPosition=new Vector3(x,jumpHeight,0);rider.localRotation=Quaternion.Euler(0,0,lean);}
+            lean=Mathf.SmoothDamp(lean,heldLeanTarget,ref leanSpeed,IsPlayerCar?.22f:returning?LeanOut:LeanIn,Mathf.Infinity,dt);
+            if(!IsTurning){rider.localPosition=new Vector3(x,jumpHeight,0);rider.localRotation=Quaternion.Euler(0,IsPlayerCar?steerYaw:0,lean);}
             BeginOrContinueTurn(Speed*dt);
             {var p=rider.localPosition;p.y=jumpHeight;rider.localPosition=p;}
             TickAssistedKickMotion(dt,previousRider,previousRotation);x=rider.localPosition.x;
@@ -386,6 +394,7 @@ namespace PhoViet
             riderBody.previousPosition=new Vector3(oldX,jumpPreviousHeight,oldRiderZ);riderBody.previousYaw=oldRiderYaw;riderBody.knocked=false;
             TickTrafficMotion(dt);
             TickTankBarrage(dt);if(State!=RideState.Riding)return;
+            TickDinosaurs(dt);if(State!=RideState.Riding)return;
             ResolveJumpSurface(dt);
             TickRearRecklessWarning(dt);
             TickOrdinaryRearWarnings(dt);
@@ -395,7 +404,7 @@ namespace PhoViet
             x=rider.localPosition.x;lastX=x;
             if(CheckRiderRiver())return;
             RetireTraffic(true);
-            TickChase(dt);AnimateKick();
+            TickChase(dt);TickPoliceRiver(dt);AnimateKick();
             if(State!=RideState.Riding)return;
             EndRouteFrame(dt);
             if(IsTurning)return;
@@ -420,6 +429,7 @@ namespace PhoViet
                 v.previousPosition=previous;v.previousYaw=v.model.localEulerAngles.y;v.previousCrashWidth=BodyWidth(v);v.playerGrace=Mathf.Max(0,v.playerGrace-dt);
                 ScrollTrafficRecovery(v,Vector3.forward*Speed*dt);
                 if(v.riverFalling){TickVehicleRiverFall(v,dt);if(dt>0)v.motionVelocity=v.riverVelocity;continue;}
+                if(TryBeginVehicleRiverFall(v,previous,dt)){TickVehicleRiverFall(v,dt);v.motionVelocity=v.riverVelocity;continue;}
                 if(v.wallCrashed)TickWallWreck(v,dt);
                 else if(TickTrafficRecovery(v,dt)){}
                 else if(v.knocked)TickKnockedVehicle(v,dt);
@@ -439,10 +449,11 @@ namespace PhoViet
                 BrakeBeforeStoppedRider(v);
                 YieldRearForService(v);
                 if((v.isReckless||v.knocked)&&!v.wallCrashed&&!v.routeDetached)CheckBuildingImpact(v);
-                if(RiverCandidate(v)&&OverRiver(v.model.localPosition)){BeginVehicleRiverFall(v,previous,dt);if(dt>0)v.motionVelocity=v.riverVelocity;continue;}
+                if(TryBeginVehicleRiverFall(v,previous,dt)){v.motionVelocity=v.riverVelocity;continue;}
                 if(dt>0)v.motionVelocity=v.wallCrashed?Vector3.zero:v.knocked?v.knockVelocity:(v.model.localPosition-previous)/dt+Vector3.forward*Speed;
             }
             ResolveVehicleCollisions();
+            foreach(var v in vehicles)TryBeginVehicleRiverFall(v,v.previousPosition,dt);
             if(ServiceStopped)foreach(var vehicle in vehicles)BrakeBeforeStoppedRider(vehicle);
             if(ServiceRearProtected)foreach(var vehicle in vehicles)YieldRearForService(vehicle);
         }

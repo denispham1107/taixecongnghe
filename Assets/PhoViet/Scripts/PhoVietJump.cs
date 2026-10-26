@@ -31,7 +31,7 @@ namespace PhoViet
    customer.localRotation=balance;
   }
   void ResetJump()
-  {jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=roofContactHeight=0;jumpLaunchVelocity=JumpLaunch;RiderJumpTakeoffSpeed=0;jumpFlying=false;roofVehicle=previousRoofVehicle=roofContactVehicle=null;landingClip="LandBoth";}
+  {if(rider!=null)rider.GetComponent<CarJumpJetVisual>()?.Clear();jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=roofContactHeight=0;jumpLaunchVelocity=JumpLaunch;RiderJumpTakeoffSpeed=0;jumpFlying=false;roofVehicle=previousRoofVehicle=roofContactVehicle=null;landingClip="LandBoth";}
   public bool TryJump()
   {
    if(State!=RideState.Riding||ServiceStopped||jumpFlying||jumpWindup>0||jumpCooldown>0||jumpLanding>0)return false;

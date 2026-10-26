@@ -1,0 +1,45 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/InstallDinosaur.cs",
+      "entry": "InstallDinosaur.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2879,
+      "executeMs": 3473,
+      "assemblyName": "PipelineRunScript_InstallDinosaur_123438bc5dd844da8bcf81a8320c10f2",
+      "success": true,
+      "result": {
+        "success": true,
+        "clips": [
+          {
+            "name": "PV_EmeraldRig|TailSweep",
+            "length": 2.80000019,
+            "legacy": true
+          },
+          {
+            "name": "PV_EmeraldRig|Walk",
+            "length": 1.4000001,
+            "legacy": true
+          }
+        ],
+        "width": 4.65,
+        "height": 6.0811,
+        "speed": 4,
+        "jobs": false
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

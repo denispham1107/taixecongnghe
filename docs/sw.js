@@ -1,6 +1,6 @@
 'use strict';
 const PREFIX='phoviet:'+self.registration.scope+':';
-const CACHE=PREFIX+'770899e40e23f8e2';
+const CACHE=PREFIX+'10d5883fe6b0325f';
 const ROOT=new URL('./',self.location.href);
 self.addEventListener('install',event=>{
   // Install only succeeds when the entire build is cached. Keep old versions alive until all old tabs close.

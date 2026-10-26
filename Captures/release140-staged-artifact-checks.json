@@ -1,0 +1,6 @@
+{
+  "success": true,
+  "checks": 27,
+  "cache": "10d5883fe6b0325f",
+  "note": "Every staged site resource/part matches tested output byte for byte"
+}

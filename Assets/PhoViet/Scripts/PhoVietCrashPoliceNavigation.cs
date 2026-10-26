@@ -15,7 +15,11 @@ namespace PhoViet
   {
    // A crash can freeze the rider halfway round a junction. Both arms remain
    // driveable in that coordinate frame; buildings beyond those arms do not.
-   return Mathf.Abs(p.x)<=8.4f||(IsTurning&&Mathf.Abs(p.z-NextJunctionDistance)<=8.4f);
+   float junction=Mathf.Abs(Mathf.Repeat(RoadProgress+p.z-VietnamStreet.IntersectionCenter+40,VietnamStreet.Length)-40);
+   // A strong tail/traffic impulse can throw a rider into the cross street even
+   // when no turn was selected. That street is still real drivable asphalt.
+   bool crossStreet=Mathf.Abs(p.x)<=40&&junction<=6;
+   return Mathf.Abs(p.x)<=8.4f||crossStreet||(IsTurning&&Mathf.Abs(p.z-NextJunctionDistance)<=8.4f);
   }
   bool CrashPoliceSegmentClear(Vector3 from,Vector3 to,float dt)
   {
@@ -56,7 +60,8 @@ namespace PhoViet
    crashPolicePath.Clear();crashPoliceWaypoint=0;
    const float cell=1.2f;
    float minX=Mathf.Min(start.x,goal.x)-10,maxX=Mathf.Max(start.x,goal.x)+10;
-   if(!IsTurning){minX=Mathf.Max(-8.4f,minX);maxX=Mathf.Min(8.4f,maxX);}
+   bool crossApproach=(Mathf.Abs(goal.x)>8.4f&&CrashPoliceRoad(goal))||(Mathf.Abs(start.x)>8.4f&&CrashPoliceRoad(start));
+   if(!IsTurning&&!crossApproach){minX=Mathf.Max(-8.4f,minX);maxX=Mathf.Min(8.4f,maxX);}
    int left=Mathf.FloorToInt((minX-start.x)/cell),right=Mathf.CeilToInt((maxX-start.x)/cell);
    int bottom=Mathf.FloorToInt((Mathf.Min(start.z,goal.z)-14-start.z)/cell),top=Mathf.CeilToInt((Mathf.Max(start.z,goal.z)+14-start.z)/cell);
    int width=right-left+1,height=top-bottom+1,count=width*height;

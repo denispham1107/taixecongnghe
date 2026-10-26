@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "count": 634,
+  "suites": [
+    {
+      "suite": "VerifySupercarScalePace",
+      "success": true,
+      "count": 182,
+      "failures": []
+    },
+    {
+      "suite": "VerifySupercarMotionFx",
+      "success": true,
+      "count": 90,
+      "failures": []
+    },
+    {
+      "suite": "VerifySupercarPlayer",
+      "success": true,
+      "count": 76,
+      "failures": []
+    },
+    {
+      "suite": "VerifySupercarTurns",
+      "success": true,
+      "count": 32,
+      "failures": []
+    },
+    {
+      "suite": "VerifyMeshyCarRoofs",
+      "success": true,
+      "count": 254,
+      "failures": []
+    }
+  ],
+  "build": false,
+  "published": false
+}

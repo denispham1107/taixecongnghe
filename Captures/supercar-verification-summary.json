@@ -1,0 +1,56 @@
+{
+  "success": true,
+  "count": 1602,
+  "suites": [
+    {
+      "suite": "VerifySupercarMotionFx",
+      "success": true,
+      "count": 90,
+      "failures": []
+    },
+    {
+      "suite": "VerifySupercarPlayer",
+      "success": true,
+      "count": 76,
+      "failures": []
+    },
+    {
+      "suite": "VerifySupercarTurns",
+      "success": true,
+      "count": 32,
+      "failures": []
+    },
+    {
+      "suite": "VerifyBoostTrafficIsolation",
+      "success": true,
+      "count": 478,
+      "failures": []
+    },
+    {
+      "suite": "VerifyMeshyCarRoofs",
+      "success": true,
+      "count": 254,
+      "failures": []
+    },
+    {
+      "suite": "VerifyRiverCrashSinking",
+      "success": true,
+      "count": 446,
+      "failures": []
+    },
+    {
+      "suite": "VerifyDinosaurs",
+      "success": true,
+      "count": 69,
+      "failures": []
+    },
+    {
+      "suite": "VerifySpeedJump",
+      "success": true,
+      "count": 157,
+      "failures": []
+    }
+  ],
+  "build": false,
+  "published": false
+}

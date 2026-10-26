@@ -2,7 +2,7 @@ name: Deploy Phố Việt WebGL
 on:
   push:
     branches: [main]
-    paths: ['docs/**', '.github/workflows/pages.yml']
+    paths: ['docs/**', '.github/workflows/pages.yml', 'AgentScripts/PublishWebArtifact.py']
   workflow_dispatch:
 permissions:
   contents: read
@@ -20,17 +20,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Restore exact Unity data from verified Git-sized parts
+        run: python3 AgentScripts/PublishWebArtifact.py materialize --source docs --output _site
       - name: Validate the built game
         run: |
-          test -s docs/index.html
-          test -s docs/build-info.json
-          test -s docs/manifest.webmanifest
-          test -s docs/precache.json
-          test -s docs/sw.js
-          test -n "$(find docs/Build -name '*.wasm*' -print -quit)"
+          test -s _site/index.html
+          test -s _site/build-info.json
+          test -s _site/manifest.webmanifest
+          test -s _site/precache.json
+          test -s _site/sw.js
+          test -n "$(find _site/Build -name '*.wasm*' -print -quit)"
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: docs
+          path: _site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

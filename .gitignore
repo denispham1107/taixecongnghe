@@ -37,3 +37,6 @@ __pycache__/
 /Captures/browser-*.png
 /Captures/build-status*.json
 /.tools/
+/_site/
+# Runtime Unity data is reconstructed from SHA-verified Git-sized parts for Pages.
+/docs/Build/*.data.unityweb

@@ -1,0 +1,42 @@
+{
+  "success": false,
+  "count": 6,
+  "failures": [
+    "PV_MeshySport/recovery/dt=0.01666667 enters river while still airborne and carrying recovery/course flags",
+    "PV_MeshySport/recovery/dt=0.01666667 cancels land recovery instead of standing on water after three seconds",
+    "PV_MeshySport/aftermath/dt=0.01666667 enters river while still airborne and carrying recovery/course flags",
+    "PV_MeshySport/aftermath/dt=0.01666667 cancels land recovery instead of standing on water after three seconds",
+    "PV_MeshySport/aftermath/dt=0.01666667 splashes and sinks deep under the water",
+    "PV_MeshySport/aftermath/dt=0.01666667 river entry is counted once"
+  ],
+  "checks": [
+    "PV_MeshySport/recovery/dt=0.01666667 reproduces a real collision with recovery, not a manually-set knocked flag",
+    "PV_MeshySport/recovery/dt=0.01666667 splashes and sinks deep under the water",
+    "PV_MeshySport/recovery/dt=0.01666667 never snaps back to road height while sinking",
+    "PV_MeshySport/recovery/dt=0.01666667 river entry is counted once",
+    "PV_MeshySport/aftermath/dt=0.01666667 reproduces a real collision with recovery, not a manually-set knocked flag",
+    "PV_MeshySport/aftermath/dt=0.01666667 never snaps back to road height while sinking"
+  ],
+  "cases": [
+    {
+      "kind": "PV_MeshySport",
+      "mode": "recovery",
+      "dt": 0.0166666675,
+      "lowest": -9.1,
+      "splash": true,
+      "rose": false,
+      "active": true,
+      "y": -9.1
+    },
+    {
+      "kind": "PV_MeshySport",
+      "mode": "aftermath",
+      "dt": 0.0166666675,
+      "lowest": 2.0,
+      "splash": false,
+      "rose": false,
+      "active": true,
+      "y": 2.0
+    }
+  ]
+}

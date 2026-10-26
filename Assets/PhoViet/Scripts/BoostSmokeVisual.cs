@@ -10,26 +10,36 @@ namespace PhoViet
   PhoVietGame game;
   Transform nozzle;
   ParticleSystem jet,smoke;
+  readonly List<Transform> nozzles=new List<Transform>();
+  readonly List<ParticleSystem> systems=new List<ParticleSystem>();
+  public int NozzleCount=>nozzles.Count;
   Material material;
   bool emitting;
   public bool Emitting=>emitting;
-  public int ParticleCount=>(jet!=null?jet.particleCount:0)+(smoke!=null?smoke.particleCount:0);
+  public int ParticleCount {get {int n=0;foreach(var p in systems)if(p!=null)n+=p.particleCount;return n;}}
   public void Initialize(PhoVietGame owner)
   {
    if(nozzle!=null)return;game=owner;
    var sprite=Resources.Load<Texture2D>("Boost/PV_WhiteBoostSmoke");
    if(sprite==null){Debug.LogError("Missing Blender boost smoke flipbook");return;}
-   var visual=GetComponent<BikeVisualAnimator>();
-   nozzle=new GameObject("Khói trắng phản lực • Blender").transform;
-   Transform socket=null;
-   var car=GetComponent<PlayerCarVisual>();if(car!=null)socket=car.exhaustMount;
-   if(visual!=null&&visual.visual!=null)
-    foreach(var t in visual.visual.GetComponentsInChildren<Transform>(true))if(t.name=="PV_MeshyExhaust"){socket=t;break;}
-   nozzle.SetParent(socket!=null?socket:visual!=null?visual.visual:transform,false);
-   nozzle.localPosition=socket!=null?Vector3.zero:new Vector3(.214f,.45f,-1.02f); // Retain Wave fallback for older scenes.
+   var visual=GetComponent<BikeVisualAnimator>();var car=GetComponent<PlayerCarVisual>();
+   var sockets=new List<Transform>();
+   if(car!=null&&car.exhaustMounts!=null)foreach(var t in car.exhaustMounts)if(t!=null)sockets.Add(t);
+   if(sockets.Count==0&&car!=null&&car.exhaustMount!=null)sockets.Add(car.exhaustMount);
+   if(sockets.Count==0&&visual!=null&&visual.visual!=null)
+    foreach(var t in visual.visual.GetComponentsInChildren<Transform>(true))if(t.name=="PV_MeshyExhaust"){sockets.Add(t);break;}
+   if(sockets.Count==0)sockets.Add(null);
    material=new Material(Shader.Find("PhoViet/Soft Particle")){name="PV_WhiteBoostSmoke",mainTexture=sprite};
-   jet=Create("Luồng phụt trắng",true);smoke=Create("Khói trắng tản",false);
+   foreach(var socket in sockets)
+   {
+    nozzle=new GameObject("Khói trắng phản lực • Blender").transform;
+    nozzle.SetParent(socket!=null?socket:visual!=null?visual.visual:transform,false);
+    nozzle.localPosition=socket!=null?Vector3.zero:new Vector3(.214f,.45f,-1.02f);
+    nozzles.Add(nozzle);systems.Add(Create("Luồng phụt trắng",true));systems.Add(Create("Khói trắng tản",false));
+   }
+   nozzle=nozzles[0];jet=systems[0];smoke=systems[1];
   }
+
   ParticleSystem Create(string name,bool core)
   {
    var root=new GameObject(name);root.transform.SetParent(nozzle,false);root.transform.localRotation=Quaternion.Euler(0,180,0);
@@ -57,20 +67,20 @@ namespace PhoViet
   {
    if(game==null||jet==null)return;
    if(game.State==PhoVietGame.RideState.Paused)
-   {if(jet.isPlaying)jet.Pause();if(smoke.isPlaying)smoke.Pause();return;}
+   {foreach(var p in systems)if(p.isPlaying)p.Pause();return;}
    bool on=game.BoostActive&&game.State==PhoVietGame.RideState.Riding&&!game.ServiceStopped;
    if(on)
-   {if(!jet.isPlaying)jet.Play();if(!smoke.isPlaying)smoke.Play();emitting=true;}
+   {foreach(var p in systems)if(!p.isPlaying)p.Play();emitting=true;}
    else if(emitting)
-   {jet.Stop(true,ParticleSystemStopBehavior.StopEmitting);smoke.Stop(true,ParticleSystemStopBehavior.StopEmitting);emitting=false;}
+   {foreach(var p in systems)p.Stop(true,ParticleSystemStopBehavior.StopEmitting);emitting=false;}
    else if(game.State!=PhoVietGame.RideState.Riding)Clear();
   }
   public void Clear()
-  {emitting=false;if(jet!=null)jet.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);if(smoke!=null)smoke.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);}
+  {emitting=false;foreach(var p in systems)if(p!=null)p.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);}
   // Existing particles belong to the old street frame; clear only the trail at a rebase.
   public void Rebase(){Clear();}
   public void Simulate(float dt)
-  {Advance();if(jet!=null&&game.State!=PhoVietGame.RideState.Paused){jet.Simulate(dt,false,false);smoke.Simulate(dt,false,false);}}
-  void OnDestroy(){if(material!=null)Destroy(material);if(nozzle!=null)Destroy(nozzle.gameObject);}
+  {Advance();if(jet!=null&&game.State!=PhoVietGame.RideState.Paused)foreach(var p in systems)p.Simulate(dt,false,false);}
+  void OnDestroy(){if(material!=null)Destroy(material);foreach(var t in nozzles)if(t!=null)Destroy(t.gameObject);}
  }
 }

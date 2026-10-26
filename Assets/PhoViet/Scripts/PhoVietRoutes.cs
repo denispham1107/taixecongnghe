@@ -108,6 +108,7 @@ namespace PhoViet
         {
             if(RoutesReady)foreach(var row in roadRows)if(row!=roadRows[mainRow]&&row.root.gameObject.activeSelf)row.root.localPosition-=Vector3.forward*delta;
             ScrollTankFire(delta);
+            ScrollDinosaurs(delta);
             foreach(var b in blocks){b.localPosition-=Vector3.forward*delta;if(b.localPosition.z<-160){b.localPosition+=Vector3.forward*80*blocks.Count;AssignRecycledRiverBlock(b);}}
             for(int i=0;i<routeTrail.Count;i++){var p=routeTrail[i];p.point-=Vector3.forward*delta;routeTrail[i]=p;}
             // Phố còn cuộn khi té/rơi sông (TickRiderCrash, SinkRider): ẩn lại nhà đường ngang đứng trên sông theo vị trí mới (21.52).
@@ -206,9 +207,11 @@ namespace PhoViet
         void FinishJunctionTurn()
         {
             if(boostSmoke!=null)boostSmoke.Rebase();
+            rider.GetComponent<CarJumpJetVisual>()?.Clear();
             Quaternion exit=Quaternion.Euler(0,turnSide*90,0),inverse=Quaternion.Inverse(exit);
             Vector3 origin=rider.localPosition-kickAppliedOffset-exit*new Vector3(LaneX[CurrentLane],0,0);origin.y=0;
             RebaseAssistedKick(inverse,origin);
+            RebaseDinosaurs(inverse,origin);
             foreach(var row in roadRows)
             {
                 if(row==roadRows[mainRow])
@@ -224,12 +227,14 @@ namespace PhoViet
                 v.model.localPosition=inverse*(v.model.localPosition-origin);v.model.localRotation=inverse*v.model.localRotation;
                 v.previousPosition=inverse*(v.previousPosition-origin);v.previousYaw-=turnSide*90;v.initialYaw-=turnSide*90;
                 v.knockVelocity=inverse*v.knockVelocity;v.motionVelocity=inverse*v.motionVelocity;v.crashEuler.y-=turnSide*90;
+                if(v.riverFalling){v.riverVelocity=inverse*v.riverVelocity;v.riverSpin=inverse*v.riverSpin;v.riverRestRotation=inverse*v.riverRestRotation;}
                 RebaseTrafficRecovery(v,inverse,origin);
                 v.roadTurnStart=inverse*(v.roadTurnStart-origin);v.roadTurnForward=inverse*v.roadTurnForward;v.roadTurnSide=inverse*v.roadTurnSide;
                 v.routeDetached=true;v.routeVelocity=v.motionVelocity;
                 if(v.crashEffect!=null){v.crashEffect.localPosition=inverse*(v.crashEffect.localPosition-origin);v.crashEffect.localRotation=inverse*v.crashEffect.localRotation;v.routeEffectOffset=v.crashEffect.localPosition-v.model.localPosition;}
             }
             if(policeBike!=null){policeBike.localPosition=inverse*(policeBike.localPosition-origin);policeBike.localRotation=inverse*policeBike.localRotation;}
+            if(PoliceInRiver){policeBody.previousPosition=inverse*(policeBody.previousPosition-origin);policeBody.riverVelocity=inverse*policeBody.riverVelocity;policeBody.riverSpin=inverse*policeBody.riverSpin;policeBody.riverRestRotation=inverse*policeBody.riverRestRotation;}
             policeFallYaw-=turnSide*90;
             rideCamera.transform.localPosition=inverse*(rideCamera.transform.localPosition-origin);rideCamera.transform.localRotation=inverse*rideCamera.transform.localRotation;
             for(int i=0;i<routeTrail.Count;i++){var p=routeTrail[i];p.point=inverse*(p.point-origin);p.yaw-=turnSide*90;routeTrail[i]=p;}

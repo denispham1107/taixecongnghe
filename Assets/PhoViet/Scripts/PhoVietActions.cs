@@ -105,6 +105,7 @@ namespace PhoViet
         void StartChase()
         {
             if(IsChased)return;
+            if(PoliceInRiver)ResetPoliceDriving();
             IsChased=true;PoliceDistance=38;PoliceSpeed=TrafficPaceSpeed+15;policeArrived=false;chaseBoost=.5f;
             if(policeBike!=null){policeBike.gameObject.SetActive(true);policeBike.localPosition=new Vector3(rider.localPosition.x-1,0,-PoliceDistance);}
             if(IsTurning){routePolice=true;policeRouteAt=Distance-PoliceDistance;policeBike.localPosition=SampleRoute(policeRouteAt).point;}
@@ -138,7 +139,7 @@ namespace PhoViet
             }
             if(arrestTime>=1.1f)
             {
-                State=RideState.Jailed;scenery.gameObject.SetActive(false);rider.gameObject.SetActive(false);
+                State=RideState.Jailed;HideDinosaurs();scenery.gameObject.SetActive(false);rider.gameObject.SetActive(false);
                 foreach(var v in vehicles){v.model.gameObject.SetActive(false);if(v.crashEffect!=null)v.crashEffect.gameObject.SetActive(false);}
                 if(policeBike!=null)policeBike.gameObject.SetActive(false);
                 if(jailRoom!=null)jailRoom.gameObject.SetActive(true);

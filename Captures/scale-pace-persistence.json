@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "scale": 0.85,
+  "size": "(1.760576, 0.914984, 3.740000)",
+  "front": 1.0200001,
+  "rear": 1.1220001,
+  "radius": 0.26775,
+  "playing": false,
+  "dirty": false,
+  "jobs": false,
+  "released": false,
+  "npc": 28,
+  "police": true,
+  "rivers": true,
+  "dinosaurs": true
+}

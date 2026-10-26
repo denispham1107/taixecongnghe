@@ -4,9 +4,17 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.39.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.40.0**.
 
-## Đổi làn từ từ, nhảy theo tốc độ, xe xanh–đen — 1.39.0
+## Xe đua Blue Supercar, khủng long và xe chìm sông — 1.40.0
+
+- Người chơi lái Blue Petshop Supercar xanh, kích thước nhỏ hơn15%; chuyển làn nhanh theo tốc độ và W, giữ quỹ đạo mượt.
+- Space/vuốt lên nhảy với4luồng khói nâng; W/vuốt xuống tăng tốc bằng2ống bô; Q/chạm hai lần áp sát rồi húc ngang.
+- Khủng long đi ngược chiều mỗi10giây, lấy đà rồi quất đuôi qua4làn; nhảy đủ cao để tránh.
+- Mọi xe bị hất xuống sông đều rơi/chìm, kể cả sau màn kết thúc. CSGT rơi sông thì hết truy đuổi; người chơi đã té thì kết thúc lượt.
+- Công việc/đón trả khách vẫn tắt.
+
+### Bản1.39.0 trước đó: đổi làn từ từ, nhảy theo tốc độ, xe xanh–đen
 
 Người chơi áo đỏ sao vàng cưỡi xe máy xanh dương–đen. Đổi làn trong khoảng 0,72 giây, giữ nghiêng rồi từ từ dựng xe; nhảy ở tốc độ đầu thấp hơn 25%, độ cao tăng đều theo tốc độ lúc cất cánh, kể cả W. Tăng tốc giữa không trung chỉ làm cú sau nhảy cao hơn. Khu sông/cầu được giảm tải, giữ phản chiếu và cảnh quan. Công việc vẫn tắt. Đã phát hành và qua 26 kiểm tra live, không lỗi runtime. Chi tiết và kết quả phát hành ở `huongdan.md` mục 21.54–21.61.
 
@@ -118,8 +126,8 @@ chi tiết và hoạt ảnh Idle/Walk/Board/Sit. Nguồn chỉnh sửa nằm tro
 - Toàn bộ scene, mesh/material đã lưu, font kèm giấy phép, mã gameplay, công cụ dựng scene và kiểm tra đều nằm trong repo. `Library`, `Temp`, `Logs`, cấu hình cá nhân và bản Windows được bỏ qua vì có thể tạo lại.
 - Chọn **Phố Việt/Cấu hình bản Web PWA** rồi build WebGL tới `Builds/WebGL`, hoặc chạy Unity batchmode với `-executeMethod PhoViet.Editor.PhoVietWebBuild.Build`.
 - Template PWA nằm ở `Assets/WebGLTemplates/PhoVietPWA`. Hậu xử lý tự tạo `precache.json`, `build-info.json` và phiên bản service worker từ nội dung build. File nén có bộ giải nén dự phòng để chạy trên GitHub Pages.
-- Sau khi build và kiểm tra, sao chép **toàn bộ** `Builds/WebGL` sang `docs`, commit rồi push `main`. Workflow `.github/workflows/pages.yml` triển khai đúng bản đã build lên Pages. Không cần Unity license trong GitHub Actions.
-- Giữ `docs/Build` và shell web trong cùng một commit. Service worker chỉ chuyển sang bản mới sau khi đã tải đủ tài nguyên và các tab bản cũ đóng hết.
+- Sau build, sao chép **toàn bộ** `Builds/WebGL` sang `docs` và dọn hash cũ. Chạy `python AgentScripts/PublishWebArtifact.py pack --source docs` để lưu dữ liệu thành các phần32MiB; file data nguyên vẹn giữ local và được gitignore. Chạy `python AgentScripts/PublishWebArtifact.py materialize --source docs --output _site` vào thư mục mới/rỗng, rồi kiểm tra `_site`. Commit phần dữ liệu/manifest cùng source và shell, push `main`; workflow ghép lại đúng SHA trước khi phát hành. Không cần Unity license trên GitHub Actions.
+- Giữ các phần `docs/Build/*.part*`, `docs/web-data-parts.json` và shell web trong cùng một commit. Không stage file `.data.unityweb` nguyên vẹn119MB; Pages tự ghép lại trước upload. Service worker chỉ chuyển sang bản mới sau khi đã tải đủ tài nguyên và các tab bản cũ đóng hết.
 
 ## Mở và chơi
 

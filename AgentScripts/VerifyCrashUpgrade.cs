@@ -10,12 +10,14 @@ public static class VerifyCrashUpgrade
  public static object Main()
  {
   if(!Application.isPlaying)throw new Exception("Play Mode required");var g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();float scale=Time.timeScale;
-  bool jobs=g.jobsEnabled,surprises=g.trafficSurprises,reckless=g.recklessTrafficEnabled,exits=g.turnExitTrafficEnabled;
+  bool jobs=g.jobsEnabled,surprises=g.trafficSurprises,reckless=g.recklessTrafficEnabled,exits=g.turnExitTrafficEnabled,rivers=g.riversEnabled;
   int best=PlayerPrefs.GetInt("PhoViet.BestMetres.v1",0),coins=PlayerPrefs.GetInt("PhoViet.Coins.v1",0);
   var checks=new List<string>();Action<bool,string> check=(b,s)=>{if(!b)throw new Exception(s);checks.Add(s);};
   Action<string,object> set=(n,v)=>typeof(PhoVietGame).GetField(n,F).SetValue(g,v);
   Func<string,object[],object> call=(n,a)=>typeof(PhoVietGame).GetMethod(n,F).Invoke(g,a);
-  Action reset=()=>{g.jobsEnabled=false;g.RestartRide();g.trafficSurprises=false;g.recklessTrafficEnabled=false;g.turnExitTrafficEnabled=false;foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("spawnTimer",10000f);set("nextIntersectionDistance",float.PositiveInfinity);typeof(PhoVietGame).GetProperty("Speed").SetValue(g,0f);};
+  // This suite verifies recovery on dry roads. A resumed route must now sink if
+  // its subsequent 12-second drive reaches a river; that belongs to the river suite.
+  Action reset=()=>{g.jobsEnabled=false;g.riversEnabled=false;g.RestartRide();g.trafficSurprises=false;g.recklessTrafficEnabled=false;g.turnExitTrafficEnabled=false;foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("spawnTimer",10000f);set("nextIntersectionDistance",float.PositiveInfinity);typeof(PhoVietGame).GetProperty("Speed").SetValue(g,0f);};
   Action<float> tick=dt=>call("TickTrafficMotion",new object[]{dt});
   Func<bool,bool,PhoVietGame.TrafficVehicle> spawn=(car,oncoming)=>{int i=g.vehicles.FindIndex(v=>!v.active&&!v.eventOnly&&(v.halfWidth>.7f)==car);var v=g.SpawnTraffic(oncoming?1:2,40,i);v.speed=v.baseTrafficSpeed=oncoming?-9:9;v.motionVelocity=Vector3.forward*v.speed;v.laneCooldown=v.brakeCooldown=1000;return v;};
   Action<PhoVietGame.TrafficVehicle> hit=v=>call("ActivateCollisionBody",new object[]{v,v.motionVelocity,new Vector3(.5f,0,v.speed*.25f),new Vector2(100,100),Vector2.zero,false,!v.knocked,12f});
@@ -110,6 +112,6 @@ public static class VerifyCrashUpgrade
    }
    return new{success=true,count=checks.Count,checks};
   }
-  finally{g.jobsEnabled=jobs;g.trafficSurprises=surprises;g.recklessTrafficEnabled=reckless;g.turnExitTrafficEnabled=exits;PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.SetInt("PhoViet.Coins.v1",coins);PlayerPrefs.Save();g.ResetRide();Time.timeScale=scale;}
+  finally{g.jobsEnabled=jobs;g.riversEnabled=rivers;g.trafficSurprises=surprises;g.recklessTrafficEnabled=reckless;g.turnExitTrafficEnabled=exits;PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.SetInt("PhoViet.Coins.v1",coins);PlayerPrefs.Save();g.ResetRide();Time.timeScale=scale;}
  }
 }

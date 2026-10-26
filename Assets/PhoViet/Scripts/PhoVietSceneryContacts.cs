@@ -8,7 +8,7 @@ namespace PhoViet
   void CacheStreetObstacles(){streetObstacles=scenery!=null?scenery.GetComponentsInChildren<StreetObstacleSet>(true):new StreetObstacleSet[0];LastSceneryImpact="";}
   bool SceneryContact(Vector3 from,Vector3 to,out Vector2 normal,out float at,out string kind)
   {
-   if(!IsPlayerCar||!IsTurning)return SceneryContactAtRotation(from,to,rider.localRotation,out normal,out at,out kind);
+   if(!IsPlayerCar)return SceneryContactAtRotation(from,to,rider.localRotation,out normal,out at,out kind);
    // Using a long car's final heading for the whole sweep invents contact at
    // its old position. Intersect short segments with the interpolated heading.
    Quaternion before=Quaternion.Euler(0,oldRiderYaw,0),after=rider.localRotation;

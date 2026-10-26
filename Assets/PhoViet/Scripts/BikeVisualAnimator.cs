@@ -101,7 +101,7 @@ namespace PhoViet
             previousState=game.State;clock+=dt;
             bool recovering=role==ActorRole.Traffic&&vehicle.IsStandingUp;
             bool falling=role==ActorRole.Player?(game.State==PhoVietGame.RideState.Falling||game.State==PhoVietGame.RideState.GameOver||game.State==PhoVietGame.RideState.Arrested&&game.CrashDuringPursuit):
-                role==ActorRole.Police?game.PoliceFallen:vehicle.knocked;
+                role==ActorRole.Police?(game.PoliceFallen||game.PoliceInRiver):vehicle.knocked;
             float speed=role==ActorRole.Player?game.Speed:role==ActorRole.Police?game.PoliceSpeed:
                 vehicle.crossing?vehicle.crossSpeed:vehicle.speed;
             string clip="Idle";float normalized=0;
@@ -109,10 +109,10 @@ namespace PhoViet
             else if(falling)
             {
                 if(role==ActorRole.Player){if(game.State==PhoVietGame.RideState.Falling)fallAge+=dt;}
-                else fallAge=role==ActorRole.Police?1.2f-game.PoliceFallRemaining:vehicle.knockAge;
+                else fallAge=role==ActorRole.Police?(game.PoliceInRiver?game.PoliceRiverAge:1.2f-game.PoliceFallRemaining):vehicle.knockAge;
                 float z=role==ActorRole.Player?game.RiderFallRoll:Mathf.DeltaAngle(0,transform.localEulerAngles.z);
                 clip=z>0?"FallLeft":"FallRight";normalized=Mathf.Clamp01(fallAge/.75f);
-                if(role==ActorRole.Police&&game.PoliceFallRemaining<.35f)
+                if(role==ActorRole.Police&&!game.PoliceInRiver&&game.PoliceFallRemaining<.35f)
                 {clip="Recover";normalized=1-Mathf.Clamp01(game.PoliceFallRemaining/.35f);}
                 speed=0;
             }
@@ -130,7 +130,7 @@ namespace PhoViet
             RotateWheel(frontWheel,frontRest);RotateWheel(rearWheel,rearRest);
             // Physics owns the outer vehicle roll. Lift only its visual skin so fallen
             // handlebars, panniers and the rider settle above the road rather than through it.
-            float recovery=role==ActorRole.Police&&falling?1-Mathf.Clamp01(game.PoliceFallRemaining/.35f):0;
+            float recovery=role==ActorRole.Police&&falling&&!game.PoliceInRiver?1-Mathf.Clamp01(game.PoliceFallRemaining/.35f):0;
             float signedRoll=Mathf.DeltaAngle(0,transform.localEulerAngles.z);
             // Người chơi đổi làn: thân xe quay theo hướng lái quanh trục đứng của xe (chỉ phần hình).
             Quaternion steer=role==ActorRole.Player?Quaternion.Euler(0,game.RiderSteerYaw,0):Quaternion.identity;

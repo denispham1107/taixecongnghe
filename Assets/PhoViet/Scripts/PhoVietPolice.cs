@@ -66,6 +66,7 @@ namespace PhoViet
             {
                 // A downed motorcycle stays on the road while the camera and traffic scroll past it.
                 policeBike.localPosition=before-Vector3.forward*Speed*dt;
+                TickDinosaurPolicePush(dt);
                 ResolvePoliceContact(before,Vector3.zero,false);
                 PoliceFallRemaining=Mathf.Max(0,PoliceFallRemaining-dt);if(PoliceFallRemaining<.00001f)PoliceFallRemaining=0;PoliceSpeed=0;
                 float fall=Mathf.Clamp01((1.2f-PoliceFallRemaining)/.16f);
@@ -109,7 +110,7 @@ namespace PhoViet
                 if(VehicleContact(policeBody,v,out Vector2 n,out float at,out float depth)&&at<earliest)
                 {hit=v;hitIndex=i;earliest=at;normal=n;penetration=depth;}
             }
-            if(hit==null)return;
+            if(hit==null){BeginPoliceRiver(policeVelocity);return;}
             Vector3 end=policeBike.localPosition;
             policeBike.localPosition=Vector3.Lerp(before,end,earliest);
             // Bộ lập đường CSGT khi người chơi té/khi cua (RoutePolicePathClear) chừa đệm
@@ -140,6 +141,7 @@ namespace PhoViet
                 notice="CSGT VA CHẠM · NGÃ XE 1,2 GIÂY";noticeTimer=1.2f;
                 if(sound&&fx!=null)fx.PlayOneShot(crashClip,.55f);
             }
+            BeginPoliceRiver(policeVelocity);
         }
     }
 }

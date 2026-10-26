@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "count": 9,
+  "checks": [
+    "Release version is 1.40.0",
+    "Blue Supercar at the confirmed 85 percent scale",
+    "Scaled dimensions/four lift sockets/two exhausts saved",
+    "Jobs remain locked",
+    "Rivers and installed dinosaur enabled",
+    "Traffic pool and original police retained",
+    "No former player motorcycle animator",
+    "Every scene dependency exists",
+    "No missing scripts"
+  ],
+  "dependencies": 401,
+  "scale": 0.85,
+  "size": "(1.760576, 0.914984, 3.740000)",
+  "version": "1.40.0"
+}

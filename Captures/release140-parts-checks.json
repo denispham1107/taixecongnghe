@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "count": 7,
+  "checks": [
+    "All stored parts obey the configured size",
+    "Rebuild succeeds from parts without local original",
+    "Runtime site contains no publication helper files",
+    "Existing nonempty output is protected",
+    "Paths outside the artifact are rejected",
+    "Corruption with unchanged size is rejected",
+    "Missing part is rejected"
+  ]
+}

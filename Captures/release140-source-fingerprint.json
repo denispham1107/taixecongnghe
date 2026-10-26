@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "files": 2776,
+  "changed": [],
+  "postBuildFormatting": [
+    {
+      "path": "Assets/PhoViet/Art/Dinosaur/PV_EmeraldTyrant.prefab",
+      "before": "23090d88c3bb437721d42ed77c9fec39910cc6d8e06a4291087213d34445c78a",
+      "after": "342b237bb3bc3ef6695a874cad89aa01758e283dc08a63f10c73511ab3ade635",
+      "change": "Trim two empty YAML scalar field line endings; identical Unity field values"
+    }
+  ],
+  "postBuildPackaging": [
+    "Editor PhoVietWebBuild normalizes web text line endings before cache hashing; runtime WASM/data unchanged",
+    ".gitattributes declares SVG LF for reproducible GitHub checkout"
+  ]
+}
