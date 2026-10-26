@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "commit": "2c118c3769221e9f9c2218dec5dc26ecb560589d",
+  "remote": "origin/main",
+  "version": "1.40.0",
+  "cache": "10d5883fe6b0325f",
+  "note": "Push and remote SHA verified; GitHub warned that the 79 MiB dinosaur Blender source exceeds its recommended 50 MiB, but accepted the push"
+}

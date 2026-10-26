@@ -10,25 +10,27 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.39.0** — commit `17aa0b2`; Pages run `40268861830` success; cache `770899e40e23f8e2`; **26 kiểm tra live đạt/0lỗi runtime** |
+| Bản đã phát hành | **1.40.0** — commit `2c118c3`; Pages run `40396554304` success; cache `10d5883fe6b0325f`; **26 kiểm tra live đạt/0lỗi runtime** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Chế độ chơi | Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
-| Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Web1.39.0 vẫn hero xe máy xanh–đen** |
+| Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
 | Điều khiển/nhảy trong source | **21.65:** scale0,85 (1,761×0,915×3,74m); đổi làn theo quãng đường22,95m/làn, nhanh tỷ lệ Speed/W (17m/s~1,35s;30~0,765s;67,5~0,34s), gồm W giữa chừng; nhảy theo tốc độ cất cánh21.60 giữ nguyên |
-| Thay đổi chưa build/chưa commit | **21.65 xe nhỏ15%/đổi làn nhanh theo Speed**; **21.64 Blue Supercar player/4jet/2bô**; **21.63 sửa mọi xe văng sông rơi/chìm và CSGT rơi thì hết đuổi**; **21.62 khủng long Emerald Tyrant** đã có trong source/scene (10s/ngược chiều/đuôi4làn/nhảy né), chưa có trên web; các art/.blend/Captures/Wave khác giữ cục bộ, không reset/stage toàn bộ |
+| Thay đổi cục bộ ngoài phát hành | Art/Wave/.blend và Captures lịch sử khác giữ cục bộ, không reset/stage toàn bộ; các chức năng21.62–21.65 đã phát hành trong1.40.0 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.65, chưa phát hành:** Supercar nhỏ15%, đồng bộ collider/axle/đèn/jet; đổi làn nhanh tỷ lệ Speed, W giữa cú cũng tăng nhịp. **5suite/634 điều kiện đạt**, đã lưu/reload scene giữ đúng scale0,85; ảnh dọc đã xem. Unity Edit Mode/scene sạch; chi tiết huongdan21.65.
+- **1.40.0 đã phát hành (21.66):** commit2c118c3/Pages40396554304/cache10d5883fe6b0325f;0lỗi build/3warning. 34repo bundle+29site+7parts,37web/offline/touch+20fullscreen+5offline cuối+27staged bytes+26live đều đạt,0lỗi runtime. Data chia4phần32MiB/ghép SHA trênPages; source/cảnh/gameplay giữ đúng21.62–21.65. Unity Edit Mode/scene sạch, jobs khóa.
 
-- **21.64, chưa phát hành:** Blue Petshop Supercar player xanh, 3LOD28k/12,3k/4,5k; chuyển làn1,35–1,60s/yaw collider đúng hướng; nhảy4jet trắng, W2ống bô. Q=húc như nhánh ô tô đã chốt. **8suite/1.602 điều kiện đạt**, ảnh dọc/ngang/FX/đêm đã xem; Unity Edit Mode/scene sạch; NPC/CSGT/jobs giữ nguyên. Chi tiết huongdan21.64.
+- **21.65, đã có trong1.40.0:** Supercar nhỏ15%, đồng bộ collider/axle/đèn/jet; đổi làn nhanh tỷ lệ Speed, W giữa cú cũng tăng nhịp. **5suite/634 điều kiện đạt**, đã lưu/reload scene giữ đúng scale0,85; ảnh dọc đã xem. Unity Edit Mode/scene sạch; chi tiết huongdan21.65.
 
-- **21.63, chưa phát hành:** mọi xe va chạm văng sông hủy recovery/course, rơi/chìm cả khi đang bay hoặc đã GameOver; tra mọi nhánh/đổi khung sau cua. CSGT chìm thì hết truy đuổi; người chơi đã té thì hết lượt. **8 suite/1.166 điều kiện đạt**, ảnh xác nhận chìm. Unity Edit Mode/scene sạch, jobs khóa; chi tiết huongdan21.63.
+- **21.64, đã có trong1.40.0:** Blue Petshop Supercar player xanh, 3LOD28k/12,3k/4,5k; yaw collider đúng hướng (nhịp lane đã thay ở21.65); nhảy4jet trắng, W2ống bô. Q=húc như nhánh ô tô đã chốt. **8suite/1.602 điều kiện đạt**, ảnh dọc/ngang/FX/đêm đã xem; Unity Edit Mode/scene sạch; NPC/CSGT/jobs giữ nguyên. Chi tiết huongdan21.64.
 
-- **21.62, chưa phát hành:** Emerald Tyrant rộng4,65m/cao6,081m, rig/Walk/TailSweep bằng BlenderMCP, lịch10s/ngược chiều3m/s; đuôi thật quét4làn, nhảy né, hất cả xe tăng/CSGT. Sửa CSGT tìm đường tới người chơi bị hất sang đường ngang. **69 kiểm tra +96 cuộc gặp +681 hồi quy =846 đạt**; chi tiết huongdan21.62.
+- **21.63, đã có trong1.40.0:** mọi xe va chạm văng sông hủy recovery/course, rơi/chìm cả khi đang bay hoặc đã GameOver; tra mọi nhánh/đổi khung sau cua. CSGT chìm thì hết truy đuổi; người chơi đã té thì hết lượt. **8 suite/1.166 điều kiện đạt**, ảnh xác nhận chìm. Unity Edit Mode/scene sạch, jobs khóa; chi tiết huongdan21.63.
+
+- **21.62, đã có trong1.40.0:** Emerald Tyrant rộng4,65m/cao6,081m, rig/Walk/TailSweep bằng BlenderMCP, lịch10s/ngược chiều3m/s; đuôi thật quét4làn, nhảy né, hất cả xe tăng/CSGT. Sửa CSGT tìm đường tới người chơi bị hất sang đường ngang. **69 kiểm tra +96 cuộc gặp +681 hồi quy =846 đạt**; chi tiết huongdan21.62.
 
 - **1.39.0 đã phát hành (21.61):** commit17aa0b2, Pages40268861830 thành công; build0lỗi/3warning,29bundle +37web/offline/touch +20fullscreen +26live đạt,0lỗi runtime. Unity Edit Mode/scene sạch, jobs khóa.
 
@@ -41,13 +43,12 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-> **Tiến độ việc đang làm**: Phát hành1.40.0/21.66 · Build0lỗi/3warning;9scene/34repo+29site/7parts/37web+20fullscreen+5offline/27staged bytechecks đều đạt; cache10d5883fe6b0325f · Đang commit/push source+parts đúng phạm vi, kế chờPages đúngSHA/live · Unity Edit Mode/scene sạch; Blender không thao tác · Codex27/10/2026
 
 
 
 > Mẫu: `Yêu cầu: … · Đã xong: … · Bước kế tiếp: … · File đang sửa: … · Unity/Blender: … · Cập nhật: <ngày giờ>, <agent>`
 
-- **21.62–21.65 chưa build/commit/push/phát hành**; source có khủng long/sửa xe chìm/Blue Supercar player/scale85% và lane theo tốc độ. Web1.39.0 chưa có bốn thay đổi này; chỉ phát hành khi người dùng yêu cầu.
+- Không còn chức năng21.62–21.65 chờ phát hành: **đã có trên web1.40.0**. Dữ liệu119,6MB lưu trongGit dạng4parts; Pages ghép/kiểmSHA trước upload. Trên checkout mới, materialize ra_site trước khi chạy server local (15.2–15.4/21.66).
 - Bán tải/installer Petshop21.57 đã ngưng dùng từ21.58; không tự cài lại. **Nhánh húc được tái dùng cho Blue Supercar21.64–21.65**. Test/giới hạn cua cực muộn của pickup cũ không đại diện player hiện tại. Chưa thử Safari trên điện thoại thật.
 - Các file Wave cũ chưa theo dõi (`UpgradeBikesWave.cs`, `PhoViet_Motorcycles_Wave.blend`…) là lịch sử; **không xóa/commit/dùng** nếu chưa được yêu cầu.
 
@@ -56,9 +57,9 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 - Hỏi lại bằng lựa chọn cụ thể nếu chưa chắc ≥90% ý người dùng.
 - Không ba mạng. Té thường → hết lượt. Té khi đang bị CSGT đuổi → nằm chờ CSGT tới bắt thật → tù (không GameOver ngay, không tự dựng xe). Rơi sông/trúng đạn xe tăng → hết lượt, kể cả khi bị đuổi. **CSGT rơi sông → hết truy đuổi; người chơi đã té thì hết lượt**, còn đang chạy thì tiếp tục (21.63).
 - Húc/đạp quái xế tự vệ không gọi mới CSGT; húc/đạp xe thường thì bị truy đuổi.
-- Phím: **Q húc (web1.39.0 đạp), Space nhảy, W tăng tốc +125%/4 s/hồi 2 s**; mobile: chạm hai lần húc (web cũ đạp), vuốt lên nhảy, vuốt xuống tăng tốc, nhận ngay khi đủ ngưỡng.
+- Phím: **Q húc, Space nhảy, W tăng tốc +125%/4s/hồi2s**; mobile: chạm hai lần húc, vuốt lên nhảy, vuốt xuống tăng tốc; nhận ngay khi đủ ngưỡng.
 - Hai làn trái rẽ trái, hai làn phải rẽ phải, giữ số làn sau cua, cua không giảm tốc.
-- **Source21.65: player Blue Petshop Supercar** xanh scale0,85, Q=húc thân xe; hero xe máy xanh–đen21.58 vẫn là bản web1.39.0. NPC xe máy nhiều màu/áo khác, CSGT giữ cả người+xe; NPC4mẫu ô tô×8màu, xe tăng giữ nguyên.
+- **Source21.65: player Blue Petshop Supercar** xanh scale0,85, Q=húc thân xe; đã có trên web1.40.0; hero xe máy xanh–đen21.58 là lịch sử. NPC xe máy nhiều màu/áo khác, CSGT giữ cả người+xe; NPC4mẫu ô tô×8màu, xe tăng giữ nguyên.
 - Phong cách bán hiện thực vui nhộn, tối ưu điện thoại/WebGL.
 - Không bật lại công việc khi nâng cấp/sửa lỗi/build. Giữ dữ liệu Coin và mã jobs.
 - Không ghi đè/reset file Blender cục bộ, không dựng lại cả scene bằng builder lịch sử.
