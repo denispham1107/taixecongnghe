@@ -29,6 +29,11 @@ namespace PhoViet.Editor
    // the global Web subtarget changes. Only release dependencies are touched.
    EditorUserBuildSettings.webGLBuildSubtarget=WebGLTextureSubtarget.Generic;
    var changes=new List<object>();
+   // Importing one texture can refresh other cached importers. Re-read the
+   // dependency settings until stable, instead of building a mixed GPU format.
+   for(int pass=0;pass<3;pass++)
+   {
+   int before=changes.Count;
    foreach(string path in AssetDatabase.GetDependencies("Assets/PhoViet/Scenes/PhoViet.unity",true))
    {
     var importer=AssetImporter.GetAtPath(path) as TextureImporter;if(importer==null)continue;
@@ -47,7 +52,17 @@ namespace PhoViet.Editor
     AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport|ImportAssetOptions.ForceUpdate);
     changes.Add(new{path,format=format.ToString(),size=web.maxTextureSize});
    }
-   AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+   AssetDatabase.SaveAssets();AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+   if(changes.Count==before)break;
+   }
+   foreach(string path in AssetDatabase.GetDependencies("Assets/PhoViet/Scenes/PhoViet.unity",true))
+   {
+    var importer=AssetImporter.GetAtPath(path) as TextureImporter;if(importer==null)continue;
+    var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(path);if(texture==null||texture.width*texture.height<65536)continue;
+    var format=importer.GetPlatformTextureSettings("WebGL").format;
+    bool valid=mobile?(format==TextureImporterFormat.ETC2_RGB4||format==TextureImporterFormat.ETC2_RGBA8||format==TextureImporterFormat.EAC_RG):(format==TextureImporterFormat.DXT1||format==TextureImporterFormat.DXT5);
+    if(!valid)throw new InvalidOperationException("Web texture imports did not stabilize: "+path);
+   }
    var report=new{mobile,changed=changes.Count,changes,subtarget=EditorUserBuildSettings.webGLBuildSubtarget.ToString()};
    Directory.CreateDirectory("Captures");File.WriteAllText(mobile?"Captures/web-memory-texture-settings.json":"Captures/web-memory-desktop-settings.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));
    return report;

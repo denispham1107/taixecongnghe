@@ -20,12 +20,12 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
 | Điều khiển/nhảy trong source | **21.65:** scale0,85 (1,761×0,915×3,74m); đổi làn theo quãng đường22,95m/làn, nhanh tỷ lệ Speed/W (17m/s~1,35s;30~0,765s;67,5~0,34s), gồm W giữa chừng; nhảy theo tốc độ cất cánh21.60 giữ nguyên |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
-| Cài đặt đồ họa trong source | **21.78 chưa build/phát hành:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
+| Cài đặt đồ họa trong source | **21.78 đã build1.45.0, chờPages:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.78 cài đặt đồ họa đã xong cục bộ:** icon đườngWelcome→bánh răng, modal3mứcCao/Trung bình/Thấp, áp dụng/lưu ngay; Cao khôi phục snapshot từng nền tảng. Medium/Low giảmAA/bóng/LODxa/gương, giữDPR/texture/camera/cảnh vật.85graphics+39gesture+31distance=155đạt,6ảnhdọc/ngang/desktop vàchuột/phím/reloadPlay đãxem. UnityEdit/scenesạch/start(1,55;0;1,92)/jobsfalse/High. **Chưa build/push/phát hành**, web1.44.0. Chi tiết huongdan21.78.
+- **21.78 cài đặt đồ họa đã xong cục bộ:** icon đườngWelcome→bánh răng, modal3mứcCao/Trung bình/Thấp, áp dụng/lưu ngay; Cao khôi phục snapshot từng nền tảng. Medium/Low giảmAA/bóng/LODxa/gương, giữDPR/texture/camera/cảnh vật.85graphics+39gesture+31distance=155đạt,6ảnhdọc/ngang/desktop vàchuột/phím/reloadPlay đãxem. UnityEdit/scenesạch/start(1,55;0;1,92)/jobsfalse/High. **Đãbuild/kiểmtra1.45.0, đangpháthànhPages**; webtrướckhikiểmlive1.44.0. Chi tiết huongdan21.78.
 
 - **1.44.0/21.77 đã triển khaiPages:** commitb0a31f8/run40535422845success/cachedb471371e548dd93. TextureGPU44maps ETC2/EACchođiệnthoại, DXTchodesktop, mỗi máy chỉ1data; gói mobile129,8→92,7MB, heap550,69→397,875MiB. Bỏpreloadbuildởlanding/tảitrùng, giữDPR3/2K/AA4/bóng/cảnh. 101finalpreflight+18memory+15cachefixture+42repo/33site+37web+20fullscreen+34indexchecksđạt/0runtime; 27livechecksđạt/0runtime. UnityEdit/scenesạch/gốcxe1,92/jobsfalse, serverskiểmtrađãdừng. Chi tiết huongdan21.77.
 
@@ -70,12 +70,14 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+> **Tiến độ21.79:**1.45.0/cachec0f81245589b65f2:101preflight+42repo/33site+26settings+37web/offline+20fullscreen+34Gitbytechecksđạt/0runtime. Đangcommit/pushmain→Pages đúngSHA→liveverify. Server8771 PIDtrong.tools/release145-server.pid cần dừngkếtxong. UnityEdit/scenesạch/start1,92/jobsfalse/AA4/bóng100. Codex28/10/2026.
+
 
 
 
 > Mẫu: `Yêu cầu: … · Đã xong: … · Bước kế tiếp: … · File đang sửa: … · Unity/Blender: … · Cập nhật: <ngày giờ>, <agent>`
 
-- **21.78 đã hoàn tất source, chờ người dùng yêu cầu build/phát hành:** cửa sổ đồ họa chưa có trong binary1.44.0; không dùng artifact1.44.0 để tuyên bố đã lên web.
+- **21.78/21.79:** người dùngđãyêucầupháthành;1.45.0 build/kiểmtra xong, đangcommit/push/Pages/live. Không dùngbinary1.44.0 đểtuyênbốđãlênweb.
 - **21.70/21.72–21.74 đã phát hành1.43.0:** không còn tính năng này chờ build. Khi sửaPetshop dùng generator/installer hiện hành, không chạy công cụ dựng phố/cầu cũ. Cấu hình1024MB là lịch sử1.43.0; hiện dùng128/512MiB+GPUcompression/growth10%/cap32MiB theo21.77. Khôngpháthành lại rawartifactlỗiOOM ở21.75.
 - **21.69 đã phát hành1.42.0:** không còn phần tối ưu chờ build; không tự hạ DPR/texture/bóng để tăng FPS. Phép đo là Editor/camera readback và browser giả lập; chưa đo Safari/điện thoại thật. Các probe shadow/instancing chỉ thử tạm, không áp dụng.
 - **21.67 đã phát hành1.41.0:** asset/meta+scene/code/2tài liệu nằm trong commit648b163. Khi bảo trì dùng đúng bộ Urban Rider hiện hành. RawMeshyFBX120,7MB giữ cục bộ, không stage/push mù quáng; dependencies không còn raw FBX/FBX dân sự cũ, không thiếu script; game dùng FBX4MB. Không chạy lạiMeshyRiders/Wave installer cũ.
@@ -122,7 +124,7 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 | Simulator iPhone 14 Pro/Pro Max/Dynamic Island/Safe Area | **21.71** | `Assets/PhoViet/Editor/DeviceSimulator/` (`README.md`, hai `.device`, `Overlays/`, `LICENSE.md`); `Captures/iphone14-simulator-checks.json` |
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
-| WebGL/Safari/OOM/textureGPU/cache/offline/Pages | 15.2–15.4, **21.77**,21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
+| WebGL/Safari/OOM/textureGPU/cache/offline/Pages | 15.2–15.4, **21.77**,21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease145Scene.cs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.
 

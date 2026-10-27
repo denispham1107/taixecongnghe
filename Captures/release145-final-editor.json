@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "var g=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>();return new {playing=UnityEditor.EditorApplication.isPlaying,compiling=UnityEditor.EditorApplication.isCompiling,dirty=g.gameObject.scene.isDirty,start=g.rider.localPosition.ToString(),jobs=g.jobsEnabled,aa=UnityEngine.QualitySettings.antiAliasing,shadows=UnityEngine.QualitySettings.shadowDistance,version=UnityEngine.Application.version};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "playing": false,
+        "compiling": false,
+        "dirty": false,
+        "start": "(1.55, 0.00, 1.92)",
+        "jobs": false,
+        "aa": 4,
+        "shadows": 100,
+        "version": "1.45.0"
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

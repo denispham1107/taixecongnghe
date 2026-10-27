@@ -32,7 +32,7 @@ namespace PhoViet.Editor
             PlayerSettings.WebGL.maximumMemorySize=512;
             PhoVietWebMemorySettings.Apply();
             PlayerSettings.runInBackground=false;
-            PlayerSettings.bundleVersion="1.44.0";
+            PlayerSettings.bundleVersion="1.45.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
@@ -43,7 +43,14 @@ namespace PhoViet.Editor
         {
             Configure();
             BuildSingle();
+            CompleteTextureVariants();
+        }
+
+        // Resume only after a successful mobile build if output merging was interrupted.
+        public static void CompleteTextureVariants()
+        {
             const string root="Builds/WebGL";
+            PruneRuntimeOutput(root);
             string mobileData=Directory.GetFiles(root+"/Build","*.data.unityweb").Single();
             byte[] mobileBytes=File.ReadAllBytes(mobileData);
             string dataName=Path.GetFileName(mobileData);
@@ -80,6 +87,21 @@ namespace PhoViet.Editor
             });
             if(report.summary.result!=BuildResult.Succeeded)
                 throw new Exception("Web build failed: "+report.summary.result);
+            PruneRuntimeOutput("Builds/WebGL");
+            FinalizeWebOutput("Builds/WebGL");
+        }
+
+        static void PruneRuntimeOutput(string root)
+        {
+            string directory=Path.GetFullPath(Path.Combine(root,"Build"));
+            string expected=Path.GetFullPath(Path.Combine(Application.dataPath,"../Builds/WebGL/Build"));
+            if(!string.Equals(directory,expected,StringComparison.OrdinalIgnoreCase))throw new Exception("Unexpected generated build directory");
+            string html=File.ReadAllText(Path.Combine(root,"index.html"));
+            var matches=System.Text.RegularExpressions.Regex.Matches(html,"(?:loaderUrl|dataUrl|frameworkUrl|codeUrl)\\s*:\\s*\"Build/([^\"]+)\"");
+            var names=matches.Cast<System.Text.RegularExpressions.Match>().Select(m=>m.Groups[1].Value).ToArray();
+            if(names.Length!=4||names.Distinct().Count()!=4||names.Any(n=>Path.GetFileName(n)!=n))throw new Exception("Expected four generated runtime URLs");
+            foreach(string path in Directory.GetFiles(directory))
+                if(!names.Contains(Path.GetFileName(path)))File.Delete(path);
         }
 
         public void OnPostprocessBuild(BuildReport report)

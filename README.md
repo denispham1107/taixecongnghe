@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.44.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.45.0**.
+
+## Cài đặt đồ họa — 1.45.0
+
+Bấm bánh răng trên màn hình chờ để chọn Cao, Trung bình hoặc Thấp. Cao giữ chất lượng hiện tại; hai mức còn lại giảm bóng, chi tiết cảnh xa và phản chiếu. Lựa chọn được lưu cho lần chơi sau, áp dụng desktop và mobile dọc/ngang. Giữ độ nét texture và độ phân giải màn hình. Chi tiết `huongdan.md`21.78–21.79.
 
 ## Petshop, bảng hiệu nhiều màu và âm động cơ — 1.44.0
 
