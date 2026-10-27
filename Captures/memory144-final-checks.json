@@ -1,0 +1,466 @@
+{
+  "url": "http://127.0.0.1:8769/",
+  "label": "memory144-final",
+  "checks": [
+    "desktop: landing does not preload a second complete Unity build",
+    "desktop: complete cache confirmed after the game downloads",
+    "desktop: each runtime resource has only one network response",
+    "desktop: only one texture data variant is downloaded",
+    "desktop: WebAssembly heap stays below 450 MiB",
+    "desktop: repeated games do not continually grow the heap",
+    "desktop: no renderer crash",
+    "desktop: cached game launches without network",
+    "iPhone 13 Pro Max: landing does not preload a second complete Unity build",
+    "iPhone 13 Pro Max: complete cache confirmed after the game downloads",
+    "iPhone 13 Pro Max: each runtime resource has only one network response",
+    "iPhone 13 Pro Max: only one texture data variant is downloaded",
+    "iPhone 13 Pro Max: phone keeps its full-density framebuffer",
+    "iPhone 13 Pro Max: WebAssembly heap stays below 450 MiB",
+    "iPhone 13 Pro Max: repeated games do not continually grow the heap",
+    "iPhone 13 Pro Max: no renderer crash",
+    "iPhone 13 Pro Max: cached game launches without network",
+    "No WebAssembly, WebGL or JavaScript runtime errors"
+  ],
+  "profiles": [
+    {
+      "name": "desktop",
+      "samples": [
+        {
+          "phase": "ready",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 246641664,
+            "totalJSHeapSize": 161834617,
+            "usedJSHeapSize": 156618949,
+            "pageLoadTime": 22729,
+            "pageLoadTimeToFrame1": 22877,
+            "fps": 4.794153549870993,
+            "movingAverageFps": 4.794153549870993,
+            "assetLoadTime": 19289,
+            "webAssemblyStartupTime": 15870,
+            "codeDownloadTime": 2926,
+            "gameStartupTime": 7006,
+            "numJankedFrames": 0
+          },
+          "dpr": 1,
+          "canvas": {
+            "width": 1280,
+            "height": 668
+          },
+          "jsBytes": 156618949
+        },
+        {
+          "phase": "cycle-1",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 265259280,
+            "totalJSHeapSize": 156798263,
+            "usedJSHeapSize": 155574603,
+            "pageLoadTime": 22729,
+            "pageLoadTimeToFrame1": 22877,
+            "fps": 18.834269507350836,
+            "movingAverageFps": 11.814211528610915,
+            "assetLoadTime": 19289,
+            "webAssemblyStartupTime": 15870,
+            "codeDownloadTime": 2926,
+            "gameStartupTime": 7006,
+            "numJankedFrames": 18
+          },
+          "dpr": 1,
+          "canvas": {
+            "width": 1280,
+            "height": 668
+          },
+          "jsBytes": 155574603
+        },
+        {
+          "phase": "cycle-2",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 280114616,
+            "totalJSHeapSize": 156798875,
+            "usedJSHeapSize": 155477235,
+            "pageLoadTime": 22729,
+            "pageLoadTimeToFrame1": 22877,
+            "fps": 13.661527330287857,
+            "movingAverageFps": 12.42998346250323,
+            "assetLoadTime": 19289,
+            "webAssemblyStartupTime": 15870,
+            "codeDownloadTime": 2926,
+            "gameStartupTime": 7006,
+            "numJankedFrames": 22
+          },
+          "dpr": 1,
+          "canvas": {
+            "width": 1280,
+            "height": 668
+          },
+          "jsBytes": 155477235
+        },
+        {
+          "phase": "cycle-3",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 291410296,
+            "totalJSHeapSize": 157061285,
+            "usedJSHeapSize": 155983409,
+            "pageLoadTime": 22729,
+            "pageLoadTimeToFrame1": 22877,
+            "fps": 25.21077266421437,
+            "movingAverageFps": 15.625180762931016,
+            "assetLoadTime": 19289,
+            "webAssemblyStartupTime": 15870,
+            "codeDownloadTime": 2926,
+            "gameStartupTime": 7006,
+            "numJankedFrames": 30
+          },
+          "dpr": 1,
+          "canvas": {
+            "width": 1280,
+            "height": 668
+          },
+          "jsBytes": 155983409
+        },
+        {
+          "phase": "cycle-4",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 294664224,
+            "totalJSHeapSize": 157847717,
+            "usedJSHeapSize": 156470513,
+            "pageLoadTime": 22729,
+            "pageLoadTimeToFrame1": 22877,
+            "fps": 14.578742159688083,
+            "movingAverageFps": 15.41589304228243,
+            "assetLoadTime": 19289,
+            "webAssemblyStartupTime": 15870,
+            "codeDownloadTime": 2926,
+            "gameStartupTime": 7006,
+            "numJankedFrames": 34
+          },
+          "dpr": 1,
+          "canvas": {
+            "width": 1280,
+            "height": 668
+          },
+          "jsBytes": 156470513
+        },
+        {
+          "phase": "cycle-5",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 298508680,
+            "totalJSHeapSize": 157585573,
+            "usedJSHeapSize": 156652473,
+            "pageLoadTime": 22729,
+            "pageLoadTimeToFrame1": 22877,
+            "fps": 13.077378602447691,
+            "movingAverageFps": 15.026140635643308,
+            "assetLoadTime": 19289,
+            "webAssemblyStartupTime": 15870,
+            "codeDownloadTime": 2926,
+            "gameStartupTime": 7006,
+            "numJankedFrames": 40
+          },
+          "dpr": 1,
+          "canvas": {
+            "width": 1280,
+            "height": 668
+          },
+          "jsBytes": 156652473
+        },
+        {
+          "phase": "cycle-6",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 303892016,
+            "totalJSHeapSize": 158109861,
+            "usedJSHeapSize": 156367137,
+            "pageLoadTime": 22729,
+            "pageLoadTimeToFrame1": 22877,
+            "fps": 14.892685063512921,
+            "movingAverageFps": 15.007075553910397,
+            "assetLoadTime": 19289,
+            "webAssemblyStartupTime": 15870,
+            "codeDownloadTime": 2926,
+            "gameStartupTime": 7006,
+            "numJankedFrames": 44
+          },
+          "dpr": 1,
+          "canvas": {
+            "width": 1280,
+            "height": 668
+          },
+          "jsBytes": 156367137
+        },
+        {
+          "phase": "paused",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 303892016,
+            "totalJSHeapSize": 158109861,
+            "usedJSHeapSize": 156476917,
+            "pageLoadTime": 22729,
+            "pageLoadTimeToFrame1": 22877,
+            "fps": 15.23374274086109,
+            "movingAverageFps": 15.035408952279234,
+            "assetLoadTime": 19289,
+            "webAssemblyStartupTime": 15870,
+            "codeDownloadTime": 2926,
+            "gameStartupTime": 7006,
+            "numJankedFrames": 44
+          },
+          "dpr": 1,
+          "canvas": {
+            "width": 1280,
+            "height": 668
+          },
+          "jsBytes": 156476917
+        },
+        {
+          "phase": "offline-reload",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 247142360,
+            "totalJSHeapSize": 162583707,
+            "usedJSHeapSize": 158691335,
+            "pageLoadTime": 10250,
+            "pageLoadTimeToFrame1": 10296,
+            "fps": 10.056541674938751,
+            "movingAverageFps": 10.056541674938751,
+            "assetLoadTime": 9301,
+            "webAssemblyStartupTime": 6867,
+            "codeDownloadTime": 1058,
+            "gameStartupTime": 3429,
+            "numJankedFrames": 3
+          },
+          "dpr": 1,
+          "canvas": {
+            "width": 1280,
+            "height": 668
+          },
+          "jsBytes": 158691335
+        }
+      ],
+      "requests": {
+        "http://127.0.0.1:8769/Build/34c0c5dea3737e3cf4a3c1e99285f1ad.loader.js": 3,
+        "http://127.0.0.1:8769/Build/6f110a31476c79fcc78815ed4d1c22ea.framework.js.unityweb": 3,
+        "http://127.0.0.1:8769/Build/24499402ff9acf8c1108c0a772c0aa88.wasm.unityweb": 3,
+        "http://127.0.0.1:8769/Build/3e4f26f8a0230813792ccff4710e7f10.data.unityweb": 3
+      },
+      "network": {
+        "http://127.0.0.1:8769/Build/34c0c5dea3737e3cf4a3c1e99285f1ad.loader.js": 1,
+        "http://127.0.0.1:8769/Build/6f110a31476c79fcc78815ed4d1c22ea.framework.js.unityweb": 1,
+        "http://127.0.0.1:8769/Build/24499402ff9acf8c1108c0a772c0aa88.wasm.unityweb": 1,
+        "http://127.0.0.1:8769/Build/3e4f26f8a0230813792ccff4710e7f10.data.unityweb": 1
+      },
+      "crashes": 0,
+      "peakHeap": 417202176
+    },
+    {
+      "name": "iPhone 13 Pro Max",
+      "samples": [
+        {
+          "phase": "ready",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 240175224,
+            "totalJSHeapSize": 146003714,
+            "usedJSHeapSize": 140218566,
+            "pageLoadTime": 20181,
+            "pageLoadTimeToFrame1": 20301,
+            "fps": 1.1613364302304805,
+            "movingAverageFps": 1.1613364302304805,
+            "assetLoadTime": 17643,
+            "webAssemblyStartupTime": 15330,
+            "codeDownloadTime": 6935,
+            "gameStartupTime": 4971,
+            "numJankedFrames": 1
+          },
+          "dpr": 3,
+          "canvas": {
+            "width": 1284,
+            "height": 2238
+          },
+          "jsBytes": 140218566
+        },
+        {
+          "phase": "cycle-1",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 244297248,
+            "totalJSHeapSize": 139931643,
+            "usedJSHeapSize": 139226755,
+            "pageLoadTime": 20181,
+            "pageLoadTimeToFrame1": 20301,
+            "fps": 0.16259321395049775,
+            "movingAverageFps": 0.6619648220904891,
+            "assetLoadTime": 17643,
+            "webAssemblyStartupTime": 15330,
+            "codeDownloadTime": 6935,
+            "gameStartupTime": 4971,
+            "numJankedFrames": 6
+          },
+          "dpr": 3,
+          "canvas": {
+            "width": 1284,
+            "height": 2238
+          },
+          "jsBytes": 139226755
+        },
+        {
+          "phase": "cycle-2",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 246843312,
+            "totalJSHeapSize": 139931760,
+            "usedJSHeapSize": 139375640,
+            "pageLoadTime": 20181,
+            "pageLoadTimeToFrame1": 20301,
+            "fps": 0.08722892249378592,
+            "movingAverageFps": 0.47038618889158806,
+            "assetLoadTime": 17643,
+            "webAssemblyStartupTime": 15330,
+            "codeDownloadTime": 6935,
+            "gameStartupTime": 4971,
+            "numJankedFrames": 9
+          },
+          "dpr": 3,
+          "canvas": {
+            "width": 1284,
+            "height": 2238
+          },
+          "jsBytes": 139375640
+        },
+        {
+          "phase": "landscape",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 251880232,
+            "totalJSHeapSize": 140456068,
+            "usedJSHeapSize": 139515456,
+            "pageLoadTime": 20181,
+            "pageLoadTimeToFrame1": 20301,
+            "fps": 0.057554619333708236,
+            "movingAverageFps": 0.3671782965021181,
+            "assetLoadTime": 17643,
+            "webAssemblyStartupTime": 15330,
+            "codeDownloadTime": 6935,
+            "gameStartupTime": 4971,
+            "numJankedFrames": 11
+          },
+          "dpr": 2.8414996789558407,
+          "canvas": {
+            "width": 2631,
+            "height": 1216
+          },
+          "jsBytes": 139515456
+        },
+        {
+          "phase": "portrait-again",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 251899072,
+            "totalJSHeapSize": 140456068,
+            "usedJSHeapSize": 139561684,
+            "pageLoadTime": 20181,
+            "pageLoadTimeToFrame1": 20301,
+            "fps": 0.060644162291747274,
+            "movingAverageFps": 0.3058714696600439,
+            "assetLoadTime": 17643,
+            "webAssemblyStartupTime": 15330,
+            "codeDownloadTime": 6935,
+            "gameStartupTime": 4971,
+            "numJankedFrames": 13
+          },
+          "dpr": 2.8414996789558407,
+          "canvas": {
+            "width": 1216,
+            "height": 2631
+          },
+          "jsBytes": 139561684
+        },
+        {
+          "phase": "paused",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 251903120,
+            "totalJSHeapSize": 140456068,
+            "usedJSHeapSize": 139593628,
+            "pageLoadTime": 20181,
+            "pageLoadTimeToFrame1": 20301,
+            "fps": 2.9895366218236172,
+            "movingAverageFps": 0.7531489950206395,
+            "assetLoadTime": 17643,
+            "webAssemblyStartupTime": 15330,
+            "codeDownloadTime": 6935,
+            "gameStartupTime": 4971,
+            "numJankedFrames": 13
+          },
+          "dpr": 2.8414996789558407,
+          "canvas": {
+            "width": 1216,
+            "height": 2631
+          },
+          "jsBytes": 139593628
+        },
+        {
+          "phase": "offline-reload",
+          "heapBytes": 417202176,
+          "metrics": {
+            "totalWASMHeapSize": 417202176,
+            "usedWASMHeapSize": 240496664,
+            "totalJSHeapSize": 145285418,
+            "usedJSHeapSize": 140576154,
+            "pageLoadTime": 53817,
+            "pageLoadTimeToFrame1": 53868,
+            "fps": 0.5259402496809282,
+            "movingAverageFps": 0.5259402496809282,
+            "assetLoadTime": 11602,
+            "webAssemblyStartupTime": 49249,
+            "codeDownloadTime": 1576,
+            "gameStartupTime": 4619,
+            "numJankedFrames": 2
+          },
+          "dpr": 2.8414996789558407,
+          "canvas": {
+            "width": 1216,
+            "height": 2631
+          },
+          "jsBytes": 140576154
+        }
+      ],
+      "requests": {
+        "http://127.0.0.1:8769/Build/34c0c5dea3737e3cf4a3c1e99285f1ad.loader.js": 3,
+        "http://127.0.0.1:8769/Build/6f110a31476c79fcc78815ed4d1c22ea.framework.js.unityweb": 3,
+        "http://127.0.0.1:8769/Build/24499402ff9acf8c1108c0a772c0aa88.wasm.unityweb": 3,
+        "http://127.0.0.1:8769/Build/e875b46bfb5039bbcc8b9e393c0a21f4.data.unityweb": 3
+      },
+      "network": {
+        "http://127.0.0.1:8769/Build/34c0c5dea3737e3cf4a3c1e99285f1ad.loader.js": 1,
+        "http://127.0.0.1:8769/Build/6f110a31476c79fcc78815ed4d1c22ea.framework.js.unityweb": 1,
+        "http://127.0.0.1:8769/Build/24499402ff9acf8c1108c0a772c0aa88.wasm.unityweb": 1,
+        "http://127.0.0.1:8769/Build/e875b46bfb5039bbcc8b9e393c0a21f4.data.unityweb": 1
+      },
+      "crashes": 0,
+      "peakHeap": 417202176
+    }
+  ],
+  "errors": [],
+  "success": true
+}

@@ -1,0 +1,18 @@
+{
+  "passed": 13,
+  "checks": [
+    "Model drag preserves requested world position: (0.00, 0.00, 2.00)",
+    "Dragging the model also moves its collision body: (0.00, 0.00, 2.00)",
+    "Model drag preserves requested world position: (0.00, 0.00, -3.00)",
+    "Dragging the model also moves its collision body: (0.00, 0.00, -3.00)",
+    "Model drag preserves requested world position: (1.00, 0.00, 0.00)",
+    "Dragging the model also moves its collision body: (1.00, 0.00, 0.00)",
+    "Model drag preserves requested world position: (-2.00, 0.00, 0.00)",
+    "Dragging the model also moves its collision body: (-2.00, 0.00, 0.00)",
+    "Model drag preserves requested world position: (0.00, 1.00, 0.00)",
+    "Dragging the model also moves its collision body: (0.00, 1.00, 0.00)",
+    "Model drag preserves requested world position: (0.00, -1.00, 0.00)",
+    "Dragging the model also moves its collision body: (0.00, -1.00, 0.00)",
+    "Authored Transform edits mark the scene for Save"
+  ]
+}

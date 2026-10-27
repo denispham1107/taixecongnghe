@@ -146,8 +146,9 @@ namespace PhoViet
             CancelSwipe();
             int seed;do{seed=Guid.NewGuid().GetHashCode()&int.MaxValue;}while(seed==RunSeed);
             RunSeed=seed;rng=new System.Random(seed);
-            State=RideState.Ready;Distance=0;Speed=0;CurrentLane=2;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;steerYaw=0;ClearLaneMotion();noticeTimer=0;
-            nextIntersectionDistance=VietnamStreet.IntersectionCenter;ScheduledIntersections=0;
+            State=RideState.Ready;Distance=0;Speed=0;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;steerYaw=0;ClearLaneMotion();noticeTimer=0;
+            RestorePlayerStartFrame();
+            nextIntersectionDistance=VietnamStreet.IntersectionCenter-StartStreetPhase;ScheduledIntersections=0;
             ResetCityJobs();
             ResetRivers();
             ResetRoutes();
@@ -159,9 +160,8 @@ namespace PhoViet
             ResetBoost();
             ResetTankBarrage();
             ResetDinosaurs();
-            if(rider!=null){rider.localPosition=new Vector3(LaneX[2],0,0);rider.localRotation=Quaternion.identity;}
-            lastX=LaneX[2];
-            for(int i=0;i<blocks.Count;i++)blocks[i].localPosition=new Vector3(0,0,(i-1)*VietnamStreet.Length);
+            PlacePlayerAtStart();
+            for(int i=0;i<blocks.Count;i++)blocks[i].localPosition=new Vector3(0,0,(i-1)*VietnamStreet.Length-StartStreetPhase);
             foreach(var v in vehicles){v.active=false;v.crossing=false;v.crossSpeed=0;v.crossDelay=0;v.knocked=false;v.knockAge=0;v.playerGrace=0;v.model.gameObject.SetActive(false);}
             float openingZ=30+(float)rng.NextDouble()*10;
             int openingCount=TrafficCount(rng.Next(5,8));

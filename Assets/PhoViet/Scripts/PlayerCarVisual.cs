@@ -2,7 +2,7 @@ using UnityEngine;
 namespace PhoViet
 {
  // Only this skin is animated. The outer player root belongs to road/impact physics.
- [DisallowMultipleComponent]
+ [DisallowMultipleComponent,SelectionBase]
  public sealed class PlayerCarVisual:MonoBehaviour
  {
   public Transform visual,body,exhaustMount;

@@ -1,0 +1,11 @@
+{
+  "start": {
+    "x": 1.55,
+    "y": 0.0,
+    "z": 1.92
+  },
+  "dirty": false,
+  "quality": 5,
+  "aa": 4,
+  "shadowDistance": 100.0
+}

@@ -1,0 +1,6 @@
+{
+  "note": "Assistant QA drag changed x from 1.55 to 2.97; saved user position before QA was (1.55,0,4.39).",
+  "start": "(2.97000, 0.00000, 4.39000)",
+  "world": "(2.97000, 0.00000, 4.39000)",
+  "pending": "{\"x\":2.9700000286102297,\"y\":0.0,\"z\":4.389999866485596}"
+}

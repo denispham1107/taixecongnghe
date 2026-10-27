@@ -1,0 +1,24 @@
+{
+  "checks": [
+    "Landing caches the shell without downloading runtime data",
+    "An incomplete cache is never reported ready",
+    "Runtime download succeeds while another file is temporarily unavailable",
+    "A failed download does not mark the cache complete",
+    "Cache becomes ready only after every runtime response is stored",
+    "No duplicate download of the large data resource",
+    "The unused texture variant is not downloaded",
+    "Offline shell survives a service worker restart",
+    "Offline runtime bytes survive a service worker restart",
+    "Offline readiness uses the saved manifest after worker restart",
+    "Offline operation does not issue network requests",
+    "Updating leaves the current tab on its matching old runtime",
+    "Both versions coexist until the old tab closes",
+    "Old cache is reclaimed after the old tab closes",
+    "No JavaScript runtime errors"
+  ],
+  "errors": [],
+  "keysAfterUpdate": [
+    "phoviet:http://127.0.0.1:65031/:fixture-2"
+  ],
+  "success": true
+}

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Security.Cryptography;
 using UnityEditor;
@@ -24,17 +25,53 @@ namespace PhoViet.Editor
             PlayerSettings.WebGL.threadsSupport=false; // GitHub Pages cannot supply isolation headers.
             PlayerSettings.WebGL.wasm2023=false; // Keep compatibility with Safari 15+.
             PlayerSettings.WebGL.initialMemorySize=128;
-            PlayerSettings.WebGL.maximumMemorySize=1024; // Growth ceiling, not an upfront allocation; Petshop meshes exceed the old 512 MB heap.
+            PlayerSettings.WebGL.memoryGrowthMode=WebGLMemoryGrowthMode.Geometric;
+            PlayerSettings.WebGL.geometricMemoryGrowthStep=.1f;
+            PlayerSettings.WebGL.memoryGeometricGrowthCap=32;
+            // GPU-compressed Web textures avoid the former RGB(A)32 expansion.
+            PlayerSettings.WebGL.maximumMemorySize=512;
+            PhoVietWebMemorySettings.Apply();
             PlayerSettings.runInBackground=false;
-            PlayerSettings.bundleVersion="1.43.0";
+            PlayerSettings.bundleVersion="1.44.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
 
         // Can also run with Unity -batchmode -executeMethod PhoViet.Editor.PhoVietWebBuild.Build.
+        [MenuItem("Phố Việt/Build Web PWA (mobile + desktop)")]
         public static void Build()
         {
             Configure();
+            BuildSingle();
+            const string root="Builds/WebGL";
+            string mobileData=Directory.GetFiles(root+"/Build","*.data.unityweb").Single();
+            byte[] mobileBytes=File.ReadAllBytes(mobileData);
+            string dataName=Path.GetFileName(mobileData);
+            var shared=new[]{"*.wasm.unityweb","*.framework.js.unityweb"}.ToDictionary(pattern=>pattern,pattern=>File.ReadAllBytes(Directory.GetFiles(root+"/Build",pattern).Single()));
+            PhoVietWebMemorySettings.Apply(false);
+            BuildSingle();
+            foreach(var pair in shared)
+                if(!Uncompress(pair.Value).SequenceEqual(Uncompress(File.ReadAllBytes(Directory.GetFiles(root+"/Build",pair.Key).Single()))))throw new Exception("Texture variants must share identical code: "+pair.Key);
+            string desktopData=Directory.GetFiles(root+"/Build","*.data.unityweb").Single();
+            if(Path.GetFileName(desktopData)==dataName)throw new Exception("Expected separate mobile and desktop texture data");
+            File.WriteAllBytes(root+"/Build/"+dataName,mobileBytes);
+            string htmlPath=root+"/index.html",html=File.ReadAllText(htmlPath);
+            html=html.Replace("window.PHO_VIET_BUILD={","window.PHO_VIET_BUILD={\n      mobileDataUrl:\"Build/"+dataName+"\",");
+            File.WriteAllText(htmlPath,html);
+            RefreshWebShell();
+        }
+
+        static byte[] Uncompress(byte[] bytes)
+        {
+            using var input=new MemoryStream(bytes);
+            using var gzip=new GZipStream(input,CompressionMode.Decompress);
+            using var output=new MemoryStream();
+            gzip.CopyTo(output);
+            return output.ToArray();
+        }
+
+        static void BuildSingle()
+        {
             var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions {
                 scenes=new[]{"Assets/PhoViet/Scenes/PhoViet.unity"},
                 target=BuildTarget.WebGL,
@@ -100,7 +137,7 @@ namespace PhoViet.Editor
             }
             hash.TransformFinalBlock(Array.Empty<byte>(),0,0);
             string digest=BitConverter.ToString(hash.Hash).Replace("-","").Substring(0,16).ToLowerInvariant();
-            File.WriteAllText(Path.Combine(root,"precache.json"),JsonUtility.ToJson(new CacheList{files=files}));
+            File.WriteAllText(Path.Combine(root,"precache.json"),JsonUtility.ToJson(new CacheList{files=files,dataVariants=files.Where(f=>f.StartsWith("Build/",StringComparison.Ordinal)&&f.EndsWith(".data.unityweb",StringComparison.Ordinal)).ToArray()}));
             string workerPath=Path.Combine(root,"sw.js");
             File.WriteAllText(workerPath,File.ReadAllText("Assets/WebGLTemplates/PhoVietPWA/sw.js").Replace("__PHOVIET_CACHE__",digest));
             File.WriteAllText(Path.Combine(root,"build-info.json"),JsonUtility.ToJson(new BuildInfo {
@@ -109,7 +146,7 @@ namespace PhoViet.Editor
             File.WriteAllText(Path.Combine(root,".nojekyll"),"");
             Debug.Log("PHỐ VIỆT PWA ready: "+files.Length+" offline files, cache "+digest);
         }
-        [Serializable] private class CacheList { public string[] files; }
+        [Serializable] private class CacheList { public string[] files,dataVariants; }
         [Serializable] private class BuildInfo { public string version,cache,unity,utc; }
     }
 }

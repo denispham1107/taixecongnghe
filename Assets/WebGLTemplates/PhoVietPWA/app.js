@@ -7,6 +7,19 @@ const standalone = matchMedia('(display-mode: standalone), (display-mode: fullsc
 const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const touchDevice=ios || navigator.maxTouchPoints>0 || matchMedia('(any-pointer: coarse)').matches;
 let immersive=false, menuOpen=false, lastInsets='';
+let serviceWorkerReady;
+function checkOffline(){navigator.serviceWorker?.controller?.postMessage({type:'PHOVIET_CHECK_OFFLINE'});}
+async function controlGameRequests(){
+  // Let the small-shell worker claim this page before downloading Unity, so
+  // offline storage consumes the game's requests instead of downloading twice.
+  if(!serviceWorkerReady)return;
+  await Promise.race([serviceWorkerReady.catch(()=>{}),new Promise(resolve=>setTimeout(resolve,4000))]);
+  if(navigator.serviceWorker.controller)return;
+  await new Promise(resolve=>{
+    const done=()=>{clearTimeout(timer);navigator.serviceWorker.removeEventListener('controllerchange',done);resolve();};
+    const timer=setTimeout(done,1500);navigator.serviceWorker.addEventListener('controllerchange',done);
+  });
+}
 function gamePixelRatio(width,height){
   const nativeRatio=Number.isFinite(window.devicePixelRatio)&&window.devicePixelRatio>0?window.devicePixelRatio:1;
   // Full phone density up to 3x; bound large tablet framebuffers to 3.2 million pixels.
@@ -97,14 +110,20 @@ function fail(error) {
 }
 $('play').addEventListener('click', async () => {
   if(starting)return;
-  if(!window.WebAssembly || !document.createElement('canvas').getContext('webgl2')) {
+  const probe=document.createElement('canvas'),gl=probe.getContext('webgl2');
+  const supported=Boolean(window.WebAssembly&&gl);
+  const mobileTextures=Boolean(gl?.getExtension('WEBGL_compressed_texture_etc'));
+  gl?.getExtension('WEBGL_lose_context')?.loseContext();
+  if(!supported) {
     $('load-status').textContent='Thiết bị cần trình duyệt hỗ trợ WebGL 2 và WebAssembly. Hãy mở bằng Chrome, Edge hoặc Safari mới nhất.';return;
   }
   // Invoke while the tap still grants user activation, before loading WebAssembly.
   if(touchDevice)void requestNativeFullscreen();
   starting=true;$('play').disabled=true;$('play').textContent='ĐANG MỞ PHỐ…';$('progress').hidden=false;
   $('load-status').textContent='Đang tải game, lần đầu có thể mất một chút thời gian…';
-  const {loaderUrl,...build}=window.PHO_VIET_BUILD;
+  await controlGameRequests();
+  const {loaderUrl,mobileDataUrl,...build}=window.PHO_VIET_BUILD;
+  if(mobileTextures&&mobileDataUrl)build.dataUrl=mobileDataUrl;
   const config={...build,streamingAssetsUrl:'StreamingAssets',
     devicePixelRatio:gamePixelRatio(innerWidth,innerHeight),
     showBanner:(message,type) => {if(type==='error')fail(message);else console.warn(message);}
@@ -118,6 +137,7 @@ $('play').addEventListener('click', async () => {
         $('progress').value=p;$('load-status').textContent=`Đang tải game · ${Math.round(p*100)}%`;
       });
       window.phoVietInstance=unityInstance;
+      checkOffline();
       setImmersive(touchDevice||standalone||Boolean(document.fullscreenElement));
       $('welcome').hidden=true;canvas.focus();
       if(document.hidden) unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','PauseForBrowser');
@@ -185,18 +205,23 @@ window.addEventListener('keydown',e=>{
 });
 
 if('serviceWorker' in navigator) {
-  window.addEventListener('load',async()=>{
+  navigator.serviceWorker.addEventListener('message',event=>{
+    if(event.data?.type==='PHOVIET_OFFLINE_STATUS')$('offline-status').textContent=event.data.ready?
+      'Đã lưu để chơi offline trên máy này':'Game sẽ được lưu offline sau khi tải xong';
+  });
+  navigator.serviceWorker.addEventListener('controllerchange',checkOffline);
+  (async()=>{
     try {
-      const reg=await navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'});
-      const ready=()=>{$('offline-status').textContent='Đã lưu để chơi offline trên máy này';};
-      if(reg.active)ready();
+      serviceWorkerReady=navigator.serviceWorker.register('./sw.js',{updateViaCache:'none'}).then(()=>navigator.serviceWorker.ready);
+      const reg=await serviceWorkerReady;
+      if(reg.active)checkOffline();
       reg.addEventListener('updatefound',()=>{
         const worker=reg.installing;
         worker.addEventListener('statechange',()=>{
-          if(worker.state==='activated')ready();
+          if(worker.state==='activated')checkOffline();
           else if(worker.state==='installed' && reg.active)$('offline-status').textContent='Có bản mới · đóng và mở lại để cập nhật';
         });
       });
     }catch(error){console.warn('Offline cache unavailable',error);}
-  });
+  })();
 }

@@ -1,0 +1,3532 @@
+{
+  "textureBytes": 602163736,
+  "meshBytes": 385887452,
+  "textures": [
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Normal.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "RGBA32",
+      "bytes": 44740168,
+      "readable": false,
+      "mips": 12,
+      "normal": true,
+      "maxSize": 2048,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Normal.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "RGBA32",
+      "bytes": 44740168,
+      "readable": false,
+      "mips": 12,
+      "normal": true,
+      "maxSize": 2048,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Surface.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "RGBA32",
+      "bytes": 44740168,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Surface.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "RGBA32",
+      "bytes": 44740168,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Palette.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "RGB24",
+      "bytes": 39147763,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Regions.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "RGB24",
+      "bytes": 39147763,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Emission.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "RGB24",
+      "bytes": 39147763,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Emission.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "RGB24",
+      "bytes": 39147763,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Palette.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "RGB24",
+      "bytes": 39147763,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Normal.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT5",
+      "bytes": 11185792,
+      "readable": false,
+      "mips": 12,
+      "normal": true,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Surface.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT5",
+      "bytes": 11185792,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/meshy_normal.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT5",
+      "bytes": 11185792,
+      "readable": false,
+      "mips": 12,
+      "normal": true,
+      "maxSize": 2048,
+      "compression": "Compressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Surface.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT5",
+      "bytes": 11185792,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Surface.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT5",
+      "bytes": 11185792,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Surface.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT5",
+      "bytes": 11185792,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Normal.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT5",
+      "bytes": 11185792,
+      "readable": false,
+      "mips": 12,
+      "normal": true,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Surface.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT5",
+      "bytes": 11185792,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Normal.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT5",
+      "bytes": 11185792,
+      "readable": false,
+      "mips": 12,
+      "normal": true,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Normal.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT5",
+      "bytes": 11185792,
+      "readable": false,
+      "mips": 12,
+      "normal": true,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Normal.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT5",
+      "bytes": 11185792,
+      "readable": false,
+      "mips": 12,
+      "normal": true,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_PaintMask.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Palette.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Emission.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_PaintMask.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Emission.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Palette.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_PaintMask.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_PaintMask.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Palette.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Emission.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/meshy_basecolor.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "Compressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Palette.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Emission.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_PaintMask.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Palette.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Emission.png",
+      "width": 2048,
+      "height": 2048,
+      "format": "DXT1",
+      "bytes": 5593360,
+      "readable": false,
+      "mips": 12,
+      "normal": false,
+      "maxSize": 2048,
+      "compression": "CompressedHQ",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_StreetPool.png",
+      "width": 512,
+      "height": 512,
+      "format": "RGB24",
+      "bytes": 2447603,
+      "readable": false,
+      "mips": 10,
+      "normal": false,
+      "maxSize": 512,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_HeadlightCookie.png",
+      "width": 512,
+      "height": 512,
+      "format": "RGB24",
+      "bytes": 2447603,
+      "readable": false,
+      "mips": 10,
+      "normal": false,
+      "maxSize": 512,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_OpticalGlare.png",
+      "width": 512,
+      "height": 512,
+      "format": "RGB24",
+      "bytes": 2447603,
+      "readable": false,
+      "mips": 10,
+      "normal": false,
+      "maxSize": 512,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Resources/Wreck/PV_WreckSmoke.png",
+      "width": 768,
+      "height": 384,
+      "format": "RGBA32",
+      "bytes": 2360224,
+      "readable": false,
+      "mips": 1,
+      "normal": false,
+      "maxSize": 1024,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Resources/Wreck/PV_WreckFlame.png",
+      "width": 768,
+      "height": 384,
+      "format": "RGBA32",
+      "bytes": 2360224,
+      "readable": false,
+      "mips": 1,
+      "normal": false,
+      "maxSize": 1024,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/TankFx/PV_TankFx_Explosion.png",
+      "width": 1024,
+      "height": 512,
+      "format": "DXT5",
+      "bytes": 1399104,
+      "readable": false,
+      "mips": 11,
+      "normal": false,
+      "maxSize": 1024,
+      "compression": "Compressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/TankFx/PV_TankFx_Muzzle.png",
+      "width": 512,
+      "height": 512,
+      "format": "DXT5",
+      "bytes": 700032,
+      "readable": false,
+      "mips": 10,
+      "normal": false,
+      "maxSize": 1024,
+      "compression": "Compressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Fog/PV_MorningFogDensity.png",
+      "width": 272,
+      "height": 136,
+      "format": "RGB24",
+      "bytes": 259872,
+      "readable": false,
+      "mips": 1,
+      "normal": false,
+      "maxSize": 512,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/TankFx/PV_TankFx_Warning.png",
+      "width": 256,
+      "height": 256,
+      "format": "DXT5",
+      "bytes": 175744,
+      "readable": false,
+      "mips": 9,
+      "normal": false,
+      "maxSize": 1024,
+      "compression": "Compressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetPalette.png",
+      "width": 128,
+      "height": 128,
+      "format": "RGB24",
+      "bytes": 115616,
+      "readable": false,
+      "mips": 1,
+      "normal": false,
+      "maxSize": 128,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_BikeEmission.png",
+      "width": 128,
+      "height": 128,
+      "format": "RGB24",
+      "bytes": 115616,
+      "readable": false,
+      "mips": 1,
+      "normal": false,
+      "maxSize": 128,
+      "compression": "Uncompressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice_Surface.png",
+      "width": 128,
+      "height": 128,
+      "format": "DXT5",
+      "bytes": 33696,
+      "readable": false,
+      "mips": 1,
+      "normal": false,
+      "maxSize": 128,
+      "compression": "Compressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Passengers/PV_PassengerMale_Palette.png",
+      "width": 128,
+      "height": 128,
+      "format": "DXT1",
+      "bytes": 17312,
+      "readable": false,
+      "mips": 1,
+      "normal": false,
+      "maxSize": 128,
+      "compression": "Compressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale_Palette.png",
+      "width": 128,
+      "height": 128,
+      "format": "DXT1",
+      "bytes": 17312,
+      "readable": false,
+      "mips": 1,
+      "normal": false,
+      "maxSize": 128,
+      "compression": "Compressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice_Palette.png",
+      "width": 128,
+      "height": 128,
+      "format": "DXT1",
+      "bytes": 17312,
+      "readable": false,
+      "mips": 1,
+      "normal": false,
+      "maxSize": 128,
+      "compression": "Compressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    },
+    {
+      "path": "Assets/PhoViet/Art/TankFx/PV_TankFx_Spark.png",
+      "width": 64,
+      "height": 64,
+      "format": "DXT5",
+      "bytes": 11904,
+      "readable": false,
+      "mips": 7,
+      "normal": false,
+      "maxSize": 1024,
+      "compression": "Compressed",
+      "webOverride": false,
+      "webFormat": "AutomaticCompressed"
+    }
+  ],
+  "meshes": [
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverBridge.fbx",
+      "name": "PV_RiverBridge_LOD0",
+      "bytes": 11071056,
+      "vertices": 102117,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+      "name": "PV_StreetTree2_LOD0",
+      "bytes": 8970528,
+      "vertices": 86170,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+      "name": "PV_StreetTree1_LOD0",
+      "bytes": 8970528,
+      "vertices": 86170,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+      "name": "PV_StreetTree0_LOD0",
+      "bytes": 8970528,
+      "vertices": 86170,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "name": "PV_UrbanRider_Body",
+      "bytes": 6834684,
+      "vertices": 49436,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01_Petshop.fbx",
+      "name": "PV_StreetShop01_Petshop_LOD0",
+      "bytes": 6394176,
+      "vertices": 62493,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01.fbx",
+      "name": "PV_StreetShop01_LOD0",
+      "bytes": 6312912,
+      "vertices": 62386,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07.fbx",
+      "name": "PV_StreetShop07_LOD0",
+      "bytes": 5935224,
+      "vertices": 58533,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07_Petshop.fbx",
+      "name": "PV_StreetShop07_Petshop_LOD0",
+      "bytes": 5608020,
+      "vertices": 54695,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10_Petshop.fbx",
+      "name": "PV_StreetShop10_Petshop_LOD0",
+      "bytes": 5548608,
+      "vertices": 54094,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10.fbx",
+      "name": "PV_StreetShop10_LOD0",
+      "bytes": 5514216,
+      "vertices": 54425,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "name": "PV_UrbanRider_LOD1",
+      "bytes": 5434428,
+      "vertices": 29601,
+      "readable": false
+    },
+    {
+      "path": "Assets/MeshyImports/Golden Star Stance_20261023_150430/Meshy_AI_Golden_Star_Stance_biped_Character_output.fbx",
+      "name": "Mesh_0",
+      "bytes": 5099260,
+      "vertices": 29792,
+      "readable": false
+    },
+    {
+      "path": "Assets/MeshyImports/Golden Star Stance_20261023_150426/Meshy_AI_Golden_Star_Stance_biped_Animation_Running_withSkin.fbx",
+      "name": "Mesh_0",
+      "bytes": 5099260,
+      "vertices": 29792,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04_Petshop.fbx",
+      "name": "PV_StreetShop04_Petshop_LOD0",
+      "bytes": 4793796,
+      "vertices": 46600,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04.fbx",
+      "name": "PV_StreetShop04_LOD0",
+      "bytes": 4754592,
+      "vertices": 46862,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11_Petshop.fbx",
+      "name": "PV_StreetShop11_Petshop_LOD0",
+      "bytes": 4182924,
+      "vertices": 40720,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11.fbx",
+      "name": "PV_StreetShop11_LOD0",
+      "bytes": 4146288,
+      "vertices": 41028,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08.fbx",
+      "name": "PV_StreetShop08_LOD0",
+      "bytes": 4037832,
+      "vertices": 39856,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08_Petshop.fbx",
+      "name": "PV_StreetShop08_Petshop_LOD0",
+      "bytes": 3702672,
+      "vertices": 35946,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+      "name": "PV_StreetTree2_LOD1",
+      "bytes": 3684504,
+      "vertices": 36812,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+      "name": "PV_StreetTree1_LOD1",
+      "bytes": 3684504,
+      "vertices": 36812,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+      "name": "PV_StreetTree0_LOD1",
+      "bytes": 3684504,
+      "vertices": 36812,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+      "name": "PV_StreetShop09_LOD0",
+      "bytes": 3642744,
+      "vertices": 35972,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+      "name": "PV_StreetShop06_LOD0",
+      "bytes": 3584520,
+      "vertices": 35433,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx",
+      "name": "PV_StreetShop00_LOD0",
+      "bytes": 3497112,
+      "vertices": 34473,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03.fbx",
+      "name": "PV_StreetShop03_LOD0",
+      "bytes": 3490932,
+      "vertices": 34466,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+      "name": "PV_TrafficPolice_Body",
+      "bytes": 3433444,
+      "vertices": 19476,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09_Petshop.fbx",
+      "name": "PV_StreetShop09_Petshop_LOD0",
+      "bytes": 3361824,
+      "vertices": 32562,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03_Petshop.fbx",
+      "name": "PV_StreetShop03_Petshop_LOD0",
+      "bytes": 3321024,
+      "vertices": 32118,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar.fbx",
+      "name": "PV_BlueSupercar_Body",
+      "bytes": 3262788,
+      "vertices": 28117,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01_Petshop.fbx",
+      "name": "PV_StreetShop01_Petshop_LOD1",
+      "bytes": 3259632,
+      "vertices": 31737,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01.fbx",
+      "name": "PV_StreetShop01_LOD1",
+      "bytes": 3191088,
+      "vertices": 31420,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverBridge.fbx",
+      "name": "PV_RiverBridge_LOD1",
+      "bytes": 3154008,
+      "vertices": 31109,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06_Petshop.fbx",
+      "name": "PV_StreetShop06_Petshop_LOD0",
+      "bytes": 3133476,
+      "vertices": 30288,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00_Petshop.fbx",
+      "name": "PV_StreetShop00_Petshop_LOD0",
+      "bytes": 3133368,
+      "vertices": 30287,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanParked_PV_Underbone.asset",
+      "name": "PV_UrbanParked_PV_Underbone",
+      "bytes": 3065048,
+      "vertices": 29601,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanParked_PV_SportBike.asset",
+      "name": "PV_UrbanParked_PV_SportBike",
+      "bytes": 3065048,
+      "vertices": 29601,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanParked_PV_CityScooter.asset",
+      "name": "PV_UrbanParked_PV_CityScooter",
+      "bytes": 3065048,
+      "vertices": 29601,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02.fbx",
+      "name": "PV_StreetShop02_LOD0",
+      "bytes": 3059016,
+      "vertices": 30178,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07.fbx",
+      "name": "PV_StreetShop07_LOD1",
+      "bytes": 3043512,
+      "vertices": 29891,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07_Petshop.fbx",
+      "name": "PV_StreetShop07_Petshop_LOD1",
+      "bytes": 2878884,
+      "vertices": 27967,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10_Petshop.fbx",
+      "name": "PV_StreetShop10_Petshop_LOD1",
+      "bytes": 2806992,
+      "vertices": 27252,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10.fbx",
+      "name": "PV_StreetShop10_LOD1",
+      "bytes": 2785320,
+      "vertices": 27373,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02_Petshop.fbx",
+      "name": "PV_StreetShop02_Petshop_LOD0",
+      "bytes": 2780172,
+      "vertices": 26763,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04.fbx",
+      "name": "PV_StreetShop04_LOD1",
+      "bytes": 2646912,
+      "vertices": 25986,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04_Petshop.fbx",
+      "name": "PV_StreetShop04_Petshop_LOD1",
+      "bytes": 2633844,
+      "vertices": 25550,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05_Petshop.fbx",
+      "name": "PV_StreetShop05_Petshop_LOD0",
+      "bytes": 2540928,
+      "vertices": 24411,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank.fbx",
+      "name": "PV_MeshyTank_Body",
+      "bytes": 2469592,
+      "vertices": 22088,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "name": "PV_UrbanRider_LOD2",
+      "bytes": 2464284,
+      "vertices": 13527,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt15_LOD0",
+      "bytes": 2389608,
+      "vertices": 21904,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup.fbx",
+      "name": "PV_MeshyPickup_Body",
+      "bytes": 2352176,
+      "vertices": 20218,
+      "readable": false
+    },
+    {
+      "path": "Assets/MeshyImports/Iron Sentinel_20261024_170520/Meshy_AI_Iron_Sentinel_1024100517_texture.fbx",
+      "name": "Mesh_0",
+      "bytes": 2242044,
+      "vertices": 21569,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05.fbx",
+      "name": "PV_StreetShop05_LOD0",
+      "bytes": 2177052,
+      "vertices": 21533,
+      "readable": false
+    },
+    {
+      "path": "Assets/MeshyImports/Meshy_Model_20261024_022318/Meshy_AI_Hãy_tạo_mô_hình__1023192316_texture.fbx",
+      "name": "Mesh_0",
+      "bytes": 2117892,
+      "vertices": 19473,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered.fbx",
+      "name": "PV_MeshyCovered_Body",
+      "bytes": 2116664,
+      "vertices": 18772,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11_Petshop.fbx",
+      "name": "PV_StreetShop11_Petshop_LOD1",
+      "bytes": 2053740,
+      "vertices": 19876,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11.fbx",
+      "name": "PV_StreetShop11_LOD1",
+      "bytes": 2047200,
+      "vertices": 20142,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08.fbx",
+      "name": "PV_StreetShop08_LOD1",
+      "bytes": 2034360,
+      "vertices": 19980,
+      "readable": false
+    },
+    {
+      "path": "Assets/MeshyImports/Red Honda Scooter Front View_20261023_023822/Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+      "name": "Mesh_0",
+      "bytes": 1982676,
+      "vertices": 18669,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Dinosaur/PV_EmeraldTyrant.fbx",
+      "name": "PV_EmeraldTyrant_Skin",
+      "bytes": 1978968,
+      "vertices": 11177,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+      "name": "PV_StreetShop09_LOD1",
+      "bytes": 1917144,
+      "vertices": 18862,
+      "readable": false
+    },
+    {
+      "path": "Assets/MeshyImports/Covered cargo truck_20261024_022230/Meshy_AI_Covered_cargo_truck_1023192227_texture.fbx",
+      "name": "Mesh_0",
+      "bytes": 1914684,
+      "vertices": 18243,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08_Petshop.fbx",
+      "name": "PV_StreetShop08_Petshop_LOD1",
+      "bytes": 1861776,
+      "vertices": 17984,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03.fbx",
+      "name": "PV_StreetShop03_LOD1",
+      "bytes": 1827924,
+      "vertices": 17964,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar.fbx",
+      "name": "PV_BlueSupercar_LOD1",
+      "bytes": 1821504,
+      "vertices": 16068,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+      "name": "PV_StreetShop06_LOD1",
+      "bytes": 1818924,
+      "vertices": 17926,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09_Petshop.fbx",
+      "name": "PV_StreetShop09_Petshop_LOD1",
+      "bytes": 1798800,
+      "vertices": 17366,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt11_LOD0",
+      "bytes": 1754016,
+      "vertices": 16428,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt05_LOD0",
+      "bytes": 1738824,
+      "vertices": 16260,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03_Petshop.fbx",
+      "name": "PV_StreetShop03_Petshop_LOD1",
+      "bytes": 1736016,
+      "vertices": 16714,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport.fbx",
+      "name": "PV_MeshySport_Body",
+      "bytes": 1718652,
+      "vertices": 14598,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx",
+      "name": "PV_StreetShop00_LOD1",
+      "bytes": 1718628,
+      "vertices": 16884,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt07_LOD0",
+      "bytes": 1684272,
+      "vertices": 15734,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt22_LOD0",
+      "bytes": 1670424,
+      "vertices": 15600,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt12_LOD0",
+      "bytes": 1670328,
+      "vertices": 15592,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02.fbx",
+      "name": "PV_StreetShop02_LOD1",
+      "bytes": 1655448,
+      "vertices": 16270,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt00_LOD0",
+      "bytes": 1625088,
+      "vertices": 15156,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+      "name": "PV_StreetTree2_LOD2",
+      "bytes": 1618296,
+      "vertices": 16160,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+      "name": "PV_StreetTree1_LOD2",
+      "bytes": 1618296,
+      "vertices": 16160,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+      "name": "PV_StreetTree0_LOD2",
+      "bytes": 1618296,
+      "vertices": 16160,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt08_LOD0",
+      "bytes": 1614144,
+      "vertices": 15030,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt18_LOD0",
+      "bytes": 1605864,
+      "vertices": 14960,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt17_LOD0",
+      "bytes": 1605096,
+      "vertices": 14940,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06_Petshop.fbx",
+      "name": "PV_StreetShop06_Petshop_LOD1",
+      "bytes": 1595220,
+      "vertices": 15338,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00_Petshop.fbx",
+      "name": "PV_StreetShop00_Petshop_LOD1",
+      "bytes": 1595112,
+      "vertices": 15337,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt01_LOD0",
+      "bytes": 1593600,
+      "vertices": 14818,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt14_LOD0",
+      "bytes": 1548840,
+      "vertices": 14404,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt23_LOD0",
+      "bytes": 1544784,
+      "vertices": 14386,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt19_LOD0",
+      "bytes": 1539792,
+      "vertices": 14326,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt10_LOD0",
+      "bytes": 1517640,
+      "vertices": 14092,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02_Petshop.fbx",
+      "name": "PV_StreetShop02_Petshop_LOD1",
+      "bytes": 1511148,
+      "vertices": 14505,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt04_LOD0",
+      "bytes": 1500120,
+      "vertices": 13942,
+      "readable": false
+    },
+    {
+      "path": "Assets/MeshyImports/Meshy_Model_20261024_022256/Meshy_AI_Hãy_tạo_mô_hình__1023192254_texture.fbx",
+      "name": "Mesh_0",
+      "bytes": 1495728,
+      "vertices": 13503,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt13_LOD0",
+      "bytes": 1481832,
+      "vertices": 13762,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+      "name": "PV_TrafficPolice_LOD1",
+      "bytes": 1453388,
+      "vertices": 8182,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverPetshopExtra.fbx",
+      "name": "PV_RiverApt09_PetshopExtra_LOD0",
+      "bytes": 1406448,
+      "vertices": 13024,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt15_LOD1",
+      "bytes": 1380528,
+      "vertices": 12676,
+      "readable": false
+    },
+    {
+      "path": "Assets/MeshyImports/Cù Lao Petshop Truck_20261026_012447/Meshy_AI_Cù_Lao_Petshop_Truck_1025182443_texture.fbx",
+      "name": "Mesh_0",
+      "bytes": 1350312,
+      "vertices": 12213,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt02_LOD0",
+      "bytes": 1325856,
+      "vertices": 12230,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank.fbx",
+      "name": "PV_MeshyTank_LOD1",
+      "bytes": 1317424,
+      "vertices": 11924,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05_Petshop.fbx",
+      "name": "PV_StreetShop05_Petshop_LOD1",
+      "bytes": 1315488,
+      "vertices": 12575,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup.fbx",
+      "name": "PV_MeshyPickup_LOD1",
+      "bytes": 1276576,
+      "vertices": 11205,
+      "readable": false
+    },
+    {
+      "path": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/Meshy_AI_Emerald_Tyrant_20261025_texture.fbx",
+      "name": "Mesh_0",
+      "bytes": 1262196,
+      "vertices": 11177,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt20_LOD0",
+      "bytes": 1168536,
+      "vertices": 11417,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt03_LOD0",
+      "bytes": 1158144,
+      "vertices": 11312,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered.fbx",
+      "name": "PV_MeshyCovered_LOD1",
+      "bytes": 1114400,
+      "vertices": 10006,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05.fbx",
+      "name": "PV_StreetShop05_LOD1",
+      "bytes": 1085580,
+      "vertices": 10675,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt05_LOD1",
+      "bytes": 1025784,
+      "vertices": 9598,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt11_LOD1",
+      "bytes": 984960,
+      "vertices": 9214,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt07_LOD1",
+      "bytes": 979872,
+      "vertices": 9156,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt17_LOD1",
+      "bytes": 969576,
+      "vertices": 9038,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport.fbx",
+      "name": "PV_MeshySport_LOD1",
+      "bytes": 965956,
+      "vertices": 8426,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt00_LOD1",
+      "bytes": 958560,
+      "vertices": 8950,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt22_LOD1",
+      "bytes": 947592,
+      "vertices": 8842,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt08_LOD1",
+      "bytes": 947496,
+      "vertices": 8820,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt12_LOD1",
+      "bytes": 944040,
+      "vertices": 8798,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01_Petshop.fbx",
+      "name": "PV_StreetShop01_Petshop_LOD2",
+      "bytes": 943596,
+      "vertices": 8964,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt01_LOD1",
+      "bytes": 939312,
+      "vertices": 8732,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer.fbx",
+      "name": "PV_MeshyContainer_Body",
+      "bytes": 924884,
+      "vertices": 7988,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt10_LOD1",
+      "bytes": 920808,
+      "vertices": 8570,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt18_LOD1",
+      "bytes": 912552,
+      "vertices": 8490,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt14_LOD1",
+      "bytes": 907536,
+      "vertices": 8446,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar.fbx",
+      "name": "PV_BlueSupercar_LOD2",
+      "bytes": 900328,
+      "vertices": 8115,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt21_LOD0",
+      "bytes": 887232,
+      "vertices": 8648,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt15_LOD2",
+      "bytes": 884976,
+      "vertices": 7982,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt19_LOD1",
+      "bytes": 867216,
+      "vertices": 8060,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt23_LOD1",
+      "bytes": 861408,
+      "vertices": 8012,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt04_LOD1",
+      "bytes": 853320,
+      "vertices": 7928,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt13_LOD1",
+      "bytes": 848424,
+      "vertices": 7880,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07_Petshop.fbx",
+      "name": "PV_StreetShop07_Petshop_LOD2",
+      "bytes": 828048,
+      "vertices": 7815,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10_Petshop.fbx",
+      "name": "PV_StreetShop10_Petshop_LOD2",
+      "bytes": 826644,
+      "vertices": 7798,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04_Petshop.fbx",
+      "name": "PV_StreetShop04_Petshop_LOD2",
+      "bytes": 820488,
+      "vertices": 7741,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverPetshopExtra.fbx",
+      "name": "PV_RiverApt09_PetshopExtra_LOD1",
+      "bytes": 819408,
+      "vertices": 7598,
+      "readable": false
+    },
+    {
+      "path": "Assets/MeshyImports/Meshy_Model_20261024_022335/Meshy_AI_Hãy_tạo_mô_hình__1023192333_texture.fbx",
+      "name": "Mesh_0",
+      "bytes": 796056,
+      "vertices": 7328,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07.fbx",
+      "name": "PV_StreetShop07_LOD2",
+      "bytes": 785172,
+      "vertices": 7629,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt09_LOD0",
+      "bytes": 779760,
+      "vertices": 7616,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01.fbx",
+      "name": "PV_StreetShop01_LOD2",
+      "bytes": 777276,
+      "vertices": 7609,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt16_LOD0",
+      "bytes": 770568,
+      "vertices": 7526,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt06_LOD0",
+      "bytes": 765984,
+      "vertices": 7482,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09_Petshop.fbx",
+      "name": "PV_StreetShop09_Petshop_LOD2",
+      "bytes": 765780,
+      "vertices": 7220,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt02_LOD1",
+      "bytes": 759552,
+      "vertices": 7008,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+      "name": "PV_StreetShop06_LOD2",
+      "bytes": 758304,
+      "vertices": 7419,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11_Petshop.fbx",
+      "name": "PV_StreetShop11_Petshop_LOD2",
+      "bytes": 724920,
+      "vertices": 6803,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10.fbx",
+      "name": "PV_StreetShop10_LOD2",
+      "bytes": 707196,
+      "vertices": 6881,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08_Petshop.fbx",
+      "name": "PV_StreetShop08_Petshop_LOD2",
+      "bytes": 704124,
+      "vertices": 6602,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04.fbx",
+      "name": "PV_StreetShop04_LOD2",
+      "bytes": 701844,
+      "vertices": 6803,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06_Petshop.fbx",
+      "name": "PV_StreetShop06_Petshop_LOD2",
+      "bytes": 690072,
+      "vertices": 6461,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00_Petshop.fbx",
+      "name": "PV_StreetShop00_Petshop_LOD2",
+      "bytes": 689964,
+      "vertices": 6460,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+      "name": "PV_StreetShop09_LOD2",
+      "bytes": 676620,
+      "vertices": 6606,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02_Petshop.fbx",
+      "name": "PV_StreetShop02_Petshop_LOD2",
+      "bytes": 669744,
+      "vertices": 6263,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08.fbx",
+      "name": "PV_StreetShop08_LOD2",
+      "bytes": 669204,
+      "vertices": 6488,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverBridge.fbx",
+      "name": "PV_RiverBridge_LOD2",
+      "bytes": 667800,
+      "vertices": 6477,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03_Petshop.fbx",
+      "name": "PV_StreetShop03_Petshop_LOD2",
+      "bytes": 614268,
+      "vertices": 5700,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05_Petshop.fbx",
+      "name": "PV_StreetShop05_Petshop_LOD2",
+      "bytes": 608064,
+      "vertices": 5659,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt20_LOD1",
+      "bytes": 608016,
+      "vertices": 5909,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx",
+      "name": "PV_StreetShop00_LOD2",
+      "bytes": 605976,
+      "vertices": 5897,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02.fbx",
+      "name": "PV_StreetShop02_LOD2",
+      "bytes": 599436,
+      "vertices": 5834,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup.fbx",
+      "name": "PV_MeshyPickup_LOD2",
+      "bytes": 594664,
+      "vertices": 5313,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank.fbx",
+      "name": "PV_MeshyTank_LOD2",
+      "bytes": 591700,
+      "vertices": 5403,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt03_LOD1",
+      "bytes": 586944,
+      "vertices": 5700,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt01_LOD2",
+      "bytes": 565368,
+      "vertices": 5148,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt08_LOD2",
+      "bytes": 560496,
+      "vertices": 5108,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt17_LOD2",
+      "bytes": 558504,
+      "vertices": 5090,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer.fbx",
+      "name": "PV_MeshyContainer_LOD1",
+      "bytes": 544032,
+      "vertices": 4816,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt05_LOD2",
+      "bytes": 541680,
+      "vertices": 4934,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt12_LOD2",
+      "bytes": 539904,
+      "vertices": 4918,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt18_LOD2",
+      "bytes": 533712,
+      "vertices": 4858,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11.fbx",
+      "name": "PV_StreetShop11_LOD2",
+      "bytes": 532140,
+      "vertices": 5167,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt14_LOD2",
+      "bytes": 528696,
+      "vertices": 4814,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt22_LOD2",
+      "bytes": 523464,
+      "vertices": 4766,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt11_LOD2",
+      "bytes": 522888,
+      "vertices": 4766,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt10_LOD2",
+      "bytes": 521568,
+      "vertices": 4738,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+      "name": "PV_TrafficPolice_LOD2",
+      "bytes": 518612,
+      "vertices": 2890,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt07_LOD2",
+      "bytes": 517392,
+      "vertices": 4704,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt00_LOD2",
+      "bytes": 517296,
+      "vertices": 4706,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered.fbx",
+      "name": "PV_MeshyCovered_LOD2",
+      "bytes": 511660,
+      "vertices": 4646,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt13_LOD2",
+      "bytes": 501816,
+      "vertices": 4564,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt04_LOD2",
+      "bytes": 501816,
+      "vertices": 4564,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt19_LOD2",
+      "bytes": 498168,
+      "vertices": 4524,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport.fbx",
+      "name": "PV_MeshySport_LOD2",
+      "bytes": 488116,
+      "vertices": 4364,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt23_LOD2",
+      "bytes": 487056,
+      "vertices": 4424,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt21_LOD1",
+      "bytes": 485952,
+      "vertices": 4704,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverPetshopExtra.fbx",
+      "name": "PV_RiverApt09_PetshopExtra_LOD2",
+      "bytes": 477696,
+      "vertices": 4330,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt02_LOD2",
+      "bytes": 474552,
+      "vertices": 4296,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_5afeec0f657a7bc4aa59e2cbcdc5147b.asset",
+      "name": "Geometry_4 6",
+      "bytes": 465936,
+      "vertices": 4146,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_ee0e083e0435ef54eb569836b5a20689.asset",
+      "name": "Geometry_17 3",
+      "bytes": 465936,
+      "vertices": 4146,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_e2e9fbff0e08eb94e9651181215a3667.asset",
+      "name": "Geometry_82 2",
+      "bytes": 465936,
+      "vertices": 4146,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_aada209c43f604a4282358453a478802.asset",
+      "name": "Geometry_30 3",
+      "bytes": 465936,
+      "vertices": 4146,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_e21f4ceb215cfa24cb2b2a97f3477e69.asset",
+      "name": "Geometry_56 2",
+      "bytes": 465936,
+      "vertices": 4146,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_08e5b1e71d7e8f94a9ecab8658faf416.asset",
+      "name": "Geometry_43 2",
+      "bytes": 465936,
+      "vertices": 4146,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_b525a9299e1f53046b68d0f41b464da6.asset",
+      "name": "Geometry_69 2",
+      "bytes": 465936,
+      "vertices": 4146,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03.fbx",
+      "name": "PV_StreetShop03_LOD2",
+      "bytes": 429504,
+      "vertices": 4160,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt09_LOD1",
+      "bytes": 421248,
+      "vertices": 4092,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt16_LOD1",
+      "bytes": 403560,
+      "vertices": 3918,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt06_LOD1",
+      "bytes": 394488,
+      "vertices": 3830,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.fbx",
+      "name": "PV_PassengerFemale_Body",
+      "bytes": 380000,
+      "vertices": 3080,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05.fbx",
+      "name": "PV_StreetShop05_LOD2",
+      "bytes": 378924,
+      "vertices": 3685,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_c7cf08734dec41448b97c7dfd56a238b.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 375344,
+      "vertices": 3200,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_7a372e8c5cb7bda4dbc368cbb12eb7a3.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 375344,
+      "vertices": 3200,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_78d276ef38528ad4cb9d2c83bcf21f67.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 375344,
+      "vertices": 3200,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_967991d60aa83694c8a5c2c6601b4c78.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 375344,
+      "vertices": 3200,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_aad57c422d3517a45ac96cd82fee92cc.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 375344,
+      "vertices": 3200,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_d7269e7348801b74ab3dd2b4e62c8e28.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 375344,
+      "vertices": 3200,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_df69b20268d2aa74abd1ce048be7f123.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 375344,
+      "vertices": 3200,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.fbx",
+      "name": "PV_PassengerMale_Body",
+      "bytes": 347336,
+      "vertices": 2810,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_22918e09b71359643826d344e8693620.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 319216,
+      "vertices": 2656,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_8673f62dcf74abb458dc5bf14db6b003.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 319216,
+      "vertices": 2656,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_3b52d30b370dfa7468d6bc3a002c25db.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 319216,
+      "vertices": 2656,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_496a78a82faedfc4d82dfd438f5ebe9a.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 319216,
+      "vertices": 2656,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_65e18aa625ef3e248b07374aeb98ad57.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 319216,
+      "vertices": 2656,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_9147a34e9df99f949bb00653f851678d.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 319216,
+      "vertices": 2656,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_4ed4556906c29314fa1128f8ba32654e.asset",
+      "name": "PV_Combined • neutral morning",
+      "bytes": 319216,
+      "vertices": 2656,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_c24f996d.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 291504,
+      "vertices": 2880,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_5dc8e8dd.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 291504,
+      "vertices": 2880,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_4ee65c8c.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 291504,
+      "vertices": 2880,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_7a717e9d.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 291504,
+      "vertices": 2880,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_3b823bc6.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 291504,
+      "vertices": 2880,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_ae12b5e9.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 291504,
+      "vertices": 2880,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_2cacba88.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 291504,
+      "vertices": 2880,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer.fbx",
+      "name": "PV_MeshyContainer_LOD2",
+      "bytes": 261808,
+      "vertices": 2347,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetPavement.fbx",
+      "name": "PV_StreetPavement_LOD0",
+      "bytes": 258216,
+      "vertices": 2516,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_11 2.asset",
+      "name": "Geometry_11 2",
+      "bytes": 241696,
+      "vertices": 1633,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_5 2.asset",
+      "name": "Geometry_5 2",
+      "bytes": 222480,
+      "vertices": 1656,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_10 2.asset",
+      "name": "Geometry_10 2",
+      "bytes": 207616,
+      "vertices": 1507,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt20_LOD2",
+      "bytes": 192888,
+      "vertices": 1839,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt21_LOD2",
+      "bytes": 190776,
+      "vertices": 1810,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt03_LOD2",
+      "bytes": 186504,
+      "vertices": 1774,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.fbx",
+      "name": "PV_PassengerFemale_LOD1",
+      "bytes": 181012,
+      "vertices": 1459,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_9 2.asset",
+      "name": "Geometry_9 2",
+      "bytes": 169424,
+      "vertices": 1256,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_f433fea8.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 166512,
+      "vertices": 1648,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_1d1cf205.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 166512,
+      "vertices": 1648,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_34d116ff.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 166512,
+      "vertices": 1648,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_c4264219.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 166512,
+      "vertices": 1648,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_6dff469a.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 166512,
+      "vertices": 1648,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_bd438eb0.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 166512,
+      "vertices": 1648,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/PV_Combined_•_neutral_morning_f8fba4a5.asset",
+      "name": "PV_Combined • neutral morning_River",
+      "bytes": 166512,
+      "vertices": 1648,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.fbx",
+      "name": "PV_PassengerMale_LOD1",
+      "bytes": 165432,
+      "vertices": 1331,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_LEDStreetLamp.fbx",
+      "name": "PV_LEDStreetLamp",
+      "bytes": 141768,
+      "vertices": 1361,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt09_LOD2",
+      "bytes": 141168,
+      "vertices": 1346,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt16_LOD2",
+      "bytes": 140616,
+      "vertices": 1340,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "name": "PV_RiverApt06_LOD2",
+      "bytes": 136440,
+      "vertices": 1300,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverBoat0.fbx",
+      "name": "PV_RiverBoat0_LOD0",
+      "bytes": 104304,
+      "vertices": 1008,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetPavement.fbx",
+      "name": "PV_StreetPavement_LOD1",
+      "bytes": 98280,
+      "vertices": 948,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverBoat1.fbx",
+      "name": "PV_RiverBoat1_LOD0",
+      "bytes": 91872,
+      "vertices": 888,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_LEDStreetLamp.fbx",
+      "name": "PV_LEDStreetLamp_LOD1",
+      "bytes": 74568,
+      "vertices": 711,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.fbx",
+      "name": "PV_PassengerFemale_LOD2",
+      "bytes": 71048,
+      "vertices": 561,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.fbx",
+      "name": "PV_PassengerMale_LOD2",
+      "bytes": 66436,
+      "vertices": 523,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_TrafficSignal.fbx",
+      "name": "PV_TrafficSignal",
+      "bytes": 64632,
+      "vertices": 612,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverBoat0.fbx",
+      "name": "PV_RiverBoat0_LOD1",
+      "bytes": 63216,
+      "vertices": 604,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_TrafficSignal.fbx",
+      "name": "PV_TrafficSignal_LOD1",
+      "bytes": 56496,
+      "vertices": 534,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverBoat1.fbx",
+      "name": "PV_RiverBoat1_LOD1",
+      "bytes": 50400,
+      "vertices": 480,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_3 2.asset",
+      "name": "Geometry_3 2",
+      "bytes": 49200,
+      "vertices": 384,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_LEDStreetLamp.fbx",
+      "name": "PV_LEDStreetLamp_LOD2",
+      "bytes": 47424,
+      "vertices": 447,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_41 2.asset",
+      "name": "Geometry_41 2",
+      "bytes": 46224,
+      "vertices": 360,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_54 2.asset",
+      "name": "Geometry_54 2",
+      "bytes": 46224,
+      "vertices": 360,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_2 6.asset",
+      "name": "Geometry_2 6",
+      "bytes": 46224,
+      "vertices": 360,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_67 2.asset",
+      "name": "Geometry_67 2",
+      "bytes": 46224,
+      "vertices": 360,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_28 3.asset",
+      "name": "Geometry_28 3",
+      "bytes": 46224,
+      "vertices": 360,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_15 4.asset",
+      "name": "Geometry_15 4",
+      "bytes": 46224,
+      "vertices": 360,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_80 2.asset",
+      "name": "Geometry_80 2",
+      "bytes": 46224,
+      "vertices": 360,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/TankFx/PV_TankShell.fbx",
+      "name": "PV_TankShell_LOD0",
+      "bytes": 43488,
+      "vertices": 408,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverBoat0.fbx",
+      "name": "PV_RiverBoat0_LOD2",
+      "bytes": 38880,
+      "vertices": 364,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_StreetPavement.fbx",
+      "name": "PV_StreetPavement_LOD2",
+      "bytes": 33408,
+      "vertices": 312,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/TankFx/PV_TankShell.fbx",
+      "name": "PV_TankShell_LOD1",
+      "bytes": 32736,
+      "vertices": 304,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_TrafficSignal.fbx",
+      "name": "PV_TrafficSignal_LOD2",
+      "bytes": 30840,
+      "vertices": 285,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/PV_RiverBoat1.fbx",
+      "name": "PV_RiverBoat1_LOD2",
+      "bytes": 26064,
+      "vertices": 240,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_64 2.asset",
+      "name": "Geometry_64 2",
+      "bytes": 25136,
+      "vertices": 176,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_12 5.asset",
+      "name": "Geometry_12 5",
+      "bytes": 25136,
+      "vertices": 176,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_38 3.asset",
+      "name": "Geometry_38 3",
+      "bytes": 25136,
+      "vertices": 176,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_77 2.asset",
+      "name": "Geometry_77 2",
+      "bytes": 25136,
+      "vertices": 176,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_90 2.asset",
+      "name": "Geometry_90 2",
+      "bytes": 25136,
+      "vertices": 176,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_25 3.asset",
+      "name": "Geometry_25 3",
+      "bytes": 25136,
+      "vertices": 176,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_51 2.asset",
+      "name": "Geometry_51 2",
+      "bytes": 25136,
+      "vertices": 176,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/TankFx/PV_TankShell.fbx",
+      "name": "PV_TankShell_LOD2",
+      "bytes": 17568,
+      "vertices": 156,
+      "readable": false
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_39 2.asset",
+      "name": "PV_JunctionArrows16",
+      "bytes": 15312,
+      "vertices": 264,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_52 2.asset",
+      "name": "PV_JunctionArrows16",
+      "bytes": 15312,
+      "vertices": 264,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_0 6.asset",
+      "name": "PV_JunctionArrows16",
+      "bytes": 15312,
+      "vertices": 264,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_13 5.asset",
+      "name": "PV_JunctionArrows16",
+      "bytes": 15312,
+      "vertices": 264,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_26 3.asset",
+      "name": "PV_JunctionArrows16",
+      "bytes": 15312,
+      "vertices": 264,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_78 2.asset",
+      "name": "PV_JunctionArrows16",
+      "bytes": 15312,
+      "vertices": 264,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_65 2.asset",
+      "name": "PV_JunctionArrows16",
+      "bytes": 15312,
+      "vertices": 264,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_1 2.asset",
+      "name": "Geometry_1 2",
+      "bytes": 13488,
+      "vertices": 96,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_b12c8ac461cc44e4193e9026121f9d87.asset",
+      "name": "Geometry_62 2",
+      "bytes": 12336,
+      "vertices": 96,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_4e54393aa497af541b1de35b26846be4.asset",
+      "name": "Geometry_75 2",
+      "bytes": 12336,
+      "vertices": 96,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_90928f4e1ffdd7c4aa551ec22b06e0cc.asset",
+      "name": "Geometry_36 3",
+      "bytes": 12336,
+      "vertices": 96,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_2de1296f00a8bd94990d2e5b46b61833.asset",
+      "name": "Geometry_23 3",
+      "bytes": 12336,
+      "vertices": 96,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_a05c8e4ed728b91499e3737214f623eb.asset",
+      "name": "Geometry_88 2",
+      "bytes": 12336,
+      "vertices": 96,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_0dd1a95590222254987ccb2dd6f4ff14.asset",
+      "name": "Geometry_10 5",
+      "bytes": 12336,
+      "vertices": 96,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_f74248ad45ae353499cafeadfead4bda.asset",
+      "name": "Geometry_49 2",
+      "bytes": 12336,
+      "vertices": 96,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_1_6_30869ad6.asset",
+      "name": "Geometry_1 6_River",
+      "bytes": 12048,
+      "vertices": 104,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_40_2_514ccab8.asset",
+      "name": "Geometry_40 2_River",
+      "bytes": 12048,
+      "vertices": 104,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_79_2_f90ac9bc.asset",
+      "name": "Geometry_79 2_River",
+      "bytes": 12048,
+      "vertices": 104,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_14_5_9dbfe5bb.asset",
+      "name": "Geometry_14 5_River",
+      "bytes": 12048,
+      "vertices": 104,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_66_2_5bb868b1.asset",
+      "name": "Geometry_66 2_River",
+      "bytes": 12048,
+      "vertices": 104,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_53_2_5c782c0e.asset",
+      "name": "Geometry_53 2_River",
+      "bytes": 12048,
+      "vertices": 104,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_27_3_c5ca5554.asset",
+      "name": "Geometry_27 3_River",
+      "bytes": 12048,
+      "vertices": 104,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_15_4_6c0c4607.asset",
+      "name": "Geometry_15 4_River",
+      "bytes": 8784,
+      "vertices": 72,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_28_3_f3eb4f8c.asset",
+      "name": "Geometry_28 3_River",
+      "bytes": 8784,
+      "vertices": 72,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_41_2_1792deb9.asset",
+      "name": "Geometry_41 2_River",
+      "bytes": 8784,
+      "vertices": 72,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_80_2_8b942b43.asset",
+      "name": "Geometry_80 2_River",
+      "bytes": 8784,
+      "vertices": 72,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_54_2_cde4b14e.asset",
+      "name": "Geometry_54 2_River",
+      "bytes": 8784,
+      "vertices": 72,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_2_6_88b07e8f.asset",
+      "name": "Geometry_2 6_River",
+      "bytes": 8784,
+      "vertices": 72,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_67_2_b8926195.asset",
+      "name": "Geometry_67 2_River",
+      "bytes": 8784,
+      "vertices": 72,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_14 5.asset",
+      "name": "Geometry_14 5",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_11 5.asset",
+      "name": "Geometry_11 5",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_1 6.asset",
+      "name": "Geometry_1 6",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_27 3.asset",
+      "name": "Geometry_27 3",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_76 2.asset",
+      "name": "Geometry_76 2",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_24 3.asset",
+      "name": "Geometry_24 3",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_37 3.asset",
+      "name": "Geometry_37 3",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_89 2.asset",
+      "name": "Geometry_89 2",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_40 2.asset",
+      "name": "Geometry_40 2",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_53 2.asset",
+      "name": "Geometry_53 2",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_79 2.asset",
+      "name": "Geometry_79 2",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_50 2.asset",
+      "name": "Geometry_50 2",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_66 2.asset",
+      "name": "Geometry_66 2",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_63 2.asset",
+      "name": "Geometry_63 2",
+      "bytes": 7536,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_6369253ed55f9b24abd7bfe34bdef26a.asset",
+      "name": "Geometry_72 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_c41f6bd3b036ecf468188b12be710591.asset",
+      "name": "Geometry_85 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_99f20ed13c8350549a801cef5757607a.asset",
+      "name": "Geometry_5 6",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_660d89858ed20854a8e0639291f21582.asset",
+      "name": "Geometry_31 3",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_18b4258218acab94d8840f1cf8be21a8.asset",
+      "name": "Geometry_83 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_fcf168b4e53279c41b8352ab6e9283da.asset",
+      "name": "Geometry_44 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_88e25a254af2565428004ffdaee19281.asset",
+      "name": "Geometry_9 5",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_85523b88c9415e3458319bd3939f5c91.asset",
+      "name": "Geometry_22 3",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_2e0a1f9b02ed7d749bed564237d38fbd.asset",
+      "name": "Geometry_34 3",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_57d0ba179ad548f4b8b953e8169a9f4d.asset",
+      "name": "Geometry_21 3",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_abb8d1f4a77e1c84ca6ca4d432689933.asset",
+      "name": "Geometry_60 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_d3a7e03a358e201439fb14b3bf07335c.asset",
+      "name": "Geometry_57 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_d8424cfb8c3ccc248ab264347ebf7d9a.asset",
+      "name": "Geometry_33 3",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_13fe86ce94ff07b489ed8afe688498ff.asset",
+      "name": "Geometry_87 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_99816584413ba824387c5824271b5cfc.asset",
+      "name": "Geometry_86 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_274bdf0dd89600d42903f3bf9ab10bd3.asset",
+      "name": "Geometry_18 3",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_0302c219a4ee62047ac5ed1121d6a6af.asset",
+      "name": "Geometry_46 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_4ce4ad4cd123fcf4bb9b7fa02e956930.asset",
+      "name": "Geometry_48 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_43478fb23d3db9148a6860ba345298d6.asset",
+      "name": "Geometry_73 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_449f7742317624244be7eeccdee21aa5.asset",
+      "name": "Geometry_20 3",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_336c4347e38506f49afcf8d8d96f405b.asset",
+      "name": "Geometry_47 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_0bf5ca12c3fe8814e97b83469a24fca4.asset",
+      "name": "Geometry_61 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_5da9673b692d4da4fb0cf247d0c95059.asset",
+      "name": "Geometry_74 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_1c6c81e536335094b8760ed710c02caf.asset",
+      "name": "Geometry_8 5",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoCart_12e7bc95f4cc2e444b27aab542c1fbeb.asset",
+      "name": "Geometry_35 3",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_073783d83188f974da2cc2210ee029e7.asset",
+      "name": "Geometry_59 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_28feda9081809fd40ad2924ca860f409.asset",
+      "name": "Geometry_7 5",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/PV_NoPeople_8079926b0309c5545841bfc8acd0c3a3.asset",
+      "name": "Geometry_70 2",
+      "bytes": 6960,
+      "vertices": 48,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_6 2.asset",
+      "name": "Geometry_6 2",
+      "bytes": 4560,
+      "vertices": 24,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_2 2.asset",
+      "name": "Geometry_2 2",
+      "bytes": 4560,
+      "vertices": 24,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_4 2.asset",
+      "name": "Geometry_4 2",
+      "bytes": 4560,
+      "vertices": 24,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_14 2.asset",
+      "name": "Geometry_14 2",
+      "bytes": 4560,
+      "vertices": 24,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_0 2.asset",
+      "name": "Geometry_0 2",
+      "bytes": 4560,
+      "vertices": 24,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_12 2.asset",
+      "name": "Geometry_12 2",
+      "bytes": 4560,
+      "vertices": 24,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_13 2.asset",
+      "name": "Geometry_13 2",
+      "bytes": 4560,
+      "vertices": 24,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_8 2.asset",
+      "name": "Geometry_8 2",
+      "bytes": 4560,
+      "vertices": 24,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Generated/Geometry_7 2.asset",
+      "name": "Geometry_7 2",
+      "bytes": 4560,
+      "vertices": 24,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_OpticalHalo.asset",
+      "name": "PV_OpticalHalo",
+      "bytes": 1864,
+      "vertices": 4,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_OpticalGround.asset",
+      "name": "PV_OpticalGround",
+      "bytes": 1864,
+      "vertices": 4,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_21_3_68d15ae8.asset",
+      "name": "Geometry_21 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_72_2_6aeaf46c.asset",
+      "name": "Geometry_72 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_5_6_e6382c61.asset",
+      "name": "Geometry_5 6_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_74_2_83351f68.asset",
+      "name": "Geometry_74 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_61_2_fba3fb43.asset",
+      "name": "Geometry_61 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_57_2_691aed9e.asset",
+      "name": "Geometry_57 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_62_2_e00df123.asset",
+      "name": "Geometry_62 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_59_2_8311d8b7.asset",
+      "name": "Geometry_59 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_43_2_d056317f.asset",
+      "name": "Geometry_43 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_35_3_7926024a.asset",
+      "name": "Geometry_35 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_70_2_51919c56.asset",
+      "name": "Geometry_70 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_23_3_8bde3373.asset",
+      "name": "Geometry_23 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_47_2_f8261fcb.asset",
+      "name": "Geometry_47 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_4_6_0b8ff4e7.asset",
+      "name": "Geometry_4 6_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_36_3_abd8def6.asset",
+      "name": "Geometry_36 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_48_2_6ba414ca.asset",
+      "name": "Geometry_48 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_20_3_145e3330.asset",
+      "name": "Geometry_20 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_7_5_16f96c91.asset",
+      "name": "Geometry_7 5_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_73_2_7d22ff9d.asset",
+      "name": "Geometry_73 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_82_2_36c811ac.asset",
+      "name": "Geometry_82 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_10_5_64f84aa4.asset",
+      "name": "Geometry_10 5_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_17_3_e3ca4e73.asset",
+      "name": "Geometry_17 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_88_2_45a8f10a.asset",
+      "name": "Geometry_88 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_31_3_2e350035.asset",
+      "name": "Geometry_31 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_56_2_1d215cee.asset",
+      "name": "Geometry_56 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_33_3_f9dc0da2.asset",
+      "name": "Geometry_33 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_8_5_e0bde319.asset",
+      "name": "Geometry_8 5_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_30_3_acd6f050.asset",
+      "name": "Geometry_30 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_83_2_cffb2a1d.asset",
+      "name": "Geometry_83 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_85_2_d493f86d.asset",
+      "name": "Geometry_85 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_18_3_de0aff8f.asset",
+      "name": "Geometry_18 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_22_3_e3cb125f.asset",
+      "name": "Geometry_22 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_44_2_6aae5271.asset",
+      "name": "Geometry_44 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_75_2_89c7da2b.asset",
+      "name": "Geometry_75 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_49_2_01c13218.asset",
+      "name": "Geometry_49 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_69_2_caa27490.asset",
+      "name": "Geometry_69 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_34_3_1b20d36a.asset",
+      "name": "Geometry_34 3_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_60_2_20158c61.asset",
+      "name": "Geometry_60 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_46_2_d47dd4bb.asset",
+      "name": "Geometry_46 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_87_2_efa22b2b.asset",
+      "name": "Geometry_87 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_9_5_d197a1a9.asset",
+      "name": "Geometry_9 5_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/Clipped/Geometry_86_2_7a357ef8.asset",
+      "name": "Geometry_86 2_River",
+      "bytes": 1568,
+      "vertices": 0,
+      "readable": true
+    }
+  ],
+  "totalAllocated": 1503115907,
+  "totalReserved": 1797013504,
+  "mono": 788443136
+}

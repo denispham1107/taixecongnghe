@@ -1,0 +1,17 @@
+{
+  "mobile": false,
+  "changed": 2,
+  "changes": [
+    {
+      "path": "Assets/PhoViet/Resources/Wreck/PV_WreckFlame.png",
+      "format": "DXT5",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Emission.png",
+      "format": "DXT1",
+      "size": 2048
+    }
+  ],
+  "subtarget": "Generic"
+}

@@ -34,10 +34,10 @@ namespace PhoViet
         bool RoutesReady=>roadRows!=null&&roadRows.Count==5;
         void ResetRoutes()
         {
-            IsTurning=false;QueuedTurn=0;CompletedTurns=0;TurnYaw=0;roadOffset=0;cameraTurnBlend=0;routePolice=false;oldRiderZ=0;
+            IsTurning=false;QueuedTurn=0;CompletedTurns=0;TurnYaw=0;roadOffset=StartStreetPhase;cameraTurnBlend=0;routePolice=false;oldRiderZ=0;
             ResetExitTraffic();lateTurn=false;turnLength=0;
             mainRow=0;RouteStreet="Trần Hưng Đạo";visitedStreets.Clear();visitedStreets.Add(RouteStreet);routeTrail.Clear();
-            for(int i=-160;i<=0;i+=2)routeTrail.Add(new RoutePoint(i,new Vector3(LaneX[2],0,i),0));
+            for(int i=-160;i<=0;i+=2)routeTrail.Add(new RoutePoint(i,new Vector3(playerStart.x,0,i),0));
             if(!RoutesReady)return;
             for(int i=0;i<roadRows.Count;i++)
             {
@@ -45,7 +45,9 @@ namespace PhoViet
                 for(int j=0;j<row.tiles.Count;j++){row.tiles[j].localPosition=new Vector3(0,0,(j-(i==0?1:0))*80);row.tiles[j].localRotation=Quaternion.identity;}
             }
             foreach(var row in roadRows)CacheStreetLabels(row);
-            blocks=new List<Transform>(roadRows[0].tiles);AssignRiverRow(roadRows[0].tiles,2);LabelRow(mainRow,RouteStreet);PrepareBranches(70);
+            blocks=new List<Transform>(roadRows[0].tiles);
+            foreach(var tile in blocks)tile.localPosition-=Vector3.forward*StartStreetPhase;
+            AssignRiverRow(roadRows[0].tiles,2);LabelRow(mainRow,RouteStreet);PrepareBranches(70-StartStreetPhase);
         }
         string PickStreet()
         {

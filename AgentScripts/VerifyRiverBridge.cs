@@ -9,6 +9,10 @@ public static class VerifyRiverBridge
   bool dinos=g.dinosaursEnabled;g.dinosaursEnabled=false;float scale=Time.timeScale;bool rivers=g.riversEnabled,barrage=g.tankBarrageEnabled,danger=g.recklessTrafficEnabled,surprises=g.trafficSurprises,exits=g.turnExitTrafficEnabled,jobs=g.jobsEnabled;
   int best=PlayerPrefs.GetInt("PhoViet.BestMetres.v1",0),coins=PlayerPrefs.GetInt("PhoViet.Coins.v1",0);
   var checks=new List<string>();var data=new List<string>();
+  // This fixture places bridges at exact 80 m tile origins below. Isolate it
+  // from the designer's saved player start, then restore that start in finally.
+  Vector3 savedStart=g.PlayerStartPosition;
+  var startField=typeof(PhoVietGame).GetField("playerStart",F);
   Action<bool,string> check=(ok,s)=>{if(!ok)throw new Exception(s);checks.Add(s);};
   Action<string,object> set=(n,v)=>typeof(PhoVietGame).GetField(n,F).SetValue(g,v);
   Func<string,object> get=n=>typeof(PhoVietGame).GetField(n,F).GetValue(g);
@@ -31,7 +35,7 @@ public static class VerifyRiverBridge
   };
   try
   {
-   Time.timeScale=0;
+   startField.SetValue(g,new Vector3(PhoVietGame.LaneX[2],0,0));Time.timeScale=0;
    // ---- Cài đặt scene
    var all=g.roadRows.SelectMany(r=>r.tiles).ToList();
    check(all.Count==35&&all.All(t=>t.GetComponent<RiverBlock>()!=null&&t.GetComponent<RiverBlock>().bridge!=null),"All 35 street blocks carry a river bridge variant");
@@ -283,7 +287,7 @@ public static class VerifyRiverBridge
   finally
   {
    Time.timeScale=scale;g.dinosaursEnabled=dinos;g.riversEnabled=rivers;g.tankBarrageEnabled=barrage;g.recklessTrafficEnabled=danger;g.trafficSurprises=surprises;g.turnExitTrafficEnabled=exits;g.jobsEnabled=jobs;
-   g.ResetRide();PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.SetInt("PhoViet.Coins.v1",coins);PlayerPrefs.Save();
+   startField.SetValue(g,savedStart);g.ResetRide();PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.SetInt("PhoViet.Coins.v1",coins);PlayerPrefs.Save();
   }
  }
 }

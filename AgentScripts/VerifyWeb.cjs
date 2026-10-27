@@ -45,7 +45,7 @@ async function main(){
   }
   pass('Every offline resource is available');
   const build=await (await fetch(new URL('build-info.json',url))).json();
-  results.build=build;pass('Versioned offline cache',build.version==='1.43.0'&&/^[a-f0-9]{16}$/.test(build.cache));
+  results.build=build;pass('Versioned offline cache',build.version==='1.44.0'&&/^[a-f0-9]{16}$/.test(build.cache));
   const launchOptions={channel:'chrome',headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']};
   const browser=await chromium.launch(launchOptions);
   // PWA installation is disabled in the incognito contexts returned by browser.newContext().
@@ -67,8 +67,10 @@ async function main(){
     await page.locator('#help').click();await page.locator('#close-help').click();pass('Unity accepts browser pause message without an error');
     await page.waitForFunction(async()=>{const r=await navigator.serviceWorker.getRegistration();return !!(r&&r.active)},{},{timeout:180000});
     await page.waitForFunction(()=>!!navigator.serviceWorker.controller,{},{timeout:30000});
+    await page.waitForFunction(()=>document.getElementById('offline-status').textContent.includes('Đã lưu để chơi offline'),{},{timeout:90000});
     const cached=await page.evaluate(async()=>{const keys=await caches.keys();return (await caches.open(keys.find(k=>k.startsWith('phoviet:')))).keys().then(r=>r.map(x=>x.url));});
-    pass('Entire offline build cached',precache.files.every(file=>cached.includes(new URL(file,url).href)));
+    const choices=new Set(precache.dataVariants||[]);
+    pass('Complete device-appropriate offline build cached',precache.files.filter(f=>!choices.has(f)).every(file=>cached.includes(new URL(file,url).href))&&(!choices.size||[...choices].some(f=>cached.includes(new URL(f,url).href))));
     results.installability=await cdp.send('Page.getInstallabilityErrors');
     pass('Chromium reports no installability errors',results.installability.installabilityErrors.length===0);
     await desktop.setOffline(true);await page.reload({waitUntil:'load'});

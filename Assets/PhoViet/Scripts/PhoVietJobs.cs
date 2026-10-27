@@ -67,7 +67,7 @@ namespace PhoViet
   public static string FormatCoins(int value)=>Math.Max(0,value).ToString("N0",CultureInfo.InvariantCulture);
   void ResetCityJobs()
   {
-   Coins=Math.Max(0,PlayerPrefs.GetInt(CoinsKey,0));navHeading=0;navNext=new Vector2Int(0,1);
+   Coins=Math.Max(0,PlayerPrefs.GetInt(CoinsKey,0));navHeading=0;navNext=new Vector2Int(0,1+StartStreetIndex);
    city=new CityNavigation(RouteNames,RunSeed^17391);jobRandom=new System.Random(RunSeed^93517);
    ActiveJob=null;ActiveRoute=null;turnNavigationRoute=null;JobPhase=WorkPhase.None;JobOffersOpen=false;JobOffers.Clear();Reroutes=0;
    offersDelay=2;serviceTime=0;rearDepartureProtection=0;jobTrafficYieldRemaining=0;rerouteNotice=0;spokenKey="";navigationCueStage=0;streetTargetMissed=false;pendingReroute=false;

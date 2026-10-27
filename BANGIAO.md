@@ -20,9 +20,11 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
 | Điều khiển/nhảy trong source | **21.65:** scale0,85 (1,761×0,915×3,74m); đổi làn theo quãng đường22,95m/làn, nhanh tỷ lệ Speed/W (17m/s~1,35s;30~0,765s;67,5~0,34s), gồm W giữa chừng; nhảy theo tốc độ cất cánh21.60 giữ nguyên |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
-| Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; Editor có thay đổi model chưa lưu, xem mục3 |
+| Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 đặt điểm xuất phát bằng kéo thả đã sửa cục bộ**, chưa build/commit/push; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.76 đặt điểm xuất phát xe bằng kéo thả:** Edit Mode kéo xe/model → gốc xe và collider cùng đi → Ctrl+S; Play Ready cũng kéo được và thoát Play giữ vị trí về Edit để Save. Menu **Phố Việt → Điểm xuất phát → Chọn xe để kéo vị trí**. Đã giữ đúng vị trí người dùng (1,55;0;4,39), không tự trả về0; camera/đường ngang/cầu/nhảy đồng bộ. **686 điều kiện đạt + kéo gizmo thật + save/reload/Play/reset**; scene sạch/jobsfalse. Mã/scene cục bộ, **chưa build/commit/push/phát hành**, web vẫn1.43.0. Chi tiết huongdan21.76.
 
 - **1.43.0 đã phát hành (21.75):** commit7b19e84/Pages40487519674 success/cache1b0d45bcf76b698e; gồmâmđộngcơ+70%,Petshop/thúcưng/phụđề/phốkhácmàu. Đã sửaOOM512MB:initial128/max1024MB, đo550,69MiB. Build321,196s/0lỗi/1warning;20preflight+34repo+29site+37web+20fullscreen+31staged+26live đạt/0runtime. Server8765 đãdừng; UnityEditMode/khôngcompile/jobsfalse; thayđổiEditor chưa lưuxem3. Chi tiết huongdan21.75.
 
@@ -63,9 +65,12 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **Đang hoàn tất1.44.0/Safari iPhone13 ProMax (Codex):** hai build0lỗi; mobileETC2/EAC vàdesktopDXT, chungWASM; heap128/512MiB/growth10%/cap32. Browser18memorychecks đạt, peak397,875MiB (cũ550,69), khôngtăng qua lượt/chạyoffline/rotationDPR3/0runtime;15cachefixture/101finalpreflight/42repo+33site đạt. Artifact `docs` và `.tools/site144` cachedb471371e548dd93,7parts ghépSHAđạt. 37web+20fullscreen+34index-bytechecks đạt, diffcheck sạch. Bước kế commit/push/Pages/live; server8770PID36212. UnityEdit/scenesạch/jobsfalse/NoOverride; gốcxe mới1,92giữ nguyên. Serverskiểmkhác19656(8769),3756(8768),32600(8767)cần dừng đúngPID. Chưa phát hành1.44.0; chưa thửSafari máy thật. Source/files xemhuongdan21.77.
+
+
 > Mẫu: `Yêu cầu: … · Đã xong: … · Bước kế tiếp: … · File đang sửa: … · Unity/Blender: … · Cập nhật: <ngày giờ>, <agent>`
 
-- **Editor có thay đổi chưa lưu, đã giữ nguyên:** sau build thấy live prefab `PV_BlueSupercar` có duy nhất `m_LocalPosition.z` **0→4,39** so với scene trên đĩa (1.088.218dòng, chỉ1dòngkhác). Chưa rõ thao tác Editor/preview nào gây ra; không tự lưu/reset/discard. Bản sao `.tools/release143-postbuild-probe.unity`; scene nguồn/artifact đã kiểm không đổi. Phiên sau phải xem chỉnh sửa này trước khi thao tác scene. Editor EditMode/khôngcompile/jobsfalse, serverkiểmtrađãdừng.
+- **21.76 đã xử lý vị trí xe người dùng tự kéo:** người dùng xác nhận Z=4,39 là điểm xuất phát đã lưu. Scene hiện gốc xe `(1,55;0;4,39)`, skin local0; save/reload/Play/reset đạt, Editor Edit Mode/scene sạch. Không còn chỉnh sửa model chưa rõ nguồn gốc ở 21.75.
 
 - **21.70/21.72–21.74 đã phát hành1.43.0:** không còn tính năng này chờ build. Khi sửaPetshop dùng generator/installer hiện hành, không chạy công cụ dựng phố/cầu cũ. TrầnWebGL1024MB/initial128MB cần giữ vì heap đo550,69MiB. Rawartifact512MB chỉ là bản kiểm lỗi, không được dùng phát hành.
 - **21.69 đã phát hành1.42.0:** không còn phần tối ưu chờ build; không tự hạ DPR/texture/bóng để tăng FPS. Phép đo là Editor/camera readback và browser giả lập; chưa đo Safari/điện thoại thật. Các probe shadow/instancing chỉ thử tạm, không áp dụng.
@@ -90,6 +95,7 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 
 | Muốn đụng tới | Mục `huongdan.md` | File chính |
 | --- | --- | --- |
+| Điểm xuất phát xe, kéo thả Edit/Play Ready | **21.76**,6.1 | `PhoVietPlayerStart.cs`, `Editor/PhoVietPlayerStartEditor.cs`, `PhoVietGame.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyPlayerStart*.cs` |
 | Điều khiển, đổi làn, camera, HUD | 2.2, 12, 21.55/21.60 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs` |
 | Giao thông, va chạm, văng/té | 7, 21.33 | `PhoVietTraffic.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs` |
 | Quái xế, xe tải ngủ gật | 2.4, 7.2 | `PhoVietReckless.cs` |
@@ -111,7 +117,7 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 | Simulator iPhone 14 Pro/Pro Max/Dynamic Island/Safe Area | **21.71** | `Assets/PhoViet/Editor/DeviceSimulator/` (`README.md`, hai `.device`, `Overlays/`, `LICENSE.md`); `Captures/iphone14-simulator-checks.json` |
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
-| Build WebGL, phát hành Pages/data parts | 15.2–15.4, 21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `.github/workflows/pages.yml` |
+| WebGL/Safari/OOM/textureGPU/cache/offline/Pages | 15.2–15.4, **21.77**,21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.
 
