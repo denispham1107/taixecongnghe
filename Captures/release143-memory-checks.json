@@ -1,0 +1,66 @@
+{
+  "samples": [
+    {
+      "name": "desktop",
+      "seconds": 13,
+      "heapBytes": 577437696,
+      "heapKeys": [
+        "wasmBinary",
+        "HEAPU32",
+        "HEAPF64"
+      ]
+    },
+    {
+      "name": "desktop",
+      "seconds": 18,
+      "heapBytes": 577437696,
+      "heapKeys": [
+        "wasmBinary",
+        "HEAPU32",
+        "HEAPF64"
+      ]
+    },
+    {
+      "name": "desktop",
+      "seconds": 23,
+      "heapBytes": 577437696,
+      "heapKeys": [
+        "wasmBinary",
+        "HEAPU32",
+        "HEAPF64"
+      ]
+    },
+    {
+      "name": "phone",
+      "seconds": 13,
+      "heapBytes": 577437696,
+      "heapKeys": [
+        "wasmBinary",
+        "HEAPU32",
+        "HEAPF64"
+      ]
+    },
+    {
+      "name": "phone",
+      "seconds": 18,
+      "heapBytes": 577437696,
+      "heapKeys": [
+        "wasmBinary",
+        "HEAPU32",
+        "HEAPF64"
+      ]
+    },
+    {
+      "name": "phone",
+      "seconds": 23,
+      "heapBytes": 577437696,
+      "heapKeys": [
+        "wasmBinary",
+        "HEAPU32",
+        "HEAPF64"
+      ]
+    }
+  ],
+  "errors": [],
+  "success": true
+}

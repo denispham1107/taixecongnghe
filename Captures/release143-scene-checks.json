@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "count": 20,
+  "checks": [
+    "WebGL heap starts at 128 MB and can grow to 1024 MB without lowering detail",
+    "Release version is 1.43.0",
+    "Blue Supercar at the confirmed 85 percent scale",
+    "Scaled dimensions/four lift sockets/two exhausts saved",
+    "Jobs remain locked",
+    "Rivers and installed dinosaur enabled",
+    "Traffic pool and original police retained",
+    "No former player motorcycle animator",
+    "Saved distant street LOD budget; original three meshes retained",
+    "Original antialiasing/global detail/shadow distance retained",
+    "All 31 civilian ridden bikes use Urban Rider",
+    "Police keeps its original person and motorcycle",
+    "56 branch parked motorcycles use Urban Rider",
+    "Correct release scene open",
+    "147 Petshop facades installed",
+    "No additional sign or pet render objects",
+    "Balanced Petshop collision sets saved",
+    "No raw or previous civilian model dependencies",
+    "Every scene dependency exists",
+    "No missing scripts"
+  ],
+  "dependencies": 404,
+  "scale": 0.85,
+  "size": "(1.760576, 0.914984, 3.740000)",
+  "version": "1.43.0"
+}

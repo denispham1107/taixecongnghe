@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.42.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.43.0**.
+
+## Petshop, bảng hiệu nhiều màu và âm động cơ — 1.43.0
+
+Cù Lao Petshop có biển xanh, dòng “Lưu Trú - Spa Pet” và chó/mèo/thỏ trước và trong cửa hàng; bỏ bàn ghế/quầy ăn cũ. Bảng hiệu các tiệm liền kề có màu khác nhau, Petshop giữ tỷ lệ30%. Âm động cơ xe người chơi khi chạy và tăng tốc lớn hơn70%. Giữ chế độ thi quãng đường, chất lượng hình ảnh và luật chơi. Chi tiết `huongdan.md`21.70/21.72–21.75.
 
 ## Tối ưu xử lý và cảnh xa — 1.42.0
 

@@ -20,9 +20,11 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
 | Điều khiển/nhảy trong source | **21.65:** scale0,85 (1,761×0,915×3,74m); đổi làn theo quãng đường22,95m/làn, nhanh tỷ lệ Speed/W (17m/s~1,35s;30~0,765s;67,5~0,34s), gồm W giữa chừng; nhảy theo tốc độ cất cánh21.60 giữ nguyên |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
-| Thay đổi cục bộ ngoài phát hành | **21.70 âmđộngcơ+70%,21.72 bảnghiệuPetshop30% và21.73–21.74 phụđề/thú cưng/phối màu không trùng source xong/chưa build**; Art/Wave/.blend và Captures lịch sử khác giữ cục bộ, không reset/stage toàn bộ; các chức năng21.62–21.65 đã phát hành trong1.40.0 |
+| Thay đổi cục bộ ngoài phát hành | **21.70 âmđộngcơ+70%,21.72 bảnghiệuPetshop30% và21.73–21.74 phụđề/thú cưng/phối màu không trùng source đã vào build1.43.0/đangpháthành21.75**; Art/Wave/.blend và Captures lịch sử khác giữ cục bộ, không reset/stage toàn bộ; các chức năng21.62–21.65 đã phát hành trong1.40.0 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.75 build/kiểm tra1.43.0 xong, đangpháthành:** gồm21.70/21.72–21.74; bảnđầuOOM512MB đãbỏ, bảncuối initial128/max1024MB đo550,69MiB/khôngOOM. Build321,196s/0lỗi/1warning/cache1b0d45bcf76b698e;20preflight+34repo+29site+37web+20fullscreen đạt. Chờstaged/push/Pages/live; webđãghi nhậnvẫn1.42.0. Chi tiết huongdan21.75.
 
 - **21.74 source/scene xong, chưa web:** 12mẫu tiệm dùng12màu riêng, xanh dương cốđịnh choPetshop; **2.590cặp biển kề phố/river đều khácmàu**, biển dọc/2mặt/3LOD đồngbộ. XếpPetshop không kề nhau, vẫn147/490 và693/2310=30%; phụđề/thú giữ nguyên. 10.983renderer/770set/7.670box, khônghạđồhọa. **16.128điều kiện đạt**,10ảnh gồmTIỆMBÁNH–Petshop đãxem; installer byte-identical, EditMode/scenesạch/jobsfalse. Source cuối cùng dựa trên c5d873c; chi tiết huongdan21.74. Webvẫn1.42.0, cần build đầy đủ cùng21.70/21.72–21.73.
 
@@ -60,6 +62,8 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 6. **1.36.0:** xe tăng Meshy “Iron Sentinel” (21.33–21.34). **1.35.0:** đổi làn kiểu đánh lái, nhà kính, zoom dọc +10% (21.28–21.32). **1.34.0:** phố Sài Gòn (21.19–21.27).
 
 ## 3. Đang dở / cần người dùng quyết
+
+> **Tiến độ phát hành21.75:**1.43.0 build_c44154138dd2 thànhcông321,196s/0lỗi/1warning; cache1b0d45bcf76b698e, memory128→max1024, đo550,69MiB/0OOM.20preflight/404deps,34repo+29site+37web/offline+20fullscreen đạt;2905file fingerprintkhôngđổi. 31stagedbytes/SHAcheckđạt; đangcommit/push/Pages/live (người dùngđãủyquyền); chưađánhdấuđãpháthành. Server8765 đangchạy; UnityEditMode/scenesạch/jobsfalse, khôngdùngBlender. Codex27/10/2026.
 
 > Mẫu: `Yêu cầu: … · Đã xong: … · Bước kế tiếp: … · File đang sửa: … · Unity/Blender: … · Cập nhật: <ngày giờ>, <agent>`
 

@@ -24,9 +24,9 @@ namespace PhoViet.Editor
             PlayerSettings.WebGL.threadsSupport=false; // GitHub Pages cannot supply isolation headers.
             PlayerSettings.WebGL.wasm2023=false; // Keep compatibility with Safari 15+.
             PlayerSettings.WebGL.initialMemorySize=128;
-            PlayerSettings.WebGL.maximumMemorySize=512;
+            PlayerSettings.WebGL.maximumMemorySize=1024; // Growth ceiling, not an upfront allocation; Petshop meshes exceed the old 512 MB heap.
             PlayerSettings.runInBackground=false;
-            PlayerSettings.bundleVersion="1.42.0";
+            PlayerSettings.bundleVersion="1.43.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
