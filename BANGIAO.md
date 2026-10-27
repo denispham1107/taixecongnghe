@@ -10,7 +10,7 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.41.0** — commit `648b163`; Pages run `40420198461` success; cache `c9db437e230d3824`; **26 kiểm tra live đạt/0 lỗi runtime** |
+| Bản đã phát hành | **1.42.0** — commit `be0c6ff`; Pages run `40445290840` success; cache `d7e9bf2a636e37f7`; **26 kiểm tra live đạt/0 lỗi runtime** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -22,6 +22,8 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Art/Wave/.blend và Captures lịch sử khác giữ cục bộ, không reset/stage toàn bộ; các chức năng21.62–21.65 đã phát hành trong1.40.0 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **1.42.0 đã phát hành (21.69):** cache bố cục sông, broadphase va chạm theo tile, gom ánh sáng sau physics;700group shop/tree dùng LOD xa sớm hơn, giữ DPR/texture/AA4/bóng/phảnchiếu. **3.810Unity+16preflight+34repo+29site+31staged+71browser+DPR3+26live đạt**,0runtime. CPUriver0,856→0,037ms, controlledrender61,13→52,80ms (không phải FPS gameplay); ảnh gần45% dướiMAE0. Commitbe0c6ff/Pages40445290840/cached7e9bf2a636e37f7. UnityEditMode/scenesạch/jobsfalse; server đã dừng. Chi tiết huongdan21.69.
 
 - **1.41.0 đã phát hành (21.68):** commit648b163/Pages40420198461 thành công/cachec9db437e230d3824; build0lỗi/3warning đã biết;14preflight+34repo+29site+37web/offline/touch+20fullscreen+31Gitbytechecks+26live đạt,0lỗi runtime. Urban Rider31actor+56baked/cổ xe/tay lái đã có trên web. Unity Edit Mode/scene sạch/jobs khóa, server kiểmtra đã dừng.
 
@@ -48,13 +50,13 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-> **Tiến độ việc đang làm:**21.69 tối ưu lag/giữ đồhọa:10suite/3.810Unity+16preflight+34repo+29site+31staged+71browser/offline/fullscreen/DPR3 đạt,0runtime; build1.42.0/cache d7e9bf2a636e37f7 thànhcông, cảnhgầnMAE0. Đang commit/push/Pages/live. Web còn1.41.0 đến khi Pages xong. UnityEditMode/scenesạch/jobsfalse; Blenderkhôngdùng. Chi tiết huongdan21.69. Codex27/10/2026.
 
 
 
 
 > Mẫu: `Yêu cầu: … · Đã xong: … · Bước kế tiếp: … · File đang sửa: … · Unity/Blender: … · Cập nhật: <ngày giờ>, <agent>`
 
+- **21.69 đã phát hành1.42.0:** không còn phần tối ưu chờ build; không tự hạ DPR/texture/bóng để tăng FPS. Phép đo là Editor/camera readback và browser giả lập; chưa đo Safari/điện thoại thật. Các probe shadow/instancing chỉ thử tạm, không áp dụng.
 - **21.67 đã phát hành1.41.0:** asset/meta+scene/code/2tài liệu nằm trong commit648b163. Khi bảo trì dùng đúng bộ Urban Rider hiện hành. RawMeshyFBX120,7MB giữ cục bộ, không stage/push mù quáng; dependencies không còn raw FBX/FBX dân sự cũ, không thiếu script; game dùng FBX4MB. Không chạy lạiMeshyRiders/Wave installer cũ.
 - Không còn chức năng21.62–21.65 chờ phát hành: **đã có trên web1.40.0**. Dữ liệu119,6MB lưu trongGit dạng4parts; Pages ghép/kiểmSHA trước upload. Trên checkout mới, materialize ra_site trước khi chạy server local (15.2–15.4/21.66).
 - Bán tải/installer Petshop21.57 đã ngưng dùng từ21.58; không tự cài lại. **Nhánh húc được tái dùng cho Blue Supercar21.64–21.65**. Test/giới hạn cua cực muộn của pickup cũ không đại diện player hiện tại. Chưa thử Safari trên điện thoại thật.
