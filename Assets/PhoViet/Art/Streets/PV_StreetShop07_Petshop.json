@@ -116,6 +116,8 @@
   "brand": "Cù Lao Petshop",
   "subtitle": "Lưu Trú - Spa Pet",
   "original_shop": 7,
+  "board": "blue",
+  "ink": "white",
   "pets": [
     {
       "species": "dog",

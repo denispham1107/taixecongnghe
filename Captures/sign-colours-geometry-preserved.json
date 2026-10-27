@@ -1,0 +1,113 @@
+{
+  "success": true,
+  "ordinaryShops": [
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop00.json",
+      "triangles": [
+        15502,
+        8007,
+        3182
+      ],
+      "obstaclesUnchanged": true
+    },
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop01.json",
+      "triangles": [
+        26848,
+        14424,
+        3761
+      ],
+      "obstaclesUnchanged": true
+    },
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop02.json",
+      "triangles": [
+        13354,
+        7654,
+        3141
+      ],
+      "obstaclesUnchanged": true
+    },
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop03.json",
+      "triangles": [
+        15043,
+        8475,
+        2372
+      ],
+      "obstaclesUnchanged": true
+    },
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop04.json",
+      "triangles": [
+        21180,
+        12548,
+        3923
+      ],
+      "obstaclesUnchanged": true
+    },
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop05.json",
+      "triangles": [
+        9025,
+        4933,
+        1965
+      ],
+      "obstaclesUnchanged": true
+    },
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop06.json",
+      "triangles": [
+        15106,
+        8029,
+        3700
+      ],
+      "obstaclesUnchanged": true
+    },
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop07.json",
+      "triangles": [
+        26198,
+        14358,
+        4259
+      ],
+      "obstaclesUnchanged": true
+    },
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop08.json",
+      "triangles": [
+        17498,
+        9550,
+        3723
+      ],
+      "obstaclesUnchanged": true
+    },
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop09.json",
+      "triangles": [
+        15646,
+        8726,
+        3397
+      ],
+      "obstaclesUnchanged": true
+    },
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop10.json",
+      "triangles": [
+        23978,
+        12986,
+        3745
+      ],
+      "obstaclesUnchanged": true
+    },
+    {
+      "asset": "Assets/PhoViet/Art/Streets/PV_StreetShop11.json",
+      "triangles": [
+        17160,
+        9324,
+        2869
+      ],
+      "obstaclesUnchanged": true
+    }
+  ]
+}

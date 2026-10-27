@@ -3,22 +3,46 @@
   "generator": "pho_viet_river_bridge.py",
   "parts": [
     {
-      "name": "PV_RiverApt02_PetshopExtra",
+      "name": "PV_RiverApt09_PetshopExtra",
       "slots": [
         "PV_StreetAtlas",
         "PV_StreetGlass",
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        12500,
-        7084,
-        5030
+        12864,
+        7352,
+        5020
+      ],
+      "shop_signs": [
+        {
+          "x0": 52.300000000000004,
+          "x1": 58.050000000000004,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": 58.050000000000004,
+          "x1": 63.800000000000004,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "green",
+          "ink": "white",
+          "label": "MINI MART",
+          "petshop": false
+        }
       ],
       "pets": [
         {
           "species": "dog",
           "position": [
-            -49.519999999999996,
+            53.68000000000001,
             0.22,
             0.85
           ],
@@ -29,7 +53,7 @@
         {
           "species": "dog",
           "position": [
-            -49.519999999999996,
+            53.68000000000001,
             0.4,
             1.87
           ],
@@ -40,7 +64,7 @@
         {
           "species": "dog",
           "position": [
-            -49.519999999999996,
+            53.68000000000001,
             0.4,
             2.92
           ],
@@ -51,7 +75,7 @@
         {
           "species": "cat",
           "position": [
-            -48.025,
+            55.175000000000004,
             0.22,
             0.85
           ],
@@ -62,7 +86,7 @@
         {
           "species": "cat",
           "position": [
-            -48.025,
+            55.175000000000004,
             0.4,
             1.87
           ],
@@ -73,7 +97,7 @@
         {
           "species": "cat",
           "position": [
-            -48.025,
+            55.175000000000004,
             0.4,
             2.92
           ],
@@ -84,7 +108,7 @@
         {
           "species": "rabbit",
           "position": [
-            -46.53,
+            56.67,
             0.22,
             0.85
           ],
@@ -95,7 +119,7 @@
         {
           "species": "rabbit",
           "position": [
-            -46.53,
+            56.67,
             0.4,
             1.87
           ],
@@ -106,7 +130,7 @@
         {
           "species": "rabbit",
           "position": [
-            -46.53,
+            56.67,
             0.4,
             2.92
           ],
@@ -123,8 +147,8 @@
     }
   ],
   "lod_triangles": [
-    12500,
-    7084,
-    5030
+    12864,
+    7352,
+    5020
   ]
 }

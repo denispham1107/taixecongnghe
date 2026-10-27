@@ -268,5 +268,7 @@
         0.6
       ]
     }
-  ]
+  ],
+  "board": "yellow",
+  "ink": "redDark"
 }

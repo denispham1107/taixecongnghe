@@ -175,6 +175,11 @@ SHOPS = [
  dict(name='SINH TỐ', main='SINH TỐ', sub='NƯỚC ÉP - TRÁI CÂY TƯƠI', board='pink', ink='white', subink='white', stripe=('awnGreen', 'awnWhite'), facade='sand', kind='tea', floors=3, roof='tile', icon='leaf'),
  dict(name='TIỆM BÁNH', main='TIỆM BÁNH', sub='BÁNH NGỌT - BÁNH KEM', board='blue', ink='white', subink='yellow', stripe=('awnBlue', 'awnWhite'), facade='peach', kind='bakery', floors=4, roof='flat'),
 ]
+# 21.74: distinct business boards; blue is reserved for Cu Lao Petshop.
+SHOP_BOARDS = [('white','red'),('green','white'),('orange','darkFrame'),('red','white'),
+               ('purple','white'),('chalk','white'),('woodDark','white'),('yellow','redDark'),
+               ('greenDark','white'),('peach','darkFrame'),('pink','white'),('ironGrey','white')]
+for spec,(board,ink) in zip(SHOPS,SHOP_BOARDS):spec.update(board=board,ink=ink,subink=ink)
 WIDTH = 8.36; HX = WIDTH/2; WALL = -3.9; GROUND = 4.9; STOREY = 3.0
 
 def shop_height(spec): return GROUND+spec['floors']*STOREY
@@ -769,7 +774,7 @@ def flag(g, x, y):
     g.star((x+.55, y+.25, WALL-1.012), .2, 'flagGold')
     g.star((x+.55, y+.25, WALL-.988), .2, 'flagGold', facing=1)
 
-def blade_sign(g, text, color, x, y):
+def blade_sign(g, text, color, x, y, ink='white'):
     # Biển dọc vuông góc mặt tiền nằm trong bề rộng tiệm, không lấn nhà bên.
     g.cube((x, y, -4.45), (.12, 1.78, .99), 'white')
     g.cube((x, y, -4.45), (.16, 1.66, .87), color)
@@ -777,9 +782,9 @@ def blade_sign(g, text, color, x, y):
         for k, word in enumerate(text.split()):
             ty = y+.4-k*.5
             # Dựng chữ phẳng quay về -z rồi xoay quanh trục đứng sang hai mặt bên.
-            gg = Geo(g.d); gg.text(word, (0, 0, 0), .3, 'white', .8, bold=.03)
+            gg = Geo(g.d); gg.text(word, (0, 0, 0), .3, ink, .8, bold=.03)
             for i, (vx, vy, vz) in enumerate(gg.v): gg.v[i] = (x+side*.083, ty+vy, -4.45+vx*side)
-            g.add(gg.v, gg.f, 'white', ('d', (side, 0, 0)), 'Lettering')
+            g.add(gg.v, gg.f, ink, ('d', (side, 0, 0)), 'Lettering')
 
 def back_tower(g, seed):
     """Nhà cao tầng phía sau dãy phố (21.27): mặt chính diện quay ra đường là vách kính lớn trong suốt
@@ -871,7 +876,7 @@ def shop(i, detail):
     # Cột nhà/biển nhỏ số nhà, cờ, biển dọc, chậu cây và thùng rác vỉa hè.
     g.cube((-3.55, 2.55, WALL-.06), (.42, .3, .03), 'navy'); g.text(str(18+i*7), (-3.55, 2.55, WALL-.08), .17, 'white', .36)
     if i % 3 == 0: flag(g, -3.6, GROUND+1.0)
-    if i in (4, 7, 10): blade_sign(g, {4: 'NHA KHOA', 7: 'NHÀ NGHỈ', 10: 'GIẶT SẤY'}[i], {4: 'blue', 7: 'red', 10: 'awnBlue'}[i], 3.55, GROUND+2.2)
+    if i in (4, 7, 10): blade_sign(g, {4: 'NHA KHOA', 7: 'NHÀ NGHỈ', 10: 'GIẶT SẤY'}[i], spec['board'], 3.55, GROUND+2.2, spec['ink'])
     if spec['kind'] not in ('grocery', 'repair'): planter(g, -3.5, -5.6, obstacles, 1.0, ('white', 'potGrey')[i % 2])
     if i % 4 == 1: planter(g, 3.45, -5.6, obstacles, 1.15, 'potGrey')
     if i % 3 == 2: trash_bin(g, 3.55 if i % 4 != 1 else -1.6, -5.65, obstacles)

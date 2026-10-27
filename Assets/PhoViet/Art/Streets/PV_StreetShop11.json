@@ -138,5 +138,7 @@
         0.6
       ]
     }
-  ]
+  ],
+  "board": "ironGrey",
+  "ink": "white"
 }

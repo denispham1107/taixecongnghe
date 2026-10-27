@@ -14,6 +14,41 @@
         8132,
         5312
       ],
+      "shop_signs": [
+        {
+          "x0": -25.4,
+          "x1": -20.733333333333334,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "green",
+          "ink": "white",
+          "label": "ỐC",
+          "petshop": false
+        },
+        {
+          "x0": -20.733333333333334,
+          "x1": -16.066666666666666,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": -16.066666666666666,
+          "x1": -11.4,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "red",
+          "ink": "white",
+          "label": "TẠP HÓA",
+          "petshop": false
+        }
+      ],
       "pets": [
         {
           "species": "dog",
@@ -129,9 +164,150 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5170,
-        3128,
-        1598
+        14108,
+        8272,
+        5782
+      ],
+      "shop_signs": [
+        {
+          "x0": -39.4,
+          "x1": -34.733333333333334,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": -34.733333333333334,
+          "x1": -30.066666666666663,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "ironGrey",
+          "ink": "white",
+          "label": "SỬA ĐIỆN",
+          "petshop": false
+        },
+        {
+          "x0": -30.066666666666663,
+          "x1": -25.4,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "white",
+          "ink": "red",
+          "label": "BẤT ĐỘNG SẢN",
+          "petshop": false
+        }
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -38.279999999999994,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -38.279999999999994,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -38.279999999999994,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -37.06666666666666,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -37.06666666666666,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -37.06666666666666,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -35.85333333333333,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -35.85333333333333,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -35.85333333333333,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     },
     {
@@ -142,9 +318,139 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        3616,
-        2028,
-        934
+        12500,
+        7084,
+        5030
+      ],
+      "shop_signs": [
+        {
+          "x0": -50.9,
+          "x1": -45.15,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": -45.15,
+          "x1": -39.4,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "peach",
+          "ink": "darkFrame",
+          "label": "CÀ PHÊ",
+          "petshop": false
+        }
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -49.519999999999996,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -49.519999999999996,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -49.519999999999996,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -48.025,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -48.025,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -48.025,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -46.53,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -46.53,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -46.53,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     },
     {
@@ -158,6 +464,41 @@
         5868,
         3164,
         1202
+      ],
+      "shop_signs": [
+        {
+          "x0": -67.7,
+          "x1": -62.1,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "chalk",
+          "ink": "white",
+          "label": "HỚT TÓC",
+          "petshop": false
+        },
+        {
+          "x0": -62.1,
+          "x1": -56.5,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "woodDark",
+          "ink": "white",
+          "label": "XÔI",
+          "petshop": false
+        },
+        {
+          "x0": -56.5,
+          "x1": -50.9,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "yellow",
+          "ink": "redDark",
+          "label": "SỬA ĐIỆN",
+          "petshop": false
+        }
       ]
     },
     {
@@ -168,110 +509,35 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        22334,
-        12694,
-        9354
+        13326,
+        7538,
+        5158
+      ],
+      "shop_signs": [
+        {
+          "x0": -77.7,
+          "x1": -72.7,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "red",
+          "ink": "white",
+          "label": "TIỆM VÀNG",
+          "petshop": false
+        },
+        {
+          "x0": -72.7,
+          "x1": -67.7,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        }
       ],
       "pets": [
-        {
-          "species": "dog",
-          "position": [
-            -76.5,
-            0.22,
-            0.85
-          ],
-          "yaw": 0,
-          "scale": 0.57,
-          "location": "outside"
-        },
-        {
-          "species": "dog",
-          "position": [
-            -76.5,
-            0.4,
-            1.87
-          ],
-          "yaw": 0,
-          "scale": 0.43,
-          "location": "inside-front"
-        },
-        {
-          "species": "dog",
-          "position": [
-            -76.5,
-            0.4,
-            2.92
-          ],
-          "yaw": 180,
-          "scale": 0.65,
-          "location": "inside-river"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -75.2,
-            0.22,
-            0.85
-          ],
-          "yaw": 0,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -75.2,
-            0.4,
-            1.87
-          ],
-          "yaw": 0,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -75.2,
-            0.4,
-            2.92
-          ],
-          "yaw": 180,
-          "scale": 0.58,
-          "location": "inside-river"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -73.9,
-            0.22,
-            0.85
-          ],
-          "yaw": 0,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -73.9,
-            0.4,
-            1.87
-          ],
-          "yaw": 0,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -73.9,
-            0.4,
-            2.92
-          ],
-          "yaw": 180,
-          "scale": 0.58,
-          "location": "inside-river"
-        },
         {
           "species": "dog",
           "position": [
@@ -373,9 +639,9 @@
         }
       ],
       "pets_by_lod": [
-        18,
-        18,
-        18
+        9,
+        9,
+        9
       ]
     },
     {
@@ -389,6 +655,41 @@
         14674,
         8550,
         5520
+      ],
+      "shop_signs": [
+        {
+          "x0": -95.0,
+          "x1": -89.23333333333333,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "white",
+          "ink": "red",
+          "label": "NHÀ THUỐC",
+          "petshop": false
+        },
+        {
+          "x0": -89.23333333333333,
+          "x1": -83.46666666666667,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": -83.46666666666667,
+          "x1": -77.7,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "orange",
+          "ink": "darkFrame",
+          "label": "TRÀ SỮA",
+          "petshop": false
+        }
       ],
       "pets": [
         {
@@ -508,6 +809,30 @@
         3828,
         2086,
         822
+      ],
+      "shop_signs": [
+        {
+          "x0": 11.4,
+          "x1": 17.15,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "purple",
+          "ink": "white",
+          "label": "NƯỚC MÍA",
+          "petshop": false
+        },
+        {
+          "x0": 17.15,
+          "x1": 22.9,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "chalk",
+          "ink": "white",
+          "label": "NHÀ MAY",
+          "petshop": false
+        }
       ]
     },
     {
@@ -518,28 +843,50 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5270,
-        3022,
-        1058
-      ]
-    },
-    {
-      "name": "PV_RiverApt08",
-      "slots": [
-        "PV_StreetAtlas",
-        "PV_StreetGlass",
-        "PV_RiverRoomLight"
+        14336,
+        8260,
+        5336
       ],
-      "lod_triangles": [
-        22804,
-        13078,
-        9564
+      "shop_signs": [
+        {
+          "x0": 22.9,
+          "x1": 28.5,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "woodDark",
+          "ink": "white",
+          "label": "NGÂN HÀNG",
+          "petshop": false
+        },
+        {
+          "x0": 28.5,
+          "x1": 34.1,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": 34.1,
+          "x1": 39.7,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "greenDark",
+          "ink": "white",
+          "label": "SPA",
+          "petshop": false
+        }
       ],
       "pets": [
         {
           "species": "dog",
           "position": [
-            40.708000000000006,
+            29.844,
             0.22,
             0.85
           ],
@@ -550,7 +897,7 @@
         {
           "species": "dog",
           "position": [
-            40.708000000000006,
+            29.844,
             0.4,
             1.87
           ],
@@ -561,7 +908,7 @@
         {
           "species": "dog",
           "position": [
-            40.708000000000006,
+            29.844,
             0.4,
             2.92
           ],
@@ -572,7 +919,7 @@
         {
           "species": "cat",
           "position": [
-            41.800000000000004,
+            31.3,
             0.22,
             0.85
           ],
@@ -583,7 +930,7 @@
         {
           "species": "cat",
           "position": [
-            41.800000000000004,
+            31.3,
             0.4,
             1.87
           ],
@@ -594,7 +941,7 @@
         {
           "species": "cat",
           "position": [
-            41.800000000000004,
+            31.3,
             0.4,
             2.92
           ],
@@ -605,7 +952,7 @@
         {
           "species": "rabbit",
           "position": [
-            42.892,
+            32.756,
             0.22,
             0.85
           ],
@@ -616,7 +963,7 @@
         {
           "species": "rabbit",
           "position": [
-            42.892,
+            32.756,
             0.4,
             1.87
           ],
@@ -627,14 +974,69 @@
         {
           "species": "rabbit",
           "position": [
-            42.892,
+            32.756,
             0.4,
             2.92
           ],
           "yaw": 180,
           "scale": 0.58,
           "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
+      ]
+    },
+    {
+      "name": "PV_RiverApt08",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        14124,
+        8250,
+        5696
+      ],
+      "shop_signs": [
+        {
+          "x0": 39.7,
+          "x1": 43.900000000000006,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "peach",
+          "ink": "darkFrame",
+          "label": "BẤT ĐỘNG SẢN",
+          "petshop": false
         },
+        {
+          "x0": 43.900000000000006,
+          "x1": 48.1,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": 48.1,
+          "x1": 52.300000000000004,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "ironGrey",
+          "ink": "white",
+          "label": "TẠP HÓA",
+          "petshop": false
+        }
+      ],
+      "pets": [
         {
           "species": "dog",
           "position": [
@@ -736,9 +1138,9 @@
         }
       ],
       "pets_by_lod": [
-        18,
-        18,
-        18
+        9,
+        9,
+        9
       ]
     },
     {
@@ -752,6 +1154,30 @@
         3904,
         2220,
         848
+      ],
+      "shop_signs": [
+        {
+          "x0": 52.300000000000004,
+          "x1": 58.050000000000004,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "white",
+          "ink": "red",
+          "label": "KHÓA - CHÌA",
+          "petshop": false
+        },
+        {
+          "x0": 58.050000000000004,
+          "x1": 63.800000000000004,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "green",
+          "ink": "white",
+          "label": "MINI MART",
+          "petshop": false
+        }
       ]
     },
     {
@@ -765,6 +1191,41 @@
         13586,
         8026,
         5412
+      ],
+      "shop_signs": [
+        {
+          "x0": 63.800000000000004,
+          "x1": 69.4,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": 69.4,
+          "x1": 75.0,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "red",
+          "ink": "white",
+          "label": "CƠM BÌNH DÂN",
+          "petshop": false
+        },
+        {
+          "x0": 75.0,
+          "x1": 80.60000000000001,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "purple",
+          "ink": "white",
+          "label": "ỐC",
+          "petshop": false
+        }
       ],
       "pets": [
         {
@@ -881,110 +1342,46 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        23604,
-        13376,
-        9494
+        14596,
+        8220,
+        5298
+      ],
+      "shop_signs": [
+        {
+          "x0": 80.60000000000001,
+          "x1": 85.4,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "chalk",
+          "ink": "white",
+          "label": "XÔI",
+          "petshop": false
+        },
+        {
+          "x0": 85.4,
+          "x1": 90.2,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "woodDark",
+          "ink": "white",
+          "label": "TIỆM VÀNG",
+          "petshop": false
+        },
+        {
+          "x0": 90.2,
+          "x1": 95.0,
+          "zf": 1.5,
+          "f": -1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        }
       ],
       "pets": [
-        {
-          "species": "dog",
-          "position": [
-            86.552,
-            0.22,
-            0.85
-          ],
-          "yaw": 0,
-          "scale": 0.57,
-          "location": "outside"
-        },
-        {
-          "species": "dog",
-          "position": [
-            86.552,
-            0.4,
-            1.87
-          ],
-          "yaw": 0,
-          "scale": 0.43,
-          "location": "inside-front"
-        },
-        {
-          "species": "dog",
-          "position": [
-            86.552,
-            0.4,
-            2.92
-          ],
-          "yaw": 180,
-          "scale": 0.65,
-          "location": "inside-river"
-        },
-        {
-          "species": "cat",
-          "position": [
-            87.80000000000001,
-            0.22,
-            0.85
-          ],
-          "yaw": 0,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "cat",
-          "position": [
-            87.80000000000001,
-            0.4,
-            1.87
-          ],
-          "yaw": 0,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "cat",
-          "position": [
-            87.80000000000001,
-            0.4,
-            2.92
-          ],
-          "yaw": 180,
-          "scale": 0.58,
-          "location": "inside-river"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            89.04800000000002,
-            0.22,
-            0.85
-          ],
-          "yaw": 0,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            89.04800000000002,
-            0.4,
-            1.87
-          ],
-          "yaw": 0,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            89.04800000000002,
-            0.4,
-            2.92
-          ],
-          "yaw": 180,
-          "scale": 0.58,
-          "location": "inside-river"
-        },
         {
           "species": "dog",
           "position": [
@@ -1086,9 +1483,9 @@
         }
       ],
       "pets_by_lod": [
-        18,
-        18,
-        18
+        9,
+        9,
+        9
       ]
     },
     {
@@ -1099,9 +1496,44 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        23202,
-        13248,
-        9650
+        14310,
+        8138,
+        5500
+      ],
+      "shop_signs": [
+        {
+          "x0": -24.0,
+          "x1": -19.8,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "pink",
+          "ink": "white",
+          "label": "TRÀ SỮA",
+          "petshop": false
+        },
+        {
+          "x0": -19.8,
+          "x1": -15.6,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": -15.6,
+          "x1": -11.399999999999999,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "white",
+          "ink": "red",
+          "label": "NƯỚC MÍA",
+          "petshop": false
+        }
       ],
       "pets": [
         {
@@ -1202,111 +1634,12 @@
           "yaw": 360,
           "scale": 0.58,
           "location": "inside-river"
-        },
-        {
-          "species": "dog",
-          "position": [
-            -14.592,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.57,
-          "location": "outside"
-        },
-        {
-          "species": "dog",
-          "position": [
-            -14.592,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.43,
-          "location": "inside-front"
-        },
-        {
-          "species": "dog",
-          "position": [
-            -14.592,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.65,
-          "location": "inside-river"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -13.5,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -13.5,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -13.5,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.58,
-          "location": "inside-river"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -12.408,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -12.408,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -12.408,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.58,
-          "location": "inside-river"
         }
       ],
       "pets_by_lod": [
-        18,
-        18,
-        18
+        9,
+        9,
+        9
       ]
     },
     {
@@ -1320,6 +1653,30 @@
         13242,
         7514,
         5158
+      ],
+      "shop_signs": [
+        {
+          "x0": -34.0,
+          "x1": -29.0,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "greenDark",
+          "ink": "white",
+          "label": "TIỆM VÀNG",
+          "petshop": false
+        },
+        {
+          "x0": -29.0,
+          "x1": -24.0,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        }
       ],
       "pets": [
         {
@@ -1436,233 +1793,50 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        22698,
-        13068,
-        9594
+        13690,
+        7912,
+        5398
       ],
-      "pets": [
+      "shop_signs": [
         {
-          "species": "dog",
-          "position": [
-            -46.88,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.57,
-          "location": "outside"
+          "x0": -48.0,
+          "x1": -43.333333333333336,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "chalk",
+          "ink": "white",
+          "label": "TIỆM VÀNG",
+          "petshop": false
         },
         {
-          "species": "dog",
-          "position": [
-            -46.88,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.43,
-          "location": "inside-front"
+          "x0": -43.333333333333336,
+          "x1": -38.666666666666664,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "woodDark",
+          "ink": "white",
+          "label": "NƯỚC MÍA",
+          "petshop": false
         },
         {
-          "species": "dog",
-          "position": [
-            -46.88,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.65,
-          "location": "inside-river"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -45.66666666666667,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -45.66666666666667,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -45.66666666666667,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.58,
-          "location": "inside-river"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -44.45333333333334,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -44.45333333333334,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -44.45333333333334,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.58,
-          "location": "inside-river"
-        },
-        {
-          "species": "dog",
-          "position": [
-            -37.54666666666666,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.57,
-          "location": "outside"
-        },
-        {
-          "species": "dog",
-          "position": [
-            -37.54666666666666,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.43,
-          "location": "inside-front"
-        },
-        {
-          "species": "dog",
-          "position": [
-            -37.54666666666666,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.65,
-          "location": "inside-river"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -36.33333333333333,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -36.33333333333333,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "cat",
-          "position": [
-            -36.33333333333333,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.58,
-          "location": "inside-river"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -35.12,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -35.12,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            -35.12,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.58,
-          "location": "inside-river"
+          "x0": -38.666666666666664,
+          "x1": -34.0,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
         }
       ],
-      "pets_by_lod": [
-        18,
-        18,
-        18
-      ]
-    },
-    {
-      "name": "PV_RiverApt15",
-      "slots": [
-        "PV_StreetAtlas",
-        "PV_StreetGlass",
-        "PV_RiverRoomLight"
-      ],
-      "lod_triangles": [
-        14798,
-        8384,
-        5600
-      ],
       "pets": [
         {
           "species": "dog",
           "position": [
-            -51.901333333333326,
+            -37.54666666666666,
             0.22,
             59.15
           ],
@@ -1673,7 +1847,7 @@
         {
           "species": "dog",
           "position": [
-            -51.901333333333326,
+            -37.54666666666666,
             0.4,
             58.13
           ],
@@ -1684,7 +1858,7 @@
         {
           "species": "dog",
           "position": [
-            -51.901333333333326,
+            -37.54666666666666,
             0.4,
             57.08
           ],
@@ -1695,7 +1869,7 @@
         {
           "species": "cat",
           "position": [
-            -50.56666666666666,
+            -36.33333333333333,
             0.22,
             59.15
           ],
@@ -1706,7 +1880,7 @@
         {
           "species": "cat",
           "position": [
-            -50.56666666666666,
+            -36.33333333333333,
             0.4,
             58.13
           ],
@@ -1717,7 +1891,7 @@
         {
           "species": "cat",
           "position": [
-            -50.56666666666666,
+            -36.33333333333333,
             0.4,
             57.08
           ],
@@ -1728,7 +1902,7 @@
         {
           "species": "rabbit",
           "position": [
-            -49.232,
+            -35.12,
             0.22,
             59.15
           ],
@@ -1739,7 +1913,7 @@
         {
           "species": "rabbit",
           "position": [
-            -49.232,
+            -35.12,
             0.4,
             58.13
           ],
@@ -1750,7 +1924,7 @@
         {
           "species": "rabbit",
           "position": [
-            -49.232,
+            -35.12,
             0.4,
             57.08
           ],
@@ -1766,6 +1940,259 @@
       ]
     },
     {
+      "name": "PV_RiverApt15",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        23754,
+        13488,
+        9744
+      ],
+      "shop_signs": [
+        {
+          "x0": -63.4,
+          "x1": -58.266666666666666,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": -58.266666666666666,
+          "x1": -53.13333333333333,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "red",
+          "ink": "white",
+          "label": "CƠM BÌNH DÂN",
+          "petshop": false
+        },
+        {
+          "x0": -53.13333333333333,
+          "x1": -48.0,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        }
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -62.16799999999999,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -62.16799999999999,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -62.16799999999999,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -60.83333333333333,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -60.83333333333333,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -60.83333333333333,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -59.498666666666665,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -59.498666666666665,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -59.498666666666665,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -51.901333333333326,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -51.901333333333326,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -51.901333333333326,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -50.56666666666666,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -50.56666666666666,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -50.56666666666666,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -49.232,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -49.232,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -49.232,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        18,
+        18,
+        18
+      ]
+    },
+    {
       "name": "PV_RiverApt16",
       "slots": [
         "PV_StreetAtlas",
@@ -1776,6 +2203,30 @@
         3858,
         2138,
         850
+      ],
+      "shop_signs": [
+        {
+          "x0": -74.9,
+          "x1": -69.15,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "white",
+          "ink": "red",
+          "label": "MINI MART",
+          "petshop": false
+        },
+        {
+          "x0": -69.15,
+          "x1": -63.4,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "green",
+          "ink": "white",
+          "label": "HỚT TÓC",
+          "petshop": false
+        }
       ]
     },
     {
@@ -1786,9 +2237,161 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5106,
-        3214,
-        1502
+        14090,
+        8346,
+        5674
+      ],
+      "shop_signs": [
+        {
+          "x0": -95.0,
+          "x1": -89.975,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "greenDark",
+          "ink": "white",
+          "label": "ỐC",
+          "petshop": false
+        },
+        {
+          "x0": -89.975,
+          "x1": -84.95,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "peach",
+          "ink": "darkFrame",
+          "label": "TẠP HÓA",
+          "petshop": false
+        },
+        {
+          "x0": -84.95,
+          "x1": -79.92500000000001,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "pink",
+          "ink": "white",
+          "label": "CƠM BÌNH DÂN",
+          "petshop": false
+        },
+        {
+          "x0": -79.92500000000001,
+          "x1": -74.9,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        }
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -78.71900000000001,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -78.71900000000001,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -78.71900000000001,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -77.41250000000001,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -77.41250000000001,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -77.41250000000001,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -76.10600000000001,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -76.10600000000001,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -76.10600000000001,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     },
     {
@@ -1799,9 +2402,150 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5030,
-        2842,
-        1288
+        13994,
+        7978,
+        5464
+      ],
+      "shop_signs": [
+        {
+          "x0": 11.4,
+          "x1": 16.533333333333335,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": 16.533333333333335,
+          "x1": 21.666666666666668,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "orange",
+          "ink": "darkFrame",
+          "label": "NHÀ THUỐC",
+          "petshop": false
+        },
+        {
+          "x0": 21.666666666666668,
+          "x1": 26.800000000000004,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "red",
+          "ink": "white",
+          "label": "NƯỚC MÍA",
+          "petshop": false
+        }
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            12.632000000000001,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            12.632000000000001,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            12.632000000000001,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            13.966666666666669,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            13.966666666666669,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            13.966666666666669,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            15.301333333333336,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            15.301333333333336,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            15.301333333333336,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     },
     {
@@ -1815,6 +2559,41 @@
         13560,
         7640,
         5174
+      ],
+      "shop_signs": [
+        {
+          "x0": 26.8,
+          "x1": 31.933333333333334,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "purple",
+          "ink": "white",
+          "label": "ỐC",
+          "petshop": false
+        },
+        {
+          "x0": 31.933333333333334,
+          "x1": 37.06666666666667,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": 37.06666666666667,
+          "x1": 42.2,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "woodDark",
+          "ink": "white",
+          "label": "XÔI",
+          "petshop": false
+        }
       ],
       "pets": [
         {
@@ -1934,6 +2713,41 @@
         5894,
         3248,
         1214
+      ],
+      "shop_signs": [
+        {
+          "x0": 42.2,
+          "x1": 47.333333333333336,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "yellow",
+          "ink": "redDark",
+          "label": "SỬA ĐIỆN",
+          "petshop": false
+        },
+        {
+          "x0": 47.333333333333336,
+          "x1": 52.46666666666667,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "greenDark",
+          "ink": "white",
+          "label": "BÚN RIÊU",
+          "petshop": false
+        },
+        {
+          "x0": 52.46666666666667,
+          "x1": 57.6,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "peach",
+          "ink": "darkFrame",
+          "label": "IN ẤN",
+          "petshop": false
+        }
       ]
     },
     {
@@ -1947,6 +2761,41 @@
         4604,
         2716,
         1270
+      ],
+      "shop_signs": [
+        {
+          "x0": 57.6,
+          "x1": 61.800000000000004,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "pink",
+          "ink": "white",
+          "label": "NGÂN HÀNG",
+          "petshop": false
+        },
+        {
+          "x0": 61.800000000000004,
+          "x1": 66.0,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "ironGrey",
+          "ink": "white",
+          "label": "CƠM BÌNH DÂN",
+          "petshop": false
+        },
+        {
+          "x0": 66.0,
+          "x1": 70.2,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "white",
+          "ink": "red",
+          "label": "SPA",
+          "petshop": false
+        }
       ]
     },
     {
@@ -1957,110 +2806,46 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        23204,
-        13180,
-        9484
+        14254,
+        8082,
+        5346
+      ],
+      "shop_signs": [
+        {
+          "x0": 70.2,
+          "x1": 74.86666666666667,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "green",
+          "ink": "white",
+          "label": "NƯỚC MÍA",
+          "petshop": false
+        },
+        {
+          "x0": 74.86666666666667,
+          "x1": 79.53333333333333,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        },
+        {
+          "x0": 79.53333333333333,
+          "x1": 84.2,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "red",
+          "ink": "white",
+          "label": "NHÀ MAY",
+          "petshop": false
+        }
       ],
       "pets": [
-        {
-          "species": "dog",
-          "position": [
-            71.32,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.57,
-          "location": "outside"
-        },
-        {
-          "species": "dog",
-          "position": [
-            71.32,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.43,
-          "location": "inside-front"
-        },
-        {
-          "species": "dog",
-          "position": [
-            71.32,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.65,
-          "location": "inside-river"
-        },
-        {
-          "species": "cat",
-          "position": [
-            72.53333333333333,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "cat",
-          "position": [
-            72.53333333333333,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "cat",
-          "position": [
-            72.53333333333333,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.58,
-          "location": "inside-river"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            73.74666666666667,
-            0.22,
-            59.15
-          ],
-          "yaw": 180,
-          "scale": 0.55,
-          "location": "outside"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            73.74666666666667,
-            0.4,
-            58.13
-          ],
-          "yaw": 180,
-          "scale": 0.45,
-          "location": "inside-front"
-        },
-        {
-          "species": "rabbit",
-          "position": [
-            73.74666666666667,
-            0.4,
-            57.08
-          ],
-          "yaw": 360,
-          "scale": 0.58,
-          "location": "inside-river"
-        },
         {
           "species": "dog",
           "position": [
@@ -2162,9 +2947,9 @@
         }
       ],
       "pets_by_lod": [
-        18,
-        18,
-        18
+        9,
+        9,
+        9
       ]
     },
     {
@@ -2178,6 +2963,30 @@
         13496,
         7540,
         5048
+      ],
+      "shop_signs": [
+        {
+          "x0": 84.2,
+          "x1": 89.6,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "purple",
+          "ink": "white",
+          "label": "XÔI",
+          "petshop": false
+        },
+        {
+          "x0": 89.6,
+          "x1": 95.0,
+          "zf": 58.5,
+          "f": 1,
+          "base": 0.2,
+          "board": "blue",
+          "ink": "white",
+          "label": "Cù Lao Petshop",
+          "petshop": true
+        }
       ],
       "pets": [
         {
@@ -2288,8 +3097,8 @@
     }
   ],
   "lod_triangles": [
-    287378,
-    164236,
-    106950
+    287624,
+    164542,
+    107256
   ]
 }

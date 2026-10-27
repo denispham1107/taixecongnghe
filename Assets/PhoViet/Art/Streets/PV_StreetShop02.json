@@ -255,5 +255,7 @@
         0.6
       ]
     }
-  ]
+  ],
+  "board": "orange",
+  "ink": "darkFrame"
 }

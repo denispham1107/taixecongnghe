@@ -14,6 +14,16 @@ public static class CapturePetshopSigns
    var sign=tile.GetComponentsInChildren<MeshFilter>(true).First(f=>f.sharedMesh!=null&&f.sharedMesh.name.Contains("_Petshop_LOD0"));
    var target=sign.transform.TransformPoint(new Vector3(0,4.118f,4.1f));var outward=sign.transform.TransformDirection(Vector3.up);
    cam.fieldOfView=40;cam.transform.position=target+outward*13+Vector3.up*.4f;cam.transform.LookAt(target-Vector3.up*1.25f);g.daylight.SetCycleTime(8);shot("street-day");g.daylight.SetCycleTime(30);shot("street-night");
+   foreach(var block in g.blocks)
+   {
+    var facades=block.GetComponentsInChildren<MeshFilter>(true).Where(m=>m.sharedMesh!=null&&m.sharedMesh.name.StartsWith("PV_StreetShop")&&m.sharedMesh.name.EndsWith("LOD0")).ToArray();
+    var bakery=facades.FirstOrDefault(m=>m.sharedMesh.name=="PV_StreetShop11_LOD0"&&facades.Any(p=>p.sharedMesh.name.Contains("_Petshop_")&&Mathf.Abs(p.transform.position.x-m.transform.position.x)<.1f&&Mathf.Abs(p.transform.position.z-m.transform.position.z)<8.5f));
+    if(bakery==null)continue;
+    var pet=facades.First(p=>p.sharedMesh.name.Contains("_Petshop_")&&Mathf.Abs(p.transform.position.x-bakery.transform.position.x)<.1f&&Mathf.Abs(p.transform.position.z-bakery.transform.position.z)<8.5f);
+    var centre=(bakery.transform.TransformPoint(new Vector3(0,4.118f,4.1f))+pet.transform.TransformPoint(new Vector3(0,4.118f,4.1f)))*.5f;
+    cam.fieldOfView=45;cam.transform.position=centre+bakery.transform.TransformDirection(Vector3.up)*18+Vector3.up*.7f;cam.transform.LookAt(centre-Vector3.up*1.1f);g.daylight.SetCycleTime(8);shot("street-neighbours");break;
+   }
+   cam.fieldOfView=40;
    tile.GetComponent<RiverBlock>().SetBridge(true);typeof(PhoVietGame).GetMethod("HideBuildingsOverRiver",F).Invoke(g,null);
    var info=Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText("Captures/petshop-sign-checks.json"));var sample=info["riverSamples"][0];string part=(string)sample["part"];float x=((float)sample["x0"]+(float)sample["x1"])*.5f,z=(float)sample["zf"],facing=(float)sample["f"];
    var apt=tile.GetComponent<RiverBlock>().bridge.transform.Find("Căn hộ ven sông • Blender").Find(part);var lod=apt.GetComponent<LODGroup>();var mesh=lod.GetLODs()[0].renderers[0].GetComponent<MeshFilter>();

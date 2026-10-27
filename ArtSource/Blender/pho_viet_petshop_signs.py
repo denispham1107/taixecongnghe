@@ -1,7 +1,7 @@
 """21.72: branded facade variants and complete riverside signs, no scene rebuild.
 Run in a separate Blender background process; never saves the user's open file.
-Only the 12 new shop FBXs, apartment FBX/JSON and one small apartment override
-are exported. The shared palette, bridge, trees, pavement and boats are untouched.
+The 12 ordinary and 12 Petshop shop FBXs, apartment FBX/JSON and one small
+apartment override are exported (21.74 also coordinates sign colours). The shared palette, bridge, trees, pavement and boats are untouched.
 """
 import bpy, json, os, random
 from pathlib import Path
@@ -25,6 +25,12 @@ atlas.node_tree.links.new(node.outputs['Color'], bsdf.inputs['Base Color'])
 street = {'__name__':'petshop_street'}
 exec(compile((SOURCE/'pho_viet_saigon_streets.py').read_text(encoding='utf-8'), 'pho_viet_saigon_streets.py', 'exec'), street)
 street['MAT'], street['GLASS'] = atlas, glass
+# Export only original shop variants as well; no street rebuild/palette write.
+original_results=[]
+for i in range(12):
+    geos=[street['shop'](i,d) for d in range(3)]
+    for g in geos:g.meta.update(board=street['SHOPS'][i]['board'],ink=street['SHOPS'][i]['ink'])
+    original_results.append(street['save_asset']('PV_StreetShop%02d'%i,geos,collection,((i%6)*9.5,(i//6)*14-30,0)))
 original_sign = street['sign']
 def petshop_sign(g, spec, obstacles):
     spec = dict(spec)
@@ -40,7 +46,7 @@ street['blade_sign']=lambda *args,**kwargs:None
 results = []
 for i in range(12):
     geos = [street['shop'](i, detail) for detail in range(3)]
-    for g in geos:g.meta.update(display='Cù Lao Petshop',brand='Cù Lao Petshop',subtitle='Lưu Trú - Spa Pet',original_shop=i,kind='petshop',pets=g.pet_instances)
+    for g in geos:g.meta.update(display='Cù Lao Petshop',brand='Cù Lao Petshop',subtitle='Lưu Trú - Spa Pet',original_shop=i,kind='petshop',board='blue',ink='white',pets=g.pet_instances)
     results.append(street['save_asset']('PV_StreetShop%02d_Petshop'%i, geos, collection, ((i%6)*9.5, (i//6)*14, 0)))
 
 river = {'__name__':'petshop_river'}
@@ -66,7 +72,7 @@ report = dict(success=True,brand='Cù Lao Petshop',board='2B66B0',letters='FBF8F
               river_base_brands=base,river_extra_brands=base+1,river_extra_part=extra_part,
               river_faces=2,river_signs_per_tile=len(order)*2,
               river_high_blocks=round(len(order)*35*.3)-base*35,
-              river_order=[list(k) for k in order],results=results)
+              river_order=[list(k) for k in order],results=results,original_results=original_results,nonblue_boards=street['SHOP_BOARDS'],board_palette={n:dict(hex=street['PAL'][n],uv=street['uv_of'](street['CI'][n])) for n in ['blue']+[p[0] for p in street['SHOP_BOARDS']]})
 (ROOT/'Assets/PhoViet/Art/River/PV_PetshopSigns.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 (ROOT/'Captures/petshop-sign-export.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 bpy.ops.wm.save_as_mainfile(filepath=str(SOURCE/'PhoViet_PetshopSigns.blend'))

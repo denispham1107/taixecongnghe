@@ -284,7 +284,7 @@ SHELLS = ['white', 'stone', 'cream', 'sky', 'mint', 'sand', 'white', 'stone']
 FRAMES = ['darkFrame', 'white', 'steel', 'ironGrey']
 INTERIORS = ['interiorWall', 'trim', 'sky', 'woodLight', 'cream', 'beige']
 LIT_INTERIORS = ['interiorWall', 'interior', 'cream', 'woodLight', 'peach', 'trim']   # tông ấm cho phòng bật đèn ban đêm (21.51)
-HOUSE_BOARDS = [('red', 'white'), ('navy', 'yellow'), ('green', 'white'), ('white', 'red'), ('yellow', 'redDark'), ('blue', 'white'), ('orange', 'white')]
+HOUSE_BOARDS = SHOP_BOARDS  # Non-blue, spatially cycled below; RNG draw retained.
 HOUSE_LABELS = ['TẠP HÓA', 'NHÀ THUỐC', 'CƠM BÌNH DÂN', 'SỬA ĐIỆN', 'TIỆM VÀNG', 'BÚN RIÊU', 'IN ẤN', 'NHÀ MAY', 'CÀ PHÊ', 'HỚT TÓC', 'ĐIỆN THOẠI', 'BÁNH CUỐN',
                 'NƯỚC MÍA', 'TRÀ SỮA', 'MINI MART', 'KHÓA - CHÌA', 'VĂN PHÒNG PHẨM', 'XÔI', 'SPA', 'ỐC', 'NGÂN HÀNG', 'BẤT ĐỘNG SẢN']
 
@@ -299,7 +299,13 @@ def petshop_order():
         for a, b, zf, f, seed in riverside_specs():
             units = max(2, int(round((b-a)/5.0))); uw = (b-a)/units
             for u in range(units): keys.append((round(a+u*uw, 4), round(a+(u+1)*uw, 4), round(zf, 4), f))
-        random.Random(72026).shuffle(keys); _petshop_order = keys
+        random.Random(72026).shuffle(keys)
+        chosen=[]
+        for key in keys:
+            if not any(key[2:]==other[2:] and (abs(key[0]-other[1])<.001 or abs(key[1]-other[0])<.001) for other in chosen):chosen.append(key)
+            if len(chosen)==20:break
+        assert len(chosen)==20,'Need twenty non-adjacent Petshop bays'
+        _petshop_order=chosen+[key for key in keys if key not in chosen]
     return _petshop_order
 
 def petshop_is_unit(x0,x1,zf,f):
@@ -309,12 +315,16 @@ def petshop_is_unit(x0,x1,zf,f):
 def shop_unit(g, x0, x1, base, out, f, rng):
     """Một gian cửa hàng tầng trệt mặt đường ngang: kính khung trắng có dải đèn hoặc cửa cuốn, hộp cuốn, biển chữ, mái hiên."""
     d = g.d; w = x1-x0; cx = (x0+x1)/2; gw = w-.6
-    board, ink = rng.choice(HOUSE_BOARDS); label = rng.choice(HOUSE_LABELS); lit = rng.random() < .65
+    rng.randrange(7); label = rng.choice(HOUSE_LABELS); lit = rng.random() < .65  # Preserve the original 7-choice RNG stream.
+    ordered=sorted(petshop_order(),key=lambda k:(k[2],k[3],k[0])); key=(round(x0,4),round(x1,4),round(out(0),4),f)
+    board,ink=HOUSE_BOARDS[ordered.index(key)%len(HOUSE_BOARDS)]
     awn = rng.random() < .45; awn_cols = rng.choice([('awnRed', 'awnWhite'), ('awnBlue', 'awnWhite'), ('awnGreen', 'awnWhite'), ('awnYellow', 'awnWhite')])
     branded=petshop_is_unit(x0,x1,out(0),f)
     if branded:
         board, ink, label = 'blue', 'white', 'Cù Lao Petshop'
         lit=True
+    if not hasattr(g,'shop_signs'):g.shop_signs=[]
+    g.shop_signs.append(dict(x0=x0,x1=x1,zf=out(0),f=f,base=base,board=board,ink=ink,label=label,petshop=branded))
     g.quad([(cx-gw/2, base+.05, out(.01)), (cx+gw/2, base+.05, out(.01)), (cx+gw/2, base+2.75, out(.01)), (cx-gw/2, base+2.75, out(.01))], 'glass' if lit else 'steel', (0, 0, f),'Glass' if branded else '')
     g.cube((cx, base+2.62, out(.04)), (gw, .26, .08), 'ironGrey')
     if lit:
@@ -628,6 +638,7 @@ def export_parts(name, parts, coll, offset, mats):
         counts = []
         for o in lod_objs: o.data.calc_loop_triangles(); counts.append(len(o.data.loop_triangles))
         info_parts.append(dict(name=pname, slots=orders[0], lod_triangles=counts))
+        if hasattr(geos[0],'shop_signs'):info_parts[-1]['shop_signs']=geos[0].shop_signs
         if hasattr(geos[0],'pet_instances'):info_parts[-1].update(pets=geos[0].pet_instances,pets_by_lod=[len(g.pet_instances) for g in geos])
     bpy.ops.object.select_all(action='DESELECT'); root.select_set(True)
     for o in coll.objects:

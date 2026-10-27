@@ -268,5 +268,7 @@
         0.69
       ]
     }
-  ]
+  ],
+  "board": "peach",
+  "ink": "darkFrame"
 }
