@@ -1,0 +1,24 @@
+{
+  "name": "PV_RiverPetshopExtra",
+  "generator": "pho_viet_river_bridge.py",
+  "parts": [
+    {
+      "name": "PV_RiverApt02_PetshopExtra",
+      "slots": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass",
+        "PV_RiverRoomLight"
+      ],
+      "lod_triangles": [
+        3938,
+        2350,
+        1256
+      ]
+    }
+  ],
+  "lod_triangles": [
+    3938,
+    2350,
+    1256
+  ]
+}

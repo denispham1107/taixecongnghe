@@ -15,7 +15,7 @@ namespace PhoViet.Editor
    material=AssetDatabase.LoadAssetAtPath<Material>(Folder+"PV_StreetAtlas.mat");
    if(material==null){material=new Material(Shader.Find("Standard"));AssetDatabase.CreateAsset(material,Folder+"PV_StreetAtlas.mat");}
    material.mainTexture=AssetDatabase.LoadAssetAtPath<Texture2D>(Folder+"PV_StreetPalette.png");material.color=Color.white;material.SetFloat("_Glossiness",.12f);EditorUtility.SetDirty(material);
-   VietnamStreet.ShopFactory=(p,s,z,seed)=>{int i=seed%12;var t=Place("PV_StreetShop"+i.ToString("00"),p,new Vector3(s*13.2f,0,z),s*90);t.name="Blender • "+VietnamStreet.Shops[i];};
+   VietnamStreet.ShopFactory=(p,s,z,seed)=>{int i=seed%12;bool petshop=PhoVietPetshopSignsUpgrade.BrandedSeed(seed);var t=Place("PV_StreetShop"+i.ToString("00")+(petshop?"_Petshop":""),p,new Vector3(s*13.2f,0,z),s*90);t.name="Blender • "+(petshop?PhoVietPetshopSignsUpgrade.Brand:VietnamStreet.Shops[i]);};
    // Giữ đúng mẫu cây cũ theo thứ tự vị trí (trước 21.43 ở z 10/30/50 → mẫu 1/0/2).
    VietnamStreet.TreeFactory=(p,x,z)=>Place("PV_StreetTree"+new[]{1,0,2}[System.Array.IndexOf(VietnamStreet.TreeZ,z)<0?0:System.Array.IndexOf(VietnamStreet.TreeZ,z)],p,new Vector3(x,0,z),0);
    VietnamStreet.PavementFactory=(p,s)=>

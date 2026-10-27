@@ -10,9 +10,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4671,
-        2358,
-        498
+        5454,
+        3386,
+        1526
       ]
     },
     {
@@ -23,9 +23,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4576,
-        1976,
-        446
+        5170,
+        3128,
+        1598
       ]
     },
     {
@@ -36,9 +36,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        3333,
-        1486,
-        392
+        3616,
+        2028,
+        934
       ]
     },
     {
@@ -49,9 +49,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5498,
-        2460,
-        498
+        5868,
+        3164,
+        1202
       ]
     },
     {
@@ -62,9 +62,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4160,
-        1920,
-        500
+        5258,
+        3240,
+        1820
       ]
     },
     {
@@ -75,9 +75,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5349,
-        2556,
-        486
+        6146,
+        3792,
+        1722
       ]
     },
     {
@@ -88,9 +88,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        3615,
-        1684,
-        420
+        3828,
+        2086,
+        822
       ]
     },
     {
@@ -101,9 +101,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4952,
-        2422,
-        458
+        5270,
+        3022,
+        1058
       ]
     },
     {
@@ -114,9 +114,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4586,
-        2104,
-        510
+        5670,
+        3624,
+        2030
       ]
     },
     {
@@ -127,9 +127,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        3684,
-        1804,
-        432
+        3904,
+        2220,
+        848
       ]
     },
     {
@@ -140,9 +140,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4166,
-        2072,
-        418
+        5012,
+        3280,
+        1626
       ]
     },
     {
@@ -153,9 +153,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5299,
-        2488,
-        526
+        6516,
+        3910,
+        1948
       ]
     },
     {
@@ -166,9 +166,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4954,
-        2164,
-        486
+        6184,
+        3770,
+        2092
       ]
     },
     {
@@ -179,9 +179,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4004,
-        1908,
-        512
+        4680,
+        2780,
+        1384
       ]
     },
     {
@@ -192,9 +192,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4350,
-        2012,
-        458
+        5586,
+        3602,
+        2048
       ]
     },
     {
@@ -205,9 +205,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5390,
-        2334,
-        510
+        6200,
+        3638,
+        1814
       ]
     },
     {
@@ -218,9 +218,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        3637,
-        1720,
-        432
+        3858,
+        2138,
+        850
       ]
     },
     {
@@ -231,9 +231,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4565,
-        2180,
-        468
+        5106,
+        3214,
+        1502
       ]
     },
     {
@@ -244,9 +244,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4597,
-        2012,
-        458
+        5030,
+        2842,
+        1288
       ]
     },
     {
@@ -257,9 +257,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4335,
-        1952,
-        446
+        5032,
+        2882,
+        1376
       ]
     },
     {
@@ -270,9 +270,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5544,
-        2584,
-        550
+        5894,
+        3248,
+        1214
       ]
     },
     {
@@ -283,9 +283,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4180,
-        1904,
-        458
+        4604,
+        2716,
+        1270
       ]
     },
     {
@@ -296,9 +296,9 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4933,
-        2274,
-        498
+        6070,
+        3726,
+        1950
       ]
     },
     {
@@ -309,15 +309,15 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4304,
-        2032,
-        500
+        4980,
+        2794,
+        1262
       ]
     }
   ],
   "lod_triangles": [
-    108682,
-    50406,
-    11360
+    124936,
+    74230,
+    35184
   ]
 }

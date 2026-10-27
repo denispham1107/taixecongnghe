@@ -287,11 +287,28 @@ HOUSE_BOARDS = [('red', 'white'), ('navy', 'yellow'), ('green', 'white'), ('whit
 HOUSE_LABELS = ['TẠP HÓA', 'NHÀ THUỐC', 'CƠM BÌNH DÂN', 'SỬA ĐIỆN', 'TIỆM VÀNG', 'BÚN RIÊU', 'IN ẤN', 'NHÀ MAY', 'CÀ PHÊ', 'HỚT TÓC', 'ĐIỆN THOẠI', 'BÁNH CUỐN',
                 'NƯỚC MÍA', 'TRÀ SỮA', 'MINI MART', 'KHÓA - CHÌA', 'VĂN PHÒNG PHẨM', 'XÔI', 'SPA', 'ỐC', 'NGÂN HÀNG', 'BẤT ĐỘNG SẢN']
 
+# Petshop signs21.72: a shared stable ordering lets the Unity installer balance
+# the floor/ceil variants across its 35 pooled blocks to exactly 30 percent.
+PETSHOP_EXTRA = False
+_petshop_order = None
+def petshop_order():
+    global _petshop_order
+    if _petshop_order is None:
+        keys = []
+        for a, b, zf, f, seed in riverside_specs():
+            units = max(2, int(round((b-a)/5.0))); uw = (b-a)/units
+            for u in range(units): keys.append((round(a+u*uw, 4), round(a+(u+1)*uw, 4), round(zf, 4), f))
+        random.Random(72026).shuffle(keys); _petshop_order = keys
+    return _petshop_order
+
 def shop_unit(g, x0, x1, base, out, f, rng):
     """Một gian cửa hàng tầng trệt mặt đường ngang: kính khung trắng có dải đèn hoặc cửa cuốn, hộp cuốn, biển chữ, mái hiên."""
     d = g.d; w = x1-x0; cx = (x0+x1)/2; gw = w-.6
     board, ink = rng.choice(HOUSE_BOARDS); label = rng.choice(HOUSE_LABELS); lit = rng.random() < .65
     awn = rng.random() < .45; awn_cols = rng.choice([('awnRed', 'awnWhite'), ('awnBlue', 'awnWhite'), ('awnGreen', 'awnWhite'), ('awnYellow', 'awnWhite')])
+    order = petshop_order(); count = int(len(order)*.3)+(1 if PETSHOP_EXTRA else 0)
+    if (round(x0, 4), round(x1, 4), round(out(0), 4), f) in order[:count]:
+        board, ink, label = 'blue', 'white', 'Cù Lao Petshop'
     g.quad([(cx-gw/2, base+.05, out(.01)), (cx+gw/2, base+.05, out(.01)), (cx+gw/2, base+2.75, out(.01)), (cx-gw/2, base+2.75, out(.01))], 'glass' if lit else 'steel', (0, 0, f))
     g.cube((cx, base+2.62, out(.04)), (gw, .26, .08), 'ironGrey')
     if lit:
@@ -303,7 +320,13 @@ def shop_unit(g, x0, x1, base, out, f, rng):
     elif d == 0:
         for k in range(9): g.cube((cx, base+.3+k*.26, out(.02)), (gw, .03, .02), 'ironGrey')
     g.cube((cx, base+3.15, out(.12)), (w-.4, .72, .16), board)
-    if d == 0: g.text(label, (cx, base+3.15, out(.21)), .34, ink, w-.9, bold=.02, facing=f)
+    # Keep the name in every authored LOD; otherwise distant shops have blank boards.
+    g.text(label, (cx, base+3.15, out(.21)), .34, ink, w-.9, bold=.02, facing=f)
+    # The glazed river elevation is what the bridge camera sees. Repeat the
+    # same business above its ground-floor glass, within the 0.30m bank margin.
+    river_face = out(0)-f*HOUSE_DEPTH
+    g.cube((cx, base+3.15, river_face-f*.09), (w-.4, .72, .06), board)
+    g.text(label, (cx, base+3.15, river_face-f*.14), .34, ink, w-.9, bold=.02, facing=-f)
     if awn and d < 2:
         n = 4 if d == 0 else 2; sw = (w-.4)/n
         for i in range(n):

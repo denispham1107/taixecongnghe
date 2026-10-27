@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "shops": 490,
+  "brands": 147,
+  "rivers": 2310,
+  "riverBrands": 693,
+  "riverSigns": 4620,
+  "riverBrandedSigns": 1386,
+  "riverRatio": 0.3,
+  "rendererCount": 10983,
+  "extraRiverBlocks": 28,
+  "allThreeLods": true,
+  "samples": [
+    {
+      "tile": 0,
+      "shop": 1,
+      "position": "(-13.200, 0.000, -67.600)"
+    },
+    {
+      "tile": 0,
+      "shop": 4,
+      "position": "(-13.200, 0.000, -42.400)"
+    }
+  ],
+  "jobs": false
+}

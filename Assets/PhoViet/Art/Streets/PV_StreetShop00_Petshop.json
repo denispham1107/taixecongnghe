@@ -1,0 +1,274 @@
+{
+  "name": "PV_StreetShop00_Petshop",
+  "generator": "pho_viet_saigon_streets.py",
+  "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
+  "lod_triangles": [
+    15636,
+    8141,
+    3316
+  ],
+  "materials": 1,
+  "palette_grid": [
+    8,
+    8
+  ],
+  "sign_front_z": -4.118,
+  "wall_front_z": -3.9,
+  "protected_awning_strips": 14,
+  "leaf_counts": [],
+  "height": 13.9,
+  "display": "Cù Lao Petshop",
+  "kind": "pho",
+  "floors": 4,
+  "obstacles": [
+    {
+      "kind": "Nhà cửa",
+      "center": [
+        0,
+        6.95,
+        0
+      ],
+      "size": [
+        8.36,
+        13.9,
+        7.8
+      ]
+    },
+    {
+      "kind": "Nồi nước dùng",
+      "center": [
+        3.3699999999999997,
+        0.6,
+        -4.38
+      ],
+      "size": [
+        0.56,
+        1.2,
+        0.56
+      ]
+    },
+    {
+      "kind": "Quầy thức ăn",
+      "center": [
+        2.3,
+        0.78,
+        -4.38
+      ],
+      "size": [
+        1.56,
+        1.56,
+        0.68
+      ]
+    },
+    {
+      "kind": "Bàn ăn",
+      "center": [
+        -2.6,
+        0.34,
+        -4.98
+      ],
+      "size": [
+        0.74,
+        0.7,
+        0.54
+      ]
+    },
+    {
+      "kind": "Ghế nhựa",
+      "center": [
+        -3.1500000000000004,
+        0.23,
+        -4.98
+      ],
+      "size": [
+        0.42,
+        0.46,
+        0.42
+      ]
+    },
+    {
+      "kind": "Ghế nhựa",
+      "center": [
+        -2.05,
+        0.23,
+        -4.98
+      ],
+      "size": [
+        0.42,
+        0.46,
+        0.42
+      ]
+    },
+    {
+      "kind": "Ghế nhựa",
+      "center": [
+        -2.6,
+        0.23,
+        -5.5
+      ],
+      "size": [
+        0.42,
+        0.46,
+        0.42
+      ]
+    },
+    {
+      "kind": "Ghế nhựa",
+      "center": [
+        -2.6,
+        0.23,
+        -4.48
+      ],
+      "size": [
+        0.42,
+        0.46,
+        0.42
+      ]
+    },
+    {
+      "kind": "Bàn ăn",
+      "center": [
+        -0.95,
+        0.34,
+        -4.98
+      ],
+      "size": [
+        0.74,
+        0.7,
+        0.54
+      ]
+    },
+    {
+      "kind": "Ghế nhựa",
+      "center": [
+        -1.5,
+        0.23,
+        -4.98
+      ],
+      "size": [
+        0.42,
+        0.46,
+        0.42
+      ]
+    },
+    {
+      "kind": "Ghế nhựa",
+      "center": [
+        -0.3999999999999999,
+        0.23,
+        -4.98
+      ],
+      "size": [
+        0.42,
+        0.46,
+        0.42
+      ]
+    },
+    {
+      "kind": "Ghế nhựa",
+      "center": [
+        -0.95,
+        0.23,
+        -5.5
+      ],
+      "size": [
+        0.42,
+        0.46,
+        0.42
+      ]
+    },
+    {
+      "kind": "Ghế nhựa",
+      "center": [
+        -0.95,
+        0.23,
+        -4.48
+      ],
+      "size": [
+        0.42,
+        0.46,
+        0.42
+      ]
+    },
+    {
+      "kind": "Bảng thực đơn",
+      "center": [
+        3.4,
+        0.66,
+        -5.5
+      ],
+      "size": [
+        0.8,
+        1.3,
+        0.6
+      ]
+    },
+    {
+      "kind": "Mái hiên",
+      "center": [
+        0,
+        2.95,
+        -4.7
+      ],
+      "size": [
+        7.4,
+        0.5,
+        1.4
+      ]
+    },
+    {
+      "kind": "Bảng hiệu",
+      "center": [
+        0,
+        4.1,
+        -4.0
+      ],
+      "size": [
+        7.6,
+        1.6,
+        0.26
+      ]
+    },
+    {
+      "kind": "Ban công",
+      "center": [
+        0,
+        5.5,
+        -4.4
+      ],
+      "size": [
+        7.4,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "kind": "Ban công",
+      "center": [
+        0,
+        11.5,
+        -4.4
+      ],
+      "size": [
+        7.4,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "kind": "Chậu cây lớn",
+      "center": [
+        -3.5,
+        0.95,
+        -5.6
+      ],
+      "size": [
+        0.6,
+        1.9,
+        0.6
+      ]
+    }
+  ],
+  "brand": "Cù Lao Petshop",
+  "original_shop": 0
+}

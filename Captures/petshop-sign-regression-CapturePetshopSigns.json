@@ -1,0 +1,41 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/CapturePetshopSigns.cs",
+      "entry": "CapturePetshopSigns.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 5508,
+      "executeMs": 3096,
+      "assemblyName": "PipelineRunScript_CapturePetshopSigns_ae46ef9ae5ea49b1af7c2d938d480a06",
+      "success": true,
+      "result": {
+        "success": true,
+        "files": [
+          "Captures/petshop-sign-street-day.png",
+          "Captures/petshop-sign-street-night.png",
+          "Captures/petshop-sign-river-day.png",
+          "Captures/petshop-sign-river-lod1.png",
+          "Captures/petshop-sign-river-lod2.png",
+          "Captures/petshop-sign-river-night.png",
+          "Captures/petshop-sign-river-waterfront-day.png",
+          "Captures/petshop-sign-river-waterfront-night.png",
+          "Captures/petshop-sign-game-wide.png"
+        ],
+        "riverPart": "PV_RiverApt19"
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

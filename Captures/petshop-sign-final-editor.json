@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "var g=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>();return new {playing=UnityEditor.EditorApplication.isPlaying,compiling=UnityEditor.EditorApplication.isCompiling,dirty=g.gameObject.scene.isDirty,scene=g.gameObject.scene.path,jobs=g.jobsEnabled,renderers=g.scenery.GetComponentsInChildren<UnityEngine.Renderer>(true).Length,missing=g.gameObject.scene.GetRootGameObjects().SelectMany(o=>o.GetComponentsInChildren<UnityEngine.Transform>(true)).Sum(t=>UnityEditor.GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(t.gameObject))};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "playing": false,
+        "compiling": false,
+        "dirty": false,
+        "scene": "Assets/PhoViet/Scenes/PhoViet.unity",
+        "jobs": false,
+        "renderers": 10983,
+        "missing": 0
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

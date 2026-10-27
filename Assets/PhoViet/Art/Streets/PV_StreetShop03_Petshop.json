@@ -1,0 +1,144 @@
+{
+  "name": "PV_StreetShop03_Petshop",
+  "generator": "pho_viet_saigon_streets.py",
+  "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
+  "lod_triangles": [
+    14972,
+    8404,
+    2301
+  ],
+  "materials": 1,
+  "palette_grid": [
+    8,
+    8
+  ],
+  "sign_front_z": -4.118,
+  "wall_front_z": -3.9,
+  "protected_awning_strips": 14,
+  "leaf_counts": [],
+  "height": 13.9,
+  "display": "Cù Lao Petshop",
+  "kind": "grocery",
+  "floors": 4,
+  "obstacles": [
+    {
+      "kind": "Nhà cửa",
+      "center": [
+        0,
+        6.95,
+        0
+      ],
+      "size": [
+        8.36,
+        13.9,
+        7.8
+      ]
+    },
+    {
+      "kind": "Tủ nước",
+      "center": [
+        -2.75,
+        1.0,
+        -4.42
+      ],
+      "size": [
+        0.82,
+        1.95,
+        0.7
+      ]
+    },
+    {
+      "kind": "Kệ tạp hóa",
+      "center": [
+        2.45,
+        0.8,
+        -4.4
+      ],
+      "size": [
+        1.6500000000000001,
+        1.6,
+        0.5
+      ]
+    },
+    {
+      "kind": "Két hàng",
+      "center": [
+        -1.55,
+        0.5,
+        -4.5
+      ],
+      "size": [
+        0.65,
+        1.0,
+        0.45
+      ]
+    },
+    {
+      "kind": "Mái hiên",
+      "center": [
+        0,
+        2.95,
+        -4.7
+      ],
+      "size": [
+        7.4,
+        0.5,
+        1.4
+      ]
+    },
+    {
+      "kind": "Bảng hiệu",
+      "center": [
+        0,
+        4.1,
+        -4.0
+      ],
+      "size": [
+        7.6,
+        1.6,
+        0.26
+      ]
+    },
+    {
+      "kind": "Ban công",
+      "center": [
+        0,
+        5.5,
+        -4.4
+      ],
+      "size": [
+        7.4,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "kind": "Ban công",
+      "center": [
+        0,
+        8.5,
+        -4.4
+      ],
+      "size": [
+        7.4,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "kind": "Ban công",
+      "center": [
+        0,
+        11.5,
+        -4.4
+      ],
+      "size": [
+        7.4,
+        1.0,
+        1.0
+      ]
+    }
+  ],
+  "brand": "Cù Lao Petshop",
+  "original_shop": 3
+}
