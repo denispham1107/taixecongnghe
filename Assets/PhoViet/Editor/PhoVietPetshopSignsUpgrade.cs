@@ -20,10 +20,10 @@ namespace PhoViet.Editor
    if(Application.isPlaying)throw new Exception("Edit Mode required");var g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();
    if(g==null||g.jobsEnabled||g.gameObject.scene.path!="Assets/PhoViet/Scenes/PhoViet.unity")throw new Exception("Correct scene/jobs locked required");
    if(g.gameObject.scene.isDirty)throw new Exception("Save or inspect existing scene edits first");
-   if(!File.Exists(".tools/PhoViet-before-petshop-signs.unity"))EditorSceneManager.SaveScene(g.gameObject.scene,".tools/PhoViet-before-petshop-signs.unity",true);
+   if(!File.Exists(".tools/PhoViet-before-petshop-pets.unity"))EditorSceneManager.SaveScene(g.gameObject.scene,".tools/PhoViet-before-petshop-pets.unity",true);
    var spec=JsonUtility.FromJson<SignInfo>(File.ReadAllText(River+"PV_PetshopSigns.json"));
    int rendererCount=g.scenery.GetComponentsInChildren<Renderer>(true).Length;
-   string obstacles=string.Join("\n",g.scenery.GetComponentsInChildren<StreetObstacleSet>(true).Select(s=>JsonUtility.ToJson(s)));
+   var originalObstacles=g.scenery.GetComponentsInChildren<StreetObstacleSet>(true).ToDictionary(s=>s,s=>JsonUtility.ToJson(s));var brandedSets=new HashSet<StreetObstacleSet>();
    var tiles=g.roadRows.SelectMany(r=>r.tiles).ToList();if(tiles.Count!=35)throw new Exception("Expected 35 pooled street blocks");
    var highStreet=Enumerable.Range(0,35).ToList();Shuffle(highStreet,new Random(72026));var streetExtra=new HashSet<int>(highStreet.Take(7));
    var highRiver=Enumerable.Range(0,35).ToList();Shuffle(highRiver,new Random(72027));var riverExtra=new HashSet<int>(highRiver.Take(spec.river_high_blocks));
@@ -55,6 +55,12 @@ namespace PhoViet.Editor
      string asset="PV_StreetShop"+index.ToString("00")+(branded?"_Petshop":""),path=Shops+asset+".fbx";
      if(!sources.TryGetValue(path,out var source)){source=Meshes(path);sources.Add(path,source);}
      for(int d=0;d<3;d++)foreach(var r in levels[d].renderers)Assign(r.GetComponent<MeshFilter>(),source[asset+"_LOD"+d]);
+     if(branded)
+     {
+      var set=lod.GetComponentInParent<StreetObstacleSet>(true);if(set==null||set.transform==tile)throw new Exception("Missing shop obstacle set");
+      var metadata=StreetArtMetadata.Load(asset);set.obstacles=metadata.obstacles.Select(o=>new StreetObstacleSet.Obstacle(o.kind,new Vector3(o.center[0],o.center[1],o.center[2]),new Vector3(o.size[0],o.size[1],o.size[2]))).ToArray();
+      EditorUtility.SetDirty(set);PrefabUtility.RecordPrefabInstancePropertyModifications(set);brandedSets.Add(set);
+     }
      shops++;if(branded){brands++;if(samples.Count<2)samples.Add(new{tile=tileIndex,shop=index,position=lod.transform.position.ToString("F3")});}
     }
     var river=tile.GetComponent<RiverBlock>();var apt=river.bridge.transform.Find("Căn hộ ven sông • Blender");if(apt==null)throw new Exception("Missing riverside apartments");
@@ -69,9 +75,9 @@ namespace PhoViet.Editor
     rivers+=spec.river_units;riverBrands+=spec.river_base_brands+(riverExtra.Contains(tileIndex)?1:0);
    }
    if(shops!=490||brands!=147||riverBrands!=(int)Math.Round(rivers*.3))throw new Exception("Brand proportions did not balance");
-   if(rendererCount!=g.scenery.GetComponentsInChildren<Renderer>(true).Length||obstacles!=string.Join("\n",g.scenery.GetComponentsInChildren<StreetObstacleSet>(true).Select(s=>JsonUtility.ToJson(s))))throw new Exception("Unexpected renderer/collision changes");
+   if(rendererCount!=g.scenery.GetComponentsInChildren<Renderer>(true).Length||originalObstacles.Any(p=>!brandedSets.Contains(p.Key)&&p.Value!=JsonUtility.ToJson(p.Key)))throw new Exception("Unexpected renderer/non-Petshop collision changes");
    EditorSceneManager.MarkSceneDirty(g.gameObject.scene);EditorSceneManager.SaveScene(g.gameObject.scene);AssetDatabase.SaveAssets();
-   var report=new{success=true,shops,brands,rivers,riverBrands,riverSigns=rivers*2,riverBrandedSigns=riverBrands*2,riverRatio=riverBrands/(float)rivers,rendererCount,extraRiverBlocks=spec.river_high_blocks,allThreeLods=true,samples,jobs=g.jobsEnabled};
+   var report=new{success=true,shops,brands,rivers,riverBrands,riverSigns=rivers*2,riverBrandedSigns=riverBrands*2,riverRatio=riverBrands/(float)rivers,rendererCount,updatedPetshopObstacles=brandedSets.Count,extraRiverBlocks=spec.river_high_blocks,allThreeLods=true,samples,jobs=g.jobsEnabled};
    File.WriteAllText("Captures/petshop-sign-install.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));return report;
   }
  }

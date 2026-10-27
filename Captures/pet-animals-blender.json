@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "via": "Blender MCP",
+  "triangles": {
+    "dog": [
+      956,
+      520,
+      396
+    ],
+    "cat": [
+      838,
+      422,
+      338
+    ],
+    "rabbit": [
+      864,
+      432,
+      320
+    ]
+  }
+}

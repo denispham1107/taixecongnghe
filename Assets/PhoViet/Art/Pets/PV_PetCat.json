@@ -1,0 +1,21 @@
+{
+  "name": "PV_PetCat",
+  "generator": "pho_viet_pet_animals.py / Blender MCP",
+  "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
+  "lod_triangles": [
+    838,
+    422,
+    338
+  ],
+  "materials": 1,
+  "palette_grid": [
+    8,
+    8
+  ],
+  "sign_front_z": null,
+  "wall_front_z": null,
+  "protected_awning_strips": 0,
+  "leaf_counts": [],
+  "species": "cat",
+  "obstacles": []
+}

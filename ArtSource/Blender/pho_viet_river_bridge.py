@@ -20,6 +20,7 @@ from mathutils import Vector
 
 ROOT = 'C:/Users/HP/Documents/GameUnity/Taixecongnghe'
 exec(compile(open(ROOT+'/ArtSource/Blender/pho_viet_saigon_streets.py', encoding='utf8').read(), 'pho_viet_saigon_streets.py', 'exec'))
+exec(compile(open(ROOT+'/ArtSource/Blender/pho_viet_petshop_layout.py', encoding='utf8').read(), 'pho_viet_petshop_layout.py', 'exec'))
 OUT = ROOT+'/Assets/PhoViet/Art/River'
 SOURCE = ROOT+'/ArtSource/Blender/PhoViet_RiverBridge.blend'
 SCENE = 'PV_RiverBridge'
@@ -301,15 +302,20 @@ def petshop_order():
         random.Random(72026).shuffle(keys); _petshop_order = keys
     return _petshop_order
 
+def petshop_is_unit(x0,x1,zf,f):
+    order=petshop_order();count=int(len(order)*.3)+(1 if PETSHOP_EXTRA else 0)
+    return (round(x0,4),round(x1,4),round(zf,4),f) in order[:count]
+
 def shop_unit(g, x0, x1, base, out, f, rng):
     """Một gian cửa hàng tầng trệt mặt đường ngang: kính khung trắng có dải đèn hoặc cửa cuốn, hộp cuốn, biển chữ, mái hiên."""
     d = g.d; w = x1-x0; cx = (x0+x1)/2; gw = w-.6
     board, ink = rng.choice(HOUSE_BOARDS); label = rng.choice(HOUSE_LABELS); lit = rng.random() < .65
     awn = rng.random() < .45; awn_cols = rng.choice([('awnRed', 'awnWhite'), ('awnBlue', 'awnWhite'), ('awnGreen', 'awnWhite'), ('awnYellow', 'awnWhite')])
-    order = petshop_order(); count = int(len(order)*.3)+(1 if PETSHOP_EXTRA else 0)
-    if (round(x0, 4), round(x1, 4), round(out(0), 4), f) in order[:count]:
+    branded=petshop_is_unit(x0,x1,out(0),f)
+    if branded:
         board, ink, label = 'blue', 'white', 'Cù Lao Petshop'
-    g.quad([(cx-gw/2, base+.05, out(.01)), (cx+gw/2, base+.05, out(.01)), (cx+gw/2, base+2.75, out(.01)), (cx-gw/2, base+2.75, out(.01))], 'glass' if lit else 'steel', (0, 0, f))
+        lit=True
+    g.quad([(cx-gw/2, base+.05, out(.01)), (cx+gw/2, base+.05, out(.01)), (cx+gw/2, base+2.75, out(.01)), (cx-gw/2, base+2.75, out(.01))], 'glass' if lit else 'steel', (0, 0, f),'Glass' if branded else '')
     g.cube((cx, base+2.62, out(.04)), (gw, .26, .08), 'ironGrey')
     if lit:
         g.cube((cx, base+2.2, out(.03)), (gw, .07, .05), 'frame')
@@ -321,12 +327,16 @@ def shop_unit(g, x0, x1, base, out, f, rng):
         for k in range(9): g.cube((cx, base+.3+k*.26, out(.02)), (gw, .03, .02), 'ironGrey')
     g.cube((cx, base+3.15, out(.12)), (w-.4, .72, .16), board)
     # Keep the name in every authored LOD; otherwise distant shops have blank boards.
-    g.text(label, (cx, base+3.15, out(.21)), .34, ink, w-.9, bold=.02, facing=f)
+    g.text(label, (cx, base+(3.27 if branded else 3.15), out(.21)), .34, ink, w-.9, bold=.02, facing=f)
+    if branded:g.text('Lưu Trú - Spa Pet',(cx,base+2.97,out(.21)),.14,'white',w-.9,bold=.02,facing=f)
     # The glazed river elevation is what the bridge camera sees. Repeat the
     # same business above its ground-floor glass, within the 0.30m bank margin.
     river_face = out(0)-f*HOUSE_DEPTH
     g.cube((cx, base+3.15, river_face-f*.09), (w-.4, .72, .06), board)
-    g.text(label, (cx, base+3.15, river_face-f*.14), .34, ink, w-.9, bold=.02, facing=-f)
+    g.text(label, (cx, base+(3.27 if branded else 3.15), river_face-f*.14), .34, ink, w-.9, bold=.02, facing=-f)
+    if branded:
+        g.text('Lưu Trú - Spa Pet',(cx,base+2.97,river_face-f*.14),.14,'white',w-.9,bold=.02,facing=-f)
+        river_petshop_animals(g,x0,x1,base,out(0),f)
     if awn and d < 2:
         n = 4 if d == 0 else 2; sw = (w-.4)/n
         for i in range(n):
@@ -347,14 +357,21 @@ def apartment_block(g, x0, x1, zf, f, rng, obstacles):
     def back(o): return zb-f*o         # ra phía sông (≤ 0,12)
     def inner(o): return zb+f*o        # vào trong nhà tính từ lưng nhà
     zone = LOGGIA+ROOM
-    # Lõi đặc từ mặt đường tới sau phòng; hai vách đầu hồi bao vùng ban công + phòng.
-    g.cube((cx, (base+h)/2, (zf+inner(zone))/2), (w-.04, h-base, HOUSE_DEPTH-zone), shell, skip=('-y',))
+    units = max(2, int(round(w/5.0))); uw = w/units
+    pet_units=[(x0+u*uw,x0+(u+1)*uw) for u in range(units) if petshop_is_unit(x0+u*uw,x0+(u+1)*uw,zf,f)]
+    # Keep the original upper shell, opening only the Petshop ground-floor bays.
+    if pet_units:
+        g.cube((cx,(base+gh+h)/2,(zf+inner(zone))/2),(w-.04,h-base-gh,HOUSE_DEPTH-zone),shell)
+        for u in range(units):
+            a,b=x0+u*uw,x0+(u+1)*uw
+            if not petshop_is_unit(a,b,zf,f):g.cube(((a+b)/2,base+gh/2,(zf+inner(zone))/2),(uw-.04,gh,HOUSE_DEPTH-zone),shell)
+            else:g.cube(((a+b)/2,base+.1,(zf+inner(zone))/2),(uw-.04,.2,HOUSE_DEPTH-zone),'paveCream')
+    else:g.cube((cx, (base+h)/2, (zf+inner(zone))/2), (w-.04, h-base, HOUSE_DEPTH-zone), shell, skip=('-y',))
     for xe in (x0+.12, x1-.12): g.cube((xe, (base+h)/2, inner(zone/2)), (.24, h-base, zone), shell, skip=('-y',))
     obstacles.append(dict(kind='Nhà ven sông', center=[cx, (base+h)/2, (zf+zb)/2], size=[w, h-base, HOUSE_DEPTH]))
     rngs = random.Random(rng.randrange(1 << 30))
     # ---- mặt đường ngang
     for xe in (x0+.12, x1-.12): g.cube((xe, (base+h)/2, out(.06)), (.24, h-base, .12), 'trim')
-    units = max(2, int(round(w/5.0))); uw = w/units
     for u in range(units): shop_unit(g, x0+u*uw, x0+(u+1)*uw, base, out, f, rngs)
     nwin = max(2, int(w/2.6)); pitch = w/nwin
     for k in range(1, floors):
@@ -409,8 +426,10 @@ def apartment_block(g, x0, x1, zf, f, rng, obstacles):
             g.quad([(lx-.6, yt-.03, inner(LOGGIA+.3)), (lx+.6, yt-.03, inner(LOGGIA+.3)), (lx+.6, yt-.03, inner(LOGGIA+.55)), (lx-.6, yt-.03, inner(LOGGIA+.55))], 'lamp', (0, -1, 0), room_tag)
         if d == 0:
             sx = cx+rngs.uniform(-w*.25, w*.25)
-            g.cube((sx, y0+.45, inner(zone-.35)), (1.8, .5, .6), rngs.choice(['woodLight', 'navy', 'stone', 'awnGreen']))   # sofa
-            g.cube((sx, y0+.85, inner(zone-.12)), (1.8, .5, .16), rngs.choice(['woodLight', 'navy', 'stone', 'awnGreen']))
+            seat=rngs.choice(['woodLight','navy','stone','awnGreen']);backrest=rngs.choice(['woodLight','navy','stone','awnGreen'])
+            if k or not any(sx+.9>a and sx-.9<b for a,b in pet_units):
+                g.cube((sx, y0+.45, inner(zone-.35)), (1.8, .5, .6),seat)
+                g.cube((sx, y0+.85, inner(zone-.12)), (1.8, .5, .16),backrest)
             px = x0+.8 if rngs.random() < .5 else x1-.8
             g.cube((px, y0+.5, inner(LOGGIA+.5)), (.4, .6, .4), 'potGrey'); g.blob((px, y0+1.2, inner(LOGGIA+.5)), (.35, .5, .35), 'leaf3', n=6, m=3)
             if k and rngs.random() < .5:   # chậu cây ngoài ban công
@@ -609,6 +628,7 @@ def export_parts(name, parts, coll, offset, mats):
         counts = []
         for o in lod_objs: o.data.calc_loop_triangles(); counts.append(len(o.data.loop_triangles))
         info_parts.append(dict(name=pname, slots=orders[0], lod_triangles=counts))
+        if hasattr(geos[0],'pet_instances'):info_parts[-1].update(pets=geos[0].pet_instances,pets_by_lod=[len(g.pet_instances) for g in geos])
     bpy.ops.object.select_all(action='DESELECT'); root.select_set(True)
     for o in coll.objects:
         if o == root or o.parent == root or (o.parent and o.parent.parent == root): o.select_set(True)

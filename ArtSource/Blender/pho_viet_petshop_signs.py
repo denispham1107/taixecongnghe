@@ -29,13 +29,18 @@ original_sign = street['sign']
 def petshop_sign(g, spec, obstacles):
     spec = dict(spec)
     for key in ('side', 'script', 'icon'): spec.pop(key, None)
-    spec.update(main='Cù Lao Petshop', sub='', board='blue', ink='white', subink='white')
+    spec.update(main='Cù Lao Petshop', sub='Lưu Trú - Spa Pet', board='blue', ink='white', subink='white')
     original_sign(g, spec, obstacles)
 street['sign'] = petshop_sign
+exec(compile((SOURCE/'pho_viet_petshop_layout.py').read_text(encoding='utf-8'),'pho_viet_petshop_layout.py','exec'),street)
+street['_original_interior']=street['interior']
+street['interior']=street['street_petshop_interior'];street['sidewalk']=street['street_petshop_sidewalk']
+# The former blade names (NHÀ NGHỈ/NHA KHOA…) do not belong to a pet shop.
+street['blade_sign']=lambda *args,**kwargs:None
 results = []
 for i in range(12):
     geos = [street['shop'](i, detail) for detail in range(3)]
-    for g in geos: g.meta.update(display='Cù Lao Petshop', brand='Cù Lao Petshop', original_shop=i)
+    for g in geos:g.meta.update(display='Cù Lao Petshop',brand='Cù Lao Petshop',subtitle='Lưu Trú - Spa Pet',original_shop=i,kind='petshop',pets=g.pet_instances)
     results.append(street['save_asset']('PV_StreetShop%02d_Petshop'%i, geos, collection, ((i%6)*9.5, (i//6)*14, 0)))
 
 river = {'__name__':'petshop_river'}

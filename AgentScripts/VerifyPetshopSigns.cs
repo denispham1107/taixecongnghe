@@ -25,7 +25,7 @@ public static class VerifyPetshopSigns
     var data=Read(mesh);check(!mesh.isReadable&&Points(data,4.118f,-3.7f,3.7f,3.35f,4.85f,white)>30,"White vector Petshop letters retained in "+mesh.name);
     check(Points(data,4.115f,-3.7f,3.7f,3.35f,4.85f,new Vector2(.6875f,.4375f))>=4,"Blue atlas board retained in "+mesh.name);
     string original="PV_StreetShop"+shop.ToString("00");var baseline=AssetDatabase.LoadAllAssetsAtPath("Assets/PhoViet/Art/Streets/"+original+".fbx").OfType<Mesh>().Single(m=>m.name==mesh.name.Replace("_Petshop",""));
-    check(Vector3.Distance(mesh.bounds.center,baseline.bounds.center)<.0001f&&Vector3.Distance(mesh.bounds.size,baseline.bounds.size)<.0001f,"Facade proportions unchanged in "+mesh.name);
+    var originalUpper=Read(baseline).vertices.Where(v=>v.z>8.1f).ToArray(); var currentUpper=new HashSet<Vector3>(data.vertices.Where(v=>v.z>8.1f)); check(originalUpper.Length>50&&originalUpper.All(v=>currentUpper.Contains(v)),"Upper building geometry unchanged in "+mesh.name);
    }
   }
   var baseMeshes=AssetDatabase.LoadAllAssetsAtPath("Assets/PhoViet/Art/River/PV_RiverApartments.fbx").OfType<Mesh>().ToDictionary(m=>m.name);

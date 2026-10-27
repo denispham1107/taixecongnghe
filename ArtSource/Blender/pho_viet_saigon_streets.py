@@ -1087,7 +1087,7 @@ def to_mesh(name, g, coll):
     uv = me.uv_layers.new(name='StreetAtlasUV')
     flips = []
     for poly, col, hint in zip(me.polygons, g.cols, g.hint):
-        poly.use_smooth = False
+        poly.use_smooth = g.tags[poly.index].startswith('PetSmooth_')
         for loop in poly.loop_indices: uv.data[loop].uv = uv_of(col)
         if hint[0] == 'c': want = Vector(poly.center)-B(hint[1])
         else: want = B(hint[1])

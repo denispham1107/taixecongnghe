@@ -10,9 +10,115 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5454,
-        3386,
-        1526
+        14028,
+        8132,
+        5312
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -19.613333333333333,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -19.613333333333333,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -19.613333333333333,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -18.4,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -18.4,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -18.4,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -17.186666666666664,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -17.186666666666664,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -17.186666666666664,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     },
     {
@@ -62,9 +168,214 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5258,
-        3240,
-        1820
+        22334,
+        12694,
+        9354
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -76.5,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -76.5,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -76.5,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -75.2,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -75.2,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -75.2,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -73.9,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -73.9,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -73.9,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -71.5,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -71.5,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -71.5,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -70.2,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -70.2,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -70.2,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -68.9,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -68.9,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -68.9,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        18,
+        18,
+        18
       ]
     },
     {
@@ -75,9 +386,115 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        6146,
-        3792,
-        1722
+        14674,
+        8550,
+        5520
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -87.84933333333333,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -87.84933333333333,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -87.84933333333333,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -86.35,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -86.35,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -86.35,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -84.85066666666665,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -84.85066666666665,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -84.85066666666665,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     },
     {
@@ -114,9 +531,214 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5670,
-        3624,
-        2030
+        22804,
+        13078,
+        9564
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            40.708000000000006,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            40.708000000000006,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            40.708000000000006,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            41.800000000000004,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            41.800000000000004,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            41.800000000000004,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            42.892,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            42.892,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            42.892,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "dog",
+          "position": [
+            44.908,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            44.908,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            44.908,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            46.0,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            46.0,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            46.0,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            47.092,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            47.092,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            47.092,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        18,
+        18,
+        18
       ]
     },
     {
@@ -140,9 +762,115 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5012,
-        3280,
-        1626
+        13586,
+        8026,
+        5412
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            65.144,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            65.144,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            65.144,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            66.60000000000001,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            66.60000000000001,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            66.60000000000001,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            68.05600000000001,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            68.05600000000001,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            68.05600000000001,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     },
     {
@@ -153,9 +881,214 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        6516,
-        3910,
-        1948
+        23604,
+        13376,
+        9494
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            86.552,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            86.552,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            86.552,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            87.80000000000001,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            87.80000000000001,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            87.80000000000001,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            89.04800000000002,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            89.04800000000002,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            89.04800000000002,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "dog",
+          "position": [
+            91.35199999999999,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            91.35199999999999,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            91.35199999999999,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            92.6,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            92.6,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            92.6,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            93.848,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            93.848,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            93.848,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        18,
+        18,
+        18
       ]
     },
     {
@@ -166,9 +1099,214 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        6184,
-        3770,
-        2092
+        23202,
+        13248,
+        9650
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -18.791999999999998,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -18.791999999999998,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -18.791999999999998,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -17.7,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -17.7,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -17.7,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -16.608,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -16.608,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -16.608,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -14.592,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -14.592,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -14.592,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -13.5,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -13.5,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -13.5,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -12.408,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -12.408,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -12.408,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        18,
+        18,
+        18
       ]
     },
     {
@@ -179,9 +1317,115 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4680,
-        2780,
-        1384
+        13242,
+        7514,
+        5158
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -27.8,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -27.8,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -27.8,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -26.5,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -26.5,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -26.5,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -25.2,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -25.2,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -25.2,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     },
     {
@@ -192,9 +1436,214 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5586,
-        3602,
-        2048
+        22698,
+        13068,
+        9594
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -46.88,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -46.88,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -46.88,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -45.66666666666667,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -45.66666666666667,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -45.66666666666667,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -44.45333333333334,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -44.45333333333334,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -44.45333333333334,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -37.54666666666666,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -37.54666666666666,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -37.54666666666666,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -36.33333333333333,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -36.33333333333333,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -36.33333333333333,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -35.12,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -35.12,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -35.12,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        18,
+        18,
+        18
       ]
     },
     {
@@ -205,9 +1654,115 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        6200,
-        3638,
-        1814
+        14798,
+        8384,
+        5600
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -51.901333333333326,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -51.901333333333326,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -51.901333333333326,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -50.56666666666666,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -50.56666666666666,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -50.56666666666666,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -49.232,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -49.232,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -49.232,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     },
     {
@@ -257,9 +1812,115 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5032,
-        2882,
-        1376
+        13560,
+        7640,
+        5174
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            33.16533333333333,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            33.16533333333333,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            33.16533333333333,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            34.5,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            34.5,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            34.5,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            35.83466666666667,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            35.83466666666667,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            35.83466666666667,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     },
     {
@@ -296,9 +1957,214 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        6070,
-        3726,
-        1950
+        23204,
+        13180,
+        9484
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            71.32,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            71.32,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            71.32,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            72.53333333333333,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            72.53333333333333,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            72.53333333333333,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            73.74666666666667,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            73.74666666666667,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            73.74666666666667,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "dog",
+          "position": [
+            75.98666666666668,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            75.98666666666668,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            75.98666666666668,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            77.2,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            77.2,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            77.2,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            78.41333333333333,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            78.41333333333333,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            78.41333333333333,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        18,
+        18,
+        18
       ]
     },
     {
@@ -309,15 +2175,121 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4980,
-        2794,
-        1262
+        13496,
+        7540,
+        5048
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            90.896,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            90.896,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            90.896,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            92.3,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            92.3,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            92.3,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            93.704,
+            0.22,
+            59.15
+          ],
+          "yaw": 180,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            93.704,
+            0.4,
+            58.13
+          ],
+          "yaw": 180,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            93.704,
+            0.4,
+            57.08
+          ],
+          "yaw": 360,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     }
   ],
   "lod_triangles": [
-    124936,
-    74230,
-    35184
+    287378,
+    164236,
+    106950
   ]
 }

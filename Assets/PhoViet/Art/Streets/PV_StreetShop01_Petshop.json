@@ -3,9 +3,9 @@
   "generator": "pho_viet_saigon_streets.py",
   "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
   "lod_triangles": [
-    26816,
-    14392,
-    3729
+    32764,
+    17600,
+    6781
   ],
   "materials": 1,
   "palette_grid": [
@@ -18,7 +18,7 @@
   "leaf_counts": [],
   "height": 16.9,
   "display": "Cù Lao Petshop",
-  "kind": "tea",
+  "kind": "petshop",
   "floors": 5,
   "obstacles": [
     {
@@ -32,162 +32,6 @@
         8.36,
         16.9,
         7.8
-      ]
-    },
-    {
-      "kind": "Cán dù",
-      "center": [
-        -1.78,
-        1.15,
-        -5.6
-      ],
-      "size": [
-        0.4,
-        2.3,
-        0.4
-      ]
-    },
-    {
-      "kind": "Quầy thức ăn",
-      "center": [
-        2.45,
-        0.55,
-        -4.35
-      ],
-      "size": [
-        1.56,
-        1.1,
-        0.6
-      ]
-    },
-    {
-      "kind": "Bàn ăn",
-      "center": [
-        -2.6,
-        0.34,
-        -4.98
-      ],
-      "size": [
-        0.74,
-        0.7,
-        0.54
-      ]
-    },
-    {
-      "kind": "Ghế nhựa",
-      "center": [
-        -3.1500000000000004,
-        0.23,
-        -4.98
-      ],
-      "size": [
-        0.42,
-        0.46,
-        0.42
-      ]
-    },
-    {
-      "kind": "Ghế nhựa",
-      "center": [
-        -2.05,
-        0.23,
-        -4.98
-      ],
-      "size": [
-        0.42,
-        0.46,
-        0.42
-      ]
-    },
-    {
-      "kind": "Ghế nhựa",
-      "center": [
-        -2.6,
-        0.23,
-        -5.5
-      ],
-      "size": [
-        0.42,
-        0.46,
-        0.42
-      ]
-    },
-    {
-      "kind": "Ghế nhựa",
-      "center": [
-        -2.6,
-        0.23,
-        -4.48
-      ],
-      "size": [
-        0.42,
-        0.46,
-        0.42
-      ]
-    },
-    {
-      "kind": "Bàn ăn",
-      "center": [
-        -0.95,
-        0.34,
-        -4.98
-      ],
-      "size": [
-        0.74,
-        0.7,
-        0.54
-      ]
-    },
-    {
-      "kind": "Ghế nhựa",
-      "center": [
-        -1.5,
-        0.23,
-        -4.98
-      ],
-      "size": [
-        0.42,
-        0.46,
-        0.42
-      ]
-    },
-    {
-      "kind": "Ghế nhựa",
-      "center": [
-        -0.3999999999999999,
-        0.23,
-        -4.98
-      ],
-      "size": [
-        0.42,
-        0.46,
-        0.42
-      ]
-    },
-    {
-      "kind": "Ghế nhựa",
-      "center": [
-        -0.95,
-        0.23,
-        -5.5
-      ],
-      "size": [
-        0.42,
-        0.46,
-        0.42
-      ]
-    },
-    {
-      "kind": "Ghế nhựa",
-      "center": [
-        -0.95,
-        0.23,
-        -4.48
-      ],
-      "size": [
-        0.42,
-        0.46,
-        0.42
       ]
     },
     {
@@ -283,5 +127,107 @@
     }
   ],
   "brand": "Cù Lao Petshop",
-  "original_shop": 1
+  "subtitle": "Lưu Trú - Spa Pet",
+  "original_shop": 1,
+  "pets": [
+    {
+      "species": "dog",
+      "position": [
+        -2.45,
+        0.27,
+        -2.45
+      ],
+      "yaw": 18,
+      "scale": 0.78,
+      "location": "inside"
+    },
+    {
+      "species": "cat",
+      "position": [
+        -1.15,
+        0.27,
+        -2.45
+      ],
+      "yaw": -18,
+      "scale": 0.66,
+      "location": "inside"
+    },
+    {
+      "species": "rabbit",
+      "position": [
+        2.6,
+        0.27,
+        -2.25
+      ],
+      "yaw": 12,
+      "scale": 0.65,
+      "location": "inside"
+    },
+    {
+      "species": "dog",
+      "position": [
+        1.65,
+        0.27,
+        -1.25
+      ],
+      "yaw": -25,
+      "scale": 0.72,
+      "location": "inside"
+    },
+    {
+      "species": "cat",
+      "position": [
+        -0.9,
+        0.27,
+        -1.2
+      ],
+      "yaw": 25,
+      "scale": 0.62,
+      "location": "inside"
+    },
+    {
+      "species": "dog",
+      "position": [
+        -2.35,
+        0.22,
+        -5.05
+      ],
+      "yaw": 22,
+      "scale": 0.85,
+      "location": "outside"
+    },
+    {
+      "species": "cat",
+      "position": [
+        -1.1,
+        0.22,
+        -5.05
+      ],
+      "yaw": -12,
+      "scale": 0.68,
+      "location": "outside"
+    },
+    {
+      "species": "rabbit",
+      "position": [
+        1.8,
+        0.22,
+        -5.1
+      ],
+      "yaw": -20,
+      "scale": 0.68,
+      "location": "outside"
+    },
+    {
+      "species": "rabbit",
+      "position": [
+        2.75,
+        0.22,
+        -5.02
+      ],
+      "yaw": 24,
+      "scale": 0.58,
+      "location": "outside"
+    }
+  ]
 }

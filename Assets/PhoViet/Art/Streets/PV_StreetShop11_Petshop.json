@@ -3,9 +3,9 @@
   "generator": "pho_viet_saigon_streets.py",
   "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
   "lod_triangles": [
-    17154,
-    9318,
-    2863
+    22677,
+    11997,
+    5846
   ],
   "materials": 1,
   "palette_grid": [
@@ -18,7 +18,7 @@
   "leaf_counts": [],
   "height": 16.9,
   "display": "Cù Lao Petshop",
-  "kind": "bakery",
+  "kind": "petshop",
   "floors": 5,
   "obstacles": [
     {
@@ -32,19 +32,6 @@
         8.36,
         16.9,
         7.8
-      ]
-    },
-    {
-      "kind": "Tủ trưng bày",
-      "center": [
-        2.5,
-        0.64,
-        -4.4
-      ],
-      "size": [
-        1.44,
-        1.28,
-        0.6
       ]
     },
     {
@@ -140,5 +127,107 @@
     }
   ],
   "brand": "Cù Lao Petshop",
-  "original_shop": 11
+  "subtitle": "Lưu Trú - Spa Pet",
+  "original_shop": 11,
+  "pets": [
+    {
+      "species": "dog",
+      "position": [
+        -2.45,
+        0.27,
+        -2.45
+      ],
+      "yaw": 18,
+      "scale": 0.78,
+      "location": "inside"
+    },
+    {
+      "species": "cat",
+      "position": [
+        -1.15,
+        0.27,
+        -2.45
+      ],
+      "yaw": -18,
+      "scale": 0.66,
+      "location": "inside"
+    },
+    {
+      "species": "rabbit",
+      "position": [
+        2.6,
+        0.27,
+        -2.25
+      ],
+      "yaw": 12,
+      "scale": 0.65,
+      "location": "inside"
+    },
+    {
+      "species": "dog",
+      "position": [
+        1.65,
+        0.27,
+        -1.25
+      ],
+      "yaw": -25,
+      "scale": 0.72,
+      "location": "inside"
+    },
+    {
+      "species": "cat",
+      "position": [
+        -0.9,
+        0.27,
+        -1.2
+      ],
+      "yaw": 25,
+      "scale": 0.62,
+      "location": "inside"
+    },
+    {
+      "species": "dog",
+      "position": [
+        -2.35,
+        0.22,
+        -5.05
+      ],
+      "yaw": 22,
+      "scale": 0.85,
+      "location": "outside"
+    },
+    {
+      "species": "cat",
+      "position": [
+        -1.1,
+        0.22,
+        -5.05
+      ],
+      "yaw": -12,
+      "scale": 0.68,
+      "location": "outside"
+    },
+    {
+      "species": "rabbit",
+      "position": [
+        1.8,
+        0.22,
+        -5.1
+      ],
+      "yaw": -20,
+      "scale": 0.68,
+      "location": "outside"
+    },
+    {
+      "species": "rabbit",
+      "position": [
+        2.75,
+        0.22,
+        -5.02
+      ],
+      "yaw": 24,
+      "scale": 0.58,
+      "location": "outside"
+    }
+  ]
 }

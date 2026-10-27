@@ -20,11 +20,13 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
 | Điều khiển/nhảy trong source | **21.65:** scale0,85 (1,761×0,915×3,74m); đổi làn theo quãng đường22,95m/làn, nhanh tỷ lệ Speed/W (17m/s~1,35s;30~0,765s;67,5~0,34s), gồm W giữa chừng; nhảy theo tốc độ cất cánh21.60 giữ nguyên |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
-| Thay đổi cục bộ ngoài phát hành | **21.70 âmđộngcơ+70% và21.72 bảnghiệuPetshop30% source xong/chưa build**; Art/Wave/.blend và Captures lịch sử khác giữ cục bộ, không reset/stage toàn bộ; các chức năng21.62–21.65 đã phát hành trong1.40.0 |
+| Thay đổi cục bộ ngoài phát hành | **21.70 âmđộngcơ+70%,21.72 bảnghiệuPetshop30% và21.73 phụđề/thú cưng/nội thấtPetshop source xong/chưa build**; Art/Wave/.blend và Captures lịch sử khác giữ cục bộ, không reset/stage toàn bộ; các chức năng21.62–21.65 đã phát hành trong1.40.0 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.72 source/scene xong, chưa web:** Cù Lao Petshop nềnxanh/chữtrắng **30%**:147/490shop phố,693/2310gian river; river cóbiển **cả mặtđường/mặtsông, đủ3LOD** (1386/4620biển).12variantgiữfacade+riverbase/1partbổsung; cùngmaterial, không thêmrenderer (10983), collider/LOD/độnétgiữ nguyên. **682asset+1326performance+160river=2168điềukiện đạt**,9ảnh đãxem, installer repeatbyte-identical. UnityEditMode/scenesạch/jobsfalse; Blenderbackground riêng đãthoát. Cần buildC#/data cùng21.70 khi phát hành; web vẫn1.42.0. Chi tiết huongdan21.72.
+- **21.73 source/scene xong, chưa web:** Petshop thêm **“Lưu Trú - Spa Pet”**, bỏ bàn ghế/quầy/tủ trưng bày, mỗi cửa hàng **9chó/mèo/thỏ** trong+ngoài. Dựng thật bằng **Blender MCP**,3LOD956/838/864tri tốiđa mỗi loài; ghép vào facade, giữ10.983renderer/30%/đồhọa. Bỏ1.231ghostbox trong147Petshop, scene770set/7.659box. **3.274điều kiện đạt**,9ảnh Unityđãxem; installer lặp byte-identical, EditMode/scenesạch/0missing/jobsfalse. Cần build đầy đủ cùng21.70/21.72; webvẫn1.42.0. Chi tiết huongdan21.73.
+
+- **21.72 source/scene xong, chưa web:** Cù Lao Petshop nềnxanh/chữtrắng **30%**:147/490shop phố,693/2310gian river; river cóbiển **cả mặtđường/mặtsông, đủ3LOD** (1386/4620biển).12variantgiữfacade+riverbase/1partbổsung; cùngmaterial, không thêmrenderer (10983), collider giữ ởmốc21.72, đã thay đồ cũ ở21.73; LOD/độnétgiữ nguyên. **682asset+1326performance+160river=2168điềukiện đạt**,9ảnh đãxem, installer repeatbyte-identical. UnityEditMode/scenesạch/jobsfalse; Blenderbackground riêng đãthoát. Cần buildC#/data cùng21.70 khi phát hành; web vẫn1.42.0. Chi tiết huongdan21.72.
 
 - **21.71 Simulator đã dùng được:** hai cấu hình iPhone 14 Pro1179×2556 / Pro Max1290×2796, overlay Dynamic Island, Safe Area đủ4hướng tại `Assets/PhoViet/Editor/DeviceSimulator/`. Unity đã import/menu có cả hai; xem cả hai dọc/ngang+khungSafeArea đạt; kiểm JSON/kích thước/alpha2mẫu/8hướng đạt (`Captures/iphone14-simulator-checks.json`). Giữ package1.0.1, không đổi gameplay/scene/web; chưa commit/push. Chi tiết huongdan21.71.
 
@@ -64,9 +66,10 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 
 
 
+
 > Mẫu: `Yêu cầu: … · Đã xong: … · Bước kế tiếp: … · File đang sửa: … · Unity/Blender: … · Cập nhật: <ngày giờ>, <agent>`
 
-- **21.72 chờ build/phát hành:** chỉ dùng `pho_viet_petshop_signs.py`/`InstallPetshopSigns.Main` cho bảnghiệu; không chạy installerphố/cầucũ (sẽ mất layer sau hoặc tỷ lệ). Test `VerifyStreetArt` cũ giảđịnh16asset không đại diện28assetphố hiện tại. Simulator21.71/Packages vẫn là sửađổi khác chưacommit, đừng stage mù.
+- **21.72–21.73 chờ build/phát hành:** phụđề và9thúcưng/cửa hàng đã ởsource/scene; geometryMCP tại `Art/Pets/`, generator `pho_viet_pet_animals.py`/`pho_viet_petshop_layout.py`. Không còn chỉnh sửa dở. Chỉ dùng `pho_viet_petshop_signs.py`/`InstallPetshopSigns.Main` cho bảnghiệu; không chạy installerphố/cầucũ (sẽ mất layer sau hoặc tỷ lệ). Test `VerifyStreetArt` cũ giảđịnh16asset không đại diện28assetphố hiện tại. Simulator21.71/Packages vẫn là sửađổi khác chưacommit, đừng stage mù.
 - **21.70 chờ build/phát hành web:** source âmđộngcơ+70% đã kiểm tra; không dùng RefreshWebShell vì C# đã đổi. Web vẫn1.42.0.
 - **21.69 đã phát hành1.42.0:** không còn phần tối ưu chờ build; không tự hạ DPR/texture/bóng để tăng FPS. Phép đo là Editor/camera readback và browser giả lập; chưa đo Safari/điện thoại thật. Các probe shadow/instancing chỉ thử tạm, không áp dụng.
 - **21.67 đã phát hành1.41.0:** asset/meta+scene/code/2tài liệu nằm trong commit648b163. Khi bảo trì dùng đúng bộ Urban Rider hiện hành. RawMeshyFBX120,7MB giữ cục bộ, không stage/push mù quáng; dependencies không còn raw FBX/FBX dân sự cũ, không thiếu script; game dùng FBX4MB. Không chạy lạiMeshyRiders/Wave installer cũ.
@@ -106,7 +109,7 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 | Xe máy dân sự Urban Rider/cổ xe/tay nắm/đổi làn | **21.67**,7.1,11 | `UrbanRiderMotion.cs`, `BikeVisualAnimator.cs`, `UrbanRider.shader`, `PhoVietTraffic.cs`, `PhoVietRoutes.cs`, `Editor/PhoVietUrbanRiderUpgrade.cs`, `integrate_urban_rider.py`, `prepare_urban_rider_maps.py`, `AgentScripts/InstallUrbanRider.cs`, `VerifyUrbanRider.cs` |
 | Model Blender/Meshy → Unity | 11, 13, 21.7, 21.17 | `Editor/PhoVietMeshy*Upgrade.cs`, `ArtSource/Blender/` |
 | Công việc/Coin (đang khóa) | 10, 21.1 | `PhoVietJobs.cs`, `PhoVietJobGui.cs` |
-| Bảng hiệuPetshop30%, tênnhà2mặt ven sông | **21.72**,11.4 | `pho_viet_petshop_signs.py`, `pho_viet_river_bridge.py`, `Editor/PhoVietPetshopSignsUpgrade.cs`, `AgentScripts/InstallPetshopSigns.cs`, `VerifyPetshopSigns.cs` |
+| Petshop30%, phụđề, chó/mèo/thỏ, nội thất2mặt ven sông | **21.72–21.73**,11.4 | `pho_viet_petshop_signs.py`, `pho_viet_river_bridge.py`, `Editor/PhoVietPetshopSignsUpgrade.cs`, `AgentScripts/InstallPetshopSigns.cs`, `VerifyPetshopSigns.cs`, `VerifyPetshopDetails.cs`, `pho_viet_petshop_layout.py`, `pho_viet_pet_animals.py`, `Art/Pets/PV_PetGeometry.json` |
 | Âm động cơ player/cruise/boost | **21.70** | `PhoVietGame.cs` (`CreateSound`, `engine`, cuối `Update`) |
 | Simulator iPhone 14 Pro/Pro Max/Dynamic Island/Safe Area | **21.71** | `Assets/PhoViet/Editor/DeviceSimulator/` (`README.md`, hai `.device`, `Overlays/`, `LICENSE.md`); `Captures/iphone14-simulator-checks.json` |
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |

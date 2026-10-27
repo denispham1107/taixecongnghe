@@ -10,15 +10,121 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        3938,
-        2350,
-        1256
+        12500,
+        7084,
+        5030
+      ],
+      "pets": [
+        {
+          "species": "dog",
+          "position": [
+            -49.519999999999996,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.57,
+          "location": "outside"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -49.519999999999996,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.43,
+          "location": "inside-front"
+        },
+        {
+          "species": "dog",
+          "position": [
+            -49.519999999999996,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.65,
+          "location": "inside-river"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -48.025,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -48.025,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "cat",
+          "position": [
+            -48.025,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -46.53,
+            0.22,
+            0.85
+          ],
+          "yaw": 0,
+          "scale": 0.55,
+          "location": "outside"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -46.53,
+            0.4,
+            1.87
+          ],
+          "yaw": 0,
+          "scale": 0.45,
+          "location": "inside-front"
+        },
+        {
+          "species": "rabbit",
+          "position": [
+            -46.53,
+            0.4,
+            2.92
+          ],
+          "yaw": 180,
+          "scale": 0.58,
+          "location": "inside-river"
+        }
+      ],
+      "pets_by_lod": [
+        9,
+        9,
+        9
       ]
     }
   ],
   "lod_triangles": [
-    3938,
-    2350,
-    1256
+    12500,
+    7084,
+    5030
   ]
 }
