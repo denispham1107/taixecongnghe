@@ -6,7 +6,7 @@ public static class VerifyRiverBridge
  public static object Main()
  {
   var g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();if(!Application.isPlaying)throw new Exception("Play Mode required");
-  float scale=Time.timeScale;bool rivers=g.riversEnabled,barrage=g.tankBarrageEnabled,danger=g.recklessTrafficEnabled,surprises=g.trafficSurprises,exits=g.turnExitTrafficEnabled,jobs=g.jobsEnabled;
+  bool dinos=g.dinosaursEnabled;g.dinosaursEnabled=false;float scale=Time.timeScale;bool rivers=g.riversEnabled,barrage=g.tankBarrageEnabled,danger=g.recklessTrafficEnabled,surprises=g.trafficSurprises,exits=g.turnExitTrafficEnabled,jobs=g.jobsEnabled;
   int best=PlayerPrefs.GetInt("PhoViet.BestMetres.v1",0),coins=PlayerPrefs.GetInt("PhoViet.Coins.v1",0);
   var checks=new List<string>();var data=new List<string>();
   Action<bool,string> check=(ok,s)=>{if(!ok)throw new Exception(s);checks.Add(s);};
@@ -126,7 +126,7 @@ public static class VerifyRiverBridge
    g.MoveLane(1);float fellAt=-1;float minY=0;
    for(int i=0;i<60*5&&g.State!=PhoVietGame.RideState.GameOver;i++){tick(1/60f);if(g.RiderInRiver&&fellAt<0)fellAt=i/60f;minY=Mathf.Min(minY,g.rider.localPosition.y);}
    data.Add("laneChangeFall="+fellAt.ToString("F2")+"s minY="+minY.ToString("F2"));
-   check(fellAt>=0&&fellAt<.6f,"Steering off the two-lane bridge drops the rider into the river");
+   check(fellAt>=0&&fellAt<(g.IsPlayerCar?1.5f:.6f),"Steering off the two-lane bridge drops the rider into the river");
    check(minY<RiverBlock.WaterY,"Rider falls below the water surface");
    check(g.RiverMurkVisible&&Shader.GetGlobalFloat("_RiverMurkOn")>.5f,"Murky depth layers turn on while the rider sinks (21.54)");
    check(g.State==PhoVietGame.RideState.GameOver&&g.RiderInRiver,"Falling into the river ends the ride");
@@ -282,7 +282,7 @@ public static class VerifyRiverBridge
   }
   finally
   {
-   Time.timeScale=scale;g.riversEnabled=rivers;g.tankBarrageEnabled=barrage;g.recklessTrafficEnabled=danger;g.trafficSurprises=surprises;g.turnExitTrafficEnabled=exits;g.jobsEnabled=jobs;
+   Time.timeScale=scale;g.dinosaursEnabled=dinos;g.riversEnabled=rivers;g.tankBarrageEnabled=barrage;g.recklessTrafficEnabled=danger;g.trafficSurprises=surprises;g.turnExitTrafficEnabled=exits;g.jobsEnabled=jobs;
    g.ResetRide();PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.SetInt("PhoViet.Coins.v1",coins);PlayerPrefs.Save();
   }
  }

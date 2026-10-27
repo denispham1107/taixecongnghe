@@ -49,11 +49,15 @@ namespace PhoViet
   sealed class RiverBuilding{public GameObject go;public Transform tile;public RiverBlock own;public bool ownStreetOnly;public Vector2 min,max;public bool hidden;}
   List<RiverBuilding> riverBuildings;
   readonly Dictionary<Transform,List<RiverBuilding>> riverBuildingTiles=new Dictionary<Transform,List<RiverBuilding>>();
+  sealed class RiverLayoutStamp {public Transform tile;public Vector3 position,scale;public Quaternion rotation;public bool active,bridge;public uint revision;}
+  readonly List<RiverLayoutStamp> riverLayout=new List<RiverLayoutStamp>();
+  bool riverLayoutValid,riverLayoutEnabled;
+  public int RiverVisibilityRefreshes {get;private set;}
   public int BuildingsHiddenOverRiver {get;private set;}
   const float RiverHalfWidth=95f;
   void PrepareRiverBuildings()
   {
-   riverBuildings=new List<RiverBuilding>();riverBuildingTiles.Clear();
+   riverBuildings=new List<RiverBuilding>();riverBuildingTiles.Clear();riverLayout.Clear();riverLayoutValid=false;
    if(roadRows==null)return;
    foreach(var row in roadRows)foreach(var tile in row.tiles)
    {
@@ -80,6 +84,8 @@ namespace PhoViet
   void HideBuildingsOverRiver()
   {
    if(riverBuildings==null)PrepareRiverBuildings();
+   if(RiverLayoutUnchanged())return;
+   RiverVisibilityRefreshes++;
    foreach(var item in riverBuildings)item.hidden=false;
    if(riversEnabled&&roadRows!=null)
     foreach(var row in roadRows)foreach(var bridgeTile in row.tiles)
@@ -88,7 +94,7 @@ namespace PhoViet
      var toBridge=bridgeTile.worldToLocalMatrix;
      foreach(var pair in riverBuildingTiles)
      {
-      var tile=pair.Key;if(tile==bridgeTile||pair.Value.Count==0)continue;
+      var tile=pair.Key;if(tile==bridgeTile||pair.Value.Count==0||!tile.gameObject.activeInHierarchy)continue;
       if((tile.position-bridgeTile.position).sqrMagnitude>260f*260f)continue;
       var m=toBridge*tile.localToWorldMatrix;
       foreach(var item in pair.Value)
@@ -116,6 +122,7 @@ namespace PhoViet
   }
   void RestoreBuildingsOverRiver()
   {
+   riverLayoutValid=false;
    if(riverBuildings==null)return;
    foreach(var item in riverBuildings)
    {
@@ -124,6 +131,25 @@ namespace PhoViet
     if(!ownHidden)item.go.SetActive(true);
    }
    BuildingsHiddenOverRiver=0;
+  }
+  // All five road frames translate together between topology changes. Compare
+  // poses in one tile's frame, so ordinary scrolling needs no house-over-water
+  // intersection pass. Recycling, turns, activation and SetBridge invalidate it.
+  bool RiverLayoutUnchanged()
+  {
+   if(roadRows==null||roadRows.Count==0)return false;
+   int count=0;foreach(var row in roadRows)count+=row.tiles.Count;
+   if(count==0)return false;
+   bool same=riverLayoutValid&&riverLayoutEnabled==riversEnabled&&riverLayout.Count==count;
+   if(riverLayout.Count!=count){riverLayout.Clear();for(int i=0;i<count;i++)riverLayout.Add(new RiverLayoutStamp());}
+   var anchor=roadRows[mainRow].tiles[0];var inverse=anchor.worldToLocalMatrix;var rotation=Quaternion.Inverse(anchor.rotation);int at=0;
+   foreach(var row in roadRows)foreach(var tile in row.tiles)
+   {
+    var stamp=riverLayout[at++];var block=RiverOf(tile);var p=inverse.MultiplyPoint3x4(tile.position);var q=rotation*tile.rotation;var scale=tile.lossyScale;bool active=tile.gameObject.activeInHierarchy,bridge=block!=null&&block.IsBridge;uint revision=block!=null?block.LayoutRevision:0;
+    bool changed=stamp.tile!=tile||stamp.active!=active||stamp.bridge!=bridge||stamp.revision!=revision||active&&((stamp.position-p).sqrMagnitude>1e-6f||Mathf.Abs(Quaternion.Dot(stamp.rotation,q))<.999999f||(stamp.scale-scale).sqrMagnitude>1e-8f);
+    if(changed){same=false;stamp.tile=tile;stamp.position=p;stamp.rotation=q;stamp.scale=scale;stamp.active=active;stamp.bridge=bridge;stamp.revision=revision;}
+   }
+   riverLayoutEnabled=riversEnabled;riverLayoutValid=true;return same;
   }
   // Khối thứ j của một dãy (tăng dần theo z); khối đầu tiên được ép là phố.
   void AssignRiverRow(List<Transform> tiles,int firstRiver)

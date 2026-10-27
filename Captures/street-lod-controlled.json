@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "groups": 700,
+  "note": "Same frozen scene; camera render plus synchronous 1px readback, not gameplay FPS",
+  "results": [
+    {
+      "name": "original",
+      "ms": 61.1263
+    },
+    {
+      "name": "optimized",
+      "ms": 52.7958
+    }
+  ]
+}

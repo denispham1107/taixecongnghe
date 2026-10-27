@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "return new { playing=UnityEditor.EditorApplication.isPlaying, compiling=UnityEditor.EditorApplication.isCompiling, scene=UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().path, dirty=UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().isDirty, version=UnityEngine.Application.version, jobs=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>().jobsEnabled };"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "playing": false,
+        "compiling": false,
+        "scene": "Assets/PhoViet/Scenes/PhoViet.unity",
+        "dirty": false,
+        "version": "1.42.0",
+        "jobs": false
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

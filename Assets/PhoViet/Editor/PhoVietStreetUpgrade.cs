@@ -46,7 +46,7 @@ namespace PhoViet.Editor
    var go=(GameObject)PrefabUtility.InstantiatePrefab(source,t);go.transform.localPosition=Vector3.zero;go.transform.localRotation=source.transform.localRotation;go.transform.localScale=source.transform.localScale;
    var renderers=go.GetComponentsInChildren<MeshRenderer>(true).OrderBy(r=>r.name).ToArray();if(renderers.Length!=3)throw new Exception(asset+": expected three LODs");
    foreach(var r in renderers){r.sharedMaterials=Materials(r);r.enabled=true;r.gameObject.SetActive(true);}
-   var lod=go.GetComponent<LODGroup>()??go.AddComponent<LODGroup>();lod.SetLODs(new[]{new LOD(.18f,new Renderer[]{renderers[0]}),new LOD(.07f,new Renderer[]{renderers[1]}),new LOD(.006f,new Renderer[]{renderers[2]})});lod.RecalculateBounds();return t;
+   var lod=go.GetComponent<LODGroup>()??go.AddComponent<LODGroup>();lod.SetLODs(new[]{new LOD(.45f,new Renderer[]{renderers[0]}),new LOD(.175f,new Renderer[]{renderers[1]}),new LOD(.006f,new Renderer[]{renderers[2]})});lod.RecalculateBounds();return t;
   }
   [MenuItem("Phố Việt/Art/Install Blender streets")]
   public static void UpgradeOpenScene()

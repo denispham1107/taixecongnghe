@@ -48,7 +48,7 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-> **Không còn việc đang dở.** Urban Rider21.67 đã build/push/phát hành1.41.0 và xác minh live thành công (21.68). Unity Edit Mode, scene sạch, jobs khóa; server kiểm tra đã dừng. Bằng chứng phát hành và hai tài liệu được commit kèm.
+> **Tiến độ việc đang làm:**21.69 tối ưu lag/giữ đồhọa:10suite/3.810Unity+16preflight+34repo+29site+31staged+71browser/offline/fullscreen/DPR3 đạt,0runtime; build1.42.0/cache d7e9bf2a636e37f7 thànhcông, cảnhgầnMAE0. Đang commit/push/Pages/live. Web còn1.41.0 đến khi Pages xong. UnityEditMode/scenesạch/jobsfalse; Blenderkhôngdùng. Chi tiết huongdan21.69. Codex27/10/2026.
 
 
 
@@ -92,6 +92,7 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 | Xe máy dân sự Urban Rider/cổ xe/tay nắm/đổi làn | **21.67**,7.1,11 | `UrbanRiderMotion.cs`, `BikeVisualAnimator.cs`, `UrbanRider.shader`, `PhoVietTraffic.cs`, `PhoVietRoutes.cs`, `Editor/PhoVietUrbanRiderUpgrade.cs`, `integrate_urban_rider.py`, `prepare_urban_rider_maps.py`, `AgentScripts/InstallUrbanRider.cs`, `VerifyUrbanRider.cs` |
 | Model Blender/Meshy → Unity | 11, 13, 21.7, 21.17 | `Editor/PhoVietMeshy*Upgrade.cs`, `ArtSource/Blender/` |
 | Công việc/Coin (đang khóa) | 10, 21.1 | `PhoVietJobs.cs`, `PhoVietJobGui.cs` |
+| Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
 | Build WebGL, phát hành Pages/data parts | 15.2–15.4, 21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `.github/workflows/pages.yml` |
 

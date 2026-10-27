@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.41.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.41.0**. Bản tối ưu **1.42.0** đang kiểm tra WebGL.
+
+## Tối ưu xử lý và cảnh xa — 1.42.0
+
+Bỏ xử lý lặp bố cục sông và ánh sáng ở các bước vật lý; lọc va chạm theo từng khối phố trước khi kiểm tra chính xác. Các nhà/cây xa dùng LOD sẵn có sớm hơn, giữ toàn bộ mô hình/texture và chi tiết cảnh gần. Giữ độ phân giải mobile, AA4, bóng đổ, phản chiếu nước và mọi luật chơi. Chi tiết phép đo, giới hạn kiểm thử và phát hành ở `huongdan.md` mục 21.69.
 
 ## Xe máy Urban Rider, đánh lái đồng bộ — 1.41.0
 

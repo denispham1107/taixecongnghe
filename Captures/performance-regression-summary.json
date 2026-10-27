@@ -1,0 +1,46 @@
+{
+  "success": true,
+  "count": 3810,
+  "suites": [
+    {
+      "name": "VerifyPerformanceSafety",
+      "count": 1326
+    },
+    {
+      "name": "VerifyPerformanceLighting",
+      "count": 717
+    },
+    {
+      "name": "VerifyRiverBridge",
+      "count": 160
+    },
+    {
+      "name": "VerifyRiverCrashSinking",
+      "count": 446
+    },
+    {
+      "name": "VerifyBoostTrafficIsolation",
+      "count": 478
+    },
+    {
+      "name": "VerifySupercarMotionFx",
+      "count": 90
+    },
+    {
+      "name": "VerifyCrashUpgrade",
+      "count": 93
+    },
+    {
+      "name": "VerifySupercarScalePace",
+      "count": 182
+    },
+    {
+      "name": "VerifySupercarTurns",
+      "count": 32
+    },
+    {
+      "name": "VerifyUrbanRider",
+      "count": 286
+    }
+  ]
+}

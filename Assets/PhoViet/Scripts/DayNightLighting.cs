@@ -88,17 +88,29 @@ namespace PhoViet
         }
         public void Advance(float dt)
         {
+            AdvanceSimulation(dt);
+            if(environmentPending){ApplyEnvironment();environmentPending=false;UpdateLamps();}
+        }
+        bool environmentPending;
+        // Physics may take ten short steps in one displayed frame. Accumulate
+        // the exact same clock, then submit lighting once after the final pose.
+        public void AdvanceSimulation(float dt)
+        {
             if(!initialized)Initialize(game!=null?game:GetComponent<PhoVietGame>());
             if(game==null||game.State!=PhoVietGame.RideState.Riding||game.JobOffersOpen||dt<=0)return;
-            SetCycleTime(ElapsedTime+dt);
+            CalculateCycle(ElapsedTime+dt);environmentPending=true;
         }
         // Also used by the artist's day/dusk/night preview and deterministic captures.
         public void SetCycleTime(float seconds)
         {
             if(!initialized)Initialize(game!=null?game:GetComponent<PhoVietGame>());
+            CalculateCycle(seconds);ApplyEnvironment();environmentPending=false;UpdateLamps();
+        }
+        void CalculateCycle(float seconds)
+        {
             ElapsedTime=Mathf.Max(0,seconds);CycleTime=Mathf.Repeat(ElapsedTime,CycleSeconds);
             NightLevel=.5f-.5f*Mathf.Cos(CycleTime*Mathf.PI/profile.halfCycleSeconds);
-            LampLevel=Mathf.SmoothStep(0,1,Mathf.InverseLerp(.26f,.66f,NightLevel));ApplyEnvironment();UpdateLamps();
+            LampLevel=Mathf.SmoothStep(0,1,Mathf.InverseLerp(.26f,.66f,NightLevel));
         }
         public void Rebase(Quaternion inverse,Vector3 origin)
         {
@@ -176,6 +188,7 @@ namespace PhoViet
         public void UpdateLamps()
         {
             if(game==null||game.rideCamera==null)return;
+            if(environmentPending){if(game.State!=PhoVietGame.RideState.Jailed)ApplyEnvironment();environmentPending=false;}
             bool enabled=LampLevel>.001f&&game.State!=PhoVietGame.RideState.Jailed;
             for(int i=0;i<6;i++)scores[i]=float.PositiveInfinity;
             var camera=game.rideCamera.transform;Vector3 eye=camera.position,focus=game.rider.position;

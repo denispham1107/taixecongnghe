@@ -17,8 +17,12 @@ namespace PhoViet
   // Số khối phố liên tiếp kết thúc ở khối này (0 nếu là cầu); dùng cho luật "đi một lúc là gặp cầu".
   [System.NonSerialized] public int streetRun;
   public bool IsBridge=>isBridge;
+  // Reapplying a block can restore street-only objects even if its kind stays
+  // unchanged. Visibility caches must observe that operation as well.
+  public uint LayoutRevision {get;private set;}
   public void SetBridge(bool on)
   {
+   LayoutRevision++;
    if(bridge==null)on=false;
    isBridge=on;streetRun=on?0:streetRun;
    if(bridge!=null&&bridge.activeSelf!=on)bridge.SetActive(on);

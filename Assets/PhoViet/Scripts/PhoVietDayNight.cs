@@ -5,6 +5,6 @@ namespace PhoViet
     {
         public DayNightLighting daylight;
         void ResetDaylight(){if(daylight==null)daylight=GetComponent<DayNightLighting>();if(daylight!=null){daylight.Initialize(this);daylight.ResetCycle();}}
-        void AdvanceDaylight(float dt){if(daylight!=null)daylight.Advance(dt);}
+        void AdvanceDaylight(float dt){if(daylight!=null)daylight.AdvanceSimulation(dt);}
     }
 }

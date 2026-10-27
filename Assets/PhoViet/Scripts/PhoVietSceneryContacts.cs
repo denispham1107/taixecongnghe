@@ -26,8 +26,12 @@ namespace PhoViet
   {
    normal=Vector2.zero;at=2;kind="";
    if(streetObstacles==null)CacheStreetObstacles();
-   foreach(var set in streetObstacles)
+   EnsureObstacleBatches();
+   foreach(var batch in obstacleBatches)
    {
+    if(!NearbyObstacleBatch(batch,from,to))continue;
+    foreach(var set in batch.sets)
+    {
     if(set==null||!set.gameObject.activeInHierarchy)continue;
     var group=set.LocalBounds;Vector3 origin=transform.InverseTransformPoint(set.transform.TransformPoint(group.center));float radius=group.extents.magnitude+1.1f;
     if(Mathf.Abs(origin.x-to.x)>radius+Mathf.Abs(to.x-from.x)||Mathf.Abs(origin.z-to.z)>radius+Mathf.Abs(to.z-from.z))continue;
@@ -57,6 +61,7 @@ namespace PhoViet
      }
      var n=transform.InverseTransformDirection(set.transform.TransformDirection(face));normal=new Vector2(n.x,n.z).normalized;at=Mathf.Clamp01(enter);kind=obstacle.kind;
     }
+   }
    }
    return at<=1;
   }

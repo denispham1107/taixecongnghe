@@ -1,0 +1,65 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifySupercarTurns.cs",
+      "entry": "VerifySupercarTurns.Main",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 181,
+      "executeMs": 2211,
+      "assemblyName": "PipelineRunScript_VerifySupercarTurns_6d5dd2d2b6744cbdb8ed620f07125431",
+      "success": true,
+      "result": {
+        "success": true,
+        "count": 32,
+        "failures": [],
+        "checks": [
+          "Turn preserves current cruise/boost speed: lane=0,boost=False,dt=0.01666667,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=0,boost=False,dt=0.01666667,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=0,boost=False,dt=0.05,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=0,boost=False,dt=0.05,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=0,boost=True,dt=0.01666667,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=0,boost=True,dt=0.01666667,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=0,boost=True,dt=0.05,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=0,boost=True,dt=0.05,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=1,boost=False,dt=0.01666667,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=1,boost=False,dt=0.01666667,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=1,boost=False,dt=0.05,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=1,boost=False,dt=0.05,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=1,boost=True,dt=0.01666667,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=1,boost=True,dt=0.01666667,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=1,boost=True,dt=0.05,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=1,boost=True,dt=0.05,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=2,boost=False,dt=0.01666667,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=2,boost=False,dt=0.01666667,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=2,boost=False,dt=0.05,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=2,boost=False,dt=0.05,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=2,boost=True,dt=0.01666667,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=2,boost=True,dt=0.01666667,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=2,boost=True,dt=0.05,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=2,boost=True,dt=0.05,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=3,boost=False,dt=0.01666667,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=3,boost=False,dt=0.01666667,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=3,boost=False,dt=0.05,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=3,boost=False,dt=0.05,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=3,boost=True,dt=0.01666667,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=3,boost=True,dt=0.01666667,state=Riding,scenery=",
+          "Turn preserves current cruise/boost speed: lane=3,boost=True,dt=0.05,state=Riding,scenery=",
+          "Car clears planters and completes into same lane: lane=3,boost=True,dt=0.05,state=Riding,scenery="
+        ]
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

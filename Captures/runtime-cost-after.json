@@ -1,0 +1,66 @@
+{
+  "success": true,
+  "label": "after",
+  "results": [
+    {
+      "name": "HideBuildingsOverRiver",
+      "ms": 0.037491000000000003,
+      "allocatedPerCall": 0.0
+    },
+    {
+      "name": "UpdateRiverMurk",
+      "ms": 0.0010507,
+      "allocatedPerCall": 0.0
+    },
+    {
+      "name": "AnimateLights",
+      "ms": 0.0001485,
+      "allocatedPerCall": 0.0
+    },
+    {
+      "name": "scenery straight",
+      "ms": 0.23903300000000002,
+      "allocatedPerCall": 0.0
+    },
+    {
+      "name": "TickRide zero step",
+      "ms": 0.32561666666666672,
+      "allocatedPerCall": 0.0
+    },
+    {
+      "name": "UpdateLamps 0",
+      "ms": 0.30546500000000004,
+      "allocatedPerCall": 0.0
+    },
+    {
+      "name": "SetCycleTime 0",
+      "ms": 0.31538400000000005,
+      "allocatedPerCall": 0.0
+    },
+    {
+      "name": "UpdateLamps 30",
+      "ms": 0.36017000000000005,
+      "allocatedPerCall": 0.0
+    },
+    {
+      "name": "SetCycleTime 30",
+      "ms": 0.332768,
+      "allocatedPerCall": 0.0
+    },
+    {
+      "name": "parked bike pose",
+      "ms": 0.013127,
+      "allocatedPerCall": 0.0
+    }
+  ],
+  "renderers": 11321,
+  "activeRenderers": 3806,
+  "lods": 2819,
+  "lights": 350,
+  "obstacleSets": 770,
+  "quality": 5,
+  "aa": 4,
+  "lodBias": 2.0,
+  "shadows": 100.0,
+  "screen": "1112x625"
+}
