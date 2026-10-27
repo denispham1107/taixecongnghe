@@ -2,7 +2,7 @@
 
 Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.34.0. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
 
-> **Trạng thái hiện tại: 1.41.0 đã phát hành** — commit `648b163`, Pages run `40420198461` success, cache `c9db437e230d3824`; **26 kiểm tra live đạt/0 lỗi runtime**. Xe máy dân sự có người đã đổi Urban Rider31actor+56baked, cổ/ghi đông/bánh trước/tay/thân đồng bộ khi rẽ/đổi làn. Blue Petshop Supercar nhỏ15%, chuyển làn theo tốc độ/W, nhảy4jet trắng/boost2bô; khủng long đi ngược chiều quất đuôi; mọi xe văng sông đều chìm và CSGT rơi thì hết truy đuổi. **Chỉ thi quãng đường/kỷ lục; công việc/GPS/khách/Coin HUD vẫn khóa**. Chi tiết21.62–21.66.
+> **Trạng thái hiện tại: 1.44.0 đã phát hành** — commit `b0a31f8`, Pages `40535422845` success, cache `db471371e548dd93`; 27 kiểm tra live đạt/0 lỗi runtime (21.77). **Source mới21.78 chưa build/phát hành:** bánh răng trên màn hình chờ mở cài đặt đồ họa Cao/Trung bình/Thấp, lưu lựa chọn cho lần chơi sau. Cao giữ đúng chất lượng nền tảng hiện tại. Player Blue Petshop Supercar, NPC Urban Rider, chỉ thi quãng đường; công việc/GPS/khách/Coin HUD vẫn khóa.
 >
 > **Urban Rider21.67 đã phát hành1.41.0 (21.68):** Urban Rider (người + xe nguyên khối Meshy) thay31xe máy dân sự có người và56mesh xe đậu nhánh; giữ người/mô tôCSGT và playerSupercar. Cổ xe, tay lái, bánh trước, bàn tay/thân trên đồng bộ; đổi làn bậc5, nghiêng/về cân bằng có giảm chấn. 7suite/1.493điều kiện Unity đạt; xem21.67.
 >
@@ -279,7 +279,8 @@ Tất cả đường dẫn file trong các bảng dưới đây tính từ gốc
 | `PhoVietJobTraffic.cs`, `PhoVietJobMarker.cs` | Nhường lúc nhận việc/tiếp cận/đón trả và điểm hẹn 3D, hiện bị khóa cùng jobs |
 | `PhoVietPortraitHud.cs`, `PhoVietLandscapeHud.cs`, `PhoVietDistanceHud.cs` | Thanh trong gọn dọc/ngang; bố cục chỉ mét/tốc độ/kỷ lục khi jobs tắt |
 | `PhoVietGestures.cs` | Nhận đủ ngưỡng ngay khi move, bridge pointer WebGL, một chạm một lệnh |
-| `PhoVietWelcome.cs` | Thẻ trắng trong mở đầu nhỏ, nút bắt đầu/hit-test |
+| `PhoVietWelcome.cs` | Thẻ trắng trong mở đầu nhỏ, nút bắt đầu/bánh răng/hit-test |
+| `PhoVietGraphicsSettings.cs` | Cửa sổ đồ họa3mức, lưu lựa chọn, snapshot cấu hình theo nền tảng, icon bánh răng |
 | `PhoVietDayNight.cs`, `DayNightLighting.cs`, `MorningFog.cs` | Chu kỳ ngày–đêm, pool đèn và sương volume sáu giây |
 | `WreckFireVisual.cs`, `WaypointMesh.cs` | Flipbook lửa/khói và mesh mũi tên khối vát |
 | `PhoVietWebRuntime.cs` | Safe area, cầu nối web pause/insets, ký hiệu GUI WebGL, chất lượng đồ họa trình duyệt |
@@ -739,7 +740,7 @@ Unity có thể chưa cập nhật GPU skin trong đúng frame vừa `Animation.
 - `HudButtonAt`, `ApplyHudTap` và `GameplayPointerAllowed` dùng kích thước thanh theo JobsAvailable; thu hẹp HUD cũng thu hẹp vùng chặn cử chỉ. Marker job không đổi vị trí thông báo xuống giữa cảnh trong layout mới.
 - Notice chỉ một dải xanh đậm bo góc/chữ vàng; bỏ các dải route, ngược chiều, reckless, phanh, truy đuổi xanh/đỏ riêng. Mũi tên báo xe sau vẫn có chức năng riêng tại mép dưới.
 - Web HUD dùng pointer bridge ApplyHudTap; bỏ IMGUI compatibility-mouse xử lý lần hai. Native giữ mouse/GetTouch. Pause/âm thanh nhận đúng một lần, cả tap ngắn giữa hai frame.
-- `PhoVietWelcome` dùng thẻ trắng trong alpha 0,93, viền/bóng nhẹ, tiêu đề xanh đậm và đỏ; kích thước dọc 432×258, ngang 360×276 trong tọa độ GUI. WelcomeStartRect dùng chung vẽ/hit-test; không còn thẻ vàng lớn cũ.
+- `PhoVietWelcome` dùng thẻ trắng trong alpha 0,93, viền/bóng nhẹ, tiêu đề xanh đậm và đỏ; kích thước dọc 432×258, ngang 360×276 trong tọa độ GUI. WelcomeStartRect dùng chung vẽ/hit-test; không còn thẻ vàng lớn cũ. Từ21.78, icon đường góc phải được thay bằng nút bánh răng mở cài đặt đồ họa Cao/Trung bình/Thấp; mặc định Cao và lưu lựa chọn. Chi tiết21.78 (chưa build web).
 
 **Cử chỉ 1.27.1:** app.js bắt pointerdown/move/up/cancel trực tiếp, pointer capture; khoảng vuốt theo cạnh ngắn CSS canvas, không theo chiều rộng hay DPR. Ngang >0,075 cạnh ngắn; dọc >0,12 và rõ dọc (>1,3 lần ngang). Nhận ngay khi move đủ ngưỡng, một pointer một lệnh; WebGL tắt polling Input touch/mouse trùng. `ApplyBrowserGesture` nhận phase/id/action/x/y/at, kiểm finite/bounds và timestamp gốc. Begin từ HUD/paused không thể hóa gameplay sau đổi State. Cancel khi blur/visibility/rotation/restart/pause/mất capture hoặc canvas resize. Double tap dùng timestamp gốc nên hai tap chung frame vẫn phân biệt; cửa sổ thực xem RegisterTap, không nới để chiều software-renderer.
 
@@ -2426,3 +2427,25 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Đã đo browser:** desktopGPUthậtDXT vàprofileiPhone13ProMax/SwiftshaderETC đều peak417.202.176byte=397,875MiB (giảm27,75%so577.437.696byte), không tăng qua lượt lặp;2phút trởlên mỗi profile, cónhảy/boost/húc/xoayDPR3/pause/mởoffline sauworkerrestart,0runtime/0crash. 18điềukiệnmemory đạt; đây không phải toànRAMSafari/GPU hoặcFPSthiếtbịthật. Scene99preflighttrướcbuild/101cuối cóAA4/shadow100/growth. Bundle42repo/33materialized,2datachia7parts32MiB ghépSHA/cache đạt. Đãxemảnhphone/desktop. 37web/touch/offline +20fullscreen +34index-bytechecks đạt, `git diff --cached --check` sạch. `VerifyStagedWeb.py` đối chiếu blob/parts trongGitindex với artifactđãkiểm. Đãcommit **b0a31f870bdeaba04b3b4d1378f1f4da01bc523c**, pushmain; **Pages40535422845success**. **27livechecksđạt/0runtime** (`Captures/release144-live-results.json`), mọi tài nguyênbao gồm2data/WASM/shell/SW khớpbyte artifactđãkiểm, gamekhởitạo/start/pauseđược; đãxemảnhlive. Chưa thửSafari trên iPhonevật lý; profileChromium/Swiftshader không thaythế máy thật. Bảncũ trướcpháthành là1.43.0; hiệnlive1.44.0.
 
 - **Trạng thái sau triển khai:** Pages40535422845success/commitb0a31f8/cache db471371e548dd93. **27livechecksđạt/0runtime**: version/cache vàmọi file khớpbyte, WASMkhởitạo/start/pauseđược; ảnhliveđãxem. Khôngcòn phần sửa lỗi/pháthành chờxửlý; cần người dùngthửlại trên iPhone13ProMaxthật đểxácnhận triệu chứng hết trên máy đó. Editor xácnhậnplayFalse/dirtyFalse/start(1,55;0;1,92)/jobsFalse/NoOverride; reportrelease144-final-editor.json. Đãdừng đúng4server kiểmtra8767/8768/8769/8770, giữcác thayđổiArt/Wave/Packages/Simulator/Welcome ngoài phạm vi.
+
+
+### 21.78. Bánh răng và cài đặt đồ họa trên màn hình chờ (28/10/2026, Codex — source cục bộ, chưa build/phát hành)
+
+- **Yêu cầu/hành vi:** thay icon con đường được khoanh trên thẻ “LÁI QUA PHỐ QUEN” bằng bánh răng xanh đậm. Bấm mở cửa sổ trắng trong “CÀI ĐẶT ĐỒ HỌA”, có3lựa chọn **Cao / Trung bình / Thấp**, đánh dấu mức hiện tại; thay đổi áp dụng ngay, bấm **XONG**, × hoặc bên ngoài để đóng. Chỉ mở ở Ready; áp dụng desktop và mobile dọc/ngang, Safe Area. Không thêm nút vào HUD đang chạy.
+- **Mặc định/lưu:** `PlayerPrefs["PhoViet.GraphicsQuality.v1"]` lưu0/1/2; chưa có key hoặc dữ liệu sai → Cao. Không thay Coin/kỷ lục. `ResetRide` đóng modal nhưng giữ mức đã chọn. Cao là **snapshot chất lượng thật của nền tảng**, không hardcode lại mọi thiết bị về desktop. Native/Editor lấy sau Awake setup; WebGL lấy sau `ConfigureBrowserGraphics` đã áp cấu hình mobile cũ (AA4/bóng45m/Low/cascade0), vì vậy chọn Cao giữ đúng bản đang chơi trước đây. Đổi nhiều lần không nhân dồn hệ số. Thoát Play khôi phục cấu hình Editor, không lưu giảm chất lượng vào ProjectSettings.
+- **Preset cụ thể (so với snapshot Cao):**
+
+| Thông số | Cao | Trung bình | Thấp |
+| --- | --- | --- | --- |
+| MSAA | Gốc | min(gốc,2) | 0 |
+| Bóng | Gốc | HardOnly nếu gốc có bóng, xa×0,65 | Tắt, xa0 |
+| Độ phân giải bóng/cascade | Gốc | Hạ1mức, cascade0 | Hạ1mức, cascade0 (bóng đã tắt) |
+| lodBias | Gốc | ×0,75 | ×0,5 |
+| Phản chiếu sông scale/kích thước | Gốc | scale×0,75; trần min(gốc,512px) | scale×0,5; trần min(gốc,384px) |
+| Phản chiếu chu kỳ/far | Gốc | interval≥2; far≤100m | interval≥3; far≤75m |
+
+- **Độ nét/phạm vi:** giữ DPR3/cap3,2Mpixel, texture nguồn/mipmap/filter/GPUvariant, camera/FOV/tầm nhìn chính, geometry và số cảnh vật/xe, lighting/ngày đêm và gameplay. Chỉ Medium/Low người chơi chủ động chọn mới giảm các chi phí trên; các cam kết chất lượng mặc định ở21.69/21.77 vẫn là Cao. Heap128/512MiB/growth10%/cap32MiB, cơ chế nénETC/DXT và cache web không đổi. Không tuyên bố đo FPS trên điện thoại thật.
+- **Triển khai:** partial mới `Assets/PhoViet/Scripts/PhoVietGraphicsSettings.cs` +meta, cấu hình/prefs/modal/hit-test/icon8răng96px procedural có anti-alias (không phụ thuộc ký tự font). `PhoVietWelcome.cs` bỏ motif đường, nút44×44logic/icon24×24. Modal432×440dọc/560×440ngang trong tọa độ GUI, thẻ3lựa chọn64cao, Safe Area dùng cùng vùng GUI. `PhoVietGame.cs` khởi tạo/đóng khi reset/cleanup, vẽ modal cuối, khóa GUI nền và StartRide, chặn Enter/Space/P/Esc xuyên modal; `PhoVietWebRuntime.cs` snapshot sau setup chất lượng trình duyệt. `WelcomeTap` xử lý modal trước nút bắt đầu; sử dụng cầu nối `ApplyHudTap` có sẵn, không tạo double-click WebGL. Esc/P/Enter đóng, phím1/2/3 chọn; chuột/chạm đều dùng cùng rect.
+- **Kiểm tra:** compile Unity0lỗi/0warning. `VerifyGraphicsSettings.cs` **85điều kiện đạt**:6lần đổi preset, khôi phục đúng Cao, lưu/reload/fallback, tham số thật, không đổi texture/camera/sốrenderer/jobs,4kích thước, các packet `ApplyHudTap` thật với/có Safe Area, khóaStart và không tap xuyên, reset và chỉReady. `VerifyGestures` **39đạt**; `VerifyDistanceMode` **31đạt**; tổng **155**. Fixture distance cũ chưa tắt khủng long/xe tăng/sông mới, nên test60giây bị dừng ởframe428 do hazard; bổ sung lưu/tắt/khôi phục3cờ trong test để cô lập jobs, không sửa gameplay hay bỏ kiểm tra crash/kỷ lục. `Captures/graphics-settings-checks.json`, `graphics-settings-regression.json` lưu kết quả.
+- **Ảnh/thao tác thật:** `CaptureGraphicsSettings.cs` chụp6ảnh540×960,960×540,1440×900 (`graphics-settings-*-gear/window.png`), đã xem cả cửa sổ dọc/ngang/desktop không cắt chữ. Computer Use bấm gear→Medium→XONG đúng; đọc lại Medium/AA2/bóng65m, thoátPlay→EditorAA4/bóng100/LOD2, Play mới tựnạpMedium; Enter đóng ởReady không start. Sau thử trảHigh. CLI eval đầu tiên ngay sau vàoPlay bị timeout5s, đọc lại sau khởi tạo đạt; đây là lỗi probe, không lỗi compile/game. Chưa build WebGL hoặc thử menu trên Safari vật lý; packet browser đã kiểm trong Unity.
+- **Bàn giao:** Unity Edit Mode/khôngcompile/scene sạch; gốc xe đã lưu `(1,55;0;1,92)` giữ nguyên, không save/rebuild/importScene. Jobsfalse/RideJobsReleasedfalse. Không dùng Blender; cửa sổ Unity về kích thước ban đầu. Đã cập nhật BANGIAO cùng công việc, chỉ commit cục bộ các file21.78; **chưa bumpversion/build/push/phát hành**. Web vẫn1.44.0. Giữ nguyên Art/Wave/Packages/Simulator/Captures lịch sử ngoài phạm vi.

@@ -109,6 +109,9 @@ namespace PhoViet
             StreetArt.ConfigureWorldText(vietnameseFont,worldTextMaterial); Application.targetFrameRate=60; Application.runInBackground=true;
             BestDistance=PlayerPrefs.GetInt(BestKey,0);
             CreateSound(); InitializeActions(); ResetRide();
+#if !UNITY_WEBGL || UNITY_EDITOR
+            InitializeGraphicsSettings();
+#endif
         }
         public void BuildWorld()
         {
@@ -143,6 +146,7 @@ namespace PhoViet
         }
         public void ResetRide()
         {
+            GraphicsSettingsOpen=false;
             CancelSwipe();
             int seed;do{seed=Guid.NewGuid().GetHashCode()&int.MaxValue;}while(seed==RunSeed);
             RunSeed=seed;rng=new System.Random(seed);
@@ -168,7 +172,7 @@ namespace PhoViet
             for(int i=0;i<openingCount;i++){SpawnTraffic(rng.Next(4),openingZ);openingZ+=11+(float)rng.NextDouble()*10;}
             spawnTimer=.7f+(float)rng.NextDouble()*1.1f;if(engine!=null)engine.Stop();ResetDaylight();PositionCamera(true);
         }
-        public void StartRide() { if(State==RideState.Ready){State=RideState.Riding;Speed=17;engine?.Play();} }
+        public void StartRide() { if(State==RideState.Ready&&!GraphicsSettingsOpen){State=RideState.Riding;Speed=17;engine?.Play();} }
         public void RestartRide(){ResetRide();StartRide();}
         public void MoveLane(int direction)
         {
@@ -275,10 +279,11 @@ namespace PhoViet
         {
             Frames++;
             ReadHudTouch();
+            bool graphicsWasOpen=GraphicsSettingsOpen;ReadGraphicsSettingsKeys();
             bool wasRiding=State==RideState.Riding;
-            if(State==RideState.Ready && (Input.GetKeyDown(KeyCode.Space)||Input.GetKeyDown(KeyCode.Return)))StartRide();
+            if(!graphicsWasOpen&&State==RideState.Ready && (Input.GetKeyDown(KeyCode.Space)||Input.GetKeyDown(KeyCode.Return)))StartRide();
             else if((State==RideState.GameOver||State==RideState.Jailed) && (Input.GetKeyDown(KeyCode.R)||Input.GetKeyDown(KeyCode.Space)))RestartRide();
-            if(Input.GetKeyDown(KeyCode.Escape)||Input.GetKeyDown(KeyCode.P))TogglePause();
+            if(!graphicsWasOpen&&(Input.GetKeyDown(KeyCode.Escape)||Input.GetKeyDown(KeyCode.P)))TogglePause();
             if(State==RideState.Riding)
             {
                 if(wasRiding&&!ServiceStopped&&Input.GetKeyDown(KeyCode.Q))TryKick();
@@ -542,12 +547,15 @@ namespace PhoViet
             uiScale=portrait?area.width/480f:Mathf.Min(area.width/1440f,area.height/900f);
             uiW=area.width/uiScale;uiH=area.height/uiScale;
             GUI.matrix=Matrix4x4.TRS(new Vector3(area.x,area.y,0),Quaternion.identity,Vector3.one*uiScale);
+            bool guiEnabled=GUI.enabled;if(GraphicsSettingsOpen)GUI.enabled=false;
             if(State==RideState.Jailed)JailScreen();else if(State==RideState.Ready)ReadyScreen();else Hud();
+            GUI.enabled=guiEnabled;
             if(State==RideState.Paused&&!JobOffersOpen)EndCard(true);
             if(JobOffersOpen)JobOffersGui();
             if(State==RideState.GameOver)EndCard(false);
             if(State==RideState.Falling&&fallTime<.2f)FullscreenTint(new Color(.7f,.08f,.05f,.1f));
             if(State==RideState.Arrested){FullscreenTint(new Color(.1f,.18f,.4f,.23f));Txt("CSGT ĐÃ ĐUỔI KỊP",0,uiH*.33f,uiW,90,portrait?29:44,Cream,TextAnchor.MiddleCenter);}
+            if(GraphicsSettingsOpen)GraphicsSettingsGui();
             GUI.matrix=Matrix4x4.identity;
         }
         void Brand(float x,float y)
@@ -600,6 +608,7 @@ namespace PhoViet
         }
         void OnDestroy()
         {
+            ShutdownGraphicsSettings();
             if(engine!=null&&engine.clip!=null)Destroy(engine.clip);if(crashClip!=null)Destroy(crashClip);
             if(sirenClip!=null)Destroy(sirenClip);
         }

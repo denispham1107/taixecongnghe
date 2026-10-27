@@ -11,6 +11,7 @@ public static class VerifyDistanceMode
   if(!Application.isPlaying)throw new Exception("Play Mode required");
   var g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();
   bool jobs=g.jobsEnabled,danger=g.recklessTrafficEnabled,surprises=g.trafficSurprises,exits=g.turnExitTrafficEnabled;
+  bool dinos=g.dinosaursEnabled,tanks=g.tankBarrageEnabled,rivers=g.riversEnabled;
   float scale=Time.timeScale;int coins=PlayerPrefs.GetInt("PhoViet.Coins.v1",0),best=PlayerPrefs.GetInt("PhoViet.BestMetres.v1",0);
   var checks=new List<string>();Action<bool,string> check=(ok,s)=>{if(!ok)throw new Exception(s);checks.Add(s);};
   Func<string,object[],object> call=(n,a)=>typeof(PhoVietGame).GetMethod(n,F).Invoke(g,a);
@@ -19,7 +20,8 @@ public static class VerifyDistanceMode
   Action<string,object> prop=(n,v)=>typeof(PhoVietGame).GetProperty(n).SetValue(g,v);
   try
   {
-   Time.timeScale=0;g.recklessTrafficEnabled=false;g.trafficSurprises=false;g.turnExitTrafficEnabled=false;
+   // This suite isolates jobs from hazards introduced after distance mode.
+   Time.timeScale=0;g.dinosaursEnabled=false;g.tankBarrageEnabled=false;g.riversEnabled=false;g.recklessTrafficEnabled=false;g.trafficSurprises=false;g.turnExitTrafficEnabled=false;
    check(!PhoVietGame.RideJobsReleased,"Ride jobs explicitly disabled for this release");
    check(!jobs,"Saved scene defaults to distance mode");
    foreach(bool legacyEnabled in new[]{false,true})
@@ -58,7 +60,7 @@ public static class VerifyDistanceMode
   }
   finally
   {
-   g.jobsEnabled=jobs;g.recklessTrafficEnabled=danger;g.trafficSurprises=surprises;g.turnExitTrafficEnabled=exits;
+   g.dinosaursEnabled=dinos;g.tankBarrageEnabled=tanks;g.riversEnabled=rivers;g.jobsEnabled=jobs;g.recklessTrafficEnabled=danger;g.trafficSurprises=surprises;g.turnExitTrafficEnabled=exits;
    PlayerPrefs.SetInt("PhoViet.Coins.v1",coins);PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.Save();prop("BestDistance",best);g.ResetRide();Time.timeScale=scale;
   }
  }

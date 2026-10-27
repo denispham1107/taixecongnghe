@@ -107,6 +107,7 @@ namespace PhoViet
                 QualitySettings.shadowCascades=0;
                 QualitySettings.antiAliasing=4;
             }
+            if(game!=null)game.InitializeGraphicsSettings();
 #endif
         }
     }

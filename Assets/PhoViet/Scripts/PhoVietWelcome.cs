@@ -17,7 +17,10 @@ namespace PhoViet
             var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
             float scale=narrow?area.width/480f:Mathf.Min(area.width/1440f,area.height/900f);
             var p=new Vector2((point.x-area.x)/scale,(Screen.height-point.y-area.y)/scale);
-            if(!WelcomeStartRect(WelcomeCardRect(area.width/scale,area.height/scale,narrow)).Contains(p))return false;
+            if(GraphicsSettingsOpen)return GraphicsTap(p,area.width/scale,area.height/scale,narrow);
+            var card=WelcomeCardRect(area.width/scale,area.height/scale,narrow);
+            if(WelcomeSettingsRect(card).Contains(p)){OpenGraphicsSettings();return true;}
+            if(!WelcomeStartRect(card).Contains(p))return false;
             StartRide();return true;
         }
         void WelcomeCard()
@@ -26,11 +29,10 @@ namespace PhoViet
             Panel(new Rect(x-3,y+5,w+6,card.height+3),new Color(.04f,.13f,.20f,.14f),21);
             Panel(new Rect(x-1,y-1,w+2,card.height+2),new Color(1,1,1,.68f),19);Panel(card,WelcomeWhite,18);
             Panel(new Rect(x+22,y+20,5,13),Red,2);
-            Txt("MỘT VÒNG VIỆT NAM",x+36,y+18,w-84,21,11,Teal);
-            // A small road motif adds depth and an identity without another image asset.
-            Panel(new Rect(x+w-50,y+17,27,27),new Color(.10f,.35f,.4f,.08f),8);
-            Panel(new Rect(x+w-44,y+21,2,19),Teal,1);Panel(new Rect(x+w-31,y+21,2,19),Teal,1);
-            for(int dash=0;dash<3;dash++)Panel(new Rect(x+w-37,y+22+dash*7,2,4),Red,1);
+            Txt("MỘT VÒNG VIỆT NAM",x+36,y+18,w-110,21,11,Teal);
+            var settings=WelcomeSettingsRect(card);
+            if(HudButton("",settings,new Color(.10f,.35f,.4f,.08f),Teal,17))OpenGraphicsSettings();
+            DrawGraphicsGear(new Rect(settings.x+10,settings.y+10,24,24));
             Txt("LÁI QUA\nPHỐ QUEN.",x+20,y+48,w-40,108,portrait?39:41,Ink);
             Txt("Khám phá phố Việt, né xe\nvà nhận những chuyến đi mới.",x+23,y+(portrait?143:152),w-46,42,15,Hex("4C657A"));
             if(HudButton("LÊN XE THÔI   →",WelcomeStartRect(card),Red,Color.white,17))StartRide();
