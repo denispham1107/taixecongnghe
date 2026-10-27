@@ -1,6 +1,6 @@
 # BÀN GIAO NHANH — Phố Việt
 
-> File này là **điểm bắt đầu cho mọi phiên Codex/Claude Code**. Đọc file này + `git status` + `git log --oneline -5` là đủ để nhận yêu cầu mới. **Không đọc lại toàn bộ `huongdan.md` (≈385 KB) hay toàn bộ mã nguồn**; chỉ mở mục/file liên quan theo bảng tra cứu bên dưới.
+> File này là **điểm bắt đầu cho mọi phiên Codex/Claude Code**. Đọc file này + `git status` + `git log --oneline -5` là đủ để nhận yêu cầu mới. **Không đọc lại toàn bộ `huongdan.md` (≈500 KB) hay toàn bộ mã nguồn**; chỉ mở mục/file liên quan theo bảng tra cứu bên dưới.
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
@@ -10,7 +10,7 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.43.0** — commit `7b19e84`; Pages run `40487519674` success; cache `1b0d45bcf76b698e`; **26 kiểm tra live đạt/0 lỗi runtime** |
+| Bản đã phát hành | **1.44.0** — commit `b0a31f8`; Pages run `40535422845` success; cache `db471371e548dd93`; **27 kiểm tra live đạt/0 lỗi runtime** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -20,11 +20,13 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
 | Điều khiển/nhảy trong source | **21.65:** scale0,85 (1,761×0,915×3,74m); đổi làn theo quãng đường22,95m/làn, nhanh tỷ lệ Speed/W (17m/s~1,35s;30~0,765s;67,5~0,34s), gồm W giữa chừng; nhảy theo tốc độ cất cánh21.60 giữ nguyên |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
-| Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 đặt điểm xuất phát bằng kéo thả đã sửa cục bộ**, chưa build/commit/push; xem mục2 |
+| Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.76 đặt điểm xuất phát xe bằng kéo thả:** Edit Mode kéo xe/model → gốc xe và collider cùng đi → Ctrl+S; Play Ready cũng kéo được và thoát Play giữ vị trí về Edit để Save. Menu **Phố Việt → Điểm xuất phát → Chọn xe để kéo vị trí**. Đã giữ đúng vị trí người dùng (1,55;0;4,39), không tự trả về0; camera/đường ngang/cầu/nhảy đồng bộ. **686 điều kiện đạt + kéo gizmo thật + save/reload/Play/reset**; scene sạch/jobsfalse. Mã/scene cục bộ, **chưa build/commit/push/phát hành**, web vẫn1.43.0. Chi tiết huongdan21.76.
+- **1.44.0/21.77 đã triển khaiPages:** commitb0a31f8/run40535422845success/cachedb471371e548dd93. TextureGPU44maps ETC2/EACchođiệnthoại, DXTchodesktop, mỗi máy chỉ1data; gói mobile129,8→92,7MB, heap550,69→397,875MiB. Bỏpreloadbuildởlanding/tảitrùng, giữDPR3/2K/AA4/bóng/cảnh. 101finalpreflight+18memory+15cachefixture+42repo/33site+37web+20fullscreen+34indexchecksđạt/0runtime; 27livechecksđạt/0runtime. UnityEdit/scenesạch/gốcxe1,92/jobsfalse, serverskiểmtrađãdừng. Chi tiết huongdan21.77.
+
+- **21.76 đặt điểm xuất phát xe bằng kéo thả:** Edit Mode kéo xe/model → gốc xe và collider cùng đi → Ctrl+S; Play Ready cũng kéo được và thoát Play giữ vị trí về Edit để Save. Menu **Phố Việt → Điểm xuất phát → Chọn xe để kéo vị trí**. Đã giữ đúng vị trí người dùng (1,55;0;4,39), không tự trả về0; camera/đường ngang/cầu/nhảy đồng bộ. **686 điều kiện đạt + kéo gizmo thật + save/reload/Play/reset**; scene sạch/jobsfalse. Đã có trênweb1.44.0/21.77; người dùng sauđó tựđặtZ=1,92 vàbảnpháthành giữgiátrịmới này. Chi tiết huongdan21.76.
 
 - **1.43.0 đã phát hành (21.75):** commit7b19e84/Pages40487519674 success/cache1b0d45bcf76b698e; gồmâmđộngcơ+70%,Petshop/thúcưng/phụđề/phốkhácmàu. Đã sửaOOM512MB:initial128/max1024MB, đo550,69MiB. Build321,196s/0lỗi/1warning;20preflight+34repo+29site+37web+20fullscreen+31staged+26live đạt/0runtime. Server8765 đãdừng; UnityEditMode/khôngcompile/jobsfalse; thayđổiEditor chưa lưuxem3. Chi tiết huongdan21.75.
 
@@ -65,14 +67,10 @@ Cập nhật lần cuối: **27/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **Đang hoàn tất1.44.0/Safari iPhone13 ProMax (Codex):** hai build0lỗi; mobileETC2/EAC vàdesktopDXT, chungWASM; heap128/512MiB/growth10%/cap32. Browser18memorychecks đạt, peak397,875MiB (cũ550,69), khôngtăng qua lượt/chạyoffline/rotationDPR3/0runtime;15cachefixture/101finalpreflight/42repo+33site đạt. Artifact `docs` và `.tools/site144` cachedb471371e548dd93,7parts ghépSHAđạt. 37web+20fullscreen+34index-bytechecks đạt, diffcheck sạch. Bước kế commit/push/Pages/live; server8770PID36212. UnityEdit/scenesạch/jobsfalse/NoOverride; gốcxe mới1,92giữ nguyên. Serverskiểmkhác19656(8769),3756(8768),32600(8767)cần dừng đúngPID. Chưa phát hành1.44.0; chưa thửSafari máy thật. Source/files xemhuongdan21.77.
-
 
 > Mẫu: `Yêu cầu: … · Đã xong: … · Bước kế tiếp: … · File đang sửa: … · Unity/Blender: … · Cập nhật: <ngày giờ>, <agent>`
 
-- **21.76 đã xử lý vị trí xe người dùng tự kéo:** người dùng xác nhận Z=4,39 là điểm xuất phát đã lưu. Scene hiện gốc xe `(1,55;0;4,39)`, skin local0; save/reload/Play/reset đạt, Editor Edit Mode/scene sạch. Không còn chỉnh sửa model chưa rõ nguồn gốc ở 21.75.
-
-- **21.70/21.72–21.74 đã phát hành1.43.0:** không còn tính năng này chờ build. Khi sửaPetshop dùng generator/installer hiện hành, không chạy công cụ dựng phố/cầu cũ. TrầnWebGL1024MB/initial128MB cần giữ vì heap đo550,69MiB. Rawartifact512MB chỉ là bản kiểm lỗi, không được dùng phát hành.
+- **21.70/21.72–21.74 đã phát hành1.43.0:** không còn tính năng này chờ build. Khi sửaPetshop dùng generator/installer hiện hành, không chạy công cụ dựng phố/cầu cũ. Cấu hình1024MB là lịch sử1.43.0; hiện dùng128/512MiB+GPUcompression/growth10%/cap32MiB theo21.77. Khôngpháthành lại rawartifactlỗiOOM ở21.75.
 - **21.69 đã phát hành1.42.0:** không còn phần tối ưu chờ build; không tự hạ DPR/texture/bóng để tăng FPS. Phép đo là Editor/camera readback và browser giả lập; chưa đo Safari/điện thoại thật. Các probe shadow/instancing chỉ thử tạm, không áp dụng.
 - **21.67 đã phát hành1.41.0:** asset/meta+scene/code/2tài liệu nằm trong commit648b163. Khi bảo trì dùng đúng bộ Urban Rider hiện hành. RawMeshyFBX120,7MB giữ cục bộ, không stage/push mù quáng; dependencies không còn raw FBX/FBX dân sự cũ, không thiếu script; game dùng FBX4MB. Không chạy lạiMeshyRiders/Wave installer cũ.
 - Không còn chức năng21.62–21.65 chờ phát hành: **đã có trên web1.40.0**. Dữ liệu119,6MB lưu trongGit dạng4parts; Pages ghép/kiểmSHA trước upload. Trên checkout mới, materialize ra_site trước khi chạy server local (15.2–15.4/21.66).

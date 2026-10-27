@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "return new {play=UnityEngine.Application.isPlaying,dirty=UnityEngine.SceneManagement.SceneManager.GetActiveScene().isDirty,start=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>().rider.localPosition,jobs=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>().jobsEnabled,overrideTexture=UnityEditor.EditorUserBuildSettings.overrideTextureCompression.ToString()};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": "{ play = False, dirty = False, start = (1.55, 0.00, 1.92), jobs = False, overrideTexture = NoOverride }"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
