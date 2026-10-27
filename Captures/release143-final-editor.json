@@ -1,0 +1,14 @@
+{
+  "version": "1.43.0",
+  "play": false,
+  "compiling": false,
+  "dirty": true,
+  "jobs": false,
+  "released": false,
+  "initial": 128,
+  "maximum": 1024,
+  "localServerStopped": true,
+  "unsavedEditorChange": "Only live prefab model localPosition.z differs: 0 -> 4.39. Preserved, not saved to project scene.",
+  "sceneCopy": ".tools/release143-postbuild-probe.unity",
+  "publishedSourceSceneUnchanged": true
+}
