@@ -20,7 +20,9 @@ async function main(){
   try{
     const page=await browser.newPage({viewport:{width:1280,height:720}});
     page.on('pageerror',e=>result.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')result.errors.push(m.text());});
-    await page.goto(url,{waitUntil:'networkidle'});await page.locator('#play').click();
+    await page.goto(url,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
+    await page.screenshot({path:`Captures/browser-${label}-landing.png`,timeout:90000});
+    await page.locator('#play').click();
     await page.waitForFunction(()=>!!window.phoVietInstance,{},{timeout:180000});await page.waitForTimeout(4500);
     check('Real published Unity WebAssembly initializes',await page.locator('#welcome').isHidden());
     await page.locator('#unity-canvas').focus();await page.keyboard.press('Enter');await page.waitForTimeout(500);await page.keyboard.press('p');

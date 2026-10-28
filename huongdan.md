@@ -982,7 +982,7 @@ Các kiểm tra điện thoại/iOS bằng browser profile là **mô phỏng lay
 - `wasm2023 = false` để giữ dải tương thích Safari của dự án.
 - Bộ nhớ khởi đầu128MiB, trần512MiB từ1.44.0/21.77; tănggeometric10%, mỗi lần tốiđa32MiB. Dữ liệu đã nénGPU theo thiết bị; trần1024MiB/heap550,69MiB của1.43.0 chỉ là lịch sử, không áp dụng lại.
 - `dataCaching = false`, vì service worker phiên bản hóa chịu trách nhiệm cache thay vì hai cache độc lập.
-- Cấu hình phiên bản build hiện1.46.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
+- Cấu hình phiên bản build hiện1.47.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
 
 Hậu xử lý build tạo `precache.json`, `build-info.json`, `sw.js` đã thay mã cache và `.nojekyll`. Cache là 16 ký tự hex từ SHA-256 nội dung tài nguyên, không gán tay để làm giả một lần build mới.
 
@@ -2547,3 +2547,22 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 - **Kết quả cuối:** `VerifyFullscreenGame`20đạt/0runtime,iPhone/iPad2hướnggiữcanvasfull/insets/khôngheaderthườngtrực. Tổng**315layout+37web/offline/touch+20fullscreen=372browserchecksđạt**; helperrefresh3đạt,ảnhmớiđúnggame/fog,5runtimefilebytegiữnguyên. KhôngtuyênbốđãtestmáySafari/Androidthật. Bằngchứng`landing-fullscreen-checks.json`, `landing-web-checks.json`, `landing-layout-checks.json`và4ảnhlayoutđãxem.
 - **Bàn giao:** UnityEdit/scenesạch/start(1,55;0;1,92)/jobsfalse/RideJobsReleased=false/version1.46.0;serverPython8783đãdừng. Source/test/ảnhmới/meta/2tàiliệulưucommitcụcbộriêng; khôngstageArt/Wave/Packages/Simulator/Captureskhác. **Khôngfullbuild/bumpversion/push/Pages; docs vàwebchínhthứcvẫn1.46.0/21.82**. PreviewBuilds/WebGL/cache6b003537ca1b174dchỉđểreview, khôngtuyênbốbảnmớipháthành.
+
+
+### 21.84. Build và phát hành1.47.0 với trang chủ mới (28/10/2026, Codex — đang thực hiện)
+
+- Người dùng yêu cầu build/phát hành21.83. BaselineHEADcb71f1d, web1.46.0/21.82. Bumpversionhelper147vàVerifyRelease147Scene, đangconfigure/preflightvàbuildmobile+desktop. Giữ2texturevariant/AA4/DPR/độnéthình/heap128–512MiB/start(1,55;0;1,92)/jobsfalse. KhôngstagecácthayđổiArt/Wave/Packages/Simulatorngoàiphạmvi. Chưa có kếtquảbuild/commit/push/Pagescho1.47.0; cậpnhậttheomốcởdưới.
+
+- **Preflight:** compile0lỗi/0warning, ConfigureWebRelease.Maintimeout600s hoàn tấtđúng1.47.0,101scenechecksđạt (Edit/scenesạch/start1,92/jobsfalse/AA4/bóng/2Ktexture/128–512MiB/growth10%cap32MiB/404deps). Fingerprint196filesource/scene/template ởrelease147-source-fingerprint.json. QueueBuildWebRelease.Mainđủ2variant;queuedkhôngtínhthànhcông. Thêmtham sốprefixbằngchứngchoVerifyLanding đểkhôngghilạicapture21.83, khôngđổitiêuchí315checks.
+
+- **Mốcbuild:** hàngđợidelayCallchỉbắtđầusaukhikhôiphụccửasổUnity;toolactivatebáotimeoutnhưngreportđãchuyểnqueued→building vàlogchạythật, khôngqueue2lần. MobileđãBuildSuccessful/output1.47.0, đangimportDXT/builddesktop;chưacôngbốbuildhoàntất.
+
+- **Build vàbundle đãđạt:** BuildWebRelease.Maincompleted/Succeeded1.47.0,total296,451s,lastdesktop101,956s/0lỗi/1warning. Đãbuildđủmobile/desktopvàkiểmWASM/frameworkgiảinénkhớp nhau.101finalsceneđạt;196filenguồn/scene/templatebytekhớpbaselinecb71f1d. pack32MiBparts/materialize`.tools/site147`đạt43repo+34sitechecks,cache`d26fbf3bf46d9ea7`; tổng194.008.957B,mỗi máy1data:mobile93.233.017B/desktop108.620.973B. Đangkiểmbrowser trênartifactghépđúngPages;chưapush.
+
+- **Landingbảnfullbuild:** VerifyLanding315đạttrênsite147đãghép,12khungnormal/loading/retry/cutout/help/focus; đãxemảnhdesktopvàphonedọc. Bằngchứng`release147-landing-*`. Cảnhbáocuối1làPipelinekhôngcóRuntimePipelineConfignênMCPkhôngchạytrongPlayer, khôngphảilỗigame; lưu`release147-build-warnings.json`.
+
+- **Gitkiểmbyte:** stageđúngsource/helper/pinversion/docs/newrelease147evidence, `VerifyStagedWeb`35đạt: cácblob/parts/hash/cachekhớp góiđãtest; khôngstageArt/Packages/Simulator. DesktopWASM/keyboard/pausevàkhởiđộngofflineđãđạt, đangchạycuốiphone/fullscreen; chưa tínhsuitechưaxonglàpass.
+
+- **Weblocal:** VerifyWeb37đạt/0runtime, gồmWASMthật/offline/touch/rotation/PWAinstall; lưurelease147-web-checks.json, đãxemlandingdesktop/phonedọc/ngang. VerifyPublishedGameđượcbổsungchụplandingtrướckhivàogameđểlưubằngchứngtrangchủwebthật, khôngđổicáctiêuchíbyte/WASM/runtime. Đangchạynốt20fullscreen.
+
+- **Localhoàntất:** 315landing+37web/offline/touch+20fullscreeniPhone/iPad2hướng=372browserchecksđạt/0JS/Unityerror;101finalscene+43repo+34site+35Gitindexđạt. Đãgiữnguyên196filenguồn/cảnh/template. Nốtchiềungang/dọcdùngSafeArea; ảnhtrangchủmớiđãxem. Chuẩnbịcommit/push vàxácminhPages/live, chưađánhdấuwebđãcậpnhật.

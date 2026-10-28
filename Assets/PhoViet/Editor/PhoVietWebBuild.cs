@@ -32,7 +32,7 @@ namespace PhoViet.Editor
             PlayerSettings.WebGL.maximumMemorySize=512;
             PhoVietWebMemorySettings.Apply();
             PlayerSettings.runInBackground=false;
-            PlayerSettings.bundleVersion="1.46.0";
+            PlayerSettings.bundleVersion="1.47.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }

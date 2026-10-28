@@ -2,6 +2,7 @@
 const {chromium,devices}=require('playwright');
 const fs=require('node:fs'),assert=require('node:assert/strict');
 const url=process.argv[2]||'http://127.0.0.1:8783/';
+const capturePrefix=process.argv[3]||'landing';
 const report={url,checks:[],errors:[],layouts:[]};
 const check=(name,ok)=>{assert(ok,name);report.checks.push(name);};
 async function inspect(page,label,safe){
@@ -40,7 +41,7 @@ async function main(){
    await page.evaluate(()=>dispatchEvent(new Event('resize')));await page.waitForTimeout(150);
    const safe={top,right,bottom,left};await inspect(page,label,safe);
    await page.evaluate(()=>document.querySelector('#welcome').scrollTop=0);
-   if(['phone','phone-landscape','desktop','small-phone'].includes(label))await page.screenshot({path:`Captures/landing-${label}.png`});
+   if(['phone','phone-landscape','desktop','small-phone'].includes(label))await page.screenshot({path:`Captures/${capturePrefix}-${label}.png`});
    await page.locator('#help').click();
    const modal=await page.locator('#guide').boundingBox();
    check(label+': help fits safe viewport',modal.x>=left&&modal.y>=top&&modal.x+modal.width<=width-right+1&&modal.y+modal.height<=height-bottom+1);
@@ -56,10 +57,10 @@ async function main(){
   }
   await context.close();
   const desktop=await browser.newContext({viewport:{width:1440,height:900}}),p=await desktop.newPage();
-  await p.goto(url,{waitUntil:'networkidle'});await p.evaluate(()=>document.fonts.ready);await p.screenshot({path:'Captures/landing-desktop.png'});
+  await p.goto(url,{waitUntil:'networkidle'});await p.evaluate(()=>document.fonts.ready);await p.screenshot({path:`Captures/${capturePrefix}-desktop.png`});
   await p.locator('#help').click();await p.keyboard.press('Escape');check('Desktop Escape dismisses help',!await p.locator('#guide').isVisible());
   check('Current copy removes retired motorcycle, kick and lives instructions',!await p.locator('#welcome,#guide').allInnerTexts().then(t=>/Áo đỏ|Đạp xe|mất 1 mạng|đón\/trả khách/.test(t.join(' '))));
   await desktop.close();check('No JavaScript errors',report.errors.length===0);report.success=true;
  }finally{await browser.close();}
 }
-main().catch(e=>{report.success=false;report.failure=e.stack;console.error(e);process.exitCode=1;}).finally(()=>{fs.writeFileSync('Captures/landing-layout-checks.json',JSON.stringify(report,null,2));console.log(JSON.stringify({success:report.success,count:report.checks.length}));});
+main().catch(e=>{report.success=false;report.failure=e.stack;console.error(e);process.exitCode=1;}).finally(()=>{fs.writeFileSync(`Captures/${capturePrefix}-layout-checks.json`,JSON.stringify(report,null,2));console.log(JSON.stringify({success:report.success,count:report.checks.length}));});

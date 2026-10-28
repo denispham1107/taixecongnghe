@@ -83,6 +83,8 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.84 đang phát hành1.47.0:** dualbuildSucceeded/0lỗi/1warningcuối,101finalscene+43repo+34siteđạt/cache d26fbf3bf46d9ea7;196file nguồn/scene/template giữđúngcb71f1d. 315landing+37web/offline/touch+20fullscreen+35Gitbytechecksđạt/0runtime; localđãkiểmđủ, đangcommit/push/Pages/live. Unity9960Edit/scenesạch/jobsfalse; webvẫn1.46.0. Cậpnhật28/10/2026,Codex.
+
 - **21.83 đã xong local, chưa phát hành:** trang chủHTMLmới/ảnhcamera thật sáng1,5s cósương,315layout+37WebGL/offline/touch+20fullscreenđạt/0runtime;5runtimefiles khôngđổi. ChỉrefreshpreviewBuilds/WebGL/cache6b003537ca1b174d, docs/webvẫn1.46.0/21.82. Unity9960Edit/scenesạch/start1,92/jobsfalse, server8783đãdừng. Khiđượcyêucầupháthành, dùngtemplate/RefreshWebShellmới vàđủ2JPEG; khôngghépvớiposter.pngcũ. Chi tiếthuongdan21.83.
 
 - **21.80–21.82 đã lênweb1.46.0**, khôngcònchờbuild/pháthành. Bảnmớiđượckiểm27live/0runtime; chưađođộtrễ/FPS trênmáythật. Giữcácthayđổicụcbộkháckhôngliênquan.

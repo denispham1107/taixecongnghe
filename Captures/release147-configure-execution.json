@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/ConfigureWebRelease.cs",
+      "entry": "ConfigureWebRelease.Main",
+      "timeout_ms": "600000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 2468,
+      "executeMs": 205503,
+      "assemblyName": "PipelineRunScript_ConfigureWebRelease_e13430320e254d049d6588dc7560313f",
+      "success": true,
+      "result": {
+        "success": true,
+        "version": "1.47.0"
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

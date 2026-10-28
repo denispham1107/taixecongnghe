@@ -1,0 +1,262 @@
+{
+  "mobile": false,
+  "changed": 51,
+  "changes": [
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_StreetPool.png",
+      "format": "DXT1",
+      "size": 512
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_PaintMask.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Palette.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_HeadlightCookie.png",
+      "format": "DXT1",
+      "size": 512
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Normal.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Emission.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/TankFx/PV_TankFx_Explosion.png",
+      "format": "DXT5",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Normal.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_PaintMask.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Emission.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Palette.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Surface.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Regions.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Emission.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/TankFx/PV_TankFx_Muzzle.png",
+      "format": "DXT5",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Normal.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Palette.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/meshy_normal.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_PaintMask.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Emission.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/TankFx/PV_TankFx_Warning.png",
+      "format": "DXT5",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Surface.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_PaintMask.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Surface.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Palette.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Surface.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Emission.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Normal.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/meshy_basecolor.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Surface.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Palette.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Resources/Wreck/PV_WreckSmoke.png",
+      "format": "DXT5",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Normal.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Emission.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Surface.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Surface.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Resources/Wreck/PV_WreckFlame.png",
+      "format": "DXT5",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_PaintMask.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Palette.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Palette.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Normal.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Emission.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_OpticalGlare.png",
+      "format": "DXT1",
+      "size": 512
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Normal.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_StreetPool.png",
+      "format": "DXT1",
+      "size": 512
+    },
+    {
+      "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Normal.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_PaintMask.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/meshy_basecolor.png",
+      "format": "DXT1",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Surface.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Normal.png",
+      "format": "DXT5",
+      "size": 2048
+    },
+    {
+      "path": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/meshy_basecolor.png",
+      "format": "DXT1",
+      "size": 2048
+    }
+  ],
+  "subtarget": "Generic"
+}

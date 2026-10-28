@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#203f43">
+  <meta name="theme-color" content="#eef5fb">
   <meta name="description" content="Lái xe qua phố Việt, né giao thông bất ngờ và thử phá kỷ lục của bạn. Chơi trên máy tính, Android và iPhone.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,54 +16,60 @@
 </head>
 <body>
   <header id="toolbar">
-    <a class="wordmark" href="./" aria-label="Về đầu phố"><span>★</span> PHỐ VIỆT</a>
+    <a class="wordmark" href="./" aria-label="Về đầu phố"><span class="brand-mark" aria-hidden="true">★</span><span>PHỐ VIỆT</span></a>
     <nav aria-label="Tùy chọn"><button id="install" hidden>Cài ứng dụng</button><button id="help">Cách chơi</button><button id="fullscreen" aria-label="Toàn màn hình">⛶</button></nav>
   </header>
   <main id="game">
     <canvas id="unity-canvas" tabindex="0" aria-label="Game Phố Việt" hidden></canvas>
-    <section id="welcome">
-      <div class="intro">
-        <p class="eyebrow">MỘT VÒNG VIỆT NAM · GAME 3D VÔ TẬN</p>
-        <h1>Lái qua<br><em>phố quen.</em></h1>
-        <p class="description">Áo đỏ sao vàng, một chiếc xe máy và những con đường không bao giờ ngủ. Bạn sẽ đi được bao xa?</p>
-        <button id="play" class="primary">VÀO PHỐ <span>→</span></button>
-        <p id="load-status" role="status" aria-live="polite">Chơi miễn phí · Máy tính & điện thoại</p>
-        <progress id="progress" max="1" value="0" hidden aria-label="Đang tải game"></progress>
-        <button id="retry" hidden>Tải lại trang</button>
-        <div class="controls"><span><b>← → / A D</b> Đổi làn</span><span><b>Q</b> Đạp xe</span><span><b>SPACE</b> Nhảy</span><span><b>W</b> Tăng tốc</span><span><b>P</b> Tạm dừng</span></div>
-        <p class="touch-guide">Vuốt ngang: đổi làn / chọn rẽ · vuốt lên: nhảy · vuốt xuống: tăng tốc · chạm hai lần: đạp.</p>
+    <section id="welcome" aria-labelledby="landing-title">
+      <div class="landing-main">
+        <div class="intro">
+          <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> MỘT VÒNG VIỆT NAM</p>
+          <h1 id="landing-title">Phố quen.<br><em>Chuyến đi mới.</em></h1>
+          <p class="description">Cầm lái xe đua xanh, lướt qua phố Việt trong sương sớm. Né dòng xe, bật nhảy và thử phá kỷ lục của bạn.</p>
+          <div class="play-panel">
+            <button id="play" class="primary">VÀO PHỐ <span aria-hidden="true">↗</span></button>
+            <p id="load-status" role="status" aria-live="polite">Chơi miễn phí · Máy tính & điện thoại</p>
+            <progress id="progress" max="1" value="0" hidden aria-label="Đang tải game"></progress>
+            <button id="retry" hidden>Tải lại trang</button>
+          </div>
+          <div class="controls" aria-label="Điều khiển bằng bàn phím">
+            <span><b>← → / A D</b>Đổi làn / rẽ</span><span><b>SPACE</b>Nhảy</span><span><b>W</b>Tăng tốc</span><span><b>Q</b>Húc ngang</span><span><b>P</b>Tạm dừng</span>
+          </div>
+          <p class="touch-guide"><span aria-hidden="true">↔</span> Vuốt ngang để đổi làn / rẽ, vuốt lên để nhảy, vuốt xuống để tăng tốc. Chạm hai lần để húc ngang.</p>
+        </div>
+        <figure class="street-preview">
+          <picture>
+            <source media="(max-width: 700px) and (orientation: portrait)" srcset="poster-morning-portrait.jpg">
+            <img src="poster-morning.jpg" width="1920" height="1280" alt="Xe đua xanh trên phố Việt hiện tại, nhà cửa nhiều màu và sương mù buổi sáng" fetchpriority="high" decoding="async">
+          </picture>
+          <figcaption class="preview-label"><span class="preview-dot" aria-hidden="true"></span><span><b>Một sớm trên phố Việt</b><small>Hình ảnh chụp trực tiếp trong game</small></span><span class="preview-tag">3D</span></figcaption>
+        </figure>
       </div>
-      <div class="street-preview"><img src="poster.png" alt="Tài xế áo đỏ chạy xe máy trên đường phố Việt Nam"><div class="preview-label">TRẦN HƯNG ĐẠO / QUANG TRUNG / HAI BÀ TRƯNG</div></div>
-      <footer><span>CHUYẾN XE KHÔNG NGỪNG</span><span id="offline-status" role="status">Có thể thêm vào màn hình chính</span></footer>
+      <footer><span class="footer-title">PHỐ VIỆT <span aria-hidden="true">/</span> CHUYẾN XE KHÔNG NGỪNG</span><span id="offline-status" role="status">Có thể thêm vào màn hình chính</span></footer>
     </section>
   </main>
   <button id="game-menu" hidden aria-label="Mở tùy chọn game" aria-expanded="false" aria-controls="toolbar">☰</button>
   <div id="safe-area-probe" aria-hidden="true"></div>
-  <dialog id="guide">
-    <button id="close-help" class="close" aria-label="Đóng hướng dẫn">×</button>
-    <p class="eyebrow">CHÀO MỪNG ĐẾN PHỐ VIỆT</p><h2>Một chuyến xe, thật nhiều bất ngờ.</h2>
-    <p><b>Máy tính:</b> ← → hoặc A / D đổi làn. SpaceBar ngóc bánh và nhảy. W tăng tốc. Q đạp xe máy ở cạnh. P / Esc tạm dừng. R chơi lại.</p>
-    <p><b>Điện thoại:</b> vuốt trái/phải để đổi làn. Vuốt từ dưới lên để nhảy, từ trên xuống để tăng tốc. Chạm hai lần trong vùng chơi để đạp.</p>
-    <p><b>Tăng tốc:</b> nhanh hơn 125% trong 4 giây, khói trắng phụt sau xe. Hồi chiêu 2 giây sau khi kết thúc; không cộng dồn. Bị té hoặc dừng đón/trả khách sẽ hủy tăng tốc và bắt đầu hồi chiêu. Xe vẫn tự giảm tốc để nhường và dừng đúng điểm hẹn.</p>
-    <p><b>Nhảy xe:</b> hồi chiêu 2 giây, chỉ thực hiện từ mặt đường hoặc nóc xe. Có thể vượt xe máy đã ngã, đáp và chạy trên ô tô con hoặc xe giao hàng nhỏ; chạy vượt mép nóc sẽ rơi xuống đường. Xe tải thùng cỡ trung vẫn là chướng ngại. Va vào thân xe vẫn mất 1 mạng.</p>
-    <p><b>Rẽ sang phố mới:</b> ở vùng mũi tên trước giao lộ, bấm/vuốt đúng hướng để chọn rẽ: hai làn bên trái rẽ trái, hai làn bên phải rẽ phải. Ngay trong lòng giao lộ vẫn có thể rẽ: ở hai làn trái bấm/vuốt trái, ở hai làn phải bấm/vuốt phải, không cần chọn trước. Xe giữ nguyên vị trí làn sau cua. Chú ý xe vượt lên từ phía sau và xe ngược chiều trên phố mới. Hai làn giữa vẫn có thể đi thẳng; ngoài vùng rẽ thao tác đổi làn giữ như thường.</p>
-    <p>Né xe phanh gấp, tạt làn và xe rẽ ở giao lộ. Đạp quái xế là tự vệ; đạp xe thường sẽ bị CSGT truy đuổi.</p>
-    <p><b>Va chạm:</b> hướng té và quãng văng tùy lực va chạm. Khi xe trượt và té xong, chuyến đi kết thúc. Nếu đang bị CSGT truy đuổi, người chơi nằm lại; cảnh sát dựng xe hoặc né vật cản rồi đến bắt và chuyển sang cảnh trong tù.</p>
-    <h3>Cài Phố Việt lên máy</h3>
-    <p><b>Android / Chrome / Edge:</b> chọn “Cài ứng dụng” hoặc mục cài đặt trong menu trình duyệt.</p>
-    <p><b>iPhone / iPad:</b> mở bằng Safari → Chia sẻ → Thêm vào Màn hình chính → bật “Mở dưới dạng ứng dụng web” nếu có → Thêm.</p>
-    <p id="cache-help">Lần đầu cần mạng để tải game. Khi thông báo “Đã lưu để chơi offline” xuất hiện, bạn có thể mở lại trên máy này khi mất mạng.</p>
+  <dialog id="guide" aria-labelledby="guide-title">
+    <div class="guide-heading"><p class="eyebrow">SẴN SÀNG LÊN ĐƯỜNG</p><button id="close-help" class="close" aria-label="Đóng hướng dẫn">×</button></div>
+    <h2 id="guide-title">Cầm lái. Khám phá. Phá kỷ lục.</h2>
+    <div class="guide-section"><h3>Máy tính</h3><p>← → hoặc A / D đổi làn và chọn rẽ. Space nhảy, W tăng tốc, Q áp sát rồi húc ngang. P / Esc tạm dừng, R chơi lại.</p></div>
+    <div class="guide-section"><h3>Điện thoại</h3><p>Vuốt trái/phải để đổi làn hoặc chọn rẽ. Vuốt lên để nhảy, vuốt xuống để tăng tốc. Chạm hai lần trong vùng chơi để húc ngang.</p></div>
+    <div class="guide-section"><h3>Nhảy & tăng tốc</h3><p>Nhảy từ mặt đường hoặc nóc xe, hồi chiêu 2 giây. Tốc độ cất cánh càng cao, cú nhảy càng cao; đáp được lên nóc xe bốn bánh còn đứng thẳng. Tránh đâm vào thân xe. Tăng tốc thêm 125% trong 4 giây, hồi chiêu 2 giây, không cộng dồn.</p></div>
+    <div class="guide-section"><h3>Trên đường</h3><p>Hai làn bên trái có thể rẽ trái, hai làn bên phải có thể rẽ phải ở giao lộ; hai làn giữa cũng đi thẳng được. Chú ý mũi tên báo xe từ phía sau, xe tăng và khủng long: nhảy đủ cao để né đuôi. Sau mỗi lần rẽ có thêm khủng long, rồi xe tăng sau 2 giây.</p><p>Thi quãng đường xa nhất. Va chạm khiến xe văng và kết thúc lượt khi té xong. Nếu đang bị CSGT truy đuổi, chờ cảnh sát đến bắt; húc xe thường có thể dẫn đến truy đuổi.</p></div>
+    <div class="guide-section"><h3>Cài game & chơi offline</h3><p><b>Android / Chrome / Edge:</b> chọn “Cài ứng dụng” hoặc mục cài đặt trong menu trình duyệt.</p><p><b>iPhone / iPad:</b> mở bằng Safari → Chia sẻ → Thêm vào Màn hình chính → bật “Mở dưới dạng ứng dụng web” nếu có → Thêm.</p><p id="cache-help">Lần đầu cần mạng để tải game. Khi thông báo “Đã lưu để chơi offline” xuất hiện, bạn có thể mở lại trên máy này khi mất mạng.</p></div>
   </dialog>
   <script>
     window.PHO_VIET_BUILD={
-      mobileDataUrl:"Build/6b4d494d3b53a15ff3a305a0ff42328e.data.unityweb",
+      mobileDataUrl:"Build/9620a4912d864792a65bb6a8a1bf0217.data.unityweb",
       loaderUrl:"Build/d398bb75fd636d55fb1ca17fcfe6b72e.loader.js",
-      dataUrl:"Build/8c8b992c9b99e3aae99caf13278ee288.data.unityweb",
+      dataUrl:"Build/ba977d1abed3244d62eecf73317684a0.data.unityweb",
       frameworkUrl:"Build/4206d662671e4832f040973e55531a08.framework.js.unityweb",
       codeUrl:"Build/918af34fc2846633aa4080af0735be53.wasm.unityweb",
       companyName:"Pho Viet Studio",
       productName:"Phố Việt - Chuyến xe không ngừng",
-      productVersion:"1.46.0"
+      productVersion:"1.47.0"
     };
   </script>
   <script src="app.js" defer></script>
