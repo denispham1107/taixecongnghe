@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **28/10/2026 — Codex**
+Cập nhật lần cuối: **29/10/2026 — Codex**
 
 ## 1. Trạng thái hiện tại
 
@@ -27,6 +27,8 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.85 dựng mẫu cầu đã xong, chờ chọn:** 3sceneBlenderA/B/C,6render1600×1000vàboard1800×1250 đãxem; kếtcấu/lan can/đènchi tiết. Chỉthamkhảo,tạingoàiAssets/khônggameimport/build/push/pháthành;2993fileAssets/config/docsđốichiếuSHAkhôngđổi. File/ảnhởArtSource/Concepts/Bridge-20261028,selectionnull/false; người dùng phải xácnhậntrướckhithaycầu. Chi tiếthuongdan21.85.
 
 - **1.47.0/21.84 đã phát hành:** commit`ec06629`, Pages`40689965684`success, cache`d26fbf3bf46d9ea7`; **28liveđạt/0runtime**. Trangchủ21.83/2ảnhsươngđãcótrênweb; ảnhlandingvàgamewebthậtđãxem.315landing+37web/offline/touch+20fullscreen,101finalscene+43repo+34site+35Gitbytesđạt;196filenguồn/scene/templategiữnguyên. Build296,451s/0lỗi/1warningPipeline; UnityEdit/scenesạch/start1,92/jobsfalse,server8771đãdừng. Chi tiếthuongdan21.84.
 
@@ -85,6 +87,8 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.85 chờ người dùng chọn và xác nhận cầu A/B/C:** đã dựng thật BlenderMCP3mẫu/6ảnh, board`ArtSource/Concepts/Bridge-20261028/bridge-comparison.png`vàfile`PhoViet_Bridge_Concepts.blend`. A bê tông3vòm/đồng;Bvòmthépxanh;Cdâyvăng.50,4m/road6,2m/deck7,4m, chưaLOD/collider/merge. **Không tự tíchhợp hoặc đổiUnity trước xácnhận**;selection.jsonvẫnnull/false.2993filegamebytegiữnguyên,web1.47.0. BlenderđangsceneA/rootA,cácfile.blendcũkhôngđổi. Chi tiếthuongdan21.85.
+
 - **21.83–21.84 đã lênweb1.47.0**, khôngcònchờbuild/pháthành. Giữthayđổicụcbộkháckhôngliênquan; chưađoSafari/Androidmáythật.
 
 
@@ -138,6 +142,7 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 | Đạp, CSGT, bị bắt | 8 | `PhoVietActions.cs`, `PhoVietKickAssist.cs`, `PhoVietPolice.cs`, `PhoVietCrashPoliceNavigation.cs` |
 | Nhảy, nóc xe, tăng tốc | 19, 21.60 | `PhoVietJump.cs`, `PhoVietBoost.cs` |
 | Giao lộ, rẽ, rebase tọa độ | 6.1, 9 | `PhoVietRoutes.cs`, `PhoVietRoadDrivers.cs`, `PhoVietExitTraffic.cs` |
+| Chọn mẫu cầu mới (chưa tích hợp) | **21.85** | `ArtSource/Concepts/Bridge-20261028/README.md`, `bridge-comparison.png/html`, `PhoViet_Bridge_Concepts.blend`, `selection.json`; chờ người dùng xác nhận |
 | Sông, cầu, căn hộ ven sông, xe/CSGT rơi chìm | 21.35–21.37, 21.45–21.54, 21.63 | `PhoVietRiver.cs`, `RiverBlock.cs`, `RiverReflection.cs`, `River*.shader`, `Editor/PhoVietRiverUpgrade.cs`, `AgentScripts/VerifyRiverCrashSinking.cs` |
 | Cảnh phố, nhà, cây | 11.4, 21.19–21.28, 21.43 | `VietnamStreet.cs`, `StreetArt.cs`, `Editor/PhoVietStreetUpgrade.cs` |
 | Ngày–đêm, đèn, sương | 20, 21.41 | `PhoVietDayNight.cs`, `DayNightLighting.cs`, `MorningFog.cs`, `MorningLooks.cs` |

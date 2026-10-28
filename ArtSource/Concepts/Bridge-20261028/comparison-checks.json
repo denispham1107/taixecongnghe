@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "pictures": [
+    {
+      "file": "A-day.png",
+      "loaded": true
+    },
+    {
+      "file": "A-street.png",
+      "loaded": true
+    },
+    {
+      "file": "B-day.png",
+      "loaded": true
+    },
+    {
+      "file": "B-street.png",
+      "loaded": true
+    },
+    {
+      "file": "C-day.png",
+      "loaded": true
+    },
+    {
+      "file": "C-street.png",
+      "loaded": true
+    }
+  ],
+  "noOverflow": true,
+  "cards": 3
+}

@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "studies": [
+    {
+      "code": "A",
+      "road_width": 6.2,
+      "span": 50.4,
+      "meshes": 803,
+      "base_triangles": 13268,
+      "images": 2
+    },
+    {
+      "code": "B",
+      "road_width": 6.2,
+      "span": 50.4,
+      "meshes": 707,
+      "base_triangles": 11276,
+      "images": 2
+    },
+    {
+      "code": "C",
+      "road_width": 6.2,
+      "span": 50.4,
+      "meshes": 643,
+      "base_triangles": 7820,
+      "images": 2
+    }
+  ],
+  "original_scene_unchanged": true,
+  "original_filepath": "",
+  "not_installed_in_game": true
+}

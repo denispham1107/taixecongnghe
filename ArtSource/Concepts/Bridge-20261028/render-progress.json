@@ -1,0 +1,37 @@
+{
+  "status": "completed",
+  "completed": [
+    {
+      "frame": "A-day",
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\A-day.png",
+      "bytes": 1731993
+    },
+    {
+      "frame": "A-street",
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\A-street.png",
+      "bytes": 1719368
+    },
+    {
+      "frame": "B-day",
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\B-day.png",
+      "bytes": 1762547
+    },
+    {
+      "frame": "B-street",
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\B-street.png",
+      "bytes": 1758253
+    },
+    {
+      "frame": "C-day",
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\C-day.png",
+      "bytes": 1764033
+    },
+    {
+      "frame": "C-street",
+      "path": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\C-street.png",
+      "bytes": 1745390
+    }
+  ],
+  "remaining": 0,
+  "seconds": 226.15
+}

@@ -1,0 +1,7 @@
+{
+  "success": true,
+  "protected_files": 2993,
+  "changed": [],
+  "baseline_head": "a8043f3b9bf6ff068a3b45d6a75f149635560f86",
+  "scope": "Assets / ProjectSettings / Packages / published docs remain byte-identical"
+}

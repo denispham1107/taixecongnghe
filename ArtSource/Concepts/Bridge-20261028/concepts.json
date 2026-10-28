@@ -1,0 +1,48 @@
+{
+  "reference_only": true,
+  "approval_required": true,
+  "studies": [
+    {
+      "code": "A",
+      "title": "Song_Viet_Classic",
+      "scene": "PV85_A_Song_Viet_Classic",
+      "collection": "PV85_A_BRIDGE_ONLY",
+      "root": "PV85_A_Bridge",
+      "mesh_objects": 803,
+      "base_triangles": 13268,
+      "day_render": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\A-day.png",
+      "street_render": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\A-street.png",
+      "span_m": 50.4,
+      "road_width_m": 6.2,
+      "deck_width_m": 7.4
+    },
+    {
+      "code": "B",
+      "title": "Blue_Steel_Bow",
+      "scene": "PV85_B_Blue_Steel_Bow",
+      "collection": "PV85_B_BRIDGE_ONLY",
+      "root": "PV85_B_Bridge",
+      "mesh_objects": 707,
+      "base_triangles": 11276,
+      "day_render": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\B-day.png",
+      "street_render": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\B-street.png",
+      "span_m": 50.4,
+      "road_width_m": 6.2,
+      "deck_width_m": 7.4
+    },
+    {
+      "code": "C",
+      "title": "River_Sail_Stayed",
+      "scene": "PV85_C_River_Sail_Stayed",
+      "collection": "PV85_C_BRIDGE_ONLY",
+      "root": "PV85_C_Bridge",
+      "mesh_objects": 643,
+      "base_triangles": 7820,
+      "day_render": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\C-day.png",
+      "street_render": "C:/Users/HP/Documents/GameUnity/Taixecongnghe/ArtSource/Concepts/Bridge-20261028\\C-street.png",
+      "span_m": 50.4,
+      "road_width_m": 6.2,
+      "deck_width_m": 7.4
+    }
+  ]
+}
