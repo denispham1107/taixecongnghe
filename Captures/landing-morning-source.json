@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "cycleSeconds": 1.5,
+  "fogStrength": 0.84375,
+  "player": true,
+  "source": "Current saved scene / actual game camera / no HUD",
+  "cameraPosition": {
+    "x": 0.3875,
+    "y": 7.15,
+    "z": -7.68000031
+  },
+  "landscape": {
+    "width": 1920,
+    "height": 1280
+  },
+  "portrait": {
+    "width": 1280,
+    "height": 900
+  }
+}

@@ -1,14 +1,15 @@
 // Real WebGL rendering and edge coverage, including the insets from notched mobile devices.
 const {chromium,devices}=require('playwright');const fs=require('node:fs');const assert=require('node:assert/strict');
 const url=process.argv[2]||'http://127.0.0.1:8765/docs/';const label=process.argv[3]||'local';
-const result={url,checks:[],errors:[]};
+const artifactRoot=process.argv[4]||'docs';
+const result={url,artifactRoot,checks:[],errors:[]};
 function check(name,value){assert(value,name);result.checks.push(name);console.log('PASS '+name);}
 async function main(){
   const info=await(await fetch(new URL('build-info.json',url))).json();result.build=info;
   check('Published version is 1.46.0',info.version==='1.46.0');
   for(const file of ['index.html','style.css','app.js','manifest.webmanifest','sw.js','precache.json']){
     const response=await fetch(new URL(file,url));const remote=(await response.text()).replace(/\r\n/g,'\n');
-    const local=fs.readFileSync('docs/'+file,'utf8').replace(/\r\n/g,'\n');
+    const local=fs.readFileSync(artifactRoot+'/'+file,'utf8').replace(/\r\n/g,'\n');
     check('Published file matches tested artifact: '+file,response.ok&&remote===local);
   }
   const browser=await chromium.launch({channel:'chrome',headless:true,args:['--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']});

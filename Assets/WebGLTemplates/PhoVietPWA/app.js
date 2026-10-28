@@ -82,7 +82,7 @@ $('help').addEventListener('click', () => {
   pauseGame();setMenu(false);
   $('guide').showModal();
 });
-$('close-help').addEventListener('click', () => {$('guide').close();canvas.focus();});
+$('close-help').addEventListener('click', () => {$('guide').close();if(unityInstance)canvas.focus();else $('help').focus();});
 $('guide').addEventListener('click', e => {if(e.target === $('guide')) $('guide').close();});
 $('retry').addEventListener('click', () => location.reload());
 $('fullscreen').addEventListener('click', async () => {

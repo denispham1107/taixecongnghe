@@ -115,22 +115,22 @@ namespace PhoViet.Editor
         {
             const string root="Builds/WebGL";
             if(!File.Exists(Path.Combine(root,"index.html")))throw new Exception("Build WebGL first");
-            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest"})
+            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-morning.jpg","poster-morning-portrait.jpg"})
                 File.Copy("Assets/WebGLTemplates/PhoVietPWA/"+file,Path.Combine(root,file),true);
             Directory.CreateDirectory(Path.Combine(root,"icons"));
             foreach(string icon in Directory.GetFiles("Assets/WebGLTemplates/PhoVietPWA/icons"))
                 if(!icon.EndsWith(".meta"))File.Copy(icon,Path.Combine(root,"icons",Path.GetFileName(icon)),true);
-            // Keep the generated Unity loader/configuration while refreshing icon URLs.
+            // Replace the whole landing template while retaining the generated runtime
+            // URLs, both texture variants and product version from the successful build.
             string htmlPath=Path.Combine(root,"index.html"),html=File.ReadAllText(htmlPath);
             string template=File.ReadAllText("Assets/WebGLTemplates/PhoVietPWA/index.html");
-            foreach(string rel in new[]{"icon","apple-touch-icon"})
-            {
-                string pattern="<link rel=\""+rel+"\"[^>]*>";
-                string tag=System.Text.RegularExpressions.Regex.Match(template,pattern).Value;
-                if(string.IsNullOrEmpty(tag))throw new Exception("Missing template icon: "+rel);
-                html=System.Text.RegularExpressions.Regex.Replace(html,pattern,tag);
-            }
+            const string configPattern=@"window\.PHO_VIET_BUILD=\{[\s\S]*?\n\s*\};";
+            var config=System.Text.RegularExpressions.Regex.Match(html,configPattern);
+            if(!config.Success||!System.Text.RegularExpressions.Regex.IsMatch(template,configPattern))throw new Exception("Missing generated runtime configuration");
+            html=System.Text.RegularExpressions.Regex.Replace(template,configPattern,_=>config.Value);
+            if(html.Contains("{{{"))throw new Exception("Unexpanded Unity template token");
             File.WriteAllText(htmlPath,html);
+            string oldPoster=Path.Combine(root,"poster.png");if(File.Exists(oldPoster))File.Delete(oldPoster);
             FinalizeWebOutput(root);
         }
 
