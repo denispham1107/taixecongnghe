@@ -90,7 +90,7 @@ namespace PhoViet
         const float LaneTime=.72f,SteerIn=.16f,SteerOut=.45f,LeanIn=.20f,LeanOut=.45f,LeanHold=.18f,MaxSteerYaw=26,MaxSteerLean=24;
         float laneVelocity,steerYaw,laneAccel,steerYawSpeed,leanSpeed;
         float leanHoldRemaining,heldLeanTarget;
-        readonly float[] laneCurve=new float[6];float laneCurveTime,laneClock,laneGoal;bool lanePlanned;
+        readonly float[] laneCurve=new float[6];float laneCurveTime,laneClock,laneGoal,laneResponseGain;bool lanePlanned;
         public float RiderLateralAcceleration=>laneAccel;
         public float RiderLateralVelocity=>laneVelocity;
         public float RiderSteerYaw=>State==RideState.Riding&&!IsTurning?steerYaw:0;
@@ -305,7 +305,8 @@ namespace PhoViet
             if(engine!=null){engine.mute=!sound;engine.pitch=.85f+Speed/45f;}
             if(siren!=null)siren.mute=!sound;
         }
-        // Đường cong đổi làn bậc 5 từ (vị trí, vận tốc, gia tốc) hiện tại tới làn đích với vận tốc và gia tốc 0 (21.55).
+        // Giữ vận tốc/gia tốc khi đổi hướng giữa chừng; car xuất phát có gia tốc
+        // hữu hạn ngay để tránh đoạn đầu gần như đứng yên (21.81).
         // Lập lại khi đổi làn đích, hoặc khi vị trí bị dời khỏi đường cong (va chạm, đạp áp sát, quay về làn sau cua…).
         float AdvanceLaneCurve(float baseX,float target,float dt)
         {
@@ -321,7 +322,12 @@ namespace PhoViet
                 float T=Mathf.Clamp(duration*Mathf.Sqrt(Mathf.Max(Mathf.Abs(d),.3f)/3.1f),IsPlayerCar?.60f:.32f,IsPlayerCar?2.6f:1.20f);
                 // Đang lao về phía đích thì rút ngắn để không vượt quá làn.
                 if(laneVelocity*d>0)T=Mathf.Max(.16f,Mathf.Min(T,1.6f*Mathf.Abs(d)*pace/Mathf.Abs(laneVelocity)));
-                float c1=laneVelocity*T/pace,c2=laneAccel*T*T*.5f/(pace*pace),a=d-c1-c2,b=-c1-2*c2,c=-2*c2;
+                float c1=laneVelocity*T/pace,c2=laneAccel*T*T*.5f/(pace*pace);
+                // A small early-response term: 3d*u²*(1-u)^4. It starts with
+                // finite acceleration but vanishes through third derivative at
+                // the end, preserving the existing arrival/settling profile.
+                laneResponseGain=IsPlayerCar&&Mathf.Abs(laneVelocity)<.001f&&Mathf.Abs(laneAccel)<.001f?3*d:0;
+                float a=d-c1-c2,b=-c1-2*c2,c=-2*c2;
                 laneCurve[0]=baseX;laneCurve[1]=c1;laneCurve[2]=c2;laneCurve[3]=10*a-4*b+c*.5f;laneCurve[4]=-15*a+7*b-c;laneCurve[5]=6*a-3*b+c*.5f;
                 laneCurveTime=T;laneClock=0;laneGoal=target;lanePlanned=true;
             }
@@ -332,12 +338,12 @@ namespace PhoViet
         }
         float LaneCurveValue(float u,int derivative)
         {
-            var c=laneCurve;
-            if(derivative==0)return c[0]+u*(c[1]+u*(c[2]+u*(c[3]+u*(c[4]+u*c[5]))));
-            if(derivative==1)return c[1]+u*(2*c[2]+u*(3*c[3]+u*(4*c[4]+u*5*c[5])));
-            return 2*c[2]+u*(6*c[3]+u*(12*c[4]+u*20*c[5]));
+            var c=laneCurve;float q=1-u,q2=q*q;
+            if(derivative==0)return c[0]+u*(c[1]+u*(c[2]+u*(c[3]+u*(c[4]+u*c[5]))))+laneResponseGain*u*u*q2*q2;
+            if(derivative==1)return c[1]+u*(2*c[2]+u*(3*c[3]+u*(4*c[4]+u*5*c[5])))+laneResponseGain*2*u*q2*q*(1-3*u);
+            return 2*c[2]+u*(6*c[3]+u*(12*c[4]+u*20*c[5]))+laneResponseGain*2*q2*(1-10*u+15*u*u);
         }
-        void ClearLaneMotion(){laneVelocity=0;laneAccel=0;lanePlanned=false;steerYawSpeed=0;leanSpeed=0;leanHoldRemaining=heldLeanTarget=0;}
+        void ClearLaneMotion(){laneVelocity=0;laneAccel=0;laneResponseGain=0;lanePlanned=false;steerYawSpeed=0;leanSpeed=0;leanHoldRemaining=heldLeanTarget=0;}
         void TickRide(float dt)
         {
             HideBuildingsOverRiver();
@@ -379,7 +385,7 @@ namespace PhoViet
             float steerTarget=MaxSteerYaw*(float)Math.Tanh(rawSteer/MaxSteerYaw);
             // Enter the new heading gently and take longer to return the steering.
             bool returning=Mathf.Abs(steerTarget)<Mathf.Abs(steerYaw)&&!IsTurning&&!KickAssistActive;
-            steerYaw=Mathf.SmoothDamp(steerYaw,steerTarget,ref steerYawSpeed,IsPlayerCar?(returning?.13f:.08f):returning?SteerOut:SteerIn,Mathf.Infinity,dt);
+            steerYaw=Mathf.SmoothDamp(steerYaw,steerTarget,ref steerYawSpeed,IsPlayerCar?(returning?.13f:.05f):returning?SteerOut:SteerIn,Mathf.Infinity,dt);
             // Nghiêng theo hướng đầu xe: bẻ sang phải thì nghiêng phải, trả lái thì dựng lên từ từ cùng lúc.
             // Dương = nghiêng trái, cùng quy ước cua giao lộ.
             float leanTarget=IsPlayerCar?Mathf.Clamp(laneAccel*.18f,-2.5f,2.5f):-Mathf.Clamp(steerYaw*.85f,-MaxSteerLean,MaxSteerLean);

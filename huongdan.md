@@ -127,6 +127,8 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 **Đổi làn hiện hành (21.60, thay nhịp nhanh21.55):** A/D/←/→ hoặc vuốt ngang nhận lệnh ngay nhưng chuyển một làn theo đường cong bậc5 trong0,72 s (90% sau~0,55 s, gần tâm~0,68 s). Bẻ đầu xe0,16 s; trả lái0,45 s; giữ nghiêng ngắn0,18 s rồi hồi phục nghiêng bằng SmoothDamp0,45 s. Vẫn chạy tới trong suốt nhịp, đầu xe gần thẳng sau~1,45 s và độ nghiêng xuống<2° sau~2 s ở tốc độ17 m/s. Chuyển tiếp/reverse giữ vị trí/vận tốc/gia tốc liên tục. Hộp va chạm vẫn theo đường, không tự giảm tốc chạy tới. Mỗi lần vuốt một lệnh; nhảy/tăng tốc/Q và quy tắc rẽ giao lộ giữ nguyên.
 
+- **Source21.81, chưa phát hành:** xe đua có nhịp khởi đầu đổi làn phản hồi ngay từ khung hình nhận lệnh, giữ quãng/thời gian hoàn tất theo tốc độ và nhịp trả lái cũ. Input phím/vuốt nhận ngay; xem số đo và công thức ở21.81.
+
 ### 2.3. Giao thông gây bất ngờ
 
 - Xe cùng chiều có thể phanh gấp hoặc giảm tốc mạnh, có đèn phanh, rồi tăng tốc trở lại.
@@ -2480,3 +2482,28 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Ảnh:** `CaptureTurnHazards.cs` chạy cua phải thật, chụp bằng camera game1280×720 ngay sau cua và sau khi xe tăng sinh; người chơi thực hiện cú nhảy bình thường trong cảnh thứ2. Đã xem2ảnh `turn-hazards-dinosaur.png`/`turn-hazards-tank.png`. Trường hợp chụp xe tăng sinh ở1,99999881s, khủng longz25,775 vàxe tăngz31,788 (ở sau khủng long, cả hai phía trước player). `turn-hazards-visuals.json` lưu số đo.
 - **Các lỗi probe/fixture đã xử lý:** kiểm tra pool đầy ban đầu còn vị trí xe cũ làm chắn đường; fixture đưa xe chiếm pool ra xa để tách giới hạn pool khỏi vật cản. Sau recompile trong Play, Unity còn tham chiếu AudioSource đã hủy qua domain reload; thoát/vào Play sạch rồi chạy toàn bộ lần cuối đạt, không sửa âm thanh/jobs để né lỗi kiểm tra. Không tính các lần chạy thử lỗi vào số đạt.
 - **Bàn giao:** Unity Edit Mode/scene sạch, gốc xe `(1,55;0;1,92)` giữ nguyên, dinosaurs/tankBarrage=true, jobsfalse/RideJobsReleased=false. Chỉ commit cục bộ source/test/bằng chứng và hai tài liệu. **Chưa bump version/build/push/phát hành cho21.80; web vẫn1.45.0/21.79.** Các sửa đổi Art/Wave/Packages/Simulator và Captures khác được giữ nguyên.
+
+
+### 21.81. Sửa cảm giác trễ trước khi xe đua đổi làn (28/10/2026, Codex — source cục bộ, chưa build/phát hành)
+
+- **Yêu cầu:** phím trái/phải và vuốt trái/phải phải phản hồi ngay, giữ hiệu ứng đổi làn đang mượt. Không tăng tốc toàn bộ quá trình hay làm xe nhảy sang làn mới.
+- **Nguyên nhân đã kiểm tra:** `Update` đọc `GetKeyDown` rồi gọi `MoveLane` trước `TickRide`; native gọi hành động ngay khi vuốt đủ ngưỡng; `app.js` gửi `ApplyBrowserGesture` trực tiếp từpointermove, không có debounce/timer hay chờpointerup. Đường cong từ trạng thái nghỉ có cả vận tốc/gia tốc ngang bằng0, nên đầu thao tác dịch chuyển rất nhỏ; bộ lọc yaw làm thân xe biểu hiện chậm thêm. Không sửa JS hoặc giảm ngưỡng vuốt7,5% cạnh ngắn, vẫn1chạm/1lệnh và chặn cử chỉ bắt đầu trênHUD.
+- **Triển khai duy nhất ở gameplay `PhoVietGame.cs`:** thêm `laneResponseGain` vào bộ lấy mẫu đường cong. Xe ô tô xuất phát từ nghỉ dùng **Hermite5 cũ + 3d×u²×(1−u)^4**, với `d` là khoảng cách tới làn đích và `u` là tiến độ chuẩn hóa. Thành phần bổ sung có gia tốc đầu hữu hạn6d×pace²/T² (T là duration cơ sở), vị trí và vận tốc đầu vẫn liên tục, bằng0 tới đạo hàm bậc3 ở cuối; nhịp vào làn/trả lái cũ được giữ. `LaneCurveValue` tính đúng cả vị trí/vận tốc/gia tốc; khi đổi hướng giữa chừng giữ các đạo hàm đang có và không thêm gain mới. `ClearLaneMotion` xóa gain khi reset/cua/va chạm.
+- **Hướng thân xe:** car yaw attack **0,08→0,05giây**; return0,13giây giữ nguyên. Lọc nghiêng thân0,22giây, giới hạn roll2,5độ, bộ lọc bánh lái và hướng va chạm theo thân vẫn giữ. NPC/xe máy không dùng thành phần đáp ứng mới. Rẽ giao lộ vẫn theo quỹ đạo/điểm vào hiện hành; không ép cua sớm qua vỉa hè.
+- **Tốc độ/thời gian:** giữ duration cơ sở1,35giây và pace=Speed/17 cho xe đua, tức khoảng22,95m/làn khi tính hết đường cong; W giữa chừng tiếp tục tăng nhịp theo tốc độ thật. Không thay tăng tốc/nhảy/húc/camera/độ phân giải/texture/mô hình/đồ họa hoặc các luật va chạm. Ở phép đo kết thúc cách tâm làn<1mm, quãng chạy60FPS vẫn **22,423702m** như trước.
+- **Số đo trước/sau (17m/s,60FPS, cùng đường xử lý `MoveLane`):**
+
+| Mốc | Trước | Sau |
+| --- | --- | --- |
+| Dịch ngang khung đầu | 0,05746mm | 1,40893mm |
+| Yaw thân khung đầu | 0,002288° | 0,082272° |
+| Góc bánh lái khung đầu | 0,12076° | 0,98849° |
+| Dịch ngang sau50ms | 1,495mm | 12,493mm |
+| Dịch ngang sau100ms | 11,304mm | 48,934mm |
+| Đạt1cm dịch ngang | 100ms | 50ms |
+| Bước yaw lớn nhất60FPS | 0,49892° | 0,48977° |
+
+- Đây là đo mô phỏng trong Unity, không phải độ trễ phần cứng/browser từ ngón tay/phím tới màn hình. Xe bắt đầu thay đổi vị trí/hướng/bánh ở khung xử lý đầu, không tuyên bố thiết bị có độ trễ tuyệt đối0ms. Dữ liệu `lane-response-before.json`, `lane-response-comparison.json`.
+- **Kiểm tra cuối:** `VerifyLaneResponse.cs` **217đạt**:36tổ hợp (MoveLane chung với bàn phím/nativeContinueSwipe/webpacket × trái/phải × thường/W × dt16,7/33,3/50ms), nhận trước nhấc tay, khôngteleport, phản hồi vị trí/yaw/bánh ngay khung đầu, đường đi đơn điệu, bước vị trí/yaw giới hạn, quãng/thời gian và trả lái. Hồi quy **182ScalePace +90MotionFX +32cua +39gestures +219đợtDino/Tank sau cua = tổng779đạt**. Các suite cũ không nới tiêu chí. Phương án thử đầu có thay đổi nhỏ đoạn cuối làm2kiểm tra thời gian60FPS thất bại; đã thay bằng gain triệt tiêu ở cuối như trên rồi chạy lại tất cả đạt. Compile0lỗi/0warning.
+- **Hình ảnh:** `CaptureLaneResponse.cs` chụp camera game ở50/150/450/1600ms, đã xem4ảnh `lane-response-*ms.png`: xe tiến sang làn, hướng thân và tư thế ổn định khi hoàn tất, không giật/nhảy vị trí. Báo cáo tổng `lane-response-regression.json`; các Captures lịch sử được sao lưu/khôi phục sau hồi quy.
+- **Bàn giao:** Unity Edit Mode/scene sạch/start(1,55;0;1,92)/jobsfalse, version vẫn1.45.0. Cập nhật cả BANGIAO và tài liệu này, commit cục bộ riêng source/test/bằng chứng. **21.81 và21.80 chưa build/push/phát hành; web vẫn1.45.0/21.79.** Giữ nguyên các thay đổi Art/Wave/Packages/Simulator ngoài phạm vi; không dùng Blender hoặc chỉnh scene/asset.

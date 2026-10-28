@@ -21,10 +21,13 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 | Điều khiển/nhảy trong source | **21.65:** scale0,85 (1,761×0,915×3,74m); đổi làn theo quãng đường22,95m/làn, nhanh tỷ lệ Speed/W (17m/s~1,35s;30~0,765s;67,5~0,34s), gồm W giữa chừng; nhảy theo tốc độ cất cánh21.60 giữ nguyên |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
+| Phản hồi đổi làn trong source | **21.81 chưa build/phát hành:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ trong source | **21.80 chưa build/phát hành:** hết cua → Dino ở giao lộ phía trước → Tank sau2s; giữ lịch10s/9s.389kiểmtra đạt/2ảnhđãxem; xem huongdan21.80 |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.81 sửa cảm giác trễ đầu đổi làn, đã xong source:** input vốn nhận ngay; thêm gain đầu quỹ đạo car, triệt tiêu cuối để giữ nhịp hoàn tất, yawattack0,08→0,05s/return0,13s giữ.60FPS: frame đầu0,057→1,409mm,1cm100→50ms, quãng tới làn22,4237m khớp cũ. **779kiểm tra đạt**,4ảnh đã xem. UnityEdit/scenesạch/start1,92/jobsfalse. Chưa build/phát hành; cùng21.80 vẫn chờ, web1.45.0. Chi tiết huongdan21.81.
 
 - **21.80 đã xong source, chưa lên web:** mỗi lần rẽ hoàn tất thêmDino ở giao lộ kế tiếp, Tank sau2giây; giữ lịch định kỳ10s/9s. Wave độc lập cho từng cua, pause/reset/pool/vị trí bị chắn xử lý đủ; Tank tính cả vị trí sau nhập làn cầu. **219kiểmtra mới+170hồi quy=389đạt**,2ảnhcameraGame đãxem. UnityEdit/scenesạch/start1,92/jobsfalse. Web vẫn1.45.0, chờ yêu cầu build/phát hành. Chi tiết huongdan21.80.
 
@@ -82,8 +85,11 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 
 
 
+
+
 > Mẫu: `Yêu cầu: … · Đã xong: … · Bước kế tiếp: … · File đang sửa: … · Unity/Blender: … · Cập nhật: <ngày giờ>, <agent>`
 
+- **21.81 chỉ source cục bộ:** phản hồi đổi làn mới chưa có trong binary1.45.0; cùng21.80 chờ người dùng yêu cầu build/phát hành.
 - **21.80 chỉ source cục bộ:** đợt khủng long/xe tăng sau rẽ chưa có trong binary1.45.0; cần build/phát hành khi người dùng yêu cầu.
 - **21.78/21.79 đã phát hành1.45.0:** không còn phần cài đặt đồ họa chờ build. Hai lỗi pipeline outputcũ/importer đã sửa; dùng builder mới và GPUformat ổn định. Server8771 đã dừng; Unity Edit/scene sạch/jobs khóa.
 - **21.70/21.72–21.74 đã phát hành1.43.0:** không còn tính năng này chờ build. Khi sửaPetshop dùng generator/installer hiện hành, không chạy công cụ dựng phố/cầu cũ. Cấu hình1024MB là lịch sử1.43.0; hiện dùng128/512MiB+GPUcompression/growth10%/cap32MiB theo21.77. Khôngpháthành lại rawartifactlỗiOOM ở21.75.
@@ -111,7 +117,7 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 | --- | --- | --- |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
 | Điểm xuất phát xe, kéo thả Edit/Play Ready | **21.76**,6.1 | `PhoVietPlayerStart.cs`, `Editor/PhoVietPlayerStartEditor.cs`, `PhoVietGame.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyPlayerStart*.cs` |
-| Điều khiển, đổi làn, camera, HUD | 2.2, 12, 21.55/21.60 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs` |
+| Điều khiển, đổi làn, camera, HUD | 2.2, 12, **21.81**,21.55/21.60/21.65 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs`, `AgentScripts/VerifyLaneResponse.cs`, `CaptureLaneResponse.cs` |
 | Giao thông, va chạm, văng/té | 7, 21.33 | `PhoVietTraffic.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs` |
 | Quái xế, xe tải ngủ gật | 2.4, 7.2 | `PhoVietReckless.cs` |
 | Đợt Dino→Tank sau cua, vị trí giao lộ, chờ2s/pool | **21.80**,21.62/21.38 | `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `PhoVietDinosaurs.cs`, `PhoVietTankFire.cs`, `AgentScripts/VerifyTurnHazards.cs`, `CaptureTurnHazards.cs` |

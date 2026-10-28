@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "count": 3,
+  "checks": [
+    "Input accepted before release or another frame: kind=0,dir=1,W=False,dt=0.01666667",
+    "Input does not teleport the car: kind=0,dir=1,W=False,dt=0.01666667",
+    "Jobs, coins and record preserved"
+  ],
+  "traces": [
+    {
+      "kind": 0,
+      "dir": 1,
+      "boost": false,
+      "dt": 0.0166666675,
+      "firstMove": 5.74588776E-05,
+      "firstYaw": 0.00228785,
+      "firstWheel": 0.120762222,
+      "at50": 0.0014950037,
+      "at100": 0.0113042593,
+      "response": 0.1,
+      "done": 22.4237022,
+      "maxStep": 0.0728311539,
+      "maxYawStep": 0.498921871
+    }
+  ]
+}
