@@ -164,6 +164,7 @@ namespace PhoViet
             ResetBoost();
             ResetTankBarrage();
             ResetDinosaurs();
+            ResetTurnHazards();
             PlacePlayerAtStart();
             for(int i=0;i<blocks.Count;i++)blocks[i].localPosition=new Vector3(0,0,(i-1)*VietnamStreet.Length-StartStreetPhase);
             foreach(var v in vehicles){v.active=false;v.crossing=false;v.crossSpeed=0;v.crossDelay=0;v.knocked=false;v.knockAge=0;v.playerGrace=0;v.model.gameObject.SetActive(false);}
@@ -400,6 +401,7 @@ namespace PhoViet
             TickTrafficMotion(dt);
             TickTankBarrage(dt);if(State!=RideState.Riding)return;
             TickDinosaurs(dt);if(State!=RideState.Riding)return;
+            TickTurnHazards(dt);
             ResolveJumpSurface(dt);
             TickRearRecklessWarning(dt);
             TickOrdinaryRearWarnings(dt);

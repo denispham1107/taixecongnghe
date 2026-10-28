@@ -21,9 +21,12 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 | Điều khiển/nhảy trong source | **21.65:** scale0,85 (1,761×0,915×3,74m); đổi làn theo quãng đường22,95m/làn, nhanh tỷ lệ Speed/W (17m/s~1,35s;30~0,765s;67,5~0,34s), gồm W giữa chừng; nhảy theo tốc độ cất cánh21.60 giữ nguyên |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
+| Đợt bổ sung sau rẽ trong source | **21.80 chưa build/phát hành:** hết cua → Dino ở giao lộ phía trước → Tank sau2s; giữ lịch10s/9s.389kiểmtra đạt/2ảnhđãxem; xem huongdan21.80 |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.80 đã xong source, chưa lên web:** mỗi lần rẽ hoàn tất thêmDino ở giao lộ kế tiếp, Tank sau2giây; giữ lịch định kỳ10s/9s. Wave độc lập cho từng cua, pause/reset/pool/vị trí bị chắn xử lý đủ; Tank tính cả vị trí sau nhập làn cầu. **219kiểmtra mới+170hồi quy=389đạt**,2ảnhcameraGame đãxem. UnityEdit/scenesạch/start1,92/jobsfalse. Web vẫn1.45.0, chờ yêu cầu build/phát hành. Chi tiết huongdan21.80.
 
 - **1.45.0/21.79 đã phát hành:** commit `9dc3aa5`, Pages `40571941077` success, cache `c0f81245589b65f2`; **27 livechecks đạt/0 runtime**. Cài đặt Cao/Trung bình/Thấp21.78 đã có trên web. 101finalscene+42repo/33site+26settingsbrowser+37web/offline/touch+20fullscreen+34Gitbytes đạt; ảnh dọc/ngang/desktop/live đã xem. Sửa output hash cũ và ổn định importGPU trước build; giữ texture/DPR/heap128/512MiB, scene/start1,92/jobsfalse. Unity Edit, server8771 đã dừng. Chi tiết huongdan21.79.
 
@@ -77,8 +80,11 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 
 
 
+
+
 > Mẫu: `Yêu cầu: … · Đã xong: … · Bước kế tiếp: … · File đang sửa: … · Unity/Blender: … · Cập nhật: <ngày giờ>, <agent>`
 
+- **21.80 chỉ source cục bộ:** đợt khủng long/xe tăng sau rẽ chưa có trong binary1.45.0; cần build/phát hành khi người dùng yêu cầu.
 - **21.78/21.79 đã phát hành1.45.0:** không còn phần cài đặt đồ họa chờ build. Hai lỗi pipeline outputcũ/importer đã sửa; dùng builder mới và GPUformat ổn định. Server8771 đã dừng; Unity Edit/scene sạch/jobs khóa.
 - **21.70/21.72–21.74 đã phát hành1.43.0:** không còn tính năng này chờ build. Khi sửaPetshop dùng generator/installer hiện hành, không chạy công cụ dựng phố/cầu cũ. Cấu hình1024MB là lịch sử1.43.0; hiện dùng128/512MiB+GPUcompression/growth10%/cap32MiB theo21.77. Khôngpháthành lại rawartifactlỗiOOM ở21.75.
 - **21.69 đã phát hành1.42.0:** không còn phần tối ưu chờ build; không tự hạ DPR/texture/bóng để tăng FPS. Phép đo là Editor/camera readback và browser giả lập; chưa đo Safari/điện thoại thật. Các probe shadow/instancing chỉ thử tạm, không áp dụng.
@@ -108,6 +114,7 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 | Điều khiển, đổi làn, camera, HUD | 2.2, 12, 21.55/21.60 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs` |
 | Giao thông, va chạm, văng/té | 7, 21.33 | `PhoVietTraffic.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs` |
 | Quái xế, xe tải ngủ gật | 2.4, 7.2 | `PhoVietReckless.cs` |
+| Đợt Dino→Tank sau cua, vị trí giao lộ, chờ2s/pool | **21.80**,21.62/21.38 | `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `PhoVietDinosaurs.cs`, `PhoVietTankFire.cs`, `AgentScripts/VerifyTurnHazards.cs`, `CaptureTurnHazards.cs` |
 | Khủng long, rig/quất đuôi, nhảy né | 2.12, 7.5, 21.62 | `PhoVietDinosaurs.cs`, `DinosaurVisual.cs`, `Editor/PhoVietDinosaurUpgrade.cs`, `pho_viet_dinosaur.py` |
 | Xe tăng, đạn pháo | 21.38–21.40 | `PhoVietTankFire.cs`, `Editor/PhoVietTankFxUpgrade.cs` |
 | Đạp, CSGT, bị bắt | 8 | `PhoVietActions.cs`, `PhoVietKickAssist.cs`, `PhoVietPolice.cs`, `PhoVietCrashPoliceNavigation.cs` |

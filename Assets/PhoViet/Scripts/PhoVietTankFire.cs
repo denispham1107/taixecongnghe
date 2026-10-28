@@ -65,11 +65,13 @@ namespace PhoViet
   public static float TankFireIntervalAt(float speed)=>Mathf.Max(TankFireIntervalMin,Mathf.Lerp(TankFireInterval,TankFireIntervalMin,Mathf.InverseLerp(17,30,speed)));
   public float CurrentTankFireInterval=>TankFireIntervalAt(Speed);
   public TrafficVehicle SpawnScheduledTank()
+  {return SpawnTankAt(null);}
+  TrafficVehicle SpawnTankAt(float? junctionZ)
   {
    int first=rng.Next(2);
    for(int attempt=0;attempt<2;attempt++)
    {
-    int lane=(first+attempt)%2;float z=122+(float)rng.NextDouble()*8;
+    int lane=(first+attempt)%2;float z=junctionZ??(122+(float)rng.NextDouble()*8);
     bool clear=true;
     foreach(var o in vehicles)if(o.active&&Mathf.Abs(o.model.localPosition.x-LaneX[lane])<2.6f&&Mathf.Abs(o.model.localPosition.z-z)<14){clear=false;break;}
     if(!clear)continue;
@@ -78,6 +80,8 @@ namespace PhoViet
      var v=vehicles[i];if(v.active||v.eventOnly||RearExitReserved(v))continue;
      var meshy=v.model.GetComponent<MeshyCarVariants>();if(meshy==null)continue;
      int tank=meshy.ArmoredIndex;if(tank<0)continue;
+     var size=meshy.variants[tank].size;
+     if(junctionZ.HasValue&&!TurnTankSpace(lane,z,size.x*.5f,size.z*.5f))continue;
      meshy.PrepareVariant(tank,v);
      var spawned=SpawnTraffic(lane,z,i);
      if(spawned==null||!spawned.armored)continue;

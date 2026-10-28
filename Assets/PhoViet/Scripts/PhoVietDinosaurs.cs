@@ -28,6 +28,8 @@ namespace PhoViet
    foreach(var d in dinosaurs){d.active=false;d.root.gameObject.SetActive(false);d.hits.Clear();}
   }
   public Dinosaur SpawnDinosaur()
+  {return SpawnDinosaurAt(Mathf.Max(110,Speed*2.5f+20));}
+  Dinosaur SpawnDinosaurAt(float z)
   {
    if(!dinosaursEnabled||dinosaurPrefab==null)return null;
    Dinosaur d=dinosaurs.Find(v=>!v.active);
@@ -37,7 +39,7 @@ namespace PhoViet
     var go=Instantiate(dinosaurPrefab,transform);d=new Dinosaur{root=go.transform,visual=go.GetComponent<DinosaurVisual>()};dinosaurs.Add(d);
    }
    d.active=true;d.root.gameObject.SetActive(true);d.root.localRotation=Quaternion.Euler(0,180,0);
-   d.root.localPosition=new Vector3(0,0,Mathf.Max(110,Speed*2.5f+20)+dinosaurScroll);
+   d.root.localPosition=new Vector3(0,0,z+dinosaurScroll);
    d.hits.Clear();d.hitPolice=d.hitRider=false;d.nextSweep=0;d.visual.ResetPose();
    CopyDinosaurTail(d);DinosaursSpawned++;
    notice="KHỦNG LONG PHÍA TRƯỚC · NHẢY NÉ ĐUÔI";noticeTimer=2;

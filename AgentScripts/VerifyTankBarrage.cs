@@ -7,7 +7,7 @@ public static class VerifyTankBarrage
  public static object Main()
  {
   var g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();if(!Application.isPlaying)throw new Exception("Play Mode required");
-  float scale=Time.timeScale;bool rivers=g.riversEnabled,barrage=g.tankBarrageEnabled,random=g.randomTanks,surprises=g.trafficSurprises,danger=g.recklessTrafficEnabled,exits=g.turnExitTrafficEnabled;
+  float scale=Time.timeScale;bool dinosaurs=g.dinosaursEnabled,rivers=g.riversEnabled,barrage=g.tankBarrageEnabled,random=g.randomTanks,surprises=g.trafficSurprises,danger=g.recklessTrafficEnabled,exits=g.turnExitTrafficEnabled;
   int best=PlayerPrefs.GetInt("PhoViet.BestMetres.v1",0),coins=PlayerPrefs.GetInt("PhoViet.Coins.v1",0);
   var checks=new List<string>();var data=new List<string>();
   Action<bool,string> check=(ok,s)=>{if(!ok)throw new Exception(s);checks.Add(s);};
@@ -16,7 +16,7 @@ public static class VerifyTankBarrage
   var clear=typeof(PhoVietGame).GetMethod("ClearShells",F);
   Action prepare=()=>
   {
-   g.riversEnabled=false;g.tankBarrageEnabled=true;g.trafficSurprises=false;g.recklessTrafficEnabled=false;g.turnExitTrafficEnabled=false;
+   g.dinosaursEnabled=false;g.riversEnabled=false;g.tankBarrageEnabled=true;g.trafficSurprises=false;g.recklessTrafficEnabled=false;g.turnExitTrafficEnabled=false;
    g.RestartRide();foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}
    set("spawnTimer",10000f);set("nextIntersectionDistance",float.PositiveInfinity);
   };
@@ -130,7 +130,7 @@ public static class VerifyTankBarrage
   }
   finally
   {
-   Time.timeScale=scale;g.riversEnabled=rivers;g.tankBarrageEnabled=barrage;g.randomTanks=random;g.trafficSurprises=surprises;g.recklessTrafficEnabled=danger;g.turnExitTrafficEnabled=exits;
+   Time.timeScale=scale;g.dinosaursEnabled=dinosaurs;g.riversEnabled=rivers;g.tankBarrageEnabled=barrage;g.randomTanks=random;g.trafficSurprises=surprises;g.recklessTrafficEnabled=danger;g.turnExitTrafficEnabled=exits;
    g.ResetRide();PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.SetInt("PhoViet.Coins.v1",coins);PlayerPrefs.Save();
   }
  }

@@ -253,6 +253,7 @@ namespace PhoViet
             float nearest=float.MaxValue;foreach(var b in blocks){float z=b.localPosition.z+70;if(z>12)nearest=Mathf.Min(nearest,z);}
             nextIntersectionDistance=Distance+nearest;leftRow=oldMain;rightRow=unused;PrepareBranches(nearest);notice="ĐÃ VÀO ĐƯỜNG "+RouteStreet.ToUpperInvariant();noticeTimer=2;
             QueueExitTraffic();
+            QueueTurnHazards();
         }
         void RouteTurnHud()
         {
