@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "var g=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>(); return new{playing=UnityEngine.Application.isPlaying,compiling=UnityEditor.EditorApplication.isCompiling,building=UnityEditor.BuildPipeline.isBuildingPlayer,scene=g.gameObject.scene.path,dirty=g.gameObject.scene.isDirty,start=g.rider.localPosition,version=UnityEngine.Application.version,jobs=g.jobsEnabled,jobsReleased=PhoViet.PhoVietGame.RideJobsReleased};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": "{ playing = False, compiling = False, building = False, scene = Assets/PhoViet/Scenes/PhoViet.unity, dirty = False, start = (1.55, 0.00, 1.92), version = 1.46.0, jobs = False, jobsReleased = False }"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
