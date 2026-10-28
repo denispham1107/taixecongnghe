@@ -78,6 +78,8 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.82 đang phát hành1.46.0:** đủmobile+desktopBuildSucceeded/0lỗi,101finalscene+42repo+33site đạt/cache7b8dfa6dc4f391bd.194file source/scene/template khớp baselinef7bbce3. 26graphics+37web/offline/touch+34Gitbytechecks đạt/0runtime; 20fullscreeniPhone/iPad đạt/0runtime; localđãkiểmđủ, đangcommit/push/Pages/live. Unity3276 Edit/scene sạch, Blender không dùng; chưa tuyên bố đã lênweb. Cập nhật28/10/2026, Codex.
+
 
 
 
@@ -89,8 +91,8 @@ Cập nhật lần cuối: **28/10/2026 — Codex**
 
 > Mẫu: `Yêu cầu: … · Đã xong: … · Bước kế tiếp: … · File đang sửa: … · Unity/Blender: … · Cập nhật: <ngày giờ>, <agent>`
 
-- **21.81 chỉ source cục bộ:** phản hồi đổi làn mới chưa có trong binary1.45.0; cùng21.80 chờ người dùng yêu cầu build/phát hành.
-- **21.80 chỉ source cục bộ:** đợt khủng long/xe tăng sau rẽ chưa có trong binary1.45.0; cần build/phát hành khi người dùng yêu cầu.
+- **21.81 chỉ source cục bộ:** phản hồi đổi làn mới chưa có trong binary1.45.0; cùng21.80 đang được build/phát hành trong21.82.
+- **21.80 chỉ source cục bộ:** đợt khủng long/xe tăng sau rẽ chưa có trong binary1.45.0; đang được build/phát hành trong21.82.
 - **21.78/21.79 đã phát hành1.45.0:** không còn phần cài đặt đồ họa chờ build. Hai lỗi pipeline outputcũ/importer đã sửa; dùng builder mới và GPUformat ổn định. Server8771 đã dừng; Unity Edit/scene sạch/jobs khóa.
 - **21.70/21.72–21.74 đã phát hành1.43.0:** không còn tính năng này chờ build. Khi sửaPetshop dùng generator/installer hiện hành, không chạy công cụ dựng phố/cầu cũ. Cấu hình1024MB là lịch sử1.43.0; hiện dùng128/512MiB+GPUcompression/growth10%/cap32MiB theo21.77. Khôngpháthành lại rawartifactlỗiOOM ở21.75.
 - **21.69 đã phát hành1.42.0:** không còn phần tối ưu chờ build; không tự hạ DPR/texture/bóng để tăng FPS. Phép đo là Editor/camera readback và browser giả lập; chưa đo Safari/điện thoại thật. Các probe shadow/instancing chỉ thử tạm, không áp dụng.

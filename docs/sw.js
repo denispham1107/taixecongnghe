@@ -1,6 +1,6 @@
 'use strict';
 const PREFIX='phoviet:'+self.registration.scope+':';
-const CACHE=PREFIX+'c0f81245589b65f2';
+const CACHE=PREFIX+'7b8dfa6dc4f391bd';
 const ROOT=new URL('./',self.location.href);
 let manifestPromise;
 function manifest(){

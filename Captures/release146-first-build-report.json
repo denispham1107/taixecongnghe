@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "success": false,
+  "error": "System.InvalidOperationException: Web texture imports did not stabilize: Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Palette.png\r\n  at PhoViet.Editor.PhoVietWebMemorySettings.Apply (System.Boolean mobile) [0x002f6] in C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\Assets\\PhoViet\\Editor\\PhoVietWebMemorySettings.cs:68 \r\n  at PhoViet.Editor.PhoVietWebBuild.CompleteTextureVariants () [0x00084] in C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\Assets\\PhoViet\\Editor\\PhoVietWebBuild.cs:58 \r\n  at PhoViet.Editor.PhoVietWebBuild.Build () [0x0000a] in C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\Assets\\PhoViet\\Editor\\PhoVietWebBuild.cs:46 \r\n  at BuildWebRelease+<>c__DisplayClass3_0.<Queue>b__0 () [0x00054] in C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\AgentScripts\\BuildWebRelease.cs:32 ",
+  "totalMs": 550818
+}

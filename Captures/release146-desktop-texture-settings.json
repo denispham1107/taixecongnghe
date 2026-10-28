@@ -1,0 +1,12 @@
+{
+  "mobile": false,
+  "changed": 1,
+  "changes": [
+    {
+      "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Palette.png",
+      "format": "DXT1",
+      "size": 2048
+    }
+  ],
+  "subtarget": "Generic"
+}

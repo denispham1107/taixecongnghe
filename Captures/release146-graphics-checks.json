@@ -1,0 +1,33 @@
+{
+  "url": "http://127.0.0.1:8771/",
+  "checks": [
+    "desktop: gear opens modal with default High",
+    "desktop: Space cannot start through modal",
+    "desktop: Start API cannot bypass modal",
+    "desktop: visible choice 1",
+    "desktop: visible choice 2",
+    "desktop: visible choice 0",
+    "desktop: visible choice 1",
+    "desktop: Done returns to Ready and gear reopens",
+    "desktop: Medium survives page reload",
+    "desktop: High restored without starting game",
+    "desktop: Enter closes without triggering Start",
+    "phone: gear opens modal with default High",
+    "phone: Space cannot start through modal",
+    "phone: Start API cannot bypass modal",
+    "phone: visible choice 1",
+    "phone: visible choice 2",
+    "phone: visible choice 0",
+    "phone: visible choice 1",
+    "phone: Done returns to Ready and gear reopens",
+    "phone: Medium survives page reload",
+    "phone: modal and saved level survive landscape rotation",
+    "phone: landscape touch chooses Low",
+    "phone: portrait rotation retains Low",
+    "phone: High restored without starting game",
+    "phone: Enter closes without triggering Start",
+    "No JavaScript, WebGL or Unity runtime errors"
+  ],
+  "errors": [],
+  "success": true
+}

@@ -982,7 +982,7 @@ Các kiểm tra điện thoại/iOS bằng browser profile là **mô phỏng lay
 - `wasm2023 = false` để giữ dải tương thích Safari của dự án.
 - Bộ nhớ khởi đầu128MiB, trần512MiB từ1.44.0/21.77; tănggeometric10%, mỗi lần tốiđa32MiB. Dữ liệu đã nénGPU theo thiết bị; trần1024MiB/heap550,69MiB của1.43.0 chỉ là lịch sử, không áp dụng lại.
 - `dataCaching = false`, vì service worker phiên bản hóa chịu trách nhiệm cache thay vì hai cache độc lập.
-- Cấu hình phiên bản build hiện1.45.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
+- Cấu hình phiên bản build hiện1.46.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
 
 Hậu xử lý build tạo `precache.json`, `build-info.json`, `sw.js` đã thay mã cache và `.nojekyll`. Cache là 16 ký tự hex từ SHA-256 nội dung tài nguyên, không gán tay để làm giả một lần build mới.
 
@@ -2507,3 +2507,19 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Kiểm tra cuối:** `VerifyLaneResponse.cs` **217đạt**:36tổ hợp (MoveLane chung với bàn phím/nativeContinueSwipe/webpacket × trái/phải × thường/W × dt16,7/33,3/50ms), nhận trước nhấc tay, khôngteleport, phản hồi vị trí/yaw/bánh ngay khung đầu, đường đi đơn điệu, bước vị trí/yaw giới hạn, quãng/thời gian và trả lái. Hồi quy **182ScalePace +90MotionFX +32cua +39gestures +219đợtDino/Tank sau cua = tổng779đạt**. Các suite cũ không nới tiêu chí. Phương án thử đầu có thay đổi nhỏ đoạn cuối làm2kiểm tra thời gian60FPS thất bại; đã thay bằng gain triệt tiêu ở cuối như trên rồi chạy lại tất cả đạt. Compile0lỗi/0warning.
 - **Hình ảnh:** `CaptureLaneResponse.cs` chụp camera game ở50/150/450/1600ms, đã xem4ảnh `lane-response-*ms.png`: xe tiến sang làn, hướng thân và tư thế ổn định khi hoàn tất, không giật/nhảy vị trí. Báo cáo tổng `lane-response-regression.json`; các Captures lịch sử được sao lưu/khôi phục sau hồi quy.
 - **Bàn giao:** Unity Edit Mode/scene sạch/start(1,55;0;1,92)/jobsfalse, version vẫn1.45.0. Cập nhật cả BANGIAO và tài liệu này, commit cục bộ riêng source/test/bằng chứng. **21.81 và21.80 chưa build/push/phát hành; web vẫn1.45.0/21.79.** Giữ nguyên các thay đổi Art/Wave/Packages/Simulator ngoài phạm vi; không dùng Blender hoặc chỉnh scene/asset.
+
+
+### 21.82. Build và phát hành1.46.0 (28/10/2026, Codex — đang thực hiện)
+
+- Người dùng yêu cầu build/phát hành. Gồm toàn bộ21.80 (Dino rồiTank sau cua) và21.81 (phản hồi đầu đổi làn); baselineHEADf7bbce3, web cũ1.45.0. Đã cập nhật pinversion/helper146; đang cấu hình và kiểm scene trước build hai biến thể GPU. Giữ jobs khóa, vị trí đã lưu(1,55;0;1,92), chất lượngDPR/texture/AA/bóng và heap128/512MiB. Không dựng lại scene hoặc importAssetBlender.
+- Chưa có kết quả build/bundle/browser/commit/push/Pages cho1.46.0; sẽ ghi kết quả thật sau từng mốc. Các fileArt/Wave/Packages/Simulator/Captures lịch sử không liên quan được giữ nguyên ngoài release.
+
+- **Mốc trước build:** compile0lỗi/0warning, `VerifyRelease146Scene`101đạt; scene sạch/404dependency/10.983renderer/7.670obstacle/start1,92/jobsfalse/AA4/shadow100m và GPUformat/độphângiải đúng. ConfigureCLI hết timeout120s trong lúc44texture đang nén nhưng Editor vẫn chạy; không gọi trùng. Chờ cấu hình thật hoàn tất rồi kiểm101đạt mới queuebuild bằngBuildWebRelease.Main; queued chưa phải thành công. Dấu vân tay194file source/scene/template lưu ở`release146-source-fingerprint.json`.
+
+- **Mốc build mobile:** Succeeded461,795s/0lỗi/3warning. Lần chuyểnDXT đầu dừng vì Unity báokhôngghiđược`PV_MeshyTank_Palette.png.meta` (khôngphảifileReadOnly). Giữreportlỗi ở`release146-first-build-report.json`, xác nhậnmobileBuildReport thànhcông rồi gọientryResume; lầnnàyimportđạt vàdesktopđangbuild. Không bỏkiểmGPU hoặc giảmđồhọa để láchlỗi; chưa tínhlầnlỗi làbuildthànhcông.
+
+- **Build/đóng gói đã thành công:** mobile461,795s/0lỗi/3warning; desktop108,640s/0lỗi/1warning, Resume120,871s gồmmerge. MãWASM/framework giải nén giống nhau giữa2variant; cache cuối`7b8dfa6dc4f391bd`. `VerifyRelease146Scene`final101đạt, fingerprint194file nguồn/scene/template không đổi. `publish146.ps1`pack32MiBparts/materialize`.tools/site146`,42repo+33sitechecksđạt. Tổng193.494.172B; mỗi máy chỉ tải1data: mobile92.717.923B, desktop108.106.217B. Đang kiểmbrowserlocal, chưacommit/push/Pages.
+
+- **Browser/Git mốc1:** `VerifyGraphicsWeb`26đạt (radio thậtbằngpixel, chuột/touch, lưuqua reload, xoaydọc/ngang); `VerifyWeb`37đạt (desktop, Pixel7, hướng dẫn iOS, offlinekhởichạyWASMthật, vuốt/chạmhailần/pause, canvasfullsaurotation);0lỗiJS/Unity. Đã xemảnhgraphicsdesktop/phone2hướng vàgameplaytouch/landscape. `VerifyStagedWeb`34đạt: Gitblob/parts/cache khớp chínhgóiđãtest. Đang chạyfullscreeniPhone/iPad; chưapush/pháthành. Finalbuildwarning1làPipelinekhôngcóRuntimePipelineConfig nênMCPkhôngchạytrongPlayer, khôngphảilỗigame; lưu`release146-build-warnings.json`.
+
+- **Kiểm tra local hoàn tất:** `VerifyFullscreenGame`20đạt, iPhone/iPad dọc/ngang vớiSafeArea,0runtime. Đã xemảnh iPhone ngang/iPad dọc. Tổnglocal:101finalscene+42repo+33materialized+26settings+37web/offline/touch+20fullscreen+34index; kiểm194file nguồn giữ nguyên. Hồ sơ lưu`Captures/release146-*`. Đangcommit/push và xácminhPages; chỉtestbrowsergiảlập, chưatestSafari/Androidmáythật, khôngtuyênbốđộtrễphầncứng0ms hoặcFPSmáythật.
