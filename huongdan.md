@@ -2530,9 +2530,9 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Bàn giao cuối:** UnityEdit/khôngcompile/khôngbuild/scenesạch, start`(1,55;0;1,92)`, version1.46.0, jobsfalse/RideJobsReleased=false. DừngđúngserverPython8771/site146. GiữArt/Wave/.blend/Packages/Simulator/Captureslịchsửngoàiphạmvi; khôngreset/commitmùquáng. CậpnhậtcảBANGIAO/huongdan/READMEvàđẩybằngchứngpháthànhtrongcommitbàngiaotiếptheo (khôngđổiartifact, khôngcầnbuildlại).
 
 
-### 21.83. Thiết kế lại trang chủ và ảnh buổi sáng có sương (28/10/2026, Codex — hoàn tất local, chưa phát hành)
+### 21.83. Thiết kế lại trang chủ và ảnh buổi sáng có sương (28/10/2026, Codex — đã phát hành1.47.0/21.84)
 
-- **Phạm vi:** trang HTML trước khi tải Unity, không phải bảngWelcome IMGUI tronggame. Người dùng yêu cầu phong cách xe đua hiện tại, ảnhgame mới có sương buổi sáng, không tràn/chồngdesktop/mobile2hướng. Web chínhthức vẫn1.46.0/21.82; chưa yêu cầu phát hành thay đổi này.
+- **Phạm vi:** trang HTML trước khi tải Unity, không phải bảngWelcome IMGUI tronggame. Người dùng yêu cầu phong cách xe đua hiện tại, ảnhgame mới có sương buổi sáng, không tràn/chồngdesktop/mobile2hướng. Đã được build/phát hành1.47.0 theo yêu cầu tiếp theo, xem21.84.
 - **Nguyên nhân:** CSSlanding cũ đặtfooterabsolute lênhai cột; welcomeheight100%/nội dungvượtchiềucao vàmediaqueryngang khônggiải quyết hết. Nội dung vàposter vẫn nhânvậtáođỏ/xe máy, guide cònnóiđạp/mấtmạng/đónkhách.
 - **Thiết kế:** nềntrắngxanhsáng, chữxanhđậm/điểmnhấnxanhdương hợpBlueSupercar, CTAđỏ. Title “Phố quen. Chuyến đi mới.”; mô tảxeđua, điều khiểnQhúc/Space/W/P vàvuốt. Headerflexwrap khi cóthêminstall, main2cộtdesktop/ngangđủrộng,1cộtmobile; bodygridautoheader/minmaxgame, welcome tựcuộn. Intro/photo/figcaption/footer đềutrongflow, khôngpositionabsoluteđènhau; nhãncảnhnằmdướiảnh, khôngchecảngxe. HìnhảnhkhôngthaythếbằngảnhAI. Safeinsetsbaoquanhheader/content/footer/dialog; dialogcuộntrongviewport, đónghelp trảfocusvềnúthelptrênlanding.
 - **Ảnhchụpthật:** `CaptureLandingMorning.cs` chạyPlay từscenesaved, tạmđóngbăngthờigian/cleartraffic vàđặt3NPCthuộcpoolhiệncó, dùngrideCameraRenderkhôngHUD. Chụpmốcdaylight1,5s, MorningFog.Strength0,84375 (profile6giâyhiệnhành), xeđua/nhàcửa/thúcưng/xehiệncó. XuấtJPEG93%, `poster-morning.jpg`1920×1280/732.102B và`poster-morning-portrait.jpg`1280×900/399.810B (khungảnhthẻmobile), picturemediachọnđúngảnh. Camera/flags/time/ResetRideđượckhôiphụctrongfinally, khôngsave/rebuildscene. Đãxemảnhnguồnvàảnhlayout. LầnprobeđầulỗiserializeVector3normalizedvònglặp, đổi sangx/y/zscalar rồi chụplạiđạt; khôngtínhlầnlỗi.
@@ -2546,10 +2546,10 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Fixturefullscreen:** scriptcũđốichiếumặcđịnh`docs/`(bảnđãpháthànhcũ), nênlầnđầuđúnglàbáokhácindex. Thêmtham sốthứ4`artifactRoot`mặcđịnhvẫndocs, chạyvới`Builds/WebGL`chođúngpreview; vẫnđốichiếubyteđủ6files/giữnguyên20tiêuchí, khôngcopyđèdocsđểláchtest.
 
 - **Kết quả cuối:** `VerifyFullscreenGame`20đạt/0runtime,iPhone/iPad2hướnggiữcanvasfull/insets/khôngheaderthườngtrực. Tổng**315layout+37web/offline/touch+20fullscreen=372browserchecksđạt**; helperrefresh3đạt,ảnhmớiđúnggame/fog,5runtimefilebytegiữnguyên. KhôngtuyênbốđãtestmáySafari/Androidthật. Bằngchứng`landing-fullscreen-checks.json`, `landing-web-checks.json`, `landing-layout-checks.json`và4ảnhlayoutđãxem.
-- **Bàn giao:** UnityEdit/scenesạch/start(1,55;0;1,92)/jobsfalse/RideJobsReleased=false/version1.46.0;serverPython8783đãdừng. Source/test/ảnhmới/meta/2tàiliệulưucommitcụcbộriêng; khôngstageArt/Wave/Packages/Simulator/Captureskhác. **Khôngfullbuild/bumpversion/push/Pages; docs vàwebchínhthứcvẫn1.46.0/21.82**. PreviewBuilds/WebGL/cache6b003537ca1b174dchỉđểreview, khôngtuyênbốbảnmớipháthành.
+- **Bàn giao:** UnityEdit/scenesạch/start(1,55;0;1,92)/jobsfalse/RideJobsReleased=false/version1.46.0;serverPython8783đãdừng. Source/test/ảnhmới/meta/2tàiliệulưucommitcụcbộriêng; khôngstageArt/Wave/Packages/Simulator/Captureskhác. **Trạngtháilocaltrướckhiđượcyêucầupháthànhđãđượcthaythế: fullbuild/push/Pages1.47.0trong21.84**. PreviewBuilds/WebGL/cache6b003537ca1b174dchỉđểreview, khôngtuyênbốbảnmớipháthành.
 
 
-### 21.84. Build và phát hành1.47.0 với trang chủ mới (28/10/2026, Codex — đang thực hiện)
+### 21.84. Build và phát hành1.47.0 với trang chủ mới (28/10/2026, Codex — đã phát hành và kiểm live)
 
 - Người dùng yêu cầu build/phát hành21.83. BaselineHEADcb71f1d, web1.46.0/21.82. Bumpversionhelper147vàVerifyRelease147Scene, đangconfigure/preflightvàbuildmobile+desktop. Giữ2texturevariant/AA4/DPR/độnéthình/heap128–512MiB/start(1,55;0;1,92)/jobsfalse. KhôngstagecácthayđổiArt/Wave/Packages/Simulatorngoàiphạmvi. Chưa có kếtquảbuild/commit/push/Pagescho1.47.0; cậpnhậttheomốcởdưới.
 
@@ -2566,3 +2566,8 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Weblocal:** VerifyWeb37đạt/0runtime, gồmWASMthật/offline/touch/rotation/PWAinstall; lưurelease147-web-checks.json, đãxemlandingdesktop/phonedọc/ngang. VerifyPublishedGameđượcbổsungchụplandingtrướckhivàogameđểlưubằngchứngtrangchủwebthật, khôngđổicáctiêuchíbyte/WASM/runtime. Đangchạynốt20fullscreen.
 
 - **Localhoàntất:** 315landing+37web/offline/touch+20fullscreeniPhone/iPad2hướng=372browserchecksđạt/0JS/Unityerror;101finalscene+43repo+34site+35Gitindexđạt. Đãgiữnguyên196filenguồn/cảnh/template. Nốtchiềungang/dọcdùngSafeArea; ảnhtrangchủmớiđãxem. Chuẩnbịcommit/push vàxácminhPages/live, chưađánhdấuwebđãcậpnhật.
+
+- **Đãpush:** releasecommit`ec06629`lênmain, gồmcb71f1d/21.83vàdocs1.47.0đãtest. UnityEdit/khôngcompile/khôngbuild/scenesạch/version1.47.0/start1,92/jobsfalse;server8771site147đãdừng. ChờPagesđúngSHAvàlivechecktrướckhiđánhdấupháthành.
+
+- **Kết quả cuối:** releasecommit`ec066294a2f4627bb33e27fdf4dc3cc7d9c69d06`, Pagesrun`40689965684`success, cache`d26fbf3bf46d9ea7`, URL`https://denispham1107.github.io/taixecongnghe/`. `VerifyPublishedGame`**28đạt/0JS/Unityruntimeerror**: version/cache/2data/WASM/framework/shell/icon/2ảnhmớibytekhớplocal,gameWASMthậtStart/Pauseđược. Đãxemảnh`release147-live-landing.png`(trangchủmới) và`release147-live.png`(gameđãchạy). Lưu`release147-live-results.json`/`release147-pages.json`. Cácmốcchờởtrênlànhậtkýtrongquátrình, khôngcònviệcchưaxong.
+- **Bàn giao cuối:** UnityEdit/khôngcompile/khôngbuild/scenesạch/start(1,55;0;1,92)/jobsfalse/RideJobsReleased=false/version1.47.0;server8771site147đãdừng. Tài liệuBANGIAO/huongdan/READMEvàevidencelivecommit/pushbàngiaotiếptheo, khôngđổiartifact/khôngcầnbuildlại. GiữArt/Wave/.blend/Packages/Simulator/Captureslịchsửkhôngliênquan. Trangchủ21.83khôngcònchờpháthành; khôngtuyênbốđãtestSafari/Androidmáythật.
