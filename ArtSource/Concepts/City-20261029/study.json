@@ -1,0 +1,234 @@
+{
+  "approval_required": true,
+  "approved": false,
+  "unity_installed": false,
+  "prefix": "PV86_",
+  "original": {
+    "scene": "Scene",
+    "objects": 0,
+    "filepath": ""
+  },
+  "style": "colourful modern shop-houses, navy structural frames, illuminated warm shop windows, striped awnings, playful pet billboards",
+  "building_families": [
+    {
+      "collection": "PV86_House_00_pho",
+      "business": "pho",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 19.2,
+      "base_triangles": 3799
+    },
+    {
+      "collection": "PV86_House_01_tea",
+      "business": "tea",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 22.2,
+      "base_triangles": 4400
+    },
+    {
+      "collection": "PV86_House_02_bread",
+      "business": "bread",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 19.2,
+      "base_triangles": 3860
+    },
+    {
+      "collection": "PV86_House_03_grocery",
+      "business": "grocery",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 16.2,
+      "base_triangles": 3224
+    },
+    {
+      "collection": "PV86_House_04_pharmacy",
+      "business": "pharmacy",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 22.2,
+      "base_triangles": 4716
+    },
+    {
+      "collection": "PV86_House_05_garage",
+      "business": "garage",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 16.2,
+      "base_triangles": 3224
+    },
+    {
+      "collection": "PV86_House_06_coffee",
+      "business": "coffee",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 19.2,
+      "base_triangles": 3799
+    },
+    {
+      "collection": "PV86_House_07_rice",
+      "business": "rice",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 19.2,
+      "base_triangles": 3812
+    },
+    {
+      "collection": "PV86_House_08_noodle",
+      "business": "noodle",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 22.2,
+      "base_triangles": 4064
+    },
+    {
+      "collection": "PV86_House_09_soup",
+      "business": "soup",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 16.2,
+      "base_triangles": 3224
+    },
+    {
+      "collection": "PV86_House_10_juice",
+      "business": "juice",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 19.2,
+      "base_triangles": 3812
+    },
+    {
+      "collection": "PV86_House_11_bakery",
+      "business": "bakery",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 22.2,
+      "base_triangles": 4064
+    },
+    {
+      "collection": "PV86_House_12_petshop",
+      "business": "petshop",
+      "width": 8.36,
+      "depth": 7.8,
+      "height": 19.2,
+      "base_triangles": 8723
+    },
+    {
+      "collection": "PV86_House_06_coffee_Corner",
+      "business": "coffee",
+      "width": 10.8,
+      "depth": 7.8,
+      "height": 19.2,
+      "base_triangles": 4339
+    },
+    {
+      "collection": "PV86_House_12_petshop_Corner",
+      "business": "petshop",
+      "width": 10.8,
+      "depth": 7.8,
+      "height": 19.2,
+      "base_triangles": 9263
+    },
+    {
+      "collection": "PV86_River_Apartment_00",
+      "business": "corner_or_river",
+      "width": 16.72,
+      "depth": 3,
+      "height": 22.5,
+      "base_triangles": 6864
+    },
+    {
+      "collection": "PV86_River_Apartment_01",
+      "business": "corner_or_river",
+      "width": 16.72,
+      "depth": 3,
+      "height": 25.5,
+      "base_triangles": 8592
+    },
+    {
+      "collection": "PV86_River_Apartment_02",
+      "business": "corner_or_river",
+      "width": 16.72,
+      "depth": 3,
+      "height": 28.5,
+      "base_triangles": 9000
+    },
+    {
+      "collection": "PV86_River_Apartment_03",
+      "business": "corner_or_river",
+      "width": 16.72,
+      "depth": 3,
+      "height": 31.5,
+      "base_triangles": 10944
+    }
+  ],
+  "trees": {
+    "source": "ArtSource/Blender/PhoViet_SaigonStreets.blend",
+    "geometry_unchanged": true,
+    "sources": {
+      "PV_StreetTree0_LOD0": 35978,
+      "PV_StreetTree1_LOD0": 35978,
+      "PV_StreetTree2_LOD0": 35978
+    }
+  },
+  "renders": [
+    {
+      "name": "street-wide",
+      "scene": "PV86_Street_Preview",
+      "camera": "PV86_Street_Wide",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "name": "street-portrait",
+      "scene": "PV86_Street_Preview",
+      "camera": "PV86_Street_Portrait",
+      "size": [
+        1080,
+        1600
+      ]
+    },
+    {
+      "name": "petshop-detail",
+      "scene": "PV86_Street_Preview",
+      "camera": "PV86_Petshop_Detail",
+      "size": [
+        1600,
+        1200
+      ]
+    },
+    {
+      "name": "architecture-close",
+      "scene": "PV86_Street_Preview",
+      "camera": "PV86_Architecture_Close",
+      "size": [
+        1600,
+        1200
+      ]
+    },
+    {
+      "name": "building-catalogue",
+      "scene": "PV86_Building_Catalogue",
+      "camera": "PV86_Catalogue",
+      "size": [
+        2100,
+        1500
+      ]
+    },
+    {
+      "name": "riverside",
+      "scene": "PV86_Riverside_Preview",
+      "camera": "PV86_River",
+      "size": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "refinement": "Font vertical fit; glass highlight suppression; reduced facade fill; original player car visible; foreground buildings close blank row ends.",
+  "main_row_petshops": 9,
+  "main_row_shops": 30
+}

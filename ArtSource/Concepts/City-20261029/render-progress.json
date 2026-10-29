@@ -1,0 +1,61 @@
+{
+  "status": "completed",
+  "completed": [
+    {
+      "name": "street-wide",
+      "path": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\ArtSource\\Concepts\\City-20261029\\street-wide.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 2715902
+    },
+    {
+      "name": "street-portrait",
+      "path": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\ArtSource\\Concepts\\City-20261029\\street-portrait.png",
+      "size": [
+        1080,
+        1600
+      ],
+      "bytes": 1985089
+    },
+    {
+      "name": "petshop-detail",
+      "path": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\ArtSource\\Concepts\\City-20261029\\petshop-detail.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "bytes": 2430814
+    },
+    {
+      "name": "architecture-close",
+      "path": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\ArtSource\\Concepts\\City-20261029\\architecture-close.png",
+      "size": [
+        1600,
+        1200
+      ],
+      "bytes": 2492320
+    },
+    {
+      "name": "building-catalogue",
+      "path": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\ArtSource\\Concepts\\City-20261029\\building-catalogue.png",
+      "size": [
+        2100,
+        1500
+      ],
+      "bytes": 3268576
+    },
+    {
+      "name": "riverside",
+      "path": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe\\ArtSource\\Concepts\\City-20261029\\riverside.png",
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 2182715
+    }
+  ],
+  "remaining": 0,
+  "seconds": 306.06
+}

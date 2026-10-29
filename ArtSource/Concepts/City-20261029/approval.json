@@ -1,0 +1,8 @@
+{
+  "approval_required_before_game_change": true,
+  "approved": false,
+  "installed_in_unity": false,
+  "published_game_version": "1.47.0",
+  "scope": "buildings only; existing trees unchanged",
+  "bridge_selection": "still pending separately"
+}

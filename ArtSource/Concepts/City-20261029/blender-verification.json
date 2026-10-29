@@ -1,0 +1,338 @@
+{
+  "passed": 42,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Original scene still empty",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Original unsaved filepath retained",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Three isolated scenes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Collection PV86_House_00_pho",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_00_pho",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_01_tea",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_01_tea",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_02_bread",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_02_bread",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_03_grocery",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_03_grocery",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_04_pharmacy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_04_pharmacy",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_05_garage",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_05_garage",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_06_coffee",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_06_coffee",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_07_rice",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_07_rice",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_08_noodle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_08_noodle",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_09_soup",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_09_soup",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_10_juice",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_10_juice",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_11_bakery",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_11_bakery",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_12_petshop",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_12_petshop",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_06_coffee_Corner",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_06_coffee_Corner",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_House_12_petshop_Corner",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Main name vertical fit PV86_House_12_petshop_Corner",
+      "passed": true,
+      "detail": {
+        "height": 0.02199999988079071,
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "name": "Collection PV86_River_Apartment_00",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Collection PV86_River_Apartment_01",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Collection PV86_River_Apartment_02",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Collection PV86_River_Apartment_03",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Existing tree shared mesh 0",
+      "passed": true,
+      "detail": {
+        "clones": 23,
+        "vertices": 35978
+      }
+    },
+    {
+      "name": "Existing tree shared mesh 1",
+      "passed": true,
+      "detail": {
+        "clones": 10,
+        "vertices": 35978
+      }
+    },
+    {
+      "name": "Existing tree shared mesh 2",
+      "passed": true,
+      "detail": {
+        "clones": 10,
+        "vertices": 35978
+      }
+    },
+    {
+      "name": "Main rows 9 of 30 Petshops",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "All file textures packed",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "render_settings": {
+    "taa_samples": 16,
+    "taa_render_samples": 32,
+    "volumetric_samples": 64,
+    "volumetric_sample_distribution": 0.800000011920929,
+    "volumetric_shadow_samples": 16
+  },
+  "active_scene": "PV86_Street_Preview"
+}

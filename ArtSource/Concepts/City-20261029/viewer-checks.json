@@ -1,0 +1,119 @@
+{
+  "passed": true,
+  "viewports": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "overflow": false,
+      "images": [
+        {
+          "src": "street-wide.png",
+          "loaded": true
+        },
+        {
+          "src": "petshop-detail.png",
+          "loaded": true
+        },
+        {
+          "src": "riverside.png",
+          "loaded": true
+        },
+        {
+          "src": "street-portrait.png",
+          "loaded": true
+        },
+        {
+          "src": "architecture-close.png",
+          "loaded": true
+        },
+        {
+          "src": "building-catalogue.png",
+          "loaded": true
+        },
+        {
+          "src": "reference.jpg",
+          "loaded": true
+        }
+      ],
+      "cards": 6
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "overflow": false,
+      "images": [
+        {
+          "src": "street-wide.png",
+          "loaded": true
+        },
+        {
+          "src": "petshop-detail.png",
+          "loaded": true
+        },
+        {
+          "src": "riverside.png",
+          "loaded": true
+        },
+        {
+          "src": "street-portrait.png",
+          "loaded": true
+        },
+        {
+          "src": "architecture-close.png",
+          "loaded": true
+        },
+        {
+          "src": "building-catalogue.png",
+          "loaded": true
+        },
+        {
+          "src": "reference.jpg",
+          "loaded": true
+        }
+      ],
+      "cards": 6
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "overflow": false,
+      "images": [
+        {
+          "src": "street-wide.png",
+          "loaded": true
+        },
+        {
+          "src": "petshop-detail.png",
+          "loaded": true
+        },
+        {
+          "src": "riverside.png",
+          "loaded": true
+        },
+        {
+          "src": "street-portrait.png",
+          "loaded": true
+        },
+        {
+          "src": "architecture-close.png",
+          "loaded": true
+        },
+        {
+          "src": "building-catalogue.png",
+          "loaded": true
+        },
+        {
+          "src": "reference.jpg",
+          "loaded": true
+        }
+      ],
+      "cards": 6
+    }
+  ]
+}

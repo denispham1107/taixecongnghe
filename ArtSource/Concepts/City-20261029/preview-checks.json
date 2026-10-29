@@ -1,0 +1,216 @@
+{
+  "passed": 34,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Approval remains pending",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Nineteen building families",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Thirteen standard shops",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Two corner houses",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Four river apartment blocks",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Trees retained",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_00_pho",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_01_tea",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_02_bread",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_03_grocery",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_04_pharmacy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_05_garage",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_06_coffee",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_07_rice",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_08_noodle",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_09_soup",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_10_juice",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_11_bakery",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_12_petshop",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_06_coffee_Corner",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_House_12_petshop_Corner",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_River_Apartment_00",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_River_Apartment_01",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_River_Apartment_02",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Valid dimensions PV86_River_Apartment_03",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Image street-wide",
+      "passed": true,
+      "detail": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 2715902
+      }
+    },
+    {
+      "name": "Image street-portrait",
+      "passed": true,
+      "detail": {
+        "size": [
+          1080,
+          1600
+        ],
+        "bytes": 1985089
+      }
+    },
+    {
+      "name": "Image petshop-detail",
+      "passed": true,
+      "detail": {
+        "size": [
+          1600,
+          1200
+        ],
+        "bytes": 2430814
+      }
+    },
+    {
+      "name": "Image architecture-close",
+      "passed": true,
+      "detail": {
+        "size": [
+          1600,
+          1200
+        ],
+        "bytes": 2492320
+      }
+    },
+    {
+      "name": "Image building-catalogue",
+      "passed": true,
+      "detail": {
+        "size": [
+          2100,
+          1500
+        ],
+        "bytes": 3268576
+      }
+    },
+    {
+      "name": "Image riverside",
+      "passed": true,
+      "detail": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 2182715
+      }
+    },
+    {
+      "name": "Python syntax build_city_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Python syntax render_city_study.py",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Protected game files unchanged",
+      "passed": true,
+      "detail": {
+        "count": 3104,
+        "changed": [],
+        "added": []
+      }
+    }
+  ]
+}

@@ -24,9 +24,12 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | Trang chủ HTML trong source | **21.83 đã có trên web1.47.0:** giao diện trắng–xanh/ảnhxeđua sángcósương, hếtchồng315kiểmtra12viewport; thêm37web+20fullscreen/0runtime;1.47.0có28liveđạt |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ trong source | **21.80 đã có trên web1.46.0:** hết cua → Dino ở giao lộ phía trước → Tank sau2s; giữ lịch10s/9s.389kiểmtra đạt/2ảnhđãxem; xem huongdan21.80 |
+| Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.86 bộ nhà Blender đã dựng xong, chờ duyệt:**19mẫu(13tiệm+2góc+4căn hộ),6ảnh thật vàboard/previewHTML đã xem; 42Blender+34filechecks/3viewportviewerđạt,3104filegameSHAkhôngđổi. Cây/pets/xeđua dùng nguồn hiện tại, chưaLOD/collider/Unityimport/build/push/pháthành. Fileblend/render/script ở`ArtSource/Concepts/City-20261029/`; chỉsau người dùngduyệtmớitíchhợpnhà. Chi tiếthuongdan21.86.
 
 - **21.85 dựng mẫu cầu đã xong, chờ chọn:** 3sceneBlenderA/B/C,6render1600×1000vàboard1800×1250 đãxem; kếtcấu/lan can/đènchi tiết. Chỉthamkhảo,tạingoàiAssets/khônggameimport/build/push/pháthành;2993fileAssets/config/docsđốichiếuSHAkhôngđổi. File/ảnhởArtSource/Concepts/Bridge-20261028,selectionnull/false; người dùng phải xácnhậntrướckhithaycầu. Chi tiếthuongdan21.85.
 
@@ -87,6 +90,8 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.86 chờ người dùng duyệt bộ nhà:** đãxem6rendercuối/board, file`PhoViet_NewCity_Approval.blend`, tranggallery`preview.html`, bảng`city-approval-board.png`;19mẫu/3scene, approvalfalse/installedfalse. **Chưađượcduyệt→khôngnhậpUnity/build/push/pháthành.** Câygiữnguồnhiện tại; sau duyệt phải làmLOD/gộpmesh/atlas/collider/kiểmhiệunăng. BlenderđangStreet_Preview/cameraStreet_Wide,renderđãxong306,06s;Scene gốc0/filepathtrống. MCPclientTransportclosednhưngBlender/addoncònmở; helper`call_blender_addon.py`gọiAPIaddon9876đãkiểm, khôngcàiđè/restart. 42Blender+34file/3viewportđạt,3104filegamegiữnguyên;web1.47.0. Cầu21.85vẫnchờchọnriêng.
+
 - **21.85 chờ người dùng chọn và xác nhận cầu A/B/C:** đã dựng thật BlenderMCP3mẫu/6ảnh, board`ArtSource/Concepts/Bridge-20261028/bridge-comparison.png`vàfile`PhoViet_Bridge_Concepts.blend`. A bê tông3vòm/đồng;Bvòmthépxanh;Cdâyvăng.50,4m/road6,2m/deck7,4m, chưaLOD/collider/merge. **Không tự tíchhợp hoặc đổiUnity trước xácnhận**;selection.jsonvẫnnull/false.2993filegamebytegiữnguyên,web1.47.0. BlenderđangsceneA/rootA,cácfile.blendcũkhôngđổi. Chi tiếthuongdan21.85.
 
 - **21.83–21.84 đã lênweb1.47.0**, khôngcònchờbuild/pháthành. Giữthayđổicụcbộkháckhôngliênquan; chưađoSafari/Androidmáythật.
@@ -143,6 +148,7 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | Nhảy, nóc xe, tăng tốc | 19, 21.60 | `PhoVietJump.cs`, `PhoVietBoost.cs` |
 | Giao lộ, rẽ, rebase tọa độ | 6.1, 9 | `PhoVietRoutes.cs`, `PhoVietRoadDrivers.cs`, `PhoVietExitTraffic.cs` |
 | Chọn mẫu cầu mới (chưa tích hợp) | **21.85** | `ArtSource/Concepts/Bridge-20261028/README.md`, `bridge-comparison.png/html`, `PhoViet_Bridge_Concepts.blend`, `selection.json`; chờ người dùng xác nhận |
+| Duyệt bộ nhà phố mới (chưa tích hợp) | **21.86** | `ArtSource/Concepts/City-20261029/README.md`, `preview.html`, `city-approval-board.png`, `PhoViet_NewCity_Approval.blend`, `approval.json`; chỉ sau duyệt mới thay nhà, giữ cây |
 | Sông, cầu, căn hộ ven sông, xe/CSGT rơi chìm | 21.35–21.37, 21.45–21.54, 21.63 | `PhoVietRiver.cs`, `RiverBlock.cs`, `RiverReflection.cs`, `River*.shader`, `Editor/PhoVietRiverUpgrade.cs`, `AgentScripts/VerifyRiverCrashSinking.cs` |
 | Cảnh phố, nhà, cây | 11.4, 21.19–21.28, 21.43 | `VietnamStreet.cs`, `StreetArt.cs`, `Editor/PhoVietStreetUpgrade.cs` |
 | Ngày–đêm, đèn, sương | 20, 21.41 | `PhoVietDayNight.cs`, `DayNightLighting.cs`, `MorningFog.cs`, `MorningLooks.cs` |
