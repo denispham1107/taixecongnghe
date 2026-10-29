@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **29/10/2026 — Codex**
+Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 1. Trạng thái hiện tại
 
@@ -18,7 +18,7 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | Chế độ chơi | Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
-| Điều khiển/nhảy trong source | **21.92 đã có trên web1.48.0:** đổi làn thêm10% so21.89, rate1,15×1,10=1,265 so21.65/21.81; full curve18,1423m/làn (17m/s~1,0672s;30~0,6047s;67,5~0,2688s), W giữa chừng vẫn tăng nhịp. Giữ scale0,85/nhảy21.60 |
+| Điều khiển/nhảy trong source | **21.94 chưa build:** lane pace thêm10%→1,3915; nhảy cao/vận tốc bật thêm10%, rơi vẫn22m/s²; đầu17m/s~4,00m. Giữ scale0,85/curveSpeed/W chốt lúc cất cánh. Web1.48.0 còn thông số21.92 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
 | Trang chủ HTML trong source | **21.83 đã có trên web1.47.0:** giao diện trắng–xanh/ảnhxeđua sángcósương, hếtchồng315kiểmtra12viewport; thêm37web+20fullscreen/0runtime;1.47.0có28liveđạt |
@@ -26,11 +26,13 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | Đợt bổ sung sau rẽ trong source | **21.80 đã có trên web1.46.0:** hết cua → Dino ở giao lộ phía trước → Tank sau2s; giữ lịch10s/9s.389kiểmtra đạt/2ảnhđãxem; xem huongdan21.80 |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
-| Đèn giao thông/điều hòa/biển thuê nhà | **21.92 đã có trên web1.48.0:** hai mặt signal giống nhau/cùng màu đèn, 24bảng thuê rộng/chữ+20%; AC xám trắng21.91 giữ nguyên. 201Blender+505Unity đạt,10ảnh ngày/đêm/2mặt/LOD; không tăng renderer |
+| Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. **21.94 source chưa build:** 24bảng thuê/3LOD rộng/chữ thêm20% so1.48.0 (tổng×1,44 so21.91), giữ tầng/vịtrí/màu/chiều cao bảng |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Đã có trên web1.48.0** |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.94 đã xong source/Unity, chưa build/phát hành:** bảngthuê/chữ thêm20% (BlenderMCP riêng,24part/3LOD); lane thêm10%→1,3915; nhảy cao/vận tốc bật+10%, rơi22m/s² theo lựa chọn người dùng. **193Blender+920Unity đạt**,0lỗi/warningcompile,3ảnhbảngngày/đêmđãxem;72mesh/3248refs/2779LOD0missing. SHA3106filechỉ4filegameđổidựkiến;start1,92/jobsfalse/scene sạch. Nguồn`PhoViet_Rental2194.blend`riêng, khôngđụng .blend người dùng; xemhuongdan21.94.
 
 - **21.93 đã phát hành1.48.0:** commit`a424235`/Pages`40905048845`success/cache`72d4794dd7d8a0a4`. Gồm21.87–21.92: trangtrícầu/cờ, menuPause, signal2mặt,ACxámtrắng,biểnthuê+20%,lane pace1,265. Build2variant/636,698s/0lỗi/1warningPipeline;102preflight/255source byte-stable;43repo+34site+35Gitstaged+315landing+37web+20fullscreen+28live đạt/0runtime. Đã đối chiếu toàn bộ tài nguyên trênPages và khởi độngWASM/thao tácPause thật. Chưa kiểm máy thật; giữDPR/texture/AA4/bóng/jobsfalse/start1,92. Chi tiết huongdan21.93.
 
@@ -108,6 +110,8 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.94 hoàn tất source/kiểm tra, chưa build/phát hành web.** UnityđãthoátPlay/scenesạch/start1,92/jobsfalse;BlenderMCPriêng9878 đãlưunguồn vàđóng. Webvẫn1.48.0; không cònbướcsửa/kiểmđangdở. Giữthayđổicụcbộkháckhôngliênquan ngoài commit.
+
 - **21.87–21.93 đã phát hành1.48.0**, không còn bước build/push/live đang dở. Server kiểmtra8771 đã dừng; Unity giữEdit/scenesạch/start1,92/jobsfalse. Thayđổi Art/Wave/Packages/Simulator/.blend/Captures lịch sử vẫn giữ cục bộ ngoài commit. NguồnBlender21.91 và21.92 ởphiên riêng, khôngghiđè`PhoViet_FixtureDetails.blend` đangcó sửa người dùng; không còntácvụ dựng/import đang chạy.
 
 - **21.86 chờ người dùng duyệt bộ nhà:** đãxem6rendercuối/board, file`PhoViet_NewCity_Approval.blend`, tranggallery`preview.html`, bảng`city-approval-board.png`;19mẫu/3scene, approvalfalse/installedfalse. **Chưađượcduyệt→khôngtíchhợpUnity/web.** Nguồn/render chỉthamkhảođãlưuGit,khôngđónggóivàogame. Câygiữnguồnhiện tại; sau duyệt phải làmLOD/gộpmesh/atlas/collider/kiểmhiệunăng. BlenderđangStreet_Preview/cameraStreet_Wide,renderđãxong306,06s;Scene gốc0/filepathtrống. MCPclientTransportclosednhưngBlender/addoncònmở; helper`call_blender_addon.py`gọiAPIaddon9876đãkiểm, khôngcàiđè/restart. 42Blender+34file/3viewportđạt,3104filegamegiữnguyên;tạithờiđiểmdựngweb1.47.0. Cầu21.85vẫnchờchọnriêng.
@@ -159,7 +163,7 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
 | Điểm xuất phát xe, kéo thả Edit/Play Ready | **21.76**,6.1 | `PhoVietPlayerStart.cs`, `Editor/PhoVietPlayerStartEditor.cs`, `PhoVietGame.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyPlayerStart*.cs` |
 | Menu Pause/kết thúc/về đầu phố | **21.90**, 2.1 | `PhoVietGame.cs` → `EndCard`, `TogglePause`, `ResetRide` |
-| Điều khiển, đổi làn, camera, HUD | 2.2, 12, **21.92**,21.89/21.81/21.55/21.60/21.65 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs`, `AgentScripts/VerifyLaneResponse.cs`, `VerifySupercarScalePace.cs`, `CaptureLaneResponse.cs` |
+| Điều khiển, đổi làn, camera, HUD | 2.2, 12, **21.94**,21.92/21.89/21.81/21.55/21.60/21.65 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs`, `AgentScripts/VerifyLaneResponse.cs`, `VerifySupercarScalePace.cs`, `CaptureLaneResponse.cs` |
 | Giao thông, va chạm, văng/té | 7, 21.33 | `PhoVietTraffic.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs` |
 | Quái xế, xe tải ngủ gật | 2.4, 7.2 | `PhoVietReckless.cs` |
 | Đợt Dino→Tank sau cua, vị trí giao lộ, chờ2s/pool | **21.80**,21.62/21.38 | `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `PhoVietDinosaurs.cs`, `PhoVietTankFire.cs`, `AgentScripts/VerifyTurnHazards.cs`, `CaptureTurnHazards.cs` |
@@ -170,7 +174,7 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | Giao lộ, rẽ, rebase tọa độ | 6.1, 9 | `PhoVietRoutes.cs`, `PhoVietRoadDrivers.cs`, `PhoVietExitTraffic.cs` |
 | Chọn mẫu cầu mới (chưa tích hợp) | **21.85** | `ArtSource/Concepts/Bridge-20261028/README.md`, `bridge-comparison.png/html`, `PhoViet_Bridge_Concepts.blend`, `selection.json`; chờ người dùng xác nhận |
 | Trang trí cầu hiện tại/chậuhoa/giá cờ | **21.87** | `ArtSource/Blender/pho_viet_river_bridge.py`, `patch_bridge_fixtures.py`, `PhoViet_BridgeFixtures.blend`, `Art/River/PV_RiverBridge.fbx/json`, `AgentScripts/VerifyBridgeFixtures.cs`, `CaptureBridgeFixtures.cs`; không chạy installer sông/cầu cũ |
-| Đèn giao thông, điều hòa xám trắng, bảng thuê nhà ven sông | **21.92**,21.91 | `pho_viet_fixture_details.py`, `upgrade_fixture_details.py`, `pho_viet_saigon_streets.py`, `pho_viet_river_bridge.py`, `AgentScripts/FixtureDetailsImport.cs`, `CaptureFixtureDetails.cs`;21.92 thêm`upgrade_signal_rental.py`, `PhoVietSignalFaces.cs`, `SignalRentalUpdate.cs`, `VerifySignalFaces.cs`, `CaptureSignalRental.cs`; chỉ export/import signal+river, không installer |
+| Đèn giao thông, điều hòa xám trắng, bảng thuê nhà ven sông | **21.94**,21.92/21.91 | `pho_viet_fixture_details.py`, `upgrade_fixture_details.py`, `pho_viet_saigon_streets.py`, `pho_viet_river_bridge.py`, `AgentScripts/FixtureDetailsImport.cs`, `CaptureFixtureDetails.cs`;21.92 thêm`upgrade_signal_rental.py`, `PhoVietSignalFaces.cs`, `SignalRentalUpdate.cs`, `VerifySignalFaces.cs`, `CaptureSignalRental.cs`; chỉ export/import signal+river, không installer |
 | Thanh đen cạnh cờ ban công nhà phố | **21.88** | `pho_viet_saigon_streets.py`→`flag()`, `remove_balcony_flag_poles.py`, `PhoViet_BalconyFlags.blend`, `AgentScripts/BalconyFlagCleanup.cs`, `Captures/balcony-flags-*`; chỉ8mẫu0/3/6/9 thường+Petshop |
 | Duyệt bộ nhà phố mới (chưa tích hợp) | **21.86** | `ArtSource/Concepts/City-20261029/README.md`, `preview.html`, `city-approval-board.png`, `PhoViet_NewCity_Approval.blend`, `approval.json`; chỉ sau duyệt mới thay nhà, giữ cây |
 | Sông, cầu, căn hộ ven sông, xe/CSGT rơi chìm | 21.35–21.37, 21.45–21.54, 21.63 | `PhoVietRiver.cs`, `RiverBlock.cs`, `RiverReflection.cs`, `River*.shader`, `Editor/PhoVietRiverUpgrade.cs`, `AgentScripts/VerifyRiverCrashSinking.cs` |

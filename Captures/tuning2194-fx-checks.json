@@ -1,0 +1,1227 @@
+{
+  "success": true,
+  "count": 90,
+  "failures": [],
+  "checks": [
+    "New received Blue Petshop Supercar is installed",
+    "No old player rider/bike remains",
+    "Car proportions preserved and fit a lane",
+    "Mobile geometry budget and three real LODs",
+    "Actual new wheelbase used for roof support and steering",
+    "Continuous monotonic lane path: direction=-1,W=False,dt=0.01666667",
+    "Lane change follows travelled distance and finishes: direction=-1,W=False,dt=0.01666667",
+    "No cruise/boost speed loss during lane change: direction=-1,W=False,dt=0.01666667",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=-1,W=False,dt=0.01666667",
+    "Visual and collision heading settle together: direction=-1,W=False,dt=0.01666667",
+    "Continuous monotonic lane path: direction=-1,W=False,dt=0.03333334",
+    "Lane change follows travelled distance and finishes: direction=-1,W=False,dt=0.03333334",
+    "No cruise/boost speed loss during lane change: direction=-1,W=False,dt=0.03333334",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=-1,W=False,dt=0.03333334",
+    "Visual and collision heading settle together: direction=-1,W=False,dt=0.03333334",
+    "Continuous monotonic lane path: direction=-1,W=False,dt=0.05",
+    "Lane change follows travelled distance and finishes: direction=-1,W=False,dt=0.05",
+    "No cruise/boost speed loss during lane change: direction=-1,W=False,dt=0.05",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=-1,W=False,dt=0.05",
+    "Visual and collision heading settle together: direction=-1,W=False,dt=0.05",
+    "Continuous monotonic lane path: direction=-1,W=True,dt=0.01666667",
+    "Lane change follows travelled distance and finishes: direction=-1,W=True,dt=0.01666667",
+    "No cruise/boost speed loss during lane change: direction=-1,W=True,dt=0.01666667",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=-1,W=True,dt=0.01666667",
+    "Visual and collision heading settle together: direction=-1,W=True,dt=0.01666667",
+    "Continuous monotonic lane path: direction=-1,W=True,dt=0.03333334",
+    "Lane change follows travelled distance and finishes: direction=-1,W=True,dt=0.03333334",
+    "No cruise/boost speed loss during lane change: direction=-1,W=True,dt=0.03333334",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=-1,W=True,dt=0.03333334",
+    "Visual and collision heading settle together: direction=-1,W=True,dt=0.03333334",
+    "Continuous monotonic lane path: direction=-1,W=True,dt=0.05",
+    "Lane change follows travelled distance and finishes: direction=-1,W=True,dt=0.05",
+    "No cruise/boost speed loss during lane change: direction=-1,W=True,dt=0.05",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=-1,W=True,dt=0.05",
+    "Visual and collision heading settle together: direction=-1,W=True,dt=0.05",
+    "Continuous monotonic lane path: direction=1,W=False,dt=0.01666667",
+    "Lane change follows travelled distance and finishes: direction=1,W=False,dt=0.01666667",
+    "No cruise/boost speed loss during lane change: direction=1,W=False,dt=0.01666667",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=1,W=False,dt=0.01666667",
+    "Visual and collision heading settle together: direction=1,W=False,dt=0.01666667",
+    "Continuous monotonic lane path: direction=1,W=False,dt=0.03333334",
+    "Lane change follows travelled distance and finishes: direction=1,W=False,dt=0.03333334",
+    "No cruise/boost speed loss during lane change: direction=1,W=False,dt=0.03333334",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=1,W=False,dt=0.03333334",
+    "Visual and collision heading settle together: direction=1,W=False,dt=0.03333334",
+    "Continuous monotonic lane path: direction=1,W=False,dt=0.05",
+    "Lane change follows travelled distance and finishes: direction=1,W=False,dt=0.05",
+    "No cruise/boost speed loss during lane change: direction=1,W=False,dt=0.05",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=1,W=False,dt=0.05",
+    "Visual and collision heading settle together: direction=1,W=False,dt=0.05",
+    "Continuous monotonic lane path: direction=1,W=True,dt=0.01666667",
+    "Lane change follows travelled distance and finishes: direction=1,W=True,dt=0.01666667",
+    "No cruise/boost speed loss during lane change: direction=1,W=True,dt=0.01666667",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=1,W=True,dt=0.01666667",
+    "Visual and collision heading settle together: direction=1,W=True,dt=0.01666667",
+    "Continuous monotonic lane path: direction=1,W=True,dt=0.03333334",
+    "Lane change follows travelled distance and finishes: direction=1,W=True,dt=0.03333334",
+    "No cruise/boost speed loss during lane change: direction=1,W=True,dt=0.03333334",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=1,W=True,dt=0.03333334",
+    "Visual and collision heading settle together: direction=1,W=True,dt=0.03333334",
+    "Continuous monotonic lane path: direction=1,W=True,dt=0.05",
+    "Lane change follows travelled distance and finishes: direction=1,W=True,dt=0.05",
+    "No cruise/boost speed loss during lane change: direction=1,W=True,dt=0.05",
+    "Bounded yaw/body suspension, no motorcycle bank or snaps: direction=1,W=True,dt=0.05",
+    "Visual and collision heading settle together: direction=1,W=True,dt=0.05",
+    "Interrupted lane change retains current velocity rather than snapping",
+    "Opposite input returns smoothly to requested lane",
+    "Exactly four lift nozzles",
+    "Lift engines occupy both sides",
+    "All lift sockets follow the animated car",
+    "Space/mobile jump API accepted",
+    "Four white jets ignite during takeoff windup",
+    "Car physically rises with retained speed-based jump",
+    "Lift jet has live smoke: Lift jet 0",
+    "Lift origin rises with car and emits downward: Lift jet 0",
+    "Lift jet has live smoke: Lift jet 1",
+    "Lift origin rises with car and emits downward: Lift jet 1",
+    "Lift jet has live smoke: Lift jet 2",
+    "Lift origin rises with car and emits downward: Lift jet 2",
+    "Lift jet has live smoke: Lift jet 3",
+    "Lift origin rises with car and emits downward: Lift jet 3",
+    "Pause freezes lift particles and vehicle",
+    "Jets fade after landing and car drives on",
+    "Restart clears all four lift trails",
+    "W ignites exactly two exhausts",
+    "Live white boost plume at Supercar exhaust left",
+    "Live white boost plume at Supercar exhaust right",
+    "Boost sockets are on separate left/right exhausts",
+    "Crash cancels boost/lift effects",
+    "Ride jobs remain locked"
+  ],
+  "traces": [
+    {
+      "label": "direction=-1,W=False,dt=0.01666667",
+      "done": 0.916666448,
+      "maxRoll": 1.96401858,
+      "maxYaw": 15.2668066,
+      "maxYawStep": 0.8903625,
+      "maxStep": 0.09092764,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.54728222,
+          "yaw": -0.158427,
+          "roll": 0.02545166,
+          "wheel": -1.88747537
+        },
+        {
+          "t": 0.25,
+          "x": 0.9444949,
+          "yaw": -11.2540655,
+          "roll": 1.7124939,
+          "wheel": -5.44764853
+        },
+        {
+          "t": 0.483333528,
+          "x": -0.241155416,
+          "yaw": -15.2555656,
+          "roll": 1.25610352,
+          "wheel": -0.47180137
+        },
+        {
+          "t": 0.7333333,
+          "x": -1.33150506,
+          "yaw": -12.5168295,
+          "roll": 1.01942861,
+          "wheel": 6.16929674
+        },
+        {
+          "t": 0.9666664,
+          "x": -1.55,
+          "yaw": -3.21766138,
+          "roll": 1.82485771,
+          "wheel": 2.067084
+        },
+        {
+          "t": 1.21666622,
+          "x": -1.55,
+          "yaw": -0.15946351,
+          "roll": 0.488593221,
+          "wheel": 0.03785996
+        },
+        {
+          "t": 1.44999933,
+          "x": -1.55,
+          "yaw": -0.006758194,
+          "roll": 0.09241297,
+          "wheel": 0.0009053449
+        },
+        {
+          "t": 1.68333244,
+          "x": -1.55,
+          "yaw": -0.000252101163,
+          "roll": 0.0151594812,
+          "wheel": 2.16495e-05
+        },
+        {
+          "t": 1.9333322,
+          "x": -1.55,
+          "yaw": -6.89716626e-06,
+          "roll": 0.002015067,
+          "wheel": 3.96524285e-07
+        },
+        {
+          "t": 2.16666532,
+          "x": -1.55,
+          "yaw": -2.29658454e-07,
+          "roll": 0.000292593439,
+          "wheel": 9.482081e-09
+        },
+        {
+          "t": 2.416665,
+          "x": -1.55,
+          "yaw": -5.811519e-09,
+          "roll": 3.581173e-05,
+          "wheel": 1.73670328e-10
+        },
+        {
+          "t": 2.64999819,
+          "x": -1.55,
+          "yaw": -1.8394565e-10,
+          "roll": 4.931107e-06,
+          "wheel": 4.15297657e-12
+        }
+      ]
+    },
+    {
+      "label": "direction=-1,W=False,dt=0.03333334",
+      "done": 0.900000334,
+      "maxRoll": 1.95784831,
+      "maxYaw": 15.2529163,
+      "maxYawStep": 1.76465154,
+      "maxStep": 0.1816285,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.539231,
+          "yaw": -0.8083216,
+          "roll": 0.09347534,
+          "wheel": -3.23176765
+        },
+        {
+          "t": 0.266666681,
+          "x": 0.7977481,
+          "yaw": -12.503747,
+          "roll": 1.796875,
+          "wheel": -4.85791731
+        },
+        {
+          "t": 0.5,
+          "x": -0.42141214,
+          "yaw": -15.2422819,
+          "roll": 0.960907,
+          "wheel": 0.722609162
+        },
+        {
+          "t": 0.7333335,
+          "x": -1.37435436,
+          "yaw": -11.7100887,
+          "roll": 1.22641063,
+          "wheel": 6.48973846
+        },
+        {
+          "t": 0.966667056,
+          "x": -1.55,
+          "yaw": -2.46346879,
+          "roll": 1.68349266,
+          "wheel": 1.37645531
+        },
+        {
+          "t": 1.20000017,
+          "x": -1.55,
+          "yaw": -0.141420335,
+          "roll": 0.460620821,
+          "wheel": 0.03291516
+        },
+        {
+          "t": 1.46666658,
+          "x": -1.55,
+          "yaw": -0.003715293,
+          "roll": 0.0670638457,
+          "wheel": 0.000461749121
+        },
+        {
+          "t": 1.69999969,
+          "x": -1.55,
+          "yaw": -0.000135612383,
+          "roll": 0.0108060408,
+          "wheel": 1.10418005e-05
+        },
+        {
+          "t": 1.9333328,
+          "x": -1.55,
+          "yaw": -4.650231e-06,
+          "roll": 0.00162815908,
+          "wheel": 2.64042427e-07
+        },
+        {
+          "t": 2.166666,
+          "x": -1.55,
+          "yaw": -1.53240038e-07,
+          "roll": 0.000235202737,
+          "wheel": 6.314043e-09
+        },
+        {
+          "t": 2.43333244,
+          "x": -1.55,
+          "yaw": -2.99971359e-09,
+          "roll": 2.488856e-05,
+          "wheel": 8.85763338e-11
+        },
+        {
+          "t": 2.66666555,
+          "x": -1.55,
+          "yaw": -9.400274e-11,
+          "roll": 3.41140549e-06,
+          "wheel": 2.118125e-12
+        }
+      ]
+    },
+    {
+      "label": "direction=-1,W=False,dt=0.05",
+      "done": 0.900000155,
+      "maxRoll": 1.81764209,
+      "maxYaw": 15.2409611,
+      "maxYawStep": 2.61951113,
+      "maxStep": 0.272708356,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.52598846,
+          "yaw": -1.766655,
+          "roll": 0.1923523,
+          "wheel": -4.18087673
+        },
+        {
+          "t": 0.25,
+          "x": 0.7970289,
+          "yaw": -12.6473188,
+          "roll": 1.78656,
+          "wheel": -4.74769
+        },
+        {
+          "t": 0.50000006,
+          "x": -0.5104206,
+          "yaw": -15.1781855,
+          "roll": 0.8004761,
+          "wheel": 1.42592967
+        },
+        {
+          "t": 0.7500001,
+          "x": -1.44419777,
+          "yaw": -10.15975,
+          "roll": 1.51077545,
+          "wheel": 6.73595
+        },
+        {
+          "t": 1.00000012,
+          "x": -1.55,
+          "yaw": -1.272191,
+          "roll": 1.15345633,
+          "wheel": 0.5506988
+        },
+        {
+          "t": 1.24999988,
+          "x": -1.55,
+          "yaw": -0.0517984331,
+          "roll": 0.2389666,
+          "wheel": 0.0100864
+        },
+        {
+          "t": 1.44999969,
+          "x": -1.55,
+          "yaw": -0.00328803528,
+          "roll": 0.0543586574,
+          "wheel": 0.000411143876
+        },
+        {
+          "t": 1.69999945,
+          "x": -1.55,
+          "yaw": -9.406005e-05,
+          "roll": 0.00760198245,
+          "wheel": 7.53036147e-06
+        },
+        {
+          "t": 1.94999921,
+          "x": -1.55,
+          "yaw": -2.51315987e-06,
+          "roll": 0.000989006,
+          "wheel": 1.37923379e-07
+        },
+        {
+          "t": 2.199999,
+          "x": -1.55,
+          "yaw": -6.434299e-08,
+          "roll": 0.000123053789,
+          "wheel": 2.52615462e-09
+        },
+        {
+          "t": 2.44999886,
+          "x": -1.55,
+          "yaw": -1.59989189e-09,
+          "roll": 1.48534218e-05,
+          "wheel": 4.62681352e-11
+        },
+        {
+          "t": 2.64999866,
+          "x": -1.55,
+          "yaw": -8.199568e-11,
+          "roll": 2.69292946e-06,
+          "wheel": 1.88599115e-12
+        }
+      ]
+    },
+    {
+      "label": "direction=-1,W=True,dt=0.01666667",
+      "done": 0.400000125,
+      "maxRoll": 1.38265991,
+      "maxYaw": 15.0155115,
+      "maxYawStep": 1.64994431,
+      "maxStep": 0.203442544,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.53642535,
+          "yaw": -0.34849447,
+          "roll": 0.02545166,
+          "wheel": -1.81656384
+        },
+        {
+          "t": 0.25,
+          "x": -0.748111963,
+          "yaw": -15.0155115,
+          "roll": 1.10037231,
+          "wheel": 0.8506691
+        },
+        {
+          "t": 0.483333528,
+          "x": -1.55,
+          "yaw": -4.474602,
+          "roll": 0.992642164,
+          "wheel": 1.20684206
+        },
+        {
+          "t": 0.7333333,
+          "x": -1.55,
+          "yaw": -0.211905912,
+          "roll": 0.307701439,
+          "wheel": 0.0221040789
+        },
+        {
+          "t": 0.9666664,
+          "x": -1.55,
+          "yaw": -0.008870485,
+          "roll": 0.0600153171,
+          "wheel": 0.0005285746
+        },
+        {
+          "t": 1.21666622,
+          "x": -1.55,
+          "yaw": -0.000259172753,
+          "roll": 0.00875184,
+          "wheel": 9.681179e-06
+        },
+        {
+          "t": 1.44999933,
+          "x": -1.55,
+          "yaw": -8.964138e-06,
+          "roll": 0.00133835932,
+          "wheel": 2.31505936e-07
+        },
+        {
+          "t": 1.68333244,
+          "x": -1.55,
+          "yaw": -2.97792326e-07,
+          "roll": 0.0001953169,
+          "wheel": 5.53599833e-09
+        },
+        {
+          "t": 1.9333322,
+          "x": -1.55,
+          "yaw": -7.522431e-09,
+          "roll": 2.39958244e-05,
+          "wheel": 1.01395309e-10
+        },
+        {
+          "t": 2.16666532,
+          "x": -1.55,
+          "yaw": -2.37809383e-10,
+          "roll": 3.31266e-06,
+          "wheel": 2.42466464e-12
+        },
+        {
+          "t": 2.416665,
+          "x": -1.55,
+          "yaw": -5.775479e-12,
+          "roll": 3.89714614e-07,
+          "wheel": 4.44092666e-14
+        },
+        {
+          "t": 2.64999819,
+          "x": -1.55,
+          "yaw": -1.77493016e-13,
+          "roll": 5.21706376e-08,
+          "wheel": 1.06195835e-15
+        }
+      ]
+    },
+    {
+      "label": "direction=-1,W=True,dt=0.03333334",
+      "done": 0.4,
+      "maxRoll": 1.29989624,
+      "maxYaw": 14.9487162,
+      "maxYawStep": 3.24570036,
+      "maxStep": 0.404989541,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.49685693,
+          "yaw": -1.73466229,
+          "roll": 0.09347534,
+          "wheel": -3.009824
+        },
+        {
+          "t": 0.266666681,
+          "x": -1.07651126,
+          "yaw": -14.6215792,
+          "roll": 0.5750122,
+          "wheel": 3.23671126
+        },
+        {
+          "t": 0.5,
+          "x": -1.55,
+          "yaw": -2.822194,
+          "roll": 0.845558167,
+          "wheel": 0.604807556
+        },
+        {
+          "t": 0.7333335,
+          "x": -1.55,
+          "yaw": -0.150884569,
+          "roll": 0.239275217,
+          "wheel": 0.0144627551
+        },
+        {
+          "t": 0.966667056,
+          "x": -1.55,
+          "yaw": -0.0061670905,
+          "roll": 0.04527144,
+          "wheel": 0.0003458477
+        },
+        {
+          "t": 1.20000017,
+          "x": -1.55,
+          "yaw": -0.00022515851,
+          "roll": 0.007422157,
+          "wheel": 8.270252e-06
+        },
+        {
+          "t": 1.46666658,
+          "x": -1.55,
+          "yaw": -4.75231e-06,
+          "roll": 0.000859742053,
+          "wheel": 1.16018931e-07
+        },
+        {
+          "t": 1.69999969,
+          "x": -1.55,
+          "yaw": -1.55909333e-07,
+          "roll": 0.00012439095,
+          "wheel": 2.77435919e-09
+        },
+        {
+          "t": 1.9333328,
+          "x": -1.55,
+          "yaw": -4.982015e-09,
+          "roll": 1.74768411e-05,
+          "wheel": 6.634321e-11
+        },
+        {
+          "t": 2.166666,
+          "x": -1.55,
+          "yaw": -1.56130164e-10,
+          "roll": 2.403609e-06,
+          "wheel": 1.58646436e-12
+        },
+        {
+          "t": 2.43333244,
+          "x": -1.55,
+          "yaw": -2.929851e-12,
+          "roll": 2.44140267e-07,
+          "wheel": 2.22556569e-14
+        },
+        {
+          "t": 2.66666555,
+          "x": -1.55,
+          "yaw": -8.925173e-14,
+          "roll": 3.25649125e-08,
+          "wheel": 5.321993e-16
+        }
+      ]
+    },
+    {
+      "label": "direction=-1,W=True,dt=0.05",
+      "done": 0.400000036,
+      "maxRoll": 1.12289572,
+      "maxYaw": 14.6510658,
+      "maxYawStep": 4.847328,
+      "maxStep": 0.600673437,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.43282306,
+          "yaw": -3.69088364,
+          "roll": 0.1923523,
+          "wheel": -3.771103
+        },
+        {
+          "t": 0.25,
+          "x": -1.07788455,
+          "yaw": -14.1358891,
+          "roll": 0.204193115,
+          "wheel": 3.61937284
+        },
+        {
+          "t": 0.50000006,
+          "x": -1.55,
+          "yaw": -2.10408974,
+          "roll": 0.9005145,
+          "wheel": 0.4436345
+        },
+        {
+          "t": 0.7500001,
+          "x": -1.55,
+          "yaw": -0.0862379149,
+          "roll": 0.208033726,
+          "wheel": 0.008125449
+        },
+        {
+          "t": 1.00000012,
+          "x": -1.55,
+          "yaw": -0.00271560322,
+          "roll": 0.033283487,
+          "wheel": 0.000148822786
+        },
+        {
+          "t": 1.24999988,
+          "x": -1.55,
+          "yaw": -7.648452e-05,
+          "roll": 0.00464752736,
+          "wheel": 2.72578427e-06
+        },
+        {
+          "t": 1.44999969,
+          "x": -1.55,
+          "yaw": -4.201322e-06,
+          "roll": 0.00091229385,
+          "wheel": 1.1110896e-07
+        },
+        {
+          "t": 1.69999945,
+          "x": -1.55,
+          "yaw": -1.07619933e-07,
+          "roll": 0.000114292059,
+          "wheel": 2.03503148e-09
+        },
+        {
+          "t": 1.94999921,
+          "x": -1.55,
+          "yaw": -2.676962e-09,
+          "roll": 1.38624782e-05,
+          "wheel": 3.72728966e-11
+        },
+        {
+          "t": 2.199999,
+          "x": -1.55,
+          "yaw": -6.517958e-11,
+          "roll": 1.64282108e-06,
+          "wheel": 6.82676843e-13
+        },
+        {
+          "t": 2.44999886,
+          "x": -1.55,
+          "yaw": -1.56144043e-12,
+          "roll": 1.91320652e-07,
+          "wheel": 1.25036624e-14
+        },
+        {
+          "t": 2.64999866,
+          "x": -1.55,
+          "yaw": -7.816407e-14,
+          "roll": 3.39144037e-08,
+          "wheel": 5.096769e-16
+        }
+      ]
+    },
+    {
+      "label": "direction=1,W=False,dt=0.01666667",
+      "done": 0.916666448,
+      "maxRoll": 1.96401978,
+      "maxYaw": 15.2668066,
+      "maxYawStep": 0.8903632,
+      "maxStep": 0.0909276,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.55271769,
+          "yaw": 0.15842703,
+          "roll": 0.0254366212,
+          "wheel": 1.88747561
+        },
+        {
+          "t": 0.25,
+          "x": 2.15550518,
+          "yaw": 11.2540655,
+          "roll": 1.71249032,
+          "wheel": 5.44764853
+        },
+        {
+          "t": 0.483333528,
+          "x": 3.34115529,
+          "yaw": 15.2555656,
+          "roll": 1.25611794,
+          "wheel": 0.471800953
+        },
+        {
+          "t": 0.7333333,
+          "x": 4.431505,
+          "yaw": 12.5168295,
+          "roll": 1.0194397,
+          "wheel": -6.169297
+        },
+        {
+          "t": 0.9666664,
+          "x": 4.65,
+          "yaw": 3.21766114,
+          "roll": 1.82485962,
+          "wheel": -2.06708336
+        },
+        {
+          "t": 1.21666622,
+          "x": 4.65,
+          "yaw": 0.15946351,
+          "roll": 0.488586426,
+          "wheel": -0.03785995
+        },
+        {
+          "t": 1.44999933,
+          "x": 4.65,
+          "yaw": 0.006758194,
+          "roll": 0.09240723,
+          "wheel": -0.0009053446
+        },
+        {
+          "t": 1.68333244,
+          "x": 4.65,
+          "yaw": 0.000252101163,
+          "roll": 0.0151672363,
+          "wheel": -2.16494955e-05
+        },
+        {
+          "t": 1.9333322,
+          "x": 4.65,
+          "yaw": 6.89716626e-06,
+          "roll": 0.00201416016,
+          "wheel": -3.96524285e-07
+        },
+        {
+          "t": 2.16666532,
+          "x": 4.65,
+          "yaw": 2.29658454e-07,
+          "roll": 0.000305175781,
+          "wheel": -9.482081e-09
+        },
+        {
+          "t": 2.416665,
+          "x": 4.65,
+          "yaw": 5.811519e-09,
+          "roll": 3.05175781e-05,
+          "wheel": -1.73670328e-10
+        },
+        {
+          "t": 2.64999819,
+          "x": 4.65,
+          "yaw": 1.8394565e-10,
+          "roll": 0,
+          "wheel": -4.15297657e-12
+        }
+      ]
+    },
+    {
+      "label": "direction=1,W=False,dt=0.03333334",
+      "done": 0.900000334,
+      "maxRoll": 1.95785522,
+      "maxYaw": 15.2529163,
+      "maxYawStep": 1.76465154,
+      "maxStep": 0.1816287,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.560769,
+          "yaw": 0.8083217,
+          "roll": 0.0934814662,
+          "wheel": 3.23176813
+        },
+        {
+          "t": 0.266666681,
+          "x": 2.30225182,
+          "yaw": 12.5037489,
+          "roll": 1.79686546,
+          "wheel": 4.85791731
+        },
+        {
+          "t": 0.5,
+          "x": 3.52141213,
+          "yaw": 15.2422819,
+          "roll": 0.960920632,
+          "wheel": -0.7226097
+        },
+        {
+          "t": 0.7333335,
+          "x": 4.47435427,
+          "yaw": 11.7100887,
+          "roll": 1.22640991,
+          "wheel": -6.48973942
+        },
+        {
+          "t": 0.966667056,
+          "x": 4.65,
+          "yaw": 2.46346784,
+          "roll": 1.6835022,
+          "wheel": -1.37645519
+        },
+        {
+          "t": 1.20000017,
+          "x": 4.65,
+          "yaw": 0.14142029,
+          "roll": 0.460632324,
+          "wheel": -0.0329151526
+        },
+        {
+          "t": 1.46666658,
+          "x": 4.65,
+          "yaw": 0.00371529162,
+          "roll": 0.06707764,
+          "wheel": -0.000461748976
+        },
+        {
+          "t": 1.69999969,
+          "x": 4.65,
+          "yaw": 0.000135612325,
+          "roll": 0.0108032227,
+          "wheel": -1.10417968e-05
+        },
+        {
+          "t": 1.9333328,
+          "x": 4.65,
+          "yaw": 4.650231e-06,
+          "roll": 0.00161743164,
+          "wheel": -2.64042342e-07
+        },
+        {
+          "t": 2.166666,
+          "x": 4.65,
+          "yaw": 1.532401e-07,
+          "roll": 0.000244140625,
+          "wheel": -6.31404129e-09
+        },
+        {
+          "t": 2.43333244,
+          "x": 4.65,
+          "yaw": 2.99971448e-09,
+          "roll": 3.05175781e-05,
+          "wheel": -8.857629e-11
+        },
+        {
+          "t": 2.66666555,
+          "x": 4.65,
+          "yaw": 9.40027153e-11,
+          "roll": 0,
+          "wheel": -2.1181236e-12
+        }
+      ]
+    },
+    {
+      "label": "direction=1,W=False,dt=0.05",
+      "done": 0.900000155,
+      "maxRoll": 1.817627,
+      "maxYaw": 15.2409611,
+      "maxYawStep": 2.61951113,
+      "maxStep": 0.272708416,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.57401145,
+          "yaw": 1.76665533,
+          "roll": 0.192353532,
+          "wheel": 4.180877
+        },
+        {
+          "t": 0.25,
+          "x": 2.30297112,
+          "yaw": 12.6473188,
+          "roll": 1.786561,
+          "wheel": 4.74769
+        },
+        {
+          "t": 0.50000006,
+          "x": 3.6104207,
+          "yaw": 15.1781855,
+          "roll": 0.8004653,
+          "wheel": -1.42593
+        },
+        {
+          "t": 0.7500001,
+          "x": 4.54419756,
+          "yaw": 10.159749,
+          "roll": 1.51077271,
+          "wheel": -6.73595
+        },
+        {
+          "t": 1.00000012,
+          "x": 4.65,
+          "yaw": 1.27219069,
+          "roll": 1.15344238,
+          "wheel": -0.5506986
+        },
+        {
+          "t": 1.24999988,
+          "x": 4.65,
+          "yaw": 0.0517984219,
+          "roll": 0.238952637,
+          "wheel": -0.0100863958
+        },
+        {
+          "t": 1.44999969,
+          "x": 4.65,
+          "yaw": 0.00328803482,
+          "roll": 0.0543518066,
+          "wheel": -0.00041114373
+        },
+        {
+          "t": 1.69999945,
+          "x": 4.65,
+          "yaw": 9.406001e-05,
+          "roll": 0.007598877,
+          "wheel": -7.53035965e-06
+        },
+        {
+          "t": 1.94999921,
+          "x": 4.65,
+          "yaw": 2.51315737e-06,
+          "roll": 0.0009765625,
+          "wheel": -1.37923337e-07
+        },
+        {
+          "t": 2.199999,
+          "x": 4.65,
+          "yaw": 6.434288e-08,
+          "roll": 0.000122070313,
+          "wheel": -2.52615373e-09
+        },
+        {
+          "t": 2.44999886,
+          "x": 4.65,
+          "yaw": 1.59988744e-09,
+          "roll": 0,
+          "wheel": -4.62681178e-11
+        },
+        {
+          "t": 2.64999866,
+          "x": 4.65,
+          "yaw": 8.19954e-11,
+          "roll": 0,
+          "wheel": -1.88599028e-12
+        }
+      ]
+    },
+    {
+      "label": "direction=1,W=True,dt=0.01666667",
+      "done": 0.400000125,
+      "maxRoll": 1.38265157,
+      "maxYaw": 15.0155115,
+      "maxYawStep": 1.64994431,
+      "maxStep": 0.203442574,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.56357455,
+          "yaw": 0.34849453,
+          "roll": 0.0254366212,
+          "wheel": 1.81656408
+        },
+        {
+          "t": 0.25,
+          "x": 3.84811187,
+          "yaw": 15.0155115,
+          "roll": 1.10036421,
+          "wheel": -0.850669563
+        },
+        {
+          "t": 0.483333528,
+          "x": 4.65,
+          "yaw": 4.474602,
+          "roll": 0.992645264,
+          "wheel": -1.20684183
+        },
+        {
+          "t": 0.7333333,
+          "x": 4.65,
+          "yaw": 0.211905912,
+          "roll": 0.30770874,
+          "wheel": -0.0221040752
+        },
+        {
+          "t": 0.9666664,
+          "x": 4.65,
+          "yaw": 0.008870485,
+          "roll": 0.0600280762,
+          "wheel": -0.0005285745
+        },
+        {
+          "t": 1.21666622,
+          "x": 4.65,
+          "yaw": 0.000259172753,
+          "roll": 0.008758545,
+          "wheel": -9.681178e-06
+        },
+        {
+          "t": 1.44999933,
+          "x": 4.65,
+          "yaw": 8.964138e-06,
+          "roll": 0.00134277344,
+          "wheel": -2.31505922e-07
+        },
+        {
+          "t": 1.68333244,
+          "x": 4.65,
+          "yaw": 2.97792326e-07,
+          "roll": 0.000183105469,
+          "wheel": -5.53599833e-09
+        },
+        {
+          "t": 1.9333322,
+          "x": 4.65,
+          "yaw": 7.522431e-09,
+          "roll": 3.05175781e-05,
+          "wheel": -1.01395309e-10
+        },
+        {
+          "t": 2.16666532,
+          "x": 4.65,
+          "yaw": 2.37809383e-10,
+          "roll": 0,
+          "wheel": -2.42466464e-12
+        },
+        {
+          "t": 2.416665,
+          "x": 4.65,
+          "yaw": 5.775479e-12,
+          "roll": 0,
+          "wheel": -4.44092666e-14
+        },
+        {
+          "t": 2.64999819,
+          "x": 4.65,
+          "yaw": 1.77493016e-13,
+          "roll": 0,
+          "wheel": -1.06195835e-15
+        }
+      ]
+    },
+    {
+      "label": "direction=1,W=True,dt=0.03333334",
+      "done": 0.4,
+      "maxRoll": 1.29990327,
+      "maxYaw": 14.9487162,
+      "maxYawStep": 3.2457,
+      "maxStep": 0.404989481,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.603143,
+          "yaw": 1.73466253,
+          "roll": 0.09348146,
+          "wheel": 3.009824
+        },
+        {
+          "t": 0.266666681,
+          "x": 4.17651129,
+          "yaw": 14.6215792,
+          "roll": 0.5750235,
+          "wheel": -3.23671174
+        },
+        {
+          "t": 0.5,
+          "x": 4.65,
+          "yaw": 2.822194,
+          "roll": 0.845550537,
+          "wheel": -0.6048075
+        },
+        {
+          "t": 0.7333335,
+          "x": 4.65,
+          "yaw": 0.150884569,
+          "roll": 0.23928833,
+          "wheel": -0.0144627551
+        },
+        {
+          "t": 0.966667056,
+          "x": 4.65,
+          "yaw": 0.0061670905,
+          "roll": 0.04525757,
+          "wheel": -0.0003458477
+        },
+        {
+          "t": 1.20000017,
+          "x": 4.65,
+          "yaw": 0.00022515851,
+          "roll": 0.00741577148,
+          "wheel": -8.270252e-06
+        },
+        {
+          "t": 1.46666658,
+          "x": 4.65,
+          "yaw": 4.75231e-06,
+          "roll": 0.0008544922,
+          "wheel": -1.16018931e-07
+        },
+        {
+          "t": 1.69999969,
+          "x": 4.65,
+          "yaw": 1.55909333e-07,
+          "roll": 0.000122070313,
+          "wheel": -2.77435919e-09
+        },
+        {
+          "t": 1.9333328,
+          "x": 4.65,
+          "yaw": 4.982015e-09,
+          "roll": 3.05175781e-05,
+          "wheel": -6.634321e-11
+        },
+        {
+          "t": 2.166666,
+          "x": 4.65,
+          "yaw": 1.56130164e-10,
+          "roll": 0,
+          "wheel": -1.58646436e-12
+        },
+        {
+          "t": 2.43333244,
+          "x": 4.65,
+          "yaw": 2.929851e-12,
+          "roll": 0,
+          "wheel": -2.22556569e-14
+        },
+        {
+          "t": 2.66666555,
+          "x": 4.65,
+          "yaw": 8.925173e-14,
+          "roll": 0,
+          "wheel": -5.321993e-16
+        }
+      ]
+    },
+    {
+      "label": "direction=1,W=True,dt=0.05",
+      "done": 0.400000036,
+      "maxRoll": 1.12289429,
+      "maxYaw": 14.6510658,
+      "maxYawStep": 4.847328,
+      "maxStep": 0.600673437,
+      "samples": [
+        {
+          "t": 0,
+          "x": 1.66717684,
+          "yaw": 3.69088459,
+          "roll": 0.192353517,
+          "wheel": 3.77110314
+        },
+        {
+          "t": 0.25,
+          "x": 4.17788458,
+          "yaw": 14.1358891,
+          "roll": 0.204193592,
+          "wheel": -3.619373
+        },
+        {
+          "t": 0.50000006,
+          "x": 4.65,
+          "yaw": 2.10408974,
+          "roll": 0.9005127,
+          "wheel": -0.4436345
+        },
+        {
+          "t": 0.7500001,
+          "x": 4.65,
+          "yaw": 0.0862379149,
+          "roll": 0.20803833,
+          "wheel": -0.008125449
+        },
+        {
+          "t": 1.00000012,
+          "x": 4.65,
+          "yaw": 0.00271560322,
+          "roll": 0.0332946777,
+          "wheel": -0.000148822786
+        },
+        {
+          "t": 1.24999988,
+          "x": 4.65,
+          "yaw": 7.648452e-05,
+          "roll": 0.004638672,
+          "wheel": -2.72578427e-06
+        },
+        {
+          "t": 1.44999969,
+          "x": 4.65,
+          "yaw": 4.201322e-06,
+          "roll": 0.000915527344,
+          "wheel": -1.1110896e-07
+        },
+        {
+          "t": 1.69999945,
+          "x": 4.65,
+          "yaw": 1.07619933e-07,
+          "roll": 0.000122070313,
+          "wheel": -2.03503148e-09
+        },
+        {
+          "t": 1.94999921,
+          "x": 4.65,
+          "yaw": 2.676962e-09,
+          "roll": 0,
+          "wheel": -3.72728966e-11
+        },
+        {
+          "t": 2.199999,
+          "x": 4.65,
+          "yaw": 6.517958e-11,
+          "roll": 0,
+          "wheel": -6.82676843e-13
+        },
+        {
+          "t": 2.44999886,
+          "x": 4.65,
+          "yaw": 1.56144043e-12,
+          "roll": 0,
+          "wheel": -1.25036624e-14
+        },
+        {
+          "t": 2.64999866,
+          "x": 4.65,
+          "yaw": 7.816407e-14,
+          "roll": 0,
+          "wheel": -5.096769e-16
+        }
+      ]
+    }
+  ]
+}

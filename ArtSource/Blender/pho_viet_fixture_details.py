@@ -113,13 +113,13 @@ def rental_sign(g,x0,x1,zf,f,floors):
     """Exactly one plaque per tower, chosen without consuming its layout RNG."""
     cx=(x0+x1)/2;seed=int(abs(cx)*131+abs(zf)*997)
     floor=1+seed%max(1,floors-1);y0=.2+3.6+(floor-1)*3
-    w=min((x1-x0)*.68,9.0)*1.20;h=.88;z=zf-f*HOUSE_DEPTH-f*.07
+    w=min((x1-x0)*.68,9.0)*1.44;h=.88;z=zf-f*HOUSE_DEPTH-f*.07
     g.cube((cx,y0+1.85,z),(w,h,.045),'navy',tag='RentalSign')
     g.panel((cx,y0+1.85,z-f*.025),w-.10,h-.10,'navy',z_facing=-f,tag='RentalSign')
     g.cube((cx,y0+1.85+h/2-.035,z-f*.029),(w,.055,.012),'chrome',tag='RentalSign')
     g.cube((cx,y0+1.85-h/2+.035,z-f*.029),(w,.055,.012),'chrome',tag='RentalSign')
-    g.text('CHO THUÊ NHÀ',(cx,y0+1.85,z-f*.04),.58*1.20,'white',maxwidth=w-.60,facing=-f,tag='RentalSign')
+    g.text('CHO THUÊ NHÀ',(cx,y0+1.85,z-f*.04),.58*1.44,'white',maxwidth=w-.60,facing=-f,tag='RentalSign')
     for xx in (cx-w/2+.11,cx+w/2-.11):
         g.disc((xx,y0+1.85,z-f*.034),.025,'chrome',facing=(0,0,-f),n=6,tag='RentalSign')
-    info=dict(label='CHO THUÊ NHÀ',floor=floor,center=[cx,y0+1.85,z],width=w,height=h,font_size=.58*1.20,facing=-f)
+    info=dict(label='CHO THUÊ NHÀ',floor=floor,center=[cx,y0+1.85,z],width=w,height=h,font_size=.58*1.44,facing=-f)
     g.rental_signs=getattr(g,'rental_signs',[])+[info]

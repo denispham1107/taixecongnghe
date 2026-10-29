@@ -2,7 +2,7 @@
 
 Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế thừa tài liệu lập 18–19/10. Đã đọc toàn bộ bản cũ, đối chiếu mã nguồn/scene, lịch sử Git và báo cáo các bản 1.15.0–1.34.0. Các kết quả kiểm tra bên dưới là bằng chứng đã lưu của từng bản, không phải tuyên bố chạy lại toàn bộ chỉ vì sửa tài liệu.
 
-> **Trạng thái hiện tại: 1.45.0 đã phát hành** — commit `9dc3aa5`, Pages `40571941077` success, cache `c0f81245589b65f2`; **27 kiểm tra live đạt/0 lỗi runtime** (21.79). Bánh răng trên màn hình chờ mở đồ họa Cao/Trung bình/Thấp, lưu lựa chọn; Cao giữ chất lượng nền tảng hiện tại. Player Blue Petshop Supercar, NPC Urban Rider, chỉ thi quãng đường; công việc/GPS/khách/Coin HUD vẫn khóa.
+> **Trạng thái hiện tại: web1.48.0 đã phát hành** — commit`a424235`, Pages`40905048845`success/cache`72d4794dd7d8a0a4`,28live/0runtime (21.93). **Source21.94 đã kiểm Unity, chưa build/phát hành:** bảng thuê/chữ thêm20%, lane thêm10%, nhảy cao/vận tốc bật thêm10% và giữ trọng lực rơi. PlayerBluePetshopSupercar/NPCUrbanRider; jobs/GPS/khách/CoinHUD khóa.
 >
 > **Urban Rider21.67 đã phát hành1.41.0 (21.68):** Urban Rider (người + xe nguyên khối Meshy) thay31xe máy dân sự có người và56mesh xe đậu nhánh; giữ người/mô tôCSGT và playerSupercar. Cổ xe, tay lái, bánh trước, bàn tay/thân trên đồng bộ; đổi làn bậc5, nghiêng/về cân bằng có giảm chấn. 7suite/1.493điều kiện Unity đạt; xem21.67.
 >
@@ -42,11 +42,11 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 | Bản chơi công khai | <https://denispham1107.github.io/taixecongnghe/> |
 | Unity Editor | **6000.5.6f1**, cần module Web Build Support để build WebGL |
 | Scene chính | `Assets/PhoViet/Scenes/PhoViet.unity` |
-| Phiên bản game đã phát hành | **1.38.0** — sông gương, cầu dài 50,4 m, căn hộ kính ven sông sáng đèn đêm, sửa nhà lơ lửng/CSGT; trên nền 1.37.0 (cầu sông, xe tăng bắn đạn, ánh sáng/mũi tên D); chỉ thi quãng đường |
-| Commit source + WebGL hiện hành | `bec6ce1` (Release mirror river, long bridge and riverside apartments in WebGL 1.38.0) |
-| Bằng chứng phát hành hiện hành | `Captures/release-1.38-*.json`, `VERIFICATION_RELEASE_1_38.md`; bản trước `release-1.37-*.json` |
-| Cache WebGL hiện hành | `1ffc9c93f6c6d874`; build UTC `2026-10-25T09:11:28.4593563Z` |
-| Pages đã xác minh | Run `40180769646`, completed/success đúng source SHA; 26 kiểm tra live đạt (21.53) |
+| Phiên bản game đã phát hành | **1.48.0** — chi tiết21.93; source21.94 chưa build/phát hành |
+| Commit source + WebGL hiện hành | `a424235` (WebGL1.48.0); source21.94 thay đổi cục bộ, xem cuối tài liệu |
+| Bằng chứng phát hành hiện hành | `Captures/release148-*.json`, `release148-pages.json`, `release148-live-results.json` |
+| Cache WebGL hiện hành | `72d4794dd7d8a0a4`; build UTC `2026-10-29T15:31:07.8372496Z` |
+| Pages đã xác minh | Run`40905048845`,completed/success đúngSHA;28live/0runtime (21.93) |
 | Render pipeline | Built-in Render Pipeline; `m_CustomRenderPipeline` đang là `fileID: 0` |
 | Input | Legacy Input Manager, `activeInputHandler: 0`; dùng `UnityEngine.Input` |
 | Giao diện trong game | IMGUI, `OnGUI`, `GUIStyle`, `GUI.matrix`; không phải Canvas/uGUI |
@@ -204,7 +204,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 ### 2.9. Nhảy và chạy trên nóc
 
-Space/vuốt lên nhảy tới; source21.64 là ô tô phụt khói trắng xuống từ4góc, hơi ngẩng rồi lấy cân bằng khi đáp (xe máy trên web1.39.0 vẫn ngóc bánh trước); hồi2 s, chỉ nhảy từ đường/nóc đang đỡ, không nhảy thêm trên không. **Source21.60:** độ cao theo tốc độ thực lúc cất cánh:17 m/s~3,63 m (giảm25%),30 m/s~4,84 m, W38,25 m/s~5,61 m,67,5 m/s~8,34 m; tăng đều theo tốc độ. W kích hoạt sau khi đã bay chỉ áp dụng độ cao cho cú sau; không bơm thêm vận tốc Y trong cú hiện tại. Độ cao là so với mặt đỡ lúc phóng. Có thể vượt xe máy nằm và đáp/chạy trên nóc bốn bánh nếu đủ cao; nhảy ở tốc độ thấp có thể không vượt được nóc tải cao. Xe tải đứng thẳng còn là mặt đỡ, xe nghiêng/lật là vật cản. Rời mép rơi thật; tiếp đất theo vận tốc, hấp thụ lực rồi cân bằng; đâm thân/vách vẫn té.
+Space/vuốt lên nhảy tới; source21.64 là ô tô phụt khói trắng xuống từ4góc, hơi ngẩng rồi lấy cân bằng khi đáp (xe máy trên web1.39.0 vẫn ngóc bánh trước); hồi2 s, chỉ nhảy từ đường/nóc đang đỡ, không nhảy thêm trên không. **Source21.94 (chưa build):** giữ đường cong tốc độ21.60 và nhân độ cao/vận tốc bật thêm10% so1.48.0:17 m/s~4,00 m,30 m/s~5,33 m,W38,25 m/s~6,18 m,67,5 m/s~9,17 m; tăng đều theo tốc độ. Gia tốc lên24,2m/s² để v0 và đỉnh cùng tăng10%; trọng lực rơi giữ22m/s². Web1.48.0 còn các mốc cũ3,63/4,84/5,61/8,34m; chi tiết21.94. W kích hoạt sau khi đã bay chỉ áp dụng độ cao cho cú sau; không bơm thêm vận tốc Y trong cú hiện tại. Độ cao là so với mặt đỡ lúc phóng. Có thể vượt xe máy nằm và đáp/chạy trên nóc bốn bánh nếu đủ cao; nhảy ở tốc độ thấp có thể không vượt được nóc tải cao. Xe tải đứng thẳng còn là mặt đỡ, xe nghiêng/lật là vật cản. Rời mép rơi thật; tiếp đất theo vận tốc, hấp thụ lực rồi cân bằng; đâm thân/vách vẫn té.
 
 ### 2.10. Tăng tốc
 
@@ -2686,3 +2686,15 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 - **Phát hành đã hoàn tất:** commit`a424235fbdcd7eb2c3b6b746f372dbd813cca394` đã pushmain; Pagesrun[`40905048845`](https://github.com/denispham1107/taixecongnghe/actions/runs/40905048845) **success**, đúngheadSHA/cache`72d4794dd7d8a0a4`/version1.48.0. `VerifyPublishedGame.cjs` chạy trênhttps://denispham1107.github.io/taixecongnghe/ đạt**28điều kiện**, đối chiếu byte mọi tài nguyên gồm2data vàWASM/framework/loader, khởi độngUnityWASM thật, Enter/Pause,0JavaScript/Unityruntimeerrors. Bằngchứng`release148-pages.json`, `release148-live-results.json`, `release148-live-landing.png`, `release148-live-game.png`. Đã xem ảnh live; đồhọa/DPR/texture/AA4/bóng giữ nguyên, không áp dụng mẫu nhà/cầu chưa duyệt.
 - **Bàn giao cuối:** README/BANGIAO/huongdan cập nhật1.48.0, 21.87–21.92 chuyển trạngthái đãlênweb; các ghi chú chưabuild trong diễn biến cũ là lịch sử tại thờiđiểm sửa source. Serverlocalhost8771 đãdừng. Unity ởEdit/scene sạch/start(1,55;0;1,92)/jobsfalse theo preflight sau build, khôngPlay/import/mutation sau đó. Không đoFPS/độtrễ hoặc kiểmSafari/Androidmáythật trong yêu cầu phát hành này. Thayđổi ngoài phạmviArt/BikesWave/Packages/Simulator/Captures lịch sử/.blend người dùng giữ nguyên; commit bổsung chỉtài liệu/bằngchứng khôngđổiartifact vàkhôngkíchhoạtlạiPages.
+
+
+### 21.94. Bảng thuê lớn thêm20%, đổi làn nhanh thêm10%, nhảy đầu nhanh/cao thêm10% (30/10/2026, Codex — source/kiểm tra đã xong, chưa build)
+
+- Yêu cầu mới tính cộng thêm so baselineweb1.48.0/sourcea8fc029, không lặp lại mức21.92. Lưu nguồn/SHA tại`.tools/tuning2194-before`; chỉ dựng lại bảngthuê trong24part/3LOD,giữ kiến trúc/màu/vịtrítầng/collider. Lane1,265→1,3915; giữ đườngcong/input/gócnghiêng. Đangchốt cáchhiểu tốcđộnhảy với người dùng; các phầnđộc lập vẫnthực hiện. Khôngbuild/push/pháthànhweb ởmốc này; jobs khóa/start1,92/đồhọa giữ nguyên.
+
+- **Người dùng chốt nhảy:** chỉ tăng vận tốc bật lên10%, giữ tốcđộrơi hiện tại. Để đồngthờiđúng đỉnh+10% và v0+10%, dùngg_lên=24,2m/s²/g_rơi=22m/s²; chiều caocurve21.60×1,1, splitdt tạiđỉnh để vliêntục. Windup0,24s/cooldown2s/landing0,48s khôngđổi, W chốttốcđộlúccấtcánh. Đãxuấtbảng24part/72LOD,193Blenderchecksđạt; đangimport/compile/kiểmUnity. Nguồnriêng`PhoViet_Rental2194.blend`,MCP9878/PID24920;khôngđổi2phiêncũ.
+
+- **Triển khai:** `PhoVietGame.AdvanceLaneCurve` pacecar1,265→**1,3915**, NPC/camera/quỹđạo/damping giữnguyên. `PhoVietJump.JumpHeightAtSpeed`×1,10; launch tính với`JumpRiseGravity=24.2`→v0×1,10,propertyRiderJumpApex dùngcùnggia tốclên. TickJump táchframe tạiđỉnh: tíchphânpha lên và phầnrơi còn lại, vliêntục/g_rơi22. Cooldown2s/windup0,24s/landing0,48s giữ; Wgiữa khôngtrung khôngđổiđỉnh, Wtrướclúcphóng tính vào cúnhảy.
+- **Asset:** `pho_viet_fixture_details.rental_sign` width/font×1,44 so21.91 (=thêm20% so1.48). `upgrade_rental_2194.py` chạyquaBlenderMCPclientcụcbộ với telemetryOFF/port9878/PID24920,guard factoryscene trống trước mọi mutation; chỉexport`PV_RiverApartments.fbx/json`,nguồnriêng9,34MB`PhoViet_Rental2194.blend`.193kiểm:24part/3LOD width/font×1,20,vịtrítầng/hướng/chiềucaobảnggiữ, thayhàm rentalcũ táitạochínhxáctoànbộmesh còn lại; collision/shop/pets/materialmetadata giữ. Unity `RentalTuning2194Update` import1FBX/reloadscene khôngsave:72mesh/3248refs giữ,2779LOD0missing,10983renderer/7670obstacle và420lens giữ.
+- **Kiểm Unity:** compile0lỗi/0warning; `VerifySpeedJump`**177** (18tổhợp3speed×W/tắt×3dt,đỉnhsai<1,5cm,v0×1,10,fall22,posemượt,Wkhôngđổiquỹđạocũ/cúsau); `VerifySupercarScalePace`**182**; `VerifyMeshyCarRoofs`**254**; `VerifySupercarMotionFx`**90**; `VerifyLaneResponse`**217** = **920điềukiệnđạt**. LầnđầuFX/Responsebáofail doassertionnhịpcũ22–25m/1,265,khôngphảicodevachạm; đãsửaassertiontheo1,3915/quãng15,8–20m vàbudgetkhung0,66m/4,86° (thêm10% và0,02°lượngtử) rồi chạy lạiđạt. Không sửa gameplay đểép kiểmtra. Kếtquả`Captures/tuning2194-{speed-jump,scale-pace,roof,fx,response}-checks.json`.
+- **Ảnh/phạmvi/cuối phiên:** `CaptureRental2194` chụp3ảnh1280×900river-day/rental-close/rental-night, đãxemngày/đêm/chữkhôngtràn. `tuning2194-scope-checks.json`SHA3106fileAssets/ProjectSettings/Packages/docs chỉ4fileđổidựkiến (Game.cs,Jump.cs,RiverApartmentsFBX/JSON); khôngđổiScene/.meta/đèn/AC/cây/cầu/xe/texture/config/web. FinalEdit/scenesạch/start(1,55;0;1,92)/jobsfalse,0LODmissing; Blenderphiênriêngđãđóng sau lưunguồn. Cậpnhật2tài liệuvàmôtảhiệnhành, lưucommitcụcbộđúngphạmvi. **Chưa build/push/phát hành web**, webvẫn1.48.0; không kiểmđiệnthoạithật.

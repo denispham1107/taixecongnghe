@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/RentalTuning2194Update.cs",
+      "entry": "RentalTuning2194Update.Final"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 513,
+      "executeMs": 525,
+      "assemblyName": "PipelineRunScript_RentalTuning2194Update_28cdd67058f5437e8fc77df4631ab60f",
+      "success": true,
+      "result": {
+        "success": true,
+        "meshes": 72,
+        "references": 3248
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

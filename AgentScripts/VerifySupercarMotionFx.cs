@@ -34,9 +34,9 @@ public static class VerifySupercarMotionFx
     }
     string label="direction="+direction+",W="+boost+",dt="+dt;
     check(g.State==PhoVietGame.RideState.Riding&&monotonic,"Continuous monotonic lane path: "+label);
-    check(doneDistance>22&&doneDistance<25&&Mathf.Abs(last-PhoVietGame.LaneX[lane])<.001f,"Lane change follows travelled distance and finishes: "+label);
+    check(doneDistance>15.8f&&doneDistance<20&&Mathf.Abs(last-PhoVietGame.LaneX[lane])<.001f,"Lane change follows travelled distance and finishes: "+label);
     check(speed,"No cruise/boost speed loss during lane change: "+label);
-    check(maxRoll<2.6f&&maxYaw>2&&maxYaw<20&&maxYawStep<4&&maxStep<.60f,"Bounded yaw/body suspension, no motorcycle bank or snaps: "+label);
+    check(maxRoll<2.6f&&maxYaw>2&&maxYaw<20&&maxYawStep<4.86f&&maxStep<.66f,"Bounded yaw/body suspension, no motorcycle bank or snaps: "+label);
     check(Mathf.Abs(g.RiderSteerYaw)<.1f&&Mathf.Abs(Mathf.DeltaAngle(0,g.rider.localEulerAngles.y))<.1f,"Visual and collision heading settle together: "+label);
     traces.Add(new{label,done,maxRoll,maxYaw,maxYawStep,maxStep,samples});
    }

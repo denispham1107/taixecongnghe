@@ -310,9 +310,9 @@ namespace PhoViet
         // Lập lại khi đổi làn đích, hoặc khi vị trí bị dời khỏi đường cong (va chạm, đạp áp sát, quay về làn sau cua…).
         float AdvanceLaneCurve(float baseX,float target,float dt)
         {
-            // Keep the smooth lane shape; player-car pace is 1.15 x 1.10 (21.89 / 21.92).
+            // Keep the smooth lane shape; car pace is 1.15 x 1.10 x 1.10 (21.89/21.92/21.94).
             // Re-evaluate pace each frame so W also speeds up a turn in progress.
-            float pace=IsPlayerCar?Mathf.Max(Speed,1)/17f*1.265f:1;
+            float pace=IsPlayerCar?Mathf.Max(Speed,1)/17f*1.3915f:1;
             if(lanePlanned&&(laneGoal!=target||Mathf.Abs(LaneCurveValue(Mathf.Min(1,laneClock/laneCurveTime),0)-baseX)>.02f))lanePlanned=false;
             if(!lanePlanned)
             {

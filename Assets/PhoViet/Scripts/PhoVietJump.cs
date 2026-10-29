@@ -11,17 +11,19 @@ namespace PhoViet
   public float RiderJumpHeight=>jumpHeight;
   public float RiderJumpCooldown=>jumpCooldown;
   public float RiderJumpTakeoffSpeed {get;private set;}
-  public float RiderJumpApex=>jumpLaunchVelocity*jumpLaunchVelocity/(2*JumpGravity);
+  public float RiderJumpApex=>jumpLaunchVelocity*jumpLaunchVelocity/(2*JumpRiseGravity);
   float jumpHeight,jumpVelocity,jumpCooldown,jumpWindup,jumpLanding,jumpFlightAge,jumpPreviousHeight;
   bool jumpFlying;
   string landingClip="LandBoth";
   TrafficVehicle roofVehicle,previousRoofVehicle,roofContactVehicle;
   float roofContactHeight;
   const float JumpGravity=22f,JumpLaunch=14.6f;
+  // 21.94: launch velocity and height each +10%; falling gravity stays unchanged.
+  const float JumpRiseGravity=JumpGravity*1.10f;
   float jumpLaunchVelocity=JumpLaunch;
-  // At 17 m/s height is 75% of the previous jump; at 30 it is 100%.
+  // Retain the speed curve from 21.60, with another 10% height from 21.94.
   // W contributes its real speed, and faster speeds continue the same slope.
-  public static float JumpHeightAtSpeed(float speed)=>JumpLaunch*JumpLaunch/(2*JumpGravity)*(.75f+Mathf.Max(0,speed-17)/52f);
+  public static float JumpHeightAtSpeed(float speed)=>JumpLaunch*JumpLaunch/(2*JumpGravity)*(.75f+Mathf.Max(0,speed-17)/52f)*1.10f;
   public static bool IsJumpSwipe(Vector2 delta,float width)=>delta.y>width*.12f&&delta.y>Mathf.Abs(delta.x)*1.3f;
   public void PoseJumpPassenger(float pitch,float lift)
   {
@@ -109,10 +111,18 @@ namespace PhoViet
    {
     flightDt=Mathf.Max(0,dt-jumpWindup);
     jumpWindup=Mathf.Max(0,jumpWindup-dt);
-    if(jumpWindup==0){RiderJumpTakeoffSpeed=Speed;jumpLaunchVelocity=Mathf.Sqrt(2*JumpGravity*JumpHeightAtSpeed(Speed));jumpFlying=true;jumpVelocity=jumpLaunchVelocity;jumpFlightAge=0;roofVehicle=null;}
+    if(jumpWindup==0){RiderJumpTakeoffSpeed=Speed;jumpLaunchVelocity=Mathf.Sqrt(2*JumpRiseGravity*JumpHeightAtSpeed(Speed));jumpFlying=true;jumpVelocity=jumpLaunchVelocity;jumpFlightAge=0;roofVehicle=null;}
    }
    if(jumpFlying)
-   {jumpHeight+=jumpVelocity*flightDt-.5f*JumpGravity*flightDt*flightDt;jumpVelocity-=JumpGravity*flightDt;jumpFlightAge+=flightDt;}
+   {
+    // Split a frame at the apex: no vertical snap or frame-rate-dependent gravity.
+    float riseDt=jumpVelocity>0?Mathf.Min(flightDt,jumpVelocity/JumpRiseGravity):0;
+    jumpHeight+=jumpVelocity*riseDt-.5f*JumpRiseGravity*riseDt*riseDt;
+    if(riseDt>0)jumpVelocity=Mathf.Max(0,jumpVelocity-JumpRiseGravity*riseDt);
+    float fallDt=flightDt-riseDt;
+    jumpHeight+=jumpVelocity*fallDt-.5f*JumpGravity*fallDt*fallDt;
+    jumpVelocity-=JumpGravity*fallDt;jumpFlightAge+=flightDt;
+   }
   }
   void ResolveJumpSurface(float dt)
   {
