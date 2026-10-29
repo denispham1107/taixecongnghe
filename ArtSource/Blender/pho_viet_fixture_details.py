@@ -71,33 +71,41 @@ def detailed_traffic_signal(detail):
     p+=[(hx+.32,7.85,0)]
     for a,b in zip(p,p[1:]):g.cyl(a,b,.075,'steel',n=n,r2=.069)
     g.cyl((0,6.85,0),(1.48,7.85,0),.027,'ironGrey',n=6)
-    for yy in (hy+.6,hy-.6):
-        g.cube((hx,yy,.23),(.29,.06,.08),'steel')
-    g.cyl((hx,7.84,.19),(hx,hy-.62,.19),.028,'steel',n=6)
-    fixture_case(g,(hx,hy,.07),(.80,1.78,.055),.095,'steel')
-    fixture_case(g,(hx,hy,.026),(.75,1.72,.025),.075,'iron')
+    # Suspend above the housing, keeping both optical faces free of brackets.
+    g.cyl((hx,7.84,0),(hx,hy+.89,0),.035,'steel',n=8)
+    fixture_case(g,(hx,hy,-.022),(.80,1.78,.055),.095,'steel')
+    fixture_case(g,(hx,hy,-.022),(.75,1.72,.075),.075,'iron')
     fixture_case(g,(hx,hy,-.022),(.56,1.48,.37),.065,'darkFrame')
-    # Keep all runtime red/amber/green lens centres and radii unchanged.
+    # Create one optical face, then mirror every detail, colour and normal.
+    front=Geo(detail)
     for k in range(3):
         yy=hy+.43-k*.43
-        fixture_ring(g,hx,yy,-.213,.187,.154,'ironGrey',(24,16,10)[detail])
+        fixture_ring(front,hx,yy,-.213,.187,.154,'ironGrey',(24,16,10)[detail],tag='SignalOptical')
         if detail<2:
-            # Curved open-front sun visor; no geometry covers the active lens.
             seg=(12,8)[detail];r=.197
             vs=[(hx+r*cos(a),yy+r*sin(a),zz) for zz in (-.209,-.48) for a in [-.18+(pi+.36)*i/seg for i in range(seg+1)]]
-            g.add(vs,[(i,i+1,i+seg+2,i+seg+1) for i in range(seg)],'iron',('c',(hx,yy,-.33)))
-            fixture_case(g,(hx+.19,yy,.178),(.042,.12,.018),.009,'steel')
-        g.disc((hx,yy,.169),.145,'ironGrey',facing=(0,0,1),n=(16,12,8)[detail])
-    fixture_case(g,(0,3.55,-.16),(.34,.94,.24),.035,'darkFrame')
+            front.add(vs,[(i,i+1,i+seg+2,i+seg+1) for i in range(seg)],'iron',('c',(hx,yy,-.33)),tag='SignalOptical')
+    if detail==0:
+        for yy in (hy-.56,hy+.56):front.disc((hx+.23,yy,-.212),.012,'steel',n=8,tag='SignalOptical')
+    fixture_case(g,(0,3.55,0),(.34,.94,.24),.035,'darkFrame')
     for k in range(3):
         yy=3.85-k*.3
-        g.disc((0,yy,-.286),.102,'ironGrey',n=(16,12,8)[detail])
-        if detail==0:fixture_ring(g,0,yy,-.29,.115,.10,'steel',16)
+        front.disc((0,yy,-.126),.102,'ironGrey',n=(16,12,8)[detail],tag='SignalOptical')
+        if detail==0:fixture_ring(front,0,yy,-.13,.115,.10,'steel',16,tag='SignalOptical')
+    for side in (-1,1):
+        start=len(g.v)
+        # Main head centre is -.022; the auxiliary head is centred on zero.
+        main=[p[1]>5 for p in front.v]
+        g.v.extend((x,y,z if side<0 else (-.044 if m else 0)-z) for (x,y,z),m in zip(front.v,main))
+        g.f.extend(tuple(start+i for i in face) for face in front.f)
+        g.cols.extend(front.cols);g.tags.extend(front.tags)
+        for typ,p in front.hint:
+            z=p[2] if side<0 else ((-.044 if p[1]>5 else 0)-p[2] if typ=='c' else -p[2])
+            g.hint.append((typ,(p[0],p[1],z)))
     fixture_case(g,(-.14,1.28,.03),(.22,.55,.32),.025,'steel')
     if detail==0:
         for sx in (-.15,.15):
             for sz in (-.15,.15):g.cyl((sx,.30,sz),(sx,.34,sz),.021,'chrome',n=6)
-        for yy in (hy-.56,hy+.56):g.disc((hx+.23,yy,-.212),.012,'steel',n=8)
     g.meta=dict(obstacles=[dict(kind='Cột đèn tín hiệu',center=[0,3.9,0],size=[.3,7.8,.3])],head_center=[SIGNAL_REACH,SIGNAL_HEAD_Y,0])
     return g
 
@@ -105,13 +113,13 @@ def rental_sign(g,x0,x1,zf,f,floors):
     """Exactly one plaque per tower, chosen without consuming its layout RNG."""
     cx=(x0+x1)/2;seed=int(abs(cx)*131+abs(zf)*997)
     floor=1+seed%max(1,floors-1);y0=.2+3.6+(floor-1)*3
-    w=min((x1-x0)*.68,9.0);h=.88;z=zf-f*HOUSE_DEPTH-f*.07
+    w=min((x1-x0)*.68,9.0)*1.20;h=.88;z=zf-f*HOUSE_DEPTH-f*.07
     g.cube((cx,y0+1.85,z),(w,h,.045),'navy',tag='RentalSign')
     g.panel((cx,y0+1.85,z-f*.025),w-.10,h-.10,'navy',z_facing=-f,tag='RentalSign')
     g.cube((cx,y0+1.85+h/2-.035,z-f*.029),(w,.055,.012),'chrome',tag='RentalSign')
     g.cube((cx,y0+1.85-h/2+.035,z-f*.029),(w,.055,.012),'chrome',tag='RentalSign')
-    g.text('CHO THUÊ NHÀ',(cx,y0+1.85,z-f*.04),.58,'white',maxwidth=w-.5,facing=-f,tag='RentalSign')
+    g.text('CHO THUÊ NHÀ',(cx,y0+1.85,z-f*.04),.58*1.20,'white',maxwidth=w-.60,facing=-f,tag='RentalSign')
     for xx in (cx-w/2+.11,cx+w/2-.11):
         g.disc((xx,y0+1.85,z-f*.034),.025,'chrome',facing=(0,0,-f),n=6,tag='RentalSign')
-    info=dict(label='CHO THUÊ NHÀ',floor=floor,center=[cx,y0+1.85,z],width=w,height=h,facing=-f)
+    info=dict(label='CHO THUÊ NHÀ',floor=floor,center=[cx,y0+1.85,z],width=w,height=h,font_size=.58*1.20,facing=-f)
     g.rental_signs=getattr(g,'rental_signs',[])+[info]

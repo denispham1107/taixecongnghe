@@ -1,0 +1,821 @@
+{
+  "success": true,
+  "count": 201,
+  "checks": [
+    {
+      "name": "Signal LOD0 has equal optical faces",
+      "passed": true
+    },
+    {
+      "name": "Signal LOD0 every visor/rim/bolt is mirrored",
+      "passed": true
+    },
+    {
+      "name": "Signal LOD1 has equal optical faces",
+      "passed": true
+    },
+    {
+      "name": "Signal LOD1 every visor/rim/bolt is mirrored",
+      "passed": true
+    },
+    {
+      "name": "Signal LOD2 has equal optical faces",
+      "passed": true
+    },
+    {
+      "name": "Signal LOD2 every visor/rim/bolt is mirrored",
+      "passed": true
+    },
+    {
+      "name": "Original signal collider and lens sockets retained",
+      "passed": true
+    },
+    {
+      "name": "Apartment source matches installed geometry",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt00 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt00 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt00 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt00 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt00 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt00 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt00 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt01 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt01 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt01 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt01 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt01 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt01 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt01 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt02 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt02 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt02 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt02 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt02 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt02 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt02 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt03 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt03 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt03 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt03 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt03 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt03 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt03 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt04 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt04 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt04 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt04 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt04 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt04 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt04 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt05 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt05 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt05 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt05 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt05 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt05 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt05 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt06 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt06 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt06 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt06 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt06 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt06 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt06 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt07 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt07 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt07 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt07 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt07 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt07 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt07 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt08 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt08 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt08 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt08 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt08 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt08 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt08 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt09 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt09 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt09 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt09 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt09 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt09 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt09 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt10 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt10 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt10 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt10 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt10 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt10 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt10 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt11 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt11 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt11 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt11 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt11 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt11 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt11 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt12 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt12 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt12 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt12 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt12 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt12 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt12 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt13 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt13 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt13 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt13 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt13 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt13 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt13 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt14 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt14 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt14 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt14 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt14 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt14 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt14 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt15 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt15 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt15 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt15 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt15 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt15 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt15 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt16 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt16 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt16 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt16 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt16 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt16 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt16 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt17 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt17 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt17 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt17 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt17 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt17 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt17 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt18 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt18 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt18 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt18 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt18 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt18 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt18 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt19 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt19 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt19 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt19 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt19 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt19 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt19 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt20 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt20 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt20 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt20 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt20 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt20 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt20 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt21 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt21 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt21 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt21 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt21 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt21 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt21 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt22 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt22 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt22 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt22 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt22 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt22 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt22 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt23 no changes outside rental signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt23 LOD0 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt23 LOD0 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt23 LOD1 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt23 LOD1 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt23 LOD2 exact 20 percent width/font increase",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt23 LOD2 location/floor/height unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt00 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt01 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt02 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt03 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt04 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt05 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt06 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt07 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt08 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt09 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt10 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt11 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt12 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt13 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt14 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt15 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt16 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt17 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt18 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt19 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt20 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt21 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt22 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt23 slot, shop and pet metadata unchanged",
+      "passed": true
+    },
+    {
+      "name": "Signal black infill is proud of silver surround on both sides",
+      "passed": true
+    }
+  ],
+  "signalTriangles": [
+    1768,
+    1104,
+    720
+  ],
+  "rentalSigns": 24,
+  "riverTriangles": [
+    323240,
+    169390,
+    112104
+  ]
+}

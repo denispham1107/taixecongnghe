@@ -108,7 +108,7 @@ namespace PhoViet
         {
             StreetArt.ConfigureWorldText(vietnameseFont,worldTextMaterial); Application.targetFrameRate=60; Application.runInBackground=true;
             BestDistance=PlayerPrefs.GetInt(BestKey,0);
-            CreateSound(); InitializeActions(); ResetRide();
+            InitializeTrafficSignalFaces(); CreateSound(); InitializeActions(); ResetRide();
 #if !UNITY_WEBGL || UNITY_EDITOR
             InitializeGraphicsSettings();
 #endif
@@ -310,9 +310,9 @@ namespace PhoViet
         // Lập lại khi đổi làn đích, hoặc khi vị trí bị dời khỏi đường cong (va chạm, đạp áp sát, quay về làn sau cua…).
         float AdvanceLaneCurve(float baseX,float target,float dt)
         {
-            // Keep the smooth lane shape; player-car lane changes run 15% faster (21.89).
+            // Keep the smooth lane shape; player-car pace is 1.15 x 1.10 (21.89 / 21.92).
             // Re-evaluate pace each frame so W also speeds up a turn in progress.
-            float pace=IsPlayerCar?Mathf.Max(Speed,1)/17f*1.15f:1;
+            float pace=IsPlayerCar?Mathf.Max(Speed,1)/17f*1.265f:1;
             if(lanePlanned&&(laneGoal!=target||Mathf.Abs(LaneCurveValue(Mathf.Min(1,laneClock/laneCurveTime),0)-baseX)>.02f))lanePlanned=false;
             if(!lanePlanned)
             {
@@ -617,6 +617,7 @@ namespace PhoViet
         }
         void OnDestroy()
         {
+            ShutdownTrafficSignalFaces();
             ShutdownGraphicsSettings();
             if(engine!=null&&engine.clip!=null)Destroy(engine.clip);if(crashClip!=null)Destroy(crashClip);
             if(sirenClip!=null)Destroy(sirenClip);

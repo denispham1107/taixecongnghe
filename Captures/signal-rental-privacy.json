@@ -1,0 +1,7 @@
+{
+  "port": 9877,
+  "consent": false,
+  "environmentForwarded": true,
+  "disableFlag": "BLENDER_MCP_DISABLE_TELEMETRY=1",
+  "httpRequestsInPrivateLogs": 0
+}

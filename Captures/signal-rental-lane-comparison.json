@@ -1,0 +1,36 @@
+{
+  "rateMultiplierFrom21_89": 1.1,
+  "cumulativePace": 1.265,
+  "fullCurveMetres": 18.142292490118578,
+  "before": {
+    "kind": 0,
+    "dir": 1,
+    "boost": false,
+    "dt": 0.0166666675,
+    "firstMove": 0.00186109543,
+    "firstYaw": 0.108595259,
+    "firstWheel": 1.3009522,
+    "at50": 0.01646614,
+    "at100": 0.0643059,
+    "response": 0.0500000045,
+    "done": 19.5148678,
+    "maxStep": 0.07535195,
+    "maxYawStep": 0.6334655
+  },
+  "after": {
+    "kind": 0,
+    "dir": 1,
+    "boost": false,
+    "dt": 0.0166666675,
+    "firstMove": 0.00224995613,
+    "firstYaw": 0.1312015,
+    "firstWheel": 1.56769717,
+    "at50": 0.0198726654,
+    "at100": 0.07743728,
+    "response": 0.0500000045,
+    "done": 17.7743683,
+    "maxStep": 0.08280015,
+    "maxYawStep": 0.7527609
+  },
+  "measuredRatio": 1.0979218766385077
+}

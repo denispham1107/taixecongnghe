@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "filesCompared": 3104,
+  "changed": [
+    "Assets/PhoViet/Scripts/PhoVietGame.cs",
+    "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "Assets/PhoViet/Art/River/PV_RiverApartments.json",
+    "Assets/PhoViet/Art/Streets/PV_TrafficSignal.fbx",
+    "Assets/PhoViet/Art/Streets/PV_TrafficSignal.json"
+  ],
+  "unexpected": [],
+  "missing": [],
+  "added": [
+    "Assets/PhoViet/Scripts/PhoVietSignalFaces.cs",
+    "Assets/PhoViet/Scripts/PhoVietSignalFaces.cs.meta"
+  ]
+}
