@@ -4,11 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web hiện tại **1.47.0**; đang chuẩn bị **1.48.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web hiện tại **1.48.0**.
 
-## Cập nhật 1.48.0 (đã build, đang phát hành)
+## Cập nhật 1.48.0
 
-Hai mặt đèn giao thông giống nhau và đổi màu đồng bộ; cục nóng xám trắng chi tiết; bảng CHO THUÊ NHÀ rộng/chữ lớn hơn20%; menu Pause có Về đầu phố; xe đua đổi làn nhanh hơn so1.47.0 (nhịp×1,265). Bỏ chậu hoa cầu/thanh chéo cờ và thanh đen cạnh cờ ban công. Đã build hai bộ texture mobile/desktop, kiểm tra trình duyệt cục bộ đạt372 điều kiện/0 lỗi runtime; đang phát hành. Chi tiết huongdan21.93.
+Hai mặt đèn giao thông giống nhau và đổi màu đồng bộ; cục nóng xám trắng chi tiết; bảng CHO THUÊ NHÀ rộng/chữ lớn hơn20%; menu Pause có Về đầu phố; xe đua đổi làn nhanh hơn so1.47.0 (nhịp×1,265). Bỏ chậu hoa cầu/thanh chéo cờ và thanh đen cạnh cờ ban công. Đã build và phát hành hai bộ texture mobile/desktop:372 kiểm tra trình duyệt cục bộ và28 kiểm tra web live đạt,0 lỗi runtime. Chi tiết huongdan21.93.
 
 ## Trang chủ mới — 1.47.0
 
