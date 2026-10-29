@@ -3,9 +3,9 @@
   "generator": "pho_viet_river_bridge.py",
   "reference": "ArtSource/Reference/River/river_bridge_reference.png",
   "lod_triangles": [
-    52736,
-    13782,
-    3654
+    50328,
+    13454,
+    3854
   ],
   "slots": [
     "PV_StreetAtlas",
@@ -402,5 +402,13 @@
     "PV_RiverLineWhite",
     "PV_RiverLineYellow",
     "PV_RiverRoomLight"
-  ]
+  ],
+  "bridge_fixtures": {
+    "flower_boxes": 0,
+    "flags": 8,
+    "supports_per_flag": 2,
+    "support_material": "awnGreen",
+    "style": "horizontal arms above and below cloth, clamped to lamp pole",
+    "revision": "21.87"
+  }
 }

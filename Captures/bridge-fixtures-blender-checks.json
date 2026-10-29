@@ -1,0 +1,205 @@
+{
+  "success": true,
+  "checks": [
+    {
+      "name": "Source baseline matches installed three LOD triangle counts",
+      "passed": true
+    },
+    {
+      "name": "All non-deck geometry unchanged LOD0",
+      "passed": true
+    },
+    {
+      "name": "Non-deck metadata unchanged LOD0",
+      "passed": true
+    },
+    {
+      "name": "All non-deck geometry unchanged LOD1",
+      "passed": true
+    },
+    {
+      "name": "Non-deck metadata unchanged LOD1",
+      "passed": true
+    },
+    {
+      "name": "All non-deck geometry unchanged LOD2",
+      "passed": true
+    },
+    {
+      "name": "Non-deck metadata unchanged LOD2",
+      "passed": true
+    },
+    {
+      "name": "Deck/rails/piers exact apart from fixtures LOD0",
+      "passed": true
+    },
+    {
+      "name": "Deck/rails/piers exact apart from fixtures LOD1",
+      "passed": true
+    },
+    {
+      "name": "Deck/rails/piers exact apart from fixtures LOD2",
+      "passed": true
+    },
+    {
+      "name": "Flag and both golden stars preserved LOD0 side-1",
+      "passed": true
+    },
+    {
+      "name": "Exactly two green horizontal arms LOD0 side-1",
+      "passed": true
+    },
+    {
+      "name": "Arms do not cross red cloth LOD0 side-1",
+      "passed": true
+    },
+    {
+      "name": "Flag and both golden stars preserved LOD0 side1",
+      "passed": true
+    },
+    {
+      "name": "Exactly two green horizontal arms LOD0 side1",
+      "passed": true
+    },
+    {
+      "name": "Arms do not cross red cloth LOD0 side1",
+      "passed": true
+    },
+    {
+      "name": "Flag and both golden stars preserved LOD1 side-1",
+      "passed": true
+    },
+    {
+      "name": "Exactly two green horizontal arms LOD1 side-1",
+      "passed": true
+    },
+    {
+      "name": "Arms do not cross red cloth LOD1 side-1",
+      "passed": true
+    },
+    {
+      "name": "Flag and both golden stars preserved LOD1 side1",
+      "passed": true
+    },
+    {
+      "name": "Exactly two green horizontal arms LOD1 side1",
+      "passed": true
+    },
+    {
+      "name": "Arms do not cross red cloth LOD1 side1",
+      "passed": true
+    },
+    {
+      "name": "Flag and both golden stars preserved LOD2 side-1",
+      "passed": true
+    },
+    {
+      "name": "Exactly two green horizontal arms LOD2 side-1",
+      "passed": true
+    },
+    {
+      "name": "Arms do not cross red cloth LOD2 side-1",
+      "passed": true
+    },
+    {
+      "name": "Flag and both golden stars preserved LOD2 side1",
+      "passed": true
+    },
+    {
+      "name": "Exactly two green horizontal arms LOD2 side1",
+      "passed": true
+    },
+    {
+      "name": "Arms do not cross red cloth LOD2 side1",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: obstacles",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: water",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: water_y",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: bed_y",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: murk",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: deck_half",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: curb",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: rail",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: side",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: ground_top",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: lamps",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: lamp_x",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: piers",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: boats",
+      "passed": true
+    },
+    {
+      "name": "Installed metadata retained: materials",
+      "passed": true
+    },
+    {
+      "name": "Material slot order preserved",
+      "passed": true
+    },
+    {
+      "name": "Exporter triangle counts match geometry",
+      "passed": true
+    }
+  ],
+  "passed": 45,
+  "failed": 0,
+  "old_triangles": [
+    52736,
+    13782,
+    3654
+  ],
+  "new_triangles": [
+    50328,
+    13454,
+    3854
+  ],
+  "fixtures": {
+    "flower_boxes": 0,
+    "flags": 8,
+    "supports_per_flag": 2,
+    "support_material": "awnGreen",
+    "style": "horizontal arms above and below cloth, clamped to lamp pole",
+    "revision": "21.87"
+  }
+}

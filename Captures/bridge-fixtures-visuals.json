@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "images": [
+    "bridge-fixtures-overview.png",
+    "bridge-fixtures-flag-left-lod0.png",
+    "bridge-fixtures-flag-left-lod1.png",
+    "bridge-fixtures-flag-left-lod2.png",
+    "bridge-fixtures-flag-right.png",
+    "bridge-fixtures-night.png"
+  ],
+  "lodGroups": 1,
+  "jobs": false,
+  "source": "Actual Unity Game camera; isolated Play Mode capture"
+}

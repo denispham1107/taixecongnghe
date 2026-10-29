@@ -140,7 +140,7 @@ def river_planter(g, x, z, s=1.1):
 
 # ---------------------------------------------------------------- cầu
 def baluster_run(g, x, z0, z1, side):
-    """Lan can trắng: cột vuông, con tiện, tay vịn có gờ; chậu hoa hồng trên đầu cột."""
+    """Lan can trắng: cột vuông, con tiện, tay vịn có gờ; không đặt chậu hoa trên cầu (21.87)."""
     d = g.d; y0 = .15; top = 1.12
     g.cube((x, y0+.06, (z0+z1)/2), (.34, .12, z1-z0), 'trim')               # đế lan can
     g.cube((x, top, (z0+z1)/2), (.36, .1, z1-z0), 'white')                    # tay vịn
@@ -178,10 +178,18 @@ def flower_box(g, x, y, z, seed):
             a = k*.63+seed; g.leaf((x+cos(a)*.25, y+.45, z+sin(a)*.32), (cos(a)*.6, .5, sin(a)*.6), .26, .13, ('leaf2', 'leaf3')[k % 2], roll=a)
 
 def lamp_flag(g, side, z):
-    """Cờ đỏ sao vàng treo trên cột đèn cầu (cột do Unity đặt mẫu đèn LED phố)."""
+    """Cờ cố định bằng hai giá đỡ ngang xanh ở mép trên/dưới; không có thanh chéo xuyên cờ."""
     x = side*(LAMP_X+.12)
-    g.cyl((x, 4.4, z), (x+side*.95, 4.95, z), .022, 'iron', n=5)
     w, h = .95, .64; cx = x+side*.55; cy = 4.6
+    # Đai kẹp quanh cột + hai tay đỡ nằm ngoài hình chữ nhật lá cờ.
+    # Giữ cờ/vị trí sao nguyên vẹn, cùng thiết kế ở cả ba LOD và hai phía cầu.
+    end = cx+side*(w/2+.04)
+    for y in (cy-h/2-.035, cy+h/2+.035):
+        g.cyl((side*LAMP_X, y-.045, z), (side*LAMP_X, y+.045, z), .105, 'awnGreen', n=10 if g.d == 0 else 6)
+        g.cyl((side*LAMP_X, y, z), (end, y, z), .024, 'awnGreen', n=8 if g.d == 0 else 6)
+        g.cube((end, y, z), (.065, .065, .065), 'awnGreen')
+        if g.d == 0:
+            g.cyl((side*LAMP_X, y, z-.112), (side*LAMP_X, y, z-.13), .025, 'steel', n=6)
     g.cube((cx, cy, z), (w, h, .02), 'flagRed')
     g.star((cx, cy, z-.012), .19, 'flagGold'); g.star((cx, cy, z+.012), .19, 'flagGold', facing=1)
 
@@ -201,8 +209,7 @@ def deck(g):
         g.quad([(side*RAIL, DECK_BOTTOM, W0), (side*RAIL, DECK_BOTTOM, W1), (side*RAIL, .15, W1), (side*RAIL, .15, W0)], 'stone', (side, 0, 0))
         g.cube((side*(RAIL+.04), -.12, (W0+W1)/2), (.1, .22, W1-W0), 'trim')
         for z in LAMPS: lamp_flag(g, side, z)
-        for k, z in enumerate([W0+2.3+k2*(W1-W0-4.6)/5 for k2 in range(6)]):
-            flower_box(g, side*(CURB+RAIL)/2, 1.17, z, k*17+(3 if side > 0 else 0))
+        # Không tạo chậu/hoa trên lan can ở bất kỳ LOD nào (29/10/2026).
     # Mặt dưới dầm và trụ cầu chìm trong nước.
     g.quad([(-RAIL, DECK_BOTTOM, W0), (-RAIL, DECK_BOTTOM, W1), (RAIL, DECK_BOTTOM, W1), (RAIL, DECK_BOTTOM, W0)], 'potGrey', (0, -1, 0))
     for zp in PIERS:

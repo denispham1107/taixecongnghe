@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "baselineFiles": 3104,
+  "changed": [
+    "Assets/PhoViet/Art/River/PV_RiverBridge.fbx",
+    "Assets/PhoViet/Art/River/PV_RiverBridge.json"
+  ],
+  "added": [],
+  "sceneAndAllOtherGameFilesUnchanged": true
+}
