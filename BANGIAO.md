@@ -31,6 +31,8 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.90 menu Pause/kết thúc đã sửa:** Pause thêm **VỀ ĐẦU PHỐ** gọi ResetRide như khi thua; bỏ mũi tên sau **ĐI TIẾP** và **THỬ MỘT CHUYẾN NỮA**. Compile0lỗi/0warning; 6ảnh dọc/ngang/desktop đã xem, không chồng; kiểm Pause→Riding và Pause→Ready/0m/0speed/giữ kỷ lục đạt. Edit/scene sạch/start1,92/jobsfalse. Commit cục bộ cùng tài liệu/bằng chứng; **chưa build/push/phát hành**, web vẫn1.47.0. Chi tiết huongdan21.90.
+
 - **21.89 đổi làn xe đua nhanh thêm15% đã xong:** `AdvanceLaneCurve` nhân pace car ×1,15, giữ đường cong/phản hồi đầu/steering damping và W giữa chừng. **399 điều kiện Unity đạt** (217 input/motion +182 scale/pace), compile0lỗi/0warning. Đo60FPS quãng tới làn22,4237→19,5149m, tỷ lệ1,1491 do lượng tử frame. Edit/scenesạch/start1,92/jobsfalse; đã commit cục bộ cùng tài liệu và báo cáo, **chưa build/push/phát hành**, web vẫn1.47.0. Chi tiết huongdan21.89.
 
 - **21.88 bỏ thanhđen cờban công đãxong:** chỉxóa1cylở`flag()`;4tiệm0/3/6/9+4Petshop/3LODđãexport/import.64kiểmBlenderđạt,24mesh/510refs,vậtliệu/scene/obstaclegiữnguyên;4ảnhmôhìnhUnityđãxem. SHA3104filechỉđổi8FBX+8JSONnhà,cầu21.87vàcâykhôngđổi. Nguồn`PhoViet_BalconyFlags.blend`,khônginstaller/build/push/pháthành;Edit/scenesạch/start1,92/jobsfalse. Chi tiếthuongdan21.88.
@@ -98,6 +100,8 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.90 đã xong source/kiểm Unity**, chưa build/phát hành; không còn bước sửa menu đang dở.
+
 - **21.89 đã kiểm tra xong ở source**, cùng21.87–21.88 chưa build/phát hành web; không còn bước sửa/kiểm Unity đang dở. Web hiện tại vẫn1.47.0.
 
 - **21.88 xongsource, chưa build/pháthành:** thanhđen cạnhcờban công đãbỏ/giữcờ-sao/hoa/lan can;24LOD/510meshref/64Blenderđạt,4ảnh1280×900đãxem. BảnsaomôhìnhchụpUnityđãhủy,thoátPlay/scenesạch/start1,92/jobsfalse. Chỉ8FBX+8JSONnhàđổitrong3104filegame;webvẫn1.47.0. Lưucommitcụcbộriêng,khônginstaller,giữcầu21.87vàmẫuchưaduyệt.
@@ -152,6 +156,7 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | --- | --- | --- |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
 | Điểm xuất phát xe, kéo thả Edit/Play Ready | **21.76**,6.1 | `PhoVietPlayerStart.cs`, `Editor/PhoVietPlayerStartEditor.cs`, `PhoVietGame.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyPlayerStart*.cs` |
+| Menu Pause/kết thúc/về đầu phố | **21.90**, 2.1 | `PhoVietGame.cs` → `EndCard`, `TogglePause`, `ResetRide` |
 | Điều khiển, đổi làn, camera, HUD | 2.2, 12, **21.89**,21.81/21.55/21.60/21.65 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs`, `AgentScripts/VerifyLaneResponse.cs`, `VerifySupercarScalePace.cs`, `CaptureLaneResponse.cs` |
 | Giao thông, va chạm, văng/té | 7, 21.33 | `PhoVietTraffic.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs` |
 | Quái xế, xe tải ngủ gật | 2.4, 7.2 | `PhoVietReckless.cs` |

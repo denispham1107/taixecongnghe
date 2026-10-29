@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "var g=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>(); var best=g.BestDistance; g.ResetRide(); g.StartRide(); g.TogglePause(); var paused=g.State.ToString(); g.TogglePause(); var resumed=g.State.ToString(); g.TogglePause(); g.ResetRide(); return new {paused,resumed,returned=g.State.ToString(),distance=g.Distance,speed=g.Speed,recordKept=g.BestDistance==best,jobs=g.jobsEnabled};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "paused": "Paused",
+        "resumed": "Riding",
+        "returned": "Ready",
+        "distance": 0,
+        "speed": 0,
+        "recordKept": true,
+        "jobs": false
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

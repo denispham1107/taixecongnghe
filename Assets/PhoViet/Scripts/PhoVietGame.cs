@@ -602,7 +602,8 @@ namespace PhoViet
             if(paused)
             {
                 Txt("Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.",x+28,y+140,w-56,50,16,Teal);
-                if(Btn("ĐI TIẾP   →",new Rect(x+28,y+215,w-56,58),Teal,Cream,18))TogglePause();
+                if(Btn("ĐI TIẾP",new Rect(x+28,y+215,w-56,58),Teal,Cream,18))TogglePause();
+                if(Btn("VỀ ĐẦU PHỐ",new Rect(x+28,y+285,w-56,34),Cream,Teal,12))ResetRide();
             }
             else
             {
@@ -610,7 +611,7 @@ namespace PhoViet
                 Txt(Mathf.Max(0,Mathf.FloorToInt(Distance)).ToString("N0")+" m",x+24,y+172,w-48,75,58,Ink);
                 Line(x+28,y+267,w-56,Hex("D8D6BF"));
                 Txt(PassedVehicles+" XE ĐÃ NÉ",x+28,y+286,200,27,13,Teal);Txt("KỶ LỤC  "+BestDistance+" m",x+w-225,y+286,200,27,13,Red,TextAnchor.UpperRight);
-                if(Btn("THỬ MỘT CHUYẾN NỮA   →",new Rect(x+28,y+334,w-56,58),Red,Cream,portrait?15:18))RestartRide();
+                if(Btn("THỬ MỘT CHUYẾN NỮA",new Rect(x+28,y+334,w-56,58),Red,Cream,portrait?15:18))RestartRide();
                 if(Btn("VỀ ĐẦU PHỐ",new Rect(x+28,y+404,w-56,34),Cream,Teal,12))ResetRide();
             }
         }
