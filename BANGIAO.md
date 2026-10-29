@@ -105,6 +105,8 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.93 bản1.48.0 đã build/kiểm cục bộ xong, đang phát hành:** đủ2variant/636,698s/0lỗi/1warningPipeline;102finalpreflight/255source byte-stable. Cache`72d4794dd7d8a0a4`;43repo+34site+35Gitstaged+315landing+37web/offline/touch+20fullscreen đều đạt,0runtime. Đã xem ảnh menu Pause/mobile dọc-ngang/trangchủ; chưa kiểm máy thật. Bước kế: commit/push main→Pages đúngSHA→kiểmbytes/liveWASM→cập nhật kết quả. Server8771→`.tools/site148` còn chạy. Không stage Art/Wave/Packages/Simulator/.blend người dùng; không áp dụng nhà/cầu chưa duyệt.
+
 - **21.92 source/kiểm tra đã xong**, chưa build/phát hành. Unity Edit/scenesạch/start1,92/jobsfalse; Blender riêng PID34204/MCP9877 đang mở`PhoViet_SignalRental2192.blend`, nhàn. File`PhoViet_FixtureDetails.blend` đang có sửa cục bộ của người dùng/không stage. Client MCP tại`.tools/blender_signal_rental_client.py` truyền env port9877/telemetry OFF vào subprocess; cổng9876 giữ cho phiên cũ.
 
 - **21.91 xong source và kiểm Unity**, chưa build/phát hành. Blender riêng PID2336 đang mở nguồn`PhoViet_FixtureDetails.blend`/MCP9876 (ẩn); không còn thao tác đang chạy. Tool MCP của phiên bị Transport closed, đã dùng client STDIO cục bộ và tắt telemetry. Các mẫu nhà21.86/cầu21.85 chưa áp dụng.
