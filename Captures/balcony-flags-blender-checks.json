@@ -1,0 +1,369 @@
+{
+  "success": true,
+  "passed": 64,
+  "checks": [
+    {
+      "name": "PV_StreetShop00 source matches installed mesh counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00 LOD0 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00 LOD0 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00 LOD1 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00 LOD1 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00 LOD2 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00 LOD2 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 source matches installed mesh counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 LOD0 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 LOD0 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 LOD1 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 LOD1 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 LOD2 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 LOD2 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 source matches installed mesh counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 LOD0 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 LOD0 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 LOD1 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 LOD1 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 LOD2 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 LOD2 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 source matches installed mesh counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 LOD0 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 LOD0 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 LOD1 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 LOD1 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 LOD2 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 LOD2 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop source matches installed mesh counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop LOD0 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop LOD0 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop LOD1 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop LOD1 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop LOD2 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop LOD2 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop source matches installed mesh counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop LOD0 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop LOD0 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop LOD1 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop LOD1 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop LOD2 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop LOD2 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop source matches installed mesh counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop LOD0 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop LOD0 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop LOD1 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop LOD1 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop LOD2 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop LOD2 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop source matches installed mesh counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop LOD0 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop LOD0 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop LOD1 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop LOD1 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop LOD2 only rod removed",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop LOD2 collision/pets/details unchanged",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00 metadata identical except triangle counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 metadata identical except triangle counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 metadata identical except triangle counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 metadata identical except triangle counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop metadata identical except triangle counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop metadata identical except triangle counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop metadata identical except triangle counts",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop metadata identical except triangle counts",
+      "passed": true
+    }
+  ],
+  "results": [
+    {
+      "name": "PV_StreetShop00",
+      "old": [
+        15502,
+        8007,
+        3182
+      ],
+      "new": [
+        15486,
+        7991,
+        3166
+      ]
+    },
+    {
+      "name": "PV_StreetShop03",
+      "old": [
+        15043,
+        8475,
+        2372
+      ],
+      "new": [
+        15027,
+        8459,
+        2356
+      ]
+    },
+    {
+      "name": "PV_StreetShop06",
+      "old": [
+        15106,
+        8029,
+        3700
+      ],
+      "new": [
+        15090,
+        8013,
+        3684
+      ]
+    },
+    {
+      "name": "PV_StreetShop09",
+      "old": [
+        15646,
+        8726,
+        3397
+      ],
+      "new": [
+        15630,
+        8710,
+        3381
+      ]
+    },
+    {
+      "name": "PV_StreetShop00_Petshop",
+      "old": [
+        18678,
+        10090,
+        5677
+      ],
+      "new": [
+        18662,
+        10074,
+        5661
+      ]
+    },
+    {
+      "name": "PV_StreetShop03_Petshop",
+      "old": [
+        19668,
+        10816,
+        5449
+      ],
+      "new": [
+        19652,
+        10800,
+        5433
+      ]
+    },
+    {
+      "name": "PV_StreetShop06_Petshop",
+      "old": [
+        18679,
+        10091,
+        5678
+      ],
+      "new": [
+        18663,
+        10075,
+        5662
+      ]
+    },
+    {
+      "name": "PV_StreetShop09_Petshop",
+      "old": [
+        19516,
+        10832,
+        5915
+      ],
+      "new": [
+        19500,
+        10816,
+        5899
+      ]
+    }
+  ],
+  "scope": "8 shop variants, 3 LODs; only black flag rod removed"
+}

@@ -1,0 +1,4240 @@
+{
+  "start": [
+    1.55,
+    0.0,
+    1.92
+  ],
+  "jobs": false,
+  "scene": "Assets/PhoViet/Scenes/PhoViet.unity",
+  "dirty": false,
+  "renderers": 10983,
+  "obstacles": 7670,
+  "meshes": [
+    {
+      "name": "PV_StreetShop00_LOD0",
+      "id": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "submeshes": 2,
+      "triangles": 15502
+    },
+    {
+      "name": "PV_StreetShop00_LOD1",
+      "id": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "submeshes": 2,
+      "triangles": 8007
+    },
+    {
+      "name": "PV_StreetShop00_LOD2",
+      "id": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "submeshes": 2,
+      "triangles": 3182
+    },
+    {
+      "name": "PV_StreetShop00_Petshop_LOD0",
+      "id": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "submeshes": 2,
+      "triangles": 18678
+    },
+    {
+      "name": "PV_StreetShop00_Petshop_LOD1",
+      "id": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "submeshes": 2,
+      "triangles": 10090
+    },
+    {
+      "name": "PV_StreetShop00_Petshop_LOD2",
+      "id": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "submeshes": 2,
+      "triangles": 5677
+    },
+    {
+      "name": "PV_StreetShop03_LOD0",
+      "id": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "submeshes": 2,
+      "triangles": 15043
+    },
+    {
+      "name": "PV_StreetShop03_LOD1",
+      "id": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "submeshes": 2,
+      "triangles": 8475
+    },
+    {
+      "name": "PV_StreetShop03_LOD2",
+      "id": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "submeshes": 2,
+      "triangles": 2372
+    },
+    {
+      "name": "PV_StreetShop03_Petshop_LOD0",
+      "id": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "submeshes": 2,
+      "triangles": 19668
+    },
+    {
+      "name": "PV_StreetShop03_Petshop_LOD1",
+      "id": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "submeshes": 2,
+      "triangles": 10816
+    },
+    {
+      "name": "PV_StreetShop03_Petshop_LOD2",
+      "id": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "submeshes": 2,
+      "triangles": 5449
+    },
+    {
+      "name": "PV_StreetShop06_LOD0",
+      "id": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "submeshes": 2,
+      "triangles": 15106
+    },
+    {
+      "name": "PV_StreetShop06_LOD1",
+      "id": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "submeshes": 2,
+      "triangles": 8029
+    },
+    {
+      "name": "PV_StreetShop06_LOD2",
+      "id": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "submeshes": 2,
+      "triangles": 3700
+    },
+    {
+      "name": "PV_StreetShop06_Petshop_LOD0",
+      "id": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-7816305820389947299-0",
+      "submeshes": 2,
+      "triangles": 18679
+    },
+    {
+      "name": "PV_StreetShop06_Petshop_LOD1",
+      "id": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-2049022554906858280-0",
+      "submeshes": 2,
+      "triangles": 10091
+    },
+    {
+      "name": "PV_StreetShop06_Petshop_LOD2",
+      "id": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-940368059575864256-0",
+      "submeshes": 2,
+      "triangles": 5678
+    },
+    {
+      "name": "PV_StreetShop09_LOD0",
+      "id": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "submeshes": 2,
+      "triangles": 15646
+    },
+    {
+      "name": "PV_StreetShop09_LOD1",
+      "id": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "submeshes": 2,
+      "triangles": 8726
+    },
+    {
+      "name": "PV_StreetShop09_LOD2",
+      "id": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "submeshes": 2,
+      "triangles": 3397
+    },
+    {
+      "name": "PV_StreetShop09_Petshop_LOD0",
+      "id": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-17969268352460091989-0",
+      "submeshes": 2,
+      "triangles": 19516
+    },
+    {
+      "name": "PV_StreetShop09_Petshop_LOD1",
+      "id": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-13675267161327090600-0",
+      "submeshes": 2,
+      "triangles": 10832
+    },
+    {
+      "name": "PV_StreetShop09_Petshop_LOD2",
+      "id": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-5230721901088179924-0",
+      "submeshes": 2,
+      "triangles": 5915
+    }
+  ],
+  "references": [
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1000355263-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1002172952-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-100359424-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1011789013-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-101941159-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1021557865-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1027571777-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1030804-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-17969268352460091989-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1033823137-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1035031622-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1037823387-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1039266758-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1051555956-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1056575677-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1056711254-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1057978073-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1058031245-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1060757192-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-10624478515891037656-1035325416",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-2049022554906858280-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-10624478515891037656-1250239112",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-10624478515891037656-1666416201",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-10624478515891037656-189128422",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-10624478515891037656-1986480424",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-2049022554906858280-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-10624478515891037656-641155232",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-2049022554906858280-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-10624478515891037656-725495721",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-10624478515891037656-796541121",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1075562604-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1084494374-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1084613354-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1086179816-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1097829248-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1101870717-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1109616841-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1109687255-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1116284418-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1124360447-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1124683541-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1127068122-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-7816305820389947299-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1129191137-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-11318741809216212911-1035325416",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-940368059575864256-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-11318741809216212911-1250239112",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-11318741809216212911-1666416201",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-11318741809216212911-189128422",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-11318741809216212911-1986480424",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-940368059575864256-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-11318741809216212911-641155232",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-940368059575864256-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-11318741809216212911-725495721",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-11318741809216212911-796541121",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1142908174-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1145011990-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-114743128-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1149001068-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1149846724-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1156034113-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-7816305820389947299-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-11606699-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1165290481-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1170186733-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1171016817-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1171398349-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1171618772-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1188387740-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1190067191-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1192488309-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1195302794-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1196388514-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-119731215-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1216734346-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-122130712-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1231069074-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1233455073-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1234951239-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-2049022554906858280-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1248287205-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1249582039-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1251002624-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-125105995-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-125527192-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-125703776-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1257467383-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-12602131-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-7816305820389947299-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1274200030-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1277742905-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1280941811-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1281097361-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1298354990-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-12989240249504880907-1089220890",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-12989240249504880907-1192452429",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-12989240249504880907-1780971036",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-12989240249504880907-2088185927",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-12989240249504880907-2112039864",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-12989240249504880907-246456376",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-12989240249504880907-31780179",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-12989240249504880907-449087722",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-12989240249504880907-527213021",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1302841504-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1306907655-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1308316926-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1311628090-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-131706972-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1317897644-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1318025183-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1327080792-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1333165770-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1334626986-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1342125833-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1354265443-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1357038590-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1360048864-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1365371591-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1377891033-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1390858742-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1395482972-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1402406973-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1415973446-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-142066208-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1421778008-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-940368059575864256-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1429059416-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1429745621-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1432485462-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1440192953-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1447633989-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1452759791-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1456581814-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1468489543-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1478652180-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1485187780-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1489448319-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1489501379-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1490599184-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1495171061-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1513795124-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-940368059575864256-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1517285871-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1517901054-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1519234893-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-15262228919781639191-1035325416",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-7816305820389947299-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-15262228919781639191-1250239112",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-15262228919781639191-1666416201",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-15262228919781639191-189128422",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-15262228919781639191-1986480424",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-7816305820389947299-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-15262228919781639191-641155232",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-7816305820389947299-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-15262228919781639191-725495721",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-15262228919781639191-796541121",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1528539192-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-15288234-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1532653154-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1532696538-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1536042973-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1539864319-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1543213090-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1548882410-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1553463588-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-13675267161327090600-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1558163847-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-156717873-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1569293194-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-17969268352460091989-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1582339440-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1604940411-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-16067023149412690496-1089220890",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-16067023149412690496-1192452429",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-16067023149412690496-1780971036",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-16067023149412690496-2088185927",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-16067023149412690496-2112039864",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-16067023149412690496-246456376",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-16067023149412690496-31780179",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-16067023149412690496-449087722",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-16067023149412690496-527213021",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1613045355-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1613262179-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-16178625-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1627921827-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1644056181-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1644566418-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1645215979-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1645613268-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1655073521-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1660030861-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1666933256-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1667001994-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1667675481-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1668377380-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1677487968-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1685193278-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1688643419-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1699915840-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1703315208-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1707845457-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1710341193-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-171075078-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1711327347-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1721383234-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1727747371-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1732902704-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1735058944-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1740361868-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1740966316-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1759856875-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-17616093-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-176736289-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1769196701-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1769667162-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-177248908-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1779116613-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1779889375-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1784296073-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1786888903-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-13675267161327090600-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-17917717492718674251-101404773",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-17917717492718674251-106526206",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-17917717492718674251-1244239761",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-17917717492718674251-1429851418",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-17917717492718674251-1520852048",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-17917717492718674251-1800378805",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-17917717492718674251-1974646203",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-17917717492718674251-437933377",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-17917717492718674251-873696508",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1792592775-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1794848719-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1803692122-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-2049022554906858280-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1808166239-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1811399680-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1815996863-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1816253196-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-7816305820389947299-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1816379738-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-13675267161327090600-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1820403512-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1825904565-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1836550908-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1836785493-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1841733380-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1851558094-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1855346406-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1863311422-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1864396570-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-5230721901088179924-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1867124010-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1870718867-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1875150480-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1875429956-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-187949251-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-188065391-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1885522089-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1890041330-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1900814544-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-190808633-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1914407107-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1923173161-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1926293498255584568-1089220890",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1926293498255584568-1192452429",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1926293498255584568-1780971036",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1926293498255584568-2088185927",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1926293498255584568-2112039864",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1926293498255584568-246456376",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1926293498255584568-31780179",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1926293498255584568-449087722",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1926293498255584568-527213021",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1927582544-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-193060696-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1939357581-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1939917430-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1943722774-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-195314136-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-2049022554906858280-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-195497819-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1956710678-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1964291219-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1976617342-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1978685493-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1981951427-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1985657235-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1986356759-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1992766721-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1993168851-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-1998262063-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-200401401-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2023396510-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2025776930-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2025853269-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2026541096-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2027528660-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2034331452-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2034574170-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2046458516-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2049902848-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2050859173-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2058797390-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2060808669-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-2049022554906858280-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2061426038-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2066632864-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2072040018-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2080724599-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2088251638-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2093349019-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2098307580-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2098641637-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2104721411-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-5230721901088179924-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2113330532-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2113746920-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-211464300-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2115546692-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2116115751-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-211646889-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2129576659-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2143532822-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2147409848-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-17969268352460091989-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-224559575-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-224584898-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-17969268352460091989-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2255732294310656391-1141125880",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2255732294310656391-1622334696",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2255732294310656391-1740195244",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2255732294310656391-1795649025",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2255732294310656391-1876984635",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2255732294310656391-1975995814",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2255732294310656391-2128366740",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-2255732294310656391-67298362",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-231150757-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-234910326-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-5230721901088179924-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-238312755-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-242535958-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-24318209-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-25292997-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-940368059575864256-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-262186443-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-263326442-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-263395005-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-264685358-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-265898343-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-5230721901088179924-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-266939676-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-272999720-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-279039297-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-284535703-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-292395641-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-298228200-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-301368309-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-317442614-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-321939471-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-5230721901088179924-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-322897883-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-33508130-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-342376051-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-350123054-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-940368059575864256-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-354688558-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-2049022554906858280-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-357540082-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-366691992-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-368779767-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-369973281-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-374985348-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-377242718-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-378682061-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-398482627-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-4019889474705483460-101404773",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-4019889474705483460-106526206",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-4019889474705483460-1244239761",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-4019889474705483460-1429851418",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-4019889474705483460-1520852048",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-4019889474705483460-1800378805",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-4019889474705483460-1974646203",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-4019889474705483460-437933377",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-4019889474705483460-873696508",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-419073632-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-426515368-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-426658400-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-426742393-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-13675267161327090600-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-428415690-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-428444695-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-4408761-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-446827003-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-447964341-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-448063282-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-7816305820389947299-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-449856665-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-450050383-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-13675267161327090600-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-454642237-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-458856930-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-463177680-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-477284379-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-47904807-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-479767717-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-479868002-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-481527275-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-13675267161327090600-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-50754654-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-507654420-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-509335670-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-510603831-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-513858688-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-514703246-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-940368059575864256-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5417716390462365442-1141125880",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5417716390462365442-1622334696",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5417716390462365442-1740195244",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5417716390462365442-1795649025",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5417716390462365442-1876984635",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5417716390462365442-1975995814",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5417716390462365442-2128366740",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5417716390462365442-67298362",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-547937763-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-551046178-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-552383881-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-2049022554906858280-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-561072612-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-563067112-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-563159300-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-567551585-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-569858795-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-580027544-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-5230721901088179924-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-581240604-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-586274822-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-586515601-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5882124930291243439-1141125880",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5882124930291243439-1622334696",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5882124930291243439-1740195244",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5882124930291243439-1795649025",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5882124930291243439-1876984635",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5882124930291243439-1975995814",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5882124930291243439-2128366740",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-5882124930291243439-67298362",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-596812803-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-597888169-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-598934831-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-601299971-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-603315286-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-611596084-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-615371578-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-616753816-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-940368059575864256-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-618640126-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-620222467-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-621490665-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-623811486-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-624088716-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-630884998-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-637286513-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-637797373-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-642097349-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-64250816-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-643078297-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-649445434-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-656099692-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-659345919-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-660833246-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-663158811-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-666253689-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-671389937-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-674273367-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-680295165-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-682187561-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-683299535-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-9271927037416728627-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-701810023-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-702492640-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-704744871-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-712637866-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-714289463-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-714606156-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-720303535-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-736308194-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-741053300-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-74794173-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-748371236-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-74872942-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-762649721-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-762711308-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-764959840-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-764980202-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-765201255-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-774915157-0",
+      "mesh": "GlobalObjectId_V1-1-409bcf561188a1049ac78ea060400211-7816305820389947299-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-779388306-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-782421634-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-785263519-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-785508240-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-78911694-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-793516818-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-801118043-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-805307032-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-807559589-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-814483990-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-820841099-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-834150970-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-840853600-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-7452274342129859034-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-850914211-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-851424683-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-874801333-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-17969268352460091989-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-876464281-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-878403342-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-879388402-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-880565195-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-884147742-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-886803984-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-12642463631256237631-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-891947274-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-896578116-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-899049490-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-8954043843009150013-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-909856485-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-91586273-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-923835610-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-928889776-0",
+      "mesh": "GlobalObjectId_V1-1-ede501c8cef6c3545962102812082fea-14713184521015790496-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-933824512-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-937286632-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-941116337-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-14083807181453911314-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-943905449-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-945921759-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-953826982-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-13716309731880077950-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-958680031-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-961973654-0",
+      "mesh": "GlobalObjectId_V1-1-7c43ecc4067accb4fab545b0eaf96d4b-17969268352460091989-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-964155356-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-970707861-0",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-5236584661778228009-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-970907604-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-9018705532482304098-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-972237945-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-974672644-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-97797888-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-12485912698968245247-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-978569767-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-987096956-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-8337101188695977570-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-9880238-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-8742997410126355093-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-988357094-0",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-4304138569429295992-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-9918468302910134376-101404773",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-9918468302910134376-106526206",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-9918468302910134376-1244239761",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-9918468302910134376-1429851418",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-9918468302910134376-1520852048",
+      "mesh": "GlobalObjectId_V1-1-abf55b57024f2ea42ae0a4a253e29fc8-16822489180033476896-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-9918468302910134376-1800378805",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-9918468302910134376-1974646203",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-9918468302910134376-437933377",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-9918468302910134376-873696508",
+      "mesh": "GlobalObjectId_V1-1-f4a63fee1caa4de49b4559ed0cb6ae89-3982098928141680659-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-993028349-0",
+      "mesh": "GlobalObjectId_V1-1-73ff8b221ed09ed468400e14dcc17af0-10726944311056919031-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-994669612-0",
+      "mesh": "GlobalObjectId_V1-1-f8aed63ae0c4dc04b9a2cbbfeec16994-12867741670243651902-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    },
+    {
+      "id": "GlobalObjectId_V1-2-29082fe1b620acf4ea7e8826ec1b50bd-999462687-0",
+      "mesh": "GlobalObjectId_V1-1-18b684c249cae014cacffb24956b03f4-6827329666205489682-0",
+      "materials": [
+        "PV_StreetAtlas",
+        "PV_StreetGlass"
+      ]
+    }
+  ]
+}

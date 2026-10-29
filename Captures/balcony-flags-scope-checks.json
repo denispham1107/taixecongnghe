@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "baselineFiles": 3104,
+  "changed": [
+    "Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop00.json",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop00_Petshop.fbx",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop00_Petshop.json",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop03.fbx",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop03.json",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop03_Petshop.fbx",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop03_Petshop.json",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop06.json",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop06_Petshop.fbx",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop06_Petshop.json",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop09.json",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop09_Petshop.fbx",
+    "Assets/PhoViet/Art/Streets/PV_StreetShop09_Petshop.json"
+  ],
+  "added": []
+}

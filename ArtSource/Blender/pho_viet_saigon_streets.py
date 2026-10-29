@@ -769,7 +769,7 @@ def roof(g, spec, obstacles, r):
     g.cyl((HX-.35, .3, WALL-.1), (HX-.35, h, WALL-.1), .045, 'ironGrey', n=6)
 
 def flag(g, x, y):
-    g.cyl((x, y, WALL-.05), (x, y+.6, WALL-1.3), .025, 'iron', n=5)
+    # 21.88: bỏ thanh đen nhô cạnh/xuyên lá cờ trên ban công; giữ nguyên cờ và sao hai mặt.
     g.cube((x+.55, y+.25, WALL-1.0), (1.05, .7, .02), 'flagRed')
     g.star((x+.55, y+.25, WALL-1.012), .2, 'flagGold')
     g.star((x+.55, y+.25, WALL-.988), .2, 'flagGold', facing=1)

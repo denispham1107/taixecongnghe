@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/BalconyFlagCleanup.cs",
+      "entry": "BalconyFlagCleanup.Capture",
+      "timeout_ms": "120000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 4691,
+      "executeMs": 490,
+      "assemblyName": "PipelineRunScript_BalconyFlagCleanup_b56f32ea8b394a94b1092459a5d14234",
+      "success": true,
+      "result": {
+        "success": true,
+        "source": "Actual in-game house model, isolated temporary Play Mode copy in Unity",
+        "target": [
+          -3.05,
+          106.15,
+          -4.900001
+        ],
+        "images": 4
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

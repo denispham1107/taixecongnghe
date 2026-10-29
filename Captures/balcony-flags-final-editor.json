@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "var g=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>(); return new {playing=UnityEditor.EditorApplication.isPlaying,dirty=g.gameObject.scene.isDirty,start=g.rider.localPosition,jobs=g.jobsEnabled,temporaryPreview=UnityEngine.GameObject.Find(\"Temporary balcony flag inspection\")!=null};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": "{ playing = False, dirty = False, start = (1.55, 0.00, 1.92), jobs = False, temporaryPreview = False }"
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
