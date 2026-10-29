@@ -30,5 +30,5 @@ for name in ['sw.js','precache.json','build-info.json','web-data-parts.json']:
     check('Index metadata matches tested file: '+name,blob(name)==Path('docs',name).read_bytes())
 check('Two alternative texture data files',len(manifest['dataVariants'])==2)
 report=dict(success=True,count=len(checks),version=info['version'],cache=info['cache'],checks=checks)
-Path('Captures/release148-staged-checks.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+Path('Captures/release149-staged-checks.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
 print(json.dumps({k:v for k,v in report.items() if k!='checks'}))

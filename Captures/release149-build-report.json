@@ -1,0 +1,10 @@
+{
+  "status": "completed",
+  "success": true,
+  "result": "Succeeded",
+  "totalErrors": 0,
+  "totalWarnings": 1,
+  "lastBuildMs": 105454.5718,
+  "totalMs": 530736,
+  "version": "1.49.0"
+}

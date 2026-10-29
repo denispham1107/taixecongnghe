@@ -110,6 +110,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.95 bản1.49.0 đã build/kiểm cục bộ xong, đang phát hành:**107preflight/500filebytegiữ,43repo+34site+35Gitstaged+315landing+37web+20fullscreenđạt/0runtime. Cache`e37aaa3a16abef99`. Bước kếcommit/push→PagesđúngSHA→đốichiếu/liveWASM→bàn giao. Server8771 đangchạy`.tools/site149`; khôngstage thayđổicụcbộkhác.
+
 - **21.94 hoàn tất source/kiểm tra, chưa build/phát hành web.** UnityđãthoátPlay/scenesạch/start1,92/jobsfalse;BlenderMCPriêng9878 đãlưunguồn vàđóng. Webvẫn1.48.0; không cònbướcsửa/kiểmđangdở. Giữthayđổicụcbộkháckhôngliênquan ngoài commit.
 
 - **21.87–21.93 đã phát hành1.48.0**, không còn bước build/push/live đang dở. Server kiểmtra8771 đã dừng; Unity giữEdit/scenesạch/start1,92/jobsfalse. Thayđổi Art/Wave/Packages/Simulator/.blend/Captures lịch sử vẫn giữ cục bộ ngoài commit. NguồnBlender21.91 và21.92 ởphiên riêng, khôngghiđè`PhoViet_FixtureDetails.blend` đangcó sửa người dùng; không còntácvụ dựng/import đang chạy.

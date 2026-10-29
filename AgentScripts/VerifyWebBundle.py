@@ -4,7 +4,7 @@ root=Path(sys.argv[1] if len(sys.argv)>1 else 'docs');info=json.loads((root/'bui
 def check(label,value):
  assert value,label
  checks.append(label)
-check('Version is 1.48.0',info['version']=='1.48.0')
+check('Version is 1.49.0',info['version']=='1.49.0')
 check('Offline files are unique',len(files)==len(set(files)))
 digest=hashlib.sha256()
 for f in files:
@@ -36,5 +36,5 @@ else:
 total=sum((root/f).stat().st_size for f in files)
 common=total-sum((root/f).stat().st_size for f in variants)
 report={'success':True,'count':len(checks),'checks':checks,'version':info['version'],'cache':info['cache'],'bytes':total,'perDeviceBytes':{f:common+(root/f).stat().st_size for f in variants}}
-Path('Captures/release-1.48-bundle-checks.json').write_text(json.dumps(report,indent=2)+'\n')
+Path('Captures/release-1.49-bundle-checks.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps({k:v for k,v in report.items() if k!='checks'}))

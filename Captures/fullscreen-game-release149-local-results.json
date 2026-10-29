@@ -1,0 +1,34 @@
+{
+  "url": "http://127.0.0.1:8771/",
+  "artifactRoot": ".tools/site149",
+  "checks": [
+    "Published version is 1.49.0",
+    "Published file matches tested artifact: index.html",
+    "Published file matches tested artifact: style.css",
+    "Published file matches tested artifact: app.js",
+    "Published file matches tested artifact: manifest.webmanifest",
+    "Published file matches tested artifact: sw.js",
+    "Published file matches tested artifact: precache.json",
+    "iphone-portrait scene fills all viewport edges",
+    "iphone-portrait has no permanent header",
+    "iphone-portrait floating hamburger button is hidden",
+    "iphone-landscape scene fills all viewport edges",
+    "iphone-landscape has no permanent header",
+    "iphone-landscape floating hamburger button is hidden",
+    "ipad-portrait scene fills all viewport edges",
+    "ipad-portrait has no permanent header",
+    "ipad-portrait floating hamburger button is hidden",
+    "ipad-landscape scene fills all viewport edges",
+    "ipad-landscape has no permanent header",
+    "ipad-landscape floating hamburger button is hidden",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "build": {
+    "version": "1.49.0",
+    "cache": "e37aaa3a16abef99",
+    "unity": "6000.5.6f1",
+    "utc": "2026-10-29T17:52:26.4376468Z"
+  },
+  "success": true
+}
