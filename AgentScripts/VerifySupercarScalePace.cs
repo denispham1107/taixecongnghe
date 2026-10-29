@@ -33,8 +33,8 @@ public static class VerifySupercarScalePace
     {tick(dt);car.Advance(dt);age+=dt;float x=g.rider.localPosition.x;monotonic&=(x-last)*direction>=-.0001f;maxStep=Mathf.Max(maxStep,Mathf.Abs(x-last));last=x;maxRoll=Mathf.Max(maxRoll,Mathf.Abs(Mathf.DeltaAngle(0,g.rider.localEulerAngles.z)));}
     float metres=g.Distance-start;string label=direction+"/"+speed+"/"+boost+"/"+dt;
     check(g.State==PhoVietGame.RideState.Riding&&monotonic&&guard<200,"Smooth monotonic lane path at "+label);
-    check(metres>22&&metres<26.5f,"Equivalent forward travel despite different speed/FPS: "+label+",metres="+metres);
-    check(Mathf.Abs(age-22.95f/roadSpeed)<dt+.035f,"Higher speed reduces lane duration proportionally: "+label+",seconds="+age);
+    check(metres>19&&metres<24,"Equivalent forward travel despite different speed/FPS: "+label+",metres="+metres);
+    check(Mathf.Abs(age-(22.95f/1.15f)/roadSpeed)<dt+.035f,"15-percent faster lane changes still scale with speed: "+label+",seconds="+age);
     check(maxStep<1.05f&&maxRoll<2.6f,"Fast lane changes remain bounded, without a position snap: "+label);
     string key=direction+"/"+speed+"/"+dt;if(!boost)records[key]=age;else check(age<records[key]*.55f+dt,"W speeds up the lane change approximately 2.25 times: "+label);
     cases.Add(new{direction,speed,boost,dt,age,roadSpeed,metres,maxStep,maxRoll});

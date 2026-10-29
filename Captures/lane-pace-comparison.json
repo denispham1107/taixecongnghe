@@ -1,0 +1,35 @@
+{
+  "before": {
+    "kind": 0,
+    "dir": 1,
+    "boost": false,
+    "dt": 0.0166666675,
+    "firstMove": 0.00140893459,
+    "firstYaw": 0.08227188,
+    "firstWheel": 0.988491356,
+    "at50": 0.0124932528,
+    "at100": 0.04893434,
+    "response": 0.0500000045,
+    "done": 22.4237022,
+    "maxStep": 0.06563997,
+    "maxYawStep": 0.489774
+  },
+  "after": {
+    "kind": 0,
+    "dir": 1,
+    "boost": false,
+    "dt": 0.0166666675,
+    "firstMove": 0.00186109543,
+    "firstYaw": 0.108595259,
+    "firstWheel": 1.3009522,
+    "at50": 0.01646614,
+    "at100": 0.0643059,
+    "response": 0.0500000045,
+    "done": 19.5148678,
+    "maxStep": 0.07535195,
+    "maxYawStep": 0.6334655
+  },
+  "measuredDistanceRatio": 1.1490573459073086,
+  "rateMultiplier": 1.15,
+  "fullCurveMetres": 19.956521739130437
+}

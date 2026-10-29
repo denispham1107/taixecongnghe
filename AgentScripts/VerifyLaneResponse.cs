@@ -42,7 +42,7 @@ public static class VerifyLaneResponse
      check(firstMove>=.001f&&firstYaw>.05f&&firstWheel>.1f,"Body position, heading and wheels respond on first simulated frame: "+label);
      check(response>0&&response<=.067f,"First centimetre responds within 67ms including low-FPS quantization: "+label);
      check(monotonic&&maxStep<.6f&&maxYawStep<4,"Lane path remains monotonic with no position/yaw snaps: "+label);
-     check(done>22&&done<26.5f&&Mathf.Abs(g.RiderSteerYaw)<.1f,"Same forward lane-change distance and gradual steering recovery: "+label);
+     check(done>19&&done<24&&Mathf.Abs(g.RiderSteerYaw)<.1f,"15-percent faster lane distance and gradual steering recovery: "+label);
     }
     traces.Add(new{kind,dir,boost,dt,firstMove,firstYaw,firstWheel,at50,at100,response,done,maxStep,maxYawStep});
    }

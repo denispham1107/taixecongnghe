@@ -18,7 +18,7 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | Chế độ chơi | Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
-| Điều khiển/nhảy trong source | **21.65:** scale0,85 (1,761×0,915×3,74m); đổi làn theo quãng đường22,95m/làn, nhanh tỷ lệ Speed/W (17m/s~1,35s;30~0,765s;67,5~0,34s), gồm W giữa chừng; nhảy theo tốc độ cất cánh21.60 giữ nguyên |
+| Điều khiển/nhảy trong source | **21.89 chưa phát hành:** nhịp đổi làn xe đua ×1,15 so với21.65/21.81; full curve19,9565m/làn (17m/s~1,1739s;30~0,6652s;67,5~0,2957s), vẫn tỷ lệ Speed/W giữa chừng. Giữ scale0,85 và nhảy theo tốc độ cất cánh21.60 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
 | Trang chủ HTML trong source | **21.83 đã có trên web1.47.0:** giao diện trắng–xanh/ảnhxeđua sángcósương, hếtchồng315kiểmtra12viewport; thêm37web+20fullscreen/0runtime;1.47.0có28liveđạt |
@@ -30,6 +30,8 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.89 đổi làn xe đua nhanh thêm15% đã xong:** `AdvanceLaneCurve` nhân pace car ×1,15, giữ đường cong/phản hồi đầu/steering damping và W giữa chừng. **399 điều kiện Unity đạt** (217 input/motion +182 scale/pace), compile0lỗi/0warning. Đo60FPS quãng tới làn22,4237→19,5149m, tỷ lệ1,1491 do lượng tử frame. Edit/scenesạch/start1,92/jobsfalse; đã commit cục bộ cùng tài liệu và báo cáo, **chưa build/push/phát hành**, web vẫn1.47.0. Chi tiết huongdan21.89.
 
 - **21.88 bỏ thanhđen cờban công đãxong:** chỉxóa1cylở`flag()`;4tiệm0/3/6/9+4Petshop/3LODđãexport/import.64kiểmBlenderđạt,24mesh/510refs,vậtliệu/scene/obstaclegiữnguyên;4ảnhmôhìnhUnityđãxem. SHA3104filechỉđổi8FBX+8JSONnhà,cầu21.87vàcâykhôngđổi. Nguồn`PhoViet_BalconyFlags.blend`,khônginstaller/build/push/pháthành;Edit/scenesạch/start1,92/jobsfalse. Chi tiếthuongdan21.88.
 
@@ -96,6 +98,8 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.89 đã kiểm tra xong ở source**, cùng21.87–21.88 chưa build/phát hành web; không còn bước sửa/kiểm Unity đang dở. Web hiện tại vẫn1.47.0.
+
 - **21.88 xongsource, chưa build/pháthành:** thanhđen cạnhcờban công đãbỏ/giữcờ-sao/hoa/lan can;24LOD/510meshref/64Blenderđạt,4ảnh1280×900đãxem. BảnsaomôhìnhchụpUnityđãhủy,thoátPlay/scenesạch/start1,92/jobsfalse. Chỉ8FBX+8JSONnhàđổitrong3104filegame;webvẫn1.47.0. Lưucommitcụcbộriêng,khônginstaller,giữcầu21.87vàmẫuchưaduyệt.
 
 - **21.87 xongsource, chưa build/pháthành:** cầuhiện tại khôngcònchậuhoa/thanhchéocờ;173kiểmtrađạt/6ảnhđãxem,UnityđãthoátPlay/scenesạch/start(1,55;0;1,92)/jobsfalse. ChỉFBX/JSONcầuđổitrong3104filegame; khôngchạyinstaller. Source/script/checks/ảnhlưucùngcommitcụcbộriêng;webvẫn1.47.0. Mẫucầu21.85vànhà21.86vẫnchờduyệtriêng.
@@ -148,7 +152,7 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | --- | --- | --- |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
 | Điểm xuất phát xe, kéo thả Edit/Play Ready | **21.76**,6.1 | `PhoVietPlayerStart.cs`, `Editor/PhoVietPlayerStartEditor.cs`, `PhoVietGame.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyPlayerStart*.cs` |
-| Điều khiển, đổi làn, camera, HUD | 2.2, 12, **21.81**,21.55/21.60/21.65 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs`, `AgentScripts/VerifyLaneResponse.cs`, `CaptureLaneResponse.cs` |
+| Điều khiển, đổi làn, camera, HUD | 2.2, 12, **21.89**,21.81/21.55/21.60/21.65 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs`, `AgentScripts/VerifyLaneResponse.cs`, `VerifySupercarScalePace.cs`, `CaptureLaneResponse.cs` |
 | Giao thông, va chạm, văng/té | 7, 21.33 | `PhoVietTraffic.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs` |
 | Quái xế, xe tải ngủ gật | 2.4, 7.2 | `PhoVietReckless.cs` |
 | Đợt Dino→Tank sau cua, vị trí giao lộ, chờ2s/pool | **21.80**,21.62/21.38 | `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `PhoVietDinosaurs.cs`, `PhoVietTankFire.cs`, `AgentScripts/VerifyTurnHazards.cs`, `CaptureTurnHazards.cs` |
