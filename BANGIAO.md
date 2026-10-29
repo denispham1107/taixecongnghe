@@ -10,7 +10,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.48.0** — commit `a424235`; Pages run `40905048845` success; cache `72d4794dd7d8a0a4`; **28 kiểm tra live đạt/0 lỗi runtime** |
+| Bản đã phát hành | **1.49.0** — commit`faa345d`; Pages`40927522323`success; cache`e37aaa3a16abef99`; **28liveđạt/0runtime** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -18,7 +18,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Chế độ chơi | Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
-| Điều khiển/nhảy trong source | **21.94 chưa build:** lane pace thêm10%→1,3915; nhảy cao/vận tốc bật thêm10%, rơi vẫn22m/s²; đầu17m/s~4,00m. Giữ scale0,85/curveSpeed/W chốt lúc cất cánh. Web1.48.0 còn thông số21.92 |
+| Điều khiển/nhảy trong source | **21.94 đã có trên web1.49.0:** lane pace thêm10%→1,3915; nhảy cao/vận tốc bật thêm10%, rơi vẫn22m/s²; đầu17m/s~4,00m. Giữ scale0,85/curveSpeed/W chốt lúc cất cánh. Thông số21.92 đã được thay bằng21.94 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
 | Trang chủ HTML trong source | **21.83 đã có trên web1.47.0:** giao diện trắng–xanh/ảnhxeđua sángcósương, hếtchồng315kiểmtra12viewport; thêm37web+20fullscreen/0runtime;1.47.0có28liveđạt |
@@ -26,13 +26,15 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Đợt bổ sung sau rẽ trong source | **21.80 đã có trên web1.46.0:** hết cua → Dino ở giao lộ phía trước → Tank sau2s; giữ lịch10s/9s.389kiểmtra đạt/2ảnhđãxem; xem huongdan21.80 |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
-| Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. **21.94 source chưa build:** 24bảng thuê/3LOD rộng/chữ thêm20% so1.48.0 (tổng×1,44 so21.91), giữ tầng/vịtrí/màu/chiều cao bảng |
+| Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. **21.94 đã có trên web1.49.0:** 24bảng thuê/3LOD rộng/chữ thêm20% so1.48.0 (tổng×1,44 so21.91), giữ tầng/vịtrí/màu/chiều cao bảng |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Đã có trên web1.48.0** |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.94 đã xong source/Unity, chưa build/phát hành:** bảngthuê/chữ thêm20% (BlenderMCP riêng,24part/3LOD); lane thêm10%→1,3915; nhảy cao/vận tốc bật+10%, rơi22m/s² theo lựa chọn người dùng. **193Blender+920Unity đạt**,0lỗi/warningcompile,3ảnhbảngngày/đêmđãxem;72mesh/3248refs/2779LOD0missing. SHA3106filechỉ4filegameđổidựkiến;start1,92/jobsfalse/scene sạch. Nguồn`PhoViet_Rental2194.blend`riêng, khôngđụng .blend người dùng; xemhuongdan21.94.
+- **21.95 đã phát hành1.49.0:** commit`faa345d`/Pages`40927522323`success/cache`e37aaa3a16abef99`. Gồm21.94 bảngthuê/chữ+20%,lane+10%→1,3915,đỉnh/v0nhảy+10%/fall22. Build2variant530,736s/0lỗi/1warningPipeline;107preflight/500filebytegiữ,43repo+34site+35staged+315landing+37web+20fullscreen+28liveđạt/0runtime. Đãđốichiếu toàn bộtài nguyênPages/khởiđộngWASMthật;khônghạđồhọa. Chi tiếthuongdan21.95.
+
+- **21.94 đã có trên web1.49.0:** bảngthuê/chữ thêm20% (BlenderMCP riêng,24part/3LOD); lane thêm10%→1,3915; nhảy cao/vận tốc bật+10%, rơi22m/s² theo lựa chọn người dùng. **193Blender+920Unity đạt**,0lỗi/warningcompile,3ảnhbảngngày/đêmđãxem;72mesh/3248refs/2779LOD0missing. SHA3106filechỉ4filegameđổidựkiến;start1,92/jobsfalse/scene sạch. Nguồn`PhoViet_Rental2194.blend`riêng, khôngđụng .blend người dùng; xemhuongdan21.94.
 
 - **21.93 đã phát hành1.48.0:** commit`a424235`/Pages`40905048845`success/cache`72d4794dd7d8a0a4`. Gồm21.87–21.92: trangtrícầu/cờ, menuPause, signal2mặt,ACxámtrắng,biểnthuê+20%,lane pace1,265. Build2variant/636,698s/0lỗi/1warningPipeline;102preflight/255source byte-stable;43repo+34site+35Gitstaged+315landing+37web+20fullscreen+28live đạt/0runtime. Đã đối chiếu toàn bộ tài nguyên trênPages và khởi độngWASM/thao tácPause thật. Chưa kiểm máy thật; giữDPR/texture/AA4/bóng/jobsfalse/start1,92. Chi tiết huongdan21.93.
 
@@ -110,9 +112,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.95 bản1.49.0 đã build/kiểm cục bộ xong, đang phát hành:**107preflight/500filebytegiữ,43repo+34site+35Gitstaged+315landing+37web+20fullscreenđạt/0runtime. Cache`e37aaa3a16abef99`. Bước kếcommit/push→PagesđúngSHA→đốichiếu/liveWASM→bàn giao. Server8771 đangchạy`.tools/site149`; khôngstage thayđổicụcbộkhác.
-
-- **21.94 hoàn tất source/kiểm tra, chưa build/phát hành web.** UnityđãthoátPlay/scenesạch/start1,92/jobsfalse;BlenderMCPriêng9878 đãlưunguồn vàđóng. Webvẫn1.48.0; không cònbướcsửa/kiểmđangdở. Giữthayđổicụcbộkháckhôngliênquan ngoài commit.
+- **21.94–21.95 đã phát hành1.49.0**, khôngcònbướcbuild/push/liveđangdở. Server8771đãdừng;UnityEdit/scenesạch/start1,92/jobsfalse. GiữthayđổicụcbộArt/Wave/Packages/Simulator/.blendkháckhôngliênquan ngoài commit;chưa kiểmđiệnthoạithật.
 
 - **21.87–21.93 đã phát hành1.48.0**, không còn bước build/push/live đang dở. Server kiểmtra8771 đã dừng; Unity giữEdit/scenesạch/start1,92/jobsfalse. Thayđổi Art/Wave/Packages/Simulator/.blend/Captures lịch sử vẫn giữ cục bộ ngoài commit. NguồnBlender21.91 và21.92 ởphiên riêng, khôngghiđè`PhoViet_FixtureDetails.blend` đangcó sửa người dùng; không còntácvụ dựng/import đang chạy.
 
