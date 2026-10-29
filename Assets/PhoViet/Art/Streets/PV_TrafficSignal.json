@@ -2,9 +2,9 @@
   "name": "PV_TrafficSignal",
   "generator": "pho_viet_saigon_streets.py",
   "lod_triangles": [
-    358,
-    304,
-    158
+    1540,
+    1060,
+    676
   ],
   "obstacles": [
     {

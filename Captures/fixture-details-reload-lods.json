@@ -1,0 +1,40 @@
+{
+  "success": true,
+  "command": "command eval",
+  "data": {
+    "command": "eval",
+    "parameters": {
+      "code": "var g=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>();if(g.gameObject.scene.isDirty)throw new System.Exception(\"Unsaved scene; abort reload\");var p=g.gameObject.scene.path;UnityEditor.SceneManagement.EditorSceneManager.OpenScene(p);g=UnityEngine.Object.FindAnyObjectByType<PhoViet.PhoVietGame>();var groups=g.scenery.GetComponentsInChildren<UnityEngine.LODGroup>(true);return new {groups=groups.Length,missing=groups.Sum(l=>l.GetLODs().Sum(d=>d.renderers.Count(r=>r==null))),signal=groups.Where(l=>l.name==\"PV_TrafficSignal\").Take(1).Select(l=>l.GetLODs().Select(d=>d.renderers.Select(r=>r==null?\"null\":r.name).ToArray()).ToArray()).ToArray(),dirty=g.gameObject.scene.isDirty};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "groups": 2779,
+        "missing": 0,
+        "signal": [
+          [
+            [
+              "PV_TrafficSignal"
+            ],
+            [
+              "PV_TrafficSignal_LOD1"
+            ],
+            [
+              "PV_TrafficSignal_LOD2"
+            ]
+          ]
+        ],
+        "dirty": false
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

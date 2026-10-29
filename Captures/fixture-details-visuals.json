@@ -1,0 +1,5 @@
+{
+  "success": true,
+  "images": 11,
+  "source": "Unity actual meshes/LOD; signal and AC use isolated temporary Play copies, river uses runtime bridge tile"
+}

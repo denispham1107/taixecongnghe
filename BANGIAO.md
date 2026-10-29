@@ -26,10 +26,13 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | Đợt bổ sung sau rẽ trong source | **21.80 đã có trên web1.46.0:** hết cua → Dino ở giao lộ phía trước → Tank sau2s; giữ lịch10s/9s.389kiểmtra đạt/2ảnhđãxem; xem huongdan21.80 |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Chưabuild/pháthànhweb**,khôngápdụngmẫucầu21.85 |
+| Đèn giao thông/điều hòa/biển thuê nhà | **21.91 đã sửa source:** đèn hộp vát/chụp cong/cần cong; AC xám trắng có quạt/lưới/khe/giá; 24tòa ven sông mỗi tòa1bảng CHO THUÊ NHÀ tầng lệch1–7. 175Blender checks/147mesh/5138refs/2779LOD không thiếu;11ảnh đã xem, chưa build/phát hành |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Chưabuild/pháthànhweb** |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.91 nâng chi tiết cảnh đã xong:** Blender MCP dựng/xuất riêng26asset (24shop thường/Petshop+signal+river apartments),3LOD/chung vật liệu, không thêm renderer; đèn giữ socket/420bóng runtime, AC xám trắng, mỗi tòa ven sông1biển CHO THUÊ NHÀ ở tầng cao thấp khác nhau theo người dùng chọn. **175kiểm Blender đạt;147mesh/5138refs và10983renderer/7670obstacle giữ nguyên;2779LOD/0missing**,11ảnh Unity ngày/đêm/LOD đã xem. SHA3104file chỉ52FBX/JSON dự kiến đổi, scene/cầu/cây/gameplay giữ byte cũ. Nguồn`PhoViet_FixtureDetails.blend`;Unity Edit/scene sạch/start1,92/jobsfalse. Đã commit cục bộ kèm tài liệu/bằng chứng, **chưa build/push/phát hành**, web1.47.0. Chi tiết huongdan21.91.
 
 - **21.90 menu Pause/kết thúc đã sửa:** Pause thêm **VỀ ĐẦU PHỐ** gọi ResetRide như khi thua; bỏ mũi tên sau **ĐI TIẾP** và **THỬ MỘT CHUYẾN NỮA**. Compile0lỗi/0warning; 6ảnh dọc/ngang/desktop đã xem, không chồng; kiểm Pause→Riding và Pause→Ready/0m/0speed/giữ kỷ lục đạt. Edit/scene sạch/start1,92/jobsfalse. Commit cục bộ cùng tài liệu/bằng chứng; **chưa build/push/phát hành**, web vẫn1.47.0. Chi tiết huongdan21.90.
 
@@ -100,6 +103,8 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.91 xong source và kiểm Unity**, chưa build/phát hành. Blender riêng PID2336 đang mở nguồn`PhoViet_FixtureDetails.blend`/MCP9876 (ẩn); không còn thao tác đang chạy. Tool MCP của phiên bị Transport closed, đã dùng client STDIO cục bộ và tắt telemetry. Các mẫu nhà21.86/cầu21.85 chưa áp dụng.
+
 - **21.90 đã xong source/kiểm Unity**, chưa build/phát hành; không còn bước sửa menu đang dở.
 
 - **21.89 đã kiểm tra xong ở source**, cùng21.87–21.88 chưa build/phát hành web; không còn bước sửa/kiểm Unity đang dở. Web hiện tại vẫn1.47.0.
@@ -168,6 +173,7 @@ Cập nhật lần cuối: **29/10/2026 — Codex**
 | Giao lộ, rẽ, rebase tọa độ | 6.1, 9 | `PhoVietRoutes.cs`, `PhoVietRoadDrivers.cs`, `PhoVietExitTraffic.cs` |
 | Chọn mẫu cầu mới (chưa tích hợp) | **21.85** | `ArtSource/Concepts/Bridge-20261028/README.md`, `bridge-comparison.png/html`, `PhoViet_Bridge_Concepts.blend`, `selection.json`; chờ người dùng xác nhận |
 | Trang trí cầu hiện tại/chậuhoa/giá cờ | **21.87** | `ArtSource/Blender/pho_viet_river_bridge.py`, `patch_bridge_fixtures.py`, `PhoViet_BridgeFixtures.blend`, `Art/River/PV_RiverBridge.fbx/json`, `AgentScripts/VerifyBridgeFixtures.cs`, `CaptureBridgeFixtures.cs`; không chạy installer sông/cầu cũ |
+| Đèn giao thông, điều hòa xám trắng, bảng thuê nhà ven sông | **21.91** | `pho_viet_fixture_details.py`, `upgrade_fixture_details.py`, `pho_viet_saigon_streets.py`, `pho_viet_river_bridge.py`, `AgentScripts/FixtureDetailsImport.cs`, `CaptureFixtureDetails.cs`; chỉ export/import26asset, không installer |
 | Thanh đen cạnh cờ ban công nhà phố | **21.88** | `pho_viet_saigon_streets.py`→`flag()`, `remove_balcony_flag_poles.py`, `PhoViet_BalconyFlags.blend`, `AgentScripts/BalconyFlagCleanup.cs`, `Captures/balcony-flags-*`; chỉ8mẫu0/3/6/9 thường+Petshop |
 | Duyệt bộ nhà phố mới (chưa tích hợp) | **21.86** | `ArtSource/Concepts/City-20261029/README.md`, `preview.html`, `city-approval-board.png`, `PhoViet_NewCity_Approval.blend`, `approval.json`; chỉ sau duyệt mới thay nhà, giữ cây |
 | Sông, cầu, căn hộ ven sông, xe/CSGT rơi chìm | 21.35–21.37, 21.45–21.54, 21.63 | `PhoVietRiver.cs`, `RiverBlock.cs`, `RiverReflection.cs`, `River*.shader`, `Editor/PhoVietRiverUpgrade.cs`, `AgentScripts/VerifyRiverCrashSinking.cs` |

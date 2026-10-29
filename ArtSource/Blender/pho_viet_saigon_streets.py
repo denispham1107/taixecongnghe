@@ -725,10 +725,12 @@ def upper_floor(g, spec, k, top, obstacles, r):
         ac(g, 3.25, y0+1.1, d)
     if style == 2 and d < 2: ac(g, -3.3, y0+2.35, d)
 
+# 21.91: detailed fixtures share the existing atlas and LOD meshes.
+exec(compile(open(ROOT+'/ArtSource/Blender/pho_viet_fixture_details.py',encoding='utf8').read(),'pho_viet_fixture_details.py','exec'))
+
 def ac(g, x, y, d):
-    g.cube((x, y, -4.12), (.75, .55, .42), 'white')
-    if d < 2: g.disc((x-.1, y, -4.335), .19, 'ironGrey', n=10 if d == 0 else 6); g.cube((x+.27, y, -4.335), (.12, .4, .01), 'stone', skip=('+z',))
-    g.cube((x, y-.32, -4.12), (.6, .04, .5), 'ironGrey')
+    condenser(g,x,y)
+
 
 def vine(g, x, y, z, length, d, flowers=False):
     if d == 2: return
@@ -996,31 +998,8 @@ def street_lamp(detail):
     return g
 
 def traffic_signal(detail):
-    g = Geo(detail); n = (12, 8, 6)[detail]
-    g.cube((0, .18, 0), (.46, .36, .46), 'steel')
-    g.cyl((0, .3, 0), (0, 7.75, 0), .12, 'steel', n=n, r2=.095)
-    g.cyl((0, 7.75, 0), (0, 7.9, 0), .1, 'chrome', n=n)
-    # Cần vươn ra lòng đường có thanh giằng.
-    g.cyl((0, 7.6, 0), (SIGNAL_REACH+.35, 7.6, 0), .075, 'steel', n=n, r2=.055)
-    if detail < 2: g.cyl((0, 6.75, 0), (1.35, 7.58, 0), .04, 'steel', n=6)
-    g.cyl((SIGNAL_REACH, 7.58, 0), (SIGNAL_REACH, SIGNAL_HEAD_Y+.72, 0), .03, 'iron', n=6)
-    # Hộp đèn treo đối xứng trước/sau; mặt trước chừa chỗ ba bóng runtime ở z = -0,23.
-    hx, hy = SIGNAL_REACH, SIGNAL_HEAD_Y
-    g.cube((hx, hy, 0), (.52, 1.42, .34), 'darkFrame')
-    g.cube((hx, hy, 0), (.64, 1.54, .06), 'iron')   # tấm viền sau hộp
-    for k in range(3):
-        y = hy+.43-k*.43
-        for side in (-1, 1):
-            if detail < 2: g.cube((hx, y+.19, side*.27), (.4, .035, .2), 'iron')
-            if side > 0: g.disc((hx, y, .172), .15, 'ironGrey', facing=(0, 0, 1), n=(10, 8, 6)[detail])
-    # Hộp phụ trên thân cột và hộp điện.
-    g.cube((.0, 3.55, -.2), (.36, 1.0, .26), 'darkFrame')
-    for k in range(3):
-        if detail < 2: g.disc((0, 3.85-k*.3, -.335), .1, 'ironGrey', facing=(0, 0, -1), n=8)
-    g.cube((-.2, 1.25, 0), (.18, .5, .32), 'steel')
-    g.meta = dict(obstacles=[dict(kind='Cột đèn tín hiệu', center=[0, 3.9, 0], size=[.3, 7.8, .3])],
-                  head_center=[SIGNAL_REACH, SIGNAL_HEAD_Y, 0])
-    return g
+    return detailed_traffic_signal(detail)
+
 
 def lamp_mesh(name, g, coll, mats):
     ob = to_mesh(name, g, coll); me = ob.data; me.materials.clear()

@@ -10,9 +10,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        14028,
-        8132,
-        5312
+        16794,
+        8334,
+        5514
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 7,
+          "center": [
+            -18.4,
+            23.650000000000002,
+            4.57
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -164,9 +178,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        14108,
-        8272,
-        5782
+        15592,
+        8474,
+        5984
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 4,
+          "center": [
+            -32.4,
+            14.65,
+            4.57
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -318,9 +346,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        12500,
-        7084,
-        5030
+        13984,
+        7286,
+        5232
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 1,
+          "center": [
+            -45.15,
+            5.65,
+            4.57
+          ],
+          "width": 7.82,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -461,9 +503,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5868,
-        3164,
-        1202
+        6711,
+        3366,
+        1404
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 3,
+          "center": [
+            -59.3,
+            11.65,
+            4.57
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -509,9 +565,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        13326,
-        7538,
-        5158
+        14810,
+        7740,
+        5360
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 4,
+          "center": [
+            -72.7,
+            14.65,
+            4.57
+          ],
+          "width": 6.800000000000001,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -652,9 +722,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        14674,
-        8550,
-        5520
+        16158,
+        8752,
+        5722
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 5,
+          "center": [
+            -86.35,
+            17.650000000000002,
+            4.57
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -806,9 +890,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        3828,
-        2086,
-        822
+        4671,
+        2288,
+        1024
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 5,
+          "center": [
+            17.15,
+            17.650000000000002,
+            4.57
+          ],
+          "width": 7.819999999999999,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -843,9 +941,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        14336,
-        8260,
-        5336
+        16461,
+        8462,
+        5538
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 4,
+          "center": [
+            31.3,
+            14.65,
+            4.57
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -997,9 +1109,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        14124,
-        8250,
-        5696
+        15608,
+        8452,
+        5898
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 4,
+          "center": [
+            46.0,
+            14.65,
+            4.57
+          ],
+          "width": 8.568000000000001,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -1151,9 +1277,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        3904,
-        2220,
-        848
+        5388,
+        2422,
+        1050
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 5,
+          "center": [
+            58.050000000000004,
+            17.650000000000002,
+            4.57
+          ],
+          "width": 7.82,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -1188,9 +1328,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        13586,
-        8026,
-        5412
+        15070,
+        8228,
+        5614
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 4,
+          "center": [
+            72.2,
+            14.65,
+            4.57
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -1342,9 +1496,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        14596,
-        8220,
-        5298
+        16080,
+        8422,
+        5500
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 6,
+          "center": [
+            87.80000000000001,
+            20.650000000000002,
+            4.57
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -1496,9 +1664,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        14310,
-        8138,
-        5500
+        16435,
+        8340,
+        5702
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 3,
+          "center": [
+            -17.7,
+            11.65,
+            55.43
+          ],
+          "width": 8.568,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -1650,9 +1832,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        13242,
-        7514,
-        5158
+        14726,
+        7716,
+        5360
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 4,
+          "center": [
+            -29.0,
+            14.65,
+            55.43
+          ],
+          "width": 6.800000000000001,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -1793,9 +1989,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        13690,
-        7912,
-        5398
+        15815,
+        8114,
+        5600
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 6,
+          "center": [
+            -41.0,
+            20.650000000000002,
+            55.43
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -1947,9 +2157,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        23754,
-        13488,
-        9744
+        23956,
+        13690,
+        9946
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 4,
+          "center": [
+            -55.7,
+            14.65,
+            55.43
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -2200,9 +2424,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        3858,
-        2138,
-        850
+        5342,
+        2340,
+        1052
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 4,
+          "center": [
+            -69.15,
+            14.65,
+            55.43
+          ],
+          "width": 7.820000000000006,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -2237,9 +2475,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        14090,
-        8346,
-        5674
+        16215,
+        8548,
+        5876
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 3,
+          "center": [
+            -84.95,
+            11.65,
+            55.43
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -2402,9 +2654,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        13994,
-        7978,
-        5464
+        15478,
+        8180,
+        5666
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 5,
+          "center": [
+            19.1,
+            17.650000000000002,
+            55.43
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -2556,9 +2822,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        13560,
-        7640,
-        5174
+        14403,
+        7842,
+        5376
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 1,
+          "center": [
+            34.5,
+            5.65,
+            55.43
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -2710,9 +2990,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        5894,
-        3248,
-        1214
+        6737,
+        3450,
+        1416
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 6,
+          "center": [
+            49.900000000000006,
+            20.650000000000002,
+            55.43
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -2758,9 +3052,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        4604,
-        2716,
-        1270
+        6088,
+        2918,
+        1472
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 6,
+          "center": [
+            63.900000000000006,
+            20.650000000000002,
+            55.43
+          ],
+          "width": 8.568000000000001,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -2806,9 +3114,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        14254,
-        8082,
-        5346
+        15738,
+        8284,
+        5548
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 6,
+          "center": [
+            77.2,
+            20.650000000000002,
+            55.43
+          ],
+          "width": 9.0,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -2960,9 +3282,23 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        13496,
-        7540,
-        5048
+        14980,
+        7742,
+        5250
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 7,
+          "center": [
+            89.6,
+            23.650000000000002,
+            55.43
+          ],
+          "width": 7.3439999999999985,
+          "height": 0.88,
+          "facing": -1
+        }
       ],
       "shop_signs": [
         {
@@ -3097,8 +3433,8 @@
     }
   ],
   "lod_triangles": [
-    287624,
-    164542,
-    107256
+    323240,
+    169390,
+    112104
   ]
 }

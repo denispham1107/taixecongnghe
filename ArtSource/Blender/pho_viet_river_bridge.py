@@ -406,7 +406,7 @@ def apartment_block(g, x0, x1, zf, f, rng, obstacles):
                 n = int((w-.6)/.5)
                 for j in range(n+1): g.cube((x0+.3+j*(w-.6)/n, y0+.6, out(.88)), (.025, .85, .025), 'iron')
         elif d == 0 and rngs.random() < .6:
-            g.cube((x0+.7 if rngs.random() < .5 else x1-.7, y0+.9, out(.22)), (.7, .5, .42), 'white')
+            condenser(g,x0+.7 if rngs.random() < .5 else x1-.7,y0+.9,out(.22),f=f,scale=.93)
     # ---- mặt hướng sông: căn hộ kính
     glass_z = inner(LOGGIA); wall_z = inner(zone); mpitch = (1.5 if style != 1 else 1.25)
     nm = max(2, int((w-.5)/mpitch))
@@ -452,6 +452,7 @@ def apartment_block(g, x0, x1, zf, f, rng, obstacles):
             if k and rngs.random() < .5:   # chậu cây ngoài ban công
                 bx = cx+rngs.uniform(-w*.35, w*.35)
                 g.cube((bx, y0+.45, inner(.45)), (.5, .5, .5), 'white'); g.blob((bx, y0+1.0, inner(.45)), (.4, .4, .4), rngs.choice(['leaf2', 'leaf3', 'pink']), n=6, m=3)
+    rental_sign(g,x0,x1,zf,f,floors)  # 21.91: one sign per tower, staggered floors.
     # ---- mái: sân thượng vườn, lan can kính, phòng kỹ thuật
     g.cube((cx, h+.1, (zf+zb)/2), (w, .2, HOUSE_DEPTH), shell)
     g.cube((cx, h+.7, out(-.08)), (w, 1.0, .16), shell)
@@ -645,6 +646,7 @@ def export_parts(name, parts, coll, offset, mats):
         counts = []
         for o in lod_objs: o.data.calc_loop_triangles(); counts.append(len(o.data.loop_triangles))
         info_parts.append(dict(name=pname, slots=orders[0], lod_triangles=counts))
+        if hasattr(geos[0],'rental_signs'):info_parts[-1]['rental_signs']=geos[0].rental_signs
         if hasattr(geos[0],'shop_signs'):info_parts[-1]['shop_signs']=geos[0].shop_signs
         if hasattr(geos[0],'pet_instances'):info_parts[-1].update(pets=geos[0].pet_instances,pets_by_lod=[len(g.pet_instances) for g in geos])
     bpy.ops.object.select_all(action='DESELECT'); root.select_set(True)

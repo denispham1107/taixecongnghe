@@ -1,0 +1,915 @@
+{
+  "checks": [
+    {
+      "name": "Signal collision and runtime lens sockets unchanged",
+      "passed": true
+    },
+    {
+      "name": "Signal three progressively simplified LODs",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop01 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop01 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop01 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop01 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop02 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop02 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop02 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop02 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop00_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop01_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop01_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop01_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop01_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop02_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop02_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop02_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop02_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop04 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop04 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop04 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop04 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop05 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop05 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop05 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop05 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop07 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop07 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop07 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop07 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop08 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop08 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop08 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop08 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop10 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop10 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop10 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop10 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop11 installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop11 only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop11 collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop11 exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop03_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop04_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop04_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop04_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop04_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop05_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop05_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop05_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop05_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop06_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop07_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop07_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop07_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop07_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop08_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop08_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop08_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop08_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop09_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop10_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop10_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop10_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop10_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop11_Petshop installed source baseline",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop11_Petshop only condenser geometry changes",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop11_Petshop collisions, pets and metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "PV_StreetShop11_Petshop exported metadata preserved",
+      "passed": true
+    },
+    {
+      "name": "24 original apartment parts retained",
+      "passed": true
+    },
+    {
+      "name": "Apartment procedural baseline matches installed LOD counts",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt00 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt01 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt02 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt03 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt04 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt05 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt06 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt07 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt08 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt09 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt10 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt11 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt12 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt13 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt14 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt15 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt16 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt17 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt18 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt19 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt20 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt21 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt22 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt23 exactly one sign, all LODs same floor/location",
+      "passed": true
+    },
+    {
+      "name": "Rental floors are staggered",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt00 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt01 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt02 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt03 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt04 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt05 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt06 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt07 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt08 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt09 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt10 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt11 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt12 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt13 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt14 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt15 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt16 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt17 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt18 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt19 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt20 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt21 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt22 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt23 materials/shop signs/pets retained",
+      "passed": true
+    },
+    {
+      "name": "Signal collision and runtime lens sockets unchanged",
+      "passed": true
+    },
+    {
+      "name": "Signal three progressively simplified LODs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt00 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt01 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt02 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt03 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt04 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt05 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt06 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt07 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt08 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt09 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt10 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt11 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt12 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt13 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt14 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt15 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt16 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt17 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt18 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt19 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt20 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt21 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt22 entire architecture unchanged outside AC/signs",
+      "passed": true
+    },
+    {
+      "name": "PV_RiverApt23 entire architecture unchanged outside AC/signs",
+      "passed": true
+    }
+  ],
+  "assets": [
+    {
+      "name": "PV_StreetShop00",
+      "triangles": [
+        16704,
+        8649,
+        3252
+      ]
+    },
+    {
+      "name": "PV_StreetShop01",
+      "triangles": [
+        28066,
+        15082,
+        3847
+      ]
+    },
+    {
+      "name": "PV_StreetShop02",
+      "triangles": [
+        13963,
+        7983,
+        3141
+      ]
+    },
+    {
+      "name": "PV_StreetShop00_Petshop",
+      "triangles": [
+        19880,
+        10732,
+        5747
+      ]
+    },
+    {
+      "name": "PV_StreetShop01_Petshop",
+      "triangles": [
+        33982,
+        18258,
+        6867
+      ]
+    },
+    {
+      "name": "PV_StreetShop02_Petshop",
+      "triangles": [
+        18046,
+        10078,
+        5568
+      ]
+    },
+    {
+      "name": "PV_StreetShop03",
+      "triangles": [
+        15636,
+        8788,
+        2356
+      ]
+    },
+    {
+      "name": "PV_StreetShop04",
+      "triangles": [
+        22398,
+        13206,
+        4009
+      ]
+    },
+    {
+      "name": "PV_StreetShop05",
+      "triangles": [
+        10243,
+        5591,
+        2051
+      ]
+    },
+    {
+      "name": "PV_StreetShop06",
+      "triangles": [
+        16308,
+        8671,
+        3770
+      ]
+    },
+    {
+      "name": "PV_StreetShop07",
+      "triangles": [
+        28025,
+        15345,
+        4345
+      ]
+    },
+    {
+      "name": "PV_StreetShop08",
+      "triangles": [
+        18107,
+        9879,
+        3723
+      ]
+    },
+    {
+      "name": "PV_StreetShop09",
+      "triangles": [
+        16239,
+        9039,
+        3381
+      ]
+    },
+    {
+      "name": "PV_StreetShop10",
+      "triangles": [
+        24587,
+        13315,
+        3745
+      ]
+    },
+    {
+      "name": "PV_StreetShop11",
+      "triangles": [
+        18378,
+        9982,
+        2955
+      ]
+    },
+    {
+      "name": "PV_StreetShop03_Petshop",
+      "triangles": [
+        20261,
+        11129,
+        5433
+      ]
+    },
+    {
+      "name": "PV_StreetShop04_Petshop",
+      "triangles": [
+        27761,
+        15605,
+        6392
+      ]
+    },
+    {
+      "name": "PV_StreetShop05_Petshop",
+      "triangles": [
+        17542,
+        9550,
+        5354
+      ]
+    },
+    {
+      "name": "PV_StreetShop06_Petshop",
+      "triangles": [
+        19881,
+        10733,
+        5748
+      ]
+    },
+    {
+      "name": "PV_StreetShop07_Petshop",
+      "triangles": [
+        31462,
+        17018,
+        6430
+      ]
+    },
+    {
+      "name": "PV_StreetShop08_Petshop",
+      "triangles": [
+        21457,
+        11465,
+        5721
+      ]
+    },
+    {
+      "name": "PV_StreetShop09_Petshop",
+      "triangles": [
+        20109,
+        11145,
+        5899
+      ]
+    },
+    {
+      "name": "PV_StreetShop10_Petshop",
+      "triangles": [
+        30101,
+        16089,
+        6363
+      ]
+    },
+    {
+      "name": "PV_StreetShop11_Petshop",
+      "triangles": [
+        23895,
+        12655,
+        5932
+      ]
+    },
+    {
+      "name": "PV_RiverApartments",
+      "triangles": [
+        323240,
+        169390,
+        112104
+      ]
+    },
+    {
+      "name": "PV_TrafficSignal",
+      "triangles": [
+        1540,
+        1060,
+        676
+      ]
+    }
+  ],
+  "success": true
+}

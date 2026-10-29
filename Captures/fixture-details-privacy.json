@@ -1,0 +1,11 @@
+{
+  "dataCollectionDisabled": true,
+  "officialEnvironmentFlag": "BLENDER_MCP_DISABLE_TELEMETRY=1",
+  "addonConsentDisabledBy": "disable_telemetry MCP tool",
+  "afterDisable": {
+    "http": 2,
+    "screenshotUploads": 0,
+    "trajectoryUploads": 0,
+    "minimalUsageEvents": 2
+  }
+}
