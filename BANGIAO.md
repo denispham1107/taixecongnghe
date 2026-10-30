@@ -29,9 +29,12 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
 | Chất liệu tường trong source | **21.98:** người dùng chọn vân rõ hơn21.97; relief0,42/scale0,65/contrast0,28/smoothness0,015, giữ màu/kính/kim loại/sông. UV mask25FBX/144mesh, texture1K nén/mipmap, không thêm renderer. Chi tiết21.97–21.98; đã có trên web1.50.0 |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Đã có trên web1.48.0** |
+| Tàu và đèn phụ trong source | **21.102 chưa phát hành:** tàu đánh cá Meshy140chiếc,3LOD/texture2K; đènnhỏ chungtínhiệu2mặt vớiđènlớn;3346kiểmđạt. Web1.50.0 còn tàu cũ/đènnhỏtắt |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.102 source đã xong, chưa phát hành:** thay140tàu neo bằng Vietnamese Fishing Boat mới,9m/tỷlệnguồn/texture2K/3LOD39.998–19.998–9.998tri; giữvịtrí/hướng/bob/reflection. Đènnhỏ đỏ/vàng/xanh sángđồngbộđènlớn cả2mặt, dùngchung420renderer/6mesh, khôngthêmđèn/drawcall.3346kiểmđạt/10ảnhUnityđãxem; scopeScene0ngoàiphạmvi/anchor140tàugiữ. Chi tiếthuongdan21.102.
 
 - **21.100–21.101 đã phát hành1.50.0:** commit`d7da47e`/Pages`41020101134`success/cache`4405f16bdef633ec`. Lane thêm10%→1,53065; nhảy cố định4,11665m (+3% mức đầu), đèn căn giữa theo xe; trang chủ cóảnhđêm dướiảnhsáng. Gồm21.96–21.99 miễnDino/38biển/vữa/lịchTank.840gameplay+113finalscene,505fileSHAgiữ;44repo+35site+36staged+387landing+37web+20fullscreen+29liveđạt/0runtime. Build2variant583,555s/0lỗi/1warningDevMCP; đối chiếu toàn bộ tài nguyênPages và khởiđộngWASM thật. GiữDPR/texture/AA4/bóng/start1,92/jobsfalse; chưa thử Safari/Android máy thật.
 
@@ -123,6 +126,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.102 đã xong source/kiểm tra, chưa build/push/phát hành.**140tàuFishingBoatMeshy/3LOD40k/20k/10k/texture2K; đèn phụ đồng bộ lớn ở2mặt,0renderer thêm.570Editor+2670Play+106regression=3346đạt,10ảnhđãxem. UnityEdit/scenesạch/start1,92/jobsfalse; rawMeshypreviewđãbackup/bỏđúngroot, nguồngốcgiữnguyên. Webvẫn1.50.0; giữdirtyArt/Wave/Packages/Simulator ngoài commit.
+
 - **21.96–21.101 đã có trên web1.50.0**, không còn bước sửa/build/push/live đang dở. UnityEdit/scenesạch/start1,92/jobsfalse; GPUdesktop, server kiểmtra8771/8772 đã dừng. DirtyArt/Wave/Packages/Simulator/.blend/Captures lịch sử giữ cục bộ ngoài commit; chưa kiểm điệnthoạithật.
 
 - **21.87–21.93 đã phát hành1.48.0**, không còn bước build/push/live đang dở. Server kiểmtra8771 đã dừng; Unity giữEdit/scenesạch/start1,92/jobsfalse. Thayđổi Art/Wave/Packages/Simulator/.blend/Captures lịch sử vẫn giữ cục bộ ngoài commit. NguồnBlender21.91 và21.92 ởphiên riêng, khôngghiđè`PhoViet_FixtureDetails.blend` đangcó sửa người dùng; không còntácvụ dựng/import đang chạy.
@@ -192,9 +197,10 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Giao lộ, rẽ, rebase tọa độ | 6.1, 9 | `PhoVietRoutes.cs`, `PhoVietRoadDrivers.cs`, `PhoVietExitTraffic.cs` |
 | Chọn mẫu cầu mới (chưa tích hợp) | **21.85** | `ArtSource/Concepts/Bridge-20261028/README.md`, `bridge-comparison.png/html`, `PhoViet_Bridge_Concepts.blend`, `selection.json`; chờ người dùng xác nhận |
 | Trang trí cầu hiện tại/chậuhoa/giá cờ | **21.87** | `ArtSource/Blender/pho_viet_river_bridge.py`, `patch_bridge_fixtures.py`, `PhoViet_BridgeFixtures.blend`, `Art/River/PV_RiverBridge.fbx/json`, `AgentScripts/VerifyBridgeFixtures.cs`, `CaptureBridgeFixtures.cs`; không chạy installer sông/cầu cũ |
-| Đèn giao thông, điều hòa xám trắng, bảng thuê nhà ven sông | **21.94**,21.92/21.91 | `pho_viet_fixture_details.py`, `upgrade_fixture_details.py`, `pho_viet_saigon_streets.py`, `pho_viet_river_bridge.py`, `AgentScripts/FixtureDetailsImport.cs`, `CaptureFixtureDetails.cs`;21.92 thêm`upgrade_signal_rental.py`, `PhoVietSignalFaces.cs`, `SignalRentalUpdate.cs`, `VerifySignalFaces.cs`, `CaptureSignalRental.cs`; chỉ export/import signal+river, không installer |
+| Đèn giao thông, điều hòa xám trắng, bảng thuê nhà ven sông | **21.102**,21.94/21.92/21.91 | `pho_viet_fixture_details.py`, `upgrade_fixture_details.py`, `pho_viet_saigon_streets.py`, `pho_viet_river_bridge.py`, `AgentScripts/FixtureDetailsImport.cs`, `CaptureFixtureDetails.cs`;21.92 thêm`upgrade_signal_rental.py`, `PhoVietSignalFaces.cs`, `SignalRentalUpdate.cs`, `VerifySignalFaces.cs`, `CaptureSignalRental.cs`; chỉ export/import signal+river, không installer |
 | Thanh đen cạnh cờ ban công nhà phố | **21.88** | `pho_viet_saigon_streets.py`→`flag()`, `remove_balcony_flag_poles.py`, `PhoViet_BalconyFlags.blend`, `AgentScripts/BalconyFlagCleanup.cs`, `Captures/balcony-flags-*`; chỉ8mẫu0/3/6/9 thường+Petshop |
 | Duyệt bộ nhà phố mới (chưa tích hợp) | **21.86** | `ArtSource/Concepts/City-20261029/README.md`, `preview.html`, `city-approval-board.png`, `PhoViet_NewCity_Approval.blend`, `approval.json`; chỉ sau duyệt mới thay nhà, giữ cây |
+| Tàu đánh cá Meshy / tín hiệu phụ2mặt | **21.102** | `Editor/PhoVietFishingBoatUpgrade.cs`, `Art/River/FishingBoat/`, `ArtSource/Blender/prepare_fishing_boat.py`, `PhoViet_FishingBoat.blend`, `PhoVietSignalFaces.cs`, `AgentScripts/VerifyBoatSignal.cs`, `CaptureBoatSignal.cs`; không chạy lại installer sông/nhà |
 | Sông, cầu, căn hộ ven sông, xe/CSGT rơi chìm | 21.35–21.37, 21.45–21.54, 21.63 | `PhoVietRiver.cs`, `RiverBlock.cs`, `RiverReflection.cs`, `River*.shader`, `Editor/PhoVietRiverUpgrade.cs`, `AgentScripts/VerifyRiverCrashSinking.cs` |
 | Cảnh phố, nhà, cây | 11.4, 21.19–21.28, 21.43 | `VietnamStreet.cs`, `StreetArt.cs`, `Editor/PhoVietStreetUpgrade.cs` |
 | Tường sơn lì/vân vữa rõ hơn, 14biển thuê mới | **21.98/21.97**,21.91/21.94 | `Editor/PhoVietWallFinish.cs`, `StreetWall.shader`, `WallStucco.cginc`, `ApartmentRoom.shader`, `PV_WallStuccoDetail.png`, `pho_viet_fixture_details.py`, `upgrade_rental_walls_2197.py`, `AgentScripts/TuneWall2198.cs`, `VerifyRentalWalls*.cs` |

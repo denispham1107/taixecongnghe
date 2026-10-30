@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "nonBoatDocuments": 44057,
+  "changedNonBoatDocumentIds": [],
+  "oldBoatDocuments": 560,
+  "newBoatDocuments": 2240,
+  "anchoringYawWavePhasesPreserved": true
+}

@@ -133,7 +133,8 @@ namespace PhoViet.Editor
                     var boat=(GameObject)PrefabUtility.InstantiatePrefab(boats[b.asset],root.transform);boat.name="Thuyền neo • "+b.asset;
                     var rest=new Vector3(b.x,info.water_y,b.z);boat.transform.localPosition=rest;boat.transform.localRotation=Quaternion.Euler(0,b.yaw,0);
                     SetupLods(boat,new[]{"PV_StreetAtlas"},slotMats,ShadowCastingMode.On);
-                    var bob=boat.AddComponent<RiverBoat>();bob.restPosition=rest;bob.restYaw=b.yaw;bob.phase=b.x*.37f+b.z*.11f;boatCount++;
+                    var bob=boat.AddComponent<RiverBoat>();bob.restPosition=rest;bob.restYaw=b.yaw;bob.phase=b.x*.37f+b.z*.11f;
+                    PhoVietFishingBoatUpgrade.ApplyOne(boat);boatCount++;
                 }
                 var lampGroup=Group("Đèn cầu • Blender",root.transform);
                 foreach(float side in new[]{-1f,1f})foreach(float z in info.lamps)

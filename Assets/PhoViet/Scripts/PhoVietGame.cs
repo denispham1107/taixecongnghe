@@ -489,7 +489,11 @@ namespace PhoViet
         void AnimateLights()
         {
             int active=Time.time%13<6?2:Time.time%13<8?1:0;
-            if(active==signalState)return;signalState=active;
+            if(active==signalState)return;ApplyTrafficSignalState(active);
+        }
+        void ApplyTrafficSignalState(int active)
+        {
+            signalState=active;
             for(int i=0;i<trafficLights.Count;i++) if(trafficLights[i]!=null)
                 trafficLights[i].sharedMaterial=Mat(i%3==active?(active==0?Hex("FF6453"):active==1?Gold:Hex("64E5A3")):Hex("354B47"),true);
         }

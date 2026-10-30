@@ -1,0 +1,1303 @@
+{
+  "success": true,
+  "path": "Assets/MeshyImports/Vietnamese_Fishing_Boat_20261030_145637\\Meshy_AI_Vietnamese_Fishing_Boat_20261030_texture.fbx",
+  "modelMeshes": [
+    {
+      "name": "Vietnamese_Fishing_Boat",
+      "vertexCount": 1345175,
+      "triangles": 2450930,
+      "bounds": {
+        "center": {
+          "x": 2.620276E-06,
+          "y": -3.68000474E-05,
+          "z": -7.049879E-06,
+          "normalized": {
+            "x": 0.06976101,
+            "y": -0.979747355,
+            "z": -0.1876927,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 3.75607524E-05,
+          "sqrMagnitude": 1.41081014E-09
+        },
+        "size": {
+          "x": 0.01902204,
+          "y": 0.00736254,
+          "z": 0.0102935806,
+          "normalized": {
+            "x": 0.832569838,
+            "y": 0.322248757,
+            "z": 0.450536579,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.02284738,
+          "sqrMagnitude": 0.0005220028
+        },
+        "extents": {
+          "x": 0.00951102,
+          "y": 0.00368127,
+          "z": 0.0051467903,
+          "normalized": {
+            "x": 0.832569838,
+            "y": 0.322248757,
+            "z": 0.450536579,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.01142369,
+          "sqrMagnitude": 0.0001305007
+        },
+        "min": {
+          "x": -0.009508399,
+          "y": -0.00371807,
+          "z": -0.00515384041,
+          "normalized": {
+            "x": -0.831401,
+            "y": -0.325102776,
+            "z": -0.450644523,
+            "normalized": {
+              "x": -0.83140105,
+              "y": -0.3251028,
+              "z": -0.450644553,
+              "magnitude": 1.0,
+              "sqrMagnitude": 1.0
+            },
+            "magnitude": 0.99999994,
+            "sqrMagnitude": 0.9999999
+          },
+          "magnitude": 0.0114365984,
+          "sqrMagnitude": 0.000130795772
+        },
+        "max": {
+          "x": 0.009513641,
+          "y": 0.00364447,
+          "z": 0.00513974,
+          "normalized": {
+            "x": 0.8337333,
+            "y": 0.3193852,
+            "z": 0.450424045,
+            "magnitude": 1.0,
+            "sqrMagnitude": 1.0
+          },
+          "magnitude": 0.011410892,
+          "sqrMagnitude": 0.000130208457
+        }
+      }
+    }
+  ],
+  "modelMaterials": [
+    {
+      "name": "Material.001",
+      "shader": "Standard"
+    }
+  ],
+  "boats": 140,
+  "sample": [
+    {
+      "name": "Thuyền neo • PV_RiverBoat0",
+      "restPosition": {
+        "x": -31.0,
+        "y": -5.0,
+        "z": 51.9,
+        "normalized": {
+          "x": -0.511046946,
+          "y": -0.08242693,
+          "z": 0.855591536,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 60.65979,
+        "sqrMagnitude": 3679.61
+      },
+      "restYaw": 0.0,
+      "phase": -5.761,
+      "renderers": [
+        {
+          "name": "PV_RiverBoat0_LOD0",
+          "bounds": {
+            "center": {
+              "x": -31.0,
+              "y": -3.76375,
+              "z": -28.0999985,
+              "normalized": {
+                "x": -0.737933,
+                "y": -0.0895933956,
+                "z": -0.6689005,
+                "normalized": {
+                  "x": -0.73793304,
+                  "y": -0.0895934,
+                  "z": -0.668900549,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 42.0092354,
+              "sqrMagnitude": 1764.77576
+            },
+            "size": {
+              "x": 9.0,
+              "y": 3.37250066,
+              "z": 1.97600055,
+              "normalized": {
+                "x": 0.9172299,
+                "y": 0.3437065,
+                "z": 0.20138298,
+                "normalized": {
+                  "x": 0.91722995,
+                  "y": 0.343706518,
+                  "z": 0.201383,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 9.812153,
+              "sqrMagnitude": 96.2783356
+            },
+            "extents": {
+              "x": 4.5,
+              "y": 1.68625033,
+              "z": 0.9880003,
+              "normalized": {
+                "x": 0.9172299,
+                "y": 0.3437065,
+                "z": 0.20138298,
+                "normalized": {
+                  "x": 0.91722995,
+                  "y": 0.343706518,
+                  "z": 0.201383,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 4.90607643,
+              "sqrMagnitude": 24.0695839
+            },
+            "min": {
+              "x": -35.5,
+              "y": -5.45000029,
+              "z": -29.088,
+              "normalized": {
+                "x": -0.768106043,
+                "y": -0.117920518,
+                "z": -0.6293709,
+                "normalized": {
+                  "x": -0.7681061,
+                  "y": -0.117920525,
+                  "z": -0.629371,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.9999999
+              },
+              "magnitude": 46.2175751,
+              "sqrMagnitude": 2136.06421
+            },
+            "max": {
+              "x": -26.5,
+              "y": -2.07749987,
+              "z": -27.1119976,
+              "normalized": {
+                "x": -0.697942257,
+                "y": -0.0547160357,
+                "z": -0.7140607,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 37.9687576,
+              "sqrMagnitude": 1441.62646
+            }
+          }
+        },
+        {
+          "name": "PV_RiverBoat0_LOD1",
+          "bounds": {
+            "center": {
+              "x": -31.0,
+              "y": -3.76235,
+              "z": -28.0999985,
+              "normalized": {
+                "x": -0.7379352,
+                "y": -0.08956034,
+                "z": -0.6689025,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 42.00911,
+              "sqrMagnitude": 1764.76514
+            },
+            "size": {
+              "x": 9.0,
+              "y": 3.36970067,
+              "z": 1.97600055,
+              "normalized": {
+                "x": 0.917319834,
+                "y": 0.3434548,
+                "z": 0.201402724,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 9.811191,
+              "sqrMagnitude": 96.25946
+            },
+            "extents": {
+              "x": 4.5,
+              "y": 1.68485034,
+              "z": 0.9880003,
+              "normalized": {
+                "x": 0.917319834,
+                "y": 0.3434548,
+                "z": 0.201402724,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 4.9055953,
+              "sqrMagnitude": 24.0648651
+            },
+            "min": {
+              "x": -35.5,
+              "y": -5.4472003,
+              "z": -29.088,
+              "normalized": {
+                "x": -0.7681116,
+                "y": -0.117860779,
+                "z": -0.629375458,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 46.2172432,
+              "sqrMagnitude": 2136.03369
+            },
+            "max": {
+              "x": -26.5,
+              "y": -2.07749987,
+              "z": -27.1119976,
+              "normalized": {
+                "x": -0.697942257,
+                "y": -0.0547160357,
+                "z": -0.7140607,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 37.9687576,
+              "sqrMagnitude": 1441.62646
+            }
+          }
+        },
+        {
+          "name": "PV_RiverBoat0_LOD2",
+          "bounds": {
+            "center": {
+              "x": -31.0,
+              "y": -3.76235,
+              "z": -28.0999985,
+              "normalized": {
+                "x": -0.7379352,
+                "y": -0.08956034,
+                "z": -0.6689025,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 42.00911,
+              "sqrMagnitude": 1764.76514
+            },
+            "size": {
+              "x": 9.0,
+              "y": 3.36970067,
+              "z": 1.97600055,
+              "normalized": {
+                "x": 0.917319834,
+                "y": 0.3434548,
+                "z": 0.201402724,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 9.811191,
+              "sqrMagnitude": 96.25946
+            },
+            "extents": {
+              "x": 4.5,
+              "y": 1.68485034,
+              "z": 0.9880003,
+              "normalized": {
+                "x": 0.917319834,
+                "y": 0.3434548,
+                "z": 0.201402724,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 4.9055953,
+              "sqrMagnitude": 24.0648651
+            },
+            "min": {
+              "x": -35.5,
+              "y": -5.4472003,
+              "z": -29.088,
+              "normalized": {
+                "x": -0.7681116,
+                "y": -0.117860779,
+                "z": -0.629375458,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 46.2172432,
+              "sqrMagnitude": 2136.03369
+            },
+            "max": {
+              "x": -26.5,
+              "y": -2.07749987,
+              "z": -27.1119976,
+              "normalized": {
+                "x": -0.697942257,
+                "y": -0.0547160357,
+                "z": -0.7140607,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 37.9687576,
+              "sqrMagnitude": 1441.62646
+            }
+          }
+        }
+      ],
+      "lod": 3
+    },
+    {
+      "name": "Thuyền neo • PV_RiverBoat1",
+      "restPosition": {
+        "x": 27.0,
+        "y": -5.0,
+        "z": 8.0,
+        "normalized": {
+          "x": 0.9440329,
+          "y": -0.1748209,
+          "z": 0.279713452,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 28.6006985,
+        "sqrMagnitude": 818.0
+      },
+      "restYaw": 180.0,
+      "phase": 10.87,
+      "renderers": [
+        {
+          "name": "PV_RiverBoat1_LOD0",
+          "bounds": {
+            "center": {
+              "x": 27.0,
+              "y": -4.21375,
+              "z": -72.0,
+              "normalized": {
+                "x": 0.350597441,
+                "y": -0.054715924,
+                "z": -0.9349265,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 77.0114,
+              "sqrMagnitude": 5930.756
+            },
+            "size": {
+              "x": 6.4,
+              "y": 2.47250056,
+              "z": 1.57000113,
+              "normalized": {
+                "x": 0.90930593,
+                "y": 0.351290524,
+                "z": 0.223064274,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 7.03833532,
+              "sqrMagnitude": 49.5381622
+            },
+            "extents": {
+              "x": 3.2,
+              "y": 1.23625028,
+              "z": 0.785000563,
+              "normalized": {
+                "x": 0.90930593,
+                "y": 0.351290524,
+                "z": 0.223064274,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 3.51916766,
+              "sqrMagnitude": 12.3845406
+            },
+            "min": {
+              "x": 23.8,
+              "y": -5.45000029,
+              "z": -72.785,
+              "normalized": {
+                "x": 0.310012549,
+                "y": -0.07099028,
+                "z": -0.9480784,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 76.77108,
+              "sqrMagnitude": 5893.79932
+            },
+            "max": {
+              "x": 30.2,
+              "y": -2.97749949,
+              "z": -71.215,
+              "normalized": {
+                "x": 0.390124857,
+                "y": -0.0384634621,
+                "z": -0.919958234,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 77.41112,
+              "sqrMagnitude": 5992.48145
+            }
+          }
+        },
+        {
+          "name": "PV_RiverBoat1_LOD1",
+          "bounds": {
+            "center": {
+              "x": 27.0,
+              "y": -4.21235,
+              "z": -72.0,
+              "normalized": {
+                "x": 0.3505978,
+                "y": -0.0546978,
+                "z": -0.934927464,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 77.01132,
+              "sqrMagnitude": 5930.74365
+            },
+            "size": {
+              "x": 6.4,
+              "y": 2.46970057,
+              "z": 1.57000113,
+              "normalized": {
+                "x": 0.909433,
+                "y": 0.350941747,
+                "z": 0.223095432,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.00000012
+              },
+              "magnitude": 7.037352,
+              "sqrMagnitude": 49.5243263
+            },
+            "extents": {
+              "x": 3.2,
+              "y": 1.23485029,
+              "z": 0.785000563,
+              "normalized": {
+                "x": 0.909433,
+                "y": 0.350941747,
+                "z": 0.223095432,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.00000012
+              },
+              "magnitude": 3.518676,
+              "sqrMagnitude": 12.3810816
+            },
+            "min": {
+              "x": 23.8,
+              "y": -5.4472003,
+              "z": -72.785,
+              "normalized": {
+                "x": 0.310013354,
+                "y": -0.07095399,
+                "z": -0.948080838,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 76.77088,
+              "sqrMagnitude": 5893.76855
+            },
+            "max": {
+              "x": 30.2,
+              "y": -2.97749949,
+              "z": -71.215,
+              "normalized": {
+                "x": 0.390124857,
+                "y": -0.0384634621,
+                "z": -0.919958234,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 77.41112,
+              "sqrMagnitude": 5992.48145
+            }
+          }
+        },
+        {
+          "name": "PV_RiverBoat1_LOD2",
+          "bounds": {
+            "center": {
+              "x": 27.0,
+              "y": -4.249193,
+              "z": -72.0,
+              "normalized": {
+                "x": 0.3505886,
+                "y": -0.0551747642,
+                "z": -0.9349029,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 77.01334,
+              "sqrMagnitude": 5931.05566
+            },
+            "size": {
+              "x": 6.4,
+              "y": 2.39601445,
+              "z": 1.57000113,
+              "normalized": {
+                "x": 0.9127429,
+                "y": 0.34171018,
+                "z": 0.2239074,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 7.011832,
+              "sqrMagnitude": 49.16579
+            },
+            "extents": {
+              "x": 3.2,
+              "y": 1.19800723,
+              "z": 0.785000563,
+              "normalized": {
+                "x": 0.9127429,
+                "y": 0.34171018,
+                "z": 0.2239074,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 3.505916,
+              "sqrMagnitude": 12.2914476
+            },
+            "min": {
+              "x": 23.8,
+              "y": -5.4472003,
+              "z": -72.785,
+              "normalized": {
+                "x": 0.310013354,
+                "y": -0.07095399,
+                "z": -0.948080838,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 76.77088,
+              "sqrMagnitude": 5893.76855
+            },
+            "max": {
+              "x": 30.2,
+              "y": -3.051186,
+              "z": -71.215,
+              "normalized": {
+                "x": 0.3901104,
+                "y": -0.039413888,
+                "z": -0.91992414,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 77.41399,
+              "sqrMagnitude": 5992.92529
+            }
+          }
+        }
+      ],
+      "lod": 3
+    },
+    {
+      "name": "Thuyền neo • PV_RiverBoat1",
+      "restPosition": {
+        "x": -58.0,
+        "y": -5.0,
+        "z": 7.8,
+        "normalized": {
+          "x": -0.987480462,
+          "y": -0.08512762,
+          "z": 0.1327991,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 58.73534,
+        "sqrMagnitude": 3449.84
+      },
+      "restYaw": 0.0,
+      "phase": -20.6020012,
+      "renderers": [
+        {
+          "name": "PV_RiverBoat1_LOD0",
+          "bounds": {
+            "center": {
+              "x": -58.0,
+              "y": -4.21375,
+              "z": -72.2,
+              "normalized": {
+                "x": -0.6256267,
+                "y": -0.04545232,
+                "z": -0.7787973,
+                "normalized": {
+                  "x": -0.625626743,
+                  "y": -0.0454523228,
+                  "z": -0.7787974,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 92.70704,
+              "sqrMagnitude": 8594.596
+            },
+            "size": {
+              "x": 6.4,
+              "y": 2.47250056,
+              "z": 1.57000053,
+              "normalized": {
+                "x": 0.90930593,
+                "y": 0.351290524,
+                "z": 0.223064184,
+                "normalized": {
+                  "x": 0.909306,
+                  "y": 0.351290554,
+                  "z": 0.2230642,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 7.03833532,
+              "sqrMagnitude": 49.5381622
+            },
+            "extents": {
+              "x": 3.2,
+              "y": 1.23625028,
+              "z": 0.785000265,
+              "normalized": {
+                "x": 0.90930593,
+                "y": 0.351290524,
+                "z": 0.223064184,
+                "normalized": {
+                  "x": 0.909306,
+                  "y": 0.351290554,
+                  "z": 0.2230642,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 3.51916766,
+              "sqrMagnitude": 12.3845406
+            },
+            "min": {
+              "x": -61.2,
+              "y": -5.45000029,
+              "z": -72.985,
+              "normalized": {
+                "x": -0.6414815,
+                "y": -0.0571254,
+                "z": -0.7650086,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 95.40415,
+              "sqrMagnitude": 9101.953
+            },
+            "max": {
+              "x": -54.8,
+              "y": -2.97749949,
+              "z": -71.41499,
+              "normalized": {
+                "x": -0.6084381,
+                "y": -0.0330588333,
+                "z": -0.7929125,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 90.06668,
+              "sqrMagnitude": 8112.007
+            }
+          }
+        },
+        {
+          "name": "PV_RiverBoat1_LOD1",
+          "bounds": {
+            "center": {
+              "x": -58.0,
+              "y": -4.21235,
+              "z": -72.2,
+              "normalized": {
+                "x": -0.6256271,
+                "y": -0.0454372466,
+                "z": -0.778797865,
+                "normalized": {
+                  "x": -0.62562716,
+                  "y": -0.04543725,
+                  "z": -0.7787979,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 92.70698,
+              "sqrMagnitude": 8594.583
+            },
+            "size": {
+              "x": 6.4,
+              "y": 2.46970057,
+              "z": 1.57000053,
+              "normalized": {
+                "x": 0.909433,
+                "y": 0.350941747,
+                "z": 0.223095357,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 7.037352,
+              "sqrMagnitude": 49.5243225
+            },
+            "extents": {
+              "x": 3.2,
+              "y": 1.23485029,
+              "z": 0.785000265,
+              "normalized": {
+                "x": 0.909433,
+                "y": 0.350941747,
+                "z": 0.223095357,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 3.518676,
+              "sqrMagnitude": 12.3810806
+            },
+            "min": {
+              "x": -61.2,
+              "y": -5.4472003,
+              "z": -72.985,
+              "normalized": {
+                "x": -0.641482532,
+                "y": -0.0570961423,
+                "z": -0.7650099,
+                "normalized": {
+                  "x": -0.6414826,
+                  "y": -0.057096146,
+                  "z": -0.76500994,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 95.404,
+              "sqrMagnitude": 9101.923
+            },
+            "max": {
+              "x": -54.8,
+              "y": -2.97749949,
+              "z": -71.41499,
+              "normalized": {
+                "x": -0.6084381,
+                "y": -0.0330588333,
+                "z": -0.7929125,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 90.06668,
+              "sqrMagnitude": 8112.007
+            }
+          }
+        },
+        {
+          "name": "PV_RiverBoat1_LOD2",
+          "bounds": {
+            "center": {
+              "x": -58.0,
+              "y": -4.249193,
+              "z": -72.2,
+              "normalized": {
+                "x": -0.6256158,
+                "y": -0.0458338335,
+                "z": -0.7787838,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 92.70866,
+              "sqrMagnitude": 8594.89551
+            },
+            "size": {
+              "x": 6.4,
+              "y": 2.39601445,
+              "z": 1.57000053,
+              "normalized": {
+                "x": 0.9127429,
+                "y": 0.34171018,
+                "z": 0.223907322,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 7.011832,
+              "sqrMagnitude": 49.1657867
+            },
+            "extents": {
+              "x": 3.2,
+              "y": 1.19800723,
+              "z": 0.785000265,
+              "normalized": {
+                "x": 0.9127429,
+                "y": 0.34171018,
+                "z": 0.223907322,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 3.505916,
+              "sqrMagnitude": 12.2914467
+            },
+            "min": {
+              "x": -61.2,
+              "y": -5.4472003,
+              "z": -72.985,
+              "normalized": {
+                "x": -0.641482532,
+                "y": -0.0570961423,
+                "z": -0.7650099,
+                "normalized": {
+                  "x": -0.6414826,
+                  "y": -0.057096146,
+                  "z": -0.76500994,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.00000012
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 95.404,
+              "sqrMagnitude": 9101.923
+            },
+            "max": {
+              "x": -54.8,
+              "y": -3.051186,
+              "z": -71.41499,
+              "normalized": {
+                "x": -0.608421445,
+                "y": -0.0338760428,
+                "z": -0.7928908,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 90.0691452,
+              "sqrMagnitude": 8112.45068
+            }
+          }
+        }
+      ],
+      "lod": 3
+    },
+    {
+      "name": "Thuyền neo • PV_RiverBoat0",
+      "restPosition": {
+        "x": 62.0,
+        "y": -5.0,
+        "z": 51.8,
+        "normalized": {
+          "x": 0.7659436,
+          "y": -0.0617696457,
+          "z": 0.6399335,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 80.94591,
+        "sqrMagnitude": 6552.23975
+      },
+      "restYaw": 180.0,
+      "phase": 28.638,
+      "renderers": [
+        {
+          "name": "PV_RiverBoat0_LOD0",
+          "bounds": {
+            "center": {
+              "x": 62.0,
+              "y": -3.76375,
+              "z": -28.2,
+              "normalized": {
+                "x": 0.90887934,
+                "y": -0.05517411,
+                "z": -0.413393527,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 68.21587,
+              "sqrMagnitude": 4653.406
+            },
+            "size": {
+              "x": 9.0,
+              "y": 3.37250066,
+              "z": 1.97600138,
+              "normalized": {
+                "x": 0.9172299,
+                "y": 0.3437065,
+                "z": 0.201383054,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 9.812153,
+              "sqrMagnitude": 96.27834
+            },
+            "extents": {
+              "x": 4.5,
+              "y": 1.68625033,
+              "z": 0.9880007,
+              "normalized": {
+                "x": 0.9172299,
+                "y": 0.3437065,
+                "z": 0.201383054,
+                "magnitude": 1.0,
+                "sqrMagnitude": 0.99999994
+              },
+              "magnitude": 4.90607643,
+              "sqrMagnitude": 24.0695858
+            },
+            "min": {
+              "x": 57.5,
+              "y": -5.45000029,
+              "z": -29.1880016,
+              "normalized": {
+                "x": 0.888525963,
+                "y": -0.08421682,
+                "z": -0.451031268,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.00000012
+              },
+              "magnitude": 64.71392,
+              "sqrMagnitude": 4187.892
+            },
+            "max": {
+              "x": 66.5,
+              "y": -2.07749987,
+              "z": -27.212,
+              "normalized": {
+                "x": 0.925124,
+                "y": -0.028901428,
+                "z": -0.378563523,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 71.8822556,
+              "sqrMagnitude": 5167.059
+            }
+          }
+        },
+        {
+          "name": "PV_RiverBoat0_LOD1",
+          "bounds": {
+            "center": {
+              "x": 62.0,
+              "y": -3.76235,
+              "z": -28.2,
+              "normalized": {
+                "x": 0.908880353,
+                "y": -0.05515365,
+                "z": -0.413394,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 68.2158,
+              "sqrMagnitude": 4653.39551
+            },
+            "size": {
+              "x": 9.0,
+              "y": 3.36970067,
+              "z": 1.97600138,
+              "normalized": {
+                "x": 0.917319834,
+                "y": 0.3434548,
+                "z": 0.201402813,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 9.811191,
+              "sqrMagnitude": 96.25946
+            },
+            "extents": {
+              "x": 4.5,
+              "y": 1.68485034,
+              "z": 0.9880007,
+              "normalized": {
+                "x": 0.917319834,
+                "y": 0.3434548,
+                "z": 0.201402813,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 4.9055953,
+              "sqrMagnitude": 24.0648651
+            },
+            "min": {
+              "x": 57.5,
+              "y": -5.4472003,
+              "z": -29.1880016,
+              "normalized": {
+                "x": 0.8885291,
+                "y": -0.08417384,
+                "z": -0.451032877,
+                "normalized": {
+                  "x": 0.8885292,
+                  "y": -0.08417385,
+                  "z": -0.4510329,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.9999999
+              },
+              "magnitude": 64.71369,
+              "sqrMagnitude": 4187.86133
+            },
+            "max": {
+              "x": 66.5,
+              "y": -2.07749987,
+              "z": -27.212,
+              "normalized": {
+                "x": 0.925124,
+                "y": -0.028901428,
+                "z": -0.378563523,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 71.8822556,
+              "sqrMagnitude": 5167.059
+            }
+          }
+        },
+        {
+          "name": "PV_RiverBoat0_LOD2",
+          "bounds": {
+            "center": {
+              "x": 62.0,
+              "y": -3.76235,
+              "z": -28.2,
+              "normalized": {
+                "x": 0.908880353,
+                "y": -0.05515365,
+                "z": -0.413394,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 68.2158,
+              "sqrMagnitude": 4653.39551
+            },
+            "size": {
+              "x": 9.0,
+              "y": 3.36970067,
+              "z": 1.97600138,
+              "normalized": {
+                "x": 0.917319834,
+                "y": 0.3434548,
+                "z": 0.201402813,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 9.811191,
+              "sqrMagnitude": 96.25946
+            },
+            "extents": {
+              "x": 4.5,
+              "y": 1.68485034,
+              "z": 0.9880007,
+              "normalized": {
+                "x": 0.917319834,
+                "y": 0.3434548,
+                "z": 0.201402813,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 4.9055953,
+              "sqrMagnitude": 24.0648651
+            },
+            "min": {
+              "x": 57.5,
+              "y": -5.4472003,
+              "z": -29.1880016,
+              "normalized": {
+                "x": 0.8885291,
+                "y": -0.08417384,
+                "z": -0.451032877,
+                "normalized": {
+                  "x": 0.8885292,
+                  "y": -0.08417385,
+                  "z": -0.4510329,
+                  "magnitude": 1.0,
+                  "sqrMagnitude": 1.0
+                },
+                "magnitude": 0.99999994,
+                "sqrMagnitude": 0.9999999
+              },
+              "magnitude": 64.71369,
+              "sqrMagnitude": 4187.86133
+            },
+            "max": {
+              "x": 66.5,
+              "y": -2.07749987,
+              "z": -27.212,
+              "normalized": {
+                "x": 0.925124,
+                "y": -0.028901428,
+                "z": -0.378563523,
+                "magnitude": 1.0,
+                "sqrMagnitude": 1.0
+              },
+              "magnitude": 71.8822556,
+              "sqrMagnitude": 5167.059
+            }
+          }
+        }
+      ],
+      "lod": 3
+    }
+  ],
+  "signals": 420,
+  "lights": [
+    {
+      "name": "Tín hiệu 0",
+      "parent": "Hộp đèn",
+      "position": {
+        "x": 0.0,
+        "y": 0.43,
+        "z": -0.23,
+        "normalized": {
+          "x": 0.0,
+          "y": 0.8817847,
+          "z": -0.471652269,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 0.4876474,
+        "sqrMagnitude": 0.2378
+      },
+      "scale": {
+        "x": 0.3,
+        "y": 0.3,
+        "z": 0.11,
+        "normalized": {
+          "x": 0.684475,
+          "y": 0.684475,
+          "z": 0.250974149,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 0.438292146,
+        "sqrMagnitude": 0.192100018
+      }
+    },
+    {
+      "name": "Tín hiệu 1",
+      "parent": "Hộp đèn",
+      "position": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.23,
+        "normalized": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": -1.0,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.0
+        },
+        "magnitude": 0.23,
+        "sqrMagnitude": 0.0529
+      },
+      "scale": {
+        "x": 0.3,
+        "y": 0.3,
+        "z": 0.11,
+        "normalized": {
+          "x": 0.684475,
+          "y": 0.684475,
+          "z": 0.250974149,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 0.438292146,
+        "sqrMagnitude": 0.192100018
+      }
+    },
+    {
+      "name": "Tín hiệu 2",
+      "parent": "Hộp đèn",
+      "position": {
+        "x": 0.0,
+        "y": -0.43,
+        "z": -0.23,
+        "normalized": {
+          "x": 0.0,
+          "y": -0.8817847,
+          "z": -0.471652269,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 0.4876474,
+        "sqrMagnitude": 0.2378
+      },
+      "scale": {
+        "x": 0.3,
+        "y": 0.3,
+        "z": 0.11,
+        "normalized": {
+          "x": 0.684475,
+          "y": 0.684475,
+          "z": 0.250974149,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 0.438292146,
+        "sqrMagnitude": 0.192100018
+      }
+    },
+    {
+      "name": "Tín hiệu 0",
+      "parent": "Hộp đèn",
+      "position": {
+        "x": 0.0,
+        "y": 0.43,
+        "z": -0.23,
+        "normalized": {
+          "x": 0.0,
+          "y": 0.8817847,
+          "z": -0.471652269,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 0.4876474,
+        "sqrMagnitude": 0.2378
+      },
+      "scale": {
+        "x": 0.3,
+        "y": 0.3,
+        "z": 0.11,
+        "normalized": {
+          "x": 0.684475,
+          "y": 0.684475,
+          "z": 0.250974149,
+          "magnitude": 1.0,
+          "sqrMagnitude": 1.00000012
+        },
+        "magnitude": 0.438292146,
+        "sqrMagnitude": 0.192100018
+      }
+    }
+  ],
+  "scene": true
+}

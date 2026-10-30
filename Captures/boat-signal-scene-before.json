@@ -1,0 +1,119 @@
+{
+  "saved": true,
+  "dirty": true,
+  "path": "Assets/PhoViet/Scenes/PhoViet.unity",
+  "roots": [
+    {
+      "name": "PHỐ VIỆT • Chuyến xe không ngừng",
+      "components": [
+        "Transform",
+        "PhoVietGame",
+        "DayNightLighting"
+      ],
+      "asset": ""
+    },
+    {
+      "name": "Nắng ban mai • chu kỳ ngày đêm",
+      "components": [
+        "Transform",
+        "Light"
+      ],
+      "asset": ""
+    },
+    {
+      "name": "Red Honda Scooter Front View",
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer"
+      ],
+      "asset": "Assets/MeshyImports/Red Honda Scooter Front View_20261023_023822/Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx"
+    },
+    {
+      "name": "Golden Star Stance",
+      "components": [
+        "Transform"
+      ],
+      "asset": "Assets/MeshyImports/Golden Star Stance_20261023_150426/Meshy_AI_Golden_Star_Stance_biped_Animation_Running_withSkin.fbx"
+    },
+    {
+      "name": "Golden Star Stance",
+      "components": [
+        "Transform"
+      ],
+      "asset": "Assets/MeshyImports/Golden Star Stance_20261023_150430/Meshy_AI_Golden_Star_Stance_biped_Character_output.fbx"
+    },
+    {
+      "name": "Covered cargo truck",
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer"
+      ],
+      "asset": "Assets/MeshyImports/Covered cargo truck_20261024_022230/Meshy_AI_Covered_cargo_truck_1023192227_texture.fbx"
+    },
+    {
+      "name": "Meshy_Model",
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer"
+      ],
+      "asset": "Assets/MeshyImports/Meshy_Model_20261024_022256/Meshy_AI_Hãy_tạo_mô_hình__1023192254_texture.fbx"
+    },
+    {
+      "name": "Meshy_Model",
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer"
+      ],
+      "asset": "Assets/MeshyImports/Meshy_Model_20261024_022318/Meshy_AI_Hãy_tạo_mô_hình__1023192316_texture.fbx"
+    },
+    {
+      "name": "Meshy_Model",
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer"
+      ],
+      "asset": "Assets/MeshyImports/Meshy_Model_20261024_022335/Meshy_AI_Hãy_tạo_mô_hình__1023192333_texture.fbx"
+    },
+    {
+      "name": "Iron Sentinel",
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer"
+      ],
+      "asset": "Assets/MeshyImports/Iron Sentinel_20261024_170520/Meshy_AI_Iron_Sentinel_1024100517_texture.fbx"
+    },
+    {
+      "name": "Cù Lao Petshop Truck",
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer"
+      ],
+      "asset": "Assets/MeshyImports/Cù Lao Petshop Truck_20261026_012447/Meshy_AI_Cù_Lao_Petshop_Truck_1025182443_texture.fbx"
+    },
+    {
+      "name": "Emerald Tyrant",
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer"
+      ],
+      "asset": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/Meshy_AI_Emerald_Tyrant_20261025_texture.fbx"
+    },
+    {
+      "name": "Vietnamese_Fishing_Boat",
+      "components": [
+        "Transform",
+        "MeshFilter",
+        "MeshRenderer"
+      ],
+      "asset": "Assets/MeshyImports/Vietnamese_Fishing_Boat_20261030_145637/Meshy_AI_Vietnamese_Fishing_Boat_20261030_texture.fbx"
+    }
+  ]
+}

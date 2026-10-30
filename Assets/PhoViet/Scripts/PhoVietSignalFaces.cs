@@ -7,24 +7,32 @@ namespace PhoViet
     {
         // Mirrors the Blender signal housing around its authored depth centre.
         const float SignalFaceCentreZ=-.022f;
-        readonly Dictionary<float,Mesh> signalFaceMeshes=new Dictionary<float,Mesh>();
+        readonly Dictionary<(float,Matrix4x4),Mesh> signalFaceMeshes=new Dictionary<(float,Matrix4x4),Mesh>();
         readonly List<KeyValuePair<MeshFilter,Mesh>> signalFaceBindings=new List<KeyValuePair<MeshFilter,Mesh>>();
 
         void InitializeTrafficSignalFaces()
         {
             if(!Application.isPlaying||signalFaceBindings.Count>0)return;
-            foreach(var lamp in trafficLights)
+            for(int lampIndex=0;lampIndex<trafficLights.Count;lampIndex++)
             {
+                var lamp=trafficLights[lampIndex];
                 if(lamp==null)continue;
                 var filter=lamp.GetComponent<MeshFilter>();
                 if(filter==null||filter.sharedMesh==null)continue;
                 var t=lamp.transform;
                 if(Mathf.Abs(t.localScale.z)<.0001f)continue;
                 float offset=Mathf.Round((2*SignalFaceCentreZ-2*t.localPosition.z)/t.localScale.z*100000f)/100000f;
-                if(!signalFaceMeshes.TryGetValue(offset,out var mesh))
+                // Auxiliary housing is baked into the pole asset. Put its two
+                // live lenses into the main lens mesh, sharing colour/emission
+                // and its draw call instead of adding 420 extra renderers.
+                var head=t.parent;
+                var mainToPole=Matrix4x4.TRS(head.localPosition,head.localRotation,head.localScale)*Matrix4x4.TRS(t.localPosition,t.localRotation,t.localScale);
+                var auxiliary=mainToPole.inverse*Matrix4x4.TRS(new Vector3(0,3.85f-lampIndex%3*.3f,0),Quaternion.identity,new Vector3(.20f,.20f,.052f));
+                var key=(offset,auxiliary);
+                if(!signalFaceMeshes.TryGetValue(key,out var mesh))
                 {
-                    mesh=CreateSignalFaceMesh(offset);
-                    signalFaceMeshes.Add(offset,mesh);
+                    mesh=CreateSignalFaceMesh(offset,auxiliary);
+                    signalFaceMeshes.Add(key,mesh);
                 }
                 signalFaceBindings.Add(new KeyValuePair<MeshFilter,Mesh>(filter,filter.sharedMesh));
                 filter.sharedMesh=mesh;
@@ -33,13 +41,14 @@ namespace PhoViet
 
         // Both domed lenses share the original renderer and material: colour and
         // emission always match, with no extra draws, components or frame polling.
-        static Mesh CreateSignalFaceMesh(float rearOffset)
+        static Mesh CreateSignalFaceMesh(float rearOffset,Matrix4x4 auxiliary)
         {
             const int sides=24,rings=4;
             var vertices=new List<Vector3>();var normals=new List<Vector3>();var indices=new List<int>();
-            for(int face=0;face<2;face++)
+            for(int face=0;face<4;face++)
             {
-                int start=vertices.Count;float direction=face==0?-1:1,centre=face==0?0:rearOffset;
+                int start=vertices.Count;float direction=face%2==0?-1:1;
+                float centre=face<2?(face==0?0:rearOffset):direction*.133f/.052f;
                 vertices.Add(new Vector3(0,0,centre+direction*.5f));normals.Add(Vector3.forward*direction);
                 for(int ring=1;ring<=rings;ring++)
                 {
@@ -62,8 +71,14 @@ namespace PhoViet
                     int a=start+1+ring*sides+side,b=start+1+ring*sides+(side+1)%sides;
                     Triangle(a,a+sides,b+sides);Triangle(a,b+sides,b);
                 }
+                if(face>=2)
+                {
+                    var normalMatrix=auxiliary.inverse.transpose;
+                    for(int i=start;i<vertices.Count;i++)
+                    {vertices[i]=auxiliary.MultiplyPoint3x4(vertices[i]);normals[i]=normalMatrix.MultiplyVector(normals[i]).normalized;}
+                }
             }
-            var mesh=new Mesh{name="PV_SignalLenses_BothFaces"};
+            var mesh=new Mesh{name="PV_SignalLenses_MainAndAux_BothFaces"};
             mesh.SetVertices(vertices);mesh.SetNormals(normals);mesh.SetTriangles(indices,0);mesh.RecalculateBounds();
             return mesh;
         }
