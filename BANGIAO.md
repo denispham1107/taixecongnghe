@@ -129,6 +129,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.104 bản1.51.0 đã build/kiểm xong, chuẩn bị pushPages:** 2variant/0lỗi/1warningDevMCP,129finalscene/515SHAgiữ,44repo+35site+36staged+387landing+37WebGL+20fullscreen đạt/0runtime. Cache47008e2b65b2d929; scope chỉbuilder/version, scene/pixeltexturegiữ. Server8773/session36665 cònchạy, browserđãđóng. Kếtiếp commitrelease/pushmain/chờđúngSHA Pages success/VerifyPublishedGame rồi cập nhậttrạngtháipháthành. Webhiện1.50.0; giữdirtyArt/Wave/Packages/Simulator.
+
 - **21.103 đã hoàn tất source/kiểm tra, chờ build web:** 1.090 điều kiện/11ảnh đạt; UnityEdit/scene sạch, không còn thao tác Unity đang chạy. Code + material/scene + template trợ giúp + bằng chứng + hai tài liệu lưu trong commit cục bộ riêng. Khi được yêu cầu build, gộp cả21.102 tàu/đèn phụ và21.103 hố đạn; web hiện vẫn1.50.0. Chưa đo FPS Safari/Android máy thật.
 
 - **21.102 đã xong source/kiểm tra, chưa build/push/phát hành.**140tàuFishingBoatMeshy/3LOD40k/20k/10k/texture2K; đèn phụ đồng bộ lớn ở2mặt,0renderer thêm.570Editor+2670Play+106regression=3346đạt,10ảnhđãxem. UnityEdit/scenesạch/start1,92/jobsfalse; rawMeshypreviewđãbackup/bỏđúngroot, nguồngốcgiữnguyên. Webvẫn1.50.0; giữdirtyArt/Wave/Packages/Simulator ngoài commit.

@@ -6,6 +6,10 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 **[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web hiện tại **1.50.0**.
 
+## Bản 1.51.0 — đã build và kiểm tra, đang triển khai
+
+Thay tàu ven sông bằng mô hình tàu đánh cá mới; đèn tín hiệu nhỏ sáng đồng bộ hai mặt với đèn lớn. Đạn xe tăng tạo hố nứt và mảnh đường văng; xe chạy qua bị lệch hướng tới khi đánh lái ngược, có thể nhảy qua để tránh. Hai gói texture mobile/desktop đã build thành công; 444 kiểm trình duyệt cục bộ đạt, không có lỗi runtime. Trạng thái triển khai chi tiết ở `BANGIAO.md` và mục21.104 của `huongdan.md`.
+
 ## Cập nhật 1.50.0
 
 Xe đua đổi làn nhanh thêm10%; nhảy cao cố định khoảng4,12m ở mọi tốc độ, gồm tăng tốc. Đèn pha căn giữa hai đèn và bám theo chuyển động xe. Trang chủ có thêm ảnh ban đêm chụp trực tiếp trong game dưới ảnh buổi sáng. Gồm các cập nhật xe tăng và tường/biển thuê nhà21.96–21.99. Đã build/phát hành hai bộ texture mobile/desktop;444kiểm trìnhduyệt cục bộ và29liveđạt,0lỗi runtime. Chi tiết huongdan21.100–21.101.

@@ -14,16 +14,26 @@ public static class BuildWebRelease
  static object Queue(bool resume,bool desktop=false)
  {
   if(Application.isPlaying||EditorApplication.isCompiling||BuildPipeline.isBuildingPlayer)throw new InvalidOperationException("Editor must be idle in Edit Mode");
-  const string path="Captures/release150-build-report.json";
+  const string path="Captures/release151-build-report.json";
   if(resume)
   {
    var prior=BuildReport.GetLatestReport().summary;
    if(prior.result!=BuildResult.Succeeded)throw new InvalidOperationException("A successful mobile build is required before resuming");
-   File.WriteAllText("Captures/release150-mobile-build-report.json",Newtonsoft.Json.JsonConvert.SerializeObject(new{result=prior.result.ToString(),prior.totalErrors,prior.totalWarnings,buildMs=prior.totalTime.TotalMilliseconds},Newtonsoft.Json.Formatting.Indented));
+   File.WriteAllText("Captures/release151-mobile-build-report.json",Newtonsoft.Json.JsonConvert.SerializeObject(new{result=prior.result.ToString(),prior.totalErrors,prior.totalWarnings,buildMs=prior.totalTime.TotalMilliseconds},Newtonsoft.Json.Formatting.Indented));
   }
   File.WriteAllText(path,"{\"status\":\"queued\"}");
-  EditorApplication.delayCall+=()=>
+  // delayCall requires an inspector cycle and can stall in a headless/minimized editor.
+  // Remove only our legacy queued delegate, then use a one-shot editor update.
+  if(EditorApplication.delayCall!=null)foreach(var pending in EditorApplication.delayCall.GetInvocationList())
+   if(pending.Method.DeclaringType?.FullName.StartsWith("BuildWebRelease",StringComparison.Ordinal)==true)
+    EditorApplication.delayCall-=(EditorApplication.CallbackFunction)pending;
+  if(EditorApplication.update!=null)foreach(var pending in EditorApplication.update.GetInvocationList())
+   if(pending.Method.DeclaringType?.FullName.StartsWith("BuildWebRelease",StringComparison.Ordinal)==true)
+    throw new InvalidOperationException("A release build is already queued");
+  EditorApplication.CallbackFunction build=null;
+  build=()=>
   {
+   EditorApplication.update-=build;
    var timer=System.Diagnostics.Stopwatch.StartNew();
    File.WriteAllText(path,"{\"status\":\"building\"}");
    try
@@ -34,6 +44,7 @@ public static class BuildWebRelease
    }
    catch(Exception e){File.WriteAllText(path,Newtonsoft.Json.JsonConvert.SerializeObject(new{status="failed",success=false,error=e.ToString(),totalMs=timer.ElapsedMilliseconds},Newtonsoft.Json.Formatting.Indented));Debug.LogException(e);}
   };
+  EditorApplication.update+=build;EditorApplication.QueuePlayerLoopUpdate();
   return new{queued=true,path};
  }
 }

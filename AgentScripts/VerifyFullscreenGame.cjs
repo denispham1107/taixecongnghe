@@ -6,7 +6,7 @@ const result={url,artifactRoot,checks:[],errors:[]};
 function check(name,value){assert(value,name);result.checks.push(name);console.log('PASS '+name);}
 async function main(){
   const info=await(await fetch(new URL('build-info.json',url))).json();result.build=info;
-  check('Published version is 1.50.0',info.version==='1.50.0');
+  check('Published version is 1.51.0',info.version==='1.51.0');
   for(const file of ['index.html','style.css','app.js','manifest.webmanifest','sw.js','precache.json']){
     const response=await fetch(new URL(file,url));const remote=(await response.text()).replace(/\r\n/g,'\n');
     const local=fs.readFileSync(artifactRoot+'/'+file,'utf8').replace(/\r\n/g,'\n');
