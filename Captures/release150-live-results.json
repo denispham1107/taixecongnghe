@@ -1,0 +1,42 @@
+{
+  "url": "https://denispham1107.github.io/taixecongnghe/",
+  "checks": [
+    "Live release version and cache match tested build",
+    "Published artifact matches: Build/46f69a29d10c2117c07fcb35c786fdf8.data.unityweb",
+    "Published artifact matches: Build/8719634e702f64a99754ff7298a1786c.framework.js.unityweb",
+    "Published artifact matches: Build/b4d69c7d5f786aea5879150fd6093313.wasm.unityweb",
+    "Published artifact matches: Build/d955866dc2defd2161242691e8544349.loader.js",
+    "Published artifact matches: Build/f90fe852f2194b008442c1c0b32d2cb9.data.unityweb",
+    "Published artifact matches: FONT-LICENSE.txt",
+    "Published artifact matches: app.js",
+    "Published artifact matches: font.ttf",
+    "Published artifact matches: icons/apple-touch-icon-moto.png",
+    "Published artifact matches: icons/apple-touch-icon.png",
+    "Published artifact matches: icons/icon-192.png",
+    "Published artifact matches: icons/icon-512.png",
+    "Published artifact matches: icons/icon-maskable-512.png",
+    "Published artifact matches: icons/icon-moto-192.png",
+    "Published artifact matches: icons/icon-moto-512.png",
+    "Published artifact matches: icons/icon-moto-maskable-512.png",
+    "Published artifact matches: icons/icon.svg",
+    "Published artifact matches: index.html",
+    "Published artifact matches: manifest.webmanifest",
+    "Published artifact matches: poster-morning-portrait.jpg",
+    "Published artifact matches: poster-morning.jpg",
+    "Published artifact matches: poster-night.jpg",
+    "Published artifact matches: style.css",
+    "Published artifact matches: sw.js",
+    "Published artifact matches: precache.json",
+    "Real published Unity WebAssembly initializes",
+    "Published start and pause input smoke completed",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "build": {
+    "version": "1.50.0",
+    "cache": "4405f16bdef633ec",
+    "unity": "6000.5.6f1",
+    "utc": "2026-10-30T07:10:05.3057109Z"
+  },
+  "success": true
+}

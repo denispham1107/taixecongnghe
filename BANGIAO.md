@@ -10,7 +10,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.49.0** — commit`faa345d`; Pages`40927522323`success; cache`e37aaa3a16abef99`; **28liveđạt/0runtime** |
+| Bản đã phát hành | **1.50.0** — commit`d7da47e`; Pages`41020101134`success; cache`4405f16bdef633ec`; **29live đạt/0runtime** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -18,28 +18,30 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Chế độ chơi | Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
-| Điều khiển/nhảy trong source | **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đang build1.50.0 |
+| Điều khiển/nhảy trong source | **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đã có trên web1.50.0 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
-| Trang chủ HTML trong source | **21.83 đã có trên web1.47.0:** giao diện trắng–xanh/ảnhxeđua sángcósương, hếtchồng315kiểmtra12viewport; thêm37web+20fullscreen/0runtime;1.47.0có28liveđạt |
+| Trang chủ HTML trong source | **21.100 đã có trên web1.50.0:** ảnh sáng + ảnh đêm1920×1280 chụp trực tiếp; đêm ngay dưới sáng,387kiểm/12viewport khôngchồng. Projector độc lập giữa2đèn,168pose/88nightjump/8shader đạt |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
-| Đợt bổ sung sau rẽ và mỗi400m trong source | **21.99:** hết cua → Dino+Tank cùng frame ở giao lộ kế tiếp, bỏ2s; thêm1Tank ngược chiều khi vượt400/800/1200m… độc lập lịch10s/9s.522kiểm tra đạt/2ảnh đã xem. Chưa phát hành; web1.49.0 còn luật21.80 chờ2s |
+| Đợt bổ sung sau rẽ và mỗi400m trong source | **21.99:** hết cua → Dino+Tank cùng frame ở giao lộ kế tiếp, bỏ2s; thêm1Tank ngược chiều khi vượt400/800/1200m… độc lập lịch10s/9s.522kiểm tra đạt/2ảnh đã xem. Đã có trên web1.50.0, thay luật21.80 chờ2s |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
-| Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; chưa build/phát hành |
-| Chất liệu tường trong source | **21.98:** người dùng chọn vân rõ hơn21.97; relief0,42/scale0,65/contrast0,28/smoothness0,015, giữ màu/kính/kim loại/sông. UV mask25FBX/144mesh, texture1K nén/mipmap, không thêm renderer. Chi tiết21.97–21.98; chưa có trên web |
+| Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
+| Chất liệu tường trong source | **21.98:** người dùng chọn vân rõ hơn21.97; relief0,42/scale0,65/contrast0,28/smoothness0,015, giữ màu/kính/kim loại/sông. UV mask25FBX/144mesh, texture1K nén/mipmap, không thêm renderer. Chi tiết21.97–21.98; đã có trên web1.50.0 |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Đã có trên web1.48.0** |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.99 source đã xong, chưa phát hành:** Dino+Tank cùng khung hình sau mỗi lượt rẽ trái/phải; thêm1Tank ngược chiều mỗi mốc vượt400m. Lịch9s không bị tiêu/reset; pool/làn chắn giữ yêu cầu, pause/té không sinh mới, retry xóa sạch. **221turn+60distance+69pháo+61miễnDino+111final=522đạt**, compile0lỗi/0warning;48lượt rẽ4làn×W×20/60FPS và4lượt chạy thật>805m đạt. SHA3114file chỉ2partial runtime đổi; scene/đồhọa/vậtliệu/web giữ nguyên. UnityEdit/scenesạch/start1,92/jobsfalse;2ảnh sau rẽ đã xem. Chi tiết huongdan21.99.
+- **21.100–21.101 đã phát hành1.50.0:** commit`d7da47e`/Pages`41020101134`success/cache`4405f16bdef633ec`. Lane thêm10%→1,53065; nhảy cố định4,11665m (+3% mức đầu), đèn căn giữa theo xe; trang chủ cóảnhđêm dướiảnhsáng. Gồm21.96–21.99 miễnDino/38biển/vữa/lịchTank.840gameplay+113finalscene,505fileSHAgiữ;44repo+35site+36staged+387landing+37web+20fullscreen+29liveđạt/0runtime. Build2variant583,555s/0lỗi/1warningDevMCP; đối chiếu toàn bộ tài nguyênPages và khởiđộngWASM thật. GiữDPR/texture/AA4/bóng/start1,92/jobsfalse; chưa thử Safari/Android máy thật.
 
-- **21.98 source đã xong, chưa phát hành:** người dùng muốn vân tường rõ hơn trước khi phát hành. Chỉ tăng cỡ/độ nổi/loang của vữa và giảm bóng trong2material + default2shader; không đổi texture/geometry/UV. **942kiểm vật liệu/mesh+109finalscene đạt**, ảnh cận cùng camera có tương phản hạt×2,25, độ sáng trung bình chỉ−0,39%/giữ tông. SHA3114file chỉ4file vật liệu/shader dự kiến đổi,0ngoài phạm vi. 6ảnh Unity ngày/đêm đã chụp, đã xem cận tường phố/căn hộ và góc chơi. UnityEdit/scenesạch/start1,92/jobsfalse. Chi tiết huongdan21.98.
+- **21.99 đã có trên web1.50.0:** Dino+Tank cùng khung hình sau mỗi lượt rẽ trái/phải; thêm1Tank ngược chiều mỗi mốc vượt400m. Lịch9s không bị tiêu/reset; pool/làn chắn giữ yêu cầu, pause/té không sinh mới, retry xóa sạch. **221turn+60distance+69pháo+61miễnDino+111final=522đạt**, compile0lỗi/0warning;48lượt rẽ4làn×W×20/60FPS và4lượt chạy thật>805m đạt. SHA3114file chỉ2partial runtime đổi; scene/đồhọa/vậtliệu/web giữ nguyên. UnityEdit/scenesạch/start1,92/jobsfalse;2ảnh sau rẽ đã xem. Chi tiết huongdan21.99.
 
-- **21.97 source đã xong, chưa phát hành:** thêm14biển CHO THUÊ NHÀ tại8tòa/tầng khoanhđỏ, tổng38biển/3LOD, giữ24biển cũ. Tường phố/căn hộ/bên trong phòng sơn lì với vân vữa nhẹ, giữ bảng màu/kính/kim loại/sông. **241Blender+940vật liệu/mesh+109finalscene đạt**,144mesh/4718refs/2779LOD0missing;6ảnh ngày/đêm đã xem. SHA3106file cũ chỉ5file dự kiến đổi, thêm shader/include/importer/map1K; không thêm renderer/vật cản. UnityEdit/scenesạch/start1,92/jobsfalse; nguồn riêng`PhoViet_RentalWalls2197.blend`. Chi tiết huongdan21.97.
+- **21.98 đã có trên web1.50.0:** người dùng muốn vân tường rõ hơn trước khi phát hành. Chỉ tăng cỡ/độ nổi/loang của vữa và giảm bóng trong2material + default2shader; không đổi texture/geometry/UV. **942kiểm vật liệu/mesh+109finalscene đạt**, ảnh cận cùng camera có tương phản hạt×2,25, độ sáng trung bình chỉ−0,39%/giữ tông. SHA3114file chỉ4file vật liệu/shader dự kiến đổi,0ngoài phạm vi. 6ảnh Unity ngày/đêm đã chụp, đã xem cận tường phố/căn hộ và góc chơi. UnityEdit/scenesạch/start1,92/jobsfalse. Chi tiết huongdan21.98.
 
-- **21.96 source đã xong, chưa phát hành:** người dùng xác nhận xe tăng miễn nhiễm thân/chân/đuôi khủng long, tiếp tục chạy và bắn. `ResolveDinosaurHits` bỏqua`v.armored` trước dò/xung lực, không đụng speed/route/timer/pháo; xe khác/CSGT giữ như cũ. **61kiểm thực+69Dino+69Tank=199đạt**,0lỗi/warningcompile;6case body/tail×20/30/60FPS đều chạy>30m/bắn2phát sau1,5s. SHA3106file chỉ1filegame đổi;scene/asset/webgiữnguyên. Chi tiếthuongdan21.96.
+- **21.97 đã có trên web1.50.0:** thêm14biển CHO THUÊ NHÀ tại8tòa/tầng khoanhđỏ, tổng38biển/3LOD, giữ24biển cũ. Tường phố/căn hộ/bên trong phòng sơn lì với vân vữa nhẹ, giữ bảng màu/kính/kim loại/sông. **241Blender+940vật liệu/mesh+109finalscene đạt**,144mesh/4718refs/2779LOD0missing;6ảnh ngày/đêm đã xem. SHA3106file cũ chỉ5file dự kiến đổi, thêm shader/include/importer/map1K; không thêm renderer/vật cản. UnityEdit/scenesạch/start1,92/jobsfalse; nguồn riêng`PhoViet_RentalWalls2197.blend`. Chi tiết huongdan21.97.
+
+- **21.96 đã có trên web1.50.0:** người dùng xác nhận xe tăng miễn nhiễm thân/chân/đuôi khủng long, tiếp tục chạy và bắn. `ResolveDinosaurHits` bỏqua`v.armored` trước dò/xung lực, không đụng speed/route/timer/pháo; xe khác/CSGT giữ như cũ. **61kiểm thực+69Dino+69Tank=199đạt**,0lỗi/warningcompile;6case body/tail×20/30/60FPS đều chạy>30m/bắn2phát sau1,5s. SHA3106file chỉ1filegame đổi;scene/asset/webgiữnguyên. Chi tiếthuongdan21.96.
 
 - **21.95 đã phát hành1.49.0:** commit`faa345d`/Pages`40927522323`success/cache`e37aaa3a16abef99`. Gồm21.94 bảngthuê/chữ+20%,lane+10%→1,3915,đỉnh/v0nhảy+10%/fall22. Build2variant530,736s/0lỗi/1warningPipeline;107preflight/500filebytegiữ,43repo+34site+35staged+315landing+37web+20fullscreen+28liveđạt/0runtime. Đãđốichiếu toàn bộtài nguyênPages/khởiđộngWASMthật;khônghạđồhọa. Chi tiếthuongdan21.95.
 
@@ -121,17 +123,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.100/21.101 sẵn sàng commit/push1.50.0:** build2variant583,555s/0lỗi/1warningDevMCP;840gameplay+113finalpreflight/505fileSHAgiữ.44repo+35site+387landing+37web+20fullscreenđạt/0runtime;cache`4405f16bdef633ec`. Đang chuẩn bị Gitindex/SHAparts→commit/push/Pages/live; chưa phát hành,web1.49.0. Server8771→`.tools/site150`,preview8772;UnityEdit/scenesạch/start1,92/jobsfalse. Release21.96–21.100; giữdirtyArt/Wave/Packages/Simulator/.blendngoài commit.
-
-- **21.99 đã xong source/kiểm tra, chưa build/push/phát hành.** Không còn bước sửa đang dở; UnityEdit/scene sạch/start1,92/jobsfalse. Lần build sau gồm cả21.96–21.99 (miễnDino/biển thuê/vữa rõ hơn/lịchTank mới), web vẫn1.49.0. Giữ sửa cục bộ Art/Wave/Packages/Simulator/.blend/Captures lịch sử ngoài commit.
-
-- **21.98 đã xong source/kiểm tra, chưa build/push/phát hành.** Người dùng chọn chỉnh vân rõ hơn thay vì phát hành ngay bản21.97; web xác minhHTTP vẫn1.49.0/cachee37aaa3a16abef99. Lần build sau gồm21.96–21.98; UnityEdit/scenesạch/start1,92/jobsfalse. Chưa thử Safari/Android máy thật với vân mới.
-
-- **21.97 đã xong source/kiểm tra; chưa build/push/phát hành.** Web vẫn1.49.0; lần build sau gồm21.96 miễn xe tăng,21.97 biển/vật liệu và21.98 vân rõ hơn. UnityEdit/scenesạch/start1,92/jobsfalse; không có bước sửa đang dở. Không stage các sửa Art/Wave/Packages/Simulator/.blend lịch sử ngoài phạm vi.
-
-- **21.96 đã xong source/kiểm tra, chưa build/phát hành.** Xe tăng miễn nhiễm thân/đuôi khủng long, vẫn chạy/bắn;199điều kiện Unity đạt/compile0lỗi-warning. UnityEdit/scenesạch/start1,92/jobsfalse,2779LOD0missing; không còn bước sửa đangdở. Webvẫn1.49.0/cònluậtcũ; giữthayđổicụcbộkháckhôngliênquan ngoài commit.
-
-- **21.94–21.95 đã phát hành1.49.0**, khôngcònbướcbuild/push/liveđangdở. Server8771đãdừng;UnityEdit/scenesạch/start1,92/jobsfalse. GiữthayđổicụcbộArt/Wave/Packages/Simulator/.blendkháckhôngliênquan ngoài commit;chưa kiểmđiệnthoạithật.
+- **21.96–21.101 đã có trên web1.50.0**, không còn bước sửa/build/push/live đang dở. UnityEdit/scenesạch/start1,92/jobsfalse; GPUdesktop, server kiểmtra8771/8772 đã dừng. DirtyArt/Wave/Packages/Simulator/.blend/Captures lịch sử giữ cục bộ ngoài commit; chưa kiểm điệnthoạithật.
 
 - **21.87–21.93 đã phát hành1.48.0**, không còn bước build/push/live đang dở. Server kiểmtra8771 đã dừng; Unity giữEdit/scenesạch/start1,92/jobsfalse. Thayđổi Art/Wave/Packages/Simulator/.blend/Captures lịch sử vẫn giữ cục bộ ngoài commit. NguồnBlender21.91 và21.92 ởphiên riêng, khôngghiđè`PhoViet_FixtureDetails.blend` đangcó sửa người dùng; không còntácvụ dựng/import đang chạy.
 
@@ -169,11 +161,12 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 - **Source21.99:** sau mỗi lượt rẽ, Dino vàTank cùng xuất hiện ở giao lộ kế tiếp phía trước, không chờ2s. Mỗi mốc hơn400/800/1200m… thêm1Tank ngược chiều, không thay lịch9s hoặc đợt sau rẽ. Có chỗ thì sinh ngay; nếu lane/pool kín thì giữ đúng số đợt, không sinh chồng xe. Reset xóa mốc và hàng chờ; pause/té không sinh thêm.
 
-- **Source21.96:** xe tăng không bị thân/chân/đuôi khủng long hất, vẫn chạy/bắn theo quy tắc pháo hiện có; các phương tiện khác/player/CSGT giữ luật cũ. Chưa lênweb1.49.0, thay quyết định hất xe tăng ở21.62.
+- **Source21.96:** xe tăng không bị thân/chân/đuôi khủng long hất, vẫn chạy/bắn theo quy tắc pháo hiện có; các phương tiện khác/player/CSGT giữ luật cũ. Đã có trênweb1.50.0, thay quyết định hất xe tăng ở21.62.
 
 - Hỏi lại bằng lựa chọn cụ thể nếu chưa chắc ≥90% ý người dùng.
 - Không ba mạng. Té thường → hết lượt. Té khi đang bị CSGT đuổi → nằm chờ CSGT tới bắt thật → tù (không GameOver ngay, không tự dựng xe). Rơi sông/trúng đạn xe tăng → hết lượt, kể cả khi bị đuổi. **CSGT rơi sông → hết truy đuổi; người chơi đã té thì hết lượt**, còn đang chạy thì tiếp tục (21.63).
 - Húc/đạp quái xế tự vệ không gọi mới CSGT; húc/đạp xe thường thì bị truy đuổi.
+- Nhảy cố định **4,11665m**, không tăng theo Speed/W (21.100/web1.50.0); lane pace1,53065 vẫn theo tốc độ.
 - Phím: **Q húc, Space nhảy, W tăng tốc +125%/4s/hồi2s**; mobile: chạm hai lần húc, vuốt lên nhảy, vuốt xuống tăng tốc; nhận ngay khi đủ ngưỡng.
 - Hai làn trái rẽ trái, hai làn phải rẽ phải, giữ số làn sau cua, cua không giảm tốc.
 - **Source21.65: player Blue Petshop Supercar** xanh scale0,85, Q=húc thân xe; đã có trên web1.40.0; hero xe máy xanh–đen21.58 là lịch sử. NPC xe máy source21.67 dùngUrbanRider nhiều màu xe/áo, CSGT giữ cả người+xe; NPC4mẫu ô tô×8màu, xe tăng giữ nguyên.
@@ -205,8 +198,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Sông, cầu, căn hộ ven sông, xe/CSGT rơi chìm | 21.35–21.37, 21.45–21.54, 21.63 | `PhoVietRiver.cs`, `RiverBlock.cs`, `RiverReflection.cs`, `River*.shader`, `Editor/PhoVietRiverUpgrade.cs`, `AgentScripts/VerifyRiverCrashSinking.cs` |
 | Cảnh phố, nhà, cây | 11.4, 21.19–21.28, 21.43 | `VietnamStreet.cs`, `StreetArt.cs`, `Editor/PhoVietStreetUpgrade.cs` |
 | Tường sơn lì/vân vữa rõ hơn, 14biển thuê mới | **21.98/21.97**,21.91/21.94 | `Editor/PhoVietWallFinish.cs`, `StreetWall.shader`, `WallStucco.cginc`, `ApartmentRoom.shader`, `PV_WallStuccoDetail.png`, `pho_viet_fixture_details.py`, `upgrade_rental_walls_2197.py`, `AgentScripts/TuneWall2198.cs`, `VerifyRentalWalls*.cs` |
-| Ngày–đêm, đèn, sương | 20, 21.41 | `PhoVietDayNight.cs`, `DayNightLighting.cs`, `MorningFog.cs`, `MorningLooks.cs` |
-| Xe đua người chơi/khói4góc+2bô/chuyển làn | 21.64–21.65, 19, 21.60 | `PlayerCarVisual.cs`, `PhoVietSupercarUpgrade.cs`, `CarJumpJetVisual.cs`, `BoostSmokeVisual.cs`, `integrate_supercar_player.py`, `VerifySupercarScalePace.cs` |
+| Ngày–đêm, đèn, sương | **21.100**,20,21.41 | `PhoVietDayNight.cs`, `DayNightLighting.cs`, `MorningFog.cs`, `MorningLooks.cs`; đèn player lệch: `PhoVietSupercarUpgrade.CenterHeadProjector`, `VerifyCarHead150.cs` |
+| Xe đua người chơi/nhảy cố định/khói4góc+2bô/chuyển làn | **21.100**,21.64–21.65,19 | `PhoVietGame.AdvanceLaneCurve`, `PhoVietJump.JumpHeightAtSpeed`, `PlayerCarVisual.cs`, `PhoVietSupercarUpgrade.cs`, `CarJumpJetVisual.cs`, `BoostSmokeVisual.cs`, `VerifySpeedJump.cs`, `VerifySupercarScalePace.cs` |
 | Khôi phục player xe máy xanh–đen (lịch sử) | 21.58, 21.9–21.16 | `RestoreBlueBlackPlayer.cs`, `prepare_hero_blue_black.py`, `BikeVisualAnimator.cs` |
 | Xe máy dân sự Urban Rider/cổ xe/tay nắm/đổi làn | **21.67**,7.1,11 | `UrbanRiderMotion.cs`, `BikeVisualAnimator.cs`, `UrbanRider.shader`, `PhoVietTraffic.cs`, `PhoVietRoutes.cs`, `Editor/PhoVietUrbanRiderUpgrade.cs`, `integrate_urban_rider.py`, `prepare_urban_rider_maps.py`, `AgentScripts/InstallUrbanRider.cs`, `VerifyUrbanRider.cs` |
 | Model Blender/Meshy → Unity | 11, 13, 21.7, 21.17 | `Editor/PhoVietMeshy*Upgrade.cs`, `ArtSource/Blender/` |
@@ -216,7 +209,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Simulator iPhone 14 Pro/Pro Max/Dynamic Island/Safe Area | **21.71** | `Assets/PhoViet/Editor/DeviceSimulator/` (`README.md`, hai `.device`, `Overlays/`, `LICENSE.md`); `Captures/iphone14-simulator-checks.json` |
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
-| Trang chủ HTML / ảnh sương / responsive | **21.83**,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `app.js`, `poster-morning*.jpg`; `AgentScripts/CaptureLandingMorning.cs`, `RefreshLandingPreview.cs`, `VerifyLanding.cjs` |
+| Trang chủ HTML / ảnh sáng và đêm / responsive | **21.100–21.101**,21.83,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `app.js`, `poster-morning*.jpg`, `poster-night.jpg`; `AgentScripts/CaptureLandingMorning.cs`, `CaptureLandingNight150.cs`, `RefreshLandingPreview.cs`, `VerifyLanding.cjs` |
 | WebGL/Safari/OOM/textureGPU/cache/offline/Pages | 15.2–15.4, **21.77**,21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease145Scene.cs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.
