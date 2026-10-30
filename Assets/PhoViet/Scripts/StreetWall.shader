@@ -7,10 +7,10 @@ Shader "PhoViet/Street Wall Finish"
         _Glossiness ("Original smoothness", Range(0,1)) = 0.12
         _Metallic ("Original metallic", Range(0,1)) = 0
         _StuccoDetail ("Plaster detail: height / Y / unused / X", 2D) = "gray" {}
-        _StuccoScale ("Plaster repeats per metre", Float) = 1
-        _StuccoStrength ("Plaster relief", Range(0,1)) = 0.20
-        _StuccoContrast ("Paint variation", Range(0,0.3)) = 0.10
-        _WallSmoothness ("Plaster smoothness", Range(0,1)) = 0.035
+        _StuccoScale ("Plaster repeats per metre", Float) = 0.65
+        _StuccoStrength ("Plaster relief", Range(0,1)) = 0.42
+        _StuccoContrast ("Paint variation", Range(0,0.3)) = 0.28
+        _WallSmoothness ("Plaster smoothness", Range(0,1)) = 0.015
     }
     SubShader
     {

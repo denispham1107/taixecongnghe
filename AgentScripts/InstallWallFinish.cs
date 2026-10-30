@@ -14,7 +14,7 @@ public static class InstallWallFinish
   var room=AssetDatabase.LoadAssetAtPath<Material>("Assets/PhoViet/Art/River/PV_RiverRoomLight.mat");
   var shader=Shader.Find("PhoViet/Street Wall Finish");if(shader==null)throw new Exception("Wall finish shader missing");atlas.shader=shader;
   foreach(var m in new[]{atlas,room})
-  {m.SetTexture("_StuccoDetail",detail);m.SetFloat("_StuccoScale",1);m.SetFloat("_StuccoStrength",.20f);m.SetFloat("_StuccoContrast",.10f);m.SetFloat("_WallSmoothness",.035f);EditorUtility.SetDirty(m);AssetDatabase.SaveAssetIfDirty(m);}
+  {m.SetTexture("_StuccoDetail",detail);m.SetFloat("_StuccoScale",.65f);m.SetFloat("_StuccoStrength",.42f);m.SetFloat("_StuccoContrast",.28f);m.SetFloat("_WallSmoothness",.015f);EditorUtility.SetDirty(m);AssetDatabase.SaveAssetIfDirty(m);}
   var paths=AssetDatabase.FindAssets("t:Model",new[]{"Assets/PhoViet/Art/Streets","Assets/PhoViet/Art/River"}).Select(AssetDatabase.GUIDToAssetPath).Where(PhoVietWallFinish.IsBuilding).ToArray();
   foreach(var p in paths)AssetDatabase.ImportAsset(p,ImportAssetOptions.ForceSynchronousImport|ImportAssetOptions.ForceUpdate);
   string scene=g.gameObject.scene.path;UnityEditor.SceneManagement.EditorSceneManager.OpenScene(scene);

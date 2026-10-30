@@ -44,9 +44,9 @@ public static class VerifyRentalWallsFinal
    check(w.maxTextureSize>=importer.maxTextureSize,"Texture resolution preserved: "+path);
   }
   check(g.gameObject.scene.GetRootGameObjects().SelectMany(o=>o.GetComponentsInChildren<Transform>(true)).All(t=>GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(t.gameObject)==0),"No missing scripts");
-  File.WriteAllText("Captures/rental-walls-final-dependencies.json",Newtonsoft.Json.JsonConvert.SerializeObject(deps,Newtonsoft.Json.Formatting.Indented));
+  File.WriteAllText("Captures/wall2198-final-dependencies.json",Newtonsoft.Json.JsonConvert.SerializeObject(deps,Newtonsoft.Json.Formatting.Indented));
   check(g.scenery.GetComponentsInChildren<LODGroup>(true).All(l=>l.GetLODs().All(d=>d.renderers.All(r=>r!=null))),"All LOD renderer links retained");
   var report=new{success=true,count=checks.Count,checks,dependencies=deps.Length};
-  File.WriteAllText(desktop?"Captures/rental-walls-final-desktop-scene-checks.json":"Captures/rental-walls-final-scene-checks.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));return report;
+  File.WriteAllText(desktop?"Captures/wall2198-final-desktop-scene-checks.json":"Captures/wall2198-final-scene-checks.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));return report;
  }
 }

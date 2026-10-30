@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "baseline": "278295a/local bytes",
+  "filesCompared": 3114,
+  "changed": [
+    "Assets/PhoViet/Scripts/ApartmentRoom.shader",
+    "Assets/PhoViet/Scripts/StreetWall.shader",
+    "Assets/PhoViet/Art/River/PV_RiverRoomLight.mat",
+    "Assets/PhoViet/Art/Streets/PV_StreetAtlas.mat"
+  ],
+  "unexpected": [],
+  "geometryUnchanged": true,
+  "sceneUnchanged": true,
+  "textureUnchanged": true,
+  "webUnchanged": true
+}

@@ -79,11 +79,11 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _StuccoContrast: 0.1
-    - _StuccoScale: 1
-    - _StuccoStrength: 0.2
+    - _StuccoContrast: 0.28
+    - _StuccoScale: 0.65
+    - _StuccoStrength: 0.42
     - _UVSec: 0
-    - _WallSmoothness: 0.035
+    - _WallSmoothness: 0.015
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

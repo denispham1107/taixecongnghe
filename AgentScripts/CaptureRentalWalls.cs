@@ -3,6 +3,7 @@ public static class CaptureRentalWalls
 {
  public static object Before()=>Run("before");
  public static object After()=>Run("after");
+ public static object Stronger()=>Run("stronger");
  static object Run(string phase)
  {
   if(!Application.isPlaying)throw new Exception("Play Mode required");

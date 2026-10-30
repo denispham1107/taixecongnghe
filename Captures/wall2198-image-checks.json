@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "oldGrainStd": 0.003203170847268325,
+  "newGrainStd": 0.007203180189834539,
+  "oldMeanRGB": [
+    0.7739084593052877,
+    0.3913742374817111,
+    0.30004517292382593
+  ],
+  "newMeanRGB": [
+    0.7722189712843223,
+    0.3895890625085297,
+    0.2981547896181086
+  ],
+  "relativeMeanBrightnessChange": -0.003873480875123181,
+  "grainContrastRatio": 2.2487655305608927,
+  "huePreserved": true
+}

@@ -35,10 +35,10 @@ Material:
     m_Floats:
     - _Glossiness: 0.2
     - _Glow: 1.15
-    - _StuccoContrast: 0.1
-    - _StuccoScale: 1
-    - _StuccoStrength: 0.2
-    - _WallSmoothness: 0.035
+    - _StuccoContrast: 0.28
+    - _StuccoScale: 0.65
+    - _StuccoStrength: 0.42
+    - _WallSmoothness: 0.015
     m_Colors:
     - _Warm: {r: 1, g: 0.86, b: 0.66, a: 1}
   m_BuildTextureStacks: []
