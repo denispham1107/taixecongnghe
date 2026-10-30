@@ -8,8 +8,17 @@ namespace PhoViet
  // làm người chơi văng ra và kết thúc chuyến, xe khác trong bán kính cũng văng. Hiệu ứng dựng/render trong Blender MCP
  // (pho_viet_tank_fx.py): đạn PV_TankShell, lửa đầu nòng, vụ nổ, vòng cảnh báo.
  // 21.99: thêm xe tăng cùng lúc với khủng long sau cua, và một xe ngược chiều cho mỗi mốc vượt400m.
+ // 21.110: riêng xe tăng sau cua, mỗi phát có70% nhắm điểm cố định làn phải sát giao lộ;30% giữ cách cũ.
  public partial class PhoVietGame
  {
+  public partial class TrafficVehicle
+  {
+   // A recycled traffic slot must never inherit the previous tank's aiming rule.
+   [System.NonSerialized] public int turnTankAimGeneration=-1;
+   [System.NonSerialized] public Vector3 turnTankTarget;
+  }
+  public const float TurnTankAimChance=.7f,TurnTankAimJunctionOffset=12f;
+  System.Random turnTankAimRandom;
   public bool randomTanks=false;          // xe tăng ngẫu nhiên ở ô xe con (21.33) — tắt từ 21.38
   public bool tankBarrageEnabled=true;    // xe tăng theo lịch 9 s và bắn đạn
   public const float TankInterval=9f,TankDistanceInterval=400f,TankFireInterval=1f,TankFireIntervalMin=.4f,ShellFlight=1.6f,BlastRadius=2.2f,TankFireNear=24f,TankFireFar=115f;
@@ -35,6 +44,8 @@ namespace PhoViet
 
   void ResetTankBarrage()
   {
+   turnTankAimRandom=new System.Random(RunSeed^0x21a110);
+   foreach(var v in vehicles){v.turnTankAimGeneration=-1;v.turnTankTarget=Vector3.zero;}
    ResetTankCraters();
    ClearShells();tankSpawnTimer=TankInterval;nextDistanceTank=TankDistanceInterval;pendingDistanceTanks=0;DistanceTanksScheduled=0;TanksScheduled=0;ShellsFired=0;ShellBlasts=0;ShellSplashes=0;VehiclesBlasted=0;KilledByShell=false;
    if(tankFxAnchor!=null){tankFxAnchor.localPosition=Vector3.zero;tankFxAnchor.localRotation=Quaternion.identity;foreach(var ps in new[]{muzzleFx,blastFx,smokeFx,sparkFx,trailFx})if(ps!=null)ps.Clear();}
@@ -55,6 +66,7 @@ namespace PhoViet
   {
    if(tankFxAnchor!=null)tankFxAnchor.localPosition-=Vector3.forward*delta;
    foreach(var s in shells){s.start-=Vector3.forward*delta;s.target-=Vector3.forward*delta;}
+   foreach(var v in vehicles)if(HasTurnTankAim(v))v.turnTankTarget-=Vector3.forward*delta;
   }
 
   // ------------------------------------------------------------ lịch xe tăng 9 giây
@@ -124,8 +136,17 @@ namespace PhoViet
     // Khoảng bắn rút ngắn ngay khi người chơi tăng tốc (không chờ hết khoảng cũ dài hơn).
     v.tankFireTimer=Mathf.Min(v.tankFireTimer,CurrentTankFireInterval)-dt;
     if(v.tankFireTimer>0)continue;
-    v.tankFireTimer=CurrentTankFireInterval;FireTankShell(v,rng.Next(4));
+    v.tankFireTimer=CurrentTankFireInterval;FireAutomaticTankShell(v);
    }
+  }
+  bool HasTurnTankAim(TrafficVehicle v)=>v.active&&v.armored&&v.turnTankAimGeneration==v.spawnGeneration;
+  TankShell FireAutomaticTankShell(TrafficVehicle v)
+  {
+   // Keep the old lane RNG consumption for all tank types; bias has its own stream.
+   int lane=rng.Next(4);
+   if(HasTurnTankAim(v)&&turnTankAimRandom.NextDouble()<TurnTankAimChance)
+    return LaunchTankShell(v,3,v.turnTankTarget,true);
+   return FireTankShell(v,lane);
   }
   public Vector3 TankMuzzle(TrafficVehicle v)=>transform.InverseTransformPoint(v.model.TransformPoint(new Vector3(0,1.42f,3.62f)));
   // Đạn rơi đúng chỗ người chơi sẽ tới sau thời gian bay, ở làn được chọn.
@@ -137,6 +158,11 @@ namespace PhoViet
    float ahead=Mathf.Max(Speed,8)*ShellFlight;
    var target=new Vector3(LaneX[Mathf.Clamp(lane,0,3)],0,rider.localPosition.z+ahead);
    if(target.z>muzzle.z-5)return null;
+   return LaunchTankShell(v,lane,target);
+  }
+  TankShell LaunchTankShell(TrafficVehicle v,int lane,Vector3 target,bool junctionAim=false)
+  {
+   EnsureTankFx();var muzzle=TankMuzzle(v);
    bool water=riversEnabled&&OverRiver(target);if(water)target.y=RiverBlock.WaterY;
    var s=new TankShell{start=muzzle,target=target,flight=ShellFlight,lane=lane,tank=v,overWater=water,apex=3.2f+Vector3.Distance(muzzle,target)*.06f};
    s.body=shellPool.Count>0?shellPool.Pop():NewShellBody();s.body.gameObject.SetActive(true);s.body.localPosition=muzzle;
@@ -144,7 +170,7 @@ namespace PhoViet
    PlaceMarker(s,0);
    shells.Add(s);ShellsFired++;
    // Lửa đầu nòng và khói phụt theo hướng nòng.
-   var forward=(transform.InverseTransformDirection(v.model.forward)).normalized;
+   var forward=junctionAim?(target-muzzle).normalized:(transform.InverseTransformDirection(v.model.forward)).normalized;
    Emit(muzzleFx,muzzle,forward*2.5f,3.4f,.22f,Color.white);
    for(int i=0;i<5;i++)Emit(smokeFx,muzzle+forward*(.6f+i*.4f),forward*Random.Range(1.5f,3f)+Vector3.up*Random.Range(.4f,1.2f),Random.Range(1.4f,2.4f),Random.Range(.9f,1.5f),new Color(.75f,.72f,.68f,.85f));
    if(sound&&fx!=null)fx.PlayOneShot(cannonClip,Mathf.Lerp(.55f,.18f,Mathf.InverseLerp(20,115,muzzle.z)));

@@ -1,0 +1,37 @@
+{
+  "success": true,
+  "evidence": [
+    {
+      "direction": -1,
+      "elapsedAfterTurn": 0,
+      "target": [
+        4.65,
+        0.0,
+        58.8566628
+      ],
+      "anchor": [
+        4.65,
+        0.0,
+        58.8566628
+      ],
+      "dinosaurZ": 70.84416,
+      "tankZ": 70.8299942
+    },
+    {
+      "direction": 1,
+      "elapsedAfterTurn": 0,
+      "target": [
+        4.65,
+        0.0,
+        58.8566628
+      ],
+      "anchor": [
+        4.65,
+        0.0,
+        58.8566628
+      ],
+      "dinosaurZ": 70.84416,
+      "tankZ": 70.835
+    }
+  ]
+}

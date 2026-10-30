@@ -34,7 +34,11 @@ namespace PhoViet
    float z=TurnHazardJunction();if(z<=0)return false;
    // Near a narrow bridge both oncoming lanes merge beside the dinosaur.
    // Try the far side of this same junction before deferring; retain all footprint checks.
-   return SpawnTankAt(z)!=null||SpawnTankAt(z+12)!=null;
+   var tank=SpawnTankAt(z)??SpawnTankAt(z+12);if(tank==null)return false;
+   tank.turnTankAimGeneration=tank.spawnGeneration;
+   // Fixed road point on the rightmost lane just before this junction, not a homing shot.
+   tank.turnTankTarget=new Vector3(LaneX[3],0,z-TurnTankAimJunctionOffset);
+   return true;
   }
   void TickTurnHazards(float dt)
   {
