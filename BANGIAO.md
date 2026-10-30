@@ -30,12 +30,14 @@ Cập nhật lần cuối: **31/10/2026 — Codex**
 | Chất liệu tường trong source | **21.98:** người dùng chọn vân rõ hơn21.97; relief0,42/scale0,65/contrast0,28/smoothness0,015, giữ màu/kính/kim loại/sông. UV mask25FBX/144mesh, texture1K nén/mipmap, không thêm renderer. Chi tiết21.97–21.98; đã có trên web1.50.0 |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Đã có trên web1.48.0** |
 | Góc đèn pha trong source | **21.108 chưa lên web:** khôi phục đèn gốc1.52, chỉmởgócngang1,8×/spot≈90°;bỏreference0,65/mirror21.107,giữhướng/cườngđộ/tầm32m/nguồnđèn.435kiểmđạt/ảnhgốc-vàmởgóccùngframe |
-| Mưa giông/sét trong source | **21.105 đã có trên web1.52.0:** 15s quang/3s mưa tăng/9s giông/3s tan; sét báo0,8s/ngẫu nhiên4làn, nhảy vẫn trúng. Xe trúng cháy/văng/nằm lại;playerhếtlượt, Tank/Dino miễn, CSGTtrúnghếtđuổi. **2.149kiểmđạt/7ảnhUnity**;6GPUweb+29liveđạt |
+| Mưa giông/sét trong source | **21.109 chưa lên web:** mỗi đợt giữ tia cũ +3tia đồng thời/3làn khác nhau trong tile hiện tại, báo0,8s;763kiểm đạt/4ảnh thật. **Web1.52.0 còn21.105:**15s quang/3s tăng/9s giông/3s tan; xe trúng cháy/văng/nằm lại, player hết lượt, Tank/Dino miễn, CSGT hết đuổi |
 | Hố đạn và chỉnh lái trong source | **21.103 đã có trên web1.51.0:** hố R2,024m/lòng−0,40m/nứt/mảnh văng; bánh chạm kéo lệch tới khi nhấn/vuốt ngược, nhảy tránh được. **1.090 kiểm tra đạt/11 ảnh Unity**, không đổi hình ảnh ngoài hố. Xem21.103 |
 | Tàu và đèn phụ trong source | **21.102 đã có trên web1.51.0:** tàu đánh cá Meshy140chiếc,3LOD/texture2K; đènnhỏ chungtínhiệu2mặt vớiđènlớn;3346kiểmđạt |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.109 hoàn tất source, chưa phát hành:** mỗi đợt sét thêm3tia trên3làn khác nhau ở khu phố hiện tại, giữ tia gốc/nhịp cũ/báo0,8s; theo road tile qua rẽ/scroll. Pool4bolt/4warning, không thêm Light/rain.636local+107storm+20scene=763đạt,4ảnh Unity ngang/dọc đã xem. SHA2968file chỉ2runtime đổi; scene/asset/lighting21.108 giữ. UnityEdit/scenesạch/jobsfalse; lưucommitlocal, chưa build/push/web (vẫn1.52.0). Chi tiết21.109.
 
 - **21.108 đã sửa source, chưa phát hành:** quayvềđèn gốc/chỉtănggócmở,khôngđổiopticalheight/falloffhaythêmđèn. Shadergốcchỉthêm3chỗUVngang,width1,8;spot58→≈90°tươngứng.14pixel+305binding+88nhảyđêm+8legacy+20scene=435đạt;5ảnhUnity gồmoriginal/aftercùngframe1920×1280,dọc,rẽ,nhảy. So2968filechỉ2sourceđổi;UnityEdit/scenesạch/start1,92/jobsfalse. Lưucommitlocal;webvẫn1.52.0. Chi tiết21.108.
 
@@ -141,6 +143,8 @@ Cập nhật lần cuối: **31/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.109 đã hoàn tất:**763kiểm đạt/4ảnh thật; UnityEdit/scene sạch. Source lưucommitlocal cùng2docs; chưa build/push/phát hành, web vẫn1.52.0. Không còn bước triển khai/kiểm tra đang dở.
+
 - **21.108 hoàn tất source/kiểm tra:**435đạt,ảnhgốc-vàmởgóccùngframeđãxem;UnityEdit/scenesạch/start1,92/jobsfalse. Lưucommitlocal cùng2docs;chưabuild/push/pháthành,webvẫn1.52.0.21.107đãbịthay,khôngdùngthamsốảnhcũ. GiữdirtyArt/Wave/Packages/Simulatorngoàiphạmvi.
 
 
@@ -187,7 +191,7 @@ Cập nhật lần cuối: **31/10/2026 — Codex**
 
 ## 4. Luật đã chốt — không tự đổi
 
-- **Source21.105:** quang15s→tăngmưa3s→giông9s→tan3s/lặp30s, pause dừng. Sét báo0,8s ởmộtđiểm/lànngẫu nhiên, nhảy vẫn trúng; xe trúng cháy/văngtheohướng cũ/nằm lại. Playertrúngluônhếtlượt sauvăng,kểcảđangđuổi. Tank/Dino miễn. CSGTtrúng→hếtđuổi; playerđãtéchờbắt thìhếtlượt. Vi phạmmới vềsaumới cólầnđuổimới, khônghồi phụcCSGTcháyđểtiếptụclầnđuổicũ.
+- **Source21.109 (web1.52.0 còn21.105):** quang15s→tăngmưa3s→giông9s→tan3s/lặp30s, pause dừng. Mỗi đợt giữ tia cũ và thêm đồng thời3tia ở3làn ngẫu nhiên khác nhau trong tile hiện tại; cả4báo0,8s, điểm đã báo không retarget. Nhảy vẫn trúng; xe trúng cháy/văngtheohướng cũ/nằm lại. Playertrúngluônhếtlượt sauvăng,kểcảđangđuổi. Tank/Dino miễn. CSGTtrúng→hếtđuổi; playerđãtéchờbắt thìhếtlượt. Vi phạmmới vềsaumới cólầnđuổimới, khônghồi phụcCSGTcháyđểtiếptụclầnđuổicũ.
 
 - **Source21.103:** hố đạn giữ tới khi ra xa/chơi lại; bánh chạm làm xe lệch liên tục tới khi nhấn/vuốt NGƯỢC hướng lệch. Thao tác đó chỉ chỉnh lái, không nhảy làn tức thì; thao tác sau đổi làn bình thường. Nhảy qua tránh hiệu ứng; hố không tự gây thua, va vào xe/cảnh vật/sông vẫn theo luật hiện tại.
 
@@ -214,7 +218,7 @@ Cập nhật lần cuối: **31/10/2026 — Codex**
 | Điểm xuất phát xe, kéo thả Edit/Play Ready | **21.76**,6.1 | `PhoVietPlayerStart.cs`, `Editor/PhoVietPlayerStartEditor.cs`, `PhoVietGame.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyPlayerStart*.cs` |
 | Menu Pause/kết thúc/về đầu phố | **21.90**, 2.1 | `PhoVietGame.cs` → `EndCard`, `TogglePause`, `ResetRide` |
 | Điều khiển, đổi làn, camera, HUD | 2.2, 12, **21.94**,21.92/21.89/21.81/21.55/21.60/21.65 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs`, `AgentScripts/VerifyLaneResponse.cs`, `VerifySupercarScalePace.cs`, `CaptureLaneResponse.cs` |
-| Mưa giông/sét/báo trước/xe cháy vĩnh viễn | **21.105**,2.14 | `PhoVietThunderstorm.cs`, `ThunderstormVisual.cs`, `ThunderstormFX.shader`, `DayNightLighting.cs`, `DayNightSky.shader`, `TankCraterRoad.shader`, `PhoVietTrafficRecovery.cs`; `AgentScripts/ConfigureThunderstorm.cs`, `VerifyThunderstorm.cs`, `CaptureThunderstorm.cs`, `VerifyStormScene.cs`, `RunStormRegressions.ps1` |
+| Mưa giông/sét/báo trước/xe cháy vĩnh viễn | **21.109**,21.105,2.14 | `PhoVietThunderstorm.cs`, `ThunderstormVisual.cs`, `ThunderstormFX.shader`, `DayNightLighting.cs`, `DayNightSky.shader`, `TankCraterRoad.shader`, `PhoVietTrafficRecovery.cs`; `AgentScripts/ConfigureThunderstorm.cs`, `VerifyThunderstorm.cs`, `CaptureThunderstorm.cs`, `VerifyStormScene.cs`, `VerifyLocalLightning.cs`, `CaptureLocalLightning.cs`, `RunStormRegressions.ps1` |
 | Giao thông, va chạm, văng/té | 7, 21.33 | `PhoVietTraffic.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs` |
 | Quái xế, xe tải ngủ gật | 2.4, 7.2 | `PhoVietReckless.cs` |
 | Dino+Tank tức thì sau cua, Tank mỗi400m/pool | **21.99**,21.80/21.62/21.38 | `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `PhoVietDinosaurs.cs`, `PhoVietTankFire.cs`, `AgentScripts/VerifyTurnHazards.cs`, `VerifyDistanceTanks2199.cs`, `CaptureTurnHazards.cs` |

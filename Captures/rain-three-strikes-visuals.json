@@ -1,0 +1,34 @@
+{
+  "success": true,
+  "images": [
+    "Captures/rain-three-strikes-warnings.png",
+    "Captures/rain-three-strikes-warnings-portrait.png",
+    "Captures/rain-three-strikes-bolts.png",
+    "Captures/rain-three-strikes-bolts-portrait.png"
+  ],
+  "targets": [
+    [
+      -1.55,
+      0.0,
+      29.7645111
+    ],
+    [
+      -4.65,
+      0.0,
+      26.1564617
+    ],
+    [
+      1.55,
+      0.0,
+      29.16976
+    ],
+    [
+      4.65,
+      0.0,
+      17.17282
+    ]
+  ],
+  "strikes": 4,
+  "visibleBolts": 4,
+  "source": "Automatic original plus 3 local strikes / actual Unity camera / fixed RNG example"
+}

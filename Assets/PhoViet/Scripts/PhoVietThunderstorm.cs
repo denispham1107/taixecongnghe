@@ -18,8 +18,12 @@ namespace PhoViet
   public bool LightningPending=>lightningWarning>0;
   public Vector3 LightningTarget=>lightningPoint;
   public float LightningWarningRemaining=>lightningWarning;
-  ThunderstormVisual stormVisual;System.Random stormRandom;
+  public int AdditionalLightningCount=>extraLightningCount;
+  public Vector3 AdditionalLightningTarget(int index)
+  {if(index<0||index>=extraLightningCount)throw new ArgumentOutOfRangeException(nameof(index));return extraLightningPoints[index];}
+  ThunderstormVisual stormVisual;System.Random stormRandom,localStormRandom;
   Vector3 lightningPoint;float lightningWarning,nextLightning,boltAge=10;
+  readonly Vector3[] extraLightningPoints=new Vector3[3];int extraLightningCount;
   public static float RainAt(float time)
   {
    float t=Mathf.Repeat(Mathf.Max(0,time),StormCycle);
@@ -36,6 +40,7 @@ namespace PhoViet
    StormTime=StormIntensity=StormFlash=lightningWarning=0;boltAge=10;nextLightning=.55f;
    LightningStrikes=LightningVehiclesHit=0;KilledByLightning=PoliceLightningWreck=false;
    stormRandom=new System.Random(RunSeed^0x514b27);
+   localStormRandom=new System.Random(RunSeed^0x37ae51);extraLightningCount=0;Array.Clear(extraLightningPoints,0,extraLightningPoints.Length);
    foreach(var v in vehicles)v.lightningWreck=false;
    EnsureThunderstorm();if(stormVisual!=null)stormVisual.Clear();Shader.SetGlobalFloat("_PVStormWetness",0);
   }
@@ -43,17 +48,23 @@ namespace PhoViet
   public void TickThunderstorm(float dt,bool advanceClock)
   {
    if(dt<=0||State==RideState.Paused)return;
-   if(!thunderstormEnabled){StormIntensity=StormFlash=lightningWarning=0;return;}
+   if(!thunderstormEnabled){StormIntensity=StormFlash=lightningWarning=0;extraLightningCount=0;return;}
    EnsureThunderstorm();
+   stormVisual?.AdvanceLightning(dt);
    bool driving=advanceClock&&State==RideState.Riding&&!JobOffersOpen;
    if(driving)StormTime+=dt;
    StormIntensity=RainAt(StormTime);boltAge+=dt;
    StormFlash=boltAge<.2f?(.24f*Mathf.Exp(-boltAge*30)+.12f*Mathf.Exp(-Mathf.Pow((boltAge-.105f)/.022f,2))):0;
-   if(State==RideState.GameOver||State==RideState.Jailed||State==RideState.Arrested){lightningWarning=0;return;}
+   if(State==RideState.GameOver||State==RideState.Jailed||State==RideState.Arrested){lightningWarning=0;extraLightningCount=0;return;}
    if(lightningWarning>0)
    {
     lightningWarning=Mathf.Max(0,lightningWarning-dt);
-    if(lightningWarning==0)StrikeLightning(lightningPoint);
+    if(lightningWarning==0)
+    {
+     int count=extraLightningCount;extraLightningCount=0;
+     StrikeLightningAt(lightningPoint,0);
+     for(int i=0;i<count;i++)StrikeLightningAt(extraLightningPoints[i],i+1);
+    }
    }
    float phase=Mathf.Repeat(StormTime,StormCycle);
    if(driving&&phase>=18&&phase<27&&!LightningPending)
@@ -64,13 +75,41 @@ namespace PhoViet
      // Separate random stream: adding weather never changes the traffic seed sequence.
      int lane=stormRandom.Next(4);float lead=Mathf.Max(12,Speed*LightningWarningSeconds);
      WarnLightning(new Vector3(LaneX[lane],0,rider.localPosition.z+lead-3+(float)stormRandom.NextDouble()*23));
+     QueueLocalLightning();
      nextLightning=2.1f+(float)stormRandom.NextDouble()*.7f;
     }
    }
    else if(phase<18)nextLightning=.55f;
   }
   public void WarnLightning(Vector3 at)
-  {lightningPoint=at;lightningWarning=LightningWarningSeconds;}
+  {lightningPoint=at;lightningWarning=LightningWarningSeconds;extraLightningCount=0;}
+  Transform CurrentLightningTile()
+  {
+   var tiles=blocks;
+   // In the junction's second half, the destination row is the road under the car.
+   if(RoutesReady&&IsTurning&&Mathf.Abs(TurnYaw)>=45)tiles=roadRows[turnSide<0?leftRow:rightRow].tiles;
+   Transform chosen=null;float best=float.PositiveInfinity;
+   if(tiles!=null)foreach(var tile in tiles)
+   {
+    if(tile==null)continue;var p=tile.InverseTransformPoint(rider.position);
+    float outside=p.z<0?-p.z:p.z>VietnamStreet.Length?p.z-VietnamStreet.Length:0;
+    float score=outside*outside+Mathf.Pow(Mathf.Max(0,Mathf.Abs(p.x)-7),2);
+    if(score<best){best=score;chosen=tile;}
+   }
+   return chosen;
+  }
+  void QueueLocalLightning()
+  {
+   if(localStormRandom==null)localStormRandom=new System.Random(RunSeed^0x37ae51);
+   var tile=CurrentLightningTile();var local=tile!=null?tile.InverseTransformPoint(rider.position):rider.localPosition;
+   float near=Mathf.Clamp(local.z+Mathf.Max(12,Speed*LightningWarningSeconds),4,VietnamStreet.Length-4);
+   float far=Mathf.Min(VietnamStreet.Length-4,near+18);int safeLane=localStormRandom.Next(4);extraLightningCount=0;
+   for(int lane=0;lane<4;lane++)if(lane!=safeLane)
+   {
+    var point=new Vector3(LaneX[lane],0,Mathf.Lerp(near,far,(float)localStormRandom.NextDouble()));
+    extraLightningPoints[extraLightningCount++]=tile!=null?transform.InverseTransformPoint(tile.TransformPoint(point)):point;
+   }
+  }
   bool UnderLightning(Transform body,float width,float length,Vector3 at)
   {
    var d=Quaternion.Inverse(Quaternion.Euler(0,body.localEulerAngles.y,0))*(at-body.localPosition);
@@ -78,12 +117,14 @@ namespace PhoViet
    return x*x+z*z<=LightningRadius*LightningRadius;
   }
   public void StrikeLightning(Vector3 at)
+  {if(!thunderstormEnabled||State==RideState.Paused||State==RideState.Ready||State==RideState.Jailed)return;extraLightningCount=0;StrikeLightningAt(at,0);}
+  void StrikeLightningAt(Vector3 at,int slot)
   {
    if(!thunderstormEnabled||State==RideState.Paused||State==RideState.Ready||State==RideState.Jailed)return;
    EnsureThunderstorm();lightningWarning=0;LightningStrikes++;boltAge=0;StormFlash=.24f;
    var visualPoint=at;if(IsStormWater(at))visualPoint.y=RiverBlock.WaterY;
-   if(stormVisual!=null)stormVisual.Strike(visualPoint,LightningStrikes);
-   if(sound&&fx!=null){EnsureTankFx();fx.PlayOneShot(blastClip,.6f);}
+   if(stormVisual!=null)stormVisual.Strike(visualPoint,LightningStrikes,slot);
+   if(slot==0&&sound&&fx!=null){EnsureTankFx();fx.PlayOneShot(blastClip,.6f);}
    foreach(var v in vehicles)
    {
     if(!v.active||v.armored||v.lightningWreck||v.riverFalling||v.wallCrashed||!UnderLightning(v.model,v.halfWidth,v.halfLength,at))continue;
@@ -95,7 +136,7 @@ namespace PhoViet
     if(stormVisual!=null)stormVisual.Burn(v.model,v);
    }
    if(policeBike!=null&&policeBike.gameObject.activeSelf&&!PoliceLightningWreck&&!PoliceInRiver&&UnderLightning(policeBike,.5f,1.2f,at))StrikeStormPolice();
-   if((State==RideState.Riding||State==RideState.Falling)&&UnderLightning(rider,PlayerHalfWidth,PlayerHalfLength,at))StrikeStormRider();
+   if(!KilledByLightning&&(State==RideState.Riding||State==RideState.Falling)&&UnderLightning(rider,PlayerHalfWidth,PlayerHalfLength,at))StrikeStormRider();
   }
   void StrikeStormRider()
   {
@@ -126,11 +167,11 @@ namespace PhoViet
    Vector3 previous=policeBike.localPosition;TickCollisionBody(policeBody,dt);CheckPoliceRiver(previous,dt);
    if(policeBike.localPosition.z< -90)policeBike.gameObject.SetActive(false);
   }
-  void ScrollThunderstorm(float delta){if(LightningPending)lightningPoint-=Vector3.forward*delta;stormVisual?.Scroll(delta);}
+  void ScrollThunderstorm(float delta){if(LightningPending){lightningPoint-=Vector3.forward*delta;for(int i=0;i<extraLightningCount;i++)extraLightningPoints[i]-=Vector3.forward*delta;}stormVisual?.Scroll(delta);}
   void RebaseThunderstorm(Quaternion inverse,Vector3 origin)
-  {lightningPoint=inverse*(lightningPoint-origin);stormVisual?.Rebase(inverse,origin);}
+  {lightningPoint=inverse*(lightningPoint-origin);for(int i=0;i<extraLightningCount;i++)extraLightningPoints[i]=inverse*(extraLightningPoints[i]-origin);stormVisual?.Rebase(inverse,origin);}
   public bool IsStormWater(Vector3 point)=>riversEnabled&&OverRiver(point);
   void RenderThunderstorm()
-  {if(stormVisual!=null)stormVisual.Render(StormIntensity,StormFlash,lightningWarning,lightningPoint,boltAge,sound);}
+  {if(stormVisual!=null)stormVisual.Render(StormIntensity,StormFlash,lightningWarning,lightningPoint,boltAge,sound,extraLightningPoints,extraLightningCount);}
  }
 }

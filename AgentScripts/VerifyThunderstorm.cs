@@ -17,7 +17,7 @@ public static class VerifyThunderstorm
   {
    foreach(float offset in new[]{0f,30f,60f})foreach(var sample in new[]{new Vector2(0,0),new Vector2(14.99f,0),new Vector2(15,0),new Vector2(16.5f,.5f),new Vector2(18,1),new Vector2(26.99f,1),new Vector2(27,1),new Vector2(28.5f,.5f),new Vector2(29.999f,0)})Check(Mathf.Abs(PhoVietGame.RainAt(sample.x+offset)-sample.y)<.001f,"Continuous rain envelope "+(sample.x+offset));
    Fresh();for(int i=0;i<1500;i++)g.TickThunderstorm(.05f,true);
-   Check(Mathf.Abs(g.StormTime-75)<.003f,"30s repeating simulation clock");Check(g.LightningStrikes>=6&&g.LightningStrikes<=10,"Bounded strike cadence across repeated storms");
+   Check(Mathf.Abs(g.StormTime-75)<.003f,"30s repeating simulation clock");Check(g.LightningStrikes>=24&&g.LightningStrikes<=40&&g.LightningStrikes%4==0,"Bounded original cadence, now four strikes per automatic wave");
    float time=g.StormTime;int strikes=g.LightningStrikes;g.TogglePause();g.TickThunderstorm(10,true);Check(g.StormTime==time&&g.LightningStrikes==strikes,"Pause freezes clock and damage");g.TogglePause();
    Fresh();g.WarnLightning(new Vector3(5,0,50));g.TickThunderstorm(.79f,true);Check(g.LightningPending&&g.LightningStrikes==0,"Warning stays visible before 0.8s");g.TickThunderstorm(.011f,true);Check(!g.LightningPending&&g.LightningStrikes==1,"Warning resolves exactly once after countdown");
    Fresh();g.WarnLightning(new Vector3(1.6f,0,40));Vector3 point=g.LightningTarget;Call("ScrollThunderstorm",4f);Check(Vector3.Distance(g.LightningTarget,point-Vector3.forward*4)<.0001f,"Warning follows scrolling road");

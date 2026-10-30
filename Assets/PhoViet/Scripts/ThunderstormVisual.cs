@@ -1,19 +1,22 @@
 using System.Collections.Generic;using UnityEngine;using UnityEngine.Rendering;
 namespace PhoViet
 {
- // A local rain volume, five shared-material bolt draws and pooled baked fires.
+ // A local rain volume, four pooled strikes (five shared-material draws each), and baked fires.
  // No per-drop GameObjects, scene-wide material clones or extra realtime lights.
  public sealed class ThunderstormVisual:MonoBehaviour
  {
   sealed class BurnEffect {public Transform root,target;public PhoVietGame.TrafficVehicle body;public ParticleSystem[] particles;public bool active;}
-  PhoVietGame game;Transform root,rainRoot,boltRoot,warning,fireTemplate;
+  PhoVietGame game;Transform root,rainRoot,fireTemplate;
   ParticleSystem rain,splashes;AudioSource rainAudio;AudioClip rainClip;
   readonly List<BurnEffect> burns=new List<BurnEffect>();
   readonly List<Material> owned=new List<Material>();
-  LineRenderer[] bolts;Mesh warningMesh;Material warningMaterial;
+  readonly Transform[] boltRoots=new Transform[4],warnings=new Transform[4];
+  readonly LineRenderer[][] boltLines=new LineRenderer[4][];
+  readonly float[] boltAges={10,10,10,10};Mesh warningMesh;Material warningMaterial;
   bool paused;float splashClock;System.Random random=new System.Random(5105);
   public int BurningCount {get{int count=0;foreach(var b in burns)if(b.active)count++;return count;}}
   public int ParticleBudget=>2400;
+  public int LightningCapacity=>boltRoots.Length;
   public void Initialize(PhoVietGame owner,Material rainMat,Material boltMat,Material warnMat,Transform fire)
   {
    game=owner;fireTemplate=fire;
@@ -27,24 +30,30 @@ namespace PhoViet
    rain.transform.localRotation=Quaternion.identity;
    splashes=MakeRain("Giọt bắn mặt đường",rainMat,200);main=splashes.main;main.startLifetime=.15f;main.startSize=new ParticleSystem.MinMaxCurve(.035f,.08f);main.startSpeed=0;main.startColor=new Color(.7f,.83f,1,.45f);
    splashes.transform.SetParent(root,false);var splashShape=splashes.shape;splashShape.enabled=false;
-   boltRoot=new GameObject("Sét phân nhánh • hai nhịp sáng").transform;boltRoot.SetParent(root,false);
-   bolts=new LineRenderer[5];for(int i=0;i<5;i++)
-   {
-    var line=new GameObject(i==0?"Lõi sét":i==1?"Quầng sáng":"Nhánh sét").AddComponent<LineRenderer>();line.transform.SetParent(boltRoot,false);
-    line.useWorldSpace=false;line.sharedMaterial=boltMat;line.alignment=LineAlignment.View;line.textureMode=LineTextureMode.Stretch;
-    line.numCapVertices=2;line.shadowCastingMode=ShadowCastingMode.Off;line.receiveShadows=false;
-    line.widthMultiplier=i==1?.42f:i==0?.12f:.045f;line.startColor=line.endColor=i==1?new Color(.3f,.62f,1,.18f):new Color(.8f,.93f,1,.95f);bolts[i]=line;
-   }
-   boltRoot.gameObject.SetActive(false);
-   warning=new GameObject("Cảnh báo sét • 0,8 giây").transform;warning.SetParent(root,false);
    warningMesh=new Mesh{name="PV_LightningWarningQuad"};warningMesh.vertices=new[]{new Vector3(-1,0,-1),new Vector3(1,0,-1),new Vector3(1,0,1),new Vector3(-1,0,1)};
    warningMesh.uv=new[]{Vector2.zero,Vector2.right,Vector2.one,Vector2.up};warningMesh.colors=new[]{Color.white,Color.white,Color.white,Color.white};warningMesh.triangles=new[]{0,2,1,0,3,2};warningMesh.RecalculateNormals();
-   warning.gameObject.AddComponent<MeshFilter>().sharedMesh=warningMesh;var wr=warning.gameObject.AddComponent<MeshRenderer>();warningMaterial=new Material(warnMat);owned.Add(warningMaterial);wr.sharedMaterial=warningMaterial;wr.shadowCastingMode=ShadowCastingMode.Off;warning.gameObject.SetActive(false);
+   warningMaterial=new Material(warnMat);owned.Add(warningMaterial);
+   for(int slot=0;slot<boltRoots.Length;slot++)CreateLightningSlot(slot,boltMat);
    rainAudio=root.gameObject.AddComponent<AudioSource>();rainAudio.loop=true;rainAudio.playOnAwake=false;rainAudio.volume=0;
    var noise=new System.Random(361);float[] samples=new float[22050*2];float low=0;
    for(int i=0;i<samples.Length;i++){float n=(float)noise.NextDouble()*2-1;low=Mathf.Lerp(low,n,.12f);samples[i]=(n*.28f+low*.5f)*(.8f+.2f*Mathf.Sin(i*.0006f));}
    rainClip=AudioClip.Create("Mưa giông • tiếng mưa",samples.Length,1,22050,false);rainClip.SetData(samples,0);rainAudio.clip=rainClip;
    for(int i=0;i<8&&fireTemplate!=null;i++)NewBurn();
+  }
+  void CreateLightningSlot(int slot,Material material)
+  {
+   var bolt=new GameObject(slot==0?"Sét phân nhánh • hai nhịp sáng":"Sét bổ sung • "+slot).transform;bolt.SetParent(root,false);boltRoots[slot]=bolt;
+   var lines=new LineRenderer[5];boltLines[slot]=lines;
+   for(int i=0;i<lines.Length;i++)
+   {
+    var line=new GameObject(i==0?"Lõi sét":i==1?"Quầng sáng":"Nhánh sét").AddComponent<LineRenderer>();line.transform.SetParent(bolt,false);
+    line.useWorldSpace=false;line.sharedMaterial=material;line.alignment=LineAlignment.View;line.textureMode=LineTextureMode.Stretch;
+    line.numCapVertices=2;line.shadowCastingMode=ShadowCastingMode.Off;line.receiveShadows=false;
+    line.widthMultiplier=i==1?.42f:i==0?.12f:.045f;line.startColor=line.endColor=i==1?new Color(.3f,.62f,1,.18f):new Color(.8f,.93f,1,.95f);lines[i]=line;
+   }
+   bolt.gameObject.SetActive(false);
+   var warning=new GameObject(slot==0?"Cảnh báo sét • 0,8 giây":"Cảnh báo sét bổ sung • "+slot).transform;warning.SetParent(root,false);warnings[slot]=warning;
+   warning.gameObject.AddComponent<MeshFilter>().sharedMesh=warningMesh;var wr=warning.gameObject.AddComponent<MeshRenderer>();wr.sharedMaterial=warningMaterial;wr.shadowCastingMode=ShadowCastingMode.Off;warning.gameObject.SetActive(false);
   }
   ParticleSystem MakeRain(string name,Material material,int limit)
   {
@@ -74,8 +83,11 @@ namespace PhoViet
    Vector3 p=b.target.TransformPoint(new Vector3(0,car?.9f:.65f,front));p.y=Mathf.Max(p.y,b.target.position.y+.3f);
    b.root.position=p;b.root.rotation=Quaternion.identity;
   }
-  public void Strike(Vector3 point,int seed)
+  public void AdvanceLightning(float dt){for(int i=0;i<boltAges.Length;i++)boltAges[i]+=dt;}
+  public void Strike(Vector3 point,int seed,int slot=0)
   {
+   if(slot<0||slot>=boltRoots.Length)throw new System.ArgumentOutOfRangeException(nameof(slot));
+   var boltRoot=boltRoots[slot];var bolts=boltLines[slot];boltAges[slot]=0;
    boltRoot.localPosition=point;boltRoot.localRotation=Quaternion.identity;
    var rng=new System.Random(seed*7919);var points=new Vector3[23];
    for(int i=0;i<points.Length;i++){float y=30*(1-i/22f);points[i]=new Vector3(i==22?0:((float)rng.NextDouble()-.5f)*1.8f,y+.06f,i==22?0:((float)rng.NextDouble()-.5f)*1.3f);}
@@ -83,7 +95,7 @@ namespace PhoViet
    for(int i=2;i<5;i++){int at=4+i*3;var branch=new Vector3[7];for(int j=0;j<7;j++)branch[j]=points[at]+new Vector3((i%2==0?1:-1)*j*.45f+((float)rng.NextDouble()-.5f)*.5f,-j*.8f,j*.25f);bolts[i].positionCount=branch.Length;bolts[i].SetPositions(branch);}
    boltRoot.gameObject.SetActive(true);
   }
-  public void Render(float intensity,float flash,float remaining,Vector3 point,float age,bool sound)
+  public void Render(float intensity,float flash,float remaining,Vector3 point,float age,bool sound,Vector3[] extraPoints=null,int extraCount=0)
   {
    if(root==null)return;bool hide=game.State==PhoVietGame.RideState.Ready||game.State==PhoVietGame.RideState.Jailed||!game.thunderstormEnabled;
    bool pause=game.State==PhoVietGame.RideState.Paused;
@@ -93,9 +105,13 @@ namespace PhoViet
    var wind=rain.velocityOverLifetime;wind.z=-(game.Speed+2);
    if(!hide&&!pause&&intensity>.001f){if(!rain.isPlaying)rain.Play();if(!splashes.isPlaying)splashes.Play();}
    if(hide){rain.Clear();splashes.Clear();}
-   bool warn=!hide&&remaining>0;warning.gameObject.SetActive(warn);
-   if(warn){var p=point;p.y=game.riversEnabled&&game.IsStormWater(point)?RiverBlock.WaterY+.04f:.045f;warning.localPosition=p;warning.localScale=Vector3.one*1.8f;warningMaterial.SetFloat("_Progress",1-remaining/PhoVietGame.LightningWarningSeconds);}
-   boltRoot.gameObject.SetActive(!hide&&age<.22f&&(age<.065f||age>.09f));
+   warningMaterial.SetFloat("_Progress",1-remaining/PhoVietGame.LightningWarningSeconds);
+   for(int i=0;i<boltRoots.Length;i++)
+   {
+    bool warn=!hide&&remaining>0&&(i==0||extraPoints!=null&&i<=extraCount);var warning=warnings[i];warning.gameObject.SetActive(warn);
+    if(warn){var p=i==0?point:extraPoints[i-1];p.y=game.riversEnabled&&game.IsStormWater(p)?RiverBlock.WaterY+.04f:.045f;warning.localPosition=p;warning.localScale=Vector3.one*1.8f;}
+    float boltAge=boltAges[i];boltRoots[i].gameObject.SetActive(!hide&&boltAge<.22f&&(boltAge<.065f||boltAge>.09f));
+   }
    if(!hide&&!pause&&intensity>.05f){splashClock+=Time.deltaTime*intensity*45;int count=Mathf.Min(8,(int)splashClock);splashClock-=count;for(int i=0;i<count;i++){var at=new Vector3((float)random.NextDouble()*13-6.5f,.035f,game.rider.localPosition.z+(float)random.NextDouble()*65);if(game.IsStormWater(at))continue;var e=new ParticleSystem.EmitParams{position=game.transform.TransformPoint(at),velocity=Vector3.up*.5f};splashes.Emit(e,1);}}
    if(!hide&&!pause&&intensity>.01f&&!rainAudio.isPlaying)rainAudio.Play();rainAudio.volume=!hide&&!pause&&sound?intensity*.16f:0;
    Shader.SetGlobalFloat("_PVStormWetness",hide?0:intensity);
@@ -106,13 +122,13 @@ namespace PhoViet
     PositionFire(b);
    }
   }
-  public void Scroll(float distance){if(boltRoot!=null)boltRoot.localPosition-=Vector3.forward*distance;}
-  public void Rebase(Quaternion inverse,Vector3 origin){if(boltRoot!=null){boltRoot.localPosition=inverse*(boltRoot.localPosition-origin);boltRoot.localRotation=inverse*boltRoot.localRotation;}}
+  public void Scroll(float distance){foreach(var bolt in boltRoots)if(bolt!=null)bolt.localPosition-=Vector3.forward*distance;}
+  public void Rebase(Quaternion inverse,Vector3 origin){foreach(var bolt in boltRoots)if(bolt!=null){bolt.localPosition=inverse*(bolt.localPosition-origin);bolt.localRotation=inverse*bolt.localRotation;}}
   public void Clear()
   {
    if(root==null)return;rain.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);splashes.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);rainAudio.Stop();
    foreach(var b in burns){b.active=false;b.root.gameObject.SetActive(false);foreach(var ps in b.particles)ps.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);}
-   warning.gameObject.SetActive(false);boltRoot.gameObject.SetActive(false);splashClock=0;paused=false;
+   for(int i=0;i<boltRoots.Length;i++){warnings[i].gameObject.SetActive(false);boltRoots[i].gameObject.SetActive(false);boltAges[i]=10;}splashClock=0;paused=false;
   }
   void OnDestroy(){Shader.SetGlobalFloat("_PVStormWetness",0);foreach(var mat in owned)if(mat!=null)Destroy(mat);if(warningMesh!=null)Destroy(warningMesh);if(rainClip!=null)Destroy(rainClip);}
  }
