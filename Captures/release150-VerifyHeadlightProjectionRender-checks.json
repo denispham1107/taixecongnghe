@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "count": 8,
+  "roadEnergy": 137.9885,
+  "wheelieEnergy": 0,
+  "roofEnergy": 45.8992577,
+  "checks": [
+    "Level headlamp renders an illuminated footprint ahead of the bike",
+    "Level projected cookie stays centered on the headlamp direction",
+    "Wheelie lifts the beam off the near road instead of leaving the original ground patch",
+    "Nose-down landing brings the projected footprint closer to the bike",
+    "Higher roof source changes and attenuates the road footprint",
+    "Reprojected headlight follows a ninety-degree street turn",
+    "Street-frame rotation preserves the headlight profile and brightness",
+    "Projection remains fully off in daylight"
+  ]
+}

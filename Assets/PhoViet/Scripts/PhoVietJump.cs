@@ -21,9 +21,9 @@ namespace PhoViet
   // 21.94: launch velocity and height each +10%; falling gravity stays unchanged.
   const float JumpRiseGravity=JumpGravity*1.10f;
   float jumpLaunchVelocity=JumpLaunch;
-  // Retain the speed curve from 21.60, with another 10% height from 21.94.
-  // W contributes its real speed, and faster speeds continue the same slope.
-  public static float JumpHeightAtSpeed(float speed)=>JumpLaunch*JumpLaunch/(2*JumpGravity)*(.75f+Mathf.Max(0,speed-17)/52f)*1.10f;
+  // 21.100: starting height from 21.94 +3%, fixed at every road/boost speed.
+  // Retain the public signature for jump/pose consumers; speed no longer changes vertical travel.
+  public static float JumpHeightAtSpeed(float speed)=>JumpLaunch*JumpLaunch/(2*JumpGravity)*.75f*1.10f*1.03f;
   public static bool IsJumpSwipe(Vector2 delta,float width)=>delta.y>width*.12f&&delta.y>Mathf.Abs(delta.x)*1.3f;
   public void PoseJumpPassenger(float pitch,float lift)
   {

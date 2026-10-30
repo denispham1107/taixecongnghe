@@ -36,9 +36,8 @@ public static class VerifyNightJumpLighting
             var block=new MaterialPropertyBlock();nearest[0].pool.GetPropertyBlock(block);
             check(block.GetColor("_Tint").a>=.43f,"Blender street-light pool has stronger visible illumination");
             check(l.ActiveRealtimeLights==6&&QualitySettings.pixelLightCount<=4,"Light count stays within existing mobile budget under traffic load");
-            // From21.59 the full former jump height requires 30 m/s. Keep
-            // this high-altitude lighting fixture at that takeoff speed.
-            reset();set("timeRiding",100f);var hero=g.rider.GetComponent<BikeVisualAnimator>();var binding=l.vehicles.Single(v=>v.player);
+            // Current player is a Supercar; its fixed 4.12 m jump has a small suspension pitch.
+            reset();set("timeRiding",100f);var hero=g.rider.GetComponent<PlayerCarVisual>();var binding=l.vehicles.Single(v=>v.player);
             hero.Advance(.01f);l.UpdateLamps();float groundHead=binding.head.position.y,maxHead=groundHead,minAim=1,maxAim=-1,maxFootprint=0;
             check(g.TryJump(),"Nighttime jump starts normally");
             for(int step=0;step<180;step++)
@@ -57,15 +56,15 @@ public static class VerifyNightJumpLighting
                 Vector3 ray=head.TransformDirection(new Vector3(0,-1.1f,13));
                 if(ray.y<-.001f){float d=(g.transform.position.y+.035f-head.position.y)/ray.y;maxFootprint=Mathf.Max(maxFootprint,(ray*d).magnitude);}
             }
-            check(maxHead-groundHead>4.5f,"Lamp rises with the full high jump rather than staying at road height");
-            check(maxAim>.1f&&minAim<-.1f,"Takeoff lifts the beam; descent tilts it back toward the road");
+            check(maxHead-groundHead>PhoVietGame.JumpHeightAtSpeed(17)-.12f,"Lamp rises with the full fixed jump rather than staying at road height");
+            check(maxAim-minAim>.03f,"Beam pitch follows car takeoff and landing suspension");
             check(maxFootprint>40,"Aerial/wheelie beam projects beyond the near-road patch and is range-limited");
             check(!g.RiderAirborne&&g.RiderJumpHeight==0&&g.State==PhoVietGame.RideState.Riding,"Landing completes with the original safe jump behavior");
             // A truck roof changes source altitude even when the rider is no longer airborne.
             reset();int truckIndex=g.vehicles.FindIndex(v=>!v.eventOnly&&v.halfLength>3);var truck=g.SpawnTraffic(2,0,truckIndex);
             set("roofVehicle",truck);set("jumpHeight",3.2f);set("jumpPreviousHeight",3.2f);g.rider.localPosition=new Vector3(PhoVietGame.LaneX[2],3.2f,0);
             hero.Advance(.01f);l.UpdateLamps();
-            check(g.RiderOnRoof&&binding.head.position.y>4&&l.lightPool[0].transform.position.y>4,"Riding on a truck keeps the actual headlamp above the roof");
+            check(g.RiderOnRoof&&binding.head.position.y>3.5f&&l.lightPool[0].transform.position.y>3.5f,"Riding on a truck keeps the actual car headlamp above the roof");
             check(binding.roadLight.transform.localScale.x==64,"Raised roof source has enough receiver extent for a farther footprint");
             l.SetCycleTime(0);check(l.ActiveRealtimeLights==0&&!binding.roadLight.enabled,"Daylight still turns off headlight and street lighting");
             return new{success=true,count=checks.Count,maximumLampHeight=maxHead,minimumBeamY=minAim,maximumBeamY=maxAim,checks};

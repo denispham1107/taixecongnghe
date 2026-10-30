@@ -1,0 +1,5436 @@
+{
+  "url": "http://127.0.0.1:8771/",
+  "checks": [
+    "small-phone: no horizontal page/hero overflow",
+    "small-phone: photo gallery and content never overlap",
+    "small-phone: night photo is directly below dawn without overlap",
+    "small-phone: footer follows both content columns and both photos",
+    "small-phone: status and instructions follow the action",
+    "small-phone: buttons never overlap",
+    "small-phone: header stays outside cutouts",
+    "small-phone: new game photo loads at full resolution",
+    "small-phone: real night game photo loads at full resolution",
+    "small-phone: main action is reachable",
+    "small-phone: help fits safe viewport",
+    "small-phone: help returns keyboard focus",
+    "small-phone loading: no horizontal page/hero overflow",
+    "small-phone loading: photo gallery and content never overlap",
+    "small-phone loading: night photo is directly below dawn without overlap",
+    "small-phone loading: footer follows both content columns and both photos",
+    "small-phone loading: status and instructions follow the action",
+    "small-phone loading: buttons never overlap",
+    "small-phone loading: header stays outside cutouts",
+    "small-phone loading: new game photo loads at full resolution",
+    "small-phone loading: real night game photo loads at full resolution",
+    "small-phone loading: main action is reachable",
+    "small-phone retry/long-status: no horizontal page/hero overflow",
+    "small-phone retry/long-status: photo gallery and content never overlap",
+    "small-phone retry/long-status: night photo is directly below dawn without overlap",
+    "small-phone retry/long-status: footer follows both content columns and both photos",
+    "small-phone retry/long-status: status and instructions follow the action",
+    "small-phone retry/long-status: buttons never overlap",
+    "small-phone retry/long-status: header stays outside cutouts",
+    "small-phone retry/long-status: new game photo loads at full resolution",
+    "small-phone retry/long-status: real night game photo loads at full resolution",
+    "small-phone retry/long-status: main action is reachable",
+    "phone: no horizontal page/hero overflow",
+    "phone: photo gallery and content never overlap",
+    "phone: night photo is directly below dawn without overlap",
+    "phone: footer follows both content columns and both photos",
+    "phone: status and instructions follow the action",
+    "phone: buttons never overlap",
+    "phone: header stays outside cutouts",
+    "phone: new game photo loads at full resolution",
+    "phone: real night game photo loads at full resolution",
+    "phone: main action is reachable",
+    "phone: help fits safe viewport",
+    "phone: help returns keyboard focus",
+    "phone loading: no horizontal page/hero overflow",
+    "phone loading: photo gallery and content never overlap",
+    "phone loading: night photo is directly below dawn without overlap",
+    "phone loading: footer follows both content columns and both photos",
+    "phone loading: status and instructions follow the action",
+    "phone loading: buttons never overlap",
+    "phone loading: header stays outside cutouts",
+    "phone loading: new game photo loads at full resolution",
+    "phone loading: real night game photo loads at full resolution",
+    "phone loading: main action is reachable",
+    "phone retry/long-status: no horizontal page/hero overflow",
+    "phone retry/long-status: photo gallery and content never overlap",
+    "phone retry/long-status: night photo is directly below dawn without overlap",
+    "phone retry/long-status: footer follows both content columns and both photos",
+    "phone retry/long-status: status and instructions follow the action",
+    "phone retry/long-status: buttons never overlap",
+    "phone retry/long-status: header stays outside cutouts",
+    "phone retry/long-status: new game photo loads at full resolution",
+    "phone retry/long-status: real night game photo loads at full resolution",
+    "phone retry/long-status: main action is reachable",
+    "large-phone: no horizontal page/hero overflow",
+    "large-phone: photo gallery and content never overlap",
+    "large-phone: night photo is directly below dawn without overlap",
+    "large-phone: footer follows both content columns and both photos",
+    "large-phone: status and instructions follow the action",
+    "large-phone: buttons never overlap",
+    "large-phone: header stays outside cutouts",
+    "large-phone: new game photo loads at full resolution",
+    "large-phone: real night game photo loads at full resolution",
+    "large-phone: main action is reachable",
+    "large-phone: help fits safe viewport",
+    "large-phone: help returns keyboard focus",
+    "large-phone loading: no horizontal page/hero overflow",
+    "large-phone loading: photo gallery and content never overlap",
+    "large-phone loading: night photo is directly below dawn without overlap",
+    "large-phone loading: footer follows both content columns and both photos",
+    "large-phone loading: status and instructions follow the action",
+    "large-phone loading: buttons never overlap",
+    "large-phone loading: header stays outside cutouts",
+    "large-phone loading: new game photo loads at full resolution",
+    "large-phone loading: real night game photo loads at full resolution",
+    "large-phone loading: main action is reachable",
+    "large-phone retry/long-status: no horizontal page/hero overflow",
+    "large-phone retry/long-status: photo gallery and content never overlap",
+    "large-phone retry/long-status: night photo is directly below dawn without overlap",
+    "large-phone retry/long-status: footer follows both content columns and both photos",
+    "large-phone retry/long-status: status and instructions follow the action",
+    "large-phone retry/long-status: buttons never overlap",
+    "large-phone retry/long-status: header stays outside cutouts",
+    "large-phone retry/long-status: new game photo loads at full resolution",
+    "large-phone retry/long-status: real night game photo loads at full resolution",
+    "large-phone retry/long-status: main action is reachable",
+    "phone-landscape: no horizontal page/hero overflow",
+    "phone-landscape: photo gallery and content never overlap",
+    "phone-landscape: night photo is directly below dawn without overlap",
+    "phone-landscape: footer follows both content columns and both photos",
+    "phone-landscape: status and instructions follow the action",
+    "phone-landscape: buttons never overlap",
+    "phone-landscape: header stays outside cutouts",
+    "phone-landscape: new game photo loads at full resolution",
+    "phone-landscape: real night game photo loads at full resolution",
+    "phone-landscape: main action is reachable",
+    "phone-landscape: help fits safe viewport",
+    "phone-landscape: help returns keyboard focus",
+    "phone-landscape loading: no horizontal page/hero overflow",
+    "phone-landscape loading: photo gallery and content never overlap",
+    "phone-landscape loading: night photo is directly below dawn without overlap",
+    "phone-landscape loading: footer follows both content columns and both photos",
+    "phone-landscape loading: status and instructions follow the action",
+    "phone-landscape loading: buttons never overlap",
+    "phone-landscape loading: header stays outside cutouts",
+    "phone-landscape loading: new game photo loads at full resolution",
+    "phone-landscape loading: real night game photo loads at full resolution",
+    "phone-landscape loading: main action is reachable",
+    "phone-landscape retry/long-status: no horizontal page/hero overflow",
+    "phone-landscape retry/long-status: photo gallery and content never overlap",
+    "phone-landscape retry/long-status: night photo is directly below dawn without overlap",
+    "phone-landscape retry/long-status: footer follows both content columns and both photos",
+    "phone-landscape retry/long-status: status and instructions follow the action",
+    "phone-landscape retry/long-status: buttons never overlap",
+    "phone-landscape retry/long-status: header stays outside cutouts",
+    "phone-landscape retry/long-status: new game photo loads at full resolution",
+    "phone-landscape retry/long-status: real night game photo loads at full resolution",
+    "phone-landscape retry/long-status: main action is reachable",
+    "small-landscape: no horizontal page/hero overflow",
+    "small-landscape: photo gallery and content never overlap",
+    "small-landscape: night photo is directly below dawn without overlap",
+    "small-landscape: footer follows both content columns and both photos",
+    "small-landscape: status and instructions follow the action",
+    "small-landscape: buttons never overlap",
+    "small-landscape: header stays outside cutouts",
+    "small-landscape: new game photo loads at full resolution",
+    "small-landscape: real night game photo loads at full resolution",
+    "small-landscape: main action is reachable",
+    "small-landscape: help fits safe viewport",
+    "small-landscape: help returns keyboard focus",
+    "small-landscape loading: no horizontal page/hero overflow",
+    "small-landscape loading: photo gallery and content never overlap",
+    "small-landscape loading: night photo is directly below dawn without overlap",
+    "small-landscape loading: footer follows both content columns and both photos",
+    "small-landscape loading: status and instructions follow the action",
+    "small-landscape loading: buttons never overlap",
+    "small-landscape loading: header stays outside cutouts",
+    "small-landscape loading: new game photo loads at full resolution",
+    "small-landscape loading: real night game photo loads at full resolution",
+    "small-landscape loading: main action is reachable",
+    "small-landscape retry/long-status: no horizontal page/hero overflow",
+    "small-landscape retry/long-status: photo gallery and content never overlap",
+    "small-landscape retry/long-status: night photo is directly below dawn without overlap",
+    "small-landscape retry/long-status: footer follows both content columns and both photos",
+    "small-landscape retry/long-status: status and instructions follow the action",
+    "small-landscape retry/long-status: buttons never overlap",
+    "small-landscape retry/long-status: header stays outside cutouts",
+    "small-landscape retry/long-status: new game photo loads at full resolution",
+    "small-landscape retry/long-status: real night game photo loads at full resolution",
+    "small-landscape retry/long-status: main action is reachable",
+    "large-landscape: no horizontal page/hero overflow",
+    "large-landscape: photo gallery and content never overlap",
+    "large-landscape: night photo is directly below dawn without overlap",
+    "large-landscape: footer follows both content columns and both photos",
+    "large-landscape: status and instructions follow the action",
+    "large-landscape: buttons never overlap",
+    "large-landscape: header stays outside cutouts",
+    "large-landscape: new game photo loads at full resolution",
+    "large-landscape: real night game photo loads at full resolution",
+    "large-landscape: main action is reachable",
+    "large-landscape: help fits safe viewport",
+    "large-landscape: help returns keyboard focus",
+    "large-landscape loading: no horizontal page/hero overflow",
+    "large-landscape loading: photo gallery and content never overlap",
+    "large-landscape loading: night photo is directly below dawn without overlap",
+    "large-landscape loading: footer follows both content columns and both photos",
+    "large-landscape loading: status and instructions follow the action",
+    "large-landscape loading: buttons never overlap",
+    "large-landscape loading: header stays outside cutouts",
+    "large-landscape loading: new game photo loads at full resolution",
+    "large-landscape loading: real night game photo loads at full resolution",
+    "large-landscape loading: main action is reachable",
+    "large-landscape retry/long-status: no horizontal page/hero overflow",
+    "large-landscape retry/long-status: photo gallery and content never overlap",
+    "large-landscape retry/long-status: night photo is directly below dawn without overlap",
+    "large-landscape retry/long-status: footer follows both content columns and both photos",
+    "large-landscape retry/long-status: status and instructions follow the action",
+    "large-landscape retry/long-status: buttons never overlap",
+    "large-landscape retry/long-status: header stays outside cutouts",
+    "large-landscape retry/long-status: new game photo loads at full resolution",
+    "large-landscape retry/long-status: real night game photo loads at full resolution",
+    "large-landscape retry/long-status: main action is reachable",
+    "tablet-portrait: no horizontal page/hero overflow",
+    "tablet-portrait: photo gallery and content never overlap",
+    "tablet-portrait: night photo is directly below dawn without overlap",
+    "tablet-portrait: footer follows both content columns and both photos",
+    "tablet-portrait: status and instructions follow the action",
+    "tablet-portrait: buttons never overlap",
+    "tablet-portrait: header stays outside cutouts",
+    "tablet-portrait: new game photo loads at full resolution",
+    "tablet-portrait: real night game photo loads at full resolution",
+    "tablet-portrait: main action is reachable",
+    "tablet-portrait: help fits safe viewport",
+    "tablet-portrait: help returns keyboard focus",
+    "tablet-portrait loading: no horizontal page/hero overflow",
+    "tablet-portrait loading: photo gallery and content never overlap",
+    "tablet-portrait loading: night photo is directly below dawn without overlap",
+    "tablet-portrait loading: footer follows both content columns and both photos",
+    "tablet-portrait loading: status and instructions follow the action",
+    "tablet-portrait loading: buttons never overlap",
+    "tablet-portrait loading: header stays outside cutouts",
+    "tablet-portrait loading: new game photo loads at full resolution",
+    "tablet-portrait loading: real night game photo loads at full resolution",
+    "tablet-portrait loading: main action is reachable",
+    "tablet-portrait retry/long-status: no horizontal page/hero overflow",
+    "tablet-portrait retry/long-status: photo gallery and content never overlap",
+    "tablet-portrait retry/long-status: night photo is directly below dawn without overlap",
+    "tablet-portrait retry/long-status: footer follows both content columns and both photos",
+    "tablet-portrait retry/long-status: status and instructions follow the action",
+    "tablet-portrait retry/long-status: buttons never overlap",
+    "tablet-portrait retry/long-status: header stays outside cutouts",
+    "tablet-portrait retry/long-status: new game photo loads at full resolution",
+    "tablet-portrait retry/long-status: real night game photo loads at full resolution",
+    "tablet-portrait retry/long-status: main action is reachable",
+    "tablet-landscape: no horizontal page/hero overflow",
+    "tablet-landscape: photo gallery and content never overlap",
+    "tablet-landscape: night photo is directly below dawn without overlap",
+    "tablet-landscape: footer follows both content columns and both photos",
+    "tablet-landscape: status and instructions follow the action",
+    "tablet-landscape: buttons never overlap",
+    "tablet-landscape: header stays outside cutouts",
+    "tablet-landscape: new game photo loads at full resolution",
+    "tablet-landscape: real night game photo loads at full resolution",
+    "tablet-landscape: main action is reachable",
+    "tablet-landscape: help fits safe viewport",
+    "tablet-landscape: help returns keyboard focus",
+    "tablet-landscape loading: no horizontal page/hero overflow",
+    "tablet-landscape loading: photo gallery and content never overlap",
+    "tablet-landscape loading: night photo is directly below dawn without overlap",
+    "tablet-landscape loading: footer follows both content columns and both photos",
+    "tablet-landscape loading: status and instructions follow the action",
+    "tablet-landscape loading: buttons never overlap",
+    "tablet-landscape loading: header stays outside cutouts",
+    "tablet-landscape loading: new game photo loads at full resolution",
+    "tablet-landscape loading: real night game photo loads at full resolution",
+    "tablet-landscape loading: main action is reachable",
+    "tablet-landscape retry/long-status: no horizontal page/hero overflow",
+    "tablet-landscape retry/long-status: photo gallery and content never overlap",
+    "tablet-landscape retry/long-status: night photo is directly below dawn without overlap",
+    "tablet-landscape retry/long-status: footer follows both content columns and both photos",
+    "tablet-landscape retry/long-status: status and instructions follow the action",
+    "tablet-landscape retry/long-status: buttons never overlap",
+    "tablet-landscape retry/long-status: header stays outside cutouts",
+    "tablet-landscape retry/long-status: new game photo loads at full resolution",
+    "tablet-landscape retry/long-status: real night game photo loads at full resolution",
+    "tablet-landscape retry/long-status: main action is reachable",
+    "desktop-short: no horizontal page/hero overflow",
+    "desktop-short: photo gallery and content never overlap",
+    "desktop-short: night photo is directly below dawn without overlap",
+    "desktop-short: footer follows both content columns and both photos",
+    "desktop-short: status and instructions follow the action",
+    "desktop-short: buttons never overlap",
+    "desktop-short: header stays outside cutouts",
+    "desktop-short: new game photo loads at full resolution",
+    "desktop-short: real night game photo loads at full resolution",
+    "desktop-short: main action is reachable",
+    "desktop-short: help fits safe viewport",
+    "desktop-short: help returns keyboard focus",
+    "desktop-short loading: no horizontal page/hero overflow",
+    "desktop-short loading: photo gallery and content never overlap",
+    "desktop-short loading: night photo is directly below dawn without overlap",
+    "desktop-short loading: footer follows both content columns and both photos",
+    "desktop-short loading: status and instructions follow the action",
+    "desktop-short loading: buttons never overlap",
+    "desktop-short loading: header stays outside cutouts",
+    "desktop-short loading: new game photo loads at full resolution",
+    "desktop-short loading: real night game photo loads at full resolution",
+    "desktop-short loading: main action is reachable",
+    "desktop-short retry/long-status: no horizontal page/hero overflow",
+    "desktop-short retry/long-status: photo gallery and content never overlap",
+    "desktop-short retry/long-status: night photo is directly below dawn without overlap",
+    "desktop-short retry/long-status: footer follows both content columns and both photos",
+    "desktop-short retry/long-status: status and instructions follow the action",
+    "desktop-short retry/long-status: buttons never overlap",
+    "desktop-short retry/long-status: header stays outside cutouts",
+    "desktop-short retry/long-status: new game photo loads at full resolution",
+    "desktop-short retry/long-status: real night game photo loads at full resolution",
+    "desktop-short retry/long-status: main action is reachable",
+    "desktop: no horizontal page/hero overflow",
+    "desktop: photo gallery and content never overlap",
+    "desktop: night photo is directly below dawn without overlap",
+    "desktop: footer follows both content columns and both photos",
+    "desktop: status and instructions follow the action",
+    "desktop: buttons never overlap",
+    "desktop: header stays outside cutouts",
+    "desktop: new game photo loads at full resolution",
+    "desktop: real night game photo loads at full resolution",
+    "desktop: main action is reachable",
+    "desktop: help fits safe viewport",
+    "desktop: help returns keyboard focus",
+    "desktop loading: no horizontal page/hero overflow",
+    "desktop loading: photo gallery and content never overlap",
+    "desktop loading: night photo is directly below dawn without overlap",
+    "desktop loading: footer follows both content columns and both photos",
+    "desktop loading: status and instructions follow the action",
+    "desktop loading: buttons never overlap",
+    "desktop loading: header stays outside cutouts",
+    "desktop loading: new game photo loads at full resolution",
+    "desktop loading: real night game photo loads at full resolution",
+    "desktop loading: main action is reachable",
+    "desktop retry/long-status: no horizontal page/hero overflow",
+    "desktop retry/long-status: photo gallery and content never overlap",
+    "desktop retry/long-status: night photo is directly below dawn without overlap",
+    "desktop retry/long-status: footer follows both content columns and both photos",
+    "desktop retry/long-status: status and instructions follow the action",
+    "desktop retry/long-status: buttons never overlap",
+    "desktop retry/long-status: header stays outside cutouts",
+    "desktop retry/long-status: new game photo loads at full resolution",
+    "desktop retry/long-status: real night game photo loads at full resolution",
+    "desktop retry/long-status: main action is reachable",
+    "desktop-wide: no horizontal page/hero overflow",
+    "desktop-wide: photo gallery and content never overlap",
+    "desktop-wide: night photo is directly below dawn without overlap",
+    "desktop-wide: footer follows both content columns and both photos",
+    "desktop-wide: status and instructions follow the action",
+    "desktop-wide: buttons never overlap",
+    "desktop-wide: header stays outside cutouts",
+    "desktop-wide: new game photo loads at full resolution",
+    "desktop-wide: real night game photo loads at full resolution",
+    "desktop-wide: main action is reachable",
+    "desktop-wide: help fits safe viewport",
+    "desktop-wide: help returns keyboard focus",
+    "desktop-wide loading: no horizontal page/hero overflow",
+    "desktop-wide loading: photo gallery and content never overlap",
+    "desktop-wide loading: night photo is directly below dawn without overlap",
+    "desktop-wide loading: footer follows both content columns and both photos",
+    "desktop-wide loading: status and instructions follow the action",
+    "desktop-wide loading: buttons never overlap",
+    "desktop-wide loading: header stays outside cutouts",
+    "desktop-wide loading: new game photo loads at full resolution",
+    "desktop-wide loading: real night game photo loads at full resolution",
+    "desktop-wide loading: main action is reachable",
+    "desktop-wide retry/long-status: no horizontal page/hero overflow",
+    "desktop-wide retry/long-status: photo gallery and content never overlap",
+    "desktop-wide retry/long-status: night photo is directly below dawn without overlap",
+    "desktop-wide retry/long-status: footer follows both content columns and both photos",
+    "desktop-wide retry/long-status: status and instructions follow the action",
+    "desktop-wide retry/long-status: buttons never overlap",
+    "desktop-wide retry/long-status: header stays outside cutouts",
+    "desktop-wide retry/long-status: new game photo loads at full resolution",
+    "desktop-wide retry/long-status: real night game photo loads at full resolution",
+    "desktop-wide retry/long-status: main action is reachable",
+    "zoom-equivalent: no horizontal page/hero overflow",
+    "zoom-equivalent: photo gallery and content never overlap",
+    "zoom-equivalent: night photo is directly below dawn without overlap",
+    "zoom-equivalent: footer follows both content columns and both photos",
+    "zoom-equivalent: status and instructions follow the action",
+    "zoom-equivalent: buttons never overlap",
+    "zoom-equivalent: header stays outside cutouts",
+    "zoom-equivalent: new game photo loads at full resolution",
+    "zoom-equivalent: real night game photo loads at full resolution",
+    "zoom-equivalent: main action is reachable",
+    "zoom-equivalent: help fits safe viewport",
+    "zoom-equivalent: help returns keyboard focus",
+    "zoom-equivalent loading: no horizontal page/hero overflow",
+    "zoom-equivalent loading: photo gallery and content never overlap",
+    "zoom-equivalent loading: night photo is directly below dawn without overlap",
+    "zoom-equivalent loading: footer follows both content columns and both photos",
+    "zoom-equivalent loading: status and instructions follow the action",
+    "zoom-equivalent loading: buttons never overlap",
+    "zoom-equivalent loading: header stays outside cutouts",
+    "zoom-equivalent loading: new game photo loads at full resolution",
+    "zoom-equivalent loading: real night game photo loads at full resolution",
+    "zoom-equivalent loading: main action is reachable",
+    "zoom-equivalent retry/long-status: no horizontal page/hero overflow",
+    "zoom-equivalent retry/long-status: photo gallery and content never overlap",
+    "zoom-equivalent retry/long-status: night photo is directly below dawn without overlap",
+    "zoom-equivalent retry/long-status: footer follows both content columns and both photos",
+    "zoom-equivalent retry/long-status: status and instructions follow the action",
+    "zoom-equivalent retry/long-status: buttons never overlap",
+    "zoom-equivalent retry/long-status: header stays outside cutouts",
+    "zoom-equivalent retry/long-status: new game photo loads at full resolution",
+    "zoom-equivalent retry/long-status: real night game photo loads at full resolution",
+    "zoom-equivalent retry/long-status: main action is reachable",
+    "Desktop Escape dismisses help",
+    "Current copy removes retired motorcycle, kick and lives instructions",
+    "No JavaScript errors"
+  ],
+  "errors": [],
+  "layouts": [
+    {
+      "label": "small-phone",
+      "width": 320,
+      "height": 568,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 133,
+          "right": 304,
+          "bottom": 486.265625,
+          "width": 288,
+          "height": 353.265625
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 508.265625,
+          "right": 304,
+          "bottom": 759.5625,
+          "width": 288,
+          "height": 251.296875
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 508.265625,
+          "right": 304,
+          "bottom": 1028.859375,
+          "width": 288,
+          "height": 520.59375
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 777.5625,
+          "right": 304,
+          "bottom": 1028.859375,
+          "width": 288,
+          "height": 251.296875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1052.859375,
+          "right": 320,
+          "bottom": 1120.453125,
+          "width": 320,
+          "height": 67.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 393.875,
+          "right": 301,
+          "bottom": 410.875,
+          "width": 282,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 426.875,
+          "right": 301,
+          "bottom": 486.265625,
+          "width": 282,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 30,
+          "right": 107.828125,
+          "bottom": 58,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 14,
+          "y": 66,
+          "right": 127.734375,
+          "bottom": 106,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 132.734375,
+          "y": 66,
+          "right": 201.40625,
+          "bottom": 106,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 206.40625,
+          "y": 66,
+          "right": 246.40625,
+          "bottom": 106,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning-portrait.jpg",
+        "width": 1280
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "small-phone loading",
+      "width": 320,
+      "height": 568,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 133,
+          "right": 304,
+          "bottom": 523.265625,
+          "width": 288,
+          "height": 390.265625
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 545.265625,
+          "right": 304,
+          "bottom": 796.5625,
+          "width": 288,
+          "height": 251.296875
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 545.265625,
+          "right": 304,
+          "bottom": 1065.859375,
+          "width": 288,
+          "height": 520.59375
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 814.5625,
+          "right": 304,
+          "bottom": 1065.859375,
+          "width": 288,
+          "height": 251.296875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1089.859375,
+          "right": 320,
+          "bottom": 1157.453125,
+          "width": 320,
+          "height": 67.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 393.875,
+          "right": 301,
+          "bottom": 427.875,
+          "width": 282,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 463.875,
+          "right": 301,
+          "bottom": 523.265625,
+          "width": 282,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 30,
+          "right": 107.828125,
+          "bottom": 58,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 14,
+          "y": 66,
+          "right": 127.734375,
+          "bottom": 106,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 132.734375,
+          "y": 66,
+          "right": 201.40625,
+          "bottom": 106,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 206.40625,
+          "y": 66,
+          "right": 246.40625,
+          "bottom": 106,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning-portrait.jpg",
+        "width": 1280
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "small-phone retry/long-status",
+      "width": 320,
+      "height": 568,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 133,
+          "right": 304,
+          "bottom": 575.265625,
+          "width": 288,
+          "height": 442.265625
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 597.265625,
+          "right": 304,
+          "bottom": 848.5625,
+          "width": 288,
+          "height": 251.296875
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 597.265625,
+          "right": 304,
+          "bottom": 1117.859375,
+          "width": 288,
+          "height": 520.59375
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 866.5625,
+          "right": 304,
+          "bottom": 1117.859375,
+          "width": 288,
+          "height": 251.296875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1141.859375,
+          "right": 320,
+          "bottom": 1224.75,
+          "width": 320,
+          "height": 82.890625
+        },
+        ".primary": {
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 393.875,
+          "right": 301,
+          "bottom": 427.875,
+          "width": 282,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 515.875,
+          "right": 301,
+          "bottom": 575.265625,
+          "width": 282,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 30,
+          "right": 107.828125,
+          "bottom": 58,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 14,
+          "y": 66,
+          "right": 127.734375,
+          "bottom": 106,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 132.734375,
+          "y": 66,
+          "right": 201.40625,
+          "bottom": 106,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 206.40625,
+          "y": 66,
+          "right": 246.40625,
+          "bottom": 106,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        },
+        {
+          "id": "retry",
+          "x": 19,
+          "y": 459.875,
+          "right": 124.03125,
+          "bottom": 499.875,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning-portrait.jpg",
+        "width": 1280
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "phone",
+      "width": 390,
+      "height": 844,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 124,
+          "right": 374,
+          "bottom": 435.875,
+          "width": 358,
+          "height": 311.875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 457.875,
+          "right": 374,
+          "bottom": 758.390625,
+          "width": 358,
+          "height": 300.515625
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 457.875,
+          "right": 374,
+          "bottom": 1076.90625,
+          "width": 358,
+          "height": 619.03125
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 776.390625,
+          "right": 374,
+          "bottom": 1076.90625,
+          "width": 358,
+          "height": 300.515625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1100.90625,
+          "right": 390,
+          "bottom": 1187.5,
+          "width": 390,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 363.28125,
+          "right": 371,
+          "bottom": 380.28125,
+          "width": 352,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 396.28125,
+          "right": 371,
+          "bottom": 435.875,
+          "width": 352,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 63,
+          "right": 107.828125,
+          "bottom": 91,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 143.59375,
+          "y": 57,
+          "right": 257.328125,
+          "bottom": 97,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 262.328125,
+          "y": 57,
+          "right": 331,
+          "bottom": 97,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 336,
+          "y": 57,
+          "right": 376,
+          "bottom": 97,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning-portrait.jpg",
+        "width": 1280
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "phone loading",
+      "width": 390,
+      "height": 844,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 124,
+          "right": 374,
+          "bottom": 472.875,
+          "width": 358,
+          "height": 348.875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 494.875,
+          "right": 374,
+          "bottom": 795.390625,
+          "width": 358,
+          "height": 300.515625
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 494.875,
+          "right": 374,
+          "bottom": 1113.90625,
+          "width": 358,
+          "height": 619.03125
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 813.390625,
+          "right": 374,
+          "bottom": 1113.90625,
+          "width": 358,
+          "height": 300.515625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1137.90625,
+          "right": 390,
+          "bottom": 1224.5,
+          "width": 390,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 363.28125,
+          "right": 371,
+          "bottom": 397.28125,
+          "width": 352,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 433.28125,
+          "right": 371,
+          "bottom": 472.875,
+          "width": 352,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 63,
+          "right": 107.828125,
+          "bottom": 91,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 143.59375,
+          "y": 57,
+          "right": 257.328125,
+          "bottom": 97,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 262.328125,
+          "y": 57,
+          "right": 331,
+          "bottom": 97,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 336,
+          "y": 57,
+          "right": 376,
+          "bottom": 97,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning-portrait.jpg",
+        "width": 1280
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "phone retry/long-status",
+      "width": 390,
+      "height": 844,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 124,
+          "right": 374,
+          "bottom": 524.875,
+          "width": 358,
+          "height": 400.875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 546.875,
+          "right": 374,
+          "bottom": 847.390625,
+          "width": 358,
+          "height": 300.515625
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 546.875,
+          "right": 374,
+          "bottom": 1165.90625,
+          "width": 358,
+          "height": 619.03125
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 865.390625,
+          "right": 374,
+          "bottom": 1165.90625,
+          "width": 358,
+          "height": 300.515625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1189.90625,
+          "right": 390,
+          "bottom": 1276.5,
+          "width": 390,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 363.28125,
+          "right": 371,
+          "bottom": 397.28125,
+          "width": 352,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 485.28125,
+          "right": 371,
+          "bottom": 524.875,
+          "width": 352,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 63,
+          "right": 107.828125,
+          "bottom": 91,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 143.59375,
+          "y": 57,
+          "right": 257.328125,
+          "bottom": 97,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 262.328125,
+          "y": 57,
+          "right": 331,
+          "bottom": 97,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 336,
+          "y": 57,
+          "right": 376,
+          "bottom": 97,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        },
+        {
+          "id": "retry",
+          "x": 19,
+          "y": 429.28125,
+          "right": 124.03125,
+          "bottom": 469.28125,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning-portrait.jpg",
+        "width": 1280
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "large-phone",
+      "width": 430,
+      "height": 932,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 136,
+          "right": 414,
+          "bottom": 455.8125,
+          "width": 398,
+          "height": 319.8125
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 477.8125,
+          "right": 414,
+          "bottom": 806.453125,
+          "width": 398,
+          "height": 328.640625
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 477.8125,
+          "right": 414,
+          "bottom": 1153.09375,
+          "width": 398,
+          "height": 675.28125
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 824.453125,
+          "right": 414,
+          "bottom": 1153.09375,
+          "width": 398,
+          "height": 328.640625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1177.09375,
+          "right": 430,
+          "bottom": 1263.6875,
+          "width": 430,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 383.21875,
+          "right": 411,
+          "bottom": 400.21875,
+          "width": 392,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 416.21875,
+          "right": 411,
+          "bottom": 455.8125,
+          "width": 392,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 74,
+          "right": 115.078125,
+          "bottom": 104,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 160.9375,
+          "y": 69,
+          "right": 288.25,
+          "bottom": 109,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 293.25,
+          "y": 69,
+          "right": 371,
+          "bottom": 109,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 376,
+          "y": 69,
+          "right": 416,
+          "bottom": 109,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning-portrait.jpg",
+        "width": 1280
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "large-phone loading",
+      "width": 430,
+      "height": 932,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 136,
+          "right": 414,
+          "bottom": 492.8125,
+          "width": 398,
+          "height": 356.8125
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 514.8125,
+          "right": 414,
+          "bottom": 843.453125,
+          "width": 398,
+          "height": 328.640625
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 514.8125,
+          "right": 414,
+          "bottom": 1190.09375,
+          "width": 398,
+          "height": 675.28125
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 861.453125,
+          "right": 414,
+          "bottom": 1190.09375,
+          "width": 398,
+          "height": 328.640625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1214.09375,
+          "right": 430,
+          "bottom": 1300.6875,
+          "width": 430,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 383.21875,
+          "right": 411,
+          "bottom": 417.21875,
+          "width": 392,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 453.21875,
+          "right": 411,
+          "bottom": 492.8125,
+          "width": 392,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 74,
+          "right": 115.078125,
+          "bottom": 104,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 160.9375,
+          "y": 69,
+          "right": 288.25,
+          "bottom": 109,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 293.25,
+          "y": 69,
+          "right": 371,
+          "bottom": 109,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 376,
+          "y": 69,
+          "right": 416,
+          "bottom": 109,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning-portrait.jpg",
+        "width": 1280
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "large-phone retry/long-status",
+      "width": 430,
+      "height": 932,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 136,
+          "right": 414,
+          "bottom": 544.8125,
+          "width": 398,
+          "height": 408.8125
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 566.8125,
+          "right": 414,
+          "bottom": 895.453125,
+          "width": 398,
+          "height": 328.640625
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 566.8125,
+          "right": 414,
+          "bottom": 1242.09375,
+          "width": 398,
+          "height": 675.28125
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 913.453125,
+          "right": 414,
+          "bottom": 1242.09375,
+          "width": 398,
+          "height": 328.640625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1266.09375,
+          "right": 430,
+          "bottom": 1352.6875,
+          "width": 430,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 383.21875,
+          "right": 411,
+          "bottom": 417.21875,
+          "width": 392,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 505.21875,
+          "right": 411,
+          "bottom": 544.8125,
+          "width": 392,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 74,
+          "right": 115.078125,
+          "bottom": 104,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 160.9375,
+          "y": 69,
+          "right": 288.25,
+          "bottom": 109,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 293.25,
+          "y": 69,
+          "right": 371,
+          "bottom": 109,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 376,
+          "y": 69,
+          "right": 416,
+          "bottom": 109,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        },
+        {
+          "id": "retry",
+          "x": 19,
+          "y": 449.21875,
+          "right": 124.03125,
+          "bottom": 489.21875,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning-portrait.jpg",
+        "width": 1280
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "phone-landscape",
+      "width": 844,
+      "height": 390,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 47,
+          "y": 85,
+          "right": 407,
+          "bottom": 477.0625,
+          "width": 360,
+          "height": 392.0625
+        },
+        ".street-preview": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 446.390625,
+          "width": 360,
+          "height": 361.390625
+        },
+        ".street-gallery": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 827.78125,
+          "width": 360,
+          "height": 742.78125
+        },
+        ".night-preview": {
+          "x": 437,
+          "y": 466.390625,
+          "right": 797,
+          "bottom": 827.78125,
+          "width": 360,
+          "height": 361.390625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 851.78125,
+          "right": 844,
+          "bottom": 907.078125,
+          "width": 844,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 326.5625,
+          "width": 360,
+          "height": 49
+        },
+        "#load-status": {
+          "x": 47,
+          "y": 337.5625,
+          "right": 407,
+          "bottom": 354.5625,
+          "width": 360,
+          "height": 17
+        },
+        ".controls": {
+          "x": 47,
+          "y": 372.5625,
+          "right": 407,
+          "bottom": 424.0625,
+          "width": 360,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 47,
+          "y": 437.0625,
+          "right": 407,
+          "bottom": 473.0625,
+          "width": 360,
+          "height": 36
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 47,
+          "y": 14,
+          "right": 177.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 497.296875,
+          "y": 12,
+          "right": 646.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 653.1875,
+          "y": 12,
+          "right": 748,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 755,
+          "y": 12,
+          "right": 797,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 326.5625,
+          "width": 360,
+          "height": 49
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "phone-landscape loading",
+      "width": 844,
+      "height": 390,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 47,
+          "y": 85,
+          "right": 407,
+          "bottom": 513.0625,
+          "width": 360,
+          "height": 428.0625
+        },
+        ".street-preview": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 446.390625,
+          "width": 360,
+          "height": 361.390625
+        },
+        ".street-gallery": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 827.78125,
+          "width": 360,
+          "height": 742.78125
+        },
+        ".night-preview": {
+          "x": 437,
+          "y": 466.390625,
+          "right": 797,
+          "bottom": 827.78125,
+          "width": 360,
+          "height": 361.390625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 851.78125,
+          "right": 844,
+          "bottom": 907.078125,
+          "width": 844,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 325.5625,
+          "width": 360,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 47,
+          "y": 336.5625,
+          "right": 407,
+          "bottom": 370.5625,
+          "width": 360,
+          "height": 34
+        },
+        ".controls": {
+          "x": 47,
+          "y": 408.5625,
+          "right": 407,
+          "bottom": 460.0625,
+          "width": 360,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 47,
+          "y": 473.0625,
+          "right": 407,
+          "bottom": 509.0625,
+          "width": 360,
+          "height": 36
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 47,
+          "y": 14,
+          "right": 177.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 497.296875,
+          "y": 12,
+          "right": 646.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 653.1875,
+          "y": 12,
+          "right": 748,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 755,
+          "y": 12,
+          "right": 797,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 325.5625,
+          "width": 360,
+          "height": 48
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "phone-landscape retry/long-status",
+      "width": 844,
+      "height": 390,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 47,
+          "y": 85,
+          "right": 407,
+          "bottom": 565.0625,
+          "width": 360,
+          "height": 480.0625
+        },
+        ".street-preview": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 446.390625,
+          "width": 360,
+          "height": 361.390625
+        },
+        ".street-gallery": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 827.78125,
+          "width": 360,
+          "height": 742.78125
+        },
+        ".night-preview": {
+          "x": 437,
+          "y": 466.390625,
+          "right": 797,
+          "bottom": 827.78125,
+          "width": 360,
+          "height": 361.390625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 851.78125,
+          "right": 844,
+          "bottom": 907.078125,
+          "width": 844,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 325.5625,
+          "width": 360,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 47,
+          "y": 336.5625,
+          "right": 407,
+          "bottom": 370.5625,
+          "width": 360,
+          "height": 34
+        },
+        ".controls": {
+          "x": 47,
+          "y": 460.5625,
+          "right": 407,
+          "bottom": 512.0625,
+          "width": 360,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 47,
+          "y": 525.0625,
+          "right": 407,
+          "bottom": 561.0625,
+          "width": 360,
+          "height": 36
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 47,
+          "y": 14,
+          "right": 177.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 497.296875,
+          "y": 12,
+          "right": 646.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 653.1875,
+          "y": 12,
+          "right": 748,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 755,
+          "y": 12,
+          "right": 797,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 325.5625,
+          "width": 360,
+          "height": 48
+        },
+        {
+          "id": "retry",
+          "x": 47,
+          "y": 402.5625,
+          "right": 152.03125,
+          "bottom": 442.5625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "small-landscape",
+      "width": 568,
+      "height": 320,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 552,
+          "bottom": 420.21875,
+          "width": 536,
+          "height": 343.21875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 442.21875,
+          "right": 552,
+          "bottom": 867.890625,
+          "width": 536,
+          "height": 425.671875
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 442.21875,
+          "right": 552,
+          "bottom": 1311.5625,
+          "width": 536,
+          "height": 869.34375
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 885.890625,
+          "right": 552,
+          "bottom": 1311.5625,
+          "width": 536,
+          "height": 425.671875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1335.5625,
+          "right": 568,
+          "bottom": 1381.859375,
+          "width": 568,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 549,
+          "bottom": 364.625,
+          "width": 530,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 380.625,
+          "right": 549,
+          "bottom": 420.21875,
+          "width": 530,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 298.9375,
+          "y": 10,
+          "right": 426.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 431.25,
+          "y": 10,
+          "right": 509,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 514,
+          "y": 10,
+          "right": 554,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "small-landscape loading",
+      "width": 568,
+      "height": 320,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 552,
+          "bottom": 440.21875,
+          "width": 536,
+          "height": 363.21875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 462.21875,
+          "right": 552,
+          "bottom": 887.890625,
+          "width": 536,
+          "height": 425.671875
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 462.21875,
+          "right": 552,
+          "bottom": 1331.5625,
+          "width": 536,
+          "height": 869.34375
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 905.890625,
+          "right": 552,
+          "bottom": 1331.5625,
+          "width": 536,
+          "height": 425.671875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1355.5625,
+          "right": 568,
+          "bottom": 1401.859375,
+          "width": 568,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 549,
+          "bottom": 364.625,
+          "width": 530,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 400.625,
+          "right": 549,
+          "bottom": 440.21875,
+          "width": 530,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 298.9375,
+          "y": 10,
+          "right": 426.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 431.25,
+          "y": 10,
+          "right": 509,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 514,
+          "y": 10,
+          "right": 554,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "small-landscape retry/long-status",
+      "width": 568,
+      "height": 320,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 552,
+          "bottom": 492.21875,
+          "width": 536,
+          "height": 415.21875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 514.21875,
+          "right": 552,
+          "bottom": 939.890625,
+          "width": 536,
+          "height": 425.671875
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 514.21875,
+          "right": 552,
+          "bottom": 1383.5625,
+          "width": 536,
+          "height": 869.34375
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 957.890625,
+          "right": 552,
+          "bottom": 1383.5625,
+          "width": 536,
+          "height": 425.671875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1407.5625,
+          "right": 568,
+          "bottom": 1453.859375,
+          "width": 568,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 549,
+          "bottom": 364.625,
+          "width": 530,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 452.625,
+          "right": 549,
+          "bottom": 492.21875,
+          "width": 530,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 298.9375,
+          "y": 10,
+          "right": 426.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 431.25,
+          "y": 10,
+          "right": 509,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 514,
+          "y": 10,
+          "right": 554,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        },
+        {
+          "id": "retry",
+          "x": 19,
+          "y": 396.625,
+          "right": 124.03125,
+          "bottom": 436.625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "large-landscape",
+      "width": 932,
+      "height": 430,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 59,
+          "y": 85,
+          "right": 451,
+          "bottom": 477.0625,
+          "width": 392,
+          "height": 392.0625
+        },
+        ".street-preview": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 473.046875,
+          "width": 392,
+          "height": 388.046875
+        },
+        ".street-gallery": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 881.09375,
+          "width": 392,
+          "height": 796.09375
+        },
+        ".night-preview": {
+          "x": 481,
+          "y": 493.046875,
+          "right": 873,
+          "bottom": 881.09375,
+          "width": 392,
+          "height": 388.046875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 905.09375,
+          "right": 932,
+          "bottom": 960.390625,
+          "width": 932,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 326.5625,
+          "width": 392,
+          "height": 49
+        },
+        "#load-status": {
+          "x": 59,
+          "y": 337.5625,
+          "right": 451,
+          "bottom": 354.5625,
+          "width": 392,
+          "height": 17
+        },
+        ".controls": {
+          "x": 59,
+          "y": 372.5625,
+          "right": 451,
+          "bottom": 424.0625,
+          "width": 392,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 59,
+          "y": 437.0625,
+          "right": 451,
+          "bottom": 473.0625,
+          "width": 392,
+          "height": 36
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 59,
+          "y": 14,
+          "right": 189.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 573.296875,
+          "y": 12,
+          "right": 722.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 729.1875,
+          "y": 12,
+          "right": 824,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 831,
+          "y": 12,
+          "right": 873,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 326.5625,
+          "width": 392,
+          "height": 49
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "large-landscape loading",
+      "width": 932,
+      "height": 430,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 59,
+          "y": 85,
+          "right": 451,
+          "bottom": 513.0625,
+          "width": 392,
+          "height": 428.0625
+        },
+        ".street-preview": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 473.046875,
+          "width": 392,
+          "height": 388.046875
+        },
+        ".street-gallery": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 881.09375,
+          "width": 392,
+          "height": 796.09375
+        },
+        ".night-preview": {
+          "x": 481,
+          "y": 493.046875,
+          "right": 873,
+          "bottom": 881.09375,
+          "width": 392,
+          "height": 388.046875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 905.09375,
+          "right": 932,
+          "bottom": 960.390625,
+          "width": 932,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 325.5625,
+          "width": 392,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 59,
+          "y": 336.5625,
+          "right": 451,
+          "bottom": 370.5625,
+          "width": 392,
+          "height": 34
+        },
+        ".controls": {
+          "x": 59,
+          "y": 408.5625,
+          "right": 451,
+          "bottom": 460.0625,
+          "width": 392,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 59,
+          "y": 473.0625,
+          "right": 451,
+          "bottom": 509.0625,
+          "width": 392,
+          "height": 36
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 59,
+          "y": 14,
+          "right": 189.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 573.296875,
+          "y": 12,
+          "right": 722.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 729.1875,
+          "y": 12,
+          "right": 824,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 831,
+          "y": 12,
+          "right": 873,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 325.5625,
+          "width": 392,
+          "height": 48
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "large-landscape retry/long-status",
+      "width": 932,
+      "height": 430,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 59,
+          "y": 85,
+          "right": 451,
+          "bottom": 565.0625,
+          "width": 392,
+          "height": 480.0625
+        },
+        ".street-preview": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 473.046875,
+          "width": 392,
+          "height": 388.046875
+        },
+        ".street-gallery": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 881.09375,
+          "width": 392,
+          "height": 796.09375
+        },
+        ".night-preview": {
+          "x": 481,
+          "y": 493.046875,
+          "right": 873,
+          "bottom": 881.09375,
+          "width": 392,
+          "height": 388.046875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 905.09375,
+          "right": 932,
+          "bottom": 960.390625,
+          "width": 932,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 325.5625,
+          "width": 392,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 59,
+          "y": 336.5625,
+          "right": 451,
+          "bottom": 370.5625,
+          "width": 392,
+          "height": 34
+        },
+        ".controls": {
+          "x": 59,
+          "y": 460.5625,
+          "right": 451,
+          "bottom": 512.0625,
+          "width": 392,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 59,
+          "y": 525.0625,
+          "right": 451,
+          "bottom": 561.0625,
+          "width": 392,
+          "height": 36
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 59,
+          "y": 14,
+          "right": 189.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 573.296875,
+          "y": 12,
+          "right": 722.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 729.1875,
+          "y": 12,
+          "right": 824,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 831,
+          "y": 12,
+          "right": 873,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 325.5625,
+          "width": 392,
+          "height": 48
+        },
+        {
+          "id": "retry",
+          "x": 59,
+          "y": 402.5625,
+          "right": 164.03125,
+          "bottom": 442.5625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "tablet-portrait",
+      "width": 768,
+      "height": 1024,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 122.71875,
+          "right": 344,
+          "bottom": 601.5625,
+          "width": 320,
+          "height": 478.84375
+        },
+        ".street-preview": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 491.84375,
+          "width": 369.28125,
+          "height": 369.125
+        },
+        ".street-gallery": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 880.96875,
+          "width": 369.28125,
+          "height": 758.25
+        },
+        ".night-preview": {
+          "x": 374.71875,
+          "y": 511.84375,
+          "right": 744,
+          "bottom": 880.96875,
+          "width": 369.28125,
+          "height": 369.125
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 969.703125,
+          "right": 768,
+          "bottom": 1024,
+          "width": 768,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 428.46875,
+          "width": 320,
+          "height": 57
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 439.46875,
+          "right": 344,
+          "bottom": 456.46875,
+          "width": 320,
+          "height": 17
+        },
+        ".controls": {
+          "x": 24,
+          "y": 482.46875,
+          "right": 344,
+          "bottom": 539.96875,
+          "width": 320,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 557.96875,
+          "right": 344,
+          "bottom": 597.5625,
+          "width": 320,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 444.296875,
+          "y": 37.5,
+          "right": 593.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 600.1875,
+          "y": 37.5,
+          "right": 695,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 702,
+          "y": 37.5,
+          "right": 744,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 428.46875,
+          "width": 320,
+          "height": 57
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "tablet-portrait loading",
+      "width": 768,
+      "height": 1024,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 122.71875,
+          "right": 344,
+          "bottom": 637.5625,
+          "width": 320,
+          "height": 514.84375
+        },
+        ".street-preview": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 491.84375,
+          "width": 369.28125,
+          "height": 369.125
+        },
+        ".street-gallery": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 880.96875,
+          "width": 369.28125,
+          "height": 758.25
+        },
+        ".night-preview": {
+          "x": 374.71875,
+          "y": 511.84375,
+          "right": 744,
+          "bottom": 880.96875,
+          "width": 369.28125,
+          "height": 369.125
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 969.703125,
+          "right": 768,
+          "bottom": 1024,
+          "width": 768,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 427.46875,
+          "width": 320,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 438.46875,
+          "right": 344,
+          "bottom": 472.46875,
+          "width": 320,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 518.46875,
+          "right": 344,
+          "bottom": 575.96875,
+          "width": 320,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 593.96875,
+          "right": 344,
+          "bottom": 633.5625,
+          "width": 320,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 444.296875,
+          "y": 37.5,
+          "right": 593.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 600.1875,
+          "y": 37.5,
+          "right": 695,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 702,
+          "y": 37.5,
+          "right": 744,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 427.46875,
+          "width": 320,
+          "height": 56
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "tablet-portrait retry/long-status",
+      "width": 768,
+      "height": 1024,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 122.71875,
+          "right": 344,
+          "bottom": 689.5625,
+          "width": 320,
+          "height": 566.84375
+        },
+        ".street-preview": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 491.84375,
+          "width": 369.28125,
+          "height": 369.125
+        },
+        ".street-gallery": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 880.96875,
+          "width": 369.28125,
+          "height": 758.25
+        },
+        ".night-preview": {
+          "x": 374.71875,
+          "y": 511.84375,
+          "right": 744,
+          "bottom": 880.96875,
+          "width": 369.28125,
+          "height": 369.125
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 969.703125,
+          "right": 768,
+          "bottom": 1024,
+          "width": 768,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 427.46875,
+          "width": 320,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 438.46875,
+          "right": 344,
+          "bottom": 472.46875,
+          "width": 320,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 570.46875,
+          "right": 344,
+          "bottom": 627.96875,
+          "width": 320,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 645.96875,
+          "right": 344,
+          "bottom": 685.5625,
+          "width": 320,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 444.296875,
+          "y": 37.5,
+          "right": 593.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 600.1875,
+          "y": 37.5,
+          "right": 695,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 702,
+          "y": 37.5,
+          "right": 744,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 427.46875,
+          "width": 320,
+          "height": 56
+        },
+        {
+          "id": "retry",
+          "x": 24,
+          "y": 504.46875,
+          "right": 129.03125,
+          "bottom": 544.46875,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "tablet-landscape",
+      "width": 1024,
+      "height": 768,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 132.953125,
+          "right": 406.921875,
+          "bottom": 593.484375,
+          "width": 382.921875,
+          "height": 460.53125
+        },
+        ".street-preview": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 654.4375,
+          "width": 552.125,
+          "height": 521.484375
+        },
+        ".street-gallery": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 1195.921875,
+          "width": 552.125,
+          "height": 1062.96875
+        },
+        ".night-preview": {
+          "x": 447.875,
+          "y": 674.4375,
+          "right": 1000,
+          "bottom": 1195.921875,
+          "width": 552.125,
+          "height": 521.484375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1227.921875,
+          "right": 1024,
+          "bottom": 1282.21875,
+          "width": 1024,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 420.390625,
+          "width": 382.921875,
+          "height": 57
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 431.390625,
+          "right": 406.921875,
+          "bottom": 448.390625,
+          "width": 382.921875,
+          "height": 17
+        },
+        ".controls": {
+          "x": 24,
+          "y": 474.390625,
+          "right": 406.921875,
+          "bottom": 531.890625,
+          "width": 382.921875,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 549.890625,
+          "right": 406.921875,
+          "bottom": 589.484375,
+          "width": 382.921875,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 700.296875,
+          "y": 37.5,
+          "right": 849.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 856.1875,
+          "y": 37.5,
+          "right": 951,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 958,
+          "y": 37.5,
+          "right": 1000,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 420.390625,
+          "width": 382.921875,
+          "height": 57
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "tablet-landscape loading",
+      "width": 1024,
+      "height": 768,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 132.953125,
+          "right": 406.921875,
+          "bottom": 629.484375,
+          "width": 382.921875,
+          "height": 496.53125
+        },
+        ".street-preview": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 654.4375,
+          "width": 552.125,
+          "height": 521.484375
+        },
+        ".street-gallery": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 1195.921875,
+          "width": 552.125,
+          "height": 1062.96875
+        },
+        ".night-preview": {
+          "x": 447.875,
+          "y": 674.4375,
+          "right": 1000,
+          "bottom": 1195.921875,
+          "width": 552.125,
+          "height": 521.484375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1227.921875,
+          "right": 1024,
+          "bottom": 1282.21875,
+          "width": 1024,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 419.390625,
+          "width": 382.921875,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 430.390625,
+          "right": 406.921875,
+          "bottom": 464.390625,
+          "width": 382.921875,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 510.390625,
+          "right": 406.921875,
+          "bottom": 567.890625,
+          "width": 382.921875,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 585.890625,
+          "right": 406.921875,
+          "bottom": 625.484375,
+          "width": 382.921875,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 700.296875,
+          "y": 37.5,
+          "right": 849.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 856.1875,
+          "y": 37.5,
+          "right": 951,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 958,
+          "y": 37.5,
+          "right": 1000,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 419.390625,
+          "width": 382.921875,
+          "height": 56
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "tablet-landscape retry/long-status",
+      "width": 1024,
+      "height": 768,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 132.953125,
+          "right": 406.921875,
+          "bottom": 681.484375,
+          "width": 382.921875,
+          "height": 548.53125
+        },
+        ".street-preview": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 654.4375,
+          "width": 552.125,
+          "height": 521.484375
+        },
+        ".street-gallery": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 1195.921875,
+          "width": 552.125,
+          "height": 1062.96875
+        },
+        ".night-preview": {
+          "x": 447.875,
+          "y": 674.4375,
+          "right": 1000,
+          "bottom": 1195.921875,
+          "width": 552.125,
+          "height": 521.484375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1227.921875,
+          "right": 1024,
+          "bottom": 1282.21875,
+          "width": 1024,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 419.390625,
+          "width": 382.921875,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 430.390625,
+          "right": 406.921875,
+          "bottom": 464.390625,
+          "width": 382.921875,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 562.390625,
+          "right": 406.921875,
+          "bottom": 619.890625,
+          "width": 382.921875,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 637.890625,
+          "right": 406.921875,
+          "bottom": 677.484375,
+          "width": 382.921875,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 700.296875,
+          "y": 37.5,
+          "right": 849.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 856.1875,
+          "y": 37.5,
+          "right": 951,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 958,
+          "y": 37.5,
+          "right": 1000,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 419.390625,
+          "width": 382.921875,
+          "height": 56
+        },
+        {
+          "id": "retry",
+          "x": 24,
+          "y": 496.390625,
+          "right": 129.03125,
+          "bottom": 536.390625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "desktop-short",
+      "width": 1280,
+      "height": 600,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 85,
+          "right": 454,
+          "bottom": 477.0625,
+          "width": 430,
+          "height": 392.0625
+        },
+        ".street-preview": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 647.21875,
+          "width": 601,
+          "height": 562.21875
+        },
+        ".street-gallery": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 1229.4375,
+          "width": 601,
+          "height": 1144.4375
+        },
+        ".night-preview": {
+          "x": 655,
+          "y": 667.21875,
+          "right": 1256,
+          "bottom": 1229.4375,
+          "width": 601,
+          "height": 562.21875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1253.4375,
+          "right": 1280,
+          "bottom": 1305.734375,
+          "width": 1280,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 326.5625,
+          "width": 400,
+          "height": 49
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 337.5625,
+          "right": 424,
+          "bottom": 354.5625,
+          "width": 400,
+          "height": 17
+        },
+        ".controls": {
+          "x": 24,
+          "y": 372.5625,
+          "right": 454,
+          "bottom": 424.0625,
+          "width": 430,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 437.0625,
+          "right": 439,
+          "bottom": 473.0625,
+          "width": 415,
+          "height": 36
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 14,
+          "right": 154.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 956.296875,
+          "y": 12,
+          "right": 1105.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1112.1875,
+          "y": 12,
+          "right": 1207,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1214,
+          "y": 12,
+          "right": 1256,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 326.5625,
+          "width": 400,
+          "height": 49
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "desktop-short loading",
+      "width": 1280,
+      "height": 600,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 85,
+          "right": 454,
+          "bottom": 513.0625,
+          "width": 430,
+          "height": 428.0625
+        },
+        ".street-preview": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 647.21875,
+          "width": 601,
+          "height": 562.21875
+        },
+        ".street-gallery": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 1229.4375,
+          "width": 601,
+          "height": 1144.4375
+        },
+        ".night-preview": {
+          "x": 655,
+          "y": 667.21875,
+          "right": 1256,
+          "bottom": 1229.4375,
+          "width": 601,
+          "height": 562.21875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1253.4375,
+          "right": 1280,
+          "bottom": 1305.734375,
+          "width": 1280,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 325.5625,
+          "width": 400,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 336.5625,
+          "right": 424,
+          "bottom": 370.5625,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 408.5625,
+          "right": 454,
+          "bottom": 460.0625,
+          "width": 430,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 473.0625,
+          "right": 439,
+          "bottom": 509.0625,
+          "width": 415,
+          "height": 36
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 14,
+          "right": 154.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 956.296875,
+          "y": 12,
+          "right": 1105.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1112.1875,
+          "y": 12,
+          "right": 1207,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1214,
+          "y": 12,
+          "right": 1256,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 325.5625,
+          "width": 400,
+          "height": 48
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "desktop-short retry/long-status",
+      "width": 1280,
+      "height": 600,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 85,
+          "right": 454,
+          "bottom": 565.0625,
+          "width": 430,
+          "height": 480.0625
+        },
+        ".street-preview": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 647.21875,
+          "width": 601,
+          "height": 562.21875
+        },
+        ".street-gallery": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 1229.4375,
+          "width": 601,
+          "height": 1144.4375
+        },
+        ".night-preview": {
+          "x": 655,
+          "y": 667.21875,
+          "right": 1256,
+          "bottom": 1229.4375,
+          "width": 601,
+          "height": 562.21875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1253.4375,
+          "right": 1280,
+          "bottom": 1305.734375,
+          "width": 1280,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 325.5625,
+          "width": 400,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 336.5625,
+          "right": 424,
+          "bottom": 370.5625,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 460.5625,
+          "right": 454,
+          "bottom": 512.0625,
+          "width": 430,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 525.0625,
+          "right": 439,
+          "bottom": 561.0625,
+          "width": 415,
+          "height": 36
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 14,
+          "right": 154.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 956.296875,
+          "y": 12,
+          "right": 1105.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1112.1875,
+          "y": 12,
+          "right": 1207,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1214,
+          "y": 12,
+          "right": 1256,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 325.5625,
+          "width": 400,
+          "height": 48
+        },
+        {
+          "id": "retry",
+          "x": 24,
+          "y": 402.5625,
+          "right": 129.03125,
+          "bottom": 442.5625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "desktop",
+      "width": 1440,
+      "height": 900,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 125.59375,
+          "right": 504,
+          "bottom": 625.9375,
+          "width": 480,
+          "height": 500.34375
+        },
+        ".street-preview": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 843.59375,
+          "width": 787.9375,
+          "height": 718
+        },
+        ".street-gallery": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 1581.59375,
+          "width": 787.9375,
+          "height": 1456
+        },
+        ".night-preview": {
+          "x": 628.0625,
+          "y": 863.59375,
+          "right": 1416,
+          "bottom": 1581.59375,
+          "width": 787.9375,
+          "height": 718
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1613.59375,
+          "right": 1440,
+          "bottom": 1665.890625,
+          "width": 1440,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 452.84375,
+          "width": 400,
+          "height": 57
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 463.84375,
+          "right": 424,
+          "bottom": 480.84375,
+          "width": 400,
+          "height": 17
+        },
+        ".controls": {
+          "x": 24,
+          "y": 506.84375,
+          "right": 504,
+          "bottom": 564.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 582.34375,
+          "right": 439,
+          "bottom": 621.9375,
+          "width": 415,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1116.296875,
+          "y": 13.5,
+          "right": 1265.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1272.1875,
+          "y": 13.5,
+          "right": 1367,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1374,
+          "y": 13.5,
+          "right": 1416,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 452.84375,
+          "width": 400,
+          "height": 57
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "desktop loading",
+      "width": 1440,
+      "height": 900,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 125.59375,
+          "right": 504,
+          "bottom": 661.9375,
+          "width": 480,
+          "height": 536.34375
+        },
+        ".street-preview": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 843.59375,
+          "width": 787.9375,
+          "height": 718
+        },
+        ".street-gallery": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 1581.59375,
+          "width": 787.9375,
+          "height": 1456
+        },
+        ".night-preview": {
+          "x": 628.0625,
+          "y": 863.59375,
+          "right": 1416,
+          "bottom": 1581.59375,
+          "width": 787.9375,
+          "height": 718
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1613.59375,
+          "right": 1440,
+          "bottom": 1665.890625,
+          "width": 1440,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 451.84375,
+          "width": 400,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 462.84375,
+          "right": 424,
+          "bottom": 496.84375,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 542.84375,
+          "right": 504,
+          "bottom": 600.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 618.34375,
+          "right": 439,
+          "bottom": 657.9375,
+          "width": 415,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1116.296875,
+          "y": 13.5,
+          "right": 1265.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1272.1875,
+          "y": 13.5,
+          "right": 1367,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1374,
+          "y": 13.5,
+          "right": 1416,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 451.84375,
+          "width": 400,
+          "height": 56
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "desktop retry/long-status",
+      "width": 1440,
+      "height": 900,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 125.59375,
+          "right": 504,
+          "bottom": 713.9375,
+          "width": 480,
+          "height": 588.34375
+        },
+        ".street-preview": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 843.59375,
+          "width": 787.9375,
+          "height": 718
+        },
+        ".street-gallery": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 1581.59375,
+          "width": 787.9375,
+          "height": 1456
+        },
+        ".night-preview": {
+          "x": 628.0625,
+          "y": 863.59375,
+          "right": 1416,
+          "bottom": 1581.59375,
+          "width": 787.9375,
+          "height": 718
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1613.59375,
+          "right": 1440,
+          "bottom": 1665.890625,
+          "width": 1440,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 451.84375,
+          "width": 400,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 462.84375,
+          "right": 424,
+          "bottom": 496.84375,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 594.84375,
+          "right": 504,
+          "bottom": 652.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 670.34375,
+          "right": 439,
+          "bottom": 709.9375,
+          "width": 415,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1116.296875,
+          "y": 13.5,
+          "right": 1265.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1272.1875,
+          "y": 13.5,
+          "right": 1367,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1374,
+          "y": 13.5,
+          "right": 1416,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 451.84375,
+          "width": 400,
+          "height": 56
+        },
+        {
+          "id": "retry",
+          "x": 24,
+          "y": 528.84375,
+          "right": 129.03125,
+          "bottom": 568.84375,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "desktop-wide",
+      "width": 1920,
+      "height": 1080,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 244,
+          "y": 128,
+          "right": 724,
+          "bottom": 640.9375,
+          "width": 480,
+          "height": 512.9375
+        },
+        ".street-preview": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 862.53125,
+          "width": 807.78125,
+          "height": 734.53125
+        },
+        ".street-gallery": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 1617.0625,
+          "width": 807.78125,
+          "height": 1489.0625
+        },
+        ".night-preview": {
+          "x": 868.21875,
+          "y": 882.53125,
+          "right": 1676,
+          "bottom": 1617.0625,
+          "width": 807.78125,
+          "height": 734.53125
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1649.0625,
+          "right": 1920,
+          "bottom": 1701.359375,
+          "width": 1920,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 467.84375,
+          "width": 400,
+          "height": 57
+        },
+        "#load-status": {
+          "x": 244,
+          "y": 478.84375,
+          "right": 644,
+          "bottom": 495.84375,
+          "width": 400,
+          "height": 17
+        },
+        ".controls": {
+          "x": 244,
+          "y": 521.84375,
+          "right": 724,
+          "bottom": 579.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 244,
+          "y": 597.34375,
+          "right": 659,
+          "bottom": 636.9375,
+          "width": 415,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1596.296875,
+          "y": 13.5,
+          "right": 1745.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1752.1875,
+          "y": 13.5,
+          "right": 1847,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1854,
+          "y": 13.5,
+          "right": 1896,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 467.84375,
+          "width": 400,
+          "height": 57
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "desktop-wide loading",
+      "width": 1920,
+      "height": 1080,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 244,
+          "y": 128,
+          "right": 724,
+          "bottom": 676.9375,
+          "width": 480,
+          "height": 548.9375
+        },
+        ".street-preview": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 862.53125,
+          "width": 807.78125,
+          "height": 734.53125
+        },
+        ".street-gallery": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 1617.0625,
+          "width": 807.78125,
+          "height": 1489.0625
+        },
+        ".night-preview": {
+          "x": 868.21875,
+          "y": 882.53125,
+          "right": 1676,
+          "bottom": 1617.0625,
+          "width": 807.78125,
+          "height": 734.53125
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1649.0625,
+          "right": 1920,
+          "bottom": 1701.359375,
+          "width": 1920,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 466.84375,
+          "width": 400,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 244,
+          "y": 477.84375,
+          "right": 644,
+          "bottom": 511.84375,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 244,
+          "y": 557.84375,
+          "right": 724,
+          "bottom": 615.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 244,
+          "y": 633.34375,
+          "right": 659,
+          "bottom": 672.9375,
+          "width": 415,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1596.296875,
+          "y": 13.5,
+          "right": 1745.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1752.1875,
+          "y": 13.5,
+          "right": 1847,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1854,
+          "y": 13.5,
+          "right": 1896,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 466.84375,
+          "width": 400,
+          "height": 56
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "desktop-wide retry/long-status",
+      "width": 1920,
+      "height": 1080,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 244,
+          "y": 128,
+          "right": 724,
+          "bottom": 728.9375,
+          "width": 480,
+          "height": 600.9375
+        },
+        ".street-preview": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 862.53125,
+          "width": 807.78125,
+          "height": 734.53125
+        },
+        ".street-gallery": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 1617.0625,
+          "width": 807.78125,
+          "height": 1489.0625
+        },
+        ".night-preview": {
+          "x": 868.21875,
+          "y": 882.53125,
+          "right": 1676,
+          "bottom": 1617.0625,
+          "width": 807.78125,
+          "height": 734.53125
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1649.0625,
+          "right": 1920,
+          "bottom": 1701.359375,
+          "width": 1920,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 466.84375,
+          "width": 400,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 244,
+          "y": 477.84375,
+          "right": 644,
+          "bottom": 511.84375,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 244,
+          "y": 609.84375,
+          "right": 724,
+          "bottom": 667.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 244,
+          "y": 685.34375,
+          "right": 659,
+          "bottom": 724.9375,
+          "width": 415,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1596.296875,
+          "y": 13.5,
+          "right": 1745.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1752.1875,
+          "y": 13.5,
+          "right": 1847,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1854,
+          "y": 13.5,
+          "right": 1896,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 466.84375,
+          "width": 400,
+          "height": 56
+        },
+        {
+          "id": "retry",
+          "x": 244,
+          "y": 543.84375,
+          "right": 349.03125,
+          "bottom": 583.84375,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "zoom-equivalent",
+      "width": 640,
+      "height": 450,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 624,
+          "bottom": 400.421875,
+          "width": 608,
+          "height": 323.421875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 422.421875,
+          "right": 624,
+          "bottom": 898.71875,
+          "width": 608,
+          "height": 476.296875
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 422.421875,
+          "right": 624,
+          "bottom": 1393.015625,
+          "width": 608,
+          "height": 970.59375
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 916.71875,
+          "right": 624,
+          "bottom": 1393.015625,
+          "width": 608,
+          "height": 476.296875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1417.015625,
+          "right": 640,
+          "bottom": 1463.3125,
+          "width": 640,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 621,
+          "bottom": 364.625,
+          "width": 602,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 380.625,
+          "right": 621,
+          "bottom": 400.421875,
+          "width": 602,
+          "height": 19.796875
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 370.9375,
+          "y": 10,
+          "right": 498.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 503.25,
+          "y": 10,
+          "right": 581,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 586,
+          "y": 10,
+          "right": 626,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "zoom-equivalent loading",
+      "width": 640,
+      "height": 450,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 624,
+          "bottom": 420.421875,
+          "width": 608,
+          "height": 343.421875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 442.421875,
+          "right": 624,
+          "bottom": 918.71875,
+          "width": 608,
+          "height": 476.296875
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 442.421875,
+          "right": 624,
+          "bottom": 1413.015625,
+          "width": 608,
+          "height": 970.59375
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 936.71875,
+          "right": 624,
+          "bottom": 1413.015625,
+          "width": 608,
+          "height": 476.296875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1437.015625,
+          "right": 640,
+          "bottom": 1483.3125,
+          "width": 640,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 621,
+          "bottom": 364.625,
+          "width": 602,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 400.625,
+          "right": 621,
+          "bottom": 420.421875,
+          "width": 602,
+          "height": 19.796875
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 370.9375,
+          "y": 10,
+          "right": 498.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 503.25,
+          "y": 10,
+          "right": 581,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 586,
+          "y": 10,
+          "right": 626,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    },
+    {
+      "label": "zoom-equivalent retry/long-status",
+      "width": 640,
+      "height": 450,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 624,
+          "bottom": 472.421875,
+          "width": 608,
+          "height": 395.421875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 494.421875,
+          "right": 624,
+          "bottom": 970.71875,
+          "width": 608,
+          "height": 476.296875
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 494.421875,
+          "right": 624,
+          "bottom": 1465.015625,
+          "width": 608,
+          "height": 970.59375
+        },
+        ".night-preview": {
+          "x": 16,
+          "y": 988.71875,
+          "right": 624,
+          "bottom": 1465.015625,
+          "width": 608,
+          "height": 476.296875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1489.015625,
+          "right": 640,
+          "bottom": 1535.3125,
+          "width": 640,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 621,
+          "bottom": 364.625,
+          "width": 602,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 452.625,
+          "right": 621,
+          "bottom": 472.421875,
+          "width": 602,
+          "height": 19.796875
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 370.9375,
+          "y": 10,
+          "right": 498.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 503.25,
+          "y": 10,
+          "right": 581,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 586,
+          "y": 10,
+          "right": 626,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        },
+        {
+          "id": "retry",
+          "x": 19,
+          "y": 396.625,
+          "right": 124.03125,
+          "bottom": 436.625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "image": {
+        "src": "http://127.0.0.1:8771/poster-morning.jpg",
+        "width": 1920
+      },
+      "night": {
+        "src": "http://127.0.0.1:8771/poster-night.jpg",
+        "width": 1920
+      }
+    }
+  ],
+  "success": true
+}

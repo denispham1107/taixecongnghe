@@ -88,6 +88,18 @@ namespace PhoViet.Editor
     halos.Add(new DayNightLighting.Halo{source=socket,glow=glow,rear=rear,size=original.size});
    }
    lamp.halos=halos.ToArray();
+   CenterHeadProjector(g);
+  }
+  public static bool CenterHeadProjector(PhoVietGame g)
+  {
+   var lamp=g.daylight.vehicles.Single(v=>v.root==g.rider);
+   var front=lamp.halos.Where(h=>!h.rear&&h.source!=null).ToArray();
+   if(front.Length!=2)throw new Exception("Two Supercar headlamp sockets required");
+   bool created=front.Any(h=>h.source==lamp.head);
+   // The old projector shared the left halo socket. Moving that halo overwrote its centre position.
+   if(created){var t=new GameObject("Supercar centered headlamp projector").transform;t.SetParent(front[0].source.parent,false);lamp.head=t;}
+   lamp.head.SetPositionAndRotation((front[0].source.position+front[1].source.position)*.5f,front[0].source.rotation);
+   EditorUtility.SetDirty(g.daylight);return created;
   }
   static void Configure()
   {

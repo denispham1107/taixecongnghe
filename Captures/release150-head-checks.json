@@ -1,0 +1,616 @@
+{
+  "success": true,
+  "count": 168,
+  "checks": [
+    "Projector is independent of both headlight halos",
+    "Projector stays attached to the animated car",
+    "Light originates at the two lamps' midpoint: height=0,yaw=0,pitch=-4",
+    "Realtime spotlight follows the actual source: height=0,yaw=0,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=0,yaw=0,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=0,yaw=0,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=0,yaw=0,pitch=4",
+    "Realtime spotlight follows the actual source: height=0,yaw=0,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=0,yaw=0,pitch=4",
+    "Projector follows the car's yaw/pitch: height=0,yaw=0,pitch=4",
+    "Light originates at the two lamps' midpoint: height=0,yaw=-15,pitch=-4",
+    "Realtime spotlight follows the actual source: height=0,yaw=-15,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=0,yaw=-15,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=0,yaw=-15,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=0,yaw=-15,pitch=4",
+    "Realtime spotlight follows the actual source: height=0,yaw=-15,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=0,yaw=-15,pitch=4",
+    "Projector follows the car's yaw/pitch: height=0,yaw=-15,pitch=4",
+    "Light originates at the two lamps' midpoint: height=0,yaw=15,pitch=-4",
+    "Realtime spotlight follows the actual source: height=0,yaw=15,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=0,yaw=15,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=0,yaw=15,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=0,yaw=15,pitch=4",
+    "Realtime spotlight follows the actual source: height=0,yaw=15,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=0,yaw=15,pitch=4",
+    "Projector follows the car's yaw/pitch: height=0,yaw=15,pitch=4",
+    "Light originates at the two lamps' midpoint: height=0,yaw=-90,pitch=-4",
+    "Realtime spotlight follows the actual source: height=0,yaw=-90,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=0,yaw=-90,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=0,yaw=-90,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=0,yaw=-90,pitch=4",
+    "Realtime spotlight follows the actual source: height=0,yaw=-90,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=0,yaw=-90,pitch=4",
+    "Projector follows the car's yaw/pitch: height=0,yaw=-90,pitch=4",
+    "Light originates at the two lamps' midpoint: height=0,yaw=90,pitch=-4",
+    "Realtime spotlight follows the actual source: height=0,yaw=90,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=0,yaw=90,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=0,yaw=90,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=0,yaw=90,pitch=4",
+    "Realtime spotlight follows the actual source: height=0,yaw=90,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=0,yaw=90,pitch=4",
+    "Projector follows the car's yaw/pitch: height=0,yaw=90,pitch=4",
+    "Light originates at the two lamps' midpoint: height=1,yaw=0,pitch=-4",
+    "Realtime spotlight follows the actual source: height=1,yaw=0,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=1,yaw=0,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=1,yaw=0,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=1,yaw=0,pitch=4",
+    "Realtime spotlight follows the actual source: height=1,yaw=0,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=1,yaw=0,pitch=4",
+    "Projector follows the car's yaw/pitch: height=1,yaw=0,pitch=4",
+    "Light originates at the two lamps' midpoint: height=1,yaw=-15,pitch=-4",
+    "Realtime spotlight follows the actual source: height=1,yaw=-15,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=1,yaw=-15,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=1,yaw=-15,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=1,yaw=-15,pitch=4",
+    "Realtime spotlight follows the actual source: height=1,yaw=-15,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=1,yaw=-15,pitch=4",
+    "Projector follows the car's yaw/pitch: height=1,yaw=-15,pitch=4",
+    "Light originates at the two lamps' midpoint: height=1,yaw=15,pitch=-4",
+    "Realtime spotlight follows the actual source: height=1,yaw=15,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=1,yaw=15,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=1,yaw=15,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=1,yaw=15,pitch=4",
+    "Realtime spotlight follows the actual source: height=1,yaw=15,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=1,yaw=15,pitch=4",
+    "Projector follows the car's yaw/pitch: height=1,yaw=15,pitch=4",
+    "Light originates at the two lamps' midpoint: height=1,yaw=-90,pitch=-4",
+    "Realtime spotlight follows the actual source: height=1,yaw=-90,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=1,yaw=-90,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=1,yaw=-90,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=1,yaw=-90,pitch=4",
+    "Realtime spotlight follows the actual source: height=1,yaw=-90,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=1,yaw=-90,pitch=4",
+    "Projector follows the car's yaw/pitch: height=1,yaw=-90,pitch=4",
+    "Light originates at the two lamps' midpoint: height=1,yaw=90,pitch=-4",
+    "Realtime spotlight follows the actual source: height=1,yaw=90,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=1,yaw=90,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=1,yaw=90,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=1,yaw=90,pitch=4",
+    "Realtime spotlight follows the actual source: height=1,yaw=90,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=1,yaw=90,pitch=4",
+    "Projector follows the car's yaw/pitch: height=1,yaw=90,pitch=4",
+    "Light originates at the two lamps' midpoint: height=4.116652,yaw=0,pitch=-4",
+    "Realtime spotlight follows the actual source: height=4.116652,yaw=0,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=4.116652,yaw=0,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=4.116652,yaw=0,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=4.116652,yaw=0,pitch=4",
+    "Realtime spotlight follows the actual source: height=4.116652,yaw=0,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=4.116652,yaw=0,pitch=4",
+    "Projector follows the car's yaw/pitch: height=4.116652,yaw=0,pitch=4",
+    "Light originates at the two lamps' midpoint: height=4.116652,yaw=-15,pitch=-4",
+    "Realtime spotlight follows the actual source: height=4.116652,yaw=-15,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=4.116652,yaw=-15,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=4.116652,yaw=-15,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=4.116652,yaw=-15,pitch=4",
+    "Realtime spotlight follows the actual source: height=4.116652,yaw=-15,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=4.116652,yaw=-15,pitch=4",
+    "Projector follows the car's yaw/pitch: height=4.116652,yaw=-15,pitch=4",
+    "Light originates at the two lamps' midpoint: height=4.116652,yaw=15,pitch=-4",
+    "Realtime spotlight follows the actual source: height=4.116652,yaw=15,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=4.116652,yaw=15,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=4.116652,yaw=15,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=4.116652,yaw=15,pitch=4",
+    "Realtime spotlight follows the actual source: height=4.116652,yaw=15,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=4.116652,yaw=15,pitch=4",
+    "Projector follows the car's yaw/pitch: height=4.116652,yaw=15,pitch=4",
+    "Light originates at the two lamps' midpoint: height=4.116652,yaw=-90,pitch=-4",
+    "Realtime spotlight follows the actual source: height=4.116652,yaw=-90,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=4.116652,yaw=-90,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=4.116652,yaw=-90,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=4.116652,yaw=-90,pitch=4",
+    "Realtime spotlight follows the actual source: height=4.116652,yaw=-90,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=4.116652,yaw=-90,pitch=4",
+    "Projector follows the car's yaw/pitch: height=4.116652,yaw=-90,pitch=4",
+    "Light originates at the two lamps' midpoint: height=4.116652,yaw=90,pitch=-4",
+    "Realtime spotlight follows the actual source: height=4.116652,yaw=90,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=4.116652,yaw=90,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=4.116652,yaw=90,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=4.116652,yaw=90,pitch=4",
+    "Realtime spotlight follows the actual source: height=4.116652,yaw=90,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=4.116652,yaw=90,pitch=4",
+    "Projector follows the car's yaw/pitch: height=4.116652,yaw=90,pitch=4",
+    "Light originates at the two lamps' midpoint: height=3.2,yaw=0,pitch=-4",
+    "Realtime spotlight follows the actual source: height=3.2,yaw=0,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=3.2,yaw=0,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=3.2,yaw=0,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=3.2,yaw=0,pitch=4",
+    "Realtime spotlight follows the actual source: height=3.2,yaw=0,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=3.2,yaw=0,pitch=4",
+    "Projector follows the car's yaw/pitch: height=3.2,yaw=0,pitch=4",
+    "Light originates at the two lamps' midpoint: height=3.2,yaw=-15,pitch=-4",
+    "Realtime spotlight follows the actual source: height=3.2,yaw=-15,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=3.2,yaw=-15,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=3.2,yaw=-15,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=3.2,yaw=-15,pitch=4",
+    "Realtime spotlight follows the actual source: height=3.2,yaw=-15,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=3.2,yaw=-15,pitch=4",
+    "Projector follows the car's yaw/pitch: height=3.2,yaw=-15,pitch=4",
+    "Light originates at the two lamps' midpoint: height=3.2,yaw=15,pitch=-4",
+    "Realtime spotlight follows the actual source: height=3.2,yaw=15,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=3.2,yaw=15,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=3.2,yaw=15,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=3.2,yaw=15,pitch=4",
+    "Realtime spotlight follows the actual source: height=3.2,yaw=15,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=3.2,yaw=15,pitch=4",
+    "Projector follows the car's yaw/pitch: height=3.2,yaw=15,pitch=4",
+    "Light originates at the two lamps' midpoint: height=3.2,yaw=-90,pitch=-4",
+    "Realtime spotlight follows the actual source: height=3.2,yaw=-90,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=3.2,yaw=-90,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=3.2,yaw=-90,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=3.2,yaw=-90,pitch=4",
+    "Realtime spotlight follows the actual source: height=3.2,yaw=-90,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=3.2,yaw=-90,pitch=4",
+    "Projector follows the car's yaw/pitch: height=3.2,yaw=-90,pitch=4",
+    "Light originates at the two lamps' midpoint: height=3.2,yaw=90,pitch=-4",
+    "Realtime spotlight follows the actual source: height=3.2,yaw=90,pitch=-4",
+    "Ground cookie uses the same centered, animated source: height=3.2,yaw=90,pitch=-4",
+    "Projector follows the car's yaw/pitch: height=3.2,yaw=90,pitch=-4",
+    "Light originates at the two lamps' midpoint: height=3.2,yaw=90,pitch=4",
+    "Realtime spotlight follows the actual source: height=3.2,yaw=90,pitch=4",
+    "Ground cookie uses the same centered, animated source: height=3.2,yaw=90,pitch=4",
+    "Projector follows the car's yaw/pitch: height=3.2,yaw=90,pitch=4",
+    "NPC variant fixture 0",
+    "NPC lamp stays centered for PV_MeshySport",
+    "NPC variant fixture 1",
+    "NPC lamp stays centered for PV_MeshyTank",
+    "Realtime light budget remains six",
+    "Jobs remain locked"
+  ],
+  "cases": [
+    {
+      "y": 0.0,
+      "yaw": 0.0,
+      "pitch": -4.0,
+      "centre": [
+        3.08238316,
+        0.5044728,
+        3.62293577
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 0.0,
+      "yaw": 0.0,
+      "pitch": 4.0,
+      "centre": [
+        3.090826,
+        0.262704819,
+        3.67661476
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 0.0,
+      "yaw": -15.0,
+      "pitch": -4.0,
+      "centre": [
+        2.64223146,
+        0.5044728,
+        3.56035018
+      ],
+      "matrixError": 9.536743E-07
+    },
+    {
+      "y": 0.0,
+      "yaw": -15.0,
+      "pitch": 4.0,
+      "centre": [
+        2.63649321,
+        0.262704819,
+        3.61438513
+      ],
+      "matrixError": 7.15255737E-07
+    },
+    {
+      "y": 0.0,
+      "yaw": 15.0,
+      "pitch": -4.0,
+      "centre": [
+        3.523736,
+        0.5044728,
+        3.569469
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 0.0,
+      "yaw": 15.0,
+      "pitch": 4.0,
+      "centre": [
+        3.545784,
+        0.262704819,
+        3.619134
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 0.0,
+      "yaw": -90.0,
+      "pitch": -4.0,
+      "centre": [
+        1.39706385,
+        0.5044728,
+        1.90238309
+      ],
+      "matrixError": 5.96046448E-07
+    },
+    {
+      "y": 0.0,
+      "yaw": -90.0,
+      "pitch": 4.0,
+      "centre": [
+        1.34338486,
+        0.262704819,
+        1.91082585
+      ],
+      "matrixError": 5.96046448E-07
+    },
+    {
+      "y": 0.0,
+      "yaw": 90.0,
+      "pitch": -4.0,
+      "centre": [
+        4.8029356,
+        0.5044728,
+        1.93761635
+      ],
+      "matrixError": 5.96046448E-08
+    },
+    {
+      "y": 0.0,
+      "yaw": 90.0,
+      "pitch": 4.0,
+      "centre": [
+        4.856615,
+        0.262704819,
+        1.92917359
+      ],
+      "matrixError": 9.536743E-07
+    },
+    {
+      "y": 1.0,
+      "yaw": 0.0,
+      "pitch": -4.0,
+      "centre": [
+        3.08238316,
+        1.50447273,
+        3.62293577
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 1.0,
+      "yaw": 0.0,
+      "pitch": 4.0,
+      "centre": [
+        3.090826,
+        1.26270485,
+        3.67661476
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 1.0,
+      "yaw": -15.0,
+      "pitch": -4.0,
+      "centre": [
+        2.64223146,
+        1.50447273,
+        3.56035018
+      ],
+      "matrixError": 9.536743E-07
+    },
+    {
+      "y": 1.0,
+      "yaw": -15.0,
+      "pitch": 4.0,
+      "centre": [
+        2.63649321,
+        1.26270485,
+        3.61438513
+      ],
+      "matrixError": 7.15255737E-07
+    },
+    {
+      "y": 1.0,
+      "yaw": 15.0,
+      "pitch": -4.0,
+      "centre": [
+        3.523736,
+        1.50447273,
+        3.569469
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 1.0,
+      "yaw": 15.0,
+      "pitch": 4.0,
+      "centre": [
+        3.545784,
+        1.26270485,
+        3.619134
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 1.0,
+      "yaw": -90.0,
+      "pitch": -4.0,
+      "centre": [
+        1.39706385,
+        1.50447273,
+        1.90238309
+      ],
+      "matrixError": 5.96046448E-07
+    },
+    {
+      "y": 1.0,
+      "yaw": -90.0,
+      "pitch": 4.0,
+      "centre": [
+        1.34338486,
+        1.26270485,
+        1.91082585
+      ],
+      "matrixError": 5.96046448E-07
+    },
+    {
+      "y": 1.0,
+      "yaw": 90.0,
+      "pitch": -4.0,
+      "centre": [
+        4.8029356,
+        1.50447273,
+        1.93761635
+      ],
+      "matrixError": 0.0
+    },
+    {
+      "y": 1.0,
+      "yaw": 90.0,
+      "pitch": 4.0,
+      "centre": [
+        4.856615,
+        1.26270485,
+        1.92917359
+      ],
+      "matrixError": 9.536743E-07
+    },
+    {
+      "y": 4.11665249,
+      "yaw": 0.0,
+      "pitch": -4.0,
+      "centre": [
+        3.08238316,
+        4.621125,
+        3.62293577
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 4.11665249,
+      "yaw": 0.0,
+      "pitch": 4.0,
+      "centre": [
+        3.090826,
+        4.37935734,
+        3.67661476
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 4.11665249,
+      "yaw": -15.0,
+      "pitch": -4.0,
+      "centre": [
+        2.64223146,
+        4.621125,
+        3.56035018
+      ],
+      "matrixError": 9.536743E-07
+    },
+    {
+      "y": 4.11665249,
+      "yaw": -15.0,
+      "pitch": 4.0,
+      "centre": [
+        2.63649321,
+        4.37935734,
+        3.61438513
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 4.11665249,
+      "yaw": 15.0,
+      "pitch": -4.0,
+      "centre": [
+        3.523736,
+        4.621125,
+        3.569469
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 4.11665249,
+      "yaw": 15.0,
+      "pitch": 4.0,
+      "centre": [
+        3.545784,
+        4.37935734,
+        3.619134
+      ],
+      "matrixError": 0.0
+    },
+    {
+      "y": 4.11665249,
+      "yaw": -90.0,
+      "pitch": -4.0,
+      "centre": [
+        1.39706385,
+        4.621125,
+        1.90238309
+      ],
+      "matrixError": 5.96046448E-07
+    },
+    {
+      "y": 4.11665249,
+      "yaw": -90.0,
+      "pitch": 4.0,
+      "centre": [
+        1.34338486,
+        4.37935734,
+        1.91082585
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 4.11665249,
+      "yaw": 90.0,
+      "pitch": -4.0,
+      "centre": [
+        4.8029356,
+        4.621125,
+        1.93761635
+      ],
+      "matrixError": 0.0
+    },
+    {
+      "y": 4.11665249,
+      "yaw": 90.0,
+      "pitch": 4.0,
+      "centre": [
+        4.856615,
+        4.37935734,
+        1.92917359
+      ],
+      "matrixError": 9.536743E-07
+    },
+    {
+      "y": 3.2,
+      "yaw": 0.0,
+      "pitch": -4.0,
+      "centre": [
+        3.08238316,
+        3.704473,
+        3.62293577
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 3.2,
+      "yaw": 0.0,
+      "pitch": 4.0,
+      "centre": [
+        3.090826,
+        3.462705,
+        3.67661476
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 3.2,
+      "yaw": -15.0,
+      "pitch": -4.0,
+      "centre": [
+        2.64223146,
+        3.704473,
+        3.56035018
+      ],
+      "matrixError": 9.536743E-07
+    },
+    {
+      "y": 3.2,
+      "yaw": -15.0,
+      "pitch": 4.0,
+      "centre": [
+        2.63649321,
+        3.462705,
+        3.61438513
+      ],
+      "matrixError": 7.15255737E-07
+    },
+    {
+      "y": 3.2,
+      "yaw": 15.0,
+      "pitch": -4.0,
+      "centre": [
+        3.523736,
+        3.704473,
+        3.569469
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 3.2,
+      "yaw": 15.0,
+      "pitch": 4.0,
+      "centre": [
+        3.545784,
+        3.462705,
+        3.619134
+      ],
+      "matrixError": 4.76837158E-07
+    },
+    {
+      "y": 3.2,
+      "yaw": -90.0,
+      "pitch": -4.0,
+      "centre": [
+        1.39706385,
+        3.704473,
+        1.90238309
+      ],
+      "matrixError": 5.96046448E-07
+    },
+    {
+      "y": 3.2,
+      "yaw": -90.0,
+      "pitch": 4.0,
+      "centre": [
+        1.34338486,
+        3.462705,
+        1.91082585
+      ],
+      "matrixError": 5.96046448E-07
+    },
+    {
+      "y": 3.2,
+      "yaw": 90.0,
+      "pitch": -4.0,
+      "centre": [
+        4.8029356,
+        3.704473,
+        1.93761635
+      ],
+      "matrixError": 2.38418579E-07
+    },
+    {
+      "y": 3.2,
+      "yaw": 90.0,
+      "pitch": 4.0,
+      "centre": [
+        4.856615,
+        3.462705,
+        1.92917359
+      ],
+      "matrixError": 9.536743E-07
+    }
+  ]
+}

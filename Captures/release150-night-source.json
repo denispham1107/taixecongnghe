@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "night": 1.0,
+  "source": "Current game camera / no HUD / centered headlight",
+  "width": 1920,
+  "height": 1280,
+  "head": [
+    0.0,
+    0.384847224,
+    1.73399889
+  ]
+}

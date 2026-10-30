@@ -18,7 +18,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Chế độ chơi | Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
-| Điều khiển/nhảy trong source | **21.94 đã có trên web1.49.0:** lane pace thêm10%→1,3915; nhảy cao/vận tốc bật thêm10%, rơi vẫn22m/s²; đầu17m/s~4,00m. Giữ scale0,85/curveSpeed/W chốt lúc cất cánh. Thông số21.92 đã được thay bằng21.94 |
+| Điều khiển/nhảy trong source | **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đang build1.50.0 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
 | Trang chủ HTML trong source | **21.83 đã có trên web1.47.0:** giao diện trắng–xanh/ảnhxeđua sángcósương, hếtchồng315kiểmtra12viewport; thêm37web+20fullscreen/0runtime;1.47.0có28liveđạt |
@@ -120,6 +120,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 6. **1.36.0:** xe tăng Meshy “Iron Sentinel” (21.33–21.34). **1.35.0:** đổi làn kiểu đánh lái, nhà kính, zoom dọc +10% (21.28–21.32). **1.34.0:** phố Sài Gòn (21.19–21.27).
 
 ## 3. Đang dở / cần người dùng quyết
+
+- **21.100/21.101 sẵn sàng commit/push1.50.0:** build2variant583,555s/0lỗi/1warningDevMCP;840gameplay+113finalpreflight/505fileSHAgiữ.44repo+35site+387landing+37web+20fullscreenđạt/0runtime;cache`4405f16bdef633ec`. Đang chuẩn bị Gitindex/SHAparts→commit/push/Pages/live; chưa phát hành,web1.49.0. Server8771→`.tools/site150`,preview8772;UnityEdit/scenesạch/start1,92/jobsfalse. Release21.96–21.100; giữdirtyArt/Wave/Packages/Simulator/.blendngoài commit.
 
 - **21.99 đã xong source/kiểm tra, chưa build/push/phát hành.** Không còn bước sửa đang dở; UnityEdit/scene sạch/start1,92/jobsfalse. Lần build sau gồm cả21.96–21.99 (miễnDino/biển thuê/vữa rõ hơn/lịchTank mới), web vẫn1.49.0. Giữ sửa cục bộ Art/Wave/Packages/Simulator/.blend/Captures lịch sử ngoài commit.
 

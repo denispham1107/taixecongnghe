@@ -41,14 +41,14 @@ public static class VerifyLaneResponse
     {
      check(firstMove>=.001f&&firstYaw>.05f&&firstWheel>.1f,"Body position, heading and wheels respond on first simulated frame: "+label);
      check(response>0&&response<=.067f,"First centimetre responds within 67ms including low-FPS quantization: "+label);
-     // 21.94 adds another 10% pace; allow proportional per-frame motion plus yaw quantization.
-     check(monotonic&&maxStep<.66f&&maxYawStep<4.86f,"Lane path remains monotonic with no position/yaw snaps: "+label);
-     check(done>15.8f&&done<20&&Mathf.Abs(g.RiderSteerYaw)<.1f,"Cumulative 1.3915 pace lane distance and gradual steering recovery: "+label);
+     // 21.100: displacement scales with pace; heading amplitude and its rate each scale with pace.
+     check(monotonic&&maxStep<.726f&&maxYawStep<5.8806f,"Lane path remains monotonic with no position/yaw snaps: "+label+",step="+maxStep+",yawStep="+maxYawStep);
+     check(done>14.3f&&done<18.5f&&Mathf.Abs(g.RiderSteerYaw)<.1f,"Cumulative 1.53065 pace lane distance and gradual steering recovery: "+label);
     }
     traces.Add(new{kind,dir,boost,dt,firstMove,firstYaw,firstWheel,at50,at100,response,done,maxStep,maxYawStep});
    }
    check(!g.jobsEnabled&&!PhoVietGame.RideJobsReleased&&g.BestDistance==best&&PlayerPrefs.GetInt("PhoViet.Coins.v1",0)==coins,"Jobs, coins and record preserved");
-   var report=new{success=true,count=checks.Count,checks,traces};File.WriteAllText(verify?"Captures/lane-response-checks.json":"Captures/lane-response-before.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));return report;
+   var report=new{success=true,count=checks.Count,checks,traces};File.WriteAllText(verify?"Captures/release150-lane-response-checks.json":"Captures/release150-lane-response-before.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));return report;
   }
   finally{g.riversEnabled=rivers;g.dinosaursEnabled=dinos;g.tankBarrageEnabled=tanks;g.recklessTrafficEnabled=danger;g.trafficSurprises=surprises;g.turnExitTrafficEnabled=exits;g.ResetRide();Time.timeScale=scale;}
  }

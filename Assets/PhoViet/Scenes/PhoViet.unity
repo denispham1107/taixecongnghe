@@ -67964,6 +67964,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -6631134946986298490, guid: 30f01e579c9efbf47ad4957e80c62fe1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1785096354}
+    - targetCorrespondingSourceObject: {fileID: -6631134946986298490, guid: 30f01e579c9efbf47ad4957e80c62fe1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2048018657}
     - targetCorrespondingSourceObject: {fileID: -5705619493818746730, guid: 30f01e579c9efbf47ad4957e80c62fe1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1429055982}
@@ -779227,7 +779230,7 @@ MonoBehaviour:
       size: 0.45
     player: 0
   - root: {fileID: 1719294594}
-    head: {fileID: 1073765426}
+    head: {fileID: 2048018657}
     roadLight: {fileID: 1116785993}
     halos:
     - source: {fileID: 1073765426}
@@ -1009671,6 +1009674,37 @@ LODGroup:
     - renderer: {fileID: 2047493048}
   m_Enabled: 1
   m_GlobalIlluminationLOD: 0
+--- !u!1 &2048018656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2048018657}
+  m_Layer: 0
+  m_Name: Supercar centered headlamp projector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2048018657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048018656}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.23999995, z: -0.060001135}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 144264960}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2048426890
 GameObject:
   m_ObjectHideFlags: 0
