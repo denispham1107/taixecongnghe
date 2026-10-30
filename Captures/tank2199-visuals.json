@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "evidence": [
+    {
+      "direction": -1,
+      "elapsedAfterTurn": 0,
+      "dinosaurZ": 70.84416,
+      "tankZ": 70.84
+    },
+    {
+      "direction": 1,
+      "elapsedAfterTurn": 0,
+      "dinosaurZ": 70.84416,
+      "tankZ": 70.83333
+    }
+  ]
+}

@@ -18,7 +18,7 @@ public static class VerifyTankBarrage
   {
    g.dinosaursEnabled=false;g.riversEnabled=false;g.tankBarrageEnabled=true;g.trafficSurprises=false;g.recklessTrafficEnabled=false;g.turnExitTrafficEnabled=false;
    g.RestartRide();foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}
-   set("spawnTimer",10000f);set("nextIntersectionDistance",float.PositiveInfinity);
+   set("spawnTimer",10000f);set("nextIntersectionDistance",float.PositiveInfinity);set("nextDistanceTank",float.PositiveInfinity); // Isolate the nine-second clock; 400 m waves have their own integration suite.
   };
   try
   {

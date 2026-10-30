@@ -23,7 +23,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
 | Trang chủ HTML trong source | **21.83 đã có trên web1.47.0:** giao diện trắng–xanh/ảnhxeđua sángcósương, hếtchồng315kiểmtra12viewport; thêm37web+20fullscreen/0runtime;1.47.0có28liveđạt |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
-| Đợt bổ sung sau rẽ trong source | **21.80 đã có trên web1.46.0:** hết cua → Dino ở giao lộ phía trước → Tank sau2s; giữ lịch10s/9s.389kiểmtra đạt/2ảnhđãxem; xem huongdan21.80 |
+| Đợt bổ sung sau rẽ và mỗi400m trong source | **21.99:** hết cua → Dino+Tank cùng frame ở giao lộ kế tiếp, bỏ2s; thêm1Tank ngược chiều khi vượt400/800/1200m… độc lập lịch10s/9s.522kiểm tra đạt/2ảnh đã xem. Chưa phát hành; web1.49.0 còn luật21.80 chờ2s |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; chưa build/phát hành |
@@ -32,6 +32,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.99 source đã xong, chưa phát hành:** Dino+Tank cùng khung hình sau mỗi lượt rẽ trái/phải; thêm1Tank ngược chiều mỗi mốc vượt400m. Lịch9s không bị tiêu/reset; pool/làn chắn giữ yêu cầu, pause/té không sinh mới, retry xóa sạch. **221turn+60distance+69pháo+61miễnDino+111final=522đạt**, compile0lỗi/0warning;48lượt rẽ4làn×W×20/60FPS và4lượt chạy thật>805m đạt. SHA3114file chỉ2partial runtime đổi; scene/đồhọa/vậtliệu/web giữ nguyên. UnityEdit/scenesạch/start1,92/jobsfalse;2ảnh sau rẽ đã xem. Chi tiết huongdan21.99.
 
 - **21.98 source đã xong, chưa phát hành:** người dùng muốn vân tường rõ hơn trước khi phát hành. Chỉ tăng cỡ/độ nổi/loang của vữa và giảm bóng trong2material + default2shader; không đổi texture/geometry/UV. **942kiểm vật liệu/mesh+109finalscene đạt**, ảnh cận cùng camera có tương phản hạt×2,25, độ sáng trung bình chỉ−0,39%/giữ tông. SHA3114file chỉ4file vật liệu/shader dự kiến đổi,0ngoài phạm vi. 6ảnh Unity ngày/đêm đã chụp, đã xem cận tường phố/căn hộ và góc chơi. UnityEdit/scenesạch/start1,92/jobsfalse. Chi tiết huongdan21.98.
 
@@ -119,6 +121,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.99 đã xong source/kiểm tra, chưa build/push/phát hành.** Không còn bước sửa đang dở; UnityEdit/scene sạch/start1,92/jobsfalse. Lần build sau gồm cả21.96–21.99 (miễnDino/biển thuê/vữa rõ hơn/lịchTank mới), web vẫn1.49.0. Giữ sửa cục bộ Art/Wave/Packages/Simulator/.blend/Captures lịch sử ngoài commit.
+
 - **21.98 đã xong source/kiểm tra, chưa build/push/phát hành.** Người dùng chọn chỉnh vân rõ hơn thay vì phát hành ngay bản21.97; web xác minhHTTP vẫn1.49.0/cachee37aaa3a16abef99. Lần build sau gồm21.96–21.98; UnityEdit/scenesạch/start1,92/jobsfalse. Chưa thử Safari/Android máy thật với vân mới.
 
 - **21.97 đã xong source/kiểm tra; chưa build/push/phát hành.** Web vẫn1.49.0; lần build sau gồm21.96 miễn xe tăng,21.97 biển/vật liệu và21.98 vân rõ hơn. UnityEdit/scenesạch/start1,92/jobsfalse; không có bước sửa đang dở. Không stage các sửa Art/Wave/Packages/Simulator/.blend lịch sử ngoài phạm vi.
@@ -161,6 +165,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 4. Luật đã chốt — không tự đổi
 
+- **Source21.99:** sau mỗi lượt rẽ, Dino vàTank cùng xuất hiện ở giao lộ kế tiếp phía trước, không chờ2s. Mỗi mốc hơn400/800/1200m… thêm1Tank ngược chiều, không thay lịch9s hoặc đợt sau rẽ. Có chỗ thì sinh ngay; nếu lane/pool kín thì giữ đúng số đợt, không sinh chồng xe. Reset xóa mốc và hàng chờ; pause/té không sinh thêm.
+
 - **Source21.96:** xe tăng không bị thân/chân/đuôi khủng long hất, vẫn chạy/bắn theo quy tắc pháo hiện có; các phương tiện khác/player/CSGT giữ luật cũ. Chưa lênweb1.49.0, thay quyết định hất xe tăng ở21.62.
 
 - Hỏi lại bằng lựa chọn cụ thể nếu chưa chắc ≥90% ý người dùng.
@@ -183,7 +189,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Điều khiển, đổi làn, camera, HUD | 2.2, 12, **21.94**,21.92/21.89/21.81/21.55/21.60/21.65 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs`, `AgentScripts/VerifyLaneResponse.cs`, `VerifySupercarScalePace.cs`, `CaptureLaneResponse.cs` |
 | Giao thông, va chạm, văng/té | 7, 21.33 | `PhoVietTraffic.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs` |
 | Quái xế, xe tải ngủ gật | 2.4, 7.2 | `PhoVietReckless.cs` |
-| Đợt Dino→Tank sau cua, vị trí giao lộ, chờ2s/pool | **21.80**,21.62/21.38 | `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `PhoVietDinosaurs.cs`, `PhoVietTankFire.cs`, `AgentScripts/VerifyTurnHazards.cs`, `CaptureTurnHazards.cs` |
+| Dino+Tank tức thì sau cua, Tank mỗi400m/pool | **21.99**,21.80/21.62/21.38 | `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `PhoVietDinosaurs.cs`, `PhoVietTankFire.cs`, `AgentScripts/VerifyTurnHazards.cs`, `VerifyDistanceTanks2199.cs`, `CaptureTurnHazards.cs` |
 | Khủng long, rig/quất đuôi, nhảy né/miễn xe tăng | **21.96**,2.12,7.5,21.62 | `PhoVietDinosaurs.cs`, `DinosaurVisual.cs`, `Editor/PhoVietDinosaurUpgrade.cs`, `pho_viet_dinosaur.py` |
 | Xe tăng, đạn pháo | 21.38–21.40 | `PhoVietTankFire.cs`, `Editor/PhoVietTankFxUpgrade.cs` |
 | Đạp, CSGT, bị bắt | 8 | `PhoVietActions.cs`, `PhoVietKickAssist.cs`, `PhoVietPolice.cs`, `PhoVietCrashPoliceNavigation.cs` |

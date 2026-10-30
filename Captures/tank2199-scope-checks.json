@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "baseline": "72f059b/local bytes",
+  "filesCompared": 3114,
+  "changed": [
+    "Assets/PhoViet/Scripts/PhoVietTankFire.cs",
+    "Assets/PhoViet/Scripts/PhoVietTurnHazards.cs"
+  ],
+  "unexpected": [],
+  "geometryUnchanged": true,
+  "sceneUnchanged": true,
+  "textureUnchanged": true,
+  "webUnchanged": true
+}

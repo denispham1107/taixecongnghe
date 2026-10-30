@@ -11,19 +11,19 @@ public static class CaptureTurnHazards
   Action clear=()=>{foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}set("spawnTimer",10000f);};
   try
   {
-   Time.timeScale=0;g.dinosaursEnabled=g.tankBarrageEnabled=g.riversEnabled=g.recklessTrafficEnabled=g.trafficSurprises=g.turnExitTrafficEnabled=false;g.RestartRide();clear();
+   Time.timeScale=0;var evidence=new System.Collections.Generic.List<object>();
+   foreach(int direction in new[]{-1,1})
+   {
+   g.dinosaursEnabled=g.tankBarrageEnabled=g.riversEnabled=g.recklessTrafficEnabled=g.trafficSurprises=g.turnExitTrafficEnabled=false;g.RestartRide();clear();
    int guard=0;while(g.NextJunctionDistance>24&&guard++<1000){tick(.02f);clear();}
-   typeof(PhoVietGame).GetProperty("CurrentLane").SetValue(g,3);g.rider.localPosition=new Vector3(PhoVietGame.LaneX[3],0,0);
-   g.dinosaursEnabled=g.tankBarrageEnabled=true;set("dinosaurTimer",1000f);set("tankSpawnTimer",1000f);g.MoveLane(1);guard=0;
+   int lane=direction<0?0:3;typeof(PhoVietGame).GetProperty("CurrentLane").SetValue(g,lane);g.rider.localPosition=new Vector3(PhoVietGame.LaneX[lane],0,0);
+   g.dinosaursEnabled=g.tankBarrageEnabled=true;set("dinosaurTimer",1000f);set("tankSpawnTimer",1000f);g.MoveLane(direction);guard=0;
    while(g.CompletedTurns==0&&g.State==PhoVietGame.RideState.Riding&&guard++<500){tick(1f/60);if(g.CompletedTurns==0)clear();}
-   if(g.CompletedTurns!=1||g.DinosaursSpawned!=1)throw new Exception("Turn fixture failed");
-   g.daylight.SetCycleTime(8);Shot(g,"Captures/turn-hazards-dinosaur.png");
-   float elapsed=0;bool jumped=false;while(elapsed<2.4f&&g.TanksScheduled==0&&g.State==PhoVietGame.RideState.Riding)
-   {if(!jumped&&elapsed>=1.2f){g.TryJump();jumped=true;}tick(1f/60);elapsed+=1f/60;}
-   if(g.TanksScheduled!=1||g.State!=PhoVietGame.RideState.Riding)throw new Exception("Following tank fixture failed: "+g.State);
-   Shot(g,"Captures/turn-hazards-tank.png");
-   var tank=g.vehicles.First(v=>v.active&&v.armored);var report=new{success=true,elapsed,dinosaurZ=g.dinosaurs.First(d=>d.active).root.localPosition.z,tankZ=tank.model.localPosition.z};
-   File.WriteAllText("Captures/turn-hazards-visuals.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));return report;
+   if(g.CompletedTurns!=1||g.DinosaursSpawned!=1||g.TanksScheduled!=1||g.State!=PhoVietGame.RideState.Riding)throw new Exception("Simultaneous turn pair fixture failed");
+   g.daylight.SetCycleTime(8);Shot(g,"Captures/tank2199-"+(direction<0?"left":"right")+".png");
+   var tank=g.vehicles.First(v=>v.active&&v.armored);evidence.Add(new{direction,elapsedAfterTurn=0,dinosaurZ=g.dinosaurs.First(d=>d.active).root.localPosition.z,tankZ=tank.model.localPosition.z});
+   }
+   var report=new{success=true,evidence};File.WriteAllText("Captures/tank2199-visuals.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));return report;
   }
   finally{g.dinosaursEnabled=dinos;g.tankBarrageEnabled=tanks;g.riversEnabled=rivers;g.recklessTrafficEnabled=danger;g.trafficSurprises=surprises;g.turnExitTrafficEnabled=exits;g.ResetRide();Time.timeScale=time;}
  }

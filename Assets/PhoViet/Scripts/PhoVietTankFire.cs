@@ -7,14 +7,16 @@ namespace PhoViet
  // ở đoạn đường người chơi sắp chạy tới. Vòng cảnh báo đỏ hiện dưới đất ngay khi bắn; đạn trúng hoặc nổ trong bán kính
  // làm người chơi văng ra và kết thúc chuyến, xe khác trong bán kính cũng văng. Hiệu ứng dựng/render trong Blender MCP
  // (pho_viet_tank_fx.py): đạn PV_TankShell, lửa đầu nòng, vụ nổ, vòng cảnh báo.
+ // 21.99: thêm xe tăng cùng lúc với khủng long sau cua, và một xe ngược chiều cho mỗi mốc vượt400m.
  public partial class PhoVietGame
  {
   public bool randomTanks=false;          // xe tăng ngẫu nhiên ở ô xe con (21.33) — tắt từ 21.38
   public bool tankBarrageEnabled=true;    // xe tăng theo lịch 9 s và bắn đạn
-  public const float TankInterval=9f,TankFireInterval=1f,TankFireIntervalMin=.4f,ShellFlight=1.6f,BlastRadius=2.2f,TankFireNear=24f,TankFireFar=115f;
+  public const float TankInterval=9f,TankDistanceInterval=400f,TankFireInterval=1f,TankFireIntervalMin=.4f,ShellFlight=1.6f,BlastRadius=2.2f,TankFireNear=24f,TankFireFar=115f;
   public GameObject tankShellPrefab;
   public Material tankShellMaterial,tankMuzzleMaterial,tankExplosionMaterial,tankWarningMaterial,tankSparkMaterial;
   public int TanksScheduled {get;private set;}
+  public int DistanceTanksScheduled {get;private set;}
   public int ShellsFired {get;private set;}
   public int ShellBlasts {get;private set;}
   public int ShellSplashes {get;private set;}
@@ -22,6 +24,8 @@ namespace PhoViet
   public bool KilledByShell {get;private set;}
   public float TankSpawnCountdown=>tankSpawnTimer;
   float tankSpawnTimer=TankInterval;
+  float nextDistanceTank=TankDistanceInterval;
+  int pendingDistanceTanks;
   public sealed class TankShell {public Vector3 start,target;public float age,flight,apex;public int lane;public Transform body;public Renderer marker;public TrafficVehicle tank;public bool overWater;}
   public readonly List<TankShell> shells=new List<TankShell>();
   readonly Stack<Transform> shellPool=new Stack<Transform>();readonly Stack<Renderer> markerPool=new Stack<Renderer>();
@@ -31,7 +35,7 @@ namespace PhoViet
 
   void ResetTankBarrage()
   {
-   ClearShells();tankSpawnTimer=TankInterval;TanksScheduled=0;ShellsFired=0;ShellBlasts=0;ShellSplashes=0;VehiclesBlasted=0;KilledByShell=false;
+   ClearShells();tankSpawnTimer=TankInterval;nextDistanceTank=TankDistanceInterval;pendingDistanceTanks=0;DistanceTanksScheduled=0;TanksScheduled=0;ShellsFired=0;ShellBlasts=0;ShellSplashes=0;VehiclesBlasted=0;KilledByShell=false;
    if(tankFxAnchor!=null){tankFxAnchor.localPosition=Vector3.zero;tankFxAnchor.localRotation=Quaternion.identity;foreach(var ps in new[]{muzzleFx,blastFx,smokeFx,sparkFx,trailFx})if(ps!=null)ps.Clear();}
   }
   // Đạn/cảnh báo đang bay bị hủy khi cua (thế giới quay 90°) hoặc chơi lại.
@@ -59,6 +63,15 @@ namespace PhoViet
    tankSpawnTimer-=dt;
    if(tankSpawnTimer>0)return;
    tankSpawnTimer=SpawnScheduledTank()!=null?TankInterval:.25f;
+  }
+  // Each crossed distance milestone adds a separate tank; it never consumes the nine-second schedule.
+  void TickDistanceTankSchedule(float dt)
+  {
+   if(!tankBarrageEnabled||State!=RideState.Riding||ServiceStopped||dt<=0)return;
+   while(Distance>nextDistanceTank){pendingDistanceTanks++;nextDistanceTank+=TankDistanceInterval;}
+   if(IsTurning||pendingDistanceTanks==0)return;
+   // Retain queued milestones if both lanes or every traffic slot are occupied.
+   if(SpawnScheduledTank()!=null){pendingDistanceTanks--;DistanceTanksScheduled++;}
   }
   // Người chơi càng nhanh thì xe tăng bắn càng dày (25/10/2026, 21.39): 1,0 s ở tốc độ khởi đầu 17 m/s,
   // giảm đều tới 0,4 s ở 30 m/s (tốc độ chạy tối đa), tăng tốc/nhảy nhanh hơn nữa vẫn giữ 0,4 s.
@@ -215,7 +228,7 @@ namespace PhoViet
   // Mỗi bước mô phỏng (đang chạy, đang té, sau kết thúc): đạn đang bay vẫn bay tới và nổ.
   void TickTankBarrage(float dt)
   {
-   TickTankSchedule(dt);TickTankFire(dt);TickShells(dt);
+   TickTankSchedule(dt);TickDistanceTankSchedule(dt);TickTankFire(dt);TickShells(dt);
   }
 
   // ------------------------------------------------------------ hiệu ứng (tạo một lần)

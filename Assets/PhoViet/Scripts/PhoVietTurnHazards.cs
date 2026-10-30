@@ -4,29 +4,37 @@ namespace PhoViet
 {
  public partial class PhoVietGame
  {
-  public const float TurnTankDelay=2;
-  sealed class TurnHazardWave {public bool dinosaurSpawned,tankWanted;public float remaining;}
+  public const float TurnTankDelay=0;
+  sealed class TurnHazardWave {public bool dinosaurSpawned,tankWanted;}
   readonly List<TurnHazardWave> turnHazardWaves=new List<TurnHazardWave>();
   void ResetTurnHazards(){turnHazardWaves.Clear();}
   float TurnHazardJunction()
   {
    float z=NextJunctionDistance;
    if(float.IsNaN(z)||float.IsInfinity(z))return -1;
-   // At high speed the junction used by the dinosaur can already be behind
-   // the player two seconds later. Always choose a physical junction ahead.
+   // A blocked spawn can outlast its original junction. Always choose a physical junction ahead.
    while(z<=0)z+=VietnamStreet.Length;
    return z;
   }
   void QueueTurnHazards()
   {
    if(State!=RideState.Riding||!dinosaursEnabled||dinosaurPrefab==null)return;
-   var wave=new TurnHazardWave{tankWanted=tankBarrageEnabled,remaining=TurnTankDelay};
-   turnHazardWaves.Add(wave);TryTurnDinosaur(wave);
+   var wave=new TurnHazardWave{tankWanted=tankBarrageEnabled};
+   turnHazardWaves.Add(wave);
+   if(TryTurnDinosaur(wave)&&TryTurnTank(wave))turnHazardWaves.Remove(wave);
   }
   bool TryTurnDinosaur(TurnHazardWave wave)
   {
    float z=TurnHazardJunction();if(z<=0||SpawnDinosaurAt(z)==null)return false;
-   wave.dinosaurSpawned=true;wave.remaining=TurnTankDelay;return true;
+   wave.dinosaurSpawned=true;return true;
+  }
+  bool TryTurnTank(TurnHazardWave wave)
+  {
+   if(!wave.tankWanted||!tankBarrageEnabled)return true;
+   float z=TurnHazardJunction();if(z<=0)return false;
+   // Near a narrow bridge both oncoming lanes merge beside the dinosaur.
+   // Try the far side of this same junction before deferring; retain all footprint checks.
+   return SpawnTankAt(z)!=null||SpawnTankAt(z+12)!=null;
   }
   void TickTurnHazards(float dt)
   {
@@ -35,16 +43,10 @@ namespace PhoViet
    for(int i=0;i<turnHazardWaves.Count;)
    {
     var wave=turnHazardWaves[i];
-    if(wave.dinosaurSpawned)wave.remaining=Mathf.Max(0,wave.remaining-dt);
     if(!IsTurning)
     {
      if(!wave.dinosaurSpawned)TryTurnDinosaur(wave);
-     if(wave.dinosaurSpawned)
-     {
-      if(!wave.tankWanted||!tankBarrageEnabled){turnHazardWaves.RemoveAt(i);continue;}
-      float z=TurnHazardJunction();
-      if(wave.remaining<=.00001f&&z>0&&SpawnTankAt(z)!=null){turnHazardWaves.RemoveAt(i);continue;}
-     }
+     if(wave.dinosaurSpawned&&TryTurnTank(wave)){turnHazardWaves.RemoveAt(i);continue;}
     }
     i++;
    }
