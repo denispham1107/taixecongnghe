@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "count": 32,
+  "checks": [
+    "Crater radius is 92% of blast radius",
+    "Crater material is a saved release dependency",
+    "Shader supported: PhoViet/Road With Tank Craters",
+    "No shader errors: PhoViet/Road With Tank Craters",
+    "Shader supported: PhoViet/Tank Crater Surface",
+    "No shader errors: PhoViet/Tank Crater Surface",
+    "Shader supported: PhoViet/City Ground",
+    "No shader errors: PhoViet/City Ground",
+    "Complete vertex colors/normals 0",
+    "Shared mobile mesh budget 0",
+    "True depressed floor and raised broken rim 0",
+    "No degenerate floor or crack triangles 0",
+    "Unit mesh normals 0",
+    "Branching cracks extend beyond the lip 0",
+    "Complete vertex colors/normals 1",
+    "Shared mobile mesh budget 1",
+    "True depressed floor and raised broken rim 1",
+    "No degenerate floor or crack triangles 1",
+    "Unit mesh normals 1",
+    "Branching cracks extend beyond the lip 1",
+    "Complete vertex colors/normals 2",
+    "Shared mobile mesh budget 2",
+    "True depressed floor and raised broken rim 2",
+    "No degenerate floor or crack triangles 2",
+    "Unit mesh normals 2",
+    "Branching cracks extend beyond the lip 2",
+    "Only shared asphalt and white/yellow road paint use cutout",
+    "Original road roughness/metal preserved PV_FFF1CFFFFalse 6",
+    "Original road roughness/metal preserved PV_555D5DFFFalse 2",
+    "Original road roughness/metal preserved PV_FFD35AFFFalse 4",
+    "Clean saved scene/jobs locked",
+    "Authored player start unchanged"
+  ],
+  "triangles": [
+    672,
+    672,
+    672
+  ]
+}

@@ -760676,6 +760676,7 @@ MonoBehaviour:
     - {fileID: 852735851}
     - {fileID: 486886038}
     - {fileID: 49152983}
+  tankCraterMaterial: {fileID: 2100000, guid: d7c740f2d18ce33468e9a396ff821de2, type: 2}
   randomTanks: 0
   tankBarrageEnabled: 1
   tankShellPrefab: {fileID: 919132149155446097, guid: 58214dc2c8da72d4a80d775fe7429696, type: 3}

@@ -91,7 +91,7 @@ namespace PhoViet
         float laneVelocity,steerYaw,laneAccel,steerYawSpeed,leanSpeed;
         float leanHoldRemaining,heldLeanTarget;
         readonly float[] laneCurve=new float[6];float laneCurveTime,laneClock,laneGoal,laneResponseGain;bool lanePlanned;
-        public float RiderLateralAcceleration=>laneAccel;
+        public float RiderLateralAcceleration=>laneAccel+craterSideAcceleration;
         public float RiderLateralVelocity=>laneVelocity;
         public float RiderSteerYaw=>State==RideState.Riding&&!IsTurning?steerYaw:0;
         float nextIntersectionDistance;
@@ -109,6 +109,7 @@ namespace PhoViet
             StreetArt.ConfigureWorldText(vietnameseFont,worldTextMaterial); Application.targetFrameRate=60; Application.runInBackground=true;
             BestDistance=PlayerPrefs.GetInt(BestKey,0);
             InitializeTrafficSignalFaces(); CreateSound(); InitializeActions(); ResetRide();
+            if(tankCraterMaterial!=null)EnsureTankCraters();
 #if !UNITY_WEBGL || UNITY_EDITOR
             InitializeGraphicsSettings();
 #endif
@@ -179,6 +180,7 @@ namespace PhoViet
         {
             if(State!=RideState.Riding||ServiceStopped)return;
             CancelAssistedKick(false);
+            if(CorrectCraterSteering(direction))return;
             if(SelectJunctionTurn(direction))return;
             CurrentLane=Mathf.Clamp(CurrentLane+Math.Sign(direction),0,3);
         }
@@ -299,6 +301,7 @@ namespace PhoViet
             if(State==RideState.GameOver){TickRiverAftermath(Mathf.Min(Time.deltaTime,.05f));TickShells(Mathf.Min(Time.deltaTime,.05f));}
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
             if(State==RideState.Arrested)TickArrest(Time.deltaTime);
+            UpdateTankCraterTerrain(Mathf.Min(Time.deltaTime,.05f));
             UpdateRiverMurk();AnimateLights();PositionCamera(false);
             UpdateJobMarker();
             UpdateDangerSigns();
@@ -376,12 +379,13 @@ namespace PhoViet
             float oldX=rider.localPosition.x;
             oldRiderZ=rider.localPosition.z;
             oldRiderYaw=IsPlayerCar?rider.localEulerAngles.y:IsTurning?TurnYaw:0;
-            float baseX=oldX-kickAppliedOffset.x;
+            float baseX=oldX-kickAppliedOffset.x-craterAppliedOffset.x;
+            AdvanceCraterSteering(dt);
             float x=baseX,target=LaneX[CurrentLane],gap=target-baseX;
             if(ServiceStopped){laneVelocity=0;laneAccel=0;lanePlanned=false;}
             else x=AdvanceLaneCurve(baseX,target,dt);
             // Đầu xe theo tiếp tuyến đường đi; khi đang đạp áp sát giữ thẳng để giày khớp mẫu chạm đã đo.
-            float rawSteer=IsTurning||KickAssistActive?0:Mathf.Atan2(laneVelocity,Mathf.Max(Speed,8))*Mathf.Rad2Deg;
+            float rawSteer=IsTurning||KickAssistActive?0:Mathf.Atan2(laneVelocity+craterSideSpeed,Mathf.Max(Speed,8))*Mathf.Rad2Deg;
             float steerTarget=MaxSteerYaw*(float)Math.Tanh(rawSteer/MaxSteerYaw);
             // Enter the new heading gently and take longer to return the steering.
             bool returning=Mathf.Abs(steerTarget)<Mathf.Abs(steerYaw)&&!IsTurning&&!KickAssistActive;
@@ -399,11 +403,13 @@ namespace PhoViet
             if(!IsTurning){rider.localPosition=new Vector3(x,jumpHeight,0);rider.localRotation=Quaternion.Euler(0,IsPlayerCar?steerYaw:0,lean);}
             BeginOrContinueTurn(Speed*dt);
             {var p=rider.localPosition;p.y=jumpHeight;rider.localPosition=p;}
+            ApplyCraterOffset();
             TickAssistedKickMotion(dt,previousRider,previousRotation);x=rider.localPosition.x;
             lastX=x;
             riderRoadVelocity=dt>0?new Vector3((rider.localPosition.x-oldX)/dt,0,Speed+(rider.localPosition.z-oldRiderZ)/dt):Quaternion.Euler(0,TurnYaw,0)*Vector3.forward*Speed;
             riderVelocityValid=true;
             riderBody.previousPosition=new Vector3(oldX,jumpPreviousHeight,oldRiderZ);riderBody.previousYaw=oldRiderYaw;riderBody.knocked=false;
+            TickCraterWheelContacts(dt,previousRider,previousRotation);
             TickTrafficMotion(dt);
             TickTankBarrage(dt);if(State!=RideState.Riding)return;
             TickDinosaurs(dt);if(State!=RideState.Riding)return;
@@ -621,6 +627,7 @@ namespace PhoViet
         }
         void OnDestroy()
         {
+            ShutdownTankCraters();
             ShutdownTrafficSignalFaces();
             ShutdownGraphicsSettings();
             if(engine!=null&&engine.clip!=null)Destroy(engine.clip);if(crashClip!=null)Destroy(crashClip);

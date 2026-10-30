@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "images": 11,
+  "drift": {
+    "offset": 0.354078919,
+    "speed": 1.03796625,
+    "yaw": 3.40158343,
+    "hits": 1,
+    "state": "Riding"
+  },
+  "source": "Actual Unity shell detonation/road cutout/pit geometry/mesh debris and player physics"
+}

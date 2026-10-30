@@ -29,10 +29,13 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
 | Chất liệu tường trong source | **21.98:** người dùng chọn vân rõ hơn21.97; relief0,42/scale0,65/contrast0,28/smoothness0,015, giữ màu/kính/kim loại/sông. UV mask25FBX/144mesh, texture1K nén/mipmap, không thêm renderer. Chi tiết21.97–21.98; đã có trên web1.50.0 |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Đã có trên web1.48.0** |
+| Hố đạn và chỉnh lái trong source | **21.103 đã xong, chưa phát hành:** hố R2,024m/lòng−0,40m/nứt/mảnh văng; bánh chạm kéo lệch tới khi nhấn/vuốt ngược, nhảy tránh được. **1.090 kiểm tra đạt/11 ảnh Unity**, không đổi hình ảnh ngoài hố. Xem21.103 |
 | Tàu và đèn phụ trong source | **21.102 chưa phát hành:** tàu đánh cá Meshy140chiếc,3LOD/texture2K; đènnhỏ chungtínhiệu2mặt vớiđènlớn;3346kiểmđạt. Web1.50.0 còn tàu cũ/đènnhỏtắt |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.103 source đã xong, chưa phát hành:** đạn rơi đất tạo hố2,024m sâu0,40m, viền nứt/18mảnh nhựa đường. Dò4bánh swept20/30/60FPS; lệch giữ đến khi đánh lái ngược, một thao tác chỉnh hướng rồi thao tác tiếp đổi làn; nhảy tránh được/không tự gây thua. Pool64/3meshchung, theo road tile qua scroll/rẽ, không hết hạn theo giây. **1.090 kiểm đạt**,11ảnh thật đã xem; vùng ngoài hố pixel không đổi. UnityEdit/scenesạch/start1,92/jobsfalse. Chưa build/push/web;21.102 cũng chờ build. Chi tiết21.103.
 
 - **21.102 source đã xong, chưa phát hành:** thay140tàu neo bằng Vietnamese Fishing Boat mới,9m/tỷlệnguồn/texture2K/3LOD39.998–19.998–9.998tri; giữvịtrí/hướng/bob/reflection. Đènnhỏ đỏ/vàng/xanh sángđồngbộđènlớn cả2mặt, dùngchung420renderer/6mesh, khôngthêmđèn/drawcall.3346kiểmđạt/10ảnhUnityđãxem; scopeScene0ngoàiphạmvi/anchor140tàugiữ. Chi tiếthuongdan21.102.
 
@@ -126,6 +129,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.103 đã hoàn tất source/kiểm tra, chờ build web:** 1.090 điều kiện/11ảnh đạt; UnityEdit/scene sạch, không còn thao tác Unity đang chạy. Code + material/scene + template trợ giúp + bằng chứng + hai tài liệu lưu trong commit cục bộ riêng. Khi được yêu cầu build, gộp cả21.102 tàu/đèn phụ và21.103 hố đạn; web hiện vẫn1.50.0. Chưa đo FPS Safari/Android máy thật.
+
 - **21.102 đã xong source/kiểm tra, chưa build/push/phát hành.**140tàuFishingBoatMeshy/3LOD40k/20k/10k/texture2K; đèn phụ đồng bộ lớn ở2mặt,0renderer thêm.570Editor+2670Play+106regression=3346đạt,10ảnhđãxem. UnityEdit/scenesạch/start1,92/jobsfalse; rawMeshypreviewđãbackup/bỏđúngroot, nguồngốcgiữnguyên. Webvẫn1.50.0; giữdirtyArt/Wave/Packages/Simulator ngoài commit.
 
 - **21.96–21.101 đã có trên web1.50.0**, không còn bước sửa/build/push/live đang dở. UnityEdit/scenesạch/start1,92/jobsfalse; GPUdesktop, server kiểmtra8771/8772 đã dừng. DirtyArt/Wave/Packages/Simulator/.blend/Captures lịch sử giữ cục bộ ngoài commit; chưa kiểm điệnthoạithật.
@@ -164,6 +169,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 4. Luật đã chốt — không tự đổi
 
+- **Source21.103:** hố đạn giữ tới khi ra xa/chơi lại; bánh chạm làm xe lệch liên tục tới khi nhấn/vuốt NGƯỢC hướng lệch. Thao tác đó chỉ chỉnh lái, không nhảy làn tức thì; thao tác sau đổi làn bình thường. Nhảy qua tránh hiệu ứng; hố không tự gây thua, va vào xe/cảnh vật/sông vẫn theo luật hiện tại.
+
 - **Source21.99:** sau mỗi lượt rẽ, Dino vàTank cùng xuất hiện ở giao lộ kế tiếp phía trước, không chờ2s. Mỗi mốc hơn400/800/1200m… thêm1Tank ngược chiều, không thay lịch9s hoặc đợt sau rẽ. Có chỗ thì sinh ngay; nếu lane/pool kín thì giữ đúng số đợt, không sinh chồng xe. Reset xóa mốc và hàng chờ; pause/té không sinh thêm.
 
 - **Source21.96:** xe tăng không bị thân/chân/đuôi khủng long hất, vẫn chạy/bắn theo quy tắc pháo hiện có; các phương tiện khác/player/CSGT giữ luật cũ. Đã có trênweb1.50.0, thay quyết định hất xe tăng ở21.62.
@@ -191,7 +198,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Quái xế, xe tải ngủ gật | 2.4, 7.2 | `PhoVietReckless.cs` |
 | Dino+Tank tức thì sau cua, Tank mỗi400m/pool | **21.99**,21.80/21.62/21.38 | `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `PhoVietDinosaurs.cs`, `PhoVietTankFire.cs`, `AgentScripts/VerifyTurnHazards.cs`, `VerifyDistanceTanks2199.cs`, `CaptureTurnHazards.cs` |
 | Khủng long, rig/quất đuôi, nhảy né/miễn xe tăng | **21.96**,2.12,7.5,21.62 | `PhoVietDinosaurs.cs`, `DinosaurVisual.cs`, `Editor/PhoVietDinosaurUpgrade.cs`, `pho_viet_dinosaur.py` |
-| Xe tăng, đạn pháo | 21.38–21.40 | `PhoVietTankFire.cs`, `Editor/PhoVietTankFxUpgrade.cs` |
+| Hố đạn/nứt/mảnh văng/lệch hướng và counter-steer | **21.103**,2.13 | `PhoVietTankCraters.cs`, `TankCraterGeometry.cs`, `TankCraterMask.cginc`, `TankCraterRoad.shader`, `TankCraterSurface.shader`, `CityGround.shader`, `PlayerCarVisual.cs`; `AgentScripts/VerifyTankCraters.cs`, `VerifyCraterTurns.cs`, `VerifyTankCraterGeometry.cs`, `CaptureTankCraters.cs`, `VerifyCraterRender.py` |
+| Xe tăng, đạn pháo | **21.103**,21.38–21.40 | `PhoVietTankFire.cs`, `Editor/PhoVietTankFxUpgrade.cs` |
 | Đạp, CSGT, bị bắt | 8 | `PhoVietActions.cs`, `PhoVietKickAssist.cs`, `PhoVietPolice.cs`, `PhoVietCrashPoliceNavigation.cs` |
 | Nhảy, nóc xe, tăng tốc | 19, 21.60 | `PhoVietJump.cs`, `PhoVietBoost.cs` |
 | Giao lộ, rẽ, rebase tọa độ | 6.1, 9 | `PhoVietRoutes.cs`, `PhoVietRoadDrivers.cs`, `PhoVietExitTraffic.cs` |

@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "checks": {
+    "geometry": 32,
+    "gameplay": 81,
+    "turn": 42,
+    "render": 4,
+    "VerifySpeedJump": 177,
+    "VerifyLaneResponse": 217,
+    "VerifyTankBarrage": 69,
+    "VerifySmoothTurns": 468
+  },
+  "total": 1090,
+  "images": 11,
+  "scene": "Only one tankCraterMaterial reference added",
+  "materials": "Only shader GUID changed in three road paint/asphalt materials",
+  "publishedWeb": "1.50.0 unchanged; no build, push or publication",
+  "limits": "Unity/editor validation only; no physical mobile or compiled WebGL performance test"
+}

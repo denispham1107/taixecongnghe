@@ -1,0 +1,290 @@
+{
+  "play": false,
+  "dirty": false,
+  "renderers": [
+    {
+      "name": "Vạch mũi tên giao lộ • 4 hướng",
+      "materials": [
+        {
+          "name": "PV_FFF1CFFFFalse 6",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_FFF1CFFFFalse 6.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_555D5DFFFalse",
+      "materials": [
+        {
+          "name": "PV_555D5DFFFalse 2",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_555D5DFFFalse 2.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_FFD35AFFFalse",
+      "materials": [
+        {
+          "name": "PV_FFD35AFFFalse 4",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_FFD35AFFFalse 4.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_FFF1CFFFFalse",
+      "materials": [
+        {
+          "name": "PV_FFF1CFFFFalse 6",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_FFF1CFFFFalse 6.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_D99A6BFFFalse",
+      "materials": [
+        {
+          "name": "PV_D99A6BFFFalse 5",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_D99A6BFFFalse 5.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_A9382EFFFalse",
+      "materials": [
+        {
+          "name": "PV_A9382EFFFalse 2",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_A9382EFFFalse 2.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_203C43FFFalse",
+      "materials": [
+        {
+          "name": "PV_203C43FFFalse 5",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_203C43FFFalse 5.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_196E72FFFalse",
+      "materials": [
+        {
+          "name": "PV_196E72FFFalse 2",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_196E72FFFalse 2.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_B74B31FFFalse",
+      "materials": [
+        {
+          "name": "PV_B74B31FFFalse 2",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_B74B31FFFalse 2.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_177E80FFFalse",
+      "materials": [
+        {
+          "name": "PV_177E80FFFalse 3",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_177E80FFFalse 3.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_D83833FFFalse",
+      "materials": [
+        {
+          "name": "PV_D83833FFFalse 4",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_D83833FFFalse 4.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_245C91FFFalse",
+      "materials": [
+        {
+          "name": "PV_245C91FFFalse 2",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_245C91FFFalse 2.mat"
+        }
+      ]
+    },
+    {
+      "name": "Geometry • PV_A6ABA1FFFalse",
+      "materials": [
+        {
+          "name": "PV_A6ABA1FFFalse 2",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_A6ABA1FFFalse 2.mat"
+        }
+      ]
+    },
+    {
+      "name": "PV_RiverBridge_LOD0",
+      "materials": [
+        {
+          "name": "PV_StreetAtlas",
+          "shader": "PhoViet/Street Wall Finish",
+          "path": "Assets/PhoViet/Art/Streets/PV_StreetAtlas.mat"
+        },
+        {
+          "name": "PV_RiverMurk",
+          "shader": "PhoViet/River Murk",
+          "path": "Assets/PhoViet/Art/River/PV_RiverMurk.mat"
+        },
+        {
+          "name": "PV_RiverWater",
+          "shader": "PhoViet/River Water Mirror",
+          "path": "Assets/PhoViet/Art/River/PV_RiverWater.mat"
+        },
+        {
+          "name": "PV_RiverGroundMask",
+          "shader": "PhoViet/River Ground Mask",
+          "path": "Assets/PhoViet/Art/River/PV_RiverGroundMask.mat"
+        },
+        {
+          "name": "PV_555D5DFFFalse 2",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_555D5DFFFalse 2.mat"
+        },
+        {
+          "name": "PV_FFF1CFFFFalse 6",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_FFF1CFFFFalse 6.mat"
+        },
+        {
+          "name": "PV_FFD35AFFFalse 4",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_FFD35AFFFalse 4.mat"
+        }
+      ]
+    },
+    {
+      "name": "PV_RiverBridge_LOD1",
+      "materials": [
+        {
+          "name": "PV_StreetAtlas",
+          "shader": "PhoViet/Street Wall Finish",
+          "path": "Assets/PhoViet/Art/Streets/PV_StreetAtlas.mat"
+        },
+        {
+          "name": "PV_RiverMurk",
+          "shader": "PhoViet/River Murk",
+          "path": "Assets/PhoViet/Art/River/PV_RiverMurk.mat"
+        },
+        {
+          "name": "PV_RiverWater",
+          "shader": "PhoViet/River Water Mirror",
+          "path": "Assets/PhoViet/Art/River/PV_RiverWater.mat"
+        },
+        {
+          "name": "PV_RiverGroundMask",
+          "shader": "PhoViet/River Ground Mask",
+          "path": "Assets/PhoViet/Art/River/PV_RiverGroundMask.mat"
+        },
+        {
+          "name": "PV_555D5DFFFalse 2",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_555D5DFFFalse 2.mat"
+        },
+        {
+          "name": "PV_FFF1CFFFFalse 6",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_FFF1CFFFFalse 6.mat"
+        },
+        {
+          "name": "PV_FFD35AFFFalse 4",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_FFD35AFFFalse 4.mat"
+        }
+      ]
+    },
+    {
+      "name": "PV_RiverBridge_LOD2",
+      "materials": [
+        {
+          "name": "PV_StreetAtlas",
+          "shader": "PhoViet/Street Wall Finish",
+          "path": "Assets/PhoViet/Art/Streets/PV_StreetAtlas.mat"
+        },
+        {
+          "name": "PV_RiverMurk",
+          "shader": "PhoViet/River Murk",
+          "path": "Assets/PhoViet/Art/River/PV_RiverMurk.mat"
+        },
+        {
+          "name": "PV_RiverWater",
+          "shader": "PhoViet/River Water Mirror",
+          "path": "Assets/PhoViet/Art/River/PV_RiverWater.mat"
+        },
+        {
+          "name": "PV_RiverGroundMask",
+          "shader": "PhoViet/River Ground Mask",
+          "path": "Assets/PhoViet/Art/River/PV_RiverGroundMask.mat"
+        },
+        {
+          "name": "PV_555D5DFFFalse 2",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_555D5DFFFalse 2.mat"
+        },
+        {
+          "name": "PV_FFF1CFFFFalse 6",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_FFF1CFFFFalse 6.mat"
+        },
+        {
+          "name": "PV_FFD35AFFFalse 4",
+          "shader": "Standard",
+          "path": "Assets/PhoViet/Generated/PV_FFD35AFFFalse 4.mat"
+        }
+      ]
+    }
+  ],
+  "wheels": [
+    {
+      "name": "WheelFL",
+      "centre": [
+        -0.735926867,
+        0.267749965,
+        1.0200001
+      ]
+    },
+    {
+      "name": "WheelFR",
+      "centre": [
+        0.735926867,
+        0.267749965,
+        1.0200001
+      ]
+    },
+    {
+      "name": "WheelRL",
+      "centre": [
+        -0.737294734,
+        0.267749965,
+        -1.12199986
+      ]
+    },
+    {
+      "name": "WheelRR",
+      "centre": [
+        0.7372947,
+        0.267749965,
+        -1.12199986
+      ]
+    }
+  ]
+}

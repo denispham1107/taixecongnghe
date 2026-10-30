@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "materials": [
+    "Assets/PhoViet/Generated/PV_FFF1CFFFFalse 6.mat",
+    "Assets/PhoViet/Generated/PV_555D5DFFFalse 2.mat",
+    "Assets/PhoViet/Generated/PV_FFD35AFFFalse 4.mat"
+  ],
+  "craterMaterial": "Assets/PhoViet/Art/TankFx/PV_TankCrater.mat",
+  "scene": "Assets/PhoViet/Scenes/PhoViet.unity"
+}

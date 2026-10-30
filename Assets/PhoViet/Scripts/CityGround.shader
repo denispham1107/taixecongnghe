@@ -14,12 +14,13 @@ Shader "PhoViet/City Ground"
         Tags { "RenderType"="Opaque" "Queue"="Geometry" }
         Stencil { Ref 1 Comp NotEqual }
         CGPROGRAM
-        #pragma surface surf Standard fullforwardshadows
+        #pragma surface surf Standard fullforwardshadows addshadow
         #pragma target 3.0
         fixed4 _Color; half _Glossiness,_Metallic; float _RiverReflecting;
         struct Input { float3 worldPos; };
+        #include "TankCraterMask.cginc"
         void surf(Input IN,inout SurfaceOutputStandard o)
-        { clip(0.5-_RiverReflecting); o.Albedo=_Color.rgb; o.Metallic=_Metallic; o.Smoothness=_Glossiness; o.Alpha=1; }
+        { clip(0.5-_RiverReflecting); PVCutTankCrater(IN.worldPos); o.Albedo=_Color.rgb; o.Metallic=_Metallic; o.Smoothness=_Glossiness; o.Alpha=1; }
         ENDCG
     }
     FallBack "Diffuse"

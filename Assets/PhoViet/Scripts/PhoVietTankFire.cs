@@ -35,6 +35,7 @@ namespace PhoViet
 
   void ResetTankBarrage()
   {
+   ResetTankCraters();
    ClearShells();tankSpawnTimer=TankInterval;nextDistanceTank=TankDistanceInterval;pendingDistanceTanks=0;DistanceTanksScheduled=0;TanksScheduled=0;ShellsFired=0;ShellBlasts=0;ShellSplashes=0;VehiclesBlasted=0;KilledByShell=false;
    if(tankFxAnchor!=null){tankFxAnchor.localPosition=Vector3.zero;tankFxAnchor.localRotation=Quaternion.identity;foreach(var ps in new[]{muzzleFx,blastFx,smokeFx,sparkFx,trailFx})if(ps!=null)ps.Clear();}
   }
@@ -190,6 +191,7 @@ namespace PhoViet
     return;
    }
    ShellBlasts++;
+   if(!direct)CreateTankCrater(at);
    Emit(blastFx,at+Vector3.up*1.6f,Vector3.zero,7.5f,.9f,Color.white);
    for(int i=0;i<26;i++)
    {

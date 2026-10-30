@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "count": 4,
+  "checks": [
+    "No-hole road preserves original Standard appearance",
+    "Comparison includes a meaningful untouched region",
+    "Only crater footprint and rim shadow alter the scene",
+    "Cutout reveals the dark depressed floor rather than city base"
+  ],
+  "metrics": {
+    "noHoleMeanPixelError": 2.469135802469136e-06,
+    "outsideHoleMeanPixelError": 0.0,
+    "outsidePixels": 236340,
+    "floorLuminanceBefore": 87.0,
+    "floorLuminanceAfter": 35.27566320645906
+  }
+}
