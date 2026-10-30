@@ -1,0 +1,31 @@
+{
+  "url": "http://127.0.0.1:8774/",
+  "checks": [
+    "Real release WASM initializes",
+    "Heavy rain renders in actual WASM at the storm phase",
+    "GPU draws rain with the weather shader",
+    "GPU draws the pre-strike warning",
+    "GPU draws lightning core/glow/branches",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "attempts": [
+    {
+      "seconds": 57.497,
+      "wet": 1,
+      "modes": [
+        0,
+        2,
+        1
+      ],
+      "draws": 51,
+      "names": [
+        "_PVStormWetness",
+        "_Storm",
+        "_Mode",
+        "_Progress"
+      ]
+    }
+  ],
+  "success": true
+}

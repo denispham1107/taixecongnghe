@@ -14,12 +14,12 @@ public static class BuildWebRelease
  static object Queue(bool resume,bool desktop=false)
  {
   if(Application.isPlaying||EditorApplication.isCompiling||BuildPipeline.isBuildingPlayer)throw new InvalidOperationException("Editor must be idle in Edit Mode");
-  const string path="Captures/release151-build-report.json";
+  const string path="Captures/release152-build-report.json";
   if(resume)
   {
    var prior=BuildReport.GetLatestReport().summary;
    if(prior.result!=BuildResult.Succeeded)throw new InvalidOperationException("A successful mobile build is required before resuming");
-   File.WriteAllText("Captures/release151-mobile-build-report.json",Newtonsoft.Json.JsonConvert.SerializeObject(new{result=prior.result.ToString(),prior.totalErrors,prior.totalWarnings,buildMs=prior.totalTime.TotalMilliseconds},Newtonsoft.Json.Formatting.Indented));
+   File.WriteAllText("Captures/release152-mobile-build-report.json",Newtonsoft.Json.JsonConvert.SerializeObject(new{result=prior.result.ToString(),prior.totalErrors,prior.totalWarnings,buildMs=prior.totalTime.TotalMilliseconds},Newtonsoft.Json.Formatting.Indented));
   }
   File.WriteAllText(path,"{\"status\":\"queued\"}");
   // delayCall requires an inspector cycle and can stall in a headless/minimized editor.

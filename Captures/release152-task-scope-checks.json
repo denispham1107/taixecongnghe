@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "baseline": "61ca72a and local source bytes before release",
+  "filesCompared": 2969,
+  "changed": [
+    "Assets/PhoViet/Editor/PhoVietWebBuild.cs",
+    "ProjectSettings/ProjectSettings.asset"
+  ],
+  "unexpected": [],
+  "sceneUnchanged": true,
+  "geometryUnchanged": true,
+  "texturePixelsUnchanged": true,
+  "packageFilesUnchanged": true
+}

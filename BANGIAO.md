@@ -134,6 +134,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.106 đang phát hành1.52.0:** build2variant681,183s/0lỗi/1warningDevMCP;138finalpreflight/521SHA giữ/2969scope chỉ2fileversion đổi. Cache`52d4e08424a12b5d`;44repo+35site+36staged+387landing+37web+20fullscreen+6weather đạt. Đang commit/push, tiếp Pages/live; webchưa xácnhận1.52. UnityEdit;server8774/session24791 chờdừng; giữdirtyArt/Wave/Packages/Simulator.
+
 - **21.105 hoàn tất source/kiểm tra, chờ build web:**2.149đạt/7ảnhUnity; UnityEdit/scene sạch/start1,92/jobsfalse, khôngcòntácvụPlay/import/build. Source/3materialWeather+scene5field/templatehelp/scripts/bằngchứng/huongdan/BANGIAO lưucommitcục bộriêng. Chưa build/push/phát hành; webvẫn1.51.0. Cácsuitecổchỉđổi fixturetrongrunner (độcao4,11665/PlayerCarVisual/durationNPC/start1,92 vàcôlậpDinoTankRiver), khôngsửalogicgameđểđạt test. GiữdirtyArt/Wave/Packages/Simulator/lịch sử ngoài phạmvi.
 
 - **21.102–21.104 đã phát hành1.51.0**, không còn bước build/push/live đang dở. Release690a30e/Pages41048787064success/cache47008e2b65b2d929,29liveđạt/0runtime. UnityEdit/scene sạch/start1,92/jobsfalse; server8773vàbrowserkiểmđãđóng. CậpnhậtREADME/huongdan/BANGIAO/bằngchứnglive trongcommitdocsriêng, khôngrebuild. Chưa kiểmSafari/Androidmáythật. DirtyArt/Wave/Packages/Simulator/lịch sử vẫn ngoài commit.
