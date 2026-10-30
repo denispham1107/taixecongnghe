@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "count": 435,
+  "suites": {
+    "render": 14,
+    "binding": 305,
+    "night-jump": 88,
+    "legacy-projection": 8,
+    "scene": 20
+  },
+  "onlyExistingBeamAngleChanged": true,
+  "newLights": 0,
+  "sourceOnly": true,
+  "webVersion": "1.52.0",
+  "released": false
+}

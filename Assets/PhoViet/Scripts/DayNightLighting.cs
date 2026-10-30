@@ -51,7 +51,8 @@ namespace PhoViet
         readonly bool[] streetKind=new bool[6],wideKind=new bool[6];
         static readonly int Tint=Shader.PropertyToID("_Tint"),NightLights=Shader.PropertyToID("_PVNightLights");
         static readonly int ProjectHeadlight=Shader.PropertyToID("_ProjectHeadlight"),WorldToHead=Shader.PropertyToID("_WorldToHead"),HeadPosition=Shader.PropertyToID("_HeadPosition");
-        static readonly int HeadlightWidth=Shader.PropertyToID("_HeadlightWidth"),HeadlightHeight=Shader.PropertyToID("_HeadlightHeight");
+        static readonly int HeadlightWidth=Shader.PropertyToID("_HeadlightWidth");
+        static readonly float CarHeadlightAngle=2*Mathf.Atan(Mathf.Tan(29*Mathf.Deg2Rad)*1.8f)*Mathf.Rad2Deg;
 
         public void Initialize(PhoVietGame owner)
         {
@@ -233,10 +234,9 @@ namespace PhoViet
                         projectionBlock.SetFloat(ProjectHeadlight,1);
                         projectionBlock.SetMatrix(WorldToHead,Matrix4x4.TRS(vehicle.head.position,vehicle.head.rotation,Vector3.one).inverse);
                         projectionBlock.SetVector(HeadPosition,vehicle.head.position);
-                        // One continuous, symmetrical fan centred on the car's forward axis.
-                        // Widen its optics rather than adding two separated beam lobes.
-                        projectionBlock.SetFloat(HeadlightWidth,wide?2:1);
-                        projectionBlock.SetFloat(HeadlightHeight,wide?.65f:1.1f);
+                        // Only enlarge the existing beam's angular opening.
+                        // Its source, pitch, optical height and brightness stay unchanged.
+                        projectionBlock.SetFloat(HeadlightWidth,wide?1.8f:1);
                         vehicle.roadLight.SetPropertyBlock(projectionBlock);
                     }
                 }
@@ -287,7 +287,7 @@ namespace PhoViet
                 var light=lightPool[i];if(light==null)continue;bool use=enabled&&i<6&&!float.IsPositiveInfinity(scores[i]);light.enabled=use;
                 if(!use)continue;ActiveRealtimeLights++;
                 light.transform.SetPositionAndRotation(origins[i],Quaternion.LookRotation(directions[i],streetKind[i]?Vector3.forward:Vector3.up));
-                light.spotAngle=streetKind[i]?99:wideKind[i]?78:58;light.range=streetKind[i]?20:32;light.intensity=(streetKind[i]?3.6f:2.8f)*LampLevel;
+                light.spotAngle=streetKind[i]?99:wideKind[i]?CarHeadlightAngle:58;light.range=streetKind[i]?20:32;light.intensity=(streetKind[i]?3.6f:2.8f)*LampLevel;
                 light.renderMode=i==0||streetKind[i]?LightRenderMode.ForcePixel:LightRenderMode.Auto;
                 light.color=C("F1F7FF");light.shadows=i==0&&!streetKind[i]?LightShadows.Hard:LightShadows.None;
             }
