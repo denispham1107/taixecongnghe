@@ -1,6 +1,6 @@
 Shader "PhoViet/Day Night Sky"
 {
-    Properties { _Zenith("Zenith",Color)=(.7,.85,1,1) _Horizon("Horizon",Color)=(.95,.98,1,1) _Night("Night",Range(0,1))=0 _CloudCover("Cloud cover",Range(0,1))=.5 _CloudScale("Cloud scale",Float)=1.15 _CloudSpeed("Cloud drift",Float)=.006 _SkyBlue("Day sky blue",Color)=(.33,.6,.93,.78) }
+    Properties { _Zenith("Zenith",Color)=(.7,.85,1,1) _Horizon("Horizon",Color)=(.95,.98,1,1) _Night("Night",Range(0,1))=0 _Storm("Thunderstorm",Range(0,1))=0 _CloudCover("Cloud cover",Range(0,1))=.5 _CloudScale("Cloud scale",Float)=1.15 _CloudSpeed("Cloud drift",Float)=.006 _SkyBlue("Day sky blue",Color)=(.33,.6,.93,.78) }
     SubShader
     {
         Tags { "Queue"="Background" "RenderType"="Background" "PreviewType"="Skybox" }
@@ -11,7 +11,7 @@ Shader "PhoViet/Day Night Sky"
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
-            float4 _Zenith,_Horizon,_SkyBlue;float _Night,_CloudCover,_CloudScale,_CloudSpeed;float3 _SunDirection,_MoonDirection;float4x4 _SkyFrame;
+            float4 _Zenith,_Horizon,_SkyBlue;float _Storm,_Night,_CloudCover,_CloudScale,_CloudSpeed;float3 _SunDirection,_MoonDirection;float4x4 _SkyFrame;
             struct v2f {float4 vertex:SV_POSITION;float3 direction:TEXCOORD0;};
             v2f vert(float4 vertex:POSITION){v2f o;o.vertex=UnityObjectToClipPos(vertex);o.direction=vertex.xyz;return o;}
             float hash(float3 p){return frac(sin(dot(p,float3(127.1,311.7,74.7)))*43758.5453);}
@@ -28,7 +28,7 @@ Shader "PhoViet/Day Night Sky"
                 for(int k=0;k<4;k++){n+=noise2(q)*a;q=q*2.07+float2(13.1,7.7);a*=.5;}
                 float lower=noise2(uv*2.07+float2(13.1,7.7)-float2(0,.35))*.5;
                 float band=smoothstep(.0,.08,d.y)*(1-smoothstep(.35,.85,d.y));
-                float m=smoothstep(1-_CloudCover,1.045-_CloudCover,n)*band;
+                float m=smoothstep(1-(_CloudCover+_Storm*.32),1.045-(_CloudCover+_Storm*.32),n)*band;
                 shade=saturate(smoothstep(1-_CloudCover,1.25-_CloudCover,n)*.75+.25-lower*.25);
                 return m;
             }
@@ -48,6 +48,8 @@ Shader "PhoViet/Day Night Sky"
                 float cloud=clouds(normalize(cloudDirection),shade);
                 float3 dayCloud=lerp(float3(.7,.77,.88),float3(1,1,1),shade);float3 nightCloud=lerp(float3(.07,.09,.14),float3(.2,.24,.33),shade);
                 c=lerp(c,lerp(dayCloud,nightCloud,_Night),cloud*.96);
+                if(_Storm>.001){float stormNoise=noise2(cloudDirection.xz/max(.16,cloudDirection.y+.25)*1.8+_Time.y*.006);
+                c=lerp(c,lerp(float3(.075,.11,.16),float3(.25,.31,.38),stormNoise)*(1-_Night*.68),_Storm*.75);}
                 return fixed4(c,1);
             }
             ENDCG

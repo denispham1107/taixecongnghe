@@ -760685,6 +760685,11 @@ MonoBehaviour:
   tankExplosionMaterial: {fileID: 2100000, guid: 6ef168a3e3736d345929a9f167dc5a89, type: 2}
   tankWarningMaterial: {fileID: 2100000, guid: bbf170c468e3669489f302ef607ad18e, type: 2}
   tankSparkMaterial: {fileID: 2100000, guid: f2b88913b22d1dc47bf472fbdba9ec8e, type: 2}
+  thunderstormEnabled: 1
+  stormRainMaterial: {fileID: 2100000, guid: 3d9be805146cd224bb89bede69a7c8f8, type: 2}
+  stormBoltMaterial: {fileID: 2100000, guid: fcefa6b036bca4341a0b391ce047f286, type: 2}
+  stormWarningMaterial: {fileID: 2100000, guid: b4009418714066c4aa503d9a9e22dc3d, type: 2}
+  stormFireTemplate: {fileID: 1727619853}
   trafficSurprises: 1
 --- !u!4 &1548093417
 Transform:

@@ -89,7 +89,7 @@ namespace PhoViet
   {
    if(dt<=0||!RiderCrashActive||State==RideState.Paused)return;
    fallTime+=dt;timeRiding+=dt;TickActionTimers(dt);TickBoost(dt);
-   TickShells(dt);
+   TickShells(dt);TickThunderstorm(dt,false);
    if(RiderInRiver){TickRiderRiver(dt);return;}
    Vector3 previous=rider.localPosition;
    Speed=Mathf.Max(0,riderFallVelocity.z);

@@ -109,7 +109,7 @@ namespace PhoViet
         void ScrollRoutes(float delta)
         {
             if(RoutesReady)foreach(var row in roadRows)if(row!=roadRows[mainRow]&&row.root.gameObject.activeSelf)row.root.localPosition-=Vector3.forward*delta;
-            ScrollTankFire(delta);
+            ScrollTankFire(delta);ScrollThunderstorm(delta);
             ScrollDinosaurs(delta);
             foreach(var b in blocks){b.localPosition-=Vector3.forward*delta;if(b.localPosition.z<-160){b.localPosition+=Vector3.forward*80*blocks.Count;AssignRecycledRiverBlock(b);}}
             for(int i=0;i<routeTrail.Count;i++){var p=routeTrail[i];p.point-=Vector3.forward*delta;routeTrail[i]=p;}
@@ -213,7 +213,7 @@ namespace PhoViet
             Quaternion exit=Quaternion.Euler(0,turnSide*90,0),inverse=Quaternion.Inverse(exit);
             Vector3 origin=rider.localPosition-kickAppliedOffset-craterAppliedOffset-exit*new Vector3(LaneX[CurrentLane],0,0);origin.y=0;
             RebaseAssistedKick(inverse,origin);
-            RebaseDinosaurs(inverse,origin);
+            RebaseDinosaurs(inverse,origin);RebaseThunderstorm(inverse,origin);
             foreach(var row in roadRows)
             {
                 if(row==roadRows[mainRow])

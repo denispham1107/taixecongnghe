@@ -8,12 +8,12 @@ Shader "PhoViet/Road With Tank Craters"
   #pragma surface surf Standard fullforwardshadows addshadow
   #pragma target 3.0
   #include "TankCraterMask.cginc"
-  sampler2D _MainTex;fixed4 _Color;half _Glossiness,_Metallic;
+  float _PVStormWetness;sampler2D _MainTex;fixed4 _Color;half _Glossiness,_Metallic;
   struct Input {float2 uv_MainTex;float3 worldPos;};
   void surf(Input IN,inout SurfaceOutputStandard o)
   {
    PVCutTankCrater(IN.worldPos);
-   o.Albedo=tex2D(_MainTex,IN.uv_MainTex).rgb*_Color.rgb;o.Metallic=_Metallic;o.Smoothness=_Glossiness;o.Alpha=1;
+   o.Albedo=tex2D(_MainTex,IN.uv_MainTex).rgb*_Color.rgb;o.Metallic=_Metallic;o.Albedo*=lerp(1,.85,_PVStormWetness);o.Smoothness=lerp(_Glossiness,.42,_PVStormWetness);o.Alpha=1;
   }
   ENDCG
  }

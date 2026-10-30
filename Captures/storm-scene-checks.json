@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "count": 20,
+  "checks": [
+    "Saved clean scene in Edit Mode",
+    "Storms enabled in authored scene",
+    "Correct saved rain/bolt/warning material 0",
+    "Correct saved rain/bolt/warning material 1",
+    "Correct saved rain/bolt/warning material 2",
+    "Supported error-free shader: PhoViet/Thunderstorm FX",
+    "Supported error-free shader: PhoViet/Day Night Sky",
+    "Supported error-free shader: PhoViet/Road With Tank Craters",
+    "Existing baked fire template remains dormant",
+    "Baked fire and smoke reused without replacement textures",
+    "No generated storm objects saved into scene",
+    "All environment renderers preserved",
+    "All physical scenery obstacles preserved",
+    "New fishing boat set preserved",
+    "Current lighting bindings and real-light budget preserved",
+    "Jobs stay locked",
+    "Authored player start preserved",
+    "Player scale and jump contract preserved",
+    "AA and shadows unchanged",
+    "No missing scripts"
+  ]
+}

@@ -29,7 +29,7 @@ namespace PhoViet
             if(v.speedScale!=1){v.speed*=v.speedScale;v.baseTrafficSpeed=v.speed;v.crossSpeed*=v.speedScale;}
             v.spawnGeneration++;
             v.previousCrashWidth=-1;
-            v.recovery=null;
+            v.recovery=null;v.lightningWreck=false;
             v.jobYieldLane=-1;
             v.routeDetached=false;v.routeVelocity=Vector3.zero;v.rearEntryBoost=0;
             v.roadTurning=false;v.roadDecisionAt=float.NaN;v.roadTurnAngle=0;

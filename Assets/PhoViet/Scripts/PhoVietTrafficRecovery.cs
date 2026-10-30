@@ -21,7 +21,7 @@ namespace PhoViet
   const float StandUpSweepSpeed=10;
   void RememberTrafficCourse(TrafficVehicle v)
   {
-   if(v.wallCrashed||!vehicles.Contains(v))return; // Police keep their separate 1.2-second recovery.
+   if(v.wallCrashed||v.lightningWreck||!vehicles.Contains(v))return; // Police keep their separate 1.2-second recovery.
    var r=v.recovery;
    if(r==null)
    {
@@ -83,7 +83,7 @@ namespace PhoViet
   }
   bool TickTrafficRecovery(TrafficVehicle v,float dt)
   {
-   var r=v.recovery;if(r==null||v.wallCrashed)return false;
+   var r=v.recovery;if(r==null||v.wallCrashed||v.lightningWreck)return false;
    if(r.phase==2){TickRecoveryTurn(v,dt);return true;}
    r.age+=dt;
    if(r.phase==0)

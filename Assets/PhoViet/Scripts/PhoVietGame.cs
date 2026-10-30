@@ -298,10 +298,12 @@ namespace PhoViet
             }
             UpdateWork(Mathf.Min(Time.deltaTime,.05f));
             if(State==RideState.Falling)TickRiderCrash(Mathf.Min(Time.deltaTime,.05f));
-            if(State==RideState.GameOver){TickRiverAftermath(Mathf.Min(Time.deltaTime,.05f));TickShells(Mathf.Min(Time.deltaTime,.05f));}
+            if(State==RideState.GameOver){TickRiverAftermath(Mathf.Min(Time.deltaTime,.05f));TickShells(Mathf.Min(Time.deltaTime,.05f));TickThunderstorm(Mathf.Min(Time.deltaTime,.05f),false);}
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
             if(State==RideState.Arrested)TickArrest(Time.deltaTime);
             UpdateTankCraterTerrain(Mathf.Min(Time.deltaTime,.05f));
+            TickStormPoliceWreck(State==RideState.Paused?0:Mathf.Min(Time.deltaTime,.05f));
+            RenderThunderstorm();
             UpdateRiverMurk();AnimateLights();PositionCamera(false);
             UpdateJobMarker();
             UpdateDangerSigns();
@@ -413,6 +415,7 @@ namespace PhoViet
             TickTrafficMotion(dt);
             TickTankBarrage(dt);if(State!=RideState.Riding)return;
             TickDinosaurs(dt);if(State!=RideState.Riding)return;
+            TickThunderstorm(dt,true);if(State!=RideState.Riding)return;
             TickTurnHazards(dt);
             ResolveJumpSurface(dt);
             TickRearRecklessWarning(dt);
@@ -485,7 +488,7 @@ namespace PhoViet
                 Vector3 p=v.model.localPosition;
                 if(countPasses&&previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-rider.localPosition.x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
                 if(v.recovery!=null)continue;
-                if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || (v.enteringFromBehind&&!v.isReckless&&p.z< -95) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&v.knockAge>8) || (v.riverFalling&&(v.riverAge>9||v.riverAge>3&&v.model.localPosition.y<=RiverBlock.BedY+.41f)) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
+                if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || (v.enteringFromBehind&&!v.isReckless&&p.z< -95) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&!v.lightningWreck&&v.knockAge>8) || (v.riverFalling&&(v.riverAge>9||v.riverAge>3&&v.model.localPosition.y<=RiverBlock.BedY+.41f)) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
             }
         }
         public void Crash()

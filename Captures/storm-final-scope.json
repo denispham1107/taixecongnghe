@@ -1,0 +1,37 @@
+{
+  "success": true,
+  "total": 2149,
+  "checks": {
+    "Thunderstorm": 107,
+    "Scene": 20,
+    "VerifyPerformanceLighting": 717,
+    "VerifyCrashOutcome": 51,
+    "VerifyTrafficDynamics": 82,
+    "VerifySmoothTurns": 468,
+    "VerifySpeedJump": 177,
+    "VerifyRiverCrashSinking": 446,
+    "VerifyTankCraters": 81
+  },
+  "filesCompared": 2956,
+  "changed": [
+    "Assets/PhoViet/Scenes/PhoViet.unity",
+    "Assets/PhoViet/Scripts/DayNightLighting.cs",
+    "Assets/PhoViet/Scripts/DayNightSky.shader",
+    "Assets/PhoViet/Scripts/PhoVietActions.cs",
+    "Assets/PhoViet/Scripts/PhoVietDayNight.cs",
+    "Assets/PhoViet/Scripts/PhoVietGame.cs",
+    "Assets/PhoViet/Scripts/PhoVietRiderCrash.cs",
+    "Assets/PhoViet/Scripts/PhoVietRoutes.cs",
+    "Assets/PhoViet/Scripts/PhoVietTraffic.cs",
+    "Assets/PhoViet/Scripts/PhoVietTrafficRecovery.cs",
+    "Assets/PhoViet/Scripts/TankCraterRoad.shader",
+    "Assets/WebGLTemplates/PhoVietPWA/index.html"
+  ],
+  "sceneChange": "Only enabled flag, three weather materials and one existing fire-template reference",
+  "geometryUnchanged": true,
+  "texturePixelsUnchanged": true,
+  "projectSettingsUnchanged": true,
+  "packagesUnchanged": true,
+  "web": "1.51.0 unchanged; no build, push or publication",
+  "limitations": "Unity/editor validation only; not a WebGL build or physical-device FPS test"
+}

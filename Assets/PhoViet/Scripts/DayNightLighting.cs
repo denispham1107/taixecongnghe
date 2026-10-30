@@ -91,7 +91,7 @@ namespace PhoViet
             AdvanceSimulation(dt);
             if(environmentPending){ApplyEnvironment();environmentPending=false;UpdateLamps();}
         }
-        bool environmentPending;
+        bool environmentPending;float lastStorm=-1,lastStormFlash=-1;
         // Physics may take ten short steps in one displayed frame. Accumulate
         // the exact same clock, then submit lighting once after the final pose.
         public void AdvanceSimulation(float dt)
@@ -123,6 +123,7 @@ namespace PhoViet
         {
             if(game==null)return;
             if(morningFog!=null)morningFog.SetTime(ElapsedTime);
+            LampLevel=Mathf.Max(Mathf.SmoothStep(0,1,Mathf.InverseLerp(.26f,.66f,NightLevel)),game.StormIntensity*.62f);
             float twilight=Mathf.Sin(NightLevel*Mathf.PI);
             if(sun!=null)
             {
@@ -145,6 +146,20 @@ namespace PhoViet
                 runtimeSky.SetVector("_MoonDirection",moon!=null?-moon.transform.forward:Vector3.up);runtimeSky.SetMatrix("_SkyFrame",Matrix4x4.Rotate(Quaternion.Inverse(solarFrame)));
             }
             ApplyMorningLook(ref horizon);
+            float storm=game.StormIntensity,flash=game.StormFlash;
+            if(runtimeSky!=null)runtimeSky.SetFloat("_Storm",storm);
+            if(storm>0||flash>0)
+            {
+                Color stormSky=Color.Lerp(C("748899"),C("101B2B"),NightLevel);
+                if(sun!=null)sun.intensity=sun.intensity*Mathf.Lerp(1,.38f,storm)+flash*2.4f;
+                if(moon!=null)moon.intensity*=Mathf.Lerp(1,.7f,storm);
+                RenderSettings.ambientSkyColor=Color.Lerp(RenderSettings.ambientSkyColor,stormSky,storm*.58f)+Color.white*flash*.65f;
+                RenderSettings.ambientEquatorColor*=Mathf.Lerp(1,.7f,storm);
+                RenderSettings.ambientGroundColor*=Mathf.Lerp(1,.78f,storm);
+                horizon=Color.Lerp(horizon,stormSky,storm*.7f)+new Color(.7f,.85f,1)*flash;
+                RenderSettings.fogColor=horizon;RenderSettings.fogEndDistance=Mathf.Lerp(RenderSettings.fogEndDistance,105,storm);
+                if(runtimeSky!=null){runtimeSky.SetColor("_Zenith",Color.Lerp(runtimeSky.GetColor("_Zenith"),stormSky*.5f,storm));runtimeSky.SetColor("_Horizon",horizon);}
+            }
             if(game.rideCamera!=null){game.rideCamera.backgroundColor=horizon;game.rideCamera.clearFlags=CameraClearFlags.Skybox;}
             Shader.SetGlobalFloat(NightLights,LampLevel);
             foreach(var material in managedEmission)if(material!=null){material.SetColor("_EmissionColor",Color.white*(LampLevel*2.1f));material.EnableKeyword("_EMISSION");}
@@ -188,6 +203,7 @@ namespace PhoViet
         public void UpdateLamps()
         {
             if(game==null||game.rideCamera==null)return;
+            if(lastStorm!=game.StormIntensity||lastStormFlash!=game.StormFlash){lastStorm=game.StormIntensity;lastStormFlash=game.StormFlash;environmentPending=true;}
             if(environmentPending){if(game.State!=PhoVietGame.RideState.Jailed)ApplyEnvironment();environmentPending=false;}
             bool enabled=LampLevel>.001f&&game.State!=PhoVietGame.RideState.Jailed;
             for(int i=0;i<6;i++)scores[i]=float.PositiveInfinity;

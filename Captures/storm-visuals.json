@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "images": 7,
+  "files": [
+    "Captures/storm-clear.png",
+    "Captures/storm-light-rain.png",
+    "Captures/storm-heavy-warning.png",
+    "Captures/storm-lightning-impact.png",
+    "Captures/storm-burning-car.png",
+    "Captures/storm-night-rain.png",
+    "Captures/storm-portrait.png"
+  ],
+  "rainParticles": 1615,
+  "burning": 1,
+  "source": "Actual Unity rain particles, lightning branches/warning, baked fire/smoke and day-night lighting"
+}
