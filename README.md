@@ -4,11 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web hiện tại **1.51.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web hiện tại **1.52.0**.
 
-## Đang phát hành 1.52.0
+## Cập nhật 1.52.0
 
-Mưa nhỏ tăng thành giông sét theo chu kỳ30giây. Sét báo trước0,8giây; xe trúng cháy, văng và nằm lại, người chơi kết thúc lượt; xe tăng và khủng long miễn nhiễm. Hai bộ WebGL mobile/desktop đã build thành công,444kiểm trình duyệt cục bộ đạt; đang kiểm thời tiết và phát hành. Chi tiết mục21.105–21.106 trong `huongdan.md`.
+Mưa nhỏ tăng thành giông sét theo chu kỳ30giây. Sét báo trước0,8giây; xe trúng cháy, văng và nằm lại, người chơi kết thúc lượt; xe tăng và khủng long miễn nhiễm. Đã phát hành hai bộ WebGL mobile/desktop;450kiểm trình duyệt cục bộ và29kiểm web chính thức đạt, không có lỗi runtime. Giữ độ phân giải và chất lượng hình ảnh. Chi tiết mục21.105–21.106 trong `huongdan.md`.
 
 ## Cập nhật 1.51.0
 

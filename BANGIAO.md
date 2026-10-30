@@ -10,7 +10,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.51.0** — commit`690a30e`; Pages`41048787064`success; cache`47008e2b65b2d929`; **29live đạt/0runtime** |
+| Bản đã phát hành | **1.52.0** — commit`5da12c7`; Pages`41080719656`success; cache`52d4e08424a12b5d`; **29live đạt/0runtime** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -29,14 +29,16 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
 | Chất liệu tường trong source | **21.98:** người dùng chọn vân rõ hơn21.97; relief0,42/scale0,65/contrast0,28/smoothness0,015, giữ màu/kính/kim loại/sông. UV mask25FBX/144mesh, texture1K nén/mipmap, không thêm renderer. Chi tiết21.97–21.98; đã có trên web1.50.0 |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Đã có trên web1.48.0** |
-| Mưa giông/sét trong source | **21.105 đã xong, chưa build/phát hành:** 15s quang/3s mưa tăng/9s giông/3s tan; sét báo0,8s/ngẫu nhiên4làn, nhảy vẫn trúng. Xe trúng cháy/văng/nằm lại;playerhếtlượt, Tank/Dino miễn, CSGTtrúnghếtđuổi. **2.149kiểmđạt/7ảnhUnity**; webvẫn1.51.0 |
+| Mưa giông/sét trong source | **21.105 đã có trên web1.52.0:** 15s quang/3s mưa tăng/9s giông/3s tan; sét báo0,8s/ngẫu nhiên4làn, nhảy vẫn trúng. Xe trúng cháy/văng/nằm lại;playerhếtlượt, Tank/Dino miễn, CSGTtrúnghếtđuổi. **2.149kiểmđạt/7ảnhUnity**;6GPUweb+29liveđạt |
 | Hố đạn và chỉnh lái trong source | **21.103 đã có trên web1.51.0:** hố R2,024m/lòng−0,40m/nứt/mảnh văng; bánh chạm kéo lệch tới khi nhấn/vuốt ngược, nhảy tránh được. **1.090 kiểm tra đạt/11 ảnh Unity**, không đổi hình ảnh ngoài hố. Xem21.103 |
 | Tàu và đèn phụ trong source | **21.102 đã có trên web1.51.0:** tàu đánh cá Meshy140chiếc,3LOD/texture2K; đènnhỏ chungtínhiệu2mặt vớiđènlớn;3346kiểmđạt |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.105 source đã xong, chưa phát hành:** mưa tăng dần/sky uám/đườngướt/đèn tự bật, sét nhánh báo0,8s vàcháy/khóivăngtheohướngcũ. Xe cháy khônghồiphục3s, Tank/Dino miễn; playerhếtlượt kểcảđuổi; CSGTtrúnghếtđuổi/khôngkẹtchờbắt. **107sét+717ánh sáng+51crash+82traffic+468turn+177jump+446river+81crater+20scene=2.149đạt**,7ảnhthậtđãxem. Compile0lỗi; scenechỉ5fieldconfig mới,geometry/pixeltexture/ProjectSettingsgiữ. UnityEdit/scenesạch/start1,92/jobsfalse. Chi tiết21.105.
+- **21.106 đã phát hành1.52.0:** mưa giông/sét21.105,release`5da12c7`/Pages`41080719656`success/cache`52d4e08424a12b5d`;29liveđạt/0runtime,đối chiếu toàn bộbytes/2data. Build2variant681,183s/0lỗi/1warningDevMCP;138preflight/521SHA giữ,44repo+35site+36staged+450browser đạt. Khônghạđồhọa;UnityEdit/start1,92/jobsfalse/serverđãdừng. Chưa kiểmFPS/Safari/Androidmáythật. Chi tiết21.106.
+
+- **21.105 đã phát hành1.52.0:** mưa tăng dần/sky uám/đườngướt/đèn tự bật, sét nhánh báo0,8s vàcháy/khóivăngtheohướngcũ. Xe cháy khônghồiphục3s, Tank/Dino miễn; playerhếtlượt kểcảđuổi; CSGTtrúnghếtđuổi/khôngkẹtchờbắt. **107sét+717ánh sáng+51crash+82traffic+468turn+177jump+446river+81crater+20scene=2.149đạt**,7ảnhthậtđãxem. Compile0lỗi; scenechỉ5fieldconfig mới,geometry/pixeltexture/ProjectSettingsgiữ. UnityEdit/scenesạch/start1,92/jobsfalse. Chi tiết21.105.
 
 - **21.104 đã phát hành1.51.0:** tàu đánh cá140chiếc/đèn phụ2mặt + hốđạn2,024m/nứt/mảnhvăng/lệchphảichỉnhlái. Commit`690a30e`, Pages`41048787064`success/cache`47008e2b65b2d929`;**29liveđạt/0runtime** và đối chiếutoànbộbytes/2data. Build2variant760,371s/0lỗi/1warningDevMCP;129preflight/515SHAgiữ,44repo+35site+36staged+387landing+37web+20fullscreen đạt. Không hạđồhọa;UnityEdit/start1,92/jobsfalse/serverđãdừng. Chi tiết21.104.
 
@@ -134,9 +136,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.106 đang phát hành1.52.0:** build2variant681,183s/0lỗi/1warningDevMCP;138finalpreflight/521SHA giữ/2969scope chỉ2fileversion đổi. Cache`52d4e08424a12b5d`;44repo+35site+36staged+387landing+37web+20fullscreen+6weather đạt. Đang commit/push, tiếp Pages/live; webchưa xácnhận1.52. UnityEdit;server8774/session24791 chờdừng; giữdirtyArt/Wave/Packages/Simulator.
+- **21.105–21.106 đã phát hành1.52.0**, không còn sửa/build/push/Pages/live đang dở. UnityEdit/scene sạch/start1,92/jobsfalse;server8774/browser đãđóng. GiữdirtyArt/Wave/Packages/Simulator/lịch sử ngoài commit. Chưa kiểmSafari/Androidmáythật;chi tiết21.106.
 
-- **21.105 hoàn tất source/kiểm tra, chờ build web:**2.149đạt/7ảnhUnity; UnityEdit/scene sạch/start1,92/jobsfalse, khôngcòntácvụPlay/import/build. Source/3materialWeather+scene5field/templatehelp/scripts/bằngchứng/huongdan/BANGIAO lưucommitcục bộriêng. Chưa build/push/phát hành; webvẫn1.51.0. Cácsuitecổchỉđổi fixturetrongrunner (độcao4,11665/PlayerCarVisual/durationNPC/start1,92 vàcôlậpDinoTankRiver), khôngsửalogicgameđểđạt test. GiữdirtyArt/Wave/Packages/Simulator/lịch sử ngoài phạmvi.
 
 - **21.102–21.104 đã phát hành1.51.0**, không còn bước build/push/live đang dở. Release690a30e/Pages41048787064success/cache47008e2b65b2d929,29liveđạt/0runtime. UnityEdit/scene sạch/start1,92/jobsfalse; server8773vàbrowserkiểmđãđóng. CậpnhậtREADME/huongdan/BANGIAO/bằngchứnglive trongcommitdocsriêng, khôngrebuild. Chưa kiểmSafari/Androidmáythật. DirtyArt/Wave/Packages/Simulator/lịch sử vẫn ngoài commit.
 
@@ -236,7 +237,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
 | Trang chủ HTML / ảnh sáng và đêm / responsive | **21.100–21.101**,21.83,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `app.js`, `poster-morning*.jpg`, `poster-night.jpg`; `AgentScripts/CaptureLandingMorning.cs`, `CaptureLandingNight150.cs`, `RefreshLandingPreview.cs`, `VerifyLanding.cjs` |
-| WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.104**,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease145Scene.cs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
+| WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.106**,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease152Scene.cs`, `VerifyStormWeb.cjs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.
 
