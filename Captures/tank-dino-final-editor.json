@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "editMode": true,
+  "sceneClean": true,
+  "start": [
+    1.55,
+    0.0,
+    1.92
+  ],
+  "jobs": false,
+  "dinosaurs": true,
+  "tanks": true,
+  "lodGroups": 2779,
+  "missingLodRenderers": 0
+}

@@ -92,7 +92,7 @@ public static class VerifyDinosaurs
     var v=armor?g.SpawnScheduledTank():g.SpawnTraffic(2,30,g.vehicles.FindIndex(x=>x.halfWidth<.7f&&!x.eventOnly));
     check(v!=null&&(!armor||v.armored),"Traffic fixture spawned; armored="+armor);if(v==null)continue;
     v.model.localPosition=lanePoints[0];v.previousPosition=v.model.localPosition;
-    call("ResolveDinosaurHits",new object[]{d,1f});check(v.knocked&&v.physicalCrash&&v.knockVelocity.y>=5,"Tail throws "+(armor?"armored tank":"motorcycle"));
+    call("ResolveDinosaurHits",new object[]{d,1f});check(armor?!v.knocked&&!v.physicalCrash&&!d.hits.Contains(v):v.knocked&&v.physicalCrash&&v.knockVelocity.y>=5,armor?"Armored tank is immune to the tail":"Tail still throws motorcycles");
     int count=g.DinosaurTailHits;call("ResolveDinosaurHits",new object[]{d,1f});check(g.DinosaurTailHits==count,"One impulse per vehicle per sweep; armored="+armor);
    }
    reset();d=actor();d.visual.StartSweep();d.visual.Advance(laneTimes[0]);call("CopyDinosaurTail",new object[]{d});call("StartChase",Array.Empty<object>());g.policeBike.localPosition=lanePoints[0];

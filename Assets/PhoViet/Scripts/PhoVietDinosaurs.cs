@@ -135,13 +135,13 @@ namespace PhoViet
   {
    foreach(var v in vehicles)
    {
-    if(!v.active||v.wallCrashed||v.riverFalling||d.hits.Contains(v))continue;
+    // Armored tanks retain their course and firing cadence through body or tail contact.
+    if(!v.active||v.armored||v.wallCrashed||v.riverFalling||d.hits.Contains(v))continue;
     float height=Mathf.Max(v.halfWidth>.7f?1.7f:2.15f,JumpRoofHeight(v));
     Vector3 sampled=Vector3.Lerp(v.previousPosition,v.model.localPosition,fraction);
     if(!DinosaurTouches(d,sampled,Quaternion.Euler(0,Mathf.LerpAngle(v.previousYaw,v.model.localEulerAngles.y,fraction),0),BodyWidth(v),v.halfLength,height,out Vector3 at,out bool tail))continue;
     d.hits.Add(v);Vector3 away=v.model.localPosition-at;away.y=0;if(away.sqrMagnitude<.01f)away=Vector3.right;away.Normalize();
     Vector3 before=BodyVelocity(v),after=before+away*14+Vector3.up*5;
-    // Deliberate exception to armored traffic immunity: the dinosaur also throws tanks.
     ActivateCollisionBody(v,before,after,new Vector2(away.x,away.z)*VehicleMass(v)*14,Vector2.zero,false,true,14);
     v.knockVelocity.y=Mathf.Max(v.knockVelocity.y,5);v.motionVelocity=v.knockVelocity;
     if(tail)DinosaurTailHits++;

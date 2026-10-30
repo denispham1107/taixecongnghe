@@ -1,0 +1,113 @@
+{
+  "success": true,
+  "count": 69,
+  "failures": [],
+  "checks": [
+    "Dinosaur prefab installed/enabled without enabling jobs",
+    "Jobs remain locked",
+    "Real Blender Walk/TailSweep clips imported as legacy",
+    "Walk and sweep clip durations preserved",
+    "Collision tracks all six real tail joints",
+    "Skin has a smooth multiweight rig and the complete deforming tail chain",
+    "Sampled mesh keeps every vertex and finite deformations",
+    "Rest mesh is 1.5 lanes wide: 4.65",
+    "Source height and length keep their proportions: (4.65, 6.08, 8.68)",
+    "Walk visibly moves the planted/lifted feet",
+    "Walk loop closes without a tail snap",
+    "Windup warns before the damaging sweep",
+    "Visible distal tail sweeps both road edges: -7.923924..8.030374",
+    "Distal tail really sweeps low enough to jump: 0.657228..0.7292271",
+    "Sweep accelerates continuously without a teleport: max 60fps step=0.9950085",
+    "Real tail reaches lane 0 within the true tip radius plus rider half-width",
+    "Grounded rider in lane 0 is physically hit by tail",
+    "A high-enough jump clears the real tail in lane 0",
+    "No invisible whole-road/remote hit in lane 0",
+    "Real tail reaches lane 1 within the true tip radius plus rider half-width",
+    "Grounded rider in lane 1 is physically hit by tail",
+    "A high-enough jump clears the real tail in lane 1",
+    "No invisible whole-road/remote hit in lane 1",
+    "Real tail reaches lane 2 within the true tip radius plus rider half-width",
+    "Grounded rider in lane 2 is physically hit by tail",
+    "A high-enough jump clears the real tail in lane 2",
+    "No invisible whole-road/remote hit in lane 2",
+    "Real tail reaches lane 3 within the true tip radius plus rider half-width",
+    "Grounded rider in lane 3 is physically hit by tail",
+    "A high-enough jump clears the real tail in lane 3",
+    "No invisible whole-road/remote hit in lane 3",
+    "No spawn before ten seconds at dt=0.01666667",
+    "First spawn at ten seconds at dt=0.01666667",
+    "Second spawn ten seconds later at dt=0.01666667",
+    "No spawn before ten seconds at dt=0.03333334",
+    "First spawn at ten seconds at dt=0.03333334",
+    "Second spawn ten seconds later at dt=0.03333334",
+    "No spawn before ten seconds at dt=0.05",
+    "First spawn at ten seconds at dt=0.05",
+    "Second spawn ten seconds later at dt=0.05",
+    "Dinosaur walks toward player at real 3m/s independently of road scrolling",
+    "Player boost does not boost the dinosaur",
+    "Junction rebase preserves position and original walking direction",
+    "Pause freezes dinosaur timer/pose",
+    "Real tail starts the existing falling flow; chase=False",
+    "Existing police-wait vs ordinary game-over rule is retained; chase=False",
+    "Tail physically throws the rider; chase=False",
+    "Fallen rider reaches the correct end state with dinosaur still present; chase=False,state=GameOver,settled=True,rider=(-16.20, 0.00, -13.84),police=(0.00, 0.00, 0.00),fallen=False,pursuit=False",
+    "Real tail starts the existing falling flow; chase=True",
+    "Existing police-wait vs ordinary game-over rule is retained; chase=True",
+    "Tail physically throws the rider; chase=True",
+    "Fallen rider reaches the correct end state with dinosaur still present; chase=True,state=Arrested,settled=True,rider=(-16.20, 0.00, -13.84),police=(-14.41, 0.00, -12.92),fallen=False,pursuit=True",
+    "Police still completes jail transition after dinosaur collision",
+    "Street dinosaurs are hidden from the jail scene",
+    "Car/drowsy-truck fixture spawned; truck=False",
+    "Tail physically throws car/drowsy truck; truck=False",
+    "Car/drowsy-truck fixture spawned; truck=True",
+    "Tail physically throws car/drowsy truck; truck=True",
+    "A high actual rider position survives ResolveDinosaurHits",
+    "Traffic fixture spawned; armored=False",
+    "Tail still throws motorcycles",
+    "One impulse per vehicle per sweep; armored=False",
+    "Traffic fixture spawned; armored=True",
+    "Armored tank is immune to the tail",
+    "One impulse per vehicle per sweep; armored=True",
+    "Tail hits CSGT with the unchanged 1.2-second recovery",
+    "CSGT has a physical hop, not a position teleport",
+    "Disabled feature retires its pool",
+    "Restart resets schedule, counters and pool"
+  ],
+  "evidence": [
+    {
+      "minX": -7.92392445,
+      "maxX": 8.030374,
+      "minY": 0.657228,
+      "maxY": 0.729227066,
+      "maxStep": 0.9950085,
+      "laneTimes": [
+        1.11666632,
+        1.16666627,
+        1.23333287,
+        1.28333282
+      ],
+      "lanePoints": [
+        {
+          "x": -4.65,
+          "y": 0,
+          "z": -5.060087
+        },
+        {
+          "x": -1.55,
+          "y": 0,
+          "z": -5.823507
+        },
+        {
+          "x": 1.55,
+          "y": 0,
+          "z": -5.79587126
+        },
+        {
+          "x": 4.65,
+          "y": 0,
+          "z": -4.995499
+        }
+      ]
+    }
+  ]
+}

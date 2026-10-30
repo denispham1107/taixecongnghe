@@ -32,6 +32,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.96 source đã xong, chưa phát hành:** người dùng xác nhận xe tăng miễn nhiễm thân/chân/đuôi khủng long, tiếp tục chạy và bắn. `ResolveDinosaurHits` bỏqua`v.armored` trước dò/xung lực, không đụng speed/route/timer/pháo; xe khác/CSGT giữ như cũ. **61kiểm thực+69Dino+69Tank=199đạt**,0lỗi/warningcompile;6case body/tail×20/30/60FPS đều chạy>30m/bắn2phát sau1,5s. SHA3106file chỉ1filegame đổi;scene/asset/webgiữnguyên. Chi tiếthuongdan21.96.
+
 - **21.95 đã phát hành1.49.0:** commit`faa345d`/Pages`40927522323`success/cache`e37aaa3a16abef99`. Gồm21.94 bảngthuê/chữ+20%,lane+10%→1,3915,đỉnh/v0nhảy+10%/fall22. Build2variant530,736s/0lỗi/1warningPipeline;107preflight/500filebytegiữ,43repo+34site+35staged+315landing+37web+20fullscreen+28liveđạt/0runtime. Đãđốichiếu toàn bộtài nguyênPages/khởiđộngWASMthật;khônghạđồhọa. Chi tiếthuongdan21.95.
 
 - **21.94 đã có trên web1.49.0:** bảngthuê/chữ thêm20% (BlenderMCP riêng,24part/3LOD); lane thêm10%→1,3915; nhảy cao/vận tốc bật+10%, rơi22m/s² theo lựa chọn người dùng. **193Blender+920Unity đạt**,0lỗi/warningcompile,3ảnhbảngngày/đêmđãxem;72mesh/3248refs/2779LOD0missing. SHA3106filechỉ4filegameđổidựkiến;start1,92/jobsfalse/scene sạch. Nguồn`PhoViet_Rental2194.blend`riêng, khôngđụng .blend người dùng; xemhuongdan21.94.
@@ -99,7 +101,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 - **21.63, đã có trong1.40.0:** mọi xe va chạm văng sông hủy recovery/course, rơi/chìm cả khi đang bay hoặc đã GameOver; tra mọi nhánh/đổi khung sau cua. CSGT chìm thì hết truy đuổi; người chơi đã té thì hết lượt. **8 suite/1.166 điều kiện đạt**, ảnh xác nhận chìm. Unity Edit Mode/scene sạch, jobs khóa; chi tiết huongdan21.63.
 
-- **21.62, đã có trong1.40.0:** Emerald Tyrant rộng4,65m/cao6,081m, rig/Walk/TailSweep bằng BlenderMCP, lịch10s/ngược chiều3m/s; đuôi thật quét4làn, nhảy né, hất cả xe tăng/CSGT. Sửa CSGT tìm đường tới người chơi bị hất sang đường ngang. **69 kiểm tra +96 cuộc gặp +681 hồi quy =846 đạt**; chi tiết huongdan21.62.
+- **21.62, đã có trong1.40.0:** Emerald Tyrant rộng4,65m/cao6,081m, rig/Walk/TailSweep bằng BlenderMCP, lịch10s/ngược chiều3m/s; đuôi thật quét4làn, nhảy né, hất cả xe tăng/CSGT ở bản cũ; source21.96 đã miễn xe tăng theo yêu cầu mới, chưa phát hành. Sửa CSGT tìm đường tới người chơi bị hất sang đường ngang. **69 kiểm tra +96 cuộc gặp +681 hồi quy =846 đạt**; chi tiết huongdan21.62.
 
 - **1.39.0 đã phát hành (21.61):** commit17aa0b2, Pages40268861830 thành công; build0lỗi/3warning,29bundle +37web/offline/touch +20fullscreen +26live đạt,0lỗi runtime. Unity Edit Mode/scene sạch, jobs khóa.
 
@@ -111,6 +113,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 6. **1.36.0:** xe tăng Meshy “Iron Sentinel” (21.33–21.34). **1.35.0:** đổi làn kiểu đánh lái, nhà kính, zoom dọc +10% (21.28–21.32). **1.34.0:** phố Sài Gòn (21.19–21.27).
 
 ## 3. Đang dở / cần người dùng quyết
+
+- **21.96 đã xong source/kiểm tra, chưa build/phát hành.** Xe tăng miễn nhiễm thân/đuôi khủng long, vẫn chạy/bắn;199điều kiện Unity đạt/compile0lỗi-warning. UnityEdit/scenesạch/start1,92/jobsfalse,2779LOD0missing; không còn bước sửa đangdở. Webvẫn1.49.0/cònluậtcũ; giữthayđổicụcbộkháckhôngliênquan ngoài commit.
 
 - **21.94–21.95 đã phát hành1.49.0**, khôngcònbướcbuild/push/liveđangdở. Server8771đãdừng;UnityEdit/scenesạch/start1,92/jobsfalse. GiữthayđổicụcbộArt/Wave/Packages/Simulator/.blendkháckhôngliênquan ngoài commit;chưa kiểmđiệnthoạithật.
 
@@ -148,6 +152,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 4. Luật đã chốt — không tự đổi
 
+- **Source21.96:** xe tăng không bị thân/chân/đuôi khủng long hất, vẫn chạy/bắn theo quy tắc pháo hiện có; các phương tiện khác/player/CSGT giữ luật cũ. Chưa lênweb1.49.0, thay quyết định hất xe tăng ở21.62.
+
 - Hỏi lại bằng lựa chọn cụ thể nếu chưa chắc ≥90% ý người dùng.
 - Không ba mạng. Té thường → hết lượt. Té khi đang bị CSGT đuổi → nằm chờ CSGT tới bắt thật → tù (không GameOver ngay, không tự dựng xe). Rơi sông/trúng đạn xe tăng → hết lượt, kể cả khi bị đuổi. **CSGT rơi sông → hết truy đuổi; người chơi đã té thì hết lượt**, còn đang chạy thì tiếp tục (21.63).
 - Húc/đạp quái xế tự vệ không gọi mới CSGT; húc/đạp xe thường thì bị truy đuổi.
@@ -169,7 +175,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Giao thông, va chạm, văng/té | 7, 21.33 | `PhoVietTraffic.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs` |
 | Quái xế, xe tải ngủ gật | 2.4, 7.2 | `PhoVietReckless.cs` |
 | Đợt Dino→Tank sau cua, vị trí giao lộ, chờ2s/pool | **21.80**,21.62/21.38 | `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `PhoVietDinosaurs.cs`, `PhoVietTankFire.cs`, `AgentScripts/VerifyTurnHazards.cs`, `CaptureTurnHazards.cs` |
-| Khủng long, rig/quất đuôi, nhảy né | 2.12, 7.5, 21.62 | `PhoVietDinosaurs.cs`, `DinosaurVisual.cs`, `Editor/PhoVietDinosaurUpgrade.cs`, `pho_viet_dinosaur.py` |
+| Khủng long, rig/quất đuôi, nhảy né/miễn xe tăng | **21.96**,2.12,7.5,21.62 | `PhoVietDinosaurs.cs`, `DinosaurVisual.cs`, `Editor/PhoVietDinosaurUpgrade.cs`, `pho_viet_dinosaur.py` |
 | Xe tăng, đạn pháo | 21.38–21.40 | `PhoVietTankFire.cs`, `Editor/PhoVietTankFxUpgrade.cs` |
 | Đạp, CSGT, bị bắt | 8 | `PhoVietActions.cs`, `PhoVietKickAssist.cs`, `PhoVietPolice.cs`, `PhoVietCrashPoliceNavigation.cs` |
 | Nhảy, nóc xe, tăng tốc | 19, 21.60 | `PhoVietJump.cs`, `PhoVietBoost.cs` |
