@@ -1,0 +1,266 @@
+[
+  {
+    "name": "PV_StreetAtlas",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetAtlas.mat",
+    "shader": "Standard",
+    "texture": "Assets/PhoViet/Art/Streets/PV_StreetPalette.png",
+    "smooth": 0.12,
+    "users": 8120
+  },
+  {
+    "name": "PV_StreetGlass",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetGlass.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.92,
+    "users": 4710
+  },
+  {
+    "name": "PV_CityScooter",
+    "path": "Assets/PhoViet/Art/UrbanRider/PV_CityScooter.mat",
+    "shader": "PhoViet/Urban Rider",
+    "texture": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Palette.png",
+    "smooth": -1.0,
+    "users": 35
+  },
+  {
+    "name": "PV_374543FFTrue 3",
+    "path": "Assets/PhoViet/Generated/PV_374543FFTrue 3.mat",
+    "shader": "Unlit/Color",
+    "texture": "",
+    "smooth": -1.0,
+    "users": 280
+  },
+  {
+    "name": "PV_72E0A6FFTrue 3",
+    "path": "Assets/PhoViet/Generated/PV_72E0A6FFTrue 3.mat",
+    "shader": "Unlit/Color",
+    "texture": "",
+    "smooth": -1.0,
+    "users": 140
+  },
+  {
+    "name": "WorldStreetText",
+    "path": "Assets/PhoViet/Fonts/WorldStreetText.mat",
+    "shader": "PhoViet/World Street Text",
+    "texture": "Assets/PhoViet/Fonts/BeVietnamPro-SemiBold.ttf",
+    "smooth": -1.0,
+    "users": 140
+  },
+  {
+    "name": "PV_Underbone",
+    "path": "Assets/PhoViet/Art/UrbanRider/PV_Underbone.mat",
+    "shader": "PhoViet/Urban Rider",
+    "texture": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Palette.png",
+    "smooth": -1.0,
+    "users": 35
+  },
+  {
+    "name": "PV_FFF1CFFFFalse 6",
+    "path": "Assets/PhoViet/Generated/PV_FFF1CFFFFalse 6.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 210
+  },
+  {
+    "name": "PV_555D5DFFFalse 2",
+    "path": "Assets/PhoViet/Generated/PV_555D5DFFFalse 2.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 175
+  },
+  {
+    "name": "PV_FFD35AFFFalse 4",
+    "path": "Assets/PhoViet/Generated/PV_FFD35AFFFalse 4.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 175
+  },
+  {
+    "name": "PV_D99A6BFFFalse 5",
+    "path": "Assets/PhoViet/Generated/PV_D99A6BFFFalse 5.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 35
+  },
+  {
+    "name": "PV_A9382EFFFalse 2",
+    "path": "Assets/PhoViet/Generated/PV_A9382EFFFalse 2.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 15
+  },
+  {
+    "name": "PV_203C43FFFalse 5",
+    "path": "Assets/PhoViet/Generated/PV_203C43FFFalse 5.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 35
+  },
+  {
+    "name": "PV_196E72FFFalse 2",
+    "path": "Assets/PhoViet/Generated/PV_196E72FFFalse 2.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 15
+  },
+  {
+    "name": "PV_B74B31FFFalse 2",
+    "path": "Assets/PhoViet/Generated/PV_B74B31FFFalse 2.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 15
+  },
+  {
+    "name": "PV_177E80FFFalse 3",
+    "path": "Assets/PhoViet/Generated/PV_177E80FFFalse 3.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 35
+  },
+  {
+    "name": "PV_D83833FFFalse 4",
+    "path": "Assets/PhoViet/Generated/PV_D83833FFFalse 4.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 35
+  },
+  {
+    "name": "PV_245C91FFFalse 2",
+    "path": "Assets/PhoViet/Generated/PV_245C91FFFalse 2.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 35
+  },
+  {
+    "name": "PV_A6ABA1FFFalse 2",
+    "path": "Assets/PhoViet/Generated/PV_A6ABA1FFFalse 2.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 35
+  },
+  {
+    "name": "PV_StreetLEDMetal",
+    "path": "Assets/PhoViet/Art/Lighting/PV_StreetLEDMetal.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.45,
+    "users": 1050
+  },
+  {
+    "name": "PV_StreetLEDSilver",
+    "path": "Assets/PhoViet/Art/Lighting/PV_StreetLEDSilver.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.55,
+    "users": 1050
+  },
+  {
+    "name": "PV_StreetLEDLens",
+    "path": "Assets/PhoViet/Art/Lighting/PV_StreetLEDLens.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.85,
+    "users": 1050
+  },
+  {
+    "name": "PV_StreetSpill",
+    "path": "Assets/PhoViet/Art/Lighting/PV_StreetSpill.mat",
+    "shader": "PhoViet/Optical Light",
+    "texture": "Assets/PhoViet/Art/Lighting/PV_StreetPool.png",
+    "smooth": -1.0,
+    "users": 350
+  },
+  {
+    "name": "PV_WhiteGlare",
+    "path": "Assets/PhoViet/Art/Lighting/PV_WhiteGlare.mat",
+    "shader": "PhoViet/Optical Light",
+    "texture": "Assets/PhoViet/Art/Lighting/PV_OpticalGlare.png",
+    "smooth": -1.0,
+    "users": 350
+  },
+  {
+    "name": "PV_RiverMurk",
+    "path": "Assets/PhoViet/Art/River/PV_RiverMurk.mat",
+    "shader": "PhoViet/River Murk",
+    "texture": "",
+    "smooth": -1.0,
+    "users": 140
+  },
+  {
+    "name": "PV_RiverWater",
+    "path": "Assets/PhoViet/Art/River/PV_RiverWater.mat",
+    "shader": "PhoViet/River Water Mirror",
+    "texture": "",
+    "smooth": -1.0,
+    "users": 140
+  },
+  {
+    "name": "PV_RiverGroundMask",
+    "path": "Assets/PhoViet/Art/River/PV_RiverGroundMask.mat",
+    "shader": "PhoViet/River Ground Mask",
+    "texture": "",
+    "smooth": -1.0,
+    "users": 140
+  },
+  {
+    "name": "PV_RiverRoomLight",
+    "path": "Assets/PhoViet/Art/River/PV_RiverRoomLight.mat",
+    "shader": "PhoViet/Apartment Room",
+    "texture": "Assets/PhoViet/Art/Streets/PV_StreetPalette.png",
+    "smooth": 0.2,
+    "users": 3360
+  },
+  {
+    "name": "PV_SportBike",
+    "path": "Assets/PhoViet/Art/UrbanRider/PV_SportBike.mat",
+    "shader": "PhoViet/Urban Rider",
+    "texture": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Palette.png",
+    "smooth": -1.0,
+    "users": 28
+  },
+  {
+    "name": "PV_276563FFFalse 2",
+    "path": "Assets/PhoViet/Generated/PV_276563FFFalse 2.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 15
+  },
+  {
+    "name": "PV_326A8CFFFalse 2",
+    "path": "Assets/PhoViet/Generated/PV_326A8CFFFalse 2.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 15
+  },
+  {
+    "name": "PV_274A69FFFalse 2",
+    "path": "Assets/PhoViet/Generated/PV_274A69FFFalse 2.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 15
+  },
+  {
+    "name": "PV_684B39FFFalse 2",
+    "path": "Assets/PhoViet/Generated/PV_684B39FFFalse 2.mat",
+    "shader": "Standard",
+    "texture": "",
+    "smooth": 0.12,
+    "users": 15
+  }
+]

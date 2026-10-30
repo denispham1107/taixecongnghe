@@ -1,0 +1,732 @@
+{
+  "success": true,
+  "checks": 940,
+  "buildingModels": 25,
+  "meshes": 144,
+  "otherMeshes": 27,
+  "wallVertices": 51548,
+  "glassFaces": 3240,
+  "textureMemory": 2797184,
+  "rows": [
+    {
+      "name": "PV_StreetShop00_LOD0",
+      "vertices": 36287,
+      "plasterVertices": 224
+    },
+    {
+      "name": "PV_StreetShop00_LOD1",
+      "vertices": 17914,
+      "plasterVertices": 224
+    },
+    {
+      "name": "PV_StreetShop00_LOD2",
+      "vertices": 5994,
+      "plasterVertices": 224
+    },
+    {
+      "name": "PV_StreetShop00_Petshop_LOD0",
+      "vertices": 32101,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop00_Petshop_LOD1",
+      "vertices": 16367,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop00_Petshop_LOD2",
+      "vertices": 6557,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop01_LOD0",
+      "vertices": 64230,
+      "plasterVertices": 780
+    },
+    {
+      "name": "PV_StreetShop01_LOD1",
+      "vertices": 32480,
+      "plasterVertices": 780
+    },
+    {
+      "name": "PV_StreetShop01_LOD2",
+      "vertices": 7736,
+      "plasterVertices": 684
+    },
+    {
+      "name": "PV_StreetShop01_Petshop_LOD0",
+      "vertices": 64337,
+      "plasterVertices": 764
+    },
+    {
+      "name": "PV_StreetShop01_Petshop_LOD1",
+      "vertices": 32797,
+      "plasterVertices": 764
+    },
+    {
+      "name": "PV_StreetShop01_Petshop_LOD2",
+      "vertices": 9091,
+      "plasterVertices": 668
+    },
+    {
+      "name": "PV_StreetShop02_LOD0",
+      "vertices": 31100,
+      "plasterVertices": 220
+    },
+    {
+      "name": "PV_StreetShop02_LOD1",
+      "vertices": 16800,
+      "plasterVertices": 220
+    },
+    {
+      "name": "PV_StreetShop02_LOD2",
+      "vertices": 5834,
+      "plasterVertices": 220
+    },
+    {
+      "name": "PV_StreetShop02_Petshop_LOD0",
+      "vertices": 27685,
+      "plasterVertices": 220
+    },
+    {
+      "name": "PV_StreetShop02_Petshop_LOD1",
+      "vertices": 15035,
+      "plasterVertices": 220
+    },
+    {
+      "name": "PV_StreetShop02_Petshop_LOD2",
+      "vertices": 6263,
+      "plasterVertices": 220
+    },
+    {
+      "name": "PV_StreetShop03_LOD0",
+      "vertices": 35358,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop03_LOD1",
+      "vertices": 18464,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop03_LOD2",
+      "vertices": 4130,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop03_Petshop_LOD0",
+      "vertices": 33010,
+      "plasterVertices": 224
+    },
+    {
+      "name": "PV_StreetShop03_Petshop_LOD1",
+      "vertices": 17214,
+      "plasterVertices": 224
+    },
+    {
+      "name": "PV_StreetShop03_Petshop_LOD2",
+      "vertices": 5670,
+      "plasterVertices": 224
+    },
+    {
+      "name": "PV_StreetShop04_LOD0",
+      "vertices": 48706,
+      "plasterVertices": 720
+    },
+    {
+      "name": "PV_StreetShop04_LOD1",
+      "vertices": 27046,
+      "plasterVertices": 720
+    },
+    {
+      "name": "PV_StreetShop04_LOD2",
+      "vertices": 6930,
+      "plasterVertices": 640
+    },
+    {
+      "name": "PV_StreetShop04_Petshop_LOD0",
+      "vertices": 48444,
+      "plasterVertices": 676
+    },
+    {
+      "name": "PV_StreetShop04_Petshop_LOD1",
+      "vertices": 26610,
+      "plasterVertices": 676
+    },
+    {
+      "name": "PV_StreetShop04_Petshop_LOD2",
+      "vertices": 7868,
+      "plasterVertices": 596
+    },
+    {
+      "name": "PV_StreetShop05_LOD0",
+      "vertices": 23377,
+      "plasterVertices": 200
+    },
+    {
+      "name": "PV_StreetShop05_LOD1",
+      "vertices": 11735,
+      "plasterVertices": 200
+    },
+    {
+      "name": "PV_StreetShop05_LOD2",
+      "vertices": 3812,
+      "plasterVertices": 200
+    },
+    {
+      "name": "PV_StreetShop05_Petshop_LOD0",
+      "vertices": 26255,
+      "plasterVertices": 200
+    },
+    {
+      "name": "PV_StreetShop05_Petshop_LOD1",
+      "vertices": 13635,
+      "plasterVertices": 200
+    },
+    {
+      "name": "PV_StreetShop05_Petshop_LOD2",
+      "vertices": 5786,
+      "plasterVertices": 200
+    },
+    {
+      "name": "PV_StreetShop06_LOD0",
+      "vertices": 37247,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop06_LOD1",
+      "vertices": 18956,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop06_LOD2",
+      "vertices": 7516,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop06_Petshop_LOD0",
+      "vertices": 32102,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop06_Petshop_LOD1",
+      "vertices": 16368,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop06_Petshop_LOD2",
+      "vertices": 6558,
+      "plasterVertices": 228
+    },
+    {
+      "name": "PV_StreetShop07_LOD0",
+      "vertices": 61299,
+      "plasterVertices": 708
+    },
+    {
+      "name": "PV_StreetShop07_LOD1",
+      "vertices": 31481,
+      "plasterVertices": 708
+    },
+    {
+      "name": "PV_StreetShop07_LOD2",
+      "vertices": 7756,
+      "plasterVertices": 620
+    },
+    {
+      "name": "PV_StreetShop07_Petshop_LOD0",
+      "vertices": 57461,
+      "plasterVertices": 700
+    },
+    {
+      "name": "PV_StreetShop07_Petshop_LOD1",
+      "vertices": 29557,
+      "plasterVertices": 700
+    },
+    {
+      "name": "PV_StreetShop07_Petshop_LOD2",
+      "vertices": 7942,
+      "plasterVertices": 612
+    },
+    {
+      "name": "PV_StreetShop08_LOD0",
+      "vertices": 40778,
+      "plasterVertices": 236
+    },
+    {
+      "name": "PV_StreetShop08_LOD1",
+      "vertices": 20510,
+      "plasterVertices": 236
+    },
+    {
+      "name": "PV_StreetShop08_LOD2",
+      "vertices": 6488,
+      "plasterVertices": 236
+    },
+    {
+      "name": "PV_StreetShop08_Petshop_LOD0",
+      "vertices": 36868,
+      "plasterVertices": 236
+    },
+    {
+      "name": "PV_StreetShop08_Petshop_LOD1",
+      "vertices": 18514,
+      "plasterVertices": 236
+    },
+    {
+      "name": "PV_StreetShop08_Petshop_LOD2",
+      "vertices": 6602,
+      "plasterVertices": 236
+    },
+    {
+      "name": "PV_StreetShop09_LOD0",
+      "vertices": 36864,
+      "plasterVertices": 220
+    },
+    {
+      "name": "PV_StreetShop09_LOD1",
+      "vertices": 19362,
+      "plasterVertices": 220
+    },
+    {
+      "name": "PV_StreetShop09_LOD2",
+      "vertices": 6576,
+      "plasterVertices": 220
+    },
+    {
+      "name": "PV_StreetShop09_Petshop_LOD0",
+      "vertices": 33454,
+      "plasterVertices": 208
+    },
+    {
+      "name": "PV_StreetShop09_Petshop_LOD1",
+      "vertices": 17866,
+      "plasterVertices": 208
+    },
+    {
+      "name": "PV_StreetShop09_Petshop_LOD2",
+      "vertices": 7190,
+      "plasterVertices": 208
+    },
+    {
+      "name": "PV_StreetShop10_LOD0",
+      "vertices": 55347,
+      "plasterVertices": 764
+    },
+    {
+      "name": "PV_StreetShop10_LOD1",
+      "vertices": 27903,
+      "plasterVertices": 764
+    },
+    {
+      "name": "PV_StreetShop10_LOD2",
+      "vertices": 6881,
+      "plasterVertices": 668
+    },
+    {
+      "name": "PV_StreetShop10_Petshop_LOD0",
+      "vertices": 55016,
+      "plasterVertices": 740
+    },
+    {
+      "name": "PV_StreetShop10_Petshop_LOD1",
+      "vertices": 27782,
+      "plasterVertices": 740
+    },
+    {
+      "name": "PV_StreetShop10_Petshop_LOD2",
+      "vertices": 7798,
+      "plasterVertices": 644
+    },
+    {
+      "name": "PV_StreetShop11_LOD0",
+      "vertices": 42872,
+      "plasterVertices": 232
+    },
+    {
+      "name": "PV_StreetShop11_LOD1",
+      "vertices": 21202,
+      "plasterVertices": 232
+    },
+    {
+      "name": "PV_StreetShop11_LOD2",
+      "vertices": 5294,
+      "plasterVertices": 232
+    },
+    {
+      "name": "PV_StreetShop11_Petshop_LOD0",
+      "vertices": 42564,
+      "plasterVertices": 232
+    },
+    {
+      "name": "PV_StreetShop11_Petshop_LOD1",
+      "vertices": 20936,
+      "plasterVertices": 232
+    },
+    {
+      "name": "PV_StreetShop11_Petshop_LOD2",
+      "vertices": 6930,
+      "plasterVertices": 232
+    },
+    {
+      "name": "PV_RiverApt00_LOD0",
+      "vertices": 19326,
+      "plasterVertices": 330
+    },
+    {
+      "name": "PV_RiverApt00_LOD1",
+      "vertices": 9212,
+      "plasterVertices": 306
+    },
+    {
+      "name": "PV_RiverApt00_LOD2",
+      "vertices": 4968,
+      "plasterVertices": 274
+    },
+    {
+      "name": "PV_RiverApt01_LOD0",
+      "vertices": 17034,
+      "plasterVertices": 434
+    },
+    {
+      "name": "PV_RiverApt01_LOD1",
+      "vertices": 8994,
+      "plasterVertices": 362
+    },
+    {
+      "name": "PV_RiverApt01_LOD2",
+      "vertices": 5410,
+      "plasterVertices": 330
+    },
+    {
+      "name": "PV_RiverApt02_LOD0",
+      "vertices": 14446,
+      "plasterVertices": 390
+    },
+    {
+      "name": "PV_RiverApt02_LOD1",
+      "vertices": 7270,
+      "plasterVertices": 318
+    },
+    {
+      "name": "PV_RiverApt02_LOD2",
+      "vertices": 4558,
+      "plasterVertices": 286
+    },
+    {
+      "name": "PV_RiverApt03_LOD0",
+      "vertices": 12551,
+      "plasterVertices": 446
+    },
+    {
+      "name": "PV_RiverApt03_LOD1",
+      "vertices": 5962,
+      "plasterVertices": 358
+    },
+    {
+      "name": "PV_RiverApt03_LOD2",
+      "vertices": 2036,
+      "plasterVertices": 318
+    },
+    {
+      "name": "PV_RiverApt04_LOD0",
+      "vertices": 16158,
+      "plasterVertices": 434
+    },
+    {
+      "name": "PV_RiverApt04_LOD1",
+      "vertices": 8190,
+      "plasterVertices": 394
+    },
+    {
+      "name": "PV_RiverApt04_LOD2",
+      "vertices": 4826,
+      "plasterVertices": 354
+    },
+    {
+      "name": "PV_RiverApt05_LOD0",
+      "vertices": 18476,
+      "plasterVertices": 350
+    },
+    {
+      "name": "PV_RiverApt05_LOD1",
+      "vertices": 9860,
+      "plasterVertices": 326
+    },
+    {
+      "name": "PV_RiverApt05_LOD2",
+      "vertices": 5196,
+      "plasterVertices": 294
+    },
+    {
+      "name": "PV_RiverApt06_LOD0",
+      "vertices": 8721,
+      "plasterVertices": 274
+    },
+    {
+      "name": "PV_RiverApt06_LOD1",
+      "vertices": 4092,
+      "plasterVertices": 266
+    },
+    {
+      "name": "PV_RiverApt06_LOD2",
+      "vertices": 1562,
+      "plasterVertices": 234
+    },
+    {
+      "name": "PV_RiverApt07_LOD0",
+      "vertices": 18927,
+      "plasterVertices": 290
+    },
+    {
+      "name": "PV_RiverApt07_LOD1",
+      "vertices": 9418,
+      "plasterVertices": 282
+    },
+    {
+      "name": "PV_RiverApt07_LOD2",
+      "vertices": 4966,
+      "plasterVertices": 250
+    },
+    {
+      "name": "PV_RiverApt08_LOD0",
+      "vertices": 17246,
+      "plasterVertices": 338
+    },
+    {
+      "name": "PV_RiverApt08_LOD1",
+      "vertices": 9082,
+      "plasterVertices": 322
+    },
+    {
+      "name": "PV_RiverApt08_LOD2",
+      "vertices": 5370,
+      "plasterVertices": 290
+    },
+    {
+      "name": "PV_RiverApt09_LOD0",
+      "vertices": 9832,
+      "plasterVertices": 298
+    },
+    {
+      "name": "PV_RiverApt09_LOD1",
+      "vertices": 4354,
+      "plasterVertices": 274
+    },
+    {
+      "name": "PV_RiverApt09_LOD2",
+      "vertices": 1608,
+      "plasterVertices": 242
+    },
+    {
+      "name": "PV_RiverApt10_LOD0",
+      "vertices": 16308,
+      "plasterVertices": 290
+    },
+    {
+      "name": "PV_RiverApt10_LOD1",
+      "vertices": 8832,
+      "plasterVertices": 266
+    },
+    {
+      "name": "PV_RiverApt10_LOD2",
+      "vertices": 5000,
+      "plasterVertices": 242
+    },
+    {
+      "name": "PV_RiverApt11_LOD0",
+      "vertices": 18644,
+      "plasterVertices": 506
+    },
+    {
+      "name": "PV_RiverApt11_LOD1",
+      "vertices": 9476,
+      "plasterVertices": 410
+    },
+    {
+      "name": "PV_RiverApt11_LOD2",
+      "vertices": 5028,
+      "plasterVertices": 370
+    },
+    {
+      "name": "PV_RiverApt12_LOD0",
+      "vertices": 19309,
+      "plasterVertices": 354
+    },
+    {
+      "name": "PV_RiverApt12_LOD1",
+      "vertices": 9584,
+      "plasterVertices": 330
+    },
+    {
+      "name": "PV_RiverApt12_LOD2",
+      "vertices": 5704,
+      "plasterVertices": 290
+    },
+    {
+      "name": "PV_RiverApt13_LOD0",
+      "vertices": 16502,
+      "plasterVertices": 346
+    },
+    {
+      "name": "PV_RiverApt13_LOD1",
+      "vertices": 8666,
+      "plasterVertices": 322
+    },
+    {
+      "name": "PV_RiverApt13_LOD2",
+      "vertices": 5350,
+      "plasterVertices": 282
+    },
+    {
+      "name": "PV_RiverApt14_LOD0",
+      "vertices": 18121,
+      "plasterVertices": 414
+    },
+    {
+      "name": "PV_RiverApt14_LOD1",
+      "vertices": 9232,
+      "plasterVertices": 350
+    },
+    {
+      "name": "PV_RiverApt14_LOD2",
+      "vertices": 5600,
+      "plasterVertices": 318
+    },
+    {
+      "name": "PV_RiverApt15_LOD0",
+      "vertices": 22428,
+      "plasterVertices": 454
+    },
+    {
+      "name": "PV_RiverApt15_LOD1",
+      "vertices": 13200,
+      "plasterVertices": 374
+    },
+    {
+      "name": "PV_RiverApt15_LOD2",
+      "vertices": 8506,
+      "plasterVertices": 334
+    },
+    {
+      "name": "PV_RiverApt16_LOD0",
+      "vertices": 10004,
+      "plasterVertices": 422
+    },
+    {
+      "name": "PV_RiverApt16_LOD1",
+      "vertices": 4442,
+      "plasterVertices": 334
+    },
+    {
+      "name": "PV_RiverApt16_LOD2",
+      "vertices": 1864,
+      "plasterVertices": 302
+    },
+    {
+      "name": "PV_RiverApt17_LOD0",
+      "vertices": 18133,
+      "plasterVertices": 310
+    },
+    {
+      "name": "PV_RiverApt17_LOD1",
+      "vertices": 9300,
+      "plasterVertices": 294
+    },
+    {
+      "name": "PV_RiverApt17_LOD2",
+      "vertices": 5352,
+      "plasterVertices": 270
+    },
+    {
+      "name": "PV_RiverApt18_LOD0",
+      "vertices": 17700,
+      "plasterVertices": 398
+    },
+    {
+      "name": "PV_RiverApt18_LOD1",
+      "vertices": 9276,
+      "plasterVertices": 342
+    },
+    {
+      "name": "PV_RiverApt18_LOD2",
+      "vertices": 5644,
+      "plasterVertices": 310
+    },
+    {
+      "name": "PV_RiverApt19_LOD0",
+      "vertices": 16089,
+      "plasterVertices": 326
+    },
+    {
+      "name": "PV_RiverApt19_LOD1",
+      "vertices": 8846,
+      "plasterVertices": 286
+    },
+    {
+      "name": "PV_RiverApt19_LOD2",
+      "vertices": 5310,
+      "plasterVertices": 254
+    },
+    {
+      "name": "PV_RiverApt20_LOD0",
+      "vertices": 13180,
+      "plasterVertices": 494
+    },
+    {
+      "name": "PV_RiverApt20_LOD1",
+      "vertices": 6695,
+      "plasterVertices": 398
+    },
+    {
+      "name": "PV_RiverApt20_LOD2",
+      "vertices": 2625,
+      "plasterVertices": 358
+    },
+    {
+      "name": "PV_RiverApt21_LOD0",
+      "vertices": 10864,
+      "plasterVertices": 306
+    },
+    {
+      "name": "PV_RiverApt21_LOD1",
+      "vertices": 4966,
+      "plasterVertices": 282
+    },
+    {
+      "name": "PV_RiverApt21_LOD2",
+      "vertices": 2072,
+      "plasterVertices": 250
+    },
+    {
+      "name": "PV_RiverApt22_LOD0",
+      "vertices": 17816,
+      "plasterVertices": 350
+    },
+    {
+      "name": "PV_RiverApt22_LOD1",
+      "vertices": 9104,
+      "plasterVertices": 318
+    },
+    {
+      "name": "PV_RiverApt22_LOD2",
+      "vertices": 5028,
+      "plasterVertices": 278
+    },
+    {
+      "name": "PV_RiverApt23_LOD0",
+      "vertices": 16602,
+      "plasterVertices": 474
+    },
+    {
+      "name": "PV_RiverApt23_LOD1",
+      "vertices": 8274,
+      "plasterVertices": 394
+    },
+    {
+      "name": "PV_RiverApt23_LOD2",
+      "vertices": 4686,
+      "plasterVertices": 354
+    }
+  ]
+}

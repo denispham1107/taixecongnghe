@@ -27,10 +27,18 @@ Material:
         m_Texture: {fileID: 2800000, guid: 049ad32aba918db4fb5137bbe46f4545, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _StuccoDetail:
+        m_Texture: {fileID: 2800000, guid: 0d5b940ad8a6d4847a7cd93cd3530925, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _Glossiness: 0.2
     - _Glow: 1.15
+    - _StuccoContrast: 0.1
+    - _StuccoScale: 1
+    - _StuccoStrength: 0.2
+    - _WallSmoothness: 0.035
     m_Colors:
     - _Warm: {r: 1, g: 0.86, b: 0.66, a: 1}
   m_BuildTextureStacks: []

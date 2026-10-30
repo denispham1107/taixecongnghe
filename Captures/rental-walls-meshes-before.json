@@ -1,0 +1,1883 @@
+[
+  {
+    "name": "PV_StreetPavement_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetPavement.fbx",
+    "vertices": 2516,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 560
+  },
+  {
+    "name": "PV_StreetPavement_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetPavement.fbx",
+    "vertices": 948,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 560
+  },
+  {
+    "name": "PV_StreetPavement_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetPavement.fbx",
+    "vertices": 312,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 560
+  },
+  {
+    "name": "PV_StreetShop00_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx",
+    "vertices": 36287,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 32
+  },
+  {
+    "name": "PV_StreetShop00_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx",
+    "vertices": 17914,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 32
+  },
+  {
+    "name": "PV_StreetShop00_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx",
+    "vertices": 5994,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 32
+  },
+  {
+    "name": "PV_StreetShop01_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01_Petshop.fbx",
+    "vertices": 64337,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 14
+  },
+  {
+    "name": "PV_StreetShop01_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01_Petshop.fbx",
+    "vertices": 32797,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 14
+  },
+  {
+    "name": "PV_StreetShop01_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01_Petshop.fbx",
+    "vertices": 9091,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 14
+  },
+  {
+    "name": "PV_StreetShop02_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02.fbx",
+    "vertices": 31100,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 31
+  },
+  {
+    "name": "PV_StreetShop02_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02.fbx",
+    "vertices": 16800,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 31
+  },
+  {
+    "name": "PV_StreetShop02_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02.fbx",
+    "vertices": 5834,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 31
+  },
+  {
+    "name": "PV_StreetShop03_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03.fbx",
+    "vertices": 35358,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 34
+  },
+  {
+    "name": "PV_StreetShop03_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03.fbx",
+    "vertices": 18464,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 34
+  },
+  {
+    "name": "PV_StreetShop03_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03.fbx",
+    "vertices": 4130,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 34
+  },
+  {
+    "name": "PV_StreetShop04_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04_Petshop.fbx",
+    "vertices": 48444,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 12
+  },
+  {
+    "name": "PV_StreetShop04_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04_Petshop.fbx",
+    "vertices": 26610,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 12
+  },
+  {
+    "name": "PV_StreetShop04_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04_Petshop.fbx",
+    "vertices": 7868,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 12
+  },
+  {
+    "name": "PV_StreetShop05_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05.fbx",
+    "vertices": 23377,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 24
+  },
+  {
+    "name": "PV_StreetShop05_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05.fbx",
+    "vertices": 11735,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 24
+  },
+  {
+    "name": "PV_StreetShop05_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05.fbx",
+    "vertices": 3812,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 24
+  },
+  {
+    "name": "PV_StreetShop06_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+    "vertices": 37247,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 31
+  },
+  {
+    "name": "PV_StreetShop06_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+    "vertices": 18956,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 31
+  },
+  {
+    "name": "PV_StreetShop06_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+    "vertices": 7516,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 31
+  },
+  {
+    "name": "PV_StreetTree1_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+    "vertices": 86170,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_StreetTree1_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+    "vertices": 36812,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_StreetTree1_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+    "vertices": 16160,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_StreetTree0_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+    "vertices": 86170,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_StreetTree0_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+    "vertices": 36812,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_StreetTree0_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+    "vertices": 16160,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_StreetTree2_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+    "vertices": 86170,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_StreetTree2_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+    "vertices": 36812,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_StreetTree2_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+    "vertices": 16160,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_TrafficSignal",
+    "path": "Assets/PhoViet/Art/Streets/PV_TrafficSignal.fbx",
+    "vertices": 2574,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 140
+  },
+  {
+    "name": "PV_TrafficSignal_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_TrafficSignal.fbx",
+    "vertices": 1698,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 140
+  },
+  {
+    "name": "PV_TrafficSignal_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_TrafficSignal.fbx",
+    "vertices": 1122,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 140
+  },
+  {
+    "name": "PV_StreetShop03_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03_Petshop.fbx",
+    "vertices": 33010,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 11
+  },
+  {
+    "name": "PV_StreetShop03_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03_Petshop.fbx",
+    "vertices": 17214,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 11
+  },
+  {
+    "name": "PV_StreetShop03_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop03_Petshop.fbx",
+    "vertices": 5670,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 11
+  },
+  {
+    "name": "PV_StreetShop04_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04.fbx",
+    "vertices": 48706,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 28
+  },
+  {
+    "name": "PV_StreetShop04_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04.fbx",
+    "vertices": 27046,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 28
+  },
+  {
+    "name": "PV_StreetShop04_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop04.fbx",
+    "vertices": 6930,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 28
+  },
+  {
+    "name": "PV_StreetShop05_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05_Petshop.fbx",
+    "vertices": 26255,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 16
+  },
+  {
+    "name": "PV_StreetShop05_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05_Petshop.fbx",
+    "vertices": 13635,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 16
+  },
+  {
+    "name": "PV_StreetShop05_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop05_Petshop.fbx",
+    "vertices": 5786,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 16
+  },
+  {
+    "name": "PV_StreetShop07_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07.fbx",
+    "vertices": 61299,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 25
+  },
+  {
+    "name": "PV_StreetShop07_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07.fbx",
+    "vertices": 31481,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 25
+  },
+  {
+    "name": "PV_StreetShop07_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07.fbx",
+    "vertices": 7756,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 25
+  },
+  {
+    "name": "PV_StreetShop08_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08.fbx",
+    "vertices": 40778,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 25
+  },
+  {
+    "name": "PV_StreetShop08_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08.fbx",
+    "vertices": 20510,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 25
+  },
+  {
+    "name": "PV_StreetShop08_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08.fbx",
+    "vertices": 6488,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 25
+  },
+  {
+    "name": "PV_StreetShop09_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+    "vertices": 36864,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 34
+  },
+  {
+    "name": "PV_StreetShop09_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+    "vertices": 19362,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 34
+  },
+  {
+    "name": "PV_StreetShop09_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+    "vertices": 6576,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 34
+  },
+  {
+    "name": "PV_RiverBridge_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverBridge.fbx",
+    "vertices": 94677,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverBridge_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverBridge.fbx",
+    "vertices": 29957,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverBridge_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverBridge.fbx",
+    "vertices": 6645,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt00_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 19326,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt00_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 9212,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt00_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 4968,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt01_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 17034,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt01_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 8994,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt01_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 5410,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt02_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 14446,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt02_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 7270,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt02_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 4558,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt03_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 12551,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt03_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 5962,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt03_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 2036,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt04_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 16158,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt04_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 8190,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt04_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 4826,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt05_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 18476,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt05_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 9860,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt05_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 5196,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt06_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 8721,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt06_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 4092,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt06_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 1562,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt07_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 18927,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt07_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 9418,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt07_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 4966,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt08_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 17246,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt08_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 9082,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt08_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 5370,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt09_PetshopExtra_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverPetshopExtra.fbx",
+    "vertices": 13024,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 28
+  },
+  {
+    "name": "PV_RiverApt09_PetshopExtra_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverPetshopExtra.fbx",
+    "vertices": 7598,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 28
+  },
+  {
+    "name": "PV_RiverApt09_PetshopExtra_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverPetshopExtra.fbx",
+    "vertices": 4330,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 56
+  },
+  {
+    "name": "PV_RiverApt10_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 16308,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt10_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 8832,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt10_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 5000,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt11_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 18644,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt11_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 9476,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt11_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 5028,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt12_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 18785,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt12_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 9060,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt12_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 5180,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt13_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 15978,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt13_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 8142,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt13_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 4826,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt14_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 17597,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt14_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 8708,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt14_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 5076,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt15_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 22166,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt15_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 12938,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt15_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 8244,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt16_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 9742,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt16_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 4180,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt16_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 1602,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt17_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 18133,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt17_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 9300,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt17_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 5352,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt18_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 17176,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt18_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 8752,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt18_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 5120,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt19_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 15565,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt19_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 8322,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt19_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 4786,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt20_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 12656,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt20_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 6171,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt20_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 2101,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt21_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 10864,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt21_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 4966,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt21_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 2072,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt22_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 17816,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt22_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 9104,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt22_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 5028,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverApt23_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 16602,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt23_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 8274,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 35
+  },
+  {
+    "name": "PV_RiverApt23_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 4686,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverBoat0_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverBoat0.fbx",
+    "vertices": 1008,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverBoat0_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverBoat0.fbx",
+    "vertices": 604,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverBoat0_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverBoat0.fbx",
+    "vertices": 364,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverBoat1_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverBoat1.fbx",
+    "vertices": 888,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverBoat1_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverBoat1.fbx",
+    "vertices": 480,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_RiverBoat1_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverBoat1.fbx",
+    "vertices": 240,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 70
+  },
+  {
+    "name": "PV_StreetShop07_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07_Petshop.fbx",
+    "vertices": 57461,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 15
+  },
+  {
+    "name": "PV_StreetShop07_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07_Petshop.fbx",
+    "vertices": 29557,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 15
+  },
+  {
+    "name": "PV_StreetShop07_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop07_Petshop.fbx",
+    "vertices": 7942,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 15
+  },
+  {
+    "name": "PV_StreetShop10_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10.fbx",
+    "vertices": 55347,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 24
+  },
+  {
+    "name": "PV_StreetShop10_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10.fbx",
+    "vertices": 27903,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 24
+  },
+  {
+    "name": "PV_StreetShop10_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10.fbx",
+    "vertices": 6881,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 24
+  },
+  {
+    "name": "PV_StreetShop11_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11.fbx",
+    "vertices": 42872,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 29
+  },
+  {
+    "name": "PV_StreetShop11_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11.fbx",
+    "vertices": 21202,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 29
+  },
+  {
+    "name": "PV_StreetShop11_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11.fbx",
+    "vertices": 5294,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 29
+  },
+  {
+    "name": "PV_StreetShop00_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00_Petshop.fbx",
+    "vertices": 32101,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 13
+  },
+  {
+    "name": "PV_StreetShop00_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00_Petshop.fbx",
+    "vertices": 16367,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 13
+  },
+  {
+    "name": "PV_StreetShop00_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop00_Petshop.fbx",
+    "vertices": 6557,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 13
+  },
+  {
+    "name": "PV_StreetShop01_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01.fbx",
+    "vertices": 64230,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 26
+  },
+  {
+    "name": "PV_StreetShop01_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01.fbx",
+    "vertices": 32480,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 26
+  },
+  {
+    "name": "PV_StreetShop01_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop01.fbx",
+    "vertices": 7736,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 26
+  },
+  {
+    "name": "PV_StreetShop10_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10_Petshop.fbx",
+    "vertices": 55016,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 16
+  },
+  {
+    "name": "PV_StreetShop10_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10_Petshop.fbx",
+    "vertices": 27782,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 16
+  },
+  {
+    "name": "PV_StreetShop10_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop10_Petshop.fbx",
+    "vertices": 7798,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 16
+  },
+  {
+    "name": "PV_StreetShop02_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02_Petshop.fbx",
+    "vertices": 27685,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 9
+  },
+  {
+    "name": "PV_StreetShop02_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02_Petshop.fbx",
+    "vertices": 15035,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 9
+  },
+  {
+    "name": "PV_StreetShop02_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop02_Petshop.fbx",
+    "vertices": 6263,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 9
+  },
+  {
+    "name": "PV_StreetShop06_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06_Petshop.fbx",
+    "vertices": 32102,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 9
+  },
+  {
+    "name": "PV_StreetShop06_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06_Petshop.fbx",
+    "vertices": 16368,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 9
+  },
+  {
+    "name": "PV_StreetShop06_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop06_Petshop.fbx",
+    "vertices": 6558,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 9
+  },
+  {
+    "name": "PV_StreetShop08_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08_Petshop.fbx",
+    "vertices": 36868,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 15
+  },
+  {
+    "name": "PV_StreetShop08_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08_Petshop.fbx",
+    "vertices": 18514,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 15
+  },
+  {
+    "name": "PV_StreetShop08_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop08_Petshop.fbx",
+    "vertices": 6602,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 15
+  },
+  {
+    "name": "PV_RiverApt09_LOD0",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 9832,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 7
+  },
+  {
+    "name": "PV_RiverApt09_LOD1",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 4354,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 7
+  },
+  {
+    "name": "PV_RiverApt09_LOD2",
+    "path": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+    "vertices": 1608,
+    "up": [
+      0.0,
+      -1.19209275E-07,
+      1.0
+    ],
+    "users": 14
+  },
+  {
+    "name": "PV_StreetShop11_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11_Petshop.fbx",
+    "vertices": 42564,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 11
+  },
+  {
+    "name": "PV_StreetShop11_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11_Petshop.fbx",
+    "vertices": 20936,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 11
+  },
+  {
+    "name": "PV_StreetShop11_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop11_Petshop.fbx",
+    "vertices": 6930,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 11
+  },
+  {
+    "name": "PV_StreetShop09_Petshop_LOD0",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09_Petshop.fbx",
+    "vertices": 33454,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 6
+  },
+  {
+    "name": "PV_StreetShop09_Petshop_LOD1",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09_Petshop.fbx",
+    "vertices": 17866,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 6
+  },
+  {
+    "name": "PV_StreetShop09_Petshop_LOD2",
+    "path": "Assets/PhoViet/Art/Streets/PV_StreetShop09_Petshop.fbx",
+    "vertices": 7190,
+    "up": [
+      0.0,
+      -1.192093E-07,
+      1.0
+    ],
+    "users": 6
+  }
+]

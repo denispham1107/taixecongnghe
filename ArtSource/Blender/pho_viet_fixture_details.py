@@ -110,9 +110,18 @@ def detailed_traffic_signal(detail):
     return g
 
 def rental_sign(g,x0,x1,zf,f,floors):
-    """Exactly one plaque per tower, chosen without consuming its layout RNG."""
+    """Retain the original plaque, plus the 14 marked far-bank positions (21.97)."""
     cx=(x0+x1)/2;seed=int(abs(cx)*131+abs(zf)*997)
-    floor=1+seed%max(1,floors-1);y0=.2+3.6+(floor-1)*3
+    floor=1+seed%max(1,floors-1)
+    extras={(-24.0,-11.4):(1,5),(-34.0,-24.0):(2,6),(-48.0,-34.0):(3,5),
+            (-63.4,-48.0):(2,),(-74.9,-63.4):(1,), (11.4,26.8):(1,3),
+            (26.8,42.2):(3,5),(42.2,57.6):(1,3)} if f==1 else {}
+    levels=[floor]+list(extras.get((round(x0,3),round(x1,3)),()))
+    assert len(levels)==len(set(levels)) and all(1<=k<floors for k in levels)
+    for level in levels:rental_plaque(g,x0,x1,zf,f,level)
+
+def rental_plaque(g,x0,x1,zf,f,floor):
+    cx=(x0+x1)/2;y0=.2+3.6+(floor-1)*3
     w=min((x1-x0)*.68,9.0)*1.44;h=.88;z=zf-f*HOUSE_DEPTH-f*.07
     g.cube((cx,y0+1.85,z),(w,h,.045),'navy',tag='RentalSign')
     g.panel((cx,y0+1.85,z-f*.025),w-.10,h-.10,'navy',z_facing=-f,tag='RentalSign')
