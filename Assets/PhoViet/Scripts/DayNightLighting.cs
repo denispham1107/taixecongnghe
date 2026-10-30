@@ -48,9 +48,10 @@ namespace PhoViet
         Color daySky,dayHorizon,nightSky,nightHorizon,dayAmbientSky,dayAmbientEquator,dayAmbientGround,nightAmbientSky,nightAmbientEquator,nightAmbientGround,moonColor;
         readonly float[] scores=new float[6];
         readonly Vector3[] origins=new Vector3[6],directions=new Vector3[6];
-        readonly bool[] streetKind=new bool[6];
+        readonly bool[] streetKind=new bool[6],wideKind=new bool[6];
         static readonly int Tint=Shader.PropertyToID("_Tint"),NightLights=Shader.PropertyToID("_PVNightLights");
         static readonly int ProjectHeadlight=Shader.PropertyToID("_ProjectHeadlight"),WorldToHead=Shader.PropertyToID("_WorldToHead"),HeadPosition=Shader.PropertyToID("_HeadPosition");
+        static readonly int HeadlightWidth=Shader.PropertyToID("_HeadlightWidth"),HeadlightHeight=Shader.PropertyToID("_HeadlightHeight");
 
         public void Initialize(PhoVietGame owner)
         {
@@ -212,6 +213,7 @@ namespace PhoViet
             {
                 if(vehicle.root==null||vehicle.head==null)continue;
                 bool on=enabled&&vehicle.root.gameObject.activeInHierarchy;
+                bool wide=HasTwoHeadlamps(vehicle);
                 if(vehicle.roadLight!=null)
                 {
                     vehicle.roadLight.enabled=on;
@@ -231,6 +233,10 @@ namespace PhoViet
                         projectionBlock.SetFloat(ProjectHeadlight,1);
                         projectionBlock.SetMatrix(WorldToHead,Matrix4x4.TRS(vehicle.head.position,vehicle.head.rotation,Vector3.one).inverse);
                         projectionBlock.SetVector(HeadPosition,vehicle.head.position);
+                        // One continuous, symmetrical fan centred on the car's forward axis.
+                        // Widen its optics rather than adding two separated beam lobes.
+                        projectionBlock.SetFloat(HeadlightWidth,wide?2:1);
+                        projectionBlock.SetFloat(HeadlightHeight,wide?.65f:1.1f);
                         vehicle.roadLight.SetPropertyBlock(projectionBlock);
                     }
                 }
@@ -251,7 +257,7 @@ namespace PhoViet
                 {
                     Vector3 direction=(vehicle.head.forward-vehicle.head.up*.085f).normalized;
                     float score=vehicle.player?-100000:(vehicle.head.position-focus).sqrMagnitude+25;
-                    if(score<3000)Offer(score,vehicle.head.position,direction,false,0,3);
+                    if(score<3000)Offer(score,vehicle.head.position,direction,false,0,3,wide);
                 }
             }
             foreach(var street in streets)
@@ -281,16 +287,26 @@ namespace PhoViet
                 var light=lightPool[i];if(light==null)continue;bool use=enabled&&i<6&&!float.IsPositiveInfinity(scores[i]);light.enabled=use;
                 if(!use)continue;ActiveRealtimeLights++;
                 light.transform.SetPositionAndRotation(origins[i],Quaternion.LookRotation(directions[i],streetKind[i]?Vector3.forward:Vector3.up));
-                light.spotAngle=streetKind[i]?99:58;light.range=streetKind[i]?20:32;light.intensity=(streetKind[i]?3.6f:2.8f)*LampLevel;
+                light.spotAngle=streetKind[i]?99:wideKind[i]?78:58;light.range=streetKind[i]?20:32;light.intensity=(streetKind[i]?3.6f:2.8f)*LampLevel;
                 light.renderMode=i==0||streetKind[i]?LightRenderMode.ForcePixel:LightRenderMode.Auto;
                 light.color=C("F1F7FF");light.shadows=i==0&&!streetKind[i]?LightShadows.Hard:LightShadows.None;
             }
         }
-        void Offer(float score,Vector3 origin,Vector3 direction,bool street,int first,int last)
+        static bool HasTwoHeadlamps(VehicleLamps vehicle)
+        {
+            Transform first=null;if(vehicle.halos==null)return false;
+            foreach(var halo in vehicle.halos)
+            {
+                if(halo==null||halo.rear||halo.source==null)continue;
+                if(first==null)first=halo.source;else if(halo.source!=first)return true;
+            }
+            return false;
+        }
+        void Offer(float score,Vector3 origin,Vector3 direction,bool street,int first,int last,bool wide=false)
         {
             int at=last;if(score>=scores[at])return;
-            while(at>first&&score<scores[at-1]){scores[at]=scores[at-1];origins[at]=origins[at-1];directions[at]=directions[at-1];streetKind[at]=streetKind[at-1];at--;}
-            scores[at]=score;origins[at]=origin;directions[at]=direction;streetKind[at]=street;
+            while(at>first&&score<scores[at-1]){scores[at]=scores[at-1];origins[at]=origins[at-1];directions[at]=directions[at-1];streetKind[at]=streetKind[at-1];wideKind[at]=wideKind[at-1];at--;}
+            scores[at]=score;origins[at]=origin;directions[at]=direction;streetKind[at]=street;wideKind[at]=wide;
         }
         void OnDestroy(){foreach(var material in owned)if(material!=null){if(Application.isPlaying)Destroy(material);else DestroyImmediate(material);}}
     }

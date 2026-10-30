@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "compared": 2968,
+  "changed": [
+    "Assets/PhoViet/Scripts/DayNightLighting.cs",
+    "Assets/PhoViet/Scripts/OpticalLight.shader"
+  ],
+  "added": [],
+  "unexpected": []
+}

@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "count": 14,
+  "checks": [
+    "Production shader supported without compile errors",
+    "Previous single beam compiled as an isolated comparison",
+    "Single headlamp retains previous rendered pixels (maximum RGB error below one byte per channel)",
+    "Wide beam footprint is visibly wider than the former central cone",
+    "Wide car fan reaches the intended area ahead",
+    "Both outer sides gain illumination symmetrically",
+    "Left and right beam edges match within two levels of 8-bit render quantization",
+    "One connected fan has a single centre peak, without two separate lobes",
+    "Wide footprint survives a 90-degree street-frame turn without brightness change",
+    "Raised roof/jump source changes reach and attenuation",
+    "Whole fan lifts away from road during a wheelie",
+    "Nose-down landing brings whole fan closer",
+    "Wide headlights remain off in clear daylight",
+    "Non-projecting street pools and halos retain identical rendered pixels"
+  ],
+  "oldWidth": 1.0423876,
+  "newWidth": 3.56043124,
+  "oldReach": 3.91540265,
+  "newReach": 6.673987,
+  "singlePixelMaxError": 0.0,
+  "symmetryPixelMaxError": 0.005050987
+}

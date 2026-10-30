@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "count": 1250,
+  "suites": {
+    "wide-headlights-render-checks.json": 14,
+    "wide-headlights-binding-checks.json": 304,
+    "wide-headlights-regression-VerifyNightJumpLighting.json": 88,
+    "wide-headlights-regression-VerifyPerformanceLighting.json": 717,
+    "wide-headlights-regression-VerifyThunderstorm.json": 107,
+    "wide-headlights-scene-checks.json": 20
+  },
+  "sourceOnly": true,
+  "webVersion": "1.52.0",
+  "released": false
+}

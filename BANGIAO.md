@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **30/10/2026 — Codex**
+Cập nhật lần cuối: **31/10/2026 — Codex**
 
 ## 1. Trạng thái hiện tại
 
@@ -29,12 +29,15 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
 | Chất liệu tường trong source | **21.98:** người dùng chọn vân rõ hơn21.97; relief0,42/scale0,65/contrast0,28/smoothness0,015, giữ màu/kính/kim loại/sông. UV mask25FBX/144mesh, texture1K nén/mipmap, không thêm renderer. Chi tiết21.97–21.98; đã có trên web1.50.0 |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Đã có trên web1.48.0** |
+| Đèn pha rộng trong source | **21.107 chưa lên web:** mọi xe bốn bánh dùng1vùng sángliềnmạch/đốixứng,width2×/fill78°,giữxe máy;1.250kiểm+6ảnhUnityđạt. Đãbỏcáchtách2tiatheođínhchínhngườidùng |
 | Mưa giông/sét trong source | **21.105 đã có trên web1.52.0:** 15s quang/3s mưa tăng/9s giông/3s tan; sét báo0,8s/ngẫu nhiên4làn, nhảy vẫn trúng. Xe trúng cháy/văng/nằm lại;playerhếtlượt, Tank/Dino miễn, CSGTtrúnghếtđuổi. **2.149kiểmđạt/7ảnhUnity**;6GPUweb+29liveđạt |
 | Hố đạn và chỉnh lái trong source | **21.103 đã có trên web1.51.0:** hố R2,024m/lòng−0,40m/nứt/mảnh văng; bánh chạm kéo lệch tới khi nhấn/vuốt ngược, nhảy tránh được. **1.090 kiểm tra đạt/11 ảnh Unity**, không đổi hình ảnh ngoài hố. Xem21.103 |
 | Tàu và đèn phụ trong source | **21.102 đã có trên web1.51.0:** tàu đánh cá Meshy140chiếc,3LOD/texture2K; đènnhỏ chungtínhiệu2mặt vớiđènlớn;3346kiểmđạt |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.107 source đã xong:** người dùng đính chính muốn mở1góc sáng rộngđốixứng,khôngthêm2tia. DayNightLighting/OpticalLight dùng1matrix/1samplecookie,carwidth2/reference0,65/fill78°,bikegiữnguyên/pool6.14pixel+304binding+88nightjump+717lighting+107storm+20scene=1.250đạt;6ảnhtrước/sau/ngang/dọc/rẽ/nhảyđãxem. So2.968filechỉ2sourceđổi,scene/asset/pixeltexturesgiữ. UnityEdit/scene sạch/start1,92/jobsfalse;chưabuild/pháthành,webvẫn1.52.0. Chi tiết21.107.
 
 - **21.106 đã phát hành1.52.0:** mưa giông/sét21.105,release`5da12c7`/Pages`41080719656`success/cache`52d4e08424a12b5d`;29liveđạt/0runtime,đối chiếu toàn bộbytes/2data. Build2variant681,183s/0lỗi/1warningDevMCP;138preflight/521SHA giữ,44repo+35site+36staged+450browser đạt. Khônghạđồhọa;UnityEdit/start1,92/jobsfalse/serverđãdừng. Chưa kiểmFPS/Safari/Androidmáythật. Chi tiết21.106.
 
@@ -136,6 +139,8 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.107 hoàn tất source, chưa phát hành:** góc sángmởrộngđốixứng/liềnmạch,khôngtách2tia.1.250kiểmđạt/6ảnhUnitythật,scene/start1,92/jobsfalse/đồhọagiữ. UnityEdit/sạch;source+test+bằngchứng+2docs lưucommitlocal,webvẫn1.52.0. GiữdirtyArt/Wave/Packages/Simulatorngoàiphạmvi.
+
 - **21.105–21.106 đã phát hành1.52.0**, không còn sửa/build/push/Pages/live đang dở. UnityEdit/scene sạch/start1,92/jobsfalse;server8774/browser đãđóng. GiữdirtyArt/Wave/Packages/Simulator/lịch sử ngoài commit. Chưa kiểmSafari/Androidmáythật;chi tiết21.106.
 
 
@@ -225,7 +230,7 @@ Cập nhật lần cuối: **30/10/2026 — Codex**
 | Sông, cầu, căn hộ ven sông, xe/CSGT rơi chìm | 21.35–21.37, 21.45–21.54, 21.63 | `PhoVietRiver.cs`, `RiverBlock.cs`, `RiverReflection.cs`, `River*.shader`, `Editor/PhoVietRiverUpgrade.cs`, `AgentScripts/VerifyRiverCrashSinking.cs` |
 | Cảnh phố, nhà, cây | 11.4, 21.19–21.28, 21.43 | `VietnamStreet.cs`, `StreetArt.cs`, `Editor/PhoVietStreetUpgrade.cs` |
 | Tường sơn lì/vân vữa rõ hơn, 14biển thuê mới | **21.98/21.97**,21.91/21.94 | `Editor/PhoVietWallFinish.cs`, `StreetWall.shader`, `WallStucco.cginc`, `ApartmentRoom.shader`, `PV_WallStuccoDetail.png`, `pho_viet_fixture_details.py`, `upgrade_rental_walls_2197.py`, `AgentScripts/TuneWall2198.cs`, `VerifyRentalWalls*.cs` |
-| Ngày–đêm, đèn, sương | **21.100**,20,21.41 | `PhoVietDayNight.cs`, `DayNightLighting.cs`, `MorningFog.cs`, `MorningLooks.cs`; đèn player lệch: `PhoVietSupercarUpgrade.CenterHeadProjector`, `VerifyCarHead150.cs` |
+| Ngày–đêm, đèn, sương | **21.107**,21.100,20,21.41 | `PhoVietDayNight.cs`, `DayNightLighting.cs`, `MorningFog.cs`, `MorningLooks.cs`; đèn player lệch: `PhoVietSupercarUpgrade.CenterHeadProjector`, `VerifyWideHeadlights.cs`, `VerifyWideHeadlightRender.cs`, `RunWideHeadlightRegressions.ps1` |
 | Xe đua người chơi/nhảy cố định/khói4góc+2bô/chuyển làn | **21.100**,21.64–21.65,19 | `PhoVietGame.AdvanceLaneCurve`, `PhoVietJump.JumpHeightAtSpeed`, `PlayerCarVisual.cs`, `PhoVietSupercarUpgrade.cs`, `CarJumpJetVisual.cs`, `BoostSmokeVisual.cs`, `VerifySpeedJump.cs`, `VerifySupercarScalePace.cs` |
 | Khôi phục player xe máy xanh–đen (lịch sử) | 21.58, 21.9–21.16 | `RestoreBlueBlackPlayer.cs`, `prepare_hero_blue_black.py`, `BikeVisualAnimator.cs` |
 | Xe máy dân sự Urban Rider/cổ xe/tay nắm/đổi làn | **21.67**,7.1,11 | `UrbanRiderMotion.cs`, `BikeVisualAnimator.cs`, `UrbanRider.shader`, `PhoVietTraffic.cs`, `PhoVietRoutes.cs`, `Editor/PhoVietUrbanRiderUpgrade.cs`, `integrate_urban_rider.py`, `prepare_urban_rider_maps.py`, `AgentScripts/InstallUrbanRider.cs`, `VerifyUrbanRider.cs` |
