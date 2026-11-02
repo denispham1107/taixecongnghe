@@ -21,7 +21,7 @@ public static class VerifyTurnTankAim
    Time.timeScale=0;Check(PhoVietGame.TurnTankAimChance==.7f,"Configured probability is 70 percent");
    var tank=TurnTank();Vector3 anchor=tank.turnTankTarget;
    Check(tank.turnTankAimGeneration==tank.spawnGeneration,"Post-turn tank marked only after actual successful spawn");
-   Check(Vector3.Distance(anchor,new Vector3(PhoVietGame.LaneX[3],0,58))<.001f,"Anchor is rightmost lane 12 m before requested junction");
+   Check(Vector3.Distance(anchor,new Vector3(PhoVietGame.LaneX[3],0,46))<.001f,"Anchor is rightmost lane 24 m before requested junction, closer to the player");
    foreach(double roll in new[]{0,.699999,.7,.999999})
    {
     Set("turnTankAimRandom",new Roll(roll));var shot=Fire(tank);bool bias=roll<PhoVietGame.TurnTankAimChance;

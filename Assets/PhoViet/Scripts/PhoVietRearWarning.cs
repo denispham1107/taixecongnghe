@@ -9,7 +9,7 @@ namespace PhoViet
    if(rideCamera==null||(State!=RideState.Riding&&State!=RideState.Paused))return;
    for(int lane=2;lane<=3;lane++)if(RearLaneWarningVisible(lane))DrawRearLaneWarning(lane);
   }
-  bool RearLaneWarningVisible(int lane)=>previewRearWarnings||(RearRecklessWarningVisible&&rearRecklessLane==lane)||OrdinaryRearWarningVisible(lane);
+  bool RearLaneWarningVisible(int lane)=>previewRearWarnings||(RearRecklessWarningVisible&&rearRecklessLane==lane)||OrdinaryRearWarningVisible(lane)||TurnBikeRearWarningVisible(lane);
   Vector3 RearWarningScreenPosition(int lane,float z,float pixels,Rect area)
   {
    var point=rideCamera.WorldToScreenPoint(transform.TransformPoint(new Vector3(LaneX[lane],.03f,z)));

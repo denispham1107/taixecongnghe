@@ -10,15 +10,16 @@ namespace PhoViet
         float exitWaveTimer,exitWaveAge;
         readonly TrafficVehicle[] rearExitReserved=new TrafficVehicle[2];
         readonly float[] rearExitWarning=new float[2];
-        bool RearExitReserved(TrafficVehicle v)=>rearExitReserved[0]==v||rearExitReserved[1]==v;
+        bool RearExitReserved(TrafficVehicle v)=>rearExitReserved[0]==v||rearExitReserved[1]==v||TurnBikeReserved(v);
         public bool OrdinaryRearWarningVisible(int lane)=>lane>=2&&lane<=3&&turnExitTrafficEnabled&&rearExitReserved[lane-2]!=null&&!IsTurning&&!ServiceStopped;
         public float OrdinaryRearWarningRemaining(int lane)=>lane>=2&&lane<=3&&rearExitReserved[lane-2]!=null?rearExitWarning[lane-2]:-1;
         void ClearRearExitWarnings(){for(int i=0;i<2;i++){rearExitReserved[i]=null;rearExitWarning[i]=0;}}
-        void ResetExitTraffic(){ExitRearSpawns=0;ExitOncomingSpawns=0;exitRearRemaining=0;exitOncomingRemaining=0;exitWaveTimer=0;exitWaveAge=0;ClearRearExitWarnings();}
+        void ResetExitTraffic(){ExitRearSpawns=0;ExitOncomingSpawns=0;exitRearRemaining=0;exitOncomingRemaining=0;exitWaveTimer=0;exitWaveAge=0;ClearRearExitWarnings();ResetTurnBikes();}
         void QueueExitTraffic()
         {
             if(!turnExitTrafficEnabled)return;
             ClearRearExitWarnings();
+            QueueTurnBikes();
             exitRearRemaining=TrafficCount(rng.Next(3,6));exitOncomingRemaining=TrafficCount(rng.Next(3,6));exitWaveAge=0;exitWaveTimer=.25f;
             if(TryExitTraffic(true))exitRearRemaining--;
             if(TryExitTraffic(false))exitOncomingRemaining--;
@@ -40,7 +41,7 @@ namespace PhoViet
                 int first=rng.Next(2);
                 for(int i=0;i<2;i++)
                 {
-                    int slot=(first+i)%2;if(rearExitReserved[slot]!=null)continue;
+                    int slot=(first+i)%2;if(rearExitReserved[slot]!=null||TurnBikeRearWarningVisible(slot+2))continue;
                     int selected=FindExitCandidate();if(selected<0)return false;
                     rearExitReserved[slot]=vehicles[selected];rearExitWarning[slot]=2;return true;
                 }
@@ -56,6 +57,7 @@ namespace PhoViet
         }
         void TickOrdinaryRearWarnings(float dt)
         {
+            TickTurnBikes(dt);
             if(!turnExitTrafficEnabled){ClearRearExitWarnings();return;}
             if(dt<=0)return;
             for(int slot=0;slot<2;slot++)

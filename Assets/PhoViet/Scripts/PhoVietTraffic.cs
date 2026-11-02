@@ -77,7 +77,9 @@ namespace PhoViet
         void TickLongitudinalVehicle(TrafficVehicle v,float dt)
         {
             bool same=v.baseTrafficSpeed>0;Vector3 p=v.model.localPosition;
-            if(v.enteringFromBehind&&!v.isReckless)
+            bool turnBike=HasTurnBike(v);
+            if(turnBike){same=v.turnBikeFromRear;v.speed=v.baseTrafficSpeed=(same?1:-1)*Speed*TurnBikeSpeedMultiplier;v.brakeRemaining=0;v.hasTurned=true;}
+            if(v.enteringFromBehind&&!v.isReckless&&!turnBike)
             {
                 v.baseTrafficSpeed=Mathf.Max(v.baseTrafficSpeed,TrafficPaceSpeed+v.rearEntryBoost);
                 if(p.z>4){v.enteringFromBehind=false;v.baseTrafficSpeed=7+(float)rng.NextDouble()*7;}
@@ -85,7 +87,8 @@ namespace PhoViet
             v.brakeCooldown-=dt;v.laneCooldown-=dt;
             if(TryBeginRoadTurn(v,dt)){TickRoadTurn(v,dt);return;}
             MergeForBridge(v);
-            if(trafficSurprises&&!v.isReckless&&dt>0)
+            if(turnBike)TickTurnBikeSteering(v,dt);
+            if(trafficSurprises&&!v.isReckless&&!turnBike&&dt>0)
             {
                 if(same&&v.brakeCooldown<=0&&p.z>-4&&p.z<60)
                 {

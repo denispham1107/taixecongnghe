@@ -1,0 +1,65 @@
+{
+  "success": true,
+  "evidence": [
+    {
+      "direction": -1,
+      "initialWarning": 0.495833337,
+      "warningLane": 3,
+      "playerSpeed": 18.3463974,
+      "bikes": [
+        {
+          "rear": false,
+          "speed": -27.5195961,
+          "lane": 0,
+          "position": [
+            -2.087555,
+            0.0,
+            94.63569
+          ],
+          "changing": true
+        },
+        {
+          "rear": true,
+          "speed": 27.5195961,
+          "lane": 2,
+          "position": [
+            4.112445,
+            0.0,
+            -22.16536
+          ],
+          "changing": true
+        }
+      ]
+    },
+    {
+      "direction": 1,
+      "initialWarning": 0.495833337,
+      "warningLane": 3,
+      "playerSpeed": 18.3463974,
+      "bikes": [
+        {
+          "rear": true,
+          "speed": 27.5195961,
+          "lane": 2,
+          "position": [
+            4.112445,
+            0.0,
+            -22.16536
+          ],
+          "changing": true
+        },
+        {
+          "rear": false,
+          "speed": -27.5195961,
+          "lane": 0,
+          "position": [
+            -2.087555,
+            0.0,
+            94.63569
+          ],
+          "changing": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "baselineCount": 2968,
+  "changed": [
+    "Assets/PhoViet/Scripts/PhoVietExitTraffic.cs",
+    "Assets/PhoViet/Scripts/PhoVietRearWarning.cs",
+    "Assets/PhoViet/Scripts/PhoVietTankFire.cs",
+    "Assets/PhoViet/Scripts/PhoVietTraffic.cs"
+  ],
+  "missing": [],
+  "added": [
+    "Assets/PhoViet/Scripts/PhoVietTurnBikes.cs",
+    "Assets/PhoViet/Scripts/PhoVietTurnBikes.cs.meta"
+  ],
+  "baselineCorrection": "TankFire compared with d45e25c and EOL normalized: asynchronous initial snapshot had already captured its authorized edit. Git diff reviewed and limited to aim offset, interval and matching comment."
+}

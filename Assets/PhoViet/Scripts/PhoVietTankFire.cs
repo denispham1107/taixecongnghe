@@ -3,7 +3,7 @@ using UnityEngine;
 namespace PhoViet
 {
  // Xe tăng bắn đạn (25/10/2026, huongdan.md 21.38): cứ 9 giây một xe tăng chạy ngược chiều xuất hiện phía trước
- // (bỏ xe tăng ngẫu nhiên ở ô xe con); khi còn ở phía trước trong tầm, mỗi giây bắn một quả đạn rơi vào 1 trong 4 làn
+ // (bỏ xe tăng ngẫu nhiên ở ô xe con); khi còn ở phía trước trong tầm, mỗi0,4giây bắn một quả đạn rơi vào 1 trong4làn
  // ở đoạn đường người chơi sắp chạy tới. Vòng cảnh báo đỏ hiện dưới đất ngay khi bắn; đạn trúng hoặc nổ trong bán kính
  // làm người chơi văng ra và kết thúc chuyến, xe khác trong bán kính cũng văng. Hiệu ứng dựng/render trong Blender MCP
  // (pho_viet_tank_fx.py): đạn PV_TankShell, lửa đầu nòng, vụ nổ, vòng cảnh báo.
@@ -17,11 +17,11 @@ namespace PhoViet
    [System.NonSerialized] public int turnTankAimGeneration=-1;
    [System.NonSerialized] public Vector3 turnTankTarget;
   }
-  public const float TurnTankAimChance=.7f,TurnTankAimJunctionOffset=12f;
+  public const float TurnTankAimChance=.7f,TurnTankAimJunctionOffset=24f;
   System.Random turnTankAimRandom;
   public bool randomTanks=false;          // xe tăng ngẫu nhiên ở ô xe con (21.33) — tắt từ 21.38
   public bool tankBarrageEnabled=true;    // xe tăng theo lịch 9 s và bắn đạn
-  public const float TankInterval=9f,TankDistanceInterval=400f,TankFireInterval=1f,TankFireIntervalMin=.4f,ShellFlight=1.6f,BlastRadius=2.2f,TankFireNear=24f,TankFireFar=115f;
+  public const float TankInterval=9f,TankDistanceInterval=400f,TankFireInterval=.4f,TankFireIntervalMin=.4f,ShellFlight=1.6f,BlastRadius=2.2f,TankFireNear=24f,TankFireFar=115f;
   public GameObject tankShellPrefab;
   public Material tankShellMaterial,tankMuzzleMaterial,tankExplosionMaterial,tankWarningMaterial,tankSparkMaterial;
   public int TanksScheduled {get;private set;}
@@ -86,8 +86,7 @@ namespace PhoViet
    // Retain queued milestones if both lanes or every traffic slot are occupied.
    if(SpawnScheduledTank()!=null){pendingDistanceTanks--;DistanceTanksScheduled++;}
   }
-  // Người chơi càng nhanh thì xe tăng bắn càng dày (25/10/2026, 21.39): 1,0 s ở tốc độ khởi đầu 17 m/s,
-  // giảm đều tới 0,4 s ở 30 m/s (tốc độ chạy tối đa), tăng tốc/nhảy nhanh hơn nữa vẫn giữ 0,4 s.
+  // 21.111: start at 0.4 s per shot; retain the existing 0.4 s lower bound at every speed.
   public static float TankFireIntervalAt(float speed)=>Mathf.Max(TankFireIntervalMin,Mathf.Lerp(TankFireInterval,TankFireIntervalMin,Mathf.InverseLerp(17,30,speed)));
   public float CurrentTankFireInterval=>TankFireIntervalAt(Speed);
   public TrafficVehicle SpawnScheduledTank()

@@ -1,5 +1,5 @@
 using System;using System.Linq;using System.Reflection;using System.Collections.Generic;using UnityEngine;using PhoViet;
-// Xe tăng bắn đạn (25/10/2026, huongdan.md 21.38): mỗi 9 s một xe tăng ngược chiều, bắn mỗi giây vào 1 trong 4 làn
+// Xe tăng bắn đạn (21.38/21.111): mỗi9s một xe tăng ngược chiều, bắn mỗi0,4s vào1trong4làn
 // phía trước, vòng cảnh báo dưới đất, trúng/nổ trong bán kính → văng ra và kết thúc; xe khác trong bán kính văng ra.
 public static class VerifyTankBarrage
 {
@@ -66,11 +66,11 @@ public static class VerifyTankBarrage
    foreach(var key in fireTimes.Keys){var ts=fireTimes[key];var sp=fireSpeeds[key];for(int k=1;k<ts.Count;k++){gaps.Add(ts[k]-ts[k-1]);gapErr.Add(Mathf.Abs(ts[k]-ts[k-1]-PhoVietGame.TankFireIntervalAt(sp[k-1])));}}
    data.Add("shots="+lanes.Count+" lanes="+string.Join("",lanes)+" gaps="+string.Join(",",gaps.Select(x=>x.ToString("F2"))));
    check(gaps.Count>=4&&gapErr.All(x=>x<.05f),"Each tank fires at the speed-based interval while in range"+(gapErr.All(x=>x<.05f)?"":" ["+data.Last()+"]"));
-   check(gaps.All(x=>x<=1.02f&&x>=.38f),"Fire interval stays between 1.0 s and 0.4 s");
+   check(gaps.All(x=>x<=.44f&&x>=.38f),"Fire interval stays at 0.4 s from the initial speed");
    check(lanes.Distinct().Count()>=3&&lanes.All(l=>l>=0&&l<4),"Shells land in random lanes among all four");
-   // ---- Khoảng bắn theo tốc độ: 1,0 s ở 17 m/s → 0,4 s ở 30 m/s, không dưới 0,4 s
-   check(Mathf.Abs(PhoVietGame.TankFireIntervalAt(17)-1)<1e-4f&&Mathf.Abs(PhoVietGame.TankFireIntervalAt(23.5f)-.7f)<1e-4f&&Mathf.Abs(PhoVietGame.TankFireIntervalAt(30)-.4f)<1e-4f,"Fire interval is 1.0 s at 17 m/s, 0.7 s at 23.5 m/s and 0.4 s at 30 m/s");
-   check(PhoVietGame.TankFireIntervalAt(45)==.4f&&PhoVietGame.TankFireIntervalAt(60)==.4f&&PhoVietGame.TankFireIntervalAt(8)==1f,"Faster than 30 m/s (boost/jump) never fires faster than every 0.4 s");
+   // ---- 21.111: initial and minimum firing interval both equal 0.4 s.
+   check(Mathf.Abs(PhoVietGame.TankFireIntervalAt(17)-.4f)<1e-4f&&Mathf.Abs(PhoVietGame.TankFireIntervalAt(23.5f)-.4f)<1e-4f&&Mathf.Abs(PhoVietGame.TankFireIntervalAt(30)-.4f)<1e-4f,"Fire interval is 0.4 s at initial, medium and maximum cruising speed");
+   check(PhoVietGame.TankFireIntervalAt(45)==.4f&&PhoVietGame.TankFireIntervalAt(60)==.4f&&PhoVietGame.TankFireIntervalAt(8)==.4f,"All speeds retain the 0.4 s minimum interval");
    float prev=2;bool monotonic=true;for(float sp=17;sp<=31;sp+=.5f){float iv=PhoVietGame.TankFireIntervalAt(sp);if(iv>prev+1e-5f)monotonic=false;prev=iv;}
    check(monotonic,"The faster the rider, the shorter the interval between shots");
    prepare();g.StartRide();set("timeRiding",400f);tick(1/30f);
