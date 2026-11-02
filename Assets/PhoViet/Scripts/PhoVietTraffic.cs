@@ -146,7 +146,7 @@ namespace PhoViet
                     float before=Mathf.Clamp(toStart/velocity,0,moving);
                     v.model.localPosition+=Vector3.right*v.crossSpeed*before;moving-=before;
                     v.turning=true;v.turnAngle=0;v.turnStartX=startX;v.turnEndX=endX;v.turnRadius=radius;v.turnZSign=zSign;
-                    v.turnOriginZ=Distance+v.model.localPosition.z;IntersectionTurns++;
+                    v.turnOriginZ=TravelDistance+v.model.localPosition.z;IntersectionTurns++;
                 }
             }
             if(!v.turning){v.model.localPosition+=Vector3.right*v.crossSpeed*moving;return;}
@@ -154,7 +154,7 @@ namespace PhoViet
             float turnTime=Mathf.Min(moving,remainingAngle*v.turnRadius/velocity);
             v.turnAngle=Mathf.Min(Mathf.PI*.5f,v.turnAngle+velocity*turnTime/v.turnRadius);
             float angle=v.turnAngle;
-            v.model.localPosition=new Vector3(v.turnStartX+direction*v.turnRadius*Mathf.Sin(angle),0,v.turnOriginZ+v.turnZSign*v.turnRadius*(1-Mathf.Cos(angle))-Distance);
+            v.model.localPosition=new Vector3(v.turnStartX+direction*v.turnRadius*Mathf.Sin(angle),0,v.turnOriginZ+v.turnZSign*v.turnRadius*(1-Mathf.Cos(angle))-TravelDistance);
             v.model.localRotation=Quaternion.Euler(0,Mathf.Atan2(direction*Mathf.Cos(angle),v.turnZSign*Mathf.Sin(angle))*Mathf.Rad2Deg,v.halfWidth<.7f?-direction*v.turnZSign*12:0);
             if(angle>=Mathf.PI*.5f-.00001f)
             {

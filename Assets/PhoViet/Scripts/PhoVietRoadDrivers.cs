@@ -15,7 +15,7 @@ namespace PhoViet
                 if(ahead>=-1&&ahead<nearest){nearest=ahead;centre=z;}
             }
             if(nearest>18)return false;
-            float key=Distance+centre;
+            float key=TravelDistance+centre;
             if(float.IsNaN(v.roadDecisionAt)||Mathf.Abs(v.roadDecisionAt-key)>1)
             {
                 v.roadDecisionAt=key;

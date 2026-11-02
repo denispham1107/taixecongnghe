@@ -115,7 +115,7 @@ namespace PhoViet.Editor
         {
             const string root="Builds/WebGL";
             if(!File.Exists(Path.Combine(root,"index.html")))throw new Exception("Build WebGL first");
-            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-morning.jpg","poster-morning-portrait.jpg","poster-night.jpg"})
+            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-morning.jpg","poster-morning-portrait.jpg","poster-action.jpg"})
                 File.Copy("Assets/WebGLTemplates/PhoVietPWA/"+file,Path.Combine(root,file),true);
             Directory.CreateDirectory(Path.Combine(root,"icons"));
             foreach(string icon in Directory.GetFiles("Assets/WebGLTemplates/PhoVietPWA/icons"))

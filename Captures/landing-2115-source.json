@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "source": "Current Unity scene, actual game camera, real tank shell/FX and dinosaur; no image compositing",
+  "morning": {
+    "seconds": 1.5,
+    "width": 1920,
+    "height": 1080,
+    "portraitWidth": 1280,
+    "portraitHeight": 720
+  },
+  "action": {
+    "night": 0.0954915,
+    "dinosaurYaw": 180.0,
+    "dinosaur": [
+      2.2,
+      28.0
+    ],
+    "tank": [
+      -2.4,
+      25.0
+    ],
+    "shells": 1,
+    "shellAge": 0.25,
+    "shellPosition": [
+      -0.253779382,
+      3.22227383,
+      20.2235756
+    ]
+  }
+}

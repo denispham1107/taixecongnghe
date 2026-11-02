@@ -16,11 +16,14 @@ namespace PhoViet
   float settledTime,fallTargetRoll,fallTargetPitch,oldRiderYaw;
   float[] riderContactUntil;
   bool riderVelocityValid;
+  // Physics may keep scrolling after impact; only riding distance earns score.
+  float crashTravelDistance;
+  internal float TravelDistance=>Distance+crashTravelDistance;
   const float RiderGroundDrag=9f;
   void ResetRiderImpact()
   {
    CrashDuringPursuit=false;RiderFallComplete=false;RiderFallTravel=0;LastRiderImpactSpeed=0;
-   fallTime=0;settledTime=0;pauseFromState=RideState.Riding;
+   fallTime=0;settledTime=0;pauseFromState=RideState.Riding;crashTravelDistance=0;
    ResetCrashPoliceNavigation();
    riderFallVelocity=Vector3.zero;riderFallSpin=Vector3.zero;riderRoadVelocity=Vector3.zero;riderVelocityValid=false;
    riderContactUntil=new float[vehicles.Count];
@@ -93,7 +96,7 @@ namespace PhoViet
    if(RiderInRiver){TickRiderRiver(dt);return;}
    Vector3 previous=rider.localPosition;
    Speed=Mathf.Max(0,riderFallVelocity.z);
-   float scroll=Speed*dt;Distance+=scroll;ScrollRoutes(scroll);
+   float scroll=Speed*dt;crashTravelDistance+=scroll;ScrollRoutes(scroll);
    {
     riderFallVelocity.y-=9.81f*dt;
     Vector3 p=previous+(riderFallVelocity-Vector3.forward*Speed)*dt;

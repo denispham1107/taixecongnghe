@@ -23,7 +23,7 @@ namespace PhoViet
         public float Duration=>profile.durationSeconds;
         public Matrix4x4 WorldToField=>referenceFromLocal*Matrix4x4.Translate(Vector3.forward*(RoadDistance-referenceDistance))*Root.worldToLocalMatrix;
         Transform Root=>lighting!=null?lighting.transform:transform;
-        float RoadDistance=>lighting!=null&&lighting.game!=null?lighting.game.Distance:0;
+        float RoadDistance=>lighting!=null&&lighting.game!=null?lighting.game.TravelDistance:0;
         Profile profile=new Profile();Camera view;Material volume;bool ready,ownedDepth;
         Matrix4x4 referenceFromLocal=Matrix4x4.identity;float referenceDistance;
         readonly Vector3[] corners=new Vector3[4];

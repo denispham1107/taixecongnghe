@@ -5,7 +5,7 @@ namespace PhoViet
     {
         RoutePoint SampleRoute(float at)
         {
-            if(routeTrail.Count==0)return new RoutePoint(at,new Vector3(rider.localPosition.x,0,at-Distance),0);
+            if(routeTrail.Count==0)return new RoutePoint(at,new Vector3(rider.localPosition.x,0,at-TravelDistance),0);
             for(int i=1;i<routeTrail.Count;i++)if(routeTrail[i].at>=at)
             {
                 var a=routeTrail[i-1];var b=routeTrail[i];float t=Mathf.InverseLerp(a.at,b.at,at);
@@ -50,13 +50,13 @@ namespace PhoViet
                 policeBike.localPosition-=Vector3.forward*Speed*dt;ResolvePoliceContact(before,Vector3.zero,false);
                 PoliceFallRemaining=Mathf.Max(0,PoliceFallRemaining-dt);PoliceSpeed=0;
                 policeBike.localRotation=Quaternion.Euler(0,policeFallYaw,-policeFallSide*78*Mathf.Clamp01((1.2f-PoliceFallRemaining)/.16f));
-                PoliceDistance=Distance-policeRouteAt;
+                PoliceDistance=TravelDistance-policeRouteAt;
                 if(!PoliceFallen){policeBike.localRotation=Quaternion.Euler(0,policeFallYaw,0);policeBody.knocked=false;}
                 return;
             }
             float nominal=PoliceDistance<=6.5f?cruiseSpeed-.65f:cruiseSpeed+15;
             if(IsTurning)nominal=PoliceDistance<=6.5f?TrafficPaceSpeed-.65f:TrafficPaceSpeed+2;
-            float nextAt=Mathf.Min(Distance-.8f,policeRouteAt+Mathf.Max(0,nominal)*dt);var point=SampleRoute(nextAt);Quaternion yaw=Quaternion.Euler(0,point.yaw,0);
+            float nextAt=Mathf.Min(TravelDistance-.8f,policeRouteAt+Mathf.Max(0,nominal)*dt);var point=SampleRoute(nextAt);Quaternion yaw=Quaternion.Euler(0,point.yaw,0);
             Vector3 destination=point.point;bool clear=false;
             foreach(float side in new[]{-.9f,0,.9f})
             {
@@ -75,7 +75,7 @@ namespace PhoViet
             else {PoliceSpeed=Mathf.MoveTowards(PoliceSpeed,0,dt*45);PoliceAvoidances++;}
             policeBike.localPosition=next;ResolvePoliceContact(before,(next-before)/dt+Vector3.forward*Speed,true);
             if(PoliceFallen)policeFallYaw=policeBike.localEulerAngles.y;
-            PoliceDistance=Distance-policeRouteAt;
+            PoliceDistance=TravelDistance-policeRouteAt;
             if(!PoliceFallen&&Vector3.Distance(policeBike.localPosition,rider.localPosition)<2.2f)Arrest();
             if(!IsTurning&&!PoliceFallen&&policeRouteAt>turnEndAt+1&&Mathf.Abs(Mathf.DeltaAngle(policeBike.localEulerAngles.y,0))<5)
             {routePolice=false;PoliceDistance=-policeBike.localPosition.z;}

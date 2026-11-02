@@ -15,9 +15,9 @@ namespace PhoViet
         public int QueuedTurn {get;private set;}
         public int CompletedTurns {get;private set;}
         public float TurnYaw {get;private set;}
-        public float NextJunctionDistance=>junctionAt-Distance;
+        public float NextJunctionDistance=>junctionAt-TravelDistance;
         public string NextStreet=>junctionStreet;
-        public float RoadProgress=>Distance+roadOffset;
+        public float RoadProgress=>TravelDistance+roadOffset;
         public string RouteStreet {get;private set;}="Trần Hưng Đạo";
         static readonly string[] RouteNames={"Trần Hưng Đạo","Quang Trung","Hai Bà Trưng","Lê Lợi","Lý Thường Kiệt","Lý Nam Đế","Đinh Bộ Lĩnh","Nguyễn Huệ","Nguyễn Trãi","Lê Duẩn","Điện Biên Phủ","Võ Thị Sáu","Nguyễn Thị Minh Khai","Cách Mạng Tháng Tám","Pasteur","Nam Kỳ Khởi Nghĩa","Nguyễn Đình Chiểu","Phan Đình Phùng","Trương Định","Bà Triệu","Ngô Quyền","Lê Hồng Phong","Trần Phú","Nguyễn Văn Cừ","Hoàng Diệu","Đề Thám","Tôn Đức Thắng","Bến Vân Đồn","Hàm Nghi","Đồng Khởi","Lạc Long Quân","Âu Cơ","Trần Quang Khải","Phan Chu Trinh","Nguyễn Tri Phương","Trần Bình Trọng","Võ Văn Tần","Nguyễn Hữu Cảnh","Phạm Ngũ Lão","Mai Chí Thọ","Hoàng Văn Thụ","Nguyễn Văn Trỗi","Nguyễn Bỉnh Khiêm","Lê Văn Sỹ","Hồng Bàng","Trần Não","Phan Văn Trị","Nguyễn Xí"};
         readonly HashSet<string> visitedStreets=new HashSet<string>();
@@ -70,7 +70,7 @@ namespace PhoViet
         }
         void PrepareBranches(float distance)
         {
-            junctionAt=Distance+distance;junctionStreet=GridJunctionStreet();int first=-1,second=-1;
+            junctionAt=TravelDistance+distance;junctionStreet=GridJunctionStreet();int first=-1,second=-1;
             for(int i=0;i<5;i++)if(i!=mainRow&&i!=leftRow&&i!=rightRow){if(first<0)first=i;else second=i;}
             // On reset all four spare rows are empty; subsequent calls keep the last junction behind us.
             if(first<0||second<0){first=(mainRow+1)%5;second=(mainRow+2)%5;}
@@ -180,7 +180,7 @@ namespace PhoViet
                 turnArcLengths[j]=turnArcLengths[j-1]+Vector3.Distance(previous,p);previous=p;
             }
             turnLength=turnArcLengths[turnArcLengths.Length-1];
-            if(IsChased&&!routePolice){routePolice=true;policeRouteAt=Distance-PoliceDistance;}
+            if(IsChased&&!routePolice){routePolice=true;policeRouteAt=TravelDistance-PoliceDistance;}
             PreviewJunctionNavigation();
         }
         Vector3 TurnPoint(float t)
@@ -200,8 +200,8 @@ namespace PhoViet
         void EndRouteFrame(float dt)
         {
             if(!RoutesReady)return;
-            if(routeTrail.Count==0||Distance-routeTrail[routeTrail.Count-1].at>.3f)routeTrail.Add(new RoutePoint(Distance,rider.localPosition,TurnYaw));
-            while(routeTrail.Count>2&&routeTrail[1].at<Distance-180)routeTrail.RemoveAt(0);
+            if(routeTrail.Count==0||TravelDistance-routeTrail[routeTrail.Count-1].at>.3f)routeTrail.Add(new RoutePoint(TravelDistance,rider.localPosition,TurnYaw));
+            while(routeTrail.Count>2&&routeTrail[1].at<TravelDistance-180)routeTrail.RemoveAt(0);
             if(IsTurning&&turnTravel>=turnLength-.0001f){FinishJunctionTurn();return;}
             if(!IsTurning&&NextJunctionDistance< -18){PassCityJunction();PrepareBranches(NextJunctionDistance+80);}
             cameraTurnBlend=Mathf.Max(0,cameraTurnBlend-dt);
@@ -246,13 +246,13 @@ namespace PhoViet
             var positions=new Vector3[chosen.tiles.Count];for(int i=0;i<positions.Length;i++)positions[i]=chosen.root.localPosition+chosen.root.localRotation*chosen.tiles[i].localPosition;
             chosen.root.localPosition=Vector3.zero;chosen.root.localRotation=Quaternion.identity;
             for(int i=0;i<positions.Length;i++){chosen.tiles[i].localPosition=positions[i];chosen.tiles[i].localRotation=Quaternion.identity;}
-            blocks=new List<Transform>(chosen.tiles);roadOffset=-Distance-positions[0].z;
+            blocks=new List<Transform>(chosen.tiles);roadOffset=-TravelDistance-positions[0].z;
             craterAppliedOffset=Vector3.right*craterOffset;
             rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0)+kickAppliedOffset+craterAppliedOffset;rider.localRotation=Quaternion.identity;lean=0;ClearLaneMotion();steerYaw=0;lastX=rider.localPosition.x;oldRiderZ=rider.localPosition.z;
             if(daylight!=null)daylight.Rebase(inverse,origin);
-            TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;cameraTurnBlend=.7f;turnEndAt=Distance;
+            TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;cameraTurnBlend=.7f;turnEndAt=TravelDistance;
             float nearest=float.MaxValue;foreach(var b in blocks){float z=b.localPosition.z+70;if(z>12)nearest=Mathf.Min(nearest,z);}
-            nextIntersectionDistance=Distance+nearest;leftRow=oldMain;rightRow=unused;PrepareBranches(nearest);notice="ĐÃ VÀO ĐƯỜNG "+RouteStreet.ToUpperInvariant();noticeTimer=2;
+            nextIntersectionDistance=TravelDistance+nearest;leftRow=oldMain;rightRow=unused;PrepareBranches(nearest);notice="ĐÃ VÀO ĐƯỜNG "+RouteStreet.ToUpperInvariant();noticeTimer=2;
             QueueTurnHazards();
             QueueExitTraffic();
             SyncTankCraterMasks(true);

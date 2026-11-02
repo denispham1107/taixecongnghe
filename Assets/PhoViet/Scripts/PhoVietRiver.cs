@@ -305,7 +305,7 @@ namespace PhoViet
   }
   void TickRiderRiver(float dt)
   {
-   Speed=Mathf.Max(0,riderFallVelocity.z);float scroll=Speed*dt;Distance+=scroll;ScrollRoutes(scroll);
+   Speed=Mathf.Max(0,riderFallVelocity.z);float scroll=Speed*dt;crashTravelDistance+=scroll;ScrollRoutes(scroll);
    SinkRider(dt,true);
    TickTrafficMotion(dt);RetireTraffic(false);
    TickPoliceRiver(dt);

@@ -49,7 +49,7 @@ namespace PhoViet
     }
     else if(v.crossing&&v.turning)
     {
-     r.finishTurn=true;r.goal=new Vector3(v.turnEndX,0,v.turnOriginZ+v.turnZSign*v.turnRadius-Distance);r.endHeading=Vector3.forward*v.turnZSign;r.speed=Mathf.Abs(v.crossSpeed);
+     r.finishTurn=true;r.goal=new Vector3(v.turnEndX,0,v.turnOriginZ+v.turnZSign*v.turnRadius-TravelDistance);r.endHeading=Vector3.forward*v.turnZSign;r.speed=Mathf.Abs(v.crossSpeed);
     }
     v.recovery=r;
    }
