@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **02/11/2026 — Codex**
+Cập nhật lần cuối: **03/11/2026 — Codex**
 
 ## 1. Trạng thái hiện tại
 
@@ -23,7 +23,7 @@ Cập nhật lần cuối: **02/11/2026 — Codex**
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
 | Trang chủ HTML trong source | **21.100 đã có trên web1.50.0:** ảnh sáng + ảnh đêm1920×1280 chụp trực tiếp; đêm ngay dưới sáng,387kiểm/12viewport khôngchồng. Projector độc lập giữa2đèn,168pose/88nightjump/8shader đạt |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
-| Đợt bổ sung sau rẽ và mỗi400m trong source | **21.113 chưa lên web:**2bike sau cua luôn1,5×Speed (giảm2× của21.112), sinhngay/tạt làn/vịtrígần/khôngchờ0,5s giữ. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn.101kiểmđạt; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
+| Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 chưa lên web:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
@@ -36,6 +36,8 @@ Cập nhật lần cuối: **02/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.114 hoàn tất source, chưa phát hành:** hai bike sau cua1,2×Speed kể cảW/sinhngaykhiđủchỗ; rear thường/quái xế/tải ngủ gật báo0,6s thay2s, giữlàn/chờchỗ/pause/rẽ. 81pair+120timing+20scene=221đạt/compile0lỗi-0warning, UnityEdit/sạch/jobsfalse. Chỉ3partial runtime, cập nhật verifier/report/2docs và lưucommitlocal. Chưa build/push/web(vẫn1.52.0).
 
 - **21.113 hoàn tất source, chưa phát hành:** chỉgiảm TurnBikeSpeedMultiplier2→1,5; hai xe vẫn bámSpeed/W, sinhngay/gap/làn/thứtựTank-Dino của21.112 giữ.81suitepair+20scene=101đạt/compile0lỗi-0warning, UnityEdit/sạch. Runtime chỉ1hằngsố đổi; cập nhật assertion verifier và2docs, lưucommitlocal. Chưa build/push/web(vẫn1.52.0). Chi tiết21.113.
 
@@ -151,6 +153,8 @@ Cập nhật lần cuối: **02/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.114 hoàn tất:**221kiểmđạt/compile0lỗi-0warning/UnityEdit/scene sạch; source+verifier+report+2docs lưucommitlocal. Không còn bước triển khai/kiểm đang dở; chưa build/push/web(vẫn1.52.0).
+
 - **21.113 hoàn tất:**101kiểmđạt/UnityEdit/scene sạch, source+2docs lưucommitlocal. Không còn bước triển khai/kiểm đang dở; chưa build/push/web(vẫn1.52.0).
 
 - **21.112 hoàn tất:**1.071kiểm đạt/3ảnhthật/compile0lỗi-0warning;UnityEdit/scene sạch. Source+2docs lưucommitlocal; không còn bước triển khai/kiểm đang dở, chưa build/push/web(1.52.0). Verify/CaptureTurnBikes2111 chỉ là fixture lịch sử0,5s/1,5×; dùng bản2112 cho source hiện tại.
@@ -211,7 +215,7 @@ Cập nhật lần cuối: **02/11/2026 — Codex**
 
 - **Source21.103:** hố đạn giữ tới khi ra xa/chơi lại; bánh chạm làm xe lệch liên tục tới khi nhấn/vuốt NGƯỢC hướng lệch. Thao tác đó chỉ chỉnh lái, không nhảy làn tức thì; thao tác sau đổi làn bình thường. Nhảy qua tránh hiệu ứng; hố không tự gây thua, va vào xe/cảnh vật/sông vẫn theo luật hiện tại.
 
-- **Source21.99/21.113:** sau mỗi lượt rẽ, Dino+Tank ở giao lộ kế tiếp không chờ2s; Tank sau rẽ có70% điểm rơi làn ngoài phải,24m trước tâm giao lộ/30% cách cũ. MọiTank bắn0,4s/flight1,6s, giữ lịch9s/mốc vượt400m. Thêm mỗi cua1bike ngược chiều và1bike từ sau, sinhngay/khôngcảnhbáoriêng, luôn±1,5×Speed kể cảW/tạt2làn đúngchiều/tránh tạt ra sông. Rear gầnđuôi ởlàncùngchiềugầnnhất; oncoming được sinh sauDino/Tank, ở khoảngtrống giữa chúng vàplayer để khôngđuổiđâmTank. Pool/vị trí kín giữyêucầu/thửngaykhitrống; resetxóa/pause-tékhôngsinh. Xe thường khác vẫn tốcđộ riêng/rear2s.
+- **Source21.99/21.114:** sau mỗi lượt rẽ, Dino+Tank ở giao lộ kế tiếp không chờ2s; Tank sau rẽ có70% điểm rơi làn ngoài phải,24m trước tâm giao lộ/30% cách cũ. MọiTank bắn0,4s/flight1,6s, giữ lịch9s/mốc vượt400m. Thêm mỗi cua1bike ngược chiều và1bike từ sau, sinhngay/khôngcảnhbáoriêng, luôn±1,2×Speed kể cảW/tạt2làn đúngchiều/tránh tạt ra sông. Rear gầnđuôi ởlàncùngchiềugầnnhất; oncoming được sinh sauDino/Tank, ở khoảngtrống giữa chúng vàplayer để khôngđuổiđâmTank. Pool/vị trí kín giữyêucầu/thửngaykhitrống; resetxóa/pause-tékhôngsinh. Xe thường khác vẫn tốcđộ riêng; cảnh báo rear thường/nguyhiểm0,6s (21.114), hai bike riêng vẫn khôngcảnhbáo.
 
 - **Source21.96:** xe tăng không bị thân/chân/đuôi khủng long hất, vẫn chạy/bắn theo quy tắc pháo hiện có; các phương tiện khác/player/CSGT giữ luật cũ. Đã có trênweb1.50.0, thay quyết định hất xe tăng ở21.62.
 
@@ -236,8 +240,8 @@ Cập nhật lần cuối: **02/11/2026 — Codex**
 | Điều khiển, đổi làn, camera, HUD | 2.2, 12, **21.94**,21.92/21.89/21.81/21.55/21.60/21.65 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs`, `AgentScripts/VerifyLaneResponse.cs`, `VerifySupercarScalePace.cs`, `CaptureLaneResponse.cs` |
 | Mưa giông/sét/báo trước/xe cháy vĩnh viễn | **21.109**,21.105,2.14 | `PhoVietThunderstorm.cs`, `ThunderstormVisual.cs`, `ThunderstormFX.shader`, `DayNightLighting.cs`, `DayNightSky.shader`, `TankCraterRoad.shader`, `PhoVietTrafficRecovery.cs`; `AgentScripts/ConfigureThunderstorm.cs`, `VerifyThunderstorm.cs`, `CaptureThunderstorm.cs`, `VerifyStormScene.cs`, `VerifyLocalLightning.cs`, `CaptureLocalLightning.cs`, `RunStormRegressions.ps1` |
 | Giao thông, va chạm, văng/té | 7, 21.33 | `PhoVietTraffic.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs` |
-| Quái xế, xe tải ngủ gật | 2.4, 7.2 | `PhoVietReckless.cs` |
-| Dino+Tank sau cua,2bike1,5× sinhngay/vịtrígần/tạt làn,Tank400m | **21.113**,21.112/21.111/21.99 | `PhoVietTurnHazards.cs`, `PhoVietTurnBikes.cs`, `PhoVietExitTraffic.cs`, `PhoVietTraffic.cs`, `PhoVietRoutes.cs`; `AgentScripts/VerifyTurnBikes2112.cs`, `CaptureTurnBikes2112.cs`, `VerifyTurnHazards.cs`, `VerifyDistanceTanks2199.cs` |
+| Xe vượt từ sau/cảnh báo0,6s, quái xế/tải ngủ gật | **21.114**,2.3–2.4,7.2 | `PhoVietExitTraffic.cs`, `PhoVietReckless.cs`, `AgentScripts/VerifyRearWarningTiming.cs` |
+| Dino+Tank sau cua,2bike1,2× sinhngay/vịtrígần/tạt làn,Tank400m | **21.114**,21.113,21.112/21.111/21.99 | `PhoVietTurnHazards.cs`, `PhoVietTurnBikes.cs`, `PhoVietExitTraffic.cs`, `PhoVietTraffic.cs`, `PhoVietRoutes.cs`; `AgentScripts/VerifyTurnBikes2112.cs`, `CaptureTurnBikes2112.cs`, `VerifyTurnHazards.cs`, `VerifyDistanceTanks2199.cs` |
 | Khủng long, rig/quất đuôi, nhảy né/miễn xe tăng | **21.96**,2.12,7.5,21.62 | `PhoVietDinosaurs.cs`, `DinosaurVisual.cs`, `Editor/PhoVietDinosaurUpgrade.cs`, `pho_viet_dinosaur.py` |
 | Hố đạn/nứt/mảnh văng/lệch hướng và counter-steer | **21.103**,2.13 | `PhoVietTankCraters.cs`, `TankCraterGeometry.cs`, `TankCraterMask.cginc`, `TankCraterRoad.shader`, `TankCraterSurface.shader`, `CityGround.shader`, `PlayerCarVisual.cs`; `AgentScripts/VerifyTankCraters.cs`, `VerifyCraterTurns.cs`, `VerifyTankCraterGeometry.cs`, `CaptureTankCraters.cs`, `VerifyCraterRender.py` |
 | Xe tăng, đạn0,4s,70% điểm rơi sau rẽ | **21.111**,21.110,21.103,21.38–21.40 | `PhoVietTankFire.cs`, `PhoVietTurnHazards.cs`, `Editor/PhoVietTankFxUpgrade.cs`, `AgentScripts/VerifyTurnTankAim.cs`, `VerifyTankBarrage.cs`, `CaptureTurnTankAim.cs` |

@@ -21,15 +21,15 @@ public static class VerifyTurnBikes2112
    Check(g.TurnOncomingBikeSpawns==1&&g.TurnRearBikeSpawns==1&&g.PendingTurnBikeWaves==0,"Both bikes spawn in queue call, without countdown or later tick");
    Check(PhoVietGame.TurnBikeWarningSeconds==0&&!g.TurnBikeRearWarningVisible(2)&&!g.TurnBikeRearWarningVisible(3)&&g.TurnBikeRearWarningRemaining(2)<0,"No warning/countdown remains for either new bike");
    var front=Bikes().Single(v=>!v.turnBikeFromRear);var rear=Bikes().Single(v=>v.turnBikeFromRear);
-   Check(front.speed==-25.5f&&rear.speed==25.5f&&front.model.GetComponent<UrbanRiderMotion>()!=null&&rear.model.GetComponent<UrbanRiderMotion>()!=null,"Existing rider models launch at 1.5 times player speed");
+   Check(Mathf.Abs(front.speed+20.4f)<.0001f&&Mathf.Abs(rear.speed-20.4f)<.0001f&&front.model.GetComponent<UrbanRiderMotion>()!=null&&rear.model.GetComponent<UrbanRiderMotion>()!=null,"Existing rider models launch at 1.2 times player speed");
    Check(Mathf.Abs(rear.model.localPosition.z+8)<.001f&&rear.model.localPosition.z>g.rideCamera.transform.localPosition.z,"Rear entry is close behind player rather than hidden far behind camera");
    Check((bool)Call("TurnBikeSpace",rear,new Vector3(100,0,-8)),"Space probe remains geometry based");
    foreach(float speed in new[]{0f,8f,17f,30f,67.5f,17f})
    {
     Set("Speed",speed);Call("TickLongitudinalVehicle",rear,.01f);Call("TickLongitudinalVehicle",front,.01f);
-    Check(Mathf.Abs(rear.speed-1.5f*speed)<.0001f&&Mathf.Abs(front.speed+1.5f*speed)<.0001f,"Both directions follow current speed including W/zero/resume: "+speed);
+    Check(Mathf.Abs(rear.speed-1.2f*speed)<.0001f&&Mathf.Abs(front.speed+1.2f*speed)<.0001f,"Both directions follow current speed including W/zero/resume: "+speed);
    }
-   Set("Speed",30f);rear.model.localPosition=new Vector3(PhoVietGame.LaneX[rear.lane],0,8);Call("TickLongitudinalVehicle",rear,.01f);Check(rear.speed==45,"Passing player does not reduce the bike's speed");
+   Set("Speed",30f);rear.model.localPosition=new Vector3(PhoVietGame.LaneX[rear.lane],0,8);Call("TickLongitudinalVehicle",rear,.01f);Check(rear.speed==36,"Passing player does not reduce the bike's speed");
    foreach(var v in new[]{rear,front}){v.changingLane=false;v.turnBikeSwerveTimer=0;Call("TickLongitudinalVehicle",v,.01f);}
    Check(rear.changingLane&&front.changingLane&&rear.lane>=2&&front.lane<2&&rear.changeProgress<.1f&&front.changeProgress<.1f,"Sudden lane changes remain smooth and in directional lanes");
    for(int playerLane=0;playerLane<4;playerLane++){Fresh();g.rider.localPosition=new Vector3(PhoVietGame.LaneX[playerLane],0,0);Queue();Check(Bikes().Single(v=>v.turnBikeFromRear).lane==(playerLane==3?3:2),"Rear bike chooses the closest legal same-direction lane: "+playerLane);}
@@ -62,14 +62,14 @@ public static class VerifyTurnBikes2112
     front=Bikes().Single(v=>!v.turnBikeFromRear);rear=Bikes().Single(v=>v.turnBikeFromRear);tank=g.vehicles.Single(v=>v.active&&v.armored);dino=g.dinosaurs.Single(d=>d.active);
     Check(front.model.localPosition.z<tank.model.localPosition.z-tank.halfLength-front.halfLength-5&&front.model.localPosition.z<dino.root.localPosition.z-12,"Actual turn incoming spawn clears the front of both hazards");
     float endFrameMinimum=Mathf.Max(8,g.Speed*.35f)-g.Speed*dt-.15f;
-    Check(Mathf.Abs(front.speed+1.5f*g.Speed)<.001f&&Mathf.Abs(rear.speed-1.5f*g.Speed)<.001f&&g.rider.localPosition.z-rear.model.localPosition.z>=endFrameMinimum,"Actual launch uses live 1.5x speed and close safe rear gap after unused frame travel");
+    Check(Mathf.Abs(front.speed+1.2f*g.Speed)<.001f&&Mathf.Abs(rear.speed-1.2f*g.Speed)<.001f&&g.rider.localPosition.z-rear.model.localPosition.z>=endFrameMinimum,"Actual launch uses live 1.2x speed and close safe rear gap after unused frame travel");
     float initialGap=tank.model.localPosition.z-front.model.localPosition.z;
     for(int step=0;step<(int)(.6f/dt);step++)Call("TickTrafficMotion",dt);
     Check(!front.knocked&&!front.wallCrashed&&!front.riverFalling&&tank.model.localPosition.z-front.model.localPosition.z>initialGap,"Incoming fast bike moves away from tank instead of catching its rear");
     traces.Add(new{direction,dt,boost,speed=g.Speed,initialGap,afterGap=tank.model.localPosition.z-front.model.localPosition.z,rearZ=rear.model.localPosition.z});
    }
    Fresh();Queue();g.TogglePause();int count=g.TurnOncomingBikeSpawns+g.TurnRearBikeSpawns;Queue();Tick(3);Check(g.TurnOncomingBikeSpawns+g.TurnRearBikeSpawns==count,"Pause cannot add repeated pairs");g.TogglePause();
-   Fresh();Call("TryExitTraffic",true);int warned=g.OrdinaryRearWarningVisible(2)?2:3;Call("TickOrdinaryRearWarnings",1.99f);Check(g.ExitRearSpawns==0&&g.OrdinaryRearWarningRemaining(warned)>0,"Unrelated ordinary entries still warn for two seconds");Call("TickOrdinaryRearWarnings",.02f);Check(g.ExitRearSpawns==1,"Ordinary entry appears after its original warning");
+   Fresh();Call("TryExitTraffic",true);int warned=g.OrdinaryRearWarningVisible(2)?2:3;Call("TickOrdinaryRearWarnings",.59f);Check(g.ExitRearSpawns==0&&g.OrdinaryRearWarningRemaining(warned)>0,"Unrelated ordinary entries warn for 0.6 seconds");Call("TickOrdinaryRearWarnings",.02f);Check(g.ExitRearSpawns==1,"Ordinary entry appears after its 0.6-second warning");
    Fresh();Queue();Queue();Check(g.TurnRearBikeSpawns==2&&g.TurnOncomingBikeSpawns==2,"Repeated turns retain exactly one pair per turn");g.ResetRide();Check(g.PendingTurnBikeWaves==0&&g.TurnRearBikeSpawns==0&&g.TurnOncomingBikeSpawns==0&&g.vehicles.All(v=>v.turnBikeGeneration==-1),"Retry clears new pair state and speed tags");
    Fresh();g.riversEnabled=true;g.ResetRide();g.StartRide();Clear();Set("Speed",17f);Queue();Check(Bikes().All(v=>!g.OverRiver(v.model.localPosition)),"Bridge-aware immediate entries stay on solid road");
    Check(!g.jobsEnabled&&!PhoVietGame.RideJobsReleased,"Jobs remain locked");

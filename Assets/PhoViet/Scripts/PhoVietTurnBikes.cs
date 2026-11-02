@@ -4,7 +4,7 @@ namespace PhoViet
 {
  public partial class PhoVietGame
  {
-  public const float TurnBikeSpeedMultiplier=1.5f,TurnBikeWarningSeconds=0f;
+  public const float TurnBikeSpeedMultiplier=1.2f,TurnBikeWarningSeconds=0f;
   public partial class TrafficVehicle
   {
    [System.NonSerialized] public int turnBikeGeneration=-1;

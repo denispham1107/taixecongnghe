@@ -3,6 +3,7 @@ namespace PhoViet
 {
     public partial class PhoVietGame
     {
+        public const float RearTrafficWarningSeconds=.6f;
         public bool turnExitTrafficEnabled=true;
         public int ExitRearSpawns {get;private set;}
         public int ExitOncomingSpawns {get;private set;}
@@ -27,7 +28,7 @@ namespace PhoViet
         void TickExitTraffic(float dt)
         {
             if(!turnExitTrafficEnabled||dt<=0||(exitRearRemaining==0&&exitOncomingRemaining==0))return;
-            // Allow the original wave size to finish despite the two-second lane warnings.
+            // Allow the original wave size to finish while lanes are reserved for warnings.
             exitWaveAge+=dt;exitWaveTimer-=dt;if(exitWaveAge>12){exitRearRemaining=0;exitOncomingRemaining=0;return;}
             if(exitWaveTimer>0)return;
             bool rear=exitOncomingRemaining==0||(exitRearRemaining>0&&rng.Next(2)==0);
@@ -43,7 +44,7 @@ namespace PhoViet
                 {
                     int slot=(first+i)%2;if(rearExitReserved[slot]!=null||TurnBikeRearWarningVisible(slot+2))continue;
                     int selected=FindExitCandidate();if(selected<0)return false;
-                    rearExitReserved[slot]=vehicles[selected];rearExitWarning[slot]=2;return true;
+                    rearExitReserved[slot]=vehicles[selected];rearExitWarning[slot]=RearTrafficWarningSeconds;return true;
                 }
                 return false;
             }
@@ -63,7 +64,7 @@ namespace PhoViet
             for(int slot=0;slot<2;slot++)
             {
                 if(rearExitReserved[slot]==null)continue;
-                if(IsTurning||ServiceStopped){rearExitWarning[slot]=2;continue;}
+                if(IsTurning||ServiceStopped){rearExitWarning[slot]=RearTrafficWarningSeconds;continue;}
                 rearExitWarning[slot]=Mathf.Max(0,rearExitWarning[slot]-dt);
                 if(rearExitWarning[slot]<=0&&SpawnExitTraffic(true,slot+2,rearExitReserved[slot]))rearExitReserved[slot]=null;
             }

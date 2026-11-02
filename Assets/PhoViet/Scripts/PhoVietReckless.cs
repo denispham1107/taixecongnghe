@@ -48,14 +48,14 @@ namespace PhoViet
                 truck=!truck;candidate=vehicles.Find(v=>v.eventOnly&&v.model==(truck?recklessTruckModel:recklessBikeModel));
                 if(candidate==null||candidate.active)return false;
             }
-            rearRecklessPending=true;rearRecklessTruck=truck;rearRecklessLane=rng.Next(2,4);rearRecklessWarning=2;
+            rearRecklessPending=true;rearRecklessTruck=truck;rearRecklessLane=rng.Next(2,4);rearRecklessWarning=RearTrafficWarningSeconds;
             return true;
         }
         void TickRearRecklessWarning(float dt)
         {
             if(!rearRecklessPending||dt<=0)return;
             if(!recklessTrafficEnabled){rearRecklessPending=false;rearRecklessLane=-1;return;}
-            if(!RearRecklessWarningVisible){rearRecklessWarning=2;return;}
+            if(!RearRecklessWarningVisible){rearRecklessWarning=RearTrafficWarningSeconds;return;}
             rearRecklessWarning=Mathf.Max(0,rearRecklessWarning-dt);
             if(rearRecklessWarning>0)return;
             // Keep the warned lane even when traffic temporarily occupies the spawn gap.
