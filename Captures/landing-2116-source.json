@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "source": "Current Unity scene, actual game camera, real ground detonation; original tank/dinosaur pose unchanged",
+  "morningReplaced": false,
+  "action": {
+    "width": 1920,
+    "height": 1080,
+    "night": 0.0954915,
+    "dinosaurYaw": 180.0,
+    "dinosaur": [
+      2.2,
+      28.0
+    ],
+    "tank": [
+      -2.4,
+      25.0
+    ],
+    "shells": 0,
+    "blasts": 1,
+    "muzzleParticles": 0,
+    "blastParticles": 1,
+    "groundTarget": [
+      4.65,
+      0.0,
+      12.8
+    ]
+  }
+}

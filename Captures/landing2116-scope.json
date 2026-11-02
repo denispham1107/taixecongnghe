@@ -1,0 +1,46 @@
+{
+  "success": true,
+  "checks": [
+    {
+      "file": "Assets/WebGLTemplates/PhoVietPWA/poster-morning.jpg",
+      "unchanged": true,
+      "sha256": "d9824d8845981da3f63c60a8476fa71335e1d2618aaad1130d9f328bbb4c2a31"
+    },
+    {
+      "file": "Assets/WebGLTemplates/PhoVietPWA/poster-morning-portrait.jpg",
+      "unchanged": true,
+      "sha256": "623f11583f83494eedd90b5f9a320d3dd680fc9a98c9f823cdc18ac43d875b47"
+    },
+    {
+      "runtimeSceneSettingsUnchanged": true
+    }
+  ],
+  "capture": {
+    "success": true,
+    "source": "Current Unity scene, actual game camera, real ground detonation; original tank/dinosaur pose unchanged",
+    "morningReplaced": false,
+    "action": {
+      "width": 1920,
+      "height": 1080,
+      "night": 0.0954915,
+      "dinosaurYaw": 180.0,
+      "dinosaur": [
+        2.2,
+        28.0
+      ],
+      "tank": [
+        -2.4,
+        25.0
+      ],
+      "shells": 0,
+      "blasts": 1,
+      "muzzleParticles": 0,
+      "blastParticles": 1,
+      "groundTarget": [
+        4.65,
+        0.0,
+        12.8
+      ]
+    }
+  }
+}

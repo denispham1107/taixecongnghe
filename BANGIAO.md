@@ -21,7 +21,7 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Điều khiển/nhảy trong source | **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đã có trên web1.50.0 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
-| Trang chủ HTML trong source | **21.115 chưa lên web:** ảnh1sáng/Petshopđủ2bên, ảnh2ngàyTankbắn+Dinochínhdiện;1920×1080/16:9contain,387layout12viewport/3refreshđạt. Web1.52.0 vẫnảnhsáng+đêm cũ |
+| Trang chủ HTML trong source | **21.116 chưa lên web:** ảnh1sáng/Petshopđủ2bên giữ; ảnh2ngàyTankrõthân/nòng,đạnnổdướiđất/Dinogiữpose;1920×1080/16:9contain,23scene-refreshđạt;layout387của21.115 giữ. Web1.52.0 vẫnảnhsáng+đêm cũ |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 chưa lên web:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
@@ -36,6 +36,8 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.116 hoàn tất source, chưa phát hành:** chụp lại riêngảnh2 lúcđạn nổđất/lửađầunòngtắt, thấytrọnTank/nòng; Dino/ảnh1/bố cục giữ. Capturethật1blast/0muzzle,đãxem;20scene+3refreshđạt/UnityEdit/sạch/runtime-scene0diff. Ảnh/caption/script/report+2docs lưucommitlocal;chưabuild/push/web(1.52.0).
 
 - **21.115 hoàn tất source, chưa phát hành:** ảnh1Petshop hai bênđủchữ/ảnh2ngàyTankbắn+Dinochínhdiện, chụpUnitythật/16:9contain. Điểmmét/kỷlục khóa từva chạm, quãngvăng vẫncuộnworld riêng; giữphysics/chờCSGT/sông/sét.868Unity+387layout12viewport+3refresh=1.258đạt/0compileerror-warning; ảnhđãxem/UnityEdit/sạch/jobsfalse. Lưucommitlocal+2docs;chưabuild/push/web(1.52.0).
 
@@ -155,6 +157,8 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.116 hoàn tất:** ảnh2đãxem/Tankrõnòng/nổđất/Dinogiữ,23scene-refreshđạt/UnityEdit/scenesạch. Không còn bước triển khai/kiểm đang dở; source lưucommitlocal; chưa build/push/web(vẫn1.52.0).
+
 - **21.115 hoàn tất:**868Unity+387layout+3refresh=1.258đạt/compile0lỗi-0warning; ảnhđãxem, UnityEdit/scenesạch. Source/ảnh/verifier/report/2docs lưucommitlocal; không còn bước triển khai/kiểm đang dở. Chưa build/push/web(vẫn1.52.0); preview chỉrefreshshell vớiWASMcũ.
 
 - **21.114 hoàn tất:**221kiểmđạt/compile0lỗi-0warning/UnityEdit/scene sạch; source+verifier+report+2docs lưucommitlocal. Không còn bước triển khai/kiểm đang dở; chưa build/push/web(vẫn1.52.0).
@@ -272,7 +276,7 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Simulator iPhone 14 Pro/Pro Max/Dynamic Island/Safe Area | **21.71** | `Assets/PhoViet/Editor/DeviceSimulator/` (`README.md`, hai `.device`, `Overlays/`, `LICENSE.md`); `Captures/iphone14-simulator-checks.json` |
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
-| Trang chủ HTML / ảnh Petshop+Tank-Dino / responsive | **21.115**,21.100–21.101,21.83,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `app.js`, `poster-morning*.jpg`, `poster-action.jpg`; `AgentScripts/CaptureLanding2115.cs`, `CaptureLandingMorning.cs`, `CaptureLandingNight150.cs`, `RefreshLandingPreview.cs`, `VerifyLanding.cjs` |
+| Trang chủ HTML / ảnh Petshop+Tank-Dino nổđất / responsive | **21.116**,21.115,21.100–21.101,21.83,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `app.js`, `poster-morning*.jpg`, `poster-action.jpg`; `AgentScripts/CaptureLanding2115.cs`, `CaptureLandingMorning.cs`, `CaptureLandingNight150.cs`, `RefreshLandingPreview.cs`, `VerifyLanding.cjs` |
 | WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.106**,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease152Scene.cs`, `VerifyStormWeb.cjs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.
