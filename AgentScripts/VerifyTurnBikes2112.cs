@@ -21,15 +21,15 @@ public static class VerifyTurnBikes2112
    Check(g.TurnOncomingBikeSpawns==1&&g.TurnRearBikeSpawns==1&&g.PendingTurnBikeWaves==0,"Both bikes spawn in queue call, without countdown or later tick");
    Check(PhoVietGame.TurnBikeWarningSeconds==0&&!g.TurnBikeRearWarningVisible(2)&&!g.TurnBikeRearWarningVisible(3)&&g.TurnBikeRearWarningRemaining(2)<0,"No warning/countdown remains for either new bike");
    var front=Bikes().Single(v=>!v.turnBikeFromRear);var rear=Bikes().Single(v=>v.turnBikeFromRear);
-   Check(front.speed==-34&&rear.speed==34&&front.model.GetComponent<UrbanRiderMotion>()!=null&&rear.model.GetComponent<UrbanRiderMotion>()!=null,"Existing rider models launch at exactly twice player speed");
+   Check(front.speed==-25.5f&&rear.speed==25.5f&&front.model.GetComponent<UrbanRiderMotion>()!=null&&rear.model.GetComponent<UrbanRiderMotion>()!=null,"Existing rider models launch at 1.5 times player speed");
    Check(Mathf.Abs(rear.model.localPosition.z+8)<.001f&&rear.model.localPosition.z>g.rideCamera.transform.localPosition.z,"Rear entry is close behind player rather than hidden far behind camera");
    Check((bool)Call("TurnBikeSpace",rear,new Vector3(100,0,-8)),"Space probe remains geometry based");
    foreach(float speed in new[]{0f,8f,17f,30f,67.5f,17f})
    {
     Set("Speed",speed);Call("TickLongitudinalVehicle",rear,.01f);Call("TickLongitudinalVehicle",front,.01f);
-    Check(Mathf.Abs(rear.speed-2*speed)<.0001f&&Mathf.Abs(front.speed+2*speed)<.0001f,"Both directions follow current speed including W/zero/resume: "+speed);
+    Check(Mathf.Abs(rear.speed-1.5f*speed)<.0001f&&Mathf.Abs(front.speed+1.5f*speed)<.0001f,"Both directions follow current speed including W/zero/resume: "+speed);
    }
-   Set("Speed",30f);rear.model.localPosition=new Vector3(PhoVietGame.LaneX[rear.lane],0,8);Call("TickLongitudinalVehicle",rear,.01f);Check(rear.speed==60,"Passing player does not reduce the bike's speed");
+   Set("Speed",30f);rear.model.localPosition=new Vector3(PhoVietGame.LaneX[rear.lane],0,8);Call("TickLongitudinalVehicle",rear,.01f);Check(rear.speed==45,"Passing player does not reduce the bike's speed");
    foreach(var v in new[]{rear,front}){v.changingLane=false;v.turnBikeSwerveTimer=0;Call("TickLongitudinalVehicle",v,.01f);}
    Check(rear.changingLane&&front.changingLane&&rear.lane>=2&&front.lane<2&&rear.changeProgress<.1f&&front.changeProgress<.1f,"Sudden lane changes remain smooth and in directional lanes");
    for(int playerLane=0;playerLane<4;playerLane++){Fresh();g.rider.localPosition=new Vector3(PhoVietGame.LaneX[playerLane],0,0);Queue();Check(Bikes().Single(v=>v.turnBikeFromRear).lane==(playerLane==3?3:2),"Rear bike chooses the closest legal same-direction lane: "+playerLane);}
@@ -62,7 +62,7 @@ public static class VerifyTurnBikes2112
     front=Bikes().Single(v=>!v.turnBikeFromRear);rear=Bikes().Single(v=>v.turnBikeFromRear);tank=g.vehicles.Single(v=>v.active&&v.armored);dino=g.dinosaurs.Single(d=>d.active);
     Check(front.model.localPosition.z<tank.model.localPosition.z-tank.halfLength-front.halfLength-5&&front.model.localPosition.z<dino.root.localPosition.z-12,"Actual turn incoming spawn clears the front of both hazards");
     float endFrameMinimum=Mathf.Max(8,g.Speed*.35f)-g.Speed*dt-.15f;
-    Check(Mathf.Abs(front.speed+2*g.Speed)<.001f&&Mathf.Abs(rear.speed-2*g.Speed)<.001f&&g.rider.localPosition.z-rear.model.localPosition.z>=endFrameMinimum,"Actual launch uses live 2x speed and close safe rear gap after unused frame travel");
+    Check(Mathf.Abs(front.speed+1.5f*g.Speed)<.001f&&Mathf.Abs(rear.speed-1.5f*g.Speed)<.001f&&g.rider.localPosition.z-rear.model.localPosition.z>=endFrameMinimum,"Actual launch uses live 1.5x speed and close safe rear gap after unused frame travel");
     float initialGap=tank.model.localPosition.z-front.model.localPosition.z;
     for(int step=0;step<(int)(.6f/dt);step++)Call("TickTrafficMotion",dt);
     Check(!front.knocked&&!front.wallCrashed&&!front.riverFalling&&tank.model.localPosition.z-front.model.localPosition.z>initialGap,"Incoming fast bike moves away from tank instead of catching its rear");
