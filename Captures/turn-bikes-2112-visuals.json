@@ -1,0 +1,69 @@
+{
+  "success": true,
+  "evidence": [
+    {
+      "direction": -1,
+      "initialWarning": -1.0,
+      "warningLane": -1,
+      "playerSpeed": 18.3463974,
+      "tankZ": 70.83333,
+      "dinosaurZ": 70.84416,
+      "bikes": [
+        {
+          "rear": false,
+          "speed": -36.6927948,
+          "lane": 0,
+          "position": [
+            -2.087555,
+            0.0,
+            46.5157776
+          ],
+          "changing": true
+        },
+        {
+          "rear": true,
+          "speed": 36.6927948,
+          "lane": 3,
+          "position": [
+            2.087555,
+            0.0,
+            -4.254277
+          ],
+          "changing": true
+        }
+      ]
+    },
+    {
+      "direction": 1,
+      "initialWarning": -1.0,
+      "warningLane": -1,
+      "playerSpeed": 18.3463974,
+      "tankZ": 70.835,
+      "dinosaurZ": 70.84416,
+      "bikes": [
+        {
+          "rear": false,
+          "speed": -36.6927948,
+          "lane": 0,
+          "position": [
+            -2.087555,
+            0.0,
+            46.5157776
+          ],
+          "changing": true
+        },
+        {
+          "rear": true,
+          "speed": 36.6927948,
+          "lane": 2,
+          "position": [
+            4.112445,
+            0.0,
+            -4.254277
+          ],
+          "changing": true
+        }
+      ]
+    }
+  ]
+}

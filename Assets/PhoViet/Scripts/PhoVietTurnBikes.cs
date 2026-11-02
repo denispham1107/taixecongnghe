@@ -4,7 +4,7 @@ namespace PhoViet
 {
  public partial class PhoVietGame
  {
-  public const float TurnBikeSpeedMultiplier=1.5f,TurnBikeWarningSeconds=.5f;
+  public const float TurnBikeSpeedMultiplier=2f,TurnBikeWarningSeconds=0f;
   public partial class TrafficVehicle
   {
    [System.NonSerialized] public int turnBikeGeneration=-1;
@@ -12,7 +12,7 @@ namespace PhoViet
    [System.NonSerialized] public bool turnBikeFromRear;
   }
   sealed class TurnBikeWave
-  {public bool frontDone,rearDone;public TrafficVehicle rear;public int lane;public float warning=TurnBikeWarningSeconds;}
+  {public bool frontDone,rearDone;}
   readonly List<TurnBikeWave> turnBikeWaves=new List<TurnBikeWave>();
   System.Random turnBikeRandom;
   public int TurnRearBikeSpawns {get;private set;}
@@ -20,11 +20,10 @@ namespace PhoViet
   public int TurnBikeLaneChanges {get;private set;}
   public int PendingTurnBikeWaves=>turnBikeWaves.Count;
   bool HasTurnBike(TrafficVehicle v)=>v.active&&v.turnBikeGeneration==v.spawnGeneration;
-  bool TurnBikeReserved(TrafficVehicle v){foreach(var wave in turnBikeWaves)if(wave.rear==v)return true;return false;}
-  public bool TurnBikeRearWarningVisible(int lane)
-  {if(!turnExitTrafficEnabled||IsTurning||ServiceStopped||State!=RideState.Riding)return false;foreach(var wave in turnBikeWaves)if(wave.rear!=null&&wave.lane==lane)return true;return false;}
-  public float TurnBikeRearWarningRemaining(int lane)
-  {foreach(var wave in turnBikeWaves)if(wave.rear!=null&&wave.lane==lane)return wave.warning;return -1;}
+  // Retain the old queries for callers; these two special bikes no longer reserve a warning.
+  bool TurnBikeReserved(TrafficVehicle v)=>false;
+  public bool TurnBikeRearWarningVisible(int lane)=>false;
+  public float TurnBikeRearWarningRemaining(int lane)=>-1;
   void ResetTurnBikes()
   {
    turnBikeWaves.Clear();turnBikeRandom=new System.Random(RunSeed^0x21b111);
@@ -34,8 +33,8 @@ namespace PhoViet
   void QueueTurnBikes()
   {
    if(!turnExitTrafficEnabled||State!=RideState.Riding)return;
-   var wave=new TurnBikeWave();turnBikeWaves.Add(wave);ReserveTurnBikeRear(wave);
-   wave.frontDone=SpawnTurnBike(false,-1,null);
+   var wave=new TurnBikeWave();turnBikeWaves.Add(wave);TryTurnBikePair(wave);
+   turnBikeWaves.RemoveAll(item=>item.frontDone&&item.rearDone);
   }
   TrafficVehicle FindTurnBikeCandidate()
   {
@@ -43,20 +42,14 @@ namespace PhoViet
    foreach(var v in vehicles)if(!v.active&&!v.eventOnly&&!RearExitReserved(v)&&v.halfWidth<.7f&&v.model.GetComponent<UrbanRiderMotion>()!=null&&turnBikeRandom.Next(++count)==0)chosen=v;
    return chosen;
   }
-  float TurnBikeRearZ(TrafficVehicle v)=>Mathf.Min(-24,rideCamera.transform.localPosition.z-v.halfLength-6);
+  float TurnBikeRearZ(TrafficVehicle v)=>rider.localPosition.z-Mathf.Max(8,Mathf.Max(PlayerHalfLength+v.halfLength+3,Speed*.35f));
   int TurnBikeSafeLane(int lane,float z)
   {var p=new Vector3(LaneX[lane],0,z);return (lane==0||lane==3)&&riversEnabled&&(RiverZoneAt(p)||OuterLaneNearBridge(p,lane))?(lane==0?1:2):lane;}
-  void ReserveTurnBikeRear(TurnBikeWave wave)
+  void TryTurnBikePair(TurnBikeWave wave)
   {
-   if(wave.rearDone||wave.rear!=null)return;
-   var v=FindTurnBikeCandidate();if(v==null)return;
-   int first=turnBikeRandom.Next(2,4);
-   for(int attempt=0;attempt<2;attempt++)
-   {
-    int lane=TurnBikeSafeLane(2+(first-2+attempt)%2,TurnBikeRearZ(v));
-    if(rearExitReserved[lane-2]!=null||TurnBikeRearWarningVisible(lane))continue;
-    wave.rear=v;wave.lane=lane;wave.warning=TurnBikeWarningSeconds;return;
-   }
+   if(!wave.rearDone)wave.rearDone=SpawnTurnBike(true,-1,null);
+   // A blocked tank/dinosaur must claim its junction before the incoming motorcycle.
+   if(!wave.frontDone&&turnHazardWaves.Count==0)wave.frontDone=SpawnTurnBike(false,-1,null);
   }
   void TickTurnBikes(float dt)
   {
@@ -64,21 +57,8 @@ namespace PhoViet
    if(dt<=0||State!=RideState.Riding)return;
    foreach(var wave in turnBikeWaves)
    {
-    if(IsTurning||ServiceStopped){wave.warning=TurnBikeWarningSeconds;continue;}
-    bool alreadyWarned=wave.rear!=null;ReserveTurnBikeRear(wave);
-    if(!wave.frontDone)wave.frontDone=SpawnTurnBike(false,-1,null);
-    if(wave.rear!=null)
-    {
-     if(!alreadyWarned)continue;
-     int lane=TurnBikeSafeLane(wave.lane,TurnBikeRearZ(wave.rear));
-     if(lane!=wave.lane){wave.lane=lane;wave.warning=TurnBikeWarningSeconds;continue;}
-     wave.warning=Mathf.Max(0,wave.warning-dt);
-     if(wave.warning<=.000001f)
-     {
-      var reserved=wave.rear;wave.rear=null;
-      if(SpawnTurnBike(true,wave.lane,reserved))wave.rearDone=true;else wave.rear=reserved;
-     }
-    }
+    if(IsTurning||ServiceStopped)continue;
+    TryTurnBikePair(wave);
    }
    turnBikeWaves.RemoveAll(wave=>wave.frontDone&&wave.rearDone);
   }
@@ -93,18 +73,33 @@ namespace PhoViet
   }
   bool SpawnTurnBike(bool rear,int fixedLane,TrafficVehicle reserved)
   {
-   var candidate=rear?reserved:FindTurnBikeCandidate();if(candidate==null||candidate.active)return false;
+   var candidate=reserved??FindTurnBikeCandidate();if(candidate==null||candidate.active)return false;
+   float near=rider.localPosition.z+Mathf.Max(18,Speed*.75f),far=rider.localPosition.z+104;
+   if(!rear)
+   {
+    // Place it on the player's side of every approaching hazard, never behind a slow tank.
+    foreach(var v in vehicles)if(v.active&&v.armored&&!v.riverFalling&&Mathf.Abs(v.model.localPosition.x)<7+VehicleFootprint(v).x&&v.model.localPosition.z>rider.localPosition.z)
+     far=Mathf.Min(far,v.model.localPosition.z-VehicleFootprint(v).y-candidate.halfLength-6);
+    foreach(var d in dinosaurs)if(d.active&&Mathf.Abs(d.root.localPosition.x)<7+DinosaurWidth*.5f&&d.root.localPosition.z>rider.localPosition.z)
+     far=Mathf.Min(far,d.root.localPosition.z-candidate.halfLength-12);
+    if(far<near)return false;
+   }
+   int first=turnBikeRandom.Next(2);
+   if(rear&&Mathf.Abs(Mathf.Abs(LaneX[2]-rider.localPosition.x)-Mathf.Abs(LaneX[3]-rider.localPosition.x))>.001f)
+    first=Mathf.Abs(LaneX[2]-rider.localPosition.x)<Mathf.Abs(LaneX[3]-rider.localPosition.x)?0:1;
    for(int attempt=0;attempt<8;attempt++)
    {
-    float z=rear?TurnBikeRearZ(candidate)-attempt*6:104+attempt*7;
-    int lane=TurnBikeSafeLane(rear?fixedLane:turnBikeRandom.Next(2),z);
-    if(rear&&lane!=fixedLane)continue;
-    if(!TurnBikeSpace(candidate,new Vector3(LaneX[lane],0,z)))continue;
-    var v=SpawnTraffic(lane,z,vehicles.IndexOf(candidate));if(v==null)return false;
-    v.turnBikeGeneration=v.spawnGeneration;v.turnBikeFromRear=rear;v.turnBikeSwerveTimer=.15f+(float)turnBikeRandom.NextDouble()*.2f;
-    v.speed=v.baseTrafficSpeed=(rear?1:-1)*Speed*TurnBikeSpeedMultiplier;
-    v.hasTurned=true;v.brakeRemaining=0;v.enteringFromBehind=rear;v.rearEntryBoost=0;
-    if(rear)TurnRearBikeSpawns++;else TurnOncomingBikeSpawns++;return true;
+    float z=rear?TurnBikeRearZ(candidate)-attempt*3:far-attempt*4;if(!rear&&z<near)break;
+    for(int side=0;side<2;side++)
+    {
+     int lane=TurnBikeSafeLane(fixedLane>=0?fixedLane:(rear?2:0)+(first+side)%2,z);
+     if(!TurnBikeSpace(candidate,new Vector3(LaneX[lane],0,z)))continue;
+     var v=SpawnTraffic(lane,z,vehicles.IndexOf(candidate));if(v==null)return false;
+     v.turnBikeGeneration=v.spawnGeneration;v.turnBikeFromRear=rear;v.turnBikeSwerveTimer=.15f+(float)turnBikeRandom.NextDouble()*.2f;
+     v.speed=v.baseTrafficSpeed=(rear?1:-1)*Speed*TurnBikeSpeedMultiplier;
+     v.hasTurned=true;v.brakeRemaining=0;v.enteringFromBehind=rear;v.rearEntryBoost=0;
+     if(rear)TurnRearBikeSpawns++;else TurnOncomingBikeSpawns++;return true;
+    }
    }
    return false;
   }

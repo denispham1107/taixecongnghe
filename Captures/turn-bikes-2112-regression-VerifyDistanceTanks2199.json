@@ -1,0 +1,116 @@
+{
+  "success": true,
+  "count": 60,
+  "checks": [
+    "Fresh run begins at the 400 m milestone",
+    "Exactly one extra tank per crossed 400 m: 399.99",
+    "Milestone cannot repeat at the same distance: 399.99",
+    "Exactly one extra tank per crossed 400 m: 400",
+    "Milestone cannot repeat at the same distance: 400",
+    "Exactly one extra tank per crossed 400 m: 400.01",
+    "Distance tank is ahead and oncoming",
+    "Milestone cannot repeat at the same distance: 400.01",
+    "Exactly one extra tank per crossed 400 m: 799.99",
+    "Milestone cannot repeat at the same distance: 799.99",
+    "Exactly one extra tank per crossed 400 m: 800",
+    "Milestone cannot repeat at the same distance: 800",
+    "Exactly one extra tank per crossed 400 m: 800.01",
+    "Distance tank is ahead and oncoming",
+    "Milestone cannot repeat at the same distance: 800.01",
+    "Exactly one extra tank per crossed 400 m: 1200.01",
+    "Distance tank is ahead and oncoming",
+    "Milestone cannot repeat at the same distance: 1200.01",
+    "Distance waves leave the periodic countdown untouched",
+    "Large distance step queues all three milestones and spawns one per free frame",
+    "No milestone is lost on a large distance step",
+    "Full pool retains exactly one request without duplicating it",
+    "Freed pool slot releases the distance tank",
+    "Occupied oncoming lanes defer the additional tank",
+    "Cleared lanes release exactly one tank",
+    "Non-riding state does not queue or spawn: Ready",
+    "Non-riding state does not queue or spawn: Paused",
+    "Non-riding state does not queue or spawn: Falling",
+    "Non-riding state does not queue or spawn: GameOver",
+    "Non-riding state does not queue or spawn: Arrested",
+    "Non-riding state does not queue or spawn: Jailed",
+    "Zero/negative time never advances milestones",
+    "Disabled tanks cannot create distance waves",
+    "Milestone crossed in a turn is retained until the new street is active",
+    "First straight frame releases the retained milestone",
+    "Retry clears queued milestones and distance counters",
+    "Retry cannot inherit the previous run's extra tank",
+    "Periodic deadline and 400 m milestone each add a tank on the same frame",
+    "Turn pair and distance milestone remain independent on the same frame",
+    "Real travel milestone produces an oncoming tank",
+    "Real travel milestone produces an oncoming tank",
+    "Real drive completes both distance milestones: boost=False,dt=0.01666667",
+    "400/800 m crossings are immediate and independent of speed: boost=False,dt=0.01666667",
+    "Nine-second periodic tanks are additional to the two distance tanks: boost=False,dt=0.01666667",
+    "Real travel milestone produces an oncoming tank",
+    "Real travel milestone produces an oncoming tank",
+    "Real drive completes both distance milestones: boost=False,dt=0.05",
+    "400/800 m crossings are immediate and independent of speed: boost=False,dt=0.05",
+    "Nine-second periodic tanks are additional to the two distance tanks: boost=False,dt=0.05",
+    "Real travel milestone produces an oncoming tank",
+    "Real travel milestone produces an oncoming tank",
+    "Real drive completes both distance milestones: boost=True,dt=0.01666667",
+    "400/800 m crossings are immediate and independent of speed: boost=True,dt=0.01666667",
+    "Nine-second periodic tanks are additional to the two distance tanks: boost=True,dt=0.01666667",
+    "Real travel milestone produces an oncoming tank",
+    "Real travel milestone produces an oncoming tank",
+    "Real drive completes both distance milestones: boost=True,dt=0.05",
+    "400/800 m crossings are immediate and independent of speed: boost=True,dt=0.05",
+    "Nine-second periodic tanks are additional to the two distance tanks: boost=True,dt=0.05",
+    "Jobs, coins and high score unchanged"
+  ],
+  "cases": [
+    {
+      "boost": false,
+      "dt": 0.0166666675,
+      "elapsed": 34.6496429,
+      "distance": 805.264648,
+      "crossed": [
+        400.003418,
+        800.3568
+      ],
+      "totalTanks": 5,
+      "distanceTanks": 2
+    },
+    {
+      "boost": false,
+      "dt": 0.05,
+      "elapsed": 34.6497574,
+      "distance": 805.4733,
+      "crossed": [
+        400.120544,
+        801.054932
+      ],
+      "totalTanks": 5,
+      "distanceTanks": 2
+    },
+    {
+      "boost": true,
+      "dt": 0.0166666675,
+      "elapsed": 20.666523,
+      "distance": 805.0185,
+      "crossed": [
+        400.0216,
+        800.438232
+      ],
+      "totalTanks": 4,
+      "distanceTanks": 2
+    },
+    {
+      "boost": true,
+      "dt": 0.05,
+      "elapsed": 20.74997,
+      "distance": 807.078857,
+      "crossed": [
+        400.208466,
+        801.575134
+      ],
+      "totalTanks": 4,
+      "distanceTanks": 2
+    }
+  ]
+}

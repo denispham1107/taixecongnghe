@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "count": 1071,
+  "suites": {
+    "checks": 81,
+    "regression-VerifyTurnTankAim": 63,
+    "regression-VerifyTankBarrage": 87,
+    "regression-VerifyTurnHazards": 221,
+    "regression-VerifyDistanceTanks2199": 60,
+    "regression-VerifyBoostTrafficIsolation": 478,
+    "regression-VerifyTankDinosaurImmunity": 61,
+    "scene-checks": 20
+  },
+  "build": false,
+  "push": false,
+  "published": false,
+  "publishedVersion": "1.52.0"
+}
