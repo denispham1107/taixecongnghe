@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "target": "c4a5c93",
+  "reverted": "d5180ac",
+  "indexTreeMatchedTargetBeforeHandoffUpdate": true,
+  "files": [
+    {
+      "file": "AgentScripts/CaptureLanding2115.cs",
+      "matchesCommit": "c4a5c93",
+      "sha256": "601af2136dfda5dbe8bff0ccd3f37fbe1362d5f91d04ea3f54d31ea36faccd68"
+    },
+    {
+      "file": "Assets/WebGLTemplates/PhoVietPWA/index.html",
+      "matchesCommit": "c4a5c93",
+      "sha256": "6b345da76bda12b6977912a2720e5fd2538d187a2f98ed916b7086f2d9742e54"
+    },
+    {
+      "file": "Assets/WebGLTemplates/PhoVietPWA/poster-action.jpg",
+      "matchesCommit": "c4a5c93",
+      "sha256": "0011e90b771c640bfd4d5ed54ec5feb71b53e46a71a857cbb0c18c2ec097db7a"
+    }
+  ],
+  "release": "unchanged 1.52.0",
+  "unrelatedLocalEdits": "preserved"
+}
