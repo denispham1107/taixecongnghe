@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "checks": 3,
+  "runtimeUrls": [
+    "codeUrl:\"Build/9db39af34c0ca36e4c14306a62fec36a.wasm.unityweb\"",
+    "dataUrl:\"Build/bce5cd221c5af0c8122e78b4e6710688.data.unityweb\"",
+    "frameworkUrl:\"Build/f944e341640629378fbded58e2d69c28.framework.js.unityweb\"",
+    "loaderUrl:\"Build/742997e280a122fc4b18279a032dc8cb.loader.js\"",
+    "mobileDataUrl:\"Build/c642f4d1f998cea33c63d803f1eedf8c.data.unityweb\""
+  ],
+  "version": "1.53.0",
+  "previewOnly": true
+}

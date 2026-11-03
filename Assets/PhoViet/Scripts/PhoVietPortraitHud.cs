@@ -107,7 +107,7 @@ namespace PhoViet
    var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
    float scale=narrow?area.width/480f:Mathf.Min(area.width/1440f,area.height/900f);
    float top=Screen.height-position.y;
-   float reservedTop=narrow?(noticeTimer>0?PortraitNoticeY+PortraitNoticeHeight:PortraitBarTop+(JobsAvailable?PortraitBarHeight:76)):(noticeTimer>0?126:94)*LandscapeHudScale(area)/scale;
+   float reservedTop=narrow?(noticeTimer>0?PortraitNoticeY+PortraitNoticeHeight:PortraitBarTop+PortraitBarHeight):(noticeTimer>0?126:94)*LandscapeHudScale(area)/scale;
    float reservedBottom=narrow?0:110;
    return position.x>=area.xMin&&position.x<=area.xMax&&top>=area.yMin+reservedTop*scale&&top<=area.yMax-reservedBottom*scale;
   }

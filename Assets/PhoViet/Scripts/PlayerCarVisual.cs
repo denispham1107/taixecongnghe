@@ -43,11 +43,18 @@ namespace PhoViet
     float t=game.RiderJumpPose;
     target=game.RiderJumpClip=="JumpTakeoff"?-3*Mathf.Sin(t*Mathf.PI*.5f):game.RiderAirborne?Mathf.Lerp(-3,4,t):game.RiderJumpClip=="LandFront"?3*(1-t):game.RiderJumpClip=="LandRear"?-3*(1-t):2*Mathf.Sin(t*Mathf.PI*2)*(1-t);
    }
+   if(moving&&game.RiderFlying)target=0;
    if(moving&&!game.RiderJumpActive)target+=game.RiderCraterPitch;
    Pitch=Mathf.SmoothDamp(Pitch,target,ref pitchVelocity,.085f,Mathf.Infinity,dt);
    visual.localPosition=Vector3.zero;visual.localRotation=Quaternion.Euler(Pitch,0,moving?game.RiderCraterRoll:0);
    // Pitch about the road without driving an axle below its support surface.
    if(moving)visual.localPosition=Vector3.up*(Mathf.Max(0,Mathf.Sin(Mathf.Abs(Pitch)*Mathf.Deg2Rad)*Mathf.Max(frontAxle,rearAxle))-game.RiderCraterDip);
+   if(moving&&game.RiderRolling)
+   {
+    Vector3 pivot=Vector3.up*(size.y*.5f);
+    Quaternion spin=Quaternion.AngleAxis(game.RiderBarrelRoll,Vector3.forward);
+    visual.localPosition+=visual.localRotation*(pivot-spin*pivot);visual.localRotation*=spin;
+   }
    if(moving)WheelAngle=Mathf.Repeat(WheelAngle+game.Speed/wheelRadius*Mathf.Rad2Deg*dt,360);
    float delta=Mathf.Atan((frontAxle+rearAxle)*game.RiderLateralAcceleration/Mathf.Max(64,game.Speed*game.Speed))*Mathf.Rad2Deg;
    WheelSteerAngle=Mathf.Lerp(WheelSteerAngle,Mathf.Clamp(delta,-24,24),1-Mathf.Exp(-dt*16));

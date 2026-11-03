@@ -164,6 +164,7 @@ namespace PhoViet
             ResetRiderImpact();
             ResetJump();
             ResetBoost();
+            ResetEnergy();
             ResetTankBarrage();
             ResetDinosaurs();
             ResetTurnHazards();
@@ -426,6 +427,7 @@ namespace PhoViet
             if(!ServiceStopped&&Speed>.1f)rearDepartureProtection=Mathf.Max(0,rearDepartureProtection-dt);
             x=rider.localPosition.x;lastX=x;
             if(CheckRiderRiver())return;
+            TickEnergyPickups(dt,previousRider);
             RetireTraffic(true);
             TickChase(dt);TickPoliceRiver(dt);AnimateKick();
             if(State!=RideState.Riding)return;
@@ -597,9 +599,9 @@ namespace PhoViet
             if(!portrait)
             {
                 float by=uiH-82;Panel(new Rect(48,by,754,43),WelcomeGlass,12);
-                Txt("← → / A D: ĐỔI LÀN     Q: "+PlayerAction+"     SPACE: NHẢY     W: TĂNG TỐC     P: TẠM DỪNG",64,by+13,724,23,11,Ink);
+                Txt("← → / A D: ĐỔI LÀN     Q: HÚC/LỘN     SPACE: NHẢY/BAY/HẠ     W: TĂNG TỐC     P: TẠM DỪNG",64,by+13,724,23,11,Ink);
             }
-            else {Panel(new Rect(18,uiH-54,uiW-36,30),WelcomeGlass,10);Txt("VUỐT: ĐỔI LÀN / NHẢY / TĂNG TỐC  ·  CHẠM 2 LẦN: "+PlayerAction+"",25,uiH-46,uiW-50,21,9,Ink,TextAnchor.MiddleCenter);}
+            else {Panel(new Rect(18,uiH-54,uiW-36,30),WelcomeGlass,10);Txt("VUỐT LÊN: NHẢY / BAY / HẠ · CHẠM 2 LẦN: HÚC / LỘN",25,uiH-46,uiW-50,21,9,Ink,TextAnchor.MiddleCenter);}
         }
         void Hud()
         {

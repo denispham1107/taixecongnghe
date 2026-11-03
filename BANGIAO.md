@@ -24,7 +24,7 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
-| Icon năng lượng chờ duyệt | **21.121:**3mẫuBlender A/B/C tại`ArtSource/Concepts/Energy-20261103/`;boardđãrender/đãxem;approvalfalse/installedfalse. Đợi người dùng chọn rồi mới triểnkhaiHUD/pickup/bay/nhàolộn |
+| Năng lượng / bay / lộn trong source | **21.122 hoàn tất, chưa build/web:** C đượcduyệt/đãtíchhợp;150NL/nhảy−5/nhặt+15/haiiconkháclànmỗi phố-cầu;Space/vuốtlênbật-tắtbay/−10mỗi0,5s/hếtNLtựhạ;Q/doubletapkhibaylộn360°0,9s.4998Unity+387layout+3refreshđạt/5ảnhđãxem;webvẫn1.53.0 |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
@@ -37,6 +37,8 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.122 hoàn tất source:** C_Blender3LOD1868/864/336tri/HUD256;pool70icon/35tile/2lànkhácnhau,cầuchỉlàngiữa.150NL/nhảy−5/nhặt+15/bay−10/0,5s;Space/vuốtlênlần3hạ,hếtNLtựhạ;Q/doubletapbaylộn360°0,9s.224gameplay+46rẽ/recycle+4590hồiquy+138scene=4998Unity,387layout12viewport+3refreshđạt/5ảnhđãxem. UnityEdit/scenesạch/jobsfalse/đồhọagốcgiữ;code/asset/2docs lưucommitlocal sauedb9b67. **Chưa build/push/web**, previewHTMLdùngWASM1.53.0cũ;chưathửmobilemáythật.
 
 - **21.121 mẫu icon năng lượng đã xong, chờ duyệt:**3mẫuA/B/CdựngBlenderMCPthật/boardđãxem,nguồn+script+approvalfalse;khôngsửaUnity/gameplay/web. Toànbộyêucầunănglượng/bayđãghinhậntạihuongdan21.121/approval.json. Chưa build/push/pháthành cho mẫu;webvẫn1.53.0.
 
@@ -166,7 +168,7 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.121 chờ người dùng chọn mẫu:** đã dựng3iconBlenderMCP Abo cạnh/Bpha lê/Cvòngnănglượng,renderboard1800×1000đãxem; `ArtSource/Concepts/Energy-20261103/energy-abc-board.png`/nguồnPhoViet_Energy_Approval.blend/approvalfalse/installedfalse. ChưatriểnkhaiHUD150/150,nhảy−5,nhặt+15,2icon/phố-cầu,bay−10/0,5s,nhàolộn360;chỉlàmtiếpsaukhiđượcduyệt. Web1.53.0giữ. Blenderđangphiênpreviewriêng/MCP9876,khôngcótácvụrenderchạy;Unitykhôngđụng.
+- **21.122 hoàn tất source/kiểm tra, không còn bước lập trình đang dở.** Chưa build/phát hành; đợi yêu cầu build riêng, webgiữ1.53.0. UnityEdit/scenesạch;BlendernguồnCởfile riêng;server8785đãdừng. Chi tiết và kiểm tra ở21.122.
 
 - **21.120 hoàn tất:**1.53.0đãpush/Pages41559294306success/27liveđạt. Không còn bướcbuild/push/Pages/liveđangdở. UnityEdit/scenesạch/serverđãdừng;chưa kiểmthiếtbịthật. Chi tiết21.120. Giữdirtyngoàiphạmvi.
 
@@ -294,7 +296,7 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
 | Trang chủ HTML / duy nhất ảnh người dùng / responsive | **21.119**,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `poster-home.png`; `Editor/PhoVietWebBuild.cs`→RefreshWebShell; `AgentScripts/RefreshLandingPreview.cs`, `VerifyLanding.cjs`. Không dùngcapturecũ để thayảnhPNG này |
-| Icon năng lượng / HUD / bay đang chờ duyệt | **21.121** | `ArtSource/Concepts/Energy-20261103/README.md`, `approval.json`, `PhoViet_Energy_Approval.blend`, `energy-abc-board.png`; chưa có runtime mới |
+| Năng lượng / icon C / giữ cao độ / lộn360 | **21.121–21.122** | `Scripts/PhoVietEnergy.cs`, `PhoVietJump.cs`, `PlayerCarVisual.cs`, `PhoVietActions.cs`, `PhoVietRiver.cs`, `PhoVietDistanceHud.cs`; `Resources/Energy/`, `Art/Energy/`, `EnergyPickup.shader`; `AgentScripts/VerifyEnergy2122.cs`, `VerifyEnergyRoutes2122.cs`, `InstallEnergy2122.cs`, `CaptureEnergy2122.cs`; `ArtSource/Concepts/Energy-20261103/approval.json` |
 | WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.106**,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease152Scene.cs`, `VerifyStormWeb.cjs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.

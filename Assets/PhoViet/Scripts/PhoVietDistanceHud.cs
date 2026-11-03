@@ -5,24 +5,26 @@ namespace PhoViet
  public partial class PhoVietGame
  {
   float LandscapeBarWidth=>JobsAvailable?1000:640;
-  float PortraitNoticeY=>JobsAvailable?PortraitNoticeTop:92;
+  float PortraitNoticeY=>PortraitNoticeTop;
   void DistancePortraitHud()
   {
-   Panel(new Rect(10,PortraitBarTop,uiW-20,76),PortraitGlass,10);
+   Panel(new Rect(10,PortraitBarTop,uiW-20,PortraitBarHeight),PortraitGlass,10);
    CompactHudText(CurrentStreet.ToUpperInvariant(),22,18,uiW-92,10,Gold);
    CompactHudText(Mathf.Max(0,Mathf.FloorToInt(Distance)).ToString("N0")+" m",22,35,154,24,Cream);
    CompactHudText(Mathf.RoundToInt(Speed*3.6f)+" km/h",22,65,140,10,Hex("B5CFC2"));
-   Panel(new Rect(180,36,1,39),new Color(.8f,.95f,.9f,.18f),0);
-   CompactHudText("KỶ LỤC",196,36,uiW-266,10,Gold);
-   CompactHudText(BestDistance.ToString("N0")+" m",196,54,uiW-266,18,Cream);
+   Panel(new Rect(180,27,1,69),new Color(.8f,.95f,.9f,.18f),0);
+   CompactHudText("KỶ LỤC",196,22,uiW-266,10,Gold);
+   CompactHudText(BestDistance.ToString("N0")+" m",196,38,uiW-266,18,Cream);
+   DrawEnergyBar(new Rect(196,66,uiW-218,27));
    if(HudButton(State==RideState.Paused?"▶":"Ⅱ",new Rect(uiW-54,18,34,34),new Color(1,.945f,.812f,.86f),Ink,18))TogglePause();
   }
   void DistanceLandscapeHud(float x,float y)
   {
    Panel(new Rect(x,y,LandscapeBarWidth,76),PortraitGlass,10);
    CompactHudText(CurrentStreet.ToUpperInvariant(),x+14,y+8,330,11,Gold);
-   CompactHudText(Mathf.Max(0,Mathf.FloorToInt(Distance)).ToString("N0")+" m",x+14,y+27,220,28,Cream);
+   CompactHudText(Mathf.Max(0,Mathf.FloorToInt(Distance)).ToString("N0")+" m",x+14,y+27,160,28,Cream);
    CompactHudText(Mathf.RoundToInt(Speed*3.6f)+" km/h",x+18,y+59,180,11,Hex("B5CFC2"));
+   DrawEnergyBar(new Rect(x+185,y+26,143,27));
    Panel(new Rect(x+350,y+11,1,54),new Color(.8f,.95f,.9f,.18f),0);
    CompactHudText("KỶ LỤC",x+370,y+13,142,11,Gold);
    CompactHudText(BestDistance.ToString("N0")+" m",x+370,y+33,142,20,Cream);

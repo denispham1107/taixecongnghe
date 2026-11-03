@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "result": {
+    "diagnostics": [],
+    "compileMs": 227,
+    "executeMs": 9806,
+    "assemblyName": "PipelineRunScript_energy2122-VerifyCrashDistance_4335e2aa72fe4e39b4145d8208bf3c50",
+    "success": true,
+    "result": {
+      "success": true,
+      "count": 62
+    }
+  }
+}

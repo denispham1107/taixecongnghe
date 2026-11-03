@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "prefab": "Assets/PhoViet/Resources/Energy/PV_EnergyPickup.prefab",
+  "lods": [
+    {
+      "name": "PV_EnergyHalo_LOD0",
+      "triangles": 1868,
+      "vertices": 1020,
+      "bounds": [
+        1.054,
+        1.0539999,
+        0.164300114
+      ]
+    },
+    {
+      "name": "PV_EnergyHalo_LOD1",
+      "triangles": 864,
+      "vertices": 476,
+      "bounds": [
+        1.054,
+        1.0539999,
+        0.159731567
+      ]
+    },
+    {
+      "name": "PV_EnergyHalo_LOD2",
+      "triangles": 336,
+      "vertices": 268,
+      "bounds": [
+        1.054,
+        1.0539999,
+        0.164300114
+      ]
+    }
+  ],
+  "hud": 256,
+  "temporaryPreviewOnly": true
+}

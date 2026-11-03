@@ -1,7 +1,7 @@
 {
-  "approved": false,
-  "installedInGame": false,
-  "scope": "Three 3D blue lightning energy icon proposals only; wait for user choice before gameplay implementation.",
+  "approved": true,
+  "installedInGame": true,
+  "scope": "Approved C integrated into Unity source; not built or published to web yet.",
   "requirements": {
     "maxEnergy": 150,
     "jumpCost": 5,
@@ -13,7 +13,7 @@
       "energy": 10,
       "seconds": 0.5
     },
-    "doubleTapWhileFlying": "360 degree flip; detailed axis and exit controls to confirm after icon approval",
+    "doubleTapWhileFlying": "360 degree barrel roll around longitudinal axis; Q on desktop",
     "hud": {
       "capacityDisplay": "150/150",
       "position": "inside marked existing upper HUD; desktop and mobile"
@@ -24,17 +24,16 @@
     "B": "Angular blue bolt with faceted front",
     "C": "Blue bolt inside luminous halo ring"
   },
-  "notImplemented": [
-    "energy HUD",
-    "jump energy cost",
-    "pickup spawning/collection",
-    "altitude hold/flying",
-    "flight energy drain",
-    "360 flip"
-  ],
-  "questionsForImplementationAfterApproval": [
-    "How to stop flight or descend voluntarily",
-    "Behavior when energy runs out in the air",
-    "360 flip axis and desktop input mapping"
-  ]
+  "notImplemented": [],
+  "questionsForImplementationAfterApproval": [],
+  "selected": "C",
+  "approvalDate": "2026-11-03",
+  "confirmedFlightControls": "Space/up swipe toggles hover off; empty energy descends with gravity",
+  "confirmedFlip": "Barrel roll 360 around longitudinal axis, double tap or Q while hovering; ground Q stays ram",
+  "sourceIntegration": {
+    "date": "2026-11-03",
+    "section": "huongdan.md 21.122",
+    "webReleased": false,
+    "currentPublishedVersion": "1.53.0"
+  }
 }

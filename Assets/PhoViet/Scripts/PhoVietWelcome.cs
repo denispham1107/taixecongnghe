@@ -34,7 +34,7 @@ namespace PhoViet
             if(HudButton("",settings,new Color(.10f,.35f,.4f,.08f),Teal,17))OpenGraphicsSettings();
             DrawGraphicsGear(new Rect(settings.x+10,settings.y+10,24,24));
             Txt("LÁI QUA\nPHỐ QUEN.",x+20,y+48,w-40,108,portrait?39:41,Ink);
-            Txt("Khám phá phố Việt, né xe\nvà nhận những chuyến đi mới.",x+23,y+(portrait?143:152),w-46,42,15,Hex("4C657A"));
+            Txt("Nhặt năng lượng, bật nhảy\nvà bay qua những thử thách.",x+23,y+(portrait?143:152),w-46,42,15,Hex("4C657A"));
             if(HudButton("LÊN XE THÔI   →",WelcomeStartRect(card),Red,Color.white,17))StartRide();
             Txt("KỶ LỤC  /  "+BestDistance.ToString("N0")+" m",x+23,y+card.height-20,w-46,17,10,Teal);
         }

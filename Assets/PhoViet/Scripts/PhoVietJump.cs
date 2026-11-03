@@ -33,12 +33,15 @@ namespace PhoViet
    customer.localRotation=balance;
   }
   void ResetJump()
-  {if(rider!=null)rider.GetComponent<CarJumpJetVisual>()?.Clear();jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=roofContactHeight=0;jumpLaunchVelocity=JumpLaunch;RiderJumpTakeoffSpeed=0;jumpFlying=false;roofVehicle=previousRoofVehicle=roofContactVehicle=null;landingClip="LandBoth";}
+  {CancelEnergyFlight();if(rider!=null)rider.GetComponent<CarJumpJetVisual>()?.Clear();jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=roofContactHeight=0;jumpLaunchVelocity=JumpLaunch;RiderJumpTakeoffSpeed=0;jumpFlying=false;roofVehicle=previousRoofVehicle=roofContactVehicle=null;landingClip="LandBoth";}
   public bool TryJump()
   {
-   if(State!=RideState.Riding||ServiceStopped||jumpFlying||jumpWindup>0||jumpCooldown>0||jumpLanding>0)return false;
+   if(State!=RideState.Riding||ServiceStopped)return false;
+   if(energyHover||jumpFlying&&jumpHeight>.08f)return ToggleEnergyFlight();
+   if(jumpFlying||jumpWindup>0||jumpCooldown>0||jumpLanding>0)return false;
    // A roof edge starts a physical fall, so it cannot be used for an extra mid-air jump.
    if(jumpHeight>.06f&&roofVehicle==null)return false;
+   if(!SpendEnergy(JumpEnergyCost))return false;
    CancelAssistedKick(false);jumpWindup=.24f;jumpCooldown=2;return true;
   }
   // A roof is usable while upright, including a weaving or damaged truck. A tilted
@@ -106,7 +109,7 @@ namespace PhoViet
   void TickJump(float dt)
   {
    previousRoofVehicle=roofVehicle;roofContactVehicle=null;roofContactHeight=0;jumpPreviousHeight=jumpHeight;jumpCooldown=Mathf.Max(0,jumpCooldown-dt);jumpLanding=Mathf.Max(0,jumpLanding-dt);
-   float flightDt=dt;
+   float flightDt=TickEnergyFlight(dt);
    if(jumpWindup>0)
    {
     flightDt=Mathf.Max(0,dt-jumpWindup);
@@ -133,7 +136,7 @@ namespace PhoViet
     if(surface>=0&&(roofVehicle.halfLength<=3||Mathf.Abs(surface-jumpHeight)<=.12f))jumpHeight=surface;
     else{roofVehicle=null;jumpFlying=true;jumpVelocity=0;jumpFlightAge=JumpLaunch/JumpGravity;}
    }
-   if(jumpFlying&&jumpVelocity<=0)
+   if(jumpFlying&&!energyHover&&jumpVelocity<=0)
    {
     TrafficVehicle landed=null;float top=0,first=2;
     foreach(var v in vehicles)
@@ -192,7 +195,7 @@ namespace PhoViet
    // Downward velocity and relative forward travel determine which wheel contacts first.
    float relative=surface==null?Speed:Speed-BodyVelocity(surface).z;
    landingClip=jumpVelocity< -9&&relative>12?"LandFront":relative<5?"LandRear":"LandBoth";
-   jumpHeight=y;jumpVelocity=0;jumpFlying=false;jumpLanding=.48f;roofVehicle=surface;
+   CancelEnergyFlight();jumpHeight=y;jumpVelocity=0;jumpFlying=false;jumpLanding=.48f;roofVehicle=surface;
   }
   bool JumpClearsVehicle(TrafficVehicle v,float at)
   {
