@@ -115,7 +115,7 @@ namespace PhoViet.Editor
         {
             const string root="Builds/WebGL";
             if(!File.Exists(Path.Combine(root,"index.html")))throw new Exception("Build WebGL first");
-            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-morning.jpg","poster-morning-portrait.jpg","poster-action.jpg"})
+            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-home.png"})
                 File.Copy("Assets/WebGLTemplates/PhoVietPWA/"+file,Path.Combine(root,file),true);
             Directory.CreateDirectory(Path.Combine(root,"icons"));
             foreach(string icon in Directory.GetFiles("Assets/WebGLTemplates/PhoVietPWA/icons"))
@@ -130,7 +130,8 @@ namespace PhoViet.Editor
             html=System.Text.RegularExpressions.Regex.Replace(template,configPattern,_=>config.Value);
             if(html.Contains("{{{"))throw new Exception("Unexpanded Unity template token");
             File.WriteAllText(htmlPath,html);
-            string oldPoster=Path.Combine(root,"poster.png");if(File.Exists(oldPoster))File.Delete(oldPoster);
+            foreach(string oldPoster in new[]{"poster.png","poster-morning.jpg","poster-morning-portrait.jpg","poster-action.jpg","poster-night.jpg"})
+            {string oldPath=Path.Combine(root,oldPoster);if(File.Exists(oldPath))File.Delete(oldPath);}
             FinalizeWebOutput(root);
         }
 

@@ -6,27 +6,27 @@ const capturePrefix=process.argv[3]||'landing';
 const report={url,checks:[],errors:[],layouts:[]};
 const check=(name,ok)=>{assert(ok,name);report.checks.push(name);};
 async function inspect(page,label,safe){
- await page.locator('.action-preview img').scrollIntoViewIfNeeded();
- await page.waitForFunction(()=>document.querySelector('.action-preview img').complete&&document.querySelector('.action-preview img').naturalWidth>=1280);
+ await page.locator('.street-preview img').scrollIntoViewIfNeeded();
+ await page.waitForFunction(()=>document.querySelector('.street-preview img').complete&&document.querySelector('.street-preview img').naturalWidth>=1280);
  await page.locator('#welcome').evaluate(e=>{e.scrollTop=0;});
  const data=await page.evaluate(()=>{
   const rect=s=>{const e=document.querySelector(s),r=e.getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height};};
-  const pairs=['.intro','.street-preview','.street-gallery','.action-preview','#welcome footer','.primary','#load-status','.controls','.touch-guide'];
+  const pairs=['.intro','.street-preview','.street-gallery','#welcome footer','.primary','#load-status','.controls','.touch-guide'];
   return {width:innerWidth,height:innerHeight,bodyOverflow:document.documentElement.scrollWidth>innerWidth+1,welcomeOverflow:document.querySelector('#welcome').scrollWidth>document.querySelector('#welcome').clientWidth+1,
    boxes:Object.fromEntries(pairs.map(s=>[s,rect(s)])),targets:[...document.querySelectorAll('#toolbar a,#toolbar button,.play-panel button')].filter(e=>e.getClientRects().length).map(e=>({id:e.id||'brand',...rect(e.id?'#'+e.id:'.wordmark')})),
    texts:[...document.querySelectorAll('.intro h1,.description,#load-status,.touch-guide,.preview-label,footer,nav')].every(e=>e.scrollWidth<=e.clientWidth+1),
-   image:{src:document.querySelector('.street-preview img').currentSrc,width:document.querySelector('.street-preview img').naturalWidth},night:{src:document.querySelector('.action-preview img').currentSrc,width:document.querySelector('.action-preview img').naturalWidth}};
+   image:{src:document.querySelector('.street-preview img').currentSrc,width:document.querySelector('.street-preview img').naturalWidth,height:document.querySelector('.street-preview img').naturalHeight,fit:getComputedStyle(document.querySelector('.street-preview img')).objectFit},photoCount:document.querySelectorAll('.street-gallery img').length};
  });
  const overlap=(a,b)=>Math.min(a.right,b.right)-Math.max(a.x,b.x)>1&&Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y)>1;
  check(label+': no horizontal page/hero overflow',!data.bodyOverflow&&!data.welcomeOverflow&&data.texts);
  const b=data.boxes;check(label+': photo gallery and content never overlap',!overlap(b['.intro'],b['.street-gallery']));
- check(label+': action photo is directly below dawn without overlap',b['.action-preview'].y>=b['.street-preview'].bottom+15&&Math.abs(b['.action-preview'].x-b['.street-preview'].x)<1);
- check(label+': footer follows both content columns and both photos',b['#welcome footer'].y>=Math.max(b['.intro'].bottom,b['.street-gallery'].bottom)-1);
+ check(label+': only one supplied image is present',data.photoCount===1);
+ check(label+': footer follows content and single photo',b['#welcome footer'].y>=Math.max(b['.intro'].bottom,b['.street-gallery'].bottom)-1);
  check(label+': status and instructions follow the action',b['#load-status'].y>=b['.primary'].bottom-1&&b['.touch-guide'].y>=b['#load-status'].bottom-1);
  check(label+': buttons never overlap',data.targets.every((a,i)=>data.targets.slice(i+1).every(b=>!overlap(a,b))));
  check(label+': header stays outside cutouts',data.targets.filter(t=>t.id!=='play'&&t.id!=='retry').every(t=>t.x>=safe.left-1&&t.right<=data.width-safe.right+1&&t.y>=safe.top-1));
- check(label+': new game photo loads at full resolution',data.image.src.includes('poster-morning')&&data.image.width>=1280);
- check(label+': real daytime action photo loads at full resolution',data.night.src.includes('poster-action.jpg')&&data.night.width>=1280);
+ check(label+': new game photo loads at full resolution',data.image.src.endsWith('poster-home.png')&&data.image.width>=1280);
+ check(label+': supplied image keeps full frame and resolution',data.image.width===1920&&data.image.height===1080&&data.image.fit==='contain');
  await page.locator('#play').scrollIntoViewIfNeeded();
  check(label+': main action is reachable',await page.locator('#play').isVisible());
  report.layouts.push({label,...data});
