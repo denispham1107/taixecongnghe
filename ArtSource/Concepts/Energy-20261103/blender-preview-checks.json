@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "blender": "5.2.0 LTS",
+  "scene": "PV_Energy_Approval_2121",
+  "render": "energy-abc-board.png",
+  "resolution": [
+    1800,
+    1000
+  ],
+  "engine": "BLENDER_EEVEE",
+  "approvalRequired": true,
+  "installedInGame": false,
+  "models": [
+    {
+      "name": "A_SoftBolt",
+      "meshObjects": 3,
+      "sourceFaces": 11,
+      "bevels": 1
+    },
+    {
+      "name": "B_CrystalBolt",
+      "meshObjects": 4,
+      "sourceFaces": 12,
+      "bevels": 1
+    },
+    {
+      "name": "C_HaloBolt",
+      "meshObjects": 3,
+      "sourceFaces": 1929,
+      "bevels": 1
+    }
+  ]
+}

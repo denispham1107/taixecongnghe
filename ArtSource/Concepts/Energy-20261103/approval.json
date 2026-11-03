@@ -1,0 +1,40 @@
+{
+  "approved": false,
+  "installedInGame": false,
+  "scope": "Three 3D blue lightning energy icon proposals only; wait for user choice before gameplay implementation.",
+  "requirements": {
+    "maxEnergy": 150,
+    "jumpCost": 5,
+    "pickupRestore": 15,
+    "pickupsPerStreetOrBridge": 2,
+    "distinctLanes": true,
+    "secondJumpWhileAirborne": "hold current altitude / flying",
+    "flightDrain": {
+      "energy": 10,
+      "seconds": 0.5
+    },
+    "doubleTapWhileFlying": "360 degree flip; detailed axis and exit controls to confirm after icon approval",
+    "hud": {
+      "capacityDisplay": "150/150",
+      "position": "inside marked existing upper HUD; desktop and mobile"
+    }
+  },
+  "choices": {
+    "A": "Soft beveled cyan bolt, closest to supplied reference",
+    "B": "Angular blue bolt with faceted front",
+    "C": "Blue bolt inside luminous halo ring"
+  },
+  "notImplemented": [
+    "energy HUD",
+    "jump energy cost",
+    "pickup spawning/collection",
+    "altitude hold/flying",
+    "flight energy drain",
+    "360 flip"
+  ],
+  "questionsForImplementationAfterApproval": [
+    "How to stop flight or descend voluntarily",
+    "Behavior when energy runs out in the air",
+    "360 flip axis and desktop input mapping"
+  ]
+}
