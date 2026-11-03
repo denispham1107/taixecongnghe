@@ -1,7 +1,7 @@
 {
   "approved": true,
   "installedInGame": true,
-  "scope": "Approved C integrated into Unity source; not built or published to web yet.",
+  "scope": "Approved C integrated in Unity and published in WebGL 1.54.0",
   "requirements": {
     "maxEnergy": 150,
     "jumpCost": 5,
@@ -33,7 +33,9 @@
   "sourceIntegration": {
     "date": "2026-11-03",
     "section": "huongdan.md 21.122",
-    "webReleased": false,
-    "currentPublishedVersion": "1.53.0"
+    "webReleased": true,
+    "currentPublishedVersion": "1.54.0",
+    "releaseCommit": "ee18d91d4e7062a7af5e0b523e5bb5a4cee009d9",
+    "pagesRun": 41645004184
   }
 }

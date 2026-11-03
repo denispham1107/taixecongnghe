@@ -1,6 +1,6 @@
 # Phố Việt — Mẫu năng lượng C đã duyệt
 
-Người dùng chọn C ngày03/11/2026. Đã nhập Unity/tích hợp source tại huongdan21.122; chưa build/phát hành web, webvẫn1.53.0. A/B và bảngso sánh giữ làm nguồn tham khảo.
+Người dùng chọn C ngày03/11/2026. Đã nhập Unity/tích hợp source tại huongdan21.122; đã build/phát hành web1.54.0 tại huongdan21.123 (464browserlocal/27liveđạt). A/B và bảngso sánh giữ làm nguồn tham khảo.
 
 - A: Khối xanh ngọc bo cạnh, hông xanh đậm, gần ảnh tham khảo nhất.
 - B: Tia sét xanh góc cạnh, mặt chia mảng như pha lê.

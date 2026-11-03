@@ -10,7 +10,7 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.53.0** — commit`af55729`; Pages`41559294306`success; cache`055a51cf4c16d704`; **27live đạt/0runtime**,444browserlocalđạt |
+| Bản đã phát hành | **1.54.0** — commit`ee18d91`; Pages`41645004184`success; cache`6147ef260e9458a8`; **27live đạt/0runtime**,464browserlocalđạt; nănglượng/bay/lộn21.122–21.123 |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -24,7 +24,7 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
-| Năng lượng / bay / lộn trong source | **21.122 hoàn tất, chưa build/web:** C đượcduyệt/đãtíchhợp;150NL/nhảy−5/nhặt+15/haiiconkháclànmỗi phố-cầu;Space/vuốtlênbật-tắtbay/−10mỗi0,5s/hếtNLtựhạ;Q/doubletapkhibaylộn360°0,9s.4998Unity+387layout+3refreshđạt/5ảnhđãxem;webvẫn1.53.0 |
+| Năng lượng / bay / lộn | **21.122–21.123 đã có trên web1.54.0:** C đượcduyệt/đãtíchhợp;150NL/nhảy−5/nhặt+15/haiiconkháclànmỗi phố-cầu;Space/vuốtlênbật-tắtbay/−10mỗi0,5s/hếtNLtựhạ;Q/doubletapkhibaylộn360°0,9s.4998Unity/464browserlocal/27liveđạt |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
@@ -37,6 +37,8 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.123 đã phát hành1.54.0:**commitee18d91/Pages41645004184success/cache6147ef260e9458a8;27liveđạt/0runtime/toànbộbyteskhớp. GồmC/nănglượng150/nhảy−5/nhặt+15/bay−10mỗi0,5s/Q-doubletaplộn360. Mobile443,229s/desktop112,467s/0lỗibuild;phụchồiimportDXTriêng/Resume.143preflightmỗibộ,530sourceSHAgiữ/3152scopechỉbuilder-versionđổi,42repo+33site+34index+464browserđạt. UnityEdit/scenesạch/jobsfalse/server8784đãdừng;giữArt/Wave/Packages/Simulatorngoàicommit. ChưathửSafari/Androidmáythật.
 
 - **21.122 hoàn tất source:** C_Blender3LOD1868/864/336tri/HUD256;pool70icon/35tile/2lànkhácnhau,cầuchỉlàngiữa.150NL/nhảy−5/nhặt+15/bay−10/0,5s;Space/vuốtlênlần3hạ,hếtNLtựhạ;Q/doubletapbaylộn360°0,9s.224gameplay+46rẽ/recycle+4590hồiquy+138scene=4998Unity,387layout12viewport+3refreshđạt/5ảnhđãxem. UnityEdit/scenesạch/jobsfalse/đồhọagốcgiữ;code/asset/2docs lưucommitlocal sauedb9b67. **Chưa build/push/web**, previewHTMLdùngWASM1.53.0cũ;chưathửmobilemáythật.
 
@@ -168,9 +170,9 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.123 đang build/phát hành1.54.0 theo yêu cầu trực tiếp:** baselinea5c42fc/nănglượngC+bay/lộn21.122 đã kiểmUnity4998. Đãconfigure1.54.0/143preflightđạt/đóngbăngsource. Hai bảnSucceeded mobile443,229s/desktop112,467s;đãphụchồiimportDXT/143preflightđạt/530sourceSHAgiữ. Đãpack7parts/materialize2data/42repo+33siteđạt/cache6147ef260e9458a8. 464browserđạt/0runtime(387layout+37PWA+20fullscreen+NL);đãxemảnhbay/lộn. Đangchốtstage/commit/pushPages/live. UnityEdit; khôngmutationBlender, giữdirtyArt/Wave/Packages/Simulatorngoàicommit. Webvẫn1.53.0 chođếnkhixácminhlive.
+- **21.123 hoàn tất:**1.54.0đãpushcommitee18d91/Pages41645004184success/cache6147ef260e9458a8/27liveđạt. Khôngcònbướcbuild/push/Pages/liveđangdở. UnityEdit/scenesạch/server8784đãdừng;chưathửSafari/Androidmáythật. GiữdirtyArt/Wave/Packages/Simulatorngoàicommit.
 
-- **21.122 hoàn tất source/kiểm tra, không còn bước lập trình đang dở.** Chưa build/phát hành; đợi yêu cầu build riêng, webgiữ1.53.0. UnityEdit/scenesạch;BlendernguồnCởfile riêng;server8785đãdừng. Chi tiết và kiểm tra ở21.122.
+- **21.122 đã phát hành cùng1.54.0/21.123.** Nănglượng/bay/lộnCđãkiểmUnityvàWebGL,khôngcònbước triểnkhai đangdở;nguồnBlenderCởfile riêng.
 
 - **21.120 hoàn tất:**1.53.0đãpush/Pages41559294306success/27liveđạt. Không còn bướcbuild/push/Pages/liveđangdở. UnityEdit/scenesạch/serverđãdừng;chưa kiểmthiếtbịthật. Chi tiết21.120. Giữdirtyngoàiphạmvi.
 
@@ -298,7 +300,7 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
 | Trang chủ HTML / duy nhất ảnh người dùng / responsive | **21.119**,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `poster-home.png`; `Editor/PhoVietWebBuild.cs`→RefreshWebShell; `AgentScripts/RefreshLandingPreview.cs`, `VerifyLanding.cjs`. Không dùngcapturecũ để thayảnhPNG này |
-| Năng lượng / icon C / giữ cao độ / lộn360 | **21.121–21.122** | `Scripts/PhoVietEnergy.cs`, `PhoVietJump.cs`, `PlayerCarVisual.cs`, `PhoVietActions.cs`, `PhoVietRiver.cs`, `PhoVietDistanceHud.cs`; `Resources/Energy/`, `Art/Energy/`, `EnergyPickup.shader`; `AgentScripts/VerifyEnergy2122.cs`, `VerifyEnergyRoutes2122.cs`, `InstallEnergy2122.cs`, `CaptureEnergy2122.cs`; `ArtSource/Concepts/Energy-20261103/approval.json` |
+| Năng lượng / icon C / giữ cao độ / lộn360 | **21.121–21.123** | `Scripts/PhoVietEnergy.cs`, `PhoVietJump.cs`, `PlayerCarVisual.cs`, `PhoVietActions.cs`, `PhoVietRiver.cs`, `PhoVietDistanceHud.cs`; `Resources/Energy/`, `Art/Energy/`, `EnergyPickup.shader`; `AgentScripts/VerifyEnergyWeb.cjs`, `VerifyRelease154Scene.cs`, `AgentScripts/VerifyEnergy2122.cs`, `VerifyEnergyRoutes2122.cs`, `InstallEnergy2122.cs`, `CaptureEnergy2122.cs`; `ArtSource/Concepts/Energy-20261103/approval.json` |
 | WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.106**,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease152Scene.cs`, `VerifyStormWeb.cjs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.
