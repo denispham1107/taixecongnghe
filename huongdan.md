@@ -1007,7 +1007,7 @@ Hậu xử lý build tạo `precache.json`, `build-info.json`, `sw.js` đã thay
 
 ### 15.2. Quy trình phát hành
 
-**Trang chủ trong source21.119, chưa phát hành:** chỉ1ảnh `poster-home.png`, copy nguyên byte từ gameTaixe.png người dùng gửi (1920×1080), thay cả2ảnh cũ. Cùng ảnh desktop/mobile,16:9/contain/khôngcrop/nénlại. RefreshWebShell copyảnhmới và dọn4poster cũ+poster.png trong output/cache; các nguồn ảnh cũ trongtemplate chỉlịch sử, khônghiểnthị/khôngđưa vàooutput. Không chụp/tạoảnh khác để thayảnh người dùng. Chi tiết21.119.
+**Trang chủ21.119 đã có trên web1.53.0:** chỉ1ảnh `poster-home.png`, copy nguyên byte từ gameTaixe.png người dùng gửi (1920×1080), thay cả2ảnh cũ. Cùng ảnh desktop/mobile,16:9/contain/khôngcrop/nénlại. RefreshWebShell copyảnhmới và dọn4poster cũ+poster.png trong output/cache; các nguồn ảnh cũ trongtemplate chỉlịch sử, khônghiểnthị/khôngđưa vàooutput. Không chụp/tạoảnh khác để thayảnh người dùng. Chi tiết21.119.
 
 1. Kiểm tra Git/scene đúng, lưu thay đổi cần giữ và thoát Play Mode trước chỉnh scene/build.
 2. Chạy kiểm tra phù hợp thay đổi, đọc lỗi compile/scene/runtime, xem hình nếu thay art/GUI.
@@ -3009,7 +3009,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Cậpnhật15.2/BANGIAO trongcùngviệc, lưucommitcục bộ source/ảnh/meta/verifier/report/2docs. Chưa build/push/pháthành, web vẫn1.52.0. Giữ nguyên sửaResetRoute21.118 vàmọi dirtyArt/Wave/.blend/Packages/Simulator/Captures ngoài phạm vi.
 
 
-### 21.120. Build/phát hành WebGL1.53.0 (03/11/2026, Codex — đang thực hiện)
+### 21.120. Build/phát hành WebGL1.53.0 (03/11/2026, Codex — đã phát hành)
 
 - Người dùng yêu cầu trực tiếp build và phát hành sau thayảnh21.119. Baseline29bae10; gồm source hiện hành21.108–21.119, giữ đồ họa/scene/start/jobsfalse. Đã ghi snapshot source và dirty; đồng bộversion1.53.0 trong builder/helper/verifier. UnityEdit đang mở, Pipelinechưa reachable; tiếp preflight/build2variant/pack/materialize/browser/staged/pushPages/live. Chưa tuyên bố đã phát hành;web1.52.0.
 
@@ -3020,3 +3020,6 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Mốc chuẩn bị phát hành:**387landing12viewport+37WebGLdesktop/mobile/offline/PWA+20fullscreeniPhone/iPad=444browserđạt/0JS-Unityruntimeerror. Đãxemảnhlandingphone vàgameplaymobile,ảnhPNGnguồn/build/docs/sitekhớpSHA/nguyênbyte. UnityEdit/scenesạch; sourcefreeze524SHAkhớp; đangstage/commit/push main theoủyquyềntrựctiếpcủangườidùng, tiếptheoPages/live;webchưaxácminh1.53.0. Bằngchứng Captures/release153-{build-report,build-warnings,scene-checks,desktop-scene-checks,source-fingerprint,source-scope-checks,task-scope-checks,repo-bundle-checks,site-bundle-checks,home-image-checks,web-checks,fullscreen-checks}.json;release153-landing-layout-checks.json/ảnh.
 
 - **Mốc push:**31kiểmGitindexđạt, PNGvà7partsbyteSHAkhớpartifactđãthử;commitaf55729gồm52filephạmvi (khôngstageArt/Wave/Packages/Simulator). Đangpushmain,chờworkflowPagesđúngSHA/live. Localserver8784đãdừng,sau444browserđạt;UnityEdit.
+
+- **Đã phát hành:**pushmaincommit`af55729d71e0d27511eecbb9e40f08243c5d0b2c`, [Pagesrun41559294306](https://github.com/denispham1107/taixecongnghe/actions/runs/41559294306)completed/success. `VerifyPublishedGame.cjs` có**27liveđạt/0JS-Unityruntimeerror**:version/cachekhớp1.53.0/055a51cf4c16d704,đốichiếutàinguyênthựctếbaogồm2data/loader/framework/WASM/ảnhPNGmớinguyênbyte,khởiđộngWASMthật/Enter/Ppause/screenshot. Bằngchứng`Captures/release153-pages.json`,`release153-live-results.json`;ảnhbrowser-release153-live[-landing].pnggiữcụcbộ.
+- **Bàn giao cuối:**ảnhtrangchủduynhấtđúngảnhngườidùng;gồmcodehiệnhành21.108–21.119,resetquãngvăng21.118đãbuildthậtkhôngchỉrefreshshell. README/BANGIAO/huongdancậpnhậttrạngtháiđãpháthành;khôngrebuildcho docs. UnityEdit/scenesạch/start1,92/jobsfalse/AA4/bóng100/10983renderer/7670obstaclegiữ;server8784vàbrowserkiểmđãdừng. Khôngcònviệcsửa/build/push/Pages/liveđangdở;chưa thửSafari/Androidmáythật. DirtyArt/Wave/.blend/Packages/Simulator/Captureslịchsửgiữnguyênngoàicommit.
