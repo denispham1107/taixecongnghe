@@ -1,0 +1,127 @@
+{
+  "success": true,
+  "cases": [
+    {
+      "side": -1,
+      "unscored": 49.1363525,
+      "predicted": 68.08,
+      "physical": 68.08,
+      "offset": 0.0,
+      "atInput": 19.7788811,
+      "visibleAtInput": 19.7788773,
+      "queued": -1,
+      "completed": 1,
+      "sceneryImpact": "",
+      "state": "Riding",
+      "distance": 111.187012,
+      "rows": [
+        {
+          "name": "Đường chính • Blender",
+          "active": true,
+          "p": [
+            -2.061506,
+            -54.2207
+          ],
+          "yaw": 90.0
+        },
+        {
+          "name": "Đường nhánh • Blender 1",
+          "active": true,
+          "p": [
+            -10.0,
+            25.7793083
+          ],
+          "yaw": 270.0
+        },
+        {
+          "name": "Đường nhánh • Blender 2",
+          "active": true,
+          "p": [
+            10.0,
+            25.7793083
+          ],
+          "yaw": 90.0
+        },
+        {
+          "name": "Đường nhánh • Blender 3",
+          "active": true,
+          "p": [
+            0.0,
+            0.0
+          ],
+          "yaw": 0.0
+        },
+        {
+          "name": "Đường nhánh • Blender 4",
+          "active": true,
+          "p": [
+            2.30701062E-05,
+            -64.22069
+          ],
+          "yaw": 180.0
+        }
+      ]
+    },
+    {
+      "side": 1,
+      "unscored": 49.1363525,
+      "predicted": 68.08,
+      "physical": 68.08,
+      "offset": 0.0,
+      "atInput": 19.7788811,
+      "visibleAtInput": 19.7788773,
+      "queued": 1,
+      "completed": 1,
+      "sceneryImpact": "",
+      "state": "Riding",
+      "distance": 111.187012,
+      "rows": [
+        {
+          "name": "Đường chính • Blender",
+          "active": true,
+          "p": [
+            2.061506,
+            -54.2207
+          ],
+          "yaw": 270.0
+        },
+        {
+          "name": "Đường nhánh • Blender 1",
+          "active": true,
+          "p": [
+            -2.30701062E-05,
+            -64.22069
+          ],
+          "yaw": 180.0
+        },
+        {
+          "name": "Đường nhánh • Blender 2",
+          "active": true,
+          "p": [
+            0.0,
+            0.0
+          ],
+          "yaw": 0.0
+        },
+        {
+          "name": "Đường nhánh • Blender 3",
+          "active": true,
+          "p": [
+            -10.0,
+            25.7793083
+          ],
+          "yaw": 270.0
+        },
+        {
+          "name": "Đường nhánh • Blender 4",
+          "active": true,
+          "p": [
+            10.0,
+            25.7793083
+          ],
+          "yaw": 90.0
+        }
+      ]
+    }
+  ]
+}

@@ -15,7 +15,7 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Simulator iPhone | **21.71:** đã thêm **Apple iPhone 14 Pro / 14 Pro Max**, Dynamic Island + Safe Area dọc/ngang; đang chọn Pro Max ngang, Safe Area bật. Asset chỉ trong Editor, chưa commit/push |
-| Chế độ chơi | **Source21.115:** điểm/kỷlục dừngngaylúcva chạm, không cộngquãngvăng; physics/chờCSGT giữ. Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
+| Chế độ chơi | **Source21.118:** reset quãngvăng trước dựngđường để chơi lại rẽđúng/khônglệchnhà. **21.115:** điểm/kỷlục dừngngaylúcva chạm, không cộngquãngvăng; physics/chờCSGT giữ. Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
 | Điều khiển/nhảy trong source | **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đã có trên web1.50.0 |
@@ -36,6 +36,8 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.118 hoàn tất source, chưa phát hành:** ResetRide xóa quãngvăng trước ResetCityJobs/Routes; sửa mốcrẽlệch/nhàkhungnhánh sai saucrash→retry. Tái hiện49,136m→0m;phím865+vuốt889+điểm62+smooth468+start66+CSGT214+sông446+scene20=3.030đạt,ảnhbefore/afterđãxem/0compileerror-warning. Chỉ1runtime2dòng, giữkhóađiểm/đồhọa/ảnhc4. UnityEdit/sạch;commitlocal+2docs,chưabuild/push/web(1.52.0).
 
 - **21.117 đã khôi phục c4a5c93 theo người dùng:** hoàn tác d5180ac, ảnh2/script/caption trở lại21.115 (Tankkhaihoả/flashnòng); giữ ảnh1/luật khóađiểm. Câyindexkhớptarget trước2docs,3fileđốichiếuđạt/3refreshgiữruntimeURL; UnityEdit. Không reset dirtyArt/Packages/Captures; lưucommitlocalhoàntác, chưabuild/push/web(1.52.0). Không áp lại21.116.
 
@@ -157,6 +159,8 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.118 hoàn tất:** sửa thứtựreset quãngvăng trước tạođường; offset49,136→0m/rẽtrái-phảiđúng/đườngkhôngnhàchắn.3.030đạt/2ảnhđãxem/UnityEdit/scenesạch, source+tests+report+2docs lưucommitlocal. Không còn bước triển khai/kiểm đang dở; chưa build/push/web(vẫn1.52.0). Backupkiểmthử .tools/route2118-Recovery giữ cục bộ, khôngstage.
+
 - **21.117 hoàn tất:** nội dung đã vềc4a5c93 bằngcommit hoàntác mới, chỉthêm nhật ký bàn giao/bằngchứng. UnityEdit/ready, previewcục bộđãđồngbộ; không còn bước hoàn tác đang dở. Chưa build/push/web(vẫn1.52.0).
 
 - **21.115 hoàn tất:**868Unity+387layout+3refresh=1.258đạt/compile0lỗi-0warning; ảnhđãxem, UnityEdit/scenesạch. Source/ảnh/verifier/report/2docs lưucommitlocal; không còn bước triển khai/kiểm đang dở. Chưa build/push/web(vẫn1.52.0); preview chỉrefreshshell vớiWASMcũ.
@@ -255,7 +259,7 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 | Xe tăng, đạn0,4s,70% điểm rơi sau rẽ | **21.111**,21.110,21.103,21.38–21.40 | `PhoVietTankFire.cs`, `PhoVietTurnHazards.cs`, `Editor/PhoVietTankFxUpgrade.cs`, `AgentScripts/VerifyTurnTankAim.cs`, `VerifyTankBarrage.cs`, `CaptureTurnTankAim.cs` |
 | Đạp, CSGT, bị bắt | 8 | `PhoVietActions.cs`, `PhoVietKickAssist.cs`, `PhoVietPolice.cs`, `PhoVietCrashPoliceNavigation.cs` |
 | Nhảy, nóc xe, tăng tốc | 19, 21.60 | `PhoVietJump.cs`, `PhoVietBoost.cs` |
-| Giao lộ, rẽ, rebase tọa độ | 6.1, 9 | `PhoVietRoutes.cs`, `PhoVietRoadDrivers.cs`, `PhoVietExitTraffic.cs` |
+| Giao lộ/rẽ/nhà chắn sau crash→retry/reset/rebase | **21.118**,6.1,9 | `PhoVietGame.cs`→ResetRide (Distance/crashTravelDistance trước ResetRoutes), `PhoVietRoutes.cs`, `PhoVietRoadDrivers.cs`, `PhoVietExitTraffic.cs`; `AgentScripts/VerifyRouteRestarts2118.cs` |
 | Chọn mẫu cầu mới (chưa tích hợp) | **21.85** | `ArtSource/Concepts/Bridge-20261028/README.md`, `bridge-comparison.png/html`, `PhoViet_Bridge_Concepts.blend`, `selection.json`; chờ người dùng xác nhận |
 | Trang trí cầu hiện tại/chậuhoa/giá cờ | **21.87** | `ArtSource/Blender/pho_viet_river_bridge.py`, `patch_bridge_fixtures.py`, `PhoViet_BridgeFixtures.blend`, `Art/River/PV_RiverBridge.fbx/json`, `AgentScripts/VerifyBridgeFixtures.cs`, `CaptureBridgeFixtures.cs`; không chạy installer sông/cầu cũ |
 | Đèn giao thông, điều hòa xám trắng, bảng thuê nhà ven sông | **21.102**,21.94/21.92/21.91 | `pho_viet_fixture_details.py`, `upgrade_fixture_details.py`, `pho_viet_saigon_streets.py`, `pho_viet_river_bridge.py`, `AgentScripts/FixtureDetailsImport.cs`, `CaptureFixtureDetails.cs`;21.92 thêm`upgrade_signal_rental.py`, `PhoVietSignalFaces.cs`, `SignalRentalUpdate.cs`, `VerifySignalFaces.cs`, `CaptureSignalRental.cs`; chỉ export/import signal+river, không installer |

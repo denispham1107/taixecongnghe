@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "checks": {
+    "desktop": 865,
+    "mobile": 889,
+    "score": 62,
+    "smooth": 468,
+    "start": 66,
+    "police": 214,
+    "river": 446,
+    "scene": 20
+  },
+  "total": 3030,
+  "beforeJunctionOffset": [
+    49.1363525,
+    49.1363525
+  ],
+  "afterJunctionOffset": [
+    0.0,
+    0.0
+  ],
+  "runtimeSceneSettingsWebDiff": [
+    "Assets/PhoViet/Scripts/PhoVietGame.cs"
+  ],
+  "graphicsChanged": false,
+  "unity": "Edit mode / scene clean",
+  "builtPushedReleased": false
+}

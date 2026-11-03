@@ -151,7 +151,8 @@ namespace PhoViet
             CancelSwipe();
             int seed;do{seed=Guid.NewGuid().GetHashCode()&int.MaxValue;}while(seed==RunSeed);
             RunSeed=seed;rng=new System.Random(seed);
-            State=RideState.Ready;Distance=0;Speed=0;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;steerYaw=0;ClearLaneMotion();noticeTimer=0;
+            // Route setup reads TravelDistance; discard the previous throw before any reset reads it.
+            State=RideState.Ready;Distance=0;crashTravelDistance=0;Speed=0;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;steerYaw=0;ClearLaneMotion();noticeTimer=0;
             RestorePlayerStartFrame();
             nextIntersectionDistance=VietnamStreet.IntersectionCenter-StartStreetPhase;ScheduledIntersections=0;
             ResetCityJobs();
