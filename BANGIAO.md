@@ -161,7 +161,7 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.120 đang build/phát hành1.53.0 theo yêu cầu người dùng:** baseline29bae10; ảnhPNG21.119 và source đã hoàn tất21.108–21.118. Đã snapshot dirty/source; configure1.53.0 và138preflightđạt, freeze524fileSHA; build2variant thànhcông609,309s/0lỗi/1warningDevMCP;138finalpreflightđạt,524SHAgiữ/2974sourcecheckchỉ2versionfileđổi. Pack7parts/materialize/cache055a51cf4c16d704;42repo+33siteđạt. 444browserđạt/0runtime/ảnhđãxem; đang stage/commit/pushPages/live. PipelineCLI khôngtươngthích evalToken, dùng APIlocalhostcóxácthực, khôngđổi package. Không đưa dirtyArt/Wave/Packages/Simulator/Captures lịch sử vào commit; không mở jobs. Web vẫn1.52.0 cho tới xác minh live.
+- **21.120 đang build/phát hành1.53.0 theo yêu cầu người dùng:** baseline29bae10; ảnhPNG21.119 và source đã hoàn tất21.108–21.118. Đã snapshot dirty/source; configure1.53.0 và138preflightđạt, freeze524fileSHA; build2variant thànhcông609,309s/0lỗi/1warningDevMCP;138finalpreflightđạt,524SHAgiữ/2974sourcecheckchỉ2versionfileđổi. Pack7parts/materialize/cache055a51cf4c16d704;42repo+33siteđạt. 444browserđạt/0runtime/ảnhđãxem;31Gitindexđạt. Commitaf55729 đãtạo,đangpushmain/chờPages/live;server8784đãdừng/UnityEdit. PipelineCLI khôngtươngthích evalToken, dùng APIlocalhostcóxácthực, khôngđổi package. Không đưa dirtyArt/Wave/Packages/Simulator/Captures lịch sử vào commit; không mở jobs. Web vẫn1.52.0 cho tới xác minh live.
 
 - **21.119 hoàn tất:** trangchủchỉ1ảnhPNGgameTaixe người dùnggửi/SHAkhớp nguồn,387layout12viewport+3refreshđạt/ảnhđãxem/UnityEdit. Source/ảnh/report/2docs lưucommitlocal; không còn bước sửa/kiểm đang dở; chưa build/push/web(vẫn1.52.0).
 
