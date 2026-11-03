@@ -1,0 +1,46 @@
+{
+  "url": "http://127.0.0.1:8784/",
+  "checks": [
+    "desktop: new WebAssembly initializes",
+    "desktop: full150 energy bar renders",
+    "desktop: jump and hover spend energy",
+    "desktop: holding altitude consumes energy in real WASM",
+    "desktop: roll and manual descent input/render smoke completed",
+    "desktop: retry restores full energy bar",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "profile": "desktop",
+      "name": "full",
+      "fill": 0.9882352941176471
+    },
+    {
+      "profile": "desktop",
+      "name": "hover",
+      "fill": 0.9647058823529412
+    },
+    {
+      "profile": "desktop",
+      "name": "drain",
+      "fill": 0.7647058823529411
+    },
+    {
+      "profile": "desktop",
+      "name": "roll",
+      "fill": 0.6941176470588235
+    },
+    {
+      "profile": "desktop",
+      "name": "descend",
+      "fill": 0.6235294117647059
+    },
+    {
+      "profile": "desktop",
+      "name": "reset",
+      "fill": 0.9882352941176471
+    }
+  ],
+  "success": true
+}

@@ -168,6 +168,8 @@ Cập nhật lần cuối: **03/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.123 đang build/phát hành1.54.0 theo yêu cầu trực tiếp:** baselinea5c42fc/nănglượngC+bay/lộn21.122 đã kiểmUnity4998. Đãconfigure1.54.0/143preflightđạt/đóngbăngsource. Hai bảnSucceeded mobile443,229s/desktop112,467s;đãphụchồiimportDXT/143preflightđạt/530sourceSHAgiữ. Đãpack7parts/materialize2data/42repo+33siteđạt/cache6147ef260e9458a8. 464browserđạt/0runtime(387layout+37PWA+20fullscreen+NL);đãxemảnhbay/lộn. Đangchốtstage/commit/pushPages/live. UnityEdit; khôngmutationBlender, giữdirtyArt/Wave/Packages/Simulatorngoàicommit. Webvẫn1.53.0 chođếnkhixácminhlive.
+
 - **21.122 hoàn tất source/kiểm tra, không còn bước lập trình đang dở.** Chưa build/phát hành; đợi yêu cầu build riêng, webgiữ1.53.0. UnityEdit/scenesạch;BlendernguồnCởfile riêng;server8785đãdừng. Chi tiết và kiểm tra ở21.122.
 
 - **21.120 hoàn tất:**1.53.0đãpush/Pages41559294306success/27liveđạt. Không còn bướcbuild/push/Pages/liveđangdở. UnityEdit/scenesạch/serverđãdừng;chưa kiểmthiếtbịthật. Chi tiết21.120. Giữdirtyngoàiphạmvi.

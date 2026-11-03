@@ -6,6 +6,10 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 **[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web hiện tại **1.53.0**.
 
+## Bản 1.54.0 đang phát hành
+
+Thêm thanh150/150 và icon năng lượng C: nhảy−5, nhặt+15; Space/vuốt lên tiếp để giữ cao độ, nhấn tiếp để hạ. Bay−10mỗi0,5giây, hết năng lượng tự hạ; Q/chạm hai lần khi bay lộn ngang360°. Hai bộ WebGL mobile/desktop đã build thành công;464kiểm trình duyệt cục bộ đạt/0lỗi runtime. Đang đưa lên GitHub Pages; xem trạng thái mới nhất trong BANGIAO.md và huongdan.md21.123.
+
 ## Cập nhật 1.53.0
 
 Trang chủ chỉ dùng ảnh PNG mới do người dùng gửi. Gồm sửa khóa điểm khi va chạm và lỗi giao lộ sau chơi lại; góc đèn pha rộng hơn, sét bổ sung và xe máy sau rẽ1,2× tốc độ người chơi. Đã phát hành hai bộ WebGL mobile/desktop;444kiểm trình duyệt cục bộ và27kiểm web chính thức đạt,0lỗi runtime. Giữ nguyên chất lượng đồ họa. Chi tiết mục21.120 của `huongdan.md`.

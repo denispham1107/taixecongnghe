@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "count": 4,
+  "checks": [
+    "Supplied homepage image remains byte-identical in template, build, docs and materialized site"
+  ],
+  "sha256": {
+    "Assets/WebGLTemplates/PhoVietPWA/poster-home.png": "0a4389b2f22f6dfb8203414c443ff229ea93e2b24b4e9213a9f044a769497afd",
+    "Builds/WebGL/poster-home.png": "0a4389b2f22f6dfb8203414c443ff229ea93e2b24b4e9213a9f044a769497afd",
+    "docs/poster-home.png": "0a4389b2f22f6dfb8203414c443ff229ea93e2b24b4e9213a9f044a769497afd",
+    ".tools/release154-site/poster-home.png": "0a4389b2f22f6dfb8203414c443ff229ea93e2b24b4e9213a9f044a769497afd"
+  }
+}
