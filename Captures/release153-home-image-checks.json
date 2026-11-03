@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "sameOriginalPNG": true,
+  "sha256": {
+    "Assets/WebGLTemplates/PhoVietPWA": "0a4389b2f22f6dfb8203414c443ff229ea93e2b24b4e9213a9f044a769497afd",
+    "Builds/WebGL": "0a4389b2f22f6dfb8203414c443ff229ea93e2b24b4e9213a9f044a769497afd",
+    "docs": "0a4389b2f22f6dfb8203414c443ff229ea93e2b24b4e9213a9f044a769497afd",
+    ".tools/site153": "0a4389b2f22f6dfb8203414c443ff229ea93e2b24b4e9213a9f044a769497afd"
+  },
+  "bytes": 3306707,
+  "oneHomepageImage": true,
+  "oldPostersAbsent": true
+}

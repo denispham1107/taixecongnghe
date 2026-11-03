@@ -1001,7 +1001,7 @@ Các kiểm tra điện thoại/iOS bằng browser profile là **mô phỏng lay
 - `wasm2023 = false` để giữ dải tương thích Safari của dự án.
 - Bộ nhớ khởi đầu128MiB, trần512MiB từ1.44.0/21.77; tănggeometric10%, mỗi lần tốiđa32MiB. Dữ liệu đã nénGPU theo thiết bị; trần1024MiB/heap550,69MiB của1.43.0 chỉ là lịch sử, không áp dụng lại.
 - `dataCaching = false`, vì service worker phiên bản hóa chịu trách nhiệm cache thay vì hai cache độc lập.
-- Cấu hình phiên bản build hiện1.52.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
+- Cấu hình phiên bản build hiện1.53.0; `runInBackground` cấu hình build khác với ý định editor, còn web có bridge pause khi mất visibility.
 
 Hậu xử lý build tạo `precache.json`, `build-info.json`, `sw.js` đã thay mã cache và `.nojekyll`. Cache là 16 ký tự hex từ SHA-256 nội dung tài nguyên, không gán tay để làm giả một lần build mới.
 
@@ -1053,7 +1053,7 @@ foreach ($file in Get-ChildItem -LiteralPath $publishBuild -File) {
 }
 ```
 
-Nếu chỉ sửa CSS/JS/manifest, `PhoVietWebBuild.RefreshWebShell()` có thể cập nhật shell từ một build tốt rồi tính cache lại. Từ21.83, hàm copy CSS/JS/manifest, icon và2ảnhposter-morning; thay toàn bộHTML từtemplate nhưng giữ nguyên khốiPHO_VIET_BUILD đã sinh (gồm2dataURL/version). Kiểm còn tokenUnity thì dừng; bỏposter.png cũ ởoutput và tínhcachelại. Tài nguyên mới ngoài danh sách phải bổ sung rõ ràng. Dùngrun_script với timeoutđủdài vìhash190MB cóthểvượt5giâyeval. **Sửa C#/FBX/scene/âm thanh phải build lại**, không dùng refresh shell để bỏ qua WASM/data cũ.
+Nếu chỉ sửa CSS/JS/manifest, `PhoVietWebBuild.RefreshWebShell()` có thể cập nhật shell từ một build tốt rồi tính cache lại. Từ21.119, hàm copy CSS/JS/manifest, icon vàduynhấtposter-home.png; thay toàn bộHTML từtemplate nhưng giữ nguyên khốiPHO_VIET_BUILD đã sinh (gồm2dataURL/version). Kiểm còn tokenUnity thì dừng; dọnposter.png/morning/morning-portrait/action/night cũ ởoutput và tínhcachelại. Tài nguyên mới ngoài danh sách phải bổ sung rõ ràng. Dùngrun_script với timeoutđủdài vìhash190MB cóthểvượt5giâyeval. **Sửa C#/FBX/scene/âm thanh phải build lại**, không dùng refresh shell để bỏ qua WASM/data cũ.
 
 ### 15.3. Chạy kiểm tra web
 
@@ -3007,3 +3007,14 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Kiểm tra:**387VerifyLanding browser đạt/12viewport (mobiledọc-ngang/320px/tablet/desktop/zoom/safearea), mỗiviewportnormal/loading/retry/help;assertchỉ1ảnh/full1920×1080/contain/khôngtràn-chồng/0JSerror. Đã xemảnhbrowserphone/ngang/desktop. Refreshshell3đạt/5URLruntimeWASM-data giữ nguyên; assetnguồn/template/output byteSHAkhớp, poster cũvắng khỏioutput/precache. CompileEditor0lỗi/0warning, UnityEdit; gameplay/scene/settings/Art/mesh/shader không đổi, không cần chạy lại testgameplay cho đổiảnhreversible này.
 - Bằngchứng `Captures/landing2119-image-checks.json`, `landing2119-shell-refresh.json`, `landing-2119-layout-checks.json`, landing-2119-{phone,phone-landscape,desktop,small-phone}.png. Preview Builds/WebGL chỉrefreshshellvớiWASM1.52.0 cũ đểxemlayout, không buildgameplay/phát hành; máy chủlocalhost đã dừng. Fileảnhmới giữnguyênpixel vàviềnảnh khôngbịcắt.
 - Cậpnhật15.2/BANGIAO trongcùngviệc, lưucommitcục bộ source/ảnh/meta/verifier/report/2docs. Chưa build/push/pháthành, web vẫn1.52.0. Giữ nguyên sửaResetRoute21.118 vàmọi dirtyArt/Wave/.blend/Packages/Simulator/Captures ngoài phạm vi.
+
+
+### 21.120. Build/phát hành WebGL1.53.0 (03/11/2026, Codex — đang thực hiện)
+
+- Người dùng yêu cầu trực tiếp build và phát hành sau thayảnh21.119. Baseline29bae10; gồm source hiện hành21.108–21.119, giữ đồ họa/scene/start/jobsfalse. Đã ghi snapshot source và dirty; đồng bộversion1.53.0 trong builder/helper/verifier. UnityEdit đang mở, Pipelinechưa reachable; tiếp preflight/build2variant/pack/materialize/browser/staged/pushPages/live. Chưa tuyên bố đã phát hành;web1.52.0.
+
+- **Mốc build:** configure1.53.0 thực tế đã hoàn tất sau importGPU dù HTTP150s timeout; không chạy lại mutation.138VerifyRelease153Sceneđạt,524file dependency/sourceSHAđóngbăng. MainBuildWebRelease queue thành công, đang buildmobileETC2/EAC rồi desktopDXT. CLI mới không đọc evalToken củaPipeline0.8 nên dùng API `/api/exec`localhostcóxácthực theo package, tokenchỉ trongRAM/khônglog; khôngcài/nângpackage. Nhánhremotea6fa2b6 là ancestorHEAD.
+
+- **Mốc artifact:**2variantbuildSucceeded609,309s/desktop112,307s/0lỗi/1warningPipelineNoRuntimePipelineConfig (bảnPlayerkhôngbậtPipeline).138finalpreflightđạt,524fileSHAgiữ;2974filebaselinechỉbuilder/versionProjectSettingsđổi, scene/geometry/pixel/Packagesgiữ. Pack7parts/materialize2data;42repo+33siteđạt, cache055a51cf4c16d704/UTC2026-11-03T01:05:32.7143170Z. Dọnposter cũkhỏi docs/generatedoutput, chỉ1PNGmới. Đang browsertrênsiteđãghép/port8784;chưapush/pháthành.
+
+- **Mốc chuẩn bị phát hành:**387landing12viewport+37WebGLdesktop/mobile/offline/PWA+20fullscreeniPhone/iPad=444browserđạt/0JS-Unityruntimeerror. Đãxemảnhlandingphone vàgameplaymobile,ảnhPNGnguồn/build/docs/sitekhớpSHA/nguyênbyte. UnityEdit/scenesạch; sourcefreeze524SHAkhớp; đangstage/commit/push main theoủyquyềntrựctiếpcủangườidùng, tiếptheoPages/live;webchưaxácminh1.53.0. Bằngchứng Captures/release153-{build-report,build-warnings,scene-checks,desktop-scene-checks,source-fingerprint,source-scope-checks,task-scope-checks,repo-bundle-checks,site-bundle-checks,home-image-checks,web-checks,fullscreen-checks}.json;release153-landing-layout-checks.json/ảnh.
