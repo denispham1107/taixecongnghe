@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "fireLength": 6.5,
+  "fireLifetime": 0.14,
+  "smokeMax": 32,
+  "smokeLifetime": 0.6,
+  "lights": 0,
+  "previewOnly": true,
+  "sceneDirty": false
+}

@@ -1,0 +1,29 @@
+{
+  "success": true,
+  "unityChecks": 722,
+  "suites": {
+    "fx": 65,
+    "player": 261,
+    "heli": 222,
+    "scene": 174
+  },
+  "visualsReviewed": [
+    "day",
+    "night",
+    "portrait",
+    "close",
+    "duel"
+  ],
+  "scene": {
+    "play": false,
+    "compiling": false,
+    "building": false,
+    "sceneDirty": false,
+    "jobs": false
+  },
+  "webglBuilt": false,
+  "pushed": false,
+  "published": false,
+  "liveVersion": "1.54.0",
+  "physicalMobileTested": false
+}

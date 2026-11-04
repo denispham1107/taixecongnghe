@@ -61,7 +61,7 @@ public static class VerifyHelicopterMissileScene2126
   var mv=projectile.GetComponent<MissileFlightVisual>();var mlods=projectile.GetComponent<LODGroup>().GetLODs();
   check(mlods.Length==3&&mlods.All(l=>l.renderers.Length==1),"Missile has three single-surface LODs");
   for(int i=0;i<3;i++){var mesh=mlods[i].renderers[0].GetComponent<MeshFilter>().sharedMesh;check(Mathf.Abs(mesh.bounds.size.y-1.5f)<.03f&&Mathf.Abs(mesh.bounds.size.x-.54f)<.01f,"Imported missile geometry uses metre units: LOD"+i);check(mesh.colors32.Length==mesh.vertexCount&&mesh.subMeshCount==1,"Vertex color surface preserved: LOD"+i);}
-  check(mv.smoke.main.maxParticles==24&&mv.smoke.textureSheetAnimation.numTilesX==4&&mv.smoke.main.startLifetime.constant==.48f,"Bounded Blender smoke animation is assigned");
+  check(mv.smoke.main.maxParticles==32&&mv.smoke.textureSheetAnimation.numTilesX==4&&mv.smoke.main.startLifetime.constant==.6f,"21.129 bounded32-particle smoke preserves the Blender atlas");
   check(mv.plumePulse.length==6&&Mathf.Abs(mv.plumePeriod-1f/6)<.001f&&mv.flame.localPosition.z==-.64f,"Plume uses authored pulse and nozzle pivot");
   check(projectile.GetComponentsInChildren<Light>(true).Length==0,"Missile adds no realtime light");
   foreach(string shaderName in new[]{"PhoViet/Missile Surface","PhoViet/Missile Exhaust"}){var shader=Shader.Find(shaderName);check(shader!=null&&shader.isSupported&&!ShaderUtil.ShaderHasError(shader),"New shader compiles: "+shaderName);}
