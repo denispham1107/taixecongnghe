@@ -12,6 +12,7 @@ namespace PhoViet
   int HudButtonAt(Vector2 position)
   {
    var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
+   if(PlayerMissileButtonAt(position))return 2;
    float scale=narrow?area.width/480f:LandscapeHudScale(area),width=area.width/scale;
    var p=new Vector2((position.x-area.x)/scale,(Screen.height-position.y-area.y)/scale);
    if(narrow)return new Rect(width-54,18,34,34).Contains(p)?0:-1;
@@ -34,7 +35,7 @@ namespace PhoViet
    {
     int choice=hudTouchChoice;hudTouchChoice=-1;
     if(choice>=0&&HudButtonAt(t.position)==choice&&Vector2.Distance(t.position,hudTouchStart)<Screen.width*.035f)
-    {if(choice==0)TogglePause();else sound=!sound;}
+    {HandleHudChoice(choice);}
    }
    if(t.phase==TouchPhase.Canceled)hudTouchChoice=-1;
 #endif
@@ -104,6 +105,7 @@ namespace PhoViet
   }
   bool GameplayPointerAllowed(Vector2 position)
   {
+   if(PlayerMissileButtonAt(position))return false;
    var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
    float scale=narrow?area.width/480f:Mathf.Min(area.width/1440f,area.height/900f);
    float top=Screen.height-position.y;

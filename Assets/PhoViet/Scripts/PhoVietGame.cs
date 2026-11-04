@@ -295,6 +295,7 @@ namespace PhoViet
                 if(wasRiding&&!ServiceStopped&&Input.GetKeyDown(KeyCode.Q))TryKick();
                 if(wasRiding&&Input.GetKeyDown(KeyCode.Space))TryJump();
                 if(wasRiding&&Input.GetKeyDown(KeyCode.W))TryBoost();
+                if(wasRiding&&Input.GetKeyDown(KeyCode.F))TryFirePlayerMissile();
                 if(Input.GetKeyDown(KeyCode.LeftArrow)||Input.GetKeyDown(KeyCode.A))MoveLane(-1);
                 if(Input.GetKeyDown(KeyCode.RightArrow)||Input.GetKeyDown(KeyCode.D))MoveLane(1);
                 ReadSwipe(); TickRide(Mathf.Min(Time.deltaTime,.05f));
@@ -431,6 +432,7 @@ namespace PhoViet
             x=rider.localPosition.x;lastX=x;
             if(CheckRiderRiver())return;
             TickEnergyPickups(dt,previousRider);
+            TickMissilePickups(dt,previousRider);
             RetireTraffic(true);
             TickChase(dt);TickPoliceRiver(dt);AnimateKick();
             if(State!=RideState.Riding)return;
@@ -609,6 +611,7 @@ namespace PhoViet
         void Hud()
         {
             if(portrait)PortraitHud();else LandscapeHud();
+            DrawPlayerMissileButton();
             RearRecklessWarningHud();
         }
         void EndCard(bool paused)

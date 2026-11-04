@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "lodTriangles": [
+    868,
+    504,
+    252
+  ],
+  "renderersPerLod": 1,
+  "particles": 0,
+  "lights": 0,
+  "hud": 256,
+  "sceneDirty": false
+}

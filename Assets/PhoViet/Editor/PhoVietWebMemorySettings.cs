@@ -25,6 +25,8 @@ namespace PhoViet.Editor
    if(File.Exists(helicopter))paths.Add(helicopter);
    const string missile="Assets/PhoViet/Resources/Helicopter/PV_HelicopterMissile.prefab";
    if(File.Exists(missile))paths.Add(missile);
+   const string playerPickup="Assets/PhoViet/Resources/PlayerMissile/PV_MissilePickup.prefab",playerIcon="Assets/PhoViet/Resources/PlayerMissile/PV_MissileHud.png";
+   if(File.Exists(playerPickup))paths.Add(playerPickup);if(File.Exists(playerIcon))paths.Add(playerIcon);
    return paths.SelectMany(p=>AssetDatabase.GetDependencies(p,true)).Distinct().ToArray();
   }
   // GPU compression must match mobile WebGL: DXT is expanded on iPhone, and

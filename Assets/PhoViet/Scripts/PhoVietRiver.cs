@@ -161,6 +161,7 @@ namespace PhoViet
     if(j<firstRiver){block.SetBridge(false);block.streetRun=j<firstRiver-1?0:1;}
     else AssignRiverBlock(block,behind);
     RefreshEnergyTile(tiles[j]);
+    RefreshMissilePickupTile(tiles[j]);
     behind=block;
    }
   }
@@ -185,6 +186,7 @@ namespace PhoViet
    foreach(var b in blocks)if(b!=tile&&Mathf.Abs(b.localPosition.z-target)<6){behind=b;break;}
    var block=RiverOf(tile);if(block!=null)AssignRiverBlock(block,RiverOf(behind));
    RefreshEnergyTile(tile);
+   RefreshMissilePickupTile(tile);
   }
   // Vị trí trong hệ game nằm trên dải mặt sông của một khối cầu (bất kể x).
   bool RiverZone(Vector3 p,out Vector3 local,out Transform tile)

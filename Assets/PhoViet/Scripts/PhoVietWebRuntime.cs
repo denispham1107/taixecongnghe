@@ -6,6 +6,7 @@ namespace PhoViet
     {
         Vector4 browserInsets;
         bool hasBrowserInsets;
+        float browserPixelRatio=1;
         [System.Serializable] class BrowserTap {public float x,y;}
         [UnityEngine.Scripting.Preserve]
         public void ApplyHudTap(string json)
@@ -17,9 +18,9 @@ namespace PhoViet
             int choice=HudButtonAt(new Vector2(tap.x*Screen.width,(1-tap.y)*Screen.height));
             if(choice<0)return;
             hudTouchSuppressUntil=Time.unscaledTime+.6f;
-            if(choice==0)TogglePause();else sound=!sound;
+            HandleHudChoice(choice);
         }
-        [System.Serializable] class BrowserInsets {public float left,top,right,bottom;}
+        [System.Serializable] class BrowserInsets {public float left,top,right,bottom,pixelRatio;}
 
         // Normalized CSS viewport fractions remain correct when WebGL renders at a different DPR.
         [UnityEngine.Scripting.Preserve]
@@ -31,6 +32,7 @@ namespace PhoViet
             for(int i=0;i<4;i++)
                 if(float.IsNaN(insets[i])||float.IsInfinity(insets[i])||insets[i]<0||insets[i]>.4f)return;
             browserInsets=insets;hasBrowserInsets=true;
+            if(Finite(value.pixelRatio)&&value.pixelRatio>=.25f&&value.pixelRatio<=4)browserPixelRatio=value.pixelRatio;
         }
 
         Rect GameGuiArea()

@@ -1,0 +1,62 @@
+{
+  "success": true,
+  "unityChecks": 1278,
+  "browserChecks": 436,
+  "shellRefreshChecks": 3,
+  "suites": [
+    {
+      "name": "VerifyPlayerMissiles2128",
+      "success": true,
+      "count": 261,
+      "failure": null
+    },
+    {
+      "name": "VerifyHelicopterMissiles2126",
+      "success": true,
+      "count": 222,
+      "failure": null
+    },
+    {
+      "name": "VerifyHelicopterFleet2126",
+      "success": true,
+      "count": 286,
+      "failure": null
+    },
+    {
+      "name": "VerifyHelicopterJump2126",
+      "success": true,
+      "count": 131,
+      "failure": null
+    },
+    {
+      "name": "VerifyHelicopterRoutes2126",
+      "success": true,
+      "count": 46,
+      "failure": null
+    },
+    {
+      "name": "VerifyContactFire2127",
+      "success": true,
+      "count": 155,
+      "failure": null
+    },
+    {
+      "name": "VerifyCrashDistance",
+      "success": true,
+      "count": 62,
+      "failure": null
+    }
+  ],
+  "sceneCount": 115,
+  "browserBridge": 49,
+  "browserLayout": 387,
+  "screenshots": 5,
+  "newWebGLBuild": false,
+  "push": false,
+  "deployed": false,
+  "limitations": [
+    "Unity gameplay checks and Editor screenshots only.",
+    "Browser input bridge uses a mock engine; HTML preview keeps existing1.54.0WASM.",
+    "Physical iPhone/iPad/Android FPS and input checks remain pending."
+  ]
+}

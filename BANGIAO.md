@@ -24,6 +24,7 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
+| Tên lửa người chơi trong source | **21.128 chưa phát hành:**3/3,2pickup/phố-cầu/+1,nút/F khi bay/chờ0,4s/homing; không mục tiêu vẫn bắn thẳng,trúng trực thăng cháy/rơi.1278Unity/436browser/5ảnh đạt; web1.54.0 chưa có |
 | Cháy va chạm mặt đất trong source | **21.127 chưa phát hành:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt; web1.54.0 chưa có |
 | Trực thăng / nhảy mobile mới | **Source21.126 chưa phát hành:** giữ2–5chiếc/theo400m/4làn/so le; thêm tên lửa1→0,5s/40slot, bay thẳng/roll né. Trúng đạn hoặc đâm trực thăng rơi cháy/kết thúc kể cảCSGT; máy bay va chạm cũng cháy. Nhảy tức thời/queue70% giữ.1028Unity/387layout đạt;web1.54.0 chưa có |
 | Năng lượng / bay / lộn | **21.122–21.123 đã có trên web1.54.0:** C đượcduyệt/đãtíchhợp;150NL/nhảy−5/nhặt+15/haiiconkháclànmỗi phố-cầu;Space/vuốtlênbật-tắtbay/−10mỗi0,5s/hếtNLtựhạ;Q/doubletapkhibaylộn360°0,9s.4998Unity/464browserlocal/27liveđạt |
@@ -39,6 +40,8 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.128 hoàn tất source, chưa phát hành:** kho3/3,nhặt+1/2icon khác làn mỗi phố-cầu,nút tròn/F khi giữ bay,chờ0,4s; tự khóa trực thăng gần nhất phía trước/homing,không mục tiêu vẫn bắn thẳng. Trúng máy bay cháy/khói/rơi; pool12/pickup70/3LOD868-504-252/HUD256vector; nút>=56CSSpx,tap không thành roll.1278Unity+436browser+3refreshđạt/5ảnh đã xem. UnityEdit/scenesạch/jobsfalse/server8787dừng; lưucommitlocal+2docs,chưa build/push/web(vẫn1.54.0). Chi tiết21.128.
 
 - **21.127 hoàn tất source, chưa phát hành:** lửa/khói tại từng mặt va chạm player–NPC/NPC–NPC/CSGT/húc ngang; tông tiếp mặt khác thêm điểm mới, Tank miễn (kể cả tông xác sát tường). Người dùng chọn xe hồi phục vẫn chạy kèm lửa/khói; giữ3s/CSGT1,2s/score/roof/pursuit. Pool Mantaflow riêng/neo local/gộp0,65m/reclaim generation-sông-reset;802Unity đạt/4ảnh ngày-đêm-dọc-hồi phục đã xem. UnityEdit/scene sạch/jobsfalse; lưu commit local +2docs; chưa build/push/web(vẫn1.54.0). Chi tiết21.127.
 
@@ -183,6 +186,7 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 
 
 
+
 - **21.123 hoàn tất:**1.54.0đãpushcommitee18d91/Pages41645004184success/cache6147ef260e9458a8/27liveđạt. Khôngcònbướcbuild/push/Pages/liveđangdở. UnityEdit/scenesạch/server8784đãdừng;chưathửSafari/Androidmáythật. GiữdirtyArt/Wave/Packages/Simulatorngoàicommit.
 
 - **21.122 đã phát hành cùng1.54.0/21.123.** Nănglượng/bay/lộnCđãkiểmUnityvàWebGL,khôngcònbước triểnkhai đangdở;nguồnBlenderCởfile riêng.
@@ -255,6 +259,8 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 
 ## 4. Luật đã chốt — không tự đổi
 
+- **Source21.128:** player3/3tên lửa,mỗi icon+1/tốiđa3,2iconkháclàn/phố-cầu. Nút tròn/F chỉkhi giữbay,cooldown0,4s; khóa trực thăng gầnnhất phía trước/homing,khôngmục tiêu vẫn bắn thẳng. Trúng máy bay cháy/rơi; giữ đạn địch/roll/luật player thua. Kho đầy giữ pickup lại.
+
 - **Source21.127:** va chạm xe mặt đất làm cả hai cháy tại chỗ tông; tông lại chỗ khác thêm điểm cháy. Tank không cháy. Xe thường vẫn dựng/chạy lại3s, CSGT1,2s, **vẫn chạy kèm lửa/khói**, chỉ dọn khi retire/generation/sông/retry. Giữ physics/score/chờ CSGT; lửa do sét/không chiến giữ luật riêng.
 
 - **Source21.109 (web1.52.0 còn21.105):** quang15s→tăngmưa3s→giông9s→tan3s/lặp30s, pause dừng. Mỗi đợt giữ tia cũ và thêm đồng thời3tia ở3làn ngẫu nhiên khác nhau trong tile hiện tại; cả4báo0,8s, điểm đã báo không retarget. Nhảy vẫn trúng; xe trúng cháy/văngtheohướng cũ/nằm lại. Playertrúngluônhếtlượt sauvăng,kểcảđangđuổi. Tank/Dino miễn. CSGTtrúng→hếtđuổi; playerđãtéchờbắt thìhếtlượt. Vi phạmmới vềsaumới cólầnđuổimới, khônghồi phụcCSGTcháyđểtiếptụclầnđuổicũ.
@@ -280,6 +286,7 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 
 | Muốn đụng tới | Mục `huongdan.md` | File chính |
 | --- | --- | --- |
+| Player tên lửa3/3/pickup/HUD/F/homing/shot-down | **21.128** | `PhoVietPlayerMissiles.cs`, `PhoVietMissilePickups.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietHelicopter.cs`, HUD/energy/river/web runtime; `Resources/PlayerMissile`, `ArtSource/UI/player_missile_icon.*`; verifier/capture `PlayerMissile*2128`, reports `player2128-*` |
 | Cháy/khói đa điểm va chạm mặt đất; xe hồi phục vẫn cháy | **21.127** | `PhoVietContactFire.cs`, `ContactFireVisual.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs`, `PhoVietPolice.cs`, `PhoVietPlayerVehicle.cs`, `PhoVietThunderstorm.cs`; verifier/report/capture `ContactFire2127`/`contact2127-*` |
 | Trực thăng/tên lửa/rollné/rơi cháy, nhảy tức thời/queue70% | **21.126**,21.125/21.124/21.122 | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `MissileFlightVisual.cs`, `HelicopterVisual.cs`, `ThunderstormVisual.cs`, `RotorBlur.shader`, `PhoVietJump.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`; prefabResource/Art/Helicopter; nguồn `prepare_helicopter.py`/`PhoViet_Helicopter.blend`; nguồn tên lửa `missile2126.py`/`PhoViet_HelicopterMissile.blend`; verifier/report `Helicopter*2126`/`missile2126-*` |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |

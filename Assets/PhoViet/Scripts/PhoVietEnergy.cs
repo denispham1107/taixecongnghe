@@ -42,6 +42,7 @@ namespace PhoViet
      for(int i=0;i<2;i++){entry.icons[i]=Instantiate(energyPickupPrefab,tile,false).transform;entry.icons[i].name="Năng lượng C • "+i;}
     }
     RefreshEnergyTile(tile);
+    RefreshMissilePickupTile(tile);
    }
   }
   void RefreshEnergyTile(Transform tile)
