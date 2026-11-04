@@ -3,63 +3,111 @@ namespace PhoViet
 {
  public partial class PhoVietGame
  {
-  public bool HelicopterActive=>helicopterActive;
+  public const int MaximumHelicopters=5;
+  const float HelicopterSpeed=16,HelicopterSpacing=12;
+  sealed class HelicopterActor
+  {
+   public Transform root;public HelicopterVisual visual;public bool active;
+   public float age;public Vector3 velocity,scroll;
+  }
+  readonly HelicopterActor[] helicopters=new HelicopterActor[MaximumHelicopters];
+  readonly int[] helicopterLanes={0,1,2,3};int helicopterLaneCursor=4;
+  GameObject helicopterPrefab;System.Random helicopterRng;
+  bool helicopterRebased;Vector3 helicopterRebaseOrigin;Quaternion helicopterRebaseRotation;
+  public bool HelicopterActive=>ActiveHelicopterCount>0;
+  public int ActiveHelicopterCount{get{int count=0;foreach(var h in helicopters)if(h!=null&&h.active)count++;return count;}}
+  public int HelicopterPoolCount{get{int count=0;foreach(var h in helicopters)if(h!=null)count++;return count;}}
+  public int HelicopterTargetCount=>HelicopterLimitAtDistance(Distance);
   public int HelicoptersSpawned{get;private set;}
   public bool HitByHelicopter{get;private set;}
   public bool HelicopterSoundEnabled=>sound;
-  public Transform HelicopterRoot=>helicopter;
-  const float HelicopterSpeed=16;
-  Transform helicopter;HelicopterVisual helicopterVisual;GameObject helicopterPrefab;
-  bool helicopterActive,helicopterRebased;float helicopterAge;
-  Vector3 helicopterVelocity,helicopterScroll,helicopterRebaseOrigin;Quaternion helicopterRebaseRotation;
-  System.Random helicopterRng;
+  public Transform HelicopterRoot=>GetHelicopterRoot(0);
+  public Transform GetHelicopterRoot(int index)=>index>=0&&index<helicopters.Length?helicopters[index]?.root:null;
+  public bool IsHelicopterActive(int index)=>index>=0&&index<helicopters.Length&&helicopters[index]!=null&&helicopters[index].active;
+  // Strictly beyond each 400 m milestone, based on scored distance, never crash travel.
+  public static int HelicopterLimitAtDistance(float metres)=>metres>1200?5:metres>800?4:metres>400?3:2;
   void ResetHelicopter()
   {
-   helicopterActive=helicopterRebased=false;helicopterScroll=Vector3.zero;helicopterAge=0;HelicoptersSpawned=0;HitByHelicopter=false;
+   helicopterRebased=false;HelicoptersSpawned=0;HitByHelicopter=false;helicopterLaneCursor=4;
    helicopterRng=new System.Random(RunSeed^0x47ad124);
-   if(helicopter!=null)helicopter.gameObject.SetActive(false);
-   if(!Application.isPlaying)return;
-   if(helicopterPrefab==null)helicopterPrefab=Resources.Load<GameObject>("Helicopter/PV_Helicopter");
-   if(helicopter==null&&helicopterPrefab!=null){helicopter=Instantiate(helicopterPrefab,transform).transform;helicopterVisual=helicopter.GetComponent<HelicopterVisual>();helicopter.gameObject.SetActive(false);}
+   for(int i=0;i<helicopterLanes.Length;i++)helicopterLanes[i]=i;
+   if(Application.isPlaying&&helicopterPrefab==null)helicopterPrefab=Resources.Load<GameObject>("Helicopter/PV_Helicopter");
+   for(int i=0;i<helicopters.Length;i++)
+   {
+    var h=helicopters[i];
+    if(h==null&&Application.isPlaying&&helicopterPrefab!=null)
+    {
+     var root=Instantiate(helicopterPrefab,transform).transform;root.name="Helicopter "+(i+1);
+     h=helicopters[i]=new HelicopterActor{root=root,visual=root.GetComponent<HelicopterVisual>()};
+    }
+    if(h==null)continue;h.active=false;h.age=0;h.velocity=h.scroll=Vector3.zero;h.root.gameObject.SetActive(false);
+   }
+  }
+  int NextHelicopterLane()
+  {
+   if(helicopterLaneCursor>=4)
+   {
+    for(int i=3;i>0;i--){int j=helicopterRng.Next(i+1),lane=helicopterLanes[i];helicopterLanes[i]=helicopterLanes[j];helicopterLanes[j]=lane;}
+    helicopterLaneCursor=0;
+   }
+   return helicopterLanes[helicopterLaneCursor++];
+  }
+  bool HelicopterLaneOccupied(int lane)
+  {
+   foreach(var h in helicopters)if(h!=null&&h.active&&h.velocity.z< -1&&Mathf.Abs(h.velocity.x)<.1f&&Mathf.Abs(h.root.localPosition.x-LaneX[lane])<.1f)return true;
+   return false;
   }
   bool SpawnHelicopter()
   {
-   if(helicopter==null||helicopterActive||!RiderFlying||IsTurning||State!=RideState.Riding)return false;
-   helicopter.localPosition=new Vector3(LaneX[helicopterRng.Next(2)],rider.localPosition.y+PlayerHeight*.5f,Mathf.Max(95,(Speed+HelicopterSpeed)*2.8f));
-   helicopter.localRotation=Quaternion.Euler(0,180,0);helicopterVelocity=Vector3.back*HelicopterSpeed;
-   helicopterAge=0;helicopterActive=true;helicopter.gameObject.SetActive(true);helicopterVisual.ResetPose();HelicoptersSpawned++;
+   if(!RiderFlying||IsTurning||State!=RideState.Riding||ActiveHelicopterCount>=HelicopterTargetCount)return false;
+   HelicopterActor free=null;foreach(var h in helicopters)if(h!=null&&!h.active){free=h;break;}if(free==null)return false;
+   int lane=0;for(int attempt=0;attempt<8;attempt++){lane=NextHelicopterLane();if(!HelicopterLaneOccupied(lane))break;}
+   float z=Mathf.Max(95,(Speed+HelicopterSpeed)*2.8f);
+   // Stagger the formation so neighbouring main rotors and repeated lanes cannot overlap.
+   foreach(var h in helicopters)if(h!=null&&h.active&&h.velocity.z< -1&&Mathf.Abs(h.velocity.x)<.1f)z=Mathf.Max(z,h.root.localPosition.z+HelicopterSpacing);
+   free.root.localPosition=new Vector3(LaneX[lane],rider.localPosition.y+PlayerHeight*.5f,z);
+   free.root.localRotation=Quaternion.Euler(0,180,0);free.velocity=Vector3.back*HelicopterSpeed;
+   free.age=0;free.scroll=Vector3.zero;free.active=true;free.root.gameObject.SetActive(true);free.visual.ResetPose();HelicoptersSpawned++;
    notice="TRỰC THĂNG NGƯỢC CHIỀU · CHÚ Ý KHI BAY";noticeTimer=2;return true;
   }
-  void ScrollHelicopter(float delta){if(helicopterActive)helicopterScroll+=Vector3.forward*delta;}
+  void ScrollHelicopter(float delta){foreach(var h in helicopters)if(h!=null&&h.active)h.scroll+=Vector3.forward*delta;}
   void RebaseHelicopter(Quaternion inverse,Vector3 origin)
   {
-   if(!helicopterActive)return;
-   helicopter.localPosition=inverse*(helicopter.localPosition-origin);helicopter.localRotation=inverse*helicopter.localRotation;
-   helicopterVelocity=inverse*helicopterVelocity;helicopterScroll=inverse*helicopterScroll;
+   if(!HelicopterActive)return;
+   foreach(var h in helicopters)if(h!=null&&h.active)
+   {
+    h.root.localPosition=inverse*(h.root.localPosition-origin);h.root.localRotation=inverse*h.root.localRotation;
+    h.velocity=inverse*h.velocity;h.scroll=inverse*h.scroll;
+   }
    helicopterRebased=true;helicopterRebaseRotation=inverse;helicopterRebaseOrigin=origin;
   }
   void TickHelicopter(float dt,Vector3 previousRider,bool collisions=true)
   {
    if(dt<=0||State==RideState.Paused)return;
-   // Both ends of a collision sweep must use the destination street coordinates.
+   // Both ends of every collision sweep use the destination street coordinates.
    if(helicopterRebased){previousRider=helicopterRebaseRotation*(previousRider-helicopterRebaseOrigin);helicopterRebased=false;}
-   if(!helicopterActive){helicopterScroll=Vector3.zero;if(collisions)SpawnHelicopter();return;}
-   Vector3 from=helicopter.localPosition;helicopter.localPosition+=helicopterVelocity*dt-helicopterScroll;helicopterScroll=Vector3.zero;helicopterAge+=dt;
+   foreach(var h in helicopters)if(h!=null&&h.active)TickHelicopterActor(h,dt,previousRider,collisions);
+   // Fill all newly earned slots in this step; no new actors during descent or a fall.
+   if(collisions)while(SpawnHelicopter()){}
+  }
+  void TickHelicopterActor(HelicopterActor h,float dt,Vector3 previousRider,bool collisions)
+  {
+   Vector3 from=h.root.localPosition;h.root.localPosition+=h.velocity*dt-h.scroll;h.scroll=Vector3.zero;h.age+=dt;
    if(collisions&&State==RideState.Riding)
    {
-    int steps=Mathf.Max(1,Mathf.CeilToInt(((helicopter.localPosition-from)-(rider.localPosition-previousRider)).magnitude/.22f));
+    int steps=Mathf.Max(1,Mathf.CeilToInt(((h.root.localPosition-from)-(rider.localPosition-previousRider)).magnitude/.22f));
     for(int i=0;i<=steps;i++)
     {
-     float t=(float)i/steps;Vector3 at=Vector3.Lerp(from,helicopter.localPosition,t),p=Vector3.Lerp(previousRider,rider.localPosition,t);
-     if(!HelicopterTouches(at,helicopter.localRotation,p,rider.localRotation))continue;
+     float t=(float)i/steps;Vector3 at=Vector3.Lerp(from,h.root.localPosition,t),p=Vector3.Lerp(previousRider,rider.localPosition,t);
+     if(!HelicopterTouches(at,h.root.localRotation,p,rider.localRotation))continue;
      Vector3 away=p-at;away.y=0;if(away.sqrMagnitude<.01f)away=Vector3.back;away.Normalize();
      Vector3 before=riderRoadVelocity;rider.localPosition=p;BeginRiderImpact(null,new Vector2(-away.x,-away.z),at,before);
-     riderFallVelocity=(before-helicopterVelocity)*.30f+away*8+Vector3.up*3;HitByHelicopter=true;
+     riderFallVelocity=(before-h.velocity)*.30f+away*8+Vector3.up*3;HitByHelicopter=true;
      notice=CrashDuringPursuit?"VA TRỰC THĂNG · CHỜ CSGT ĐẾN BẮT":"VA TRỰC THĂNG · CHUYẾN ĐI KẾT THÚC";noticeTimer=4;break;
     }
    }
-   if(helicopter.localPosition.z< -32||Mathf.Abs(helicopter.localPosition.x)>38||helicopterAge>14)
-   {helicopterActive=false;helicopter.gameObject.SetActive(false);}
+   if(h.root.localPosition.z< -32||Mathf.Abs(h.root.localPosition.x)>38||h.age>14)
+   {h.active=false;h.root.gameObject.SetActive(false);}
   }
   bool HelicopterTouches(Vector3 at,Quaternion heading,Vector3 p,Quaternion rotation)
   {
