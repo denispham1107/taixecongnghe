@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "length": 1.5,
+  "forwardUnity": [
+    0,
+    0,
+    1
+  ],
+  "lodTriangles": [
+    580,
+    324,
+    156
+  ],
+  "plumePulse": [
+    1,
+    0.84,
+    1.2,
+    0.93,
+    1.12,
+    1
+  ],
+  "plumePeriod": 0.16666667,
+  "missileSpeed": 50,
+  "smokeSheet": [
+    4,
+    1
+  ],
+  "smokeMaxParticles": 24,
+  "smokeRate": 50,
+  "smokeLifetime": 0.48
+}

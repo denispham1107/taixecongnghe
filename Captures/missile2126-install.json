@@ -1,0 +1,34 @@
+{
+  "success": true,
+  "meshes": [
+    {
+      "name": "PV_MissileBody_LOD0",
+      "triangles": 580,
+      "submeshes": 1,
+      "colors": 606
+    },
+    {
+      "name": "PV_MissileExhaust",
+      "triangles": 120,
+      "submeshes": 1,
+      "colors": 89
+    },
+    {
+      "name": "PV_MissileBody_LOD1",
+      "triangles": 324,
+      "submeshes": 1,
+      "colors": 350
+    },
+    {
+      "name": "PV_MissileBody_LOD2",
+      "triangles": 156,
+      "submeshes": 1,
+      "colors": 194
+    }
+  ],
+  "texture": [
+    512,
+    128
+  ],
+  "previewSceneOnly": true
+}

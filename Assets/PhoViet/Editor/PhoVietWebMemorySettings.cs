@@ -23,6 +23,8 @@ namespace PhoViet.Editor
    var paths=new List<string>{"Assets/PhoViet/Scenes/PhoViet.unity"};
    const string helicopter="Assets/PhoViet/Resources/Helicopter/PV_Helicopter.prefab";
    if(File.Exists(helicopter))paths.Add(helicopter);
+   const string missile="Assets/PhoViet/Resources/Helicopter/PV_HelicopterMissile.prefab";
+   if(File.Exists(missile))paths.Add(missile);
    return paths.SelectMany(p=>AssetDatabase.GetDependencies(p,true)).Distinct().ToArray();
   }
   // GPU compression must match mobile WebGL: DXT is expanded on iPhone, and

@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "positions": [
+    {
+      "frame": 1,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "frame": 16,
+      "position": [
+        0.0,
+        -15.625,
+        0.0
+      ]
+    },
+    {
+      "frame": 31,
+      "position": [
+        0.0,
+        -50.0,
+        0.0
+      ]
+    }
+  ],
+  "speed": 50,
+  "preservedScene": "Scene"
+}

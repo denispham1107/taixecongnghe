@@ -7,8 +7,8 @@ namespace PhoViet
   const float HelicopterSpeed=16,HelicopterSpacing=12;
   sealed class HelicopterActor
   {
-   public Transform root;public HelicopterVisual visual;public bool active;
-   public float age;public Vector3 velocity,scroll;
+   public Transform root;public HelicopterVisual visual;public bool active,wrecked;
+   public float age,shotRemaining,shotInterval;public Vector3 velocity,scroll,wreckEuler,wreckSpin;
   }
   readonly HelicopterActor[] helicopters=new HelicopterActor[MaximumHelicopters];
   readonly int[] helicopterLanes={0,1,2,3};int helicopterLaneCursor=4;
@@ -40,8 +40,9 @@ namespace PhoViet
      var root=Instantiate(helicopterPrefab,transform).transform;root.name="Helicopter "+(i+1);
      h=helicopters[i]=new HelicopterActor{root=root,visual=root.GetComponent<HelicopterVisual>()};
     }
-    if(h==null)continue;h.active=false;h.age=0;h.velocity=h.scroll=Vector3.zero;h.root.gameObject.SetActive(false);
+    if(h==null)continue;h.active=h.wrecked=false;h.age=0;h.shotInterval=h.shotRemaining=HelicopterMissileInterval(Distance);h.velocity=h.scroll=Vector3.zero;h.root.gameObject.SetActive(false);
    }
+   ResetHelicopterMissiles();
   }
   int NextHelicopterLane()
   {
@@ -54,7 +55,7 @@ namespace PhoViet
   }
   bool HelicopterLaneOccupied(int lane)
   {
-   foreach(var h in helicopters)if(h!=null&&h.active&&h.velocity.z< -1&&Mathf.Abs(h.velocity.x)<.1f&&Mathf.Abs(h.root.localPosition.x-LaneX[lane])<.1f)return true;
+   foreach(var h in helicopters)if(h!=null&&h.active&&!h.wrecked&&h.velocity.z< -1&&Mathf.Abs(h.velocity.x)<.1f&&Mathf.Abs(h.root.localPosition.x-LaneX[lane])<.1f)return true;
    return false;
   }
   bool SpawnHelicopter()
@@ -64,21 +65,22 @@ namespace PhoViet
    int lane=0;for(int attempt=0;attempt<8;attempt++){lane=NextHelicopterLane();if(!HelicopterLaneOccupied(lane))break;}
    float z=Mathf.Max(95,(Speed+HelicopterSpeed)*2.8f);
    // Stagger the formation so neighbouring main rotors and repeated lanes cannot overlap.
-   foreach(var h in helicopters)if(h!=null&&h.active&&h.velocity.z< -1&&Mathf.Abs(h.velocity.x)<.1f)z=Mathf.Max(z,h.root.localPosition.z+HelicopterSpacing);
+   foreach(var h in helicopters)if(h!=null&&h.active&&!h.wrecked&&h.velocity.z< -1&&Mathf.Abs(h.velocity.x)<.1f)z=Mathf.Max(z,h.root.localPosition.z+HelicopterSpacing);
    free.root.localPosition=new Vector3(LaneX[lane],rider.localPosition.y+PlayerHeight*.5f,z);
    free.root.localRotation=Quaternion.Euler(0,180,0);free.velocity=Vector3.back*HelicopterSpeed;
-   free.age=0;free.scroll=Vector3.zero;free.active=true;free.root.gameObject.SetActive(true);free.visual.ResetPose();HelicoptersSpawned++;
+   free.age=0;free.shotInterval=free.shotRemaining=HelicopterMissileInterval(Distance);free.scroll=Vector3.zero;free.active=true;free.wrecked=false;free.root.gameObject.SetActive(true);free.visual.ResetPose();HelicoptersSpawned++;
    notice="TRỰC THĂNG NGƯỢC CHIỀU · CHÚ Ý KHI BAY";noticeTimer=2;return true;
   }
-  void ScrollHelicopter(float delta){foreach(var h in helicopters)if(h!=null&&h.active)h.scroll+=Vector3.forward*delta;}
+  void ScrollHelicopter(float delta){foreach(var h in helicopters)if(h!=null&&h.active)h.scroll+=Vector3.forward*delta;ScrollHelicopterMissiles(delta);}
   void RebaseHelicopter(Quaternion inverse,Vector3 origin)
   {
-   if(!HelicopterActive)return;
+   if(!HelicopterActive&&ActiveHelicopterMissileCount==0)return;
    foreach(var h in helicopters)if(h!=null&&h.active)
    {
     h.root.localPosition=inverse*(h.root.localPosition-origin);h.root.localRotation=inverse*h.root.localRotation;
-    h.velocity=inverse*h.velocity;h.scroll=inverse*h.scroll;
+    h.velocity=inverse*h.velocity;h.scroll=inverse*h.scroll;if(h.wrecked){h.wreckEuler=h.root.localEulerAngles;h.wreckSpin=inverse*h.wreckSpin;}
    }
+   RebaseHelicopterMissiles(inverse,origin);
    helicopterRebased=true;helicopterRebaseRotation=inverse;helicopterRebaseOrigin=origin;
   }
   void TickHelicopter(float dt,Vector3 previousRider,bool collisions=true)
@@ -87,11 +89,13 @@ namespace PhoViet
    // Both ends of every collision sweep use the destination street coordinates.
    if(helicopterRebased){previousRider=helicopterRebaseRotation*(previousRider-helicopterRebaseOrigin);helicopterRebased=false;}
    foreach(var h in helicopters)if(h!=null&&h.active)TickHelicopterActor(h,dt,previousRider,collisions);
+   TickHelicopterMissiles(dt,previousRider,collisions);
    // Fill all newly earned slots in this step; no new actors during descent or a fall.
    if(collisions)while(SpawnHelicopter()){}
   }
   void TickHelicopterActor(HelicopterActor h,float dt,Vector3 previousRider,bool collisions)
   {
+   if(h.wrecked){TickHelicopterWreck(h,dt);return;}
    Vector3 from=h.root.localPosition;h.root.localPosition+=h.velocity*dt-h.scroll;h.scroll=Vector3.zero;h.age+=dt;
    if(collisions&&State==RideState.Riding)
    {
@@ -101,11 +105,11 @@ namespace PhoViet
      float t=(float)i/steps;Vector3 at=Vector3.Lerp(from,h.root.localPosition,t),p=Vector3.Lerp(previousRider,rider.localPosition,t);
      if(!HelicopterTouches(at,h.root.localRotation,p,rider.localRotation))continue;
      Vector3 away=p-at;away.y=0;if(away.sqrMagnitude<.01f)away=Vector3.back;away.Normalize();
-     Vector3 before=riderRoadVelocity;rider.localPosition=p;BeginRiderImpact(null,new Vector2(-away.x,-away.z),at,before);
-     riderFallVelocity=(before-h.velocity)*.30f+away*8+Vector3.up*3;HitByHelicopter=true;
-     notice=CrashDuringPursuit?"VA TRỰC THĂNG · CHỜ CSGT ĐẾN BẮT":"VA TRỰC THĂNG · CHUYẾN ĐI KẾT THÚC";noticeTimer=4;break;
+     Vector3 before=riderRoadVelocity;rider.localPosition=p;h.root.localPosition=at;
+     KnockHelicopter(h,before,away);HitByHelicopter=true;BurnAirAttackRider(at,false);break;
     }
    }
+   if(collisions&&!h.wrecked)TickHelicopterWeapon(h,dt);
    if(h.root.localPosition.z< -32||Mathf.Abs(h.root.localPosition.x)>38||h.age>14)
    {h.active=false;h.root.gameObject.SetActive(false);}
   }

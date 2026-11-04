@@ -1,0 +1,38 @@
+[
+  {
+    "name": "VerifyHelicopterMissiles2126",
+    "success": true,
+    "count": 222,
+    "failure": null
+  },
+  {
+    "name": "VerifyHelicopterFleet2126",
+    "success": true,
+    "count": 286,
+    "failure": null
+  },
+  {
+    "name": "VerifyHelicopterJump2126",
+    "success": true,
+    "count": 131,
+    "failure": null
+  },
+  {
+    "name": "VerifyHelicopterRoutes2126",
+    "success": true,
+    "count": 46,
+    "failure": null
+  },
+  {
+    "name": "VerifyThunderstorm",
+    "success": true,
+    "count": 107,
+    "failure": null
+  },
+  {
+    "name": "VerifyCrashDistance",
+    "success": true,
+    "count": 62,
+    "failure": null
+  }
+]

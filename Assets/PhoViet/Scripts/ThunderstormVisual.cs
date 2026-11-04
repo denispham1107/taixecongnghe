@@ -69,12 +69,12 @@ namespace PhoViet
    foreach(var ps in b.particles){var main=ps.main;main.maxParticles=Mathf.Min(64,main.maxParticles);}
    burns.Add(b);return b;
   }
-  public void Burn(Transform target,PhoVietGame.TrafficVehicle body)
+  public void Burn(Transform target,PhoVietGame.TrafficVehicle body,float scale=0)
   {
    if(fireTemplate==null)return;BurnEffect chosen=null;
    foreach(var b in burns){if(b.active&&b.target==target)return;if(!b.active&&chosen==null)chosen=b;}
-   if(chosen==null&&burns.Count<game.vehicles.Count+2)chosen=NewBurn();if(chosen==null)return;
-   chosen.target=target;chosen.body=body;chosen.active=true;chosen.root.localScale=Vector3.one*(body==null||body.halfWidth>.7f?1.3f:.9f);
+   if(chosen==null&&burns.Count<game.vehicles.Count+PhoVietGame.MaximumHelicopters+2)chosen=NewBurn();if(chosen==null)return;
+   chosen.target=target;chosen.body=body;chosen.active=true;chosen.root.localScale=Vector3.one*(scale>0?scale:body==null||body.halfWidth>.7f?1.3f:.9f);
    chosen.root.gameObject.SetActive(true);PositionFire(chosen);foreach(var ps in chosen.particles){ps.Clear();ps.Play();}
   }
   void PositionFire(BurnEffect b)
@@ -117,7 +117,7 @@ namespace PhoViet
    Shader.SetGlobalFloat("_PVStormWetness",hide?0:intensity);
    foreach(var b in burns)if(b.active)
    {
-    bool valid=b.target!=null&&b.target.gameObject.activeInHierarchy&&b.target.localPosition.y>RiverBlock.WaterY+.25f&&(b.body==null?game.KilledByLightning:b.body.lightningWreck);
+    bool valid=b.target!=null&&b.target.gameObject.activeInHierarchy&&b.target.localPosition.y>RiverBlock.WaterY+.25f&&(b.body==null?(b.target==game.rider&&game.KilledByLightning||game.IsAircraftBurning(b.target)):b.body.lightningWreck);
     if(!valid){b.active=false;foreach(var ps in b.particles)ps.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);b.root.gameObject.SetActive(false);continue;}
     PositionFire(b);
    }
