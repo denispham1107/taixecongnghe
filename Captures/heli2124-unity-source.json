@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "path": "Assets/MeshyImports/Redline_Rescue_Helicopter_20261104_195539/Meshy_AI_Redline_Rescue_Helicopter_20261104_texture.fbx",
+  "meshes": [
+    {
+      "name": "Redline_Rescue_Helicopter",
+      "vertices": 15358,
+      "triangles": 14047
+    }
+  ],
+  "renderers": 1,
+  "rig": 0,
+  "play": false,
+  "scene": "Assets/PhoViet/Scenes/PhoViet.unity"
+}

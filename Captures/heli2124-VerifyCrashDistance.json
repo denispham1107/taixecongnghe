@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "result": {
+    "diagnostics": [],
+    "compileMs": 71,
+    "executeMs": 8582,
+    "assemblyName": "PipelineRunScript_heli2124-VerifyCrashDistance_c8c2bc2c83af4cfdbe45a105ed76235f",
+    "success": true,
+    "result": {
+      "success": true,
+      "count": 62
+    }
+  }
+}

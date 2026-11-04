@@ -165,6 +165,7 @@ namespace PhoViet
             ResetJump();
             ResetBoost();
             ResetEnergy();
+            ResetHelicopter();
             ResetTankBarrage();
             ResetDinosaurs();
             ResetTurnHazards();
@@ -300,6 +301,7 @@ namespace PhoViet
             }
             UpdateWork(Mathf.Min(Time.deltaTime,.05f));
             if(State==RideState.Falling)TickRiderCrash(Mathf.Min(Time.deltaTime,.05f));
+            if(State!=RideState.Riding&&State!=RideState.Paused&&State!=RideState.Ready)TickHelicopter(Mathf.Min(Time.deltaTime,.05f),rider.localPosition,false);
             if(State==RideState.GameOver){TickRiverAftermath(Mathf.Min(Time.deltaTime,.05f));TickShells(Mathf.Min(Time.deltaTime,.05f));TickThunderstorm(Mathf.Min(Time.deltaTime,.05f),false);}
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
             if(State==RideState.Arrested)TickArrest(Time.deltaTime);
@@ -417,6 +419,7 @@ namespace PhoViet
             TickTrafficMotion(dt);
             TickTankBarrage(dt);if(State!=RideState.Riding)return;
             TickDinosaurs(dt);if(State!=RideState.Riding)return;
+            TickHelicopter(dt,previousRider);if(State!=RideState.Riding)return;
             TickThunderstorm(dt,true);if(State!=RideState.Riding)return;
             TickTurnHazards(dt);
             ResolveJumpSurface(dt);

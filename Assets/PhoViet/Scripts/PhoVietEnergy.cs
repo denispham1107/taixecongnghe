@@ -9,10 +9,12 @@ namespace PhoViet
   public int Energy {get;private set;}=MaximumEnergy;
   public int EnergyPickupsCollected {get;private set;}
   public bool RiderFlying=>energyHover;
+  public bool RiderFlightPending=>energyHoverRequested;
   public bool RiderRolling=>barrelRolling;
   public float RiderBarrelRoll=>barrelRolling?360*SmoothRoll(barrelClock/BarrelRollDuration):0;
   public int EnergyPickupPoolCount=>energyTiles.Count*2;
-  bool energyHover,barrelRolling;float flightEnergyClock,barrelClock,energyClock;
+  bool energyHover,barrelRolling,energyHoverRequested;float flightEnergyClock,barrelClock,energyClock;
+  float MinimumFlightHeight=>jumpBaseHeight+RiderJumpApex*.70f;
   Texture2D energyHudIcon;GameObject energyPickupPrefab;
   System.Random energyRng;
   sealed class EnergyTile
@@ -58,11 +60,17 @@ namespace PhoViet
   bool ToggleEnergyFlight()
   {
    if(energyHover){energyHover=false;jumpVelocity=0;return true;}
-   if(!jumpFlying||jumpHeight<=.08f||Energy<=0)return false;
+   if(!jumpFlying||Energy<=0)return false;
+   if(jumpHeight<MinimumFlightHeight-.0001f)
+   {
+    if(jumpVelocity<=0||energyHoverRequested)return false;
+    energyHoverRequested=true;return true;
+   }
    // Carry an unpaid fraction until landing; rapid toggles cannot give free flight.
-   CancelAssistedKick(false);energyHover=true;jumpVelocity=0;return true;
+   StartEnergyHover();return true;
   }
-  void CancelEnergyFlight(){energyHover=false;barrelRolling=false;flightEnergyClock=barrelClock=0;}
+  void StartEnergyHover(){CancelAssistedKick(false);energyHoverRequested=false;energyHover=true;jumpVelocity=0;}
+  void CancelEnergyFlight(){energyHoverRequested=false;energyHover=false;barrelRolling=false;flightEnergyClock=barrelClock=0;}
   public bool TryBarrelRoll()
   {
    if(State!=RideState.Riding||ServiceStopped||!energyHover||barrelRolling)return false;

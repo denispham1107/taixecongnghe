@@ -1,0 +1,26 @@
+[
+  {
+    "name": "VerifyRoofRiding",
+    "success": true,
+    "count": 176,
+    "failure": []
+  },
+  {
+    "name": "VerifyCrashDistance",
+    "success": true,
+    "count": 62,
+    "failure": null
+  },
+  {
+    "name": "VerifyGestures",
+    "success": true,
+    "count": 39,
+    "failure": null
+  },
+  {
+    "name": "VerifyNightJumpLighting",
+    "success": true,
+    "count": 88,
+    "failure": null
+  }
+]

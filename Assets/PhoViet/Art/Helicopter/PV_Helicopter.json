@@ -1,0 +1,44 @@
+{
+  "source": "Redline Rescue Helicopter",
+  "length": 6.8,
+  "sourceTriangles": 14047,
+  "components": {
+    "Body": 64,
+    "MainRotor": 19,
+    "TailRotor": 2
+  },
+  "parts": {
+    "Body": [
+      11054,
+      5748,
+      2651
+    ],
+    "MainRotor": [
+      2368,
+      1230,
+      568
+    ],
+    "TailRotor": [
+      625,
+      324,
+      149
+    ]
+  },
+  "pivotsUnity": {
+    "Body": [
+      0.0,
+      0.0,
+      -0.0
+    ],
+    "MainRotor": [
+      0.0,
+      1.1247141361236572,
+      -0.0
+    ],
+    "TailRotor": [
+      0.1790946125984192,
+      0.2149135321378708,
+      -3.82546067237854
+    ]
+  }
+}

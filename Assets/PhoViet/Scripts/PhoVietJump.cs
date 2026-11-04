@@ -7,12 +7,12 @@ namespace PhoViet
   public bool RiderOnRoof=>roofVehicle!=null;
   public bool RiderJumpActive=>jumpWindup>0||jumpFlying||jumpLanding>0;
   public string RiderJumpClip=>jumpWindup>0?"JumpTakeoff":jumpFlying?"JumpAir":landingClip;
-  public float RiderJumpPose=>jumpWindup>0?1-jumpWindup/.24f:jumpFlying?Mathf.Clamp01(.5f-jumpVelocity/(2*jumpLaunchVelocity)):1-jumpLanding/.48f;
+  public float RiderJumpPose=>jumpFlying?Mathf.Clamp01(.5f-jumpVelocity/(2*jumpLaunchVelocity)):jumpWindup>0?1-jumpWindup/.24f:1-jumpLanding/.48f;
   public float RiderJumpHeight=>jumpHeight;
   public float RiderJumpCooldown=>jumpCooldown;
   public float RiderJumpTakeoffSpeed {get;private set;}
   public float RiderJumpApex=>jumpLaunchVelocity*jumpLaunchVelocity/(2*JumpRiseGravity);
-  float jumpHeight,jumpVelocity,jumpCooldown,jumpWindup,jumpLanding,jumpFlightAge,jumpPreviousHeight;
+  float jumpHeight,jumpVelocity,jumpCooldown,jumpWindup,jumpLanding,jumpFlightAge,jumpPreviousHeight,jumpBaseHeight;
   bool jumpFlying;
   string landingClip="LandBoth";
   TrafficVehicle roofVehicle,previousRoofVehicle,roofContactVehicle;
@@ -33,16 +33,19 @@ namespace PhoViet
    customer.localRotation=balance;
   }
   void ResetJump()
-  {CancelEnergyFlight();if(rider!=null)rider.GetComponent<CarJumpJetVisual>()?.Clear();jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=roofContactHeight=0;jumpLaunchVelocity=JumpLaunch;RiderJumpTakeoffSpeed=0;jumpFlying=false;roofVehicle=previousRoofVehicle=roofContactVehicle=null;landingClip="LandBoth";}
+  {CancelEnergyFlight();if(rider!=null)rider.GetComponent<CarJumpJetVisual>()?.Clear();jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=roofContactHeight=jumpBaseHeight=0;jumpLaunchVelocity=JumpLaunch;RiderJumpTakeoffSpeed=0;jumpFlying=false;roofVehicle=previousRoofVehicle=roofContactVehicle=null;landingClip="LandBoth";}
   public bool TryJump()
   {
    if(State!=RideState.Riding||ServiceStopped)return false;
-   if(energyHover||jumpFlying&&jumpHeight>.08f)return ToggleEnergyFlight();
+   if(energyHover||jumpFlying)return ToggleEnergyFlight();
    if(jumpFlying||jumpWindup>0||jumpCooldown>0||jumpLanding>0)return false;
    // A roof edge starts a physical fall, so it cannot be used for an extra mid-air jump.
    if(jumpHeight>.06f&&roofVehicle==null)return false;
    if(!SpendEnergy(JumpEnergyCost))return false;
-   CancelAssistedKick(false);jumpWindup=.24f;jumpCooldown=2;return true;
+   CancelAssistedKick(false);jumpWindup=.24f;jumpCooldown=2;
+   // The takeoff pose runs while the wheels rise, without a physical input delay.
+   jumpBaseHeight=jumpHeight;RiderJumpTakeoffSpeed=Speed;jumpLaunchVelocity=Mathf.Sqrt(2*JumpRiseGravity*JumpHeightAtSpeed(Speed));
+   jumpFlying=true;jumpVelocity=jumpLaunchVelocity;jumpFlightAge=0;roofVehicle=null;return true;
   }
   // A roof is usable while upright, including a weaving or damaged truck. A tilted
   // wreck remains a collision obstacle rather than becoming an invisible platform.
@@ -110,11 +113,13 @@ namespace PhoViet
   {
    previousRoofVehicle=roofVehicle;roofContactVehicle=null;roofContactHeight=0;jumpPreviousHeight=jumpHeight;jumpCooldown=Mathf.Max(0,jumpCooldown-dt);jumpLanding=Mathf.Max(0,jumpLanding-dt);
    float flightDt=TickEnergyFlight(dt);
-   if(jumpWindup>0)
+   jumpWindup=Mathf.Max(0,jumpWindup-dt);
+   float heldRemainder=0;
+   if(energyHoverRequested&&jumpFlying&&jumpVelocity>0)
    {
-    flightDt=Mathf.Max(0,dt-jumpWindup);
-    jumpWindup=Mathf.Max(0,jumpWindup-dt);
-    if(jumpWindup==0){RiderJumpTakeoffSpeed=Speed;jumpLaunchVelocity=Mathf.Sqrt(2*JumpRiseGravity*JumpHeightAtSpeed(Speed));jumpFlying=true;jumpVelocity=jumpLaunchVelocity;jumpFlightAge=0;roofVehicle=null;}
+    float gap=MinimumFlightHeight-jumpHeight;
+    float crossing=gap<=0?0:(jumpVelocity-Mathf.Sqrt(Mathf.Max(0,jumpVelocity*jumpVelocity-2*JumpRiseGravity*gap)))/JumpRiseGravity;
+    if(crossing<=flightDt){heldRemainder=flightDt-crossing;flightDt=crossing;}
    }
    if(jumpFlying)
    {
@@ -126,6 +131,8 @@ namespace PhoViet
     jumpHeight+=jumpVelocity*fallDt-.5f*JumpGravity*fallDt*fallDt;
     jumpVelocity-=JumpGravity*fallDt;jumpFlightAge+=flightDt;
    }
+   if(energyHoverRequested&&jumpFlying&&jumpHeight>=MinimumFlightHeight-.0001f)
+   {jumpHeight=Mathf.Max(jumpHeight,MinimumFlightHeight);StartEnergyHover();TickEnergyFlight(heldRemainder);}
   }
   void ResolveJumpSurface(float dt)
   {

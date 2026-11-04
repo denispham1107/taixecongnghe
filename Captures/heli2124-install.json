@@ -1,0 +1,53 @@
+{
+  "success": true,
+  "parts": [
+    {
+      "name": "Heli_Body_LOD0",
+      "triangles": 11054
+    },
+    {
+      "name": "Heli_Body_LOD1",
+      "triangles": 5748
+    },
+    {
+      "name": "Heli_Body_LOD2",
+      "triangles": 2651
+    },
+    {
+      "name": "Heli_MainRotor_LOD0",
+      "triangles": 2368
+    },
+    {
+      "name": "Heli_MainRotor_LOD1",
+      "triangles": 1230
+    },
+    {
+      "name": "Heli_MainRotor_LOD2",
+      "triangles": 568
+    },
+    {
+      "name": "Heli_TailRotor_LOD0",
+      "triangles": 625
+    },
+    {
+      "name": "Heli_TailRotor_LOD1",
+      "triangles": 324
+    },
+    {
+      "name": "Heli_TailRotor_LOD2",
+      "triangles": 149
+    }
+  ],
+  "mainPivot": [
+    0.0,
+    1.12471414,
+    0.0
+  ],
+  "tailPivot": [
+    0.179094613,
+    0.214913532,
+    -3.82546067
+  ],
+  "audio": true,
+  "previewOnly": true
+}

@@ -18,6 +18,13 @@ namespace PhoViet.Editor
    AssetDatabase.Refresh();
   }
   // Keep source pixels, mipmaps, filtering, colour space and all geometry.
+  static string[] ReleaseDependencies()
+  {
+   var paths=new List<string>{"Assets/PhoViet/Scenes/PhoViet.unity"};
+   const string helicopter="Assets/PhoViet/Resources/Helicopter/PV_Helicopter.prefab";
+   if(File.Exists(helicopter))paths.Add(helicopter);
+   return paths.SelectMany(p=>AssetDatabase.GetDependencies(p,true)).Distinct().ToArray();
+  }
   // GPU compression must match mobile WebGL: DXT is expanded on iPhone, and
   // the player/rider's former RGB(A)32 maps alone consumed ~169 MiB.
   public static object Apply(bool mobile=true)
@@ -34,7 +41,7 @@ namespace PhoViet.Editor
    for(int pass=0;pass<3;pass++)
    {
    int before=changes.Count;
-   foreach(string path in AssetDatabase.GetDependencies("Assets/PhoViet/Scenes/PhoViet.unity",true))
+   foreach(string path in ReleaseDependencies())
    {
     var importer=AssetImporter.GetAtPath(path) as TextureImporter;if(importer==null)continue;
     var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(path);if(texture==null||texture.width*texture.height<65536)continue;
@@ -55,7 +62,7 @@ namespace PhoViet.Editor
    AssetDatabase.SaveAssets();AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
    if(changes.Count==before)break;
    }
-   foreach(string path in AssetDatabase.GetDependencies("Assets/PhoViet/Scenes/PhoViet.unity",true))
+   foreach(string path in ReleaseDependencies())
    {
     var importer=AssetImporter.GetAtPath(path) as TextureImporter;if(importer==null)continue;
     var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(path);if(texture==null||texture.width*texture.height<65536)continue;
