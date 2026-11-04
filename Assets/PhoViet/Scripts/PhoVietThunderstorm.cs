@@ -37,6 +37,7 @@ namespace PhoViet
   }
   void ResetThunderstorm()
   {
+   ResetContactFire();
    StormTime=StormIntensity=StormFlash=lightningWarning=0;boltAge=10;nextLightning=.55f;
    LightningStrikes=LightningVehiclesHit=0;KilledByLightning=PoliceLightningWreck=false;
    stormRandom=new System.Random(RunSeed^0x514b27);
@@ -172,6 +173,6 @@ namespace PhoViet
   {lightningPoint=inverse*(lightningPoint-origin);for(int i=0;i<extraLightningCount;i++)extraLightningPoints[i]=inverse*(extraLightningPoints[i]-origin);stormVisual?.Rebase(inverse,origin);}
   public bool IsStormWater(Vector3 point)=>riversEnabled&&OverRiver(point);
   void RenderThunderstorm()
-  {if(stormVisual!=null)stormVisual.Render(StormIntensity,StormFlash,lightningWarning,lightningPoint,boltAge,sound,extraLightningPoints,extraLightningCount);}
+  {if(stormVisual!=null)stormVisual.Render(StormIntensity,StormFlash,lightningWarning,lightningPoint,boltAge,sound,extraLightningPoints,extraLightningCount);RenderContactFire();}
  }
 }

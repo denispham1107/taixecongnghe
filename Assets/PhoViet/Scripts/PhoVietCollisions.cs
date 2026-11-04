@@ -132,12 +132,19 @@ namespace PhoViet
                 bool fixedA=a.wallCrashed||a.armored,fixedB=b.wallCrashed||b.armored;
                 float invA=fixedA?0:1/VehicleMass(a),invB=fixedB?0:1/VehicleMass(b),sum=invA+invB;
                 float invIA=fixedA?0:1/BodyInertia(a),invIB=fixedB?0:1/BodyInertia(b);
-                if(sum<=0)continue;
+                if(sum<=0)
+                {
+                    // A tank can strike a wall-locked wreck even though neither
+                    // body accepts an impulse. The wreck still gains contact fire.
+                    if(closing>=.35f){BurnVehicleContact(a,b,normal,at);contactUntil[i,j]=timeRiding+.12f;}
+                    continue;
+                }
                 if(closing<.35f)
                 {
                     if(depth>0&&at==0)SeparateBodies(a,b,normal,Mathf.Min(depth,.5f),invA/sum,invB/sum);
                     continue;
                 }
+                BurnVehicleContact(a,b,normal,at);
                 // Low restitution and Coulomb friction dissipate energy instead of adding random launches.
                 const float restitution=.18f,friction=.28f;
                 float normalA=LeverCross(leverA,normal),normalB=LeverCross(leverB,normal);

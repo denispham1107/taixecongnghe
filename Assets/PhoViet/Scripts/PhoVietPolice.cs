@@ -111,6 +111,9 @@ namespace PhoViet
                 {hit=v;hitIndex=i;earliest=at;normal=n;penetration=depth;}
             }
             if(hit==null){BeginPoliceRiver(policeVelocity);return;}
+            bool fresh=policeContactUntil[hitIndex]<=timeRiding;
+            if(fresh&&-Vector2.Dot(Flat(BodyVelocity(hit)-policeVelocity),normal)>.35f)
+                BurnVehicleContact(policeBody,hit,normal,earliest);
             Vector3 end=policeBike.localPosition;
             policeBike.localPosition=Vector3.Lerp(before,end,earliest);
             // Bộ lập đường CSGT khi người chơi té/khi cua (RoutePolicePathClear) chừa đệm
@@ -119,7 +122,6 @@ namespace PhoViet
             float clearance=RiderCrashActive||routePolice?PolicePathPadding+.02f:.025f;
             if(earliest==0&&penetration>0)policeBike.localPosition-=new Vector3(normal.x,0,normal.y)*(penetration+clearance);
             else if(clearance>.025f)policeBike.localPosition-=new Vector3(normal.x,0,normal.y)*clearance;
-            bool fresh=policeContactUntil[hitIndex]<=timeRiding;
             if(fresh)
             {
                 Vector3 velocity=BodyVelocity(hit);float closing=-Vector2.Dot(Flat(velocity-policeVelocity),normal);

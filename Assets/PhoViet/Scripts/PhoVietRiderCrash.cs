@@ -61,6 +61,7 @@ namespace PhoViet
    // direction instead of an arbitrary side, including for very fast swept hits.
    if(closing<.35f&&relative.sqrMagnitude>.1f){normal=-relative.normalized;closing=relative.magnitude;}
    closing=Mathf.Max(.35f,closing);LastRiderImpactSpeed=closing;
+   if(hit!=null)BurnVehicleContact(riderBody,hit,normal);
    bool hitFixed=hit==null||hit.wallCrashed||hit.armored;
    float mass=VehicleMass(riderBody),invA=1f/mass,invB=hitFixed?0:1f/VehicleMass(hit);
    Vector2 lever=Flat(contact-rider.localPosition),otherLever=hit==null?Vector2.zero:Flat(contact-hit.model.localPosition);

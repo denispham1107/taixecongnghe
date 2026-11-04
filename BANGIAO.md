@@ -24,6 +24,7 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
+| Cháy va chạm mặt đất trong source | **21.127 chưa phát hành:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt; web1.54.0 chưa có |
 | Trực thăng / nhảy mobile mới | **Source21.126 chưa phát hành:** giữ2–5chiếc/theo400m/4làn/so le; thêm tên lửa1→0,5s/40slot, bay thẳng/roll né. Trúng đạn hoặc đâm trực thăng rơi cháy/kết thúc kể cảCSGT; máy bay va chạm cũng cháy. Nhảy tức thời/queue70% giữ.1028Unity/387layout đạt;web1.54.0 chưa có |
 | Năng lượng / bay / lộn | **21.122–21.123 đã có trên web1.54.0:** C đượcduyệt/đãtíchhợp;150NL/nhảy−5/nhặt+15/haiiconkháclànmỗi phố-cầu;Space/vuốtlênbật-tắtbay/−10mỗi0,5s/hếtNLtựhạ;Q/doubletapkhibaylộn360°0,9s.4998Unity/464browserlocal/27liveđạt |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
@@ -38,6 +39,8 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.127 hoàn tất source, chưa phát hành:** lửa/khói tại từng mặt va chạm player–NPC/NPC–NPC/CSGT/húc ngang; tông tiếp mặt khác thêm điểm mới, Tank miễn (kể cả tông xác sát tường). Người dùng chọn xe hồi phục vẫn chạy kèm lửa/khói; giữ3s/CSGT1,2s/score/roof/pursuit. Pool Mantaflow riêng/neo local/gộp0,65m/reclaim generation-sông-reset;802Unity đạt/4ảnh ngày-đêm-dọc-hồi phục đã xem. UnityEdit/scene sạch/jobsfalse; lưu commit local +2docs; chưa build/push/web(vẫn1.54.0). Chi tiết21.127.
 
 - **21.126 hoàn tất source, chưa phát hành:** tên lửa BlenderMCP/3LOD/pool40/v50m/s,1→0,8→0,6→0,5s mỗi400m; ngắm lúc bắn/bay thẳng. Đổi làn/hạ/lộn né đạn; đâm thân máy bay vẫn rơi cháy cả2, kết thúc kể cảCSGT.1028Unity+387layout+3refresh đạt;7ảnhUnity+Blender đã xem, giữscene/modelmôi trường/texture. UnityEdit/jobsfalse; lưucommitlocal cùng2docs, chưa build/push/web(vẫn1.54.0). Chi tiết21.126.
 
@@ -179,6 +182,7 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 
 
 
+
 - **21.123 hoàn tất:**1.54.0đãpushcommitee18d91/Pages41645004184success/cache6147ef260e9458a8/27liveđạt. Khôngcònbướcbuild/push/Pages/liveđangdở. UnityEdit/scenesạch/server8784đãdừng;chưathửSafari/Androidmáythật. GiữdirtyArt/Wave/Packages/Simulatorngoàicommit.
 
 - **21.122 đã phát hành cùng1.54.0/21.123.** Nănglượng/bay/lộnCđãkiểmUnityvàWebGL,khôngcònbước triểnkhai đangdở;nguồnBlenderCởfile riêng.
@@ -251,6 +255,8 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 
 ## 4. Luật đã chốt — không tự đổi
 
+- **Source21.127:** va chạm xe mặt đất làm cả hai cháy tại chỗ tông; tông lại chỗ khác thêm điểm cháy. Tank không cháy. Xe thường vẫn dựng/chạy lại3s, CSGT1,2s, **vẫn chạy kèm lửa/khói**, chỉ dọn khi retire/generation/sông/retry. Giữ physics/score/chờ CSGT; lửa do sét/không chiến giữ luật riêng.
+
 - **Source21.109 (web1.52.0 còn21.105):** quang15s→tăngmưa3s→giông9s→tan3s/lặp30s, pause dừng. Mỗi đợt giữ tia cũ và thêm đồng thời3tia ở3làn ngẫu nhiên khác nhau trong tile hiện tại; cả4báo0,8s, điểm đã báo không retarget. Nhảy vẫn trúng; xe trúng cháy/văngtheohướng cũ/nằm lại. Playertrúngluônhếtlượt sauvăng,kểcảđangđuổi. Tank/Dino miễn. CSGTtrúng→hếtđuổi; playerđãtéchờbắt thìhếtlượt. Vi phạmmới vềsaumới cólầnđuổimới, khônghồi phụcCSGTcháyđểtiếptụclầnđuổicũ.
 
 - **Source21.103:** hố đạn giữ tới khi ra xa/chơi lại; bánh chạm làm xe lệch liên tục tới khi nhấn/vuốt NGƯỢC hướng lệch. Thao tác đó chỉ chỉnh lái, không nhảy làn tức thì; thao tác sau đổi làn bình thường. Nhảy qua tránh hiệu ứng; hố không tự gây thua, va vào xe/cảnh vật/sông vẫn theo luật hiện tại.
@@ -274,6 +280,7 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 
 | Muốn đụng tới | Mục `huongdan.md` | File chính |
 | --- | --- | --- |
+| Cháy/khói đa điểm va chạm mặt đất; xe hồi phục vẫn cháy | **21.127** | `PhoVietContactFire.cs`, `ContactFireVisual.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs`, `PhoVietPolice.cs`, `PhoVietPlayerVehicle.cs`, `PhoVietThunderstorm.cs`; verifier/report/capture `ContactFire2127`/`contact2127-*` |
 | Trực thăng/tên lửa/rollné/rơi cháy, nhảy tức thời/queue70% | **21.126**,21.125/21.124/21.122 | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `MissileFlightVisual.cs`, `HelicopterVisual.cs`, `ThunderstormVisual.cs`, `RotorBlur.shader`, `PhoVietJump.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`; prefabResource/Art/Helicopter; nguồn `prepare_helicopter.py`/`PhoViet_Helicopter.blend`; nguồn tên lửa `missile2126.py`/`PhoViet_HelicopterMissile.blend`; verifier/report `Helicopter*2126`/`missile2126-*` |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
 | Điểm xuất phát xe, kéo thả Edit/Play Ready | **21.76**,6.1 | `PhoVietPlayerStart.cs`, `Editor/PhoVietPlayerStartEditor.cs`, `PhoVietGame.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyPlayerStart*.cs` |

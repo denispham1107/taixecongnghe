@@ -1,0 +1,53 @@
+{
+  "success": true,
+  "count": 802,
+  "suites": [
+    {
+      "suite": "ContactFire",
+      "success": true,
+      "count": 155,
+      "diagnostics": []
+    },
+    {
+      "suite": "Traffic90s",
+      "success": true,
+      "count": 82,
+      "diagnostics": []
+    },
+    {
+      "suite": "Thunderstorm",
+      "success": true,
+      "count": 107,
+      "diagnostics": []
+    },
+    {
+      "suite": "CrashDistance",
+      "success": true,
+      "count": 62,
+      "diagnostics": []
+    },
+    {
+      "suite": "HelicopterMissiles",
+      "success": true,
+      "count": 222,
+      "diagnostics": []
+    },
+    {
+      "suite": "Scene",
+      "success": true,
+      "count": 174,
+      "diagnostics": []
+    }
+  ],
+  "captures": [
+    "day-multiple",
+    "night",
+    "recovered-moving",
+    "portrait"
+  ],
+  "webBuild": false,
+  "deployed": false,
+  "note": "Unity Editor checks only; no physical mobile FPS or new WebGL binary test.",
+  "trafficPeakContactFires": 74,
+  "trafficPool": 74
+}
