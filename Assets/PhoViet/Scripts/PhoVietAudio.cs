@@ -6,7 +6,7 @@ namespace PhoViet
  // AudioMixer group volume is supported by Unity's Web Audio backend.
  public static class PhoVietAudio
  {
-  public const float MasterGain=1.3f;
+  public const float MasterGain=1.56f;   // 1,3 (21.132) × 1,2 (21.134) = +3,8624 dB; đổi xong chạy lại InstallAudio2132
   public const string MixerResource="Audio/PV_Master",VolumeParameter="MasterVolume";
   public static float MasterDecibels=>20*Mathf.Log10(MasterGain);
   static AudioMixerGroup output;

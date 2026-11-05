@@ -22,7 +22,7 @@ public static class MeasureMasterGain2132
    if(energy<.000000000001)return;energies.Add(Math.Sqrt(energy));if(energies.Count<12)return;
    double rms=energies.OrderBy(x=>x).ElementAt(energies.Count/2);
    if(phase==0){baseline=rms;baselineSamples=energies.ToArray();PhoVietAudio.Route(probe);phase=1;energies.Clear();next=EditorApplication.timeSinceStartup+.5;deadline=next+15;return;}
-   double ratio=rms/baseline;bool pass=Math.Abs(ratio-1.3)<.03;File.WriteAllText("Captures/audio2132-output-measurement.json",Newtonsoft.Json.JsonConvert.SerializeObject(new{success=pass,baselineRms=baseline,boostedRms=rms,baselineSamples,boostedSamples=energies.ToArray(),measuredGain=ratio,expectedGain=1.3,tolerance=.03,physicalDevice=false},Newtonsoft.Json.Formatting.Indented));Finish();
+   double ratio=rms/baseline;double expected=PhoVietAudio.MasterGain;bool pass=Math.Abs(ratio-expected)<.03;File.WriteAllText("Captures/audio2132-output-measurement.json",Newtonsoft.Json.JsonConvert.SerializeObject(new{success=pass,baselineRms=baseline,boostedRms=rms,baselineSamples,boostedSamples=energies.ToArray(),measuredGain=ratio,expectedGain=expected,tolerance=.03,physicalDevice=false},Newtonsoft.Json.Formatting.Indented));Finish();
   }
   catch(Exception e){File.WriteAllText("Captures/audio2132-output-measurement.json",Newtonsoft.Json.JsonConvert.SerializeObject(new{success=false,error=e.ToString()}));Finish();}
  }

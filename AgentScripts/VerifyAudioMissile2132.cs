@@ -12,7 +12,7 @@ public static class VerifyAudioMissile2132
   try
   {
    Time.timeScale=0;g.RestartRide();g.sound=true;g.dinosaursEnabled=g.thunderstormEnabled=g.tankBarrageEnabled=g.riversEnabled=g.recklessTrafficEnabled=g.trafficSurprises=g.turnExitTrafficEnabled=false;
-   var mixer=Resources.Load<AudioMixer>(PhoVietAudio.MixerResource);check(mixer!=null&&mixer.GetFloat(PhoVietAudio.VolumeParameter,out float db)&&Mathf.Abs(db-20*Mathf.Log10(1.3f))<.0001f,"Master bus delivers exactly1.3 linear gain / +2.2788668dB");
+   var mixer=Resources.Load<AudioMixer>(PhoVietAudio.MixerResource);check(mixer!=null&&mixer.GetFloat(PhoVietAudio.VolumeParameter,out float db)&&Mathf.Abs(db-20*Mathf.Log10(PhoVietAudio.MasterGain))<.0001f&&Mathf.Abs(PhoVietAudio.MasterGain-1.56f)<.0001f,"Master bus delivers exactly1.3 linear gain / +2.2788668dB");
    var sources=g.GetComponentsInChildren<AudioSource>(true);check(sources.Length>=9,"Engine, effects, police, rain and five rotors instantiated");
    foreach(var source in sources)check(source.outputAudioMixerGroup!=null&&source.outputAudioMixerGroup.audioMixer==mixer,"Existing game source uses the master bus: "+source.name+" / "+(source.clip!=null?source.clip.name:"one-shots"));
    check(Mathf.Abs(((AudioSource)Get("engine")).volume-.08f*1.7f)<.0001f,"Previous engine cruise/boost balance retained before the master gain");check(Mathf.Abs(((AudioSource)Get("fx")).volume-.3f)<.0001f,"All crash/cannon/lightning/missile one-shots share original FX mix");check(Mathf.Abs(((AudioSource)Get("siren")).volume-.12f)<.0001f,"Police siren keeps original relative volume");

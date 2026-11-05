@@ -1,6 +1,6 @@
 // Exercise the actual release WASM and inspect the rendered ammo count.
 const {chromium}=require('playwright'),sharp=require('sharp'),fs=require('node:fs'),assert=require('node:assert/strict');
-const url=process.argv[2]||'http://127.0.0.1:8785/',label=process.argv[3]||'release155-missiles';
+const url=process.argv[2]||'http://127.0.0.1:8785/',label=process.argv[3]||'release156-missiles';
 const report={url,checks:[],errors:[],samples:[]};
 function check(name,ok){assert(ok,name);report.checks.push(name);console.log('PASS '+name);}
 async function main(){
@@ -31,7 +31,7 @@ async function main(){
    }
    async function button(){
     const b=await page.locator('#unity-canvas').boundingBox(),s=mobile?b.width/480:Math.min(b.width/1280,b.height/420),size=Math.max(76*s,56);
-    return{x:b.x+b.width-size-18*s,y:b.y+b.height-size-24*s,size};
+    return{x:b.x+18*s,y:b.y+b.height-size-24*s,size};
    }
    async function sample(name){
     await frames(2);const png=await page.screenshot({path:`Captures/${label}-${profile}-${name}.png`,timeout:90000});const r=await button();
@@ -46,8 +46,8 @@ async function main(){
    const shot=await sample('fired');const changed=shot.mask.filter((v,i)=>v!==full.mask[i]).length;
    check(profile+': actual F/touch shot changes rendered ammo digits',shot.count>8&&changed>=2);
    const gains=await page.evaluate(()=>window.__masterGainNodes.map(n=>n.gain.value));report.samples.push({profile,webAudioGains:gains});
-   // Unity Web Audio nhân gain mixer vào node của từng nguồn, không tạo node master =1,3: động cơ 0,136 phải thành 0,136×1,3 (21.133).
-   check(profile+': Web Audio master gain1.3 reaches the engine source (0.136×1.3)',gains.some(v=>Math.abs(v-.136*1.3)<.001));
+   // Unity Web Audio nhân gain mixer vào node của từng nguồn, không tạo node master =1,3: động cơ 0,136 phải thành 0,136×1,56 (21.133, 21.134).
+   check(profile+': Web Audio master gain1.56 reaches the engine source (0.136×1.56)',gains.some(v=>Math.abs(v-.136*1.56)<.001));
    await send('RestartRide');const reset=await sample('retry');
    // Nút hơi trong suốt: vạch đường trắng phía sau làm lệch vài điểm ảnh, nên so với độ thay đổi do chính phát bắn tạo ra (21.133).
    const backToFull=reset.mask.filter((v,i)=>v!==full.mask[i]).length;report.samples.push({profile,shotChanged:changed,retryDiffersFromFull:backToFull});

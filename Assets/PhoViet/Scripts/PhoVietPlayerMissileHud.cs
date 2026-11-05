@@ -13,7 +13,8 @@ namespace PhoViet
    float scale=narrow?area.width/480f:LandscapeHudScale(area);
    // Keep a real56CSS-pixel touch target on short landscape phones, including
    // dense WebGL buffers; this does not change the game's render resolution.
-   float size=Mathf.Max(76*scale,56*pixelRatio);return new Rect(area.xMax-size-18*scale,area.yMax-size-24*scale,size,size);
+   // Góc dưới bên trái theo yêu cầu người dùng (21.134), không còn ở bên phải.
+   float size=Mathf.Max(76*scale,56*pixelRatio);return new Rect(area.x+18*scale,area.yMax-size-24*scale,size,size);
   }
   bool PlayerMissileButtonAt(Vector2 position)
   {
