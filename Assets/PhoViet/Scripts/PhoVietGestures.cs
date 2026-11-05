@@ -11,7 +11,7 @@ namespace PhoViet
   {
    if(IsJumpSwipe(delta,shortSide))return 2;
    if(IsBoostSwipe(delta,shortSide))return 3;
-   return Mathf.Abs(delta.x)>shortSide*.075f&&Mathf.Abs(delta.x)>=Mathf.Abs(delta.y)?(delta.x>0?1:-1):0;
+   return Mathf.Abs(delta.x)>shortSide*.075f&&Mathf.Abs(delta.y)<Mathf.Abs(delta.x)*SwipeVerticalRatio?(delta.x>0?1:-1):0;
   }
   void BeginSwipe(Vector2 position,float at,int id)
   {
@@ -21,7 +21,7 @@ namespace PhoViet
   }
   void TriggerSwipe(int action)
   {
-   if(!swipeCanSteer||swipeConsumed||swipeWidth!=Screen.width||swipeHeight!=Screen.height||State!=RideState.Riding||JobOffersOpen)return;
+   if(!swipeCanSteer||swipeConsumed||(swipeWidth<swipeHeight)!=(Screen.width<Screen.height)||State!=RideState.Riding||JobOffersOpen)return;
    if(action!= -1&&action!=1&&action!=2&&action!=3)return;
    swipeConsumed=true;lastTapTime=-100;
    if(action==2)TryJump();else if(action==3)TryBoost();else MoveLane(action);
@@ -30,7 +30,7 @@ namespace PhoViet
   {
    if(!swipeCanSteer||swipeConsumed)return;
    TriggerSwipe(SwipeAction(position-swipeStart,Mathf.Min(swipeWidth,swipeHeight)));
-   if(ended&&!swipeConsumed&&allowTap&&swipeWidth==Screen.width&&swipeHeight==Screen.height&&Vector2.Distance(position,swipeStart)<Mathf.Min(swipeWidth,swipeHeight)*.035f&&at>=touchStarted&&at-touchStarted<.24f)
+   if(ended&&!swipeConsumed&&allowTap&&(swipeWidth<swipeHeight)==(Screen.width<Screen.height)&&Vector2.Distance(position,swipeStart)<Mathf.Min(swipeWidth,swipeHeight)*.035f&&at>=touchStarted&&at-touchStarted<.24f)
     RegisterTap(position,at);
   }
   void ReadSwipe()
@@ -63,7 +63,7 @@ namespace PhoViet
    var p=JsonUtility.FromJson<BrowserGesture>(json);
    if(p==null||!Finite(p.x)||!Finite(p.y)||!Finite(p.at)||p.x<0||p.x>1||p.y<0||p.y>1)return;
    var position=new Vector2(p.x*Screen.width,(1-p.y)*Screen.height);
-   if(p.phase==0){if(browserPointerActive)return;browserPointerActive=true;BeginSwipe(position,p.at,p.id);return;}
+   if(p.phase==0){if(browserPointerActive&&p.id==swipePointerId)return;browserPointerActive=true;BeginSwipe(position,p.at,p.id);return;} // A repeated down for one finger must not re-arm it.
    if(!browserPointerActive||p.id!=swipePointerId)return;
    if(p.phase==1)TriggerSwipe(p.action);
    else if(p.phase==2){ContinueSwipe(position,true,p.at,true);swipeCanSteer=false;browserPointerActive=false;}

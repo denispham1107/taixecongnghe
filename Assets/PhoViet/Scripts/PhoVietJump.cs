@@ -24,7 +24,9 @@ namespace PhoViet
   // 21.100: starting height from 21.94 +3%, fixed at every road/boost speed.
   // Retain the public signature for jump/pose consumers; speed no longer changes vertical travel.
   public static float JumpHeightAtSpeed(float speed)=>JumpLaunch*JumpLaunch/(2*JumpGravity)*.75f*1.10f*1.03f;
-  public static bool IsJumpSwipe(Vector2 delta,float width)=>delta.y>width*.12f&&delta.y>Mathf.Abs(delta.x)*1.3f;
+  // 21.140: thumbs on a sideways phone arc diagonally. The old 1.3 ratio left 37-52 degrees matching nothing, so the swipe was lost.
+  public const float SwipeVerticalRatio=.85f,JumpSwipeDistance=.085f;
+  public static bool IsJumpSwipe(Vector2 delta,float width)=>delta.y>width*JumpSwipeDistance&&delta.y>=Mathf.Abs(delta.x)*SwipeVerticalRatio;
   public void PoseJumpPassenger(float pitch,float lift)
   {
    if(customer==null||customer.parent!=rider)return;
@@ -33,19 +35,26 @@ namespace PhoViet
    customer.localRotation=balance;
   }
   void ResetJump()
-  {CancelEnergyFlight();if(rider!=null)rider.GetComponent<CarJumpJetVisual>()?.Clear();jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=roofContactHeight=jumpBaseHeight=0;jumpLaunchVelocity=JumpLaunch;RiderJumpTakeoffSpeed=0;jumpFlying=false;roofVehicle=previousRoofVehicle=roofContactVehicle=null;landingClip="LandBoth";}
+  {CancelEnergyFlight();if(rider!=null)rider.GetComponent<CarJumpJetVisual>()?.Clear();jumpHeight=jumpPreviousHeight=jumpVelocity=jumpCooldown=jumpWindup=jumpLanding=jumpFlightAge=roofContactHeight=jumpBaseHeight=0;jumpLaunchVelocity=JumpLaunch;RiderJumpTakeoffSpeed=0;jumpQueued=0;jumpFlying=false;roofVehicle=previousRoofVehicle=roofContactVehicle=null;landingClip="LandBoth";}
   public bool TryJump()
   {
    if(State!=RideState.Riding||ServiceStopped)return false;
    if(energyHover||jumpFlying)return ToggleEnergyFlight();
-   if(jumpFlying||jumpWindup>0||jumpCooldown>0||jumpLanding>0)return false;
+   // 21.140: a swipe just after landing is kept and fires the moment the car can jump, instead of being lost.
+   if(jumpWindup>0||jumpCooldown>0||jumpLanding>0){jumpQueued=JumpBufferSeconds;return false;}
    // A roof edge starts a physical fall, so it cannot be used for an extra mid-air jump.
    if(jumpHeight>.06f&&roofVehicle==null)return false;
    if(!SpendEnergy(JumpEnergyCost))return false;
-   CancelAssistedKick(false);jumpWindup=.24f;jumpCooldown=2;
+   BeginJump();return true;
+  }
+  const float JumpCooldownSeconds=1.6f,JumpBufferSeconds=.55f;
+  float jumpQueued;
+  void BeginJump()
+  {
+   jumpQueued=0;CancelAssistedKick(false);jumpWindup=.24f;jumpCooldown=JumpCooldownSeconds;
    // The takeoff pose runs while the wheels rise, without a physical input delay.
    jumpBaseHeight=jumpHeight;RiderJumpTakeoffSpeed=Speed;jumpLaunchVelocity=Mathf.Sqrt(2*JumpRiseGravity*JumpHeightAtSpeed(Speed));
-   jumpFlying=true;jumpVelocity=jumpLaunchVelocity;jumpFlightAge=0;roofVehicle=null;return true;
+   jumpFlying=true;jumpVelocity=jumpLaunchVelocity;jumpFlightAge=0;roofVehicle=null;
   }
   // A roof is usable while upright, including a weaving or damaged truck. A tilted
   // wreck remains a collision obstacle rather than becoming an invisible platform.
@@ -112,6 +121,11 @@ namespace PhoViet
   void TickJump(float dt)
   {
    previousRoofVehicle=roofVehicle;roofContactVehicle=null;roofContactHeight=0;jumpPreviousHeight=jumpHeight;jumpCooldown=Mathf.Max(0,jumpCooldown-dt);jumpLanding=Mathf.Max(0,jumpLanding-dt);
+   if(jumpQueued>0)
+   {
+    jumpQueued-=dt;
+    if(jumpFlying)jumpQueued=0;else if(jumpCooldown<=0&&jumpLanding<=0&&jumpWindup<=0){jumpQueued=0;TryJump();}
+   }
    float flightDt=TickEnergyFlight(dt);
    jumpWindup=Mathf.Max(0,jumpWindup-dt);
    float heldRemainder=0;

@@ -27,6 +27,7 @@ namespace PhoViet.Editor
    if(File.Exists(missile))paths.Add(missile);
    const string playerPickup="Assets/PhoViet/Resources/PlayerMissile/PV_MissilePickup.prefab",playerIcon="Assets/PhoViet/Resources/PlayerMissile/PV_MissileHud.png";
    if(File.Exists(playerPickup))paths.Add(playerPickup);if(File.Exists(playerIcon))paths.Add(playerIcon);
+   foreach(string icon in new[]{"Assets/PhoViet/Resources/PlayerFlight/PV_FlightUp.png","Assets/PhoViet/Resources/PlayerFlight/PV_FlightLand.png"})if(File.Exists(icon))paths.Add(icon);
    return paths.SelectMany(p=>AssetDatabase.GetDependencies(p,true)).Distinct().ToArray();
   }
   // 21.136: each traffic vehicle carried five 2K maps, far more than it covers on a phone screen, and they alone took

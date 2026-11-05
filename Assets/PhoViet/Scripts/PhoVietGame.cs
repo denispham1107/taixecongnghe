@@ -613,7 +613,7 @@ namespace PhoViet
         void Hud()
         {
             if(portrait)PortraitHud();else LandscapeHud();
-            DrawPlayerMissileButton();
+            DrawPlayerMissileButton();DrawFlightButton();
             RearRecklessWarningHud();
         }
         void EndCard(bool paused)

@@ -1,0 +1,82 @@
+{
+  "url": "http://127.0.0.1:8785/",
+  "checks": [
+    "desktop: new WebAssembly initializes",
+    "desktop: full150 energy bar renders",
+    "desktop: jump and hover spend energy",
+    "desktop: holding altitude consumes energy in real WASM",
+    "desktop: roll and manual descent input/render smoke completed",
+    "desktop: retry restores full energy bar",
+    "mobile: new WebAssembly initializes",
+    "mobile: full150 energy bar renders",
+    "mobile: jump and hover spend energy",
+    "mobile: holding altitude consumes energy in real WASM",
+    "mobile: roll and manual descent input/render smoke completed",
+    "mobile: retry restores full energy bar",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "profile": "desktop",
+      "name": "full",
+      "fill": 0.9882352941176471
+    },
+    {
+      "profile": "desktop",
+      "name": "hover",
+      "fill": 0.8235294117647058
+    },
+    {
+      "profile": "desktop",
+      "name": "drain",
+      "fill": 0.6941176470588235
+    },
+    {
+      "profile": "desktop",
+      "name": "roll",
+      "fill": 0.6235294117647059
+    },
+    {
+      "profile": "desktop",
+      "name": "descend",
+      "fill": 0.6235294117647059
+    },
+    {
+      "profile": "desktop",
+      "name": "reset",
+      "fill": 0.9882352941176471
+    },
+    {
+      "profile": "mobile",
+      "name": "full",
+      "fill": 1
+    },
+    {
+      "profile": "mobile",
+      "name": "hover",
+      "fill": 0.8994974874371859
+    },
+    {
+      "profile": "mobile",
+      "name": "drain",
+      "fill": 0.7638190954773869
+    },
+    {
+      "profile": "mobile",
+      "name": "roll",
+      "fill": 0.6984924623115578
+    },
+    {
+      "profile": "mobile",
+      "name": "descend",
+      "fill": 0.6331658291457286
+    },
+    {
+      "profile": "mobile",
+      "name": "reset",
+      "fill": 1
+    }
+  ],
+  "success": true
+}

@@ -18,7 +18,7 @@ namespace PhoViet
   {
    if(!Application.isPlaying)return;
    CreateRearStyleTextures();if(rearWarningArrow==null)CreateRearWarningArrow();
-   EnsureTankFx();EnsureThunderstorm();EnsureBoostSmoke();EnsurePlayerMissileHudIcon();
+   EnsureTankFx();EnsureThunderstorm();EnsureBoostSmoke();EnsurePlayerMissileHudIcon();EnsureFlightIcons();
    for(int i=0;i<2;i++)shellPool.Push(PrewarmedShell());
    if(dinosaursEnabled&&dinosaurPrefab!=null)
     while(dinosaurs.Count<2)
@@ -71,7 +71,9 @@ namespace PhoViet
    // Wholly behind the camera plane.
    Vector3 centre=tile.TransformPoint(c);
    float span=Mathf.Abs(Vector3.Dot(tile.right,forward))*e.x+Mathf.Abs(Vector3.Dot(tile.up,forward))*e.y+Mathf.Abs(Vector3.Dot(tile.forward,forward))*e.z;
-   return Vector3.Dot(centre-eye,forward)+span>=-TileCullMargin;
+   // Buildings behind the camera still throw shadows onto what it sees (21.140).
+   float behind=sceneryShadowsOn&&QualitySettings.shadowDistance>0?Mathf.Max(TileCullMargin,QualitySettings.shadowDistance):TileCullMargin;
+   return Vector3.Dot(centre-eye,forward)+span>=-behind;
   }
   void UpdateTileCulling(bool immediate=false)
   {

@@ -13,6 +13,11 @@ namespace PhoViet
   public bool RiderRolling=>barrelRolling;
   public float RiderBarrelRoll=>barrelRolling?360*SmoothRoll(barrelClock/BarrelRollDuration):0;
   public int EnergyPickupPoolCount=>energyTiles.Count*2;
+  public const int AirPickupsPerTile=3;
+  const float AirRevealDistance=45,AirIconLift=.65f;
+  // Level with the car's body once it holds its flight height, and with the helicopters.
+  public static float AirPickupHeight=>JumpHeightAtSpeed(0)*.70f+AirIconLift;
+  bool airIconsShown;
   bool energyHover,barrelRolling,energyHoverRequested;float flightEnergyClock,barrelClock,energyClock;
   float MinimumFlightHeight=>jumpBaseHeight+RiderJumpApex*.70f;
   Texture2D energyHudIcon;GameObject energyPickupPrefab;
@@ -21,6 +26,8 @@ namespace PhoViet
   {
    public Transform tile;public Transform[] icons=new Transform[2];
    public readonly int[] lanes=new int[2];public readonly bool[] collected=new bool[2];
+   // 21.140: flight-height icons, shown only while the car is flying.
+   public Transform[] airIcons=new Transform[AirPickupsPerTile];public readonly int[] airLanes=new int[AirPickupsPerTile];public readonly bool[] airCollected=new bool[AirPickupsPerTile];
   }
   readonly List<EnergyTile> energyTiles=new List<EnergyTile>();
   readonly Dictionary<Transform,EnergyTile> energyByTile=new Dictionary<Transform,EnergyTile>();
@@ -40,6 +47,7 @@ namespace PhoViet
     {
      entry=new EnergyTile{tile=tile};energyByTile.Add(tile,entry);energyTiles.Add(entry);
      for(int i=0;i<2;i++){entry.icons[i]=Instantiate(energyPickupPrefab,tile,false).transform;entry.icons[i].name="Năng lượng C • "+i;}
+     for(int i=0;i<AirPickupsPerTile;i++){entry.airIcons[i]=Instantiate(energyPickupPrefab,tile,false).transform;entry.airIcons[i].name="Năng lượng trên không • "+i;}
     }
     RefreshEnergyTile(tile);
     RefreshMissilePickupTile(tile);
@@ -56,6 +64,13 @@ namespace PhoViet
     e.lanes[i]=i==0?a:b;e.collected[i]=false;
     e.icons[i].localPosition=new Vector3(LaneX[e.lanes[i]],1.15f,(i==0?13:36)+(float)energyRng.NextDouble()*13);
     e.icons[i].localRotation=Quaternion.identity;e.icons[i].gameObject.SetActive(true);
+   }
+   for(int i=0;i<AirPickupsPerTile;i++)
+   {
+    // Any of the four lanes, bridges included: nothing on the ground limits a flying car.
+    e.airLanes[i]=energyRng.Next(4);e.airCollected[i]=false;
+    e.airIcons[i].localPosition=new Vector3(LaneX[e.airLanes[i]],AirPickupHeight,8+i*20+(float)energyRng.NextDouble()*10);
+    e.airIcons[i].localRotation=Quaternion.identity;e.airIcons[i].gameObject.SetActive(false);
    }
   }
   bool ToggleEnergyFlight()
@@ -107,15 +122,49 @@ namespace PhoViet
     {
      if(e.collected[i])continue;var icon=e.icons[i];
      var local=icon.localPosition;local.y=1.15f+Mathf.Sin(energyClock*2.5f+i*2)*.07f;icon.localPosition=local;
-     Vector3 world=icon.position,view=rideCamera.transform.position-world;view.y=0;
-     if(view.sqrMagnitude>.01f)icon.rotation=Quaternion.LookRotation(view,Vector3.up);
-     Vector3 at=transform.InverseTransformPoint(world);
-     // Tiles/branches scrolled by the same delta. Test relative swept motion,
-     // including fast W travel and the car's width during a junction curve.
-     Vector3 from=inverse*(previousRider+Vector3.up*(PlayerHeight*.5f)-at-Vector3.forward*(Speed*dt));
-     Vector3 to=inverse*(rider.localPosition+Vector3.up*(PlayerHeight*.5f)-at);
-     if(!EnergySweptContact(from,to,half))continue;
+     if(!EnergyIconTouched(icon,dt,previousRider,inverse,half))continue;
      e.collected[i]=true;icon.gameObject.SetActive(false);Energy=Mathf.Min(MaximumEnergy,Energy+PickupEnergy);EnergyPickupsCollected++;
+    }
+   }
+   TickAirEnergyPickups(dt,previousRider,inverse,half);
+  }
+  bool EnergyIconTouched(Transform icon,float dt,Vector3 previousRider,Quaternion inverse,Vector3 half)
+  {
+   Vector3 world=icon.position,view=rideCamera.transform.position-world;view.y=0;
+   if(view.sqrMagnitude>.01f)icon.rotation=Quaternion.LookRotation(view,Vector3.up);
+   Vector3 at=transform.InverseTransformPoint(world);
+   // Tiles/branches scrolled by the same delta. Test relative swept motion,
+   // including fast W travel and the car's width during a junction curve.
+   Vector3 from=inverse*(previousRider+Vector3.up*(PlayerHeight*.5f)-at-Vector3.forward*(Speed*dt));
+   Vector3 to=inverse*(rider.localPosition+Vector3.up*(PlayerHeight*.5f)-at);
+   return EnergySweptContact(from,to,half);
+  }
+  void TickAirEnergyPickups(float dt,Vector3 previousRider,Quaternion inverse,Vector3 half)
+  {
+   if(!FlightEngaged)
+   {
+    if(!airIconsShown)return;airIconsShown=false;
+    foreach(var e in energyTiles)for(int i=0;i<AirPickupsPerTile;i++)e.airIcons[i].gameObject.SetActive(false);
+    return;
+   }
+   airIconsShown=true;
+   foreach(var e in energyTiles)
+   {
+    if(!e.tile.gameObject.activeInHierarchy)continue;
+    for(int i=0;i<AirPickupsPerTile;i++)
+    {
+     if(e.airCollected[i])continue;var icon=e.airIcons[i];
+     if(!icon.gameObject.activeSelf)
+     {
+      // Appears in the distance, never right in front of the car.
+      Vector3 ahead=transform.InverseTransformPoint(icon.position)-rider.localPosition;
+      if(ahead.z<AirRevealDistance&&ahead.sqrMagnitude<AirRevealDistance*AirRevealDistance)continue;
+      if(ahead.z<0)continue;
+      icon.gameObject.SetActive(true);
+     }
+     var local=icon.localPosition;local.y=AirPickupHeight+Mathf.Sin(energyClock*2.5f+i*2)*.09f;icon.localPosition=local;
+     if(!EnergyIconTouched(icon,dt,previousRider,inverse,half))continue;
+     e.airCollected[i]=true;icon.gameObject.SetActive(false);Energy=Mathf.Min(MaximumEnergy,Energy+PickupEnergy);EnergyPickupsCollected++;
     }
    }
   }

@@ -45,6 +45,6 @@ namespace PhoViet
 #endif
   }
   void HandleHudChoice(int choice)
-  {if(choice==0)TogglePause();else if(choice==1)sound=!sound;else if(choice==2){lastTapTime=-100;TryFirePlayerMissile();}}
+  {if(choice==0)TogglePause();else if(choice==1)sound=!sound;else if(choice==2){lastTapTime=-100;TryFirePlayerMissile();}else if(choice==3){lastTapTime=-100;TryToggleFlightButton();}}
  }
 }

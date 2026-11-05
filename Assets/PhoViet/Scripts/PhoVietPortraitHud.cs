@@ -13,6 +13,7 @@ namespace PhoViet
   {
    var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
    if(PlayerMissileButtonAt(position))return 2;
+   if(FlightButtonAt(position))return 3;
    float scale=narrow?area.width/480f:LandscapeHudScale(area),width=area.width/scale;
    var p=new Vector2((position.x-area.x)/scale,(Screen.height-position.y-area.y)/scale);
    if(narrow)return new Rect(width-54,18,34,34).Contains(p)?0:-1;
@@ -113,13 +114,20 @@ namespace PhoViet
   }
   bool GameplayPointerAllowed(Vector2 position)
   {
-   if(PlayerMissileButtonAt(position))return false;
+   if(PlayerMissileButtonAt(position)||FlightButtonAt(position))return false;
    var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
    float scale=narrow?area.width/480f:Mathf.Min(area.width/1440f,area.height/900f);
    float top=Screen.height-position.y;
    float reservedTop=narrow?(noticeTimer>0?PortraitNoticeY+PortraitNoticeHeight:PortraitBarTop+PortraitBarHeight):(noticeTimer>0?126:94)*LandscapeHudScale(area)/scale;
-   float reservedBottom=narrow?0:110;
-   return position.x>=area.xMin&&position.x<=area.xMax&&top>=area.yMin+reservedTop*scale&&top<=area.yMax-reservedBottom*scale;
+   // 21.140: landscape used to ignore every swipe that began in the bottom 110 units, right where thumbs rest.
+   // Only the HUD bar itself is off limits; beside it the top of the screen is free too.
+   if(position.x<area.xMin||position.x>area.xMax||top>area.yMax)return false;
+   if(!narrow)
+   {
+    float hud=LandscapeHudScale(area),barWidth=LandscapeBarWidth*hud,barLeft=area.x+(area.width-barWidth)/2;
+    if(position.x<barLeft||position.x>barLeft+barWidth)return top>=area.yMin;
+   }
+   return top>=area.yMin+reservedTop*scale;
   }
  }
 }

@@ -3284,3 +3284,37 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Giữ ngoài commit:** như 21.137.
 - **Đã phát hành và xác minh live:** commit `fcd8fa0`, push main; [Pages run 42074745472](https://github.com/denispham1107/taixecongnghe/actions/runs/42074745472) completed/success đúng SHA (`Captures/release1571-pages.json`). Live: version 1.57.1 / cache `9ff81f1d0cf14557`. `VerifyPublishedGame` **28 đạt, 0 lỗi runtime**; `VerifyMissileReleaseWeb` trên live **11 đạt, 0 lỗi**; đã xem ảnh mặt đường chụp từ trang live (`Captures/release1571-live-road-*.png`). Tóm tắt: `Captures/VERIFICATION_RELEASE_1_57_1.md`.
 - **Bàn giao cuối:** Unity Edit Mode, scene sạch, jobs khóa, server 8785 đã dừng; không rebuild sau kiểm tra. Chờ người dùng xác nhận trên điện thoại và báo FPS qua `?perf=1`.
+
+## 21.140. Sửa vuốt lên màn hình ngang, thêm nút bay và icon năng lượng trên không (06/11/2026 — Claude Code)
+
+- **Yêu cầu:** (1) màn hình ngang vuốt lên hay không nhảy/bay, kém nhạy hơn màn hình dọc; (2) khi bay có icon năng lượng ở ngẫu nhiên 4 làn, lơ lửng cùng độ cao với máy bay và xe; (3) thêm nút tròn ở góc trái có icon xe bay: ấn là xe tự lên độ cao bay, ấn lần nữa thì đáp.
+- **Nguyên nhân vuốt hỏng (đều có thật, tái hiện bằng `AgentScripts/VerifySwipeShell2140.cjs`):**
+  - `GameplayPointerAllowed` có `reservedBottom=narrow?0:110`: màn hình ngang bỏ qua mọi cú vuốt bắt đầu ở dải dưới (≈48px CSS trên máy 390px cao), đúng chỗ đặt ngón cái. Đây là khác biệt chính giữa ngang và dọc.
+  - Vùng chết theo góc: `|dy|>|dx|×1,3` cho nhảy, `|dx|≥|dy|` cho đổi làn, nên vuốt lệch 37–52° không ra gì, lệch hơn thành đổi làn. Ngón cái khi cầm ngang vuốt theo đường cong chéo.
+  - Quãng vuốt 12% cạnh ngắn hơi dài; flick nhanh nhấc tay sớm bị mất.
+  - `isPrimary`/`gamePointer`: một ngón đang đặt trên màn hình làm mọi ngón sau bị bỏ qua, hay gặp khi cầm ngang bằng hai tay.
+  - Đổi kích thước canvas giữa cú vuốt (thanh Safari, render scale 21.136) huỷ cú vuốt; Safari có thể cuộn trang và gửi `pointercancel`.
+  - Vuốt trong khoảng hồi sau khi đáp (cooldown 2 giây) bị mất luôn.
+- **Sửa vuốt:** `IsJumpSwipe`: `dy>8,5%` và `dy≥|dx|×0,85`; `IsBoostSwipe` giữ 12%, cùng tỉ lệ góc; `SwipeAction` đổi làn khi `|dy|<|dx|×0,85`, không còn góc chết. `app.js` `swipeAction` khớp công thức, flick dưới 220ms tính ở 60% quãng. Ngón mới nhất thắng (`app.js` huỷ ngón cũ, `ApplyBrowserGesture` nhận ngón mới, down trùng cùng ngón bị bỏ qua). Chỉ xoay màn hình mới huỷ cú vuốt. `touchmove` chặn cuộn trang trên canvas. `GameplayPointerAllowed`: bỏ dải dưới; màn hình ngang chỉ cấm trên đúng thanh HUD. Nhảy: cooldown 2→1,6 giây (`JumpCooldownSeconds`), vuốt trong lúc chưa nhảy được giữ 0,55 giây rồi tự nhảy (`jumpQueued`). Vuốt lên lần 2 để bay giữ nguyên.
+- **Nút bay (`PhoVietFlightButton.cs`):** nút tròn ngay trên nút tên lửa, cùng cột trái và cỡ, tối thiểu 56px CSS; viền xanh + mũi tên lên khi sẵn sàng, viền vàng + mũi tên xuống khi đang bay, mờ khi thiếu năng lượng. Ấn trên đất: trừ 5 năng lượng như nhảy, lên 70% đỉnh rồi giữ cao độ, không cần chờ hồi. Ấn khi đang rơi: bay lên lại. Ấn khi đang bay: đáp. Ấn lần 2 lúc đang lên: huỷ bay. Hết năng lượng tự hạ như cũ, mất 10 mỗi 0,5 giây như cũ. Chạm qua `HudButtonAt`=3 + `ApplyHudTap`; hit-test tròn; vuốt không bắt đầu từ nút. Icon `Resources/PlayerFlight/PV_FlightUp.png`, `PV_FlightLand.png` vẽ bằng `ArtSource/UI/flight_button_icon.py`, cài bằng `AgentScripts/InstallFlight2140.cs`.
+- **Icon trên không (`PhoVietEnergy.cs`):** mỗi tile có thêm `AirPickupsPerTile=3` icon dùng prefab năng lượng cũ, làn ngẫu nhiên trong 4 làn kể cả trên cầu, cao `AirPickupHeight`≈3,53m (2,88m bay + 0,65m như icon mặt đất so với thân xe). Chỉ hiện khi `FlightEngaged`, hiện ở cách xe ≥45m để không bật ra trước mặt, ẩn hết khi đáp; nhặt +15 như icon thường; đổi làn lại khi tile quay vòng. **Mật độ 3 icon mỗi 80m là tôi tự chọn**, người dùng chưa nêu số: với 20 năng lượng/giây khi bay, nhặt đủ cũng chỉ kéo dài chứ chưa bay vô hạn.
+- **Sửa thêm từ kiểm tra:** `PhoVietTileCulling` giữ tile sau camera trong tầm bóng đổ khi bóng nhà đang bật, vì tile đó hắt bóng lên tường đang thấy (lộ ra khi chạy `VerifyMobilePerf2136` ở Game view dọc). Thẳng đường nay tối đa 12/35 tile.
+- **Kiểm tra:**
+  - `VerifySwipeShell2140.cjs` chạm đa điểm thật qua `app.js`, cùng bản WASM 1.57.1: `app.js` cũ **12/22**, mới **22/22** (ngang và dọc: chéo 25/40/45°, ngắn 10%, flick 6%, giữ ngón thứ hai, xuống, trái, phải). Báo cáo `Captures/swipe2140-{before,after}-checks.json`.
+  - `VerifyFlight2140` 94 đạt (mọi góc vuốt, vùng bắt đầu, ngón thứ hai, đệm nhảy, nút bay qua `ApplyHudTap`, 8 viewport, icon trên không).
+  - Hồi quy đạt: Gestures 39, Boost 45, MobilePerf 62 (ngang lệch 0, dọc lệch tối đa 8 điểm ảnh), GraphicsSettings 89, PerformanceSafety 1326, PlayerMissiles 262, HelicopterMissiles 222, Fleet 286, Routes 46, HelicopterJump 131, TurnHazards 221, RouteRestarts 865, CrashDistance 62, RearWarning 120, ContactFire 155, Thunderstorm 107, MissilePickupC 294, SmoothTurns 468.
+  - `VerifyJump` lỗi sẵn trước thay đổi này ở “Repeated SpaceBar”, chưa sửa; dòng “Two-second cooldown” trong đó cũng đã lỗi thời.
+  - Ảnh đã xem: `Captures/flight2140-{ngang,doc}-bay.png`, `flight2140-ngang-mat-dat.png`, `flight2140-doc-canh-xe.png`, `flight2140-icon-preview.png`.
+- **Chưa kiểm được:** chưa build WebGL nên `app.js` mới chưa chạy cùng C# mới trong trình duyệt; chưa thử máy thật; FPS khi bay với icon thêm chưa đo.
+- **Trạng thái:** đã phát hành trong 1.58.0 (xem 21.141).
+
+## 21.141. Build/phát hành WebGL 1.58.0 (06/11/2026 — Claude Code)
+
+- **Yêu cầu:** người dùng yêu cầu “Phát hành 1.58.0” gói 21.140. Baseline `14a3108`, origin không có commit mới.
+- **Build:** thêm `VerifyRelease158Scene.cs` (192 kiểm tra: 2 icon nút bay, shell có `swipeAction`, icon trên không); configure, preflight 192, freeze 583 file; `BuildWebRelease.Main` hai variant `Succeeded`, 0 lỗi, 1 warning PipelineNoRuntimeConfig; nguồn không đổi 583/583, postflight 192.
+- **Artifact:** cache `5b4a43086927aac5`, 206.051.755 byte. Bundle: 43 repo, 34 site. Copy docs, pack, materialize `.tools/release158-site`.
+- **Trình duyệt trên site đã ghép: 540 đạt, 0 lỗi JS/Unity:** landing 459, web/PWA 37, fullscreen 20, năng lượng 13, tên lửa 11.
+- **Vuốt và nút bay trên WASM 1.58.0 thật:** `VerifySwipeShell2140.cjs` **22/22** (ngang và dọc); `VerifyFlightWeb2140.cjs` **9/9**: chạm nút bay, viền xanh → vàng khi bay → xanh khi đáp, ngang và dọc, 0 lỗi runtime. Lần chạy đầu ở màn hình dọc thất bại vì xe đâm xe máy sau khi đáp, chuyến đi kết thúc nên nút ẩn; đã cho test chụp ngay sau khi ấn và thử lại nếu chuyến đi kết thúc, không đổi game. Ảnh `Captures/release158-flight-*.png` đã xem.
+- **FPS CPU×2 cố định, 1.57.1 → 1.58.0, Cao/Trung bình/Thấp:** 23,2/36,7/49,4 → 23,2/32,2/45,9. Trung bình và Thấp thấp hơn 7–12% trong một lần đo, chưa tách được do nhiễu hay do 105 icon trên không (ẩn khi không bay) và nút mới.
+- **Giữ ngoài commit:** như 21.137.
+

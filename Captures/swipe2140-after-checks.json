@@ -1,0 +1,209 @@
+{
+ "url": "http://127.0.0.1:8785/",
+ "label": "swipe2140-after",
+ "shell": "Assets/WebGLTemplates/PhoVietPWA/app.js",
+ "errors": [],
+ "cases": [
+  {
+   "orient": "ngang",
+   "name": "len thang",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "ngang",
+   "name": "len cheo 25 do",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "ngang",
+   "name": "len cheo 40 do",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "ngang",
+   "name": "len cheo 45 do",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "ngang",
+   "name": "len ngan 10%",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "ngang",
+   "name": "flick nhanh 6%",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "ngang",
+   "name": "dat ngon thu 2 dang giu ngon khac",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "ngang",
+   "name": "xuong",
+   "want": 3,
+   "seen": [
+    3
+   ],
+   "ok": true
+  },
+  {
+   "orient": "ngang",
+   "name": "trai",
+   "want": -1,
+   "seen": [
+    -1
+   ],
+   "ok": true
+  },
+  {
+   "orient": "ngang",
+   "name": "phai",
+   "want": 1,
+   "seen": [
+    1
+   ],
+   "ok": true
+  },
+  {
+   "orient": "ngang",
+   "name": "phai hoi len",
+   "want": 1,
+   "seen": [
+    1
+   ],
+   "ok": true
+  },
+  {
+   "orient": "doc",
+   "name": "len thang",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "doc",
+   "name": "len cheo 25 do",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "doc",
+   "name": "len cheo 40 do",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "doc",
+   "name": "len cheo 45 do",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "doc",
+   "name": "len ngan 10%",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "doc",
+   "name": "flick nhanh 6%",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "doc",
+   "name": "dat ngon thu 2 dang giu ngon khac",
+   "want": 2,
+   "seen": [
+    2
+   ],
+   "ok": true
+  },
+  {
+   "orient": "doc",
+   "name": "xuong",
+   "want": 3,
+   "seen": [
+    3
+   ],
+   "ok": true
+  },
+  {
+   "orient": "doc",
+   "name": "trai",
+   "want": -1,
+   "seen": [
+    -1
+   ],
+   "ok": true
+  },
+  {
+   "orient": "doc",
+   "name": "phai",
+   "want": 1,
+   "seen": [
+    1
+   ],
+   "ok": true
+  },
+  {
+   "orient": "doc",
+   "name": "phai hoi len",
+   "want": 1,
+   "seen": [
+    1
+   ],
+   "ok": true
+  }
+ ],
+ "passed": 22,
+ "total": 22,
+ "success": true
+}

@@ -172,20 +172,28 @@ function cancelGamePointer(){
   const p=gamePointer;gamePointer=null;
   sendGesture(p,3,{clientX:p.x,clientY:p.y,timeStamp:performance.now()});
 }
+// Keep in step with IsJumpSwipe/IsBoostSwipe/SwipeAction in Unity. No angle may match nothing: a thumb on a
+// sideways phone arcs diagonally, and the old 1.3 ratio dropped 37-52 degree swipes without any response (21.140).
+function swipeAction(dx,dy,short,scale=1){
+  if(dy<0&&-dy>short*.085*scale&&-dy>=Math.abs(dx)*.85)return 2;
+  if(dy>0&&dy>short*.12*scale&&dy>=Math.abs(dx)*.85)return 3;
+  if(Math.abs(dx)>short*.075*scale&&Math.abs(dy)<Math.abs(dx)*.85)return dx>0?1:-1;
+  return 0;
+}
 function pointerMoved(e){
   const p=gamePointer;
   if(!p||p.id!==e.pointerId||p.consumed)return;
+  // A toolbar or render-scale change mid-swipe keeps the gesture; only a rotation ends it.
   const r=canvas.getBoundingClientRect();
-  if(Math.abs(r.width-p.rect.width)>1||Math.abs(r.height-p.rect.height)>1){cancelGamePointer();return;}
-  const dx=e.clientX-p.x,dy=e.clientY-p.y,short=Math.min(r.width,r.height);
-  let action=0;
-  if(Math.abs(dy)>short*.12&&Math.abs(dy)>Math.abs(dx)*1.3)action=dy<0?2:3;
-  else if(Math.abs(dx)>short*.075&&Math.abs(dx)>=Math.abs(dy))action=dx>0?1:-1;
+  if((r.width>r.height)!==(p.rect.width>p.rect.height)){cancelGamePointer();return;}
+  const action=swipeAction(e.clientX-p.x,e.clientY-p.y,Math.min(r.width,r.height));
   if(action){p.consumed=true;sendGesture(p,1,e,action);}
 }
 canvas.addEventListener('pointerdown',e=>{
-  if(!e.isPrimary||e.button!==0||!unityInstance||gamePointer)return;
+  if(e.button!==0||!unityInstance)return;
   const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;
+  // Newest finger wins: a thumb resting on a sideways phone must not block the one that swipes.
+  if(gamePointer)cancelGamePointer();
   gamePointer={id:e.pointerId,x:e.clientX,y:e.clientY,at:e.timeStamp,rect,consumed:false,touch:e.pointerType!=='mouse'};
   canvas.setPointerCapture?.(e.pointerId);sendGesture(gamePointer,0,e);
 },{passive:true});
@@ -194,12 +202,19 @@ canvas.addEventListener('pointerup',e=>{
   if(!gamePointer||gamePointer.id!==e.pointerId)return;
   pointerMoved(e);const p=gamePointer;if(!p)return;gamePointer=null;
   const short=Math.min(p.rect.width,p.rect.height);
+  // A quick flick that lifts before the normal distance still counts.
+  if(!p.consumed&&e.timeStamp-p.at<220){
+    const flick=swipeAction(e.clientX-p.x,e.clientY-p.y,short,.6);
+    if(flick){p.consumed=true;sendGesture(p,1,e,flick);sendGesture(p,3,e);return;}
+  }
   const tap=!p.consumed&&Math.hypot(e.clientX-p.x,e.clientY-p.y)<short*.035;
   if(tap){
     unityInstance.SendMessage(gameRoot,'ApplyHudTap',JSON.stringify({x:(e.clientX-p.rect.x)/p.rect.width,y:(e.clientY-p.rect.y)/p.rect.height}));
     if(p.touch&&e.timeStamp-p.at<240)sendGesture(p,2,e);else sendGesture(p,3,e);
   }else sendGesture(p,3,e);
 },{passive:true});
+// Safari can start scrolling a sideways page and cancel the pointer before the swipe distance is reached.
+canvas.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
 canvas.addEventListener('pointercancel',e=>{if(gamePointer?.id===e.pointerId)cancelGamePointer();},{passive:true});
 canvas.addEventListener('lostpointercapture',e=>{if(gamePointer?.id===e.pointerId)cancelGamePointer();},{passive:true});
 window.addEventListener('orientationchange',cancelGamePointer);

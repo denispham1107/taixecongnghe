@@ -1,0 +1,101 @@
+{
+ "url": "http://127.0.0.1:8785/",
+ "label": "release158-flight",
+ "checks": [
+  "ngang: ready button has the blue ring",
+  "ngang: one touch lifts off and the ring turns gold",
+  "ngang: second touch lands and the ring is blue again",
+  "ngang: a full press-fly-press-land cycle completed",
+  "doc: ready button has the blue ring",
+  "doc: one touch lifts off and the ring turns gold",
+  "doc: second touch lands and the ring is blue again",
+  "doc: a full press-fly-press-land cycle completed",
+  "No JavaScript or Unity runtime errors"
+ ],
+ "errors": [],
+ "samples": [
+  {
+   "orient": "ngang",
+   "name": "san-sang",
+   "gold": 0,
+   "blue": 0.389
+  },
+  {
+   "orient": "ngang",
+   "name": "dang-bay",
+   "gold": 0.341,
+   "blue": 0
+  },
+  {
+   "orient": "ngang",
+   "name": "da-dap",
+   "gold": 0,
+   "blue": 0.452
+  },
+  {
+   "orient": "doc",
+   "name": "san-sang",
+   "gold": 0,
+   "blue": 0.894
+  },
+  {
+   "orient": "doc",
+   "name": "dang-bay",
+   "gold": 0.8,
+   "blue": 0
+  },
+  {
+   "orient": "doc",
+   "name": "da-dap",
+   "gold": 0,
+   "blue": 0
+  },
+  {
+   "orient": "doc",
+   "attempt": 0,
+   "retried": "button hidden, ride ended"
+  },
+  {
+   "orient": "doc",
+   "name": "san-sang",
+   "gold": 0,
+   "blue": 0.894
+  },
+  {
+   "orient": "doc",
+   "name": "dang-bay",
+   "gold": 0.798,
+   "blue": 0
+  },
+  {
+   "orient": "doc",
+   "name": "da-dap",
+   "gold": 0,
+   "blue": 0
+  },
+  {
+   "orient": "doc",
+   "attempt": 1,
+   "retried": "button hidden, ride ended"
+  },
+  {
+   "orient": "doc",
+   "name": "san-sang",
+   "gold": 0,
+   "blue": 0.894
+  },
+  {
+   "orient": "doc",
+   "name": "dang-bay",
+   "gold": 0.798,
+   "blue": 0
+  },
+  {
+   "orient": "doc",
+   "name": "da-dap",
+   "gold": 0,
+   "blue": 0.928
+  }
+ ],
+ "success": true
+}
