@@ -136,11 +136,11 @@ namespace PhoViet
         }
         void CreateSound()
         {
-            engine=gameObject.AddComponent<AudioSource>();engine.loop=true;engine.volume=.08f*1.7f;engine.playOnAwake=false; // +70% for both cruising and boost (same source).
+            engine=PhoVietAudio.Route(gameObject.AddComponent<AudioSource>());engine.loop=true;engine.volume=.08f*1.7f;engine.playOnAwake=false; // +70% for both cruising and boost (same source).
             int hz=22050;float[] wave=new float[hz];
             for(int i=0;i<wave.Length;i++){float t=(float)i/hz;wave[i]=Mathf.Sin(t*2*Mathf.PI*60)*.45f+Mathf.Sin(t*2*Mathf.PI*120)*.17f+Mathf.Sin(t*2*Mathf.PI*180)*.08f;}
             var clip=AudioClip.Create("Động cơ xe máy",wave.Length,1,hz,false);clip.SetData(wave,0);engine.clip=clip;
-            fx=gameObject.AddComponent<AudioSource>();fx.playOnAwake=false;fx.volume=.3f;
+            fx=PhoVietAudio.Route(gameObject.AddComponent<AudioSource>());fx.playOnAwake=false;fx.volume=.3f;
             float[] hit=new float[hz/3];var noise=new System.Random(4);
             for(int i=0;i<hit.Length;i++)hit[i]=((float)noise.NextDouble()*2-1)*Mathf.Exp(-i/(hz*.07f));
             crashClip=AudioClip.Create("Va chạm",hit.Length,1,hz,false);crashClip.SetData(hit,0);

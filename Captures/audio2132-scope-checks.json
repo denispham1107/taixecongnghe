@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "baselineFiles": 3201,
+  "unchanged": 3195,
+  "changed": [
+    "Assets/PhoViet/Scripts/HelicopterVisual.cs",
+    "Assets/PhoViet/Scripts/PhoVietActions.cs",
+    "Assets/PhoViet/Scripts/PhoVietGame.cs",
+    "Assets/PhoViet/Scripts/PhoVietHelicopterMissiles.cs",
+    "Assets/PhoViet/Scripts/PhoVietJobs.cs",
+    "Assets/PhoViet/Scripts/ThunderstormVisual.cs"
+  ],
+  "geometryTexturesSceneHudAndWebUnchanged": true,
+  "baseline": "Prior dirty-art SHA snapshot advanced by committed C pickup assets/current HEAD additions"
+}

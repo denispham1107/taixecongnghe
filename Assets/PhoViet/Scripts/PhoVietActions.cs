@@ -24,7 +24,7 @@ namespace PhoViet
         {
             roadFog=RenderSettings.fog;
             roadBackground=rideCamera.backgroundColor;
-            siren=gameObject.AddComponent<AudioSource>();siren.loop=true;siren.volume=.12f;siren.playOnAwake=false;
+            siren=PhoVietAudio.Route(gameObject.AddComponent<AudioSource>());siren.loop=true;siren.volume=.12f;siren.playOnAwake=false;
             const int hz=22050;float[] wave=new float[hz*2];float phase=0;
             for(int i=0;i<wave.Length;i++)
             {float t=(float)i/hz;float frequency=650+200*Mathf.Sin(t*Mathf.PI*2);phase+=frequency/hz*Mathf.PI*2;wave[i]=Mathf.Sin(phase)*.35f;}

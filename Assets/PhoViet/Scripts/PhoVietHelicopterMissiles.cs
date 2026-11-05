@@ -4,7 +4,7 @@ namespace PhoViet
  public partial class PhoVietGame
  {
   public const int HelicopterMissileCapacity=40;
-  const float HelicopterMissileSpeed=50,HelicopterMissileLifetime=3.2f;
+  const float HelicopterMissileSpeed=40,HelicopterMissileLifetime=3.2f;
   sealed class HelicopterMissile
   {public Transform root;public MissileFlightVisual visual;public bool active,dodgeCounted;public Vector3 velocity,scroll;public float age;}
   readonly HelicopterMissile[] helicopterMissiles=new HelicopterMissile[HelicopterMissileCapacity];GameObject helicopterMissilePrefab;

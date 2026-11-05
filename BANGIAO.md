@@ -25,10 +25,11 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Pickup tên lửa mẫu C đã duyệt | **21.131 chưa phát hành:** Hex Ammo nền lục giác xanh/viền vàng/mũi đỏ;3LOD1482/1014/592tri,pool70.735Unity đạt/5ảnh đã xem; chỉ pickup đường, HUD/nút/đạn bay giữ. Approvaltrue/C; web1.54.0 giữ |
+| Đạn trực thăng/âm lượng tổng trong source | **21.132 chưa phát hành:** đạn địch50→40m/s (−20%), mastervolume1,3×/+2,2788668dB cho engine/FX/CSGT/mưa/rotor/voice.1016Unity đạt; đoRMS1,305×; player missile/ảnh/gameplaykhác giữ. Web1.54.0 chưa có |
 | Vệt lửa/khói tên lửa trong source | **21.129 chưa phát hành:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch, web1.54.0 giữ |
 | Tên lửa người chơi trong source | **21.128 chưa phát hành:**3/3,2pickup/phố-cầu/+1,nút/F khi bay/chờ0,4s/homing; không mục tiêu vẫn bắn thẳng,trúng trực thăng cháy/rơi.1278Unity/436browser/5ảnh đạt; web1.54.0 chưa có |
 | Cháy va chạm mặt đất trong source | **21.127 chưa phát hành:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt; web1.54.0 chưa có |
-| Trực thăng / nhảy mobile mới | **Source21.126 chưa phát hành:** giữ2–5chiếc/theo400m/4làn/so le; thêm tên lửa1→0,5s/40slot, bay thẳng/roll né. Trúng đạn hoặc đâm trực thăng rơi cháy/kết thúc kể cảCSGT; máy bay va chạm cũng cháy. Nhảy tức thời/queue70% giữ.1028Unity/387layout đạt;web1.54.0 chưa có |
+| Trực thăng / nhảy mobile mới | **Source21.126/21.132 chưa phát hành (đạn40m/s):** giữ2–5chiếc/theo400m/4làn/so le; thêm tên lửa1→0,5s/40slot, bay thẳng/roll né. Trúng đạn hoặc đâm trực thăng rơi cháy/kết thúc kể cảCSGT; máy bay va chạm cũng cháy. Nhảy tức thời/queue70% giữ.1028Unity/387layout đạt;web1.54.0 chưa có |
 | Năng lượng / bay / lộn | **21.122–21.123 đã có trên web1.54.0:** C đượcduyệt/đãtíchhợp;150NL/nhảy−5/nhặt+15/haiiconkháclànmỗi phố-cầu;Space/vuốtlênbật-tắtbay/−10mỗi0,5s/hếtNLtựhạ;Q/doubletapkhibaylộn360°0,9s.4998Unity/464browserlocal/27liveđạt |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
@@ -43,6 +44,8 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.132 hoàn tất source/chưa phát hành:** đạn trực thăng40m/s (−20%), âm lượngtổng1,3× bằng1mastervolume+2,2788668dB,routeđủengine/fx/siren/rain/5rotor/voice, khôngnhânlặp/giữmute-pause-pitch.1016Unityđạt+RMSđo1,30528×; so3201baseline chỉ6runtime đổi,khôngđổiscene/assetđồhọa. UnityEdit/scenesạch/jobsfalse; lưucommitlocal+2docs,chưa build/push/web(vẫn1.54.0).
+
 - **21.131 C đã tích hợp source/chưa phát hành:** userchọnC; geometry Blender3LOD1482/1014/592tri/70pool, hộp lục giác xanh/viền vàng/mũi đỏ, chỉ pickup đường.735Unityđạt/5ảnh ngày-đêm-dọc-ngang-cận đã xem; so3199baseline chỉprefab+3mesh đổi. Installer mới cập nhật GPUbuffer giữGUID; HUD/nút/đạn bay/gameplay/scene/môi trường giữ. UnityEdit/scenesạch/jobsfalse/Blendergốc; lưucommitlocal+2docs,chưa build/push/web(vẫn1.54.0).
 
 - **21.130 concept xong, sau đó C được duyệt/tích hợp21.131:** dựng3pickup tên lửa bằng BlenderMCP,2ảnh studio/mặt đường đã xem; nguồn/script/approvalfalse tại `ArtSource/Concepts/MissilePickup-20261105/`. So3199file runtime/web SHA giữ nguyên, Blender về scene gốc8object; chưa tích hợp/build/push/web. Lưucommitlocal cùng2docs. Chỉ làm tiếp mẫu được chọn, không đổi HUD/nút/đạn bay21.129.
@@ -53,7 +56,7 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 
 - **21.127 hoàn tất source, chưa phát hành:** lửa/khói tại từng mặt va chạm player–NPC/NPC–NPC/CSGT/húc ngang; tông tiếp mặt khác thêm điểm mới, Tank miễn (kể cả tông xác sát tường). Người dùng chọn xe hồi phục vẫn chạy kèm lửa/khói; giữ3s/CSGT1,2s/score/roof/pursuit. Pool Mantaflow riêng/neo local/gộp0,65m/reclaim generation-sông-reset;802Unity đạt/4ảnh ngày-đêm-dọc-hồi phục đã xem. UnityEdit/scene sạch/jobsfalse; lưu commit local +2docs; chưa build/push/web(vẫn1.54.0). Chi tiết21.127.
 
-- **21.126 hoàn tất source, chưa phát hành:** tên lửa BlenderMCP/3LOD/pool40/v50m/s,1→0,8→0,6→0,5s mỗi400m; ngắm lúc bắn/bay thẳng. Đổi làn/hạ/lộn né đạn; đâm thân máy bay vẫn rơi cháy cả2, kết thúc kể cảCSGT.1028Unity+387layout+3refresh đạt;7ảnhUnity+Blender đã xem, giữscene/modelmôi trường/texture. UnityEdit/jobsfalse; lưucommitlocal cùng2docs, chưa build/push/web(vẫn1.54.0). Chi tiết21.126.
+- **21.126 hoàn tất source, chưa phát hành:** tên lửa BlenderMCP/3LOD/pool40/v50m/s tại21.126 (hiện40m/s theo21.132),1→0,8→0,6→0,5s mỗi400m; ngắm lúc bắn/bay thẳng. Đổi làn/hạ/lộn né đạn; đâm thân máy bay vẫn rơi cháy cả2, kết thúc kể cảCSGT.1028Unity+387layout+3refresh đạt;7ảnhUnity+Blender đã xem, giữscene/modelmôi trường/texture. UnityEdit/jobsfalse; lưucommitlocal cùng2docs, chưa build/push/web(vẫn1.54.0). Chi tiết21.126.
 
 - **21.125 hoàn tất source, chưa phát hành:** tăng trực thăng2→3→4→5 theo mốc vượt400m, cả4làn/hai chiếc đầu khác làn/so le12m/pool5.286fleet+131jump+46rẽthật+158scene=621Unityđạt;4ảnh2/5chiếc dọc/ngang đã xem. Giữ mesh/texture/rotor/audio/va chạm/nhảy70%. UnityEdit/scene sạch/jobsfalse; lưucommitlocal cùng2docs, chưa build/push/web (vẫn1.54.0). Chi tiết21.125.
 
@@ -190,6 +193,9 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 6. **1.36.0:** xe tăng Meshy “Iron Sentinel” (21.33–21.34). **1.35.0:** đổi làn kiểu đánh lái, nhà kính, zoom dọc +10% (21.28–21.32). **1.34.0:** phố Sài Gòn (21.19–21.27).
 
 ## 3. Đang dở / cần người dùng quyết
+
+- **21.132 hoàn tất:** không còn bước sửa/đo âm đang chạy. UnityEdit/scene sạch; master lưu1,3×. Chưa có yêu cầu build/phát hành lượt này; web1.54.0 giữ.
+
 
 - **21.131 hoàn tất:** không còn bước tích hợp/kiểm hình mẫu C đang dở; approvaltrue/C. UnityEdit/scene sạch/Blendergốc. Chưa có yêu cầu build/phát hành lượt này; web1.54.0 giữ.
 
@@ -335,7 +341,7 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 | Model Blender/Meshy → Unity | 11, 13, 21.7, 21.17 | `Editor/PhoVietMeshy*Upgrade.cs`, `ArtSource/Blender/` |
 | Công việc/Coin (đang khóa) | 10, 21.1 | `PhoVietJobs.cs`, `PhoVietJobGui.cs` |
 | Màu bảng không trùng, Petshop30%, phụđề/thú cưng/nội thất | **21.72–21.74**,11.4 | `pho_viet_petshop_signs.py`, `pho_viet_river_bridge.py`, `Editor/PhoVietPetshopSignsUpgrade.cs`, `AgentScripts/InstallPetshopSigns.cs`, `VerifyPetshopSigns.cs`, `VerifyPetshopDetails.cs`, `VerifySignColours.cs`, `pho_viet_petshop_layout.py`, `pho_viet_pet_animals.py`, `Art/Pets/PV_PetGeometry.json` |
-| Âm động cơ player/cruise/boost | **21.70** | `PhoVietGame.cs` (`CreateSound`, `engine`, cuối `Update`) |
+| Âm thanh tổng / master +30% / engine cruise-boost | **21.70,21.132** | `Scripts/PhoVietAudio.cs`, `Resources/Audio/PV_Master.mixer`, `Editor/PhoVietAudioUpgrade.cs`, `AgentScripts/InstallAudio2132.cs`, `VerifyAudioMissile2132.cs`, `MeasureMasterGain2132.cs`; `PhoVietGame.cs` (`CreateSound`, `engine`, cuối `Update`) |
 | Simulator iPhone 14 Pro/Pro Max/Dynamic Island/Safe Area | **21.71** | `Assets/PhoViet/Editor/DeviceSimulator/` (`README.md`, hai `.device`, `Overlays/`, `LICENSE.md`); `Captures/iphone14-simulator-checks.json` |
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |

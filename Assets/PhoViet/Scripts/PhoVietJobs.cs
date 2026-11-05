@@ -173,7 +173,7 @@ namespace PhoViet
   void SpeakNavigation(int turn)
   {
    if(!JobsAvailable)return;
-   if(navigationAudio==null){navigationAudio=gameObject.AddComponent<AudioSource>();navigationAudio.playOnAwake=false;navigationAudio.volume=.9f;}
+   if(navigationAudio==null){navigationAudio=PhoVietAudio.Route(gameObject.AddComponent<AudioSource>());navigationAudio.playOnAwake=false;navigationAudio.volume=.9f;}
    var clip=turn<0?navigationLeft:turn>0?navigationRight:navigationStraight;
    if(sound&&clip!=null){navigationAudio.clip=clip;navigationAudio.Play();}
   }

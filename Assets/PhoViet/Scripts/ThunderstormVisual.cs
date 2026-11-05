@@ -34,7 +34,7 @@ namespace PhoViet
    warningMesh.uv=new[]{Vector2.zero,Vector2.right,Vector2.one,Vector2.up};warningMesh.colors=new[]{Color.white,Color.white,Color.white,Color.white};warningMesh.triangles=new[]{0,2,1,0,3,2};warningMesh.RecalculateNormals();
    warningMaterial=new Material(warnMat);owned.Add(warningMaterial);
    for(int slot=0;slot<boltRoots.Length;slot++)CreateLightningSlot(slot,boltMat);
-   rainAudio=root.gameObject.AddComponent<AudioSource>();rainAudio.loop=true;rainAudio.playOnAwake=false;rainAudio.volume=0;
+   rainAudio=PhoVietAudio.Route(root.gameObject.AddComponent<AudioSource>());rainAudio.loop=true;rainAudio.playOnAwake=false;rainAudio.volume=0;
    var noise=new System.Random(361);float[] samples=new float[22050*2];float low=0;
    for(int i=0;i<samples.Length;i++){float n=(float)noise.NextDouble()*2-1;low=Mathf.Lerp(low,n,.12f);samples[i]=(n*.28f+low*.5f)*(.8f+.2f*Mathf.Sin(i*.0006f));}
    rainClip=AudioClip.Create("Mưa giông • tiếng mưa",samples.Length,1,22050,false);rainClip.SetData(samples,0);rainAudio.clip=rainClip;

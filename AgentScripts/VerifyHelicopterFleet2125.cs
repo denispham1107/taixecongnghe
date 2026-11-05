@@ -77,7 +77,7 @@ public static class VerifyHelicopterFleet2125
    {
     Fresh();Hover();Set("Distance",1201f);Tick();for(int i=0;i<5;i++)Root(i).localPosition=new Vector3(0,4,300);
     Root(hit).localPosition=new Vector3(g.rider.localPosition.x,g.rider.localPosition.y+g.PlayerHeight*.5f,15);if(chase)Call("StartChase");float score=g.Distance;Call("ScrollHelicopter",30f);Tick(.1f);
-    Check(g.HitByHelicopter&&g.State==PhoVietGame.RideState.Falling&&g.CrashDuringPursuit==chase,"Swept impact works for slot "+hit+", pursuit="+chase);
+    Check(g.HitByHelicopter&&g.State==PhoVietGame.RideState.Falling&&!g.CrashDuringPursuit&&g.RiderAirAttackBurning&&!g.IsChased,"Swept impact works for slot "+hit+", pursuit="+chase);
     int before=g.HelicoptersSpawned;Tick(.02f,false);Call("TickRiderCrash",.1f);Check(g.Distance==score&&g.HelicoptersSpawned==before,"Crash freezes score and new spawns for slot "+hit);
    }
    g.ResetRide();Check(g.Distance==0&&g.HelicopterTargetCount==2&&!g.HelicopterActive&&g.HelicoptersSpawned==0&&!g.HitByHelicopter,"Retry resets distance, fleet and progression");Check(Enumerable.Range(0,5).All(i=>Root(i)==pooled[i]),"Retry retains exactly the same five pooled models");

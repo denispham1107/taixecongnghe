@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "unityChecks": 1016,
+  "suites": {
+    "gameplay": 67,
+    "enemy": 222,
+    "player": 261,
+    "fleet": 286,
+    "trail": 65,
+    "scene": 115
+  },
+  "enemyMissileSpeed": 40,
+  "playerMissileUnchanged": true,
+  "masterLinearGain": 1.3,
+  "masterDecibels": 2.27886677,
+  "measuredOutputGain": 1.3052823767274158,
+  "scopeFilesCompared": 3201,
+  "scene": {
+    "play": false,
+    "compiling": false,
+    "building": false,
+    "sceneDirty": false,
+    "jobs": false,
+    "mixerDecibels": 2.27886677,
+    "linearGain": 1.3
+  },
+  "built": false,
+  "pushed": false,
+  "published": false,
+  "liveVersion": "1.54.0",
+  "physicalDeviceTested": false
+}

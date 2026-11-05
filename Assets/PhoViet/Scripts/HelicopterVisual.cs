@@ -9,7 +9,7 @@ namespace PhoViet
   PhoVietGame game;float clock,gain,rotorFactor=1;bool wrecked;
   public bool Wrecked=>wrecked;
   public void SetWrecked(){wrecked=true;airframe.localPosition=Vector3.zero;airframe.localRotation=Quaternion.identity;}
-  void Awake(){game=GetComponentInParent<PhoVietGame>();}
+  void Awake(){game=GetComponentInParent<PhoVietGame>();PhoVietAudio.Route(rotorAudio);}
   void LateUpdate(){Advance(Mathf.Min(Time.deltaTime,.05f));}
   public void Advance(float dt)
   {
