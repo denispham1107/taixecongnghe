@@ -1,0 +1,40 @@
+{
+ "url": "http://127.0.0.1:8785/",
+ "label": "release1571-road",
+ "expect": "clean",
+ "errors": [],
+ "samples": [
+  {
+   "orient": "ngang",
+   "level": "cao",
+   "green": 0.0946
+  },
+  {
+   "orient": "ngang",
+   "level": "trung",
+   "green": 0.0575
+  },
+  {
+   "orient": "ngang",
+   "level": "thap",
+   "green": 0.0958
+  },
+  {
+   "orient": "doc",
+   "level": "cao",
+   "green": 0.0301
+  },
+  {
+   "orient": "doc",
+   "level": "trung",
+   "green": 0.0316
+  },
+  {
+   "orient": "doc",
+   "level": "thap",
+   "green": 0.0242
+  }
+ ],
+ "worst": 0.09577601410934744,
+ "success": false
+}

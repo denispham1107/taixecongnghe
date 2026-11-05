@@ -1,0 +1,91 @@
+{
+  "url": "http://127.0.0.1:8785/",
+  "checks": [
+    "desktop: release WASM initializes",
+    "desktop: round ammo3/3 button renders",
+    "desktop: actual F/touch shot changes rendered ammo digits",
+    "desktop: Web Audio master gain1.56 reaches the engine source (0.136×1.56)",
+    "desktop: retry restores original ammo digits (2 vs shot 9)",
+    "mobile: release WASM initializes",
+    "mobile: round ammo3/3 button renders",
+    "mobile: actual F/touch shot changes rendered ammo digits",
+    "mobile: Web Audio master gain1.56 reaches the engine source (0.136×1.56)",
+    "mobile: retry restores original ammo digits (6 vs shot 13)",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "profile": "desktop",
+      "name": "full",
+      "whitePixels": 25
+    },
+    {
+      "profile": "desktop",
+      "name": "fired",
+      "whitePixels": 22
+    },
+    {
+      "profile": "desktop",
+      "webAudioGains": [
+        0.21216000616550446,
+        1,
+        0,
+        0.3401305675506592,
+        0.10000002384185791,
+        0.8999999761581421,
+        0.3194718360900879,
+        0.10000002384185791,
+        0.8999999761581421,
+        0.18719999492168427,
+        1,
+        0
+      ]
+    },
+    {
+      "profile": "desktop",
+      "name": "retry",
+      "whitePixels": 27
+    },
+    {
+      "profile": "desktop",
+      "shotChanged": 9,
+      "retryDiffersFromFull": 2
+    },
+    {
+      "profile": "mobile",
+      "name": "full",
+      "whitePixels": 50
+    },
+    {
+      "profile": "mobile",
+      "name": "fired",
+      "whitePixels": 49
+    },
+    {
+      "profile": "mobile",
+      "webAudioGains": [
+        0.21216000616550446,
+        1,
+        0,
+        0.2829451262950897,
+        0.10000002384185791,
+        0.8999999761581421,
+        0.23531898856163025,
+        0.10000002384185791,
+        0.8999999761581421
+      ]
+    },
+    {
+      "profile": "mobile",
+      "name": "retry",
+      "whitePixels": 56
+    },
+    {
+      "profile": "mobile",
+      "shotChanged": 13,
+      "retryDiffersFromFull": 6
+    }
+  ],
+  "success": true
+}

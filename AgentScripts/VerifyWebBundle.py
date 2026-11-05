@@ -4,7 +4,7 @@ root=Path(sys.argv[1] if len(sys.argv)>1 else 'docs');info=json.loads((root/'bui
 def check(label,value):
  assert value,label
  checks.append(label)
-check('Version is 1.57.0',info['version']=='1.57.0')
+check('Version is 1.57.1',info['version']=='1.57.1')
 check('Offline files are unique',len(files)==len(set(files)))
 digest=hashlib.sha256()
 for f in files:

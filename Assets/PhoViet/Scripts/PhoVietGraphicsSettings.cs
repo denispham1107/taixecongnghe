@@ -78,14 +78,15 @@ namespace PhoViet
             SelectedGraphics=chosen;
             ApplyGraphicsLevel((GraphicsLevel)Mathf.Min(2,(int)chosen+drop));
         }
-        // Signals, lamps and floor arrows are many small draws that are barely visible far away.
+        // Signal lenses and street lamps are many small draws that are barely visible far away. Named meshes only:
+        // the road, pavement and markings are combined into "Geometry_*" meshes and must never be culled early (21.138).
         void TagSmallProps()
         {
             if(smallPropsTagged)return;smallPropsTagged=true;
             foreach(var f in GetComponentsInChildren<MeshFilter>(true))
             {
                 if(f.sharedMesh==null||f.gameObject.layer!=0)continue;string n=f.sharedMesh.name;
-                if(n.StartsWith("PV_SignalLenses",System.StringComparison.Ordinal)||n.StartsWith("PV_LEDStreetLamp",System.StringComparison.Ordinal)||n.StartsWith("PV_JunctionArrows",System.StringComparison.Ordinal)||n.StartsWith("Geometry_",System.StringComparison.Ordinal))f.gameObject.layer=SmallPropLayer;
+                if(n.StartsWith("PV_SignalLenses",System.StringComparison.Ordinal)||n.StartsWith("PV_LEDStreetLamp",System.StringComparison.Ordinal))f.gameObject.layer=SmallPropLayer;
             }
             foreach(var t in GetComponentsInChildren<TextMesh>(true))if(t.gameObject.layer==0)t.gameObject.layer=SmallPropLayer;
         }

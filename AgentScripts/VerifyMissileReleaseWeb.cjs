@@ -1,6 +1,6 @@
 // Exercise the actual release WASM and inspect the rendered ammo count.
 const {chromium}=require('playwright'),sharp=require('sharp'),fs=require('node:fs'),assert=require('node:assert/strict');
-const url=process.argv[2]||'http://127.0.0.1:8785/',label=process.argv[3]||'release157-missiles';
+const url=process.argv[2]||'http://127.0.0.1:8785/',label=process.argv[3]||'release1571-missiles';
 const report={url,checks:[],errors:[],samples:[]};
 function check(name,ok){assert(ok,name);report.checks.push(name);console.log('PASS '+name);}
 async function main(){

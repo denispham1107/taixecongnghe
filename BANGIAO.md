@@ -46,6 +46,8 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.138 hoàn tất source/chưa phát hành (Claude Code):** bản 1.57.0 ẩn nhầm mặt đường ở xa, lộ nền xanh nhạt sau giao lộ. Đã bỏ `Geometry_*` khỏi nhóm early-cull, thêm kiểm tra chống tái phát; ảnh 3 mức đã xem.
+
 - **21.137 đã phát hành 1.57.0 (Claude Code):** commit `0845f08`/Pages `42044425442` success/cache `d612d524b1a39e3a`; 28 live + 11 tên lửa live/0 runtime; 540 browser local đạt. Gồm gói 21.136.
 
 - **21.136 đã có trên web 1.57.0 (Claude Code):** tối ưu giật lag mobile. Giả lập DPR3+CPU×4 FPS 1.56→mới có tự giảm: Cao 4,4→38,8; Trung bình 5→57,2; Thấp 6,9→56,1; draw call Thấp 886→179. Gói mobile 116,6→70,3MB. Gồm `GraphicsPlan`, bộ tự giảm, tắt tile ngoài tầm, một nguồn sáng hướng, bỏ cascades, texture mobile 1K, tạo sẵn tài nguyên/shader, rAF. Chi tiết 21.136.
@@ -205,6 +207,8 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 6. **1.36.0:** xe tăng Meshy “Iron Sentinel” (21.33–21.34). **1.35.0:** đổi làn kiểu đánh lái, nhà kính, zoom dọc +10% (21.28–21.32). **1.34.0:** phố Sài Gòn (21.19–21.27).
 
 ## 3. Đang dở / cần người dùng quyết
+
+- **Đang phát hành 1.57.1 (Claude, 06/11/2026, người dùng yêu cầu rõ):** build, docs/pack/materialize và 540 kiểm tra trình duyệt đã đạt, cache `9ff81f1d0cf14557`. Tiếp: commit/push, `.tools/release1571-live.sh` (sửa SHA), ghi commit kết quả.
 
 - **21.137 hoàn tất:** 1.57.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. **Chờ người dùng thử trên điện thoại thật** (`?perf=1` hiện FPS); nếu vẫn giật cần tên máy + số FPS để chỉnh `GraphicsPlan`; nếu tải lâu xem warmup shader. Test cũ lỗi sẵn chưa sửa: `VerifyPerformanceLighting`, `VerifyRiverBridge`, `VerifyRiverCrashSinking`, `VerifyDistanceTanks2199`, `VerifyEnergy2122`, `VerifyEnergyRoutes2122`; `VerifyWebMemory.cjs` còn kiểm DPR>2,5. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta`/Captures lịch sử ngoài commit.
 

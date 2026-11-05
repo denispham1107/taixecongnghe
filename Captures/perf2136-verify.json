@@ -1,6 +1,6 @@
 {
   "success": true,
-  "count": 56,
+  "count": 62,
   "checks": [
     "Level 0 sets its render density, never below CSS resolution",
     "Level 0 spends less than the level above",
@@ -32,11 +32,17 @@
     "Touch plan keeps one directional light by day at level 2",
     "Touch plan keeps one directional light by night at level 2",
     "Scenery shadow casting follows the plan at level 2",
+    "Small props tagged (775)",
+    "No road or ground surface uses the early-cull layer: ",
+    "Only small meshes use the early-cull layer: ",
+    "Early culling removes only tiny details at level 0 (3 pixels)",
+    "Early culling removes only tiny details at level 1 (7 pixels)",
+    "Early culling removes only tiny details at level 2 (0 pixels)",
     "Desktop High keeps its full baseline",
     "Desktop High keeps its full fog distance",
     "Desktop High keeps both directional lights",
     "Desktop High keeps scenery shadows",
-    "Compared 36 frames with and without tile culling",
+    "Compared 35 frames with and without tile culling",
     "Tile culling changes at most 0.05% of pixels (worst 1)",
     "Compared frames include a chosen junction turn",
     "Straight road keeps at most 60% of tiles active (9-10 of 35)",
@@ -214,15 +220,6 @@
       "diff": 0
     },
     {
-      "level": 2,
-      "hour": 26.0,
-      "sample": 8,
-      "active": 10,
-      "turning": true,
-      "junction": 1.0,
-      "diff": 0
-    },
-    {
       "level": 0,
       "hour": 8.0,
       "sample": 0,
@@ -265,7 +262,7 @@
       "active": 10,
       "turning": false,
       "junction": 67.0,
-      "diff": 0
+      "diff": 1
     },
     {
       "level": 0,
@@ -346,7 +343,7 @@
       "active": 10,
       "turning": false,
       "junction": 67.0,
-      "diff": 1
+      "diff": 0
     },
     {
       "level": 0,

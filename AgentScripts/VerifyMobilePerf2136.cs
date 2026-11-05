@@ -36,6 +36,25 @@ public static class VerifyMobilePerf2136
     var shop=g.scenery.GetComponentsInChildren<MeshRenderer>(true).First(r=>r.name.StartsWith("PV_StreetShop"));Check((shop.shadowCastingMode==UnityEngine.Rendering.ShadowCastingMode.On)==plan.sceneryShadows,"Scenery shadow casting follows the plan at level "+level);
     lastFar=plan.far;lastCap=plan.pixelCap;lastLod=plan.lodBias;
    }
+   // ---- 21.138: nothing large, and nothing on the ground, may be culled early: it left the bare ground showing past the junction.
+   var tagged=g.GetComponentsInChildren<MeshRenderer>(true).Where(r=>r.gameObject.layer==PhoVietGame.SmallPropLayer).ToArray();
+   Check(tagged.Length>0,"Small props tagged ("+tagged.Length+")");
+   var groundShaders=new[]{"PhoViet/Road With Tank Craters","PhoViet/City Ground"};
+   var wrong=tagged.Where(r=>r.GetComponent<TextMesh>()==null&&r.sharedMaterials.Any(m=>m!=null&&groundShaders.Contains(m.shader.name))).Select(r=>r.name).Distinct().ToArray();
+   Check(wrong.Length==0,"No road or ground surface uses the early-cull layer: "+string.Join(",",wrong.Take(5)));
+   var large=tagged.Where(r=>r.GetComponent<TextMesh>()==null&&r.GetComponent<MeshFilter>()!=null&&r.GetComponent<MeshFilter>().sharedMesh.bounds.extents.magnitude>12).Select(r=>r.GetComponent<MeshFilter>().sharedMesh.name).Distinct().ToArray();
+   Check(large.Length==0,"Only small meshes use the early-cull layer: "+string.Join(",",large.Take(5)));
+   // Road ahead stays asphalt, not ground: the road must draw as far as the view reaches on every level.
+   foreach(int level in new[]{0,1,2})
+   {
+    g.SetGraphicsQuality(level);g.ResetRide();g.StartRide();g.daylight.SetCycleTime(8);foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}
+    var tickRoad=(Action<float>)Delegate.CreateDelegate(typeof(Action<float>),g,typeof(PhoVietGame).GetMethod("TickRide",F));
+    for(int i=0;i<60&&g.Distance<42;i++){tickRoad(1/30f);foreach(var v in g.vehicles)if(v.active){v.active=false;v.model.gameObject.SetActive(false);}}
+    g.daylight.UpdateLamps();Call("UpdateTileCulling",true);
+    var withCull=Shot(rt,t);var cull=g.rideCamera.layerCullDistances;g.rideCamera.layerCullDistances=new float[32];var noCull=Shot(rt,t);g.rideCamera.layerCullDistances=cull;
+    int changed=0;for(int i=0;i<withCull.Length;i+=3)if(Math.Abs(withCull[i]-noCull[i])+Math.Abs(withCull[i+1]-noCull[i+1])+Math.Abs(withCull[i+2]-noCull[i+2])>60)changed++;
+    Check(changed<=rt.width*rt.height/200,"Early culling removes only tiny details at level "+level+" ("+changed+" pixels)");
+   }
    // ---- desktop baseline untouched
    g.forceTouchGraphics=false;g.SetGraphicsQuality(0);
    Check(g.rideCamera.farClipPlane==far&&g.rideCamera.layerCullDistances.All(v=>v==0)&&g.rideCamera.GetComponent<RiverReflection>().enabled&&g.rideCamera.GetComponent<MorningFog>().volumeAllowed,"Desktop High keeps its full baseline");

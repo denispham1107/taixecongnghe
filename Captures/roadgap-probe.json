@@ -1,0 +1,536 @@
+[
+  {
+    "level": 0,
+    "distance": 23.0,
+    "junction": 45.0,
+    "far": 165.0,
+    "lodBias": 0.8,
+    "fogStart": 71.87927,
+    "fogEnd": 165.0,
+    "fogColor": "C0C9D6",
+    "tiles": 10,
+    "ahead": [
+      {
+        "what": "Vạch mũi tên giao lộ • 4 hướng|PV_JunctionArrows16|PV_FFF1CFFFFalse 6/PhoViet/Road With Tank Craters",
+        "z": -22.0,
+        "near": -36.0,
+        "far": -7.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_555D5DFFFalse|Geometry_1 6|PV_555D5DFFFalse 2/PhoViet/Road With Tank Craters",
+        "z": -50.0,
+        "near": -90.0,
+        "far": -10.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_FFD35AFFFalse|Geometry_2 6|PV_FFD35AFFFalse 4/PhoViet/Road With Tank Craters",
+        "z": -60.0,
+        "near": -89.0,
+        "far": -30.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": -61.0,
+        "near": -70.0,
+        "far": -52.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": -62.0,
+        "near": -71.0,
+        "far": -53.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vạch mũi tên giao lộ • 4 hướng|PV_JunctionArrows16|PV_FFF1CFFFFalse 6/PhoViet/Road With Tank Craters",
+        "z": 54.0,
+        "near": 39.0,
+        "far": 69.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_555D5DFFFalse|Geometry_14 5|PV_555D5DFFFalse 2/PhoViet/Road With Tank Craters",
+        "z": 26.0,
+        "near": -14.0,
+        "far": 66.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_FFD35AFFFalse|Geometry_15 4|PV_FFD35AFFFalse 4/PhoViet/Road With Tank Craters",
+        "z": 16.0,
+        "near": -13.0,
+        "far": 45.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 14.0,
+        "near": 5.0,
+        "far": 23.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 14.0,
+        "near": 5.0,
+        "far": 23.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vạch mũi tên giao lộ • 4 hướng|PV_JunctionArrows16|PV_FFF1CFFFFalse 6/PhoViet/Road With Tank Craters",
+        "z": 130.0,
+        "near": 115.0,
+        "far": 144.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_555D5DFFFalse|Geometry_27 3_River|PV_555D5DFFFalse 2/PhoViet/Road With Tank Craters",
+        "z": 102.0,
+        "near": 62.0,
+        "far": 142.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_FFD35AFFFalse|Geometry_28 3_River|PV_FFD35AFFFalse 4/PhoViet/Road With Tank Craters",
+        "z": 92.0,
+        "near": 63.0,
+        "far": 121.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 90.0,
+        "near": 81.0,
+        "far": 99.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 90.0,
+        "near": 81.0,
+        "far": 99.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vạch mũi tên giao lộ • 4 hướng|PV_JunctionArrows16|PV_FFF1CFFFFalse 6/PhoViet/Road With Tank Craters",
+        "z": 206.0,
+        "near": 191.0,
+        "far": 220.0,
+        "on": true,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Geometry • PV_555D5DFFFalse|Geometry_40 2|PV_555D5DFFFalse 2/PhoViet/Road With Tank Craters",
+        "z": 177.0,
+        "near": 137.0,
+        "far": 217.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_FFD35AFFFalse|Geometry_41 2|PV_FFD35AFFFalse 4/PhoViet/Road With Tank Craters",
+        "z": 168.0,
+        "near": 139.0,
+        "far": 197.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 166.0,
+        "near": 157.0,
+        "far": 175.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 166.0,
+        "near": 157.0,
+        "far": 175.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      }
+    ]
+  },
+  {
+    "level": 1,
+    "distance": 23.0,
+    "junction": 45.0,
+    "far": 135.0,
+    "lodBias": 0.42,
+    "fogStart": 58.81031,
+    "fogEnd": 135.0,
+    "fogColor": "C0C9D6",
+    "tiles": 8,
+    "ahead": [
+      {
+        "what": "Vạch mũi tên giao lộ • 4 hướng|PV_JunctionArrows16|PV_FFF1CFFFFalse 6/PhoViet/Road With Tank Craters",
+        "z": -22.0,
+        "near": -36.0,
+        "far": -7.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_555D5DFFFalse|Geometry_1 6|PV_555D5DFFFalse 2/PhoViet/Road With Tank Craters",
+        "z": -50.0,
+        "near": -90.0,
+        "far": -10.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_FFD35AFFFalse|Geometry_2 6|PV_FFD35AFFFalse 4/PhoViet/Road With Tank Craters",
+        "z": -60.0,
+        "near": -89.0,
+        "far": -30.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": -61.0,
+        "near": -70.0,
+        "far": -52.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": -62.0,
+        "near": -71.0,
+        "far": -53.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vạch mũi tên giao lộ • 4 hướng|PV_JunctionArrows16|PV_FFF1CFFFFalse 6/PhoViet/Road With Tank Craters",
+        "z": 54.0,
+        "near": 39.0,
+        "far": 69.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_555D5DFFFalse|Geometry_14 5|PV_555D5DFFFalse 2/PhoViet/Road With Tank Craters",
+        "z": 26.0,
+        "near": -14.0,
+        "far": 66.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_FFD35AFFFalse|Geometry_15 4|PV_FFD35AFFFalse 4/PhoViet/Road With Tank Craters",
+        "z": 16.0,
+        "near": -13.0,
+        "far": 45.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 14.0,
+        "near": 5.0,
+        "far": 23.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 14.0,
+        "near": 5.0,
+        "far": 23.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vạch mũi tên giao lộ • 4 hướng|PV_JunctionArrows16|PV_FFF1CFFFFalse 6/PhoViet/Road With Tank Craters",
+        "z": 130.0,
+        "near": 115.0,
+        "far": 144.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_555D5DFFFalse|Geometry_27 3_River|PV_555D5DFFFalse 2/PhoViet/Road With Tank Craters",
+        "z": 102.0,
+        "near": 62.0,
+        "far": 142.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_FFD35AFFFalse|Geometry_28 3_River|PV_FFD35AFFFalse 4/PhoViet/Road With Tank Craters",
+        "z": 92.0,
+        "near": 63.0,
+        "far": 121.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 90.0,
+        "near": 81.0,
+        "far": 99.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 90.0,
+        "near": 81.0,
+        "far": 99.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vạch mũi tên giao lộ • 4 hướng|PV_JunctionArrows16|PV_FFF1CFFFFalse 6/PhoViet/Road With Tank Craters",
+        "z": 206.0,
+        "near": 191.0,
+        "far": 220.0,
+        "on": true,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Geometry • PV_555D5DFFFalse|Geometry_40 2|PV_555D5DFFFalse 2/PhoViet/Road With Tank Craters",
+        "z": 177.0,
+        "near": 137.0,
+        "far": 217.0,
+        "on": true,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Geometry • PV_FFD35AFFFalse|Geometry_41 2|PV_FFD35AFFFalse 4/PhoViet/Road With Tank Craters",
+        "z": 168.0,
+        "near": 139.0,
+        "far": 197.0,
+        "on": true,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 166.0,
+        "near": 157.0,
+        "far": 175.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 166.0,
+        "near": 157.0,
+        "far": 175.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      }
+    ]
+  },
+  {
+    "level": 2,
+    "distance": 23.0,
+    "junction": 45.0,
+    "far": 115.0,
+    "lodBias": 0.3,
+    "fogStart": 50.0976753,
+    "fogEnd": 115.0,
+    "fogColor": "C0C9D6",
+    "tiles": 7,
+    "ahead": [
+      {
+        "what": "Vạch mũi tên giao lộ • 4 hướng|PV_JunctionArrows16|PV_FFF1CFFFFalse 6/PhoViet/Road With Tank Craters",
+        "z": -22.0,
+        "near": -36.0,
+        "far": -7.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_555D5DFFFalse|Geometry_1 6|PV_555D5DFFFalse 2/PhoViet/Road With Tank Craters",
+        "z": -50.0,
+        "near": -90.0,
+        "far": -10.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_FFD35AFFFalse|Geometry_2 6|PV_FFD35AFFFalse 4/PhoViet/Road With Tank Craters",
+        "z": -60.0,
+        "near": -89.0,
+        "far": -30.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": -61.0,
+        "near": -70.0,
+        "far": -52.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": -62.0,
+        "near": -71.0,
+        "far": -53.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vạch mũi tên giao lộ • 4 hướng|PV_JunctionArrows16|PV_FFF1CFFFFalse 6/PhoViet/Road With Tank Craters",
+        "z": 54.0,
+        "near": 39.0,
+        "far": 69.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_555D5DFFFalse|Geometry_14 5|PV_555D5DFFFalse 2/PhoViet/Road With Tank Craters",
+        "z": 26.0,
+        "near": -14.0,
+        "far": 66.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_FFD35AFFFalse|Geometry_15 4|PV_FFD35AFFFalse 4/PhoViet/Road With Tank Craters",
+        "z": 16.0,
+        "near": -13.0,
+        "far": 45.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 14.0,
+        "near": 5.0,
+        "far": 23.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 14.0,
+        "near": 5.0,
+        "far": 23.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vạch mũi tên giao lộ • 4 hướng|PV_JunctionArrows16|PV_FFF1CFFFFalse 6/PhoViet/Road With Tank Craters",
+        "z": 130.0,
+        "near": 115.0,
+        "far": 144.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_555D5DFFFalse|Geometry_27 3|PV_555D5DFFFalse 2/PhoViet/Road With Tank Craters",
+        "z": 102.0,
+        "near": 62.0,
+        "far": 142.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Geometry • PV_FFD35AFFFalse|Geometry_28 3|PV_FFD35AFFFalse 4/PhoViet/Road With Tank Craters",
+        "z": 92.0,
+        "near": 63.0,
+        "far": 121.0,
+        "on": true,
+        "lod": "",
+        "visible": true
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 90.0,
+        "near": 81.0,
+        "far": 99.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      },
+      {
+        "what": "Vệt sáng đèn đường|PV_OpticalGround|PV_StreetSpill/PhoViet/Optical Light",
+        "z": 90.0,
+        "near": 81.0,
+        "far": 99.0,
+        "on": false,
+        "lod": "",
+        "visible": false
+      }
+    ]
+  }
+]
