@@ -1,0 +1,12 @@
+{
+  "approved": false,
+  "selected": null,
+  "scope": "Road missile ammo pickup only; excludes HUD, button and projectiles in flight",
+  "candidates": {
+    "A": "Rocket Pop - standalone rounded rocket above small cyan halo",
+    "B": "Orbit Coin - raised rocket on thick navy disc with cyan edge",
+    "C": "Hex Ammo - raised rocket on cobalt hexagonal badge with amber rim"
+  },
+  "source": "MissilePickup_ABC.blend",
+  "preview": "missile-pickup-ABC.png"
+}

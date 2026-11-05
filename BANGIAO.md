@@ -24,6 +24,7 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
+| Mẫu pickup tên lửa chờ duyệt | **21.130:**3mẫu Blender A/Rocket Pop, B/Orbit Coin, C/Hex Ammo;2ảnh trong `ArtSource/Concepts/MissilePickup-20261105/`. `approval=false/selected=null`, chỉ icon trên đường; **chưa thay Unity/HUD/đạn bay** |
 | Vệt lửa/khói tên lửa trong source | **21.129 chưa phát hành:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch, web1.54.0 giữ |
 | Tên lửa người chơi trong source | **21.128 chưa phát hành:**3/3,2pickup/phố-cầu/+1,nút/F khi bay/chờ0,4s/homing; không mục tiêu vẫn bắn thẳng,trúng trực thăng cháy/rơi.1278Unity/436browser/5ảnh đạt; web1.54.0 chưa có |
 | Cháy va chạm mặt đất trong source | **21.127 chưa phát hành:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt; web1.54.0 chưa có |
@@ -41,6 +42,8 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.130 concept xong/chờ duyệt:** dựng3pickup tên lửa bằng BlenderMCP,2ảnh studio/mặt đường đã xem; nguồn/script/approvalfalse tại `ArtSource/Concepts/MissilePickup-20261105/`. So3199file runtime/web SHA giữ nguyên, Blender về scene gốc8object; chưa tích hợp/build/push/web. Lưucommitlocal cùng2docs. Chỉ làm tiếp mẫu được chọn, không đổi HUD/nút/đạn bay21.129.
 
 - **21.129 hoàn tất source, chưa phát hành:** lửa vàng-cam có turbulence bám sau đuôi/đường bay, khói trắng xám rõ hơn;32điểm/6,5m/0,14s +32hạt/0,6s, chung52missile.722Unity (65FX+261player+222heli+174scene) đạt,5ảnh ngày/đêm/dọc/cận/2chiều đã xem. Giữ gameplay/atlas/môi trường; pause-scroll-rebase-pool đúng. UnityEdit/scenesạch/jobsfalse; lưucommitlocal+2docs,chưa build/push/web(vẫn1.54.0). Chi tiết21.129.
 
@@ -186,6 +189,9 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.130 chờ người dùng duyệt A/B/C:** board `ArtSource/Concepts/MissilePickup-20261105/missile-pickup-ABC.png`, ảnh đường `missile-pickup-road-preview.png`; approvalfalse. Chỉ sau khi chọn mới tối ưu/export/thay pickup đường; chưa có thay đổi Unity/web. Blender gốc được khôi phục, không còn bước dựng/render đang chạy.
+
+
 - **21.129 đã hoàn tất source/kiểm tra:** không còn bước sửa hay kiểm hình đang dở. Chưa có yêu cầu build/phát hành lượt này; web vẫn1.54.0. UnityEdit/scene sạch, dirty ngoài phạm vi giữ nguyên.
 
 
@@ -330,6 +336,7 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
 | Trang chủ HTML / duy nhất ảnh người dùng / responsive | **21.119**,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `poster-home.png`; `Editor/PhoVietWebBuild.cs`→RefreshWebShell; `AgentScripts/RefreshLandingPreview.cs`, `VerifyLanding.cjs`. Không dùngcapturecũ để thayảnhPNG này |
+| Concept pickup tên lửa chờ duyệt | **21.130** | `ArtSource/Concepts/MissilePickup-20261105/` (`approval.json`, `build_concepts.py`, hai `.blend`, hai PNG, `verification.json`) |
 | Vệt lửa/khói tên lửa | **21.129** | `Scripts/MissileFlightVisual.cs`, `MissileTrail.shader`, `Editor/PhoVietMissileTrailSetup.cs`, `Resources/Helicopter/PV_HelicopterMissile.prefab`; `AgentScripts/UpgradeMissileTrail2129.cs`, `VerifyMissileTrail2129.cs`, `CaptureMissileTrail2129.cs` |
 | Năng lượng / icon C / giữ cao độ / lộn360 | **21.121–21.123** | `Scripts/PhoVietEnergy.cs`, `PhoVietJump.cs`, `PlayerCarVisual.cs`, `PhoVietActions.cs`, `PhoVietRiver.cs`, `PhoVietDistanceHud.cs`; `Resources/Energy/`, `Art/Energy/`, `EnergyPickup.shader`; `AgentScripts/VerifyEnergyWeb.cjs`, `VerifyRelease154Scene.cs`, `AgentScripts/VerifyEnergy2122.cs`, `VerifyEnergyRoutes2122.cs`, `InstallEnergy2122.cs`, `CaptureEnergy2122.cs`; `ArtSource/Concepts/Energy-20261103/approval.json` |
 | WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.106**,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease152Scene.cs`, `VerifyStormWeb.cjs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
