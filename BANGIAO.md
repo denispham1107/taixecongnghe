@@ -10,7 +10,7 @@ Cập nhật lần cuối: **06/11/2026 — Claude Code**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.57.1** — commit `fcd8fa0`; Pages `42074745472` success; cache `9ff81f1d0cf14557`; **28 live + 11 tên lửa live đạt/0 runtime**, 540 browser local đạt; tối ưu giật lag mobile 21.136 + sửa vùng xanh 21.138. Báo cáo `Captures/VERIFICATION_RELEASE_1_57_1.md` |
+| Bản đã phát hành | **1.58.0** — commit `6fc558b`; Pages `42092459874` success; cache `5b4a43086927aac5`; **28 live + tên lửa 11 + nút bay 9 + vuốt 22 live đạt/0 runtime**, 540 browser local đạt; vuốt ngang sửa, nút bay, icon năng lượng trên không. Báo cáo `Captures/VERIFICATION_RELEASE_1_58.md` |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -32,7 +32,7 @@ Cập nhật lần cuối: **06/11/2026 — Claude Code**
 | Tên lửa người chơi trong source | **21.128 đã có trên web1.55.0:**3/3,2pickup/phố-cầu/+1,nút/F khi bay/chờ0,4s/homing; không mục tiêu vẫn bắn thẳng,trúng trực thăng cháy/rơi.1278Unity/436browser/5ảnh đạt |
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
 | Trực thăng / nhảy mobile mới | **21.126/21.132 đã có trên web1.55.0 (đạn40m/s):** giữ2–5chiếc/theo400m/4làn/so le; thêm tên lửa1→0,5s/40slot, bay thẳng/roll né. Trúng đạn hoặc đâm trực thăng rơi cháy/kết thúc kể cảCSGT; máy bay va chạm cũng cháy. Nhảy tức thời/queue70% giữ.1028Unity/387layout đạt |
-| Nút bay / icon trên không | **21.140 chỉ trong source, chưa lên web:** nút bay trên nút tên lửa; 3 icon năng lượng mỗi tile chỉ hiện khi bay; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
+| Nút bay / icon trên không | **21.140 đã có trên web 1.58.0:** nút bay trên nút tên lửa; 3 icon năng lượng mỗi tile chỉ hiện khi bay; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
 | Năng lượng / bay / lộn | **21.122–21.123 đã có trên web1.54.0:** C đượcduyệt/đãtíchhợp;150NL/nhảy−5/nhặt+15/haiiconkháclànmỗi phố-cầu;Space/vuốtlênbật-tắtbay/−10mỗi0,5s/hếtNLtựhạ;Q/doubletapkhibaylộn360°0,9s.4998Unity/464browserlocal/27liveđạt |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
@@ -47,7 +47,9 @@ Cập nhật lần cuối: **06/11/2026 — Claude Code**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.140 hoàn tất source/chưa phát hành (Claude Code):** màn hình ngang từng bỏ qua vuốt ở dải dưới, có góc chết 37–52°, ngón nghỉ chặn ngón vuốt; đã sửa, chạm thật qua shell cũ 12/22 → mới 22/22. Thêm nút bay trên nút tên lửa và 3 icon năng lượng mỗi tile ở độ cao bay. `VerifyFlight2140` 94 đạt.
+- **21.141 đã phát hành 1.58.0 (Claude Code):** commit `6fc558b`/Pages `42092459874` success/cache `5b4a43086927aac5`; live 28 + tên lửa 11 + nút bay 9 + vuốt 22 đạt/0 runtime; 540 browser local. Gồm 21.140.
+
+- **21.140 đã có trên web 1.58.0 (Claude Code):** màn hình ngang từng bỏ qua vuốt ở dải dưới, có góc chết 37–52°, ngón nghỉ chặn ngón vuốt; đã sửa, chạm thật qua shell cũ 12/22 → mới 22/22. Thêm nút bay trên nút tên lửa và 3 icon năng lượng mỗi tile ở độ cao bay. `VerifyFlight2140` 94 đạt.
 
 - **21.139 đã phát hành 1.57.1 (Claude Code):** commit `fcd8fa0`/Pages `42074745472` success/cache `9ff81f1d0cf14557`; 28 live + 11 tên lửa live/0 runtime; 540 browser local đạt. Gồm sửa vùng xanh 21.138.
 
@@ -213,9 +215,7 @@ Cập nhật lần cuối: **06/11/2026 — Claude Code**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **Đang phát hành 1.58.0 (Claude, 06/11/2026, người dùng yêu cầu rõ):** build, docs/pack/materialize, 540 kiểm tra trình duyệt, vuốt 22/22 và nút bay 9/9 đã đạt, cache `5b4a43086927aac5`. Tiếp: commit/push, `.tools/release158-live.sh` (sửa SHA), ghi commit kết quả.
-
-- **21.139 hoàn tất:** 1.57.1 đã phát hành/xác minh live, hết vùng xanh. Không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. **Chờ người dùng xác nhận trên điện thoại** (`?perf=1` hiện FPS). Nếu cần thêm FPS: chỉ ẩn sớm các `Geometry_*` nhỏ đã kiểm từng loại (21.139), tuyệt đối không ẩn mặt đường. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta`/Captures lịch sử ngoài commit.
+- **21.141 hoàn tất:** 1.58.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. **Chờ người dùng thử trên điện thoại:** vuốt màn hình ngang, nút bay, mật độ icon trên không (`AirPickupsPerTile`=3, tự chọn). Test cũ lỗi sẵn: `VerifyJump`, `VerifyPerformanceLighting`, `VerifyRiverBridge`, `VerifyRiverCrashSinking`, `VerifyDistanceTanks2199`, `VerifyEnergy2122`, `VerifyEnergyRoutes2122`. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta`/Captures lịch sử ngoài commit.
 
 - **21.135 hoàn tất:** 1.56.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. Chưa nghe thử loa/điện thoại thật (1,56× có thể méo khi nhiều tiếng to chồng nhau; nếu rè thì giảm `MasterGain` rồi chạy `InstallAudio2132`). Chưa thử Safari/Android máy thật. Verifier cũ cần sửa nếu dùng lại: `VerifyHudTap.cs` (tọa độ HUD cũ), `VerifyPlayerMissileScene2128.cs` (ghi cứng 1.54.0). Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta` ngoài commit.
 

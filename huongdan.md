@@ -3317,4 +3317,5 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Vuốt và nút bay trên WASM 1.58.0 thật:** `VerifySwipeShell2140.cjs` **22/22** (ngang và dọc); `VerifyFlightWeb2140.cjs` **9/9**: chạm nút bay, viền xanh → vàng khi bay → xanh khi đáp, ngang và dọc, 0 lỗi runtime. Lần chạy đầu ở màn hình dọc thất bại vì xe đâm xe máy sau khi đáp, chuyến đi kết thúc nên nút ẩn; đã cho test chụp ngay sau khi ấn và thử lại nếu chuyến đi kết thúc, không đổi game. Ảnh `Captures/release158-flight-*.png` đã xem.
 - **FPS CPU×2 cố định, 1.57.1 → 1.58.0, Cao/Trung bình/Thấp:** 23,2/36,7/49,4 → 23,2/32,2/45,9. Trung bình và Thấp thấp hơn 7–12% trong một lần đo, chưa tách được do nhiễu hay do 105 icon trên không (ẩn khi không bay) và nút mới.
 - **Giữ ngoài commit:** như 21.137.
-
+- **Đã phát hành và xác minh live:** commit `6fc558b`, push main; [Pages run 42092459874](https://github.com/denispham1107/taixecongnghe/actions/runs/42092459874) completed/success đúng SHA. Live: version 1.58.0 / cache `5b4a43086927aac5`. `VerifyPublishedGame` **28 đạt, 0 lỗi runtime**; trên trang live tên lửa **11/11**, nút bay **9/9**, vuốt **22/22**. Tóm tắt: `Captures/VERIFICATION_RELEASE_1_58.md`.
+- **Bàn giao cuối:** Unity Edit Mode, scene sạch, jobs khóa, server 8785 đã dừng; không rebuild sau kiểm tra. Chờ người dùng thử trên điện thoại.
