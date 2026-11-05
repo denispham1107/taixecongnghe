@@ -19,7 +19,10 @@ Codex build; Claude Code kiểm tra cuối và phát hành, không rebuild. Chi 
 
 ## Phát hành
 
-- Đang commit/push main. SHA, Pages run và kiểm tra live sẽ ghi tiếp vào đây.
+- Source/artifact `86b26ec`, push main.
+- Pages run 41983779125 completed/success đúng SHA: https://github.com/denispham1107/taixecongnghe/actions/runs/41983779125
+- Live: version 1.55.0 / cache `7a2f7e521dd62b06`; 27 kiểm tra đạt, 0 lỗi runtime (`release155-live-results.json`, `release155-pages.json`).
+- Bài tên lửa/âm lượng chạy trên chính trang live: 11 đạt, 0 lỗi (`release155-live-missiles-checks.json`).
 
 ## Chưa làm
 
