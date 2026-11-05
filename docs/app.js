@@ -51,7 +51,8 @@ function syncViewport(){
     left:clamp(((parseFloat(css.paddingLeft)||0)-bounds.left)/bounds.width),
     top:clamp(((parseFloat(css.paddingTop)||0)-bounds.top)/bounds.height),
     right:clamp(((parseFloat(css.paddingRight)||0)-(width-bounds.right))/bounds.width),
-    bottom:clamp(((parseFloat(css.paddingBottom)||0)-(height-bounds.bottom))/bounds.height)
+    bottom:clamp(((parseFloat(css.paddingBottom)||0)-(height-bounds.bottom))/bounds.height),
+    pixelRatio:unityInstance.Module.devicePixelRatio
   });
   if(insets!==lastInsets){unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','ApplyBrowserInsets',insets);lastInsets=insets;}
 }

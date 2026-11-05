@@ -3180,3 +3180,23 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Kiểm tra:1.016Unity đạt** =67kiểm mới (mọi9nguồn hiện có qua đúng mixer, giữ balance/voice0,9,route20lần không nhân lặp,đạn40m/s tại4tốc độ0/17/30/67,5×4FPS120/60/30/20,scroll chính xác/player missile giữ) +222enemy missile +261player missile +286fleet/rotor/mute/pause +65trail +115scene/HUD/pickupC. `VerifyAudioMissile2132.cs`; hồi quy dùng file hiện hành với output prefix riêng. Verifier fleet2125 còn assertion CrashDuringPursuit==chase từ trước21.126: đã cập nhật thành rơi cháy/thoát chase theo luật hiện tại, không sửa runtime va chạm. Report `Captures/audio2132-*checks.json`, `verification-summary.json`.
 - **Đo âm thực tế trong Editor:** `MeasureMasterGain2132.cs` dùng tone400Hz/volume0,2, AudioListener.GetOutputData trước/sau routing; đo12buffer có tín hiệu mỗi pha, giữ rawsamples. RMS trước0,01000271, sau0,01305636 → **gain1,30528** (mục tiêu1,3, tolerance±0,03). Bản fixture đầu lấy cả2buffer DSP khởi động rỗng làm sai trung bình; đã thêm chờ signal/median12buffer và chạy lại đạt, không thay gain game để khớp phép đo. Hủy probe/clip, khôi phục pause nguồn/timeScale sau đo. `audio2132-output-measurement.json`; không phải đo loa điện thoại hay bảnWebGL mới.
 - **Bảo toàn/trạng thái:** kiểm3.201file baseline (SHA dirty-art từ phiên trước, tiến đúng assetC đã commit ởHEAD): chỉ6file runtime nêu trên thay đổi;3.195file khác nguyênbyte, gồm toàn bộ scene/model/texture/HUD/web. Thêm helper/mixer/meta/Editor/test/report riêng; giữ dirty ngoài phạm vi. Unity **Edit Mode/không compile-build/scene sạch/jobsfalse**, mixer sau thoátPlay vẫn+2,2788668dB/1,3×. Lưu commit local cùng2tài liệu. **Chưa build WebGL/push/phát hành**, web vẫn1.54.0/ee18d91; chưa thử WASM mới hoặc Safari/Android/iPad máy thật. Không đổi hình ảnh nên không chụp lại screenshot.
+
+
+## 21.133. Build/phát hành WebGL 1.55.0 (05/11/2026 — Codex build, Claude Code kiểm tra cuối và phát hành)
+
+- Yêu cầu trực tiếp build/phát hành, baseline143cd79; gom các source21.124–21.132 đã kiểm riêng: nhảy mobile queue70%, đội trực thăng2–5/missile, cháy va chạm đa điểm, tên lửa player/kho3/3/nútF, lửa-khói đạn rõ hơn, pickupC, đạn địch40m/s và masterâm1,3×. Không mở khách/không đưa concept nhà/cầu chưa duyệt vào game.
+- Đãfetch origin/main, không có commitremote mới cần gộp;9commitlocal đang chờpush. Snapshot source/dirty trướcversion; đangđồngbộ1.55.0/configure/preflight, tiếpbuildETC2+DXT/ghépdata/kiểmbrowser/stage/push/Pages/live. Giữscene/môi trường/pixeltexture vàdirtyArt/Wave/Packages/Simulatorngoàicommit;webvẫn1.54.0chođếnkhixácminh.
+
+- **Mốc build:**configure1.55.0thực tế hoàn tất sau HTTP180s timeout, đãprobeversion/ETC2/idletrướcqueuekhônglặpmutation.182preflightmobile+182desktopđạt;Buildđủ2variantSucceeded/0error,total462759ms,desktop81145ms;1warningPipelineNoRuntimeConfig(bridgeEditorkhôngvàoplayer).576frozenSHAgiữ;scopechỉbuilder/version/texturecompressionmeta. Đãcopydocs,dọnđúnghashcũ,đangpack/materialize/browser;chưapush/web.
+
+- **Claude Code tiếp nhận (người dùng yêu cầu “Codex đã build nhưng chưa phát hành, kiểm tra tiếp và phát hành”):** không rebuild. Đã đối chiếu lại:
+  - `release155_artifact.py check`: 576 file nguồn khớp lúc build.
+  - Tính lại cache từ các part: `7a2f7e521dd62b06`, khớp `build-info.json`.
+  - 21 file của `.tools/release155-site` trùng byte với `docs`.
+  - Remote không có commit mới (ahead 9).
+  - Scene đã lưu, `jobsEnabled=0`, `RideJobsReleased=false`.
+- **Bước Codex đang dở:** `VerifyMissileReleaseWeb` báo `success=false` lúc 13:14 vì `locator.focus` quá 30 s trong Chrome dựng hình phần mềm. Script đã nới timeout nhưng chưa chạy lại. Chạy lại lộ ra 2 assertion sai của chính bài kiểm tra; **không đổi game, không đổi binary**:
+  - *Web Audio master gain:* bài cũ tìm node gain đúng 1,3. Trên Web, Unity nhân gain mixer vào node của từng nguồn, không có node master riêng. Đo được **0,1768 = 0,136 × 1,3** (động cơ) trên cả desktop và mobile, xác nhận âm lượng +30% chạy trên WASM thật. Assertion đổi sang giá trị này.
+  - *Chơi lại khôi phục số đạn:* nút tên lửa hơi trong suốt, vạch qua đường trắng phía sau làm lệch mặt nạ pixel 4–5 điểm, vượt ngưỡng cứng ≤ 2. Ảnh cho thấy đúng 3/3 → 2/3 → 3/3 ở cả nút và HUD. Assertion đổi thành độ lệch sau chơi lại ≤ một nửa độ thay đổi do phát bắn (desktop 2 so với 9, mobile 4 so với 14).
+- **Kết quả artifact cuối, cache `7a2f7e521dd62b06`:** 182 preflight mỗi GPU, 43 bundle repo, 33 bundle site, 7 publish parts. **Trình duyệt 468 đạt, 0 lỗi JS/Unity:** landing 387, web/PWA 37, fullscreen 20, năng lượng 13, tên lửa 11 (báo cáo `Captures/release155-*-checks.json`).
+- **Phát hành:** đang commit/push main; SHA, Pages run và kiểm tra live ghi tiếp vào mục này.

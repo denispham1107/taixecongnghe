@@ -194,6 +194,10 @@ Cập nhật lần cuối: **05/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **Claude tiếp nhận phát hành 1.55.0 (05/11/2026):** Đã xác minh cache7a2f7e521dd62b06/preflight/bundle/landing/web/fullscreen/energy đạt. Còn: chạy lại VerifyMissileReleaseWeb (lần 13:14 trượt do focus timeout phần mềm), stage→VerifyStagedWeb→commit→push→Pages→live. Không rebuild. Server 8785 phục vụ .tools/release155-site.
+
+- **21.133 build1.55.0 xong, đang kiểm artifact:**2variantSucceeded/0error,7phút43s, warningPipelineEditor-only.182preflightmỗiGPUđạt/576sourceSHAgiữ,scene/pixelgeometrygiữ. Đãcopydocs/đangpack/materialize/browser (gồmF/tap ammo vàWebAudiogain1,3). Webvẫn1.54.0/chưapush; UnityEdit,khôngmutationBlender,dirtyngoàiphạmvi giữ.
+
 - **21.132 hoàn tất:** không còn bước sửa/đo âm đang chạy. UnityEdit/scene sạch; master lưu1,3×. Chưa có yêu cầu build/phát hành lượt này; web1.54.0 giữ.
 
 

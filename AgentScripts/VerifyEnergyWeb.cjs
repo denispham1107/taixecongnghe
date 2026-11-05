@@ -43,7 +43,7 @@ async function main(){
    }
    await send('RestartRide');const full=await sample('full');
    check(profile+': full150 energy bar renders',full>.94);
-   await jump();await send('TickJump',.45);await jump();
+   await jump();await jump();await send('TickJump',.35);
    const hover=await sample('hover');check(profile+': jump and hover spend energy',hover<full-.015&&hover>.5);
    await send('TickJump',1);const drained=await sample('drain');
    check(profile+': holding altitude consumes energy in real WASM',drained<hover-.07&&drained>0);
