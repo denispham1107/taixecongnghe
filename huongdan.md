@@ -3262,4 +3262,5 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Artifact:** cache `d612d524b1a39e3a`, 206.018.898 byte; data mobile 70,3MB gzip (trước 116,6MB)/giải nén 81,8MB, desktop 124,2MB gzip/giải nén 135,7MB. Bundle: 43 repo, 34 site. Copy docs, pack, materialize `.tools/release157-site`.
 - **Trình duyệt trên site đã ghép: 540 đạt, 0 lỗi JS/Unity:** landing 459, web/PWA 37, fullscreen 20, năng lượng 13, tên lửa 11. Báo cáo `Captures/release157-*-checks.json`.
 - **Giữ ngoài commit:** `Art/Bikes`, Wave, `.blend` cục bộ, `Packages`, Simulator, `PhoVietPlayerCarUpgrade.cs`, `Art/PlayerCar`, `MeshyImports`, `PV_MissileHud.png.meta`, `PV_MissileSmoke.png.meta`, Captures lịch sử bị test ghi lại.
-
+- **Đã phát hành và xác minh live:** commit `0845f08`, push main; [Pages run 42044425442](https://github.com/denispham1107/taixecongnghe/actions/runs/42044425442) completed/success đúng SHA (`Captures/release157-pages.json`). Live: version 1.57.0 / cache `d612d524b1a39e3a`. `VerifyPublishedGame` **28 đạt, 0 lỗi runtime**; `VerifyMissileReleaseWeb` trên chính trang live **11 đạt, 0 lỗi**. Tóm tắt: `Captures/VERIFICATION_RELEASE_1_57.md`.
+- **Bàn giao cuối:** Unity Edit Mode, scene sạch, jobs khóa, server 8785 đã dừng; không rebuild sau kiểm tra. Chưa thử điện thoại thật/Safari; chờ người dùng báo FPS qua `?perf=1`.

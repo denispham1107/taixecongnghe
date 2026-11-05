@@ -10,7 +10,7 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.56.0** — commit `ecb0b02`; Pages `41992250686` success; cache `03fc6346d88758ed`; **28 live + 11 tên lửa live đạt/0 runtime**, 540 browser local đạt; nút tên lửa trái, master 1,56×, trang chủ 2 ảnh. Báo cáo `Captures/VERIFICATION_RELEASE_1_56.md` |
+| Bản đã phát hành | **1.57.0** — commit `0845f08`; Pages `42044425442` success; cache `d612d524b1a39e3a`; **28 live + 11 tên lửa live đạt/0 runtime**, 540 browser local đạt; tối ưu giật lag mobile, gói mobile 70,3MB. Báo cáo `Captures/VERIFICATION_RELEASE_1_57.md` |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -20,7 +20,7 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
 | Điều khiển/nhảy trong source | **21.124:** nhảy vật lý bật ngay; vuốt lần2 sớm queue70% (đã có trên web1.55.0). **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đã có trên web1.50.0 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
-| Tối ưu mobile trong source | **21.136 chưa lên web:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop Cao giữ baseline |
+| Tối ưu mobile | **21.136 đã có trên web 1.57.0:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop Cao giữ baseline trừ cascades WebGL |
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
@@ -46,7 +46,9 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.136 hoàn tất source/chưa phát hành (Claude Code):** tối ưu giật lag mobile. Giả lập DPR3+CPU×4 FPS 1.56→mới có tự giảm: Cao 4,4→38,8; Trung bình 5→57,2; Thấp 6,9→56,1; draw call Thấp 886→179. Gói mobile 116,6→70,3MB. Gồm `GraphicsPlan`, bộ tự giảm, tắt tile ngoài tầm, một nguồn sáng hướng, bỏ cascades, texture mobile 1K, tạo sẵn tài nguyên/shader, rAF. Chi tiết 21.136.
+- **21.137 đã phát hành 1.57.0 (Claude Code):** commit `0845f08`/Pages `42044425442` success/cache `d612d524b1a39e3a`; 28 live + 11 tên lửa live/0 runtime; 540 browser local đạt. Gồm gói 21.136.
+
+- **21.136 đã có trên web 1.57.0 (Claude Code):** tối ưu giật lag mobile. Giả lập DPR3+CPU×4 FPS 1.56→mới có tự giảm: Cao 4,4→38,8; Trung bình 5→57,2; Thấp 6,9→56,1; draw call Thấp 886→179. Gói mobile 116,6→70,3MB. Gồm `GraphicsPlan`, bộ tự giảm, tắt tile ngoài tầm, một nguồn sáng hướng, bỏ cascades, texture mobile 1K, tạo sẵn tài nguyên/shader, rAF. Chi tiết 21.136.
 
 - **21.135 đã phát hành 1.56.0 (Claude Code):** commit `ecb0b02`/Pages `41992250686` success/cache `03fc6346d88758ed`; 28 live + 11 tên lửa live/0 runtime; 540 browser local đạt. Gồm gói 21.134.
 
@@ -204,7 +206,7 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **Đang phát hành 1.57.0 (Claude, 05/11/2026, người dùng yêu cầu rõ "Phát hành 1.57.0"):** build, docs/pack/materialize và 540 kiểm tra trình duyệt đã đạt, cache `d612d524b1a39e3a`. Tiếp: commit/push, chờ Pages, `VerifyPublishedGame` + `VerifyMissileReleaseWeb` trên live, ghi commit kết quả.
+- **21.137 hoàn tất:** 1.57.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. **Chờ người dùng thử trên điện thoại thật** (`?perf=1` hiện FPS); nếu vẫn giật cần tên máy + số FPS để chỉnh `GraphicsPlan`; nếu tải lâu xem warmup shader. Test cũ lỗi sẵn chưa sửa: `VerifyPerformanceLighting`, `VerifyRiverBridge`, `VerifyRiverCrashSinking`, `VerifyDistanceTanks2199`, `VerifyEnergy2122`, `VerifyEnergyRoutes2122`; `VerifyWebMemory.cjs` còn kiểm DPR>2,5. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta`/Captures lịch sử ngoài commit.
 
 - **21.135 hoàn tất:** 1.56.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. Chưa nghe thử loa/điện thoại thật (1,56× có thể méo khi nhiều tiếng to chồng nhau; nếu rè thì giảm `MasterGain` rồi chạy `InstallAudio2132`). Chưa thử Safari/Android máy thật. Verifier cũ cần sửa nếu dùng lại: `VerifyHudTap.cs` (tọa độ HUD cũ), `VerifyPlayerMissileScene2128.cs` (ghi cứng 1.54.0). Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta` ngoài commit.
 

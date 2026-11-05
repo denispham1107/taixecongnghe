@@ -1,0 +1,41 @@
+{
+  "url": "https://denispham1107.github.io/taixecongnghe/",
+  "checks": [
+    "Live release version and cache match tested build",
+    "Published artifact matches: Build/0acb2b799ebb1ecf71fe0a4fd793b99c.loader.js",
+    "Published artifact matches: Build/2c7ae4e2bd066822eac6d83b907eeeeb.data.unityweb",
+    "Published artifact matches: Build/2e0144f2f81f29f83cf1e6ce6dc3a106.framework.js.unityweb",
+    "Published artifact matches: Build/31984ff1cfb47066c139804b37aba1b4.data.unityweb",
+    "Published artifact matches: Build/78fe0bacdfa81cc7fed3e356a991c65a.wasm.unityweb",
+    "Published artifact matches: FONT-LICENSE.txt",
+    "Published artifact matches: app.js",
+    "Published artifact matches: font.ttf",
+    "Published artifact matches: icons/apple-touch-icon-moto.png",
+    "Published artifact matches: icons/apple-touch-icon.png",
+    "Published artifact matches: icons/icon-192.png",
+    "Published artifact matches: icons/icon-512.png",
+    "Published artifact matches: icons/icon-maskable-512.png",
+    "Published artifact matches: icons/icon-moto-192.png",
+    "Published artifact matches: icons/icon-moto-512.png",
+    "Published artifact matches: icons/icon-moto-maskable-512.png",
+    "Published artifact matches: icons/icon.svg",
+    "Published artifact matches: index.html",
+    "Published artifact matches: manifest.webmanifest",
+    "Published artifact matches: poster-home-flight.png",
+    "Published artifact matches: poster-home.png",
+    "Published artifact matches: style.css",
+    "Published artifact matches: sw.js",
+    "Published artifact matches: precache.json",
+    "Real published Unity WebAssembly initializes",
+    "Published start and pause input smoke completed",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "build": {
+    "version": "1.57.0",
+    "cache": "d612d524b1a39e3a",
+    "unity": "6000.5.6f1",
+    "utc": "2026-11-05T14:01:56.3001926Z"
+  },
+  "success": true
+}
