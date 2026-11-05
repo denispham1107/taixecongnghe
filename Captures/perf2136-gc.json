@@ -1,0 +1,635 @@
+{
+  "frames": 91,
+  "rows": [
+    {
+      "Key": "Main Thread",
+      "gc": 44330.0,
+      "calls": 1.0,
+      "selfMs": 0.038,
+      "totalMs": 114.705
+    },
+    {
+      "Key": "PlayerLoop",
+      "gc": 44330.0,
+      "calls": 3.0,
+      "selfMs": 0.001,
+      "totalMs": 104.286
+    },
+    {
+      "Key": "RenderPlayModeViewCameras",
+      "gc": 42525.0,
+      "calls": 1.0,
+      "selfMs": 0.043,
+      "totalMs": 79.375
+    },
+    {
+      "Key": "GUI.Repaint",
+      "gc": 42525.0,
+      "calls": 1.0,
+      "selfMs": 0.029,
+      "totalMs": 77.277
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.OnGUI()",
+      "gc": 42525.0,
+      "calls": 1.0,
+      "selfMs": 0.017,
+      "totalMs": 77.138
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.Hud()",
+      "gc": 42525.0,
+      "calls": 1.0,
+      "selfMs": 0.002,
+      "totalMs": 77.088
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.RearRecklessWarningHud()",
+      "gc": 40450.0,
+      "calls": 1.0,
+      "selfMs": 0.002,
+      "totalMs": 74.772
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.DrawRearLaneWarning()",
+      "gc": 40449.0,
+      "calls": 0.2,
+      "selfMs": 0.004,
+      "totalMs": 74.741
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.DrawRearWarningStyle()",
+      "gc": 40448.0,
+      "calls": 0.2,
+      "selfMs": 0.002,
+      "totalMs": 74.687
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.CreateRearStyleTextures()",
+      "gc": 40440.0,
+      "calls": 0.2,
+      "selfMs": 0.003,
+      "totalMs": 74.659
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.Paint()",
+      "gc": 40412.0,
+      "calls": 0.1,
+      "selfMs": 0.842,
+      "totalMs": 74.651
+    },
+    {
+      "Key": "Assembly-CSharp.dll!::<Module>.invoke_Color_Vector2_single()",
+      "gc": 0.0,
+      "calls": 2520.6,
+      "selfMs": 0.762,
+      "totalMs": 73.126
+    },
+    {
+      "Key": "Assembly-CSharp.dll!::<>c__DisplayClass987_0.<CreateRearStyleTextures>b__2()",
+      "gc": 0.0,
+      "calls": 720.2,
+      "selfMs": 4.1,
+      "totalMs": 33.223
+    },
+    {
+      "Key": "UpdateScene",
+      "gc": 1804.0,
+      "calls": 1.0,
+      "selfMs": 0.124,
+      "totalMs": 24.909
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.Chevron()",
+      "gc": 0.0,
+      "calls": 3420.8,
+      "selfMs": 4.047,
+      "totalMs": 23.694
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.Capsule()",
+      "gc": 0.0,
+      "calls": 8282.0,
+      "selfMs": 11.435,
+      "totalMs": 21.508
+    },
+    {
+      "Key": "Assembly-CSharp.dll!::<>c__DisplayClass987_0.<CreateRearStyleTextures>b__1()",
+      "gc": 0.0,
+      "calls": 720.2,
+      "selfMs": 2.008,
+      "totalMs": 18.691
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.Arrow()",
+      "gc": 0.0,
+      "calls": 1440.4,
+      "selfMs": 1.528,
+      "totalMs": 18.275
+    },
+    {
+      "Key": "Assembly-CSharp.dll!::<>c__DisplayClass987_0.<CreateRearStyleTextures>b__0()",
+      "gc": 0.0,
+      "calls": 720.2,
+      "selfMs": 2.77,
+      "totalMs": 18.056
+    },
+    {
+      "Key": "Update.ScriptRunBehaviourUpdate",
+      "gc": 1444.0,
+      "calls": 1.0,
+      "selfMs": 0.001,
+      "totalMs": 14.886
+    },
+    {
+      "Key": "BehaviourUpdate",
+      "gc": 1444.0,
+      "calls": 1.0,
+      "selfMs": 0.026,
+      "totalMs": 14.885
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.Update()",
+      "gc": 1444.0,
+      "calls": 1.0,
+      "selfMs": 0.014,
+      "totalMs": 14.732
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.TickRide()",
+      "gc": 442.0,
+      "calls": 1.0,
+      "selfMs": 0.033,
+      "totalMs": 13.867
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.RoundBox()",
+      "gc": 0.0,
+      "calls": 2160.5,
+      "selfMs": 5.525,
+      "totalMs": 12.14
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.Over()",
+      "gc": 0.0,
+      "calls": 12062.9,
+      "selfMs": 6.13,
+      "totalMs": 9.955
+    },
+    {
+      "Key": "EditorLoop",
+      "gc": 0.0,
+      "calls": 4.0,
+      "selfMs": 9.879,
+      "totalMs": 9.879
+    },
+    {
+      "Key": "PreLateUpdate.ScriptRunBehaviourLateUpdate",
+      "gc": 195.0,
+      "calls": 1.0,
+      "selfMs": 0.001,
+      "totalMs": 8.023
+    },
+    {
+      "Key": "LateBehaviourUpdate",
+      "gc": 195.0,
+      "calls": 1.0,
+      "selfMs": 0.044,
+      "totalMs": 8.022
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Vector2..ctor()",
+      "gc": 0.0,
+      "calls": 34629.5,
+      "selfMs": 5.378,
+      "totalMs": 5.378
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.ResolveRiderContacts()",
+      "gc": 391.0,
+      "calls": 1.0,
+      "selfMs": 0.013,
+      "totalMs": 5.257
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.TickTrafficMotion()",
+      "gc": 7.0,
+      "calls": 1.0,
+      "selfMs": 0.056,
+      "totalMs": 5.0
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine.Bindings::Unmarshal.UnmarshalUnityObject()",
+      "gc": 0.0,
+      "calls": 1411.3,
+      "selfMs": 1.226,
+      "totalMs": 4.978
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Vector2.op_Subtraction()",
+      "gc": 0.0,
+      "calls": 32244.0,
+      "selfMs": 4.912,
+      "totalMs": 4.912
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.SceneryContact()",
+      "gc": 380.0,
+      "calls": 1.0,
+      "selfMs": 0.004,
+      "totalMs": 4.906
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.SceneryContactAtRotation()",
+      "gc": 380.0,
+      "calls": 1.0,
+      "selfMs": 0.285,
+      "totalMs": 4.882
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.ResolveSceneryImpact()",
+      "gc": 380.0,
+      "calls": 1.0,
+      "selfMs": 0.001,
+      "totalMs": 4.844
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.Triangle()",
+      "gc": 0.0,
+      "calls": 2160.5,
+      "selfMs": 2.253,
+      "totalMs": 4.812
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.OverRiver()",
+      "gc": 0.0,
+      "calls": 20.3,
+      "selfMs": 0.008,
+      "totalMs": 4.727
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.RiverZone()",
+      "gc": 0.0,
+      "calls": 20.3,
+      "selfMs": 0.068,
+      "totalMs": 4.722
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::DayNightLighting.LateUpdate()",
+      "gc": 0.0,
+      "calls": 1.0,
+      "selfMs": 0.002,
+      "totalMs": 4.59
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::DayNightLighting.UpdateLamps()",
+      "gc": 0.0,
+      "calls": 1.0,
+      "selfMs": 0.531,
+      "totalMs": 4.587
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.RiverZoneInTiles()",
+      "gc": 0.0,
+      "calls": 87.9,
+      "selfMs": 0.358,
+      "totalMs": 4.47
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Mathf.Abs()",
+      "gc": 0.0,
+      "calls": 8619.5,
+      "selfMs": 2.905,
+      "totalMs": 4.411
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Component.get_gameObject()",
+      "gc": 1.0,
+      "calls": 965.3,
+      "selfMs": 0.417,
+      "totalMs": 4.397
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.TryBeginVehicleRiverFall()",
+      "gc": 0.0,
+      "calls": 38.7,
+      "selfMs": 0.015,
+      "totalMs": 3.689
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Mathf.Clamp01()",
+      "gc": 0.0,
+      "calls": 22280.1,
+      "selfMs": 3.426,
+      "totalMs": 3.426
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::BikeVisualAnimator.LateUpdate()",
+      "gc": 195.0,
+      "calls": 8.5,
+      "selfMs": 0.007,
+      "totalMs": 3.167
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::BikeVisualAnimator.Advance()",
+      "gc": 195.0,
+      "calls": 8.5,
+      "selfMs": 0.039,
+      "totalMs": 3.157
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Object.CompareBaseObjects()",
+      "gc": 0.0,
+      "calls": 4124.8,
+      "selfMs": 0.829,
+      "totalMs": 2.962
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Vector2.get_magnitude()",
+      "gc": 0.0,
+      "calls": 17287.9,
+      "selfMs": 2.935,
+      "totalMs": 2.935
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Color..ctor()",
+      "gc": 0.0,
+      "calls": 18029.2,
+      "selfMs": 2.876,
+      "totalMs": 2.876
+    },
+    {
+      "Key": "UnityEngine.IMGUIModule.dll!UnityEngine::GUIStyle.Draw()",
+      "gc": 1919.0,
+      "calls": 24.0,
+      "selfMs": 0.026,
+      "totalMs": 2.662
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Vector2.Dot()",
+      "gc": 0.0,
+      "calls": 16780.5,
+      "selfMs": 2.485,
+      "totalMs": 2.485
+    },
+    {
+      "Key": "UnityEngine.IMGUIModule.dll!UnityEngine::GUI.Label()",
+      "gc": 2259.0,
+      "calls": 18.0,
+      "selfMs": 0.012,
+      "totalMs": 2.413
+    },
+    {
+      "Key": "UnityEngine.IMGUIModule.dll!UnityEngine::GUI.DrawTexture()",
+      "gc": 0.0,
+      "calls": 71.5,
+      "selfMs": 0.077,
+      "totalMs": 2.332
+    },
+    {
+      "Key": "Assembly-CSharp.dll!::<>c__DisplayClass987_0.<CreateRearStyleTextures>b__3()",
+      "gc": 0.0,
+      "calls": 180.0,
+      "selfMs": 0.137,
+      "totalMs": 2.257
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Object.op_Inequality()",
+      "gc": 0.0,
+      "calls": 2335.2,
+      "selfMs": 0.493,
+      "totalMs": 2.216
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!::MarshalledUnityObject.MarshalNotNull()",
+      "gc": 0.0,
+      "calls": 6795.4,
+      "selfMs": 1.375,
+      "totalMs": 2.043
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.LandscapeHud()",
+      "gc": 1941.0,
+      "calls": 1.0,
+      "selfMs": 0.01,
+      "totalMs": 2.04
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Object.IsNativeObjectAlive()",
+      "gc": 0.0,
+      "calls": 3745.7,
+      "selfMs": 1.267,
+      "totalMs": 2.038
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Vector2.op_Multiply()",
+      "gc": 0.0,
+      "calls": 11904.6,
+      "selfMs": 2.036,
+      "totalMs": 2.036
+    },
+    {
+      "Key": "Camera.Render",
+      "gc": 0.0,
+      "calls": 1.0,
+      "selfMs": 0.103,
+      "totalMs": 2.0
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.DistanceLandscapeHud()",
+      "gc": 1248.0,
+      "calls": 1.0,
+      "selfMs": 0.015,
+      "totalMs": 1.801
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Component.get_transform()",
+      "gc": 0.0,
+      "calls": 385.2,
+      "selfMs": 0.166,
+      "totalMs": 1.772
+    },
+    {
+      "Key": "mscorlib.dll!System.Runtime.InteropServices::GCHandle.get_Target()",
+      "gc": 0.0,
+      "calls": 1409.7,
+      "selfMs": 0.577,
+      "totalMs": 1.634
+    },
+    {
+      "Key": "WaitForJobGroupID",
+      "gc": 0.0,
+      "calls": 14.0,
+      "selfMs": 0.396,
+      "totalMs": 1.567
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.HideBuildingsOverRiver()",
+      "gc": 0.0,
+      "calls": 2.0,
+      "selfMs": 0.032,
+      "totalMs": 1.55
+    },
+    {
+      "Key": "mscorlib.dll!System::Math.Abs()",
+      "gc": 0.0,
+      "calls": 8619.5,
+      "selfMs": 1.507,
+      "totalMs": 1.507
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.RiverLayoutUnchanged()",
+      "gc": 0.0,
+      "calls": 2.0,
+      "selfMs": 0.169,
+      "totalMs": 1.44
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Object.op_Equality()",
+      "gc": 0.0,
+      "calls": 1552.6,
+      "selfMs": 0.314,
+      "totalMs": 1.431
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.Txt()",
+      "gc": 1363.0,
+      "calls": 9.0,
+      "selfMs": 0.022,
+      "totalMs": 1.29
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.EnsureObstacleBatches()",
+      "gc": 380.0,
+      "calls": 1.0,
+      "selfMs": 0.146,
+      "totalMs": 1.287
+    },
+    {
+      "Key": "mscorlib.dll!System::IntPtr.op_Inequality()",
+      "gc": 0.0,
+      "calls": 11965.8,
+      "selfMs": 1.191,
+      "totalMs": 1.191
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Mathf.Max()",
+      "gc": 0.0,
+      "calls": 6941.1,
+      "selfMs": 1.189,
+      "totalMs": 1.189
+    },
+    {
+      "Key": "UnityEngine.CoreModule.dll!UnityEngine::Mathf.Min()",
+      "gc": 0.0,
+      "calls": 7370.5,
+      "selfMs": 1.165,
+      "totalMs": 1.165
+    },
+    {
+      "Key": "UnityEngine.IMGUIModule.dll!UnityEngine::GUI.DoLabel()",
+      "gc": 896.0,
+      "calls": 9.0,
+      "selfMs": 0.02,
+      "totalMs": 1.162
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.VehicleContact()",
+      "gc": 0.0,
+      "calls": 16.1,
+      "selfMs": 0.056,
+      "totalMs": 1.106
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::BikeVisualAnimator.Sample()",
+      "gc": 0.0,
+      "calls": 8.7,
+      "selfMs": 0.122,
+      "totalMs": 1.087
+    },
+    {
+      "Key": "UnityEngine.IMGUIModule.dll!UnityEngine::GUIStyle.Internal_Draw()",
+      "gc": 896.0,
+      "calls": 9.0,
+      "selfMs": 0.006,
+      "totalMs": 1.048
+    },
+    {
+      "Key": "UnityEngine.IMGUIModule.dll!UnityEngine::GUIStyle.Internal_Draw_Injected()",
+      "gc": 896.0,
+      "calls": 9.0,
+      "selfMs": 0.177,
+      "totalMs": 1.042
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.ScrollRoutes()",
+      "gc": 0.0,
+      "calls": 1.0,
+      "selfMs": 0.09,
+      "totalMs": 1.004
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.ResolveVehicleCollisions()",
+      "gc": 0.0,
+      "calls": 1.0,
+      "selfMs": 0.132,
+      "totalMs": 0.975
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.RiverOf()",
+      "gc": 0.0,
+      "calls": 202.1,
+      "selfMs": 0.071,
+      "totalMs": 0.942
+    },
+    {
+      "Key": "PostLateUpdate.UpdateAllRenderers",
+      "gc": 0.0,
+      "calls": 1.0,
+      "selfMs": 0.009,
+      "totalMs": 0.929
+    },
+    {
+      "Key": "FinalizeUpdateRendererBoundingVolumes",
+      "gc": 0.0,
+      "calls": 3.1,
+      "selfMs": 0.005,
+      "totalMs": 0.926
+    },
+    {
+      "Key": "UnityEngine.IMGUIModule.dll!UnityEngine::IMGUITextHandle.GetATGTextHandle()",
+      "gc": 170.0,
+      "calls": 22.0,
+      "selfMs": 0.037,
+      "totalMs": 0.911
+    },
+    {
+      "Key": "Drawing",
+      "gc": 0.0,
+      "calls": 1.0,
+      "selfMs": 0.04,
+      "totalMs": 0.898
+    },
+    {
+      "Key": "UnityEngine.IMGUIModule.dll!UnityEngine::GUIStyle.GetMeshInfo()",
+      "gc": 429.0,
+      "calls": 11.0,
+      "selfMs": 0.004,
+      "totalMs": 0.865
+    },
+    {
+      "Key": "UnityEngine.IMGUIModule.dll!UnityEngine::IMGUITextHandle.GetMeshInfo()",
+      "gc": 429.0,
+      "calls": 11.0,
+      "selfMs": 0.007,
+      "totalMs": 0.862
+    },
+    {
+      "Key": "Assembly-CSharp.dll!PhoViet::PhoVietGame.ProjectedRadius()",
+      "gc": 0.0,
+      "calls": 86.6,
+      "selfMs": 0.08,
+      "totalMs": 0.859
+    }
+  ]
+}

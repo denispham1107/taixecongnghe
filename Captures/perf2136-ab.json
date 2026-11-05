@@ -1,0 +1,343 @@
+{
+  "device": "Intel(R) UHD Graphics 620",
+  "rows": [
+    {
+      "mode": "base-Cao",
+      "tris": 2739062,
+      "verts": 5227082,
+      "setPass": 460,
+      "shadowCasters": 51,
+      "dyn": 177,
+      "inst": 5,
+      "cameraMs": 12.14
+    },
+    {
+      "mode": "noPixelLights",
+      "tris": 2412515,
+      "verts": 4531498,
+      "setPass": 374,
+      "shadowCasters": 51,
+      "dyn": 188,
+      "inst": 5,
+      "cameraMs": 87.34
+    },
+    {
+      "mode": "pixelLights1",
+      "tris": 2337607,
+      "verts": 4438590,
+      "setPass": 382,
+      "shadowCasters": 51,
+      "dyn": 163,
+      "inst": 5,
+      "cameraMs": 90.45
+    },
+    {
+      "mode": "noShadow",
+      "tris": 2132931,
+      "verts": 4025504,
+      "setPass": 390,
+      "shadowCasters": 0,
+      "dyn": 147,
+      "inst": 5,
+      "cameraMs": 29.76
+    },
+    {
+      "mode": "noReflection",
+      "tris": 2389383,
+      "verts": 4542645,
+      "setPass": 397,
+      "shadowCasters": 51,
+      "dyn": 163,
+      "inst": 5,
+      "cameraMs": 31.74
+    },
+    {
+      "mode": "noDepthTex",
+      "tris": 2739062,
+      "verts": 5227082,
+      "setPass": 460,
+      "shadowCasters": 51,
+      "dyn": 177,
+      "inst": 5,
+      "cameraMs": 28.59
+    },
+    {
+      "mode": "lodBias0.5",
+      "tris": 1719584,
+      "verts": 3304607,
+      "setPass": 395,
+      "shadowCasters": 51,
+      "dyn": 163,
+      "inst": 5,
+      "cameraMs": 21.14
+    },
+    {
+      "mode": "lodBias0.25",
+      "tris": 1285072,
+      "verts": 2382790,
+      "setPass": 389,
+      "shadowCasters": 51,
+      "dyn": 161,
+      "inst": 5,
+      "cameraMs": 17.4
+    },
+    {
+      "mode": "maxLOD1",
+      "tris": 2241109,
+      "verts": 4193679,
+      "setPass": 460,
+      "shadowCasters": 51,
+      "dyn": 186,
+      "inst": 5,
+      "cameraMs": 22.45
+    },
+    {
+      "mode": "maxLOD2",
+      "tris": 1044959,
+      "verts": 1892219,
+      "setPass": 395,
+      "shadowCasters": 51,
+      "dyn": 172,
+      "inst": 5,
+      "cameraMs": 16.78
+    },
+    {
+      "mode": "far120",
+      "tris": 2083336,
+      "verts": 4079551,
+      "setPass": 379,
+      "shadowCasters": 51,
+      "dyn": 103,
+      "inst": 2,
+      "cameraMs": 20.21
+    },
+    {
+      "mode": "far90",
+      "tris": 2370677,
+      "verts": 4681138,
+      "setPass": 434,
+      "shadowCasters": 51,
+      "dyn": 90,
+      "inst": 0,
+      "cameraMs": 17.52
+    },
+    {
+      "mode": "sortNoDistance",
+      "tris": 2389383,
+      "verts": 4542645,
+      "setPass": 375,
+      "shadowCasters": 51,
+      "dyn": 163,
+      "inst": 5,
+      "cameraMs": 25.23
+    },
+    {
+      "mode": "base-again",
+      "tris": 2389383,
+      "verts": 4542645,
+      "setPass": 397,
+      "shadowCasters": 51,
+      "dyn": 163,
+      "inst": 5,
+      "cameraMs": 22.95
+    },
+    {
+      "mode": "Thap-now",
+      "tris": 1760077,
+      "verts": 3313553,
+      "setPass": 447,
+      "shadowCasters": 0,
+      "dyn": 163,
+      "inst": 5,
+      "cameraMs": 14.27
+    },
+    {
+      "mode": "Trung-now",
+      "tris": 1972310,
+      "verts": 3761418,
+      "setPass": 394,
+      "shadowCasters": 30,
+      "dyn": 157,
+      "inst": 5,
+      "cameraMs": 18.61
+    }
+  ],
+  "breakdown": [
+    {
+      "Key": "PV_StreetShop",
+      "count": 26,
+      "tris": 347065,
+      "lod0": 9,
+      "lod1": 11,
+      "lod2": 6
+    },
+    {
+      "Key": "PV_RiverApt",
+      "count": 31,
+      "tris": 224718,
+      "lod0": 0,
+      "lod1": 31,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_StreetTree",
+      "count": 22,
+      "tris": 133748,
+      "lod0": 0,
+      "lod1": 2,
+      "lod2": 20
+    },
+    {
+      "Key": "PV_RiverBridge",
+      "count": 3,
+      "tris": 114110,
+      "lod0": 2,
+      "lod1": 1,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_FishingBoat",
+      "count": 5,
+      "tris": 99990,
+      "lod0": 0,
+      "lod1": 5,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_UrbanRider",
+      "count": 7,
+      "tris": 70560,
+      "lod0": 0,
+      "lod1": 2,
+      "lod2": 5
+    },
+    {
+      "Key": "PV_StreetShop07_Petshop",
+      "count": 2,
+      "tris": 62924,
+      "lod0": 2,
+      "lod1": 0,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_StreetShop10_Petshop",
+      "count": 2,
+      "tris": 46190,
+      "lod0": 1,
+      "lod1": 1,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_UrbanParked_PV_SportBike",
+      "count": 2,
+      "tris": 36960,
+      "lod0": 2,
+      "lod1": 0,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_StreetPavement",
+      "count": 56,
+      "tris": 29636,
+      "lod0": 8,
+      "lod1": 38,
+      "lod2": 10
+    },
+    {
+      "Key": "PV_BlueSupercar",
+      "count": 1,
+      "tris": 28000,
+      "lod0": 1,
+      "lod1": 0,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_SignalLenses_MainAndAux_BothFaces",
+      "count": 36,
+      "tris": 24192,
+      "lod0": 36,
+      "lod1": 0,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_StreetShop00_Petshop",
+      "count": 3,
+      "tris": 22226,
+      "lod0": 0,
+      "lod1": 1,
+      "lod2": 2
+    },
+    {
+      "Key": "PV_UrbanParked_PV_CityScooter",
+      "count": 1,
+      "tris": 18480,
+      "lod0": 1,
+      "lod1": 0,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_UrbanParked_PV_Underbone",
+      "count": 1,
+      "tris": 18480,
+      "lod0": 1,
+      "lod1": 0,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_StreetShop01_Petshop",
+      "count": 1,
+      "tris": 18258,
+      "lod0": 0,
+      "lod1": 1,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_TrafficSignal",
+      "count": 12,
+      "tris": 14576,
+      "lod0": 2,
+      "lod1": 10,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_StreetShop02_Petshop",
+      "count": 1,
+      "tris": 10078,
+      "lod0": 0,
+      "lod1": 1,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_StreetShop05_Petshop",
+      "count": 1,
+      "tris": 9550,
+      "lod0": 0,
+      "lod1": 1,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_MeshyPickup",
+      "count": 1,
+      "tris": 9053,
+      "lod0": 0,
+      "lod1": 1,
+      "lod2": 0
+    },
+    {
+      "Key": "PV_MissilePickup",
+      "count": 9,
+      "tris": 7906,
+      "lod0": 1,
+      "lod1": 4,
+      "lod2": 4
+    },
+    {
+      "Key": "PV_Combined • neutral morning",
+      "count": 10,
+      "tris": 7400,
+      "lod0": 10,
+      "lod1": 0,
+      "lod2": 0
+    }
+  ]
+}

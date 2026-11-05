@@ -1,0 +1,76 @@
+{
+  "url": "http://127.0.0.1:8787/",
+  "label": "test1",
+  "throttle": 4,
+  "errors": [],
+  "levels": [
+    {
+      "level": "Cao",
+      "frames": 346,
+      "avgFps": 7.6,
+      "avgMs": 131.3,
+      "p50": 120.5,
+      "p95": 193.5,
+      "p99": 291.7,
+      "max": 690.4,
+      "over33": 346,
+      "over50": 346,
+      "over100": 294,
+      "canvas": "1452x671",
+      "dpr": 1.7200000286102295,
+      "heapMB": null
+    },
+    {
+      "level": "TrungBinh",
+      "frames": 548,
+      "avgFps": 12.1,
+      "avgMs": 82.6,
+      "p50": 79,
+      "p95": 127.8,
+      "p99": 164.2,
+      "max": 208.9,
+      "over33": 548,
+      "over50": 546,
+      "over100": 80,
+      "canvas": "1161x537",
+      "dpr": 1.3760000467300415,
+      "heapMB": null
+    },
+    {
+      "level": "Thap",
+      "frames": 964,
+      "avgFps": 21.3,
+      "avgMs": 46.8,
+      "p50": 44.3,
+      "p95": 75,
+      "p99": 103,
+      "max": 152.4,
+      "over33": 842,
+      "over50": 287,
+      "over100": 12,
+      "canvas": "717x332",
+      "dpr": 0.8500000238418579,
+      "heapMB": null
+    }
+  ],
+  "loadSeconds": 13.929,
+  "gl": {
+    "attrs": {
+      "alpha": true,
+      "antialias": false,
+      "depth": true,
+      "desynchronized": false,
+      "failIfMajorPerformanceCaveat": false,
+      "powerPreference": "high-performance",
+      "premultipliedAlpha": false,
+      "preserveDrawingBuffer": false,
+      "stencil": true,
+      "xrCompatible": false
+    },
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 620 (0x00003EA0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "width": 1350,
+    "height": 624,
+    "dpr": 1.600000023841858,
+    "heapMB": null
+  }
+}

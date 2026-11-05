@@ -16,7 +16,7 @@ public static class VerifyTankBarrage
   var clear=typeof(PhoVietGame).GetMethod("ClearShells",F);
   Action prepare=()=>
   {
-   g.dinosaursEnabled=false;g.riversEnabled=false;g.tankBarrageEnabled=true;g.trafficSurprises=false;g.recklessTrafficEnabled=false;g.turnExitTrafficEnabled=false;
+   g.thunderstormEnabled=false; /* 21.136: lightning could end the 40 s schedule run at random */ g.dinosaursEnabled=false;g.riversEnabled=false;g.tankBarrageEnabled=true;g.trafficSurprises=false;g.recklessTrafficEnabled=false;g.turnExitTrafficEnabled=false;
    g.RestartRide();foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}
    set("spawnTimer",10000f);set("nextIntersectionDistance",float.PositiveInfinity);set("nextDistanceTank",float.PositiveInfinity); // Isolate the nine-second clock; 400 m waves have their own integration suite.
   };
@@ -129,7 +129,7 @@ public static class VerifyTankBarrage
    return new{success=true,count=checks.Count,checks=checks.ToArray(),data=data.ToArray()};
   }
   finally
-  {
+  {g.thunderstormEnabled=true;
    Time.timeScale=scale;g.dinosaursEnabled=dinosaurs;g.riversEnabled=rivers;g.tankBarrageEnabled=barrage;g.randomTanks=random;g.trafficSurprises=surprises;g.recklessTrafficEnabled=danger;g.turnExitTrafficEnabled=exits;
    g.ResetRide();PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);PlayerPrefs.SetInt("PhoViet.Coins.v1",coins);PlayerPrefs.Save();
   }

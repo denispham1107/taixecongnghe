@@ -18,6 +18,18 @@ namespace PhoViet
   public int CountFor(Transform target){int n=0;foreach(var s in spots)if(s.active&&s.body.model==target)n++;return n;}
   public void Initialize(PhoVietGame owner,Transform source)
   {game=owner;template=source;container=new GameObject("Cháy tại điểm va chạm • pooled").transform;container.SetParent(transform,false);}
+  // 21.136: instantiate during loading rather than at the first crash.
+  public void Prewarm(int count)
+  {
+   while(template!=null&&spots.Count<count)
+   {
+    var root=Instantiate(template,container);root.name="Lửa + khói • tiếp xúc";root.gameObject.SetActive(false);
+    foreach(var light in root.GetComponentsInChildren<Light>(true))light.enabled=false;
+    var spot=new Spot{root=root,particles=root.GetComponentsInChildren<ParticleSystem>(true)};
+    foreach(var ps in spot.particles){var m=ps.main;m.maxParticles=Mathf.Min(32,m.maxParticles);}
+    spots.Add(spot);
+   }
+  }
   public void Ignite(PhoVietGame.TrafficVehicle body,Vector3 anchor)
   {
    if(body.armored||template==null)return;

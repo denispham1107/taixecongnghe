@@ -1,0 +1,1632 @@
+{
+  "textures": 60,
+  "big": [
+    {
+      "p": "Assets/PhoViet/Art/River/FishingBoat/PV_FishingBoat_Normal.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": true
+    },
+    {
+      "p": "Assets/PhoViet/Art/River/FishingBoat/PV_FishingBoat_Palette.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_PaintMask.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Palette.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Normal.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": true
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Emission.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Normal.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": true
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_PaintMask.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/River/FishingBoat/PV_FishingBoat_Surface.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Emission.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Palette.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Surface.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Regions.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Emission.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Normal.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": true
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Palette.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/meshy_normal.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": true
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_PaintMask.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Emission.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Surface.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_PaintMask.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Surface.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Palette.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Surface.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Emission.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Normal.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": true
+    },
+    {
+      "p": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/meshy_basecolor.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Surface.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Palette.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Normal.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": true
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Emission.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Surface.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Surface.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_PaintMask.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Palette.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Palette.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Normal.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": true
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Emission.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Normal.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": true
+    },
+    {
+      "p": "Assets/PhoViet/Art/Helicopter/PV_Helicopter_Surface.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Helicopter/PV_Helicopter_Normal.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT5",
+      "max": 2048,
+      "readable": false,
+      "normal": true
+    },
+    {
+      "p": "Assets/PhoViet/Art/Helicopter/PV_Helicopter_Palette.png",
+      "w": 2048,
+      "h": 2048,
+      "fmt": "DXT1",
+      "max": 2048,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_WallStuccoDetail.png",
+      "w": 1024,
+      "h": 1024,
+      "fmt": "DXT5",
+      "max": 1024,
+      "readable": false,
+      "normal": false
+    },
+    {
+      "p": "Assets/PhoViet/Art/TankFx/PV_TankFx_Explosion.png",
+      "w": 1024,
+      "h": 512,
+      "fmt": "DXT5",
+      "max": 1024,
+      "readable": false,
+      "normal": false
+    }
+  ],
+  "models": 59,
+  "readableModels": 0,
+  "modelList": [
+    {
+      "p": "Assets/MeshyImports/Golden Star Stance_20261023_150426/Meshy_AI_Golden_Star_Stance_biped_Animation_Running_withSkin.fbx",
+      "readable": false,
+      "mb": 11.98
+    },
+    {
+      "p": "Assets/PhoViet/Art/River/PV_RiverApartments.fbx",
+      "readable": false,
+      "mb": 10.76
+    },
+    {
+      "p": "Assets/MeshyImports/Red Honda Scooter Front View_20261023_023822/Meshy_AI_Red_Honda_Scooter_Fro_1022193819_texture.fbx",
+      "readable": false,
+      "mb": 9.46
+    },
+    {
+      "p": "Assets/MeshyImports/Cù Lao Petshop Truck_20261026_012447/Meshy_AI_Cù_Lao_Petshop_Truck_1025182443_texture.fbx",
+      "readable": false,
+      "mb": 8.73
+    },
+    {
+      "p": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/Meshy_AI_Emerald_Tyrant_20261025_texture.fbx",
+      "readable": false,
+      "mb": 8.72
+    },
+    {
+      "p": "Assets/MeshyImports/Meshy_Model_20261024_022335/Meshy_AI_Hãy_tạo_mô_hình__1023192333_texture.fbx",
+      "readable": false,
+      "mb": 8.28
+    },
+    {
+      "p": "Assets/MeshyImports/Covered cargo truck_20261024_022230/Meshy_AI_Covered_cargo_truck_1023192227_texture.fbx",
+      "readable": false,
+      "mb": 8.12
+    },
+    {
+      "p": "Assets/MeshyImports/Meshy_Model_20261024_022318/Meshy_AI_Hãy_tạo_mô_hình__1023192316_texture.fbx",
+      "readable": false,
+      "mb": 7.87
+    },
+    {
+      "p": "Assets/MeshyImports/Meshy_Model_20261024_022256/Meshy_AI_Hãy_tạo_mô_hình__1023192254_texture.fbx",
+      "readable": false,
+      "mb": 7.81
+    },
+    {
+      "p": "Assets/MeshyImports/Iron Sentinel_20261024_170520/Meshy_AI_Iron_Sentinel_1024100517_texture.fbx",
+      "readable": false,
+      "mb": 7.3
+    },
+    {
+      "p": "Assets/MeshyImports/Golden Star Stance_20261023_150430/Meshy_AI_Golden_Star_Stance_biped_Character_output.fbx",
+      "readable": false,
+      "mb": 6.63
+    },
+    {
+      "p": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider.fbx",
+      "readable": false,
+      "mb": 3.83
+    },
+    {
+      "p": "Assets/PhoViet/Art/River/FishingBoat/PV_FishingBoat.fbx",
+      "readable": false,
+      "mb": 2.75
+    },
+    {
+      "p": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar.fbx",
+      "readable": false,
+      "mb": 2.38
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetTree2.fbx",
+      "readable": false,
+      "mb": 1.94
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetTree1.fbx",
+      "readable": false,
+      "mb": 1.94
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetTree0.fbx",
+      "readable": false,
+      "mb": 1.94
+    },
+    {
+      "p": "Assets/PhoViet/Art/Bikes/PV_TrafficPolice.fbx",
+      "readable": false,
+      "mb": 1.81
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup.fbx",
+      "readable": false,
+      "mb": 1.78
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank.fbx",
+      "readable": false,
+      "mb": 1.64
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered.fbx",
+      "readable": false,
+      "mb": 1.58
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport.fbx",
+      "readable": false,
+      "mb": 1.57
+    },
+    {
+      "p": "Assets/PhoViet/Art/River/PV_RiverBridge.fbx",
+      "readable": false,
+      "mb": 1.39
+    },
+    {
+      "p": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer.fbx",
+      "readable": false,
+      "mb": 1.36
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop01_Petshop.fbx",
+      "readable": false,
+      "mb": 1.27
+    },
+    {
+      "p": "Assets/PhoViet/Art/Dinosaur/PV_EmeraldTyrant.fbx",
+      "readable": false,
+      "mb": 1.23
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop07_Petshop.fbx",
+      "readable": false,
+      "mb": 1.16
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop10_Petshop.fbx",
+      "readable": false,
+      "mb": 1.11
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop04_Petshop.fbx",
+      "readable": false,
+      "mb": 1.04
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop11_Petshop.fbx",
+      "readable": false,
+      "mb": 1.03
+    },
+    {
+      "p": "Assets/PhoViet/Art/Helicopter/PV_Helicopter.fbx",
+      "readable": false,
+      "mb": 1.0
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop01.fbx",
+      "readable": false,
+      "mb": 0.97
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop08_Petshop.fbx",
+      "readable": false,
+      "mb": 0.94
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop07.fbx",
+      "readable": false,
+      "mb": 0.93
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop09_Petshop.fbx",
+      "readable": false,
+      "mb": 0.91
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop06_Petshop.fbx",
+      "readable": false,
+      "mb": 0.86
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop00_Petshop.fbx",
+      "readable": false,
+      "mb": 0.86
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop03_Petshop.fbx",
+      "readable": false,
+      "mb": 0.85
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop10.fbx",
+      "readable": false,
+      "mb": 0.84
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop02_Petshop.fbx",
+      "readable": false,
+      "mb": 0.8
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop05_Petshop.fbx",
+      "readable": false,
+      "mb": 0.76
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop04.fbx",
+      "readable": false,
+      "mb": 0.76
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop11.fbx",
+      "readable": false,
+      "mb": 0.72
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop08.fbx",
+      "readable": false,
+      "mb": 0.71
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop06.fbx",
+      "readable": false,
+      "mb": 0.7
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop09.fbx",
+      "readable": false,
+      "mb": 0.66
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop00.fbx",
+      "readable": false,
+      "mb": 0.63
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop03.fbx",
+      "readable": false,
+      "mb": 0.55
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop02.fbx",
+      "readable": false,
+      "mb": 0.55
+    },
+    {
+      "p": "Assets/PhoViet/Art/Passengers/PV_PassengerFemale.fbx",
+      "readable": false,
+      "mb": 0.54
+    },
+    {
+      "p": "Assets/PhoViet/Art/Passengers/PV_PassengerMale.fbx",
+      "readable": false,
+      "mb": 0.52
+    },
+    {
+      "p": "Assets/PhoViet/Art/River/PV_RiverPetshopExtra.fbx",
+      "readable": false,
+      "mb": 0.48
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetShop05.fbx",
+      "readable": false,
+      "mb": 0.42
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_TrafficSignal.fbx",
+      "readable": false,
+      "mb": 0.07
+    },
+    {
+      "p": "Assets/PhoViet/Art/Energy/PV_EnergyHalo.fbx",
+      "readable": false,
+      "mb": 0.06
+    },
+    {
+      "p": "Assets/PhoViet/Art/Helicopter/Missile/PV_Missile.fbx",
+      "readable": false,
+      "mb": 0.05
+    },
+    {
+      "p": "Assets/PhoViet/Art/Streets/PV_StreetPavement.fbx",
+      "readable": false,
+      "mb": 0.04
+    },
+    {
+      "p": "Assets/PhoViet/Art/Lighting/PV_LEDStreetLamp.fbx",
+      "readable": false,
+      "mb": 0.04
+    },
+    {
+      "p": "Assets/PhoViet/Art/TankFx/PV_TankShell.fbx",
+      "readable": false,
+      "mb": 0.02
+    }
+  ],
+  "other": [
+    {
+      "name": "Geometry_14 5",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_21 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 3200
+    },
+    {
+      "name": "Geometry_72 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 3200
+    },
+    {
+      "name": "Geometry_72 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_85 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 2880
+    },
+    {
+      "name": "Geometry_1 2",
+      "isReadable": true,
+      "vertexCount": 96
+    },
+    {
+      "name": "Geometry_6 2",
+      "isReadable": true,
+      "vertexCount": 24
+    },
+    {
+      "name": "Geometry_5 6_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_5 6",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_2 2",
+      "isReadable": true,
+      "vertexCount": 24
+    },
+    {
+      "name": "Geometry_4 6",
+      "isReadable": true,
+      "vertexCount": 4146
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 2656
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 2880
+    },
+    {
+      "name": "Geometry_64 2",
+      "isReadable": true,
+      "vertexCount": 176
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 3200
+    },
+    {
+      "name": "Geometry_12 5",
+      "isReadable": true,
+      "vertexCount": 176
+    },
+    {
+      "name": "Geometry_74 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_11 5",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_61 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_31 3",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_15 4_River",
+      "isReadable": true,
+      "vertexCount": 72
+    },
+    {
+      "name": "Geometry_57 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_4 2",
+      "isReadable": true,
+      "vertexCount": 24
+    },
+    {
+      "name": "Geometry_83 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_44 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_9 5",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_1 6_River",
+      "isReadable": true,
+      "vertexCount": 104
+    },
+    {
+      "name": "Geometry_22 3",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 1648
+    },
+    {
+      "name": "Geometry_1 6",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 2656
+    },
+    {
+      "name": "Geometry_14 2",
+      "isReadable": true,
+      "vertexCount": 24
+    },
+    {
+      "name": "Geometry_62 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 3200
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 2880
+    },
+    {
+      "name": "Geometry_59 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_34 3",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_3 2",
+      "isReadable": true,
+      "vertexCount": 384
+    },
+    {
+      "name": "Geometry_41 2",
+      "isReadable": true,
+      "vertexCount": 360
+    },
+    {
+      "name": "Geometry_21 3",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_27 3",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 2656
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 2880
+    },
+    {
+      "name": "Geometry_10 2",
+      "isReadable": true,
+      "vertexCount": 1507
+    },
+    {
+      "name": "Geometry_43 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_76 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 1648
+    },
+    {
+      "name": "Geometry_60 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_24 3",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_0 2",
+      "isReadable": true,
+      "vertexCount": 24
+    },
+    {
+      "name": "Geometry_35 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_28 3_River",
+      "isReadable": true,
+      "vertexCount": 72
+    },
+    {
+      "name": "PV_JunctionArrows16",
+      "isReadable": true,
+      "vertexCount": 264
+    },
+    {
+      "name": "PV_UrbanParked_PV_Underbone",
+      "isReadable": true,
+      "vertexCount": 29601
+    },
+    {
+      "name": "Geometry_40 2_River",
+      "isReadable": true,
+      "vertexCount": 104
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 2880
+    },
+    {
+      "name": "Geometry_70 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_17 3",
+      "isReadable": true,
+      "vertexCount": 4146
+    },
+    {
+      "name": "Geometry_38 3",
+      "isReadable": true,
+      "vertexCount": 176
+    },
+    {
+      "name": "Geometry_62 2",
+      "isReadable": true,
+      "vertexCount": 96
+    },
+    {
+      "name": "Geometry_23 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "PV_JunctionArrows16",
+      "isReadable": true,
+      "vertexCount": 264
+    },
+    {
+      "name": "Geometry_47 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_37 3",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_57 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_33 3",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_11 2",
+      "isReadable": true,
+      "vertexCount": 1633
+    },
+    {
+      "name": "Geometry_41 2_River",
+      "isReadable": true,
+      "vertexCount": 72
+    },
+    {
+      "name": "Geometry_79 2_River",
+      "isReadable": true,
+      "vertexCount": 104
+    },
+    {
+      "name": "Geometry_82 2",
+      "isReadable": true,
+      "vertexCount": 4146
+    },
+    {
+      "name": "Geometry_80 2_River",
+      "isReadable": true,
+      "vertexCount": 72
+    },
+    {
+      "name": "Geometry_4 6_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_36 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_87 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_48 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_77 2",
+      "isReadable": true,
+      "vertexCount": 176
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 3200
+    },
+    {
+      "name": "Geometry_86 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_75 2",
+      "isReadable": true,
+      "vertexCount": 96
+    },
+    {
+      "name": "Geometry_18 3",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 2656
+    },
+    {
+      "name": "Geometry_20 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_89 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 1648
+    },
+    {
+      "name": "Geometry_46 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_54 2",
+      "isReadable": true,
+      "vertexCount": 360
+    },
+    {
+      "name": "Geometry_2 6",
+      "isReadable": true,
+      "vertexCount": 360
+    },
+    {
+      "name": "Geometry_48 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_67 2",
+      "isReadable": true,
+      "vertexCount": 360
+    },
+    {
+      "name": "Geometry_40 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_36 3",
+      "isReadable": true,
+      "vertexCount": 96
+    },
+    {
+      "name": "Geometry_7 5_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_23 3",
+      "isReadable": true,
+      "vertexCount": 96
+    },
+    {
+      "name": "Geometry_73 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_12 2",
+      "isReadable": true,
+      "vertexCount": 24
+    },
+    {
+      "name": "Geometry_30 3",
+      "isReadable": true,
+      "vertexCount": 4146
+    },
+    {
+      "name": "Geometry_82 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_56 2",
+      "isReadable": true,
+      "vertexCount": 4146
+    },
+    {
+      "name": "Geometry_10 5_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_14 5_River",
+      "isReadable": true,
+      "vertexCount": 104
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 2656
+    },
+    {
+      "name": "PV_JunctionArrows16",
+      "isReadable": true,
+      "vertexCount": 264
+    },
+    {
+      "name": "Geometry_9 2",
+      "isReadable": true,
+      "vertexCount": 1256
+    },
+    {
+      "name": "Geometry_53 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_OpticalHalo",
+      "isReadable": true,
+      "vertexCount": 4
+    },
+    {
+      "name": "Geometry_90 2",
+      "isReadable": true,
+      "vertexCount": 176
+    },
+    {
+      "name": "PV_UrbanParked_PV_SportBike",
+      "isReadable": true,
+      "vertexCount": 29601
+    },
+    {
+      "name": "Geometry_17 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_88 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_73 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_20 3",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_43 2",
+      "isReadable": true,
+      "vertexCount": 4146
+    },
+    {
+      "name": "PV_JunctionArrows16",
+      "isReadable": true,
+      "vertexCount": 264
+    },
+    {
+      "name": "Geometry_88 2",
+      "isReadable": true,
+      "vertexCount": 96
+    },
+    {
+      "name": "Geometry_47 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 2656
+    },
+    {
+      "name": "Geometry_61 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_74 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_79 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_69 2",
+      "isReadable": true,
+      "vertexCount": 4146
+    },
+    {
+      "name": "Geometry_8 5",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_5 2",
+      "isReadable": true,
+      "vertexCount": 1656
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 2880
+    },
+    {
+      "name": "Geometry_50 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_35 3",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_31 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 3200
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 1648
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 2880
+    },
+    {
+      "name": "Geometry_54 2_River",
+      "isReadable": true,
+      "vertexCount": 72
+    },
+    {
+      "name": "Geometry_66 2_River",
+      "isReadable": true,
+      "vertexCount": 104
+    },
+    {
+      "name": "Geometry_59 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_JunctionArrows16",
+      "isReadable": true,
+      "vertexCount": 264
+    },
+    {
+      "name": "PV_UrbanParked_PV_CityScooter",
+      "isReadable": true,
+      "vertexCount": 29601
+    },
+    {
+      "name": "PV_JunctionArrows16",
+      "isReadable": true,
+      "vertexCount": 264
+    },
+    {
+      "name": "Geometry_28 3",
+      "isReadable": true,
+      "vertexCount": 360
+    },
+    {
+      "name": "Geometry_13 2",
+      "isReadable": true,
+      "vertexCount": 24
+    },
+    {
+      "name": "Geometry_56 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_8 2",
+      "isReadable": true,
+      "vertexCount": 24
+    },
+    {
+      "name": "Geometry_10 5",
+      "isReadable": true,
+      "vertexCount": 96
+    },
+    {
+      "name": "Geometry_53 2_River",
+      "isReadable": true,
+      "vertexCount": 104
+    },
+    {
+      "name": "Geometry_33 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 1648
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 1648
+    },
+    {
+      "name": "Geometry_66 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_8 5_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_25 3",
+      "isReadable": true,
+      "vertexCount": 176
+    },
+    {
+      "name": "Geometry_30 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_83 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_85 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_7 5",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_18 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 3200
+    },
+    {
+      "name": "Geometry_27 3_River",
+      "isReadable": true,
+      "vertexCount": 104
+    },
+    {
+      "name": "Geometry_7 2",
+      "isReadable": true,
+      "vertexCount": 24
+    },
+    {
+      "name": "Geometry_22 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "PV_Combined • neutral morning_River",
+      "isReadable": true,
+      "vertexCount": 1648
+    },
+    {
+      "name": "Geometry_44 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "PV_JunctionArrows16",
+      "isReadable": true,
+      "vertexCount": 264
+    },
+    {
+      "name": "Geometry_75 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_63 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "Geometry_51 2",
+      "isReadable": true,
+      "vertexCount": 176
+    },
+    {
+      "name": "Geometry_2 6_River",
+      "isReadable": true,
+      "vertexCount": 72
+    },
+    {
+      "name": "Geometry_15 4",
+      "isReadable": true,
+      "vertexCount": 360
+    },
+    {
+      "name": "Geometry_49 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_69 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_34 3_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_60 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "PV_Combined • neutral morning",
+      "isReadable": true,
+      "vertexCount": 2656
+    },
+    {
+      "name": "Geometry_80 2",
+      "isReadable": true,
+      "vertexCount": 360
+    },
+    {
+      "name": "Geometry_46 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_49 2",
+      "isReadable": true,
+      "vertexCount": 96
+    },
+    {
+      "name": "Geometry_87 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_67 2_River",
+      "isReadable": true,
+      "vertexCount": 72
+    },
+    {
+      "name": "PV_OpticalGround",
+      "isReadable": true,
+      "vertexCount": 4
+    },
+    {
+      "name": "Geometry_9 5_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_86 2_River",
+      "isReadable": true,
+      "vertexCount": 0
+    },
+    {
+      "name": "Geometry_70 2",
+      "isReadable": true,
+      "vertexCount": 48
+    },
+    {
+      "name": "PV_MainRotorBlur",
+      "isReadable": true,
+      "vertexCount": 256
+    },
+    {
+      "name": "PV_TailRotorBlur",
+      "isReadable": true,
+      "vertexCount": 256
+    },
+    {
+      "name": "PV_MissilePickup_LOD2",
+      "isReadable": true,
+      "vertexCount": 324
+    },
+    {
+      "name": "PV_MissilePickup_LOD0",
+      "isReadable": true,
+      "vertexCount": 769
+    },
+    {
+      "name": "PV_MissilePickup_LOD1",
+      "isReadable": true,
+      "vertexCount": 535
+    }
+  ]
+}

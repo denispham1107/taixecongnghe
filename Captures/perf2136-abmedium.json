@@ -1,0 +1,102 @@
+[
+  {
+    "mode": "medium",
+    "draws": 502,
+    "setPass": 155,
+    "tris": 2050496,
+    "shadow": 3,
+    "rt": 6,
+    "tiles": 7,
+    "depth": "None"
+  },
+  {
+    "mode": "noShadow",
+    "draws": 299,
+    "setPass": 97,
+    "tris": 1105599,
+    "shadow": 0,
+    "rt": 2,
+    "tiles": 7,
+    "depth": "None"
+  },
+  {
+    "mode": "pixelLights0",
+    "draws": 502,
+    "setPass": 155,
+    "tris": 2050496,
+    "shadow": 3,
+    "rt": 6,
+    "tiles": 7,
+    "depth": "None"
+  },
+  {
+    "mode": "noReflection",
+    "draws": 465,
+    "setPass": 146,
+    "tris": 1916904,
+    "shadow": 3,
+    "rt": 5,
+    "tiles": 7,
+    "depth": "None"
+  },
+  {
+    "mode": "far115",
+    "draws": 457,
+    "setPass": 149,
+    "tris": 1826688,
+    "shadow": 3,
+    "rt": 6,
+    "tiles": 7,
+    "depth": "None"
+  },
+  {
+    "mode": "cull55",
+    "draws": 490,
+    "setPass": 147,
+    "tris": 2046032,
+    "shadow": 3,
+    "rt": 6,
+    "tiles": 7,
+    "depth": "None"
+  },
+  {
+    "mode": "lod.3",
+    "draws": 498,
+    "setPass": 155,
+    "tris": 1810116,
+    "shadow": 3,
+    "rt": 6,
+    "tiles": 7,
+    "depth": "None"
+  },
+  {
+    "mode": "thap",
+    "draws": 230,
+    "setPass": 82,
+    "tris": 736516,
+    "shadow": 0,
+    "rt": 1,
+    "tiles": 7,
+    "depth": "None"
+  },
+  {
+    "mode": "cao",
+    "draws": 573,
+    "setPass": 167,
+    "tris": 2845419,
+    "shadow": 39,
+    "rt": 6,
+    "tiles": 7,
+    "depth": "None"
+  },
+  {
+    "mode": "medium-again",
+    "draws": 502,
+    "setPass": 155,
+    "tris": 2050496,
+    "shadow": 3,
+    "rt": 6,
+    "tiles": 7,
+    "depth": "None"
+  }
+]

@@ -4,6 +4,12 @@ namespace PhoViet
  public partial class PhoVietGame
  {
   ContactFireVisual contactFire;
+  void PrewarmContactFire()
+  {
+   if(contactFire==null&&Application.isPlaying&&stormFireTemplate!=null)
+   {contactFire=gameObject.AddComponent<ContactFireVisual>();contactFire.Initialize(this,stormFireTemplate);}
+   if(contactFire!=null)contactFire.Prewarm(4);
+  }
   // Called only at confirmed body contacts, never by a generic impulse (kicks,
   // dinosaur attacks, lightning and explosions have their own effects).
   void BurnVehicleContact(TrafficVehicle a,TrafficVehicle b,Vector2 normal,float at=1)

@@ -20,13 +20,17 @@ async function controlGameRequests(){
     const timer=setTimeout(done,1500);navigator.serviceWorker.addEventListener('controllerchange',done);
   });
 }
+// The graphics level sets the render density (21.136); touch devices start modestly until Unity reports it.
+let pixelCap=touchDevice?1.6:0;
+window.phoVietTouchDevice=touchDevice;
 function gamePixelRatio(width,height){
   const nativeRatio=Number.isFinite(window.devicePixelRatio)&&window.devicePixelRatio>0?window.devicePixelRatio:1;
-  // Full phone density up to 3x; bound large tablet framebuffers to 3.2 million pixels.
-  const cap=touchDevice?3:2;
-  const budget=touchDevice?3200000:8300000;
+  const cap=pixelCap>0?pixelCap:2;
+  // Bound large tablet framebuffers.
+  const budget=touchDevice?2600000:8300000;
   return Math.min(nativeRatio,cap,Math.sqrt(budget/Math.max(1,width*height)));
 }
+window.phoVietSetPixelCap=cap=>{pixelCap=Number.isFinite(cap)&&cap>=0?cap:0;if(typeof syncViewport==='function')syncViewport();};
 function pauseGame(){if(unityInstance)unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','PauseForBrowser');}
 function setMenu(open){
   menuOpen=Boolean(open);$('toolbar').hidden=immersive&&!menuOpen;
@@ -205,6 +209,17 @@ window.addEventListener('keydown',e=>{
   if(unityInstance && document.activeElement===canvas && ['Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault();
 });
 
+// ?perf=1 shows frame rate and render size on a real phone, for reporting back (21.136).
+if(new URLSearchParams(location.search).has('perf')){
+  const box=document.createElement('div');box.id='perf-readout';
+  box.style.cssText='position:fixed;left:6px;top:6px;z-index:99;padding:3px 7px;font:12px monospace;color:#fff;background:#000a;pointer-events:none;white-space:pre';
+  document.body.appendChild(box);
+  let last=performance.now(),frames=0,worst=0,previous=last;
+  const tick=now=>{frames++;worst=Math.max(worst,now-previous);previous=now;
+    if(now-last>=1000){box.textContent=`${Math.round(frames*1000/(now-last))} FPS  max ${Math.round(worst)} ms\n${canvas.width}x${canvas.height}  dpr ${unityInstance?.Module.devicePixelRatio?.toFixed(2)||'-'}`;frames=0;worst=0;last=now;}
+    requestAnimationFrame(tick);};
+  requestAnimationFrame(tick);
+}
 if('serviceWorker' in navigator) {
   navigator.serviceWorker.addEventListener('message',event=>{
     if(event.data?.type==='PHOVIET_OFFLINE_STATUS')$('offline-status').textContent=event.data.ready?

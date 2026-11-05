@@ -34,6 +34,7 @@ namespace PhoViet
         bool RoutesReady=>roadRows!=null&&roadRows.Count==5;
         void ResetRoutes()
         {
+            tileCullPending=true;
             IsTurning=false;QueuedTurn=0;CompletedTurns=0;TurnYaw=0;roadOffset=StartStreetPhase;cameraTurnBlend=0;routePolice=false;oldRiderZ=0;
             ResetExitTraffic();lateTurn=false;turnLength=0;
             mainRow=0;RouteStreet="Trần Hưng Đạo";visitedStreets.Clear();visitedStreets.Add(RouteStreet);routeTrail.Clear();
@@ -115,7 +116,7 @@ namespace PhoViet
             foreach(var b in blocks){b.localPosition-=Vector3.forward*delta;if(b.localPosition.z<-160){b.localPosition+=Vector3.forward*80*blocks.Count;AssignRecycledRiverBlock(b);}}
             for(int i=0;i<routeTrail.Count;i++){var p=routeTrail[i];p.point-=Vector3.forward*delta;routeTrail[i]=p;}
             // Phố còn cuộn khi té/rơi sông (TickRiderCrash, SinkRider): ẩn lại nhà đường ngang đứng trên sông theo vị trí mới (21.52).
-            HideBuildingsOverRiver();
+            UpdateTileCulling();HideBuildingsOverRiver();
         }
         void BeginOrContinueTurn(float delta)
         {

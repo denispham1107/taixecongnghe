@@ -106,10 +106,11 @@ namespace PhoViet
 
         void Awake()
         {
-            StreetArt.ConfigureWorldText(vietnameseFont,worldTextMaterial); Application.targetFrameRate=60; Application.runInBackground=true;
+            StreetArt.ConfigureWorldText(vietnameseFont,worldTextMaterial); ConfigureFramePacing(); Application.runInBackground=true; useGUILayout=false;
             BestDistance=PlayerPrefs.GetInt(BestKey,0);
             InitializeTrafficSignalFaces(); CreateSound(); InitializeActions(); ResetRide();
             if(tankCraterMaterial!=null)EnsureTankCraters();
+            PrewarmRideResources();
 #if !UNITY_WEBGL || UNITY_EDITOR
             InitializeGraphicsSettings();
 #endif
@@ -284,6 +285,7 @@ namespace PhoViet
         void Update()
         {
             Frames++;
+            TickGraphicsGovernor();UpdateTileCulling();
             ReadHudTouch();
             bool graphicsWasOpen=GraphicsSettingsOpen;ReadGraphicsSettingsKeys();
             bool wasRiding=State==RideState.Riding;

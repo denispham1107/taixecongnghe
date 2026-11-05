@@ -1,0 +1,476 @@
+{
+  "total": 535,
+  "tot": 1222184,
+  "materials": 34,
+  "rows": [
+    {
+      "Key": "PV_RiverApt",
+      "renderers": 37,
+      "draws": 111,
+      "tris": 229516,
+      "near": 0,
+      "mid": 0,
+      "far": 111
+    },
+    {
+      "Key": "PV_StreetShop",
+      "renderers": 39,
+      "draws": 78,
+      "tris": 274683,
+      "near": 16,
+      "mid": 44,
+      "far": 18
+    },
+    {
+      "Key": "PV_StreetPavement",
+      "renderers": 56,
+      "draws": 56,
+      "tris": 14120,
+      "near": 8,
+      "mid": 23,
+      "far": 25
+    },
+    {
+      "Key": "PV_LEDStreetLamp",
+      "renderers": 16,
+      "draws": 48,
+      "tris": 4248,
+      "near": 6,
+      "mid": 6,
+      "far": 36
+    },
+    {
+      "Key": "PV_SignalLenses_MainAndAux_BothFaces",
+      "renderers": 36,
+      "draws": 36,
+      "tris": 24192,
+      "near": 6,
+      "mid": 12,
+      "far": 18
+    },
+    {
+      "Key": "PV_RiverBridge",
+      "renderers": 5,
+      "draws": 35,
+      "tris": 177892,
+      "near": 0,
+      "mid": 0,
+      "far": 35
+    },
+    {
+      "Key": "PV_StreetTree",
+      "renderers": 22,
+      "draws": 22,
+      "tris": 133748,
+      "near": 2,
+      "mid": 10,
+      "far": 10
+    },
+    {
+      "Key": "PV_TrafficSignal",
+      "renderers": 12,
+      "draws": 12,
+      "tris": 12272,
+      "near": 2,
+      "mid": 4,
+      "far": 6
+    },
+    {
+      "Key": "PV_Combined • neutral morning",
+      "renderers": 10,
+      "draws": 10,
+      "tris": 7400,
+      "near": 2,
+      "mid": 2,
+      "far": 6
+    },
+    {
+      "Key": "PV_MissilePickup",
+      "renderers": 8,
+      "draws": 8,
+      "tris": 5158,
+      "near": 1,
+      "mid": 3,
+      "far": 4
+    },
+    {
+      "Key": "PV_EnergyHalo",
+      "renderers": 7,
+      "draws": 7,
+      "tris": 2352,
+      "near": 1,
+      "mid": 3,
+      "far": 3
+    },
+    {
+      "Key": "PV_StreetShop07_Petshop",
+      "renderers": 3,
+      "draws": 6,
+      "tris": 54910,
+      "near": 2,
+      "mid": 4,
+      "far": 0
+    },
+    {
+      "Key": "PV_StreetShop00_Petshop",
+      "renderers": 3,
+      "draws": 6,
+      "tris": 17241,
+      "near": 0,
+      "mid": 4,
+      "far": 2
+    },
+    {
+      "Key": "MeshRenderer:ĐƯỜNG",
+      "renderers": 6,
+      "draws": 6,
+      "tris": 0,
+      "near": 0,
+      "mid": 2,
+      "far": 4
+    },
+    {
+      "Key": "PV_FishingBoat",
+      "renderers": 6,
+      "draws": 6,
+      "tris": 69988,
+      "near": 0,
+      "mid": 0,
+      "far": 6
+    },
+    {
+      "Key": "PV_JunctionArrows",
+      "renderers": 5,
+      "draws": 5,
+      "tris": 440,
+      "near": 1,
+      "mid": 1,
+      "far": 3
+    },
+    {
+      "Key": "PV_UrbanRider",
+      "renderers": 4,
+      "draws": 4,
+      "tris": 26880,
+      "near": 2,
+      "mid": 2,
+      "far": 0
+    },
+    {
+      "Key": "PV_StreetShop10_Petshop",
+      "renderers": 2,
+      "draws": 4,
+      "tris": 36464,
+      "near": 2,
+      "mid": 0,
+      "far": 2
+    },
+    {
+      "Key": "MeshRenderer:Quang Trung",
+      "renderers": 3,
+      "draws": 3,
+      "tris": 0,
+      "near": 0,
+      "mid": 2,
+      "far": 1
+    },
+    {
+      "Key": "MeshRenderer:Hai Bà Trưng",
+      "renderers": 3,
+      "draws": 3,
+      "tris": 0,
+      "near": 0,
+      "mid": 0,
+      "far": 3
+    },
+    {
+      "Key": "PV_RiverApt09_PetshopExtra",
+      "renderers": 1,
+      "draws": 3,
+      "tris": 5020,
+      "near": 0,
+      "mid": 0,
+      "far": 3
+    },
+    {
+      "Key": "PV_StreetShop02_Petshop",
+      "renderers": 1,
+      "draws": 2,
+      "tris": 5568,
+      "near": 0,
+      "mid": 2,
+      "far": 0
+    },
+    {
+      "Key": "Geometry_14 ",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 48,
+      "near": 0,
+      "mid": 1,
+      "far": 1
+    },
+    {
+      "Key": "Geometry_15 ",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 360,
+      "near": 1,
+      "mid": 1,
+      "far": 0
+    },
+    {
+      "Key": "Geometry_17 ",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 0,
+      "near": 0,
+      "mid": 2,
+      "far": 0
+    },
+    {
+      "Key": "Geometry_18 ",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 0,
+      "near": 1,
+      "mid": 1,
+      "far": 0
+    },
+    {
+      "Key": "Geometry_20 ",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 0,
+      "near": 0,
+      "mid": 2,
+      "far": 0
+    },
+    {
+      "Key": "Geometry_21 ",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 0,
+      "near": 0,
+      "mid": 1,
+      "far": 1
+    },
+    {
+      "Key": "Geometry_22 ",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 0,
+      "near": 0,
+      "mid": 1,
+      "far": 1
+    },
+    {
+      "Key": "Geometry_23 ",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 0,
+      "near": 0,
+      "mid": 1,
+      "far": 1
+    },
+    {
+      "Key": "Geometry_24 ",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 48,
+      "near": 0,
+      "mid": 1,
+      "far": 1
+    },
+    {
+      "Key": "Geometry_25 ",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 320,
+      "near": 0,
+      "mid": 1,
+      "far": 1
+    },
+    {
+      "Key": "Geometry_27 3_River",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 80,
+      "near": 0,
+      "mid": 0,
+      "far": 2
+    },
+    {
+      "Key": "PV_Combined • neutral morning_River",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 1680,
+      "near": 0,
+      "mid": 0,
+      "far": 2
+    },
+    {
+      "Key": "Geometry_37 ",
+      "renderers": 2,
+      "draws": 2,
+      "tris": 48,
+      "near": 0,
+      "mid": 0,
+      "far": 2
+    }
+  ],
+  "tiles": [
+    {
+      "z": -66.0,
+      "active": true,
+      "renderers": 177,
+      "lod": 48,
+      "visible": 12
+    },
+    {
+      "z": 10.0,
+      "active": true,
+      "renderers": 177,
+      "lod": 48,
+      "visible": 86
+    },
+    {
+      "z": 85.0,
+      "active": true,
+      "renderers": 211,
+      "lod": 47,
+      "visible": 75
+    },
+    {
+      "z": 161.0,
+      "active": true,
+      "renderers": 177,
+      "lod": 48,
+      "visible": 30
+    },
+    {
+      "z": 237.0,
+      "active": true,
+      "renderers": 177,
+      "lod": 48,
+      "visible": 0
+    },
+    {
+      "z": 313.0,
+      "active": true,
+      "renderers": 211,
+      "lod": 47,
+      "visible": 0
+    },
+    {
+      "z": 388.0,
+      "active": true,
+      "renderers": 177,
+      "lod": 48,
+      "visible": 0
+    },
+    {
+      "z": 76.0,
+      "active": true,
+      "renderers": 152,
+      "lod": 39,
+      "visible": 58
+    },
+    {
+      "z": 76.0,
+      "active": true,
+      "renderers": 211,
+      "lod": 47,
+      "visible": 11
+    },
+    {
+      "z": 77.0,
+      "active": true,
+      "renderers": 173,
+      "lod": 46,
+      "visible": 0
+    },
+    {
+      "z": 77.0,
+      "active": true,
+      "renderers": 173,
+      "lod": 46,
+      "visible": 0
+    },
+    {
+      "z": 78.0,
+      "active": true,
+      "renderers": 211,
+      "lod": 47,
+      "visible": 0
+    },
+    {
+      "z": 78.0,
+      "active": true,
+      "renderers": 173,
+      "lod": 46,
+      "visible": 0
+    },
+    {
+      "z": 79.0,
+      "active": true,
+      "renderers": 173,
+      "lod": 46,
+      "visible": 0
+    },
+    {
+      "z": 76.0,
+      "active": true,
+      "renderers": 152,
+      "lod": 39,
+      "visible": 57
+    },
+    {
+      "z": 75.0,
+      "active": true,
+      "renderers": 211,
+      "lod": 47,
+      "visible": 11
+    },
+    {
+      "z": 75.0,
+      "active": true,
+      "renderers": 173,
+      "lod": 46,
+      "visible": 0
+    },
+    {
+      "z": 74.0,
+      "active": true,
+      "renderers": 173,
+      "lod": 46,
+      "visible": 0
+    },
+    {
+      "z": 74.0,
+      "active": true,
+      "renderers": 211,
+      "lod": 47,
+      "visible": 0
+    },
+    {
+      "z": 73.0,
+      "active": true,
+      "renderers": 173,
+      "lod": 46,
+      "visible": 0
+    },
+    {
+      "z": 73.0,
+      "active": true,
+      "renderers": 173,
+      "lod": 46,
+      "visible": 0
+    }
+  ],
+  "meshes": 382,
+  "readable": 195,
+  "meshMB": 326,
+  "gui": 190.0,
+  "boxes": 16
+}

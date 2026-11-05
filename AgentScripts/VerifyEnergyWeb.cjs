@@ -16,7 +16,7 @@ async function main(){
    page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});
    const send=async(method,value)=>page.evaluate(([method,value])=>{const i=window.phoVietInstance,n='PHỐ VIỆT • Chuyến xe không ngừng';value===null?i.SendMessage(n,method):i.SendMessage(n,method,value);},[method,value??null]);
    await page.goto(url,{waitUntil:'networkidle'});await page.locator('#play').click();
-   await page.waitForFunction(()=>!!window.phoVietInstance,{},{timeout:180000});await page.waitForTimeout(4500);
+   await page.waitForFunction(()=>!!window.phoVietInstance,{},{timeout:180000});await page.waitForTimeout(60000);
    check(profile+': new WebAssembly initializes',await page.locator('#welcome').isHidden());
    const cdp=mobile?await context.newCDPSession(page):null;
    async function frames(n){const at=await page.evaluate(()=>window.__releaseFrames);await page.waitForFunction(at=>window.__releaseFrames>=at,at+n,{timeout:90000});}

@@ -52,12 +52,20 @@ namespace PhoViet
    return Time.unscaledTime>=hudTouchSuppressUntil&&clicked;
 #endif
   }
+  readonly System.Collections.Generic.Dictionary<(string,int,int),string> ellipsisCache=new System.Collections.Generic.Dictionary<(string,int,int),string>();
   string HudEllipsis(string text,float width,int size)
   {
+   // 21.136: text measuring is costly and these values rarely change; only long text can overflow.
+   if(text.Length*size*.72f<=width)return text;
+   var key=(text,Mathf.RoundToInt(width),size);if(ellipsisCache.TryGetValue(key,out var cached))return cached;
    label.fontSize=size;
-   if(label.CalcSize(new GUIContent(text)).x<=width)return text;
-   while(text.Length>0&&label.CalcSize(new GUIContent(text+"…")).x>width)text=text.Substring(0,text.Length-1);
-   return text+"…";
+   if(label.CalcSize(new GUIContent(text)).x>width)
+   {
+    while(text.Length>0&&label.CalcSize(new GUIContent(text+"…")).x>width)text=text.Substring(0,text.Length-1);
+    text+="…";
+   }
+   if(ellipsisCache.Count>=256)ellipsisCache.Clear();ellipsisCache[key]=text;
+   return text;
   }
   void CompactHudText(string value,float x,float y,float width,int size,Color color)
   {Txt(HudEllipsis(value,width,size),x,y,width,size+5,size,color);}
@@ -66,7 +74,7 @@ namespace PhoViet
    if(!JobsAvailable){DistancePortraitHud();DrawRideNotice();return;}
    Panel(new Rect(10,PortraitBarTop,uiW-20,PortraitBarHeight),PortraitGlass,10);
    CompactHudText(CurrentStreet.ToUpperInvariant(),22,18,298,10,Gold);
-   CompactHudText(Mathf.Max(0,Mathf.FloorToInt(Distance)).ToString("N0")+" m",22,36,140,22,Cream);
+   CompactHudText(DistanceHudText,22,36,140,22,Cream);
    CompactHudText("Coin: "+FormatCoins(Coins),22,66,140,12,Gold);
    CompactHudText(Mathf.RoundToInt(Speed*3.6f)+" km/h",22,86,132,10,Hex("B5CFC2"));
    Panel(new Rect(160,38,1,57),new Color(.8f,.95f,.9f,.18f),0);

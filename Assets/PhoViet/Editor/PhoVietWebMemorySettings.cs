@@ -29,6 +29,15 @@ namespace PhoViet.Editor
    if(File.Exists(playerPickup))paths.Add(playerPickup);if(File.Exists(playerIcon))paths.Add(playerIcon);
    return paths.SelectMany(p=>AssetDatabase.GetDependencies(p,true)).Distinct().ToArray();
   }
+  // 21.136: each traffic vehicle carried five 2K maps, far more than it covers on a phone screen, and they alone took
+  // about 140 MB of GPU memory. The player's own car keeps its 2K paint; the desktop package keeps every map.
+  public const int MobileTextureLimit=1024;
+  static int WebTextureSize(string path,TextureImporter importer,bool mobile)
+  {
+   int full=importer.maxTextureSize;
+   if(!mobile||path.EndsWith("PV_BlueSupercar_Surface.png",StringComparison.Ordinal)||path.EndsWith("PV_BlueSupercar_Palette.png",StringComparison.Ordinal))return full;
+   return Mathf.Min(full,MobileTextureLimit);
+  }
   // GPU compression must match mobile WebGL: DXT is expanded on iPhone, and
   // the player/rider's former RGB(A)32 maps alone consumed ~169 MiB.
   public static object Apply(bool mobile=true)
@@ -55,13 +64,14 @@ namespace PhoViet.Editor
     TextureImporterFormat format=path.EndsWith("PV_UrbanRider_Regions.png",StringComparison.Ordinal)?TextureImporterFormat.EAC_RG:
      importer.textureType==TextureImporterType.NormalMap||importer.DoesSourceTextureHaveAlpha()?TextureImporterFormat.ETC2_RGBA8:TextureImporterFormat.ETC2_RGB4;
     if(!mobile)format=importer.textureType==TextureImporterType.NormalMap||importer.DoesSourceTextureHaveAlpha()||path.EndsWith("PV_UrbanRider_Regions.png",StringComparison.Ordinal)?TextureImporterFormat.DXT5:TextureImporterFormat.DXT1;
-    if(web.overridden&&web.format==format&&web.compressionQuality==50)continue;
-    web.name="WebGL";web.maxTextureSize=web.overridden?web.maxTextureSize:importer.maxTextureSize;
+    int size=WebTextureSize(path,importer,mobile);
+    if(web.overridden&&web.format==format&&web.compressionQuality==50&&web.maxTextureSize==size)continue;
+    web.name="WebGL";web.maxTextureSize=size;
     web.overridden=true;web.format=format;web.textureCompression=TextureImporterCompression.CompressedHQ;
     web.compressionQuality=50;web.crunchedCompression=false;
     importer.SetPlatformTextureSettings(web);AssetDatabase.WriteImportSettingsIfDirty(path);
     AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport|ImportAssetOptions.ForceUpdate);
-    changes.Add(new{path,format=format.ToString(),size=web.maxTextureSize});
+    changes.Add(new{path,format=format.ToString(),size});
    }
    AssetDatabase.SaveAssets();AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
    if(changes.Count==before)break;

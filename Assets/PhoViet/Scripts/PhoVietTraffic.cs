@@ -113,7 +113,7 @@ namespace PhoViet
             v.brakeRemaining=Mathf.Max(0,v.brakeRemaining-dt);
             if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(v.brakeRemaining>0);
             float previousX=p.x;
-            bool urban=v.model.GetComponent<UrbanRiderMotion>()!=null;
+            bool urban=v.IsUrbanRider;
             float urbanSideways=0;
             if(v.changingLane)
             {

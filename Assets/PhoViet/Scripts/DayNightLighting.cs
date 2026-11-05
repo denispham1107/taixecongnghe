@@ -46,6 +46,11 @@ namespace PhoViet
         readonly List<Material> owned=new List<Material>();
         MaterialPropertyBlock haloBlock,projectionBlock,streetBlock;
         Color daySky,dayHorizon,nightSky,nightHorizon,dayAmbientSky,dayAmbientEquator,dayAmbientGround,nightAmbientSky,nightAmbientEquator,nightAmbientGround,moonColor;
+        const float DirectionalLightFloor=.015f;
+        sbyte[] streetLit;bool streetsAllOff;float fogReach=1;
+        public void SetFogReach(float reach){fogReach=Mathf.Clamp01(reach);environmentPending=true;}
+        bool singleDirectionalLight;
+        public void SetSingleDirectionalLight(bool single){singleDirectionalLight=single;environmentPending=true;}
         readonly float[] scores=new float[6];
         readonly Vector3[] origins=new Vector3[6],directions=new Vector3[6];
         readonly bool[] streetKind=new bool[6],wideKind=new bool[6];
@@ -162,6 +167,15 @@ namespace PhoViet
                 RenderSettings.fogColor=horizon;RenderSettings.fogEndDistance=Mathf.Lerp(RenderSettings.fogEndDistance,105,storm);
                 if(runtimeSky!=null){runtimeSky.SetColor("_Zenith",Color.Lerp(runtimeSky.GetColor("_Zenith"),stormSky*.5f,storm));runtimeSky.SetColor("_Horizon",horizon);}
             }
+            // 21.136: a second directional light redraws every object in the additive pass, and the cycle keeps the moon
+            // faintly on for most of the day. Touch plans keep only the stronger one: over 300 draw calls for a barely visible tint.
+            if(!jailMode&&sun!=null&&moon!=null)
+            {
+                bool moonLeads=moon.intensity>sun.intensity;
+                sun.enabled=sun.intensity>DirectionalLightFloor&&(!singleDirectionalLight||!moonLeads);
+                moon.enabled=moon.intensity>DirectionalLightFloor&&(!singleDirectionalLight||moonLeads);
+            }
+            if(fogReach<1){RenderSettings.fogStartDistance*=fogReach;RenderSettings.fogEndDistance=Mathf.Min(RenderSettings.fogEndDistance,185*fogReach);}
             if(game.rideCamera!=null){game.rideCamera.backgroundColor=horizon;game.rideCamera.clearFlags=CameraClearFlags.Skybox;}
             Shader.SetGlobalFloat(NightLights,LampLevel);
             foreach(var material in managedEmission)if(material!=null){material.SetColor("_EmissionColor",Color.white*(LampLevel*2.1f));material.EnableKeyword("_EMISSION");}
@@ -260,27 +274,32 @@ namespace PhoViet
                     if(score<3000)Offer(score,vehicle.head.position,direction,false,0,3,wide);
                 }
             }
-            foreach(var street in streets)
+            // 21.136: 350 lamps every frame was a fixed cost even by day. Skip them while dark, change state only on a flip.
+            if(streetLit==null||streetLit.Length!=streets.Length){streetLit=new sbyte[streets.Length];streetsAllOff=false;}
+            if(enabled||!streetsAllOff)
+            for(int s=0;s<streets.Length;s++)
             {
+                var street=streets[s];
                 if(street.source==null)continue;bool on=enabled&&street.source.gameObject.activeInHierarchy;
-                if(street.pool!=null)
+                sbyte state=(sbyte)(on?1:-1);bool flipped=streetLit[s]!=state;streetLit[s]=state;
+                if(flipped&&street.pool!=null)
                 {
                     street.pool.enabled=on;
                     streetBlock.SetColor(Tint,new Color(.83f,.92f,1,.44f));street.pool.SetPropertyBlock(streetBlock);
                 }
-                if(street.glow!=null)
+                if(flipped&&street.glow!=null)
                 {
                     street.glow.enabled=on;
-                    if(on)
-                    {
-                        street.glow.transform.SetPositionAndRotation(street.source.position,Quaternion.LookRotation(eye-street.source.position,Vector3.up));
-                        haloBlock.SetColor(Tint,new Color(.88f,.95f,1,.7f));street.glow.SetPropertyBlock(haloBlock);
-                    }
+                    if(on){haloBlock.SetColor(Tint,new Color(.88f,.95f,1,.7f));street.glow.SetPropertyBlock(haloBlock);}
                 }
-                float score=(street.source.position-focus).sqrMagnitude;
+                if(!on)continue;
+                Vector3 lamp=street.source.position;
+                if(street.glow!=null)street.glow.transform.SetPositionAndRotation(lamp,Quaternion.LookRotation(eye-lamp,Vector3.up));
+                float score=(lamp-focus).sqrMagnitude;
                 // Reserve two sources so dense traffic cannot extinguish nearby street lamps.
-                if(on&&score<2600)Offer(score,street.source.position,Vector3.down,true,4,5);
+                if(score<2600)Offer(score,lamp,Vector3.down,true,4,5);
             }
+            streetsAllOff=!enabled;
             ActiveRealtimeLights=0;
             for(int i=0;i<lightPool.Length;i++)
             {

@@ -19,6 +19,8 @@ namespace PhoViet
         public Texture2D densityAtlas;
         public Shader volumeShader;
         public float Strength {get;private set;}
+        // 21.136: lower graphics levels skip the volume, its depth pass and full-screen blit; Strength still drives the light look.
+        [NonSerialized] public bool volumeAllowed=true;
         public float ElapsedSeconds {get;private set;}
         public float Duration=>profile.durationSeconds;
         public Matrix4x4 WorldToField=>referenceFromLocal*Matrix4x4.Translate(Vector3.forward*(RoadDistance-referenceDistance))*Root.worldToLocalMatrix;
@@ -55,7 +57,7 @@ namespace PhoViet
             float at=Mathf.Clamp01(ElapsedSeconds/profile.durationSeconds)*(profile.fade.Length-1);
             int first=Mathf.Min(profile.fade.Length-1,Mathf.FloorToInt(at));
             Strength=ElapsedSeconds>=profile.durationSeconds?0:Mathf.Lerp(profile.fade[first],profile.fade[Mathf.Min(first+1,profile.fade.Length-1)],at-first);
-            bool visible=Strength>0&&volume!=null&&lighting!=null&&lighting.game!=null&&lighting.game.State!=PhoVietGame.RideState.Jailed;
+            bool visible=volumeAllowed&&Strength>0&&volume!=null&&lighting!=null&&lighting.game!=null&&lighting.game.State!=PhoVietGame.RideState.Jailed;
             if(enabled!=visible)enabled=visible;
         }
         // Kiểu ánh sáng sáng sớm (21.41): màu và độ đậm sương theo kiểu đã chọn; null = màu gốc của profile.

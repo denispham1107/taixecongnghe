@@ -1,0 +1,180 @@
+{
+  "label": "cao-ngay",
+  "frames": 420,
+  "restarts": 2,
+  "dtAvg": 19.16,
+  "dtP95": 25.99,
+  "dtMax": 40.78,
+  "quality": {
+    "lodBias": 0.8,
+    "shadowDistance": 30.0,
+    "antiAliasing": 2,
+    "pixelLightCount": 1
+  },
+  "depth": "Depth",
+  "t": [
+    {
+      "n": "PlayerLoop",
+      "ms": 13.892,
+      "p95": 19.18
+    },
+    {
+      "n": "Camera.Render",
+      "ms": 13.792,
+      "p95": 18.85
+    },
+    {
+      "n": "Render.OpaqueGeometry",
+      "ms": 6.85,
+      "p95": 11.03
+    },
+    {
+      "n": "RenderForward.RenderLoopJob",
+      "ms": 5.759,
+      "p95": 9.68
+    },
+    {
+      "n": "UpdateDepthTexture",
+      "ms": 2.468,
+      "p95": 3.53
+    },
+    {
+      "n": "Render.TransparentGeometry",
+      "ms": 2.089,
+      "p95": 4.24
+    },
+    {
+      "n": "PostLateUpdate.UpdateAllRenderers",
+      "ms": 1.723,
+      "p95": 2.2
+    },
+    {
+      "n": "Update.ScriptRunBehaviourUpdate",
+      "ms": 1.477,
+      "p95": 2.15
+    },
+    {
+      "n": "PreLateUpdate.ScriptRunBehaviourLateUpdate",
+      "ms": 1.477,
+      "p95": 2.24
+    },
+    {
+      "n": "GUI.Repaint",
+      "ms": 1.399,
+      "p95": 2.04
+    },
+    {
+      "n": "Shadows.RenderShadowMap",
+      "ms": 0.783,
+      "p95": 1.29
+    },
+    {
+      "n": "Culling",
+      "ms": 0.765,
+      "p95": 1.16
+    },
+    {
+      "n": "Camera.ImageEffects",
+      "ms": 0.358,
+      "p95": 0.64
+    },
+    {
+      "n": "Shadows.PrepareShadowmap",
+      "ms": 0.16,
+      "p95": 0.29
+    },
+    {
+      "n": "SceneCulling",
+      "ms": 0.117,
+      "p95": 0.21
+    },
+    {
+      "n": "Camera.RenderSkybox",
+      "ms": 0.089,
+      "p95": 0.11
+    },
+    {
+      "n": "FixedUpdate.PhysicsFixedUpdate",
+      "ms": 0.069,
+      "p95": 0.12
+    },
+    {
+      "n": "PostLateUpdate.UpdateAllSkinnedMeshes",
+      "ms": 0.056,
+      "p95": 0.09
+    },
+    {
+      "n": "MeshSkinning.Update",
+      "ms": 0.048,
+      "p95": 0.08
+    },
+    {
+      "n": "ParticleSystem.Update",
+      "ms": 0.015,
+      "p95": 0.02
+    }
+  ],
+  "c": [
+    {
+      "n": "Draw Calls Count",
+      "avg": 0.0,
+      "max": 0
+    },
+    {
+      "n": "SetPass Calls Count",
+      "avg": 298.0,
+      "max": 832
+    },
+    {
+      "n": "Batches Count",
+      "avg": 0.0,
+      "max": 0
+    },
+    {
+      "n": "Triangles Count",
+      "avg": 2104392.0,
+      "max": 4250939
+    },
+    {
+      "n": "Vertices Count",
+      "avg": 3813763.0,
+      "max": 8172861
+    },
+    {
+      "n": "Shadow Casters Count",
+      "avg": 53.0,
+      "max": 123
+    },
+    {
+      "n": "Visible Skinned Meshes Count",
+      "avg": 5.0,
+      "max": 14
+    },
+    {
+      "n": "Dynamic Batched Draw Calls Count",
+      "avg": 67.0,
+      "max": 262
+    },
+    {
+      "n": "Static Batched Draw Calls Count",
+      "avg": 0.0,
+      "max": 0
+    },
+    {
+      "n": "Instanced Batched Draw Calls Count",
+      "avg": 4.0,
+      "max": 8
+    },
+    {
+      "n": "GC Allocated In Frame",
+      "avg": 25964.0,
+      "max": 2339083
+    },
+    {
+      "n": "GC Allocation In Frame Count",
+      "avg": 383.0,
+      "max": 20214
+    }
+  ],
+  "gcTotalMB": 603.6
+}

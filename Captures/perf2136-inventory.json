@@ -1,0 +1,748 @@
+{
+  "renderers": 12153,
+  "activeRenderers": 3757,
+  "lodGroups": 3016,
+  "materialCount": 86,
+  "shaders": [
+    "Standard:39",
+    "PhoViet/Soft Particle:7",
+    "Unlit/Color:5",
+    "PhoViet/Meshy Car Paint:5",
+    "PhoViet/Urban Rider:4",
+    "PhoViet/Optical Light:4",
+    "PhoViet/Road With Tank Craters:3",
+    "PhoViet/Thunderstorm FX:3",
+    "PhoViet/Wreck Flame:2",
+    "PhoViet/Tank Crater Surface:2",
+    "PhoViet/Street Wall Finish:1",
+    "PhoViet/World Street Text:1",
+    "PhoViet/River Murk:1",
+    "PhoViet/River Water Mirror:1",
+    "PhoViet/River Ground Mask:1",
+    "PhoViet/Apartment Room:1",
+    "PhoViet/Energy Pickup:1",
+    "PhoViet/City Ground:1",
+    "PhoViet/Rotor Blur:1",
+    "PhoViet/Missile Surface:1",
+    "PhoViet/Missile Exhaust:1",
+    "PhoViet/Missile Fire Trail:1"
+  ],
+  "textureCount": 58,
+  "textureMB": 318.2,
+  "bigTextures": [
+    {
+      "name": "PV_WallStuccoDetail",
+      "width": 1024,
+      "height": 1024,
+      "mb": 2.67
+    },
+    {
+      "name": "PV_UrbanRider_Palette",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_UrbanRider_Normal",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_UrbanRider_Emission",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_UrbanRider_Surface",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_UrbanRider_Regions",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_FishingBoat_Palette",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_FishingBoat_Normal",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_FishingBoat_Surface",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_MeshySport_Palette",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshySport_Normal",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_MeshySport_Surface",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_MeshySport_Emission",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshySport_PaintMask",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyTank_Palette",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyTank_Normal",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_MeshyTank_Surface",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_MeshyTank_Emission",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyTank_PaintMask",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyPickup_Palette",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyPickup_Normal",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_MeshyPickup_Surface",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_MeshyPickup_Emission",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyPickup_PaintMask",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyCovered_Palette",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyCovered_Normal",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_MeshyCovered_Surface",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_MeshyCovered_Emission",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyCovered_PaintMask",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyContainer_Palette",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyContainer_Normal",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_MeshyContainer_Surface",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_MeshyContainer_Emission",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_MeshyContainer_PaintMask",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_BlueSupercar_Palette",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_BlueSupercar_Normal",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_BlueSupercar_Surface",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_BlueSupercar_Emission",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_Helicopter_Palette",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_Helicopter_Normal",
+      "width": 2048,
+      "height": 2048,
+      "mb": 10.67
+    },
+    {
+      "name": "PV_Helicopter_Surface",
+      "width": 2048,
+      "height": 2048,
+      "mb": 5.33
+    },
+    {
+      "name": "PV_TankFx_Explosion",
+      "width": 1024,
+      "height": 512,
+      "mb": 1.33
+    }
+  ],
+  "biggest": [
+    {
+      "name": "PV_FishingBoat_LOD0",
+      "verts": 44886,
+      "tris": 39998,
+      "refs": 140
+    },
+    {
+      "name": "PV_StreetTree1_LOD0",
+      "verts": 86170,
+      "tris": 29026,
+      "refs": 70
+    },
+    {
+      "name": "PV_StreetTree0_LOD0",
+      "verts": 86170,
+      "tris": 29026,
+      "refs": 70
+    },
+    {
+      "name": "PV_StreetTree2_LOD0",
+      "verts": 86170,
+      "tris": 29026,
+      "refs": 70
+    },
+    {
+      "name": "PV_FishingBoat_LOD1",
+      "verts": 27863,
+      "tris": 19998,
+      "refs": 140
+    },
+    {
+      "name": "PV_RiverBridge_LOD0",
+      "verts": 94677,
+      "tris": 50328,
+      "refs": 35
+    },
+    {
+      "name": "PV_StreetTree1_LOD1",
+      "verts": 36812,
+      "tris": 12414,
+      "refs": 70
+    },
+    {
+      "name": "PV_StreetTree0_LOD1",
+      "verts": 36812,
+      "tris": 12414,
+      "refs": 70
+    },
+    {
+      "name": "PV_StreetTree2_LOD1",
+      "verts": 36812,
+      "tris": 12414,
+      "refs": 70
+    },
+    {
+      "name": "PV_FishingBoat_LOD2",
+      "verts": 17504,
+      "tris": 9998,
+      "refs": 140
+    },
+    {
+      "name": "PV_RiverBridge_LOD1",
+      "verts": 29957,
+      "tris": 13454,
+      "refs": 70
+    },
+    {
+      "name": "PV_StreetShop01_LOD0",
+      "verts": 64230,
+      "tris": 28066,
+      "refs": 26
+    },
+    {
+      "name": "PV_StreetShop07_LOD0",
+      "verts": 61299,
+      "tris": 28025,
+      "refs": 25
+    },
+    {
+      "name": "PV_StreetPavement_LOD0",
+      "verts": 2516,
+      "tris": 1258,
+      "refs": 560
+    },
+    {
+      "name": "PV_StreetShop04_LOD0",
+      "verts": 48706,
+      "tris": 22398,
+      "refs": 28
+    }
+  ],
+  "skinnedCount": 162,
+  "skinInfo": [
+    {
+      "mesh": "PV_UrbanRider_Body",
+      "count": 31,
+      "verts": 49436,
+      "bones": 19,
+      "active": 10
+    },
+    {
+      "mesh": "PV_UrbanRider_LOD1",
+      "count": 31,
+      "verts": 29601,
+      "bones": 19,
+      "active": 10
+    },
+    {
+      "mesh": "PV_UrbanRider_LOD2",
+      "count": 31,
+      "verts": 13527,
+      "bones": 19,
+      "active": 10
+    },
+    {
+      "mesh": "PV_BlueSupercar_Body",
+      "count": 1,
+      "verts": 28117,
+      "bones": 15,
+      "active": 1
+    },
+    {
+      "mesh": "PV_BlueSupercar_LOD1",
+      "count": 1,
+      "verts": 16068,
+      "bones": 15,
+      "active": 1
+    },
+    {
+      "mesh": "PV_MeshySport_Body",
+      "count": 5,
+      "verts": 14598,
+      "bones": 15,
+      "active": 1
+    },
+    {
+      "mesh": "PV_MeshySport_LOD1",
+      "count": 5,
+      "verts": 8426,
+      "bones": 15,
+      "active": 1
+    },
+    {
+      "mesh": "PV_BlueSupercar_LOD2",
+      "count": 1,
+      "verts": 8115,
+      "bones": 15,
+      "active": 1
+    },
+    {
+      "mesh": "PV_MeshySport_LOD2",
+      "count": 5,
+      "verts": 4364,
+      "bones": 15,
+      "active": 1
+    },
+    {
+      "mesh": "PV_MeshyTank_Body",
+      "count": 5,
+      "verts": 22088,
+      "bones": 15,
+      "active": 0
+    },
+    {
+      "mesh": "PV_MeshyTank_LOD1",
+      "count": 5,
+      "verts": 11924,
+      "bones": 15,
+      "active": 0
+    },
+    {
+      "mesh": "PV_MeshyTank_LOD2",
+      "count": 5,
+      "verts": 5403,
+      "bones": 15,
+      "active": 0
+    },
+    {
+      "mesh": "PV_MeshyPickup_Body",
+      "count": 3,
+      "verts": 20218,
+      "bones": 15,
+      "active": 0
+    },
+    {
+      "mesh": "PV_MeshyPickup_LOD1",
+      "count": 3,
+      "verts": 11205,
+      "bones": 15,
+      "active": 0
+    },
+    {
+      "mesh": "PV_MeshyPickup_LOD2",
+      "count": 3,
+      "verts": 5313,
+      "bones": 15,
+      "active": 0
+    },
+    {
+      "mesh": "PV_TrafficPolice_Body",
+      "count": 1,
+      "verts": 19476,
+      "bones": 17,
+      "active": 0
+    },
+    {
+      "mesh": "PV_TrafficPolice_LOD1",
+      "count": 1,
+      "verts": 8182,
+      "bones": 17,
+      "active": 0
+    },
+    {
+      "mesh": "PV_TrafficPolice_LOD2",
+      "count": 1,
+      "verts": 2890,
+      "bones": 17,
+      "active": 0
+    },
+    {
+      "mesh": "PV_MeshyCovered_Body",
+      "count": 3,
+      "verts": 18772,
+      "bones": 15,
+      "active": 0
+    },
+    {
+      "mesh": "PV_MeshyCovered_LOD1",
+      "count": 3,
+      "verts": 10006,
+      "bones": 15,
+      "active": 0
+    }
+  ],
+  "lights": [
+    {
+      "name": "Đèn buồng giam",
+      "type": "Point",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Nắng ban mai • chu kỳ ngày đêm",
+      "type": "Directional",
+      "active": true,
+      "shadows": "Soft",
+      "mode": "Auto"
+    },
+    {
+      "name": "Ánh lửa",
+      "type": "Point",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Ánh lửa",
+      "type": "Point",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Ánh lửa",
+      "type": "Point",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Ánh trăng",
+      "type": "Directional",
+      "active": true,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Ánh lửa",
+      "type": "Point",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Nguồn sáng gần camera • 1",
+      "type": "Spot",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Ánh lửa",
+      "type": "Point",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Nguồn sáng gần camera • 2",
+      "type": "Spot",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Nguồn sáng gần camera • 4",
+      "type": "Spot",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Nguồn sáng gần camera • 5",
+      "type": "Spot",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Ánh lửa",
+      "type": "Point",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Ánh lửa",
+      "type": "Point",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Ánh lửa",
+      "type": "Point",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Nguồn sáng gần camera • 0",
+      "type": "Spot",
+      "active": false,
+      "shadows": "None",
+      "mode": "ForcePixel"
+    },
+    {
+      "name": "Ánh lửa",
+      "type": "Point",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Nguồn sáng gần camera • 3",
+      "type": "Spot",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    },
+    {
+      "name": "Ánh lửa",
+      "type": "Point",
+      "active": false,
+      "shadows": "None",
+      "mode": "Auto"
+    }
+  ],
+  "scripts": [
+    {
+      "type": "StreetObstacleSet",
+      "count": 770,
+      "enabled": 274
+    },
+    {
+      "type": "RiverBoat",
+      "count": 140,
+      "enabled": 32
+    },
+    {
+      "type": "MissileFlightVisual",
+      "count": 52,
+      "enabled": 0
+    },
+    {
+      "type": "RiverBlock",
+      "count": 35,
+      "enabled": 21
+    },
+    {
+      "type": "BikeVisualAnimator",
+      "count": 32,
+      "enabled": 10
+    },
+    {
+      "type": "UrbanRiderMotion",
+      "count": 31,
+      "enabled": 10
+    },
+    {
+      "type": "CarVisualAnimator",
+      "count": 11,
+      "enabled": 1
+    },
+    {
+      "type": "MeshyCarVariants",
+      "count": 11,
+      "enabled": 1
+    },
+    {
+      "type": "WreckFireVisual",
+      "count": 10,
+      "enabled": 0
+    },
+    {
+      "type": "HelicopterVisual",
+      "count": 5,
+      "enabled": 0
+    },
+    {
+      "type": "PassengerVisualAnimator",
+      "count": 2,
+      "enabled": 0
+    },
+    {
+      "type": "PhoVietGame",
+      "count": 1,
+      "enabled": 1
+    },
+    {
+      "type": "DayNightLighting",
+      "count": 1,
+      "enabled": 1
+    },
+    {
+      "type": "ThunderstormVisual",
+      "count": 1,
+      "enabled": 1
+    },
+    {
+      "type": "MorningFog",
+      "count": 1,
+      "enabled": 1
+    }
+  ],
+  "particleSystems": 88,
+  "activeParticleSystems": 16,
+  "instancingMaterials": 7,
+  "srpBatcher": false,
+  "camera": {
+    "farClipPlane": 190.0,
+    "renderingPath": -1,
+    "useOcclusionCulling": true,
+    "allowMSAA": true,
+    "depthTextureMode": 1,
+    "effects": [
+      "MorningFog",
+      "RiverReflection"
+    ]
+  }
+}

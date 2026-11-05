@@ -18,7 +18,8 @@ namespace PhoViet
         public static System.Func<Transform,string,Transform> ParkedBikeFactory;
         static readonly Dictionary<string, Material> materials = new Dictionary<string, Material>();
         public static readonly Color Ink = Hex("203C43"), Cream = Hex("F6F9FE"), Red = Hex("D83833"), Teal = Hex("177E80"), Gold = Hex("FFD35A");
-        public static Color Hex(string s) { ColorUtility.TryParseHtmlString("#" + s, out Color c); return c; }
+        static class HexCache { public static readonly System.Collections.Generic.Dictionary<string, Color> Colors = new System.Collections.Generic.Dictionary<string, Color>(); } // Own holder: static colours above call Hex during type initialization.
+        public static Color Hex(string s) { if (HexCache.Colors.TryGetValue(s, out Color c)) return c; ColorUtility.TryParseHtmlString("#" + s, out c); HexCache.Colors[s] = c; return c; }
         public static Material Mat(Color c, bool flat = false)
         {
             string key = ColorUtility.ToHtmlStringRGBA(c) + flat;

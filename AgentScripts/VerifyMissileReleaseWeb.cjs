@@ -1,6 +1,6 @@
 // Exercise the actual release WASM and inspect the rendered ammo count.
 const {chromium}=require('playwright'),sharp=require('sharp'),fs=require('node:fs'),assert=require('node:assert/strict');
-const url=process.argv[2]||'http://127.0.0.1:8785/',label=process.argv[3]||'release156-missiles';
+const url=process.argv[2]||'http://127.0.0.1:8785/',label=process.argv[3]||'release157-missiles';
 const report={url,checks:[],errors:[],samples:[]};
 function check(name,ok){assert(ok,name);report.checks.push(name);console.log('PASS '+name);}
 async function main(){
@@ -19,7 +19,7 @@ async function main(){
    page.on('pageerror',e=>report.errors.push(e.message));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});
    const send=(method,value)=>page.evaluate(([m,v])=>{const game='PHỐ VIỆT • Chuyến xe không ngừng',i=window.phoVietInstance;v===null?i.SendMessage(game,m):i.SendMessage(game,m,v);},[method,value??null]);
    async function frames(n){const at=await page.evaluate(()=>window.__releaseFrames);await page.waitForFunction(at=>window.__releaseFrames>=at,at+n,{timeout:90000});}
-   await page.goto(url,{waitUntil:'networkidle'});await page.locator('#play').click();await page.waitForFunction(()=>!!window.phoVietInstance,{},{timeout:180000});await page.waitForTimeout(6000);await frames(3);
+   await page.goto(url,{waitUntil:'networkidle'});await page.locator('#play').click();await page.waitForFunction(()=>!!window.phoVietInstance,{},{timeout:180000});await page.waitForTimeout(60000);await frames(3);
    check(profile+': release WASM initializes',await page.locator('#welcome').isHidden());
    const touch=mobile?await ctx.newCDPSession(page):null;
    async function jump(){

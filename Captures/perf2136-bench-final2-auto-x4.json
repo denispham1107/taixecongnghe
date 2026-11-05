@@ -1,0 +1,79 @@
+{
+  "url": "http://127.0.0.1:8787/",
+  "label": "final2-auto-x4",
+  "throttle": 4,
+  "errors": [],
+  "levels": [
+    {
+      "level": "Cao",
+      "frames": 1755,
+      "avgFps": 38.8,
+      "avgMs": 25.8,
+      "p50": 17.7,
+      "p95": 65.3,
+      "p99": 89.9,
+      "max": 138.8,
+      "over33": 571,
+      "over50": 200,
+      "over100": 12,
+      "canvas": "844x390",
+      "dpr": 1,
+      "heapMB": null
+    },
+    {
+      "level": "TrungBinh",
+      "frames": 2584,
+      "avgFps": 57.2,
+      "avgMs": 17.5,
+      "p50": 17.3,
+      "p95": 35.5,
+      "p99": 69.4,
+      "max": 140.1,
+      "over33": 300,
+      "over50": 72,
+      "over100": 10,
+      "canvas": "844x390",
+      "dpr": 1,
+      "heapMB": null
+    },
+    {
+      "level": "Thap",
+      "frames": 2530,
+      "avgFps": 56.1,
+      "avgMs": 17.8,
+      "p50": 17.3,
+      "p95": 35.6,
+      "p99": 53.3,
+      "max": 524.8,
+      "over33": 341,
+      "over50": 74,
+      "over100": 3,
+      "canvas": "844x390",
+      "dpr": 1,
+      "heapMB": null
+    }
+  ],
+  "logs": [
+    "[PhoViet] Shader warmup 62 variants, 5210 ms\n"
+  ],
+  "loadSeconds": 11.209,
+  "gl": {
+    "attrs": {
+      "alpha": true,
+      "antialias": false,
+      "depth": true,
+      "desynchronized": false,
+      "failIfMajorPerformanceCaveat": false,
+      "powerPreference": "high-performance",
+      "premultipliedAlpha": false,
+      "preserveDrawingBuffer": false,
+      "stencil": true,
+      "xrCompatible": false
+    },
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 620 (0x00003EA0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+    "width": 1350,
+    "height": 624,
+    "dpr": 1.600000023841858,
+    "heapMB": null
+  }
+}

@@ -20,6 +20,7 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, W/vuốt xuống boost2bô (21.64–21.65). **Đã có trên web1.40.0** |
 | Điều khiển/nhảy trong source | **21.124:** nhảy vật lý bật ngay; vuốt lần2 sớm queue70% (đã có trên web1.55.0). **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đã có trên web1.50.0 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
+| Tối ưu mobile trong source | **21.136 chưa lên web:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop Cao giữ baseline |
 | Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
@@ -44,6 +45,8 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.136 hoàn tất source/chưa phát hành (Claude Code):** tối ưu giật lag mobile. Giả lập DPR3+CPU×4 FPS 1.56→mới có tự giảm: Cao 4,4→38,8; Trung bình 5→57,2; Thấp 6,9→56,1; draw call Thấp 886→179. Gói mobile 116,6→70,3MB. Gồm `GraphicsPlan`, bộ tự giảm, tắt tile ngoài tầm, một nguồn sáng hướng, bỏ cascades, texture mobile 1K, tạo sẵn tài nguyên/shader, rAF. Chi tiết 21.136.
 
 - **21.135 đã phát hành 1.56.0 (Claude Code):** commit `ecb0b02`/Pages `41992250686` success/cache `03fc6346d88758ed`; 28 live + 11 tên lửa live/0 runtime; 540 browser local đạt. Gồm gói 21.134.
 
@@ -201,6 +204,8 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **Đang phát hành 1.57.0 (Claude, 05/11/2026, người dùng yêu cầu rõ "Phát hành 1.57.0"):** build, docs/pack/materialize và 540 kiểm tra trình duyệt đã đạt, cache `d612d524b1a39e3a`. Tiếp: commit/push, chờ Pages, `VerifyPublishedGame` + `VerifyMissileReleaseWeb` trên live, ghi commit kết quả.
+
 - **21.135 hoàn tất:** 1.56.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. Chưa nghe thử loa/điện thoại thật (1,56× có thể méo khi nhiều tiếng to chồng nhau; nếu rè thì giảm `MasterGain` rồi chạy `InstallAudio2132`). Chưa thử Safari/Android máy thật. Verifier cũ cần sửa nếu dùng lại: `VerifyHudTap.cs` (tọa độ HUD cũ), `VerifyPlayerMissileScene2128.cs` (ghi cứng 1.54.0). Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta` ngoài commit.
 
 - **21.133 hoàn tất:** 1.55.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. Chưa thử Safari/Android máy thật. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta` ngoài commit.
@@ -311,7 +316,7 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 - Phím: **Q húc, Space nhảy, W tăng tốc +125%/4s/hồi2s**; mobile: chạm hai lần húc, vuốt lên nhảy, vuốt xuống tăng tốc; nhận ngay khi đủ ngưỡng.
 - Hai làn trái rẽ trái, hai làn phải rẽ phải, giữ số làn sau cua, cua không giảm tốc.
 - **Source21.65: player Blue Petshop Supercar** xanh scale0,85, Q=húc thân xe; đã có trên web1.40.0; hero xe máy xanh–đen21.58 là lịch sử. NPC xe máy source21.67 dùngUrbanRider nhiều màu xe/áo, CSGT giữ cả người+xe; NPC4mẫu ô tô×8màu, xe tăng giữ nguyên.
-- Phong cách bán hiện thực vui nhộn, tối ưu điện thoại/WebGL.
+- Phong cách bán hiện thực vui nhộn, tối ưu điện thoại/WebGL. **Từ 21.136 trên cảm ứng ưu tiên mượt hơn độ nét:** không quay lại DPR3/AA4 nếu người dùng không yêu cầu.
 - Không bật lại công việc khi nâng cấp/sửa lỗi/build. Giữ dữ liệu Coin và mã jobs.
 - Không ghi đè/reset file Blender cục bộ, không dựng lại cả scene bằng builder lịch sử.
 
@@ -354,6 +359,7 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 | Màu bảng không trùng, Petshop30%, phụđề/thú cưng/nội thất | **21.72–21.74**,11.4 | `pho_viet_petshop_signs.py`, `pho_viet_river_bridge.py`, `Editor/PhoVietPetshopSignsUpgrade.cs`, `AgentScripts/InstallPetshopSigns.cs`, `VerifyPetshopSigns.cs`, `VerifyPetshopDetails.cs`, `VerifySignColours.cs`, `pho_viet_petshop_layout.py`, `pho_viet_pet_animals.py`, `Art/Pets/PV_PetGeometry.json` |
 | Âm thanh tổng / master +30% / engine cruise-boost | **21.70,21.132** | `Scripts/PhoVietAudio.cs`, `Resources/Audio/PV_Master.mixer`, `Editor/PhoVietAudioUpgrade.cs`, `AgentScripts/InstallAudio2132.cs`, `VerifyAudioMissile2132.cs`, `MeasureMasterGain2132.cs`; `PhoVietGame.cs` (`CreateSound`, `engine`, cuối `Update`) |
 | Simulator iPhone 14 Pro/Pro Max/Dynamic Island/Safe Area | **21.71** | `Assets/PhoViet/Editor/DeviceSimulator/` (`README.md`, hai `.device`, `Overlays/`, `LICENSE.md`); `Captures/iphone14-simulator-checks.json` |
+| Giật lag mobile/mức đồ họa/bộ tự giảm/tile culling/warmup | **21.136** | `PhoVietGraphicsSettings.cs`, `PhoVietTileCulling.cs`, `Plugins/WebGL/PhoVietWeb.jslib`, `app.js`, `DayNightLighting.cs`, `MorningFog.cs`, `Editor/PhoVietWebMemorySettings.cs`, `Resources/PV_ShaderWarmup.shadervariants`; `AgentScripts/BenchMobile2136.cjs`, `ProfileWebCpu2136.cjs`, `VerifyMobilePerf2136.cs`, `SampleFrames2136.cs`, `AbFrozen2136.cs`, `GcHotspots2136.cs`, `TrackShaderVariants2136.cs`, `CaptureLevels2136.cs` |
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
 | Trang chủ HTML / 2 ảnh / responsive | **21.134**,21.119,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `poster-home.png`, `poster-home-flight.png` (chụp bằng `AgentScripts/CaptureHomeFlight2134.cs`); `Editor/PhoVietWebBuild.cs`→RefreshWebShell; `AgentScripts/RefreshLandingPreview.cs`, `VerifyLanding.cjs`. Không dùngcapturecũ để thayảnhPNG này |

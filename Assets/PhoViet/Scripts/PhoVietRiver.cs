@@ -205,7 +205,8 @@ namespace PhoViet
   {
    foreach(var b in tiles)
    {
-    if(!b.gameObject.activeInHierarchy)continue;
+    // The row decides, not the tile: a tile outside the view is switched off but its river is still there for far traffic (21.136).
+    if(!b.parent.gameObject.activeInHierarchy)continue;
     var block=RiverOf(b);if(block==null||!block.IsBridge)continue;
     var l=b.InverseTransformPoint(world);
     if(l.z<=RiverBlock.Near||l.z>=RiverBlock.Far||Mathf.Abs(l.x)>RiverHalfWidth)continue;

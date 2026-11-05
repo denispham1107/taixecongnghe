@@ -19,12 +19,14 @@ public static class VerifyGraphicsSettings
     if(level==0)high("High restores every captured platform/reflection parameter");
     else
     {
-     check(QualitySettings.antiAliasing==(level==1?Mathf.Min(aa,2):0),"MSAA responds to level "+level);
-     check(Mathf.Abs(QualitySettings.shadowDistance-(level==1?distance*.65f:0))<.0001f&&QualitySettings.shadows==(level==2?ShadowQuality.Disable:shadows==ShadowQuality.Disable?ShadowQuality.Disable:ShadowQuality.HardOnly),"Real shadows respond to level "+level);
-     check(Mathf.Abs(QualitySettings.lodBias-lod*(level==1?.75f:.5f))<.0001f,"Distant mesh LOD responds to level "+level);
-     check(reflection.interval>= (level==1?2:3)&&reflection.maxSize<= (level==1?512:384)&&Mathf.Abs(reflection.resolution-scale*(level==1?.75f:.5f))<.0001f,"River rendering budget responds to level "+level);
+     var plan=PhoVietGame.PlanFor((PhoVietGame.GraphicsLevel)level); // 21.136: every level follows its plan.
+     check(QualitySettings.antiAliasing==Mathf.Min(aa,plan.antiAliasing),"MSAA responds to level "+level);
+     check(Mathf.Abs(QualitySettings.shadowDistance-Mathf.Min(distance,plan.shadowDistance))<.0001f&&QualitySettings.shadows==(plan.shadowDistance>0&&shadows!=ShadowQuality.Disable?ShadowQuality.HardOnly:ShadowQuality.Disable),"Real shadows respond to level "+level);
+     check(Mathf.Abs(QualitySettings.lodBias-lod*plan.lodBias)<.0001f,"Distant mesh LOD responds to level "+level);
+     check(reflection.enabled==plan.reflection&&reflection.interval>=plan.reflectionInterval&&reflection.maxSize<=Mathf.Max(plan.reflectionSize,0)+(plan.reflection?0:size),"River rendering budget responds to level "+level);
+     check(Mathf.Abs(g.rideCamera.farClipPlane-Mathf.Min(far,plan.far))<.0001f,"View distance follows the plan at level "+level);
     }
-    check(QualitySettings.globalTextureMipmapLimit==textureLimit&&g.rideCamera.fieldOfView==fov&&g.rideCamera.farClipPlane==far,"Texture detail, camera and view distance unchanged");
+    check(QualitySettings.globalTextureMipmapLimit==textureLimit&&g.rideCamera.fieldOfView==fov&&(level!=0||g.rideCamera.farClipPlane==far),"Texture detail and camera unchanged; High keeps its view distance");
     check(g.scenery.GetComponentsInChildren<Renderer>(true).Length==meshCount&&!g.jobsEnabled&&!PhoVietGame.RideJobsReleased,"Scenery population and locked jobs unchanged");
    }
    g.SetGraphicsQuality(0);g.SetGraphicsQuality(-1);g.SetGraphicsQuality(99);check(g.SelectedGraphics==PhoVietGame.GraphicsLevel.High&&PlayerPrefs.GetInt(PhoVietGame.GraphicsPreferenceKey)==0,"Out-of-range settings rejected");

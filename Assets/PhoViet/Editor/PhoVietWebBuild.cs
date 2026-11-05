@@ -32,7 +32,14 @@ namespace PhoViet.Editor
             PlayerSettings.WebGL.maximumMemorySize=512;
             PhoVietWebMemorySettings.Apply();
             PlayerSettings.runInBackground=false;
-            PlayerSettings.bundleVersion="1.56.0";
+            // 21.136: cascaded directional shadows make Unity draw the whole scene once more into a screen-space depth
+            // pass before the real one. Without them the forward pass samples the shadow map directly.
+            foreach(UnityEngine.Rendering.GraphicsTier tier in Enum.GetValues(typeof(UnityEngine.Rendering.GraphicsTier)))
+            {
+                var settings=UnityEditor.Rendering.EditorGraphicsSettings.GetTierSettings(BuildTargetGroup.WebGL,tier);
+                if(settings.cascadedShadowMaps){settings.cascadedShadowMaps=false;UnityEditor.Rendering.EditorGraphicsSettings.SetTierSettings(BuildTargetGroup.WebGL,tier,settings);}
+            }
+            PlayerSettings.bundleVersion="1.57.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }

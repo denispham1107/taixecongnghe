@@ -1,0 +1,88 @@
+{
+  "url": "http://127.0.0.1:8787/",
+  "checks": [
+    "desktop: release WASM initializes",
+    "desktop: round ammo3/3 button renders",
+    "desktop: actual F/touch shot changes rendered ammo digits",
+    "desktop: Web Audio master gain1.56 reaches the engine source (0.136×1.56)",
+    "desktop: retry restores original ammo digits (0 vs shot 9)",
+    "mobile: release WASM initializes",
+    "mobile: round ammo3/3 button renders",
+    "mobile: actual F/touch shot changes rendered ammo digits",
+    "mobile: Web Audio master gain1.56 reaches the engine source (0.136×1.56)",
+    "mobile: retry restores original ammo digits (0 vs shot 17)",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "profile": "desktop",
+      "name": "full",
+      "whitePixels": 25
+    },
+    {
+      "profile": "desktop",
+      "name": "fired",
+      "whitePixels": 22
+    },
+    {
+      "profile": "desktop",
+      "webAudioGains": [
+        0.21216000616550446,
+        1,
+        0,
+        0.3387449383735657,
+        0.10000002384185791,
+        0.8999999761581421,
+        0.29065266251564026,
+        0.10000002384185791,
+        0.8999999761581421
+      ]
+    },
+    {
+      "profile": "desktop",
+      "name": "retry",
+      "whitePixels": 25
+    },
+    {
+      "profile": "desktop",
+      "shotChanged": 9,
+      "retryDiffersFromFull": 0
+    },
+    {
+      "profile": "mobile",
+      "name": "full",
+      "whitePixels": 56
+    },
+    {
+      "profile": "mobile",
+      "name": "fired",
+      "whitePixels": 49
+    },
+    {
+      "profile": "mobile",
+      "webAudioGains": [
+        0.21216000616550446,
+        1,
+        0,
+        0.2676408886909485,
+        0.10000002384185791,
+        0.8999999761581421,
+        0.21946106851100922,
+        0.10000002384185791,
+        0.8999999761581421
+      ]
+    },
+    {
+      "profile": "mobile",
+      "name": "retry",
+      "whitePixels": 56
+    },
+    {
+      "profile": "mobile",
+      "shotChanged": 17,
+      "retryDiffersFromFull": 0
+    }
+  ],
+  "success": true
+}

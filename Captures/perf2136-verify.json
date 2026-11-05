@@ -1,0 +1,388 @@
+{
+  "success": true,
+  "count": 56,
+  "checks": [
+    "Level 0 sets its render density, never below CSS resolution",
+    "Level 0 spends less than the level above",
+    "Small props cull distance applied at level 0",
+    "LOD and pixel light budget applied at level 0",
+    "Reflection follows the plan at level 0",
+    "Touch plans skip the fog volume and its depth pass at level 0",
+    "Fog ends at the view limit at level 0",
+    "Touch plan keeps one directional light by day at level 0",
+    "Touch plan keeps one directional light by night at level 0",
+    "Scenery shadow casting follows the plan at level 0",
+    "Level 1 sets its render density, never below CSS resolution",
+    "Level 1 spends less than the level above",
+    "Small props cull distance applied at level 1",
+    "LOD and pixel light budget applied at level 1",
+    "Reflection follows the plan at level 1",
+    "Touch plans skip the fog volume and its depth pass at level 1",
+    "Fog ends at the view limit at level 1",
+    "Touch plan keeps one directional light by day at level 1",
+    "Touch plan keeps one directional light by night at level 1",
+    "Scenery shadow casting follows the plan at level 1",
+    "Level 2 sets its render density, never below CSS resolution",
+    "Level 2 spends less than the level above",
+    "Small props cull distance applied at level 2",
+    "LOD and pixel light budget applied at level 2",
+    "Reflection follows the plan at level 2",
+    "Touch plans skip the fog volume and its depth pass at level 2",
+    "Fog ends at the view limit at level 2",
+    "Touch plan keeps one directional light by day at level 2",
+    "Touch plan keeps one directional light by night at level 2",
+    "Scenery shadow casting follows the plan at level 2",
+    "Desktop High keeps its full baseline",
+    "Desktop High keeps its full fog distance",
+    "Desktop High keeps both directional lights",
+    "Desktop High keeps scenery shadows",
+    "Compared 36 frames with and without tile culling",
+    "Tile culling changes at most 0.05% of pixels (worst 1)",
+    "Compared frames include a chosen junction turn",
+    "Straight road keeps at most 60% of tiles active (9-10 of 35)",
+    "Governor never renders below CSS resolution",
+    "Governor never renders below CSS resolution",
+    "Governor never renders below CSS resolution",
+    "Governor never renders below CSS resolution",
+    "Governor never renders below CSS resolution",
+    "Governor never renders below CSS resolution",
+    "Governor never renders below CSS resolution",
+    "Governor reaches Low, the choice stays Cao (High:1.72 Medium:1.60 Medium:1.38 Low:1.25 Low:1.08 Low:1.00 Low:1.00)",
+    "Last resort is a steady half refresh at the pixel floor",
+    "Governor returns to the chosen level",
+    "Steps counted",
+    "Choosing a level clears the learned drop",
+    "Rear warning textures exist before the first warning",
+    "Tank effects exist before the first shot",
+    "Contact fire pool exists before the first crash",
+    "Colour cache returns the parsed colour",
+    "HUD skips the IMGUI layout pass",
+    "Ride jobs stay locked"
+  ],
+  "samples": [
+    {
+      "level": 2,
+      "hour": 8.0,
+      "sample": 0,
+      "active": 7,
+      "turning": false,
+      "junction": 27.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 8.0,
+      "sample": 1,
+      "active": 10,
+      "turning": false,
+      "junction": 59.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 8.0,
+      "sample": 2,
+      "active": 10,
+      "turning": false,
+      "junction": 14.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 8.0,
+      "sample": 3,
+      "active": 10,
+      "turning": false,
+      "junction": 41.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 8.0,
+      "sample": 4,
+      "active": 9,
+      "turning": false,
+      "junction": 67.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 8.0,
+      "sample": 5,
+      "active": 9,
+      "turning": false,
+      "junction": 16.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 8.0,
+      "sample": 6,
+      "active": 9,
+      "turning": false,
+      "junction": 37.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 8.0,
+      "sample": 7,
+      "active": 10,
+      "turning": false,
+      "junction": 57.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 8.0,
+      "sample": 8,
+      "active": 10,
+      "turning": true,
+      "junction": 1.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 26.0,
+      "sample": 0,
+      "active": 7,
+      "turning": false,
+      "junction": 27.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 26.0,
+      "sample": 1,
+      "active": 10,
+      "turning": false,
+      "junction": 59.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 26.0,
+      "sample": 2,
+      "active": 10,
+      "turning": false,
+      "junction": 14.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 26.0,
+      "sample": 3,
+      "active": 10,
+      "turning": false,
+      "junction": 41.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 26.0,
+      "sample": 4,
+      "active": 9,
+      "turning": false,
+      "junction": 67.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 26.0,
+      "sample": 5,
+      "active": 9,
+      "turning": false,
+      "junction": 16.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 26.0,
+      "sample": 6,
+      "active": 9,
+      "turning": false,
+      "junction": 37.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 26.0,
+      "sample": 7,
+      "active": 10,
+      "turning": false,
+      "junction": 57.0,
+      "diff": 0
+    },
+    {
+      "level": 2,
+      "hour": 26.0,
+      "sample": 8,
+      "active": 10,
+      "turning": true,
+      "junction": 1.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 8.0,
+      "sample": 0,
+      "active": 9,
+      "turning": false,
+      "junction": 27.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 8.0,
+      "sample": 1,
+      "active": 14,
+      "turning": false,
+      "junction": 59.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 8.0,
+      "sample": 2,
+      "active": 14,
+      "turning": false,
+      "junction": 14.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 8.0,
+      "sample": 3,
+      "active": 13,
+      "turning": false,
+      "junction": 41.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 8.0,
+      "sample": 4,
+      "active": 10,
+      "turning": false,
+      "junction": 67.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 8.0,
+      "sample": 5,
+      "active": 12,
+      "turning": false,
+      "junction": 16.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 8.0,
+      "sample": 6,
+      "active": 13,
+      "turning": false,
+      "junction": 37.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 8.0,
+      "sample": 7,
+      "active": 14,
+      "turning": false,
+      "junction": 57.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 8.0,
+      "sample": 8,
+      "active": 14,
+      "turning": true,
+      "junction": 1.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 26.0,
+      "sample": 0,
+      "active": 9,
+      "turning": false,
+      "junction": 27.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 26.0,
+      "sample": 1,
+      "active": 14,
+      "turning": false,
+      "junction": 59.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 26.0,
+      "sample": 2,
+      "active": 14,
+      "turning": false,
+      "junction": 14.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 26.0,
+      "sample": 3,
+      "active": 13,
+      "turning": false,
+      "junction": 41.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 26.0,
+      "sample": 4,
+      "active": 10,
+      "turning": false,
+      "junction": 67.0,
+      "diff": 1
+    },
+    {
+      "level": 0,
+      "hour": 26.0,
+      "sample": 5,
+      "active": 12,
+      "turning": false,
+      "junction": 16.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 26.0,
+      "sample": 6,
+      "active": 13,
+      "turning": false,
+      "junction": 37.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 26.0,
+      "sample": 7,
+      "active": 14,
+      "turning": false,
+      "junction": 57.0,
+      "diff": 0
+    },
+    {
+      "level": 0,
+      "hour": 26.0,
+      "sample": 8,
+      "active": 14,
+      "turning": true,
+      "junction": 1.0,
+      "diff": 0
+    }
+  ]
+}
