@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "baselineFiles": 3199,
+  "unchanged": 3195,
+  "changed": [
+    "Assets/PhoViet/Resources/PlayerMissile/PV_MissilePickup.prefab",
+    "Assets/PhoViet/Resources/PlayerMissile/PV_MissilePickup_LOD0.asset",
+    "Assets/PhoViet/Resources/PlayerMissile/PV_MissilePickup_LOD1.asset",
+    "Assets/PhoViet/Resources/PlayerMissile/PV_MissilePickup_LOD2.asset"
+  ],
+  "gameplayCodeUnchanged": true,
+  "hudButtonAndProjectileResourcesUnchanged": true,
+  "sceneryAndTexturesUnchanged": true
+}

@@ -1,6 +1,6 @@
 {
-  "approved": false,
-  "selected": null,
+  "approved": true,
+  "selected": "C",
   "scope": "Road missile ammo pickup only; excludes HUD, button and projectiles in flight",
   "candidates": {
     "A": "Rocket Pop - standalone rounded rocket above small cyan halo",
@@ -8,5 +8,7 @@
     "C": "Hex Ammo - raised rocket on cobalt hexagonal badge with amber rim"
   },
   "source": "MissilePickup_ABC.blend",
-  "preview": "missile-pickup-ABC.png"
+  "preview": "missile-pickup-ABC.png",
+  "approvalDate": "2026-11-05",
+  "userConfirmation": "Tôi chọn mẫu C"
 }

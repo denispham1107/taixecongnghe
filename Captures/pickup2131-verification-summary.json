@@ -1,0 +1,37 @@
+{
+  "success": true,
+  "approved": "C",
+  "unityChecks": 735,
+  "suites": {
+    "scene": 115,
+    "C": 294,
+    "gameplay": 261,
+    "trail": 65
+  },
+  "lodTriangles": [
+    1482,
+    1014,
+    592
+  ],
+  "runtimePool": 70,
+  "reviewed": [
+    "day",
+    "night",
+    "portrait",
+    "mobile-landscape",
+    "close"
+  ],
+  "runtimeScope": "pickup prefab and its three meshes only; new Editor installer",
+  "scene": {
+    "play": false,
+    "compiling": false,
+    "building": false,
+    "sceneDirty": false,
+    "jobs": false
+  },
+  "built": false,
+  "pushed": false,
+  "published": false,
+  "liveVersion": "1.54.0",
+  "physicalMobileTested": false
+}

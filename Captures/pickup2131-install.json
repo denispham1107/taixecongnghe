@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "approved": "C",
+  "lodTriangles": [
+    1482,
+    1014,
+    592
+  ],
+  "renderersPerLod": 1,
+  "particles": 0,
+  "lights": 0,
+  "colliders": 0,
+  "sceneDirty": false
+}
