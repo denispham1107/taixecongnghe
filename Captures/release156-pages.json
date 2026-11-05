@@ -1,0 +1,11 @@
+{
+  "release": "ecb0b02e16d01a6237539536a70cd6da99c50ccb",
+  "run": {
+    "id": 41992250686,
+    "status": "completed",
+    "conclusion": "success",
+    "head_sha": "ecb0b02e16d01a6237539536a70cd6da99c50ccb",
+    "html_url": "https://github.com/denispham1107/taixecongnghe/actions/runs/41992250686",
+    "name": "Deploy Ph\u1ed1 Vi\u1ec7t WebGL"
+  }
+}

@@ -10,7 +10,7 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.55.0** — commit `86b26ec`; Pages `41983779125` success; cache `7a2f7e521dd62b06`; **27 live + 11 tên lửa live đạt/0 runtime**, 468 browser local đạt; trực thăng/tên lửa/lửa va chạm/âm lượng 21.124–21.133 |
+| Bản đã phát hành | **1.56.0** — commit `ecb0b02`; Pages `41992250686` success; cache `03fc6346d88758ed`; **28 live + 11 tên lửa live đạt/0 runtime**, 540 browser local đạt; nút tên lửa trái, master 1,56×, trang chủ 2 ảnh. Báo cáo `Captures/VERIFICATION_RELEASE_1_56.md` |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -25,7 +25,7 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Pickup tên lửa mẫu C đã duyệt | **21.131 đã có trên web1.55.0:** Hex Ammo nền lục giác xanh/viền vàng/mũi đỏ;3LOD1482/1014/592tri,pool70.735Unity đạt/5ảnh đã xem; chỉ pickup đường, HUD/nút/đạn bay giữ. Approvaltrue/C |
-| Nút tên lửa/âm lượng/ảnh trang chủ mới | **21.134 chỉ trong source, chưa lên web:** nút góc trái dưới, master 1,56×/+3,86249dB, thêm `poster-home-flight.png` dưới ảnh cũ |
+| Nút tên lửa/âm lượng/ảnh trang chủ mới | **21.134 đã có trên web 1.56.0:** nút góc trái dưới, master 1,56×/+3,86249dB, `poster-home-flight.png` dưới ảnh cũ |
 | Đạn trực thăng/âm lượng tổng trong source | **21.132 đã có trên web1.55.0:** đạn địch50→40m/s (−20%), mastervolume1,3×/+2,2788668dB cho engine/FX/CSGT/mưa/rotor/voice.1016Unity đạt; đoRMS1,305×; player missile/ảnh/gameplaykhác giữ |
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
 | Tên lửa người chơi trong source | **21.128 đã có trên web1.55.0:**3/3,2pickup/phố-cầu/+1,nút/F khi bay/chờ0,4s/homing; không mục tiêu vẫn bắn thẳng,trúng trực thăng cháy/rơi.1278Unity/436browser/5ảnh đạt |
@@ -45,7 +45,9 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.134 hoàn tất source/chưa phát hành:** nút tên lửa chuyển sang góc trái dưới (thanh gợi ý dời sang phải nút); `MasterGain` 1,3→1,56/+3,86249dB, đo thật 1,5695×; trang chủ có **2 ảnh**, ảnh mới xe bay + 2 trực thăng + tên lửa sắp tới xe ngay dưới ảnh cũ. Đạt: PlayerMissiles 262, Audio 67, Scene 115, Release155Scene 182, Landing 459.
+- **21.135 đã phát hành 1.56.0 (Claude Code):** commit `ecb0b02`/Pages `41992250686` success/cache `03fc6346d88758ed`; 28 live + 11 tên lửa live/0 runtime; 540 browser local đạt. Gồm gói 21.134.
+
+- **21.134 đã có trên web 1.56.0:** nút tên lửa chuyển sang góc trái dưới (thanh gợi ý dời sang phải nút); `MasterGain` 1,3→1,56/+3,86249dB, đo thật 1,5695×; trang chủ có **2 ảnh**, ảnh mới xe bay + 2 trực thăng + tên lửa sắp tới xe ngay dưới ảnh cũ. Đạt: PlayerMissiles 262, Audio 67, Scene 115, Release155Scene 182, Landing 459.
 
 - **21.133 đã phát hành 1.55.0 (Codex build, Claude Code kiểm tra cuối/phát hành, không rebuild):** commit `86b26ec`/Pages `41983779125` success/cache `7a2f7e521dd62b06`; 27 live + 11 tên lửa live/0 runtime; 468 browser local. Sửa 2 assertion sai trong `VerifyMissileReleaseWeb` (gain theo từng nguồn 0,136×1,3; nút trong suốt lộ vạch đường), không đổi game. Chi tiết 21.133.
 
@@ -199,9 +201,7 @@ Cập nhật lần cuối: **05/11/2026 — Claude Code**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **Đang phát hành 1.56.0 (Claude, 05/11/2026, người dùng yêu cầu rõ "Build và phát hành"):** build, docs/pack/materialize và 540 kiểm tra trình duyệt đã đạt, cache `03fc6346d88758ed`. Tiếp: commit/push, chờ Pages, `VerifyPublishedGame` + `VerifyMissileReleaseWeb` trên live, ghi commit kết quả.
-
-- **21.134 xong source, chờ người dùng quyết build/phát hành:** nút tên lửa trái, master 1,56×, ảnh `poster-home-flight.png`. Chưa commit/build/push; web vẫn 1.55.0. Chưa nghe thử trên máy thật (1,56× có thể méo khi nhiều tiếng to chồng nhau). Khi phát hành: bump version, chạy `VerifyMissileReleaseWeb.cjs` và `VerifyLanding.cjs` trên bản build. Verifier cũ cần sửa nếu dùng lại: `VerifyHudTap.cs` (toạ độ HUD cũ), `VerifyPlayerMissileScene2128.cs` (ghi cứng 1.54.0). Unity Edit/scene sạch/jobs false.
+- **21.135 hoàn tất:** 1.56.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. Chưa nghe thử loa/điện thoại thật (1,56× có thể méo khi nhiều tiếng to chồng nhau; nếu rè thì giảm `MasterGain` rồi chạy `InstallAudio2132`). Chưa thử Safari/Android máy thật. Verifier cũ cần sửa nếu dùng lại: `VerifyHudTap.cs` (tọa độ HUD cũ), `VerifyPlayerMissileScene2128.cs` (ghi cứng 1.54.0). Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta` ngoài commit.
 
 - **21.133 hoàn tất:** 1.55.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. Chưa thử Safari/Android máy thật. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta` ngoài commit.
 
