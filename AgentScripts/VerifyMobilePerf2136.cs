@@ -95,7 +95,7 @@ public static class VerifyMobilePerf2136
    Check(turned,"Compared frames include a chosen junction turn");
    Check(maxTiles>0&&maxTiles<=total*.6f,"Straight road keeps at most 60% of tiles active ("+minTiles+"-"+maxTiles+" of "+total+")");
    // ---- governor walks down and back up, the player's choice stays selected
-   g.forceTouchGraphics=true;g.SetGraphicsQuality(0);QualitySettings.vSyncCount=1;g.ResetRide();
+   g.forceTouchGraphics=true;g.SetGraphicsQuality((int)PhoVietGame.GraphicsLevel.High);QualitySettings.vSyncCount=1;g.ResetRide();
    var seen=new List<string>();for(int i=0;i<12&&!(QualitySettings.vSyncCount==2);i++){Call("GovernorStepDown");seen.Add(g.EffectiveGraphics+":"+g.RenderPixelCap.ToString("0.00"));Check(g.RenderPixelCap>=1,"Governor never renders below CSS resolution");}
    Check(g.SelectedGraphics==PhoVietGame.GraphicsLevel.High&&g.EffectiveGraphics==PhoVietGame.GraphicsLevel.Low,"Governor reaches Low, the choice stays Cao ("+string.Join(" ",seen)+")");
    Check(QualitySettings.vSyncCount==2&&g.RenderPixelCap==PhoVietGame.PlanFor(PhoVietGame.GraphicsLevel.Low).pixelFloor,"Last resort is a steady half refresh at the pixel floor");
@@ -113,7 +113,7 @@ public static class VerifyMobilePerf2136
   }
   finally
   {
-   g.tileCullingEnabled=true;g.forceTouchGraphics=false;QualitySettings.vSyncCount=vsync;g.dinosaursEnabled=dino;g.tankBarrageEnabled=tank;g.SetGraphicsQuality(pref>=0&&pref<=2?pref:0);g.ResetRide();Time.timeScale=time;
+   g.tileCullingEnabled=true;g.forceTouchGraphics=false;QualitySettings.vSyncCount=vsync;g.dinosaursEnabled=dino;g.tankBarrageEnabled=tank;g.SetGraphicsQuality(pref>=0&&pref<=3?pref:0);g.ResetRide();Time.timeScale=time;
    UnityEngine.Object.DestroyImmediate(rt);UnityEngine.Object.DestroyImmediate(t);
   }
  }

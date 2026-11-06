@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **06/11/2026 — Codex**
+Cập nhật lần cuối: **07/11/2026 — Codex**
 
 ## 1. Trạng thái hiện tại
 
@@ -21,8 +21,8 @@ Cập nhật lần cuối: **06/11/2026 — Codex**
 | Bay/kho tên lửa source21.143 | **Chưa build/web:** bay từmặtđường2,88166→3,45799m(+20%); trực thăng/icon theo thânxe. Nhảy4,11665m giữ; Space/vuốtlênlần2 tự nâng nếu thấp/kểcảđangrơi, đangcao hơn giữcaođộhiệncó. Nútbay cùng mức. **Đạn đầu lượt/tối đa5/5**, nhặt+1; W/F/vuốtxuống chỉbắnkhibay/boostkhóa.805Unityđạt/2ảnhdọcngangđãxem. |
 | Điều khiển/nhảy trong source | **21.124:** nhảy vật lý bật ngay; vuốt lần2 sớm queue70% (đã có trên web1.55.0). **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đã có trên web1.50.0 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
-| Tối ưu mobile | **21.136/21.138 đã có trên web 1.57.1:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop Cao giữ baseline trừ cascades WebGL. Layer ẩn sớm chỉ gồm đèn tín hiệu, đèn đường, biển chữ |
-| Cài đặt đồ họa trong source | **21.78 đã có trên web1.45.0:** bánh răng trênWelcome → Cao/Trung bình/Thấp, áp dụng ngay/lưuPlayerPrefs; Cao giữ đúng baseline từng nền tảng.155kiểmtra+6ảnh+chuột/phím/lưuquaPlay đạt |
+| Tối ưu mobile | **21.136/21.138 đã có trên web 1.57.1:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop **Rất cao (source21.144)** giữ baseline trừ cascades WebGL; Rấtcao không tựgiảm. Layer ẩn sớm chỉ gồm đèn tín hiệu, đèn đường, biển chữ |
+| Cài đặt đồ họa trong source | **21.144 chưa build/web:** Rất cao(cũCao, cốđịnh)/Cao(mới,tựgiảm)/Trung bình/Thấp. IDlưu0/3/1/2 theo thứtựUI, không đổi pref cũ. DesktopRấtcao fullbaseline/mobileRấtcao planCao cũ; không governor/learneddrop/đổiHz. CaoDPR1,8/LOD0,6/tầm150m/phảnchiếu448, giữaRấtcao vàTrungbình.233Unityđạt/4modalảnhđãxem. Web1.58.0 còn3mức. |
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
@@ -47,6 +47,8 @@ Cập nhật lần cuối: **06/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.144 hoàn tất source/chưa phát hành (Codex):**4mức Rấtcao/Cao/Trungbình/Thấp; Rấtcao giữ Cao cũ và không tựgiảm, Cao mới giữa2plan/tựgiảmdesktop-mobile. GiữID0/1/2, CaoID3; governor theo rank/không đổi lựa chọn.4hàng/modalresponsive/phím1–4/lưuprefs. **233đạt** (59mới+112settings+62mobileperf/34khungroadcull lệch tốiđa1pixel).8ảnhđãchụp/4modalđãxem. UnityEdit/scene sạch/jobsfalse/boostfalse; source/tests/2docs lưucommitlocal,chưa build/push/web(1.58.0).
 
 - **21.143 hoàn tất source/chưa phát hành (Codex):** bay tối thiểu+20%→3,45799m so mặt đỡ, nhảy4,11665m giữ; Space/vuốt lần2 nâng lên cả lúc đang rơi; nútbay/icon/trực thăng đồngbộ. Khođạn5/5, pickup+1/cap5. **805Unityđạt** (172altitude+264missile+94flight+53input+222enemymissile),2ảnhGameviewdọcngangđãxem/HUD5/5. UnityEdit/scene sạch/jobsfalse/boostfalse; lưucommitlocalcùng2docs,chưabuild/push/web(1.58.0).
 
@@ -220,6 +222,8 @@ Cập nhật lần cuối: **06/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.144 hoàn tất:** không còn sửa/kiểm/chụp đangdở. Chờ yêu cầu build/phát hành, gộp21.142–21.144. Mức cũ0 nayRấtcao không tựgiảm; chọn3 để đo Cao mới. Công cụ bench lịch sử0/1/2 vẫn đoRấtcao/Trung/Thấp, muốn đủ4 phải theo thứtự0/3/1/2. Chưa benchmarkFPS/WASMmới/mobilemáythật.
+
 - **21.143 hoàn tất:** không còn sửa/kiểm đang dở; chờ yêu cầu build/phát hành. Lần build kế tiếp lấy cả21.142 và21.143. `VerifyRelease158Scene` là lịch sử, còn ghi cứngammo3; verifier bản kế phải dùng5. Browser missile test cần baseline5/5 khi chạy WASM mới. Chưa kiểm trên điện thoại thật/WebGL mới; giữ dirty ngoài phạm vi.
 
 - **21.142 hoàn tất:** không còn phần sửa/kiểm đang dở. Chưa build/push/phát hành thay đổi điều khiển; web vẫn1.58.0. Lần build sau phải lấy cả template hướng dẫn mới. Giữ `BoostReleased=false` đến khi người dùng yêu cầu mở. Các bài `VerifyBoost`/boost-isolation cũ kiểm khả năng kích hoạt boost là lịch sử, không đại diện luật tạm khóa. Chưa kiểm W vật lý/WebGL/mobile máy thật cho mapping mới.
@@ -317,6 +321,8 @@ Cập nhật lần cuối: **06/11/2026 — Codex**
 
 ## 4. Luật đã chốt — không tự đổi
 
+- **Source21.144:** Rấtcao giữ nguyên Cao cũ/không tựgiảm cả desktop-mobile; Cao mới giữaRấtcao-Trungbình/tựgiảm. Giữ mức đãchọn riêng mức hiệu dụng. IDpref0=Rấtcao,3=Cao,1=Trungbình,2=Thấp; không đổi lại thứtựenum hoặc tựmở adaptive choRấtcao.
+
 - **Source21.143 (web1.58.0 vẫn21.128):** player5/5tên lửa,mỗi icon+1/tốiđa5,2iconkháclàn/phố-cầu. Nút tròn/F chỉkhi giữbay,cooldown0,4s; khóa trực thăng gầnnhất phía trước/homing,khôngmục tiêu vẫn bắn thẳng. Trúng máy bay cháy/rơi; giữ đạn địch/roll/luật player thua. Kho đầy giữ pickup lại.
 
 - **Source21.127:** va chạm xe mặt đất làm cả hai cháy tại chỗ tông; tông lại chỗ khác thêm điểm cháy. Tank không cháy. Xe thường vẫn dựng/chạy lại3s, CSGT1,2s, **vẫn chạy kèm lửa/khói**, chỉ dọn khi retire/generation/sông/retry. Giữ physics/score/chờ CSGT; lửa do sét/không chiến giữ luật riêng.
@@ -380,7 +386,7 @@ Cập nhật lần cuối: **06/11/2026 — Codex**
 | Màu bảng không trùng, Petshop30%, phụđề/thú cưng/nội thất | **21.72–21.74**,11.4 | `pho_viet_petshop_signs.py`, `pho_viet_river_bridge.py`, `Editor/PhoVietPetshopSignsUpgrade.cs`, `AgentScripts/InstallPetshopSigns.cs`, `VerifyPetshopSigns.cs`, `VerifyPetshopDetails.cs`, `VerifySignColours.cs`, `pho_viet_petshop_layout.py`, `pho_viet_pet_animals.py`, `Art/Pets/PV_PetGeometry.json` |
 | Âm thanh tổng / master +30% / engine cruise-boost | **21.70,21.132** | `Scripts/PhoVietAudio.cs`, `Resources/Audio/PV_Master.mixer`, `Editor/PhoVietAudioUpgrade.cs`, `AgentScripts/InstallAudio2132.cs`, `VerifyAudioMissile2132.cs`, `MeasureMasterGain2132.cs`; `PhoVietGame.cs` (`CreateSound`, `engine`, cuối `Update`) |
 | Simulator iPhone 14 Pro/Pro Max/Dynamic Island/Safe Area | **21.71** | `Assets/PhoViet/Editor/DeviceSimulator/` (`README.md`, hai `.device`, `Overlays/`, `LICENSE.md`); `Captures/iphone14-simulator-checks.json` |
-| Giật lag mobile/mức đồ họa/bộ tự giảm/tile culling/warmup | **21.136** | `PhoVietGraphicsSettings.cs`, `PhoVietTileCulling.cs`, `Plugins/WebGL/PhoVietWeb.jslib`, `app.js`, `DayNightLighting.cs`, `MorningFog.cs`, `Editor/PhoVietWebMemorySettings.cs`, `Resources/PV_ShaderWarmup.shadervariants`; `AgentScripts/BenchMobile2136.cjs`, `ProfileWebCpu2136.cjs`, `VerifyMobilePerf2136.cs`, `SampleFrames2136.cs`, `AbFrozen2136.cs`, `GcHotspots2136.cs`, `TrackShaderVariants2136.cs`, `CaptureLevels2136.cs` |
+| Giật lag mobile/mức đồ họa/bộ tự giảm/tile culling/warmup | **21.144,21.136** | `PhoVietGraphicsSettings.cs`, `PhoVietTileCulling.cs`, `Plugins/WebGL/PhoVietWeb.jslib`, `app.js`, `DayNightLighting.cs`, `MorningFog.cs`, `Editor/PhoVietWebMemorySettings.cs`, `Resources/PV_ShaderWarmup.shadervariants`; `AgentScripts/VerifyGraphics2144.cs`, `CaptureGraphics2144.cs`, `BenchMobile2136.cjs`, `ProfileWebCpu2136.cjs`, `VerifyMobilePerf2136.cs`, `SampleFrames2136.cs`, `AbFrozen2136.cs`, `GcHotspots2136.cs`, `TrackShaderVariants2136.cs`, `CaptureLevels2136.cs` |
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
 | Trang chủ HTML / 2 ảnh / responsive | **21.134**,21.119,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `poster-home.png`, `poster-home-flight.png` (chụp bằng `AgentScripts/CaptureHomeFlight2134.cs`); `Editor/PhoVietWebBuild.cs`→RefreshWebShell; `AgentScripts/RefreshLandingPreview.cs`, `VerifyLanding.cjs`. Không dùngcapturecũ để thayảnhPNG này |

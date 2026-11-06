@@ -13,7 +13,7 @@ public static class VerifyGraphicsSettings
   {
    Time.timeScale=0;g.SetGraphicsQuality(0);int aa=QualitySettings.antiAliasing,cascades=QualitySettings.shadowCascades;float distance=QualitySettings.shadowDistance,lod=QualitySettings.lodBias,scale=reflection.resolution,reflectFar=reflection.farClip;int size=reflection.maxSize,interval=reflection.interval;var shadows=QualitySettings.shadows;var shadowResolution=QualitySettings.shadowResolution;
    Action<string> high=label=>check(QualitySettings.antiAliasing==aa&&QualitySettings.shadows==shadows&&QualitySettings.shadowDistance==distance&&QualitySettings.shadowResolution==shadowResolution&&QualitySettings.shadowCascades==cascades&&QualitySettings.lodBias==lod&&reflection.resolution==scale&&reflection.maxSize==size&&reflection.interval==interval&&reflection.farClip==reflectFar,label);
-   foreach(int level in new[]{1,2,0,2,1,0})
+   foreach(int level in new[]{3,1,2,0,2,3,1,0})
    {
     g.SetGraphicsQuality(level);check((int)g.SelectedGraphics==level&&PlayerPrefs.GetInt(PhoVietGame.GraphicsPreferenceKey,-1)==level,"Selected level and persistent preference "+level);
     if(level==0)high("High restores every captured platform/reflection parameter");
@@ -29,9 +29,9 @@ public static class VerifyGraphicsSettings
     check(QualitySettings.globalTextureMipmapLimit==textureLimit&&g.rideCamera.fieldOfView==fov&&(level!=0||g.rideCamera.farClipPlane==far),"Texture detail and camera unchanged; High keeps its view distance");
     check(g.scenery.GetComponentsInChildren<Renderer>(true).Length==meshCount&&!g.jobsEnabled&&!PhoVietGame.RideJobsReleased,"Scenery population and locked jobs unchanged");
    }
-   g.SetGraphicsQuality(0);g.SetGraphicsQuality(-1);g.SetGraphicsQuality(99);check(g.SelectedGraphics==PhoVietGame.GraphicsLevel.High&&PlayerPrefs.GetInt(PhoVietGame.GraphicsPreferenceKey)==0,"Out-of-range settings rejected");
+   g.SetGraphicsQuality(0);g.SetGraphicsQuality(-1);g.SetGraphicsQuality(99);check(g.SelectedGraphics==PhoVietGame.GraphicsLevel.VeryHigh&&PlayerPrefs.GetInt(PhoVietGame.GraphicsPreferenceKey)==0,"Out-of-range settings rejected");
    // Simulate a new session on the same platform, starting from its unmodified High baseline.
-   foreach(int level in new[]{1,2,0,77})
+   foreach(int level in new[]{3,1,2,0,77})
    {
     g.SetGraphicsQuality(0);PlayerPrefs.SetInt(PhoVietGame.GraphicsPreferenceKey,level);t.GetField("graphicsInitialized",F).SetValue(g,false);t.GetMethod("InitializeGraphicsSettings",F).Invoke(g,null);
     check((int)g.SelectedGraphics==(level==77?0:level),"Saved preference reload / invalid preference fallback "+level);
@@ -43,7 +43,7 @@ public static class VerifyGraphicsSettings
     check(gear.width==44&&gear.height==44&&card.Contains(gear.min)&&card.Contains(gear.max-Vector2.one),"Gear has a full touch target in "+dimensions);
     check(!gear.Overlaps(PhoVietGame.WelcomeStartRect(card)),"Gear cannot hit start button in "+dimensions);
     check(window.x>=16&&window.y>=16&&window.xMax<=dimensions.x-16&&window.yMax<=dimensions.y-16,"Window stays within viewport "+dimensions);
-    for(int i=0;i<3;i++)check(window.Contains(PhoVietGame.GraphicsChoiceRect(window,i).center)&&!PhoVietGame.GraphicsDoneRect(window).Overlaps(PhoVietGame.GraphicsChoiceRect(window,i)),"Separate visible option "+i+" in "+dimensions);
+    for(int i=0;i<4;i++)check(window.Contains(PhoVietGame.GraphicsChoiceRect(window,i).center)&&!PhoVietGame.GraphicsDoneRect(window).Overlaps(PhoVietGame.GraphicsChoiceRect(window,i)),"Separate visible option "+i+" in "+dimensions);
    }
    foreach(bool inset in new[]{false,true})
    {
@@ -51,7 +51,7 @@ public static class VerifyGraphicsSettings
     Action<Vector2> tap=p=>g.ApplyHudTap(JsonUtility.ToJson(new Tap{x=(area.x+p.x*uiScale)/Screen.width,y=(area.y+p.y*uiScale)/Screen.height}));
     g.CloseGraphicsSettings();tap(PhoVietGame.WelcomeSettingsRect(PhoVietGame.WelcomeCardRect(w,h,portrait)).center);check(g.GraphicsSettingsOpen&&g.State==PhoVietGame.RideState.Ready,"Browser gear tap opens only settings / safe area="+inset);
     g.StartRide();check(g.State==PhoVietGame.RideState.Ready,"Start API is blocked by modal");
-    for(int i=0;i<3;i++){tap(PhoVietGame.GraphicsChoiceRect(PhoVietGame.GraphicsWindowRect(w,h,portrait),i).center);check((int)g.SelectedGraphics==i&&g.GraphicsSettingsOpen&&g.State==PhoVietGame.RideState.Ready,"Browser tap selects only option "+i+" / safe area="+inset);}
+    for(int i=0;i<4;i++){tap(PhoVietGame.GraphicsChoiceRect(PhoVietGame.GraphicsWindowRect(w,h,portrait),i).center);check(g.SelectedGraphics==PhoVietGame.GraphicsLevelAt(i)&&g.GraphicsSettingsOpen&&g.State==PhoVietGame.RideState.Ready,"Browser tap selects only option "+i+" / safe area="+inset);}
     tap(new Vector2(1,1));check(!g.GraphicsSettingsOpen&&g.State==PhoVietGame.RideState.Ready,"Outside tap closes without clicking through");
     g.OpenGraphicsSettings();tap(PhoVietGame.GraphicsDoneRect(PhoVietGame.GraphicsWindowRect(w,h,portrait)).center);check(!g.GraphicsSettingsOpen&&g.State==PhoVietGame.RideState.Ready,"Done closes without starting ride");
     g.OpenGraphicsSettings();tap(PhoVietGame.GraphicsCloseRect(PhoVietGame.GraphicsWindowRect(w,h,portrait)).center);check(!g.GraphicsSettingsOpen,"Close button works through browser bridge");

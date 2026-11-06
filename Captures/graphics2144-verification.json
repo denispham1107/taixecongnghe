@@ -1,0 +1,40 @@
+{
+  "success": true,
+  "count": 233,
+  "suites": [
+    {
+      "suite": "test",
+      "count": 59,
+      "success": true
+    },
+    {
+      "suite": "settings",
+      "count": 112,
+      "success": true
+    },
+    {
+      "suite": "perf",
+      "count": 62,
+      "success": true
+    }
+  ],
+  "qualityIds": {
+    "VeryHigh": 0,
+    "High": 3,
+    "Medium": 1,
+    "Low": 2
+  },
+  "uiOrder": [
+    0,
+    3,
+    1,
+    2
+  ],
+  "viewedModals": [
+    "portrait",
+    "landscape",
+    "desktop",
+    "tablet"
+  ],
+  "scope": "Unity Editor tests and screenshots, not a new WebGL release or physical phone benchmark"
+}
