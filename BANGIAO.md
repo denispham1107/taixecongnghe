@@ -224,6 +224,8 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.146 — sẵn sàng phát hành1.59.0:** BuildETC2+DXT thành công,193pre+193post/584SHA/43repo+34site+35index/575browser local đạt,0runtime. Cache `c6699b769f95f932`. Đang lưu commit artifact/docs rồi pushmain→Pages→kiểm live. Unity Edit/scene sạch/jobsfalse/boostfalse, server8786 còn chạy. Giữ dirty ngoài phạm vi.
+
 - **21.145 hoàn tất:** không còn sửa/kiểm/chụp đangdở. Chờ yêu cầu build/phát hành; gộp21.142–145. VerifierRelease158Scene/energy2122 còn số2đất/3bay/70pool là lịch sử; source nay6/7/210poolđất. Chưa kiểmFPS/mobilemáythật/WASMmới. Giữ dirtyArt/Wave/Packages/Simulator/metatexture/Captures lịch sử.
 
 - **21.144 hoàn tất:** không còn sửa/kiểm/chụp đangdở. Chờ yêu cầu build/phát hành, gộp21.142–21.144. Mức cũ0 nayRấtcao không tựgiảm; chọn3 để đo Cao mới. Công cụ bench lịch sử0/1/2 vẫn đoRấtcao/Trung/Thấp, muốn đủ4 phải theo thứtự0/3/1/2. Chưa benchmarkFPS/WASMmới/mobilemáythật.

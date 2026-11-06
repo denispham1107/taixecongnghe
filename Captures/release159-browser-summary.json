@@ -1,0 +1,41 @@
+{
+  "success": true,
+  "count": 575,
+  "suites": [
+    {
+      "file": "release159-local-landing-layout-checks.json",
+      "count": 459,
+      "success": true
+    },
+    {
+      "file": "browser-release159-local-web.json",
+      "count": 37,
+      "success": true
+    },
+    {
+      "file": "fullscreen-game-release159-local-fullscreen-results.json",
+      "count": 20,
+      "success": true
+    },
+    {
+      "file": "release159-local-energy-checks.json",
+      "count": 13,
+      "success": true
+    },
+    {
+      "file": "release159-local-missiles-checks.json",
+      "count": 15,
+      "success": true
+    },
+    {
+      "file": "release159-local-swipe-checks.json",
+      "count": 22,
+      "success": true
+    },
+    {
+      "file": "release159-local-flight-checks.json",
+      "count": 9,
+      "success": true
+    }
+  ]
+}

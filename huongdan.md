@@ -3367,3 +3367,14 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Kiểm1.215đạt:** VerifyTankMissiles2145=260 (6/7tile/lanes/cầu/455poolreuse/+15iconmới; groundfire/cooldown/pause;8case tankcùng-ngược/player17-60/dt1/60-0,05;1hit/dừnghơn4s/khôngbắn/recovery/fire2,8/khônglights;nearesttarget/generation/reset;đâmxácthé→GameOver/điểmdừng;Aftermath đứngyên;reusefiretrảLocal); PlayerMissiles264, Flight94, Input53, Gestures40, TankDinoImmunity61, TurnHazards221, HelicopterMissiles222. VerifierGestures cũ còn ghi cứng2viênsau1phát, sửa theoMaximum5; không đổi game đểép test. Một lượt chạy sau hotreloadPlay thiếu navigationAudio runtime, đã stop/startPlay sạch rồi260đạt, không sửa nhánhjobs khôngliênquan. Báocáo `Captures/tank2145-checks.json`, `tank2145-verification.json`.
 - **Ảnh:** `CaptureTank2145` chạy tên lửa thật trúngtank, chụp `tank2145-burn-day.png`, `tank2145-burn-night.png`, `tank2145-air-energy.png`; đã xem3ảnh. VFX đượcsimulate1,1s ởTimeScale0 đểxem lửa/khói, scene khônglưu. Helperchụp đã đợi hếtkhung trướcđổi thờiđiểm đểảnhngày/đêmkhôngtrùng. Khôngđổiảnhtrangchủ.
 - **Trạng thái:** source/kiểm/ảnh xong, commitlocal+2docs; chưa build/push/pháthành, webvẫn1.58.0. Lần buildkế gồm21.142–145; verifierpreflight cũ cósốicon2/3/70 cầncậpnhật, đãsửa verifierFlight/Input/Player/Gestures đangdùng. UnityEdit/scene sạch/jobsfalse/boostfalse. ChưakiểmFPS/WASMmới/mobilemáythật; giữdirtyngoàiphạmvi.
+
+## 21.146. Build và phát hành WebGL 1.59.0 (07/11/2026 — Codex)
+
+- Người dùng yêu cầu build/phát hành; gộp21.142–145 từ source `d425aaa`: W/vuốt xuống bắn, boost khóa, bay+20%, kho5/5, bốn mức đồ họa,6NLđất+7NLbay mỗi phố/cầu, tên lửa dưới đất hạ tank/cháy lớn/xác gây va chạm.
+- Đang đồng bộ version1.59.0, preflight scene và hai gói texture ETC2/DXT; chưa push/phát hành. Chi tiết kiểm tra/build/Pages/live sẽ cập nhật sau từng mốc.
+
+- **Mốc preflight:** Configure1.59.0 thành công, compiler0lỗi; `VerifyRelease159Scene` cập nhật số6/7/iconcao4–5m/kho5/boostfalse và đạt193 kiểm mobile. Đã lưu fingerprint584file nguồn; build hai variant đang chạy bằng `BuildWebRelease.Main`, report `release159-build-report.json`.
+
+- **Mốc build/đóng gói:** hai variant Succeeded, tổng378,570s, desktop75,799s/0lỗi/1warning. Postflight193đạt,584file nguồn nguyênSHA. Cache `c6699b769f95f932`; packdocs32MiBparts/materialize site thành công,43repo+34site bundle đạt. Đang kiểm trình duyệt tại8786; chưapush/pháthành.
+
+- **Mốc local hoàn tất:** 575 browser checks đạt,0JS/Unity runtime: 459 release159-local-landing-layout-checks.json, 37 browser-release159-local-web.json, 20 fullscreen-game-release159-local-fullscreen-results.json, 13 release159-local-energy-checks.json, 15 release159-local-missiles-checks.json, 22 release159-local-swipe-checks.json, 9 release159-local-flight-checks.json. Đã xem ảnh bốn mức đồ họa trên WASM; ground W/vuốt xuống thay đổi ammo và retry5/5 đúng. Git index35kiểm khớp cache/artifact. Chuẩn bị commit/push; live chưa xác minh.

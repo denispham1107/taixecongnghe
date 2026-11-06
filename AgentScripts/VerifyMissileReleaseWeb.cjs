@@ -39,7 +39,20 @@ async function main(){
     const mask=[];let count=0;for(let i=0;i<crop.data.length;i+=crop.info.channels){const [r,g,b]=crop.data.subarray(i,i+3);const on=r>180&&g>180&&b>145;mask.push(+on);count+=on;}
     report.samples.push({profile,name,whitePixels:count});return {mask,count};
    }
-   await send('RestartRide');const full=await sample('full');check(profile+': round ammo3/3 button renders',full.count>8);
+   await send('ResetRide');await send('OpenGraphicsSettings');await frames(3);
+   await page.screenshot({path:`Captures/${label}-${profile}-graphics.png`,timeout:90000});
+   await send('SetGraphicsQuality',3);await frames(2);await send('CloseGraphicsSettings');
+   check(profile+': four-preset graphics window render and new High selection smoke',report.errors.length===0);
+   await send('RestartRide');const full=await sample('full');check(profile+': round ammo5/5 button renders',full.count>8);
+   if(mobile){
+    const x=width*.5,y=height*.6,at=Date.now()/1000;
+    await touch.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:0}],timestamp:at});
+    await touch.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x,y:y+90,id:0}],timestamp:at+.05});
+    await touch.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[],timestamp:at+.08});await frames(3);
+   }else{await page.locator('#unity-canvas').focus();await page.keyboard.down('w');await frames(3);await page.keyboard.up('w');}
+   const ground=await sample('ground-fired'),groundChanged=ground.mask.filter((v,i)=>v!==full.mask[i]).length;
+   check(profile+': ground W/down-swipe fires a missile and changes ammo',ground.count>8&&groundChanged>=2);
+   await send('RestartRide');await frames(3);
    await jump();await jump();await send('TickJump',.35);
    if(mobile){const b=await button(),at=Date.now()/1000;await touch.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:b.x+b.size*.5,y:b.y+b.size*.5,id:0}],timestamp:at});await touch.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[],timestamp:at+.05});await frames(3);}
    else{await page.keyboard.down('f');await frames(3);await page.keyboard.up('f');}

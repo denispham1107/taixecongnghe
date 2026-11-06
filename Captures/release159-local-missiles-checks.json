@@ -1,0 +1,102 @@
+{
+  "url": "http://127.0.0.1:8786/",
+  "checks": [
+    "desktop: release WASM initializes",
+    "desktop: four-preset graphics window render and new High selection smoke",
+    "desktop: round ammo5/5 button renders",
+    "desktop: ground W/down-swipe fires a missile and changes ammo",
+    "desktop: actual F/touch shot changes rendered ammo digits",
+    "desktop: Web Audio master gain1.56 reaches the engine source (0.136×1.56)",
+    "desktop: retry restores original ammo digits (0 vs shot 21)",
+    "mobile: release WASM initializes",
+    "mobile: four-preset graphics window render and new High selection smoke",
+    "mobile: round ammo5/5 button renders",
+    "mobile: ground W/down-swipe fires a missile and changes ammo",
+    "mobile: actual F/touch shot changes rendered ammo digits",
+    "mobile: Web Audio master gain1.56 reaches the engine source (0.136×1.56)",
+    "mobile: retry restores original ammo digits (0 vs shot 31)",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "profile": "desktop",
+      "name": "full",
+      "whitePixels": 24
+    },
+    {
+      "profile": "desktop",
+      "name": "ground-fired",
+      "whitePixels": 31
+    },
+    {
+      "profile": "desktop",
+      "name": "fired",
+      "whitePixels": 29
+    },
+    {
+      "profile": "desktop",
+      "webAudioGains": [
+        0.21216000616550446,
+        1,
+        0,
+        0.31164392828941345,
+        0.10000002384185791,
+        0.8999999761581421,
+        0.2634095251560211,
+        0.10000002384185791,
+        0.8999999761581421
+      ]
+    },
+    {
+      "profile": "desktop",
+      "name": "retry",
+      "whitePixels": 24
+    },
+    {
+      "profile": "desktop",
+      "shotChanged": 21,
+      "retryDiffersFromFull": 0
+    },
+    {
+      "profile": "mobile",
+      "name": "full",
+      "whitePixels": 47
+    },
+    {
+      "profile": "mobile",
+      "name": "ground-fired",
+      "whitePixels": 49
+    },
+    {
+      "profile": "mobile",
+      "name": "fired",
+      "whitePixels": 48
+    },
+    {
+      "profile": "mobile",
+      "webAudioGains": [
+        0.21216000616550446,
+        1,
+        0,
+        0.27711713314056396,
+        0.10000002384185791,
+        0.8999999761581421,
+        0.22867466509342194,
+        0.10000002384185791,
+        0.8999999761581421
+      ]
+    },
+    {
+      "profile": "mobile",
+      "name": "retry",
+      "whitePixels": 47
+    },
+    {
+      "profile": "mobile",
+      "shotChanged": 31,
+      "retryDiffersFromFull": 0
+    }
+  ],
+  "success": true
+}
