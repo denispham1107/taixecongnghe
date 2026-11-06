@@ -296,8 +296,7 @@ namespace PhoViet
             {
                 if(wasRiding&&!ServiceStopped&&Input.GetKeyDown(KeyCode.Q))TryKick();
                 if(wasRiding&&Input.GetKeyDown(KeyCode.Space))TryJump();
-                if(wasRiding&&Input.GetKeyDown(KeyCode.W))TryBoost();
-                if(wasRiding&&Input.GetKeyDown(KeyCode.F))TryFirePlayerMissile();
+                if(wasRiding&&(Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.F)))TryFirePlayerMissile();
                 if(Input.GetKeyDown(KeyCode.LeftArrow)||Input.GetKeyDown(KeyCode.A))MoveLane(-1);
                 if(Input.GetKeyDown(KeyCode.RightArrow)||Input.GetKeyDown(KeyCode.D))MoveLane(1);
                 ReadSwipe(); TickRide(Mathf.Min(Time.deltaTime,.05f));
@@ -606,7 +605,7 @@ namespace PhoViet
             if(!portrait)
             {
                 float by=uiH-82;Panel(new Rect(48,by,754,43),WelcomeGlass,12);
-                Txt("← → / A D: ĐỔI LÀN     Q: HÚC/LỘN     SPACE: NHẢY/BAY/HẠ     W: TĂNG TỐC     P: TẠM DỪNG",64,by+13,724,23,11,Ink);
+                Txt("← → / A D: ĐỔI LÀN     Q: HÚC/LỘN     SPACE: NHẢY/BAY/HẠ     W / F: BẮN KHI BAY     P: TẠM DỪNG",64,by+13,724,23,11,Ink);
             }
             else {Panel(new Rect(18,uiH-54,uiW-36,30),WelcomeGlass,10);Txt("VUỐT LÊN: NHẢY / BAY / HẠ · CHẠM 2 LẦN: HÚC / LỘN",25,uiH-46,uiW-50,21,9,Ink,TextAnchor.MiddleCenter);}
         }

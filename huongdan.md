@@ -66,7 +66,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 - Cơ chế dịch vụ được giữ nhưng đang tắt: đúng lề mới tự dừng đón/trả; xe khác nhường từ khi bắt đầu giảm tốc cách điểm hẹn 22 m, suốt hoạt ảnh khách và 2 giây thực sự chạy lại sau cả đón lẫn trả. Nhận việc có cửa sổ nhường riêng 3 giây.
 - Mạng phố hiện tại là **ô bàn cờ, tên/vị trí đường cố định trong từng lượt**; quay lại đúng đường phải thấy tên cũ. Lượt mới có thể sinh lại cách gán tên.
 - Giọng chỉ đường đã chọn: nữ miền Nam, “Quẹo trái”, “Quẹo phải”, “Đi thẳng”; báo trước khoảng 4 giây, nhắc trước 2 giây, tránh “Đi thẳng” ngay trước rẽ. Hiện không phát vì công việc đang tắt.
-- Phím source hiện tại (21.122): **Q húc dưới đất / lộn360° khi bay**, **Space nhảy / bật bay / hạ**, **W tăng tốc +125% trong4giây, hồi2giây**. Mobile: chạm hai lần húc/lộn theo trạng thái, vuốt lên nhảy/bay/hạ, xuống tăng tốc; vuốt nhận ngay khi đủ ngưỡng, không chờ nhấc tay. Năng lượng150, nhảy−5, pickup+15, bay−10/0,5giây. Đã có21.122 trên web1.54.0 (phát hành21.123).
+- **Phím source21.142 (chưa build/web):** Q húc dưới đất/lộn khi bay, Space nhảy/bay/hạ, **W/F bắn tên lửa chỉ khi bay**. Mobile chạm hai lần húc/lộn, vuốt lên nhảy/bay/hạ, vuốt xuống bắn chỉ khi bay; nhận ngay khi đủ ngưỡng, không chờ nhấc tay. Boost tạm khóa (`BoostReleased=false`), chỉ mở lại khi người dùng yêu cầu. Năng lượng150, nhảy−5, pickupđất/trên không+15, bay−10/0,5s. Web1.58.0 còn mapping cũ; luật mới xem21.142.
 - **Người chơi hiện tại (source21.64):** Blue Petshop Supercar xanh giữ chữ/sơn Meshy, thay riêng người áo đỏ+xe máy. Hero xe máy xanh–đen21.58 là bản trên web1.39.0 và được giữ asset lịch sử. Từsource21.67, NPC xe máy có người dùng Urban Rider nhiều màu xe/áo không sao; cả người/mô tô CSGT giữ nguyên.
 - **Mọi lần sửa/thêm chức năng đều phải ghi vào tài liệu này**, kể cả thay đổi chưa build hoặc chưa phát hành; ghi rõ trạng thái chưa hoàn tất thay vì bỏ qua.
 - **Phố Sài Gòn (24/10):** cảnh quan nhà phố hai bên đường dựng theo ảnh mẫu `ArtSource/Reference/Street/saigon_street_reference.webp`, giữ gameplay (mặt tiền |x| = 9,3 m) và ngân sách WebGL; chậu cây được đưa lại theo ảnh mẫu. Đã được người dùng yêu cầu build/phát hành ngày24/10 và đã phát hành1.34.0; bằng chứng ở21.27. Xem 21.19.
@@ -206,9 +206,11 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 Space/vuốt lên nhảy tới; source21.64 là ô tô phụt khói trắng xuống từ4góc, hơi ngẩng rồi lấy cân bằng khi đáp (xe máy trên web1.39.0 vẫn ngóc bánh trước); hồi2 s, chỉ nhảy từ đường/nóc đang đỡ, không nhảy thêm trên không. **21.100 (đã phát hành1.50.0):** độ cao cố định **4,1166525m** ở mọi tốc độ, gồm W; tăng3% so mức khởi đầu1.49.0 (3,99675m). Bỏ tăng đỉnh theo vận tốc của21.60/21.94. Gia tốc lên24,2m/s² và rơi22m/s² giữ nguyên; W trước/giữa nhảy đều không tăng đỉnh. Metadata tốc độ cất cánh còn dùng cho pose/chuyển động ngang. Độ cao là so với mặt đỡ lúc phóng. Có thể vượt xe máy nằm và đáp/chạy trên nóc bốn bánh nếu đủ cao; đỉnh cố định có thể không vượt được nóc tải cao nếu chưa đủ độ cao lúc gặp vách. Xe tải đứng thẳng còn là mặt đỡ, xe nghiêng/lật là vật cản. Rời mép rơi thật; tiếp đất theo vận tốc, hấp thụ lực rồi cân bằng; đâm thân/vách vẫn té.
 
-### 2.10. Tăng tốc
+### 2.10. Tăng tốc — tạm khóa từ source21.142
 
-W/vuốt xuống tăng **125% = nhân 2,25** tốc độ mong muốn trong4s; không cộng dồn, hồi2s sau hết/hủy. Xe khác giữ tốc độ nền/hành vi riêng. **Ngoại lệ21.114:** hai xe máy bổ sung sau mỗi cua luôn±1,2×Speed hiện tại của player nên cũng tăng/giảm khi player dùng/hếtW (thay1,5× của21.113); không áp lên các xe thường/quái xế/tải/tank khác. Dùng chung nhảy được; té/bị bắt/dừng dịch vụ hủy boost. Khói trắng dữ liệu Blender bám ống xả/pose xe; pause/rebase xử lý riêng.
+**Hiện tại:** `BoostReleased=false`; W/F/vuốt xuống dùng bắn tên lửa chỉ khi bay, không thể kích hoạt boost. Giữ mã/asset boost để khôi phục khi người dùng yêu cầu rõ ràng.
+
+**Cơ chế lưu trữ trước21.142 (không còn kích hoạt):** W/vuốt xuống tăng **125% = nhân 2,25** tốc độ mong muốn trong4s; không cộng dồn, hồi2s sau hết/hủy. Xe khác giữ tốc độ nền/hành vi riêng. **Ngoại lệ21.114:** hai xe máy bổ sung sau mỗi cua luôn±1,2×Speed hiện tại của player nên cũng tăng/giảm khi player dùng/hếtW (thay1,5× của21.113); không áp lên các xe thường/quái xế/tải/tank khác. Dùng chung nhảy được; té/bị bắt/dừng dịch vụ hủy boost. Khói trắng dữ liệu Blender bám ống xả/pose xe; pause/rebase xử lý riêng.
 
 ### 2.11. Ánh sáng, màu phố và sương sớm
 
@@ -276,7 +278,7 @@ Tất cả đường dẫn file trong các bảng dưới đây tính từ gốc
 | `PhoVietActions.cs` | Điểm vào TryKick, double tap, cú ngã/bộ đếm, truy đuổi, bắt giữ và buồng giam |
 | `PhoVietKickAssist.cs` | Chọn/dự đoán mục tiêu, tăng tốc áp sát, Swing/Return, quét giày từ animation, giữ động tác qua rẽ |
 | `PhoVietJump.cs`, `BikeJumpPose.cs` | Quỹ đạo nhảy, mặt nóc chuyển động, đáp/rời mép, pose Blender |
-| `PhoVietBoost.cs`, `BoostSmokeVisual.cs` | W/vuốt xuống, timer +125%/4/2, khói trắng Blender |
+| `PhoVietBoost.cs`, `BoostSmokeVisual.cs` | BoostReleased=false từ21.142; giữ timer +125%/4/2/khói để khôi phục khi được yêu cầu; W/vuốt xuống nay bắn khi bay |
 | `PhoVietRiderCrash.cs` | Xung lực/văng/ngã người chơi, kết thúc sau té hoặc nằm chờ CSGT |
 | `PhoVietTrafficRecovery.cs` | Lưu hướng/đích rẽ trước tai nạn; NPC dựng sau 3 giây |
 | `PhoVietSceneryContacts.cs`, `StreetObstacleSet.cs` | Quét va chạm nhà/cây/vật dụng theo hộp nhẹ, có xét cao và hệ đường xoay |
@@ -3319,3 +3321,12 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Giữ ngoài commit:** như 21.137.
 - **Đã phát hành và xác minh live:** commit `6fc558b`, push main; [Pages run 42092459874](https://github.com/denispham1107/taixecongnghe/actions/runs/42092459874) completed/success đúng SHA. Live: version 1.58.0 / cache `5b4a43086927aac5`. `VerifyPublishedGame` **28 đạt, 0 lỗi runtime**; trên trang live tên lửa **11/11**, nút bay **9/9**, vuốt **22/22**. Tóm tắt: `Captures/VERIFICATION_RELEASE_1_58.md`.
 - **Bàn giao cuối:** Unity Edit Mode, scene sạch, jobs khóa, server 8785 đã dừng; không rebuild sau kiểm tra. Chờ người dùng thử trên điện thoại.
+
+## 21.142. Nhặt +15 năng lượng, W/vuốt xuống bắn khi bay và tạm khóa tăng tốc (06/11/2026 — Codex)
+
+- **Yêu cầu/chốt:** mỗi icon hồi 15 năng lượng; W/vuốt xuống chuyển từ boost sang tên lửa. Người dùng xác nhận **vẫn chỉ bắn khi bay**. Giữ F và nút tròn, kho3/3, chờ0,4s, không mục tiêu vẫn bắn. Boost chỉ mở lại khi có yêu cầu rõ ràng.
+- **Triển khai:** `PhoVietEnergy.PickupEnergy` hiện đã là15 cho cả mặt đất/trên không, không đổi chi phí nhảy5 hay bay10/0,5s. `PhoVietGame.Update` gộp W/F vào cùng lần bắn (không bắn đôi nếu cùng nhấn); `PhoVietGestures.TriggerSwipe(3)` gọi bắn thay boost. `PhoVietBoost.BoostReleased=false` chặn API/kích hoạt, chặn trạng thái boost, dọn timer cũ trong Tick; giữ code/asset để phục hồi sau. `PhoVietLandscapeHud`, Welcome và HTML template sửa hướng dẫn; giữ ngưỡng nhận vuốt như21.140.
+- **Kiểm tra đạt447 điều kiện:** `VerifyMissileInput2142`51 — tiếp xúc thật từng iconđất/trên không 50→65,140→150,150→150, chỉ nhặt một lần; vuốt bắn ngay/cùng pointer không lặp, cooldown0,4s, hết đạn, Pause, không bắn dưới đất, không boost, dọn timer boost cũ/reset; assertion nguồn W/F chung nhánh. `VerifyPlayerMissiles2128`262; `VerifyFlight2140`94; `VerifyGestures`40. Báo cáo mới `Captures/input2142-checks.json`, tổng hợp `Captures/input2142-verification.json`.
+- **Sửa fixture, không phải lỗi game:** Flight2140 lúc đầu thất bại ngẫu nhiên ở năng lượng sau nhảy/đáp vì test tự chạy vào icon và được nạp lại; đưa icon ra xa trong phần kiểm nhảy/drain, trả về vị trí thật trước phần kiểm pickup →94đạt. Gestures cũ còn đòi xuống bật boost; cập nhật theo luật mới →40đạt. Không đổi physics nhảy/bay để ép test.
+- **Lưu ý năng lượng:** mã trước thay đổi đã dùng+15 ở cả hai đường nhặt. Nếu cùng thời điểm bay trừ10, chênh HUD có thể chỉ+5; không tăng pickup thành25 hoặc bỏ chi phí bay. Kiểm tiếp xúc cô lập đã xác nhận giá trị+15, cap150. Chưa tái hiện riêng trên máy người dùng.
+- **Trạng thái:** hoàn tất source/kiểm tra, lưu commit cục bộ cùng2docs; chưa build/push/phát hành. Web vẫn1.58.0 (21.141). UnityEdit/scene sạch/jobsfalse; giữ dirty Art/Wave/Packages/Simulator/texturemeta/Captures lịch sử. Chưa kiểm W vật lý hay WASM mới/thiết bịmobile thật; kiểm Unity dùng API browsergesture và kiểm nhánh phím trong mã.

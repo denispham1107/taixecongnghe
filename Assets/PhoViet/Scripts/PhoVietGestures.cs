@@ -24,7 +24,7 @@ namespace PhoViet
    if(!swipeCanSteer||swipeConsumed||(swipeWidth<swipeHeight)!=(Screen.width<Screen.height)||State!=RideState.Riding||JobOffersOpen)return;
    if(action!= -1&&action!=1&&action!=2&&action!=3)return;
    swipeConsumed=true;lastTapTime=-100;
-   if(action==2)TryJump();else if(action==3)TryBoost();else MoveLane(action);
+   if(action==2)TryJump();else if(action==3)TryFirePlayerMissile();else MoveLane(action);
   }
   void ContinueSwipe(Vector2 position,bool ended,float at,bool allowTap)
   {

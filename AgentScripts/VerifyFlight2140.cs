@@ -9,13 +9,18 @@ public static class VerifyFlight2140
  static object Get(string n)=>typeof(PhoVietGame).GetField(n,F).GetValue(g);
  static void Set(string n,object v){var p=typeof(PhoVietGame).GetProperty(n,F);if(p!=null&&p.CanWrite)p.SetValue(g,v);else typeof(PhoVietGame).GetField(n,F).SetValue(g,v);}
  static void Tick(float dt,int n=1){var tick=(Action<float>)Delegate.CreateDelegate(typeof(Action<float>),g,typeof(PhoVietGame).GetMethod("TickRide",F));for(int i=0;i<n;i++){tick(dt);foreach(var v in g.vehicles)if(v.active){v.active=false;v.model.gameObject.SetActive(false);}}}
- static void Fresh(){g.RestartRide();foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}Set("spawnTimer",99999f);}
+ static bool isolatePickups;
+ static void Fresh(){g.RestartRide();foreach(var v in g.vehicles){v.active=false;v.model.gameObject.SetActive(false);}Set("spawnTimer",99999f);
+  // Unrelated random pickups can refill energy during the jump/drain assertions.
+  // Restore normal positions through RestartRide before the pickup-specific tests below.
+  if(isolatePickups)foreach(var e in (System.Collections.IList)Get("energyTiles"))foreach(string field in new[]{"icons","airIcons"})foreach(Transform t in (Transform[])e.GetType().GetField(field).GetValue(e))t.position=new Vector3(10000,10000,10000);
+ }
  static string Gesture(int phase,int id,int action,float x,float y)=>JsonUtility.ToJson(new G{phase=phase,id=id,action=action,x=x,y=y,at=Time.unscaledTime});
  [Serializable] class G{public int phase,id,action;public float x,y,at;}
  [Serializable] class Tap{public float x,y;}
  public static object Main()
  {
-  if(!Application.isPlaying)throw new Exception("Play Mode required");g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();checks.Clear();
+  if(!Application.isPlaying)throw new Exception("Play Mode required");g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();checks.Clear();isolatePickups=true;
   float time=Time.timeScale;bool[] flags={g.dinosaursEnabled,g.tankBarrageEnabled,g.thunderstormEnabled,g.recklessTrafficEnabled,g.trafficSurprises,g.turnExitTrafficEnabled};int best=g.BestDistance;
   try
   {
@@ -97,6 +102,7 @@ public static class VerifyFlight2140
    // Swipes keep working as before
    Fresh();g.TryJump();Check(g.RiderAirborne&&!g.RiderFlightPending,"First swipe is a plain jump");g.TryJump();Check(g.RiderFlightPending,"Second swipe still requests flight");
    // ---- air energy icons
+   isolatePickups=false;
    var tiles=(System.Collections.IList)Get("energyTiles");Check(tiles.Count==35,"Every road tile has flight icons");
    var type=tiles[0].GetType();var airIcons=type.GetField("airIcons");var airLanes=type.GetField("airLanes");var airCollected=type.GetField("airCollected");var tileField=type.GetField("tile");
    Func<int> shown=()=>{int n=0;foreach(var e in tiles)foreach(Transform t in (Transform[])airIcons.GetValue(e))if(t.gameObject.activeSelf)n++;return n;};

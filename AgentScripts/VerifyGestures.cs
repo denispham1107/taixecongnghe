@@ -22,7 +22,7 @@ public static class VerifyGestures
     check(PhoVietGame.SwipeAction(Vector2.left*edge*.08f,edge)==-1,"Left at 8 percent short edge: "+dimensions);
     check(PhoVietGame.SwipeAction(Vector2.right*edge*.08f,edge)==1,"Right at 8 percent short edge: "+dimensions);
     check(PhoVietGame.SwipeAction(Vector2.up*edge*.13f,edge)==2,"Jump at 13 percent short edge: "+dimensions);
-    check(PhoVietGame.SwipeAction(Vector2.down*edge*.13f,edge)==3,"Boost at 13 percent short edge: "+dimensions);
+    check(PhoVietGame.SwipeAction(Vector2.down*edge*.13f,edge)==3,"Missile swipe at 13 percent short edge: "+dimensions);
     check(PhoVietGame.SwipeAction(new Vector2(4,5),edge)==0,"Jitter is not swipe: "+dimensions);
    }
    reset();begin();packet(1,7,-1,.4f,.5f,10.01f);check(g.CurrentLane==1,"Left applies before pointer release");
@@ -32,13 +32,15 @@ public static class VerifyGestures
    reset();begin();packet(1,9,-1,.4f,.5f,10.01f);check(g.CurrentLane==2,"Other pointer cannot control active gesture");
    packet(3,7,0,.5f,.5f,10.02f);packet(1,7,-1,.4f,.5f,10.03f);check(g.CurrentLane==2,"Canceled gesture cannot later trigger");
    reset();begin();packet(1,7,2,.5f,.3f,10.01f);check(g.RiderJumpActive,"Up begins actual jump without release");
-   reset();begin();packet(1,7,3,.5f,.7f,10.01f);check(g.BoostActive,"Down begins actual boost without release");
-   float remaining=g.BoostRemaining;packet(1,7,3,.5f,.8f,10.02f);check(g.BoostRemaining==remaining,"Repeated event cannot stack boost");
+   reset();begin();packet(1,7,3,.5f,.7f,10.01f);check(!g.BoostActive&&g.PlayerMissiles==3,"Down on ground neither fires nor boosts");
+   reset();g.TryToggleFlightButton();var tickJump=typeof(PhoVietGame).GetMethod("TickJump",BindingFlags.Instance|BindingFlags.NonPublic);for(int i=0;i<100&&!g.RiderFlying;i++)tickJump.Invoke(g,new object[]{1/120f});
+   begin();packet(1,7,3,.5f,.7f,10.01f);check(g.PlayerMissiles==2&&g.PlayerMissilesFired==1,"Down in flight fires without release");
+   packet(1,7,3,.5f,.8f,10.02f);check(g.PlayerMissilesFired==1&&!g.BoostActive,"Repeated event cannot fire again or boost");
    reset();packet(0,7,0,.5f,.02f,10);packet(1,7,2,.5f,.3f,10.1f);check(!g.RiderJumpActive,"Gesture starting on HUD is excluded");
    reset();g.TogglePause();begin();g.TogglePause();packet(1,7,2,.5f,.3f,10.1f);check(!g.RiderJumpActive,"Paused-start gesture cannot activate after resume");
    reset();begin();g.TogglePause();g.TogglePause();packet(1,7,-1,.4f,.5f,10.1f);check(g.CurrentLane==2,"Pause/resume cancels old held pointer");
    reset();begin();g.RestartRide();packet(1,7,-1,.4f,.5f,10.1f);check(g.CurrentLane==2,"Restart cancels previous run pointer");
-   reset();g.jobsEnabled=true;g.ShowJobOffers();begin();packet(1,7,3,.5f,.7f,10.1f);if(PhoVietGame.RideJobsReleased)check(!g.BoostActive&&g.JobOffersOpen,"Job selection never triggers gameplay gesture");else check(g.BoostActive&&!g.JobOffersOpen,"Disabled job call cannot block a gameplay swipe");
+   reset();g.jobsEnabled=true;g.ShowJobOffers();begin();packet(1,7,1,.6f,.5f,10.1f);if(PhoVietGame.RideJobsReleased)check(g.CurrentLane==2&&g.JobOffersOpen,"Job selection never triggers gameplay gesture");else check(g.CurrentLane==3&&!g.JobOffersOpen,"Disabled job call cannot block a gameplay swipe");
    reset();begin();packet(1,7,99,.5f,.5f,10.1f);check(g.CurrentLane==2&&!g.RiderJumpActive&&!g.BoostActive,"Unknown action ignored");
    reset();int bike=g.vehicles.FindIndex(v=>!v.eventOnly&&v.halfWidth<.7f);var target=g.SpawnTraffic(3,0,bike);
    packet(0,7,0,.5f,.5f,20);packet(2,7,0,.5f,.5f,20.04f);check(!target.knocked,"Single browser tap does not kick");
