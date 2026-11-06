@@ -16,6 +16,7 @@ namespace PhoViet
    // A recycled traffic slot must never inherit the previous tank's aiming rule.
    [System.NonSerialized] public int turnTankAimGeneration=-1;
    [System.NonSerialized] public Vector3 turnTankTarget;
+   [System.NonSerialized] public bool tankDestroyed;
   }
   public const float TurnTankAimChance=.7f,TurnTankAimJunctionOffset=24f;
   System.Random turnTankAimRandom;
@@ -121,7 +122,7 @@ namespace PhoViet
   // ------------------------------------------------------------ bắn
   bool TankCanFire(TrafficVehicle v)
   {
-   if(!v.active||!v.armored||v.knocked||v.riverFalling||v.routeDetached||v.crossing||v.roadTurning||v.baseTrafficSpeed>=0)return false;
+   if(!v.active||!v.armored||v.tankDestroyed||v.knocked||v.riverFalling||v.routeDetached||v.crossing||v.roadTurning||v.baseTrafficSpeed>=0)return false;
    float z=v.model.localPosition.z;if(z<=TankFireNear||z>=TankFireFar)return false;
    // Đủ xa để đạn rơi đúng chỗ người chơi sẽ tới (không bắn khi xe tăng đã quá gần).
    return TankMuzzle(v).z-5>=Mathf.Max(Speed,8)*ShellFlight;
@@ -151,7 +152,7 @@ namespace PhoViet
   // Đạn rơi đúng chỗ người chơi sẽ tới sau thời gian bay, ở làn được chọn.
   public TankShell FireTankShell(TrafficVehicle v,int lane)
   {
-   if(v==null)return null;
+   if(v==null||v.tankDestroyed)return null;
    EnsureTankFx();
    var muzzle=TankMuzzle(v);
    float ahead=Mathf.Max(Speed,8)*ShellFlight;
@@ -161,6 +162,7 @@ namespace PhoViet
   }
   TankShell LaunchTankShell(TrafficVehicle v,int lane,Vector3 target,bool junctionAim=false)
   {
+   if(v==null||v.tankDestroyed)return null;
    EnsureTankFx();var muzzle=TankMuzzle(v);
    bool water=riversEnabled&&OverRiver(target);if(water)target.y=RiverBlock.WaterY;
    var s=new TankShell{start=muzzle,target=target,flight=ShellFlight,lane=lane,tank=v,overWater=water,apex=3.2f+Vector3.Distance(muzzle,target)*.06f};

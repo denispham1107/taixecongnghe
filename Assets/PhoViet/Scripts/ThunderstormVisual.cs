@@ -5,7 +5,7 @@ namespace PhoViet
  // No per-drop GameObjects, scene-wide material clones or extra realtime lights.
  public sealed class ThunderstormVisual:MonoBehaviour
  {
-  sealed class BurnEffect {public Transform root,target;public PhoVietGame.TrafficVehicle body;public ParticleSystem[] particles;public bool active;}
+  sealed class BurnEffect {public Transform root,target;public PhoVietGame.TrafficVehicle body;public ParticleSystem[] particles;public ParticleSystemScalingMode[] originalScaleModes;public bool active;}
   PhoVietGame game;Transform root,rainRoot,fireTemplate;
   ParticleSystem rain,splashes;AudioSource rainAudio;AudioClip rainClip;
   readonly List<BurnEffect> burns=new List<BurnEffect>();
@@ -66,7 +66,8 @@ namespace PhoViet
    var copy=Instantiate(fireTemplate,root);copy.name="Cháy do sét • Mantaflow baked";copy.gameObject.SetActive(false);
    foreach(var light in copy.GetComponentsInChildren<Light>(true))light.enabled=false;
    var b=new BurnEffect{root=copy,particles=copy.GetComponentsInChildren<ParticleSystem>(true)};
-   foreach(var ps in b.particles){var main=ps.main;main.maxParticles=Mathf.Min(64,main.maxParticles);}
+   b.originalScaleModes=new ParticleSystemScalingMode[b.particles.Length];
+   for(int i=0;i<b.particles.Length;i++){var main=b.particles[i].main;b.originalScaleModes[i]=main.scalingMode;main.maxParticles=Mathf.Min(64,main.maxParticles);}
    burns.Add(b);return b;
   }
   public void Burn(Transform target,PhoVietGame.TrafficVehicle body,float scale=0)
@@ -75,7 +76,13 @@ namespace PhoViet
    foreach(var b in burns){if(b.active&&b.target==target)return;if(!b.active&&chosen==null)chosen=b;}
    if(chosen==null&&burns.Count<game.vehicles.Count+PhoVietGame.MaximumHelicopters+2)chosen=NewBurn();if(chosen==null)return;
    chosen.target=target;chosen.body=body;chosen.active=true;chosen.root.localScale=Vector3.one*(scale>0?scale:body==null||body.halfWidth>.7f?1.3f:.9f);
-   chosen.root.gameObject.SetActive(true);PositionFire(chosen);foreach(var ps in chosen.particles){ps.Clear();ps.Play();}
+   chosen.root.gameObject.SetActive(true);PositionFire(chosen);
+   for(int i=0;i<chosen.particles.Length;i++)
+   {
+    var ps=chosen.particles[i];var main=ps.main;
+    // Only tank wrecks need the large2.8x flames/smoke. Restore the template mode when pooled for another actor.
+    main.scalingMode=body!=null&&body.tankDestroyed?ParticleSystemScalingMode.Hierarchy:chosen.originalScaleModes[i];ps.Clear();ps.Play();
+   }
   }
   void PositionFire(BurnEffect b)
   {
@@ -117,7 +124,7 @@ namespace PhoViet
    Shader.SetGlobalFloat("_PVStormWetness",hide?0:intensity);
    foreach(var b in burns)if(b.active)
    {
-    bool valid=b.target!=null&&b.target.gameObject.activeInHierarchy&&b.target.localPosition.y>RiverBlock.WaterY+.25f&&(b.body==null?(b.target==game.rider&&game.KilledByLightning||game.IsAircraftBurning(b.target)):b.body.lightningWreck);
+    bool valid=b.target!=null&&b.target.gameObject.activeInHierarchy&&b.target.localPosition.y>RiverBlock.WaterY+.25f&&(b.body==null?(b.target==game.rider&&game.KilledByLightning||game.IsAircraftBurning(b.target)):b.body.lightningWreck||b.body.tankDestroyed);
     if(!valid){b.active=false;foreach(var ps in b.particles)ps.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);b.root.gameObject.SetActive(false);continue;}
     PositionFire(b);
    }

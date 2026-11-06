@@ -85,6 +85,7 @@ namespace PhoViet
         }
         void TickKnockedVehicle(TrafficVehicle v,float dt)
         {
+            if(v.tankDestroyed)return; // A burnt tank stays still, including the GameOver aftermath.
             if(v.physicalCrash){TickCollisionBody(v,dt);return;}
             v.knockAge+=dt;v.knockVelocity.y-=18*dt;
             Vector3 p=v.model.localPosition+(v.knockVelocity-Vector3.forward*Speed)*dt;

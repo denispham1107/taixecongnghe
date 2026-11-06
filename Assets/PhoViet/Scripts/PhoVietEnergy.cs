@@ -12,8 +12,8 @@ namespace PhoViet
   public bool RiderFlightPending=>energyHoverRequested;
   public bool RiderRolling=>barrelRolling;
   public float RiderBarrelRoll=>barrelRolling?360*SmoothRoll(barrelClock/BarrelRollDuration):0;
-  public int EnergyPickupPoolCount=>energyTiles.Count*2;
-  public const int AirPickupsPerTile=3;
+  public int EnergyPickupPoolCount=>energyTiles.Count*GroundPickupsPerTile;
+  public const int GroundPickupsPerTile=6,AirPickupsPerTile=7;
   const float AirRevealDistance=45,AirIconLift=.65f;
   // Level with the car's body once it holds its flight height, and with the helicopters.
   public const float FlightHeightMultiplier=1.20f;
@@ -26,8 +26,8 @@ namespace PhoViet
   System.Random energyRng;
   sealed class EnergyTile
   {
-   public Transform tile;public Transform[] icons=new Transform[2];
-   public readonly int[] lanes=new int[2];public readonly bool[] collected=new bool[2];
+   public Transform tile;public Transform[] icons=new Transform[GroundPickupsPerTile];
+   public readonly int[] lanes=new int[GroundPickupsPerTile];public readonly bool[] collected=new bool[GroundPickupsPerTile];
    // 21.140: flight-height icons, shown only while the car is flying.
    public Transform[] airIcons=new Transform[AirPickupsPerTile];public readonly int[] airLanes=new int[AirPickupsPerTile];public readonly bool[] airCollected=new bool[AirPickupsPerTile];
   }
@@ -48,7 +48,7 @@ namespace PhoViet
     if(!energyByTile.TryGetValue(tile,out var entry))
     {
      entry=new EnergyTile{tile=tile};energyByTile.Add(tile,entry);energyTiles.Add(entry);
-     for(int i=0;i<2;i++){entry.icons[i]=Instantiate(energyPickupPrefab,tile,false).transform;entry.icons[i].name="Năng lượng C • "+i;}
+     for(int i=0;i<GroundPickupsPerTile;i++){entry.icons[i]=Instantiate(energyPickupPrefab,tile,false).transform;entry.icons[i].name="Năng lượng C • "+i;}
      for(int i=0;i<AirPickupsPerTile;i++){entry.airIcons[i]=Instantiate(energyPickupPrefab,tile,false).transform;entry.airIcons[i].name="Năng lượng trên không • "+i;}
     }
     RefreshEnergyTile(tile);
@@ -59,19 +59,19 @@ namespace PhoViet
   {
    if(energyRng==null||!energyByTile.TryGetValue(tile,out var e))return;
    bool bridge=RiverOf(tile)!=null&&RiverOf(tile).IsBridge;
-   int a=bridge?1+energyRng.Next(2):energyRng.Next(4);
-   int b=bridge?3-a:(a+energyRng.Next(1,4))%4;
-   for(int i=0;i<2;i++)
+   int first=bridge?1+energyRng.Next(2):energyRng.Next(4);
+   for(int i=0;i<GroundPickupsPerTile;i++)
    {
-    e.lanes[i]=i==0?a:b;e.collected[i]=false;
-    e.icons[i].localPosition=new Vector3(LaneX[e.lanes[i]],1.15f,(i==0?13:36)+(float)energyRng.NextDouble()*13);
+    e.lanes[i]=i==0?first:bridge?3-e.lanes[i-1]:(e.lanes[i-1]+energyRng.Next(1,4))%4;e.collected[i]=false;
+    float z=bridge?8+i*(44f/GroundPickupsPerTile)+(float)energyRng.NextDouble()*3:8+i*(64f/GroundPickupsPerTile)+(float)energyRng.NextDouble()*4;
+    e.icons[i].localPosition=new Vector3(LaneX[e.lanes[i]],1.15f,z);
     e.icons[i].localRotation=Quaternion.identity;e.icons[i].gameObject.SetActive(true);
    }
    for(int i=0;i<AirPickupsPerTile;i++)
    {
     // Any of the four lanes, bridges included: nothing on the ground limits a flying car.
     e.airLanes[i]=energyRng.Next(4);e.airCollected[i]=false;
-    e.airIcons[i].localPosition=new Vector3(LaneX[e.airLanes[i]],AirPickupHeight,8+i*20+(float)energyRng.NextDouble()*10);
+    e.airIcons[i].localPosition=new Vector3(LaneX[e.airLanes[i]],AirPickupHeight,8+i*(64f/AirPickupsPerTile)+(float)energyRng.NextDouble()*4);
     e.airIcons[i].localRotation=Quaternion.identity;e.airIcons[i].gameObject.SetActive(false);
    }
   }
@@ -123,7 +123,7 @@ namespace PhoViet
    foreach(var e in energyTiles)
    {
     if(!e.tile.gameObject.activeInHierarchy)continue;
-    for(int i=0;i<2;i++)
+    for(int i=0;i<GroundPickupsPerTile;i++)
     {
      if(e.collected[i])continue;var icon=e.icons[i];
      var local=icon.localPosition;local.y=1.15f+Mathf.Sin(energyClock*2.5f+i*2)*.07f;icon.localPosition=local;

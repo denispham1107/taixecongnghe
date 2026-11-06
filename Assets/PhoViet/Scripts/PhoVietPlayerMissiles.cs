@@ -11,13 +11,13 @@ namespace PhoViet
   public int PlayerHelicoptersDowned{get;private set;}
   public float PlayerMissileCooldown=>playerMissileCooldown;
   public int ActivePlayerMissileCount{get{int n=0;foreach(var m in playerMissiles)if(m!=null&&m.active)n++;return n;}}
-  public bool PlayerCanFire=>State==RideState.Riding&&RiderFlying&&!ServiceStopped&&PlayerMissiles>0&&playerMissileCooldown<=.00001f;
+  public bool PlayerCanFire=>State==RideState.Riding&&(RiderFlying||!RiderAirborne)&&!ServiceStopped&&PlayerMissiles>0&&playerMissileCooldown<=.00001f;
   sealed class PlayerMissile
-  {public Transform root;public MissileFlightVisual visual;public HelicopterActor target;public int targetGeneration;public bool active;public Vector3 velocity,scroll;public float age,speed;}
+  {public Transform root;public MissileFlightVisual visual;public HelicopterActor target;public TrafficVehicle tankTarget;public int targetGeneration,tankGeneration;public bool active,groundShot;public Vector3 velocity,scroll;public float age,speed;}
   readonly PlayerMissile[] playerMissiles=new PlayerMissile[PlayerMissilePoolCapacity];float playerMissileCooldown;
   void ResetPlayerMissiles()
   {
-   PlayerMissiles=MaximumPlayerMissiles;PlayerMissilesFired=PlayerHelicoptersDowned=0;playerMissileCooldown=0;
+   PlayerMissiles=MaximumPlayerMissiles;PlayerMissilesFired=PlayerHelicoptersDowned=PlayerTanksDestroyed=0;playerMissileCooldown=0;
    if(Application.isPlaying&&helicopterMissilePrefab==null)helicopterMissilePrefab=Resources.Load<GameObject>("Helicopter/PV_HelicopterMissile");
    for(int i=0;i<playerMissiles.Length;i++)
    {
@@ -43,12 +43,13 @@ namespace PhoViet
    // road: use travel yaw and place the launcher just beyond the front bumper.
    Vector3 forward=Quaternion.Euler(0,rider.localEulerAngles.y,0)*Vector3.forward;
    Vector3 origin=rider.localPosition+forward*(PlayerHalfLength+.85f)+Vector3.up*(PlayerHeight*.55f);
-   var target=PlayerMissileTarget(origin,forward);
-   Vector3 direction=target!=null?(target.root.localPosition+Vector3.up*.1f-origin).normalized:forward;
+   bool ground=!RiderFlying;var target=ground?null:PlayerMissileTarget(origin,forward);var tank=ground?PlayerTankTarget(origin,forward):null;
+   Vector3 direction=target!=null?(target.root.localPosition+Vector3.up*.1f-origin).normalized:tank!=null?(PlayerTankAim(tank)-origin).normalized:forward;
    free.target=target;free.targetGeneration=target!=null?target.generation:0;free.speed=Mathf.Max(70,Speed+50);free.velocity=direction*free.speed;
+   free.groundShot=ground;free.tankTarget=tank;free.tankGeneration=tank!=null?tank.spawnGeneration:0;
    free.scroll=Vector3.zero;free.age=0;free.root.localPosition=origin;free.root.localRotation=Quaternion.LookRotation(direction);free.active=true;free.root.gameObject.SetActive(true);free.visual.Begin();
    PlayerMissiles--;PlayerMissilesFired++;playerMissileCooldown=PlayerMissileInterval;
-   notice=target!=null?"TÊN LỬA · ĐÃ KHÓA TRỰC THĂNG":"TÊN LỬA · BAY THẲNG";noticeTimer=1.1f;return true;
+   notice=target!=null?"TÊN LỬA · ĐÃ KHÓA TRỰC THĂNG":tank!=null?"TÊN LỬA · ĐÃ KHÓA XE TĂNG":"TÊN LỬA · BAY THẲNG";noticeTimer=1.1f;return true;
   }
   void ScrollPlayerMissiles(float delta){foreach(var m in playerMissiles)if(m!=null&&m.active){m.scroll+=Vector3.forward*delta;m.visual.Scroll(delta);}}
   void RebasePlayerMissiles(Quaternion inverse,Vector3 origin)
@@ -59,7 +60,13 @@ namespace PhoViet
    if(State==RideState.Riding)playerMissileCooldown=Mathf.Max(0,playerMissileCooldown-dt);
    foreach(var m in playerMissiles)if(m!=null&&m.active)
    {
-    Vector3 from=m.root.localPosition-m.scroll;m.scroll=Vector3.zero;
+    Vector3 frameScroll=m.scroll,from=m.root.localPosition-frameScroll;m.scroll=Vector3.zero;
+    if(m.tankTarget!=null)
+    {
+     var tank=m.tankTarget;
+     if(!PlayerTankTargetValid(tank)||tank.spawnGeneration!=m.tankGeneration)m.tankTarget=null;
+     else{Vector3 desired=PlayerTankAim(tank)-from;if(desired.sqrMagnitude>.001f)m.velocity=Vector3.RotateTowards(m.velocity,desired.normalized*m.speed,300*Mathf.Deg2Rad*dt,0);}
+    }
     if(m.target!=null)
     {
      if(!m.target.active||m.target.wrecked||m.target.generation!=m.targetGeneration)m.target=null;
@@ -72,7 +79,10 @@ namespace PhoViet
     }
     Vector3 to=from+m.velocity*dt;m.age+=dt;
     HelicopterActor hit=null;float first=2;
-    foreach(var h in helicopters)if(h!=null&&h.active&&!h.wrecked&&PlayerMissileTouchesHelicopter(from,to,h,out float at)&&at<first){hit=h;first=at;}
+    TrafficVehicle hitTank=null;
+    if(m.groundShot){foreach(var tank in vehicles)if(tank.active&&tank.armored&&!tank.riverFalling&&PlayerMissileTouchesTank(from,to,tank,frameScroll,out float at)&&at<first){hitTank=tank;first=at;}}
+    else foreach(var h in helicopters)if(h!=null&&h.active&&!h.wrecked&&PlayerMissileTouchesHelicopter(from,to,h,out float at)&&at<first){hit=h;first=at;}
+    if(hitTank!=null){m.root.localPosition=Vector3.Lerp(from,to,first);DestroyPlayerTank(hitTank,m.root.localPosition);RetirePlayerMissile(m);continue;}
     if(hit!=null)
     {
      m.root.localPosition=Vector3.Lerp(from,to,first);
@@ -110,6 +120,6 @@ namespace PhoViet
    }
    return at<=1;
   }
-  void RetirePlayerMissile(PlayerMissile m){m.active=false;m.target=null;m.scroll=Vector3.zero;m.age=0;m.visual.End();m.root.gameObject.SetActive(false);}
+  void RetirePlayerMissile(PlayerMissile m){m.active=false;m.target=null;m.tankTarget=null;m.groundShot=false;m.scroll=Vector3.zero;m.age=0;m.visual.End();m.root.gameObject.SetActive(false);}
  }
 }

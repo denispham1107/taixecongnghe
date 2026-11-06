@@ -17,8 +17,8 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Simulator iPhone | **21.71:** đã thêm **Apple iPhone 14 Pro / 14 Pro Max**, Dynamic Island + Safe Area dọc/ngang; đang chọn Pro Max ngang, Safe Area bật. Asset chỉ trong Editor, chưa commit/push |
 | Chế độ chơi | **Web1.53.0/21.118:** reset quãngvăng trước dựngđường để chơi lại rẽđúng/khônglệchnhà. **21.115:** điểm/kỷlục dừngngaylúcva chạm, không cộngquãngvăng; physics/chờCSGT giữ. Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
-| Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, **Source21.142: W/F/vuốt xuống bắn chỉ khi bay; boost tạm khóa**, giữ code2bô chờ yêu cầu mở lại. Player đã có trên web1.40.0; mapping mới chưa build/web |
-| Bay/kho tên lửa source21.143 | **Chưa build/web:** bay từmặtđường2,88166→3,45799m(+20%); trực thăng/icon theo thânxe. Nhảy4,11665m giữ; Space/vuốtlênlần2 tự nâng nếu thấp/kểcảđangrơi, đangcao hơn giữcaođộhiệncó. Nútbay cùng mức. **Đạn đầu lượt/tối đa5/5**, nhặt+1; W/F/vuốtxuống chỉbắnkhibay/boostkhóa.805Unityđạt/2ảnhdọcngangđãxem. |
+| Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, **Source21.145: W/F/vuốt xuống bắn cả dướiđất(diệttank) và khi bay(diệttrực thăng); boost tạm khóa**, giữ code2bô chờ yêu cầu mở lại. Player đã có trên web1.40.0; mapping mới chưa build/web |
+| Bay/kho tên lửa source21.143 | **Chưa build/web:** bay từmặtđường2,88166→3,45799m(+20%); trực thăng/icon theo thânxe. Nhảy4,11665m giữ; Space/vuốtlênlần2 tự nâng nếu thấp/kểcảđangrơi, đangcao hơn giữcaođộhiệncó. Nútbay cùng mức. **Đạn đầu lượt/tối đa5/5**, nhặt+1; **21.145 cho bắn cả dướiđất**/boostkhóa.805Unityđạt/2ảnhdọcngangđãxem. |
 | Điều khiển/nhảy trong source | **21.124:** nhảy vật lý bật ngay; vuốt lần2 sớm queue70% (đã có trên web1.55.0). **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đã có trên web1.50.0 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Tối ưu mobile | **21.136/21.138 đã có trên web 1.57.1:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop **Rất cao (source21.144)** giữ baseline trừ cascades WebGL; Rấtcao không tựgiảm. Layer ẩn sớm chỉ gồm đèn tín hiệu, đèn đường, biển chữ |
@@ -30,10 +30,10 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Nút tên lửa/âm lượng/ảnh trang chủ mới | **21.134 đã có trên web 1.56.0:** nút góc trái dưới, master 1,56×/+3,86249dB, `poster-home-flight.png` dưới ảnh cũ |
 | Đạn trực thăng/âm lượng tổng trong source | **21.132 đã có trên web1.55.0:** đạn địch50→40m/s (−20%), mastervolume1,3×/+2,2788668dB cho engine/FX/CSGT/mưa/rotor/voice.1016Unity đạt; đoRMS1,305×; player missile/ảnh/gameplaykhác giữ |
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
-| Tên lửa người chơi trong source | **Source21.143 chưa phát hành:5/5 (web1.58.0 vẫn3/3)**,2pickup/phố-cầu/+1,nút/F khi bay/chờ0,4s/homing; không mục tiêu vẫn bắn thẳng,trúng trực thăng cháy/rơi.1278Unity/436browser/5ảnh đạt |
+| Tên lửa người chơi trong source | **Source21.145 chưa phát hành:**5/5; W/F/vuốt/nút bắn dướiđất nhắm tank, khi bay nhắm trực thăng;1hit tankcháylớn/dừng/xácgâycollision.2pickup/phố-cầu/+1/chờ0,4s/khôngtargetbắnthẳng.1.215Unityđạt/3ảnhđãxem. Web1.58.0 vẫn3/3/chỉbay. |
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
 | Trực thăng / nhảy mobile mới | **21.126/21.132 đã có trên web1.55.0 (đạn40m/s):** giữ2–5chiếc/theo400m/4làn/so le; thêm tên lửa1→0,5s/40slot, bay thẳng/roll né. Trúng đạn hoặc đâm trực thăng rơi cháy/kết thúc kể cảCSGT; máy bay va chạm cũng cháy. Nhảy tức thời/queue70% giữ.1028Unity/387layout đạt |
-| Nút bay / icon trên không | **21.140 đã có trên web 1.58.0:** nút bay trên nút tên lửa; 3 icon năng lượng mỗi tile chỉ hiện khi bay; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
+| Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
 | Năng lượng / bay / lộn | **21.122–21.123 đã có trên web1.54.0:** C đượcduyệt/đãtíchhợp;150NL/nhảy−5/nhặt+15/haiiconkháclànmỗi phố-cầu;Space/vuốtlênbật-tắtbay/−10mỗi0,5s/hếtNLtựhạ;Q/doubletapkhibaylộn360°0,9s.4998Unity/464browserlocal/27liveđạt |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
@@ -47,6 +47,8 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.145 hoàn tất source/chưa phát hành (Codex):** thêm4NLmỗiloại→6đất+7bay/phố-cầu/lànrandom/cầuđấtgiữ2làngiữa. W/F/vuốtxuống/nútbắn dướiđất homingtankgầnnhất/1hit; tankdừngchạy-bắn/cháylửa-khói2,8x/xácsolidkhônghồi. Baybắntrực thănggiữ;5/5/chờ0,4s. **1.215Unityđạt**,3ảnhngày-đêm-bayđãxem. RootparticlesLocal trướcđâybỏparentScale; tankdùngHierarchy, reuseactor khác trảmodegốc. UnityEdit/scene sạch/jobsfalse/boostfalse; commitlocal+2docs,chưa build/push/web(1.58.0).
 
 - **21.144 hoàn tất source/chưa phát hành (Codex):**4mức Rấtcao/Cao/Trungbình/Thấp; Rấtcao giữ Cao cũ và không tựgiảm, Cao mới giữa2plan/tựgiảmdesktop-mobile. GiữID0/1/2, CaoID3; governor theo rank/không đổi lựa chọn.4hàng/modalresponsive/phím1–4/lưuprefs. **233đạt** (59mới+112settings+62mobileperf/34khungroadcull lệch tốiđa1pixel).8ảnhđãchụp/4modalđãxem. UnityEdit/scene sạch/jobsfalse/boostfalse; source/tests/2docs lưucommitlocal,chưa build/push/web(1.58.0).
 
@@ -222,6 +224,8 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.145 hoàn tất:** không còn sửa/kiểm/chụp đangdở. Chờ yêu cầu build/phát hành; gộp21.142–145. VerifierRelease158Scene/energy2122 còn số2đất/3bay/70pool là lịch sử; source nay6/7/210poolđất. Chưa kiểmFPS/mobilemáythật/WASMmới. Giữ dirtyArt/Wave/Packages/Simulator/metatexture/Captures lịch sử.
+
 - **21.144 hoàn tất:** không còn sửa/kiểm/chụp đangdở. Chờ yêu cầu build/phát hành, gộp21.142–21.144. Mức cũ0 nayRấtcao không tựgiảm; chọn3 để đo Cao mới. Công cụ bench lịch sử0/1/2 vẫn đoRấtcao/Trung/Thấp, muốn đủ4 phải theo thứtự0/3/1/2. Chưa benchmarkFPS/WASMmới/mobilemáythật.
 
 - **21.143 hoàn tất:** không còn sửa/kiểm đang dở; chờ yêu cầu build/phát hành. Lần build kế tiếp lấy cả21.142 và21.143. `VerifyRelease158Scene` là lịch sử, còn ghi cứngammo3; verifier bản kế phải dùng5. Browser missile test cần baseline5/5 khi chạy WASM mới. Chưa kiểm trên điện thoại thật/WebGL mới; giữ dirty ngoài phạm vi.
@@ -321,6 +325,8 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 ## 4. Luật đã chốt — không tự đổi
 
+- **Source21.145:**6NLđất+7NLbay/phố-cầu, randomlàn; cầuđất2làngiữa, bay4làn; +15/cap150 giữ. W/F/vuốtxuống/nútbắn cả đất(nhắm tank)/bay(nhắm trực thăng), 5/5/chờ0,4s. Tankbịđạnplayer1phát dừng/cháylớn/khônghồi/xácactive-armoredgâyva chạm; tankcònnguyên miễnDino/sét nhưcũ. Đạnpháođãbắnvẫn tiếp tục bay.
+
 - **Source21.144:** Rấtcao giữ nguyên Cao cũ/không tựgiảm cả desktop-mobile; Cao mới giữaRấtcao-Trungbình/tựgiảm. Giữ mức đãchọn riêng mức hiệu dụng. IDpref0=Rấtcao,3=Cao,1=Trungbình,2=Thấp; không đổi lại thứtựenum hoặc tựmở adaptive choRấtcao.
 
 - **Source21.143 (web1.58.0 vẫn21.128):** player5/5tên lửa,mỗi icon+1/tốiđa5,2iconkháclàn/phố-cầu. Nút tròn/F chỉkhi giữbay,cooldown0,4s; khóa trực thăng gầnnhất phía trước/homing,khôngmục tiêu vẫn bắn thẳng. Trúng máy bay cháy/rơi; giữ đạn địch/roll/luật player thua. Kho đầy giữ pickup lại.
@@ -340,7 +346,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 - Húc/đạp quái xế tự vệ không gọi mới CSGT; húc/đạp xe thường thì bị truy đuổi.
 - Từ 21.140: vuốt ở đâu cũng được trừ thanh HUD và hai nút; không được dựng lại dải cấm dưới màn hình ngang.
 - Nhảy cố định **4,11665m**, không tăng theo Speed/W (21.100/web1.50.0); lane pace1,53065 vẫn theo tốc độ.
-- **Source21.142:** Q húc/lộn, Space nhảy/bay/hạ, **W/F bắn tên lửa chỉ khi bay**; mobile chạm hai lần húc/lộn, vuốt lên nhảy/bay/hạ, **vuốt xuống bắn chỉ khi bay**; nút tròn vẫn bắn. Nhận khi đủ ngưỡng, một cú vuốt một lệnh. **Boost tạm khóa (`BoostReleased=false`)**, chỉ mở lại khi người dùng yêu cầu. Mỗi icon năng lượng đất/trên không +15/cap150, bay vẫn −10/0,5s.
+- **Source21.142:** Q húc/lộn, Space nhảy/bay/hạ, **W/F bắn tên lửa cả đất/bay theo21.145**; mobile chạm hai lần húc/lộn, vuốt lên nhảy/bay/hạ, **vuốt xuống bắn cả đất/bay theo21.145**; nút tròn vẫn bắn. Nhận khi đủ ngưỡng, một cú vuốt một lệnh. **Boost tạm khóa (`BoostReleased=false`)**, chỉ mở lại khi người dùng yêu cầu. Mỗi icon năng lượng đất/trên không +15/cap150, bay vẫn −10/0,5s.
 - Hai làn trái rẽ trái, hai làn phải rẽ phải, giữ số làn sau cua, cua không giảm tốc.
 - **Source21.65: player Blue Petshop Supercar** xanh scale0,85, Q=húc thân xe; đã có trên web1.40.0; hero xe máy xanh–đen21.58 là lịch sử. NPC xe máy source21.67 dùngUrbanRider nhiều màu xe/áo, CSGT giữ cả người+xe; NPC4mẫu ô tô×8màu, xe tăng giữ nguyên.
 - Phong cách bán hiện thực vui nhộn, tối ưu điện thoại/WebGL. **Từ 21.136 trên cảm ứng ưu tiên mượt hơn độ nét:** không quay lại DPR3/AA4 nếu người dùng không yêu cầu.
@@ -394,6 +400,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Vệt lửa/khói tên lửa | **21.129** | `Scripts/MissileFlightVisual.cs`, `MissileTrail.shader`, `Editor/PhoVietMissileTrailSetup.cs`, `Resources/Helicopter/PV_HelicopterMissile.prefab`; `AgentScripts/UpgradeMissileTrail2129.cs`, `VerifyMissileTrail2129.cs`, `CaptureMissileTrail2129.cs` |
 | Vuốt/nhảy/nút bay/icon năng lượng trên không | **21.140** | `PhoVietGestures.cs`, `PhoVietJump.cs`, `PhoVietFlightButton.cs`, `PhoVietEnergy.cs`, `PhoVietPortraitHud.cs`→GameplayPointerAllowed, `app.js`→swipeAction; `Resources/PlayerFlight/`, `ArtSource/UI/flight_button_icon.py`; `AgentScripts/VerifyFlight2140.cs`, `VerifySwipeShell2140.cjs`, `CaptureFlight2140.cs`, `InstallFlight2140.cs` |
 | Mapping W/vuốt xuống bắn, boost tạm khóa, nhặt+15 | **21.142** | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoVietBoost.cs`, `PhoVietEnergy.cs`, `PhoVietLandscapeHud.cs`, HTML template; `AgentScripts/VerifyMissileInput2142.cs`, `VerifyGestures.cs`, `VerifyFlight2140.cs` |
+| Năng lượng6/7 / bắn tank dướiđất / xáccháy | **21.145** | `PhoVietPlayerTankMissiles.cs`, `PhoVietPlayerMissiles.cs`, `PhoVietTankFire.cs`, `PhoVietEnergy.cs`, `ThunderstormVisual.cs`, Traffic/Actions/Recovery; `AgentScripts/VerifyTankMissiles2145.cs`, `CaptureTank2145.cs` |
 | Bay+20% / khođạn5/5 | **21.143** | `PhoVietEnergy.cs`→FlightHeightAboveSupport/RequestEnergyHover, `PhoVietFlightButton.cs`, `PhoVietPlayerMissiles.cs`; `AgentScripts/VerifyFlightAltitude2143.cs`, `CaptureFlight2143.cs` |
 | Năng lượng / icon C / giữ cao độ / lộn360 | **21.121–21.123** | `Scripts/PhoVietEnergy.cs`, `PhoVietJump.cs`, `PlayerCarVisual.cs`, `PhoVietActions.cs`, `PhoVietRiver.cs`, `PhoVietDistanceHud.cs`; `Resources/Energy/`, `Art/Energy/`, `EnergyPickup.shader`; `AgentScripts/VerifyEnergyWeb.cjs`, `VerifyRelease154Scene.cs`, `AgentScripts/VerifyEnergy2122.cs`, `VerifyEnergyRoutes2122.cs`, `InstallEnergy2122.cs`, `CaptureEnergy2122.cs`; `ArtSource/Concepts/Energy-20261103/approval.json` |
 | WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.106**,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease152Scene.cs`, `VerifyStormWeb.cjs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |

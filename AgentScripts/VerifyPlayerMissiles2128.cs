@@ -25,8 +25,8 @@ public static class VerifyPlayerMissiles2128
   {
    Time.timeScale=0;Set("sound",false);Fresh();
    Check(g.PlayerMissiles==Max&&PhoVietGame.MaximumPlayerMissiles==5,"Fresh run starts at5/5");
-   Check(!g.TryFirePlayerMissile()&&g.PlayerMissiles==Max,"Ground input cannot fire or spend ammunition");
-   g.TryJump();Check(!g.TryFirePlayerMissile(),"Jump alone is not hover flight");Fresh();Hover();
+   Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-1,"Ground input fires and spends one missile");
+   Fresh();g.TryJump();Check(!g.TryFirePlayerMissile(),"Jump alone is not ground or hover flight");Fresh();Hover();
    Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-1&&Field(M(0),"target")==null,"No target still launches one straight missile and spends one");
    Vector3 direction=(Vector3)Field(M(0),"velocity");Check(Vector3.Dot(direction.normalized,Vector3.forward)>.999f,"Unguided missile follows travel heading");
    Check(!g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-1,"Repeated input in same frame cannot double-spend");Call("TickPlayerMissiles",.399f);Check(!g.TryFirePlayerMissile(),"Cooldown does not finish early");Call("TickPlayerMissiles",.001f);Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-2,"Next shot accepted at0.4seconds");Call("TickPlayerMissiles",.4f);Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-3,"Third shot spends exactly one missile");for(int shot=3;shot<Max;shot++){Call("TickPlayerMissiles",.4f);Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-shot-1,"Remaining carried shot "+(shot+1));}Call("TickPlayerMissiles",.4f);Check(!g.TryFirePlayerMissile()&&g.PlayerMissiles==0,"Empty magazine cannot go negative");

@@ -123,7 +123,7 @@ public static class VerifyFlight2140
    Check(g.Energy>before-40&&g.Energy<=PhoVietGame.MaximumEnergy,"Collecting adds energy");
    g.TryToggleFlightButton();for(int i=0;i<200&&g.RiderAirborne;i++)Tick(1/60f);Tick(1/60f,2);Check(shown()==0,"Landing hides every flight icon");
    // A jump on the ground cannot reach them, and ground icons stay as they were.
-   Check(g.EnergyPickupPoolCount==70,"Ground icon pool unchanged");
+   Check(g.EnergyPickupPoolCount==210,"Ground icon pool is six per tile");
    Check(!g.jobsEnabled&&!PhoVietGame.RideJobsReleased,"Ride jobs stay locked");
    var report=new{success=true,count=checks.Count,checks};File.WriteAllText("Captures/flight2140-checks.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));return new{success=true,count=checks.Count,visible,bridges};
   }

@@ -41,7 +41,7 @@ public static class VerifyMissileInput2142
     Call("TickEnergyPickups",0f,g.rider.localPosition);Check(g.EnergyPickupsCollected==before+1,"Repeated contact cannot collect twice");
    }
    Fresh();float speed=g.Speed;Check(!PhoVietGame.BoostReleased&&!g.TryBoost()&&!g.BoostActive,"Boost locked on ground");Swipe(1);
-   Check(g.PlayerMissiles==Max&&g.PlayerMissilesFired==0&&g.Speed==speed&&!g.BoostActive,"Down swipe on ground spends no ammo and cannot boost");
+   Check(g.PlayerMissiles==Max-1&&g.PlayerMissilesFired==1&&g.Speed==speed&&!g.BoostActive,"Down swipe on ground fires once without boosting");
    Fresh();Hover();speed=g.Speed;Swipe(2);Check(g.PlayerMissiles==Max-1&&g.PlayerMissilesFired==1,"Down swipe in flight fires immediately");
    Check(g.Speed==speed&&!g.BoostActive&&!g.TryBoost(),"Firing does not accelerate or enable boost");
    g.ApplyBrowserGesture("{\"phase\":1,\"id\":2,\"x\":0.55,\"y\":0.9,\"action\":3,\"at\":10.2}");

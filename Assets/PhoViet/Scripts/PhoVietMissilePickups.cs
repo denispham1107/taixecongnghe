@@ -38,7 +38,7 @@ namespace PhoViet
     float z=(bridge?(i==0?20:43):(i==0?27:51))+(float)missilePickupRng.NextDouble()*7;
     // Keep the blue energy coin and the rocket individually legible if their
     // random lanes happen to match, without changing the energy RNG stream.
-    if(energyByTile.TryGetValue(tile,out var energy))for(int j=0;j<2;j++)if(energy.lanes[j]==e.lanes[i]&&Mathf.Abs(energy.icons[j].localPosition.z-z)<3)z+=4;
+    if(energyByTile.TryGetValue(tile,out var energy))for(int j=0;j<GroundPickupsPerTile;j++)if(energy.lanes[j]==e.lanes[i]&&Mathf.Abs(energy.icons[j].localPosition.z-z)<3)z+=4;
     e.icons[i].localPosition=new Vector3(LaneX[e.lanes[i]],1.15f,z);e.icons[i].localRotation=Quaternion.identity;e.icons[i].gameObject.SetActive(true);
    }
   }

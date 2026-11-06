@@ -461,7 +461,8 @@ namespace PhoViet
                 ScrollTrafficRecovery(v,Vector3.forward*Speed*dt);
                 if(v.riverFalling){TickVehicleRiverFall(v,dt);if(dt>0)v.motionVelocity=v.riverVelocity;continue;}
                 if(TryBeginVehicleRiverFall(v,previous,dt)){TickVehicleRiverFall(v,dt);v.motionVelocity=v.riverVelocity;continue;}
-                if(v.wallCrashed)TickWallWreck(v,dt);
+                if(v.tankDestroyed)v.model.localPosition-=Vector3.forward*Speed*dt;
+                else if(v.wallCrashed)TickWallWreck(v,dt);
                 else if(TickTrafficRecovery(v,dt)){}
                 else if(v.knocked)TickKnockedVehicle(v,dt);
                 else if(HoldCrossTrafficForService(v,dt)){}
@@ -479,7 +480,7 @@ namespace PhoViet
                 }
                 BrakeBeforeStoppedRider(v);
                 YieldRearForService(v);
-                if((v.isReckless||v.knocked)&&!v.wallCrashed&&!v.routeDetached)CheckBuildingImpact(v);
+                if((v.isReckless||v.knocked)&&!v.tankDestroyed&&!v.wallCrashed&&!v.routeDetached)CheckBuildingImpact(v);
                 if(TryBeginVehicleRiverFall(v,previous,dt)){v.motionVelocity=v.riverVelocity;continue;}
                 if(dt>0)v.motionVelocity=v.wallCrashed?Vector3.zero:v.knocked?v.knockVelocity:(v.model.localPosition-previous)/dt+Vector3.forward*Speed;
             }
@@ -497,7 +498,7 @@ namespace PhoViet
                 Vector3 p=v.model.localPosition;
                 if(countPasses&&previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-rider.localPosition.x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
                 if(v.recovery!=null)continue;
-                if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || (v.enteringFromBehind&&!v.isReckless&&p.z< -95) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&!v.lightningWreck&&v.knockAge>8) || (v.riverFalling&&(v.riverAge>9||v.riverAge>3&&v.model.localPosition.y<=RiverBlock.BedY+.41f)) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
+                if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || (v.enteringFromBehind&&!v.isReckless&&p.z< -95) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&!v.lightningWreck&&!v.tankDestroyed&&v.knockAge>8) || (v.riverFalling&&(v.riverAge>9||v.riverAge>3&&v.model.localPosition.y<=RiverBlock.BedY+.41f)) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
             }
         }
         public void Crash()
@@ -605,7 +606,7 @@ namespace PhoViet
             if(!portrait)
             {
                 float by=uiH-82;Panel(new Rect(48,by,754,43),WelcomeGlass,12);
-                Txt("← → / A D: ĐỔI LÀN     Q: HÚC/LỘN     SPACE: NHẢY/BAY/HẠ     W / F: BẮN KHI BAY     P: TẠM DỪNG",64,by+13,724,23,11,Ink);
+                Txt("← → / A D: ĐỔI LÀN     Q: HÚC/LỘN     SPACE: NHẢY/BAY/HẠ     W / F: TÊN LỬA     P: TẠM DỪNG",64,by+13,724,23,11,Ink);
             }
             else {Panel(new Rect(18,uiH-54,uiW-36,30),WelcomeGlass,10);Txt("VUỐT LÊN: NHẢY / BAY / HẠ · CHẠM 2 LẦN: HÚC / LỘN",25,uiH-46,uiW-50,21,9,Ink,TextAnchor.MiddleCenter);}
         }

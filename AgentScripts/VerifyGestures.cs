@@ -32,9 +32,9 @@ public static class VerifyGestures
    reset();begin();packet(1,9,-1,.4f,.5f,10.01f);check(g.CurrentLane==2,"Other pointer cannot control active gesture");
    packet(3,7,0,.5f,.5f,10.02f);packet(1,7,-1,.4f,.5f,10.03f);check(g.CurrentLane==2,"Canceled gesture cannot later trigger");
    reset();begin();packet(1,7,2,.5f,.3f,10.01f);check(g.RiderJumpActive,"Up begins actual jump without release");
-   reset();begin();packet(1,7,3,.5f,.7f,10.01f);check(!g.BoostActive&&g.PlayerMissiles==3,"Down on ground neither fires nor boosts");
+   reset();begin();packet(1,7,3,.5f,.7f,10.01f);check(!g.BoostActive&&g.PlayerMissiles==PhoVietGame.MaximumPlayerMissiles-1&&g.PlayerMissilesFired==1,"Down on ground fires once without boosting");
    reset();g.TryToggleFlightButton();var tickJump=typeof(PhoVietGame).GetMethod("TickJump",BindingFlags.Instance|BindingFlags.NonPublic);for(int i=0;i<100&&!g.RiderFlying;i++)tickJump.Invoke(g,new object[]{1/120f});
-   begin();packet(1,7,3,.5f,.7f,10.01f);check(g.PlayerMissiles==2&&g.PlayerMissilesFired==1,"Down in flight fires without release");
+   begin();packet(1,7,3,.5f,.7f,10.01f);check(g.PlayerMissiles==PhoVietGame.MaximumPlayerMissiles-1&&g.PlayerMissilesFired==1,"Down in flight fires without release");
    packet(1,7,3,.5f,.8f,10.02f);check(g.PlayerMissilesFired==1&&!g.BoostActive,"Repeated event cannot fire again or boost");
    reset();packet(0,7,0,.5f,.02f,10);packet(1,7,2,.5f,.3f,10.1f);check(!g.RiderJumpActive,"Gesture starting on HUD is excluded");
    reset();g.TogglePause();begin();g.TogglePause();packet(1,7,2,.5f,.3f,10.1f);check(!g.RiderJumpActive,"Paused-start gesture cannot activate after resume");

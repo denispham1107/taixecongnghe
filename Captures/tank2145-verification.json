@@ -1,0 +1,57 @@
+{
+  "success": true,
+  "count": 1215,
+  "suites": [
+    {
+      "suite": "test-fire",
+      "count": 260,
+      "success": true
+    },
+    {
+      "suite": "player",
+      "count": 264,
+      "success": true
+    },
+    {
+      "suite": "flight",
+      "count": 94,
+      "success": true
+    },
+    {
+      "suite": "input",
+      "count": 53,
+      "success": true
+    },
+    {
+      "suite": "gestures-final",
+      "count": 40,
+      "success": true
+    },
+    {
+      "suite": "immunity",
+      "count": 61,
+      "success": true
+    },
+    {
+      "suite": "turns",
+      "count": 221,
+      "success": true
+    },
+    {
+      "suite": "helicopter",
+      "count": 222,
+      "success": true
+    }
+  ],
+  "energyPerTile": {
+    "ground": 6,
+    "air": 7
+  },
+  "fixedPools": {
+    "energyGround": 210,
+    "energyAir": 245,
+    "missiles": 12
+  },
+  "tankBurnScale": 2.8,
+  "scope": "Unity Editor gameplay, no new WebGL release or physical phone/FPS test"
+}
