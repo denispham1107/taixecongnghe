@@ -18,6 +18,7 @@ Cập nhật lần cuối: **06/11/2026 — Codex**
 | Chế độ chơi | **Web1.53.0/21.118:** reset quãngvăng trước dựngđường để chơi lại rẽđúng/khônglệchnhà. **21.115:** điểm/kỷlục dừngngaylúcva chạm, không cộngquãngvăng; physics/chờCSGT giữ. Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, **Source21.142: W/F/vuốt xuống bắn chỉ khi bay; boost tạm khóa**, giữ code2bô chờ yêu cầu mở lại. Player đã có trên web1.40.0; mapping mới chưa build/web |
+| Bay/kho tên lửa source21.143 | **Chưa build/web:** bay từmặtđường2,88166→3,45799m(+20%); trực thăng/icon theo thânxe. Nhảy4,11665m giữ; Space/vuốtlênlần2 tự nâng nếu thấp/kểcảđangrơi, đangcao hơn giữcaođộhiệncó. Nútbay cùng mức. **Đạn đầu lượt/tối đa5/5**, nhặt+1; W/F/vuốtxuống chỉbắnkhibay/boostkhóa.805Unityđạt/2ảnhdọcngangđãxem. |
 | Điều khiển/nhảy trong source | **21.124:** nhảy vật lý bật ngay; vuốt lần2 sớm queue70% (đã có trên web1.55.0). **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đã có trên web1.50.0 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Tối ưu mobile | **21.136/21.138 đã có trên web 1.57.1:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop Cao giữ baseline trừ cascades WebGL. Layer ẩn sớm chỉ gồm đèn tín hiệu, đèn đường, biển chữ |
@@ -29,7 +30,7 @@ Cập nhật lần cuối: **06/11/2026 — Codex**
 | Nút tên lửa/âm lượng/ảnh trang chủ mới | **21.134 đã có trên web 1.56.0:** nút góc trái dưới, master 1,56×/+3,86249dB, `poster-home-flight.png` dưới ảnh cũ |
 | Đạn trực thăng/âm lượng tổng trong source | **21.132 đã có trên web1.55.0:** đạn địch50→40m/s (−20%), mastervolume1,3×/+2,2788668dB cho engine/FX/CSGT/mưa/rotor/voice.1016Unity đạt; đoRMS1,305×; player missile/ảnh/gameplaykhác giữ |
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
-| Tên lửa người chơi trong source | **21.128 đã có trên web1.55.0:**3/3,2pickup/phố-cầu/+1,nút/F khi bay/chờ0,4s/homing; không mục tiêu vẫn bắn thẳng,trúng trực thăng cháy/rơi.1278Unity/436browser/5ảnh đạt |
+| Tên lửa người chơi trong source | **Source21.143 chưa phát hành:5/5 (web1.58.0 vẫn3/3)**,2pickup/phố-cầu/+1,nút/F khi bay/chờ0,4s/homing; không mục tiêu vẫn bắn thẳng,trúng trực thăng cháy/rơi.1278Unity/436browser/5ảnh đạt |
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
 | Trực thăng / nhảy mobile mới | **21.126/21.132 đã có trên web1.55.0 (đạn40m/s):** giữ2–5chiếc/theo400m/4làn/so le; thêm tên lửa1→0,5s/40slot, bay thẳng/roll né. Trúng đạn hoặc đâm trực thăng rơi cháy/kết thúc kể cảCSGT; máy bay va chạm cũng cháy. Nhảy tức thời/queue70% giữ.1028Unity/387layout đạt |
 | Nút bay / icon trên không | **21.140 đã có trên web 1.58.0:** nút bay trên nút tên lửa; 3 icon năng lượng mỗi tile chỉ hiện khi bay; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
@@ -46,6 +47,8 @@ Cập nhật lần cuối: **06/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.143 hoàn tất source/chưa phát hành (Codex):** bay tối thiểu+20%→3,45799m so mặt đỡ, nhảy4,11665m giữ; Space/vuốt lần2 nâng lên cả lúc đang rơi; nútbay/icon/trực thăng đồngbộ. Khođạn5/5, pickup+1/cap5. **805Unityđạt** (172altitude+264missile+94flight+53input+222enemymissile),2ảnhGameviewdọcngangđãxem/HUD5/5. UnityEdit/scene sạch/jobsfalse/boostfalse; lưucommitlocalcùng2docs,chưabuild/push/web(1.58.0).
 
 - **21.142 hoàn tất source/chưa phát hành (Codex):** W/F/vuốt xuống bắn tên lửa **chỉ khi bay**, giữ nút/kho3/3/cooldown0,4s; `BoostReleased=false`, không mở lại nếu chưa được yêu cầu. Cả icon đất/trên không xác nhận **+15**, cap150 (mã vốn15; bay vẫn tốn10/0,5s). **447 kiểm tra đạt** (51 mới+94flight+262missile+40gesture). Sửa fixture flight loại pickup ngẫu nhiên khỏi kiểm trừNL; gesture theo mapping mới. UnityEdit/scene sạch/jobsfalse; source+tests+2docs lưu commit cục bộ, chưa build/push/web (web1.58.0).
 
@@ -217,6 +220,8 @@ Cập nhật lần cuối: **06/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.143 hoàn tất:** không còn sửa/kiểm đang dở; chờ yêu cầu build/phát hành. Lần build kế tiếp lấy cả21.142 và21.143. `VerifyRelease158Scene` là lịch sử, còn ghi cứngammo3; verifier bản kế phải dùng5. Browser missile test cần baseline5/5 khi chạy WASM mới. Chưa kiểm trên điện thoại thật/WebGL mới; giữ dirty ngoài phạm vi.
+
 - **21.142 hoàn tất:** không còn phần sửa/kiểm đang dở. Chưa build/push/phát hành thay đổi điều khiển; web vẫn1.58.0. Lần build sau phải lấy cả template hướng dẫn mới. Giữ `BoostReleased=false` đến khi người dùng yêu cầu mở. Các bài `VerifyBoost`/boost-isolation cũ kiểm khả năng kích hoạt boost là lịch sử, không đại diện luật tạm khóa. Chưa kiểm W vật lý/WebGL/mobile máy thật cho mapping mới.
 
 - **21.141 hoàn tất:** 1.58.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. **Chờ người dùng thử trên điện thoại:** vuốt màn hình ngang, nút bay, mật độ icon trên không (`AirPickupsPerTile`=3, tự chọn). Test cũ lỗi sẵn: `VerifyJump`, `VerifyPerformanceLighting`, `VerifyRiverBridge`, `VerifyRiverCrashSinking`, `VerifyDistanceTanks2199`, `VerifyEnergy2122`, `VerifyEnergyRoutes2122`. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta`/Captures lịch sử ngoài commit.
@@ -312,7 +317,7 @@ Cập nhật lần cuối: **06/11/2026 — Codex**
 
 ## 4. Luật đã chốt — không tự đổi
 
-- **Source21.128:** player3/3tên lửa,mỗi icon+1/tốiđa3,2iconkháclàn/phố-cầu. Nút tròn/F chỉkhi giữbay,cooldown0,4s; khóa trực thăng gầnnhất phía trước/homing,khôngmục tiêu vẫn bắn thẳng. Trúng máy bay cháy/rơi; giữ đạn địch/roll/luật player thua. Kho đầy giữ pickup lại.
+- **Source21.143 (web1.58.0 vẫn21.128):** player5/5tên lửa,mỗi icon+1/tốiđa5,2iconkháclàn/phố-cầu. Nút tròn/F chỉkhi giữbay,cooldown0,4s; khóa trực thăng gầnnhất phía trước/homing,khôngmục tiêu vẫn bắn thẳng. Trúng máy bay cháy/rơi; giữ đạn địch/roll/luật player thua. Kho đầy giữ pickup lại.
 
 - **Source21.127:** va chạm xe mặt đất làm cả hai cháy tại chỗ tông; tông lại chỗ khác thêm điểm cháy. Tank không cháy. Xe thường vẫn dựng/chạy lại3s, CSGT1,2s, **vẫn chạy kèm lửa/khói**, chỉ dọn khi retire/generation/sông/retry. Giữ physics/score/chờ CSGT; lửa do sét/không chiến giữ luật riêng.
 
@@ -383,6 +388,7 @@ Cập nhật lần cuối: **06/11/2026 — Codex**
 | Vệt lửa/khói tên lửa | **21.129** | `Scripts/MissileFlightVisual.cs`, `MissileTrail.shader`, `Editor/PhoVietMissileTrailSetup.cs`, `Resources/Helicopter/PV_HelicopterMissile.prefab`; `AgentScripts/UpgradeMissileTrail2129.cs`, `VerifyMissileTrail2129.cs`, `CaptureMissileTrail2129.cs` |
 | Vuốt/nhảy/nút bay/icon năng lượng trên không | **21.140** | `PhoVietGestures.cs`, `PhoVietJump.cs`, `PhoVietFlightButton.cs`, `PhoVietEnergy.cs`, `PhoVietPortraitHud.cs`→GameplayPointerAllowed, `app.js`→swipeAction; `Resources/PlayerFlight/`, `ArtSource/UI/flight_button_icon.py`; `AgentScripts/VerifyFlight2140.cs`, `VerifySwipeShell2140.cjs`, `CaptureFlight2140.cs`, `InstallFlight2140.cs` |
 | Mapping W/vuốt xuống bắn, boost tạm khóa, nhặt+15 | **21.142** | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoVietBoost.cs`, `PhoVietEnergy.cs`, `PhoVietLandscapeHud.cs`, HTML template; `AgentScripts/VerifyMissileInput2142.cs`, `VerifyGestures.cs`, `VerifyFlight2140.cs` |
+| Bay+20% / khođạn5/5 | **21.143** | `PhoVietEnergy.cs`→FlightHeightAboveSupport/RequestEnergyHover, `PhoVietFlightButton.cs`, `PhoVietPlayerMissiles.cs`; `AgentScripts/VerifyFlightAltitude2143.cs`, `CaptureFlight2143.cs` |
 | Năng lượng / icon C / giữ cao độ / lộn360 | **21.121–21.123** | `Scripts/PhoVietEnergy.cs`, `PhoVietJump.cs`, `PlayerCarVisual.cs`, `PhoVietActions.cs`, `PhoVietRiver.cs`, `PhoVietDistanceHud.cs`; `Resources/Energy/`, `Art/Energy/`, `EnergyPickup.shader`; `AgentScripts/VerifyEnergyWeb.cjs`, `VerifyRelease154Scene.cs`, `AgentScripts/VerifyEnergy2122.cs`, `VerifyEnergyRoutes2122.cs`, `InstallEnergy2122.cs`, `CaptureEnergy2122.cs`; `ArtSource/Concepts/Energy-20261103/approval.json` |
 | WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.106**,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease152Scene.cs`, `VerifyStormWeb.cjs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
 

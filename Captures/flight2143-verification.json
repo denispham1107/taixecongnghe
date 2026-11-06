@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "count": 805,
+  "suites": [
+    {
+      "suite": "altitude",
+      "count": 172,
+      "success": true
+    },
+    {
+      "suite": "missiles",
+      "count": 264,
+      "success": true
+    },
+    {
+      "suite": "flight",
+      "count": 94,
+      "success": true
+    },
+    {
+      "suite": "input",
+      "count": 53,
+      "success": true
+    },
+    {
+      "suite": "enemy",
+      "count": 222,
+      "success": true
+    }
+  ],
+  "jumpHeight": 4.1166525,
+  "flightHeight": 3.4579880999999997,
+  "missiles": 5,
+  "screenshots": [
+    "flight2143-ngang-canh-xe.png",
+    "flight2143-doc-canh-xe.png"
+  ],
+  "scope": "Unity Editor Play Mode; no new WebGL build or phone verification"
+}

@@ -80,7 +80,7 @@ public static class VerifyFlight2140
     Check(b.yMax<=a.y&&Mathf.Abs(b.x-a.x)<.01f&&b.width==a.width,"Flight button sits straight above the missile button "+size);
     Check(b.width>=56&&b.y>=size.y*(narrow?.2f:.16f)&&b.x<size.x*.25f,"Flight button is a full touch target clear of the top HUD, on the left "+size);
    }
-   Fresh();energy=g.Energy;float min=PhoVietGame.JumpHeightAtSpeed(0)*.7f;
+   Fresh();energy=g.Energy;float min=PhoVietGame.FlightHeightAboveSupport;
    Check((int)Call("HudButtonAt",Bottom(flight))==3,"Button hit-test on its centre");
    Check((int)Call("HudButtonAt",new Vector2(flight.xMin+1,Screen.height-flight.yMin-1))!=3,"Button hit-test is round");
    var hudTap=JsonUtility.ToJson(new Tap{x=flight.center.x/Screen.width,y=flight.center.y/Screen.height});

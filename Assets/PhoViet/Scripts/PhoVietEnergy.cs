@@ -16,10 +16,12 @@ namespace PhoViet
   public const int AirPickupsPerTile=3;
   const float AirRevealDistance=45,AirIconLift=.65f;
   // Level with the car's body once it holds its flight height, and with the helicopters.
-  public static float AirPickupHeight=>JumpHeightAtSpeed(0)*.70f+AirIconLift;
+  public const float FlightHeightMultiplier=1.20f;
+  public static float FlightHeightAboveSupport=>JumpHeightAtSpeed(0)*.70f*FlightHeightMultiplier;
+  public static float AirPickupHeight=>FlightHeightAboveSupport+AirIconLift;
   bool airIconsShown;
   bool energyHover,barrelRolling,energyHoverRequested;float flightEnergyClock,barrelClock,energyClock;
-  float MinimumFlightHeight=>jumpBaseHeight+RiderJumpApex*.70f;
+  float MinimumFlightHeight=>jumpBaseHeight+FlightHeightAboveSupport;
   Texture2D energyHudIcon;GameObject energyPickupPrefab;
   System.Random energyRng;
   sealed class EnergyTile
@@ -76,14 +78,17 @@ namespace PhoViet
   bool ToggleEnergyFlight()
   {
    if(energyHover){energyHover=false;jumpVelocity=0;return true;}
-   if(!jumpFlying||Energy<=0)return false;
-   if(jumpHeight<MinimumFlightHeight-.0001f)
-   {
-    if(jumpVelocity<=0||energyHoverRequested)return false;
-    energyHoverRequested=true;return true;
-   }
-   // Carry an unpaid fraction until landing; rapid toggles cannot give free flight.
-   StartEnergyHover();return true;
+   return RequestEnergyHover();
+  }
+  bool RequestEnergyHover()
+  {
+   if(!jumpFlying||Energy<=0||energyHoverRequested)return false;
+   float gap=MinimumFlightHeight-jumpHeight;
+   if(gap<=.0001f){StartEnergyHover();return true;}
+   energyHoverRequested=true;
+   // A second press while descending must also climb to flight altitude, not hold near the road.
+   // Keep the normal jump untouched unless flight was explicitly requested.
+   jumpVelocity=Mathf.Max(jumpVelocity,Mathf.Sqrt(2*JumpRiseGravity*gap)+.5f);return true;
   }
   void StartEnergyHover(){CancelAssistedKick(false);energyHoverRequested=false;energyHover=true;jumpVelocity=0;}
   void CancelEnergyFlight(){energyHoverRequested=false;energyHover=false;barrelRolling=false;flightEnergyClock=barrelClock=0;}

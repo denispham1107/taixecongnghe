@@ -1,7 +1,7 @@
 using System;using System.IO;using System.Linq;using System.Reflection;using System.Collections;using System.Collections.Generic;using UnityEngine;using PhoViet;
 public static class VerifyPlayerMissiles2128
 {
- const BindingFlags F=BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic;static PhoVietGame g;static List<string> checks;
+ const BindingFlags F=BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic;static PhoVietGame g;static List<string> checks;const int Max=PhoVietGame.MaximumPlayerMissiles;
  static object Get(string n)=>typeof(PhoVietGame).GetField(n,F).GetValue(g);
  static void Set(string n,object v){var p=typeof(PhoVietGame).GetProperty(n,F);if(p!=null)p.SetValue(g,v);else typeof(PhoVietGame).GetField(n,F).SetValue(g,v);}
  static object Call(string n,params object[] a)=>typeof(PhoVietGame).GetMethod(n,F).Invoke(g,a);
@@ -24,12 +24,12 @@ public static class VerifyPlayerMissiles2128
   try
   {
    Time.timeScale=0;Set("sound",false);Fresh();
-   Check(g.PlayerMissiles==3&&PhoVietGame.MaximumPlayerMissiles==3,"Fresh run starts at3/3");
-   Check(!g.TryFirePlayerMissile()&&g.PlayerMissiles==3,"Ground input cannot fire or spend ammunition");
+   Check(g.PlayerMissiles==Max&&PhoVietGame.MaximumPlayerMissiles==5,"Fresh run starts at5/5");
+   Check(!g.TryFirePlayerMissile()&&g.PlayerMissiles==Max,"Ground input cannot fire or spend ammunition");
    g.TryJump();Check(!g.TryFirePlayerMissile(),"Jump alone is not hover flight");Fresh();Hover();
-   Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==2&&Field(M(0),"target")==null,"No target still launches one straight missile and spends one");
+   Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-1&&Field(M(0),"target")==null,"No target still launches one straight missile and spends one");
    Vector3 direction=(Vector3)Field(M(0),"velocity");Check(Vector3.Dot(direction.normalized,Vector3.forward)>.999f,"Unguided missile follows travel heading");
-   Check(!g.TryFirePlayerMissile()&&g.PlayerMissiles==2,"Repeated input in same frame cannot double-spend");Call("TickPlayerMissiles",.399f);Check(!g.TryFirePlayerMissile(),"Cooldown does not finish early");Call("TickPlayerMissiles",.001f);Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==1,"Next shot accepted at0.4seconds");Call("TickPlayerMissiles",.4f);Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==0,"Third shot uses final carried missile");Call("TickPlayerMissiles",.4f);Check(!g.TryFirePlayerMissile()&&g.PlayerMissiles==0,"Empty magazine cannot go negative");
+   Check(!g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-1,"Repeated input in same frame cannot double-spend");Call("TickPlayerMissiles",.399f);Check(!g.TryFirePlayerMissile(),"Cooldown does not finish early");Call("TickPlayerMissiles",.001f);Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-2,"Next shot accepted at0.4seconds");Call("TickPlayerMissiles",.4f);Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-3,"Third shot spends exactly one missile");for(int shot=3;shot<Max;shot++){Call("TickPlayerMissiles",.4f);Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-shot-1,"Remaining carried shot "+(shot+1));}Call("TickPlayerMissiles",.4f);Check(!g.TryFirePlayerMissile()&&g.PlayerMissiles==0,"Empty magazine cannot go negative");
    g.TogglePause();var frozen=MR(0).localPosition;float clock=g.PlayerMissileCooldown;Call("TickPlayerMissiles",2f);Check(MR(0).localPosition==frozen&&g.PlayerMissileCooldown==clock&&!g.TryFirePlayerMissile(),"Pause freezes projectiles/cooldown and rejects fire");g.TogglePause();
    Fresh();Hover();Set("Distance",1201f);Aircraft(0,110);Aircraft(3,55,1);Aircraft(0,-20,2);Aircraft(0,220,3);Check(g.TryFirePlayerMissile()&&Field(M(0),"target")==H(1),"Auto-lock selects nearest valid aircraft ahead, not behind or beyond160m");
    var missileVelocity=(Vector3)Field(M(0),"velocity");HR(1).localPosition+=Vector3.right*8;Field(H(1),"missilePrevious",HR(1).localPosition);Call("TickPlayerMissiles",.05f);Check(((Vector3)Field(M(0),"velocity")-missileVelocity).sqrMagnitude>.001f,"Homing turns toward a laterally moving target");
@@ -37,7 +37,7 @@ public static class VerifyPlayerMissiles2128
    {
     Fresh();Hover();Set("Speed",speed);Aircraft(3,85);Check(g.TryFirePlayerMissile(),"Launch at speed"+speed+" dt"+dt);
     for(int i=0;i<300&&g.PlayerHelicoptersDowned==0;i++)Tick(dt);
-    Check(g.PlayerHelicoptersDowned==1&&g.BurningHelicopterCount==1&&g.PlayerMissiles==2,"One hit burns/drops aircraft and spends exactly one, speed"+speed+" dt"+dt);
+    Check(g.PlayerHelicoptersDowned==1&&g.BurningHelicopterCount==1&&g.PlayerMissiles==Max-1,"One hit burns/drops aircraft and spends exactly one, speed"+speed+" dt"+dt);
     Check(g.State==PhoVietGame.RideState.Riding&&!g.RiderAirAttackBurning&&!g.HitByHelicopterMissile,"Player missile never damages its owner");
     Call("RenderThunderstorm");var fx=(ThunderstormVisual)Get("stormVisual");Check(fx.BurningCount==1&&g.IsAircraftBurning(HR(0)),"Baked fire/smoke is active on the shot-down helicopter");
     for(int i=0;i<75;i++)Tick(.05f);Check(HR(0).localPosition.y<=.86f,"Shot aircraft falls to the ground instead of hovering");
@@ -59,8 +59,8 @@ public static class VerifyPlayerMissiles2128
    Check(bridge>0&&street>0,"Both street and bridge pickups exist");
    foreach(float dt in new[]{.016f,.05f})
    {
-    Fresh();var e=Tiles().First();var tile=(Transform)Field(e,"tile");tile.gameObject.SetActive(true);var icons=(Transform[])Field(e,"icons");var done=(bool[])Field(e,"collected");Vector3 pickup=g.transform.InverseTransformPoint(icons[0].position);g.rider.localPosition=new Vector3(pickup.x,0,pickup.z);Set("Speed",0f);Call("TickMissilePickups",dt,g.rider.localPosition);Check(!done[0]&&g.PlayerMissiles==3,"Full magazine leaves pickup available");
-    Set("PlayerMissiles",2);Call("TickMissilePickups",dt,g.rider.localPosition);Check(done[0]&&!icons[0].gameObject.activeSelf&&g.PlayerMissiles==3&&g.MissilePickupsCollected==1,"Touching pickup adds exactly1 and clamps3");Call("TickMissilePickups",dt,g.rider.localPosition);Check(g.MissilePickupsCollected==1,"Collected pickup cannot be taken twice");
+    Fresh();var e=Tiles().First();var tile=(Transform)Field(e,"tile");tile.gameObject.SetActive(true);var icons=(Transform[])Field(e,"icons");var done=(bool[])Field(e,"collected");Vector3 pickup=g.transform.InverseTransformPoint(icons[0].position);g.rider.localPosition=new Vector3(pickup.x,0,pickup.z);Set("Speed",0f);Call("TickMissilePickups",dt,g.rider.localPosition);Check(!done[0]&&g.PlayerMissiles==Max,"Full magazine leaves pickup available");
+    Set("PlayerMissiles",Max-1);Call("TickMissilePickups",dt,g.rider.localPosition);Check(done[0]&&!icons[0].gameObject.activeSelf&&g.PlayerMissiles==Max&&g.MissilePickupsCollected==1,"Touching pickup adds exactly1 and clamps5");Call("TickMissilePickups",dt,g.rider.localPosition);Check(g.MissilePickupsCollected==1,"Collected pickup cannot be taken twice");
     Call("RefreshMissilePickupTile",tile);Check(!done[0]&&icons[0].gameObject.activeSelf,"Recycled tile refreshes spent icons");
     pickup=g.transform.InverseTransformPoint(icons[0].position);Set("PlayerMissiles",0);g.rider.localPosition=new Vector3(pickup.x,4.5f,pickup.z);Call("TickMissilePickups",dt,g.rider.localPosition);Check(!done[0]&&g.PlayerMissiles==0,"High flight does not collect ground pickups remotely");
     g.rider.localPosition=new Vector3(pickup.x,0,pickup.z+5);Set("Speed",100f);Call("TickMissilePickups",dt,new Vector3(pickup.x,0,pickup.z-5));Check(done[0]&&g.PlayerMissiles==1,"Swept pickup contact survives high speed and lowFPS");
@@ -71,9 +71,9 @@ public static class VerifyPlayerMissiles2128
    string tap=JsonUtility.ToJson(new Tap{x=pointer.x/Screen.width,y=1-pointer.y/Screen.height});
    g.ApplyBrowserGesture("{\"phase\":0,\"id\":8,\"x\":"+(pointer.x/Screen.width).ToString(System.Globalization.CultureInfo.InvariantCulture)+",\"y\":"+(1-pointer.y/Screen.height).ToString(System.Globalization.CultureInfo.InvariantCulture)+",\"at\":10}");g.ApplyHudTap(tap);
    g.ApplyBrowserGesture("{\"phase\":2,\"id\":8,\"x\":"+(pointer.x/Screen.width).ToString(System.Globalization.CultureInfo.InvariantCulture)+",\"y\":"+(1-pointer.y/Screen.height).ToString(System.Globalization.CultureInfo.InvariantCulture)+",\"at\":10.1}");
-   Check(g.PlayerMissiles==2&&g.PlayerMissilesFired==1&&!g.RiderRolling,"Browser fire tap shoots once and never rolls");g.ApplyHudTap(tap);Check(g.PlayerMissiles==2,"Duplicate compatibility tap within cooldown cannot double-shoot");
-   g.TogglePause();g.ApplyHudTap(tap);Check(g.PlayerMissiles==2&&g.State==PhoVietGame.RideState.Paused,"Paused fire tap does not toggle sound/resume/spend ammo");g.TogglePause();
-   g.ResetRide();Check(g.PlayerMissiles==3&&g.PlayerMissilesFired==0&&g.PlayerHelicoptersDowned==0&&g.ActivePlayerMissileCount==0&&g.MissilePickupsCollected==0,"Retry restores all ammo and clears projectiles/counters");Check(Enumerable.Range(0,12).All(i=>MR(i)==roots[i]),"Retry preserves the fixed12-projectile pool");
+   Check(g.PlayerMissiles==Max-1&&g.PlayerMissilesFired==1&&!g.RiderRolling,"Browser fire tap shoots once and never rolls");g.ApplyHudTap(tap);Check(g.PlayerMissiles==Max-1,"Duplicate compatibility tap within cooldown cannot double-shoot");
+   g.TogglePause();g.ApplyHudTap(tap);Check(g.PlayerMissiles==Max-1&&g.State==PhoVietGame.RideState.Paused,"Paused fire tap does not toggle sound/resume/spend ammo");g.TogglePause();
+   g.ResetRide();Check(g.PlayerMissiles==Max&&g.PlayerMissilesFired==0&&g.PlayerHelicoptersDowned==0&&g.ActivePlayerMissileCount==0&&g.MissilePickupsCollected==0,"Retry restores all ammo and clears projectiles/counters");Check(Enumerable.Range(0,12).All(i=>MR(i)==roots[i]),"Retry preserves the fixed12-projectile pool");
    var result=new{success=true,count=checks.Count,checks};File.WriteAllText("Captures/player2128-gameplay-checks.json",Newtonsoft.Json.JsonConvert.SerializeObject(result,Newtonsoft.Json.Formatting.Indented));return new{result.success,result.count};
   }
   finally{g.dinosaursEnabled=flags[0];g.thunderstormEnabled=flags[1];g.tankBarrageEnabled=flags[2];g.riversEnabled=flags[3];g.recklessTrafficEnabled=flags[4];g.trafficSurprises=flags[5];g.turnExitTrafficEnabled=flags[6];Set("sound",sound);Set("hasBrowserInsets",insets);Set("browserInsets",oldInsets);Set("browserPixelRatio",ratio);Set("BestDistance",best);PlayerPrefs.SetInt("PhoViet.Coins.v1",coins);PlayerPrefs.SetInt("PhoViet.BestMetres.v1",best);g.ResetRide();Time.timeScale=scale;}

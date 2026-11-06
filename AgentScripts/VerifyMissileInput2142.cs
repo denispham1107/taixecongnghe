@@ -3,7 +3,7 @@ using System;using System.IO;using System.Reflection;using System.Collections;us
 public static class VerifyMissileInput2142
 {
  const BindingFlags F=BindingFlags.Instance|BindingFlags.NonPublic|BindingFlags.Public;
- static PhoVietGame g;static List<string> checks;
+ static PhoVietGame g;static List<string> checks;const int Max=PhoVietGame.MaximumPlayerMissiles;
  static object Get(string n)=>typeof(PhoVietGame).GetField(n,F).GetValue(g);
  static void Set(string n,object v){var p=typeof(PhoVietGame).GetProperty(n,F);if(p!=null)p.SetValue(g,v);else typeof(PhoVietGame).GetField(n,F).SetValue(g,v);}
  static object Call(string n,params object[] a)=>typeof(PhoVietGame).GetMethod(n,F).Invoke(g,a);
@@ -41,19 +41,19 @@ public static class VerifyMissileInput2142
     Call("TickEnergyPickups",0f,g.rider.localPosition);Check(g.EnergyPickupsCollected==before+1,"Repeated contact cannot collect twice");
    }
    Fresh();float speed=g.Speed;Check(!PhoVietGame.BoostReleased&&!g.TryBoost()&&!g.BoostActive,"Boost locked on ground");Swipe(1);
-   Check(g.PlayerMissiles==3&&g.PlayerMissilesFired==0&&g.Speed==speed&&!g.BoostActive,"Down swipe on ground spends no ammo and cannot boost");
-   Fresh();Hover();speed=g.Speed;Swipe(2);Check(g.PlayerMissiles==2&&g.PlayerMissilesFired==1,"Down swipe in flight fires immediately");
+   Check(g.PlayerMissiles==Max&&g.PlayerMissilesFired==0&&g.Speed==speed&&!g.BoostActive,"Down swipe on ground spends no ammo and cannot boost");
+   Fresh();Hover();speed=g.Speed;Swipe(2);Check(g.PlayerMissiles==Max-1&&g.PlayerMissilesFired==1,"Down swipe in flight fires immediately");
    Check(g.Speed==speed&&!g.BoostActive&&!g.TryBoost(),"Firing does not accelerate or enable boost");
    g.ApplyBrowserGesture("{\"phase\":1,\"id\":2,\"x\":0.55,\"y\":0.9,\"action\":3,\"at\":10.2}");
    g.ApplyBrowserGesture("{\"phase\":2,\"id\":2,\"x\":0.55,\"y\":0.9,\"at\":10.3}");
    Check(g.PlayerMissilesFired==1,"Move/up of same swipe cannot double fire");Swipe(3);Check(g.PlayerMissilesFired==1,"New swipe respects shared0.4s cooldown");
-   Call("TickPlayerMissiles",.4f);Swipe(4);Check(g.PlayerMissilesFired==2&&g.PlayerMissiles==1,"Next swipe after cooldown fires");
-   Call("TickPlayerMissiles",.4f);Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==0,"Existing F/button API shares the same ammo");Call("TickPlayerMissiles",.4f);Swipe(5);
-   Check(g.PlayerMissiles==0&&g.PlayerMissilesFired==3&&!g.BoostActive,"Empty down swipe cannot spend negative ammo or boost");
-   Fresh();Hover();g.TogglePause();Swipe(6);Check(g.PlayerMissiles==3&&g.PlayerMissilesFired==0,"Paused swipe cannot fire");g.TogglePause();
+   Call("TickPlayerMissiles",.4f);Swipe(4);Check(g.PlayerMissilesFired==2&&g.PlayerMissiles==Max-2,"Next swipe after cooldown fires");
+   Call("TickPlayerMissiles",.4f);Check(g.TryFirePlayerMissile()&&g.PlayerMissiles==Max-3,"Existing F/button API shares the same ammo");while(g.PlayerMissiles>0){Call("TickPlayerMissiles",.4f);Check(g.TryFirePlayerMissile(),"Spend remaining carried missile");}Call("TickPlayerMissiles",.4f);Swipe(5);
+   Check(g.PlayerMissiles==0&&g.PlayerMissilesFired==Max&&!g.BoostActive,"Empty down swipe cannot spend negative ammo or boost");
+   Fresh();Hover();g.TogglePause();Swipe(6);Check(g.PlayerMissiles==Max&&g.PlayerMissilesFired==0,"Paused swipe cannot fire");g.TogglePause();
    Set("boostRemaining",3f);Set("boostCooldown",2f);Check(!g.BoostActive,"Stale boost cannot affect gameplay while hidden");Call("TickBoost",.1f);
    Check(g.BoostRemaining==0&&g.BoostCooldown==0,"Disabled boost clears stale timers");
-   Fresh();Check(g.PlayerMissiles==3&&g.Energy==150&&!g.BoostActive,"Retry restores ammo/energy with boost locked");
+   Fresh();Check(g.PlayerMissiles==Max&&g.Energy==150&&!g.BoostActive,"Retry restores ammo/energy with boost locked");
    Check(!g.jobsEnabled&&!PhoVietGame.RideJobsReleased,"Jobs stay locked");
    string source=File.ReadAllText("Assets/PhoViet/Scripts/PhoVietGame.cs");
    Check(source.Contains("Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.F)))TryFirePlayerMissile()"),"W and F share one launch branch (no duplicate shot)");

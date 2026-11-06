@@ -3,7 +3,7 @@ namespace PhoViet
 {
  public partial class PhoVietGame
  {
-  public const int MaximumPlayerMissiles=3,PlayerMissilePoolCapacity=12;
+  public const int MaximumPlayerMissiles=5,PlayerMissilePoolCapacity=12;
   public const float PlayerMissileInterval=.4f;
   const float PlayerMissileLifetime=4;
   public int PlayerMissiles{get;private set;}=MaximumPlayerMissiles;

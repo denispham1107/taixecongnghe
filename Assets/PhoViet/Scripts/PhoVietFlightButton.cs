@@ -34,11 +34,7 @@ namespace PhoViet
    if(energyHoverRequested){energyHoverRequested=false;return true;}
    if(jumpFlying)
    {
-    if(Energy<=0)return false;
-    float gap=MinimumFlightHeight-jumpHeight;
-    if(gap<=0){StartEnergyHover();return true;}
-    // Already falling or too low: climb again rather than refuse the press.
-    energyHoverRequested=true;jumpVelocity=Mathf.Max(jumpVelocity,Mathf.Sqrt(2*JumpRiseGravity*gap)+.5f);return true;
+    return RequestEnergyHover();
    }
    if(jumpHeight>.06f&&roofVehicle==null)return false;
    if(!SpendEnergy(JumpEnergyCost))return false;
