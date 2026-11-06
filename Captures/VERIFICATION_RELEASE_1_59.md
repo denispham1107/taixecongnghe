@@ -14,4 +14,8 @@ Gồm source21.142–21.145: W/vuốt xuống bắn tên lửa, boost tạm khó
 
 ## Trạng thái
 
-Đã push artifact/source `7e64e1d`, Pages run[42294743068](https://github.com/denispham1107/taixecongnghe/actions/runs/42294743068) completed/success đúng SHA. Live1.59.0/cache`c6699b769f95f932`;28kiểm live đạt/0runtime, toàn bộ tài nguyên khớp bytes bản local đã thử. Báo cáo `release159-live-results.json` và `release159-pages.json`. Server8786 đã dừng. Unity Edit, scene sạch, jobs/boost khóa. Không thử Safari/Android máy thật hoặc cam kết FPS; giữ thay đổi Art/Wave/Packages/Simulator/Captures lịch sử ngoài commit phát hành.
+Đã push artifact/source `7e64e1d`, Pages run[42294743068](https://github.com/denispham1107/taixecongnghe/actions/runs/42294743068) completed/success đúng SHA. Live1.59.0/cache`c6699b769f95f932`;29kiểm live đạt/0runtime, toàn bộ tài nguyên khớp bytes bản local đã thử. Báo cáo `release159-live-results.json` và `release159-pages.json`. Server8786 đã dừng. Unity Edit, scene sạch, jobs/boost khóa. Không thử Safari/Android máy thật hoặc cam kết FPS; giữ thay đổi Art/Wave/Packages/Simulator/Captures lịch sử ngoài commit phát hành.
+
+## Kiểm cảnh game thực tế
+
+Bài live ban đầu chụp sớm ở splash Unity. Đã bổ sung chờ >12% pixel màu trong canvas rồi mới StartRide/TogglePause; lượt cuối29kiểm đạt/0runtime, fraction0,2881. Đã xem ảnh `release159-live-game.png`: cảnh phố, xe, HUD5/5 và Pause hiển thị đúng. Kết quả live hiện là lượt kiểm cuối đã sửa verifier, không dùng splash làm bằng chứng chơi được.

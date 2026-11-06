@@ -10,7 +10,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.59.0** — artifact/source commit `7e64e1d`; Pages `42294743068` success đúng SHA; cache `c6699b769f95f932`; **28 live đạt/0 runtime**,575 browser local. Gồm21.142–145. Báo cáo `Captures/VERIFICATION_RELEASE_1_59.md` |
+| Bản đã phát hành | **1.59.0** — artifact/source commit `7e64e1d`; Pages `42294743068` success đúng SHA; cache `c6699b769f95f932`; **29 live đạt/0 runtime**,575 browser local. Gồm21.142–145. Báo cáo `Captures/VERIFICATION_RELEASE_1_59.md` |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -48,7 +48,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.146 đã phát hành1.59.0:** commit `7e64e1d`/Pages`42294743068`success/cache`c6699b769f95f932`; gộp21.142–145. Build2variant378,570s/0lỗi/1warningPipeline;193pre+193post/584SHAgiữ/43repo+34site+35index/575browserlocal/28liveđạt/0runtime. UnityEdit/scene sạch/jobsfalse/boostfalse/server8786đãdừng. Kết quả và2docs/README lưu riêng sau commit artifact.
+- **21.146 đã phát hành1.59.0:** commit `7e64e1d`/Pages`42294743068`success/cache`c6699b769f95f932`; gộp21.142–145. Build2variant378,570s/0lỗi/1warningPipeline;193pre+193post/584SHAgiữ/43repo+34site+35index/575browserlocal/29liveđạt/0runtime. UnityEdit/scene sạch/jobsfalse/boostfalse/server8786đãdừng. Kết quả và2docs/README lưu riêng sau commit artifact.
 
 *Bốn mục21.142–145 bên dưới ghi trạng thái tại lúc commit source; toàn bộ nay đã có trên web1.59.0.*
 
@@ -228,7 +228,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.146 hoàn tất:** 1.59.0 đã phát hành và xác minh live; không còn build/push/Pages/live đang dở. Unity Edit/scene sạch/jobsfalse/boostfalse; server8786 đã dừng. Chưa thử Safari/Android máy thật hoặc đo FPS mới; giữ Art/Wave/Packages/Simulator/metatexture/Captures lịch sử ngoài commit.
+- **21.146 hoàn tất:** 1.59.0 đã phát hành và xác minh29live/0runtime (đã chờ và xem cảnh game/pause thật, không chỉ splash); không còn build/push/Pages/live đang dở. Unity Edit/scene sạch/jobsfalse/boostfalse/server8786đãdừng. Chưa thử Safari/Android máy thật/FPS mới; giữ dirty ngoài phạm vi.
 
 - **21.141 hoàn tất:** 1.58.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. **Chờ người dùng thử trên điện thoại:** vuốt màn hình ngang, nút bay, mật độ icon trên không (`AirPickupsPerTile`=3, tự chọn). Test cũ lỗi sẵn: `VerifyJump`, `VerifyPerformanceLighting`, `VerifyRiverBridge`, `VerifyRiverCrashSinking`, `VerifyDistanceTanks2199`, `VerifyEnergy2122`, `VerifyEnergyRoutes2122`. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta`/Captures lịch sử ngoài commit.
 

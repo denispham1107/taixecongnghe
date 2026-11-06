@@ -26,6 +26,7 @@
     "Published artifact matches: style.css",
     "Published artifact matches: sw.js",
     "Published artifact matches: precache.json",
+    "Actual game scene rendered beyond Unity splash",
     "Real published Unity WebAssembly initializes",
     "Published start and pause input smoke completed",
     "No JavaScript or Unity runtime errors"
@@ -37,5 +38,6 @@
     "unity": "6000.5.6f1",
     "utc": "2026-11-06T20:51:27.2175481Z"
   },
+  "sceneColourFraction": 0.28810975609756095,
   "success": true
 }

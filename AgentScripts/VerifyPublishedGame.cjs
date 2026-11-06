@@ -1,6 +1,6 @@
 // Release smoke: compare deployed resources to the tested build, then load real WASM.
 const {chromium}=require('playwright');
-const fs=require('node:fs');const assert=require('node:assert/strict');
+const fs=require('node:fs');const assert=require('node:assert/strict');const sharp=require('sharp');
 const url=process.argv[2]||'https://denispham1107.github.io/taixecongnghe/';
 const label=process.argv[3]||'rider-contact-live';
 const result={url,checks:[],errors:[]};
@@ -23,9 +23,20 @@ async function main(){
     await page.goto(url,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
     await page.screenshot({path:`Captures/browser-${label}-landing.png`,timeout:90000});
     await page.locator('#play').click();
-    await page.waitForFunction(()=>!!window.phoVietInstance,{},{timeout:180000});await page.waitForTimeout(4500);
+    await page.waitForFunction(()=>!!window.phoVietInstance,{},{timeout:180000});
+    // createUnityInstance resolves while the splash can still be rendering. Await actual colourful scene pixels.
+    let sceneFraction=0;
+    for(let attempt=0;attempt<90;attempt++){
+      const png=await page.locator('#unity-canvas').screenshot({timeout:90000});
+      const {data,info}=await sharp(png).removeAlpha().raw().toBuffer({resolveWithObject:true});let colour=0,total=0;
+      for(let y=0;y<info.height;y+=8)for(let x=0;x<info.width;x+=8){const i=(y*info.width+x)*info.channels,[r,g,b]=data.subarray(i,i+3);total++;if(Math.max(r,g,b)-Math.min(r,g,b)>30&&Math.max(r,g,b)>70)colour++;}
+      sceneFraction=colour/total;if(sceneFraction>.12)break;await page.waitForTimeout(1000);
+    }
+    result.sceneColourFraction=sceneFraction;check('Actual game scene rendered beyond Unity splash',sceneFraction>.12);
     check('Real published Unity WebAssembly initializes',await page.locator('#welcome').isHidden());
-    await page.locator('#unity-canvas').focus();await page.keyboard.press('Enter');await page.waitForTimeout(500);await page.keyboard.press('p');
+    await page.locator('#unity-canvas').focus();
+    await page.evaluate(()=>window.phoVietInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','StartRide'));await page.waitForTimeout(700);
+    await page.evaluate(()=>window.phoVietInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','TogglePause'));await page.waitForTimeout(1500);
     await page.screenshot({path:`Captures/browser-${label}.png`,timeout:90000});
     check('Published start and pause input smoke completed',true);
     check('No JavaScript or Unity runtime errors',result.errors.length===0);
