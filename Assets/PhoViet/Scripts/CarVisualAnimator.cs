@@ -52,7 +52,7 @@ namespace PhoViet
             if(vehicle.knocked&&!wasKnocked&&impactAge>1)ReceiveImpact(new Vector3(-vehicle.knockDirection,0,-1),10);
             if(!vehicle.knocked&&wasKnocked){impactAge=10;WheelAngle=0;spinSpeed=0;SteeringAngle=0;}
             wasKnocked=vehicle.knocked;
-            float speed=Mathf.Abs(vehicle.crossing?vehicle.crossSpeed:vehicle.speed);
+            float speed=Mathf.Abs(vehicle.crossing?game.CrossingSpeed(vehicle):vehicle.speed);
             if(game.State!=PhoVietGame.RideState.Riding)speed=0;
             if(vehicle.knocked){spinSpeed=Mathf.MoveTowards(spinSpeed,0,dt*12);impactAge+=dt;}
             else{spinSpeed=speed;impactAge=10;}

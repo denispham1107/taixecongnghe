@@ -276,7 +276,7 @@ namespace PhoViet
                     float z=centre+(direction>0?-2.8f:2.8f);
                     float velocity=(Mathf.Lerp(6.5f,11f,Difficulty01)+i*.35f)*(.95f+(float)rng.NextDouble()*.15f);
                     float travel=(16+direction*targetX)/velocity;
-                    float delay=Mathf.Max(0,TimeToIntersection(z)-travel)+(i>=2?.7f:0);
+                    float delay=CrossTrafficDepartureDelay(TimeToIntersection(z),travel)+(i>=2?.7f:0);
                     SpawnCrossTraffic(direction,z,rng.NextDouble()<Mathf.Lerp(.2f,.7f,Difficulty01),velocity,delay);
                 }
                 ScheduledIntersections++;nextIntersectionDistance+=VietnamStreet.Length;
@@ -335,10 +335,8 @@ namespace PhoViet
         // Lập lại khi đổi làn đích, hoặc khi vị trí bị dời khỏi đường cong (va chạm, đạp áp sát, quay về làn sau cua…).
         float AdvanceLaneCurve(float baseX,float target,float dt)
         {
-            // Keep the smooth lane shape; car pace is 1.15 x 1.10 x 1.10 x 1.10 (21.89/21.92/21.94/21.100).
-            // Re-evaluate pace each frame so W also speeds up a turn in progress.
-            // Preserve a useful steering response while pulling away from rest.
-            float pace=IsPlayerCar?Mathf.Max(Speed,8)/17f*1.53065f:1;
+            // Keep the smooth lane shape and the steering response while pulling away from rest.
+            float pace=IsPlayerCar?Mathf.Max(Speed,8)/17f*1.53065f*1.15f:1;
             if(lanePlanned&&(laneGoal!=target||Mathf.Abs(LaneCurveValue(Mathf.Min(1,laneClock/laneCurveTime),0)-baseX)>.02f))lanePlanned=false;
             if(!lanePlanned)
             {
@@ -483,7 +481,7 @@ namespace PhoViet
                 else if(v.knocked)TickKnockedVehicle(v,dt);
                 else if(HoldCrossTrafficForService(v,dt)){}
                 else if(v.roadTurning)TickRoadTurn(v,dt);
-                else if(v.routeDetached)v.model.localPosition+=(v.routeVelocity-Vector3.forward*Speed)*dt;
+                else if(v.routeDetached)v.model.localPosition+=(DetachedTrafficVelocity(v)-Vector3.forward*Speed)*dt;
                 else if(!v.crossing&&TickJobTrafficYield(v,dt)){}
                 else if(v.isReckless)TickRecklessVehicle(v,dt);
                 else if(v.crossing)

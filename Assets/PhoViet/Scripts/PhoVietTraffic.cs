@@ -7,6 +7,21 @@ namespace PhoViet
     {
         // This reference never includes W, jump or the kick interception surge.
         float TrafficPaceSpeed=>Mathf.Min(17+DifficultyTime*.12f,30);
+        float OpeningTrafficPace=>Mathf.Clamp01(timeRiding/LaunchDuration);
+        internal float CrossingSpeed(TrafficVehicle v)=>v.crossDelay>0?0:v.crossSpeed*OpeningTrafficPace;
+        Vector3 DetachedTrafficVelocity(TrafficVehicle v)=>v.routeVelocity*OpeningTrafficPace;
+
+        float CrossTrafficDepartureDelay(float arrivalIn,float travel)
+        {
+            if(timeRiding>=LaunchDuration)return Mathf.Max(0,arrivalIn-travel);
+            // Integrate the linear ramp, then invert it to find when crossing must begin.
+            float arrival=timeRiding+arrivalIn;
+            float rampTime=Mathf.Min(arrival,LaunchDuration);
+            float departure=arrival-rampTime+.5f*rampTime*rampTime/LaunchDuration-travel;
+            float start=departure>=.5f*LaunchDuration?departure+.5f*LaunchDuration:
+                Mathf.Sqrt(Mathf.Max(0,2f*LaunchDuration*departure));
+            return Mathf.Max(0,start-timeRiding);
+        }
         public bool trafficSurprises=true;
         public int SuddenBrakes {get;private set;}
         public int SuddenLaneChanges {get;private set;}
@@ -27,6 +42,7 @@ namespace PhoViet
             if(meshy!=null)meshy.SelectForSpawn(rng,v,randomTanks);
             // Xe tăng luôn chậm hơn 60%: mọi tốc độ đặt lúc xuất hiện (dọc/ngược/băng ngang) nhân speedScale.
             if(v.speedScale!=1){v.speed*=v.speedScale;v.baseTrafficSpeed=v.speed;v.crossSpeed*=v.speedScale;}
+            v.speed*=OpeningTrafficPace;
             v.spawnGeneration++;
             v.previousCrashWidth=-1;
             v.recovery=null;v.lightningWreck=false;v.tankDestroyed=false;
@@ -108,8 +124,10 @@ namespace PhoViet
                 }
             }
             bool braking=v.brakeRemaining>0;
-            float target=braking?Mathf.Max(.7f,v.baseTrafficSpeed*.1f):v.baseTrafficSpeed;
-            v.speed=trafficSurprises?Mathf.MoveTowards(v.speed,target,dt*(braking?38:6)):target;
+            float pace=OpeningTrafficPace;
+            float target=(braking?Mathf.Max(.7f,v.baseTrafficSpeed*.1f):v.baseTrafficSpeed)*(turnBike?1:pace);
+            float acceleration=pace<1?Mathf.Max(6,Mathf.Abs(v.baseTrafficSpeed)/LaunchDuration):6;
+            v.speed=trafficSurprises?Mathf.MoveTowards(v.speed,target,dt*(braking?38:acceleration)):target;
             v.brakeRemaining=Mathf.Max(0,v.brakeRemaining-dt);
             if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(v.brakeRemaining>0);
             float previousX=p.x;
@@ -134,7 +152,9 @@ namespace PhoViet
             v.model.localPosition-=Vector3.forward*Speed*dt;
             float direction=Mathf.Sign(v.crossSpeed),velocity=Mathf.Abs(v.crossSpeed);
             if(!trafficSurprises)v.turnChoice=0;
-            if(!v.turning&&v.turnChoice!=0&&moving>0)
+            moving*=OpeningTrafficPace;
+            if(moving<=0||velocity<=0)return;
+            if(!v.turning&&v.turnChoice!=0)
             {
                 float zSign=-direction*v.turnChoice;
                 float endX=zSign>0?LaneX[direction>0?3:2]:LaneX[direction>0?1:0];
@@ -158,9 +178,9 @@ namespace PhoViet
             v.model.localRotation=Quaternion.Euler(0,Mathf.Atan2(direction*Mathf.Cos(angle),v.turnZSign*Mathf.Sin(angle))*Mathf.Rad2Deg,v.halfWidth<.7f?-direction*v.turnZSign*12:0);
             if(angle>=Mathf.PI*.5f-.00001f)
             {
-                v.turning=false;v.crossing=false;v.hasTurned=true;v.speed=v.turnZSign*velocity;v.baseTrafficSpeed=v.speed;
+                v.turning=false;v.crossing=false;v.hasTurned=true;v.baseTrafficSpeed=v.turnZSign*velocity;v.speed=v.baseTrafficSpeed*OpeningTrafficPace;
                 v.lane=v.turnZSign>0?(v.turnEndX>3?3:2):(v.turnEndX<-3?0:1);
-                v.model.localPosition+=Vector3.forward*v.speed*(moving-turnTime);
+                v.model.localPosition+=Vector3.forward*v.baseTrafficSpeed*(moving-turnTime);
                 v.model.localRotation=Quaternion.Euler(0,v.speed>0?0:180,0);
             }
         }

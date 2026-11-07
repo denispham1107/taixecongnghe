@@ -236,7 +236,7 @@ namespace PhoViet
                 if(v.riverFalling){v.riverVelocity=inverse*v.riverVelocity;v.riverSpin=inverse*v.riverSpin;v.riverRestRotation=inverse*v.riverRestRotation;}
                 RebaseTrafficRecovery(v,inverse,origin);
                 v.roadTurnStart=inverse*(v.roadTurnStart-origin);v.roadTurnForward=inverse*v.roadTurnForward;v.roadTurnSide=inverse*v.roadTurnSide;
-                v.routeDetached=true;v.routeVelocity=v.motionVelocity;
+                v.routeDetached=true;v.routeVelocity=v.motionVelocity/Mathf.Max(OpeningTrafficPace,.01f);
                 if(v.crashEffect!=null){v.crashEffect.localPosition=inverse*(v.crashEffect.localPosition-origin);v.crashEffect.localRotation=inverse*v.crashEffect.localRotation;v.routeEffectOffset=v.crashEffect.localPosition-v.model.localPosition;}
             }
             if(policeBike!=null){policeBike.localPosition=inverse*(policeBike.localPosition-origin);policeBike.localRotation=inverse*policeBike.localRotation;}

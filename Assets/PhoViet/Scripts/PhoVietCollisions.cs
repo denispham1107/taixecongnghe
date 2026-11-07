@@ -50,7 +50,8 @@ namespace PhoViet
             if(v.wallCrashed)return Vector3.zero;
             if(v.knocked)return v.knockVelocity;
             if(v.motionVelocity.sqrMagnitude>.0001f)return v.motionVelocity;
-            return v.crossing?new Vector3(v.crossDelay>0?0:v.crossSpeed,0,0):new Vector3(0,0,v.speed);
+            if(v.routeDetached)return DetachedTrafficVelocity(v);
+            return v.crossing?new Vector3(CrossingSpeed(v),0,0):new Vector3(0,0,v.speed);
         }
         static Vector2 BodyForward(TrafficVehicle v)
         {float a=v.model.localEulerAngles.y*Mathf.Deg2Rad;return new Vector2(Mathf.Sin(a),Mathf.Cos(a));}

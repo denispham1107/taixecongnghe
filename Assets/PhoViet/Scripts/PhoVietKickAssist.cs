@@ -77,7 +77,7 @@ namespace PhoViet
    kickAppliedOffset=inverse*kickAppliedOffset;kickPreviousRider=inverse*(kickPreviousRider-origin);kickPreviousRotation=inverse*kickPreviousRotation;
    LastKickFootPoint=inverse*(LastKickFootPoint-origin);
   }
-  Vector3 KickTrafficVelocity(TrafficVehicle v)=>v.routeDetached&&!v.knocked&&!v.wallCrashed?v.routeVelocity:BodyVelocity(v);
+  Vector3 KickTrafficVelocity(TrafficVehicle v)=>v.routeDetached&&!v.knocked&&!v.wallCrashed?DetachedTrafficVelocity(v):BodyVelocity(v);
   bool BeginAssistedKick()
   {
    if(State!=RideState.Riding||ServiceStopped||RiderJumpActive||RiderOnRoof||KickAssistActive||kickCooldown>0)return false;

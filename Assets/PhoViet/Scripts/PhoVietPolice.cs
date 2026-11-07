@@ -80,7 +80,8 @@ namespace PhoViet
             }
             if(PoliceDistance<=6.5f)policeArrived=true;
             if(PoliceDistance>16)policeArrived=false;
-            float nominal=policeArrived?cruiseSpeed-.65f:cruiseSpeed+15;
+            float nominal=policeArrived?cruiseSpeed-.65f:cruiseSpeed+15*OpeningTrafficPace;
+            if(OpeningTrafficPace<1)nominal=Mathf.Max(0,nominal);
             bool clear=ChoosePolicePath(before,nominal,out float target);
             if(clear)
             {

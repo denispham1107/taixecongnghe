@@ -20,7 +20,7 @@ namespace PhoViet
   bool HoldCrossTrafficForService(TrafficVehicle v,float dt)
   {
    if(!ServiceStopped||dt<=0||(!v.crossing&&!v.roadTurning&&!v.routeDetached))return false;
-   Vector3 velocity=v.routeDetached?v.routeVelocity:v.crossing?new Vector3(v.crossDelay>0?0:v.crossSpeed,0,0):BodyVelocity(v);
+   Vector3 velocity=v.routeDetached?DetachedTrafficVelocity(v):v.crossing?new Vector3(CrossingSpeed(v),0,0):BodyVelocity(v);
    Vector2 from=Flat(v.model.localPosition-rider.localPosition),half=VehicleFootprint(v)+new Vector2(.85f,1.35f);
    if(!SweptOverlap(from,from+Flat(velocity)*1.8f,half))return false;
    // Cross-street traffic holds before entering the passenger stop, retaining its route.

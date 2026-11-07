@@ -6,7 +6,7 @@ namespace PhoViet
         public int RoadTrafficTurns {get;private set;}
         bool TryBeginRoadTurn(TrafficVehicle v,float dt)
         {
-            if(!trafficSurprises||dt<=0||v.hasTurned||v.changingLane||v.enteringFromBehind||v.isReckless||v.knocked)return false;
+            if(!trafficSurprises||dt<=0||Mathf.Abs(v.speed)<.01f||v.hasTurned||v.changingLane||v.enteringFromBehind||v.isReckless||v.knocked)return false;
             float direction=Mathf.Sign(v.baseTrafficSpeed),nearest=float.PositiveInfinity,centre=0;
             foreach(var block in blocks)
             {
@@ -26,12 +26,13 @@ namespace PhoViet
             if(nearest>radius+Mathf.Abs(v.speed)*dt||nearest<radius-2)return false;
             v.roadTurning=true;v.changingLane=false;v.brakeRemaining=0;v.roadTurnAngle=0;v.roadTurnRadius=radius;
             v.roadTurnStart=v.model.localPosition;v.roadTurnForward=Vector3.forward*direction;
-            v.roadTurnSide=Vector3.right*direction*v.turnChoice;v.roadTurnSpeed=Mathf.Min(Mathf.Abs(v.speed),v.halfWidth>.7f?7:9);
+            v.roadTurnSide=Vector3.right*direction*v.turnChoice;v.roadTurnSpeed=Mathf.Min(Mathf.Abs(v.speed)/Mathf.Max(.01f,OpeningTrafficPace),v.halfWidth>.7f?7:9);
             RoadTrafficTurns++;IntersectionTurns++;return true;
         }
         void TickRoadTurn(TrafficVehicle v,float dt)
         {
             v.roadTurnStart-=Vector3.forward*Speed*dt;
+            dt*=OpeningTrafficPace;
             float previous=v.roadTurnAngle;
             float angle=Mathf.Min(Mathf.PI*.5f,previous+v.roadTurnSpeed*dt/v.roadTurnRadius);v.roadTurnAngle=angle;
             v.model.localPosition=v.roadTurnStart+v.roadTurnRadius*(v.roadTurnForward*Mathf.Sin(angle)+v.roadTurnSide*(1-Mathf.Cos(angle)));

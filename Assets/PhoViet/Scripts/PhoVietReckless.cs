@@ -120,7 +120,7 @@ namespace PhoViet
             bool truck=v.halfWidth>.7f;
             if(v.enteringFromBehind)
             {
-                v.speed=Mathf.Max(v.speed,TrafficPaceSpeed+(truck?9:12));
+                v.speed=Mathf.Max(v.speed,(TrafficPaceSpeed+(truck?9:12))*OpeningTrafficPace);
                 Vector3 previous=v.model.localPosition,entryPosition=previous;entryPosition.z+=(v.speed-Speed)*dt;
                 float merge=Mathf.InverseLerp(truck?-10:-7,truck?-4:-2.6f,entryPosition.z);
                 entryPosition.x=Mathf.Lerp(v.rearStartX,v.startPosition.x,Mathf.SmoothStep(0,1,merge));v.model.localPosition=entryPosition;
@@ -129,16 +129,18 @@ namespace PhoViet
                 if(v.model.localPosition.z>=1.5f){v.enteringFromBehind=false;v.recklessAge=0;}
                 return;
             }
-            v.recklessAge+=dt;
-            if(v.baseTrafficSpeed<0&&v.speed>v.baseTrafficSpeed)v.speed=Mathf.MoveTowards(v.speed,v.baseTrafficSpeed,dt*20);
-            if(v.speed>0)v.speed=Mathf.MoveTowards(v.speed,TrafficPaceSpeed+(truck?1.2f:3.2f),dt*7);
+            float pace=OpeningTrafficPace;
+            v.recklessAge+=dt*pace;
+            float oncomingTarget=v.baseTrafficSpeed*pace;
+            if(v.baseTrafficSpeed<0&&v.speed>oncomingTarget)v.speed=Mathf.MoveTowards(v.speed,oncomingTarget,dt*20);
+            if(v.speed>0)v.speed=Mathf.MoveTowards(v.speed,(TrafficPaceSpeed+(truck?1.2f:3.2f))*pace,dt*7);
             float frequency=v.swerveFrequency>0?v.swerveFrequency:(truck?2.1f:2.8f);
             float weave=(1-Mathf.Cos(v.recklessAge*frequency))*.5f;
             float amplitude=v.swerveAmplitude>0?v.swerveAmplitude:v.speed<0?5.4f-v.startPosition.x:3.9f;
             float target=Mathf.Clamp(v.startPosition.x+v.swerveDirection*amplitude*weave,-5.8f,5.8f);
             if(v.willHitWall&&v.recklessAge>=v.wallCrashAt)target=v.wallSide*12;
             Vector3 p=v.model.localPosition;
-            float x=Mathf.MoveTowards(p.x,target,dt*(v.swerveSpeed>0?v.swerveSpeed:truck?9:13));
+            float x=Mathf.MoveTowards(p.x,target,dt*pace*(v.swerveSpeed>0?v.swerveSpeed:truck?9:13));
             float sideways=dt>0?(x-p.x)/dt:0;
             p.x=x;p.z+=(v.speed-Speed)*dt;v.model.localPosition=p;
             float yaw=Mathf.Atan2(sideways,v.speed)*Mathf.Rad2Deg;

@@ -106,7 +106,7 @@ namespace PhoViet
             bool falling=role==ActorRole.Player?(game.State==PhoVietGame.RideState.Falling||game.State==PhoVietGame.RideState.GameOver||game.State==PhoVietGame.RideState.Arrested&&game.CrashDuringPursuit):
                 role==ActorRole.Police?(game.PoliceFallen||game.PoliceInRiver):vehicle.knocked;
             float speed=role==ActorRole.Player?game.Speed:role==ActorRole.Police?game.PoliceSpeed:
-                vehicle.crossing?vehicle.crossSpeed:vehicle.speed;
+                vehicle.crossing?game.CrossingSpeed(vehicle):vehicle.speed;
             string clip="Idle";float normalized=0;
             if(recovering){clip="Recover";normalized=vehicle.StandUpProgress;speed=0;fallAge=0;}
             else if(falling)

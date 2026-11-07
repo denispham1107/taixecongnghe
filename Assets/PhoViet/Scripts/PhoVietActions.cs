@@ -109,7 +109,7 @@ namespace PhoViet
             if(PoliceLightningWreck&&policeBody!=null)policeBody.lightningWreck=false;
             if(PoliceInRiver||PoliceLightningWreck)ResetPoliceDriving();
             PoliceLightningWreck=false;if(policeBody!=null)policeBody.lightningWreck=false;
-            IsChased=true;PoliceDistance=38;PoliceSpeed=TrafficPaceSpeed+15;policeArrived=false;chaseBoost=.5f;
+            IsChased=true;PoliceDistance=38;PoliceSpeed=(TrafficPaceSpeed+15)*OpeningTrafficPace;policeArrived=false;chaseBoost=.5f;
             if(policeBike!=null){policeBike.gameObject.SetActive(true);policeBike.localPosition=new Vector3(rider.localPosition.x-1,0,-PoliceDistance);}
             if(IsTurning){routePolice=true;policeRouteAt=Distance-PoliceDistance;policeBike.localPosition=SampleRoute(policeRouteAt).point;}
             if(sound)siren?.Play();
