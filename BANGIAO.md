@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **07/11/2026 — Codex**
+Cập nhật lần cuối: **08/11/2026 — Codex**
 
 ## 1. Trạng thái hiện tại
 
@@ -15,9 +15,9 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Simulator iPhone | **21.71:** đã thêm **Apple iPhone 14 Pro / 14 Pro Max**, Dynamic Island + Safe Area dọc/ngang; đang chọn Pro Max ngang, Safe Area bật. Asset chỉ trong Editor, chưa commit/push |
-| Chế độ chơi | **Web1.53.0/21.118:** reset quãngvăng trước dựngđường để chơi lại rẽđúng/khônglệchnhà. **21.115:** điểm/kỷlục dừngngaylúcva chạm, không cộngquãngvăng; physics/chờCSGT giữ. Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
+| Chế độ chơi | **Web1.53.0/21.118:** reset quãngvăng trước dựngđường để chơi lại rẽđúng/khônglệchnhà. **21.115:** điểm/kỷlục dừngngaylúcva chạm, không cộngquãngvăng; physics giữ; truy đuổi CSGT tạm khóa trong source21.155. Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
-| Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần áp sát+húc ngang, Space/vuốt lên nhảy4jet trắng, **Source21.145: W/F/vuốt xuống bắn cả dướiđất(diệttank) và khi bay(diệttrực thăng); boost tạm khóa**, giữ code2bô chờ yêu cầu mở lại. Player đã có trên web1.40.0; mapping mới đã có trên web1.59.0 |
+| Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần móc xích trong 4 m khi chưa bay, lộn khi bay (source21.155). Space/vuốt lên nhảy4jet trắng, **Source21.145: W/F/vuốt xuống bắn cả dướiđất(diệttank) và khi bay(diệttrực thăng); boost tạm khóa**, giữ code2bô chờ yêu cầu mở lại. Player đã có trên web1.40.0; dây xích chưa lên web |
 | Bay/kho tên lửa source21.143 | **Đã có trên web1.59.0:** bay từmặtđường2,88166→3,45799m(+20%); trực thăng/icon theo thânxe. Nhảy4,11665m giữ; Space/vuốtlênlần2 tự nâng nếu thấp/kểcảđangrơi, đangcao hơn giữcaođộhiệncó. Nútbay cùng mức. **Đạn đầu lượt/tối đa5/5**, nhặt+1; **21.145 cho bắn cả dướiđất**/boostkhóa.805Unityđạt/2ảnhdọcngangđãxem. |
 | Điều khiển/nhảy trong source | **21.124:** nhảy vật lý bật ngay; vuốt lần2 sớm queue70% (đã có trên web1.55.0). **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đã có trên web1.50.0 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
@@ -25,7 +25,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Cài đặt đồ họa trong source | **21.144 đã có trên web1.59.0:** Rất cao(cũCao, cốđịnh)/Cao(mới,tựgiảm)/Trung bình/Thấp. IDlưu0/3/1/2 theo thứtựUI, không đổi pref cũ. DesktopRấtcao fullbaseline/mobileRấtcao planCao cũ; không governor/learneddrop/đổiHz. Cao có LOD0,6, tầm150m và phản chiếu448px. **21.147 có trên web 1.60.0:** giữ mật độ điểm ảnh và MSAA của Rất cao ở cả bốn mức để chữ biển rõ. |
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
 | Xuất phát trong source | **21.150:** bắt đầu và chơi lại từ 0 km/h, tăng khoảng 22 → 43 → 65 km/h ở giây 1–3. Xe và quãng đường dùng tốc độ thực. Đã kiểm Unity, chưa lên web. |
-| Xe mặt đất lúc mở màn trong source | **21.151:** các xe có mặt lúc bắt đầu tăng dần từ đứng yên đến nhịp riêng trong khoảng 3,01 giây. Áp dụng cho các nhóm giao thông, xe đặc biệt và CSGT nếu tham gia sớm. Chưa lên web. |
+| Xe mặt đất lúc mở màn trong source | **21.151:** các xe có mặt lúc bắt đầu tăng dần từ đứng yên đến nhịp riêng trong khoảng 3,01 giây. Áp dụng cho các nhóm giao thông, xe đặc biệt và nhánh CSGT nếu được mở lại. Chưa lên web. |
 | Phản hồi đổi làn trong source | **21.151:** xe người chơi đổi làn nhanh thêm 15% theo cả hai hướng, hệ số 1,53065 × 1,15, chưa lên web.  **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Pickup tên lửa mẫu C đã duyệt | **21.131 đã có trên web1.55.0:** Hex Ammo nền lục giác xanh/viền vàng/mũi đỏ;3LOD1482/1014/592tri,pool70.735Unity đạt/5ảnh đã xem; chỉ pickup đường, HUD/nút/đạn bay giữ. Approvaltrue/C |
@@ -51,6 +51,8 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.155 hoàn tất trong Unity:** thay húc bằng dây xích Blender MCP, chọn một xe máy gần nhất trong bán kính 4 m, kéo ngã và tách ra khỏi xe người chơi. Q/chạm hai lần vẫn lộn ngang khi bay. Tạm khóa CSGT. Biên dịch 0 lỗi/cảnh báo; 201 kiểm Play Mode đạt, đã xem ảnh. Chưa build/push/phát hành.
 
 - **21.154 hoàn tất trong Unity:** B Arcade đã duyệt và áp dụng, bỏ hai cánh nhô ở Bay/Hạ. Atlas 1024×512, 17 kiểm mới + 987 kiểm hồi quy trên 24 bố cục. Đã xem Game View dọc/ngang. Chưa build hay phát hành.
 
@@ -360,13 +362,13 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 - **Source21.96:** xe tăng không bị thân/chân/đuôi khủng long hất, vẫn chạy/bắn theo quy tắc pháo hiện có; các phương tiện khác/player/CSGT giữ luật cũ. Đã có trênweb1.50.0, thay quyết định hất xe tăng ở21.62.
 
 - Hỏi lại bằng lựa chọn cụ thể nếu chưa chắc ≥90% ý người dùng.
-- Không ba mạng. Té thường → hết lượt. Té khi đang bị CSGT đuổi → nằm chờ CSGT tới bắt thật → tù (không GameOver ngay, không tự dựng xe). Rơi sông/trúng đạn xe tăng → hết lượt, kể cả khi bị đuổi. **CSGT rơi sông → hết truy đuổi; người chơi đã té thì hết lượt**, còn đang chạy thì tiếp tục (21.63).
-- Húc/đạp quái xế tự vệ không gọi mới CSGT; húc/đạp xe thường thì bị truy đuổi.
+- Luật CSGT lịch sử khi nhánh truy đuổi được mở: không ba mạng. Té thường → hết lượt. Té khi đang bị CSGT đuổi → nằm chờ CSGT tới bắt thật → tù (không GameOver ngay, không tự dựng xe). Rơi sông/trúng đạn xe tăng → hết lượt, kể cả khi bị đuổi. **CSGT rơi sông → hết truy đuổi; người chơi đã té thì hết lượt**, còn đang chạy thì tiếp tục (21.63).
+- **Source21.155:** truy đuổi CSGT tạm khóa ở `PolicePursuitReleased=false`. Va chạm thật vẫn theo luật kết thúc hiện tại. Cơ chế CSGT cũ giữ để có thể mở lại theo yêu cầu.
 - Từ 21.140: vuốt ở đâu cũng được trừ thanh HUD và hai nút; không được dựng lại dải cấm dưới màn hình ngang.
 - Nhảy cố định **4,11665m**, không tăng theo Speed/W (21.100/web1.50.0); lane pace1,53065 vẫn theo tốc độ.
-- **Source21.142:** Q húc/lộn, Space nhảy/bay/hạ, **W/F bắn tên lửa cả đất/bay theo21.145**; mobile chạm hai lần húc/lộn, vuốt lên nhảy/bay/hạ, **vuốt xuống bắn cả đất/bay theo21.145**; nút tròn vẫn bắn. Nhận khi đủ ngưỡng, một cú vuốt một lệnh. **Boost tạm khóa (`BoostReleased=false`)**, chỉ mở lại khi người dùng yêu cầu. Source21.148 có đất xanh +15, không cam +20, tối đa 180 và bay −10/0,5s.
+- **Source21.155:** Q móc xích/lộn, Space nhảy/bay/hạ, **W/F bắn tên lửa cả đất/bay theo21.145**; mobile chạm hai lần móc xích/lộn, vuốt lên nhảy/bay/hạ, **vuốt xuống bắn cả đất/bay theo21.145**; nút tròn vẫn bắn. Nhận khi đủ ngưỡng, một cú vuốt một lệnh. **Boost tạm khóa (`BoostReleased=false`)**, chỉ mở lại khi người dùng yêu cầu. Source21.148 có đất xanh +15, không cam +20, tối đa 180 và bay −10/0,5s.
 - Hai làn trái rẽ trái, hai làn phải rẽ phải, giữ số làn sau cua, cua không giảm tốc.
-- **Source21.65: player Blue Petshop Supercar** xanh scale0,85, Q=húc thân xe; đã có trên web1.40.0; hero xe máy xanh–đen21.58 là lịch sử. NPC xe máy source21.67 dùngUrbanRider nhiều màu xe/áo, CSGT giữ cả người+xe; NPC4mẫu ô tô×8màu, xe tăng giữ nguyên.
+- **Source21.65: player Blue Petshop Supercar** xanh scale0,85; đã có trên web1.40.0; hero xe máy xanh–đen21.58 là lịch sử. NPC xe máy source21.67 dùngUrbanRider nhiều màu xe/áo, CSGT giữ cả người+xe; NPC4mẫu ô tô×8màu, xe tăng giữ nguyên.
 - Phong cách bán hiện thực vui nhộn, tối ưu điện thoại/WebGL. **Từ 21.136 trên cảm ứng ưu tiên mượt hơn độ nét:** không quay lại DPR3/AA4 nếu người dùng không yêu cầu.
 - Không bật lại công việc khi nâng cấp/sửa lỗi/build. Giữ dữ liệu Coin và mã jobs.
 - Không ghi đè/reset file Blender cục bộ, không dựng lại cả scene bằng builder lịch sử.
@@ -380,6 +382,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Trực thăng/tên lửa/rollné/rơi cháy, nhảy tức thời/queue70% | **21.126**,21.125/21.124/21.122 | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `MissileFlightVisual.cs`, `HelicopterVisual.cs`, `ThunderstormVisual.cs`, `RotorBlur.shader`, `PhoVietJump.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`; prefabResource/Art/Helicopter; nguồn `prepare_helicopter.py`/`PhoViet_Helicopter.blend`; nguồn tên lửa `missile2126.py`/`PhoViet_HelicopterMissile.blend`; verifier/report `Helicopter*2126`/`missile2126-*` |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
 | Nút Đạp Ga/Đạp Phanh và kích thước nút Bay/Tên lửa | **21.152** | `PhoVietDrivePedals.cs`, `PhoVietGame.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietPortraitHud.cs`, `PhoVietTurnBikes.cs` |
+| Dây xích/khóa CSGT | **21.155**, 2.2, 2.5 | `PhoVietChain.cs`, `PhoVietActions.cs`, `Resources/Chain/PV_Chain.json`, `ArtSource/Blender/Chain/` |
 | Bộ icon HUD B Arcade | **21.153–21.154** | `ArtSource/Concepts/DriveControls-20261108/`, `arcade-da-duyet.svg`, `approval.json`, `Resources/PV_ArcadeControls.png`, `PhoVietDrivePedals.cs`, `PhoVietFlightButton.cs`, `PhoVietPlayerMissileHud.cs` |
 | Tốc độ xuất phát, xe cắt ngang và đổi làn | **21.150–21.151** | `PhoVietGame.cs`, `PhoVietTraffic.cs`, `PhoVietRoadDrivers.cs`, `PhoVietReckless.cs`, `PhoVietPolice.cs`, `PhoVietRoutePolice.cs`; kiểm tra cục bộ `.tools/VerifyGroundLaunch2151.cs` |
 | Điểm xuất phát xe, kéo thả Edit/Play Ready | **21.76**,6.1 | `PhoVietPlayerStart.cs`, `Editor/PhoVietPlayerStartEditor.cs`, `PhoVietGame.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyPlayerStart*.cs` |

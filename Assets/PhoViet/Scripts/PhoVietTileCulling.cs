@@ -27,6 +27,7 @@ namespace PhoViet
      dinosaurs.Add(new Dinosaur{root=go.transform,visual=go.GetComponent<DinosaurVisual>()});
     }
    PrewarmContactFire();
+   EnsureChainArt();
    // Compile recorded variants behind the loading screen, not when each effect first appears (21.136).
    if(Application.platform==RuntimePlatform.WebGLPlayer)
    {

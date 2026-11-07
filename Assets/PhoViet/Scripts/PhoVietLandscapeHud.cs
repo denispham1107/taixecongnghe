@@ -50,7 +50,7 @@ namespace PhoViet
     // Nút tên lửa ở góc trái (21.134): dải hướng dẫn nằm ngay bên phải nút để không đè lên nhau.
     float hintX=(PlayerMissileButtonPixels().xMax-GameGuiArea().x)/uiScale+12;
     Panel(new Rect(hintX,uiH-72,550,39),new Color(.07f,.19f,.21f,.46f));
-    Txt("← → LÀN · Q HÚC/LỘN · SPACE NHẢY/BAY/HẠ · W/F TÊN LỬA · P DỪNG · "+PassedVehicles+" XE NÉ",hintX+16,uiH-63,520,24,9,Cream);
+    Txt("← → LÀN · Q MÓC XÍCH/LỘN · SPACE NHẢY/BAY/HẠ · W/F TÊN LỬA · P DỪNG · "+PassedVehicles+" XE NÉ",hintX+16,uiH-63,520,24,9,Cream);
    }
   }
  }

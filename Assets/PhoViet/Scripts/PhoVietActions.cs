@@ -7,6 +7,7 @@ namespace PhoViet
     {
         public Transform policeBike,jailRoom,leftKickLeg,rightKickLeg;
         public Renderer redBeacon,blueBeacon;
+        public static bool PolicePursuitReleased=>false;
         public bool IsChased {get;private set;}
         public float PoliceDistance {get;private set;}
         public float PoliceSpeed {get;private set;}
@@ -35,6 +36,7 @@ namespace PhoViet
             IsChased=false;PoliceDistance=0;PoliceSpeed=0;KickCount=0;ChainCount=0;
             kickCooldown=0;kickTime=0;chaseBoost=0;collisionImmunity=0;arrestTime=0;
             ResetAssistedKick();
+            CancelChain();
             lastTapTime=-100;policeArrived=false;
             ResetPoliceDriving();
             if(siren!=null)siren.Stop();if(policeBike!=null)policeBike.gameObject.SetActive(false);
@@ -46,7 +48,7 @@ namespace PhoViet
         }
         public bool TryKick()
         {
-            return energyHover?TryBarrelRoll():!DriveBraking&&BeginAssistedKick();
+            return energyHover?TryBarrelRoll():TryThrowChain();
         }
         public bool RegisterTap(Vector2 position,float atTime)
         {
@@ -105,7 +107,7 @@ namespace PhoViet
         }
         void StartChase()
         {
-            if(IsChased)return;
+            if(!PolicePursuitReleased||IsChased)return;
             if(PoliceLightningWreck&&policeBody!=null)policeBody.lightningWreck=false;
             if(PoliceInRiver||PoliceLightningWreck)ResetPoliceDriving();
             PoliceLightningWreck=false;if(policeBody!=null)policeBody.lightningWreck=false;

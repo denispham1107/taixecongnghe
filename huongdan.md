@@ -83,9 +83,9 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 | --- | --- |
 | Quái xế/xe tải chỉ xuất hiện mỗi 20 giây hoặc 15–20 giây | Đã bỏ lịch riêng; tham gia các đợt sinh giao thông bình thường, ở cả hai chiều |
 | Cứ rẽ là gán một tên đường chưa từng dùng | Đã thay bằng mạng phố cố định theo tọa độ để GPS có thể quay lại cùng địa điểm |
-| Va chạm khi bị đuổi làm chậm/chạy tiếp hoặc GameOver ngay | Hiện văng/té rồi nằm chờ CSGT đến bắt thật; Arrested → Jailed |
+| Va chạm khi bị đuổi từng kích hoạt chờ CSGT đến bắt | Source21.155 tạm khóa truy đuổi. Va chạm kết thúc lượt sau khi văng/ngã. |
 | Ba mạng/tự dựng xe người chơi | Đã bỏ từ 1.28.0; không tự dựng lại sau té |
-| Space đạp, Q nhảy, E tăng tốc +75%/hồi 3 s | Q đạp, Space nhảy, W +125%/4 s/hồi 2 s |
+| Space đạp, Q nhảy, E tăng tốc; các bản sau dùng Q húc | Source21.155 dùng Q móc xích/lộn. Space nhảy/bay/hạ, W/F bắn tên lửa theo 21.145. |
 | Hai làn giữa chỉ được đi thẳng; cua giảm 8/10 m/s | Làn giữa trái/phải rẽ đúng phía; cua giữ tốc độ như đường thẳng |
 | Bật công việc trong scene trước mọi bản phát hành | Sai với trạng thái hiện tại: RideJobsReleased=false và jobsEnabled=false |
 | Xe tay ga/xe số v2, rồi bản Wave/WaveAlpha | Scene hiện dùng xe Meshy đã nhập, xe chính trắng–đen; giữ tên semantic `PV_HeroScooter`… và riêng xe CSGT cũ. Xem 21.7 |
@@ -102,13 +102,13 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 ### 2.1. Bối cảnh, nhân vật và vòng chơi
 
 - Góc nhìn thứ ba từ phía sau và hơi cao, camera nhìn dọc con đường; xe tự tiến.
-- **Source/scene21.65:** người chơi là xe đua Blue Petshop Supercar, kích thước85% so với21.64; bỏ visual người áo đỏ/xe máy dưới root player. Q/chạm hai lần áp sát+húc ngang; nhảy/W giữ luật cũ và thêm4luồng khói nâng/2luồng khói bô. Từ21.67 NPC xe máy có người đã đổi Urban Rider; CSGT không đổi. Web1.40.0 vẫn dùng NPC cũ và xe đua nhỏ15% như source21.65.
+- **Source/scene21.65:** người chơi là xe đua Blue Petshop Supercar, kích thước85% so với21.64; bỏ visual người áo đỏ/xe máy dưới root player. Q/chạm hai lần móc xích hoặc lộn theo 21.155. Nhảy dùng 4 luồng khói nâng; boost và hai luồng bô tạm khóa. Từ21.67 NPC xe máy có người đã đổi Urban Rider; CSGT không đổi. Web1.40.0 vẫn dùng NPC cũ và xe đua nhỏ15% như source21.65.
 - Đường có 4 làn, vạch giữa đường vàng đứt nét, vạch trắng phân làn, vạch biên, vạch qua đường và giao lộ.
 - Hai làn bên trái chủ yếu là xe ngược chiều; hai làn bên phải chủ yếu cùng chiều. Xe ngược chiều có thể lấn qua phía người chơi.
 - Xe máy, sedan, hatchback, taxi, xe giao hàng, xe tải thường và xe tải ngủ gật cùng xuất hiện; từ 21.33 ô sedan/hatchback/taxi có thể ra **xe tăng** (~1/3 lần, chạy 40% tốc độ, không bị đẩy khi va chạm).
 - Các lượt chơi dùng seed mới, không lặp nguyên xi mẫu xe/làn/tốc độ/lịch di chuyển của lượt trước.
-- Quãng đường và tốc độ được hiển thị; có kỷ lục lưu cục bộ, số xe đã né, thông báo tình huống và truy đuổi. **Source21.115:** điểm mét dừng ngay từ va chạm/bắt đầu té; quãng văng/trượt/chìm sau đó không cộng điểm hoặc kỷ lục. Xe vẫn hoàn tất physics rồi mới kết thúc theo luật hiện tại; khi bị đuổi vẫn chờ CSGT.
-- Không có mạng dự phòng: va chạm văng/té xong kết thúc lượt nếu không bị đuổi; nếu đang bị đuổi thì nằm chờ CSGT đến bắt và chuyển sang buồng giam. Góc/ngả/văng phụ thuộc tiếp xúc, không luôn đổ phải tại chỗ.
+- Quãng đường và tốc độ được hiển thị; có kỷ lục lưu cục bộ, số xe đã né, thông báo tình huống. **Source21.115:** điểm mét dừng ngay từ va chạm/bắt đầu té; quãng văng/trượt/chìm sau đó không cộng điểm hoặc kỷ lục. Xe hoàn tất chuyển động văng/ngã rồi kết thúc. Source21.155 tạm khóa CSGT.
+- Không có mạng dự phòng. Va chạm văng/té xong kết thúc lượt khi CSGT đang khóa. Góc/ngả/văng phụ thuộc tiếp xúc, không luôn đổ phải tại chỗ.
 - 10 giây chạy đầu giảm một nửa mật độ/số xe (làm tròn lên), rồi trở về bình thường; pause không ăn thời gian này.
 - Ngày–đêm lặp 60 giây, đèn xe/đường tự bật theo trời tối; sương sớm tan hết trong 6 giây đầu mỗi lượt.
 - Hiện chỉ thi số mét và kỷ lục cục bộ; không có bảng xếp hạng online, không hiện menu việc/GPS/Coin.
@@ -120,9 +120,9 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 | --- | --- | --- |
 | Bắt đầu | Nút “LÊN XE THÔI”, Enter hoặc Space | Chạm nút bắt đầu |
 | Đổi làn/chọn rẽ | ←/→ hoặc A/D; rẽ theo nửa đường trong vùng hợp lệ | Vuốt trái/phải |
-| Húc ngang / lộn360° khi bay (21.122) | **Q** | Chạm hai lần gần nhau trong vùng chơi |
+| Móc xích trong 4 m / lộn 360° khi bay (21.155) | **Q** | Chạm hai lần gần nhau trong vùng chơi |
 | Nhảy / giữ cao độ bay / hạ (21.122) | **SpaceBar**, nhấn tiếp khi ở trên không | Vuốt từ dưới lên, vuốt tiếp để bay/hạ |
-| Tăng tốc | **W** | Vuốt từ trên xuống |
+| Phóng tên lửa (boost tạm khóa) | **W / F** hoặc nút tên lửa | Vuốt từ trên xuống hoặc chạm nút tên lửa |
 | Tạm dừng/tiếp tục | P, Esc hoặc nút tạm dừng | Nút tạm dừng/tiếp tục |
 | Chơi lại | R, Space hoặc nút chơi lại | Chạm nút chơi lại |
 | Chọn công việc | **Đang ẩn/tắt** | **Đang ẩn/tắt** |
@@ -150,9 +150,12 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 - Xe cùng chiều xuất hiện từ ngoài camera phía sau. Mỗi đợt chỉ một xe nguy hiểm trên một làn cùng chiều được chọn ngẫu nhiên, báo mũi tên đỏ–vàng đúng làn trước **0,6 giây** (source21.114). Nếu còn xe nguy hiểm ngược chiều/chạy từ sau đang di chuyển thì đợi nó va chạm; khi đủ điều kiện lại phải báo đủ0,6giây. Quy tắc còn hiệu lực qua rẽ/rebase.
 - Có thể húc và đẩy xe khác, gây rối giao thông và phản ứng dây chuyền.
 - Có thể đâm nhà bên trái/phải, nằm lại với hiệu ứng lửa/khói. Phần đường giao nhau trống không bị coi là vách nhà.
-- Người chơi có thể đạp ngã xe máy quái xế ở cả hai chiều để tự vệ; không thể dùng cú đạp để đạp trực tiếp ô tô hoặc xe tải.
+- Người chơi có thể móc xích xe máy quái xế ở cả hai chiều trong bán kính 4 m. Xích chỉ chọn xe máy.
 
-### 2.5. Húc ngang/đạp xe, dây chuyền, CSGT và buồng giam
+### 2.5. Móc xích xe máy, dây chuyền và CSGT
+
+- **Source21.155:** Q/chạm hai lần phóng xích khi xe chưa giữ chế độ bay. Xích nhắm một xe máy còn đứng gần nhất trong bán kính 4 m, bất kể chiều chạy. Cú giật chừa khoảng hở rồi làm xe đổ ra xa. Xe đang bay vẫn lộn ngang. CSGT tạm khóa bằng `PolicePursuitReleased=false`.
+- Phần dưới đây là **hành vi lịch sử trước 21.155**. Mã húc/đạp và truy đuổi được giữ để tra cứu, không còn chạy qua điều khiển hiện tại.
 
 - Q/double tap chọn **một** xe máy hợp lệ gần nhất/ưu tiên quái xế, cùng chiều, ngược chiều, cắt ngang hoặc đang rẽ gần giao lộ. **Source21.64:** player ô tô dùng nhánh áp sát rồi húc ngang21.57, chỉ hất khi thân xe tiếp xúc thật, rồi về làn gốc; bị chắn thì hủy. Web1.39.0/player xe máy21.58 vẫn là vung chân/chạm giày. Luật tự vệ/gọi CSGT giữ nguyên.
 - Xe bị đạp ngã theo hướng ra xa người chơi. Xe ngã có thể kéo theo xe máy khác; xe lớn va vào đống xe cũng nhận phản lực theo mô hình vật lý.
@@ -3458,3 +3461,12 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - `PhoVietDrivePedals.cs` dùng chung atlas đã nạp sẵn từ `PhoVietTileCulling.cs`. `PhoVietFlightButton.cs` và `PhoVietPlayerMissileHud.cs` vẽ mẫu mới. Tọa độ, cỡ và vùng chạm giữ theo 21.152. Logic bay, đạn, Ga và Phanh giữ nguyên.
 - Play Mode đạt 17 điều kiện mới và 987 điều kiện hồi quy (24 bố cục). Đã xác nhận atlas alpha đúng kích thước, số đạn động 4/5 sau khi bắn, hồi chiêu, chạm Bay/Hạ và hai hướng màn hình. Đã xem `Captures/arcade2154-landscape.png` và `Captures/arcade2154-portrait.png`. Báo cáo cục bộ `.tools/arcade2154-result.json`. Probe Editor tạm đã dọn.
 - Source và hai tài liệu lưu commit cục bộ. Chưa build WebGL, push hoặc phát hành. Web vẫn 1.60.0.
+
+
+## 21.155. Dây xích móc xe máy và tạm khóa CSGT (08/11/2026 — Codex)
+
+- Q và chạm hai lần thay húc bằng phóng dây xích khi xe chưa giữ chế độ bay. Mỗi lần chọn đúng một xe máy còn đứng gần nhất trong bán kính 3D 4 m, gồm cả xe máy thường/quái xế cùng chiều, ngược chiều và cắt ngang. Dùng được ở chế độ Phanh và trong cú nhảy thường nếu còn trong tầm. Khi đang bay giữ lộn ngang 360°. Hồi chiêu 0,65 giây, không có mục tiêu thì không phóng. Dừng khi mục tiêu tái sử dụng, rơi sông, bị hất trước lúc móc hoặc khi người chơi đổi sang bay/kết thúc lượt.
+- `PhoVietChain.cs` phóng tối đa 0,09 giây, siết 0,10 giây và thu 0,16 giây. Xe đang lao tới rất gần được móc sớm theo vận tốc tiếp cận. Tính khoảng hở theo thân xe và bao hình của xe máy lúc ngã. Chỉ giật vào tối đa 0,46 m khi còn dư khoảng hở 0,30 m. Khi khoảng trống hẹp, làm xe đổ ra xa theo trục tách thay vì giật sát. Tái dùng trạng thái ngã/hồi phục 3 giây và số đếm cũ trong telemetry. Không kéo lệch xe người chơi hoặc cấp miễn va chạm. Xe bị móc vẫn là vật cản nếu người chơi chủ động lái vào sau đó.
+- Blender MCP dựng mắt xích thép, móc màu hổ phách và keyframe phóng/thu. Nguồn `ArtSource/Blender/Chain/PV_Chain.blend` và `build_chain.py`. `Assets/PhoViet/Resources/Chain/PV_Chain.json` chứa mesh 160/120 đỉnh và mẫu hai đường cong từ Blender. Unity lắp chuỗi tối đa 25 mắt so le, dùng pool nạp sẵn, neo hai đầu theo vị trí xe thực và cập nhật khi rẽ.
+- `PhoVietActions.cs` chuyển lệnh và khóa `StartChase` bằng `PolicePursuitReleased=false`. Cập nhật HUD và hướng dẫn web trong template. Cơ chế CSGT và húc cũ còn trong source để có thể khôi phục theo yêu cầu. Khóa việc đón/trả khách và boost giữ nguyên.
+- Unity biên dịch 0 lỗi/cảnh báo. Play Mode đạt 201 điều kiện gồm bán kính, chọn một mục tiêu, sáu tình huống giữ khoảng hở trong quá trình ngã, chạm hai lần, lộn trên không, khóa CSGT và reset. Đã xem ảnh hiệu ứng `.tools/chain2155-preview.png`. Chưa kiểm trên điện thoại thật. Chưa build WebGL, push hoặc phát hành. Web hiện là 1.60.0.
