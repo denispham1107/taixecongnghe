@@ -42,7 +42,7 @@ async function main(){
     const fill=lit/total;report.samples.push({profile,name,fill});return fill;
    }
    await send('RestartRide');const full=await sample('full');
-   check(profile+': full150 energy bar renders',full>.94);
+   check(profile+': full energy bar renders',full>.94);
    await jump();await jump();await send('TickJump',.35);
    const hover=await sample('hover');check(profile+': jump and hover spend energy',hover<full-.015&&hover>.5);
    await send('TickJump',1);const drained=await sample('drain');

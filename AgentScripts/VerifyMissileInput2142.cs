@@ -23,8 +23,10 @@ public static class VerifyMissileInput2142
   try
   {
    Time.timeScale=0;g.dinosaursEnabled=g.tankBarrageEnabled=g.thunderstormEnabled=g.recklessTrafficEnabled=g.trafficSurprises=g.turnExitTrafficEnabled=false;
-   Check(PhoVietGame.PickupEnergy==15,"Each pickup restores15, distinct from jump cost5");
-   foreach(bool air in new[]{false,true})foreach(int initial in new[]{50,140,150})
+   Check(PhoVietGame.MaximumEnergy==180,"Energy capacity is 180");
+   var orange=Resources.Load<Material>("Energy/PV_AirEnergyHalo");
+   Check(orange!=null&&orange.GetFloat("_AirPalette")==1,"Air material selects the orange palette");
+   foreach(bool air in new[]{false,true})foreach(int initial in new[]{50,170,180})
    {
     Fresh();if(air)Hover();
     var tiles=(IList)Get("energyTiles");Transform target=null;object entry=null;
@@ -34,9 +36,12 @@ public static class VerifyMissileInput2142
      if(target==null&&((Transform)type.GetField("tile").GetValue(e)).gameObject.activeInHierarchy){target=((Transform[])type.GetField(air?"airIcons":"icons").GetValue(e))[0];entry=e;}
     }
     Check(target!=null,"Active "+(air?"air":"ground")+" pickup fixture");target.gameObject.SetActive(true);
+    foreach(var renderer in target.GetComponentsInChildren<MeshRenderer>(true))
+     Check(air?renderer.sharedMaterial==orange:renderer.sharedMaterial.GetFloat("_AirPalette")==0,"Every pickup LOD uses the expected shared palette");
     var at=g.rider.position;if(air)at.y+=g.PlayerHeight*.5f;target.position=at;
     Set("Energy",initial);int before=g.EnergyPickupsCollected;Call("TickEnergyPickups",0f,g.rider.localPosition);
-    Check(g.Energy==Math.Min(150,initial+15),(air?"Air":"Ground")+" pickup "+initial+" -> "+Math.Min(150,initial+15));
+    int expected=Math.Min(180,initial+(air?20:15));
+    Check(g.Energy==expected,(air?"Air":"Ground")+" pickup "+initial+" -> "+expected);
     Check(g.EnergyPickupsCollected==before+1&&!target.gameObject.activeSelf,"Pickup collected once and hidden");
     Call("TickEnergyPickups",0f,g.rider.localPosition);Check(g.EnergyPickupsCollected==before+1,"Repeated contact cannot collect twice");
    }
@@ -53,7 +58,7 @@ public static class VerifyMissileInput2142
    Fresh();Hover();g.TogglePause();Swipe(6);Check(g.PlayerMissiles==Max&&g.PlayerMissilesFired==0,"Paused swipe cannot fire");g.TogglePause();
    Set("boostRemaining",3f);Set("boostCooldown",2f);Check(!g.BoostActive,"Stale boost cannot affect gameplay while hidden");Call("TickBoost",.1f);
    Check(g.BoostRemaining==0&&g.BoostCooldown==0,"Disabled boost clears stale timers");
-   Fresh();Check(g.PlayerMissiles==Max&&g.Energy==150&&!g.BoostActive,"Retry restores ammo/energy with boost locked");
+   Fresh();Check(g.PlayerMissiles==Max&&g.Energy==180&&!g.BoostActive,"Retry restores ammo and 180 energy with boost locked");
    Check(!g.jobsEnabled&&!PhoVietGame.RideJobsReleased,"Jobs stay locked");
    string source=File.ReadAllText("Assets/PhoViet/Scripts/PhoVietGame.cs");
    Check(source.Contains("Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.F)))TryFirePlayerMissile()"),"W and F share one launch branch (no duplicate shot)");

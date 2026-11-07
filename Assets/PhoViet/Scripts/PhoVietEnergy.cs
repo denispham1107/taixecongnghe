@@ -4,7 +4,7 @@ namespace PhoViet
 {
  public partial class PhoVietGame
  {
-  public const int MaximumEnergy=150,JumpEnergyCost=5,PickupEnergy=15,FlightEnergyCost=10;
+  public const int MaximumEnergy=180,JumpEnergyCost=5,PickupEnergy=15,AirPickupEnergy=20,FlightEnergyCost=10;
   public const float FlightEnergyInterval=.5f,BarrelRollDuration=.9f;
   public int Energy {get;private set;}=MaximumEnergy;
   public int EnergyPickupsCollected {get;private set;}
@@ -23,6 +23,7 @@ namespace PhoViet
   bool energyHover,barrelRolling,energyHoverRequested;float flightEnergyClock,barrelClock,energyClock;
   float MinimumFlightHeight=>jumpBaseHeight+FlightHeightAboveSupport;
   Texture2D energyHudIcon;GameObject energyPickupPrefab;
+  Material airPickupMaterial;
   System.Random energyRng;
   sealed class EnergyTile
   {
@@ -41,6 +42,7 @@ namespace PhoViet
    Energy=MaximumEnergy;EnergyPickupsCollected=0;energyClock=0;CancelEnergyFlight();
    energyRng=new System.Random(RunSeed^0x274ea231);
    if(energyPickupPrefab==null)energyPickupPrefab=Resources.Load<GameObject>("Energy/PV_EnergyPickup");
+   if(airPickupMaterial==null)airPickupMaterial=Resources.Load<Material>("Energy/PV_AirEnergyHalo");
    if(energyHudIcon==null)energyHudIcon=Resources.Load<Texture2D>("Energy/PV_EnergyHaloHud");
    if(energyPickupPrefab==null)return;
    foreach(var row in roadRows)foreach(var tile in row.tiles)
@@ -49,7 +51,17 @@ namespace PhoViet
     {
      entry=new EnergyTile{tile=tile};energyByTile.Add(tile,entry);energyTiles.Add(entry);
      for(int i=0;i<GroundPickupsPerTile;i++){entry.icons[i]=Instantiate(energyPickupPrefab,tile,false).transform;entry.icons[i].name="Năng lượng C • "+i;}
-     for(int i=0;i<AirPickupsPerTile;i++){entry.airIcons[i]=Instantiate(energyPickupPrefab,tile,false).transform;entry.airIcons[i].name="Năng lượng trên không • "+i;}
+     for(int i=0;i<AirPickupsPerTile;i++)
+     {
+      var icon=Instantiate(energyPickupPrefab,tile,false).transform;
+      icon.name="Năng lượng trên không • "+i;
+      if(airPickupMaterial!=null)
+      {
+       foreach(var renderer in icon.GetComponentsInChildren<MeshRenderer>(true))
+        renderer.sharedMaterial=airPickupMaterial;
+      }
+      entry.airIcons[i]=icon;
+     }
     }
     RefreshEnergyTile(tile);
     RefreshMissilePickupTile(tile);
@@ -169,7 +181,7 @@ namespace PhoViet
      }
      var local=icon.localPosition;local.y=AirPickupHeight+Mathf.Sin(energyClock*2.5f+i*2)*.09f;icon.localPosition=local;
      if(!EnergyIconTouched(icon,dt,previousRider,inverse,half))continue;
-     e.airCollected[i]=true;icon.gameObject.SetActive(false);Energy=Mathf.Min(MaximumEnergy,Energy+PickupEnergy);EnergyPickupsCollected++;
+     e.airCollected[i]=true;icon.gameObject.SetActive(false);Energy=Mathf.Min(MaximumEnergy,Energy+AirPickupEnergy);EnergyPickupsCollected++;
     }
    }
   }

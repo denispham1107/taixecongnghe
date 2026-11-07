@@ -23,7 +23,7 @@ public static class VerifyFlightAltitude2143
    foreach(float speed in new[]{17f,30f,60f})foreach(float dt in new[]{1/120f,1/60f,1/30f,.05f})
    {
     Fresh();Set("Speed",speed);Check(Mathf.Abs(PhoVietGame.JumpHeightAtSpeed(speed)-apex)<.00001f,"Jump apex unchanged at "+speed+" dt "+dt);
-    Check(g.TryJump()&&g.Energy==145,"Normal jump starts and costs5");float max=0;for(int i=0;i<400&&g.RiderAirborne;i++){Step(dt);max=Mathf.Max(max,g.RiderJumpHeight);}
+    Check(g.TryJump()&&g.Energy==PhoVietGame.MaximumEnergy-5,"Normal jump starts and costs5");float max=0;for(int i=0;i<400&&g.RiderAirborne;i++){Step(dt);max=Mathf.Max(max,g.RiderJumpHeight);}
     Check(Mathf.Abs(max-apex)<.008f&&!g.RiderFlying&&!g.RiderAirborne,"Plain jump reaches original apex and lands without flight");
    }
    foreach(float delay in new[]{0f,.15f,.4f,.9f,1.05f})foreach(float dt in new[]{1/120f,1/30f,.05f})
