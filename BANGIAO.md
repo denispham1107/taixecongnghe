@@ -27,7 +27,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Xuất phát trong source | **21.150:** bắt đầu và chơi lại từ 0 km/h, tăng khoảng 22 → 43 → 65 km/h ở giây 1–3. Xe và quãng đường dùng tốc độ thực. Đã kiểm Unity, chưa lên web. |
 | Xe mặt đất lúc mở màn trong source | **21.151:** các xe có mặt lúc bắt đầu tăng dần từ đứng yên đến nhịp riêng trong khoảng 3,01 giây. Áp dụng cho các nhóm giao thông, xe đặc biệt và CSGT nếu tham gia sớm. Chưa lên web. |
 | Phản hồi đổi làn trong source | **21.151:** xe người chơi đổi làn nhanh thêm 15% theo cả hai hướng, hệ số 1,53065 × 1,15, chưa lên web.  **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
-| Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
+| Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Pickup tên lửa mẫu C đã duyệt | **21.131 đã có trên web1.55.0:** Hex Ammo nền lục giác xanh/viền vàng/mũi đỏ;3LOD1482/1014/592tri,pool70.735Unity đạt/5ảnh đã xem; chỉ pickup đường, HUD/nút/đạn bay giữ. Approvaltrue/C |
 | Nút tên lửa/âm lượng/ảnh trang chủ mới | **21.134 đã có trên web 1.56.0:** nút góc trái dưới, master 1,56×/+3,86249dB, `poster-home-flight.png` dưới ảnh cũ |
 | Đạn trực thăng/âm lượng tổng trong source | **21.132 đã có trên web1.55.0:** đạn địch50→40m/s (−20%), mastervolume1,3×/+2,2788668dB cho engine/FX/CSGT/mưa/rotor/voice.1016Unity đạt; đoRMS1,305×; player missile/ảnh/gameplaykhác giữ |
@@ -35,6 +35,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Tên lửa người chơi trong source | **21.145 đã có trên web1.59.0:**5/5; W/F/vuốt/nút bắn dướiđất nhắm tank, khi bay nhắm trực thăng;1hit tankcháylớn/dừng/xácgâycollision.2pickup/phố-cầu/+1/chờ0,4s/khôngtargetbắnthẳng.1.215Unityđạt/3ảnhđãxem. Web1.58.0 trước đó3/3/chỉbay. |
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
 | Trực thăng / nhảy mobile mới | **21.126/21.132 đã có trên web1.55.0 (đạn40m/s):** giữ2–5chiếc/theo400m/4làn/so le; thêm tên lửa1→0,5s/40slot, bay thẳng/roll né. Trúng đạn hoặc đâm trực thăng rơi cháy/kết thúc kể cảCSGT; máy bay va chạm cũng cháy. Nhảy tức thời/queue70% giữ.1028Unity/387layout đạt |
+| Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Chưa lên web. |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
 | Năng lượng / bay / lộn | **21.148 có trên web 1.60.0:** bắt đầu và tối đa 180. Biểu tượng xanh dưới đất hồi 15, biểu tượng cam trên không hồi 20. Nhảy tốn 5, bay tốn 10 mỗi 0,5 giây. |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
@@ -49,6 +50,8 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.152 hoàn tất trong Unity:** hai nút Ga/Phanh giữ chế độ, tốc độ NPC độc lập, Bay/Tên lửa ngang +15%. 1.017 kiểm tra và 24 cấu hình bố cục, đã xem hai ảnh Game View. Unity Edit Mode, cảnh sạch. Chưa build hoặc phát hành.
 
 - **21.151 hoàn tất trong Unity:** thêm tăng tốc mở màn cho xe mặt đất và tăng 15% tốc độ đổi làn xe người chơi. 841 kiểm tra mới, 1.790 kiểm tra tốc độ người chơi và 66 kiểm tra điểm xuất phát đạt. Unity Edit Mode, cảnh sạch. Chưa build hoặc phát hành.
 
@@ -347,7 +350,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 - **Source21.103:** hố đạn giữ tới khi ra xa/chơi lại; bánh chạm làm xe lệch liên tục tới khi nhấn/vuốt NGƯỢC hướng lệch. Thao tác đó chỉ chỉnh lái, không nhảy làn tức thì; thao tác sau đổi làn bình thường. Nhảy qua tránh hiệu ứng; hố không tự gây thua, va vào xe/cảnh vật/sông vẫn theo luật hiện tại.
 
-- **Source21.99/21.114:** sau mỗi lượt rẽ, Dino+Tank ở giao lộ kế tiếp không chờ2s; Tank sau rẽ có70% điểm rơi làn ngoài phải,24m trước tâm giao lộ/30% cách cũ. MọiTank bắn0,4s/flight1,6s, giữ lịch9s/mốc vượt400m. Thêm mỗi cua1bike ngược chiều và1bike từ sau, sinhngay/khôngcảnhbáoriêng, luôn±1,2×Speed kể cảW/tạt2làn đúngchiều/tránh tạt ra sông. Rear gầnđuôi ởlàncùngchiềugầnnhất; oncoming được sinh sauDino/Tank, ở khoảngtrống giữa chúng vàplayer để khôngđuổiđâmTank. Pool/vị trí kín giữyêucầu/thửngaykhitrống; resetxóa/pause-tékhôngsinh. Xe thường khác vẫn tốcđộ riêng; cảnh báo rear thường/nguyhiểm0,6s (21.114), hai bike riêng vẫn khôngcảnhbáo.
+- **Source21.99/21.114:** sau mỗi lượt rẽ, Dino+Tank ở giao lộ kế tiếp không chờ2s; Tank sau rẽ có70% điểm rơi làn ngoài phải,24m trước tâm giao lộ/30% cách cũ. MọiTank bắn0,4s/flight1,6s, giữ lịch9s/mốc vượt400m. Thêm mỗi cua1bike ngược chiều và1bike từ sau, sinhngay/khôngcảnhbáoriêng, **21.152:** tốc độ riêng ±1,2× nhịp giao thông cơ sở, độc lập Ga/Phanh người chơi, tạt2làn đúngchiều/tránh tạt ra sông. Rear gầnđuôi ởlàncùngchiềugầnnhất; oncoming được sinh sauDino/Tank, ở khoảngtrống giữa chúng vàplayer để khôngđuổiđâmTank. Pool/vị trí kín giữyêucầu/thửngaykhitrống; resetxóa/pause-tékhôngsinh. Xe thường khác vẫn tốcđộ riêng; cảnh báo rear thường/nguyhiểm0,6s (21.114), hai bike riêng vẫn khôngcảnhbáo.
 
 - **Source21.96:** xe tăng không bị thân/chân/đuôi khủng long hất, vẫn chạy/bắn theo quy tắc pháo hiện có; các phương tiện khác/player/CSGT giữ luật cũ. Đã có trênweb1.50.0, thay quyết định hất xe tăng ở21.62.
 
@@ -371,6 +374,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Cháy/khói đa điểm va chạm mặt đất; xe hồi phục vẫn cháy | **21.127** | `PhoVietContactFire.cs`, `ContactFireVisual.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs`, `PhoVietPolice.cs`, `PhoVietPlayerVehicle.cs`, `PhoVietThunderstorm.cs`; verifier/report/capture `ContactFire2127`/`contact2127-*` |
 | Trực thăng/tên lửa/rollné/rơi cháy, nhảy tức thời/queue70% | **21.126**,21.125/21.124/21.122 | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `MissileFlightVisual.cs`, `HelicopterVisual.cs`, `ThunderstormVisual.cs`, `RotorBlur.shader`, `PhoVietJump.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`; prefabResource/Art/Helicopter; nguồn `prepare_helicopter.py`/`PhoViet_Helicopter.blend`; nguồn tên lửa `missile2126.py`/`PhoViet_HelicopterMissile.blend`; verifier/report `Helicopter*2126`/`missile2126-*` |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
+| Nút Đạp Ga/Đạp Phanh và kích thước nút Bay/Tên lửa | **21.152** | `PhoVietDrivePedals.cs`, `PhoVietGame.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietPortraitHud.cs`, `PhoVietTurnBikes.cs` |
 | Tốc độ xuất phát, xe cắt ngang và đổi làn | **21.150–21.151** | `PhoVietGame.cs`, `PhoVietTraffic.cs`, `PhoVietRoadDrivers.cs`, `PhoVietReckless.cs`, `PhoVietPolice.cs`, `PhoVietRoutePolice.cs`; kiểm tra cục bộ `.tools/VerifyGroundLaunch2151.cs` |
 | Điểm xuất phát xe, kéo thả Edit/Play Ready | **21.76**,6.1 | `PhoVietPlayerStart.cs`, `Editor/PhoVietPlayerStartEditor.cs`, `PhoVietGame.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyPlayerStart*.cs` |
 | Menu Pause/kết thúc/về đầu phố | **21.90**, 2.1 | `PhoVietGame.cs` → `EndCard`, `TogglePause`, `ResetRide` |

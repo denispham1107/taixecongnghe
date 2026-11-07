@@ -46,7 +46,7 @@ namespace PhoViet
         }
         public bool TryKick()
         {
-            return energyHover?TryBarrelRoll():BeginAssistedKick();
+            return energyHover?TryBarrelRoll():!DriveBraking&&BeginAssistedKick();
         }
         public bool RegisterTap(Vector2 position,float atTime)
         {

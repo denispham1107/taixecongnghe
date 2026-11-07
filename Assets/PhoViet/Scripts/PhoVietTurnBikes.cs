@@ -96,13 +96,14 @@ namespace PhoViet
      if(!TurnBikeSpace(candidate,new Vector3(LaneX[lane],0,z)))continue;
      var v=SpawnTraffic(lane,z,vehicles.IndexOf(candidate));if(v==null)return false;
      v.turnBikeGeneration=v.spawnGeneration;v.turnBikeFromRear=rear;v.turnBikeSwerveTimer=.15f+(float)turnBikeRandom.NextDouble()*.2f;
-     v.speed=v.baseTrafficSpeed=(rear?1:-1)*Speed*TurnBikeSpeedMultiplier;
+     v.speed=v.baseTrafficSpeed=TurnBikeRoadSpeed(rear);
      v.hasTurned=true;v.brakeRemaining=0;v.enteringFromBehind=rear;v.rearEntryBoost=0;
      if(rear)TurnRearBikeSpawns++;else TurnOncomingBikeSpawns++;return true;
     }
    }
    return false;
   }
+  float TurnBikeRoadSpeed(bool rear)=>(rear?1:-1)*TrafficPaceSpeed*TurnBikeSpeedMultiplier*OpeningTrafficPace;
   void TickTurnBikeSteering(TrafficVehicle v,float dt)
   {
    v.turnBikeSwerveTimer-=dt;if(v.changingLane||v.turnBikeSwerveTimer>0||dt<=0)return;

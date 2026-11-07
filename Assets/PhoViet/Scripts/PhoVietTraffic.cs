@@ -94,7 +94,7 @@ namespace PhoViet
         {
             bool same=v.baseTrafficSpeed>0;Vector3 p=v.model.localPosition;
             bool turnBike=HasTurnBike(v);
-            if(turnBike){same=v.turnBikeFromRear;v.speed=v.baseTrafficSpeed=(same?1:-1)*Speed*TurnBikeSpeedMultiplier;v.brakeRemaining=0;v.hasTurned=true;}
+            if(turnBike){same=v.turnBikeFromRear;v.speed=v.baseTrafficSpeed=TurnBikeRoadSpeed(same);v.brakeRemaining=0;v.hasTurned=true;}
             if(v.enteringFromBehind&&!v.isReckless&&!turnBike)
             {
                 v.baseTrafficSpeed=Mathf.Max(v.baseTrafficSpeed,TrafficPaceSpeed+v.rearEntryBoost);

@@ -14,7 +14,8 @@ namespace PhoViet
    // Keep a real56CSS-pixel touch target on short landscape phones, including
    // dense WebGL buffers; this does not change the game's render resolution.
    // Góc dưới bên trái theo yêu cầu người dùng (21.134), không còn ở bên phải.
-   float size=Mathf.Max(76*scale,56*pixelRatio);return new Rect(area.x+18*scale,area.yMax-size-24*scale,size,size);
+   float size=Mathf.Max(76*scale,56*pixelRatio)*(narrow?1:1.15f);
+   return new Rect(area.x+18*scale,area.yMax-size-24*scale,size,size);
   }
   bool PlayerMissileButtonAt(Vector2 position)
   {
@@ -45,6 +46,10 @@ namespace PhoViet
 #endif
   }
   void HandleHudChoice(int choice)
-  {if(choice==0)TogglePause();else if(choice==1)sound=!sound;else if(choice==2){lastTapTime=-100;TryFirePlayerMissile();}else if(choice==3){lastTapTime=-100;TryToggleFlightButton();}}
+  {
+   if(choice==0)TogglePause();else if(choice==1)sound=!sound;else if(choice==2){lastTapTime=-100;TryFirePlayerMissile();}
+   else if(choice==3){lastTapTime=-100;TryToggleFlightButton();}
+   else if(choice==GasHudChoice||choice==BrakeHudChoice)SelectDrivePedal(choice==BrakeHudChoice);
+  }
  }
 }
