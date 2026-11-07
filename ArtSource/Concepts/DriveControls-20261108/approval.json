@@ -1,0 +1,6 @@
+{
+  "approved": false,
+  "selectedSet": null,
+  "sets": ["A", "B", "C"],
+  "scope": ["missile", "flight", "gas", "brake"]
+}

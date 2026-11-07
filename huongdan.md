@@ -3443,3 +3443,10 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - NPC tiếp tục chạy, kể cả lúc người chơi đứng yên. Tốc độ của hai xe máy sinh sau lượt rẽ dùng ±1,2× nhịp cơ sở của giao thông và hệ số mở màn, thay quy tắc theo tốc độ tức thời của người chơi ở 21.114. `PhoVietTraffic.cs` và `PhoVietTurnBikes.cs` cùng dùng giá trị này. Xe tăng và trực thăng tiếp tục dùng vận tốc riêng. Chế độ Ga/Phanh chỉ ảnh hưởng tốc độ xe người chơi và phần dịch chuyển tương đối của cảnh. `BoostReleased` và `RideJobsReleased` vẫn khóa.
 - Unity biên dịch 0 lỗi, 0 cảnh báo. Play Mode đạt 1.017 điều kiện gồm 24 bố cục safe area và DPR 1–3, định tuyến chạm, phanh/giữ/ga ở 20/30/60 FPS và di chuyển độc lập của xe thường, xe máy sau cua, xe tăng, trực thăng. Đã xem `Captures/pedals2152-landscape.png` và `Captures/pedals2152-portrait.png`. Probe tạm đã được dọn. Báo cáo cục bộ `.tools/pedals2152-result.json`.
 - Source và hai tài liệu lưu commit cục bộ. Chưa build, push hoặc phát hành. Web vẫn 1.60.0.
+
+## 21.153. Ba bộ icon HUD chờ duyệt (08/11/2026 — Codex)
+
+- Người dùng yêu cầu xem trước ba bộ gồm đủ Bắn tên lửa, Bay, Đạp Ga và Đạp Phanh, chỉ tích hợp sau khi xác nhận mẫu. **A Buồng lái** dùng viền kim loại và vạch đồng hồ. **B Arcade** dùng huy hiệu nhiều lớp. **C Kính neon** dùng nền kính xanh đêm và nét phát sáng. Màu nhận diện lần lượt là cam, xanh dương, xanh bạc hà và đỏ san hô.
+- Nguồn `ArtSource/Concepts/DriveControls-20261108/bo-icon-vector.svg` có 12 symbol chỉnh sửa được. `so-sanh-3-bo.png` so sánh cận cảnh. `thu-tren-game.png` ghép thử ở hai hướng màn hình trên ảnh Unity Game View 21.152. Số đạn 5/5 trong mẫu chỉ để minh họa.
+- Đã render cả hai bảng, kiểm đủ 12 mẫu cận cảnh và 24 nút trong sáu bố cục ghép, mọi nút nằm trong khung và không chồng nhau. Đã xem ảnh và chỉnh dải nhãn Phanh của mẫu B cho dễ đọc.
+- `approval.json` có `approved=false` và `selectedSet=null`. Chưa tích hợp vào Unity, build, push hay phát hành. Chỉ thêm tài liệu và thiết kế tham khảo.

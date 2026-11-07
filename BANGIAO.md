@@ -51,6 +51,8 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.153:** hoàn tất ba bộ icon HUD chờ người dùng chọn A Buồng lái, B Arcade hoặc C Kính neon. 12 icon vector và hai ảnh so sánh tại `ArtSource/Concepts/DriveControls-20261108/`. Chỉ bản xem trước.
+
 - **21.152 hoàn tất trong Unity:** hai nút Ga/Phanh giữ chế độ, tốc độ NPC độc lập, Bay/Tên lửa ngang +15%. 1.017 kiểm tra và 24 cấu hình bố cục, đã xem hai ảnh Game View. Unity Edit Mode, cảnh sạch. Chưa build hoặc phát hành.
 
 - **21.151 hoàn tất trong Unity:** thêm tăng tốc mở màn cho xe mặt đất và tăng 15% tốc độ đổi làn xe người chơi. 841 kiểm tra mới, 1.790 kiểm tra tốc độ người chơi và 66 kiểm tra điểm xuất phát đạt. Unity Edit Mode, cảnh sạch. Chưa build hoặc phát hành.
@@ -243,6 +245,8 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.153 chờ chọn mẫu icon HUD:** chỉ thay bốn nút Bắn tên lửa, Bay, Đạp Ga và Đạp Phanh sau khi người dùng xác nhận. `approval.json` chưa duyệt. Giữ gameplay và web 1.60.0.
+
 - **21.149 hoàn tất.** Unity Edit Mode, scene sạch, jobs và boost khóa, server 8787 đã dừng. Mobile đã kiểm bằng giả lập DPR3, chưa đo FPS trên máy thật. Giữ nguyên các thay đổi cục bộ ngoài phạm vi.
 
 - **21.141 hoàn tất:** 1.58.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. **Chờ người dùng thử trên điện thoại:** vuốt màn hình ngang, nút bay, mật độ icon trên không (`AirPickupsPerTile`=3, tự chọn). Test cũ lỗi sẵn: `VerifyJump`, `VerifyPerformanceLighting`, `VerifyRiverBridge`, `VerifyRiverCrashSinking`, `VerifyDistanceTanks2199`, `VerifyEnergy2122`, `VerifyEnergyRoutes2122`. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta`/Captures lịch sử ngoài commit.
@@ -375,6 +379,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Trực thăng/tên lửa/rollné/rơi cháy, nhảy tức thời/queue70% | **21.126**,21.125/21.124/21.122 | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `MissileFlightVisual.cs`, `HelicopterVisual.cs`, `ThunderstormVisual.cs`, `RotorBlur.shader`, `PhoVietJump.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`; prefabResource/Art/Helicopter; nguồn `prepare_helicopter.py`/`PhoViet_Helicopter.blend`; nguồn tên lửa `missile2126.py`/`PhoViet_HelicopterMissile.blend`; verifier/report `Helicopter*2126`/`missile2126-*` |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
 | Nút Đạp Ga/Đạp Phanh và kích thước nút Bay/Tên lửa | **21.152** | `PhoVietDrivePedals.cs`, `PhoVietGame.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietPortraitHud.cs`, `PhoVietTurnBikes.cs` |
+| Mẫu icon HUD mới chờ duyệt | **21.153** | `ArtSource/Concepts/DriveControls-20261108/`, `bo-icon-vector.svg`, `approval.json` |
 | Tốc độ xuất phát, xe cắt ngang và đổi làn | **21.150–21.151** | `PhoVietGame.cs`, `PhoVietTraffic.cs`, `PhoVietRoadDrivers.cs`, `PhoVietReckless.cs`, `PhoVietPolice.cs`, `PhoVietRoutePolice.cs`; kiểm tra cục bộ `.tools/VerifyGroundLaunch2151.cs` |
 | Điểm xuất phát xe, kéo thả Edit/Play Ready | **21.76**,6.1 | `PhoVietPlayerStart.cs`, `Editor/PhoVietPlayerStartEditor.cs`, `PhoVietGame.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyPlayerStart*.cs` |
 | Menu Pause/kết thúc/về đầu phố | **21.90**, 2.1 | `PhoVietGame.cs` → `EndCard`, `TogglePause`, `ResetRide` |
