@@ -10,7 +10,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.59.0** — artifact/source commit `7e64e1d`; Pages `42294743068` success đúng SHA; cache `c6699b769f95f932`; **29 live đạt/0 runtime**,575 browser local. Gồm21.142–145. Báo cáo `Captures/VERIFICATION_RELEASE_1_59.md` |
+| Bản đã phát hành | **1.60.0** — commit WebGL `a1d3a7f`, Pages `42347958136` success đúng SHA, cache `09eaa621cf166826`. Gồm 21.147–148. **29 kiểm tra live đạt, 0 lỗi runtime**. |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -22,7 +22,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Điều khiển/nhảy trong source | **21.124:** nhảy vật lý bật ngay; vuốt lần2 sớm queue70% (đã có trên web1.55.0). **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đã có trên web1.50.0 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Tối ưu mobile | **21.136/21.138 đã có trên web 1.57.1:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop **Rất cao (source21.144)** giữ baseline trừ cascades WebGL; Rấtcao không tựgiảm. Layer ẩn sớm gồm đèn tín hiệu và đèn đường từ source21.147 |
-| Cài đặt đồ họa trong source | **21.144 đã có trên web1.59.0:** Rất cao(cũCao, cốđịnh)/Cao(mới,tựgiảm)/Trung bình/Thấp. IDlưu0/3/1/2 theo thứtựUI, không đổi pref cũ. DesktopRấtcao fullbaseline/mobileRấtcao planCao cũ; không governor/learneddrop/đổiHz. Cao có LOD0,6, tầm150m và phản chiếu448px. **Source21.147** giữ mật độ điểm ảnh và MSAA của Rất cao ở cả bốn mức để chữ biển rõ. Web1.59.0 còn dùng thông số lấy mẫu theo từng mức. |
+| Cài đặt đồ họa trong source | **21.144 đã có trên web1.59.0:** Rất cao(cũCao, cốđịnh)/Cao(mới,tựgiảm)/Trung bình/Thấp. IDlưu0/3/1/2 theo thứtựUI, không đổi pref cũ. DesktopRấtcao fullbaseline/mobileRấtcao planCao cũ; không governor/learneddrop/đổiHz. Cao có LOD0,6, tầm150m và phản chiếu448px. **21.147 có trên web 1.60.0:** giữ mật độ điểm ảnh và MSAA của Rất cao ở cả bốn mức để chữ biển rõ. |
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
@@ -34,7 +34,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
 | Trực thăng / nhảy mobile mới | **21.126/21.132 đã có trên web1.55.0 (đạn40m/s):** giữ2–5chiếc/theo400m/4làn/so le; thêm tên lửa1→0,5s/40slot, bay thẳng/roll né. Trúng đạn hoặc đâm trực thăng rơi cháy/kết thúc kể cảCSGT; máy bay va chạm cũng cháy. Nhảy tức thời/queue70% giữ.1028Unity/387layout đạt |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
-| Năng lượng / bay / lộn | **Source21.148** bắt đầu và tối đa 180. Biểu tượng xanh dưới đất hồi 15, biểu tượng cam trên không hồi 20. Nhảy tốn 5, bay tốn 10 mỗi 0,5 giây. Web 1.59.0 còn 150 và cả hai loại hồi 15. |
+| Năng lượng / bay / lộn | **21.148 có trên web 1.60.0:** bắt đầu và tối đa 180. Biểu tượng xanh dưới đất hồi 15, biểu tượng cam trên không hồi 20. Nhảy tốn 5, bay tốn 10 mỗi 0,5 giây. |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
@@ -48,9 +48,11 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.148 hoàn tất trong Unity** với năng lượng 180/180, sét cam trên không +20 và sét xanh dưới đất +15. Đã kiểm 338 điều kiện và xem ảnh Game View. Unity Edit Mode, scene sạch. Chờ build cùng 21.147 khi có yêu cầu.
+- **21.149 đã phát hành 1.60.0:** `a1d3a7f`/Pages `42347958136`/cache `09eaa621cf166826`. ETC2/DXT build 343,431 giây, 0 lỗi. 194 preflight + 194 postflight, 585 SHA giữ nguyên, 43 kiểm tra repo + 34 site + 35 index, 13 browser local và 29 live đạt. Đã xem HUD 180/180 trên web và xác nhận vào chơi/tạm dừng.
 
-- **21.147 hoàn tất trong Unity:** giữ mật độ điểm ảnh và MSAA của Rất cao cho bảng hiệu và “CHO THUÊ NHÀ” khi đổi mức hoặc tự giảm. Mức thấp vẫn giảm chi tiết cảnh, tầm nhìn, bóng và phản chiếu. 238 kiểm tra đạt và đã xem hai cặp ảnh Rất cao/Thấp. Unity Edit Mode, scene sạch. Chờ build và phát hành web theo yêu cầu riêng.
+- **21.148 có trên web 1.60.0:** năng lượng 180/180, sét cam trên không +20 và sét xanh dưới đất +15. 338 kiểm tra Unity đạt và đã xem ảnh Game View.
+
+- **21.147 có trên web 1.60.0:** giữ mật độ điểm ảnh và MSAA của Rất cao cho bảng hiệu và “CHO THUÊ NHÀ” khi đổi mức hoặc tự giảm. 238 kiểm tra Unity đạt, hai cặp ảnh Rất cao/Thấp đã xem.
 
 - **21.146 đã phát hành1.59.0:** commit `7e64e1d`/Pages`42294743068`success/cache`c6699b769f95f932`; gộp21.142–145. Build2variant378,570s/0lỗi/1warningPipeline;193pre+193post/584SHAgiữ/43repo+34site+35index/575browserlocal/29liveđạt/0runtime. UnityEdit/scene sạch/jobsfalse/boostfalse/server8786đãdừng. Kết quả và2docs/README lưu riêng sau commit artifact.
 
@@ -232,9 +234,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.149 đang chuẩn bị phát hành 1.60.0** từ source 5e956db gồm 21.147 và 21.148. Đã qua 194 kiểm tra trước build và ghi SHA 585 file nguồn. Hai gói đã build xong. Postflight 194, SHA 585 file giữ nguyên, kiểm gói repo 43 và site 34 đều đạt. Cache 09eaa621cf166826. Đã đạt 13 kiểm tra trình duyệt desktop/mobile/offline và 35 kiểm tra Git index. Đã xem HUD 180/180 trên hai giao diện. Server 8787 đã dừng. Đang commit và push bản phát hành để Pages triển khai.
-
-- **21.146 hoàn tất:** 1.59.0 đã phát hành và xác minh29live/0runtime (đã chờ và xem cảnh game/pause thật, không chỉ splash); không còn build/push/Pages/live đang dở. Unity Edit/scene sạch/jobsfalse/boostfalse/server8786đãdừng. Chưa thử Safari/Android máy thật/FPS mới; giữ dirty ngoài phạm vi.
+- **21.149 hoàn tất.** Unity Edit Mode, scene sạch, jobs và boost khóa, server 8787 đã dừng. Mobile đã kiểm bằng giả lập DPR3, chưa đo FPS trên máy thật. Giữ nguyên các thay đổi cục bộ ngoài phạm vi.
 
 - **21.141 hoàn tất:** 1.58.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. **Chờ người dùng thử trên điện thoại:** vuốt màn hình ngang, nút bay, mật độ icon trên không (`AirPickupsPerTile`=3, tự chọn). Test cũ lỗi sẵn: `VerifyJump`, `VerifyPerformanceLighting`, `VerifyRiverBridge`, `VerifyRiverCrashSinking`, `VerifyDistanceTanks2199`, `VerifyEnergy2122`, `VerifyEnergyRoutes2122`. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta`/Captures lịch sử ngoài commit.
 
