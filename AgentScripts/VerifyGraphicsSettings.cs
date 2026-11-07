@@ -8,10 +8,11 @@ public static class VerifyGraphicsSettings
   bool had=PlayerPrefs.HasKey(PhoVietGame.GraphicsPreferenceKey),wasOpen=g.GraphicsSettingsOpen;int pref=PlayerPrefs.GetInt(PhoVietGame.GraphicsPreferenceKey),original=(int)g.SelectedGraphics;
   int coins=PlayerPrefs.GetInt("PhoViet.Coins.v1",0),best=g.BestDistance;var checks=new List<string>();Action<bool,string> check=(b,s)=>{if(!b)throw new Exception(s);checks.Add(s);};
   var t=typeof(PhoVietGame);var oldInsets=t.GetField("browserInsets",F).GetValue(g);bool hadInsets=(bool)t.GetField("hasBrowserInsets",F).GetValue(g);float time=Time.timeScale;
-  var reflection=g.rideCamera.GetComponent<RiverReflection>();int meshCount=g.scenery.GetComponentsInChildren<Renderer>(true).Length;float fov=g.rideCamera.fieldOfView,far=g.rideCamera.farClipPlane;int textureLimit=QualitySettings.globalTextureMipmapLimit;
+  bool touch=g.forceTouchGraphics;
+  var reflection=g.rideCamera.GetComponent<RiverReflection>();int meshCount=g.scenery.GetComponentsInChildren<Renderer>(true).Length;float fov=g.rideCamera.fieldOfView;int textureLimit=QualitySettings.globalTextureMipmapLimit;
   try
   {
-   Time.timeScale=0;g.SetGraphicsQuality(0);int aa=QualitySettings.antiAliasing,cascades=QualitySettings.shadowCascades;float distance=QualitySettings.shadowDistance,lod=QualitySettings.lodBias,scale=reflection.resolution,reflectFar=reflection.farClip;int size=reflection.maxSize,interval=reflection.interval;var shadows=QualitySettings.shadows;var shadowResolution=QualitySettings.shadowResolution;
+   Time.timeScale=0;g.forceTouchGraphics=false;g.SetGraphicsQuality(0);int aa=QualitySettings.antiAliasing,cascades=QualitySettings.shadowCascades;float distance=QualitySettings.shadowDistance,lod=QualitySettings.lodBias,scale=reflection.resolution,reflectFar=reflection.farClip,far=g.rideCamera.farClipPlane;int size=reflection.maxSize,interval=reflection.interval;var shadows=QualitySettings.shadows;var shadowResolution=QualitySettings.shadowResolution;
    Action<string> high=label=>check(QualitySettings.antiAliasing==aa&&QualitySettings.shadows==shadows&&QualitySettings.shadowDistance==distance&&QualitySettings.shadowResolution==shadowResolution&&QualitySettings.shadowCascades==cascades&&QualitySettings.lodBias==lod&&reflection.resolution==scale&&reflection.maxSize==size&&reflection.interval==interval&&reflection.farClip==reflectFar,label);
    foreach(int level in new[]{3,1,2,0,2,3,1,0})
    {
@@ -20,7 +21,7 @@ public static class VerifyGraphicsSettings
     else
     {
      var plan=PhoVietGame.PlanFor((PhoVietGame.GraphicsLevel)level); // 21.136: every level follows its plan.
-     check(QualitySettings.antiAliasing==Mathf.Min(aa,plan.antiAliasing),"MSAA responds to level "+level);
+     check(QualitySettings.antiAliasing==aa,"MSAA stays at Very High for level "+level);
      check(Mathf.Abs(QualitySettings.shadowDistance-Mathf.Min(distance,plan.shadowDistance))<.0001f&&QualitySettings.shadows==(plan.shadowDistance>0&&shadows!=ShadowQuality.Disable?ShadowQuality.HardOnly:ShadowQuality.Disable),"Real shadows respond to level "+level);
      check(Mathf.Abs(QualitySettings.lodBias-lod*plan.lodBias)<.0001f,"Distant mesh LOD responds to level "+level);
      check(reflection.enabled==plan.reflection&&reflection.interval>=plan.reflectionInterval&&reflection.maxSize<=Mathf.Max(plan.reflectionSize,0)+(plan.reflection?0:size),"River rendering budget responds to level "+level);
@@ -62,7 +63,7 @@ public static class VerifyGraphicsSettings
   }
   finally
   {
-   g.ResetRide();g.SetGraphicsQuality(original);if(had)PlayerPrefs.SetInt(PhoVietGame.GraphicsPreferenceKey,pref);else PlayerPrefs.DeleteKey(PhoVietGame.GraphicsPreferenceKey);PlayerPrefs.Save();
+   g.ResetRide();g.forceTouchGraphics=touch;g.SetGraphicsQuality(original);if(had)PlayerPrefs.SetInt(PhoVietGame.GraphicsPreferenceKey,pref);else PlayerPrefs.DeleteKey(PhoVietGame.GraphicsPreferenceKey);PlayerPrefs.Save();
    t.GetField("browserInsets",F).SetValue(g,oldInsets);t.GetField("hasBrowserInsets",F).SetValue(g,hadInsets);if(wasOpen)g.OpenGraphicsSettings();Time.timeScale=time;
   }
  }

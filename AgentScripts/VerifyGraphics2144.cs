@@ -23,8 +23,8 @@ public static class VerifyGraphics2144
    for(int i=0;i<4;i++)Check(PhoVietGame.GraphicsLevelAt(i)==order[i]&&PhoVietGame.GraphicsRank(order[i])==i,"Display and governor rank "+i);
    Check(PhoVietGame.GraphicsName(order[0])=="Rất cao"&&PhoVietGame.GraphicsName(order[1])=="Cao","Distinct Vietnamese names");
    var vh=PhoVietGame.PlanFor(order[0]);var high=PhoVietGame.PlanFor(order[1]);var medium=PhoVietGame.PlanFor(order[2]);
-   Check(vh.pixelCap==2&&vh.pixelFloor==1.5f&&vh.lodBias==.8f&&vh.shadowDistance==30&&vh.far==165&&vh.smallPropCull==110&&vh.reflectionSize==512&&vh.reflectionScale==.33f,"VeryHigh retains the previous mobile High plan");
-   Check(high.pixelCap>medium.pixelCap&&high.pixelCap<vh.pixelCap&&high.lodBias>medium.lodBias&&high.lodBias<vh.lodBias,"High pixel and detail budgets lie strictly between Medium and VeryHigh");
+   Check(vh.lodBias==.8f&&vh.shadowDistance==30&&vh.far==165&&vh.smallPropCull==110&&vh.reflectionSize==512&&vh.reflectionScale==.33f,"VeryHigh retains the previous mobile High plan");
+   Check(high.lodBias>medium.lodBias&&high.lodBias<vh.lodBias,"High detail budgets lie strictly between Medium and VeryHigh");
    Check(high.far>medium.far&&high.far<vh.far&&high.shadowDistance>medium.shadowDistance&&high.shadowDistance<vh.shadowDistance,"High view and shadow distances lie between adjacent levels");
    Check(high.reflectionSize>medium.reflectionSize&&high.reflectionSize<vh.reflectionSize&&high.reflectionScale>medium.reflectionScale&&high.reflectionScale<vh.reflectionScale,"High reflections lie between adjacent levels");
    foreach(bool mobile in new[]{false,true})
@@ -34,18 +34,25 @@ public static class VerifyGraphics2144
      Reload(id,0,mobile);Check((int)g.SelectedGraphics==(id==99?0:id),"Reload selected ID "+id+" touch="+mobile);
     }
     Reload(0,2,mobile);Check(g.SelectedGraphics==order[0]&&g.EffectiveGraphics==order[0],"Old High ignores persisted learned downgrade, touch="+mobile);
+    int aa=QualitySettings.antiAliasing;
     float cap=g.RenderPixelCap,lod=QualitySettings.lodBias,far=g.rideCamera.farClipPlane;int steps=g.GraphicsGovernorSteps,vs=QualitySettings.vSyncCount;
+    foreach(var level in order)
+    {
+     g.SetGraphicsQuality((int)level);
+     Check(g.RenderPixelCap==cap&&QualitySettings.antiAliasing==aa,"Manual preset preserves Very High sampling: "+level+" touch="+mobile);
+    }
+    g.SetGraphicsQuality(0);
     g.forceGraphicsGovernor=true;g.SetGraphicsGovernor(1);
     for(int i=0;i<20;i++){SlowWindow(.08f);Call("GovernorStepDown");Call("GovernorStepUp");SlowWindow(.008f);}
     Check(g.SelectedGraphics==order[0]&&g.EffectiveGraphics==order[0]&&g.RenderPixelCap==cap&&g.GraphicsGovernorSteps==steps,"VeryHigh never changes level or pixel cap, touch="+mobile);
     Check(QualitySettings.vSyncCount==vs&&QualitySettings.lodBias==lod&&g.rideCamera.farClipPlane==far,"VeryHigh does not auto-change refresh or scene detail, touch="+mobile);
     g.forceGraphicsGovernor=false;Reload(3,0,mobile);g.SetGraphicsGovernor(1);g.ResetRide();SlowWindow(.08f);
-    Check(g.GraphicsGovernorSteps>steps&&g.RenderPixelCap<high.pixelCap,"High auto-reduces in a slow sampled window without a test override, touch="+mobile);
+    Check(g.GraphicsGovernorSteps>steps&&g.EffectiveGraphics==order[2]&&g.RenderPixelCap==cap&&QualitySettings.antiAliasing==aa,"High auto-reduces in a slow sampled window without a test override, touch="+mobile);
     var seen=new HashSet<PhoVietGame.GraphicsLevel>();for(int i=0;i<20;i++){seen.Add(g.EffectiveGraphics);Call("GovernorStepDown");}
     Check(seen.Contains(order[2])&&seen.Contains(order[3])&&g.EffectiveGraphics==order[3]&&g.SelectedGraphics==order[1],"High degrades through Medium to Low without changing selection");
-    Check(g.RenderPixelCap>=1&&PlayerPrefs.GetInt(Auto)==2,"Learned drop is quality ranks, not raw enum subtraction");
+    Check(g.RenderPixelCap==cap&&QualitySettings.antiAliasing==aa&&PlayerPrefs.GetInt(Auto)==2,"Learned drop is quality ranks, not raw enum subtraction");
     QualitySettings.vSyncCount=originalVSync;for(int i=0;i<30;i++)Call("GovernorStepUp");
-    Check(g.EffectiveGraphics==order[1]&&Mathf.Abs(g.RenderPixelCap-high.pixelCap)<.001f,"Recovery stops at chosen High, never enters VeryHigh");
+    Check(g.EffectiveGraphics==order[1]&&g.RenderPixelCap==cap&&QualitySettings.antiAliasing==aa,"Recovery stops at chosen High, never enters VeryHigh");
     Reload(3,1,mobile);Check(g.SelectedGraphics==order[1]&&g.EffectiveGraphics==order[2],"New High reloads a learned drop to Medium");
     g.SetGraphicsQuality(0);Check(g.EffectiveGraphics==order[0]&&PlayerPrefs.GetInt(Auto)==0&&QualitySettings.vSyncCount==originalVSync,"Selecting VeryHigh restores its fixed baseline and refresh");
    }

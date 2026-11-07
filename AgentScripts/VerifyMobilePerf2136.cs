@@ -14,18 +14,21 @@ public static class VerifyMobilePerf2136
  public static object Main()
  {
   if(!Application.isPlaying)throw new Exception("Play Mode required");g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();checks.Clear();samples.Clear();failure=null;
-  int pref=PlayerPrefs.GetInt(PhoVietGame.GraphicsPreferenceKey,0),best=g.BestDistance;float time=Time.timeScale;bool dino=g.dinosaursEnabled,tank=g.tankBarrageEnabled;int vsync=QualitySettings.vSyncCount;float far=g.rideCamera.farClipPlane;
+  int pref=PlayerPrefs.GetInt(PhoVietGame.GraphicsPreferenceKey,0),best=g.BestDistance;float time=Time.timeScale;bool dino=g.dinosaursEnabled,tank=g.tankBarrageEnabled,touch=g.forceTouchGraphics;int vsync=QualitySettings.vSyncCount;
   var rt=new RenderTexture(640,300,24);var t=new Texture2D(640,300,TextureFormat.RGB24,false);
   try
   {
-   Time.timeScale=0;g.dinosaursEnabled=g.tankBarrageEnabled=false;g.forceTouchGraphics=true;
+   Time.timeScale=0;g.dinosaursEnabled=g.tankBarrageEnabled=false;
+   g.forceTouchGraphics=false;g.SetGraphicsQuality(0);float far=g.rideCamera.farClipPlane;
+   g.forceTouchGraphics=true;
    // ---- plans
-   float lastFar=1000,lastCap=100,lastLod=100;
+   float lastFar=1000,lastLod=100;
+   g.SetGraphicsQuality(0);int textAA=QualitySettings.antiAliasing;
    foreach(int level in new[]{0,1,2})
    {
     g.SetGraphicsQuality(level);var plan=PhoVietGame.PlanFor((PhoVietGame.GraphicsLevel)level);
-    Check(g.RenderPixelCap==plan.pixelCap&&plan.pixelFloor<=plan.pixelCap&&plan.pixelFloor>=1,"Level "+level+" sets its render density, never below CSS resolution");
-    Check(g.rideCamera.farClipPlane==Mathf.Min(far,plan.far)&&plan.far<lastFar&&plan.pixelCap<lastCap&&plan.lodBias<lastLod,"Level "+level+" spends less than the level above");
+    Check(g.RenderPixelCap==2f&&QualitySettings.antiAliasing==textAA,"Level "+level+" preserves mobile Very High sampling");
+    Check(g.rideCamera.farClipPlane==Mathf.Min(far,plan.far)&&plan.far<lastFar&&plan.lodBias<lastLod,"Level "+level+" spends less than the level above");
     Check(g.rideCamera.layerCullDistances[PhoVietGame.SmallPropLayer]==plan.smallPropCull,"Small props cull distance applied at level "+level);
     Check(QualitySettings.lodBias>0&&QualitySettings.pixelLightCount<=plan.pixelLights,"LOD and pixel light budget applied at level "+level);
     Check(g.rideCamera.GetComponent<RiverReflection>().enabled==plan.reflection,"Reflection follows the plan at level "+level);
@@ -34,11 +37,12 @@ public static class VerifyMobilePerf2136
     g.daylight.SetCycleTime(8);g.daylight.UpdateLamps();Check(!(g.daylight.sun.enabled&&g.daylight.moon.enabled),"Touch plan keeps one directional light by day at level "+level);
     g.daylight.SetCycleTime(26);g.daylight.UpdateLamps();Check(!(g.daylight.sun.enabled&&g.daylight.moon.enabled)&&(g.daylight.sun.enabled||g.daylight.moon.enabled),"Touch plan keeps one directional light by night at level "+level);
     var shop=g.scenery.GetComponentsInChildren<MeshRenderer>(true).First(r=>r.name.StartsWith("PV_StreetShop"));Check((shop.shadowCastingMode==UnityEngine.Rendering.ShadowCastingMode.On)==plan.sceneryShadows,"Scenery shadow casting follows the plan at level "+level);
-    lastFar=plan.far;lastCap=plan.pixelCap;lastLod=plan.lodBias;
+    lastFar=plan.far;lastLod=plan.lodBias;
    }
    // ---- 21.138: nothing large, and nothing on the ground, may be culled early: it left the bare ground showing past the junction.
    var tagged=g.GetComponentsInChildren<MeshRenderer>(true).Where(r=>r.gameObject.layer==PhoVietGame.SmallPropLayer).ToArray();
    Check(tagged.Length>0,"Small props tagged ("+tagged.Length+")");
+   Check(tagged.All(r=>r.GetComponent<TextMesh>()==null),"World text never uses the early-cull layer");
    var groundShaders=new[]{"PhoViet/Road With Tank Craters","PhoViet/City Ground"};
    var wrong=tagged.Where(r=>r.GetComponent<TextMesh>()==null&&r.sharedMaterials.Any(m=>m!=null&&groundShaders.Contains(m.shader.name))).Select(r=>r.name).Distinct().ToArray();
    Check(wrong.Length==0,"No road or ground surface uses the early-cull layer: "+string.Join(",",wrong.Take(5)));
@@ -96,11 +100,11 @@ public static class VerifyMobilePerf2136
    Check(maxTiles>0&&maxTiles<=total*.6f,"Straight road keeps at most 60% of tiles active ("+minTiles+"-"+maxTiles+" of "+total+")");
    // ---- governor walks down and back up, the player's choice stays selected
    g.forceTouchGraphics=true;g.SetGraphicsQuality((int)PhoVietGame.GraphicsLevel.High);QualitySettings.vSyncCount=1;g.ResetRide();
-   var seen=new List<string>();for(int i=0;i<12&&!(QualitySettings.vSyncCount==2);i++){Call("GovernorStepDown");seen.Add(g.EffectiveGraphics+":"+g.RenderPixelCap.ToString("0.00"));Check(g.RenderPixelCap>=1,"Governor never renders below CSS resolution");}
+   var seen=new List<string>();for(int i=0;i<12&&!(QualitySettings.vSyncCount==2);i++){Call("GovernorStepDown");seen.Add(g.EffectiveGraphics+":"+g.RenderPixelCap.ToString("0.00"));Check(g.RenderPixelCap==2f&&QualitySettings.antiAliasing==textAA,"Governor preserves lettering sampling");}
    Check(g.SelectedGraphics==PhoVietGame.GraphicsLevel.High&&g.EffectiveGraphics==PhoVietGame.GraphicsLevel.Low,"Governor reaches Low, the choice stays Cao ("+string.Join(" ",seen)+")");
-   Check(QualitySettings.vSyncCount==2&&g.RenderPixelCap==PhoVietGame.PlanFor(PhoVietGame.GraphicsLevel.Low).pixelFloor,"Last resort is a steady half refresh at the pixel floor");
+   Check(QualitySettings.vSyncCount==2&&g.RenderPixelCap==2f,"Last resort is half refresh at the same resolution");
    QualitySettings.vSyncCount=1;for(int i=0;i<12;i++)Call("GovernorStepUp");
-   Check(g.EffectiveGraphics==PhoVietGame.GraphicsLevel.High&&g.RenderPixelCap==PhoVietGame.PlanFor(PhoVietGame.GraphicsLevel.High).pixelCap,"Governor returns to the chosen level");
+   Check(g.EffectiveGraphics==PhoVietGame.GraphicsLevel.High&&g.RenderPixelCap==2f,"Governor returns to the chosen level");
    Call("GovernorStepDown");Check(g.GraphicsGovernorSteps>0,"Steps counted");g.SetGraphicsQuality(1);Check(g.EffectiveGraphics==PhoVietGame.GraphicsLevel.Medium&&PlayerPrefs.GetInt("PhoViet.GraphicsAutoDrop.v1",-1)==0,"Choosing a level clears the learned drop");
    // ---- loading did the mid-ride work
    Check(typeof(PhoVietGame).GetField("rearStyleTextures",F).GetValue(g)!=null&&typeof(PhoVietGame).GetField("rearWarningArrow",F).GetValue(g)!=null,"Rear warning textures exist before the first warning");
@@ -113,7 +117,7 @@ public static class VerifyMobilePerf2136
   }
   finally
   {
-   g.tileCullingEnabled=true;g.forceTouchGraphics=false;QualitySettings.vSyncCount=vsync;g.dinosaursEnabled=dino;g.tankBarrageEnabled=tank;g.SetGraphicsQuality(pref>=0&&pref<=3?pref:0);g.ResetRide();Time.timeScale=time;
+   g.tileCullingEnabled=true;g.forceTouchGraphics=touch;QualitySettings.vSyncCount=vsync;g.dinosaursEnabled=dino;g.tankBarrageEnabled=tank;g.SetGraphicsQuality(pref>=0&&pref<=3?pref:0);g.ResetRide();Time.timeScale=time;
    UnityEngine.Object.DestroyImmediate(rt);UnityEngine.Object.DestroyImmediate(t);
   }
  }

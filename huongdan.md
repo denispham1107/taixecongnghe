@@ -193,7 +193,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 ### 2.8. WebGL, cài ứng dụng và offline
 
-**Cài đặt đồ họa source21.144 (chưa build/web):** bánh răng có4mức **Rất cao / Cao / Trung bình / Thấp**. Rấtcao là Cao cũ, giữ chấtlượng cốđịnh/không tựgiảm; Cao mới nằm giữa Rấtcao và Trungbình, tự giảm khi máy yếu (cả desktop và cảm ứng). Trung/Thấp giữ như trước. IDprefv1 giữ0Rấtcao/1Trung/2Thấp, thêm3Cao; UI/phím1–4 theo thứtự0/3/1/2. Xem21.144.
+**Cài đặt đồ họa 21.144 (web 1.59.0):** bánh răng có4mức **Rất cao / Cao / Trung bình / Thấp**. Rấtcao là Cao cũ, giữ chấtlượng cốđịnh/không tựgiảm; Cao mới nằm giữa Rấtcao và Trungbình, tự giảm khi máy yếu (cả desktop và cảm ứng). Trung/Thấp giữ như trước. IDprefv1 giữ0Rấtcao/1Trung/2Thấp, thêm3Cao; UI/phím1–4 theo thứtự0/3/1/2. Source21.147 giữ mật độ điểm ảnh và MSAA như Rất cao cho mọi mức. Xem 21.144 và 21.147.
 
 - Desktop chơi trực tiếp trên web; Chrome/Edge hỗ trợ cài PWA nếu môi trường trình duyệt đáp ứng.
 - Android cài ứng dụng web từ Chrome/nút cài; chưa phải bản APK/AAB gốc.
@@ -3388,3 +3388,11 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Bổ sung kiểm live:** ảnh đầu của VerifyPublishedGame còn splash Unity mặc dù callback khởi tạo đã trả. Đã sửa verifier (không sửa game) để chờ >12% pixel màu trong canvas, sau đó StartRide/TogglePause và chụp lại. Đang chạy lại trên live; kết quả28cũ chỉ xác nhận bytes/khởi tạo, chưa là bằng chứng hình cảnh game.
 
 - **Kiểm live cuối:** verifier chờ pixel cảnh thật đã đạt29kiểm/0runtime, sceneColourFraction0,2881 (>0,12); đã xem ảnh `release159-live-game.png`, thấy phố/xe/HUD5/5 và màn hình Pause có Về đầu phố. Báo cáo live được ghi đè bằng lượt cuối thành công. Lưu verifier/bằng chứng/2docs trong commit sau artifact; không rebuild game.
+
+## 21.147. Giữ độ nét bảng hiệu khi giảm đồ họa (07/11/2026 — Codex)
+
+- Tên cửa hàng và chữ “CHO THUÊ NHÀ” là hình học chữ có sẵn trong các LOD của mẫu phố và căn hộ. Việc hạ mật độ điểm ảnh và tắt MSAA ở Trung bình hoặc Thấp làm rìa các nét chữ kém rõ.
+- `PhoVietGraphicsSettings.cs` giữ mật độ và MSAA của Rất cao cho cả bốn mức. Thiết bị cảm ứng dùng trần DPR 2 và MSAA tối đa 2. Desktop giữ trần DPR mặc định của web và MSAA gốc. Giới hạn kích thước framebuffer của shell vẫn áp dụng. Bỏ việc đưa TextMesh vào layer ẩn sớm. Đèn đường và đèn tín hiệu vẫn dùng layer đó.
+- Bộ tự giảm chuyển các mức cảnh trực tiếp và giữ nét chữ. Tầm nhìn, LOD cảnh, đèn, bóng đổ và phản chiếu vẫn theo từng mức. Thấp có thể tiêu tốn GPU nhiều hơn trước vì phải vẽ cùng mật độ điểm ảnh và khử răng cưa như Rất cao. Chữ ở khoảng cách vượt tầm nhìn của mức đang dùng sẽ chịu giới hạn tầm nhìn của cảnh.
+- Biên dịch sạch. 238 kiểm tra Unity đạt gồm VerifyGraphics2144 (67), VerifyGraphicsSettings (112) và VerifyMobilePerf2136 (59, có 35 khung so sánh culling). Sửa bài kiểm để lấy tầm nhìn gốc ở đúng mức Rất cao. Đã xem bốn ảnh Unity `Captures/sign2147-{shop,rental}-{VeryHigh,Low}.png` ở cùng góc 1280×900. Chữ cửa hàng, dòng phụ và chữ “CHO THUÊ NHÀ” rõ ở cả hai mức, với khác biệt ánh sáng theo cấu hình.
+- Thay đổi nằm trong source Unity và các bài kiểm. Unity đã về Edit Mode với scene sạch, jobs và boost vẫn khóa. Web công khai hiện là 1.59.0. Chưa build WebGL cho thay đổi này và chưa đo FPS trên thiết bị thật.

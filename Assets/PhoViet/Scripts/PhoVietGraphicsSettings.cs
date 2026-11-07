@@ -32,12 +32,11 @@ namespace PhoViet
         static void PhoVietSetPixelCap(float cap){}
         static bool DeviceIsTouch=>false;
 #endif
-        // 21.136: what one level actually renders. CPU cost on phones is ruled by draw calls and active renderers,
-        // GPU cost by pixels and passes, so every level sets both instead of only trimming shadows and AA.
+        // Scene detail and lighting costs vary by level. Framebuffer sampling is shared.
         public struct GraphicsPlan
         {
-            public float pixelCap,pixelFloor,lodBias,shadowDistance,far,smallPropCull,reflectionScale,reflectionFar;
-            public int antiAliasing,pixelLights,reflectionSize,reflectionInterval;
+            public float lodBias,shadowDistance,far,smallPropCull,reflectionScale,reflectionFar;
+            public int pixelLights,reflectionSize,reflectionInterval;
             public bool reflection,fogVolume,simpleStandard,sceneryShadows;
         }
         public const int SmallPropLayer=9;
@@ -45,10 +44,10 @@ namespace PhoViet
         {
             switch(level)
             {
-                case GraphicsLevel.VeryHigh:return new GraphicsPlan{pixelCap=2f,pixelFloor=1.5f,lodBias=.8f,shadowDistance=30,far=165,smallPropCull=110,antiAliasing=2,pixelLights=1,sceneryShadows=true,reflection=true,reflectionScale=.33f,reflectionSize=512,reflectionInterval=2,reflectionFar=100};
-                case GraphicsLevel.High:return new GraphicsPlan{pixelCap=1.8f,pixelFloor=1.375f,lodBias=.6f,shadowDistance=25,far=150,smallPropCull=90,antiAliasing=2,pixelLights=1,sceneryShadows=true,reflection=true,reflectionScale=.29f,reflectionSize=448,reflectionInterval=2,reflectionFar=90};
-                case GraphicsLevel.Medium:return new GraphicsPlan{pixelCap=1.6f,pixelFloor=1.25f,lodBias=.42f,shadowDistance=20,far=135,smallPropCull=70,antiAliasing=0,pixelLights=0,reflection=true,reflectionScale=.25f,reflectionSize=384,reflectionInterval=3,reflectionFar=75};
-                default:return new GraphicsPlan{pixelCap=1.25f,pixelFloor=1f,lodBias=.3f,shadowDistance=0,far=115,smallPropCull=55,antiAliasing=0,pixelLights=0,simpleStandard=true};
+                case GraphicsLevel.VeryHigh:return new GraphicsPlan{lodBias=.8f,shadowDistance=30,far=165,smallPropCull=110,pixelLights=1,sceneryShadows=true,reflection=true,reflectionScale=.33f,reflectionSize=512,reflectionInterval=2,reflectionFar=100};
+                case GraphicsLevel.High:return new GraphicsPlan{lodBias=.6f,shadowDistance=25,far=150,smallPropCull=90,pixelLights=1,sceneryShadows=true,reflection=true,reflectionScale=.29f,reflectionSize=448,reflectionInterval=2,reflectionFar=90};
+                case GraphicsLevel.Medium:return new GraphicsPlan{lodBias=.42f,shadowDistance=20,far=135,smallPropCull=70,pixelLights=0,reflection=true,reflectionScale=.25f,reflectionSize=384,reflectionInterval=3,reflectionFar=75};
+                default:return new GraphicsPlan{lodBias=.3f,shadowDistance=0,far=115,smallPropCull=55,pixelLights=0,simpleStandard=true};
             }
         }
         const string GraphicsAutoKey="PhoViet.GraphicsAutoDrop.v1";
@@ -94,7 +93,6 @@ namespace PhoViet
                 if(f.sharedMesh==null||f.gameObject.layer!=0)continue;string n=f.sharedMesh.name;
                 if(n.StartsWith("PV_SignalLenses",System.StringComparison.Ordinal)||n.StartsWith("PV_LEDStreetLamp",System.StringComparison.Ordinal))f.gameObject.layer=SmallPropLayer;
             }
-            foreach(var t in GetComponentsInChildren<TextMesh>(true))if(t.gameObject.layer==0)t.gameObject.layer=SmallPropLayer;
         }
         // Buildings and trees cast from their heaviest meshes: about a million triangles a frame. Vehicles keep their shadows.
         Renderer[] sceneryCasters;bool sceneryShadowsOn=true;
@@ -133,9 +131,14 @@ namespace PhoViet
         {
             RestoreGraphicsBaseline();EffectiveGraphics=level;
             if(level==GraphicsLevel.VeryHigh)QualitySettings.vSyncCount=originalVSync;
-            if(level==GraphicsLevel.VeryHigh&&!TouchGraphics){RenderPixelCap=0;PhoVietSetPixelCap(0);UpdateTileCulling(true);return;}
+            // Lettering is mesh geometry rendered by the main camera. Preserve the Very High
+            // framebuffer density and edge sampling across manual and adaptive scene plans.
+            bool touch = TouchGraphics;
+            RenderPixelCap = touch ? 2f : 0f;
+            PhoVietSetPixelCap(RenderPixelCap);
+            QualitySettings.antiAliasing = touch ? Mathf.Min(originalAA, 2) : originalAA;
+            if(level==GraphicsLevel.VeryHigh&&!touch){UpdateTileCulling(true);return;}
             var plan=PlanFor(level);
-            QualitySettings.antiAliasing=Mathf.Min(originalAA,plan.antiAliasing);
             bool shadows=plan.shadowDistance>0&&originalShadows!=ShadowQuality.Disable;
             QualitySettings.shadows=shadows?ShadowQuality.HardOnly:ShadowQuality.Disable;
             QualitySettings.shadowDistance=shadows?Mathf.Min(originalShadowDistance,plan.shadowDistance):0;
@@ -160,7 +163,6 @@ namespace PhoViet
             // The horizon fades into the sky colour exactly where the shorter view ends, so nothing pops in.
             if(daylight!=null&&rideCamera!=null){daylight.SetFogReach(Mathf.Min(1,rideCamera.farClipPlane/185f));daylight.SetSingleDirectionalLight(true);}
             if(standardShader!=null&&plan.simpleStandard)standardShader.maximumLOD=150;
-            RenderPixelCap=plan.pixelCap;PhoVietSetPixelCap(RenderPixelCap);
             UpdateTileCulling(true);
         }
         public void SetGraphicsQuality(int level)
@@ -181,8 +183,7 @@ namespace PhoViet
 #endif
         }
         // Hold a steady frame rate on touch devices and on desktop High. VeryHigh stays fixed.
-        // Lowers pixels first, then steps through the level plans,
-        // and only comes back up after a long clean stretch. The player's own choice stays selected.
+        // Steps through scene plans with fixed sampling. The player's own choice stays selected.
         const int GovernorWindow=45;const float GovernorSlow=.0235f,GovernorClean=.0185f;
         readonly float[] governorSamples=new float[GovernorWindow];
         int governorCount,governorSlowWindows;float governorElapsed,governorCleanTime,governorRaiseAfter=20,governorLastRaise=-1000;
@@ -216,27 +217,22 @@ namespace PhoViet
             if(SelectedGraphics==GraphicsLevel.VeryHigh)return;
             // Falling back soon after a raise means that raise was too much: wait longer next time.
             if(Time.unscaledTime-governorLastRaise<30)governorRaiseAfter=Mathf.Min(240,governorRaiseAfter*2);
-            var plan=PlanFor(EffectiveGraphics);float next=RenderPixelCap*.86f;
-            if(next>=plan.pixelFloor){RenderPixelCap=next;PhoVietSetPixelCap(next);GraphicsGovernorSteps++;return;}
             if(EffectiveGraphics!=GraphicsLevel.Low)
             {
                 ApplyGraphicsLevel(GraphicsLevelAt(GraphicsRank(EffectiveGraphics)+1));GraphicsGovernorSteps++;
                 PlayerPrefs.SetInt(GraphicsAutoKey,GraphicsRank(EffectiveGraphics)-GraphicsRank(SelectedGraphics));PlayerPrefs.Save();return;
             }
-            // Nothing left to trim: a steady 30 FPS looks smoother than an uneven 25-40.
-            if(RenderPixelCap>plan.pixelFloor){RenderPixelCap=plan.pixelFloor;PhoVietSetPixelCap(RenderPixelCap);GraphicsGovernorSteps++;}
-            else if(QualitySettings.vSyncCount==1){QualitySettings.vSyncCount=2;GraphicsGovernorSteps++;}
+            // Fall back to half the display refresh rate at the lowest scene detail.
+            if(QualitySettings.vSyncCount==1){QualitySettings.vSyncCount=2;GraphicsGovernorSteps++;}
         }
         void GovernorStepUp()
         {
             if(SelectedGraphics==GraphicsLevel.VeryHigh)return;
-            if(QualitySettings.vSyncCount==2&&EffectiveGraphics==GraphicsLevel.Low&&RenderPixelCap<=PlanFor(GraphicsLevel.Low).pixelFloor)return; // Holding the steady 30.
-            var plan=PlanFor(EffectiveGraphics);governorLastRaise=Time.unscaledTime;
-            if(RenderPixelCap<plan.pixelCap-.001f){RenderPixelCap=Mathf.Min(plan.pixelCap,RenderPixelCap/.86f);PhoVietSetPixelCap(RenderPixelCap);return;}
+            if(QualitySettings.vSyncCount==2&&EffectiveGraphics==GraphicsLevel.Low)return; // Holding the steady half refresh.
             if(GraphicsRank(EffectiveGraphics)>GraphicsRank(SelectedGraphics))
             {
+                governorLastRaise=Time.unscaledTime;
                 ApplyGraphicsLevel(GraphicsLevelAt(GraphicsRank(EffectiveGraphics)-1));
-                RenderPixelCap=PlanFor(EffectiveGraphics).pixelFloor;PhoVietSetPixelCap(RenderPixelCap);
                 PlayerPrefs.SetInt(GraphicsAutoKey,GraphicsRank(EffectiveGraphics)-GraphicsRank(SelectedGraphics));PlayerPrefs.Save();
             }
         }
