@@ -250,6 +250,8 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.156 đang phát hành WebGL 1.61.0:** người dùng đã yêu cầu build/push. Source `63f672d` gồm 21.150–21.155. Unity biên dịch sạch, 200 kiểm tra preflight đạt, fingerprint 589 file. ETC2/DXT build thành công, postflight 200 và 589 SHA giữ nguyên. Cache `7c29215388387ac0`. Chrome 16 kiểm tra và 459 bố cục đạt; index 35 đạt. Chuẩn bị push và kiểm Pages. Bản live vẫn 1.60.0.
+
 - **21.149 hoàn tất.** Unity Edit Mode, scene sạch, jobs và boost khóa, server 8787 đã dừng. Mobile đã kiểm bằng giả lập DPR3, chưa đo FPS trên máy thật. Giữ nguyên các thay đổi cục bộ ngoài phạm vi.
 
 - **21.141 hoàn tất:** 1.58.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. **Chờ người dùng thử trên điện thoại:** vuốt màn hình ngang, nút bay, mật độ icon trên không (`AirPickupsPerTile`=3, tự chọn). Test cũ lỗi sẵn: `VerifyJump`, `VerifyPerformanceLighting`, `VerifyRiverBridge`, `VerifyRiverCrashSinking`, `VerifyDistanceTanks2199`, `VerifyEnergy2122`, `VerifyEnergyRoutes2122`. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta`/Captures lịch sử ngoài commit.

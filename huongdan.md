@@ -3470,3 +3470,11 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Blender MCP dựng mắt xích thép, móc màu hổ phách và keyframe phóng/thu. Nguồn `ArtSource/Blender/Chain/PV_Chain.blend` và `build_chain.py`. `Assets/PhoViet/Resources/Chain/PV_Chain.json` chứa mesh 160/120 đỉnh và mẫu hai đường cong từ Blender. Unity lắp chuỗi tối đa 25 mắt so le, dùng pool nạp sẵn, neo hai đầu theo vị trí xe thực và cập nhật khi rẽ.
 - `PhoVietActions.cs` chuyển lệnh và khóa `StartChase` bằng `PolicePursuitReleased=false`. Cập nhật HUD và hướng dẫn web trong template. Cơ chế CSGT và húc cũ còn trong source để có thể khôi phục theo yêu cầu. Khóa việc đón/trả khách và boost giữ nguyên.
 - Unity biên dịch 0 lỗi/cảnh báo. Play Mode đạt 201 điều kiện gồm bán kính, chọn một mục tiêu, sáu tình huống giữ khoảng hở trong quá trình ngã, chạm hai lần, lộn trên không, khóa CSGT và reset. Đã xem ảnh hiệu ứng `.tools/chain2155-preview.png`. Chưa kiểm trên điện thoại thật. Chưa build WebGL, push hoặc phát hành. Web hiện là 1.60.0.
+
+## 21.156. Build và phát hành WebGL 1.61.0 (08/11/2026 — Codex)
+
+- Người dùng yêu cầu build và phát hành. Baseline `63f672d`, phạm vi 21.150–21.155 gồm xuất phát từ 0 km/h, tăng tốc mở màn xe mặt đất, đổi làn nhanh hơn 15%, Ga/Phanh, icon Arcade và dây xích thay húc. CSGT tạm khóa. Nhánh từ xa trước phát hành là `5b7b77e`, web đang ở 1.60.0.
+- Unity biên dịch 0 lỗi/cảnh báo. Preflight 200 điều kiện đạt, gồm khóa CSGT, mắt xích và móc Blender, hai đường cong phóng/thu và atlas Arcade. Ghi fingerprint 589 file. Đang build ETC2/DXT.
+- Build hai gói thành công sau 417,176 giây, 0 lỗi; BuildReport ghi 1 cảnh báo thiếu RuntimePipelineConfig của Unity Pipeline. Postflight 200 kiểm tra đạt, 589 SHA giữ nguyên. Đóng gói cache 7c29215388387ac0, 43 kiểm tra repo và 34 site ghép đạt. Đang kiểm WebAssembly desktop/mobile và offline.
+
+- Chrome local đạt 16 điều kiện desktop/mobile/offline, gồm hai lần chạm đi qua cầu nối Unity. Bố cục trang chủ đạt 459 điều kiện. Git index đạt 35 điều kiện, khớp bản đã thử. Server 8788 đã dừng. Chuẩn bị push và xác minh Pages.
