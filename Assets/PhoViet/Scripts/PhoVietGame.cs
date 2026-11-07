@@ -664,7 +664,6 @@ namespace PhoViet
             ShutdownTankCraters();
             ShutdownTrafficSignalFaces();
             ShutdownGraphicsSettings();
-            if(pedalChevron!=null)Destroy(pedalChevron);
             if(engine!=null&&engine.clip!=null)Destroy(engine.clip);if(crashClip!=null)Destroy(crashClip);
             if(sirenClip!=null)Destroy(sirenClip);
         }

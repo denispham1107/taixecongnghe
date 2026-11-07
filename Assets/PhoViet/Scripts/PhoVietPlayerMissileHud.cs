@@ -32,14 +32,11 @@ namespace PhoViet
   void DrawPlayerMissileButton()
   {
    if(State!=RideState.Riding&&State!=RideState.Paused)return;
-   EnsurePlayerMissileHudIcon();var pixels=PlayerMissileButtonPixels();var area=GameGuiArea();
+   var pixels=PlayerMissileButtonPixels();var area=GameGuiArea();
    var r=new Rect((pixels.x-area.x)/uiScale,(pixels.y-area.y)/uiScale,pixels.width/uiScale,pixels.height/uiScale);
-   bool ready=PlayerCanFire;
-   Panel(r,new Color(.25f,.72f,1,ready?.8f:.38f),r.width*.5f);
-   var inner=new Rect(r.x+2,r.y+2,r.width-4,r.height-4);Panel(inner,new Color(.025f,.12f,.22f,ready?.87f:.67f),inner.width*.5f);
-   var old=GUI.color;GUI.color=ready?Color.white:new Color(.64f,.72f,.8f,.75f);
-   if(playerMissileHudIcon!=null)GUI.DrawTexture(new Rect(r.x+r.width*.23f,r.y+r.height*.13f,r.width*.54f,r.height*.54f),playerMissileHudIcon,ScaleMode.ScaleToFit,true);GUI.color=old;
-   Txt(PlayerMissiles+"/"+MaximumPlayerMissiles,r.x,r.y+r.height*.63f,r.width,r.height*.25f,Mathf.RoundToInt(r.height*.17f),StreetArt.Cream,TextAnchor.MiddleCenter);
+   DrawArcadeControl(r,ArcadeControl.Missile,PlayerCanFire?1:.55f);
+   Txt(PlayerMissiles+"/"+MaximumPlayerMissiles,r.x,r.y+r.height*.685f,r.width,r.height*.15f,
+       Mathf.RoundToInt(r.height*.115f),StreetArt.Cream,TextAnchor.MiddleCenter);
    bool click=GUI.Button(r,GUIContent.none,GUIStyle.none);
 #if !UNITY_WEBGL || UNITY_EDITOR
    if(click&&Time.unscaledTime>=hudTouchSuppressUntil&&(Event.current.mousePosition-r.center).sqrMagnitude<=r.width*r.width*.25f)TryFirePlayerMissile();

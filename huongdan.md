@@ -3449,4 +3449,12 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Người dùng yêu cầu xem trước ba bộ gồm đủ Bắn tên lửa, Bay, Đạp Ga và Đạp Phanh, chỉ tích hợp sau khi xác nhận mẫu. **A Buồng lái** dùng viền kim loại và vạch đồng hồ. **B Arcade** dùng huy hiệu nhiều lớp. **C Kính neon** dùng nền kính xanh đêm và nét phát sáng. Màu nhận diện lần lượt là cam, xanh dương, xanh bạc hà và đỏ san hô.
 - Nguồn `ArtSource/Concepts/DriveControls-20261108/bo-icon-vector.svg` có 12 symbol chỉnh sửa được. `so-sanh-3-bo.png` so sánh cận cảnh. `thu-tren-game.png` ghép thử ở hai hướng màn hình trên ảnh Unity Game View 21.152. Số đạn 5/5 trong mẫu chỉ để minh họa.
 - Đã render cả hai bảng, kiểm đủ 12 mẫu cận cảnh và 24 nút trong sáu bố cục ghép, mọi nút nằm trong khung và không chồng nhau. Đã xem ảnh và chỉnh dải nhãn Phanh của mẫu B cho dễ đọc.
-- `approval.json` có `approved=false` và `selectedSet=null`. Chưa tích hợp vào Unity, build, push hay phát hành. Chỉ thêm tài liệu và thiết kế tham khảo.
+- Tại thời điểm tạo bản xem trước, `approval.json` có `approved=false` và `selectedSet=null`. Người dùng chọn B và sửa icon Bay ở 21.154.
+
+## 21.154. Áp dụng bộ icon B Arcade đã duyệt (08/11/2026 — Codex)
+
+- Người dùng chọn B. Xóa đúng hai cánh xanh nhô ở hai bên trên thân xe của icon Bay. Biến thể Hạ cũng dùng thân xe đã bỏ cánh, có hai mũi tên hướng xuống. Giữ hình xe và vệt nâng dưới bánh.
+- Vector duyệt `ArtSource/Concepts/DriveControls-20261108/arcade-da-duyet.svg`; `approval.json` ghi `approved=true`, `selectedSet=B`. Xuất năm ô 256 px trong atlas RGBA 1024×512 `Assets/PhoViet/Resources/PV_ArcadeControls.png`, lọc bilinear, không mipmap. Nút tên lửa vẽ số đạn trực tiếp trên dải cam. Nút Ga/Phanh chọn hiện tại đậm hơn. Bay chuyển sang Hạ khi yêu cầu bay đã kích hoạt.
+- `PhoVietDrivePedals.cs` dùng chung atlas đã nạp sẵn từ `PhoVietTileCulling.cs`. `PhoVietFlightButton.cs` và `PhoVietPlayerMissileHud.cs` vẽ mẫu mới. Tọa độ, cỡ và vùng chạm giữ theo 21.152. Logic bay, đạn, Ga và Phanh giữ nguyên.
+- Play Mode đạt 17 điều kiện mới và 987 điều kiện hồi quy (24 bố cục). Đã xác nhận atlas alpha đúng kích thước, số đạn động 4/5 sau khi bắn, hồi chiêu, chạm Bay/Hạ và hai hướng màn hình. Đã xem `Captures/arcade2154-landscape.png` và `Captures/arcade2154-portrait.png`. Báo cáo cục bộ `.tools/arcade2154-result.json`. Probe Editor tạm đã dọn.
+- Source và hai tài liệu lưu commit cục bộ. Chưa build WebGL, push hoặc phát hành. Web vẫn 1.60.0.

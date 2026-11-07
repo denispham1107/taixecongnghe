@@ -1,6 +1,8 @@
 {
-  "approved": false,
-  "selectedSet": null,
+  "approved": true,
+  "selectedSet": "B",
   "sets": ["A", "B", "C"],
-  "scope": ["missile", "flight", "gas", "brake"]
+  "scope": ["missile", "flight", "gas", "brake"],
+  "approvedSource": "arcade-da-duyet.svg",
+  "flightRevision": "Remove the two raised blue side fins marked in the reference. Apply to takeoff and landing."
 }
