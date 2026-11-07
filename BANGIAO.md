@@ -10,23 +10,23 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.60.0** — commit WebGL `a1d3a7f`, Pages `42347958136` success đúng SHA, cache `09eaa621cf166826`. Gồm 21.147–148. **29 kiểm tra live đạt, 0 lỗi runtime**. |
+| Bản đã phát hành | **1.61.0** — WebGL `ed35ea9`, Pages `42404611482` success đúng SHA, cache `7c29215388387ac0`. Gồm 21.150–21.155. **29 kiểm tra live đạt, 0 lỗi runtime.** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Simulator iPhone | **21.71:** đã thêm **Apple iPhone 14 Pro / 14 Pro Max**, Dynamic Island + Safe Area dọc/ngang; đang chọn Pro Max ngang, Safe Area bật. Asset chỉ trong Editor, chưa commit/push |
 | Chế độ chơi | **Web1.53.0/21.118:** reset quãngvăng trước dựngđường để chơi lại rẽđúng/khônglệchnhà. **21.115:** điểm/kỷlục dừngngaylúcva chạm, không cộngquãngvăng; physics giữ; truy đuổi CSGT tạm khóa trong source21.155. Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
-| Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần móc xích trong 4 m khi chưa bay, lộn khi bay (source21.155). Space/vuốt lên nhảy4jet trắng, **Source21.145: W/F/vuốt xuống bắn cả dướiđất(diệttank) và khi bay(diệttrực thăng); boost tạm khóa**, giữ code2bô chờ yêu cầu mở lại. Player đã có trên web1.40.0; dây xích chưa lên web |
+| Người chơi trong source/scene | **Blue Petshop Supercar** xanh, **đã thu nhỏ15%** thay người áo đỏ+xe máy; Q/chạm hai lần móc xích trong 4 m khi chưa bay, lộn khi bay (source21.155). Space/vuốt lên nhảy4jet trắng, **Source21.145: W/F/vuốt xuống bắn cả dướiđất(diệttank) và khi bay(diệttrực thăng); boost tạm khóa**, giữ code2bô chờ yêu cầu mở lại. Player đã có trên web1.40.0; dây xích đã có trên web 1.61.0 |
 | Bay/kho tên lửa source21.143 | **Đã có trên web1.59.0:** bay từmặtđường2,88166→3,45799m(+20%); trực thăng/icon theo thânxe. Nhảy4,11665m giữ; Space/vuốtlênlần2 tự nâng nếu thấp/kểcảđangrơi, đangcao hơn giữcaođộhiệncó. Nútbay cùng mức. **Đạn đầu lượt/tối đa5/5**, nhặt+1; **21.145 cho bắn cả dướiđất**/boostkhóa.805Unityđạt/2ảnhdọcngangđãxem. |
 | Điều khiển/nhảy trong source | **21.124:** nhảy vật lý bật ngay; vuốt lần2 sớm queue70% (đã có trên web1.55.0). **21.100:** lane pace **1,53065** (+10% so1.49); nhảy cố định **4,11665m** (+3% mức đầu1.49), không tăng theo Speed/W; gravity lên24,2/rơi22. 840 kiểm tra đạt, đã có trên web1.50.0 |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Tối ưu mobile | **21.136/21.138 đã có trên web 1.57.1:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop **Rất cao (source21.144)** giữ baseline trừ cascades WebGL; Rấtcao không tựgiảm. Layer ẩn sớm gồm đèn tín hiệu và đèn đường từ source21.147 |
 | Cài đặt đồ họa trong source | **21.144 đã có trên web1.59.0:** Rất cao(cũCao, cốđịnh)/Cao(mới,tựgiảm)/Trung bình/Thấp. IDlưu0/3/1/2 theo thứtựUI, không đổi pref cũ. DesktopRấtcao fullbaseline/mobileRấtcao planCao cũ; không governor/learneddrop/đổiHz. Cao có LOD0,6, tầm150m và phản chiếu448px. **21.147 có trên web 1.60.0:** giữ mật độ điểm ảnh và MSAA của Rất cao ở cả bốn mức để chữ biển rõ. |
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
-| Xuất phát trong source | **21.150:** bắt đầu và chơi lại từ 0 km/h, tăng khoảng 22 → 43 → 65 km/h ở giây 1–3. Xe và quãng đường dùng tốc độ thực. Đã kiểm Unity, chưa lên web. |
-| Xe mặt đất lúc mở màn trong source | **21.151:** các xe có mặt lúc bắt đầu tăng dần từ đứng yên đến nhịp riêng trong khoảng 3,01 giây. Áp dụng cho các nhóm giao thông, xe đặc biệt và nhánh CSGT nếu được mở lại. Chưa lên web. |
-| Phản hồi đổi làn trong source | **21.151:** xe người chơi đổi làn nhanh thêm 15% theo cả hai hướng, hệ số 1,53065 × 1,15, chưa lên web.  **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
+| Xuất phát trong source | **21.150:** bắt đầu và chơi lại từ 0 km/h, tăng khoảng 22 → 43 → 65 km/h ở giây 1–3. Xe và quãng đường dùng tốc độ thực. Đã có trên web 1.61.0. |
+| Xe mặt đất lúc mở màn trong source | **21.151:** các xe có mặt lúc bắt đầu tăng dần từ đứng yên đến nhịp riêng trong khoảng 3,01 giây. Áp dụng cho các nhóm giao thông, xe đặc biệt và nhánh CSGT nếu được mở lại. Đã có trên web 1.61.0. |
+| Phản hồi đổi làn trong source | **21.151:** xe người chơi đổi làn nhanh thêm 15% theo cả hai hướng, hệ số 1,53065 × 1,15, đã có trên web 1.61.0.  **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Pickup tên lửa mẫu C đã duyệt | **21.131 đã có trên web1.55.0:** Hex Ammo nền lục giác xanh/viền vàng/mũi đỏ;3LOD1482/1014/592tri,pool70.735Unity đạt/5ảnh đã xem; chỉ pickup đường, HUD/nút/đạn bay giữ. Approvaltrue/C |
 | Nút tên lửa/âm lượng/ảnh trang chủ mới | **21.134 đã có trên web 1.56.0:** nút góc trái dưới, master 1,56×/+3,86249dB, `poster-home-flight.png` dưới ảnh cũ |
@@ -35,8 +35,8 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 | Tên lửa người chơi trong source | **21.145 đã có trên web1.59.0:**5/5; W/F/vuốt/nút bắn dướiđất nhắm tank, khi bay nhắm trực thăng;1hit tankcháylớn/dừng/xácgâycollision.2pickup/phố-cầu/+1/chờ0,4s/khôngtargetbắnthẳng.1.215Unityđạt/3ảnhđãxem. Web1.58.0 trước đó3/3/chỉbay. |
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
 | Trực thăng / nhảy mobile mới | **21.126/21.132 đã có trên web1.55.0 (đạn40m/s):** giữ2–5chiếc/theo400m/4làn/so le; thêm tên lửa1→0,5s/40slot, bay thẳng/roll né. Trúng đạn hoặc đâm trực thăng rơi cháy/kết thúc kể cảCSGT; máy bay va chạm cũng cháy. Nhảy tức thời/queue70% giữ.1028Unity/387layout đạt |
-| Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Chưa lên web. |
-| Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Chưa lên web. |
+| Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Đã có trên web 1.61.0. |
+| Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Đã có trên web 1.61.0. |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
 | Năng lượng / bay / lộn | **21.148 có trên web 1.60.0:** bắt đầu và tối đa 180. Biểu tượng xanh dưới đất hồi 15, biểu tượng cam trên không hồi 20. Nhảy tốn 5, bay tốn 10 mỗi 0,5 giây. |
 | Bộ nhà mới đang chờ duyệt | **21.86:**19mẫu Blender/6ảnh/board tại`ArtSource/Concepts/City-20261029/`; `approval.json=false`, **chưa tích hợp Unity/web**, cây giữ mesh hiện tại. Cầu21.85 vẫn chờ chọn riêng |
@@ -52,15 +52,17 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.155 hoàn tất trong Unity:** thay húc bằng dây xích Blender MCP, chọn một xe máy gần nhất trong bán kính 4 m, kéo ngã và tách ra khỏi xe người chơi. Q/chạm hai lần vẫn lộn ngang khi bay. Tạm khóa CSGT. Biên dịch 0 lỗi/cảnh báo; 201 kiểm Play Mode đạt, đã xem ảnh. Chưa build/push/phát hành.
+- **21.156 đã phát hành WebGL 1.61.0:** ETC2/DXT build 417,176 giây, 200 preflight + 200 postflight, 589 SHA giữ nguyên, 43 repo + 34 site + 35 index, 16 Chrome + 459 bố cục. Pages `42404611482` đúng SHA `ed35ea9`, 29 live đạt.
 
-- **21.154 hoàn tất trong Unity:** B Arcade đã duyệt và áp dụng, bỏ hai cánh nhô ở Bay/Hạ. Atlas 1024×512, 17 kiểm mới + 987 kiểm hồi quy trên 24 bố cục. Đã xem Game View dọc/ngang. Chưa build hay phát hành.
+- **21.155 đã lên web 1.61.0:** thay húc bằng dây xích Blender MCP, chọn một xe máy gần nhất trong bán kính 4 m, kéo ngã và tách ra khỏi xe người chơi. Q/chạm hai lần vẫn lộn ngang khi bay. Tạm khóa CSGT. Biên dịch 0 lỗi/cảnh báo; 201 kiểm Play Mode đạt, đã xem ảnh.
+
+- **21.154 đã lên web 1.61.0:** B Arcade đã duyệt và áp dụng, bỏ hai cánh nhô ở Bay/Hạ. Atlas 1024×512, 17 kiểm mới + 987 kiểm hồi quy trên 24 bố cục. Đã xem Game View dọc/ngang.
 
 - **21.153:** dựng ba bộ tham khảo A Buồng lái, B Arcade và C Kính neon. Người dùng đã chọn B ở 21.154. 12 icon vector và hai ảnh so sánh tại `ArtSource/Concepts/DriveControls-20261108/`. Chỉ bản xem trước.
 
-- **21.152 hoàn tất trong Unity:** hai nút Ga/Phanh giữ chế độ, tốc độ NPC độc lập, Bay/Tên lửa ngang +15%. 1.017 kiểm tra và 24 cấu hình bố cục, đã xem hai ảnh Game View. Unity Edit Mode, cảnh sạch. Chưa build hoặc phát hành.
+- **21.152 đã lên web 1.61.0:** hai nút Ga/Phanh giữ chế độ, tốc độ NPC độc lập, Bay/Tên lửa ngang +15%. 1.017 kiểm tra và 24 cấu hình bố cục, đã xem hai ảnh Game View. Unity Edit Mode, cảnh sạch.
 
-- **21.151 hoàn tất trong Unity:** thêm tăng tốc mở màn cho xe mặt đất và tăng 15% tốc độ đổi làn xe người chơi. 841 kiểm tra mới, 1.790 kiểm tra tốc độ người chơi và 66 kiểm tra điểm xuất phát đạt. Unity Edit Mode, cảnh sạch. Chưa build hoặc phát hành.
+- **21.151 đã lên web 1.61.0:** thêm tăng tốc mở màn cho xe mặt đất và tăng 15% tốc độ đổi làn xe người chơi. 841 kiểm tra mới, 1.790 kiểm tra tốc độ người chơi và 66 kiểm tra điểm xuất phát đạt. Unity Edit Mode, cảnh sạch.
 
 - **21.150 hoàn tất trong Unity:** xuất phát/chơi lại từ 0 km/h rồi tăng dần. Dự báo xe cắt ngang bám nhịp tăng tốc. 1.790 kiểm tra xuất phát và 66 kiểm tra điểm xuất phát đạt. Chưa build hoặc phát hành.
 
@@ -250,7 +252,7 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.156 đang phát hành WebGL 1.61.0:** người dùng đã yêu cầu build/push. Source `63f672d` gồm 21.150–21.155. Unity biên dịch sạch, 200 kiểm tra preflight đạt, fingerprint 589 file. ETC2/DXT build thành công, postflight 200 và 589 SHA giữ nguyên. Cache `7c29215388387ac0`. Chrome 16 kiểm tra và 459 bố cục đạt; index 35 đạt. Chuẩn bị push và kiểm Pages. Bản live vẫn 1.60.0.
+- **21.156 hoàn tất.** Web 1.61.0 đã xác minh live. Unity Edit Mode, scene sạch, server 8788 đã dừng. Mobile đã kiểm giả lập, chưa thử thiết bị thật.
 
 - **21.149 hoàn tất.** Unity Edit Mode, scene sạch, jobs và boost khóa, server 8787 đã dừng. Mobile đã kiểm bằng giả lập DPR3, chưa đo FPS trên máy thật. Giữ nguyên các thay đổi cục bộ ngoài phạm vi.
 

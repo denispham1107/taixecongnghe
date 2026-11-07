@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web hiện tại **1.60.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web hiện tại **1.61.0**.
+
+## Cập nhật 1.61.0
+
+Q hoặc chạm hai lần móc xích xe máy gần nhất trong 4 m khi xe chưa bay. Khi đang bay, thao tác này lộn ngang 360°. Truy đuổi CSGT tạm khóa. Người chơi và xe mặt đất tăng tốc dần từ lúc xuất phát. Xe người chơi đổi làn nhanh thêm 15%. Nút Ga, Phanh, Bay và Tên lửa dùng icon Arcade.
 
 ## Cập nhật 1.60.0
 

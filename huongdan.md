@@ -68,7 +68,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 - Giọng chỉ đường đã chọn: nữ miền Nam, “Quẹo trái”, “Quẹo phải”, “Đi thẳng”; báo trước khoảng 4 giây, nhắc trước 2 giây, tránh “Đi thẳng” ngay trước rẽ. Hiện không phát vì công việc đang tắt.
 - **Tốc độ xuất phát trong source (21.150):** 0 km/h khi bắt đầu hoặc chơi lại. Tốc độ thực lên khoảng 22, 43, 65 km/h ở giây 1, 2, 3 rồi nối với đường cong tốc độ cũ. Web 1.60.0 vẫn dùng tốc độ xuất phát cũ. Source 21.151 cho xe mặt đất tăng dần trong khoảng 3,01 giây đầu và tăng tốc đổi làn xe người chơi 15%.
 - **Ga/Phanh trong source (21.152):** hai nút bên phải. Phanh giảm đến 0 rồi giữ cho đến khi bấm Ga. Ga tăng tốc trở lại. Các phương tiện khác dùng tốc độ riêng. Nút Bay và Phóng tên lửa tăng đường kính 15% ở màn hình ngang.
-- **Điều khiển trên web 1.60.0:** Q húc dưới đất/lộn khi bay, Space nhảy/bay/hạ, **W/F bắn tên lửa cả đất/bay từ21.145**. Mobile chạm hai lần húc/lộn, vuốt lên nhảy/bay/hạ, vuốt xuống bắn cả đất/bay từ21.145; nhận ngay khi đủ ngưỡng, không chờ nhấc tay. Boost tạm khóa (`BoostReleased=false`), chỉ mở lại khi người dùng yêu cầu. Từ web 1.60.0 (21.148), năng lượng bắt đầu và tối đa 180, nhặt sét xanh dưới đất +15 và sét cam trên không +20. Nhảy −5 và bay −10 mỗi 0,5 giây.
+- **Điều khiển trên web 1.61.0:** Q móc xích trong bán kính 4 m khi chưa bay/lộn khi bay, Space nhảy/bay/hạ, **W/F bắn tên lửa cả đất/bay từ21.145**. Mobile chạm hai lần móc xích/lộn, vuốt lên nhảy/bay/hạ, vuốt xuống bắn cả đất/bay từ21.145; nhận ngay khi đủ ngưỡng, không chờ nhấc tay. Boost tạm khóa (`BoostReleased=false`), chỉ mở lại khi người dùng yêu cầu. Từ web 1.60.0 (21.148), năng lượng bắt đầu và tối đa 180, nhặt sét xanh dưới đất +15 và sét cam trên không +20. Nhảy −5 và bay −10 mỗi 0,5 giây.
 - **Người chơi hiện tại (source21.64):** Blue Petshop Supercar xanh giữ chữ/sơn Meshy, thay riêng người áo đỏ+xe máy. Hero xe máy xanh–đen21.58 là bản trên web1.39.0 và được giữ asset lịch sử. Từsource21.67, NPC xe máy có người dùng Urban Rider nhiều màu xe/áo không sao; cả người/mô tô CSGT giữ nguyên.
 - **Mọi lần sửa/thêm chức năng đều phải ghi vào tài liệu này**, kể cả thay đổi chưa build hoặc chưa phát hành; ghi rõ trạng thái chưa hoàn tất thay vì bỏ qua.
 - **Phố Sài Gòn (24/10):** cảnh quan nhà phố hai bên đường dựng theo ảnh mẫu `ArtSource/Reference/Street/saigon_street_reference.webp`, giữ gameplay (mặt tiền |x| = 9,3 m) và ngân sách WebGL; chậu cây được đưa lại theo ảnh mẫu. Đã được người dùng yêu cầu build/phát hành ngày24/10 và đã phát hành1.34.0; bằng chứng ở21.27. Xem 21.19.
@@ -3429,7 +3429,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - `PhoVietGame.cs`: bỏ gán 17 m/s ở `StartRide`. `TickRide` tăng tốc xuất phát 6 m/s² cho đến khi gặp đường cong tốc độ sẵn có sau khoảng 3,01 giây. Nhịp tăng 0,36 m/s² và trần 30 m/s của tốc độ cơ sở được giữ. Phím bắt đầu/chơi lại giữ giá trị 0 trong khung hình vào lượt rồi mới mô phỏng. Tốc độ xe giao thông tiếp tục dùng `TrafficPaceSpeed`. Tạm dừng giữ tiến độ tăng tốc.
 - `TimeToIntersection` tính phần đường còn lại trong giai đoạn xuất phát để định thời xe cắt ngang. Đổi làn vẫn nhận lệnh lúc mới lăn bánh nhờ mức tham chiếu tối thiểu 8 m/s cho tiến độ đánh lái. Độ cao nhảy cố định và luật bay giữ nguyên.
 - Biên dịch và Play Mode trên cảnh thật đạt 1.790 điều kiện ở bước 20/30/60 FPS, gồm tốc độ tăng liên tục, quãng đường theo tốc độ, bắt đầu/chơi lại, tạm dừng, đổi làn và sai lệch dự báo tới giao lộ 70 m dưới 0,03 giây. Bộ `VerifyPlayerStart` hiện hành đạt 66 điều kiện gồm điểm xuất phát tùy chỉnh, rẽ trái/phải và đi qua cầu. Báo cáo cục bộ `.tools/start2150-probe.json`. Probe Editor tạm đã được dọn sau khi trả Unity về Edit Mode.
-- Thay đổi nằm trong source Unity. Chưa build WebGL hoặc phát hành thay đổi này. Web công khai vẫn là 1.60.0.
+- Thay đổi nằm trong source Unity. Đã phát hành trong 1.61.0, xem 21.156.
 
 ## 21.151. Tăng tốc xe mặt đất lúc mở màn và đổi làn nhanh thêm 15% (07/11/2026 — Codex)
 
@@ -3437,7 +3437,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - `PhoVietTraffic.cs` giữ tốc độ danh nghĩa làm mục tiêu và dùng `OpeningTrafficPace` cho chuyển động trong cửa sổ mở màn. Lịch xe cắt ngang tính phần đường chậm hơn bằng tích phân nhịp mở màn. `PhoVietRoadDrivers.cs` và `PhoVietRoutes.cs` dùng cùng nhịp cho đường cong rẽ và khi chuyển hệ tọa độ. `PhoVietExitTraffic.cs`, `PhoVietReckless.cs`, `PhoVietActions.cs`, `PhoVietPolice.cs` và `PhoVietRoutePolice.cs` xử lý các nhóm xe đặc biệt. Các chỗ dự đoán va chạm, áp sát, né khi dừng và hoạt ảnh bánh dùng vận tốc đã điều chỉnh. Tốc độ của xe đang văng do va chạm vẫn do vật lý tính.
 - `PhoVietGame.AdvanceLaneCurve` nhân hệ số đang dùng của xe người chơi 1,53065 với 1,15, thành 1,7602475. Quỹ đạo, hướng trái/phải, tiến độ theo tốc độ thực, mức tham chiếu 8 m/s khi mới lăn bánh và hiệu ứng trả lái tiếp tục dùng như trước. Hệ số này áp dụng cho đổi làn, không áp dụng cho tốc độ dọc hoặc cua giao lộ. Cùng một vận tốc cố định, thời lượng lý thuyết còn 1/1,15 lần.
 - Play Mode đạt 841 điều kiện mới ở bước 20/30/60 FPS, gồm chuyển động thực của xe, lịch cắt ngang, xuất phát CSGT, xe tăng/quái xế/tải ngủ gật, chơi lại và đúng quỹ đạo 1,15× bằng lệnh đổi làn và luồng vuốt WebGL. Ở 24 m/s và bước 60 FPS, đổi một làn mất khoảng 0,55 giây ở cả hai phía. Bộ kiểm 21.150 đạt 1.790, `VerifyPlayerStart` đạt 66. Báo cáo `.tools/start2151-probe.json`. Probe Editor tạm đã được dọn. Unity đã về Edit Mode, cảnh PhoViet sạch.
-- Source và hai tài liệu lưu trong commit cục bộ. Chưa build WebGL, push hay phát hành. Web đang ở 1.60.0.
+- Source và hai tài liệu lưu trong commit cục bộ. Đã phát hành trong 1.61.0, xem 21.156.
 
 ## 21.152. Nút Đạp Ga và Đạp Phanh (08/11/2026 — Codex)
 
@@ -3445,7 +3445,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - `PhoVietDrivePedals.cs` tạo cụm nút dưới góc phải, Ga trên và Phanh dưới. Biểu tượng dùng xe nhìn ngang kèm hai mũi tên tiến hoặc ký hiệu dừng, viền đậm cho chế độ đang chọn. Cả dọc lẫn ngang theo vùng an toàn và dùng chung tọa độ vẽ, chạm chuột, chạm thiết bị và `ApplyHudTap`. Chạm nút không kích hoạt vuốt hoặc đúp chạm. Bay và Phóng tên lửa tăng đường kính 15% ở ngang, giữ kích thước ở dọc.
 - NPC tiếp tục chạy, kể cả lúc người chơi đứng yên. Tốc độ của hai xe máy sinh sau lượt rẽ dùng ±1,2× nhịp cơ sở của giao thông và hệ số mở màn, thay quy tắc theo tốc độ tức thời của người chơi ở 21.114. `PhoVietTraffic.cs` và `PhoVietTurnBikes.cs` cùng dùng giá trị này. Xe tăng và trực thăng tiếp tục dùng vận tốc riêng. Chế độ Ga/Phanh chỉ ảnh hưởng tốc độ xe người chơi và phần dịch chuyển tương đối của cảnh. `BoostReleased` và `RideJobsReleased` vẫn khóa.
 - Unity biên dịch 0 lỗi, 0 cảnh báo. Play Mode đạt 1.017 điều kiện gồm 24 bố cục safe area và DPR 1–3, định tuyến chạm, phanh/giữ/ga ở 20/30/60 FPS và di chuyển độc lập của xe thường, xe máy sau cua, xe tăng, trực thăng. Đã xem `Captures/pedals2152-landscape.png` và `Captures/pedals2152-portrait.png`. Probe tạm đã được dọn. Báo cáo cục bộ `.tools/pedals2152-result.json`.
-- Source và hai tài liệu lưu commit cục bộ. Chưa build, push hoặc phát hành. Web vẫn 1.60.0.
+- Source và hai tài liệu lưu commit cục bộ. Đã phát hành trong 1.61.0, xem 21.156.
 
 ## 21.153. Ba bộ icon HUD chờ duyệt (08/11/2026 — Codex)
 
@@ -3460,7 +3460,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Vector duyệt `ArtSource/Concepts/DriveControls-20261108/arcade-da-duyet.svg`; `approval.json` ghi `approved=true`, `selectedSet=B`. Xuất năm ô 256 px trong atlas RGBA 1024×512 `Assets/PhoViet/Resources/PV_ArcadeControls.png`, lọc bilinear, không mipmap. Nút tên lửa vẽ số đạn trực tiếp trên dải cam. Nút Ga/Phanh chọn hiện tại đậm hơn. Bay chuyển sang Hạ khi yêu cầu bay đã kích hoạt.
 - `PhoVietDrivePedals.cs` dùng chung atlas đã nạp sẵn từ `PhoVietTileCulling.cs`. `PhoVietFlightButton.cs` và `PhoVietPlayerMissileHud.cs` vẽ mẫu mới. Tọa độ, cỡ và vùng chạm giữ theo 21.152. Logic bay, đạn, Ga và Phanh giữ nguyên.
 - Play Mode đạt 17 điều kiện mới và 987 điều kiện hồi quy (24 bố cục). Đã xác nhận atlas alpha đúng kích thước, số đạn động 4/5 sau khi bắn, hồi chiêu, chạm Bay/Hạ và hai hướng màn hình. Đã xem `Captures/arcade2154-landscape.png` và `Captures/arcade2154-portrait.png`. Báo cáo cục bộ `.tools/arcade2154-result.json`. Probe Editor tạm đã dọn.
-- Source và hai tài liệu lưu commit cục bộ. Chưa build WebGL, push hoặc phát hành. Web vẫn 1.60.0.
+- Source và hai tài liệu lưu commit cục bộ. Đã phát hành trong 1.61.0, xem 21.156.
 
 
 ## 21.155. Dây xích móc xe máy và tạm khóa CSGT (08/11/2026 — Codex)
@@ -3469,12 +3469,14 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - `PhoVietChain.cs` phóng tối đa 0,09 giây, siết 0,10 giây và thu 0,16 giây. Xe đang lao tới rất gần được móc sớm theo vận tốc tiếp cận. Tính khoảng hở theo thân xe và bao hình của xe máy lúc ngã. Chỉ giật vào tối đa 0,46 m khi còn dư khoảng hở 0,30 m. Khi khoảng trống hẹp, làm xe đổ ra xa theo trục tách thay vì giật sát. Tái dùng trạng thái ngã/hồi phục 3 giây và số đếm cũ trong telemetry. Không kéo lệch xe người chơi hoặc cấp miễn va chạm. Xe bị móc vẫn là vật cản nếu người chơi chủ động lái vào sau đó.
 - Blender MCP dựng mắt xích thép, móc màu hổ phách và keyframe phóng/thu. Nguồn `ArtSource/Blender/Chain/PV_Chain.blend` và `build_chain.py`. `Assets/PhoViet/Resources/Chain/PV_Chain.json` chứa mesh 160/120 đỉnh và mẫu hai đường cong từ Blender. Unity lắp chuỗi tối đa 25 mắt so le, dùng pool nạp sẵn, neo hai đầu theo vị trí xe thực và cập nhật khi rẽ.
 - `PhoVietActions.cs` chuyển lệnh và khóa `StartChase` bằng `PolicePursuitReleased=false`. Cập nhật HUD và hướng dẫn web trong template. Cơ chế CSGT và húc cũ còn trong source để có thể khôi phục theo yêu cầu. Khóa việc đón/trả khách và boost giữ nguyên.
-- Unity biên dịch 0 lỗi/cảnh báo. Play Mode đạt 201 điều kiện gồm bán kính, chọn một mục tiêu, sáu tình huống giữ khoảng hở trong quá trình ngã, chạm hai lần, lộn trên không, khóa CSGT và reset. Đã xem ảnh hiệu ứng `.tools/chain2155-preview.png`. Chưa kiểm trên điện thoại thật. Chưa build WebGL, push hoặc phát hành. Web hiện là 1.60.0.
+- Unity biên dịch 0 lỗi/cảnh báo. Play Mode đạt 201 điều kiện gồm bán kính, chọn một mục tiêu, sáu tình huống giữ khoảng hở trong quá trình ngã, chạm hai lần, lộn trên không, khóa CSGT và reset. Đã xem ảnh hiệu ứng `.tools/chain2155-preview.png`. Chưa kiểm trên điện thoại thật. Đã phát hành trong 1.61.0, xem 21.156.
 
 ## 21.156. Build và phát hành WebGL 1.61.0 (08/11/2026 — Codex)
 
 - Người dùng yêu cầu build và phát hành. Baseline `63f672d`, phạm vi 21.150–21.155 gồm xuất phát từ 0 km/h, tăng tốc mở màn xe mặt đất, đổi làn nhanh hơn 15%, Ga/Phanh, icon Arcade và dây xích thay húc. CSGT tạm khóa. Nhánh từ xa trước phát hành là `5b7b77e`, web đang ở 1.60.0.
-- Unity biên dịch 0 lỗi/cảnh báo. Preflight 200 điều kiện đạt, gồm khóa CSGT, mắt xích và móc Blender, hai đường cong phóng/thu và atlas Arcade. Ghi fingerprint 589 file. Đang build ETC2/DXT.
-- Build hai gói thành công sau 417,176 giây, 0 lỗi; BuildReport ghi 1 cảnh báo thiếu RuntimePipelineConfig của Unity Pipeline. Postflight 200 kiểm tra đạt, 589 SHA giữ nguyên. Đóng gói cache 7c29215388387ac0, 43 kiểm tra repo và 34 site ghép đạt. Đang kiểm WebAssembly desktop/mobile và offline.
+- Unity biên dịch 0 lỗi/cảnh báo. Preflight 200 điều kiện đạt, gồm khóa CSGT, mắt xích và móc Blender, hai đường cong phóng/thu và atlas Arcade. Ghi fingerprint 589 file.
+- Build hai gói thành công sau 417,176 giây, 0 lỗi; BuildReport ghi 1 cảnh báo thiếu RuntimePipelineConfig của Unity Pipeline. Postflight 200 kiểm tra đạt, 589 SHA giữ nguyên. Đóng gói cache 7c29215388387ac0, 43 kiểm tra repo và 34 site ghép đạt.
 
-- Chrome local đạt 16 điều kiện desktop/mobile/offline, gồm hai lần chạm đi qua cầu nối Unity. Bố cục trang chủ đạt 459 điều kiện. Git index đạt 35 điều kiện, khớp bản đã thử. Server 8788 đã dừng. Chuẩn bị push và xác minh Pages.
+- Chrome local đạt 16 điều kiện desktop/mobile/offline, gồm hai lần chạm đi qua cầu nối Unity. Bố cục trang chủ đạt 459 điều kiện. Git index đạt 35 điều kiện, khớp bản đã thử. Server 8788 đã dừng.
+
+- Đã push commit WebGL `ed35ea9` lên main. [GitHub Pages run 42404611482](https://github.com/denispham1107/taixecongnghe/actions/runs/42404611482) hoàn tất thành công đúng SHA. Web trả 1.61.0, cache `7c29215388387ac0`. Live đạt 29 kiểm tra, tài nguyên tải xuống khớp bản đã thử, cảnh Unity thật vào chơi và tạm dừng được, 0 lỗi runtime. Báo cáo tại `Captures/release161-pages.json` và `Captures/release161-live-results.json`. Unity Edit Mode, scene sạch. Mobile đã kiểm giả lập, chưa thử trên máy thật.
