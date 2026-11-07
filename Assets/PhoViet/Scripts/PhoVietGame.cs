@@ -73,6 +73,9 @@ namespace PhoViet
         public int Frames {get;private set;}
         public int ScheduledIntersections {get;private set;}
         public const float DifficultyMultiplier=3f;
+        const float LaunchAcceleration=6f;
+        const float CruiseAcceleration=.12f*DifficultyMultiplier;
+        const float LaunchDuration=17f/(LaunchAcceleration-CruiseAcceleration);
         public float DifficultyTime => timeRiding*DifficultyMultiplier;
         public float Difficulty01 => Mathf.Clamp01(DifficultyTime/110f);
         public bool OpeningTrafficReduced => timeRiding<10f;
@@ -178,7 +181,7 @@ namespace PhoViet
             for(int i=0;i<openingCount;i++){SpawnTraffic(rng.Next(4),openingZ);openingZ+=11+(float)rng.NextDouble()*10;}
             spawnTimer=.7f+(float)rng.NextDouble()*1.1f;if(engine!=null)engine.Stop();ResetDaylight();PositionCamera(true);
         }
-        public void StartRide() { if(State==RideState.Ready&&!GraphicsSettingsOpen){State=RideState.Riding;Speed=17;engine?.Play();} }
+        public void StartRide() { if(State==RideState.Ready&&!GraphicsSettingsOpen){State=RideState.Riding;engine?.Play();} }
         public void RestartRide(){ResetRide();StartRide();}
         public void MoveLane(int direction)
         {
@@ -226,8 +229,18 @@ namespace PhoViet
         }
         float TimeToIntersection(float metres)
         {
-            float acceleration=.12f*DifficultyMultiplier+(IsChased?.28f:0),cap=30+(IsChased?chaseBoost:0);
-            float speed=Mathf.Max(Speed,17);
+            float chaseAcceleration=IsChased?.28f:0;
+            float acceleration=CruiseAcceleration+chaseAcceleration,cap=30+(IsChased?chaseBoost:0);
+            float speed=Speed;
+            float launchRemaining=Mathf.Max(0,LaunchDuration-timeRiding);
+            if(launchRemaining>0&&!BoostActive)
+            {
+                float launchRate=LaunchAcceleration+chaseAcceleration;
+                float launchTravel=(speed+.5f*launchRate*launchRemaining)*launchRemaining;
+                if(metres<=launchTravel)return TravelTimeToIntersection(metres,speed,launchRate,cap);
+                return launchRemaining+TravelTimeToIntersection(metres-launchTravel,speed+launchRate*launchRemaining,acceleration,cap);
+            }
+            speed=Mathf.Max(speed,17);
             if(BoostActive)
             {
                 float boostedSpeed=Mathf.Max(Speed,17*BoostMultiplier),boostedAcceleration=acceleration*BoostMultiplier,boostedCap=cap*BoostMultiplier;
@@ -299,7 +312,8 @@ namespace PhoViet
                 if(wasRiding&&(Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.F)))TryFirePlayerMissile();
                 if(Input.GetKeyDown(KeyCode.LeftArrow)||Input.GetKeyDown(KeyCode.A))MoveLane(-1);
                 if(Input.GetKeyDown(KeyCode.RightArrow)||Input.GetKeyDown(KeyCode.D))MoveLane(1);
-                ReadSwipe(); TickRide(Mathf.Min(Time.deltaTime,.05f));
+                ReadSwipe();
+                if(wasRiding)TickRide(Mathf.Min(Time.deltaTime,.05f));
             }
             UpdateWork(Mathf.Min(Time.deltaTime,.05f));
             if(State==RideState.Falling)TickRiderCrash(Mathf.Min(Time.deltaTime,.05f));
@@ -323,7 +337,8 @@ namespace PhoViet
         {
             // Keep the smooth lane shape; car pace is 1.15 x 1.10 x 1.10 x 1.10 (21.89/21.92/21.94/21.100).
             // Re-evaluate pace each frame so W also speeds up a turn in progress.
-            float pace=IsPlayerCar?Mathf.Max(Speed,1)/17f*1.53065f:1;
+            // Preserve a useful steering response while pulling away from rest.
+            float pace=IsPlayerCar?Mathf.Max(Speed,8)/17f*1.53065f:1;
             if(lanePlanned&&(laneGoal!=target||Mathf.Abs(LaneCurveValue(Mathf.Min(1,laneClock/laneCurveTime),0)-baseX)>.02f))lanePlanned=false;
             if(!lanePlanned)
             {
@@ -372,7 +387,8 @@ namespace PhoViet
             TickWorkMotion(dt);
             TickActionTimers(dt);
             TickBoost(dt);
-            if(!ServiceStopped)timeRiding+=dt;cruiseSpeed=Mathf.Min(17+DifficultyTime*.12f,30)+(IsChased?chaseBoost:0);
+            if(!ServiceStopped)timeRiding+=dt;
+            cruiseSpeed=Mathf.Min(LaunchAcceleration*timeRiding,TrafficPaceSpeed)+(IsChased?chaseBoost:0);
             Speed=cruiseSpeed;
             if(jumpFlying&&!ServiceStopped)Speed+=3;
             if(BoostActive)Speed*=BoostMultiplier;

@@ -24,6 +24,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Tối ưu mobile | **21.136/21.138 đã có trên web 1.57.1:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop **Rất cao (source21.144)** giữ baseline trừ cascades WebGL; Rấtcao không tựgiảm. Layer ẩn sớm gồm đèn tín hiệu và đèn đường từ source21.147 |
 | Cài đặt đồ họa trong source | **21.144 đã có trên web1.59.0:** Rất cao(cũCao, cốđịnh)/Cao(mới,tựgiảm)/Trung bình/Thấp. IDlưu0/3/1/2 theo thứtựUI, không đổi pref cũ. DesktopRấtcao fullbaseline/mobileRấtcao planCao cũ; không governor/learneddrop/đổiHz. Cao có LOD0,6, tầm150m và phản chiếu448px. **21.147 có trên web 1.60.0:** giữ mật độ điểm ảnh và MSAA của Rất cao ở cả bốn mức để chữ biển rõ. |
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
+| Xuất phát trong source | **21.150:** bắt đầu và chơi lại từ 0 km/h, tăng khoảng 22 → 43 → 65 km/h ở giây 1–3. Xe và quãng đường dùng tốc độ thực. Đã kiểm Unity, chưa lên web. |
 | Phản hồi đổi làn trong source | **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua luôn1,2×Speed, sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Pickup tên lửa mẫu C đã duyệt | **21.131 đã có trên web1.55.0:** Hex Ammo nền lục giác xanh/viền vàng/mũi đỏ;3LOD1482/1014/592tri,pool70.735Unity đạt/5ảnh đã xem; chỉ pickup đường, HUD/nút/đạn bay giữ. Approvaltrue/C |
@@ -47,6 +48,8 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.150 hoàn tất trong Unity:** xuất phát/chơi lại từ 0 km/h rồi tăng dần. Dự báo xe cắt ngang bám nhịp tăng tốc. 1.790 kiểm tra xuất phát và 66 kiểm tra điểm xuất phát đạt. Chưa build hoặc phát hành.
 
 - **21.149 đã phát hành 1.60.0:** `a1d3a7f`/Pages `42347958136`/cache `09eaa621cf166826`. ETC2/DXT build 343,431 giây, 0 lỗi. 194 preflight + 194 postflight, 585 SHA giữ nguyên, 43 kiểm tra repo + 34 site + 35 index, 13 browser local và 29 live đạt. Đã xem HUD 180/180 trên web và xác nhận vào chơi/tạm dừng.
 
@@ -365,6 +368,7 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 | Cháy/khói đa điểm va chạm mặt đất; xe hồi phục vẫn cháy | **21.127** | `PhoVietContactFire.cs`, `ContactFireVisual.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs`, `PhoVietPolice.cs`, `PhoVietPlayerVehicle.cs`, `PhoVietThunderstorm.cs`; verifier/report/capture `ContactFire2127`/`contact2127-*` |
 | Trực thăng/tên lửa/rollné/rơi cháy, nhảy tức thời/queue70% | **21.126**,21.125/21.124/21.122 | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `MissileFlightVisual.cs`, `HelicopterVisual.cs`, `ThunderstormVisual.cs`, `RotorBlur.shader`, `PhoVietJump.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`; prefabResource/Art/Helicopter; nguồn `prepare_helicopter.py`/`PhoViet_Helicopter.blend`; nguồn tên lửa `missile2126.py`/`PhoViet_HelicopterMissile.blend`; verifier/report `Helicopter*2126`/`missile2126-*` |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
+| Tốc độ xuất phát và lịch xe cắt ngang | **21.150** | `PhoVietGame.cs` (StartRide, TickRide, TimeToIntersection, AdvanceLaneCurve) |
 | Điểm xuất phát xe, kéo thả Edit/Play Ready | **21.76**,6.1 | `PhoVietPlayerStart.cs`, `Editor/PhoVietPlayerStartEditor.cs`, `PhoVietGame.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyPlayerStart*.cs` |
 | Menu Pause/kết thúc/về đầu phố | **21.90**, 2.1 | `PhoVietGame.cs` → `EndCard`, `TogglePause`, `ResetRide` |
 | Điều khiển, đổi làn, camera, HUD | 2.2, 12, **21.94**,21.92/21.89/21.81/21.55/21.60/21.65 | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoViet*Hud.cs`, `AgentScripts/VerifyLaneResponse.cs`, `VerifySupercarScalePace.cs`, `CaptureLaneResponse.cs` |
