@@ -232,6 +232,8 @@ Cập nhật lần cuối: **07/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.149 đang chuẩn bị phát hành 1.60.0** từ source 5e956db gồm 21.147 và 21.148. Đã qua 194 kiểm tra trước build và ghi SHA 585 file nguồn. Hai gói đã build xong. Postflight 194, SHA 585 file giữ nguyên, kiểm gói repo 43 và site 34 đều đạt. Cache 09eaa621cf166826. Đã đạt 13 kiểm tra trình duyệt desktop/mobile/offline và 35 kiểm tra Git index. Đã xem HUD 180/180 trên hai giao diện. Server 8787 đã dừng. Đang commit và push bản phát hành để Pages triển khai.
+
 - **21.146 hoàn tất:** 1.59.0 đã phát hành và xác minh29live/0runtime (đã chờ và xem cảnh game/pause thật, không chỉ splash); không còn build/push/Pages/live đang dở. Unity Edit/scene sạch/jobsfalse/boostfalse/server8786đãdừng. Chưa thử Safari/Android máy thật/FPS mới; giữ dirty ngoài phạm vi.
 
 - **21.141 hoàn tất:** 1.58.0 đã phát hành/xác minh live; không còn bước build/push/Pages/live đang dở. Unity Edit/scene sạch/jobs false, server 8785 đã dừng. **Chờ người dùng thử trên điện thoại:** vuốt màn hình ngang, nút bay, mật độ icon trên không (`AirPickupsPerTile`=3, tự chọn). Test cũ lỗi sẵn: `VerifyJump`, `VerifyPerformanceLighting`, `VerifyRiverBridge`, `VerifyRiverCrashSinking`, `VerifyDistanceTanks2199`, `VerifyEnergy2122`, `VerifyEnergyRoutes2122`. Giữ dirty Art/Wave/Packages/Simulator/`PV_MissileHud.png.meta`/`PV_MissileSmoke.png.meta`/Captures lịch sử ngoài commit.

@@ -6,6 +6,10 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 **[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web hiện tại **1.59.0**.
 
+## Cập nhật 1.60.0
+
+Năng lượng bắt đầu và tối đa 180. Sét cam trên không hồi 20, sét xanh dưới đất hồi 15. Giữ độ phân giải và khử răng cưa của Rất cao ở mọi cấu hình để chữ bảng hiệu và bảng “CHO THUÊ NHÀ” rõ hơn.
+
 ## Cập nhật 1.59.0
 
 W/vuốt xuống bắn tên lửa; tạm ẩn tăng tốc. Kho tên lửa 5/5, bắn dưới đất hạ xe tăng bằng một phát; xe tăng cháy lớn, ngừng chạy và bắn, xác xe vẫn gây va chạm. Mỗi khu phố/cầu có 6 icon năng lượng dưới đất và 7 trên không. Bay cao hơn 20%, giữ độ cao nhảy. Thêm mức đồ họa Cao tự điều chỉnh, đổi Cao cũ thành Rất cao và giữ cố định chất lượng.

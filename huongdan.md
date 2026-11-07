@@ -3403,3 +3403,13 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - `EnergyPickup.shader` có thuộc tính `_AirPalette` để chuyển tông mặt và viền sang cam. Các LOD của biểu tượng trên không dùng chung `Resources/Energy/PV_AirEnergyHalo.mat`. Biểu tượng dưới đất dùng material xanh gốc. Hai loại dùng chung mesh và prefab hiện có, vẫn 6 biểu tượng đất và 7 trên không cho mỗi đoạn phố hoặc cầu. Phần hướng dẫn của template web đã ghi màu, lượng hồi và giới hạn mới.
 - Unity đạt 338 kiểm tra gồm VerifyMissileInput2142 (72), VerifyFlight2140 (94), VerifyFlightAltitude2143 (172). Đã kiểm va chạm nhặt cả hai loại khi thiếu, gần đầy và đầy năng lượng, nhặt một lần, bảng màu trên mọi LOD và reset về 180. Ảnh `Captures/energy2148-palette.png` cho thấy sét cam trên không, sét xanh dưới đất và HUD 180/180. Shader báo không lỗi. Lần gọi bài kiểm đầu ngắt kết nối khi Play Mode khởi động và đã chạy lại thành công.
 - Unity Edit Mode, scene sạch, jobs và boost khóa. Source và tài liệu lưu commit cục bộ. Web công khai đang chạy 1.59.0. Bản build kế tiếp cần lấy cả 21.147 và 21.148, đồng thời cập nhật điều kiện năng lượng 150 trong bản sao verifier phát hành mới.
+
+## 21.149. Build và phát hành WebGL 1.60.0 (07/11/2026 — Codex)
+
+- Người dùng yêu cầu build và phát hành. Phạm vi gồm 21.147 giữ nét bảng hiệu và 21.148 tăng năng lượng lên 180 với vật phẩm xanh dưới đất +15, cam trên không +20. Source đầu lượt là 5e956db. Đang chuẩn bị hai gói WebGL.
+
+- Unity biên dịch không lỗi. Cấu hình lần đầu gặp Play Mode đang mở nên đã thoát Play rồi chạy lại thành công. Verifier 1.60.0 đạt 194 kiểm tra trước build. Đã ghi SHA 585 file nguồn và bắt đầu build hai variant.
+
+- Build ETC2/DXT thành công trong 343,431 giây, 0 lỗi. Cảnh báo duy nhất là thiếu RuntimePipelineConfig của công cụ Editor. Postflight đạt 194, SHA 585 file nguồn giữ nguyên. Cache 09eaa621cf166826. Ghép hai gói từ các phần 32 MiB và đạt 43 kiểm tra repo, 34 kiểm tra site. Unity Edit Mode, scene sạch. Đang kiểm WebGL local.
+
+- Bản WebGL ghép local đạt 13 kiểm tra trình duyệt. Đã xem HUD 180/180 trên desktop và giả lập mobile. Cả bốn mức dùng cùng kích thước framebuffer trên từng thiết bị. Desktop mở lại được cảnh thật khi offline. Không ghi nhận lỗi runtime. Git index đạt 35 kiểm tra và khớp gói đã thử. Đã dừng server 8787. Chuẩn bị push và xác minh Pages.
