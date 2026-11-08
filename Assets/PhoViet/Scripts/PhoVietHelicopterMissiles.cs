@@ -39,9 +39,9 @@ namespace PhoViet
    if(State!=RideState.Riding||!RiderFlying||IsTurning||h.wrecked){h.shotInterval=h.shotRemaining=interval;return;}
    h.shotRemaining=Mathf.Max(0,h.shotRemaining+interval-h.shotInterval);h.shotInterval=interval;h.shotRemaining-=dt;
    Vector3 delta=rider.localPosition-h.root.localPosition;
-   if(h.shotRemaining>.00001f||delta.sqrMagnitude>125*125||Vector3.Dot(h.root.localRotation*Vector3.forward,delta)<8)return;
+   if((!h.turnFirstShotPending&&h.shotRemaining>.00001f)||delta.sqrMagnitude>125*125||Vector3.Dot(h.root.localRotation*Vector3.forward,delta)<8)return;
    // At most one missile per aircraft per control step. Never queue a burst while out of range.
-   if(FireHelicopterMissile(h))h.shotRemaining=interval;else h.shotRemaining=.05f;
+   if(FireHelicopterMissile(h)){h.shotRemaining=interval;h.turnFirstShotPending=false;}else h.shotRemaining=.05f;
   }
   bool FireHelicopterMissile(HelicopterActor h)
   {

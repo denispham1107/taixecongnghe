@@ -52,6 +52,8 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.162 hoàn tất source:** canvas mở dọc theo viewport được hiệu chỉnh trên iPhone; xe tăng/trực thăng của đợt sau rẽ bắn ngay phát tên lửa đầu khi xe người chơi đang bay và ở trong tầm. Web vẫn là 1.62.0.
+
 - **21.161 hoàn tất trong Unity:** trực thăng sau rẽ xuất hiện sau khủng long 0,5 giây. 35 kiểm tra Play Mode đạt, gồm cả hai hướng rẽ và tạm dừng/chơi lại. Source chưa build/phát hành.
 
 - **21.160 đã phát hành WebGL 1.62.0:** ETC2/DXT 389,628 giây, 203 kiểm tra trước + 203 sau, 585 SHA giữ nguyên, 43 kiểm tra gói repo + 34 gói Pages + 35 Git index. Chrome local 16, bố cục 459 và live 29 đạt. Pages `42503724591` đúng SHA `a5e3afb`.
@@ -437,6 +439,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
 | Trang chủ HTML / 2 ảnh / responsive | **21.134**,21.119,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `poster-home.png`, `poster-home-flight.png` (chụp bằng `AgentScripts/CaptureHomeFlight2134.cs`); `Editor/PhoVietWebBuild.cs`→RefreshWebShell; `AgentScripts/RefreshLandingPreview.cs`, `VerifyLanding.cjs`. Không dùngcapturecũ để thayảnhPNG này |
+| Mở game dọc sát mép, phát đầu phòng không sau rẽ | **21.162**, 21.161 | `Assets/WebGLTemplates/PhoVietPWA/app.js`, `style.css`, `PhoVietTurnHazards.cs`, `PhoVietTankFire.cs`, `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs` |
 | Pickup tên lửa C đã duyệt | **21.130–21.131** | `Editor/PhoVietMissilePickupUpgrade.cs`, `AgentScripts/InstallPlayerMissile2128.cs`, `VerifyMissilePickupC2131.cs`, `CaptureMissilePickupC2131.cs`, `Resources/PlayerMissile/PV_MissilePickup*`; `ArtSource/Concepts/MissilePickup-20261105/` (`approval.json`, `build_concepts.py`, hai `.blend`, hai PNG, `verification.json`) |
 | Vệt lửa/khói tên lửa | **21.129** | `Scripts/MissileFlightVisual.cs`, `MissileTrail.shader`, `Editor/PhoVietMissileTrailSetup.cs`, `Resources/Helicopter/PV_HelicopterMissile.prefab`; `AgentScripts/UpgradeMissileTrail2129.cs`, `VerifyMissileTrail2129.cs`, `CaptureMissileTrail2129.cs` |
 | Vuốt/nhảy/nút bay/icon năng lượng trên không | **21.140** | `PhoVietGestures.cs`, `PhoVietJump.cs`, `PhoVietFlightButton.cs`, `PhoVietEnergy.cs`, `PhoVietPortraitHud.cs`→GameplayPointerAllowed, `app.js`→swipeAction; `Resources/PlayerFlight/`, `ArtSource/UI/flight_button_icon.py`; `AgentScripts/VerifyFlight2140.cs`, `VerifySwipeShell2140.cjs`, `CaptureFlight2140.cs`, `InstallFlight2140.cs` |

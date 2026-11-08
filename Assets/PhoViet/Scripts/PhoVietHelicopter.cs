@@ -7,7 +7,7 @@ namespace PhoViet
   const float HelicopterSpeed=16,HelicopterSpacing=12,TurnHelicopterHeadClearance=1.55f;
   sealed class HelicopterActor
   {
-   public Transform root;public HelicopterVisual visual;public bool active,wrecked,turnWingmanPending;
+   public Transform root;public HelicopterVisual visual;public bool active,wrecked,turnWingmanPending,turnFirstShotPending;
    public float age,shotRemaining,shotInterval;public Vector3 velocity,scroll,wreckEuler,wreckSpin,missilePrevious;public int generation;
   }
   readonly HelicopterActor[] helicopters=new HelicopterActor[MaximumHelicopters];
@@ -82,14 +82,16 @@ namespace PhoViet
    for(int attempt=1;attempt<8&&HelicopterLaneOccupied(lane);attempt++)lane=NextHelicopterLane();
    return LaneX[lane];
   }
-  void LaunchHelicopter(HelicopterActor actor,Vector3 position)
+  void LaunchHelicopter(HelicopterActor actor,Vector3 position,bool postTurn=false)
   {
    actor.root.localPosition=actor.missilePrevious=position;
    actor.root.localRotation=Quaternion.Euler(0,180,0);actor.velocity=Vector3.back*HelicopterSpeed;
    actor.generation++;actor.age=0;actor.scroll=Vector3.zero;
    actor.shotInterval=actor.shotRemaining=HelicopterMissileInterval(Distance);
    actor.active=true;actor.wrecked=actor.turnWingmanPending=false;
+   actor.turnFirstShotPending=postTurn;
    actor.root.gameObject.SetActive(true);actor.visual.ResetPose();HelicoptersSpawned++;
+   if(postTurn)TickHelicopterWeapon(actor,0);
   }
   void SpawnTurnHelicopter(Dinosaur dinosaur)
   {
@@ -103,7 +105,7 @@ namespace PhoViet
    }
    if(lead==null)return;
    Vector3 head=DinosaurPoint(dinosaur.visual.head);
-   LaunchHelicopter(lead,head+Vector3.up*TurnHelicopterHeadClearance);
+   LaunchHelicopter(lead,head+Vector3.up*TurnHelicopterHeadClearance,true);
    lead.scroll=Vector3.forward*dinosaurScroll;
    lead.turnWingmanPending=true;
    TryTurnHelicopterWingman(lead);
@@ -124,7 +126,7 @@ namespace PhoViet
    if(free!=null)
    {
     float z=Mathf.Max(28,lead.root.localPosition.z+HelicopterSpacing);
-    LaunchHelicopter(free,new Vector3(NextFreeHelicopterLaneX(),FlightHeightAboveSupport+PlayerHeight*.5f,z));
+    LaunchHelicopter(free,new Vector3(NextFreeHelicopterLaneX(),FlightHeightAboveSupport+PlayerHeight*.5f,z),true);
    }
    lead.turnWingmanPending=false;
   }

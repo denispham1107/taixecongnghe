@@ -16,6 +16,7 @@ namespace PhoViet
    // A recycled traffic slot must never inherit the previous tank's aiming rule.
    [System.NonSerialized] public int turnTankAimGeneration=-1;
    [System.NonSerialized] public Vector3 turnTankTarget;
+   [System.NonSerialized] public bool turnTankAirShotPending;
    [System.NonSerialized] public bool tankDestroyed;
   }
   public const float TurnTankAimChance=.7f,TurnTankAimJunctionOffset=24f;
@@ -124,7 +125,9 @@ namespace PhoViet
   bool TankCanFire(TrafficVehicle v)
   {
    if(!v.active||!v.armored||v.tankDestroyed||v.knocked||v.riverFalling||v.routeDetached||v.crossing||v.roadTurning||v.baseTrafficSpeed>=0)return false;
-   float z=v.model.localPosition.z;if(z<=TankFireNear||z>=TankFireFar)return false;
+   float z=v.model.localPosition.z;if(z>=TankFireFar)return false;
+   if(TurnTankAirShotReady(v))return TankMuzzle(v).z-rider.localPosition.z>=8;
+   if(z<=TankFireNear)return false;
    // Chỉ đạn pháo cần đủ khoảng cách để điểm rơi còn nằm trước nòng.
    return RiderFlying||TankMuzzle(v).z-5>=Mathf.Max(Speed,8)*ShellFlight;
   }
@@ -136,6 +139,7 @@ namespace PhoViet
    foreach(var v in vehicles)
    {
     if(!TankCanFire(v))continue;
+    if(TurnTankAirShotReady(v)){FireTurnTankOpeningMissile(v);continue;}
     // Khi hạ xuống, chờ tối đa một nhịp pháo trước khi bắn tiếp.
     v.tankFireTimer=Mathf.Min(v.tankFireTimer,interval)-dt;
     if(v.tankFireTimer>0)continue;
@@ -143,6 +147,13 @@ namespace PhoViet
     if(antiAir)FireEnemyMissile(TankMuzzle(v),true);
     else FireAutomaticTankShell(v);
    }
+  }
+  bool TurnTankAirShotReady(TrafficVehicle v)=>RiderFlying&&v.turnTankAirShotPending&&HasTurnTankAim(v);
+  void FireTurnTankOpeningMissile(TrafficVehicle v)
+  {
+   if(!FireEnemyMissile(TankMuzzle(v),true))return;
+   v.turnTankAirShotPending=false;
+   v.tankFireTimer=TankMissileInterval;
   }
   bool HasTurnTankAim(TrafficVehicle v)=>v.active&&v.armored&&v.turnTankAimGeneration==v.spawnGeneration;
   TankShell FireAutomaticTankShell(TrafficVehicle v)
