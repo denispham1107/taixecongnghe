@@ -5,6 +5,7 @@ const canvas = $('unity-canvas');
 let unityInstance, installPrompt, starting = false;
 const standalone = matchMedia('(display-mode: standalone), (display-mode: fullscreen)').matches || navigator.standalone;
 const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const iphoneApp=standalone && /iPhone|iPod/.test(navigator.userAgent);
 const touchDevice=ios || navigator.maxTouchPoints>0 || matchMedia('(any-pointer: coarse)').matches;
 let immersive=false, menuOpen=false, lastInsets='';
 let serviceWorkerReady;
@@ -39,23 +40,31 @@ function setMenu(open){
 }
 function syncViewport(){
   const view=window.visualViewport;
-  const width=Math.round(view && view.scale===1?view.width:innerWidth);
-  // Installed WebKit apps can report visualViewport.height minus the safe area.
-  // Keep the available layout viewport; never force physical screen dimensions (iPad split view).
-  const height=Math.round(ios && standalone?Math.max(innerHeight,view?.height||0):(view && view.scale===1?view.height:innerHeight));
+  const root=document.documentElement;
+  const unzoomed=view?.scale===1;
+  const width=Math.round(unzoomed?view.width:innerWidth);
+  const css=getComputedStyle($('safe-area-probe'));
+  const top=parseFloat(css.paddingTop)||0,bottom=parseFloat(css.paddingBottom)||0;
+  const measuredHeight=Math.round(ios&&standalone?Math.max(innerHeight,root.clientHeight,unzoomed?view.height:0):(unzoomed?view.height:innerHeight));
+  let height=measuredHeight;
+  // A full-width installed iPhone app can initially lose one status-bar-sized
+  // strip in portrait. Restrict the correction to that geometry.
+  const missing=screen.height-height;
+  if(iphoneApp&&(!view||unzoomed)&&width<height&&screen.width<screen.height&&
+     Math.abs(screen.width-width)<=2&&missing>0&&missing<=Math.max(64,top+2,bottom+2))height=screen.height;
   document.documentElement.style.setProperty('--viewport-width',width+'px');
   document.documentElement.style.setProperty('--viewport-height',height+'px');
   if(!unityInstance)return;
-  const bounds=canvas.getBoundingClientRect(),css=getComputedStyle($('safe-area-probe'));
+  const bounds=canvas.getBoundingClientRect();
   if(!bounds.width||!bounds.height)return;
   // Unity reads this Module property each frame; recompute after rotate/fullscreen.
   unityInstance.Module.devicePixelRatio=gamePixelRatio(bounds.width,bounds.height);
   const clamp=v=>Math.max(0,Math.min(.4,v));
   const insets=JSON.stringify({
     left:clamp(((parseFloat(css.paddingLeft)||0)-bounds.left)/bounds.width),
-    top:clamp(((parseFloat(css.paddingTop)||0)-bounds.top)/bounds.height),
+    top:clamp((top-bounds.top)/bounds.height),
     right:clamp(((parseFloat(css.paddingRight)||0)-(width-bounds.right))/bounds.width),
-    bottom:clamp(((parseFloat(css.paddingBottom)||0)-(height-bounds.bottom))/bounds.height),
+    bottom:clamp((Math.max(bottom,height-measuredHeight)-(Math.max(height,bounds.bottom)-bounds.bottom))/bounds.height),
     pixelRatio:unityInstance.Module.devicePixelRatio
   });
   if(insets!==lastInsets){unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','ApplyBrowserInsets',insets);lastInsets=insets;}
@@ -67,7 +76,9 @@ function scheduleViewport(){
 }
 function setImmersive(enabled){
   immersive=Boolean(enabled);document.body.classList.toggle('immersive',immersive);
-  $('game-menu').hidden=!immersive||touchDevice;setMenu(false);syncViewport();scheduleViewport();
+  document.documentElement.classList.toggle('game-immersive',immersive);
+  document.querySelector('meta[name="theme-color"]').content=immersive?'#202020':'#eef5fb';
+  $('game-menu').hidden=!immersive||touchDevice||!unityInstance;setMenu(false);syncViewport();scheduleViewport();
 }
 async function requestNativeFullscreen(){
   if(document.fullscreenElement || (ios && standalone) || matchMedia('(display-mode: fullscreen)').matches)return true;
@@ -79,7 +90,7 @@ $('game-menu').addEventListener('click',()=>{pauseGame();setMenu(!menuOpen);});
 window.addEventListener('resize',scheduleViewport);
 window.addEventListener('orientationchange',scheduleViewport);
 window.visualViewport?.addEventListener('resize',scheduleViewport);
-document.addEventListener('fullscreenchange',()=>{if(unityInstance)setImmersive(touchDevice||standalone||Boolean(document.fullscreenElement));else scheduleViewport();});
+document.addEventListener('fullscreenchange',()=>{if(!canvas.hidden)setImmersive(touchDevice||standalone||Boolean(document.fullscreenElement));else scheduleViewport();});
 new ResizeObserver(scheduleViewport).observe(canvas);
 syncViewport();
 
@@ -138,6 +149,8 @@ $('play').addEventListener('click', async () => {
   script.onload=async()=> {
     try {
       canvas.hidden=false;
+      setImmersive(touchDevice||standalone||Boolean(document.fullscreenElement));
+      config.devicePixelRatio=gamePixelRatio(canvas.clientWidth,canvas.clientHeight);
       unityInstance=await createUnityInstance(canvas,config,p=>{
         $('progress').value=p;$('load-status').textContent=`Đang tải game · ${Math.round(p*100)}%`;
       });
@@ -146,7 +159,7 @@ $('play').addEventListener('click', async () => {
       setImmersive(touchDevice||standalone||Boolean(document.fullscreenElement));
       $('welcome').hidden=true;canvas.focus();
       if(document.hidden) unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','PauseForBrowser');
-    }catch(error){canvas.hidden=true;fail(error);}
+    }catch(error){canvas.hidden=true;setImmersive(false);fail(error);}
   };
   document.body.appendChild(script);
 });

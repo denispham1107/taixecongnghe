@@ -3527,3 +3527,9 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - `PhoVietTurnHazards.cs`, `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs` và `PhoVietTankFire.cs` đánh dấu phát phòng không đầu tiên cho xe tăng và trực thăng của đợt sau rẽ. Khi xe đã bay lúc chúng xuất hiện thì bắn ngay trong tầm. Nếu xe bay lên sau đó, bắn ngay ở bước mô phỏng kế tiếp khi đủ điều kiện. Xe tăng cho phép phát đầu ở gần hơn nếu đầu nòng vẫn cách người chơi ít nhất 8 m phía trước. Phát đầu chỉ được dùng một lần trên mỗi actor mới sinh, giữ nhịp bắn tiếp theo. Trực thăng vẫn xuất hiện sau khủng long 0,5 giây và pháo mặt đất giữ nhịp 0,4 giây.
 - Unity biên dịch 0 lỗi/cảnh báo, 16 kiểm tra Play Mode đạt. Chrome với loader giả lập đạt 21 kiểm tra viewport, gồm lần mở dọc đầu tiên hụt 44 px, xoay ngang rồi về dọc, iPad Split View, tab iPhone, desktop và khi Unity tải lỗi. Báo cáo cục bộ `.tools/turn-air2162-result.txt` và `.tools/portrait2162-final.log`.
 - Chưa build WebGL hoặc phát hành. Web vẫn là 1.62.0. Chưa thử trên iPhone thật.
+
+## 21.163. Build và phát hành WebGL 1.63.0 (09/11/2026 — Codex)
+
+- Người dùng yêu cầu build và phát hành. Nguồn `802651e` gồm 21.161–21.162, nhánh từ xa trước phát hành `780d2d8`. Bản 1.63.0 sửa vùng hiển thị khi vào game dọc, cho trực thăng sinh sau khủng long 0,5 giây và cho xe tăng/trực thăng bắn phát đầu ngay khi người chơi vào chế độ bay trong tầm.
+- Unity build ETC2/DXT trong 360,644 giây, 0 lỗi và một cảnh báo `RuntimePipelineConfig` của Unity Pipeline. 204 kiểm tra trước và 204 sau build. Đối chiếu SHA 585 file nguồn, kiểm gói Git 43, gói ghép Pages 34 và Git index 35 đều đạt. Cache `152859bcc13cfffe`.
+- Chrome local đạt 18 điều kiện gồm WebGL desktop, mobile và offline. Trong giả lập iPhone cài web app, số đo viewport hụt 44 px nhưng canvas có đúng chiều cao ngay lần mở đầu, nền immersive màu tối và chạm vẫn vào Unity. Chưa thử trên iPhone thật.

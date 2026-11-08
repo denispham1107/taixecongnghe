@@ -264,6 +264,8 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.163 đang phát hành (Codex):** WebGL 1.63.0 từ `802651e`, gồm 21.161–21.162. Build ETC2/DXT thành công, 204 kiểm tra trước và 204 sau build, 585 SHA giữ nguyên. Gói Git 43, gói Pages 34, index 35 và Chrome local 18 đều đạt. Cache `152859bcc13cfffe`. Đang hoàn tất kiểm bố cục và đưa bản lên Pages.
+
 - **21.160 hoàn tất.** Unity Edit Mode, scene sạch, máy chủ local đã dừng. Mobile đã kiểm tra bằng trình giả lập Chrome.
 
 - **21.156 hoàn tất.** Web 1.61.0 đã xác minh live. Unity Edit Mode, scene sạch, server 8788 đã dừng. Mobile đã kiểm giả lập, chưa thử thiết bị thật.
