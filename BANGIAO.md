@@ -10,7 +10,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.61.0** — WebGL `ed35ea9`, Pages `42404611482` success đúng SHA, cache `7c29215388387ac0`. Gồm 21.150–21.155. **29 kiểm tra live đạt, 0 lỗi runtime.** |
+| Bản đã phát hành | **1.62.0** — WebGL `a5e3afb`, Pages `42503724591` thành công đúng SHA, cache `8ed73403233584a3`. Gồm 21.157–21.159. **29 kiểm tra live đạt, 0 lỗi runtime.** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -34,7 +34,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
 | Tên lửa người chơi trong source | **21.145 đã có trên web1.59.0:**5/5; W/F/vuốt/nút bắn dướiđất nhắm tank, khi bay nhắm trực thăng;1hit tankcháylớn/dừng/xácgâycollision.2pickup/phố-cầu/+1/chờ0,4s/khôngtargetbắnthẳng.1.215Unityđạt/3ảnhđãxem. Web1.58.0 trước đó3/3/chỉbay. |
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
-| Trực thăng / nhảy mobile | **Source 21.158:** sau rẽ, trực thăng xuất hiện ngay trên đầu khủng long ở giao lộ kế tiếp, kể cả khi xe ở dưới đất. Giới hạn 1 chiếc đến hết 500 m, tối đa 2 khi vượt 500 m. Web 1.61.0 vẫn theo luật đội hình cũ của 21.125. Luật bắn, né đạn, va chạm và nhảy xem 21.126/21.132. |
+| Trực thăng / nhảy mobile | **21.158 đã có trên web 1.62.0:** sau rẽ, trực thăng xuất hiện ngay trên đầu khủng long ở giao lộ kế tiếp, kể cả khi xe ở dưới đất. Giới hạn 1 chiếc đến hết 500 m, tối đa 2 khi vượt 500 m. Luật bắn, né đạn, va chạm và nhảy xem 21.126/21.132. |
 | Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Đã có trên web 1.61.0. |
 | Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Đã có trên web 1.61.0. |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
@@ -52,11 +52,13 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.159 hoàn tất trong Unity:** xe tăng bắn tên lửa mỗi giây khi xe người chơi đang bay, chuyển về pháo 0,4 giây khi dưới đất. Tên lửa dùng pool và hiệu ứng chung với trực thăng. 20 kiểm tra Play Mode đạt. Source chưa build/phát hành.
+- **21.160 đã phát hành WebGL 1.62.0:** ETC2/DXT 389,628 giây, 203 kiểm tra trước + 203 sau, 585 SHA giữ nguyên, 43 kiểm tra gói repo + 34 gói Pages + 35 Git index. Chrome local 16, bố cục 459 và live 29 đạt. Pages `42503724591` đúng SHA `a5e3afb`.
 
-- **21.158 hoàn tất trong Unity:** trực thăng xuất hiện trên đầu khủng long ngay khi rẽ xong và đợt giao lộ tiếp theo được sinh, kể cả khi xe ở dưới đất. Giới hạn 1 chiếc đến hết 500 m, tối đa 2 sau mốc. Biên dịch sạch, 68 kiểm tra Play Mode đạt. Source chưa build/phát hành.
+- **21.159 đã có trên web 1.62.0:** xe tăng bắn tên lửa mỗi giây khi xe người chơi đang bay, chuyển về pháo 0,4 giây khi dưới đất. Tên lửa dùng pool và hiệu ứng chung với trực thăng. 20 kiểm tra Play Mode đạt.
 
-- **21.157 hoàn tất trong Unity:** gạch caro hai bên hiện ở cả 3 LOD, engine riêng +30%, có tiếng phóng và vòng âm bay cho xe người chơi/trực thăng. Kiểm Play Mode 2.335 điều kiện trên 560 nhóm vỉa hè và vòng đời audio; đã xem hai ảnh. Source chưa build/phát hành.
+- **21.158 đã có trên web 1.62.0:** trực thăng xuất hiện trên đầu khủng long ngay khi rẽ xong và đợt giao lộ tiếp theo được sinh, kể cả khi xe ở dưới đất. Giới hạn 1 chiếc đến hết 500 m, tối đa 2 sau mốc. Biên dịch sạch, 68 kiểm tra Play Mode đạt.
+
+- **21.157 đã có trên web 1.62.0:** gạch caro hai bên hiện ở cả 3 LOD, engine riêng +30%, có tiếng phóng và vòng âm bay cho xe người chơi/trực thăng. Kiểm Play Mode 2.335 điều kiện trên 560 nhóm vỉa hè và vòng đời audio; đã xem hai ảnh.
 
 - **21.156 đã phát hành WebGL 1.61.0:** ETC2/DXT build 417,176 giây, 200 preflight + 200 postflight, 589 SHA giữ nguyên, 43 repo + 34 site + 35 index, 16 Chrome + 459 bố cục. Pages `42404611482` đúng SHA `ed35ea9`, 29 live đạt.
 
@@ -258,7 +260,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.160 đang phát hành (Codex):** WebGL 1.62.0 từ `e506efd`, gồm 21.157–21.159. Build ETC2/DXT thành công, 203 kiểm tra trước + 203 sau, 585 SHA giữ nguyên, 43 kiểm tra gói repo + 34 kiểm tra gói Pages + 35 kiểm tra Git index đạt. Chrome desktop/mobile/offline đạt 16, bố cục đạt 459. Cache `8ed73403233584a3`. Đang đưa lên Pages và chờ kiểm tra live.
+- **21.160 hoàn tất.** Unity Edit Mode, scene sạch, máy chủ local đã dừng. Mobile đã kiểm tra bằng trình giả lập Chrome.
 
 - **21.156 hoàn tất.** Web 1.61.0 đã xác minh live. Unity Edit Mode, scene sạch, server 8788 đã dừng. Mobile đã kiểm giả lập, chưa thử thiết bị thật.
 
