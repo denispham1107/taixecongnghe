@@ -1,0 +1,43 @@
+{
+  "url": "https://denispham1107.github.io/taixecongnghe/",
+  "checks": [
+    "Live release version and cache match tested build",
+    "Published artifact matches: Build/0984fb8a635542694682aa11e83795fd.data.unityweb",
+    "Published artifact matches: Build/63268bf708b60a99c8e1e0ca679d6746.data.unityweb",
+    "Published artifact matches: Build/8ba0703b809a504147a4e3eaa5792fc6.wasm.unityweb",
+    "Published artifact matches: Build/9f82e57f7c18488e60c00c5947707748.loader.js",
+    "Published artifact matches: Build/f4e4a1e56077590c7f8b2f7359126d16.framework.js.unityweb",
+    "Published artifact matches: FONT-LICENSE.txt",
+    "Published artifact matches: app.js",
+    "Published artifact matches: font.ttf",
+    "Published artifact matches: icons/apple-touch-icon-moto.png",
+    "Published artifact matches: icons/apple-touch-icon.png",
+    "Published artifact matches: icons/icon-192.png",
+    "Published artifact matches: icons/icon-512.png",
+    "Published artifact matches: icons/icon-maskable-512.png",
+    "Published artifact matches: icons/icon-moto-192.png",
+    "Published artifact matches: icons/icon-moto-512.png",
+    "Published artifact matches: icons/icon-moto-maskable-512.png",
+    "Published artifact matches: icons/icon.svg",
+    "Published artifact matches: index.html",
+    "Published artifact matches: manifest.webmanifest",
+    "Published artifact matches: poster-home-flight.png",
+    "Published artifact matches: poster-home.png",
+    "Published artifact matches: style.css",
+    "Published artifact matches: sw.js",
+    "Published artifact matches: precache.json",
+    "Actual game scene rendered beyond Unity splash",
+    "Real published Unity WebAssembly initializes",
+    "Published start and pause input smoke completed",
+    "No JavaScript or Unity runtime errors"
+  ],
+  "errors": [],
+  "build": {
+    "version": "1.63.0",
+    "cache": "152859bcc13cfffe",
+    "unity": "6000.5.6f1",
+    "utc": "2026-11-08T18:06:32.3075205Z"
+  },
+  "sceneColourFraction": 0.2887957317073171,
+  "success": true
+}

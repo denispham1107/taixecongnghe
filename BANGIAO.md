@@ -10,7 +10,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.62.0** — WebGL `a5e3afb`, Pages `42503724591` thành công đúng SHA, cache `8ed73403233584a3`. Gồm 21.157–21.159. **29 kiểm tra live đạt, 0 lỗi runtime.** |
+| Bản đã phát hành | **1.63.0** — WebGL `062e06f`, Pages `42508754502` thành công đúng SHA, cache `152859bcc13cfffe`. Gồm 21.161–21.162. **29 kiểm tra live đạt, 0 lỗi runtime.** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
@@ -34,7 +34,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
 | Tên lửa người chơi trong source | **21.145 đã có trên web1.59.0:**5/5; W/F/vuốt/nút bắn dướiđất nhắm tank, khi bay nhắm trực thăng;1hit tankcháylớn/dừng/xácgâycollision.2pickup/phố-cầu/+1/chờ0,4s/khôngtargetbắnthẳng.1.215Unityđạt/3ảnhđãxem. Web1.58.0 trước đó3/3/chỉbay. |
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
-| Trực thăng / nhảy mobile | **Source 21.161:** sau rẽ, trực thăng xuất hiện trên đầu khủng long sau 0,5 giây. Web 1.62.0 vẫn xuất hiện đồng thời theo 21.158. Giới hạn 1 chiếc đến hết 500 m, tối đa 2 khi vượt 500 m. Luật bắn, né đạn, va chạm và nhảy xem 21.126/21.132. |
+| Trực thăng / nhảy mobile | **21.161–21.162 đã có trên web 1.63.0:** trực thăng xuất hiện trên đầu khủng long sau 0,5 giây và bắn ngay phát đầu khi xe người chơi đang bay trong tầm. Giới hạn 1 chiếc đến hết 500 m, tối đa 2 khi vượt 500 m. |
 | Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Đã có trên web 1.61.0. |
 | Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Đã có trên web 1.61.0. |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
@@ -52,9 +52,11 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.162 hoàn tất source:** canvas mở dọc theo viewport được hiệu chỉnh trên iPhone; xe tăng/trực thăng của đợt sau rẽ bắn ngay phát tên lửa đầu khi xe người chơi đang bay và ở trong tầm. Web vẫn là 1.62.0.
+- **21.163 đã phát hành WebGL 1.63.0:** ETC2/DXT 360,644 giây, 204 trước + 204 sau build, 585 SHA giữ nguyên, 43 kiểm gói Git + 34 gói Pages + 35 index. Chrome local 18, bố cục 459 và live 29 đạt. Pages `42508754502` đúng SHA `062e06f`.
 
-- **21.161 hoàn tất trong Unity:** trực thăng sau rẽ xuất hiện sau khủng long 0,5 giây. 35 kiểm tra Play Mode đạt, gồm cả hai hướng rẽ và tạm dừng/chơi lại. Source chưa build/phát hành.
+- **21.162 đã có trên web 1.63.0:** canvas mở dọc theo viewport được hiệu chỉnh trên iPhone; xe tăng/trực thăng của đợt sau rẽ bắn ngay phát tên lửa đầu khi xe người chơi đang bay và ở trong tầm.
+
+- **21.161 đã có trên web 1.63.0:** trực thăng sau rẽ xuất hiện sau khủng long 0,5 giây. 35 kiểm tra Play Mode đạt, gồm cả hai hướng rẽ và tạm dừng/chơi lại.
 
 - **21.160 đã phát hành WebGL 1.62.0:** ETC2/DXT 389,628 giây, 203 kiểm tra trước + 203 sau, 585 SHA giữ nguyên, 43 kiểm tra gói repo + 34 gói Pages + 35 Git index. Chrome local 16, bố cục 459 và live 29 đạt. Pages `42503724591` đúng SHA `a5e3afb`.
 
@@ -264,7 +266,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.163 đang phát hành (Codex):** WebGL 1.63.0 từ `802651e`, gồm 21.161–21.162. Build ETC2/DXT thành công, 204 kiểm tra trước và 204 sau build, 585 SHA giữ nguyên. Gói Git 43, gói Pages 34, index 35 và Chrome local 18 đều đạt. Cache `152859bcc13cfffe`. Đang hoàn tất kiểm bố cục và đưa bản lên Pages.
+- **21.163 hoàn tất.** Unity Edit Mode, scene sạch, máy chủ thử nghiệm đã dừng. Ca mở dọc được kiểm trên Chrome giả lập iPhone, chưa thử iPhone thật.
 
 - **21.160 hoàn tất.** Unity Edit Mode, scene sạch, máy chủ local đã dừng. Mobile đã kiểm tra bằng trình giả lập Chrome.
 
