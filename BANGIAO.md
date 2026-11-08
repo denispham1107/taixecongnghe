@@ -34,7 +34,7 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
 | Tên lửa người chơi trong source | **21.145 đã có trên web1.59.0:**5/5; W/F/vuốt/nút bắn dướiđất nhắm tank, khi bay nhắm trực thăng;1hit tankcháylớn/dừng/xácgâycollision.2pickup/phố-cầu/+1/chờ0,4s/khôngtargetbắnthẳng.1.215Unityđạt/3ảnhđãxem. Web1.58.0 trước đó3/3/chỉbay. |
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
-| Trực thăng / nhảy mobile mới | **21.126/21.132 đã có trên web1.55.0 (đạn40m/s):** giữ2–5chiếc/theo400m/4làn/so le; thêm tên lửa1→0,5s/40slot, bay thẳng/roll né. Trúng đạn hoặc đâm trực thăng rơi cháy/kết thúc kể cảCSGT; máy bay va chạm cũng cháy. Nhảy tức thời/queue70% giữ.1028Unity/387layout đạt |
+| Trực thăng / nhảy mobile | **Source 21.158:** sau rẽ, trực thăng xuất hiện ngay trên đầu khủng long ở giao lộ kế tiếp, kể cả khi xe ở dưới đất. Giới hạn 1 chiếc đến hết 500 m, tối đa 2 khi vượt 500 m. Web 1.61.0 vẫn theo luật đội hình cũ của 21.125. Luật bắn, né đạn, va chạm và nhảy xem 21.126/21.132. |
 | Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Đã có trên web 1.61.0. |
 | Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Đã có trên web 1.61.0. |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
@@ -51,6 +51,8 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.158 hoàn tất trong Unity:** trực thăng xuất hiện trên đầu khủng long ngay khi rẽ xong và đợt giao lộ tiếp theo được sinh, kể cả khi xe ở dưới đất. Giới hạn 1 chiếc đến hết 500 m, tối đa 2 sau mốc. Biên dịch sạch, 68 kiểm tra Play Mode đạt. Source chưa build/phát hành.
 
 - **21.157 hoàn tất trong Unity:** gạch caro hai bên hiện ở cả 3 LOD, engine riêng +30%, có tiếng phóng và vòng âm bay cho xe người chơi/trực thăng. Kiểm Play Mode 2.335 điều kiện trên 560 nhóm vỉa hè và vòng đời audio; đã xem hai ảnh. Source chưa build/phát hành.
 
@@ -385,7 +387,7 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 | --- | --- | --- |
 | Player tên lửa3/3/pickup/HUD/F/homing/shot-down | **21.128** | `PhoVietPlayerMissiles.cs`, `PhoVietMissilePickups.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietHelicopter.cs`, HUD/energy/river/web runtime; `Resources/PlayerMissile`, `ArtSource/UI/player_missile_icon.*`; verifier/capture `PlayerMissile*2128`, reports `player2128-*` |
 | Cháy/khói đa điểm va chạm mặt đất; xe hồi phục vẫn cháy | **21.127** | `PhoVietContactFire.cs`, `ContactFireVisual.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs`, `PhoVietPolice.cs`, `PhoVietPlayerVehicle.cs`, `PhoVietThunderstorm.cs`; verifier/report/capture `ContactFire2127`/`contact2127-*` |
-| Trực thăng/tên lửa/rollné/rơi cháy, nhảy tức thời/queue70% | **21.126**,21.125/21.124/21.122 | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `MissileFlightVisual.cs`, `HelicopterVisual.cs`, `ThunderstormVisual.cs`, `RotorBlur.shader`, `PhoVietJump.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`; prefabResource/Art/Helicopter; nguồn `prepare_helicopter.py`/`PhoViet_Helicopter.blend`; nguồn tên lửa `missile2126.py`/`PhoViet_HelicopterMissile.blend`; verifier/report `Helicopter*2126`/`missile2126-*` |
+| Trực thăng sau rẽ/giới hạn 500 m, tên lửa và né đạn | **21.158**, 21.126/21.132 | `PhoVietHelicopter.cs`, `PhoVietTurnHazards.cs`, `PhoVietHelicopterMissiles.cs`, `HelicopterVisual.cs`, `MissileFlightVisual.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`; prefab trong `Resources/Helicopter` |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
 | Nút Đạp Ga/Đạp Phanh và kích thước nút Bay/Tên lửa | **21.152** | `PhoVietDrivePedals.cs`, `PhoVietGame.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietPortraitHud.cs`, `PhoVietTurnBikes.cs` |
 | Dây xích/khóa CSGT | **21.155**, 2.2, 2.5 | `PhoVietChain.cs`, `PhoVietActions.cs`, `Resources/Chain/PV_Chain.json`, `ArtSource/Blender/Chain/` |

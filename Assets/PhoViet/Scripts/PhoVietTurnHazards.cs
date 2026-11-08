@@ -25,7 +25,9 @@ namespace PhoViet
   }
   bool TryTurnDinosaur(TurnHazardWave wave)
   {
-   float z=TurnHazardJunction();if(z<=0||SpawnDinosaurAt(z)==null)return false;
+   float z=TurnHazardJunction();if(z<=0)return false;
+   var dinosaur=SpawnDinosaurAt(z);if(dinosaur==null)return false;
+   SpawnTurnHelicopter(dinosaur);
    wave.dinosaurSpawned=true;return true;
   }
   bool TryTurnTank(TurnHazardWave wave)
