@@ -151,6 +151,8 @@ namespace PhoViet
    TickPlayerMissiles(dt);
    TickHelicopterMissiles(dt,previousRider,collisions);
    if(!collisions||State!=RideState.Riding||IsTurning)return;
+   // Finish the post-turn reveal before filling ordinary aircraft slots.
+   foreach(var d in dinosaurs)if(d.active&&d.turnHelicopterDelay>0)return;
    foreach(var h in helicopters)if(h!=null&&h.active&&!h.wrecked&&h.turnWingmanPending)TryTurnHelicopterWingman(h);
    while(SpawnHelicopter()){}
   }

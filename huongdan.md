@@ -3493,6 +3493,8 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 ## 21.158. Trực thăng cùng đợt khủng long sau khi rẽ (08/11/2026 — Codex)
 
+> Bản web 1.62.0 dùng thời điểm xuất hiện đồng thời mô tả dưới đây. Source 21.161 lùi trực thăng thêm 0,5 giây.
+
 - Sau khi hoàn tất rẽ trái hoặc phải, `PhoVietTurnHazards.TryTurnDinosaur` tạo trực thăng ngay trong lần sinh khủng long tại giao lộ tiếp theo, kể cả khi xe người chơi ở dưới đất. Trực thăng xuất hiện ngay trên điểm xương đầu cao thêm 1,55 m rồi bay ngược chiều với tốc độ 16 m/s. Khủng long theo lịch định kỳ và lịch xe tăng giữ cách kích hoạt hiện có.
 - `PhoVietHelicopter.cs` giới hạn 1 chiếc đến hết 500 m và tối đa 2 chiếc khi quãng đường tính điểm vượt 500 m. Nếu đợt sau rẽ vẫn đang ở phía trước lúc vượt mốc, chiếc thứ hai bổ sung ngay khi còn chỗ. Những đợt sau mốc dùng cả hai vị trí, chiếc bổ sung sinh ở làn đường và cách chiếc đầu ít nhất 12 m theo chiều dọc. Dùng lại pool hai actor và ưu tiên đợt ở giao lộ mới khi đã hết chỗ. Khi bay trên đoạn thẳng, cơ chế gặp trực thăng cũ dùng giới hạn mới. Giữ điều kiện bắn đạn, nhịp bắn, hiệu ứng rotor và va chạm cũ.
 - Unity biên dịch 0 lỗi/cảnh báo. Play Mode đạt 68 điều kiện, gồm rẽ thật trên bốn làn ở bước 1/60 và 1/20 giây, xuất hiện đồng thời đúng giao lộ, điểm trên đầu, mốc 500 m, tạm dừng, chơi lại và đổi phố khi pool đầy. Bằng chứng trong `.tools/turn-helicopters2158-result.txt`. Baseline `297ece0`. Phần đảo giao thông vẫn lưu riêng trong stash `816c123`.
@@ -3511,3 +3513,10 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Unity build ETC2/DXT trong 389,628 giây, 0 lỗi. BuildReport ghi một cảnh báo thiếu `RuntimePipelineConfig` của Unity Pipeline. 203 kiểm tra trước build và 203 sau build đạt, 585 file đối chiếu SHA giữ nguyên. Kiểm gói Git 43 và bản ghép Pages 34 đều đạt, cache `8ed73403233584a3`.
 - Git index khớp artifact đã thử qua 35 điều kiện. Chrome local đạt 16 điều kiện desktop, mobile và offline, gồm thao tác chạm đi vào Unity. Trang chủ đạt 459 kiểm tra bố cục. Chưa thử trên thiết bị mobile thật.
 - Đã push commit WebGL `a5e3afb` lên `main`. [GitHub Pages run 42503724591](https://github.com/denispham1107/taixecongnghe/actions/runs/42503724591) triển khai thành công đúng SHA. Web trả 1.62.0 và cache `8ed73403233584a3`. 29 kiểm tra live đạt, file phục vụ khớp gói đã thử, vào chơi và tạm dừng được, 0 lỗi runtime. Kết quả tại `Captures/release162-pages.json` và `Captures/release162-live-results.json`. Unity Edit Mode, scene sạch, máy chủ local đã dừng.
+
+## 21.161. Trực thăng xuất hiện sau khủng long 0,5 giây (09/11/2026 — Codex)
+
+- `PhoVietTurnHazards.cs` bắt đầu đếm 0,5 giây mô phỏng khi khủng long của đợt sau rẽ thực sự xuất hiện. Trực thăng lấy vị trí đầu khủng long tại lúc xuất hiện. Nếu đã vượt 500 m, chiếc bổ sung cùng đợt cũng chờ hết mốc này. Xe tăng tiếp tục dùng lịch cũ.
+- Bộ đếm nằm trên actor khủng long và được xóa khi tái sử dụng. Chơi lại hủy đợt cũ. Tạm dừng giữ thời gian còn lại. `PhoVietHelicopter.cs` hoãn việc bổ sung trực thăng thường trong lúc chờ để chúng không xuất hiện sớm hơn đợt sau rẽ.
+- Unity biên dịch sạch, 35 kiểm tra Play Mode đạt. Đã thử bốn làn, cả hai hướng rẽ ở bước 1/60 và 1/20 giây, mốc 0,49/0,50 giây, vị trí đầu đã di chuyển, giới hạn sau 500 m, tạm dừng, chơi lại và chờ khủng long khi pool đầy. Kết quả trong `.tools/turn-delay2161-result.txt`.
+- Chưa build, push hoặc phát hành thay đổi này. Web đang ở 1.62.0.

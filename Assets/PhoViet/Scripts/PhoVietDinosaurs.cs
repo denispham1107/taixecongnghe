@@ -16,6 +16,7 @@ namespace PhoViet
    public Transform root;public DinosaurVisual visual;public bool active;
    public readonly HashSet<TrafficVehicle> hits=new HashSet<TrafficVehicle>();
    public bool hitPolice,hitRider;public float nextSweep;
+   internal float turnHelicopterDelay;
    public Vector3[] previous=new Vector3[6];
   }
   public readonly List<Dinosaur> dinosaurs=new List<Dinosaur>();
@@ -40,7 +41,7 @@ namespace PhoViet
    }
    d.active=true;d.root.gameObject.SetActive(true);d.root.localRotation=Quaternion.Euler(0,180,0);
    d.root.localPosition=new Vector3(0,0,z+dinosaurScroll);
-   d.hits.Clear();d.hitPolice=d.hitRider=false;d.nextSweep=0;d.visual.ResetPose();
+   d.hits.Clear();d.hitPolice=d.hitRider=false;d.nextSweep=d.turnHelicopterDelay=0;d.visual.ResetPose();
    CopyDinosaurTail(d);DinosaursSpawned++;
    notice="KHỦNG LONG PHÍA TRƯỚC · NHẢY NÉ ĐUÔI";noticeTimer=2;
    return d;

@@ -5,6 +5,7 @@ namespace PhoViet
  public partial class PhoVietGame
  {
   public const float TurnTankDelay=0;
+  const float TurnHelicopterDelay=.5f;
   sealed class TurnHazardWave {public bool dinosaurSpawned,tankWanted;}
   readonly List<TurnHazardWave> turnHazardWaves=new List<TurnHazardWave>();
   void ResetTurnHazards(){turnHazardWaves.Clear();}
@@ -27,7 +28,7 @@ namespace PhoViet
   {
    float z=TurnHazardJunction();if(z<=0)return false;
    var dinosaur=SpawnDinosaurAt(z);if(dinosaur==null)return false;
-   SpawnTurnHelicopter(dinosaur);
+   dinosaur.turnHelicopterDelay=TurnHelicopterDelay;
    wave.dinosaurSpawned=true;return true;
   }
   bool TryTurnTank(TurnHazardWave wave)
@@ -46,6 +47,17 @@ namespace PhoViet
   {
    if(State!=RideState.Riding||dt<=0||ServiceStopped)return;
    if(!dinosaursEnabled){ResetTurnHazards();return;}
+   if(!IsTurning)
+   {
+    foreach(var d in dinosaurs)
+    {
+     if(!d.active||d.turnHelicopterDelay<=0)continue;
+     d.turnHelicopterDelay-=dt;
+     if(d.turnHelicopterDelay>1e-5f)continue;
+     d.turnHelicopterDelay=0;
+     SpawnTurnHelicopter(d);
+    }
+   }
    for(int i=0;i<turnHazardWaves.Count;)
    {
     var wave=turnHazardWaves[i];
