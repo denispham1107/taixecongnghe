@@ -13,7 +13,7 @@ namespace PhoViet
   public int ActivePlayerMissileCount{get{int n=0;foreach(var m in playerMissiles)if(m!=null&&m.active)n++;return n;}}
   public bool PlayerCanFire=>State==RideState.Riding&&(RiderFlying||!RiderAirborne)&&!ServiceStopped&&PlayerMissiles>0&&playerMissileCooldown<=.00001f;
   sealed class PlayerMissile
-  {public Transform root;public MissileFlightVisual visual;public HelicopterActor target;public TrafficVehicle tankTarget;public int targetGeneration,tankGeneration;public bool active,groundShot;public Vector3 velocity,scroll;public float age,speed;}
+  {public Transform root;public MissileFlightVisual visual;public AudioSource flightAudio;public HelicopterActor target;public TrafficVehicle tankTarget;public int targetGeneration,tankGeneration;public bool active,groundShot;public Vector3 velocity,scroll;public float age,speed;}
   readonly PlayerMissile[] playerMissiles=new PlayerMissile[PlayerMissilePoolCapacity];float playerMissileCooldown;
   void ResetPlayerMissiles()
   {
@@ -23,7 +23,7 @@ namespace PhoViet
    {
     var m=playerMissiles[i];
     if(m==null&&Application.isPlaying&&helicopterMissilePrefab!=null)
-    {var root=Instantiate(helicopterMissilePrefab,transform).transform;root.name="Tên lửa người chơi • "+(i+1);m=playerMissiles[i]=new PlayerMissile{root=root,visual=root.GetComponent<MissileFlightVisual>()};}
+    {var root=Instantiate(helicopterMissilePrefab,transform).transform;root.name="Tên lửa người chơi • "+(i+1);m=playerMissiles[i]=new PlayerMissile{root=root,visual=root.GetComponent<MissileFlightVisual>(),flightAudio=CreateMissileFlightAudio(root,true)};}
     if(m!=null)RetirePlayerMissile(m);
    }
    ResetMissilePickups();
@@ -48,6 +48,7 @@ namespace PhoViet
    free.target=target;free.targetGeneration=target!=null?target.generation:0;free.speed=Mathf.Max(70,Speed+50);free.velocity=direction*free.speed;
    free.groundShot=ground;free.tankTarget=tank;free.tankGeneration=tank!=null?tank.spawnGeneration:0;
    free.scroll=Vector3.zero;free.age=0;free.root.localPosition=origin;free.root.localRotation=Quaternion.LookRotation(direction);free.active=true;free.root.gameObject.SetActive(true);free.visual.Begin();
+   PlayMissileAudio(free.flightAudio,origin,true);
    PlayerMissiles--;PlayerMissilesFired++;playerMissileCooldown=PlayerMissileInterval;
    notice=target!=null?"TÊN LỬA · ĐÃ KHÓA TRỰC THĂNG":tank!=null?"TÊN LỬA · ĐÃ KHÓA XE TĂNG":"TÊN LỬA · BAY THẲNG";noticeTimer=1.1f;return true;
   }
@@ -120,6 +121,6 @@ namespace PhoViet
    }
    return at<=1;
   }
-  void RetirePlayerMissile(PlayerMissile m){m.active=false;m.target=null;m.tankTarget=null;m.groundShot=false;m.scroll=Vector3.zero;m.age=0;m.visual.End();m.root.gameObject.SetActive(false);}
+  void RetirePlayerMissile(PlayerMissile m){m.active=false;m.target=null;m.tankTarget=null;m.groundShot=false;m.scroll=Vector3.zero;m.age=0;m.visual.End();m.flightAudio.Stop();m.root.gameObject.SetActive(false);}
  }
 }

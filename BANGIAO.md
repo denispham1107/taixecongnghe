@@ -52,6 +52,8 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.157 hoàn tất trong Unity:** gạch caro hai bên hiện ở cả 3 LOD, engine riêng +30%, có tiếng phóng và vòng âm bay cho xe người chơi/trực thăng. Kiểm Play Mode 2.335 điều kiện trên 560 nhóm vỉa hè và vòng đời audio; đã xem hai ảnh. Source chưa build/phát hành.
+
 - **21.156 đã phát hành WebGL 1.61.0:** ETC2/DXT build 417,176 giây, 200 preflight + 200 postflight, 589 SHA giữ nguyên, 43 repo + 34 site + 35 index, 16 Chrome + 459 bố cục. Pages `42404611482` đúng SHA `ed35ea9`, 29 live đạt.
 
 - **21.155 đã lên web 1.61.0:** thay húc bằng dây xích Blender MCP, chọn một xe máy gần nhất trong bán kính 4 m, kéo ngã và tách ra khỏi xe người chơi. Q/chạm hai lần vẫn lộn ngang khi bay. Tạm khóa CSGT. Biên dịch 0 lỗi/cảnh báo; 201 kiểm Play Mode đạt, đã xem ảnh.
@@ -418,6 +420,7 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 | Model Blender/Meshy → Unity | 11, 13, 21.7, 21.17 | `Editor/PhoVietMeshy*Upgrade.cs`, `ArtSource/Blender/` |
 | Công việc/Coin (đang khóa) | 10, 21.1 | `PhoVietJobs.cs`, `PhoVietJobGui.cs` |
 | Màu bảng không trùng, Petshop30%, phụđề/thú cưng/nội thất | **21.72–21.74**,11.4 | `pho_viet_petshop_signs.py`, `pho_viet_river_bridge.py`, `Editor/PhoVietPetshopSignsUpgrade.cs`, `AgentScripts/InstallPetshopSigns.cs`, `VerifyPetshopSigns.cs`, `VerifyPetshopDetails.cs`, `VerifySignColours.cs`, `pho_viet_petshop_layout.py`, `pho_viet_pet_animals.py`, `Art/Pets/PV_PetGeometry.json` |
+| Gạch caro vỉa hè, tiếng động cơ và tên lửa | **21.157** | `ArtSource/Blender/pho_viet_saigon_streets.py`, `Art/Streets/PV_StreetPavement.fbx`, `PhoVietGame.cs`, `PhoVietMissileAudio.cs`, `Resources/Audio/PV_Rocket*.wav` |
 | Âm thanh tổng / master +30% / engine cruise-boost | **21.70,21.132** | `Scripts/PhoVietAudio.cs`, `Resources/Audio/PV_Master.mixer`, `Editor/PhoVietAudioUpgrade.cs`, `AgentScripts/InstallAudio2132.cs`, `VerifyAudioMissile2132.cs`, `MeasureMasterGain2132.cs`; `PhoVietGame.cs` (`CreateSound`, `engine`, cuối `Update`) |
 | Simulator iPhone 14 Pro/Pro Max/Dynamic Island/Safe Area | **21.71** | `Assets/PhoViet/Editor/DeviceSimulator/` (`README.md`, hai `.device`, `Overlays/`, `LICENSE.md`); `Captures/iphone14-simulator-checks.json` |
 | Giật lag mobile/mức đồ họa/bộ tự giảm/tile culling/warmup | **21.147,21.144,21.136** | `PhoVietGraphicsSettings.cs`, `PhoVietTileCulling.cs`, `Plugins/WebGL/PhoVietWeb.jslib`, `app.js`, `DayNightLighting.cs`, `MorningFog.cs`, `Editor/PhoVietWebMemorySettings.cs`, `Resources/PV_ShaderWarmup.shadervariants`; `AgentScripts/VerifyGraphics2144.cs`, `CaptureGraphics2144.cs`, `BenchMobile2136.cjs`, `ProfileWebCpu2136.cjs`, `VerifyMobilePerf2136.cs`, `SampleFrames2136.cs`, `AbFrozen2136.cs`, `GcHotspots2136.cs`, `TrackShaderVariants2136.cs`, `CaptureLevels2136.cs` |

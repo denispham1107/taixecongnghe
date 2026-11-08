@@ -44,6 +44,7 @@ namespace PhoViet
    }
    ResetHelicopterMissiles();
    ResetPlayerMissiles();
+   ResetMissileLaunchAudio();
   }
   int NextHelicopterLane()
   {
@@ -73,9 +74,10 @@ namespace PhoViet
    free.age=0;free.shotInterval=free.shotRemaining=HelicopterMissileInterval(Distance);free.scroll=Vector3.zero;free.active=true;free.wrecked=false;free.root.gameObject.SetActive(true);free.visual.ResetPose();HelicoptersSpawned++;
    notice="TRỰC THĂNG NGƯỢC CHIỀU · CHÚ Ý KHI BAY";noticeTimer=2;return true;
   }
-  void ScrollHelicopter(float delta){foreach(var h in helicopters)if(h!=null&&h.active)h.scroll+=Vector3.forward*delta;ScrollHelicopterMissiles(delta);ScrollPlayerMissiles(delta);}
+  void ScrollHelicopter(float delta){foreach(var h in helicopters)if(h!=null&&h.active)h.scroll+=Vector3.forward*delta;ScrollHelicopterMissiles(delta);ScrollPlayerMissiles(delta);ScrollMissileLaunchAudio(delta);}
   void RebaseHelicopter(Quaternion inverse,Vector3 origin)
   {
+   RebaseMissileLaunchAudio(inverse,origin);
    if(!HelicopterActive&&ActiveHelicopterMissileCount==0&&ActivePlayerMissileCount==0)return;
    foreach(var h in helicopters)if(h!=null&&h.active)
    {

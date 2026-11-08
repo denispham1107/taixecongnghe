@@ -6,7 +6,7 @@ namespace PhoViet
   public const int HelicopterMissileCapacity=40;
   const float HelicopterMissileSpeed=40,HelicopterMissileLifetime=3.2f;
   sealed class HelicopterMissile
-  {public Transform root;public MissileFlightVisual visual;public bool active,dodgeCounted;public Vector3 velocity,scroll;public float age;}
+  {public Transform root;public MissileFlightVisual visual;public AudioSource flightAudio;public bool active,dodgeCounted;public Vector3 velocity,scroll;public float age;}
   readonly HelicopterMissile[] helicopterMissiles=new HelicopterMissile[HelicopterMissileCapacity];GameObject helicopterMissilePrefab;
   public int HelicopterMissilesFired{get;private set;}public int HelicopterMissilesDodged{get;private set;}
   public bool HitByHelicopterMissile{get;private set;}public bool RiderAirAttackBurning{get;private set;}
@@ -21,8 +21,8 @@ namespace PhoViet
    {
     var m=helicopterMissiles[i];
     if(m==null&&Application.isPlaying&&helicopterMissilePrefab!=null)
-    {var root=Instantiate(helicopterMissilePrefab,transform).transform;root.name="Helicopter missile "+(i+1);m=helicopterMissiles[i]=new HelicopterMissile{root=root,visual=root.GetComponent<MissileFlightVisual>()};}
-    if(m==null)continue;m.active=false;m.age=0;m.scroll=Vector3.zero;m.visual.End();m.root.gameObject.SetActive(false);
+    {var root=Instantiate(helicopterMissilePrefab,transform).transform;root.name="Helicopter missile "+(i+1);m=helicopterMissiles[i]=new HelicopterMissile{root=root,visual=root.GetComponent<MissileFlightVisual>(),flightAudio=CreateMissileFlightAudio(root,false)};}
+    if(m==null)continue;m.age=0;m.scroll=Vector3.zero;RetireHelicopterMissile(m);
    }
   }
   void TickHelicopterWeapon(HelicopterActor h,float dt)
@@ -48,6 +48,7 @@ namespace PhoViet
    if(Mathf.Abs(a)>.001f&&disc>=0){float r1=(-b-Mathf.Sqrt(disc))/(2*a),r2=(-b+Mathf.Sqrt(disc))/(2*a);if(r1>0)t=r1;if(r2>0&&(r1<=0||r2<r1))t=r2;}
    free.velocity=(target+roadVelocity*t-origin).normalized*HelicopterMissileSpeed;free.scroll=Vector3.zero;free.age=0;free.dodgeCounted=false;
    free.root.localPosition=origin;free.root.localRotation=Quaternion.LookRotation(free.velocity);free.active=true;free.root.gameObject.SetActive(true);free.visual.Begin();HelicopterMissilesFired++;
+   PlayMissileAudio(free.flightAudio,origin,false);
    notice="TÊN LỬA · ĐỔI LÀN / HẠ / LỘN NÉ";noticeTimer=1.2f;return true;
   }
   void ScrollHelicopterMissiles(float distance){foreach(var m in helicopterMissiles)if(m!=null&&m.active){m.scroll+=Vector3.forward*distance;m.visual.Scroll(distance);}}
@@ -70,7 +71,7 @@ namespace PhoViet
     if(m.age>=HelicopterMissileLifetime||m.root.localPosition.z< -35||Mathf.Abs(m.root.localPosition.x)>38||m.root.localPosition.y<-.1f)RetireHelicopterMissile(m);
    }
   }
-  void RetireHelicopterMissile(HelicopterMissile m){m.active=false;m.visual.End();m.root.gameObject.SetActive(false);}
+  void RetireHelicopterMissile(HelicopterMissile m){m.active=false;m.visual.End();m.flightAudio.Stop();m.root.gameObject.SetActive(false);}
   bool MissileTouchesRider(Vector3 from,Vector3 to,Vector3 previousRider,out float time)
   {
    Quaternion inverse=Quaternion.Inverse(Quaternion.Euler(0,rider.localEulerAngles.y,0));Vector3 center=Vector3.up*(PlayerHeight*.5f);

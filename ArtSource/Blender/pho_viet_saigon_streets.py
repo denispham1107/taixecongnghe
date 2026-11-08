@@ -949,15 +949,12 @@ def tree(seed, detail):
 def pavement(detail):
     g = Geo(detail)
     g.cube((0, .1, 0), (4.2, .2, 8.4), 'grout', skip=('-y',))
-    if detail < 2:
-        # Gạch caro kem–đất nung 0,6 m giống ảnh mẫu, nổi nhẹ trên mạch vữa.
-        for xi in range(7):
-            for zi in range(14):
-                x = -1.8+xi*.6; z = -3.9+zi*.6; col = 'paveCream' if (xi+zi) % 2 == 0 else 'paveBrown'
-                if detail == 0: g.cube((x, .213, z), (.56, .03, .56), col, skip=('-y',))
-                else: g.quad([(x-.28, .215, z-.28), (x+.28, .215, z-.28), (x+.28, .215, z+.28), (x-.28, .215, z+.28)], col, (0, 1, 0))
-    else:
-        g.quad([(-2.1, .215, -4.2), (2.1, .215, -4.2), (2.1, .215, 4.2), (-2.1, .215, 4.2)], 'paveBrown', (0, 1, 0))
+    # Keep the same checker pattern at distance. The lower LODs need only the top faces.
+    for xi in range(7):
+        for zi in range(14):
+            x = -1.8+xi*.6; z = -3.9+zi*.6; col = 'paveCream' if (xi+zi) % 2 == 0 else 'paveBrown'
+            if detail == 0: g.cube((x, .213, z), (.56, .03, .56), col, skip=('-y',))
+            else: g.quad([(x-.28, .215, z-.28), (x+.28, .215, z-.28), (x+.28, .215, z+.28), (x-.28, .215, z+.28)], col, (0, 1, 0))
     for zi in range(12):
         g.cube((-2.0, .17, -3.85+zi*.7), (.22, .36, .68), 'curb' if zi % 2 == 0 else 'stone')
     if detail < 2:

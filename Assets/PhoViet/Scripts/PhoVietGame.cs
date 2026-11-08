@@ -111,7 +111,7 @@ namespace PhoViet
         {
             StreetArt.ConfigureWorldText(vietnameseFont,worldTextMaterial); ConfigureFramePacing(); Application.runInBackground=true; useGUILayout=false;
             BestDistance=PlayerPrefs.GetInt(BestKey,0);
-            InitializeTrafficSignalFaces(); CreateSound(); InitializeActions(); ResetRide();
+            InitializeTrafficSignalFaces(); CreateSound(); InitializeMissileAudio(); InitializeActions(); ResetRide();
             if(tankCraterMaterial!=null)EnsureTankCraters();
             PrewarmRideResources();
 #if !UNITY_WEBGL || UNITY_EDITOR
@@ -140,7 +140,7 @@ namespace PhoViet
         }
         void CreateSound()
         {
-            engine=PhoVietAudio.Route(gameObject.AddComponent<AudioSource>());engine.loop=true;engine.volume=.08f*1.7f;engine.playOnAwake=false; // +70% for both cruising and boost (same source).
+            engine=PhoVietAudio.Route(gameObject.AddComponent<AudioSource>());engine.loop=true;engine.volume=.08f*1.7f*1.3f;engine.playOnAwake=false; // +30% over the existing player engine gain.
             int hz=22050;float[] wave=new float[hz];
             for(int i=0;i<wave.Length;i++){float t=(float)i/hz;wave[i]=Mathf.Sin(t*2*Mathf.PI*60)*.45f+Mathf.Sin(t*2*Mathf.PI*120)*.17f+Mathf.Sin(t*2*Mathf.PI*180)*.08f;}
             var clip=AudioClip.Create("Động cơ xe máy",wave.Length,1,hz,false);clip.SetData(wave,0);engine.clip=clip;
@@ -195,8 +195,8 @@ namespace PhoViet
         {
             if(JobOffersOpen)return;
             CancelSwipe();
-            if(State==RideState.Riding||State==RideState.Falling){pauseFromState=State;State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);}
-            else if(State==RideState.Paused){State=pauseFromState;PauseRecklessFx(false);if(sound){if(State==RideState.Riding){engine.UnPause();navigationAudio?.UnPause();}if(IsChased)siren?.UnPause();}}
+            if(State==RideState.Riding||State==RideState.Falling){pauseFromState=State;State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);PauseMissileAudio(true);}
+            else if(State==RideState.Paused){State=pauseFromState;PauseRecklessFx(false);PauseMissileAudio(false);if(sound){if(State==RideState.Riding){engine.UnPause();navigationAudio?.UnPause();}if(IsChased)siren?.UnPause();}}
         }
         public TrafficVehicle SpawnTraffic(int lane,float z,int preferred=-1)
         {
@@ -330,6 +330,7 @@ namespace PhoViet
             UpdateDangerSigns();
             if(engine!=null){engine.mute=!sound;engine.pitch=.85f+Speed/45f;}
             if(siren!=null)siren.mute=!sound;
+            UpdateMissileAudioMute();
         }
         // Giữ vận tốc/gia tốc khi đổi hướng giữa chừng; car xuất phát có gia tốc
         // hữu hạn ngay để tránh đoạn đầu gần như đứng yên (21.81).
