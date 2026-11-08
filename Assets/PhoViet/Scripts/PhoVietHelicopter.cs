@@ -132,7 +132,7 @@ namespace PhoViet
   void RebaseHelicopter(Quaternion inverse,Vector3 origin)
   {
    RebaseMissileLaunchAudio(inverse,origin);
-   if(!HelicopterActive&&ActiveHelicopterMissileCount==0&&ActivePlayerMissileCount==0)return;
+   if(!HelicopterActive&&ActiveHelicopterMissileCount==0&&ActiveTankMissileCount==0&&ActivePlayerMissileCount==0)return;
    foreach(var h in helicopters)if(h!=null&&h.active)
    {
     h.root.localPosition=inverse*(h.root.localPosition-origin);h.root.localRotation=inverse*h.root.localRotation;

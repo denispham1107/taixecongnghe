@@ -52,6 +52,8 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.159 hoàn tất trong Unity:** xe tăng bắn tên lửa mỗi giây khi xe người chơi đang bay, chuyển về pháo 0,4 giây khi dưới đất. Tên lửa dùng pool và hiệu ứng chung với trực thăng. 20 kiểm tra Play Mode đạt. Source chưa build/phát hành.
+
 - **21.158 hoàn tất trong Unity:** trực thăng xuất hiện trên đầu khủng long ngay khi rẽ xong và đợt giao lộ tiếp theo được sinh, kể cả khi xe ở dưới đất. Giới hạn 1 chiếc đến hết 500 m, tối đa 2 sau mốc. Biên dịch sạch, 68 kiểm tra Play Mode đạt. Source chưa build/phát hành.
 
 - **21.157 hoàn tất trong Unity:** gạch caro hai bên hiện ở cả 3 LOD, engine riêng +30%, có tiếng phóng và vòng âm bay cho xe người chơi/trực thăng. Kiểm Play Mode 2.335 điều kiện trên 560 nhóm vỉa hè và vòng đời audio; đã xem hai ảnh. Source chưa build/phát hành.
@@ -402,7 +404,7 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 | Dino+Tank sau cua,2bike1,2× sinhngay/vịtrígần/tạt làn,Tank400m | **21.114**,21.113,21.112/21.111/21.99 | `PhoVietTurnHazards.cs`, `PhoVietTurnBikes.cs`, `PhoVietExitTraffic.cs`, `PhoVietTraffic.cs`, `PhoVietRoutes.cs`; `AgentScripts/VerifyTurnBikes2112.cs`, `CaptureTurnBikes2112.cs`, `VerifyTurnHazards.cs`, `VerifyDistanceTanks2199.cs` |
 | Khủng long, rig/quất đuôi, nhảy né/miễn xe tăng | **21.96**,2.12,7.5,21.62 | `PhoVietDinosaurs.cs`, `DinosaurVisual.cs`, `Editor/PhoVietDinosaurUpgrade.cs`, `pho_viet_dinosaur.py` |
 | Hố đạn/nứt/mảnh văng/lệch hướng và counter-steer | **21.103**,2.13 | `PhoVietTankCraters.cs`, `TankCraterGeometry.cs`, `TankCraterMask.cginc`, `TankCraterRoad.shader`, `TankCraterSurface.shader`, `CityGround.shader`, `PlayerCarVisual.cs`; `AgentScripts/VerifyTankCraters.cs`, `VerifyCraterTurns.cs`, `VerifyTankCraterGeometry.cs`, `CaptureTankCraters.cs`, `VerifyCraterRender.py` |
-| Xe tăng, đạn0,4s,70% điểm rơi sau rẽ | **21.111**,21.110,21.103,21.38–21.40 | `PhoVietTankFire.cs`, `PhoVietTurnHazards.cs`, `Editor/PhoVietTankFxUpgrade.cs`, `AgentScripts/VerifyTurnTankAim.cs`, `VerifyTankBarrage.cs`, `CaptureTurnTankAim.cs` |
+| Xe tăng, tên lửa phòng không và pháo 0,4 giây | **21.159**, 21.111/21.110/21.103 | `PhoVietTankFire.cs`, `PhoVietHelicopterMissiles.cs`, `PhoVietHelicopter.cs`, `PhoVietTurnHazards.cs`, `AgentScripts/VerifyTurnTankAim.cs`, `VerifyTankBarrage.cs` |
 | Đạp, CSGT, bị bắt | 8 | `PhoVietActions.cs`, `PhoVietKickAssist.cs`, `PhoVietPolice.cs`, `PhoVietCrashPoliceNavigation.cs` |
 | Nhảy, nóc xe, tăng tốc | 19, 21.60 | `PhoVietJump.cs`, `PhoVietBoost.cs` |
 | Giao lộ/rẽ/nhà chắn sau crash→retry/reset/rebase | **21.118**,6.1,9 | `PhoVietGame.cs`→ResetRide (Distance/crashTravelDistance trước ResetRoutes), `PhoVietRoutes.cs`, `PhoVietRoadDrivers.cs`, `PhoVietExitTraffic.cs`; `AgentScripts/VerifyRouteRestarts2118.cs` |

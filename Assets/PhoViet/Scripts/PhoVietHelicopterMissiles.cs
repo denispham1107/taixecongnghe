@@ -6,16 +6,24 @@ namespace PhoViet
   public const int HelicopterMissileCapacity=40;
   const float HelicopterMissileSpeed=40,HelicopterMissileLifetime=3.2f;
   sealed class HelicopterMissile
-  {public Transform root;public MissileFlightVisual visual;public AudioSource flightAudio;public bool active,dodgeCounted;public Vector3 velocity,scroll;public float age;}
+  {public Transform root;public MissileFlightVisual visual;public AudioSource flightAudio;public bool active,dodgeCounted,fromTank;public Vector3 velocity,scroll;public float age;}
   readonly HelicopterMissile[] helicopterMissiles=new HelicopterMissile[HelicopterMissileCapacity];GameObject helicopterMissilePrefab;
   public int HelicopterMissilesFired{get;private set;}public int HelicopterMissilesDodged{get;private set;}
-  public bool HitByHelicopterMissile{get;private set;}public bool RiderAirAttackBurning{get;private set;}
-  public int ActiveHelicopterMissileCount{get{int n=0;foreach(var m in helicopterMissiles)if(m!=null&&m.active)n++;return n;}}
+  public int TankMissilesFired{get;private set;}
+  public bool HitByHelicopterMissile{get;private set;}public bool HitByTankMissile{get;private set;}public bool RiderAirAttackBurning{get;private set;}
+  public int ActiveHelicopterMissileCount=>CountEnemyMissiles(false);
+  public int ActiveTankMissileCount=>CountEnemyMissiles(true);
+  int CountEnemyMissiles(bool fromTank)
+  {
+   int count=0;
+   foreach(var m in helicopterMissiles)if(m!=null&&m.active&&m.fromTank==fromTank)count++;
+   return count;
+  }
   public int BurningHelicopterCount{get{int n=0;foreach(var h in helicopters)if(h!=null&&h.active&&h.wrecked)n++;return n;}}
   public static float HelicopterMissileInterval(float metres)=>metres>=1200?.5f:metres>=800?.6f:metres>=400?.8f:1;
   void ResetHelicopterMissiles()
   {
-   HelicopterMissilesFired=HelicopterMissilesDodged=0;HitByHelicopterMissile=RiderAirAttackBurning=false;
+   HelicopterMissilesFired=HelicopterMissilesDodged=TankMissilesFired=0;HitByHelicopterMissile=HitByTankMissile=RiderAirAttackBurning=false;
    if(Application.isPlaying&&helicopterMissilePrefab==null)helicopterMissilePrefab=Resources.Load<GameObject>("Helicopter/PV_HelicopterMissile");
    for(int i=0;i<helicopterMissiles.Length;i++)
    {
@@ -38,8 +46,12 @@ namespace PhoViet
   bool FireHelicopterMissile(HelicopterActor h)
   {
    if(h==null||!h.active||h.wrecked||State!=RideState.Riding||!RiderFlying)return false;
-   HelicopterMissile free=null;foreach(var m in helicopterMissiles)if(m!=null&&!m.active){free=m;break;}if(free==null)return false;
    Vector3 origin=h.root.localPosition+h.root.localRotation*new Vector3(0,-.15f,1.3f);
+   return FireEnemyMissile(origin,false);
+  }
+  bool FireEnemyMissile(Vector3 origin,bool fromTank)
+  {
+   HelicopterMissile free=null;foreach(var m in helicopterMissiles)if(m!=null&&!m.active){free=m;break;}if(free==null)return false;
    Vector3 target=rider.localPosition+Vector3.up*(PlayerHeight*.5f),offset=target-origin;
    // Lead only the road travel at launch. Steering/altitude changes after firing are evasion.
    Vector3 roadVelocity=Vector3.forward*Speed;
@@ -47,9 +59,11 @@ namespace PhoViet
    float t=offset.magnitude/(HelicopterMissileSpeed+Mathf.Max(0,Speed)),disc=b*b-4*a*c;
    if(Mathf.Abs(a)>.001f&&disc>=0){float r1=(-b-Mathf.Sqrt(disc))/(2*a),r2=(-b+Mathf.Sqrt(disc))/(2*a);if(r1>0)t=r1;if(r2>0&&(r1<=0||r2<r1))t=r2;}
    free.velocity=(target+roadVelocity*t-origin).normalized*HelicopterMissileSpeed;free.scroll=Vector3.zero;free.age=0;free.dodgeCounted=false;
-   free.root.localPosition=origin;free.root.localRotation=Quaternion.LookRotation(free.velocity);free.active=true;free.root.gameObject.SetActive(true);free.visual.Begin();HelicopterMissilesFired++;
+   free.fromTank=fromTank;
+   free.root.localPosition=origin;free.root.localRotation=Quaternion.LookRotation(free.velocity);free.active=true;free.root.gameObject.SetActive(true);free.visual.Begin();
+   if(fromTank)TankMissilesFired++;else HelicopterMissilesFired++;
    PlayMissileAudio(free.flightAudio,origin,false);
-   notice="TÊN LỬA · ĐỔI LÀN / HẠ / LỘN NÉ";noticeTimer=1.2f;return true;
+   notice=fromTank?"TÊN LỬA XE TĂNG · ĐỔI LÀN / HẠ / LỘN NÉ":"TÊN LỬA · ĐỔI LÀN / HẠ / LỘN NÉ";noticeTimer=1.2f;return true;
   }
   void ScrollHelicopterMissiles(float distance){foreach(var m in helicopterMissiles)if(m!=null&&m.active){m.scroll+=Vector3.forward*distance;m.visual.Scroll(distance);}}
   void RebaseHelicopterMissiles(Quaternion inverse,Vector3 origin)
@@ -65,8 +79,8 @@ namespace PhoViet
     Vector3 nose=m.velocity.normalized*.65f;
     if(collisions&&State==RideState.Riding&&MissileTouchesRider(from+nose,m.root.localPosition+nose,previousRider,out float at))
     {
-     if(RiderRolling){if(!m.dodgeCounted){m.dodgeCounted=true;HelicopterMissilesDodged++;}}
-     else{Vector3 point=Vector3.Lerp(from,m.root.localPosition,at);AirAttackBurst(point);BurnAirAttackRider(point,true);RetireHelicopterMissile(m);continue;}
+     if(RiderRolling){if(!m.dodgeCounted){m.dodgeCounted=true;if(!m.fromTank)HelicopterMissilesDodged++;}}
+     else{Vector3 point=Vector3.Lerp(from,m.root.localPosition,at);AirAttackBurst(point);BurnAirAttackRider(point,true,m.fromTank);RetireHelicopterMissile(m);continue;}
     }
     if(m.age>=HelicopterMissileLifetime||m.root.localPosition.z< -35||Mathf.Abs(m.root.localPosition.x)>38||m.root.localPosition.y<-.1f)RetireHelicopterMissile(m);
    }
@@ -85,14 +99,14 @@ namespace PhoViet
    }
    time=enter;return true;
   }
-  void BurnAirAttackRider(Vector3 point,bool missile)
+  void BurnAirAttackRider(Vector3 point,bool missile,bool fromTank=false)
   {
    if(State!=RideState.Riding||RiderAirAttackBurning)return;
    Vector3 before=riderVelocityValid?riderRoadVelocity:rider.localRotation*Vector3.forward*Speed;
    Vector3 direction=before;direction.y=0;if(direction.sqrMagnitude<.1f)direction=rider.localRotation*Vector3.forward;direction.Normalize();
    BeginRiderImpact(null,new Vector2(direction.x,direction.z),point,before);
    riderFallVelocity=direction*Mathf.Clamp(before.magnitude*.6f,6,25)+Vector3.down*2;riderFallSpin=new Vector3(20,8,55);
-   RiderAirAttackBurning=true;HitByHelicopterMissile|=missile;CrashDuringPursuit=false;IsChased=false;routePolice=false;chaseBoost=0;ResetCrashPoliceNavigation();siren?.Stop();
+   RiderAirAttackBurning=true;HitByHelicopterMissile|=missile&&!fromTank;HitByTankMissile|=missile&&fromTank;CrashDuringPursuit=false;IsChased=false;routePolice=false;chaseBoost=0;ResetCrashPoliceNavigation();siren?.Stop();
    EnsureThunderstorm();stormVisual?.Burn(rider,null);
    notice=missile?"TRÚNG TÊN LỬA · CHUYẾN ĐI KẾT THÚC":"VA TRỰC THĂNG · CHUYẾN ĐI KẾT THÚC";noticeTimer=5;
   }

@@ -23,6 +23,7 @@ namespace PhoViet
   public bool randomTanks=false;          // xe tăng ngẫu nhiên ở ô xe con (21.33) — tắt từ 21.38
   public bool tankBarrageEnabled=true;    // xe tăng theo lịch 9 s và bắn đạn
   public const float TankInterval=9f,TankDistanceInterval=400f,TankFireInterval=.4f,TankFireIntervalMin=.4f,ShellFlight=1.6f,BlastRadius=2.2f,TankFireNear=24f,TankFireFar=115f;
+  const float TankMissileInterval=1f;
   public GameObject tankShellPrefab;
   public Material tankShellMaterial,tankMuzzleMaterial,tankExplosionMaterial,tankWarningMaterial,tankSparkMaterial;
   public int TanksScheduled {get;private set;}
@@ -124,19 +125,23 @@ namespace PhoViet
   {
    if(!v.active||!v.armored||v.tankDestroyed||v.knocked||v.riverFalling||v.routeDetached||v.crossing||v.roadTurning||v.baseTrafficSpeed>=0)return false;
    float z=v.model.localPosition.z;if(z<=TankFireNear||z>=TankFireFar)return false;
-   // Đủ xa để đạn rơi đúng chỗ người chơi sẽ tới (không bắn khi xe tăng đã quá gần).
-   return TankMuzzle(v).z-5>=Mathf.Max(Speed,8)*ShellFlight;
+   // Chỉ đạn pháo cần đủ khoảng cách để điểm rơi còn nằm trước nòng.
+   return RiderFlying||TankMuzzle(v).z-5>=Mathf.Max(Speed,8)*ShellFlight;
   }
   void TickTankFire(float dt)
   {
    if(!tankBarrageEnabled||State!=RideState.Riding||IsTurning||dt<=0)return;
+   bool antiAir=RiderFlying;
+   float interval=antiAir?TankMissileInterval:CurrentTankFireInterval;
    foreach(var v in vehicles)
    {
     if(!TankCanFire(v))continue;
-    // Khoảng bắn rút ngắn ngay khi người chơi tăng tốc (không chờ hết khoảng cũ dài hơn).
-    v.tankFireTimer=Mathf.Min(v.tankFireTimer,CurrentTankFireInterval)-dt;
+    // Khi hạ xuống, chờ tối đa một nhịp pháo trước khi bắn tiếp.
+    v.tankFireTimer=Mathf.Min(v.tankFireTimer,interval)-dt;
     if(v.tankFireTimer>0)continue;
-    v.tankFireTimer=CurrentTankFireInterval;FireAutomaticTankShell(v);
+    v.tankFireTimer=interval;
+    if(antiAir)FireEnemyMissile(TankMuzzle(v),true);
+    else FireAutomaticTankShell(v);
    }
   }
   bool HasTurnTankAim(TrafficVehicle v)=>v.active&&v.armored&&v.turnTankAimGeneration==v.spawnGeneration;
