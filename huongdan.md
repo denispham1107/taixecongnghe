@@ -3504,3 +3504,9 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Tên lửa xe tăng dùng chung pool 40 viên với trực thăng trong `PhoVietHelicopterMissiles.cs`, giữ âm thanh phóng/bay, vệt lửa và khói. Tốc độ 40 m/s, ngắm đón đầu khi phóng rồi bay thẳng. Có thể né bằng đổi làn, hạ xuống kịp hoặc lộn ngang. Nếu trúng, xe rơi cháy theo xử lý tên lửa hiện có. Bộ đếm phát bắn và cờ trúng tách theo nguồn. Tên lửa đã phóng cuộn theo đường và chuyển hệ tọa độ khi rẽ, kể cả khi không có trực thăng.
 - Biên dịch Unity 0 lỗi/cảnh báo. Play Mode đạt 20 kiểm tra về nhịp và chuyển vũ khí, điểm phóng, trúng/né, đổi hệ tọa độ khi không có trực thăng, pause, xe tăng đã bị phá hủy và chơi lại. Kết quả trong `.tools/tank-missiles2159-result.txt`.
 - Chưa build WebGL, push hay phát hành. Web 1.61.0 vẫn theo bản đã xác minh ở 21.156.
+
+## 21.160. Build và phát hành WebGL 1.62.0 (09/11/2026 — Codex)
+
+- Người dùng yêu cầu build và phát hành. Nguồn `e506efd` gồm 21.157–21.159, nhánh từ xa trước phát hành là `455a144`. Bản 1.62.0 gồm giữ gạch caro vỉa hè và cập nhật âm thanh, trực thăng xuất hiện cùng khủng long sau rẽ với giới hạn 1–2 chiếc, xe tăng bắn tên lửa khi người chơi đang bay.
+- Unity build ETC2/DXT trong 389,628 giây, 0 lỗi. BuildReport ghi một cảnh báo thiếu `RuntimePipelineConfig` của Unity Pipeline. 203 kiểm tra trước build và 203 sau build đạt, 585 file đối chiếu SHA giữ nguyên. Kiểm gói Git 43 và bản ghép Pages 34 đều đạt, cache `8ed73403233584a3`.
+- Git index khớp artifact đã thử qua 35 điều kiện. Chrome local đạt 16 điều kiện desktop, mobile và offline, gồm thao tác chạm đi vào Unity. Trang chủ đạt 459 kiểm tra bố cục. Chưa thử trên thiết bị mobile thật.

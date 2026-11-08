@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **08/11/2026 — Codex**
+Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 1. Trạng thái hiện tại
 
@@ -257,6 +257,8 @@ Cập nhật lần cuối: **08/11/2026 — Codex**
 6. **1.36.0:** xe tăng Meshy “Iron Sentinel” (21.33–21.34). **1.35.0:** đổi làn kiểu đánh lái, nhà kính, zoom dọc +10% (21.28–21.32). **1.34.0:** phố Sài Gòn (21.19–21.27).
 
 ## 3. Đang dở / cần người dùng quyết
+
+- **21.160 đang phát hành (Codex):** WebGL 1.62.0 từ `e506efd`, gồm 21.157–21.159. Build ETC2/DXT thành công, 203 kiểm tra trước + 203 sau, 585 SHA giữ nguyên, 43 kiểm tra gói repo + 34 kiểm tra gói Pages + 35 kiểm tra Git index đạt. Chrome desktop/mobile/offline đạt 16, bố cục đạt 459. Cache `8ed73403233584a3`. Đang đưa lên Pages và chờ kiểm tra live.
 
 - **21.156 hoàn tất.** Web 1.61.0 đã xác minh live. Unity Edit Mode, scene sạch, server 8788 đã dừng. Mobile đã kiểm giả lập, chưa thử thiết bị thật.
 
