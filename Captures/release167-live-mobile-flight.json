@@ -1,0 +1,63 @@
+{
+  "success": true,
+  "checks": [
+    "Portrait live shows the player car",
+    "Touching the visible Bay button raises the car",
+    "Holding Bay raises the car above normal flight in live WebGL",
+    "Car stays above normal flight after touch release",
+    "No live portrait browser or Unity errors"
+  ],
+  "errors": [],
+  "buttons": {
+    "x": 46,
+    "y": 607,
+    "missileY": 680,
+    "right": 345,
+    "bounds": {
+      "x": 0,
+      "y": 0,
+      "width": 390,
+      "height": 774
+    },
+    "css": {
+      "visible": 730,
+      "padding": 0
+    }
+  },
+  "ground": {
+    "area": 1319,
+    "y": 494.7983320697498
+  },
+  "takeoff": {
+    "area": 1132,
+    "y": 435.34187279151945
+  },
+  "climb": {
+    "apex": {
+      "area": 1065,
+      "y": 416.40469483568074
+    },
+    "climb": {
+      "area": 911,
+      "y": 386.9945115257958
+    }
+  },
+  "positions": {
+    "ground": {
+      "area": 1319,
+      "y": 494.7983320697498
+    },
+    "apex": {
+      "area": 1065,
+      "y": 416.40469483568074
+    },
+    "climb": {
+      "area": 911,
+      "y": 386.9945115257958
+    },
+    "held": {
+      "area": 880,
+      "y": 376.54545454545456
+    }
+  }
+}

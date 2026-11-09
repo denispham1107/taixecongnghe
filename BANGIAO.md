@@ -10,7 +10,7 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.66.0** — WebGL `6fcae72`, Pages `42664763165` thành công đúng SHA, cache `e0d6fc7506d5a965`. Gồm thanh máu khủng long và độ khó tăng sau khi rẽ. **34 kiểm tra live đạt, 0 lỗi runtime.** |
+| Bản đã phát hành | **1.67.0** — WebGL `18dddeb`, Pages `42685816470` thành công đúng SHA, cache `d7ae63b6ac6d824e`. Gồm bay cao và Crimson Skywing. **34 kiểm tra live và 5 kiểm tra bay trên mobile giả lập đạt, 0 lỗi runtime.** |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra, plugin cục bộ chưa commit. |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -20,7 +20,7 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 | Chế độ chơi | **Web1.53.0/21.118:** reset quãngvăng trước dựngđường để chơi lại rẽđúng/khônglệchnhà. **21.115:** điểm/kỷlục dừngngaylúcva chạm, không cộngquãngvăng; physics giữ; truy đuổi CSGT tạm khóa trong source21.155. Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, thu nhỏ 15%. Q/chạm hai lần móc xích trong 4 m khi chưa bay, lộn khi bay (21.155, web 1.61.0). Space/vuốt lên nhảy với bốn luồng khói trắng. W/F/vuốt xuống bắn tên lửa. Boost tạm khóa và giữ mã hiệu ứng hai ống bô. |
-| Bay cao và máy bay hai tầng cánh | **21.177, WebGL 1.67.0 đã build:** giữ Bay lên tối đa 2,2× (9,96 m), tiêu hao 10–40 mỗi 0,5 s. Crimson Skywing sinh 2/4/6 chiếc theo độ cao, dùng tên lửa như trực thăng. Đang chờ Pages. |
+| Bay cao và máy bay hai tầng cánh | **21.177, đã có trên WebGL 1.67.0:** giữ Bay lên tối đa 2,2× (9,96 m), tiêu hao 10–40 mỗi 0,5 s. Crimson Skywing sinh 2/4/6 chiếc theo độ cao, dùng tên lửa như trực thăng. |
 | Bay và nhảy | **21.169, web 1.65.0:** nút Bay và nhảy rồi giữ cùng đỉnh **4,52832 m** từ mặt đỡ. Đỉnh nhảy tăng 10%, cố định theo tốc độ. Lệnh giữ lúc đang rơi sẽ nâng lên đỉnh. |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Tối ưu mobile | **21.136/21.138 đã có trên web 1.57.1:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop **Rất cao (source21.144)** giữ baseline trừ cascades WebGL; Rấtcao không tựgiảm. Layer ẩn sớm gồm đèn tín hiệu và đèn đường từ source21.147 |
@@ -56,9 +56,9 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.178:** WebGL 1.67.0 đã build đủ ETC2/EAC và DXT, cache ``d7ae63b6ac6d824e``. Đạt 42 kiểm tra Git index, 603 bố cục và 22 Chrome cục bộ. Đang chờ Pages.
+- **21.178 đã phát hành WebGL 1.67.0:** ETC2/EAC và DXT, 172,159 giây. 214/220 kiểm tra Unity trước/sau, 603 bố cục, 22 Chrome cục bộ và 42 Git index đạt. Pages `42685816470`, commit `18dddeb`, cache `d7ae63b6ac6d824e`. 34 kiểm tra công khai và 5 kiểm tra bay khổ dọc đạt.
 
-- **21.177:** bay cao, tiêu hao năng lượng và máy bay Crimson Skywing đã kiểm tra xong trong Unity. 619 điều kiện Unity và 10 chuỗi thao tác JavaScript đạt. Trở về Edit Mode. Đã bỏ bản xem trước khỏi scene đang mở, không lưu scene. Web vẫn 1.66.0.
+- **21.177:** bay cao, tiêu hao năng lượng và máy bay Crimson Skywing đã kiểm tra xong trong Unity. 619 điều kiện Unity và 10 chuỗi thao tác JavaScript đạt. Trở về Edit Mode. Đã bỏ bản xem trước khỏi scene đang mở. Tính năng đã có trên web 1.67.0, xem 21.178.
 
 - **21.176:** khôi phục Meshy Bridge chính thức, biên dịch Editor và kiểm tra HTTP 200/403. Unity Phố Việt đang mở Bridge để nhận mô hình. Xem mục 13.3 và 21.176.
 
@@ -287,8 +287,6 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 6. **1.36.0:** xe tăng Meshy “Iron Sentinel” (21.33–21.34). **1.35.0:** đổi làn kiểu đánh lái, nhà kính, zoom dọc +10% (21.28–21.32). **1.34.0:** phố Sài Gòn (21.19–21.27).
 
 ## 3. Đang dở / cần người dùng quyết
-
-- **21.178 đang làm:** build và phát hành WebGL 1.67.0 cho bay cao/Crimson Skywing. Scene đang mở đã được chụp và đối chiếu SHA với scene lưu, trùng byte. Đã đưa prefab Skywing vào danh sách nén texture WebGL và qua 214 kiểm tra trước build. Đã build cả hai biến thể, kiểm tra gói và Chrome cục bộ. Đang chuẩn bị push, chờ đúng run Pages và kiểm tra live.
 
 
 
