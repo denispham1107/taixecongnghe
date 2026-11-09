@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc"><title id="title">Phố Việt · Huy hiệu Arcade</title><desc id="desc">Huy hiệu xanh đậm, viền vàng, đầu xe xanh và ngôi sao Phố Việt.</desc><defs>
+<linearGradient id="body" x2="28.000000000000004%" y2="100%"><stop offset="0" stop-color="#b9f4ff"/><stop offset="0.29" stop-color="#4cc0ff"/><stop offset="0.55" stop-color="#187df5"/><stop offset="1" stop-color="#1937ab"/></linearGradient>
+<linearGradient id="rear" x2="0%" y2="100%"><stop offset="0" stop-color="#2555bf"/><stop offset="0.54" stop-color="#12275b"/><stop offset="1" stop-color="#08142b"/></linearGradient>
+<linearGradient id="glass" x2="55.00000000000001%" y2="100%"><stop offset="0" stop-color="#28476d"/><stop offset="0.55" stop-color="#142744"/><stop offset="1" stop-color="#071228"/></linearGradient>
+<linearGradient id="chrome" x2="100%" y2="100%"><stop offset="0" stop-color="#d6fbff"/><stop offset="0.49" stop-color="#76ccfa"/><stop offset="1" stop-color="#2959aa"/></linearGradient>
+<linearGradient id="thruster" x2="0%" y2="100%"><stop offset="0" stop-color="#f7ffff"/><stop offset="0.25" stop-color="#6de8ff"/><stop offset="1" stop-color="#337eff"/></linearGradient>
+<linearGradient id="jet" x2="100%" y2="0%"><stop offset="0" stop-color="#fff4ae"/><stop offset="0.38" stop-color="#ffc052"/><stop offset="1" stop-color="#ff6342"/></linearGradient>
+</defs><linearGradient id="bg" x2="100%" y2="100%"><stop offset="0" stop-color="#273b68"/><stop offset="0.56" stop-color="#172b4e"/><stop offset="1" stop-color="#091729"/></linearGradient>
+ <linearGradient id="gold" x2="100%" y2="100%"><stop offset="0" stop-color="#fff4be"/><stop offset="0.42" stop-color="#ffd475"/><stop offset="0.76" stop-color="#d98d39"/><stop offset="1" stop-color="#e7ad52"/></linearGradient>
+ <rect width="512" height="512" fill="url(#bg)"/>
+ <path d="M0 119 119 0h46L0 165Zm512 277L396 512h-46l162-162Z" fill="#264269"/>
+ <path d="M0 145 145 0m367 375L375 512" stroke="#5a85a8" stroke-width="2" opacity=".68"/>
+ <path d="M256 69 394 126l38 75-22 139-71 67-83 39-83-39-71-67-22-139 38-75Z" fill="#08152b" opacity=".8"/>
+ <path d="M256 61 389 118l39 80-24 131-66 68-82 42-82-42-66-68-24-131 39-80Z" fill="url(#gold)" stroke="#0b1935" stroke-width="8"/>
+ <path d="M256 84 374 135l32 67-20 115-61 62-69 38-69-38-61-62-20-115 32-67Z" fill="#143460" stroke="#75482d" stroke-width="5"/>
+ <path d="m138 140-27 61 22 109m241-170 27 61-22 109" fill="none" stroke="#63a8d4" stroke-width="3" opacity=".62"/>
+ <path d="M139 300h234v20H139Zm26 27h182v12H165Z" fill="#1d497d"/>
+ <polygon fill="#ffda7e" points="256.00,118.00 266.37,145.73 295.94,147.02 272.78,165.45 280.69,193.98 256.00,177.64 231.31,193.98 239.22,165.45 216.06,147.02 245.63,145.73"/><polygon fill="#d5a957" points="197.00,170.00 199.72,177.26 207.46,177.60 201.39,182.43 203.47,189.90 197.00,185.62 190.53,189.90 192.61,182.43 186.54,177.60 194.28,177.26"/><polygon fill="#d5a957" points="315.00,170.00 317.72,177.26 325.46,177.60 319.39,182.43 321.47,189.90 315.00,185.62 308.53,189.90 310.61,182.43 304.54,177.60 312.28,177.26"/>
+ <g transform="translate(11 -19) scale(.957)"><g stroke-linejoin="round">
+  <path d="m142 313 28-9 5 64-14 18h-24l-7-12Zm228 0-28-9-5 64 14 18h24l7-12Z" fill="#08152d"/>
+  <path d="m166 289-19-13-12 3 1 13 25 11m185-14 19-13 12 3-1 13-25 11" fill="url(#chrome)" stroke="#10214b" stroke-width="5"/>
+  <path d="m169 293 30-46q18-19 42-21h30q24 2 42 21l30 46 22 21 7 31-13 24-42 12H195l-42-12-13-24 7-31Z" fill="url(#body)" stroke="#101d46" stroke-width="7"/>
+  <path d="M204 252q20-16 52-15 33-1 52 15l21 35-18 10H201l-18-10Z" fill="url(#glass)" stroke="#1d5099" stroke-width="5"/>
+  <path d="m211 254 52-14 32 4-46 8-50 17Z" fill="#91dbff" opacity=".64"/>
+  <path d="m183 294 38 9h70l38-9-19 31-54 22-54-22Z" fill="#1860d5"/>
+  <path d="m186 295 21 30 49 17 49-17 21-30" fill="none" stroke="#8edbff" stroke-width="4" opacity=".73"/>
+  <path d="m150 326 48 13-25 5-19-8m208-10-48 13 25 5 19-8" fill="none" stroke="#e6feff" stroke-width="7" stroke-linecap="round"/>
+  <path d="m155 345 48 8 19-5h68l19 5 48-8-10 19-30 10H195l-30-10Z" fill="#101c36"/>
+  <path d="m211 362 12-7h66l12 7-11 8h-68Z" fill="#233b59"/>
+  <path d="M190 369l21 7h90l21-7" fill="none" stroke="#63bfff" stroke-width="4" stroke-linecap="round"/>
+  <path d="m240 313 16-7 16 7-16 9Z" fill="#e0f5ff" opacity=".9"/>
+  </g></g>
+ <path d="m220 372 36 16 36-16" fill="none" stroke="#ffd984" stroke-width="5" stroke-linecap="round"/></svg>

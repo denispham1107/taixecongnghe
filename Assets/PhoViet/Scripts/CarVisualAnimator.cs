@@ -19,11 +19,12 @@ namespace PhoViet
         [NonSerialized] PhoVietGame game;
         [NonSerialized] PhoVietGame.TrafficVehicle vehicle;
         [NonSerialized] bool initialized;
-        float clock,impactAge=10,spinSpeed,lastYaw;
+        float clock,impactAge=10,lastYaw;
+        WheelRolling wheelRolling;
         string impactClip="ImpactFront";
         bool wasKnocked;
 
-        void OnEnable(){initialized=false;game=null;vehicle=null;clock=0;impactAge=10;WheelAngle=0;SteeringAngle=0;spinSpeed=0;wasKnocked=false;}
+        void OnEnable(){initialized=false;game=null;vehicle=null;clock=0;impactAge=10;WheelAngle=0;SteeringAngle=0;wheelRolling=default;wasKnocked=false;}
         public void ResetVisualBinding(){OnEnable();}
         public void Initialize()
         {
@@ -33,6 +34,8 @@ namespace PhoViet
             animationPlayer.playAutomatically=false;animationPlayer.cullingType=AnimationCullingType.AlwaysAnimate;animationPlayer.Stop();
             foreach(var clip in clips)animationPlayer.AddClip(clip,clip.name);
             foreach(AnimationState state in animationPlayer){state.enabled=false;state.weight=0;state.speed=0;}
+            var variant=GetComponent<MeshyCarVariants>();
+            if(variant!=null)CarWheelDetail.Bind(variant.ModelAsset,visual,wheels,wheelRadius);
             lastYaw=transform.localEulerAngles.y;initialized=true;Sample("Idle",0);
         }
         // localPush is the physical impulse applied to this vehicle, in its own axes.
@@ -50,12 +53,12 @@ namespace PhoViet
             if(game.State==PhoVietGame.RideState.Paused){PoseWheels();return;}
             clock+=dt;
             if(vehicle.knocked&&!wasKnocked&&impactAge>1)ReceiveImpact(new Vector3(-vehicle.knockDirection,0,-1),10);
-            if(!vehicle.knocked&&wasKnocked){impactAge=10;WheelAngle=0;spinSpeed=0;SteeringAngle=0;}
+            if(!vehicle.knocked&&wasKnocked)SteeringAngle=0;
             wasKnocked=vehicle.knocked;
-            float speed=Mathf.Abs(vehicle.crossing?game.CrossingSpeed(vehicle):vehicle.speed);
-            if(game.State!=PhoVietGame.RideState.Riding)speed=0;
-            if(vehicle.knocked){spinSpeed=Mathf.MoveTowards(spinSpeed,0,dt*12);impactAge+=dt;}
-            else{spinSpeed=speed;impactAge=10;}
+            bool trafficMoving=game.State==PhoVietGame.RideState.Riding||game.RiderCrashActive;
+            float speed=trafficMoving?game.TrafficWheelSpeed(vehicle):0;
+            bool coasting=vehicle.knocked||vehicle.wallCrashed||vehicle.riverFalling||vehicle.IsStandingUp;
+            impactAge=vehicle.knocked?impactAge+dt:10;
             string clip;float normalized;
             if(vehicle.knocked){clip=impactClip;normalized=Mathf.Clamp01(impactAge/.8f);}
             else if(vehicle.brakeRemaining>0){clip="Brake";normalized=Mathf.Repeat(clock,.8f)/.8f;}
@@ -70,7 +73,9 @@ namespace PhoViet
                 // Junction arcs and weaving have real changes in heading; front wheels follow those headings.
                 SteeringAngle=Mathf.MoveTowards(SteeringAngle,target,dt*100);
             }
-            lastYaw=yaw;WheelAngle=Mathf.Repeat(WheelAngle+spinSpeed/wheelRadius*Mathf.Rad2Deg*dt,360);PoseWheels();
+            lastYaw=yaw;
+            WheelAngle=WheelRolling.Rotate(WheelAngle,wheelRolling.Advance(dt,speed,coasting),wheelRadius);
+            PoseWheels();
             visual.position=transform.position;
             // Xe rơi/chìm dưới sông không bị nâng hình lên mặt đường.
             if(vehicle.knocked&&!vehicle.riverFalling&&!game.InRiverWater(transform))visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.01f-LowestSupport());

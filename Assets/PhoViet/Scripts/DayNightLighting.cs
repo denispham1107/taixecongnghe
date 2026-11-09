@@ -54,7 +54,7 @@ namespace PhoViet
         readonly float[] scores=new float[6];
         readonly Vector3[] origins=new Vector3[6],directions=new Vector3[6];
         readonly bool[] streetKind=new bool[6],wideKind=new bool[6];
-        static readonly int Tint=Shader.PropertyToID("_Tint"),NightLights=Shader.PropertyToID("_PVNightLights");
+        static readonly int Tint=Shader.PropertyToID("_Tint"),NightLights=Shader.PropertyToID("_PVNightLights"),BrakeGlow=Shader.PropertyToID("_BrakeGlow");
         static readonly int ProjectHeadlight=Shader.PropertyToID("_ProjectHeadlight"),WorldToHead=Shader.PropertyToID("_WorldToHead"),HeadPosition=Shader.PropertyToID("_HeadPosition");
         static readonly int HeadlightWidth=Shader.PropertyToID("_HeadlightWidth");
         static readonly float CarHeadlightAngle=2*Mathf.Atan(Mathf.Tan(29*Mathf.Deg2Rad)*1.8f)*Mathf.Rad2Deg;
@@ -222,12 +222,14 @@ namespace PhoViet
             if(lastStorm!=game.StormIntensity||lastStormFlash!=game.StormFlash){lastStorm=game.StormIntensity;lastStormFlash=game.StormFlash;environmentPending=true;}
             if(environmentPending){if(game.State!=PhoVietGame.RideState.Jailed)ApplyEnvironment();environmentPending=false;}
             bool enabled=LampLevel>.001f&&game.State!=PhoVietGame.RideState.Jailed;
+            bool playerBraking=game.PlayerBrakeLampsOn;
             for(int i=0;i<6;i++)scores[i]=float.PositiveInfinity;
             var camera=game.rideCamera.transform;Vector3 eye=camera.position,focus=game.rider.position;
             foreach(var vehicle in vehicles)
             {
                 if(vehicle.root==null||vehicle.head==null)continue;
-                bool on=enabled&&vehicle.root.gameObject.activeInHierarchy;
+                bool active=vehicle.root.gameObject.activeInHierarchy;
+                bool on=enabled&&active;
                 bool wide=HasTwoHeadlamps(vehicle);
                 if(vehicle.roadLight!=null)
                 {
@@ -259,12 +261,16 @@ namespace PhoViet
                     if(halo.source==null||halo.glow==null)continue;
                     Vector3 p=halo.source.position,toCamera=eye-p;
                     float facing=Mathf.Max(0,Vector3.Dot(halo.rear?-halo.source.forward:halo.source.forward,toCamera.normalized));
-                    halo.glow.enabled=on&&facing>.06f;
+                    bool braking=active&&playerBraking&&vehicle.player&&halo.rear;
+                    halo.glow.enabled=(on||braking)&&facing>.06f;
                     if(halo.glow.enabled)
                     {
-                        halo.glow.transform.SetPositionAndRotation(p,Quaternion.LookRotation(toCamera,Vector3.up));halo.glow.transform.localScale=Vector3.one*halo.size;
-                        Color tint=halo.rear?C("FF2639"):C("EDF8FF");tint.a=Mathf.Pow(facing,2)*.5f;
-                        haloBlock.SetColor(Tint,tint);halo.glow.SetPropertyBlock(haloBlock);
+                        halo.glow.transform.SetPositionAndRotation(p,Quaternion.LookRotation(toCamera,Vector3.up));
+                        halo.glow.transform.localScale=Vector3.one*(halo.size*(braking?1.3f:1));
+                        Color tint=halo.rear?C("FF2639"):C("EDF8FF");tint.a=facing*facing*(braking?1.4f:.5f);
+                        haloBlock.SetColor(Tint,tint);
+                        haloBlock.SetFloat(BrakeGlow,braking?1:0);
+                        halo.glow.SetPropertyBlock(haloBlock);
                     }
                 }
                 if(on)
@@ -274,6 +280,7 @@ namespace PhoViet
                     if(score<3000)Offer(score,vehicle.head.position,direction,false,0,3,wide);
                 }
             }
+            haloBlock.SetFloat(BrakeGlow,0);
             // 21.136: 350 lamps every frame was a fixed cost even by day. Skip them while dark, change state only on a flip.
             if(streetLit==null||streetLit.Length!=streets.Length){streetLit=new sbyte[streets.Length];streetsAllOff=false;}
             if(enabled||!streetsAllOff)

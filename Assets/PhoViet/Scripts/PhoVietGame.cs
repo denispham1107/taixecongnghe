@@ -157,6 +157,8 @@ namespace PhoViet
             RunSeed=seed;rng=new System.Random(seed);
             // Route setup reads TravelDistance; discard the previous throw before any reset reads it.
             State=RideState.Ready;Distance=0;crashTravelDistance=0;Speed=0;drivePedal=DrivePedalMode.Cruise;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;steerYaw=0;ClearLaneMotion();noticeTimer=0;
+            rider.GetComponent<PlayerCarVisual>()?.ResetWheels();
+            rider.GetComponent<BikeVisualAnimator>()?.ResetWheels();
             RestorePlayerStartFrame();
             nextIntersectionDistance=VietnamStreet.IntersectionCenter-StartStreetPhase;ScheduledIntersections=0;
             ResetCityJobs();

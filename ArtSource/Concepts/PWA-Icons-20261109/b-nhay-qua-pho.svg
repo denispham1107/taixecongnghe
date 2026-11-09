@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc"><title id="title">Phố Việt · Nhảy qua phố</title><desc id="desc">Góc nghiêng giữa không trung, luồng đẩy sáng và ngã tư bên dưới.</desc><defs>
+<linearGradient id="body" x2="28.000000000000004%" y2="100%"><stop offset="0" stop-color="#b9f4ff"/><stop offset="0.29" stop-color="#4cc0ff"/><stop offset="0.55" stop-color="#187df5"/><stop offset="1" stop-color="#1937ab"/></linearGradient>
+<linearGradient id="rear" x2="0%" y2="100%"><stop offset="0" stop-color="#2555bf"/><stop offset="0.54" stop-color="#12275b"/><stop offset="1" stop-color="#08142b"/></linearGradient>
+<linearGradient id="glass" x2="55.00000000000001%" y2="100%"><stop offset="0" stop-color="#28476d"/><stop offset="0.55" stop-color="#142744"/><stop offset="1" stop-color="#071228"/></linearGradient>
+<linearGradient id="chrome" x2="100%" y2="100%"><stop offset="0" stop-color="#d6fbff"/><stop offset="0.49" stop-color="#76ccfa"/><stop offset="1" stop-color="#2959aa"/></linearGradient>
+<linearGradient id="thruster" x2="0%" y2="100%"><stop offset="0" stop-color="#f7ffff"/><stop offset="0.25" stop-color="#6de8ff"/><stop offset="1" stop-color="#337eff"/></linearGradient>
+<linearGradient id="jet" x2="100%" y2="0%"><stop offset="0" stop-color="#fff4ae"/><stop offset="0.38" stop-color="#ffc052"/><stop offset="1" stop-color="#ff6342"/></linearGradient>
+</defs><linearGradient id="bg" x2="60%" y2="100%"><stop offset="0" stop-color="#141842"/><stop offset="0.55" stop-color="#644cc5"/><stop offset="1" stop-color="#ed9a77"/></linearGradient>
+ <rect width="512" height="512" fill="url(#bg)"/>
+ <circle cx="325" cy="196" r="130" fill="#da91f6" opacity=".22"/>
+ <circle cx="325" cy="196" r="102" fill="#fbc7b4" opacity=".72"/>
+ <path d="M0 325 74 277l36 12 45-32 58 36 54-19 60 23 38-35 79 12 68-40v278H0Z" fill="#35255f"/>
+ <path d="M0 378 72 338l72 11 43-17 80 27 73-34 59 17 113-43v213H0Z" fill="#202549"/>
+ <path d="m0 411 221-63 73 11 218 44v31l-212-38L110 512H40l224-131L0 437Z" fill="#5974aa" opacity=".7"/>
+ <path d="M33 423 94 405m43-12 60-17m150 18 56 11m35 7 55 11M120 499l51-30m30-18 44-25" stroke="#c6daff" stroke-width="4" stroke-linecap="round"/>
+ <path d="m58 145 101-67m-51 113 123-80m164 167 78-51M70 329l58-37" stroke="#b9b6ff" opacity=".6" stroke-width="5" stroke-linecap="round"/>
+ <g transform="translate(256 276) rotate(-20) translate(-256 -308)">
+ <path d="m174 357-23 77 24-17 5 13 17-71m117-2 0 67 11-15 17 11-5-61" fill="url(#thruster)" opacity=".83"/>
+ <path d="m176 357-14 52 19-17 11-38m126 3 4 37 10 10-1-48" fill="#f1ffff"/>
+ <g stroke-linejoin="round">
+  <path d="m142 313 28-9 5 64-14 18h-24l-7-12Zm228 0-28-9-5 64 14 18h24l7-12Z" fill="#08152d"/>
+  <path d="m166 289-19-13-12 3 1 13 25 11m185-14 19-13 12 3-1 13-25 11" fill="url(#chrome)" stroke="#10214b" stroke-width="5"/>
+  <path d="m169 293 30-46q18-19 42-21h30q24 2 42 21l30 46 22 21 7 31-13 24-42 12H195l-42-12-13-24 7-31Z" fill="url(#body)" stroke="#101d46" stroke-width="7"/>
+  <path d="M204 252q20-16 52-15 33-1 52 15l21 35-18 10H201l-18-10Z" fill="url(#glass)" stroke="#1d5099" stroke-width="5"/>
+  <path d="m211 254 52-14 32 4-46 8-50 17Z" fill="#91dbff" opacity=".64"/>
+  <path d="m183 294 38 9h70l38-9-19 31-54 22-54-22Z" fill="#1860d5"/>
+  <path d="m186 295 21 30 49 17 49-17 21-30" fill="none" stroke="#8edbff" stroke-width="4" opacity=".73"/>
+  <path d="m150 326 48 13-25 5-19-8m208-10-48 13 25 5 19-8" fill="none" stroke="#e6feff" stroke-width="7" stroke-linecap="round"/>
+  <path d="m155 345 48 8 19-5h68l19 5 48-8-10 19-30 10H195l-30-10Z" fill="#101c36"/>
+  <path d="m211 362 12-7h66l12 7-11 8h-68Z" fill="#233b59"/>
+  <path d="M190 369l21 7h90l21-7" fill="none" stroke="#63bfff" stroke-width="4" stroke-linecap="round"/>
+  <path d="m240 313 16-7 16 7-16 9Z" fill="#e0f5ff" opacity=".9"/>
+  </g></g>
+ <path d="M355 112l20-12 20 12m-38 20 18-11 18 11" fill="none" stroke="#eefaff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>

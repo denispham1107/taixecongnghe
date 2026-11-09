@@ -21,12 +21,15 @@ namespace PhoViet
   PhoVietGame game;
   bool initialized;
   float clock,pitchVelocity;
+  WheelRolling wheelRolling;
+  internal void ResetWheels(){wheelRolling=default;WheelAngle=0;}
   public void Initialize()
   {
    if(initialized||visual==null||animationPlayer==null)return;
    game=GetComponentInParent<PhoVietGame>();if(game==null)return;
    animationPlayer.playAutomatically=false;animationPlayer.cullingType=AnimationCullingType.AlwaysAnimate;animationPlayer.Stop();
    foreach(var clip in clips)animationPlayer.AddClip(clip,clip.name);
+   CarWheelDetail.Bind("PV_BlueSupercar",visual,wheels,wheelRadius/ModelScale);
    initialized=true;
   }
   void LateUpdate(){Advance(Mathf.Min(Time.deltaTime,.05f));}
@@ -55,7 +58,9 @@ namespace PhoViet
     Quaternion spin=Quaternion.AngleAxis(game.RiderBarrelRoll,Vector3.forward);
     visual.localPosition+=visual.localRotation*(pivot-spin*pivot);visual.localRotation*=spin;
    }
-   if(moving)WheelAngle=Mathf.Repeat(WheelAngle+game.Speed/wheelRadius*Mathf.Rad2Deg*dt,360);
+   bool coasting=game.RiderCrashActive||game.State==PhoVietGame.RideState.GameOver||
+    game.State==PhoVietGame.RideState.Arrested&&game.CrashDuringPursuit;
+   WheelAngle=WheelRolling.Rotate(WheelAngle,wheelRolling.Advance(dt,moving?game.Speed:0,coasting),wheelRadius);
    float delta=Mathf.Atan((frontAxle+rearAxle)*game.RiderLateralAcceleration/Mathf.Max(64,game.Speed*game.Speed))*Mathf.Rad2Deg;
    WheelSteerAngle=Mathf.Lerp(WheelSteerAngle,Mathf.Clamp(delta,-24,24),1-Mathf.Exp(-dt*16));
    for(int i=0;i<wheels.Length;i++){steering[i].localRotation=Quaternion.Euler(0,i<2?WheelSteerAngle:0,0);wheels[i].localRotation=Quaternion.Euler(WheelAngle,0,0);}

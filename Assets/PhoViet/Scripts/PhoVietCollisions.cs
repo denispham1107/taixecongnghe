@@ -53,6 +53,11 @@ namespace PhoViet
             if(v.routeDetached)return DetachedTrafficVelocity(v);
             return v.crossing?new Vector3(CrossingSpeed(v),0,0):new Vector3(0,0,v.speed);
         }
+        internal float TrafficWheelSpeed(TrafficVehicle v)
+        {
+            var velocity = v.motionVelocity;
+            return new Vector2(velocity.x, velocity.z).magnitude;
+        }
         static Vector2 BodyForward(TrafficVehicle v)
         {float a=v.model.localEulerAngles.y*Mathf.Deg2Rad;return new Vector2(Mathf.Sin(a),Mathf.Cos(a));}
         static Vector2 BodyRight(TrafficVehicle v)

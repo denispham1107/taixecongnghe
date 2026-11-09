@@ -39,7 +39,7 @@ namespace PhoViet.Editor
                 var settings=UnityEditor.Rendering.EditorGraphicsSettings.GetTierSettings(BuildTargetGroup.WebGL,tier);
                 if(settings.cascadedShadowMaps){settings.cascadedShadowMaps=false;UnityEditor.Rendering.EditorGraphicsSettings.SetTierSettings(BuildTargetGroup.WebGL,tier,settings);}
             }
-            PlayerSettings.bundleVersion="1.63.0";
+            PlayerSettings.bundleVersion="1.64.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
@@ -122,7 +122,7 @@ namespace PhoViet.Editor
         {
             const string root="Builds/WebGL";
             if(!File.Exists(Path.Combine(root,"index.html")))throw new Exception("Build WebGL first");
-            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-home.png","poster-home-flight.png"})
+            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-home-jump.jpg","poster-home-missile.jpg","poster-home-encounter.jpg"})
                 File.Copy("Assets/WebGLTemplates/PhoVietPWA/"+file,Path.Combine(root,file),true);
             Directory.CreateDirectory(Path.Combine(root,"icons"));
             foreach(string icon in Directory.GetFiles("Assets/WebGLTemplates/PhoVietPWA/icons"))
@@ -137,7 +137,7 @@ namespace PhoViet.Editor
             html=System.Text.RegularExpressions.Regex.Replace(template,configPattern,_=>config.Value);
             if(html.Contains("{{{"))throw new Exception("Unexpanded Unity template token");
             File.WriteAllText(htmlPath,html);
-            foreach(string oldPoster in new[]{"poster.png","poster-morning.jpg","poster-morning-portrait.jpg","poster-action.jpg","poster-night.jpg"})
+            foreach(string oldPoster in new[]{"poster.png","poster-morning.jpg","poster-morning-portrait.jpg","poster-action.jpg","poster-night.jpg","poster-home.png","poster-home-flight.png"})
             {string oldPath=Path.Combine(root,oldPoster);if(File.Exists(oldPath))File.Delete(oldPath);}
             FinalizeWebOutput(root);
         }

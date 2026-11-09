@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web hiện tại **1.61.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.64.0**.
+
+## Cập nhật 1.64.0
+
+Đạp phanh làm hai đèn hậu xe đua sáng đỏ. Bánh xe quay theo tốc độ và chậm dần sau va chạm. Trang chủ có ba ảnh chơi mới và ứng dụng dùng icon **Phố lên đèn** đã duyệt.
 
 ## Cập nhật 1.61.0
 

@@ -1,0 +1,68 @@
+{
+  "checks": [
+    "Artifact reports 1.64.0 and a versioned cache",
+    "desktop web guide lists the chain action",
+    "desktop renders the game scene",
+    "desktop uses the expected Very High pixel ratio",
+    "desktop level 3 keeps framebuffer dimensions",
+    "desktop level 1 keeps framebuffer dimensions",
+    "desktop level 2 keeps framebuffer dimensions",
+    "Cached WebGL renders the real scene offline",
+    "mobile web guide lists the chain action",
+    "mobile renders the game scene",
+    "First portrait load corrects the reported 44px short canvas",
+    "Immersive document background is dark",
+    "mobile uses the expected Very High pixel ratio",
+    "mobile level 3 keeps framebuffer dimensions",
+    "mobile level 1 keeps framebuffer dimensions",
+    "mobile level 2 keeps framebuffer dimensions",
+    "Two real mobile taps reach the Unity browser gesture bridge",
+    "No browser or Unity runtime errors"
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "profile": "desktop",
+      "level": 3,
+      "ratio": 1,
+      "width": 1049,
+      "height": 592
+    },
+    {
+      "profile": "desktop",
+      "level": 1,
+      "ratio": 1,
+      "width": 1049,
+      "height": 592
+    },
+    {
+      "profile": "desktop",
+      "level": 2,
+      "ratio": 1,
+      "width": 1049,
+      "height": 592
+    },
+    {
+      "profile": "mobile",
+      "level": 3,
+      "ratio": 2,
+      "width": 780,
+      "height": 1548
+    },
+    {
+      "profile": "mobile",
+      "level": 1,
+      "ratio": 2,
+      "width": 780,
+      "height": 1548
+    },
+    {
+      "profile": "mobile",
+      "level": 2,
+      "ratio": 2,
+      "width": 780,
+      "height": 1548
+    }
+  ],
+  "success": true
+}

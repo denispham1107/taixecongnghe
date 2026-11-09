@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc"><title id="title">Phố Việt · Không chiến đêm</title><desc id="desc">Xe đua, trực thăng và tên lửa trên đường phố về đêm.</desc><defs>
+<linearGradient id="body" x2="28.000000000000004%" y2="100%"><stop offset="0" stop-color="#b9f4ff"/><stop offset="0.29" stop-color="#4cc0ff"/><stop offset="0.55" stop-color="#187df5"/><stop offset="1" stop-color="#1937ab"/></linearGradient>
+<linearGradient id="rear" x2="0%" y2="100%"><stop offset="0" stop-color="#2555bf"/><stop offset="0.54" stop-color="#12275b"/><stop offset="1" stop-color="#08142b"/></linearGradient>
+<linearGradient id="glass" x2="55.00000000000001%" y2="100%"><stop offset="0" stop-color="#28476d"/><stop offset="0.55" stop-color="#142744"/><stop offset="1" stop-color="#071228"/></linearGradient>
+<linearGradient id="chrome" x2="100%" y2="100%"><stop offset="0" stop-color="#d6fbff"/><stop offset="0.49" stop-color="#76ccfa"/><stop offset="1" stop-color="#2959aa"/></linearGradient>
+<linearGradient id="thruster" x2="0%" y2="100%"><stop offset="0" stop-color="#f7ffff"/><stop offset="0.25" stop-color="#6de8ff"/><stop offset="1" stop-color="#337eff"/></linearGradient>
+<linearGradient id="jet" x2="100%" y2="0%"><stop offset="0" stop-color="#fff4ae"/><stop offset="0.38" stop-color="#ffc052"/><stop offset="1" stop-color="#ff6342"/></linearGradient>
+</defs><linearGradient id="bg" x2="30%" y2="100%"><stop offset="0" stop-color="#10162e"/><stop offset="0.54" stop-color="#294679"/><stop offset="1" stop-color="#101a35"/></linearGradient>
+ <rect width="512" height="512" fill="url(#bg)"/>
+ <circle cx="164" cy="148" r="57" fill="#c6e7f8"/>
+ <path d="M142 99a57 57 0 0 0 60 83 57 57 0 1 1-60-83Z" fill="#83b4dc"/>
+ <path d="M0 121h42v64h25v-33h31v97h34v-43h28v82H0Zm512 16h-47v27h-30v70h-37v-21h-32v77h146Z" fill="#142346"/>
+ <path d="M17 156h12m-12 27h12m51 7h8m-8 20h8m-8 20h8m388-54h21m-21 23h21m-51 23h8m-8 20h8" stroke="#67b9e9" stroke-width="4" opacity=".6"/>
+ <path d="M42 512 238 271h44l193 241Z" fill="#141f3b"/>
+ <path d="M51 512 238 271m230 241L282 271" stroke="#345889" stroke-width="6"/>
+ <path d="M259 278v16m0 15v27m0 23v63m0 32v58" stroke="#86b0e6" stroke-width="5"/>
+ <g transform="translate(83 1) scale(.78)"><g fill="none" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M288 165h144m-70 0v16" stroke="#79c7f9" stroke-width="5"/>
+ <path d="m360 184-20 2-17 9-28 4-10-11h-8l5 22 35 3 20 15 38 1 20-10 6-16-10-12Z" fill="#162848" stroke="#8bb7d7" stroke-width="4"/>
+ <path d="m362 190 21 3 11 10-3 8-26-2-9-9Z" fill="#73c7f9"/>
+ <path d="m327 211 17 10h32l9-5" stroke="#dc5765" stroke-width="5"/>
+ <path d="m348 229-4 9m34-9 4 9m-47 0h61m-117-42 1-22m-10 12 20 2" stroke="#7799ba" stroke-width="3"/>
+ </g></g>
+ <g transform="translate(237 246) rotate(-42)">
+ <path d="m-14 9-15 9 10-18-22-7 27-7Z" fill="url(#jet)"/>
+ <path d="M-42-6h-35m31 10h-50m50 9h-31" stroke="#f6a65f" stroke-width="3" stroke-linecap="round" opacity=".68"/>
+ <path d="M-13-9H9q13 0 22 9Q23 9 9 9h-22Z" fill="#f7f2e9" stroke="#16254b" stroke-width="3"/>
+ <path d="m13-8 6 1 12 7-12 7-6 1Z" fill="#f75851"/><path d="M-10-8l-8-8h-6v10l7 6-7 6v10h6l8-8Z" fill="#6cbfff"/>
+ </g>
+ <ellipse cx="253" cy="410" rx="110" ry="21" fill="#090e1d"/>
+ <g transform="translate(-12 29) scale(1.035)"><g stroke-linejoin="round">
+  <path d="M155 333q-7 0-10 13l-6 39q0 13 15 14l27 1 7-33h136l7 33 27-1q15-1 15-14l-6-39q-3-13-10-13" fill="#0a152a"/>
+  <path d="m166 316-18-10-11 5 3 11 24 8m182-14 18-10 11 5-3 11-24 8" fill="#51adff" stroke="#112350" stroke-width="5"/>
+  <path d="m177 300 21-38q12-21 35-23h46q23 2 35 23l21 38 21 20 11 36-5 23-32 15H182l-32-15-5-23 11-36Z" fill="url(#body)" stroke="#102657" stroke-width="7"/>
+  <path d="M211 260q18-10 45-9 28-1 45 9l22 35-28 21h-78l-28-21Z" fill="url(#glass)" stroke="#123e79" stroke-width="5"/>
+  <path d="m211 262 52-7 29 5-22 5-64 7Z" fill="#bcecff" opacity=".65"/>
+  <path d="m212 283 88 0m-83 11h78m-70 12h62" stroke="#53739b" stroke-width="4" opacity=".58"/>
+  <path d="m170 315 24-25 9 30-24 24-23-5Zm172 0-24-25-9 30 24 24 23-5Z" fill="#60c6ff"/>
+  <path d="m203 317 21 9h64l21-9 15 27-15 12H203l-15-12Z" fill="#286fe4"/>
+  <path d="M146 347l29 8 34 2 12-8h70l12 8 34-2 29-8-4 31-32 16H182l-32-16Z" fill="url(#rear)" stroke="#142b54" stroke-width="4"/>
+  <path d="m157 354 22 10 24-2m152-8-22 10-24-2" fill="none" stroke="#ff566b" stroke-width="8" stroke-linecap="round"/>
+  <path d="m158 352 22 10m174-10-22 10" fill="none" stroke="#ffd1bb" stroke-width="3" stroke-linecap="round"/>
+  <path d="m194 382 21-10h82l21 10m-90-14h56" fill="none" stroke="#6384b3" stroke-width="3" opacity=".66"/>
+  <path d="M187 384h15m108 0h15" stroke="#bed4e8" stroke-width="4" stroke-linecap="round"/>
+  <path d="m180 296 23-32 18-13m111 45-23-32-18-13" fill="none" stroke="#abf1ff" stroke-width="4" stroke-linecap="round"/>
+  </g></g>
+ <path d="m169 413-31 31m198-31 31 31" stroke="#45a8ef" stroke-width="4" opacity=".55" stroke-linecap="round"/></svg>

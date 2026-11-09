@@ -12,6 +12,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | --- | --- |
 | Bản đã phát hành | **1.63.0** — WebGL `062e06f`, Pages `42508754502` thành công đúng SHA, cache `152859bcc13cfffe`. Gồm 21.161–21.162. **29 kiểm tra live đạt, 0 lỗi runtime.** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
+| Icon cài đặt | **21.167:** đã áp dụng mẫu A gốc «Phố lên đèn» với cờ nhỏ vào template PWA. Đã kiểm tra manifest, favicon, Apple Touch Icon và bản maskable. Chưa lên web. |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Simulator iPhone | **21.71:** đã thêm **Apple iPhone 14 Pro / 14 Pro Max**, Dynamic Island + Safe Area dọc/ngang; đang chọn Pro Max ngang, Safe Area bật. Asset chỉ trong Editor, chưa commit/push |
@@ -26,6 +27,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
 | Xuất phát trong source | **21.150:** bắt đầu và chơi lại từ 0 km/h, tăng khoảng 22 → 43 → 65 km/h ở giây 1–3. Xe và quãng đường dùng tốc độ thực. Đã có trên web 1.61.0. |
 | Xe mặt đất lúc mở màn trong source | **21.151:** các xe có mặt lúc bắt đầu tăng dần từ đứng yên đến nhịp riêng trong khoảng 3,01 giây. Áp dụng cho các nhóm giao thông, xe đặc biệt và nhánh CSGT nếu được mở lại. Đã có trên web 1.61.0. |
+| Bánh xe trong source | **21.164:** bánh lăn theo vận tốc thực, giữ quán tính rồi ngừng sau va chạm. Xe đua và bốn mẫu ô tô Meshy có chi tiết trên mâm để thấy rõ vòng quay. Đã kiểm tra Unity, chờ build WebGL. |
 | Phản hồi đổi làn trong source | **21.151:** xe người chơi đổi làn nhanh thêm 15% theo cả hai hướng, hệ số 1,53065 × 1,15, đã có trên web 1.61.0.  **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Pickup tên lửa mẫu C đã duyệt | **21.131 đã có trên web1.55.0:** Hex Ammo nền lục giác xanh/viền vàng/mũi đỏ;3LOD1482/1014/592tri,pool70.735Unity đạt/5ảnh đã xem; chỉ pickup đường, HUD/nút/đạn bay giữ. Approvaltrue/C |
@@ -52,6 +54,10 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.167:** dùng nguyên SVG mẫu A gốc đã duyệt. Xuất bộ PNG 192/512/maskable/Apple 180 với URL `*-pho-len-den-*`. 17 kiểm tra Sharp/Chrome đạt. Chờ phát hành.
+- **21.166:** dựng ba biến thể mẫu A với cờ đỏ sao vàng lớn hơn. Đã xem bản 32 px, 48 px và mặt nạ tròn. Web vẫn 1.63.0.
+- **21.165:** thiết kế 5 icon cài đặt Phố Việt theo xe đua xanh, đường phố, xe bay, trực thăng/tên lửa và nhặt năng lượng. Đã xem bảng render và thử bố cục Chrome ở 4 chiều rộng. Đây là mẫu duyệt, web vẫn 1.63.0.
+- **21.164:** nối tốc độ thực với trục bánh của xe người chơi và xe giao thông. Bánh giảm quay sau va chạm, lăn lại khi NPC chạy tiếp. Unity 0 lỗi/cảnh báo, 113 kiểm tra Play Mode đạt, đã xem hai ảnh cận cảnh. Thay đổi đang ở workspace, web vẫn 1.63.0.
 - **21.163 đã phát hành WebGL 1.63.0:** ETC2/DXT 360,644 giây, 204 trước + 204 sau build, 585 SHA giữ nguyên, 43 kiểm gói Git + 34 gói Pages + 35 index. Chrome local 18, bố cục 459 và live 29 đạt. Pages `42508754502` đúng SHA `062e06f`.
 
 - **21.162 đã có trên web 1.63.0:** canvas mở dọc theo viewport được hiệu chỉnh trên iPhone; xe tăng/trực thăng của đợt sau rẽ bắn ngay phát tên lửa đầu khi xe người chơi đang bay và ở trong tầm.
@@ -266,6 +272,9 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.168 đang phát hành 1.64.0:** build mobile/desktop thành công, cache `d9d1ebc9a916b5f3`. Unity đạt 207 trước và 207 sau build. Gói Git/Pages/index đạt 48/39/40, bố cục Chrome 603, WebGL desktop/mobile/offline 18. Đang push và theo dõi Pages.
+
+
 - **21.163 hoàn tất.** Unity Edit Mode, scene sạch, máy chủ thử nghiệm đã dừng. Ca mở dọc được kiểm trên Chrome giả lập iPhone, chưa thử iPhone thật.
 
 - **21.160 hoàn tất.** Unity Edit Mode, scene sạch, máy chủ local đã dừng. Mobile đã kiểm tra bằng trình giả lập Chrome.
@@ -399,11 +408,13 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 | Muốn đụng tới | Mục `huongdan.md` | File chính |
 | --- | --- | --- |
+| Thiết kế icon cài đặt Phố Việt | **21.167**, 21.165–21.166, 15.2 | `ArtSource/Web/pho-viet-app-icon.svg`, `AgentScripts/GenerateWebIcons.cjs`, `ArtSource/Concepts/PWA-Icons-20261109/`, template PWA `manifest.webmanifest`, `index.html`, `icons/` |
+| Bánh xe lăn và giảm quay sau va chạm | **21.164** | `WheelRolling.cs`, `CarWheelDetail.cs`, `PlayerCarVisual.cs`, `CarVisualAnimator.cs`, `BikeVisualAnimator.cs`, `PhoVietCollisions.cs` |
 | Player tên lửa3/3/pickup/HUD/F/homing/shot-down | **21.128** | `PhoVietPlayerMissiles.cs`, `PhoVietMissilePickups.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietHelicopter.cs`, HUD/energy/river/web runtime; `Resources/PlayerMissile`, `ArtSource/UI/player_missile_icon.*`; verifier/capture `PlayerMissile*2128`, reports `player2128-*` |
 | Cháy/khói đa điểm va chạm mặt đất; xe hồi phục vẫn cháy | **21.127** | `PhoVietContactFire.cs`, `ContactFireVisual.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs`, `PhoVietPolice.cs`, `PhoVietPlayerVehicle.cs`, `PhoVietThunderstorm.cs`; verifier/report/capture `ContactFire2127`/`contact2127-*` |
 | Trực thăng sau rẽ/giới hạn 500 m, tên lửa và né đạn | **21.161**, 21.158/21.126/21.132 | `PhoVietHelicopter.cs`, `PhoVietTurnHazards.cs`, `PhoVietDinosaurs.cs`, `PhoVietHelicopterMissiles.cs`, `HelicopterVisual.cs`, `MissileFlightVisual.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`; prefab trong `Resources/Helicopter` |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
-| Nút Đạp Ga/Đạp Phanh và kích thước nút Bay/Tên lửa | **21.152** | `PhoVietDrivePedals.cs`, `PhoVietGame.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietPortraitHud.cs`, `PhoVietTurnBikes.cs` |
+| Nút Đạp Ga/Đạp Phanh, đèn hậu và kích thước nút Bay/Tên lửa | **21.168**, 21.152 | `PhoVietDrivePedals.cs`, `DayNightLighting.cs`, `OpticalLight.shader`, `PhoVietGame.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietPortraitHud.cs` |
 | Dây xích/khóa CSGT | **21.155**, 2.2, 2.5 | `PhoVietChain.cs`, `PhoVietActions.cs`, `Resources/Chain/PV_Chain.json`, `ArtSource/Blender/Chain/` |
 | Bộ icon HUD B Arcade | **21.153–21.154** | `ArtSource/Concepts/DriveControls-20261108/`, `arcade-da-duyet.svg`, `approval.json`, `Resources/PV_ArcadeControls.png`, `PhoVietDrivePedals.cs`, `PhoVietFlightButton.cs`, `PhoVietPlayerMissileHud.cs` |
 | Tốc độ xuất phát, xe cắt ngang và đổi làn | **21.150–21.151** | `PhoVietGame.cs`, `PhoVietTraffic.cs`, `PhoVietRoadDrivers.cs`, `PhoVietReckless.cs`, `PhoVietPolice.cs`, `PhoVietRoutePolice.cs`; kiểm tra cục bộ `.tools/VerifyGroundLaunch2151.cs` |
@@ -442,7 +453,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | Giật lag mobile/mức đồ họa/bộ tự giảm/tile culling/warmup | **21.147,21.144,21.136** | `PhoVietGraphicsSettings.cs`, `PhoVietTileCulling.cs`, `Plugins/WebGL/PhoVietWeb.jslib`, `app.js`, `DayNightLighting.cs`, `MorningFog.cs`, `Editor/PhoVietWebMemorySettings.cs`, `Resources/PV_ShaderWarmup.shadervariants`; `AgentScripts/VerifyGraphics2144.cs`, `CaptureGraphics2144.cs`, `BenchMobile2136.cjs`, `ProfileWebCpu2136.cjs`, `VerifyMobilePerf2136.cs`, `SampleFrames2136.cs`, `AbFrozen2136.cs`, `GcHotspots2136.cs`, `TrackShaderVariants2136.cs`, `CaptureLevels2136.cs` |
 | Hiệu năng/lag/cache sông/va chạm/đèn/LODxa | **21.69** | `PhoVietObstacleBatches.cs`, `PhoVietRiver.cs`, `DayNightLighting.cs`, `Editor/PhoVietPerformanceUpgrade.cs`, `AgentScripts/ProfileRuntimeCost.cs`, `ProfileStreetDetail.cs`, `VerifyPerformanceSafety.cs`, `VerifyPerformanceLighting.cs` |
 | Kiểm tra theo loại thay đổi | 14, 18.2 | `AgentScripts/Verify*.cs`, `*.cjs` |
-| Trang chủ HTML / 2 ảnh / responsive | **21.134**,21.119,15.2 | `Assets/WebGLTemplates/PhoVietPWA/index.html`, `style.css`, `poster-home.png`, `poster-home-flight.png` (chụp bằng `AgentScripts/CaptureHomeFlight2134.cs`); `Editor/PhoVietWebBuild.cs`→RefreshWebShell; `AgentScripts/RefreshLandingPreview.cs`, `VerifyLanding.cjs`. Không dùngcapturecũ để thayảnhPNG này |
+| Trang chủ HTML / 3 ảnh / responsive | **21.168**, 21.134, 15.2 | Template PWA `index.html`, `style.css`, `poster-home-jump.jpg`, `poster-home-missile.jpg`, `poster-home-encounter.jpg`; `Editor/PhoVietWebBuild.cs` → RefreshWebShell; `AgentScripts/RefreshLandingPreview.cs`, `VerifyLanding.cjs` |
 | Mở game dọc sát mép, phát đầu phòng không sau rẽ | **21.162**, 21.161 | `Assets/WebGLTemplates/PhoVietPWA/app.js`, `style.css`, `PhoVietTurnHazards.cs`, `PhoVietTankFire.cs`, `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs` |
 | Pickup tên lửa C đã duyệt | **21.130–21.131** | `Editor/PhoVietMissilePickupUpgrade.cs`, `AgentScripts/InstallPlayerMissile2128.cs`, `VerifyMissilePickupC2131.cs`, `CaptureMissilePickupC2131.cs`, `Resources/PlayerMissile/PV_MissilePickup*`; `ArtSource/Concepts/MissilePickup-20261105/` (`approval.json`, `build_concepts.py`, hai `.blend`, hai PNG, `verification.json`) |
 | Vệt lửa/khói tên lửa | **21.129** | `Scripts/MissileFlightVisual.cs`, `MissileTrail.shader`, `Editor/PhoVietMissileTrailSetup.cs`, `Resources/Helicopter/PV_HelicopterMissile.prefab`; `AgentScripts/UpgradeMissileTrail2129.cs`, `VerifyMissileTrail2129.cs`, `CaptureMissileTrail2129.cs` |

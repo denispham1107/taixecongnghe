@@ -5,11 +5,14 @@ const url=process.argv[2]||'http://127.0.0.1:8783/';
 const capturePrefix=process.argv[3]||'landing';
 const report={url,checks:[],errors:[],layouts:[]};
 const check=(name,ok)=>{assert(ok,name);report.checks.push(name);};
+const photos=['poster-home-jump.jpg','poster-home-missile.jpg','poster-home-encounter.jpg'];
 async function inspect(page,label,safe){
- await page.locator('.street-preview img').first().scrollIntoViewIfNeeded();
- await page.waitForFunction(()=>document.querySelector('.street-preview img').complete&&document.querySelector('.street-preview img').naturalWidth>=1280);
- await page.locator('.street-gallery img').nth(1).scrollIntoViewIfNeeded();
- await page.waitForFunction(()=>{const e=document.querySelectorAll('.street-gallery img')[1];return e&&e.complete&&e.naturalWidth>=1280;});
+ const images=page.locator('.street-gallery img');
+ check(label+': exactly three home photos are present',await images.count()===photos.length);
+ for(let i=0;i<photos.length;i++){
+  await images.nth(i).scrollIntoViewIfNeeded();
+  await page.waitForFunction(index=>{const e=document.querySelectorAll('.street-gallery img')[index];return e?.complete&&e.naturalWidth>0;},i);
+ }
  await page.locator('#welcome').evaluate(e=>{e.scrollTop=0;});
  const data=await page.evaluate(()=>{
   const rect=s=>{const e=document.querySelector(s),r=e.getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height};};
@@ -17,20 +20,20 @@ async function inspect(page,label,safe){
   return {width:innerWidth,height:innerHeight,bodyOverflow:document.documentElement.scrollWidth>innerWidth+1,welcomeOverflow:document.querySelector('#welcome').scrollWidth>document.querySelector('#welcome').clientWidth+1,
    boxes:Object.fromEntries(pairs.map(s=>[s,rect(s)])),targets:[...document.querySelectorAll('#toolbar a,#toolbar button,.play-panel button')].filter(e=>e.getClientRects().length).map(e=>({id:e.id||'brand',...rect(e.id?'#'+e.id:'.wordmark')})),
    texts:[...document.querySelectorAll('.intro h1,.description,#load-status,.touch-guide,.preview-label,footer,nav')].every(e=>e.scrollWidth<=e.clientWidth+1),
-   image:{src:document.querySelector('.street-preview img').currentSrc,width:document.querySelector('.street-preview img').naturalWidth,height:document.querySelector('.street-preview img').naturalHeight,fit:getComputedStyle(document.querySelector('.street-preview img')).objectFit},photoCount:document.querySelectorAll('.street-gallery img').length,flight:(()=>{const e=document.querySelectorAll('.street-gallery img')[1],f=e.closest('figure').getBoundingClientRect(),o=document.querySelectorAll('.street-gallery figure')[0].getBoundingClientRect();return {src:e.currentSrc,width:e.naturalWidth,height:e.naturalHeight,fit:getComputedStyle(e).objectFit,x:f.x,y:f.y,figureWidth:f.width,firstX:o.x,firstBottom:o.bottom,firstWidth:o.width};})()};
+   photos:[...document.querySelectorAll('.street-gallery img')].map(e=>{const f=e.closest('figure').getBoundingClientRect(),image=e.getBoundingClientRect();return {src:e.currentSrc,width:e.naturalWidth,height:e.naturalHeight,fit:getComputedStyle(e).objectFit,x:f.x,y:f.y,bottom:f.bottom,figureWidth:f.width,imageWidth:image.width,imageHeight:image.height};})};
  });
  const overlap=(a,b)=>Math.min(a.right,b.right)-Math.max(a.x,b.x)>1&&Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y)>1;
  check(label+': no horizontal page/hero overflow',!data.bodyOverflow&&!data.welcomeOverflow&&data.texts);
  const b=data.boxes;check(label+': photo gallery and content never overlap',!overlap(b['.intro'],b['.street-gallery']));
- check(label+': exactly two home images are present',data.photoCount===2);
- check(label+': footer follows content and both photos',b['#welcome footer'].y>=Math.max(b['.intro'].bottom,b['.street-gallery'].bottom)-1);
+ check(label+': footer follows content and all three photos',b['#welcome footer'].y>=Math.max(b['.intro'].bottom,b['.street-gallery'].bottom)-1);
  check(label+': status and instructions follow the action',b['#load-status'].y>=b['.primary'].bottom-1&&b['.touch-guide'].y>=b['#load-status'].bottom-1);
  check(label+': buttons never overlap',data.targets.every((a,i)=>data.targets.slice(i+1).every(b=>!overlap(a,b))));
  check(label+': header stays outside cutouts',data.targets.filter(t=>t.id!=='play'&&t.id!=='retry').every(t=>t.x>=safe.left-1&&t.right<=data.width-safe.right+1&&t.y>=safe.top-1));
- check(label+': new game photo loads at full resolution',data.image.src.endsWith('poster-home.png')&&data.image.width>=1280);
- check(label+': supplied image keeps full frame and resolution',data.image.width===1920&&data.image.height===1080&&data.image.fit==='contain');
- const f=data.flight;check(label+': flight photo loads at full frame and resolution',f.src.endsWith('poster-home-flight.png')&&f.width===1920&&f.height===1080&&f.fit==='contain');
- check(label+': flight photo sits directly below the first photo at the same width',f.y>=f.firstBottom-1&&Math.abs(f.x-f.firstX)<=1&&Math.abs(f.figureWidth-f.firstWidth)<=1);
+ for(const [i,p] of data.photos.entries()){
+  check(label+': supplied photo loads in order at its native resolution '+(i+1),p.src.endsWith(photos[i])&&p.width===2778&&p.height===1284);
+  check(label+': photo frame is uncropped at native aspect ratio '+(i+1),p.fit==='contain'&&Math.abs(p.imageHeight-p.imageWidth*1284/2778)<=1);
+  if(i>0){const prev=data.photos[i-1];check(label+': gallery photo follows its predecessor '+(i+1),p.y>=prev.bottom-1&&Math.abs(p.x-prev.x)<=1&&Math.abs(p.figureWidth-prev.figureWidth)<=1);}
+ }
  await page.locator('#play').scrollIntoViewIfNeeded();
  check(label+': main action is reachable',await page.locator('#play').isVisible());
  report.layouts.push({label,...data});

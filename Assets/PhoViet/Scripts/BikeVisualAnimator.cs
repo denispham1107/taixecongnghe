@@ -16,6 +16,7 @@ namespace PhoViet
         public string AssetName;
         public UrbanRiderMotion urbanMotion;
         float rearWheelAngle;
+        WheelRolling wheelRolling;
         public string CurrentClip {get;private set;}="Idle";
         public float SampleTime {get;private set;}
         public float WheelAngle {get;private set;}
@@ -43,9 +44,10 @@ namespace PhoViet
 
         void OnEnable()
         {
-            initialized=false;game=null;vehicle=null;clock=0;fallAge=0;WheelAngle=0;jumpBalancePitch=jumpPitchVelocity=0;
+            initialized=false;game=null;vehicle=null;clock=0;fallAge=0;ResetWheels();jumpBalancePitch=jumpPitchVelocity=0;
             if(visual!=null){visual.localPosition=Vector3.zero;visual.localRotation=Quaternion.identity;}
         }
+        internal void ResetWheels(){wheelRolling=default;WheelAngle=rearWheelAngle=0;}
         void Start(){Initialize();}
         public void Initialize()
         {
@@ -100,13 +102,13 @@ namespace PhoViet
             if(role==ActorRole.Parked)
             {clock+=dt;Sample("Idle",Mathf.Repeat(clock,2.4f)/2.4f);if(urbanMotion!=null)urbanMotion.Advance(dt,false);return;}
             if(game.State==PhoVietGame.RideState.Ready&&previousState!=game.State)
-            {clock=0;fallAge=0;WheelAngle=0;}
+            {clock=0;fallAge=0;}
             previousState=game.State;clock+=dt;
             bool recovering=role==ActorRole.Traffic&&vehicle.IsStandingUp;
             bool falling=role==ActorRole.Player?(game.State==PhoVietGame.RideState.Falling||game.State==PhoVietGame.RideState.GameOver||game.State==PhoVietGame.RideState.Arrested&&game.CrashDuringPursuit):
                 role==ActorRole.Police?(game.PoliceFallen||game.PoliceInRiver):vehicle.knocked;
             float speed=role==ActorRole.Player?game.Speed:role==ActorRole.Police?game.PoliceSpeed:
-                vehicle.crossing?game.CrossingSpeed(vehicle):vehicle.speed;
+                game.TrafficWheelSpeed(vehicle);
             string clip="Idle";float normalized=0;
             if(recovering){clip="Recover";normalized=vehicle.StandUpProgress;speed=0;fallAge=0;}
             else if(falling)
@@ -124,17 +126,19 @@ namespace PhoViet
                 fallAge=0;
                 if(role==ActorRole.Player&&game.KickSwingActive&&game.State==PhoVietGame.RideState.Riding)
                 {clip=kickSide<0?"KickLeft":"KickRight";normalized=game.KickSwingPose;}
-                else if(game.State==PhoVietGame.RideState.Riding&&Mathf.Abs(speed)>.1f)
-                {clip="Ride";normalized=Mathf.Repeat(clock, .8f)/.8f;}
-                else {clip="Idle";normalized=Mathf.Repeat(clock,2.4f)/2.4f;speed=0;}
+                else
+                {
+                    bool moving=game.State==PhoVietGame.RideState.Riding||role!=ActorRole.Player&&game.RiderCrashActive;
+                    if(!moving)speed=0;
+                    if(speed>.1f){clip="Ride";normalized=Mathf.Repeat(clock,.8f)/.8f;}
+                    else normalized=Mathf.Repeat(clock,2.4f)/2.4f;
+                }
             }
             Sample(clip,normalized);
-            if(!falling&&!recovering)
-            {
-                float spinSpeed=urbanMotion!=null?Mathf.Abs(speed):speed;
-                WheelAngle=Mathf.Repeat(WheelAngle+spinSpeed/(urbanMotion!=null?urbanMotion.frontRadius:.34f)*Mathf.Rad2Deg*dt,360);
-                rearWheelAngle=Mathf.Repeat(rearWheelAngle+spinSpeed/(urbanMotion!=null?urbanMotion.rearRadius:.34f)*Mathf.Rad2Deg*dt,360);
-            }
+            bool coasting=falling||recovering||role==ActorRole.Traffic&&vehicle.riverFalling;
+            float distance=wheelRolling.Advance(dt,speed,coasting);
+            WheelAngle=WheelRolling.Rotate(WheelAngle,distance,urbanMotion!=null?urbanMotion.frontRadius:.34f);
+            rearWheelAngle=WheelRolling.Rotate(rearWheelAngle,distance,urbanMotion!=null?urbanMotion.rearRadius:.34f);
             // Physics owns the outer vehicle roll. Lift only its visual skin so fallen
             // handlebars, panniers and the rider settle above the road rather than through it.
             float recovery=role==ActorRole.Police&&falling&&!game.PoliceInRiver?1-Mathf.Clamp01(game.PoliceFallRemaining/.35f):0;

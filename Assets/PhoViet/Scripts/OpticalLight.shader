@@ -1,6 +1,6 @@
 Shader "PhoViet/Optical Light"
 {
-    Properties { _MainTex("Blender optical profile",2D)="black"{} _Tint("Tint",Color)=(1,1,1,1) _ProjectHeadlight("Project from animated lamp",Float)=0 _HeadlightWidth("Horizontal angular spread",Float)=1 }
+    Properties { _MainTex("Blender optical profile",2D)="black"{} _Tint("Tint",Color)=(1,1,1,1) _ProjectHeadlight("Project from animated lamp",Float)=0 _HeadlightWidth("Horizontal angular spread",Float)=1 _BrakeGlow("Brake lamp level",Float)=0 }
     SubShader
     {
         Tags { "Queue"="Transparent-20" "RenderType"="Transparent" "IgnoreProjector"="True" }
@@ -15,7 +15,7 @@ Shader "PhoViet/Optical Light"
             #pragma fragment frag
             #pragma multi_compile_fog
             #include "UnityCG.cginc"
-            sampler2D _MainTex;float4 _Tint;float _PVNightLights;
+            sampler2D _MainTex;float4 _Tint;float _PVNightLights,_BrakeGlow;
             float _HeadlightWidth;float _ProjectHeadlight;float4x4 _WorldToHead;float3 _HeadPosition;
             struct appdata {float4 vertex:POSITION;float2 uv:TEXCOORD0;};
             struct v2f {float4 position:SV_POSITION;float2 uv:TEXCOORD0;float3 world:TEXCOORD1;UNITY_FOG_COORDS(2)};
@@ -39,7 +39,7 @@ Shader "PhoViet/Optical Light"
                     float incidence=max(0,_HeadPosition.y-i.world.y)*t/1.1;
                     gain=min(1.5,t*t*incidence)*saturate((32-sqrt(distanceSquared))/6);
                 }
-                fixed4 c=fixed4(tex2D(_MainTex,uv).rgb*_Tint.rgb*_Tint.a*_PVNightLights*gain,0);
+                fixed4 c=fixed4(tex2D(_MainTex,uv).rgb*_Tint.rgb*_Tint.a*max(_PVNightLights,_BrakeGlow)*gain,0);
                 UNITY_APPLY_FOG_COLOR(i.fogCoord,c,fixed4(0,0,0,0));return c;
             }
             ENDCG

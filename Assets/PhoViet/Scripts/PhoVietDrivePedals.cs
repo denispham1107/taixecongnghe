@@ -11,6 +11,8 @@ namespace PhoViet
         DrivePedalMode drivePedal;
         Texture2D arcadeControls;
         bool DriveBraking=>drivePedal==DrivePedalMode.Brake;
+        internal bool PlayerBrakeLampsOn=>DriveBraking&&(State==RideState.Riding||
+            State==RideState.Paused&&pauseFromState==RideState.Riding);
         bool DriveStopped=>DriveBraking&&Speed==0;
 
         void SelectDrivePedal(bool brake)

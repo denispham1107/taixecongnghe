@@ -15,7 +15,10 @@ public static class RefreshLandingPreview
   PhoViet.Editor.PhoVietWebBuild.RefreshWebShell();
   var html=File.ReadAllText(path);var after=urls(html);
   if(before.Length!=5||!before.SequenceEqual(after))throw new Exception("Generated runtime/texture URLs changed");
-  if(html.Contains("{{{")||!html.Contains("poster-home.png")||html.Contains("poster-morning")||html.Contains("poster-action")||html.Contains("Áo đỏ sao vàng"))throw new Exception("Landing template was not expanded correctly");
+  var photos=new[]{"poster-home-jump.jpg","poster-home-missile.jpg","poster-home-encounter.jpg"};
+  if(html.Contains("{{{")||photos.Any(p=>!html.Contains(p)||!File.Exists(Path.Combine("Builds/WebGL",p)))||
+     html.Contains("poster-home.png")||html.Contains("poster-home-flight.png"))
+   throw new Exception("Landing template was not expanded with the three current photos");
   var report=new{success=true,checks=3,runtimeUrls=after,version=Application.version,previewOnly=true};
   File.WriteAllText("Captures/landing-refresh-checks.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));return report;
  }
