@@ -3,11 +3,12 @@ namespace PhoViet
 {
  public partial class PhoVietGame
  {
-  public const int MaximumHelicopters=2;
+  public const int MaximumHelicopters=3;
+  const float HelicopterDistanceStep=200;
   const float HelicopterSpeed=16,HelicopterSpacing=12,TurnHelicopterHeadClearance=1.55f;
   sealed class HelicopterActor
   {
-   public Transform root;public HelicopterVisual visual;public bool active,wrecked,turnWingmanPending,turnFirstShotPending;
+   public Transform root;public HelicopterVisual visual;public bool active,wrecked,turnFirstShotPending;
    public float age,shotRemaining,shotInterval;public Vector3 velocity,scroll,wreckEuler,wreckSpin,missilePrevious;public int generation;
   }
   readonly HelicopterActor[] helicopters=new HelicopterActor[MaximumHelicopters];
@@ -24,8 +25,8 @@ namespace PhoViet
   public Transform HelicopterRoot=>GetHelicopterRoot(0);
   public Transform GetHelicopterRoot(int index)=>index>=0&&index<helicopters.Length?helicopters[index]?.root:null;
   public bool IsHelicopterActive(int index)=>index>=0&&index<helicopters.Length&&helicopters[index]!=null&&helicopters[index].active;
-  // The second slot unlocks strictly past 500 scored metres.
-  public static int HelicopterLimitAtDistance(float metres)=>metres>500?MaximumHelicopters:1;
+  public static int HelicopterLimitAtDistance(float metres)
+   =>metres>=2*HelicopterDistanceStep?MaximumHelicopters:metres>=HelicopterDistanceStep?2:1;
   void ResetHelicopter()
   {
    helicopterRebased=false;HelicoptersSpawned=0;HitByHelicopter=false;helicopterLaneCursor=4;
@@ -40,7 +41,7 @@ namespace PhoViet
      var root=Instantiate(helicopterPrefab,transform).transform;root.name="Helicopter "+(i+1);
      h=helicopters[i]=new HelicopterActor{root=root,visual=root.GetComponent<HelicopterVisual>()};
     }
-    if(h==null)continue;h.active=h.wrecked=h.turnWingmanPending=false;h.age=0;h.shotInterval=h.shotRemaining=HelicopterMissileInterval(Distance);h.velocity=h.scroll=Vector3.zero;h.root.gameObject.SetActive(false);
+    if(h==null)continue;h.active=h.wrecked=h.turnFirstShotPending=false;h.age=0;h.shotInterval=h.shotRemaining=HelicopterMissileInterval(Distance);h.velocity=h.scroll=Vector3.zero;h.root.gameObject.SetActive(false);
    }
    ResetHelicopterMissiles();
    ResetPlayerMissiles();
@@ -88,7 +89,7 @@ namespace PhoViet
    actor.root.localRotation=Quaternion.Euler(0,180,0);actor.velocity=Vector3.back*HelicopterSpeed;
    actor.generation++;actor.age=0;actor.scroll=Vector3.zero;
    actor.shotInterval=actor.shotRemaining=HelicopterMissileInterval(Distance);
-   actor.active=true;actor.wrecked=actor.turnWingmanPending=false;
+   actor.active=true;actor.wrecked=false;
    actor.turnFirstShotPending=postTurn;
    actor.root.gameObject.SetActive(true);actor.visual.ResetPose();HelicoptersSpawned++;
    if(postTurn)TickHelicopterWeapon(actor,0);
@@ -101,34 +102,11 @@ namespace PhoViet
     if(h==null||!h.active)continue;
     // Prioritize the next junction over an aircraft from the previous street.
     if(lead==null||(lead.active&&Mathf.Abs(h.root.localPosition.x)>Mathf.Abs(lead.root.localPosition.x)))lead=h;
-    h.turnWingmanPending=false;
    }
    if(lead==null)return;
    Vector3 head=DinosaurPoint(dinosaur.visual.head);
    LaunchHelicopter(lead,head+Vector3.up*TurnHelicopterHeadClearance,true);
    lead.scroll=Vector3.forward*dinosaurScroll;
-   lead.turnWingmanPending=true;
-   TryTurnHelicopterWingman(lead);
-  }
-  void TryTurnHelicopterWingman(HelicopterActor lead)
-  {
-   if(HelicopterTargetCount<2||lead.root.localPosition.z<=0)return;
-   var free=FreeHelicopterSlot();
-   if(free==null)
-   {
-    foreach(var h in helicopters)
-    {
-     if(h==null||h==lead||!h.active)continue;
-     if(!h.wrecked&&h.velocity.z< -1&&h.root.localPosition.z>0)break;
-     free=h;break;
-    }
-   }
-   if(free!=null)
-   {
-    float z=Mathf.Max(28,lead.root.localPosition.z+HelicopterSpacing);
-    LaunchHelicopter(free,new Vector3(NextFreeHelicopterLaneX(),FlightHeightAboveSupport+PlayerHeight*.5f,z),true);
-   }
-   lead.turnWingmanPending=false;
   }
   void ScrollHelicopter(float delta){foreach(var h in helicopters)if(h!=null&&h.active)h.scroll+=Vector3.forward*delta;ScrollHelicopterMissiles(delta);ScrollPlayerMissiles(delta);ScrollMissileLaunchAudio(delta);}
   void RebaseHelicopter(Quaternion inverse,Vector3 origin)
@@ -153,9 +131,7 @@ namespace PhoViet
    TickPlayerMissiles(dt);
    TickHelicopterMissiles(dt,previousRider,collisions);
    if(!collisions||State!=RideState.Riding||IsTurning)return;
-   // Finish the post-turn reveal before filling ordinary aircraft slots.
-   foreach(var d in dinosaurs)if(d.active&&d.turnHelicopterDelay>0)return;
-   foreach(var h in helicopters)if(h!=null&&h.active&&!h.wrecked&&h.turnWingmanPending)TryTurnHelicopterWingman(h);
+   // Flight encounters also fill while the next junction is waiting to reveal its lead.
    while(SpawnHelicopter()){}
   }
   void TickHelicopterActor(HelicopterActor h,float dt,Vector3 previousRider,bool collisions)

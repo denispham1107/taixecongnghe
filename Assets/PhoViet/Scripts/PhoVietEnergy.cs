@@ -15,9 +15,8 @@ namespace PhoViet
   public int EnergyPickupPoolCount=>energyTiles.Count*GroundPickupsPerTile;
   public const int GroundPickupsPerTile=6,AirPickupsPerTile=7;
   const float AirRevealDistance=45,AirIconLift=.65f;
-  // Level with the car's body once it holds its flight height, and with the helicopters.
-  public const float FlightHeightMultiplier=1.20f;
-  public static float FlightHeightAboveSupport=>JumpHeightAtSpeed(0)*.70f*FlightHeightMultiplier;
+  // The Bay button and the jump-to-flight gesture hold at the same jump apex.
+  public static float FlightHeightAboveSupport=>JumpHeightAtSpeed(0);
   public static float AirPickupHeight=>FlightHeightAboveSupport+AirIconLift;
   bool airIconsShown;
   bool energyHover,barrelRolling,energyHoverRequested;float flightEnergyClock,barrelClock,energyClock;
@@ -100,7 +99,9 @@ namespace PhoViet
    energyHoverRequested=true;
    // A second press while descending must also climb to flight altitude, not hold near the road.
    // Keep the normal jump untouched unless flight was explicitly requested.
-   jumpVelocity=Mathf.Max(jumpVelocity,Mathf.Sqrt(2*JumpRiseGravity*gap)+.5f);return true;
+   if(jumpVelocity<=0||jumpVelocity*jumpVelocity/(2*JumpRiseGravity)<gap-.0001f)
+    jumpVelocity=Mathf.Sqrt(2*JumpRiseGravity*gap)+.5f;
+   return true;
   }
   void StartEnergyHover(){CancelAssistedKick(false);energyHoverRequested=false;energyHover=true;jumpVelocity=0;}
   void CancelEnergyFlight(){energyHoverRequested=false;energyHover=false;barrelRolling=false;flightEnergyClock=barrelClock=0;}

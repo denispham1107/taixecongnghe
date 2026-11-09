@@ -211,15 +211,15 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 ### 2.9. Nhảy và chạy trên nóc
 
-**Source21.145:** thêm4NLmỗiloại→6đất+7bay/phố-cầu/+15cap150. Tên lửa bắn cả đất(diệttank1hit/dừng-cháylớn/xácsolid) và bay(diệttrực thăng);5/5/chờ0,4s. Xem21.145; thay giới hạn chỉbắnkhibay của21.142/143.
+**Source 21.169:** nút Bay và Space/vuốt lên lần hai khi đang nhảy đều giữ ở đỉnh nhảy mới, khoảng **4,53 m** so với mặt đường hoặc nóc xe lúc cất cánh. Đỉnh nhảy tăng 10% so với 4,11665 m của web 1.64.0 và vẫn cố định theo tốc độ. Nhấn giữ bay sớm thì lên đỉnh theo quỹ đạo nhảy, nhấn lúc đang rơi thì nâng lại đến đỉnh. Xem 21.169.
 
-**Source21.143 (chưa build/web):** độ cao nhảy vẫn4,11665m; mức bay tối thiểu từ mặt đỡ tăng20%:2,88166→3,45799m. NhấnSpace/vuốt lên lần2 trong lúc nhảy tự nâng tới mức bay nếu thấp (cả khi đang rơi); nếu đã cao hơn thì giữ vị trí hiện tại, không kéo giật xuống. Nút bay dùng chung yêu cầu nâng. Trực thăng sinh ngang tâm thân xe, iconNL cùng độcao mới. Đạn khởi đầu/tốiđa5/5, nhặt+1/cap5; W/F/vuốt xuống/nút bắn chỉ khi bay. Boost vẫn khóa21.142.
+**Source 21.171:** lịch trực thăng bắt đầu ngay khi vào chế độ giữ bay trên đường, với 1 chiếc dưới 200 m, 2 chiếc từ 200 m và 3 chiếc từ 400 m tính theo tổng quãng đường của lượt. Đợt sau rẽ giữ mốc 0,5 giây sau khủng long và dùng chung giới hạn. Xem 21.170–21.171.
 
 Space/vuốt lên nhảy tới; source21.64 là ô tô phụt khói trắng xuống từ4góc, hơi ngẩng rồi lấy cân bằng khi đáp (xe máy trên web1.39.0 vẫn ngóc bánh trước); hồi2 s, chỉ nhảy từ đường/nóc đang đỡ, không nhảy thêm trên không. **21.100 (đã phát hành1.50.0):** độ cao cố định **4,1166525m** ở mọi tốc độ, gồm W; tăng3% so mức khởi đầu1.49.0 (3,99675m). Bỏ tăng đỉnh theo vận tốc của21.60/21.94. Gia tốc lên24,2m/s² và rơi22m/s² giữ nguyên; W trước/giữa nhảy đều không tăng đỉnh. Metadata tốc độ cất cánh còn dùng cho pose/chuyển động ngang. Độ cao là so với mặt đỡ lúc phóng. Có thể vượt xe máy nằm và đáp/chạy trên nóc bốn bánh nếu đủ cao; đỉnh cố định có thể không vượt được nóc tải cao nếu chưa đủ độ cao lúc gặp vách. Xe tải đứng thẳng còn là mặt đỡ, xe nghiêng/lật là vật cản. Rời mép rơi thật; tiếp đất theo vận tốc, hấp thụ lực rồi cân bằng; đâm thân/vách vẫn té.
 
 ### 2.10. Tăng tốc — tạm khóa từ source21.142
 
-**Hiện tại (21.145):** `BoostReleased=false`; W/F/vuốt xuống bắn tên lửa khi chạy dưới đất để hạ xe tăng, khi giữ chế độ bay để hạ trực thăng. Không kích hoạt boost. Giữ mã/asset boost để khôi phục khi người dùng yêu cầu rõ ràng.
+**Source 21.169:** W/F/vuốt xuống hoặc nút tên lửa bắn dưới đất hoặc khi giữ bay. Dưới đất khóa xe tăng phía trước. Khi bay khóa xe tăng hoặc trực thăng gần nhất phía trước. Kho đạn 5/5, mỗi lần bắn dùng 1 quả, hồi 0,4 giây và bắn thẳng nếu không có mục tiêu. `BoostReleased=false` giữ khóa tăng tốc cho tới khi người dùng yêu cầu mở lại. Web 1.64.0 vẫn dùng quy tắc mục tiêu theo 21.145.
 
 **Cơ chế lưu trữ trước21.142 (không còn kích hoạt):** W/vuốt xuống tăng **125% = nhân 2,25** tốc độ mong muốn trong4s; không cộng dồn, hồi2s sau hết/hủy. Xe khác giữ tốc độ nền/hành vi riêng. **Ngoại lệ21.114:** hai xe máy bổ sung sau mỗi cua luôn±1,2×Speed hiện tại của player nên cũng tăng/giảm khi player dùng/hếtW (thay1,5× của21.113); không áp lên các xe thường/quái xế/tải/tank khác. Dùng chung nhảy được; té/bị bắt/dừng dịch vụ hủy boost. Khói trắng dữ liệu Blender bám ống xả/pose xe; pause/rebase xử lý riêng.
 
@@ -3494,6 +3494,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 ## 21.158. Trực thăng cùng đợt khủng long sau khi rẽ (08/11/2026 — Codex)
 
 > Bản web 1.62.0 dùng thời điểm xuất hiện đồng thời mô tả dưới đây. Source 21.161 lùi trực thăng thêm 0,5 giây.
+> Source 21.170–21.171 thay giới hạn 500 m và lịch sinh chiếc bổ sung. Mốc hiện tại trong source là 200/400 m khi giữ bay.
 
 - Sau khi hoàn tất rẽ trái hoặc phải, `PhoVietTurnHazards.TryTurnDinosaur` tạo trực thăng ngay trong lần sinh khủng long tại giao lộ tiếp theo, kể cả khi xe người chơi ở dưới đất. Trực thăng xuất hiện ngay trên điểm xương đầu cao thêm 1,55 m rồi bay ngược chiều với tốc độ 16 m/s. Khủng long theo lịch định kỳ và lịch xe tăng giữ cách kích hoạt hiện có.
 - `PhoVietHelicopter.cs` giới hạn 1 chiếc đến hết 500 m và tối đa 2 chiếc khi quãng đường tính điểm vượt 500 m. Nếu đợt sau rẽ vẫn đang ở phía trước lúc vượt mốc, chiếc thứ hai bổ sung ngay khi còn chỗ. Những đợt sau mốc dùng cả hai vị trí, chiếc bổ sung sinh ở làn đường và cách chiếc đầu ít nhất 12 m theo chiều dọc. Dùng lại pool hai actor và ưu tiên đợt ở giao lộ mới khi đã hết chỗ. Khi bay trên đoạn thẳng, cơ chế gặp trực thăng cũ dùng giới hạn mới. Giữ điều kiện bắn đạn, nhịp bắn, hiệu ứng rotor và va chạm cũ.
@@ -3569,3 +3570,29 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Unity biên dịch sạch trước thử Play Mode. Đèn phanh qua 17 kiểm tra, gồm ngày/đêm, giảm tốc, dừng, tạm dừng, đạp ga, va chạm, chơi lại và cách ly đèn khác. Đã xem ảnh render cận sau xe. Báo cáo và ảnh trong `.tools/brake-lamps-164.txt`, `.tools/brake-164-*.png`.
 - Đã build WebGL 1.64.0 gồm chuyển động bánh xe 21.164 và icon đã duyệt 21.167. Hai gói ETC2/DXT hoàn tất trong 467,457 giây, 0 lỗi build và cảnh báo cấu hình Runtime Pipeline quen thuộc. Đạt 207 kiểm tra Unity trước và sau build, giữ nguyên SHA của 592 tệp nguồn, 48 kiểm tra gói Git, 39 kiểm tra gói Pages, 40 kiểm tra index, 603 kiểm tra bố cục Chrome và 18 kiểm tra WebGL desktop/mobile/offline.
 - Commit `695c436` đã push và triển khai đúng SHA qua [GitHub Pages run 42557744706](https://github.com/denispham1107/taixecongnghe/actions/runs/42557744706). Web công khai trả 1.64.0, cache `d9d1ebc9a916b5f3`. Đạt 34 kiểm tra live, gồm byte tài nguyên, tải scene, bắt đầu và tạm dừng. Không có lỗi runtime. Báo cáo `Captures/release164-pages.json` và `Captures/release164-live-results.json`. Unity về Edit Mode và máy chủ localhost đã dừng.
+
+## 21.169. Đỉnh nhảy và giữ bay tăng 10%, bắn xe tăng từ trên không (09/11/2026 — Codex)
+
+- `PhoVietJump.cs` tăng đỉnh nhảy cố định từ 4,11665 lên 4,52832 m so với mặt đỡ lúc cất cánh. Công thức vận tốc bật lấy đỉnh mới và giữ gia tốc lên 24,2 m/s², gia tốc rơi 22 m/s². Tốc độ xe không đổi đỉnh nhảy.
+- `PhoVietEnergy.cs` dùng cùng đỉnh nhảy làm độ cao giữ bay. Nút Bay cất cánh rồi giữ tại đỉnh. Space/vuốt lên lần hai khi đang lên giữ đà nhảy tự nhiên nếu đủ lên đỉnh, hoặc nâng lại đến đỉnh nếu xe đã rơi. Mức giữ bay từ mặt đường trước đó là 3,45799 m. Icon năng lượng trên không vẫn đặt cao hơn độ cao giữ bay 0,65 m. Lệnh hạ và mức tiêu hao năng lượng theo cơ chế hiện tại.
+- `PhoVietPlayerMissiles.cs` cho tên lửa bắn khi giữ bay khóa mục tiêu hợp lệ gần nhất phía trước trong phạm vi 160 m, gồm trực thăng và xe tăng. Đạn bám xe tăng từ trên không và xét va chạm liên tục với cả hai loại mục tiêu, xử lý vật trúng trước. Phát bắn dưới đất vẫn nhắm xe tăng. Xe tăng trúng đạn dừng, cháy và giữ thân xe làm vật cản. Bắn thẳng khi không có mục tiêu.
+- Đạt 205 kiểm tra Unity Play Mode với bước mô phỏng 8,3–110 ms. Đã kiểm đỉnh nhảy, nút Bay, nhấn giữ sớm/lúc đang rơi, giữ cao độ, hao năng lượng, hạ cánh, khóa và hạ xe tăng từ đất/trên không, ưu tiên mục tiêu gần hơn khi có cả hai loại và bắn không khóa. Báo cáo `.tools/flight-apex-2169.txt`. Chưa kiểm tra trên WebGL hay thiết bị thật. Chưa commit, push, build hoặc phát hành. Web vẫn 1.64.0.
+
+## 21.170. Trực thăng xuất hiện ngay khi giữ bay và tăng đội theo quãng đường (09/11/2026 — Codex)
+
+> Mốc 400/800 m bên dưới là lịch sử. Source 21.171 chuyển sang 200/400 m.
+
+- `PhoVietHelicopter.cs` thay mốc 500 m bằng mục tiêu 1 chiếc dưới 400 m, 2 chiếc từ 400 m và 3 chiếc từ 800 m. Tính theo tổng quãng đường ghi điểm của lượt, dùng chung qua các lần hạ, bay lại và đổi phố. Khi bắt đầu giữ bay, bước mô phỏng đầu tiên trên đoạn đường thẳng sinh đủ số chiếc còn thiếu. Khi xe còn bay, chiếc đã bay qua được thu hồi và thay thế theo mức hiện tại. Khi ngừng giữ bay, chiếc đang có tiếp tục bay qua.
+- Pool dùng lại 3 actor. Trực thăng thường xuất hiện phía trước, bay ngược chiều, xáo ngẫu nhiên trong cả bốn làn và tránh làn đang có trực thăng bay tới. Khoảng cách dọc tối thiểu 12 m. Trực thăng trên đầu khủng long vẫn sinh sau 0,5 giây và vẫn có phát đầu ngay khi xe đang bay trong tầm. Lịch này dùng chung giới hạn, ưu tiên chiếc trên đầu khủng long khi đã đủ chỗ. Bỏ lịch chiếc phụ riêng của đợt sau rẽ và bỏ chặn lịch trực thăng thường trong thời gian chờ khủng long.
+- Unity biên dịch sạch. Đạt 128 kiểm tra Play Mode ở 60 và 20 bước/giây, gồm bước đầu giữ bay, đúng mốc và sát dưới 400/800 m, giới hạn ở quãng đường dài hơn, các làn khác nhau, tái sử dụng khi bay qua, hạ, chơi lại, tạm dừng, rẽ thật hai hướng và đợt sau rẽ dùng chung giới hạn. Báo cáo `.tools/helicopter-fleet-2170.txt`. Chưa commit, push, build hay phát hành. Web vẫn 1.64.0.
+
+## 21.171. Mốc trực thăng khi giữ bay chuyển sang 200/400 m (09/11/2026 — Codex)
+
+- `PhoVietHelicopter.cs` đổi `HelicopterDistanceStep` từ 400 xuống 200 m. Theo tổng quãng đường của lượt, mục tiêu khi giữ bay là 1 chiếc dưới 200 m, 2 chiếc từ 200 m và 3 chiếc từ 400 m. Giới hạn tối đa 3 chiếc dùng chung với đợt sau rẽ. Lịch sinh ngay khi giữ bay và chọn các làn khác nhau vẫn theo 21.170.
+- Unity biên dịch sạch và qua 128 kiểm tra Play Mode, gồm sát dưới và đúng mốc 200/400 m, giới hạn ba chiếc ở quãng đường xa hơn và sinh sau rẽ. Báo cáo `.tools/helicopter-distance-2171.txt`. Chưa commit, push, build hoặc phát hành. Web vẫn 1.64.0.
+
+## 21.172. Build và phát hành WebGL 1.65.0 (09/11/2026 — Codex)
+
+- Bản 1.65.0 gồm 21.169–21.171. Đỉnh nhảy và giữ bay cùng 4,52832 m trên mặt đỡ. Tên lửa khi bay có thể hạ xe tăng mặt đất. Trực thăng xuất hiện ngay khi giữ bay, số lượng tăng tại 200/400 m theo quãng đường của lượt, tối đa 3 chiếc.
+- Unity 6000.5.6f1 build đủ ETC2/EAC và DXT trong 490,455 giây, 0 lỗi và cảnh báo RuntimePipelineConfig quen thuộc. Hai gói dùng chung mã WASM/framework sau giải nén. Kiểm tra Unity 207 điều kiện trước và sau build, giữ nguyên SHA của 592 tệp nguồn. Bộ gói khớp cache `bd32d01364ed5ca8` qua 48 kiểm tra bản Git, 39 kiểm tra bản ghép và 603 kiểm tra bố cục Chrome. Xem `Captures/release165-build-report.json` và các báo cáo cùng tiền tố.
+- Bản WebGL đóng gói qua 18 kiểm tra Chrome desktop/mobile/offline, không lỗi runtime. Git index khớp qua 40 kiểm tra trước push. Đang triển khai lên GitHub Pages theo mục 15.2. Kết quả live sẽ được ghi cùng SHA và mã chạy Pages sau khi xác minh.

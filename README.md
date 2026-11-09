@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.64.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.65.0**.
+
+## Cập nhật 1.65.0
+
+Đỉnh nhảy cao hơn 10%. Nút Bay và thao tác nhảy rồi giữ đều đưa xe lên khoảng 4,53 m từ mặt đường. Tên lửa có thể hạ xe tăng khi xe đang bay. Trực thăng xuất hiện ngay khi giữ bay, với 1 chiếc dưới 200 m, 2 chiếc từ 200 m và 3 chiếc từ 400 m theo quãng đường của lượt.
 
 ## Cập nhật 1.64.0
 

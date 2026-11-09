@@ -21,9 +21,9 @@ namespace PhoViet
   // 21.94: launch velocity and height each +10%; falling gravity stays unchanged.
   const float JumpRiseGravity=JumpGravity*1.10f;
   float jumpLaunchVelocity=JumpLaunch;
-  // 21.100: starting height from 21.94 +3%, fixed at every road/boost speed.
+  // 21.169: raise the fixed apex from 21.100 by 10%, for both jumping and flight.
   // Retain the public signature for jump/pose consumers; speed no longer changes vertical travel.
-  public static float JumpHeightAtSpeed(float speed)=>JumpLaunch*JumpLaunch/(2*JumpGravity)*.75f*1.10f*1.03f;
+  public static float JumpHeightAtSpeed(float speed)=>JumpLaunch*JumpLaunch/(2*JumpGravity)*.75f*1.10f*1.03f*1.10f;
   // 21.140: thumbs on a sideways phone arc diagonally. The old 1.3 ratio left 37-52 degrees matching nothing, so the swipe was lost.
   public const float SwipeVerticalRatio=.85f,JumpSwipeDistance=.085f;
   public static bool IsJumpSwipe(Vector2 delta,float width)=>delta.y>width*JumpSwipeDistance&&delta.y>=Mathf.Abs(delta.x)*SwipeVerticalRatio;

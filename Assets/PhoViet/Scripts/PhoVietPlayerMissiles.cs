@@ -43,7 +43,14 @@ namespace PhoViet
    // road: use travel yaw and place the launcher just beyond the front bumper.
    Vector3 forward=Quaternion.Euler(0,rider.localEulerAngles.y,0)*Vector3.forward;
    Vector3 origin=rider.localPosition+forward*(PlayerHalfLength+.85f)+Vector3.up*(PlayerHeight*.55f);
-   bool ground=!RiderFlying;var target=ground?null:PlayerMissileTarget(origin,forward);var tank=ground?PlayerTankTarget(origin,forward):null;
+   bool ground=!RiderFlying;
+   var target=ground?null:PlayerMissileTarget(origin,forward);
+   var tank=PlayerTankTarget(origin,forward);
+   if(target!=null&&tank!=null)
+   {
+    if((PlayerTankAim(tank)-origin).sqrMagnitude<(target.root.localPosition-origin).sqrMagnitude)target=null;
+    else tank=null;
+   }
    Vector3 direction=target!=null?(target.root.localPosition+Vector3.up*.1f-origin).normalized:tank!=null?(PlayerTankAim(tank)-origin).normalized:forward;
    free.target=target;free.targetGeneration=target!=null?target.generation:0;free.speed=Mathf.Max(70,Speed+50);free.velocity=direction*free.speed;
    free.groundShot=ground;free.tankTarget=tank;free.tankGeneration=tank!=null?tank.spawnGeneration:0;
@@ -81,8 +88,13 @@ namespace PhoViet
     Vector3 to=from+m.velocity*dt;m.age+=dt;
     HelicopterActor hit=null;float first=2;
     TrafficVehicle hitTank=null;
-    if(m.groundShot){foreach(var tank in vehicles)if(tank.active&&tank.armored&&!tank.riverFalling&&PlayerMissileTouchesTank(from,to,tank,frameScroll,out float at)&&at<first){hitTank=tank;first=at;}}
-    else foreach(var h in helicopters)if(h!=null&&h.active&&!h.wrecked&&PlayerMissileTouchesHelicopter(from,to,h,out float at)&&at<first){hit=h;first=at;}
+    foreach(var tank in vehicles)
+     if(tank.active&&tank.armored&&!tank.riverFalling&&PlayerMissileTouchesTank(from,to,tank,frameScroll,out float at)&&at<first)
+     {hitTank=tank;first=at;}
+    if(!m.groundShot)
+     foreach(var h in helicopters)
+      if(h!=null&&h.active&&!h.wrecked&&PlayerMissileTouchesHelicopter(from,to,h,out float at)&&at<first)
+      {hit=h;hitTank=null;first=at;}
     if(hitTank!=null){m.root.localPosition=Vector3.Lerp(from,to,first);DestroyPlayerTank(hitTank,m.root.localPosition);RetirePlayerMissile(m);continue;}
     if(hit!=null)
     {
