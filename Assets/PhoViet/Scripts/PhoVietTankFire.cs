@@ -135,7 +135,7 @@ namespace PhoViet
   {
    if(!tankBarrageEnabled||State!=RideState.Riding||IsTurning||dt<=0)return;
    bool antiAir=RiderFlying;
-   float interval=antiAir?TankMissileInterval:CurrentTankFireInterval;
+   float interval=antiAir?AirMissileIntervalAfterTurns(TankMissileInterval):CurrentTankFireInterval;
    foreach(var v in vehicles)
    {
     if(!TankCanFire(v))continue;
@@ -153,7 +153,7 @@ namespace PhoViet
   {
    if(!FireEnemyMissile(TankMuzzle(v),true))return;
    v.turnTankAirShotPending=false;
-   v.tankFireTimer=TankMissileInterval;
+   v.tankFireTimer=AirMissileIntervalAfterTurns(TankMissileInterval);
   }
   bool HasTurnTankAim(TrafficVehicle v)=>v.active&&v.armored&&v.turnTankAimGeneration==v.spawnGeneration;
   TankShell FireAutomaticTankShell(TrafficVehicle v)

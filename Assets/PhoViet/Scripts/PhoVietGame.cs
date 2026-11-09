@@ -637,6 +637,7 @@ namespace PhoViet
         }
         void Hud()
         {
+            DrawDinosaurHealth();
             if(portrait)PortraitHud();else LandscapeHud();
             DrawPlayerMissileButton();DrawFlightButton();DrawDrivePedal(false);DrawDrivePedal(true);
             RearRecklessWarningHud();

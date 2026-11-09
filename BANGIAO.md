@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **09/11/2026 — Codex**
+Cập nhật lần cuối: **10/11/2026 — Codex**
 
 ## 1. Trạng thái hiện tại
 
@@ -35,7 +35,8 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
 | Tên lửa người chơi | **21.169, web 1.65.0:** khi giữ bay chọn xe tăng hoặc trực thăng gần nhất phía trước. Dưới đất nhắm xe tăng như 21.145. Xe tăng trúng đạn dừng, cháy và vẫn là vật cản. Kho 5/5, nhặt +1, hồi 0,4 giây, bắn thẳng khi không có mục tiêu. |
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
-| Trực thăng | **21.171, web 1.65.0:** sinh ngay khi vào chế độ giữ bay, mục tiêu 1/2/3 chiếc theo mốc quãng đường lượt 0/200/400 m. Chọn các làn khác nhau trong 4 làn, dùng chung giới hạn 3 với trực thăng trên đầu khủng long sau rẽ. |
+| Trực thăng và tên lửa địch | **Source 21.174:** mức 1/2/3 theo mốc 0/200/400 m cộng 1 chiếc mỗi lần rẽ xong, không có trần cố định. Đợt sau rẽ tăng quân cả khi xe ở dưới đất. Tên lửa trực thăng và xe tăng giảm 0,1 giây/lượt rẽ, sàn 0,25 giây. Web 1.65.0 vẫn theo 21.171. |
+| Khủng long | **Source 21.173:** thanh máu 3 nấc trên đầu. Tên lửa bắn từ mặt đất có thể hạ khủng long. Mỗi phát trúng thêm một điểm lửa/khói. Phát thứ ba làm khủng long ngã; xác cháy và vẫn gây va chạm. Chưa có trên web. |
 | Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Đã có trên web 1.61.0. |
 | Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Đã có trên web 1.61.0. |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
@@ -53,6 +54,9 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.175:** đã build và kiểm tra WebGL 1.66.0 gồm 21.173–21.174. Cache `e0d6fc7506d5a965`. Xem mục 3 cho tiến độ Pages.
+- **21.174:** mỗi lượt rẽ hoàn tất cộng 1 trực thăng, giảm 0,1 giây giữa các phát tên lửa địch tới sàn 0,25 giây. Unity biên dịch sạch và đạt 322 kiểm tra Play Mode, thử tới 23 trực thăng và 47 tên lửa đồng thời. Chưa commit, build hoặc phát hành.
+- **21.173:** thêm thanh máu, tên lửa mặt đất và xác khủng long cháy gây va chạm. Biên dịch sạch, 1.295 kiểm tra Play Mode đạt và đã xem 3 ảnh Game View. Chưa commit, build hoặc phát hành.
 - **21.172 đã phát hành WebGL 1.65.0:** ETC2/DXT trong 490,455 giây. 207 kiểm tra Unity trước/sau, 603 bố cục, 18 Chrome cục bộ và 34 live đạt. Pages `42629982323`, commit `b7f7f92`.
 - **21.171:** đổi mốc giữ bay sang 0/200/400 m cho 1/2/3 chiếc. 128 kiểm tra Unity Play Mode đạt. Có trên web 1.65.0.
 - **21.170:** bỏ việc chờ đợt sau rẽ mới sinh trực thăng thường. Giữ bay sinh ngay, tối đa 3 chiếc tính cả đợt sau rẽ. Mốc 400/800 m của bước này đã được thay ở 21.171 trước khi phát hành.
@@ -276,6 +280,10 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.175 đang làm:** WebGL 1.66.0 đã qua 18 kiểm tra Chrome desktop/mobile/offline và 40 kiểm tra Git index. Đang push bản phát hành. Tiếp theo chờ GitHub Pages đúng SHA và xác minh bản công khai.
+
+
+
 
 
 
@@ -418,7 +426,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | Bánh xe lăn và giảm quay sau va chạm | **21.164** | `WheelRolling.cs`, `CarWheelDetail.cs`, `PlayerCarVisual.cs`, `CarVisualAnimator.cs`, `BikeVisualAnimator.cs`, `PhoVietCollisions.cs` |
 | Player tên lửa3/3/pickup/HUD/F/homing/shot-down | **21.128** | `PhoVietPlayerMissiles.cs`, `PhoVietMissilePickups.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietHelicopter.cs`, HUD/energy/river/web runtime; `Resources/PlayerMissile`, `ArtSource/UI/player_missile_icon.*`; verifier/capture `PlayerMissile*2128`, reports `player2128-*` |
 | Cháy/khói đa điểm va chạm mặt đất; xe hồi phục vẫn cháy | **21.127** | `PhoVietContactFire.cs`, `ContactFireVisual.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs`, `PhoVietPolice.cs`, `PhoVietPlayerVehicle.cs`, `PhoVietThunderstorm.cs`; verifier/report/capture `ContactFire2127`/`contact2127-*` |
-| Trực thăng giữ bay theo mốc 200/400 m, sau rẽ, tên lửa và né đạn | **21.171**, 21.170/21.161/21.162/21.126/21.132 | `PhoVietHelicopter.cs`, `PhoVietTurnHazards.cs`, `PhoVietDinosaurs.cs`, `PhoVietHelicopterMissiles.cs`, `HelicopterVisual.cs`, `MissileFlightVisual.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`; prefab trong `Resources/Helicopter` |
+| Đội trực thăng theo quãng đường/lượt rẽ và nhịp tên lửa địch | **21.174**, 21.171/21.161/21.162/21.126/21.132 | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `PhoVietTankFire.cs`, `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `ThunderstormVisual.cs`; prefab trong `Resources/Helicopter` |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
 | Nút Đạp Ga/Đạp Phanh, đèn hậu và kích thước nút Bay/Tên lửa | **21.168**, 21.152 | `PhoVietDrivePedals.cs`, `DayNightLighting.cs`, `OpticalLight.shader`, `PhoVietGame.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietPortraitHud.cs` |
 | Dây xích/khóa CSGT | **21.155**, 2.2, 2.5 | `PhoVietChain.cs`, `PhoVietActions.cs`, `Resources/Chain/PV_Chain.json`, `ArtSource/Blender/Chain/` |
@@ -431,7 +439,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | Giao thông, va chạm, văng/té/khóađiểm | **21.115**,7,21.33 | `PhoVietRiderCrash.cs`→Distance/TravelDistance, `PhoVietRiver.cs`, `PhoVietRoutes.cs`, `PhoVietRoutePolice.cs`, `PhoVietTraffic.cs`, `PhoVietTrafficRecovery.cs`, `PhoVietRoadDrivers.cs`, `MorningFog.cs`; `AgentScripts/VerifyCrashDistance.cs` |
 | Xe vượt từ sau/cảnh báo0,6s, quái xế/tải ngủ gật | **21.114**,2.3–2.4,7.2 | `PhoVietExitTraffic.cs`, `PhoVietReckless.cs`, `AgentScripts/VerifyRearWarningTiming.cs` |
 | Dino+Tank sau cua,2bike1,2× sinhngay/vịtrígần/tạt làn,Tank400m | **21.114**,21.113,21.112/21.111/21.99 | `PhoVietTurnHazards.cs`, `PhoVietTurnBikes.cs`, `PhoVietExitTraffic.cs`, `PhoVietTraffic.cs`, `PhoVietRoutes.cs`; `AgentScripts/VerifyTurnBikes2112.cs`, `CaptureTurnBikes2112.cs`, `VerifyTurnHazards.cs`, `VerifyDistanceTanks2199.cs` |
-| Khủng long, rig/quất đuôi, nhảy né/miễn xe tăng | **21.96**,2.12,7.5,21.62 | `PhoVietDinosaurs.cs`, `DinosaurVisual.cs`, `Editor/PhoVietDinosaurUpgrade.cs`, `pho_viet_dinosaur.py` |
+| Khủng long, thanh máu, tên lửa, xác cháy, quất đuôi | **21.173**, 2.12/7.5/21.96/21.62 | `PhoVietDinosaurs.cs`, `DinosaurVisual.cs`, `PhoVietPlayerMissiles.cs`, `ThunderstormVisual.cs`, `PhoVietGame.cs`, `Editor/PhoVietDinosaurUpgrade.cs`, `pho_viet_dinosaur.py` |
 | Hố đạn/nứt/mảnh văng/lệch hướng và counter-steer | **21.103**,2.13 | `PhoVietTankCraters.cs`, `TankCraterGeometry.cs`, `TankCraterMask.cginc`, `TankCraterRoad.shader`, `TankCraterSurface.shader`, `CityGround.shader`, `PlayerCarVisual.cs`; `AgentScripts/VerifyTankCraters.cs`, `VerifyCraterTurns.cs`, `VerifyTankCraterGeometry.cs`, `CaptureTankCraters.cs`, `VerifyCraterRender.py` |
 | Xe tăng, tên lửa phòng không và pháo 0,4 giây | **21.159**, 21.111/21.110/21.103 | `PhoVietTankFire.cs`, `PhoVietHelicopterMissiles.cs`, `PhoVietHelicopter.cs`, `PhoVietTurnHazards.cs`, `AgentScripts/VerifyTurnTankAim.cs`, `VerifyTankBarrage.cs` |
 | Đạp, CSGT, bị bắt | 8 | `PhoVietActions.cs`, `PhoVietKickAssist.cs`, `PhoVietPolice.cs`, `PhoVietCrashPoliceNavigation.cs` |

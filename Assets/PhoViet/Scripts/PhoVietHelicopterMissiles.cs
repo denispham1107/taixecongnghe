@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 namespace PhoViet
 {
  public partial class PhoVietGame
  {
-  public const int HelicopterMissileCapacity=40;
+  public const int HelicopterMissileCapacity=40; // Initial pool size; sustained fire can grow it.
+  const float EnemyMissileTurnReduction=.1f,EnemyMissileMinimumInterval=.25f;
   const float HelicopterMissileSpeed=40,HelicopterMissileLifetime=3.2f;
   sealed class HelicopterMissile
   {public Transform root;public MissileFlightVisual visual;public AudioSource flightAudio;public bool active,dodgeCounted,fromTank;public Vector3 velocity,scroll;public float age;}
-  readonly HelicopterMissile[] helicopterMissiles=new HelicopterMissile[HelicopterMissileCapacity];GameObject helicopterMissilePrefab;
+  readonly List<HelicopterMissile> helicopterMissiles=new List<HelicopterMissile>(HelicopterMissileCapacity);GameObject helicopterMissilePrefab;
   public int HelicopterMissilesFired{get;private set;}public int HelicopterMissilesDodged{get;private set;}
   public int TankMissilesFired{get;private set;}
   public bool HitByHelicopterMissile{get;private set;}public bool HitByTankMissile{get;private set;}public bool RiderAirAttackBurning{get;private set;}
@@ -21,21 +23,25 @@ namespace PhoViet
   }
   public int BurningHelicopterCount{get{int n=0;foreach(var h in helicopters)if(h!=null&&h.active&&h.wrecked)n++;return n;}}
   public static float HelicopterMissileInterval(float metres)=>metres>=1200?.5f:metres>=800?.6f:metres>=400?.8f:1;
+  float AirMissileIntervalAfterTurns(float interval)=>Mathf.Max(EnemyMissileMinimumInterval,interval-EnemyMissileTurnReduction*CompletedTurns);
+  float CurrentHelicopterMissileInterval=>AirMissileIntervalAfterTurns(HelicopterMissileInterval(Distance));
+  HelicopterMissile CreateEnemyMissile()
+  {
+   if(!Application.isPlaying||helicopterMissilePrefab==null)return null;
+   var root=Instantiate(helicopterMissilePrefab,transform).transform;root.name="Enemy missile "+(helicopterMissiles.Count+1);
+   var missile=new HelicopterMissile{root=root,visual=root.GetComponent<MissileFlightVisual>(),flightAudio=CreateMissileFlightAudio(root,false)};
+   helicopterMissiles.Add(missile);return missile;
+  }
   void ResetHelicopterMissiles()
   {
    HelicopterMissilesFired=HelicopterMissilesDodged=TankMissilesFired=0;HitByHelicopterMissile=HitByTankMissile=RiderAirAttackBurning=false;
    if(Application.isPlaying&&helicopterMissilePrefab==null)helicopterMissilePrefab=Resources.Load<GameObject>("Helicopter/PV_HelicopterMissile");
-   for(int i=0;i<helicopterMissiles.Length;i++)
-   {
-    var m=helicopterMissiles[i];
-    if(m==null&&Application.isPlaying&&helicopterMissilePrefab!=null)
-    {var root=Instantiate(helicopterMissilePrefab,transform).transform;root.name="Helicopter missile "+(i+1);m=helicopterMissiles[i]=new HelicopterMissile{root=root,visual=root.GetComponent<MissileFlightVisual>(),flightAudio=CreateMissileFlightAudio(root,false)};}
-    if(m==null)continue;m.age=0;m.scroll=Vector3.zero;RetireHelicopterMissile(m);
-   }
+   while(helicopterMissiles.Count<HelicopterMissileCapacity&&CreateEnemyMissile()!=null){}
+   foreach(var m in helicopterMissiles){m.age=0;m.scroll=Vector3.zero;RetireHelicopterMissile(m);}
   }
   void TickHelicopterWeapon(HelicopterActor h,float dt)
   {
-   float interval=HelicopterMissileInterval(Distance);
+   float interval=CurrentHelicopterMissileInterval;
    if(State!=RideState.Riding||!RiderFlying||IsTurning||h.wrecked){h.shotInterval=h.shotRemaining=interval;return;}
    h.shotRemaining=Mathf.Max(0,h.shotRemaining+interval-h.shotInterval);h.shotInterval=interval;h.shotRemaining-=dt;
    Vector3 delta=rider.localPosition-h.root.localPosition;
@@ -51,7 +57,8 @@ namespace PhoViet
   }
   bool FireEnemyMissile(Vector3 origin,bool fromTank)
   {
-   HelicopterMissile free=null;foreach(var m in helicopterMissiles)if(m!=null&&!m.active){free=m;break;}if(free==null)return false;
+   HelicopterMissile free=null;foreach(var m in helicopterMissiles)if(!m.active){free=m;break;}
+   free??=CreateEnemyMissile();if(free==null)return false;
    Vector3 target=rider.localPosition+Vector3.up*(PlayerHeight*.5f),offset=target-origin;
    // Lead only the road travel at launch. Steering/altitude changes after firing are evasion.
    Vector3 roadVelocity=Vector3.forward*Speed;

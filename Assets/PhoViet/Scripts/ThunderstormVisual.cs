@@ -5,7 +5,7 @@ namespace PhoViet
  // No per-drop GameObjects, scene-wide material clones or extra realtime lights.
  public sealed class ThunderstormVisual:MonoBehaviour
  {
-  sealed class BurnEffect {public Transform root,target;public PhoVietGame.TrafficVehicle body;public ParticleSystem[] particles;public ParticleSystemScalingMode[] originalScaleModes;public bool active;}
+  sealed class BurnEffect {public Transform root,target;public PhoVietGame.TrafficVehicle body;public PhoVietGame.Dinosaur dinosaur;public int dinosaurGeneration;public ParticleSystem[] particles;public ParticleSystemScalingMode[] originalScaleModes;public bool active;}
   PhoVietGame game;Transform root,rainRoot,fireTemplate;
   ParticleSystem rain,splashes;AudioSource rainAudio;AudioClip rainClip;
   readonly List<BurnEffect> burns=new List<BurnEffect>();
@@ -71,21 +71,42 @@ namespace PhoViet
    burns.Add(b);return b;
   }
   public void Burn(Transform target,PhoVietGame.TrafficVehicle body,float scale=0)
+   =>StartBurn(target,body,scale,null);
+  public void BurnDinosaur(PhoVietGame.Dinosaur dinosaur,Transform anchor)
+   =>StartBurn(anchor,null,1.9f,dinosaur);
+  void StartBurn(Transform target,PhoVietGame.TrafficVehicle body,float scale,PhoVietGame.Dinosaur dinosaur)
   {
    if(fireTemplate==null)return;BurnEffect chosen=null;
-   foreach(var b in burns){if(b.active&&b.target==target)return;if(!b.active&&chosen==null)chosen=b;}
-   if(chosen==null&&burns.Count<game.vehicles.Count+PhoVietGame.MaximumHelicopters+2)chosen=NewBurn();if(chosen==null)return;
-   chosen.target=target;chosen.body=body;chosen.active=true;chosen.root.localScale=Vector3.one*(scale>0?scale:body==null||body.halfWidth>.7f?1.3f:.9f);
+   foreach(var b in burns)
+   {
+    if(b.active&&b.target==target)
+    {
+     if(dinosaur==null||b.dinosaurGeneration==dinosaur.generation)return;
+     chosen=b;break;
+    }
+    if(!b.active&&chosen==null)chosen=b;
+   }
+   if(chosen==null&&burns.Count<game.vehicles.Count+game.HelicopterPoolCount+2+game.dinosaurs.Count*PhoVietGame.DinosaurMaxHealth)chosen=NewBurn();if(chosen==null)return;
+   chosen.target=target;chosen.body=body;chosen.dinosaur=dinosaur;chosen.dinosaurGeneration=dinosaur!=null?dinosaur.generation:0;
+   chosen.active=true;chosen.root.localScale=Vector3.one*(scale>0?scale:body==null||body.halfWidth>.7f?1.3f:.9f);
    chosen.root.gameObject.SetActive(true);PositionFire(chosen);
    for(int i=0;i<chosen.particles.Length;i++)
    {
     var ps=chosen.particles[i];var main=ps.main;
-    // Only tank wrecks need the large2.8x flames/smoke. Restore the template mode when pooled for another actor.
-    main.scalingMode=body!=null&&body.tankDestroyed?ParticleSystemScalingMode.Hierarchy:chosen.originalScaleModes[i];ps.Clear();ps.Play();
+    // Restore the template scale mode when a large effect is reused by normal traffic.
+    main.scalingMode=dinosaur!=null||body!=null&&body.tankDestroyed?ParticleSystemScalingMode.Hierarchy:chosen.originalScaleModes[i];ps.Clear();ps.Play();
    }
   }
   void PositionFire(BurnEffect b)
   {
+   if(b.dinosaur!=null)
+   {
+    // Move the emitter out of the skin so the first hit is visible from the road.
+    float offset=b.target==b.dinosaur.visual.pelvis?1.45f:.75f;
+    b.root.position=b.target.position+b.dinosaur.root.forward*offset;
+    b.root.rotation=Quaternion.identity;
+    return;
+   }
    bool car=b.body==null||b.body.halfWidth>.7f;float front=b.body==null?1.1f:Mathf.Min(b.body.halfLength*.42f,2.2f);
    Vector3 p=b.target.TransformPoint(new Vector3(0,car?.9f:.65f,front));p.y=Mathf.Max(p.y,b.target.position.y+.3f);
    b.root.position=p;b.root.rotation=Quaternion.identity;
@@ -124,7 +145,9 @@ namespace PhoViet
    Shader.SetGlobalFloat("_PVStormWetness",hide?0:intensity);
    foreach(var b in burns)if(b.active)
    {
-    bool valid=b.target!=null&&b.target.gameObject.activeInHierarchy&&b.target.localPosition.y>RiverBlock.WaterY+.25f&&(b.body==null?(b.target==game.rider&&game.KilledByLightning||game.IsAircraftBurning(b.target)):b.body.lightningWreck||b.body.tankDestroyed);
+    bool valid=b.target!=null&&b.target.gameObject.activeInHierarchy&&(b.dinosaur!=null?
+     b.dinosaur.active&&b.dinosaur.generation==b.dinosaurGeneration:
+     b.target.localPosition.y>RiverBlock.WaterY+.25f&&(b.body==null?(b.target==game.rider&&game.KilledByLightning||game.IsAircraftBurning(b.target)):b.body.lightningWreck||b.body.tankDestroyed));
     if(!valid){b.active=false;foreach(var ps in b.particles)ps.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);b.root.gameObject.SetActive(false);continue;}
     PositionFire(b);
    }

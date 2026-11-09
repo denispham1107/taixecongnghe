@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.65.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.66.0**.
+
+## Cập nhật 1.66.0
+
+Khủng long có ba nấc máu. Tên lửa bắn từ mặt đất làm khủng long cháy dần và ngã ở phát thứ ba. Xác vẫn là vật cản. Mỗi lần rẽ hoàn tất cộng một trực thăng và giảm 0,1 giây giữa các phát tên lửa của trực thăng và xe tăng, nhanh nhất 0,25 giây/phát.
 
 ## Cập nhật 1.65.0
 

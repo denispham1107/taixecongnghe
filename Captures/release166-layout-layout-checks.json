@@ -1,0 +1,6444 @@
+{
+  "url": "http://127.0.0.1:8790/",
+  "checks": [
+    "small-phone: exactly three home photos are present",
+    "small-phone: no horizontal page/hero overflow",
+    "small-phone: photo gallery and content never overlap",
+    "small-phone: footer follows content and all three photos",
+    "small-phone: status and instructions follow the action",
+    "small-phone: buttons never overlap",
+    "small-phone: header stays outside cutouts",
+    "small-phone: supplied photo loads in order at its native resolution 1",
+    "small-phone: photo frame is uncropped at native aspect ratio 1",
+    "small-phone: supplied photo loads in order at its native resolution 2",
+    "small-phone: photo frame is uncropped at native aspect ratio 2",
+    "small-phone: gallery photo follows its predecessor 2",
+    "small-phone: supplied photo loads in order at its native resolution 3",
+    "small-phone: photo frame is uncropped at native aspect ratio 3",
+    "small-phone: gallery photo follows its predecessor 3",
+    "small-phone: main action is reachable",
+    "small-phone: help fits safe viewport",
+    "small-phone: help returns keyboard focus",
+    "small-phone loading: exactly three home photos are present",
+    "small-phone loading: no horizontal page/hero overflow",
+    "small-phone loading: photo gallery and content never overlap",
+    "small-phone loading: footer follows content and all three photos",
+    "small-phone loading: status and instructions follow the action",
+    "small-phone loading: buttons never overlap",
+    "small-phone loading: header stays outside cutouts",
+    "small-phone loading: supplied photo loads in order at its native resolution 1",
+    "small-phone loading: photo frame is uncropped at native aspect ratio 1",
+    "small-phone loading: supplied photo loads in order at its native resolution 2",
+    "small-phone loading: photo frame is uncropped at native aspect ratio 2",
+    "small-phone loading: gallery photo follows its predecessor 2",
+    "small-phone loading: supplied photo loads in order at its native resolution 3",
+    "small-phone loading: photo frame is uncropped at native aspect ratio 3",
+    "small-phone loading: gallery photo follows its predecessor 3",
+    "small-phone loading: main action is reachable",
+    "small-phone retry/long-status: exactly three home photos are present",
+    "small-phone retry/long-status: no horizontal page/hero overflow",
+    "small-phone retry/long-status: photo gallery and content never overlap",
+    "small-phone retry/long-status: footer follows content and all three photos",
+    "small-phone retry/long-status: status and instructions follow the action",
+    "small-phone retry/long-status: buttons never overlap",
+    "small-phone retry/long-status: header stays outside cutouts",
+    "small-phone retry/long-status: supplied photo loads in order at its native resolution 1",
+    "small-phone retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "small-phone retry/long-status: supplied photo loads in order at its native resolution 2",
+    "small-phone retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "small-phone retry/long-status: gallery photo follows its predecessor 2",
+    "small-phone retry/long-status: supplied photo loads in order at its native resolution 3",
+    "small-phone retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "small-phone retry/long-status: gallery photo follows its predecessor 3",
+    "small-phone retry/long-status: main action is reachable",
+    "phone: exactly three home photos are present",
+    "phone: no horizontal page/hero overflow",
+    "phone: photo gallery and content never overlap",
+    "phone: footer follows content and all three photos",
+    "phone: status and instructions follow the action",
+    "phone: buttons never overlap",
+    "phone: header stays outside cutouts",
+    "phone: supplied photo loads in order at its native resolution 1",
+    "phone: photo frame is uncropped at native aspect ratio 1",
+    "phone: supplied photo loads in order at its native resolution 2",
+    "phone: photo frame is uncropped at native aspect ratio 2",
+    "phone: gallery photo follows its predecessor 2",
+    "phone: supplied photo loads in order at its native resolution 3",
+    "phone: photo frame is uncropped at native aspect ratio 3",
+    "phone: gallery photo follows its predecessor 3",
+    "phone: main action is reachable",
+    "phone: help fits safe viewport",
+    "phone: help returns keyboard focus",
+    "phone loading: exactly three home photos are present",
+    "phone loading: no horizontal page/hero overflow",
+    "phone loading: photo gallery and content never overlap",
+    "phone loading: footer follows content and all three photos",
+    "phone loading: status and instructions follow the action",
+    "phone loading: buttons never overlap",
+    "phone loading: header stays outside cutouts",
+    "phone loading: supplied photo loads in order at its native resolution 1",
+    "phone loading: photo frame is uncropped at native aspect ratio 1",
+    "phone loading: supplied photo loads in order at its native resolution 2",
+    "phone loading: photo frame is uncropped at native aspect ratio 2",
+    "phone loading: gallery photo follows its predecessor 2",
+    "phone loading: supplied photo loads in order at its native resolution 3",
+    "phone loading: photo frame is uncropped at native aspect ratio 3",
+    "phone loading: gallery photo follows its predecessor 3",
+    "phone loading: main action is reachable",
+    "phone retry/long-status: exactly three home photos are present",
+    "phone retry/long-status: no horizontal page/hero overflow",
+    "phone retry/long-status: photo gallery and content never overlap",
+    "phone retry/long-status: footer follows content and all three photos",
+    "phone retry/long-status: status and instructions follow the action",
+    "phone retry/long-status: buttons never overlap",
+    "phone retry/long-status: header stays outside cutouts",
+    "phone retry/long-status: supplied photo loads in order at its native resolution 1",
+    "phone retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "phone retry/long-status: supplied photo loads in order at its native resolution 2",
+    "phone retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "phone retry/long-status: gallery photo follows its predecessor 2",
+    "phone retry/long-status: supplied photo loads in order at its native resolution 3",
+    "phone retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "phone retry/long-status: gallery photo follows its predecessor 3",
+    "phone retry/long-status: main action is reachable",
+    "large-phone: exactly three home photos are present",
+    "large-phone: no horizontal page/hero overflow",
+    "large-phone: photo gallery and content never overlap",
+    "large-phone: footer follows content and all three photos",
+    "large-phone: status and instructions follow the action",
+    "large-phone: buttons never overlap",
+    "large-phone: header stays outside cutouts",
+    "large-phone: supplied photo loads in order at its native resolution 1",
+    "large-phone: photo frame is uncropped at native aspect ratio 1",
+    "large-phone: supplied photo loads in order at its native resolution 2",
+    "large-phone: photo frame is uncropped at native aspect ratio 2",
+    "large-phone: gallery photo follows its predecessor 2",
+    "large-phone: supplied photo loads in order at its native resolution 3",
+    "large-phone: photo frame is uncropped at native aspect ratio 3",
+    "large-phone: gallery photo follows its predecessor 3",
+    "large-phone: main action is reachable",
+    "large-phone: help fits safe viewport",
+    "large-phone: help returns keyboard focus",
+    "large-phone loading: exactly three home photos are present",
+    "large-phone loading: no horizontal page/hero overflow",
+    "large-phone loading: photo gallery and content never overlap",
+    "large-phone loading: footer follows content and all three photos",
+    "large-phone loading: status and instructions follow the action",
+    "large-phone loading: buttons never overlap",
+    "large-phone loading: header stays outside cutouts",
+    "large-phone loading: supplied photo loads in order at its native resolution 1",
+    "large-phone loading: photo frame is uncropped at native aspect ratio 1",
+    "large-phone loading: supplied photo loads in order at its native resolution 2",
+    "large-phone loading: photo frame is uncropped at native aspect ratio 2",
+    "large-phone loading: gallery photo follows its predecessor 2",
+    "large-phone loading: supplied photo loads in order at its native resolution 3",
+    "large-phone loading: photo frame is uncropped at native aspect ratio 3",
+    "large-phone loading: gallery photo follows its predecessor 3",
+    "large-phone loading: main action is reachable",
+    "large-phone retry/long-status: exactly three home photos are present",
+    "large-phone retry/long-status: no horizontal page/hero overflow",
+    "large-phone retry/long-status: photo gallery and content never overlap",
+    "large-phone retry/long-status: footer follows content and all three photos",
+    "large-phone retry/long-status: status and instructions follow the action",
+    "large-phone retry/long-status: buttons never overlap",
+    "large-phone retry/long-status: header stays outside cutouts",
+    "large-phone retry/long-status: supplied photo loads in order at its native resolution 1",
+    "large-phone retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "large-phone retry/long-status: supplied photo loads in order at its native resolution 2",
+    "large-phone retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "large-phone retry/long-status: gallery photo follows its predecessor 2",
+    "large-phone retry/long-status: supplied photo loads in order at its native resolution 3",
+    "large-phone retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "large-phone retry/long-status: gallery photo follows its predecessor 3",
+    "large-phone retry/long-status: main action is reachable",
+    "phone-landscape: exactly three home photos are present",
+    "phone-landscape: no horizontal page/hero overflow",
+    "phone-landscape: photo gallery and content never overlap",
+    "phone-landscape: footer follows content and all three photos",
+    "phone-landscape: status and instructions follow the action",
+    "phone-landscape: buttons never overlap",
+    "phone-landscape: header stays outside cutouts",
+    "phone-landscape: supplied photo loads in order at its native resolution 1",
+    "phone-landscape: photo frame is uncropped at native aspect ratio 1",
+    "phone-landscape: supplied photo loads in order at its native resolution 2",
+    "phone-landscape: photo frame is uncropped at native aspect ratio 2",
+    "phone-landscape: gallery photo follows its predecessor 2",
+    "phone-landscape: supplied photo loads in order at its native resolution 3",
+    "phone-landscape: photo frame is uncropped at native aspect ratio 3",
+    "phone-landscape: gallery photo follows its predecessor 3",
+    "phone-landscape: main action is reachable",
+    "phone-landscape: help fits safe viewport",
+    "phone-landscape: help returns keyboard focus",
+    "phone-landscape loading: exactly three home photos are present",
+    "phone-landscape loading: no horizontal page/hero overflow",
+    "phone-landscape loading: photo gallery and content never overlap",
+    "phone-landscape loading: footer follows content and all three photos",
+    "phone-landscape loading: status and instructions follow the action",
+    "phone-landscape loading: buttons never overlap",
+    "phone-landscape loading: header stays outside cutouts",
+    "phone-landscape loading: supplied photo loads in order at its native resolution 1",
+    "phone-landscape loading: photo frame is uncropped at native aspect ratio 1",
+    "phone-landscape loading: supplied photo loads in order at its native resolution 2",
+    "phone-landscape loading: photo frame is uncropped at native aspect ratio 2",
+    "phone-landscape loading: gallery photo follows its predecessor 2",
+    "phone-landscape loading: supplied photo loads in order at its native resolution 3",
+    "phone-landscape loading: photo frame is uncropped at native aspect ratio 3",
+    "phone-landscape loading: gallery photo follows its predecessor 3",
+    "phone-landscape loading: main action is reachable",
+    "phone-landscape retry/long-status: exactly three home photos are present",
+    "phone-landscape retry/long-status: no horizontal page/hero overflow",
+    "phone-landscape retry/long-status: photo gallery and content never overlap",
+    "phone-landscape retry/long-status: footer follows content and all three photos",
+    "phone-landscape retry/long-status: status and instructions follow the action",
+    "phone-landscape retry/long-status: buttons never overlap",
+    "phone-landscape retry/long-status: header stays outside cutouts",
+    "phone-landscape retry/long-status: supplied photo loads in order at its native resolution 1",
+    "phone-landscape retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "phone-landscape retry/long-status: supplied photo loads in order at its native resolution 2",
+    "phone-landscape retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "phone-landscape retry/long-status: gallery photo follows its predecessor 2",
+    "phone-landscape retry/long-status: supplied photo loads in order at its native resolution 3",
+    "phone-landscape retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "phone-landscape retry/long-status: gallery photo follows its predecessor 3",
+    "phone-landscape retry/long-status: main action is reachable",
+    "small-landscape: exactly three home photos are present",
+    "small-landscape: no horizontal page/hero overflow",
+    "small-landscape: photo gallery and content never overlap",
+    "small-landscape: footer follows content and all three photos",
+    "small-landscape: status and instructions follow the action",
+    "small-landscape: buttons never overlap",
+    "small-landscape: header stays outside cutouts",
+    "small-landscape: supplied photo loads in order at its native resolution 1",
+    "small-landscape: photo frame is uncropped at native aspect ratio 1",
+    "small-landscape: supplied photo loads in order at its native resolution 2",
+    "small-landscape: photo frame is uncropped at native aspect ratio 2",
+    "small-landscape: gallery photo follows its predecessor 2",
+    "small-landscape: supplied photo loads in order at its native resolution 3",
+    "small-landscape: photo frame is uncropped at native aspect ratio 3",
+    "small-landscape: gallery photo follows its predecessor 3",
+    "small-landscape: main action is reachable",
+    "small-landscape: help fits safe viewport",
+    "small-landscape: help returns keyboard focus",
+    "small-landscape loading: exactly three home photos are present",
+    "small-landscape loading: no horizontal page/hero overflow",
+    "small-landscape loading: photo gallery and content never overlap",
+    "small-landscape loading: footer follows content and all three photos",
+    "small-landscape loading: status and instructions follow the action",
+    "small-landscape loading: buttons never overlap",
+    "small-landscape loading: header stays outside cutouts",
+    "small-landscape loading: supplied photo loads in order at its native resolution 1",
+    "small-landscape loading: photo frame is uncropped at native aspect ratio 1",
+    "small-landscape loading: supplied photo loads in order at its native resolution 2",
+    "small-landscape loading: photo frame is uncropped at native aspect ratio 2",
+    "small-landscape loading: gallery photo follows its predecessor 2",
+    "small-landscape loading: supplied photo loads in order at its native resolution 3",
+    "small-landscape loading: photo frame is uncropped at native aspect ratio 3",
+    "small-landscape loading: gallery photo follows its predecessor 3",
+    "small-landscape loading: main action is reachable",
+    "small-landscape retry/long-status: exactly three home photos are present",
+    "small-landscape retry/long-status: no horizontal page/hero overflow",
+    "small-landscape retry/long-status: photo gallery and content never overlap",
+    "small-landscape retry/long-status: footer follows content and all three photos",
+    "small-landscape retry/long-status: status and instructions follow the action",
+    "small-landscape retry/long-status: buttons never overlap",
+    "small-landscape retry/long-status: header stays outside cutouts",
+    "small-landscape retry/long-status: supplied photo loads in order at its native resolution 1",
+    "small-landscape retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "small-landscape retry/long-status: supplied photo loads in order at its native resolution 2",
+    "small-landscape retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "small-landscape retry/long-status: gallery photo follows its predecessor 2",
+    "small-landscape retry/long-status: supplied photo loads in order at its native resolution 3",
+    "small-landscape retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "small-landscape retry/long-status: gallery photo follows its predecessor 3",
+    "small-landscape retry/long-status: main action is reachable",
+    "large-landscape: exactly three home photos are present",
+    "large-landscape: no horizontal page/hero overflow",
+    "large-landscape: photo gallery and content never overlap",
+    "large-landscape: footer follows content and all three photos",
+    "large-landscape: status and instructions follow the action",
+    "large-landscape: buttons never overlap",
+    "large-landscape: header stays outside cutouts",
+    "large-landscape: supplied photo loads in order at its native resolution 1",
+    "large-landscape: photo frame is uncropped at native aspect ratio 1",
+    "large-landscape: supplied photo loads in order at its native resolution 2",
+    "large-landscape: photo frame is uncropped at native aspect ratio 2",
+    "large-landscape: gallery photo follows its predecessor 2",
+    "large-landscape: supplied photo loads in order at its native resolution 3",
+    "large-landscape: photo frame is uncropped at native aspect ratio 3",
+    "large-landscape: gallery photo follows its predecessor 3",
+    "large-landscape: main action is reachable",
+    "large-landscape: help fits safe viewport",
+    "large-landscape: help returns keyboard focus",
+    "large-landscape loading: exactly three home photos are present",
+    "large-landscape loading: no horizontal page/hero overflow",
+    "large-landscape loading: photo gallery and content never overlap",
+    "large-landscape loading: footer follows content and all three photos",
+    "large-landscape loading: status and instructions follow the action",
+    "large-landscape loading: buttons never overlap",
+    "large-landscape loading: header stays outside cutouts",
+    "large-landscape loading: supplied photo loads in order at its native resolution 1",
+    "large-landscape loading: photo frame is uncropped at native aspect ratio 1",
+    "large-landscape loading: supplied photo loads in order at its native resolution 2",
+    "large-landscape loading: photo frame is uncropped at native aspect ratio 2",
+    "large-landscape loading: gallery photo follows its predecessor 2",
+    "large-landscape loading: supplied photo loads in order at its native resolution 3",
+    "large-landscape loading: photo frame is uncropped at native aspect ratio 3",
+    "large-landscape loading: gallery photo follows its predecessor 3",
+    "large-landscape loading: main action is reachable",
+    "large-landscape retry/long-status: exactly three home photos are present",
+    "large-landscape retry/long-status: no horizontal page/hero overflow",
+    "large-landscape retry/long-status: photo gallery and content never overlap",
+    "large-landscape retry/long-status: footer follows content and all three photos",
+    "large-landscape retry/long-status: status and instructions follow the action",
+    "large-landscape retry/long-status: buttons never overlap",
+    "large-landscape retry/long-status: header stays outside cutouts",
+    "large-landscape retry/long-status: supplied photo loads in order at its native resolution 1",
+    "large-landscape retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "large-landscape retry/long-status: supplied photo loads in order at its native resolution 2",
+    "large-landscape retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "large-landscape retry/long-status: gallery photo follows its predecessor 2",
+    "large-landscape retry/long-status: supplied photo loads in order at its native resolution 3",
+    "large-landscape retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "large-landscape retry/long-status: gallery photo follows its predecessor 3",
+    "large-landscape retry/long-status: main action is reachable",
+    "tablet-portrait: exactly three home photos are present",
+    "tablet-portrait: no horizontal page/hero overflow",
+    "tablet-portrait: photo gallery and content never overlap",
+    "tablet-portrait: footer follows content and all three photos",
+    "tablet-portrait: status and instructions follow the action",
+    "tablet-portrait: buttons never overlap",
+    "tablet-portrait: header stays outside cutouts",
+    "tablet-portrait: supplied photo loads in order at its native resolution 1",
+    "tablet-portrait: photo frame is uncropped at native aspect ratio 1",
+    "tablet-portrait: supplied photo loads in order at its native resolution 2",
+    "tablet-portrait: photo frame is uncropped at native aspect ratio 2",
+    "tablet-portrait: gallery photo follows its predecessor 2",
+    "tablet-portrait: supplied photo loads in order at its native resolution 3",
+    "tablet-portrait: photo frame is uncropped at native aspect ratio 3",
+    "tablet-portrait: gallery photo follows its predecessor 3",
+    "tablet-portrait: main action is reachable",
+    "tablet-portrait: help fits safe viewport",
+    "tablet-portrait: help returns keyboard focus",
+    "tablet-portrait loading: exactly three home photos are present",
+    "tablet-portrait loading: no horizontal page/hero overflow",
+    "tablet-portrait loading: photo gallery and content never overlap",
+    "tablet-portrait loading: footer follows content and all three photos",
+    "tablet-portrait loading: status and instructions follow the action",
+    "tablet-portrait loading: buttons never overlap",
+    "tablet-portrait loading: header stays outside cutouts",
+    "tablet-portrait loading: supplied photo loads in order at its native resolution 1",
+    "tablet-portrait loading: photo frame is uncropped at native aspect ratio 1",
+    "tablet-portrait loading: supplied photo loads in order at its native resolution 2",
+    "tablet-portrait loading: photo frame is uncropped at native aspect ratio 2",
+    "tablet-portrait loading: gallery photo follows its predecessor 2",
+    "tablet-portrait loading: supplied photo loads in order at its native resolution 3",
+    "tablet-portrait loading: photo frame is uncropped at native aspect ratio 3",
+    "tablet-portrait loading: gallery photo follows its predecessor 3",
+    "tablet-portrait loading: main action is reachable",
+    "tablet-portrait retry/long-status: exactly three home photos are present",
+    "tablet-portrait retry/long-status: no horizontal page/hero overflow",
+    "tablet-portrait retry/long-status: photo gallery and content never overlap",
+    "tablet-portrait retry/long-status: footer follows content and all three photos",
+    "tablet-portrait retry/long-status: status and instructions follow the action",
+    "tablet-portrait retry/long-status: buttons never overlap",
+    "tablet-portrait retry/long-status: header stays outside cutouts",
+    "tablet-portrait retry/long-status: supplied photo loads in order at its native resolution 1",
+    "tablet-portrait retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "tablet-portrait retry/long-status: supplied photo loads in order at its native resolution 2",
+    "tablet-portrait retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "tablet-portrait retry/long-status: gallery photo follows its predecessor 2",
+    "tablet-portrait retry/long-status: supplied photo loads in order at its native resolution 3",
+    "tablet-portrait retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "tablet-portrait retry/long-status: gallery photo follows its predecessor 3",
+    "tablet-portrait retry/long-status: main action is reachable",
+    "tablet-landscape: exactly three home photos are present",
+    "tablet-landscape: no horizontal page/hero overflow",
+    "tablet-landscape: photo gallery and content never overlap",
+    "tablet-landscape: footer follows content and all three photos",
+    "tablet-landscape: status and instructions follow the action",
+    "tablet-landscape: buttons never overlap",
+    "tablet-landscape: header stays outside cutouts",
+    "tablet-landscape: supplied photo loads in order at its native resolution 1",
+    "tablet-landscape: photo frame is uncropped at native aspect ratio 1",
+    "tablet-landscape: supplied photo loads in order at its native resolution 2",
+    "tablet-landscape: photo frame is uncropped at native aspect ratio 2",
+    "tablet-landscape: gallery photo follows its predecessor 2",
+    "tablet-landscape: supplied photo loads in order at its native resolution 3",
+    "tablet-landscape: photo frame is uncropped at native aspect ratio 3",
+    "tablet-landscape: gallery photo follows its predecessor 3",
+    "tablet-landscape: main action is reachable",
+    "tablet-landscape: help fits safe viewport",
+    "tablet-landscape: help returns keyboard focus",
+    "tablet-landscape loading: exactly three home photos are present",
+    "tablet-landscape loading: no horizontal page/hero overflow",
+    "tablet-landscape loading: photo gallery and content never overlap",
+    "tablet-landscape loading: footer follows content and all three photos",
+    "tablet-landscape loading: status and instructions follow the action",
+    "tablet-landscape loading: buttons never overlap",
+    "tablet-landscape loading: header stays outside cutouts",
+    "tablet-landscape loading: supplied photo loads in order at its native resolution 1",
+    "tablet-landscape loading: photo frame is uncropped at native aspect ratio 1",
+    "tablet-landscape loading: supplied photo loads in order at its native resolution 2",
+    "tablet-landscape loading: photo frame is uncropped at native aspect ratio 2",
+    "tablet-landscape loading: gallery photo follows its predecessor 2",
+    "tablet-landscape loading: supplied photo loads in order at its native resolution 3",
+    "tablet-landscape loading: photo frame is uncropped at native aspect ratio 3",
+    "tablet-landscape loading: gallery photo follows its predecessor 3",
+    "tablet-landscape loading: main action is reachable",
+    "tablet-landscape retry/long-status: exactly three home photos are present",
+    "tablet-landscape retry/long-status: no horizontal page/hero overflow",
+    "tablet-landscape retry/long-status: photo gallery and content never overlap",
+    "tablet-landscape retry/long-status: footer follows content and all three photos",
+    "tablet-landscape retry/long-status: status and instructions follow the action",
+    "tablet-landscape retry/long-status: buttons never overlap",
+    "tablet-landscape retry/long-status: header stays outside cutouts",
+    "tablet-landscape retry/long-status: supplied photo loads in order at its native resolution 1",
+    "tablet-landscape retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "tablet-landscape retry/long-status: supplied photo loads in order at its native resolution 2",
+    "tablet-landscape retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "tablet-landscape retry/long-status: gallery photo follows its predecessor 2",
+    "tablet-landscape retry/long-status: supplied photo loads in order at its native resolution 3",
+    "tablet-landscape retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "tablet-landscape retry/long-status: gallery photo follows its predecessor 3",
+    "tablet-landscape retry/long-status: main action is reachable",
+    "desktop-short: exactly three home photos are present",
+    "desktop-short: no horizontal page/hero overflow",
+    "desktop-short: photo gallery and content never overlap",
+    "desktop-short: footer follows content and all three photos",
+    "desktop-short: status and instructions follow the action",
+    "desktop-short: buttons never overlap",
+    "desktop-short: header stays outside cutouts",
+    "desktop-short: supplied photo loads in order at its native resolution 1",
+    "desktop-short: photo frame is uncropped at native aspect ratio 1",
+    "desktop-short: supplied photo loads in order at its native resolution 2",
+    "desktop-short: photo frame is uncropped at native aspect ratio 2",
+    "desktop-short: gallery photo follows its predecessor 2",
+    "desktop-short: supplied photo loads in order at its native resolution 3",
+    "desktop-short: photo frame is uncropped at native aspect ratio 3",
+    "desktop-short: gallery photo follows its predecessor 3",
+    "desktop-short: main action is reachable",
+    "desktop-short: help fits safe viewport",
+    "desktop-short: help returns keyboard focus",
+    "desktop-short loading: exactly three home photos are present",
+    "desktop-short loading: no horizontal page/hero overflow",
+    "desktop-short loading: photo gallery and content never overlap",
+    "desktop-short loading: footer follows content and all three photos",
+    "desktop-short loading: status and instructions follow the action",
+    "desktop-short loading: buttons never overlap",
+    "desktop-short loading: header stays outside cutouts",
+    "desktop-short loading: supplied photo loads in order at its native resolution 1",
+    "desktop-short loading: photo frame is uncropped at native aspect ratio 1",
+    "desktop-short loading: supplied photo loads in order at its native resolution 2",
+    "desktop-short loading: photo frame is uncropped at native aspect ratio 2",
+    "desktop-short loading: gallery photo follows its predecessor 2",
+    "desktop-short loading: supplied photo loads in order at its native resolution 3",
+    "desktop-short loading: photo frame is uncropped at native aspect ratio 3",
+    "desktop-short loading: gallery photo follows its predecessor 3",
+    "desktop-short loading: main action is reachable",
+    "desktop-short retry/long-status: exactly three home photos are present",
+    "desktop-short retry/long-status: no horizontal page/hero overflow",
+    "desktop-short retry/long-status: photo gallery and content never overlap",
+    "desktop-short retry/long-status: footer follows content and all three photos",
+    "desktop-short retry/long-status: status and instructions follow the action",
+    "desktop-short retry/long-status: buttons never overlap",
+    "desktop-short retry/long-status: header stays outside cutouts",
+    "desktop-short retry/long-status: supplied photo loads in order at its native resolution 1",
+    "desktop-short retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "desktop-short retry/long-status: supplied photo loads in order at its native resolution 2",
+    "desktop-short retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "desktop-short retry/long-status: gallery photo follows its predecessor 2",
+    "desktop-short retry/long-status: supplied photo loads in order at its native resolution 3",
+    "desktop-short retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "desktop-short retry/long-status: gallery photo follows its predecessor 3",
+    "desktop-short retry/long-status: main action is reachable",
+    "desktop: exactly three home photos are present",
+    "desktop: no horizontal page/hero overflow",
+    "desktop: photo gallery and content never overlap",
+    "desktop: footer follows content and all three photos",
+    "desktop: status and instructions follow the action",
+    "desktop: buttons never overlap",
+    "desktop: header stays outside cutouts",
+    "desktop: supplied photo loads in order at its native resolution 1",
+    "desktop: photo frame is uncropped at native aspect ratio 1",
+    "desktop: supplied photo loads in order at its native resolution 2",
+    "desktop: photo frame is uncropped at native aspect ratio 2",
+    "desktop: gallery photo follows its predecessor 2",
+    "desktop: supplied photo loads in order at its native resolution 3",
+    "desktop: photo frame is uncropped at native aspect ratio 3",
+    "desktop: gallery photo follows its predecessor 3",
+    "desktop: main action is reachable",
+    "desktop: help fits safe viewport",
+    "desktop: help returns keyboard focus",
+    "desktop loading: exactly three home photos are present",
+    "desktop loading: no horizontal page/hero overflow",
+    "desktop loading: photo gallery and content never overlap",
+    "desktop loading: footer follows content and all three photos",
+    "desktop loading: status and instructions follow the action",
+    "desktop loading: buttons never overlap",
+    "desktop loading: header stays outside cutouts",
+    "desktop loading: supplied photo loads in order at its native resolution 1",
+    "desktop loading: photo frame is uncropped at native aspect ratio 1",
+    "desktop loading: supplied photo loads in order at its native resolution 2",
+    "desktop loading: photo frame is uncropped at native aspect ratio 2",
+    "desktop loading: gallery photo follows its predecessor 2",
+    "desktop loading: supplied photo loads in order at its native resolution 3",
+    "desktop loading: photo frame is uncropped at native aspect ratio 3",
+    "desktop loading: gallery photo follows its predecessor 3",
+    "desktop loading: main action is reachable",
+    "desktop retry/long-status: exactly three home photos are present",
+    "desktop retry/long-status: no horizontal page/hero overflow",
+    "desktop retry/long-status: photo gallery and content never overlap",
+    "desktop retry/long-status: footer follows content and all three photos",
+    "desktop retry/long-status: status and instructions follow the action",
+    "desktop retry/long-status: buttons never overlap",
+    "desktop retry/long-status: header stays outside cutouts",
+    "desktop retry/long-status: supplied photo loads in order at its native resolution 1",
+    "desktop retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "desktop retry/long-status: supplied photo loads in order at its native resolution 2",
+    "desktop retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "desktop retry/long-status: gallery photo follows its predecessor 2",
+    "desktop retry/long-status: supplied photo loads in order at its native resolution 3",
+    "desktop retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "desktop retry/long-status: gallery photo follows its predecessor 3",
+    "desktop retry/long-status: main action is reachable",
+    "desktop-wide: exactly three home photos are present",
+    "desktop-wide: no horizontal page/hero overflow",
+    "desktop-wide: photo gallery and content never overlap",
+    "desktop-wide: footer follows content and all three photos",
+    "desktop-wide: status and instructions follow the action",
+    "desktop-wide: buttons never overlap",
+    "desktop-wide: header stays outside cutouts",
+    "desktop-wide: supplied photo loads in order at its native resolution 1",
+    "desktop-wide: photo frame is uncropped at native aspect ratio 1",
+    "desktop-wide: supplied photo loads in order at its native resolution 2",
+    "desktop-wide: photo frame is uncropped at native aspect ratio 2",
+    "desktop-wide: gallery photo follows its predecessor 2",
+    "desktop-wide: supplied photo loads in order at its native resolution 3",
+    "desktop-wide: photo frame is uncropped at native aspect ratio 3",
+    "desktop-wide: gallery photo follows its predecessor 3",
+    "desktop-wide: main action is reachable",
+    "desktop-wide: help fits safe viewport",
+    "desktop-wide: help returns keyboard focus",
+    "desktop-wide loading: exactly three home photos are present",
+    "desktop-wide loading: no horizontal page/hero overflow",
+    "desktop-wide loading: photo gallery and content never overlap",
+    "desktop-wide loading: footer follows content and all three photos",
+    "desktop-wide loading: status and instructions follow the action",
+    "desktop-wide loading: buttons never overlap",
+    "desktop-wide loading: header stays outside cutouts",
+    "desktop-wide loading: supplied photo loads in order at its native resolution 1",
+    "desktop-wide loading: photo frame is uncropped at native aspect ratio 1",
+    "desktop-wide loading: supplied photo loads in order at its native resolution 2",
+    "desktop-wide loading: photo frame is uncropped at native aspect ratio 2",
+    "desktop-wide loading: gallery photo follows its predecessor 2",
+    "desktop-wide loading: supplied photo loads in order at its native resolution 3",
+    "desktop-wide loading: photo frame is uncropped at native aspect ratio 3",
+    "desktop-wide loading: gallery photo follows its predecessor 3",
+    "desktop-wide loading: main action is reachable",
+    "desktop-wide retry/long-status: exactly three home photos are present",
+    "desktop-wide retry/long-status: no horizontal page/hero overflow",
+    "desktop-wide retry/long-status: photo gallery and content never overlap",
+    "desktop-wide retry/long-status: footer follows content and all three photos",
+    "desktop-wide retry/long-status: status and instructions follow the action",
+    "desktop-wide retry/long-status: buttons never overlap",
+    "desktop-wide retry/long-status: header stays outside cutouts",
+    "desktop-wide retry/long-status: supplied photo loads in order at its native resolution 1",
+    "desktop-wide retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "desktop-wide retry/long-status: supplied photo loads in order at its native resolution 2",
+    "desktop-wide retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "desktop-wide retry/long-status: gallery photo follows its predecessor 2",
+    "desktop-wide retry/long-status: supplied photo loads in order at its native resolution 3",
+    "desktop-wide retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "desktop-wide retry/long-status: gallery photo follows its predecessor 3",
+    "desktop-wide retry/long-status: main action is reachable",
+    "zoom-equivalent: exactly three home photos are present",
+    "zoom-equivalent: no horizontal page/hero overflow",
+    "zoom-equivalent: photo gallery and content never overlap",
+    "zoom-equivalent: footer follows content and all three photos",
+    "zoom-equivalent: status and instructions follow the action",
+    "zoom-equivalent: buttons never overlap",
+    "zoom-equivalent: header stays outside cutouts",
+    "zoom-equivalent: supplied photo loads in order at its native resolution 1",
+    "zoom-equivalent: photo frame is uncropped at native aspect ratio 1",
+    "zoom-equivalent: supplied photo loads in order at its native resolution 2",
+    "zoom-equivalent: photo frame is uncropped at native aspect ratio 2",
+    "zoom-equivalent: gallery photo follows its predecessor 2",
+    "zoom-equivalent: supplied photo loads in order at its native resolution 3",
+    "zoom-equivalent: photo frame is uncropped at native aspect ratio 3",
+    "zoom-equivalent: gallery photo follows its predecessor 3",
+    "zoom-equivalent: main action is reachable",
+    "zoom-equivalent: help fits safe viewport",
+    "zoom-equivalent: help returns keyboard focus",
+    "zoom-equivalent loading: exactly three home photos are present",
+    "zoom-equivalent loading: no horizontal page/hero overflow",
+    "zoom-equivalent loading: photo gallery and content never overlap",
+    "zoom-equivalent loading: footer follows content and all three photos",
+    "zoom-equivalent loading: status and instructions follow the action",
+    "zoom-equivalent loading: buttons never overlap",
+    "zoom-equivalent loading: header stays outside cutouts",
+    "zoom-equivalent loading: supplied photo loads in order at its native resolution 1",
+    "zoom-equivalent loading: photo frame is uncropped at native aspect ratio 1",
+    "zoom-equivalent loading: supplied photo loads in order at its native resolution 2",
+    "zoom-equivalent loading: photo frame is uncropped at native aspect ratio 2",
+    "zoom-equivalent loading: gallery photo follows its predecessor 2",
+    "zoom-equivalent loading: supplied photo loads in order at its native resolution 3",
+    "zoom-equivalent loading: photo frame is uncropped at native aspect ratio 3",
+    "zoom-equivalent loading: gallery photo follows its predecessor 3",
+    "zoom-equivalent loading: main action is reachable",
+    "zoom-equivalent retry/long-status: exactly three home photos are present",
+    "zoom-equivalent retry/long-status: no horizontal page/hero overflow",
+    "zoom-equivalent retry/long-status: photo gallery and content never overlap",
+    "zoom-equivalent retry/long-status: footer follows content and all three photos",
+    "zoom-equivalent retry/long-status: status and instructions follow the action",
+    "zoom-equivalent retry/long-status: buttons never overlap",
+    "zoom-equivalent retry/long-status: header stays outside cutouts",
+    "zoom-equivalent retry/long-status: supplied photo loads in order at its native resolution 1",
+    "zoom-equivalent retry/long-status: photo frame is uncropped at native aspect ratio 1",
+    "zoom-equivalent retry/long-status: supplied photo loads in order at its native resolution 2",
+    "zoom-equivalent retry/long-status: photo frame is uncropped at native aspect ratio 2",
+    "zoom-equivalent retry/long-status: gallery photo follows its predecessor 2",
+    "zoom-equivalent retry/long-status: supplied photo loads in order at its native resolution 3",
+    "zoom-equivalent retry/long-status: photo frame is uncropped at native aspect ratio 3",
+    "zoom-equivalent retry/long-status: gallery photo follows its predecessor 3",
+    "zoom-equivalent retry/long-status: main action is reachable",
+    "Desktop Escape dismisses help",
+    "Current copy removes retired motorcycle, kick and lives instructions",
+    "No JavaScript errors"
+  ],
+  "errors": [],
+  "layouts": [
+    {
+      "label": "small-phone",
+      "width": 320,
+      "height": 568,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 133,
+          "right": 304,
+          "bottom": 506.0625,
+          "width": 288,
+          "height": 373.0625
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 528.0625,
+          "right": 304,
+          "bottom": 709.96875,
+          "width": 288,
+          "height": 181.90625
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 528.0625,
+          "right": 304,
+          "bottom": 1109.78125,
+          "width": 288,
+          "height": 581.71875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1133.78125,
+          "right": 320,
+          "bottom": 1201.375,
+          "width": 320,
+          "height": 67.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 393.875,
+          "right": 301,
+          "bottom": 410.875,
+          "width": 282,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 426.875,
+          "right": 301,
+          "bottom": 506.0625,
+          "width": 282,
+          "height": 79.1875
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 30,
+          "right": 107.828125,
+          "bottom": 58,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 14,
+          "y": 66,
+          "right": 127.734375,
+          "bottom": 106,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 132.734375,
+          "y": 66,
+          "right": 201.40625,
+          "bottom": 106,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 206.40625,
+          "y": 66,
+          "right": 246.40625,
+          "bottom": 106,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 528.0625,
+          "bottom": 709.96875,
+          "figureWidth": 288,
+          "imageWidth": 288,
+          "imageHeight": 133.109375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 727.96875,
+          "bottom": 909.875,
+          "figureWidth": 288,
+          "imageWidth": 288,
+          "imageHeight": 133.109375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 927.875,
+          "bottom": 1109.78125,
+          "figureWidth": 288,
+          "imageWidth": 288,
+          "imageHeight": 133.109375
+        }
+      ]
+    },
+    {
+      "label": "small-phone loading",
+      "width": 320,
+      "height": 568,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 133,
+          "right": 304,
+          "bottom": 543.0625,
+          "width": 288,
+          "height": 410.0625
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 565.0625,
+          "right": 304,
+          "bottom": 746.96875,
+          "width": 288,
+          "height": 181.90625
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 565.0625,
+          "right": 304,
+          "bottom": 1146.78125,
+          "width": 288,
+          "height": 581.71875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1170.78125,
+          "right": 320,
+          "bottom": 1238.375,
+          "width": 320,
+          "height": 67.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 393.875,
+          "right": 301,
+          "bottom": 427.875,
+          "width": 282,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 463.875,
+          "right": 301,
+          "bottom": 543.0625,
+          "width": 282,
+          "height": 79.1875
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 30,
+          "right": 107.828125,
+          "bottom": 58,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 14,
+          "y": 66,
+          "right": 127.734375,
+          "bottom": 106,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 132.734375,
+          "y": 66,
+          "right": 201.40625,
+          "bottom": 106,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 206.40625,
+          "y": 66,
+          "right": 246.40625,
+          "bottom": 106,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 565.0625,
+          "bottom": 746.96875,
+          "figureWidth": 288,
+          "imageWidth": 288,
+          "imageHeight": 133.109375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 764.96875,
+          "bottom": 946.875,
+          "figureWidth": 288,
+          "imageWidth": 288,
+          "imageHeight": 133.109375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 964.875,
+          "bottom": 1146.78125,
+          "figureWidth": 288,
+          "imageWidth": 288,
+          "imageHeight": 133.109375
+        }
+      ]
+    },
+    {
+      "label": "small-phone retry/long-status",
+      "width": 320,
+      "height": 568,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 133,
+          "right": 304,
+          "bottom": 595.0625,
+          "width": 288,
+          "height": 462.0625
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 617.0625,
+          "right": 304,
+          "bottom": 798.96875,
+          "width": 288,
+          "height": 181.90625
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 617.0625,
+          "right": 304,
+          "bottom": 1198.78125,
+          "width": 288,
+          "height": 581.71875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1222.78125,
+          "right": 320,
+          "bottom": 1305.671875,
+          "width": 320,
+          "height": 82.890625
+        },
+        ".primary": {
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 393.875,
+          "right": 301,
+          "bottom": 427.875,
+          "width": 282,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 515.875,
+          "right": 301,
+          "bottom": 595.0625,
+          "width": 282,
+          "height": 79.1875
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 30,
+          "right": 107.828125,
+          "bottom": 58,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 14,
+          "y": 66,
+          "right": 127.734375,
+          "bottom": 106,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 132.734375,
+          "y": 66,
+          "right": 201.40625,
+          "bottom": 106,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 206.40625,
+          "y": 66,
+          "right": 246.40625,
+          "bottom": 106,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 330.875,
+          "right": 301,
+          "bottom": 382.875,
+          "width": 282,
+          "height": 52
+        },
+        {
+          "id": "retry",
+          "x": 19,
+          "y": 459.875,
+          "right": 124.03125,
+          "bottom": 499.875,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 617.0625,
+          "bottom": 798.96875,
+          "figureWidth": 288,
+          "imageWidth": 288,
+          "imageHeight": 133.109375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 816.96875,
+          "bottom": 998.875,
+          "figureWidth": 288,
+          "imageWidth": 288,
+          "imageHeight": 133.109375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 1016.875,
+          "bottom": 1198.78125,
+          "figureWidth": 288,
+          "imageWidth": 288,
+          "imageHeight": 133.109375
+        }
+      ]
+    },
+    {
+      "label": "phone",
+      "width": 390,
+      "height": 844,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 124,
+          "right": 374,
+          "bottom": 455.671875,
+          "width": 358,
+          "height": 331.671875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 477.671875,
+          "right": 374,
+          "bottom": 691.921875,
+          "width": 358,
+          "height": 214.25
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 477.671875,
+          "right": 374,
+          "bottom": 1156.421875,
+          "width": 358,
+          "height": 678.75
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1180.421875,
+          "right": 390,
+          "bottom": 1267.015625,
+          "width": 390,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 363.28125,
+          "right": 371,
+          "bottom": 380.28125,
+          "width": 352,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 396.28125,
+          "right": 371,
+          "bottom": 455.671875,
+          "width": 352,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 63,
+          "right": 107.828125,
+          "bottom": 91,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 143.59375,
+          "y": 57,
+          "right": 257.328125,
+          "bottom": 97,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 262.328125,
+          "y": 57,
+          "right": 331,
+          "bottom": 97,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 336,
+          "y": 57,
+          "right": 376,
+          "bottom": 97,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 477.671875,
+          "bottom": 691.921875,
+          "figureWidth": 358,
+          "imageWidth": 358,
+          "imageHeight": 165.453125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 709.921875,
+          "bottom": 924.171875,
+          "figureWidth": 358,
+          "imageWidth": 358,
+          "imageHeight": 165.453125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 942.171875,
+          "bottom": 1156.421875,
+          "figureWidth": 358,
+          "imageWidth": 358,
+          "imageHeight": 165.453125
+        }
+      ]
+    },
+    {
+      "label": "phone loading",
+      "width": 390,
+      "height": 844,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 124,
+          "right": 374,
+          "bottom": 492.671875,
+          "width": 358,
+          "height": 368.671875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 514.671875,
+          "right": 374,
+          "bottom": 728.921875,
+          "width": 358,
+          "height": 214.25
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 514.671875,
+          "right": 374,
+          "bottom": 1193.421875,
+          "width": 358,
+          "height": 678.75
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1217.421875,
+          "right": 390,
+          "bottom": 1304.015625,
+          "width": 390,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 363.28125,
+          "right": 371,
+          "bottom": 397.28125,
+          "width": 352,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 433.28125,
+          "right": 371,
+          "bottom": 492.671875,
+          "width": 352,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 63,
+          "right": 107.828125,
+          "bottom": 91,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 143.59375,
+          "y": 57,
+          "right": 257.328125,
+          "bottom": 97,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 262.328125,
+          "y": 57,
+          "right": 331,
+          "bottom": 97,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 336,
+          "y": 57,
+          "right": 376,
+          "bottom": 97,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 514.671875,
+          "bottom": 728.921875,
+          "figureWidth": 358,
+          "imageWidth": 358,
+          "imageHeight": 165.453125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 746.921875,
+          "bottom": 961.171875,
+          "figureWidth": 358,
+          "imageWidth": 358,
+          "imageHeight": 165.453125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 979.171875,
+          "bottom": 1193.421875,
+          "figureWidth": 358,
+          "imageWidth": 358,
+          "imageHeight": 165.453125
+        }
+      ]
+    },
+    {
+      "label": "phone retry/long-status",
+      "width": 390,
+      "height": 844,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 124,
+          "right": 374,
+          "bottom": 544.671875,
+          "width": 358,
+          "height": 420.671875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 566.671875,
+          "right": 374,
+          "bottom": 780.921875,
+          "width": 358,
+          "height": 214.25
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 566.671875,
+          "right": 374,
+          "bottom": 1245.421875,
+          "width": 358,
+          "height": 678.75
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1269.421875,
+          "right": 390,
+          "bottom": 1356.015625,
+          "width": 390,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 363.28125,
+          "right": 371,
+          "bottom": 397.28125,
+          "width": 352,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 485.28125,
+          "right": 371,
+          "bottom": 544.671875,
+          "width": 352,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 63,
+          "right": 107.828125,
+          "bottom": 91,
+          "width": 93.828125,
+          "height": 28
+        },
+        {
+          "id": "install",
+          "x": 143.59375,
+          "y": 57,
+          "right": 257.328125,
+          "bottom": 97,
+          "width": 113.734375,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 262.328125,
+          "y": 57,
+          "right": 331,
+          "bottom": 97,
+          "width": 68.671875,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 336,
+          "y": 57,
+          "right": 376,
+          "bottom": 97,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 300.28125,
+          "right": 371,
+          "bottom": 352.28125,
+          "width": 352,
+          "height": 52
+        },
+        {
+          "id": "retry",
+          "x": 19,
+          "y": 429.28125,
+          "right": 124.03125,
+          "bottom": 469.28125,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 566.671875,
+          "bottom": 780.921875,
+          "figureWidth": 358,
+          "imageWidth": 358,
+          "imageHeight": 165.453125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 798.921875,
+          "bottom": 1013.171875,
+          "figureWidth": 358,
+          "imageWidth": 358,
+          "imageHeight": 165.453125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 1031.171875,
+          "bottom": 1245.421875,
+          "figureWidth": 358,
+          "imageWidth": 358,
+          "imageHeight": 165.453125
+        }
+      ]
+    },
+    {
+      "label": "large-phone",
+      "width": 430,
+      "height": 932,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 136,
+          "right": 414,
+          "bottom": 475.609375,
+          "width": 398,
+          "height": 339.609375
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 497.609375,
+          "right": 414,
+          "bottom": 730.359375,
+          "width": 398,
+          "height": 232.75
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 497.609375,
+          "right": 414,
+          "bottom": 1231.859375,
+          "width": 398,
+          "height": 734.25
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1255.859375,
+          "right": 430,
+          "bottom": 1342.453125,
+          "width": 430,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 383.21875,
+          "right": 411,
+          "bottom": 400.21875,
+          "width": 392,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 416.21875,
+          "right": 411,
+          "bottom": 475.609375,
+          "width": 392,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 74,
+          "right": 115.078125,
+          "bottom": 104,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 160.9375,
+          "y": 69,
+          "right": 288.25,
+          "bottom": 109,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 293.25,
+          "y": 69,
+          "right": 371,
+          "bottom": 109,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 376,
+          "y": 69,
+          "right": 416,
+          "bottom": 109,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 497.609375,
+          "bottom": 730.359375,
+          "figureWidth": 398,
+          "imageWidth": 398,
+          "imageHeight": 183.953125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 748.359375,
+          "bottom": 981.109375,
+          "figureWidth": 398,
+          "imageWidth": 398,
+          "imageHeight": 183.953125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 999.109375,
+          "bottom": 1231.859375,
+          "figureWidth": 398,
+          "imageWidth": 398,
+          "imageHeight": 183.953125
+        }
+      ]
+    },
+    {
+      "label": "large-phone loading",
+      "width": 430,
+      "height": 932,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 136,
+          "right": 414,
+          "bottom": 512.609375,
+          "width": 398,
+          "height": 376.609375
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 534.609375,
+          "right": 414,
+          "bottom": 767.359375,
+          "width": 398,
+          "height": 232.75
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 534.609375,
+          "right": 414,
+          "bottom": 1268.859375,
+          "width": 398,
+          "height": 734.25
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1292.859375,
+          "right": 430,
+          "bottom": 1379.453125,
+          "width": 430,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 383.21875,
+          "right": 411,
+          "bottom": 417.21875,
+          "width": 392,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 453.21875,
+          "right": 411,
+          "bottom": 512.609375,
+          "width": 392,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 74,
+          "right": 115.078125,
+          "bottom": 104,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 160.9375,
+          "y": 69,
+          "right": 288.25,
+          "bottom": 109,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 293.25,
+          "y": 69,
+          "right": 371,
+          "bottom": 109,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 376,
+          "y": 69,
+          "right": 416,
+          "bottom": 109,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 534.609375,
+          "bottom": 767.359375,
+          "figureWidth": 398,
+          "imageWidth": 398,
+          "imageHeight": 183.953125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 785.359375,
+          "bottom": 1018.109375,
+          "figureWidth": 398,
+          "imageWidth": 398,
+          "imageHeight": 183.953125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 1036.109375,
+          "bottom": 1268.859375,
+          "figureWidth": 398,
+          "imageWidth": 398,
+          "imageHeight": 183.953125
+        }
+      ]
+    },
+    {
+      "label": "large-phone retry/long-status",
+      "width": 430,
+      "height": 932,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 136,
+          "right": 414,
+          "bottom": 564.609375,
+          "width": 398,
+          "height": 428.609375
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 586.609375,
+          "right": 414,
+          "bottom": 819.359375,
+          "width": 398,
+          "height": 232.75
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 586.609375,
+          "right": 414,
+          "bottom": 1320.859375,
+          "width": 398,
+          "height": 734.25
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1344.859375,
+          "right": 430,
+          "bottom": 1431.453125,
+          "width": 430,
+          "height": 86.59375
+        },
+        ".primary": {
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 383.21875,
+          "right": 411,
+          "bottom": 417.21875,
+          "width": 392,
+          "height": 34
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 505.21875,
+          "right": 411,
+          "bottom": 564.609375,
+          "width": 392,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 74,
+          "right": 115.078125,
+          "bottom": 104,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 160.9375,
+          "y": 69,
+          "right": 288.25,
+          "bottom": 109,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 293.25,
+          "y": 69,
+          "right": 371,
+          "bottom": 109,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 376,
+          "y": 69,
+          "right": 416,
+          "bottom": 109,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 320.21875,
+          "right": 411,
+          "bottom": 372.21875,
+          "width": 392,
+          "height": 52
+        },
+        {
+          "id": "retry",
+          "x": 19,
+          "y": 449.21875,
+          "right": 124.03125,
+          "bottom": 489.21875,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 586.609375,
+          "bottom": 819.359375,
+          "figureWidth": 398,
+          "imageWidth": 398,
+          "imageHeight": 183.953125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 837.359375,
+          "bottom": 1070.109375,
+          "figureWidth": 398,
+          "imageWidth": 398,
+          "imageHeight": 183.953125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 1088.109375,
+          "bottom": 1320.859375,
+          "figureWidth": 398,
+          "imageWidth": 398,
+          "imageHeight": 183.953125
+        }
+      ]
+    },
+    {
+      "label": "phone-landscape",
+      "width": 844,
+      "height": 390,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 47,
+          "y": 85,
+          "right": 407,
+          "bottom": 495.0625,
+          "width": 360,
+          "height": 410.0625
+        },
+        ".street-preview": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 312.78125,
+          "width": 360,
+          "height": 227.78125
+        },
+        ".street-gallery": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 808.34375,
+          "width": 360,
+          "height": 723.34375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 832.34375,
+          "right": 844,
+          "bottom": 887.640625,
+          "width": 844,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 326.5625,
+          "width": 360,
+          "height": 49
+        },
+        "#load-status": {
+          "x": 47,
+          "y": 337.5625,
+          "right": 407,
+          "bottom": 354.5625,
+          "width": 360,
+          "height": 17
+        },
+        ".controls": {
+          "x": 47,
+          "y": 372.5625,
+          "right": 407,
+          "bottom": 424.0625,
+          "width": 360,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 47,
+          "y": 437.0625,
+          "right": 407,
+          "bottom": 491.0625,
+          "width": 360,
+          "height": 54
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 47,
+          "y": 14,
+          "right": 177.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 497.296875,
+          "y": 12,
+          "right": 646.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 653.1875,
+          "y": 12,
+          "right": 748,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 755,
+          "y": 12,
+          "right": 797,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 326.5625,
+          "width": 360,
+          "height": 49
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 437,
+          "y": 85,
+          "bottom": 312.78125,
+          "figureWidth": 360,
+          "imageWidth": 360,
+          "imageHeight": 166.390625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 437,
+          "y": 332.78125,
+          "bottom": 560.5625,
+          "figureWidth": 360,
+          "imageWidth": 360,
+          "imageHeight": 166.390625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 437,
+          "y": 580.5625,
+          "bottom": 808.34375,
+          "figureWidth": 360,
+          "imageWidth": 360,
+          "imageHeight": 166.390625
+        }
+      ]
+    },
+    {
+      "label": "phone-landscape loading",
+      "width": 844,
+      "height": 390,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 47,
+          "y": 85,
+          "right": 407,
+          "bottom": 531.0625,
+          "width": 360,
+          "height": 446.0625
+        },
+        ".street-preview": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 312.78125,
+          "width": 360,
+          "height": 227.78125
+        },
+        ".street-gallery": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 808.34375,
+          "width": 360,
+          "height": 723.34375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 832.34375,
+          "right": 844,
+          "bottom": 887.640625,
+          "width": 844,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 325.5625,
+          "width": 360,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 47,
+          "y": 336.5625,
+          "right": 407,
+          "bottom": 370.5625,
+          "width": 360,
+          "height": 34
+        },
+        ".controls": {
+          "x": 47,
+          "y": 408.5625,
+          "right": 407,
+          "bottom": 460.0625,
+          "width": 360,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 47,
+          "y": 473.0625,
+          "right": 407,
+          "bottom": 527.0625,
+          "width": 360,
+          "height": 54
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 47,
+          "y": 14,
+          "right": 177.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 497.296875,
+          "y": 12,
+          "right": 646.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 653.1875,
+          "y": 12,
+          "right": 748,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 755,
+          "y": 12,
+          "right": 797,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 325.5625,
+          "width": 360,
+          "height": 48
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 437,
+          "y": 85,
+          "bottom": 312.78125,
+          "figureWidth": 360,
+          "imageWidth": 360,
+          "imageHeight": 166.390625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 437,
+          "y": 332.78125,
+          "bottom": 560.5625,
+          "figureWidth": 360,
+          "imageWidth": 360,
+          "imageHeight": 166.390625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 437,
+          "y": 580.5625,
+          "bottom": 808.34375,
+          "figureWidth": 360,
+          "imageWidth": 360,
+          "imageHeight": 166.390625
+        }
+      ]
+    },
+    {
+      "label": "phone-landscape retry/long-status",
+      "width": 844,
+      "height": 390,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 47,
+          "y": 85,
+          "right": 407,
+          "bottom": 583.0625,
+          "width": 360,
+          "height": 498.0625
+        },
+        ".street-preview": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 312.78125,
+          "width": 360,
+          "height": 227.78125
+        },
+        ".street-gallery": {
+          "x": 437,
+          "y": 85,
+          "right": 797,
+          "bottom": 808.34375,
+          "width": 360,
+          "height": 723.34375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 832.34375,
+          "right": 844,
+          "bottom": 887.640625,
+          "width": 844,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 325.5625,
+          "width": 360,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 47,
+          "y": 336.5625,
+          "right": 407,
+          "bottom": 370.5625,
+          "width": 360,
+          "height": 34
+        },
+        ".controls": {
+          "x": 47,
+          "y": 460.5625,
+          "right": 407,
+          "bottom": 512.0625,
+          "width": 360,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 47,
+          "y": 525.0625,
+          "right": 407,
+          "bottom": 579.0625,
+          "width": 360,
+          "height": 54
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 47,
+          "y": 14,
+          "right": 177.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 497.296875,
+          "y": 12,
+          "right": 646.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 653.1875,
+          "y": 12,
+          "right": 748,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 755,
+          "y": 12,
+          "right": 797,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 47,
+          "y": 277.5625,
+          "right": 407,
+          "bottom": 325.5625,
+          "width": 360,
+          "height": 48
+        },
+        {
+          "id": "retry",
+          "x": 47,
+          "y": 402.5625,
+          "right": 152.03125,
+          "bottom": 442.5625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 437,
+          "y": 85,
+          "bottom": 312.78125,
+          "figureWidth": 360,
+          "imageWidth": 360,
+          "imageHeight": 166.390625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 437,
+          "y": 332.78125,
+          "bottom": 560.5625,
+          "figureWidth": 360,
+          "imageWidth": 360,
+          "imageHeight": 166.390625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 437,
+          "y": 580.5625,
+          "bottom": 808.34375,
+          "figureWidth": 360,
+          "imageWidth": 360,
+          "imageHeight": 166.390625
+        }
+      ]
+    },
+    {
+      "label": "small-landscape",
+      "width": 568,
+      "height": 320,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 552,
+          "bottom": 420.21875,
+          "width": 536,
+          "height": 343.21875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 442.21875,
+          "right": 552,
+          "bottom": 738.75,
+          "width": 536,
+          "height": 296.53125
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 442.21875,
+          "right": 552,
+          "bottom": 1367.8125,
+          "width": 536,
+          "height": 925.59375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1391.8125,
+          "right": 568,
+          "bottom": 1438.109375,
+          "width": 568,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 549,
+          "bottom": 364.625,
+          "width": 530,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 380.625,
+          "right": 549,
+          "bottom": 420.21875,
+          "width": 530,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 298.9375,
+          "y": 10,
+          "right": 426.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 431.25,
+          "y": 10,
+          "right": 509,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 514,
+          "y": 10,
+          "right": 554,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 442.21875,
+          "bottom": 738.75,
+          "figureWidth": 536,
+          "imageWidth": 536,
+          "imageHeight": 247.734375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 756.75,
+          "bottom": 1053.28125,
+          "figureWidth": 536,
+          "imageWidth": 536,
+          "imageHeight": 247.734375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 1071.28125,
+          "bottom": 1367.8125,
+          "figureWidth": 536,
+          "imageWidth": 536,
+          "imageHeight": 247.734375
+        }
+      ]
+    },
+    {
+      "label": "small-landscape loading",
+      "width": 568,
+      "height": 320,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 552,
+          "bottom": 440.21875,
+          "width": 536,
+          "height": 363.21875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 462.21875,
+          "right": 552,
+          "bottom": 758.75,
+          "width": 536,
+          "height": 296.53125
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 462.21875,
+          "right": 552,
+          "bottom": 1387.8125,
+          "width": 536,
+          "height": 925.59375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1411.8125,
+          "right": 568,
+          "bottom": 1458.109375,
+          "width": 568,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 549,
+          "bottom": 364.625,
+          "width": 530,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 400.625,
+          "right": 549,
+          "bottom": 440.21875,
+          "width": 530,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 298.9375,
+          "y": 10,
+          "right": 426.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 431.25,
+          "y": 10,
+          "right": 509,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 514,
+          "y": 10,
+          "right": 554,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 462.21875,
+          "bottom": 758.75,
+          "figureWidth": 536,
+          "imageWidth": 536,
+          "imageHeight": 247.734375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 776.75,
+          "bottom": 1073.28125,
+          "figureWidth": 536,
+          "imageWidth": 536,
+          "imageHeight": 247.734375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 1091.28125,
+          "bottom": 1387.8125,
+          "figureWidth": 536,
+          "imageWidth": 536,
+          "imageHeight": 247.734375
+        }
+      ]
+    },
+    {
+      "label": "small-landscape retry/long-status",
+      "width": 568,
+      "height": 320,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 552,
+          "bottom": 492.21875,
+          "width": 536,
+          "height": 415.21875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 514.21875,
+          "right": 552,
+          "bottom": 810.75,
+          "width": 536,
+          "height": 296.53125
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 514.21875,
+          "right": 552,
+          "bottom": 1439.8125,
+          "width": 536,
+          "height": 925.59375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1463.8125,
+          "right": 568,
+          "bottom": 1510.109375,
+          "width": 568,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 549,
+          "bottom": 364.625,
+          "width": 530,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 452.625,
+          "right": 549,
+          "bottom": 492.21875,
+          "width": 530,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 298.9375,
+          "y": 10,
+          "right": 426.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 431.25,
+          "y": 10,
+          "right": 509,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 514,
+          "y": 10,
+          "right": 554,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 549,
+          "bottom": 336.625,
+          "width": 530,
+          "height": 52
+        },
+        {
+          "id": "retry",
+          "x": 19,
+          "y": 396.625,
+          "right": 124.03125,
+          "bottom": 436.625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 514.21875,
+          "bottom": 810.75,
+          "figureWidth": 536,
+          "imageWidth": 536,
+          "imageHeight": 247.734375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 828.75,
+          "bottom": 1125.28125,
+          "figureWidth": 536,
+          "imageWidth": 536,
+          "imageHeight": 247.734375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 1143.28125,
+          "bottom": 1439.8125,
+          "figureWidth": 536,
+          "imageWidth": 536,
+          "imageHeight": 247.734375
+        }
+      ]
+    },
+    {
+      "label": "large-landscape",
+      "width": 932,
+      "height": 430,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 59,
+          "y": 85,
+          "right": 451,
+          "bottom": 495.0625,
+          "width": 392,
+          "height": 410.0625
+        },
+        ".street-preview": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 327.5625,
+          "width": 392,
+          "height": 242.5625
+        },
+        ".street-gallery": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 852.6875,
+          "width": 392,
+          "height": 767.6875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 876.6875,
+          "right": 932,
+          "bottom": 931.984375,
+          "width": 932,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 326.5625,
+          "width": 392,
+          "height": 49
+        },
+        "#load-status": {
+          "x": 59,
+          "y": 337.5625,
+          "right": 451,
+          "bottom": 354.5625,
+          "width": 392,
+          "height": 17
+        },
+        ".controls": {
+          "x": 59,
+          "y": 372.5625,
+          "right": 451,
+          "bottom": 424.0625,
+          "width": 392,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 59,
+          "y": 437.0625,
+          "right": 451,
+          "bottom": 491.0625,
+          "width": 392,
+          "height": 54
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 59,
+          "y": 14,
+          "right": 189.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 573.296875,
+          "y": 12,
+          "right": 722.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 729.1875,
+          "y": 12,
+          "right": 824,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 831,
+          "y": 12,
+          "right": 873,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 326.5625,
+          "width": 392,
+          "height": 49
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 481,
+          "y": 85,
+          "bottom": 327.5625,
+          "figureWidth": 392,
+          "imageWidth": 392,
+          "imageHeight": 181.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 481,
+          "y": 347.5625,
+          "bottom": 590.125,
+          "figureWidth": 392,
+          "imageWidth": 392,
+          "imageHeight": 181.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 481,
+          "y": 610.125,
+          "bottom": 852.6875,
+          "figureWidth": 392,
+          "imageWidth": 392,
+          "imageHeight": 181.171875
+        }
+      ]
+    },
+    {
+      "label": "large-landscape loading",
+      "width": 932,
+      "height": 430,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 59,
+          "y": 85,
+          "right": 451,
+          "bottom": 531.0625,
+          "width": 392,
+          "height": 446.0625
+        },
+        ".street-preview": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 327.5625,
+          "width": 392,
+          "height": 242.5625
+        },
+        ".street-gallery": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 852.6875,
+          "width": 392,
+          "height": 767.6875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 876.6875,
+          "right": 932,
+          "bottom": 931.984375,
+          "width": 932,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 325.5625,
+          "width": 392,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 59,
+          "y": 336.5625,
+          "right": 451,
+          "bottom": 370.5625,
+          "width": 392,
+          "height": 34
+        },
+        ".controls": {
+          "x": 59,
+          "y": 408.5625,
+          "right": 451,
+          "bottom": 460.0625,
+          "width": 392,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 59,
+          "y": 473.0625,
+          "right": 451,
+          "bottom": 527.0625,
+          "width": 392,
+          "height": 54
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 59,
+          "y": 14,
+          "right": 189.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 573.296875,
+          "y": 12,
+          "right": 722.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 729.1875,
+          "y": 12,
+          "right": 824,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 831,
+          "y": 12,
+          "right": 873,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 325.5625,
+          "width": 392,
+          "height": 48
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 481,
+          "y": 85,
+          "bottom": 327.5625,
+          "figureWidth": 392,
+          "imageWidth": 392,
+          "imageHeight": 181.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 481,
+          "y": 347.5625,
+          "bottom": 590.125,
+          "figureWidth": 392,
+          "imageWidth": 392,
+          "imageHeight": 181.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 481,
+          "y": 610.125,
+          "bottom": 852.6875,
+          "figureWidth": 392,
+          "imageWidth": 392,
+          "imageHeight": 181.171875
+        }
+      ]
+    },
+    {
+      "label": "large-landscape retry/long-status",
+      "width": 932,
+      "height": 430,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 59,
+          "y": 85,
+          "right": 451,
+          "bottom": 583.0625,
+          "width": 392,
+          "height": 498.0625
+        },
+        ".street-preview": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 327.5625,
+          "width": 392,
+          "height": 242.5625
+        },
+        ".street-gallery": {
+          "x": 481,
+          "y": 85,
+          "right": 873,
+          "bottom": 852.6875,
+          "width": 392,
+          "height": 767.6875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 876.6875,
+          "right": 932,
+          "bottom": 931.984375,
+          "width": 932,
+          "height": 55.296875
+        },
+        ".primary": {
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 325.5625,
+          "width": 392,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 59,
+          "y": 336.5625,
+          "right": 451,
+          "bottom": 370.5625,
+          "width": 392,
+          "height": 34
+        },
+        ".controls": {
+          "x": 59,
+          "y": 460.5625,
+          "right": 451,
+          "bottom": 512.0625,
+          "width": 392,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 59,
+          "y": 525.0625,
+          "right": 451,
+          "bottom": 579.0625,
+          "width": 392,
+          "height": 54
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 59,
+          "y": 14,
+          "right": 189.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 573.296875,
+          "y": 12,
+          "right": 722.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 729.1875,
+          "y": 12,
+          "right": 824,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 831,
+          "y": 12,
+          "right": 873,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 59,
+          "y": 277.5625,
+          "right": 451,
+          "bottom": 325.5625,
+          "width": 392,
+          "height": 48
+        },
+        {
+          "id": "retry",
+          "x": 59,
+          "y": 402.5625,
+          "right": 164.03125,
+          "bottom": 442.5625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 481,
+          "y": 85,
+          "bottom": 327.5625,
+          "figureWidth": 392,
+          "imageWidth": 392,
+          "imageHeight": 181.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 481,
+          "y": 347.5625,
+          "bottom": 590.125,
+          "figureWidth": 392,
+          "imageWidth": 392,
+          "imageHeight": 181.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 481,
+          "y": 610.125,
+          "bottom": 852.6875,
+          "figureWidth": 392,
+          "imageWidth": 392,
+          "imageHeight": 181.171875
+        }
+      ]
+    },
+    {
+      "label": "tablet-portrait",
+      "width": 768,
+      "height": 1024,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 122.71875,
+          "right": 344,
+          "bottom": 675.859375,
+          "width": 320,
+          "height": 553.140625
+        },
+        ".street-preview": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 354.78125,
+          "width": 369.28125,
+          "height": 232.0625
+        },
+        ".street-gallery": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 858.90625,
+          "width": 369.28125,
+          "height": 736.1875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 969.703125,
+          "right": 768,
+          "bottom": 1024,
+          "width": 768,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 428.46875,
+          "width": 320,
+          "height": 57
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 439.46875,
+          "right": 344,
+          "bottom": 456.46875,
+          "width": 320,
+          "height": 17
+        },
+        ".controls": {
+          "x": 24,
+          "y": 482.46875,
+          "right": 344,
+          "bottom": 594.46875,
+          "width": 320,
+          "height": 112
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 612.46875,
+          "right": 344,
+          "bottom": 671.859375,
+          "width": 320,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 444.296875,
+          "y": 37.5,
+          "right": 593.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 600.1875,
+          "y": 37.5,
+          "right": 695,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 702,
+          "y": 37.5,
+          "right": 744,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 428.46875,
+          "width": 320,
+          "height": 57
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 374.71875,
+          "y": 122.71875,
+          "bottom": 354.78125,
+          "figureWidth": 369.28125,
+          "imageWidth": 369.28125,
+          "imageHeight": 170.671875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 374.71875,
+          "y": 374.78125,
+          "bottom": 606.84375,
+          "figureWidth": 369.28125,
+          "imageWidth": 369.28125,
+          "imageHeight": 170.671875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 374.71875,
+          "y": 626.84375,
+          "bottom": 858.90625,
+          "figureWidth": 369.28125,
+          "imageWidth": 369.28125,
+          "imageHeight": 170.671875
+        }
+      ]
+    },
+    {
+      "label": "tablet-portrait loading",
+      "width": 768,
+      "height": 1024,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 122.71875,
+          "right": 344,
+          "bottom": 711.859375,
+          "width": 320,
+          "height": 589.140625
+        },
+        ".street-preview": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 354.78125,
+          "width": 369.28125,
+          "height": 232.0625
+        },
+        ".street-gallery": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 858.90625,
+          "width": 369.28125,
+          "height": 736.1875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 969.703125,
+          "right": 768,
+          "bottom": 1024,
+          "width": 768,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 427.46875,
+          "width": 320,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 438.46875,
+          "right": 344,
+          "bottom": 472.46875,
+          "width": 320,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 518.46875,
+          "right": 344,
+          "bottom": 630.46875,
+          "width": 320,
+          "height": 112
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 648.46875,
+          "right": 344,
+          "bottom": 707.859375,
+          "width": 320,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 444.296875,
+          "y": 37.5,
+          "right": 593.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 600.1875,
+          "y": 37.5,
+          "right": 695,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 702,
+          "y": 37.5,
+          "right": 744,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 427.46875,
+          "width": 320,
+          "height": 56
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 374.71875,
+          "y": 122.71875,
+          "bottom": 354.78125,
+          "figureWidth": 369.28125,
+          "imageWidth": 369.28125,
+          "imageHeight": 170.671875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 374.71875,
+          "y": 374.78125,
+          "bottom": 606.84375,
+          "figureWidth": 369.28125,
+          "imageWidth": 369.28125,
+          "imageHeight": 170.671875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 374.71875,
+          "y": 626.84375,
+          "bottom": 858.90625,
+          "figureWidth": 369.28125,
+          "imageWidth": 369.28125,
+          "imageHeight": 170.671875
+        }
+      ]
+    },
+    {
+      "label": "tablet-portrait retry/long-status",
+      "width": 768,
+      "height": 1024,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 122.71875,
+          "right": 344,
+          "bottom": 763.859375,
+          "width": 320,
+          "height": 641.140625
+        },
+        ".street-preview": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 354.78125,
+          "width": 369.28125,
+          "height": 232.0625
+        },
+        ".street-gallery": {
+          "x": 374.71875,
+          "y": 122.71875,
+          "right": 744,
+          "bottom": 858.90625,
+          "width": 369.28125,
+          "height": 736.1875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 969.703125,
+          "right": 768,
+          "bottom": 1024,
+          "width": 768,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 427.46875,
+          "width": 320,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 438.46875,
+          "right": 344,
+          "bottom": 472.46875,
+          "width": 320,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 570.46875,
+          "right": 344,
+          "bottom": 682.46875,
+          "width": 320,
+          "height": 112
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 700.46875,
+          "right": 344,
+          "bottom": 759.859375,
+          "width": 320,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 444.296875,
+          "y": 37.5,
+          "right": 593.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 600.1875,
+          "y": 37.5,
+          "right": 695,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 702,
+          "y": 37.5,
+          "right": 744,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 371.46875,
+          "right": 344,
+          "bottom": 427.46875,
+          "width": 320,
+          "height": 56
+        },
+        {
+          "id": "retry",
+          "x": 24,
+          "y": 504.46875,
+          "right": 129.03125,
+          "bottom": 544.46875,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 374.71875,
+          "y": 122.71875,
+          "bottom": 354.78125,
+          "figureWidth": 369.28125,
+          "imageWidth": 369.28125,
+          "imageHeight": 170.671875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 374.71875,
+          "y": 374.78125,
+          "bottom": 606.84375,
+          "figureWidth": 369.28125,
+          "imageWidth": 369.28125,
+          "imageHeight": 170.671875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 374.71875,
+          "y": 626.84375,
+          "bottom": 858.90625,
+          "figureWidth": 369.28125,
+          "imageWidth": 369.28125,
+          "imageHeight": 170.671875
+        }
+      ]
+    },
+    {
+      "label": "tablet-landscape",
+      "width": 1024,
+      "height": 768,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 132.953125,
+          "right": 406.921875,
+          "bottom": 613.28125,
+          "width": 382.921875,
+          "height": 480.328125
+        },
+        ".street-preview": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 449.53125,
+          "width": 552.125,
+          "height": 316.578125
+        },
+        ".street-gallery": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 1122.6875,
+          "width": 552.125,
+          "height": 989.734375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1154.6875,
+          "right": 1024,
+          "bottom": 1208.984375,
+          "width": 1024,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 420.390625,
+          "width": 382.921875,
+          "height": 57
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 431.390625,
+          "right": 406.921875,
+          "bottom": 448.390625,
+          "width": 382.921875,
+          "height": 17
+        },
+        ".controls": {
+          "x": 24,
+          "y": 474.390625,
+          "right": 406.921875,
+          "bottom": 531.890625,
+          "width": 382.921875,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 549.890625,
+          "right": 406.921875,
+          "bottom": 609.28125,
+          "width": 382.921875,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 700.296875,
+          "y": 37.5,
+          "right": 849.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 856.1875,
+          "y": 37.5,
+          "right": 951,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 958,
+          "y": 37.5,
+          "right": 1000,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 420.390625,
+          "width": 382.921875,
+          "height": 57
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 447.875,
+          "y": 132.953125,
+          "bottom": 449.53125,
+          "figureWidth": 552.125,
+          "imageWidth": 552.125,
+          "imageHeight": 255.1875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 447.875,
+          "y": 469.53125,
+          "bottom": 786.109375,
+          "figureWidth": 552.125,
+          "imageWidth": 552.125,
+          "imageHeight": 255.1875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 447.875,
+          "y": 806.109375,
+          "bottom": 1122.6875,
+          "figureWidth": 552.125,
+          "imageWidth": 552.125,
+          "imageHeight": 255.1875
+        }
+      ]
+    },
+    {
+      "label": "tablet-landscape loading",
+      "width": 1024,
+      "height": 768,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 132.953125,
+          "right": 406.921875,
+          "bottom": 649.28125,
+          "width": 382.921875,
+          "height": 516.328125
+        },
+        ".street-preview": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 449.53125,
+          "width": 552.125,
+          "height": 316.578125
+        },
+        ".street-gallery": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 1122.6875,
+          "width": 552.125,
+          "height": 989.734375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1154.6875,
+          "right": 1024,
+          "bottom": 1208.984375,
+          "width": 1024,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 419.390625,
+          "width": 382.921875,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 430.390625,
+          "right": 406.921875,
+          "bottom": 464.390625,
+          "width": 382.921875,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 510.390625,
+          "right": 406.921875,
+          "bottom": 567.890625,
+          "width": 382.921875,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 585.890625,
+          "right": 406.921875,
+          "bottom": 645.28125,
+          "width": 382.921875,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 700.296875,
+          "y": 37.5,
+          "right": 849.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 856.1875,
+          "y": 37.5,
+          "right": 951,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 958,
+          "y": 37.5,
+          "right": 1000,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 419.390625,
+          "width": 382.921875,
+          "height": 56
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 447.875,
+          "y": 132.953125,
+          "bottom": 449.53125,
+          "figureWidth": 552.125,
+          "imageWidth": 552.125,
+          "imageHeight": 255.1875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 447.875,
+          "y": 469.53125,
+          "bottom": 786.109375,
+          "figureWidth": 552.125,
+          "imageWidth": 552.125,
+          "imageHeight": 255.1875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 447.875,
+          "y": 806.109375,
+          "bottom": 1122.6875,
+          "figureWidth": 552.125,
+          "imageWidth": 552.125,
+          "imageHeight": 255.1875
+        }
+      ]
+    },
+    {
+      "label": "tablet-landscape retry/long-status",
+      "width": 1024,
+      "height": 768,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 132.953125,
+          "right": 406.921875,
+          "bottom": 701.28125,
+          "width": 382.921875,
+          "height": 568.328125
+        },
+        ".street-preview": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 449.53125,
+          "width": 552.125,
+          "height": 316.578125
+        },
+        ".street-gallery": {
+          "x": 447.875,
+          "y": 132.953125,
+          "right": 1000,
+          "bottom": 1122.6875,
+          "width": 552.125,
+          "height": 989.734375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1154.6875,
+          "right": 1024,
+          "bottom": 1208.984375,
+          "width": 1024,
+          "height": 54.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 419.390625,
+          "width": 382.921875,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 430.390625,
+          "right": 406.921875,
+          "bottom": 464.390625,
+          "width": 382.921875,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 562.390625,
+          "right": 406.921875,
+          "bottom": 619.890625,
+          "width": 382.921875,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 637.890625,
+          "right": 406.921875,
+          "bottom": 697.28125,
+          "width": 382.921875,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 39.5,
+          "right": 154.109375,
+          "bottom": 75.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 700.296875,
+          "y": 37.5,
+          "right": 849.1875,
+          "bottom": 77.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 856.1875,
+          "y": 37.5,
+          "right": 951,
+          "bottom": 77.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 958,
+          "y": 37.5,
+          "right": 1000,
+          "bottom": 77.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 363.390625,
+          "right": 406.921875,
+          "bottom": 419.390625,
+          "width": 382.921875,
+          "height": 56
+        },
+        {
+          "id": "retry",
+          "x": 24,
+          "y": 496.390625,
+          "right": 129.03125,
+          "bottom": 536.390625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 447.875,
+          "y": 132.953125,
+          "bottom": 449.53125,
+          "figureWidth": 552.125,
+          "imageWidth": 552.125,
+          "imageHeight": 255.1875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 447.875,
+          "y": 469.53125,
+          "bottom": 786.109375,
+          "figureWidth": 552.125,
+          "imageWidth": 552.125,
+          "imageHeight": 255.1875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 447.875,
+          "y": 806.109375,
+          "bottom": 1122.6875,
+          "figureWidth": 552.125,
+          "imageWidth": 552.125,
+          "imageHeight": 255.1875
+        }
+      ]
+    },
+    {
+      "label": "desktop-short",
+      "width": 1280,
+      "height": 600,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 85,
+          "right": 454,
+          "bottom": 495.0625,
+          "width": 430,
+          "height": 410.0625
+        },
+        ".street-preview": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 424.171875,
+          "width": 601,
+          "height": 339.171875
+        },
+        ".street-gallery": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 1142.515625,
+          "width": 601,
+          "height": 1057.515625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1166.515625,
+          "right": 1280,
+          "bottom": 1218.8125,
+          "width": 1280,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 326.5625,
+          "width": 400,
+          "height": 49
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 337.5625,
+          "right": 424,
+          "bottom": 354.5625,
+          "width": 400,
+          "height": 17
+        },
+        ".controls": {
+          "x": 24,
+          "y": 372.5625,
+          "right": 454,
+          "bottom": 424.0625,
+          "width": 430,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 437.0625,
+          "right": 439,
+          "bottom": 491.0625,
+          "width": 415,
+          "height": 54
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 14,
+          "right": 154.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 956.296875,
+          "y": 12,
+          "right": 1105.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1112.1875,
+          "y": 12,
+          "right": 1207,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1214,
+          "y": 12,
+          "right": 1256,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 326.5625,
+          "width": 400,
+          "height": 49
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 655,
+          "y": 85,
+          "bottom": 424.171875,
+          "figureWidth": 601,
+          "imageWidth": 601,
+          "imageHeight": 277.78125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 655,
+          "y": 444.171875,
+          "bottom": 783.34375,
+          "figureWidth": 601,
+          "imageWidth": 601,
+          "imageHeight": 277.78125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 655,
+          "y": 803.34375,
+          "bottom": 1142.515625,
+          "figureWidth": 601,
+          "imageWidth": 601,
+          "imageHeight": 277.78125
+        }
+      ]
+    },
+    {
+      "label": "desktop-short loading",
+      "width": 1280,
+      "height": 600,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 85,
+          "right": 454,
+          "bottom": 531.0625,
+          "width": 430,
+          "height": 446.0625
+        },
+        ".street-preview": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 424.171875,
+          "width": 601,
+          "height": 339.171875
+        },
+        ".street-gallery": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 1142.515625,
+          "width": 601,
+          "height": 1057.515625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1166.515625,
+          "right": 1280,
+          "bottom": 1218.8125,
+          "width": 1280,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 325.5625,
+          "width": 400,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 336.5625,
+          "right": 424,
+          "bottom": 370.5625,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 408.5625,
+          "right": 454,
+          "bottom": 460.0625,
+          "width": 430,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 473.0625,
+          "right": 439,
+          "bottom": 527.0625,
+          "width": 415,
+          "height": 54
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 14,
+          "right": 154.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 956.296875,
+          "y": 12,
+          "right": 1105.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1112.1875,
+          "y": 12,
+          "right": 1207,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1214,
+          "y": 12,
+          "right": 1256,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 325.5625,
+          "width": 400,
+          "height": 48
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 655,
+          "y": 85,
+          "bottom": 424.171875,
+          "figureWidth": 601,
+          "imageWidth": 601,
+          "imageHeight": 277.78125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 655,
+          "y": 444.171875,
+          "bottom": 783.34375,
+          "figureWidth": 601,
+          "imageWidth": 601,
+          "imageHeight": 277.78125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 655,
+          "y": 803.34375,
+          "bottom": 1142.515625,
+          "figureWidth": 601,
+          "imageWidth": 601,
+          "imageHeight": 277.78125
+        }
+      ]
+    },
+    {
+      "label": "desktop-short retry/long-status",
+      "width": 1280,
+      "height": 600,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 85,
+          "right": 454,
+          "bottom": 583.0625,
+          "width": 430,
+          "height": 498.0625
+        },
+        ".street-preview": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 424.171875,
+          "width": 601,
+          "height": 339.171875
+        },
+        ".street-gallery": {
+          "x": 655,
+          "y": 85,
+          "right": 1256,
+          "bottom": 1142.515625,
+          "width": 601,
+          "height": 1057.515625
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1166.515625,
+          "right": 1280,
+          "bottom": 1218.8125,
+          "width": 1280,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 325.5625,
+          "width": 400,
+          "height": 48
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 336.5625,
+          "right": 424,
+          "bottom": 370.5625,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 460.5625,
+          "right": 454,
+          "bottom": 512.0625,
+          "width": 430,
+          "height": 51.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 525.0625,
+          "right": 439,
+          "bottom": 579.0625,
+          "width": 415,
+          "height": 54
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 14,
+          "right": 154.109375,
+          "bottom": 50,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 956.296875,
+          "y": 12,
+          "right": 1105.1875,
+          "bottom": 52,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1112.1875,
+          "y": 12,
+          "right": 1207,
+          "bottom": 52,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1214,
+          "y": 12,
+          "right": 1256,
+          "bottom": 52,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 277.5625,
+          "right": 424,
+          "bottom": 325.5625,
+          "width": 400,
+          "height": 48
+        },
+        {
+          "id": "retry",
+          "x": 24,
+          "y": 402.5625,
+          "right": 129.03125,
+          "bottom": 442.5625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 655,
+          "y": 85,
+          "bottom": 424.171875,
+          "figureWidth": 601,
+          "imageWidth": 601,
+          "imageHeight": 277.78125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 655,
+          "y": 444.171875,
+          "bottom": 783.34375,
+          "figureWidth": 601,
+          "imageWidth": 601,
+          "imageHeight": 277.78125
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 655,
+          "y": 803.34375,
+          "bottom": 1142.515625,
+          "figureWidth": 601,
+          "imageWidth": 601,
+          "imageHeight": 277.78125
+        }
+      ]
+    },
+    {
+      "label": "desktop",
+      "width": 1440,
+      "height": 900,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 125.59375,
+          "right": 504,
+          "bottom": 645.734375,
+          "width": 480,
+          "height": 520.140625
+        },
+        ".street-preview": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 551.15625,
+          "width": 787.9375,
+          "height": 425.5625
+        },
+        ".street-gallery": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 1442.28125,
+          "width": 787.9375,
+          "height": 1316.6875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1474.28125,
+          "right": 1440,
+          "bottom": 1526.578125,
+          "width": 1440,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 452.84375,
+          "width": 400,
+          "height": 57
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 463.84375,
+          "right": 424,
+          "bottom": 480.84375,
+          "width": 400,
+          "height": 17
+        },
+        ".controls": {
+          "x": 24,
+          "y": 506.84375,
+          "right": 504,
+          "bottom": 564.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 582.34375,
+          "right": 439,
+          "bottom": 641.734375,
+          "width": 415,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1116.296875,
+          "y": 13.5,
+          "right": 1265.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1272.1875,
+          "y": 13.5,
+          "right": 1367,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1374,
+          "y": 13.5,
+          "right": 1416,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 452.84375,
+          "width": 400,
+          "height": 57
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 628.0625,
+          "y": 125.59375,
+          "bottom": 551.15625,
+          "figureWidth": 787.9375,
+          "imageWidth": 787.9375,
+          "imageHeight": 364.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 628.0625,
+          "y": 571.15625,
+          "bottom": 996.71875,
+          "figureWidth": 787.9375,
+          "imageWidth": 787.9375,
+          "imageHeight": 364.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 628.0625,
+          "y": 1016.71875,
+          "bottom": 1442.28125,
+          "figureWidth": 787.9375,
+          "imageWidth": 787.9375,
+          "imageHeight": 364.171875
+        }
+      ]
+    },
+    {
+      "label": "desktop loading",
+      "width": 1440,
+      "height": 900,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 125.59375,
+          "right": 504,
+          "bottom": 681.734375,
+          "width": 480,
+          "height": 556.140625
+        },
+        ".street-preview": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 551.15625,
+          "width": 787.9375,
+          "height": 425.5625
+        },
+        ".street-gallery": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 1442.28125,
+          "width": 787.9375,
+          "height": 1316.6875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1474.28125,
+          "right": 1440,
+          "bottom": 1526.578125,
+          "width": 1440,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 451.84375,
+          "width": 400,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 462.84375,
+          "right": 424,
+          "bottom": 496.84375,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 542.84375,
+          "right": 504,
+          "bottom": 600.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 618.34375,
+          "right": 439,
+          "bottom": 677.734375,
+          "width": 415,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1116.296875,
+          "y": 13.5,
+          "right": 1265.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1272.1875,
+          "y": 13.5,
+          "right": 1367,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1374,
+          "y": 13.5,
+          "right": 1416,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 451.84375,
+          "width": 400,
+          "height": 56
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 628.0625,
+          "y": 125.59375,
+          "bottom": 551.15625,
+          "figureWidth": 787.9375,
+          "imageWidth": 787.9375,
+          "imageHeight": 364.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 628.0625,
+          "y": 571.15625,
+          "bottom": 996.71875,
+          "figureWidth": 787.9375,
+          "imageWidth": 787.9375,
+          "imageHeight": 364.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 628.0625,
+          "y": 1016.71875,
+          "bottom": 1442.28125,
+          "figureWidth": 787.9375,
+          "imageWidth": 787.9375,
+          "imageHeight": 364.171875
+        }
+      ]
+    },
+    {
+      "label": "desktop retry/long-status",
+      "width": 1440,
+      "height": 900,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 24,
+          "y": 125.59375,
+          "right": 504,
+          "bottom": 733.734375,
+          "width": 480,
+          "height": 608.140625
+        },
+        ".street-preview": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 551.15625,
+          "width": 787.9375,
+          "height": 425.5625
+        },
+        ".street-gallery": {
+          "x": 628.0625,
+          "y": 125.59375,
+          "right": 1416,
+          "bottom": 1442.28125,
+          "width": 787.9375,
+          "height": 1316.6875
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1474.28125,
+          "right": 1440,
+          "bottom": 1526.578125,
+          "width": 1440,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 451.84375,
+          "width": 400,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 24,
+          "y": 462.84375,
+          "right": 424,
+          "bottom": 496.84375,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 24,
+          "y": 594.84375,
+          "right": 504,
+          "bottom": 652.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 24,
+          "y": 670.34375,
+          "right": 439,
+          "bottom": 729.734375,
+          "width": 415,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1116.296875,
+          "y": 13.5,
+          "right": 1265.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1272.1875,
+          "y": 13.5,
+          "right": 1367,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1374,
+          "y": 13.5,
+          "right": 1416,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 24,
+          "y": 395.84375,
+          "right": 424,
+          "bottom": 451.84375,
+          "width": 400,
+          "height": 56
+        },
+        {
+          "id": "retry",
+          "x": 24,
+          "y": 528.84375,
+          "right": 129.03125,
+          "bottom": 568.84375,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 628.0625,
+          "y": 125.59375,
+          "bottom": 551.15625,
+          "figureWidth": 787.9375,
+          "imageWidth": 787.9375,
+          "imageHeight": 364.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 628.0625,
+          "y": 571.15625,
+          "bottom": 996.71875,
+          "figureWidth": 787.9375,
+          "imageWidth": 787.9375,
+          "imageHeight": 364.171875
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 628.0625,
+          "y": 1016.71875,
+          "bottom": 1442.28125,
+          "figureWidth": 787.9375,
+          "imageWidth": 787.9375,
+          "imageHeight": 364.171875
+        }
+      ]
+    },
+    {
+      "label": "desktop-wide",
+      "width": 1920,
+      "height": 1080,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 244,
+          "y": 128,
+          "right": 724,
+          "bottom": 660.734375,
+          "width": 480,
+          "height": 532.734375
+        },
+        ".street-preview": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 562.734375,
+          "width": 807.78125,
+          "height": 434.734375
+        },
+        ".street-gallery": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 1472.203125,
+          "width": 807.78125,
+          "height": 1344.203125
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1504.203125,
+          "right": 1920,
+          "bottom": 1556.5,
+          "width": 1920,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 467.84375,
+          "width": 400,
+          "height": 57
+        },
+        "#load-status": {
+          "x": 244,
+          "y": 478.84375,
+          "right": 644,
+          "bottom": 495.84375,
+          "width": 400,
+          "height": 17
+        },
+        ".controls": {
+          "x": 244,
+          "y": 521.84375,
+          "right": 724,
+          "bottom": 579.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 244,
+          "y": 597.34375,
+          "right": 659,
+          "bottom": 656.734375,
+          "width": 415,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1596.296875,
+          "y": 13.5,
+          "right": 1745.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1752.1875,
+          "y": 13.5,
+          "right": 1847,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1854,
+          "y": 13.5,
+          "right": 1896,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 467.84375,
+          "width": 400,
+          "height": 57
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 868.21875,
+          "y": 128,
+          "bottom": 562.734375,
+          "figureWidth": 807.78125,
+          "imageWidth": 807.78125,
+          "imageHeight": 373.34375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 868.21875,
+          "y": 582.734375,
+          "bottom": 1017.46875,
+          "figureWidth": 807.78125,
+          "imageWidth": 807.78125,
+          "imageHeight": 373.34375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 868.21875,
+          "y": 1037.46875,
+          "bottom": 1472.203125,
+          "figureWidth": 807.78125,
+          "imageWidth": 807.78125,
+          "imageHeight": 373.34375
+        }
+      ]
+    },
+    {
+      "label": "desktop-wide loading",
+      "width": 1920,
+      "height": 1080,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 244,
+          "y": 128,
+          "right": 724,
+          "bottom": 696.734375,
+          "width": 480,
+          "height": 568.734375
+        },
+        ".street-preview": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 562.734375,
+          "width": 807.78125,
+          "height": 434.734375
+        },
+        ".street-gallery": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 1472.203125,
+          "width": 807.78125,
+          "height": 1344.203125
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1504.203125,
+          "right": 1920,
+          "bottom": 1556.5,
+          "width": 1920,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 466.84375,
+          "width": 400,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 244,
+          "y": 477.84375,
+          "right": 644,
+          "bottom": 511.84375,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 244,
+          "y": 557.84375,
+          "right": 724,
+          "bottom": 615.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 244,
+          "y": 633.34375,
+          "right": 659,
+          "bottom": 692.734375,
+          "width": 415,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1596.296875,
+          "y": 13.5,
+          "right": 1745.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1752.1875,
+          "y": 13.5,
+          "right": 1847,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1854,
+          "y": 13.5,
+          "right": 1896,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 466.84375,
+          "width": 400,
+          "height": 56
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 868.21875,
+          "y": 128,
+          "bottom": 562.734375,
+          "figureWidth": 807.78125,
+          "imageWidth": 807.78125,
+          "imageHeight": 373.34375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 868.21875,
+          "y": 582.734375,
+          "bottom": 1017.46875,
+          "figureWidth": 807.78125,
+          "imageWidth": 807.78125,
+          "imageHeight": 373.34375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 868.21875,
+          "y": 1037.46875,
+          "bottom": 1472.203125,
+          "figureWidth": 807.78125,
+          "imageWidth": 807.78125,
+          "imageHeight": 373.34375
+        }
+      ]
+    },
+    {
+      "label": "desktop-wide retry/long-status",
+      "width": 1920,
+      "height": 1080,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 244,
+          "y": 128,
+          "right": 724,
+          "bottom": 748.734375,
+          "width": 480,
+          "height": 620.734375
+        },
+        ".street-preview": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 562.734375,
+          "width": 807.78125,
+          "height": 434.734375
+        },
+        ".street-gallery": {
+          "x": 868.21875,
+          "y": 128,
+          "right": 1676,
+          "bottom": 1472.203125,
+          "width": 807.78125,
+          "height": 1344.203125
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1504.203125,
+          "right": 1920,
+          "bottom": 1556.5,
+          "width": 1920,
+          "height": 52.296875
+        },
+        ".primary": {
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 466.84375,
+          "width": 400,
+          "height": 56
+        },
+        "#load-status": {
+          "x": 244,
+          "y": 477.84375,
+          "right": 644,
+          "bottom": 511.84375,
+          "width": 400,
+          "height": 34
+        },
+        ".controls": {
+          "x": 244,
+          "y": 609.84375,
+          "right": 724,
+          "bottom": 667.34375,
+          "width": 480,
+          "height": 57.5
+        },
+        ".touch-guide": {
+          "x": 244,
+          "y": 685.34375,
+          "right": 659,
+          "bottom": 744.734375,
+          "width": 415,
+          "height": 59.390625
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 24,
+          "y": 15.5,
+          "right": 154.109375,
+          "bottom": 51.5,
+          "width": 130.109375,
+          "height": 36
+        },
+        {
+          "id": "install",
+          "x": 1596.296875,
+          "y": 13.5,
+          "right": 1745.1875,
+          "bottom": 53.5,
+          "width": 148.890625,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 1752.1875,
+          "y": 13.5,
+          "right": 1847,
+          "bottom": 53.5,
+          "width": 94.8125,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 1854,
+          "y": 13.5,
+          "right": 1896,
+          "bottom": 53.5,
+          "width": 42,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 244,
+          "y": 410.84375,
+          "right": 644,
+          "bottom": 466.84375,
+          "width": 400,
+          "height": 56
+        },
+        {
+          "id": "retry",
+          "x": 244,
+          "y": 543.84375,
+          "right": 349.03125,
+          "bottom": 583.84375,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 868.21875,
+          "y": 128,
+          "bottom": 562.734375,
+          "figureWidth": 807.78125,
+          "imageWidth": 807.78125,
+          "imageHeight": 373.34375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 868.21875,
+          "y": 582.734375,
+          "bottom": 1017.46875,
+          "figureWidth": 807.78125,
+          "imageWidth": 807.78125,
+          "imageHeight": 373.34375
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 868.21875,
+          "y": 1037.46875,
+          "bottom": 1472.203125,
+          "figureWidth": 807.78125,
+          "imageWidth": 807.78125,
+          "imageHeight": 373.34375
+        }
+      ]
+    },
+    {
+      "label": "zoom-equivalent",
+      "width": 640,
+      "height": 450,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 624,
+          "bottom": 420.21875,
+          "width": 608,
+          "height": 343.21875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 442.21875,
+          "right": 624,
+          "bottom": 772.03125,
+          "width": 608,
+          "height": 329.8125
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 442.21875,
+          "right": 624,
+          "bottom": 1467.65625,
+          "width": 608,
+          "height": 1025.4375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1491.65625,
+          "right": 640,
+          "bottom": 1537.953125,
+          "width": 640,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 621,
+          "bottom": 364.625,
+          "width": 602,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 380.625,
+          "right": 621,
+          "bottom": 420.21875,
+          "width": 602,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 370.9375,
+          "y": 10,
+          "right": 498.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 503.25,
+          "y": 10,
+          "right": 581,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 586,
+          "y": 10,
+          "right": 626,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 442.21875,
+          "bottom": 772.03125,
+          "figureWidth": 608,
+          "imageWidth": 608,
+          "imageHeight": 281.015625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 790.03125,
+          "bottom": 1119.84375,
+          "figureWidth": 608,
+          "imageWidth": 608,
+          "imageHeight": 281.015625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 1137.84375,
+          "bottom": 1467.65625,
+          "figureWidth": 608,
+          "imageWidth": 608,
+          "imageHeight": 281.015625
+        }
+      ]
+    },
+    {
+      "label": "zoom-equivalent loading",
+      "width": 640,
+      "height": 450,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 624,
+          "bottom": 440.21875,
+          "width": 608,
+          "height": 363.21875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 462.21875,
+          "right": 624,
+          "bottom": 792.03125,
+          "width": 608,
+          "height": 329.8125
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 462.21875,
+          "right": 624,
+          "bottom": 1487.65625,
+          "width": 608,
+          "height": 1025.4375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1511.65625,
+          "right": 640,
+          "bottom": 1557.953125,
+          "width": 640,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 621,
+          "bottom": 364.625,
+          "width": 602,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 400.625,
+          "right": 621,
+          "bottom": 440.21875,
+          "width": 602,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 370.9375,
+          "y": 10,
+          "right": 498.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 503.25,
+          "y": 10,
+          "right": 581,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 586,
+          "y": 10,
+          "right": 626,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 462.21875,
+          "bottom": 792.03125,
+          "figureWidth": 608,
+          "imageWidth": 608,
+          "imageHeight": 281.015625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 810.03125,
+          "bottom": 1139.84375,
+          "figureWidth": 608,
+          "imageWidth": 608,
+          "imageHeight": 281.015625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 1157.84375,
+          "bottom": 1487.65625,
+          "figureWidth": 608,
+          "imageWidth": 608,
+          "imageHeight": 281.015625
+        }
+      ]
+    },
+    {
+      "label": "zoom-equivalent retry/long-status",
+      "width": 640,
+      "height": 450,
+      "bodyOverflow": false,
+      "welcomeOverflow": false,
+      "boxes": {
+        ".intro": {
+          "x": 16,
+          "y": 77,
+          "right": 624,
+          "bottom": 492.21875,
+          "width": 608,
+          "height": 415.21875
+        },
+        ".street-preview": {
+          "x": 16,
+          "y": 514.21875,
+          "right": 624,
+          "bottom": 844.03125,
+          "width": 608,
+          "height": 329.8125
+        },
+        ".street-gallery": {
+          "x": 16,
+          "y": 514.21875,
+          "right": 624,
+          "bottom": 1539.65625,
+          "width": 608,
+          "height": 1025.4375
+        },
+        "#welcome footer": {
+          "x": 0,
+          "y": 1563.65625,
+          "right": 640,
+          "bottom": 1609.953125,
+          "width": 640,
+          "height": 46.296875
+        },
+        ".primary": {
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        },
+        "#load-status": {
+          "x": 19,
+          "y": 347.625,
+          "right": 621,
+          "bottom": 364.625,
+          "width": 602,
+          "height": 17
+        },
+        ".controls": {
+          "x": 0,
+          "y": 0,
+          "right": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        ".touch-guide": {
+          "x": 19,
+          "y": 452.625,
+          "right": 621,
+          "bottom": 492.21875,
+          "width": 602,
+          "height": 39.59375
+        }
+      },
+      "targets": [
+        {
+          "id": "brand",
+          "x": 14,
+          "y": 15,
+          "right": 115.078125,
+          "bottom": 45,
+          "width": 101.078125,
+          "height": 30
+        },
+        {
+          "id": "install",
+          "x": 370.9375,
+          "y": 10,
+          "right": 498.25,
+          "bottom": 50,
+          "width": 127.3125,
+          "height": 40
+        },
+        {
+          "id": "help",
+          "x": 503.25,
+          "y": 10,
+          "right": 581,
+          "bottom": 50,
+          "width": 77.75,
+          "height": 40
+        },
+        {
+          "id": "fullscreen",
+          "x": 586,
+          "y": 10,
+          "right": 626,
+          "bottom": 50,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "id": "play",
+          "x": 19,
+          "y": 284.625,
+          "right": 621,
+          "bottom": 336.625,
+          "width": 602,
+          "height": 52
+        },
+        {
+          "id": "retry",
+          "x": 19,
+          "y": 396.625,
+          "right": 124.03125,
+          "bottom": 436.625,
+          "width": 105.03125,
+          "height": 40
+        }
+      ],
+      "texts": true,
+      "photos": [
+        {
+          "src": "http://127.0.0.1:8790/poster-home-jump.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 514.21875,
+          "bottom": 844.03125,
+          "figureWidth": 608,
+          "imageWidth": 608,
+          "imageHeight": 281.015625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-missile.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 862.03125,
+          "bottom": 1191.84375,
+          "figureWidth": 608,
+          "imageWidth": 608,
+          "imageHeight": 281.015625
+        },
+        {
+          "src": "http://127.0.0.1:8790/poster-home-encounter.jpg",
+          "width": 2778,
+          "height": 1284,
+          "fit": "contain",
+          "x": 16,
+          "y": 1209.84375,
+          "bottom": 1539.65625,
+          "figureWidth": 608,
+          "imageWidth": 608,
+          "imageHeight": 281.015625
+        }
+      ]
+    }
+  ],
+  "success": true
+}

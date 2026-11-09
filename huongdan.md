@@ -215,6 +215,8 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 **21.171, web 1.65.0:** lịch trực thăng bắt đầu ngay khi vào chế độ giữ bay trên đường, với 1 chiếc dưới 200 m, 2 chiếc từ 200 m và 3 chiếc từ 400 m tính theo tổng quãng đường của lượt. Đợt sau rẽ giữ mốc 0,5 giây sau khủng long và dùng chung giới hạn. Xem 21.170–21.171.
 
+**Source 21.174:** cộng một trực thăng lên mức theo quãng đường sau mỗi lượt rẽ hoàn tất. Tên lửa xe tăng và trực thăng giảm 0,1 giây giữa các phát mỗi lượt rẽ, nhanh nhất 0,25 giây. Xem 21.174.
+
 Space/vuốt lên nhảy tới; source21.64 là ô tô phụt khói trắng xuống từ4góc, hơi ngẩng rồi lấy cân bằng khi đáp (xe máy trên web1.39.0 vẫn ngóc bánh trước); hồi2 s, chỉ nhảy từ đường/nóc đang đỡ, không nhảy thêm trên không. **21.100 (đã phát hành1.50.0):** độ cao cố định **4,1166525m** ở mọi tốc độ, gồm W; tăng3% so mức khởi đầu1.49.0 (3,99675m). Bỏ tăng đỉnh theo vận tốc của21.60/21.94. Gia tốc lên24,2m/s² và rơi22m/s² giữ nguyên; W trước/giữa nhảy đều không tăng đỉnh. Metadata tốc độ cất cánh còn dùng cho pose/chuyển động ngang. Độ cao là so với mặt đỡ lúc phóng. Có thể vượt xe máy nằm và đáp/chạy trên nóc bốn bánh nếu đủ cao; đỉnh cố định có thể không vượt được nóc tải cao nếu chưa đủ độ cao lúc gặp vách. Xe tải đứng thẳng còn là mặt đỡ, xe nghiêng/lật là vật cản. Rời mép rơi thật; tiếp đất theo vận tốc, hấp thụ lực rồi cân bằng; đâm thân/vách vẫn té.
 
 ### 2.10. Tăng tốc — tạm khóa từ source21.142
@@ -229,6 +231,7 @@ Ban ngày nắng trắng, trời xanh sáng; nhà/vỉa hè/cây vẫn dùng pal
 
 ### 2.12. Khủng long Emerald Tyrant — web1.40.0, đợt sau cua1.46.0; miễn xe tăng ở source21.96
 
+- **Source 21.173:** khủng long có 3 nấc máu. Xe dưới đất bắn tên lửa trúng thì mất 1 nấc và thêm một điểm cháy. Phát thứ ba làm khủng long ngã và ngừng quất đuôi. Xác tiếp tục cháy, đâm trúng sẽ té và kết thúc lượt. Nhảy đủ cao có thể vượt xác. Xem 21.173.
 - Nhận model Meshy mới, rộng **4,65 m = 1,5 làn** ở tư thế gốc; giữ tỷ lệ, cao6,081 m/dài8,676 m. Cứ10giây chơi xuất hiện phía trước, **đi ngược chiều**, tốc độ đi riêng3m/s; W của người chơi không tăng tốc khủng long.
 - Bước luân phiên, lấy đà/hạ thân/cúi đầu rồi xoay hông quất đuôi thấp qua cả4làn, có thông báo “QUẤT ĐUÔI · NHẢY LÊN!”. Phải nhảy đủ cao để qua đuôi; đuôi và thân/chân là các vùng va chạm vật lý riêng. Nhà/cây đứng yên; xe máy/ô tô/tải/quái xế/tải ngủ gật vàCSGT vẫn bị hất. **Source21.96: xe tăng miễn nhiễm với cả thân/chân và đuôi khủng long**, giữ nguyên di chuyển/nhịp bắn; web1.49.0 còn luật cũ cho khủng long hất xe tăng, chờ build/phát hành thay đổi này.
 - Té thường: kết thúc sau ngã. Té khi bị đuổi: nằm chờ CSGT đến bắt rồi vào tù. NPC giữ hồi phục3s, CSGT1,2s. Timer/pose dừng khi pause, reset khi chơi lại; khủng long đang có tiếp tục đi lúc người chơi té để không chắn luồng bắt. Chi tiết asset/code/kiểm tra ở21.62. Đã có trên web từ1.40.0/21.66.
@@ -3597,3 +3600,23 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Unity 6000.5.6f1 build đủ ETC2/EAC và DXT trong 490,455 giây, 0 lỗi và cảnh báo RuntimePipelineConfig quen thuộc. Hai gói dùng chung mã WASM/framework sau giải nén. Kiểm tra Unity 207 điều kiện trước và sau build, giữ nguyên SHA của 592 tệp nguồn. Bộ gói khớp cache `bd32d01364ed5ca8` qua 48 kiểm tra bản Git, 39 kiểm tra bản ghép và 603 kiểm tra bố cục Chrome. Xem `Captures/release165-build-report.json` và các báo cáo cùng tiền tố.
 - Bản WebGL đóng gói qua 18 kiểm tra Chrome desktop/mobile/offline, không lỗi runtime. Git index khớp qua 40 kiểm tra trước push. Máy chủ thử cục bộ đã dừng. Kiểm mobile bằng Chrome giả lập, chưa thử trên máy thật.
 - Đã push commit `b7f7f92` và [GitHub Pages run 42629982323](https://github.com/denispham1107/taixecongnghe/actions/runs/42629982323) triển khai thành công đúng SHA. Web công khai trả 1.65.0 và cache `bd32d01364ed5ca8`. Đạt 34 kiểm tra live, gồm đối chiếu byte tài nguyên, tải scene Unity, bắt đầu và tạm dừng lượt. Không có lỗi runtime. Báo cáo `Captures/release165-pages.json` và `Captures/release165-live-results.json`.
+
+## 21.173. Thanh máu khủng long, ba phát tên lửa và xác cháy (09/11/2026 — Codex)
+
+- `PhoVietDinosaurs.cs` khởi tạo 3 máu mỗi lượt sinh. HUD vẽ thanh 3 nấc phía trên đầu, xanh khi đầy, cam khi còn hai và đỏ khi còn một. Dùng camera và vùng an toàn hiện tại. Thanh trống trong lúc đổ rồi ẩn khi đã nằm.
+- `PhoVietPlayerMissiles.cs` cho tên lửa bắn từ mặt đất khóa khủng long còn sống nếu gần hơn xe tăng hợp lệ phía trước, trong phạm vi 160 m. Kiểm tra thân/đầu/chân và lấy điểm va chạm đầu tiên giữa khủng long và xe tăng. Một quả trừ đúng 1 máu. Số thế hệ ngăn tên lửa đang bám khóa vào lượt sinh sau khi tái sử dụng đối tượng. Tên lửa bắn từ trên không vẫn dùng danh sách mục tiêu của 21.169.
+- `ThunderstormVisual.cs` thêm từng điểm lửa và khói tại hông, đầu, gốc đuôi, dùng hiệu ứng đã bake, tỉ lệ 1,9 và không bật đèn realtime. Điểm cháy bám xương trong lúc ngã và giữ đến khi xác ra khỏi vùng hoặc chơi lại. Pool và số thế hệ bảo vệ hiệu ứng giữa các lần sinh.
+- Phát thứ ba ngừng đi/quất đuôi và đổ nghiêng trong 0,82 giây. `DinosaurVisual.cs` giảm phần pose quất đuôi trong khi đổ. Thân, chân và đuôi xác vẫn có va chạm theo tư thế mới. Xe đi vào xác từ mặt đất theo luật va chạm và kết thúc lượt, xe vượt cao độ xác bằng cú nhảy thì đi qua được.
+- Unity biên dịch sạch, đạt 1.295 kiểm tra Play Mode ở 60 và 20 bước/giây. Kiểm bắn từ hai làn, tiêu đúng đạn, ba nguồn cháy còn lại sau ngã, độ hở theo bốn làn ở đỉnh nhảy, va xác dẫn tới Game Over, xe tăng gần hơn vẫn bị trúng, giới hạn tên lửa theo chế độ và reset đối tượng. Đã xem ba ảnh Game View ở trạng thái đầy máu, trúng một phát và xác đang cháy. Báo cáo và ảnh tại `.tools/dinosaur-health-2173*`. Chưa commit, push, build WebGL hoặc phát hành. Web vẫn 1.65.0.
+
+## 21.174. Độ khó trực thăng và tên lửa tăng theo lượt rẽ (10/11/2026 — Codex)
+
+- `PhoVietHelicopter.cs` dùng số trực thăng mục tiêu bằng mức 1/2/3 theo mốc 0/200/400 m cộng `CompletedTurns`. Chỉ tăng khi hoàn tất rẽ trái hoặc phải. Bỏ trần tổng 3 chiếc. Khi giữ bay, hệ thống bù các chiếc còn thiếu theo từng bước mô phỏng. Khi xe ở dưới đất, đợt sau rẽ vẫn thêm trực thăng sau khi chiếc trên đầu khủng long xuất hiện. Đội đang bay tiếp tục đi qua nếu xe hạ. Chơi lại đặt số lượt rẽ về 0.
+- Pool trực thăng bắt đầu với 3 đối tượng và pool tên lửa địch bắt đầu với 40, cả hai mở rộng khi cần và tái sử dụng đối tượng. Đội bay ưu tiên làn trống, có thể dùng lại làn khi đủ bốn làn. Giãn tối thiểu 12 m dọc cùng làn và 6 m giữa hai làn liền nhau. Pool lửa dùng số trực thăng thực tế để hỗ trợ đội lớn.
+- `PhoVietHelicopterMissiles.cs` và `PhoVietTankFire.cs` dùng chung công thức `max(0,25 giây, nhịp gốc - 0,1 giây × CompletedTurns)`. Trực thăng vẫn có nhịp gốc phụ thuộc quãng đường, còn tên lửa xe tăng lấy nhịp gốc 1 giây. Giữ phát đầu sau rẽ và pháo mặt đất 0,4 giây.
+- Unity biên dịch sạch và qua 322 kiểm tra Play Mode. Kiểm rẽ trái/phải thật, chỉ tăng khi rẽ xong, tăng quân khi còn dưới đất, các mốc quãng đường, đội 23 trực thăng, khoảng cách, 47 tên lửa địch đồng thời, nhịp bắn và đặt lại khi chơi lại. Báo cáo `.tools/turn-difficulty-2174.txt`. Chưa commit, build WebGL hoặc phát hành. Web vẫn 1.65.0.
+
+## 21.175. Build và phát hành WebGL 1.66.0 (10/11/2026 — Codex)
+
+- Bản 1.66.0 gồm thanh máu và ba phát tên lửa hạ khủng long ở 21.173, cùng số trực thăng và nhịp tên lửa tăng theo lượt rẽ ở 21.174.
+- Unity 6000.5.6f1 build đủ ETC2/EAC và DXT trong 449,321 giây, 0 lỗi và 1 cảnh báo cấu hình Runtime Pipeline. 208 kiểm tra Unity trước và sau build, SHA của 592 tệp nguồn giữ nguyên. Cache `e0d6fc7506d5a965`. Đạt 48 kiểm tra gói Git, 39 kiểm tra gói ghép, 603 kiểm tra bố cục Chrome, 18 kiểm tra Chrome WebGL desktop/mobile/offline và 40 kiểm tra Git index. Đang triển khai Pages.

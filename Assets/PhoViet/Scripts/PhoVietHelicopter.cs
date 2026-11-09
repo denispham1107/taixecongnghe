@@ -1,47 +1,50 @@
+using System.Collections.Generic;
 using UnityEngine;
 namespace PhoViet
 {
  public partial class PhoVietGame
  {
-  public const int MaximumHelicopters=3;
+  public const int MaximumDistanceHelicopters=3;
   const float HelicopterDistanceStep=200;
-  const float HelicopterSpeed=16,HelicopterSpacing=12,TurnHelicopterHeadClearance=1.55f;
+  const float HelicopterSpeed=16,HelicopterSpacing=12,AdjacentHelicopterSpacing=6,TurnHelicopterHeadClearance=1.55f;
   sealed class HelicopterActor
   {
    public Transform root;public HelicopterVisual visual;public bool active,wrecked,turnFirstShotPending;
    public float age,shotRemaining,shotInterval;public Vector3 velocity,scroll,wreckEuler,wreckSpin,missilePrevious;public int generation;
   }
-  readonly HelicopterActor[] helicopters=new HelicopterActor[MaximumHelicopters];
+  readonly List<HelicopterActor> helicopters=new List<HelicopterActor>(MaximumDistanceHelicopters);
   readonly int[] helicopterLanes={0,1,2,3};int helicopterLaneCursor=4;
   GameObject helicopterPrefab;System.Random helicopterRng;
-  bool helicopterRebased;Vector3 helicopterRebaseOrigin;Quaternion helicopterRebaseRotation;
+  bool helicopterRebased,turnHelicopterReinforcements;Vector3 helicopterRebaseOrigin;Quaternion helicopterRebaseRotation;
   public bool HelicopterActive=>ActiveHelicopterCount>0;
   public int ActiveHelicopterCount{get{int count=0;foreach(var h in helicopters)if(h!=null&&h.active)count++;return count;}}
-  public int HelicopterPoolCount{get{int count=0;foreach(var h in helicopters)if(h!=null)count++;return count;}}
-  public int HelicopterTargetCount=>HelicopterLimitAtDistance(Distance);
+  public int HelicopterPoolCount=>helicopters.Count;
+  public int HelicopterTargetCount=>HelicopterLimitAtDistance(Distance)+CompletedTurns;
   public int HelicoptersSpawned{get;private set;}
   public bool HitByHelicopter{get;private set;}
   public bool HelicopterSoundEnabled=>sound;
   public Transform HelicopterRoot=>GetHelicopterRoot(0);
-  public Transform GetHelicopterRoot(int index)=>index>=0&&index<helicopters.Length?helicopters[index]?.root:null;
-  public bool IsHelicopterActive(int index)=>index>=0&&index<helicopters.Length&&helicopters[index]!=null&&helicopters[index].active;
+  public Transform GetHelicopterRoot(int index)=>index>=0&&index<helicopters.Count?helicopters[index].root:null;
+  public bool IsHelicopterActive(int index)=>index>=0&&index<helicopters.Count&&helicopters[index].active;
   public static int HelicopterLimitAtDistance(float metres)
-   =>metres>=2*HelicopterDistanceStep?MaximumHelicopters:metres>=HelicopterDistanceStep?2:1;
+   =>metres>=2*HelicopterDistanceStep?MaximumDistanceHelicopters:metres>=HelicopterDistanceStep?2:1;
+  HelicopterActor CreateHelicopter()
+  {
+   if(!Application.isPlaying||helicopterPrefab==null)return null;
+   var root=Instantiate(helicopterPrefab,transform).transform;root.name="Helicopter "+(helicopters.Count+1);
+   var actor=new HelicopterActor{root=root,visual=root.GetComponent<HelicopterVisual>()};
+   helicopters.Add(actor);return actor;
+  }
   void ResetHelicopter()
   {
-   helicopterRebased=false;HelicoptersSpawned=0;HitByHelicopter=false;helicopterLaneCursor=4;
+   helicopterRebased=turnHelicopterReinforcements=false;HelicoptersSpawned=0;HitByHelicopter=false;helicopterLaneCursor=4;
    helicopterRng=new System.Random(RunSeed^0x47ad124);
    for(int i=0;i<helicopterLanes.Length;i++)helicopterLanes[i]=i;
    if(Application.isPlaying&&helicopterPrefab==null)helicopterPrefab=Resources.Load<GameObject>("Helicopter/PV_Helicopter");
-   for(int i=0;i<helicopters.Length;i++)
+   while(helicopters.Count<MaximumDistanceHelicopters&&CreateHelicopter()!=null){}
+   foreach(var h in helicopters)
    {
-    var h=helicopters[i];
-    if(h==null&&Application.isPlaying&&helicopterPrefab!=null)
-    {
-     var root=Instantiate(helicopterPrefab,transform).transform;root.name="Helicopter "+(i+1);
-     h=helicopters[i]=new HelicopterActor{root=root,visual=root.GetComponent<HelicopterVisual>()};
-    }
-    if(h==null)continue;h.active=h.wrecked=h.turnFirstShotPending=false;h.age=0;h.shotInterval=h.shotRemaining=HelicopterMissileInterval(Distance);h.velocity=h.scroll=Vector3.zero;h.root.gameObject.SetActive(false);
+    h.active=h.wrecked=h.turnFirstShotPending=false;h.age=0;h.shotInterval=h.shotRemaining=CurrentHelicopterMissileInterval;h.velocity=h.scroll=Vector3.zero;h.root.gameObject.SetActive(false);
    }
    ResetHelicopterMissiles();
    ResetPlayerMissiles();
@@ -63,19 +66,26 @@ namespace PhoViet
   }
   bool SpawnHelicopter()
   {
-   if(!RiderFlying||IsTurning||State!=RideState.Riding)return false;
    var free=FreeHelicopterSlot();if(free==null)return false;
+   float laneX=NextFreeHelicopterLaneX();
    float z=Mathf.Max(95,(Speed+HelicopterSpeed)*2.8f);
-   // Stagger the formation so neighbouring main rotors and repeated lanes cannot overlap.
-   foreach(var h in helicopters)if(h!=null&&h.active&&!h.wrecked&&h.velocity.z< -1&&Mathf.Abs(h.velocity.x)<.1f)z=Mathf.Max(z,h.root.localPosition.z+HelicopterSpacing);
-   LaunchHelicopter(free,new Vector3(NextFreeHelicopterLaneX(),rider.localPosition.y+PlayerHeight*.5f,z));
-   notice="TRỰC THĂNG NGƯỢC CHIỀU · CHÚ Ý KHI BAY";noticeTimer=2;return true;
+   foreach(var h in helicopters)
+   {
+    if(!h.active||h.wrecked||h.velocity.z>=-1||Mathf.Abs(h.velocity.x)>=.1f)continue;
+    float lateral=Mathf.Abs(h.root.localPosition.x-laneX);
+    if(CompletedTurns==0||lateral<.1f)z=Mathf.Max(z,h.root.localPosition.z+HelicopterSpacing);
+    else if(lateral<5.5f)z=Mathf.Max(z,h.root.localPosition.z+AdjacentHelicopterSpacing);
+   }
+   float altitude=RiderFlying?rider.localPosition.y:FlightHeightAboveSupport;
+   LaunchHelicopter(free,new Vector3(laneX,altitude+PlayerHeight*.5f,z));
+   if(RiderFlying){notice="TRỰC THĂNG NGƯỢC CHIỀU · CHÚ Ý KHI BAY";noticeTimer=2;}
+   return true;
   }
   HelicopterActor FreeHelicopterSlot()
   {
    if(ActiveHelicopterCount>=HelicopterTargetCount)return null;
-   foreach(var h in helicopters)if(h!=null&&!h.active)return h;
-   return null;
+   foreach(var h in helicopters)if(!h.active)return h;
+   return CreateHelicopter();
   }
   float NextFreeHelicopterLaneX()
   {
@@ -88,7 +98,7 @@ namespace PhoViet
    actor.root.localPosition=actor.missilePrevious=position;
    actor.root.localRotation=Quaternion.Euler(0,180,0);actor.velocity=Vector3.back*HelicopterSpeed;
    actor.generation++;actor.age=0;actor.scroll=Vector3.zero;
-   actor.shotInterval=actor.shotRemaining=HelicopterMissileInterval(Distance);
+   actor.shotInterval=actor.shotRemaining=CurrentHelicopterMissileInterval;
    actor.active=true;actor.wrecked=false;
    actor.turnFirstShotPending=postTurn;
    actor.root.gameObject.SetActive(true);actor.visual.ResetPose();HelicoptersSpawned++;
@@ -107,10 +117,12 @@ namespace PhoViet
    Vector3 head=DinosaurPoint(dinosaur.visual.head);
    LaunchHelicopter(lead,head+Vector3.up*TurnHelicopterHeadClearance,true);
    lead.scroll=Vector3.forward*dinosaurScroll;
+   turnHelicopterReinforcements=ActiveHelicopterCount<HelicopterTargetCount;
   }
   void ScrollHelicopter(float delta){foreach(var h in helicopters)if(h!=null&&h.active)h.scroll+=Vector3.forward*delta;ScrollHelicopterMissiles(delta);ScrollPlayerMissiles(delta);ScrollMissileLaunchAudio(delta);}
   void RebaseHelicopter(Quaternion inverse,Vector3 origin)
   {
+   turnHelicopterReinforcements=false;
    RebaseMissileLaunchAudio(inverse,origin);
    if(!HelicopterActive&&ActiveHelicopterMissileCount==0&&ActiveTankMissileCount==0&&ActivePlayerMissileCount==0)return;
    foreach(var h in helicopters)if(h!=null&&h.active)
@@ -131,8 +143,10 @@ namespace PhoViet
    TickPlayerMissiles(dt);
    TickHelicopterMissiles(dt,previousRider,collisions);
    if(!collisions||State!=RideState.Riding||IsTurning)return;
-   // Flight encounters also fill while the next junction is waiting to reveal its lead.
-   while(SpawnHelicopter()){}
+   if(!RiderFlying&&!turnHelicopterReinforcements)return;
+   // Fill the opening formation immediately; feed larger formations over successive steps.
+   for(int i=0;i<MaximumDistanceHelicopters&&SpawnHelicopter();i++){}
+   if(ActiveHelicopterCount>=HelicopterTargetCount)turnHelicopterReinforcements=false;
   }
   void TickHelicopterActor(HelicopterActor h,float dt,Vector3 previousRider,bool collisions)
   {

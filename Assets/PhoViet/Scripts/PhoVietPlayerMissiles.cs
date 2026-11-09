@@ -13,7 +13,7 @@ namespace PhoViet
   public int ActivePlayerMissileCount{get{int n=0;foreach(var m in playerMissiles)if(m!=null&&m.active)n++;return n;}}
   public bool PlayerCanFire=>State==RideState.Riding&&(RiderFlying||!RiderAirborne)&&!ServiceStopped&&PlayerMissiles>0&&playerMissileCooldown<=.00001f;
   sealed class PlayerMissile
-  {public Transform root;public MissileFlightVisual visual;public AudioSource flightAudio;public HelicopterActor target;public TrafficVehicle tankTarget;public int targetGeneration,tankGeneration;public bool active,groundShot;public Vector3 velocity,scroll;public float age,speed;}
+  {public Transform root;public MissileFlightVisual visual;public AudioSource flightAudio;public HelicopterActor target;public TrafficVehicle tankTarget;public Dinosaur dinosaurTarget;public int targetGeneration,tankGeneration,dinosaurGeneration;public bool active,groundShot;public Vector3 velocity,scroll;public float age,speed;}
   readonly PlayerMissile[] playerMissiles=new PlayerMissile[PlayerMissilePoolCapacity];float playerMissileCooldown;
   void ResetPlayerMissiles()
   {
@@ -46,18 +46,23 @@ namespace PhoViet
    bool ground=!RiderFlying;
    var target=ground?null:PlayerMissileTarget(origin,forward);
    var tank=PlayerTankTarget(origin,forward);
+   var dinosaur=ground?PlayerDinosaurTarget(origin,forward,tank!=null?(PlayerTankAim(tank)-origin).sqrMagnitude:160*160):null;
+   if(dinosaur!=null)tank=null;
    if(target!=null&&tank!=null)
    {
     if((PlayerTankAim(tank)-origin).sqrMagnitude<(target.root.localPosition-origin).sqrMagnitude)target=null;
     else tank=null;
    }
-   Vector3 direction=target!=null?(target.root.localPosition+Vector3.up*.1f-origin).normalized:tank!=null?(PlayerTankAim(tank)-origin).normalized:forward;
+   Vector3 direction=target!=null?(target.root.localPosition+Vector3.up*.1f-origin).normalized:tank!=null?(PlayerTankAim(tank)-origin).normalized:
+    dinosaur!=null?(DinosaurMissileAim(dinosaur)-origin).normalized:forward;
    free.target=target;free.targetGeneration=target!=null?target.generation:0;free.speed=Mathf.Max(70,Speed+50);free.velocity=direction*free.speed;
    free.groundShot=ground;free.tankTarget=tank;free.tankGeneration=tank!=null?tank.spawnGeneration:0;
+   free.dinosaurTarget=dinosaur;free.dinosaurGeneration=dinosaur!=null?dinosaur.generation:0;
    free.scroll=Vector3.zero;free.age=0;free.root.localPosition=origin;free.root.localRotation=Quaternion.LookRotation(direction);free.active=true;free.root.gameObject.SetActive(true);free.visual.Begin();
    PlayMissileAudio(free.flightAudio,origin,true);
    PlayerMissiles--;PlayerMissilesFired++;playerMissileCooldown=PlayerMissileInterval;
-   notice=target!=null?"TÊN LỬA · ĐÃ KHÓA TRỰC THĂNG":tank!=null?"TÊN LỬA · ĐÃ KHÓA XE TĂNG":"TÊN LỬA · BAY THẲNG";noticeTimer=1.1f;return true;
+   notice=target!=null?"TÊN LỬA · ĐÃ KHÓA TRỰC THĂNG":tank!=null?"TÊN LỬA · ĐÃ KHÓA XE TĂNG":
+    dinosaur!=null?"TÊN LỬA · ĐÃ KHÓA KHỦNG LONG":"TÊN LỬA · BAY THẲNG";noticeTimer=1.1f;return true;
   }
   void ScrollPlayerMissiles(float delta){foreach(var m in playerMissiles)if(m!=null&&m.active){m.scroll+=Vector3.forward*delta;m.visual.Scroll(delta);}}
   void RebasePlayerMissiles(Quaternion inverse,Vector3 origin)
@@ -85,16 +90,32 @@ namespace PhoViet
       if(desired.sqrMagnitude>.001f)m.velocity=Vector3.RotateTowards(m.velocity,desired.normalized*m.speed,300*Mathf.Deg2Rad*dt,0);
      }
     }
+    if(m.dinosaurTarget!=null)
+    {
+     var dinosaur=m.dinosaurTarget;
+     if(!dinosaur.active||dinosaur.Fallen||dinosaur.generation!=m.dinosaurGeneration)m.dinosaurTarget=null;
+     else
+     {
+      Vector3 desired=DinosaurMissileAim(dinosaur)-from;
+      if(desired.sqrMagnitude>.001f)m.velocity=Vector3.RotateTowards(m.velocity,desired.normalized*m.speed,300*Mathf.Deg2Rad*dt,0);
+     }
+    }
     Vector3 to=from+m.velocity*dt;m.age+=dt;
     HelicopterActor hit=null;float first=2;
     TrafficVehicle hitTank=null;
     foreach(var tank in vehicles)
      if(tank.active&&tank.armored&&!tank.riverFalling&&PlayerMissileTouchesTank(from,to,tank,frameScroll,out float at)&&at<first)
      {hitTank=tank;first=at;}
+    Dinosaur hitDinosaur=null;
+    if(m.groundShot)
+     foreach(var dinosaur in dinosaurs)
+      if(dinosaur.active&&!dinosaur.Fallen&&PlayerMissileTouchesDinosaur(from,to,dinosaur,out float at)&&at<first)
+      {hitDinosaur=dinosaur;first=at;}
     if(!m.groundShot)
      foreach(var h in helicopters)
       if(h!=null&&h.active&&!h.wrecked&&PlayerMissileTouchesHelicopter(from,to,h,out float at)&&at<first)
       {hit=h;hitTank=null;first=at;}
+    if(hitDinosaur!=null){m.root.localPosition=Vector3.Lerp(from,to,first);HitDinosaurWithPlayerMissile(hitDinosaur,m.root.localPosition);RetirePlayerMissile(m);continue;}
     if(hitTank!=null){m.root.localPosition=Vector3.Lerp(from,to,first);DestroyPlayerTank(hitTank,m.root.localPosition);RetirePlayerMissile(m);continue;}
     if(hit!=null)
     {
@@ -133,6 +154,6 @@ namespace PhoViet
    }
    return at<=1;
   }
-  void RetirePlayerMissile(PlayerMissile m){m.active=false;m.target=null;m.tankTarget=null;m.groundShot=false;m.scroll=Vector3.zero;m.age=0;m.visual.End();m.flightAudio.Stop();m.root.gameObject.SetActive(false);}
+  void RetirePlayerMissile(PlayerMissile m){m.active=false;m.target=null;m.tankTarget=null;m.dinosaurTarget=null;m.groundShot=false;m.scroll=Vector3.zero;m.age=0;m.visual.End();m.flightAudio.Stop();m.root.gameObject.SetActive(false);}
  }
 }
