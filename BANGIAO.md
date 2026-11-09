@@ -10,7 +10,7 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.65.0** — WebGL `b7f7f92`, Pages `42629982323` thành công đúng SHA, cache `bd32d01364ed5ca8`. Gồm độ cao nhảy/bay mới, bắn xe tăng từ trên không và mốc trực thăng 200/400 m. **34 kiểm tra live đạt, 0 lỗi runtime.** |
+| Bản đã phát hành | **1.66.0** — WebGL `6fcae72`, Pages `42664763165` thành công đúng SHA, cache `e0d6fc7506d5a965`. Gồm thanh máu khủng long và độ khó tăng sau khi rẽ. **34 kiểm tra live đạt, 0 lỗi runtime.** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
@@ -35,8 +35,8 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
 | Tên lửa người chơi | **21.169, web 1.65.0:** khi giữ bay chọn xe tăng hoặc trực thăng gần nhất phía trước. Dưới đất nhắm xe tăng như 21.145. Xe tăng trúng đạn dừng, cháy và vẫn là vật cản. Kho 5/5, nhặt +1, hồi 0,4 giây, bắn thẳng khi không có mục tiêu. |
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
-| Trực thăng và tên lửa địch | **Source 21.174:** mức 1/2/3 theo mốc 0/200/400 m cộng 1 chiếc mỗi lần rẽ xong, không có trần cố định. Đợt sau rẽ tăng quân cả khi xe ở dưới đất. Tên lửa trực thăng và xe tăng giảm 0,1 giây/lượt rẽ, sàn 0,25 giây. Web 1.65.0 vẫn theo 21.171. |
-| Khủng long | **Source 21.173:** thanh máu 3 nấc trên đầu. Tên lửa bắn từ mặt đất có thể hạ khủng long. Mỗi phát trúng thêm một điểm lửa/khói. Phát thứ ba làm khủng long ngã; xác cháy và vẫn gây va chạm. Chưa có trên web. |
+| Trực thăng và tên lửa địch | **21.174, web 1.66.0:** mức 1/2/3 theo mốc 0/200/400 m cộng 1 chiếc mỗi lần rẽ xong, không có trần cố định. Đợt sau rẽ tăng quân cả khi xe ở dưới đất. Tên lửa trực thăng và xe tăng giảm 0,1 giây/lượt rẽ, sàn 0,25 giây. |
+| Khủng long | **21.173, web 1.66.0:** thanh máu 3 nấc trên đầu. Tên lửa bắn từ mặt đất có thể hạ khủng long. Mỗi phát trúng thêm một điểm lửa/khói. Phát thứ ba làm khủng long ngã; xác cháy và vẫn gây va chạm. |
 | Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Đã có trên web 1.61.0. |
 | Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Đã có trên web 1.61.0. |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
@@ -54,9 +54,9 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.175:** đã build và kiểm tra WebGL 1.66.0 gồm 21.173–21.174. Cache `e0d6fc7506d5a965`. Xem mục 3 cho tiến độ Pages.
-- **21.174:** mỗi lượt rẽ hoàn tất cộng 1 trực thăng, giảm 0,1 giây giữa các phát tên lửa địch tới sàn 0,25 giây. Unity biên dịch sạch và đạt 322 kiểm tra Play Mode, thử tới 23 trực thăng và 47 tên lửa đồng thời. Chưa commit, build hoặc phát hành.
-- **21.173:** thêm thanh máu, tên lửa mặt đất và xác khủng long cháy gây va chạm. Biên dịch sạch, 1.295 kiểm tra Play Mode đạt và đã xem 3 ảnh Game View. Chưa commit, build hoặc phát hành.
+- **21.175 đã phát hành WebGL 1.66.0:** ETC2/DXT trong 449,321 giây. 208 kiểm tra Unity trước/sau, 603 bố cục, 18 Chrome cục bộ và 34 live đạt. Pages `42664763165`, commit `6fcae72`.
+- **21.174:** mỗi lượt rẽ hoàn tất cộng 1 trực thăng, giảm 0,1 giây giữa các phát tên lửa địch tới sàn 0,25 giây. 322 kiểm tra Play Mode đạt. Có trên web 1.66.0.
+- **21.173:** thêm thanh máu, tên lửa mặt đất và xác khủng long cháy gây va chạm. 1.295 kiểm tra Play Mode đạt và đã xem 3 ảnh Game View. Có trên web 1.66.0.
 - **21.172 đã phát hành WebGL 1.65.0:** ETC2/DXT trong 490,455 giây. 207 kiểm tra Unity trước/sau, 603 bố cục, 18 Chrome cục bộ và 34 live đạt. Pages `42629982323`, commit `b7f7f92`.
 - **21.171:** đổi mốc giữ bay sang 0/200/400 m cho 1/2/3 chiếc. 128 kiểm tra Unity Play Mode đạt. Có trên web 1.65.0.
 - **21.170:** bỏ việc chờ đợt sau rẽ mới sinh trực thăng thường. Giữ bay sinh ngay, tối đa 3 chiếc tính cả đợt sau rẽ. Mốc 400/800 m của bước này đã được thay ở 21.171 trước khi phát hành.
@@ -280,7 +280,6 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.175 đang làm:** WebGL 1.66.0 đã qua 18 kiểm tra Chrome desktop/mobile/offline và 40 kiểm tra Git index. Đang push bản phát hành. Tiếp theo chờ GitHub Pages đúng SHA và xác minh bản công khai.
 
 
 

@@ -215,7 +215,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 **21.171, web 1.65.0:** lịch trực thăng bắt đầu ngay khi vào chế độ giữ bay trên đường, với 1 chiếc dưới 200 m, 2 chiếc từ 200 m và 3 chiếc từ 400 m tính theo tổng quãng đường của lượt. Đợt sau rẽ giữ mốc 0,5 giây sau khủng long và dùng chung giới hạn. Xem 21.170–21.171.
 
-**Source 21.174:** cộng một trực thăng lên mức theo quãng đường sau mỗi lượt rẽ hoàn tất. Tên lửa xe tăng và trực thăng giảm 0,1 giây giữa các phát mỗi lượt rẽ, nhanh nhất 0,25 giây. Xem 21.174.
+**21.174, web 1.66.0:** cộng một trực thăng lên mức theo quãng đường sau mỗi lượt rẽ hoàn tất. Tên lửa xe tăng và trực thăng giảm 0,1 giây giữa các phát mỗi lượt rẽ, nhanh nhất 0,25 giây. Xem 21.174.
 
 Space/vuốt lên nhảy tới; source21.64 là ô tô phụt khói trắng xuống từ4góc, hơi ngẩng rồi lấy cân bằng khi đáp (xe máy trên web1.39.0 vẫn ngóc bánh trước); hồi2 s, chỉ nhảy từ đường/nóc đang đỡ, không nhảy thêm trên không. **21.100 (đã phát hành1.50.0):** độ cao cố định **4,1166525m** ở mọi tốc độ, gồm W; tăng3% so mức khởi đầu1.49.0 (3,99675m). Bỏ tăng đỉnh theo vận tốc của21.60/21.94. Gia tốc lên24,2m/s² và rơi22m/s² giữ nguyên; W trước/giữa nhảy đều không tăng đỉnh. Metadata tốc độ cất cánh còn dùng cho pose/chuyển động ngang. Độ cao là so với mặt đỡ lúc phóng. Có thể vượt xe máy nằm và đáp/chạy trên nóc bốn bánh nếu đủ cao; đỉnh cố định có thể không vượt được nóc tải cao nếu chưa đủ độ cao lúc gặp vách. Xe tải đứng thẳng còn là mặt đỡ, xe nghiêng/lật là vật cản. Rời mép rơi thật; tiếp đất theo vận tốc, hấp thụ lực rồi cân bằng; đâm thân/vách vẫn té.
 
@@ -231,7 +231,7 @@ Ban ngày nắng trắng, trời xanh sáng; nhà/vỉa hè/cây vẫn dùng pal
 
 ### 2.12. Khủng long Emerald Tyrant — web1.40.0, đợt sau cua1.46.0; miễn xe tăng ở source21.96
 
-- **Source 21.173:** khủng long có 3 nấc máu. Xe dưới đất bắn tên lửa trúng thì mất 1 nấc và thêm một điểm cháy. Phát thứ ba làm khủng long ngã và ngừng quất đuôi. Xác tiếp tục cháy, đâm trúng sẽ té và kết thúc lượt. Nhảy đủ cao có thể vượt xác. Xem 21.173.
+- **21.173, web 1.66.0:** khủng long có 3 nấc máu. Xe dưới đất bắn tên lửa trúng thì mất 1 nấc và thêm một điểm cháy. Phát thứ ba làm khủng long ngã và ngừng quất đuôi. Xác tiếp tục cháy, đâm trúng sẽ té và kết thúc lượt. Nhảy đủ cao có thể vượt xác. Xem 21.173.
 - Nhận model Meshy mới, rộng **4,65 m = 1,5 làn** ở tư thế gốc; giữ tỷ lệ, cao6,081 m/dài8,676 m. Cứ10giây chơi xuất hiện phía trước, **đi ngược chiều**, tốc độ đi riêng3m/s; W của người chơi không tăng tốc khủng long.
 - Bước luân phiên, lấy đà/hạ thân/cúi đầu rồi xoay hông quất đuôi thấp qua cả4làn, có thông báo “QUẤT ĐUÔI · NHẢY LÊN!”. Phải nhảy đủ cao để qua đuôi; đuôi và thân/chân là các vùng va chạm vật lý riêng. Nhà/cây đứng yên; xe máy/ô tô/tải/quái xế/tải ngủ gật vàCSGT vẫn bị hất. **Source21.96: xe tăng miễn nhiễm với cả thân/chân và đuôi khủng long**, giữ nguyên di chuyển/nhịp bắn; web1.49.0 còn luật cũ cho khủng long hất xe tăng, chờ build/phát hành thay đổi này.
 - Té thường: kết thúc sau ngã. Té khi bị đuổi: nằm chờ CSGT đến bắt rồi vào tù. NPC giữ hồi phục3s, CSGT1,2s. Timer/pose dừng khi pause, reset khi chơi lại; khủng long đang có tiếp tục đi lúc người chơi té để không chắn luồng bắt. Chi tiết asset/code/kiểm tra ở21.62. Đã có trên web từ1.40.0/21.66.
@@ -3619,4 +3619,5 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 ## 21.175. Build và phát hành WebGL 1.66.0 (10/11/2026 — Codex)
 
 - Bản 1.66.0 gồm thanh máu và ba phát tên lửa hạ khủng long ở 21.173, cùng số trực thăng và nhịp tên lửa tăng theo lượt rẽ ở 21.174.
-- Unity 6000.5.6f1 build đủ ETC2/EAC và DXT trong 449,321 giây, 0 lỗi và 1 cảnh báo cấu hình Runtime Pipeline. 208 kiểm tra Unity trước và sau build, SHA của 592 tệp nguồn giữ nguyên. Cache `e0d6fc7506d5a965`. Đạt 48 kiểm tra gói Git, 39 kiểm tra gói ghép, 603 kiểm tra bố cục Chrome, 18 kiểm tra Chrome WebGL desktop/mobile/offline và 40 kiểm tra Git index. Đang triển khai Pages.
+- Unity 6000.5.6f1 build đủ ETC2/EAC và DXT trong 449,321 giây, 0 lỗi và 1 cảnh báo cấu hình Runtime Pipeline. 208 kiểm tra Unity trước và sau build, SHA của 592 tệp nguồn giữ nguyên. Cache `e0d6fc7506d5a965`. Đạt 48 kiểm tra gói Git, 39 kiểm tra gói ghép, 603 kiểm tra bố cục Chrome, 18 kiểm tra Chrome WebGL desktop/mobile/offline và 40 kiểm tra Git index. Máy chủ thử cục bộ đã dừng. Mobile được kiểm bằng Chrome giả lập.
+- Commit `6fcae72` đã push và [GitHub Pages run 42664763165](https://github.com/denispham1107/taixecongnghe/actions/runs/42664763165) triển khai thành công đúng SHA. Web công khai trả phiên bản và cache đúng bản đã kiểm thử. Đạt 34 kiểm tra live, gồm đối chiếu tệp, tải scene và kiểm tra thao tác bắt đầu/tạm dừng. Không ghi nhận lỗi runtime. Báo cáo `Captures/release166-pages.json` và `Captures/release166-live-results.json`.
