@@ -10,9 +10,9 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.63.0** — WebGL `062e06f`, Pages `42508754502` thành công đúng SHA, cache `152859bcc13cfffe`. Gồm 21.161–21.162. **29 kiểm tra live đạt, 0 lỗi runtime.** |
+| Bản đã phát hành | **1.64.0** — WebGL `695c436`, Pages `42557744706` thành công đúng SHA, cache `d9d1ebc9a916b5f3`. Gồm đèn phanh, ba ảnh mới, bánh xe và icon A gốc. **34 kiểm tra live đạt, 0 lỗi runtime.** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
-| Icon cài đặt | **21.167:** đã áp dụng mẫu A gốc «Phố lên đèn» với cờ nhỏ vào template PWA. Đã kiểm tra manifest, favicon, Apple Touch Icon và bản maskable. Chưa lên web. |
+| Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Simulator iPhone | **21.71:** đã thêm **Apple iPhone 14 Pro / 14 Pro Max**, Dynamic Island + Safe Area dọc/ngang; đang chọn Pro Max ngang, Safe Area bật. Asset chỉ trong Editor, chưa commit/push |
@@ -24,10 +24,10 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Tối ưu mobile | **21.136/21.138 đã có trên web 1.57.1:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop **Rất cao (source21.144)** giữ baseline trừ cascades WebGL; Rấtcao không tựgiảm. Layer ẩn sớm gồm đèn tín hiệu và đèn đường từ source21.147 |
 | Cài đặt đồ họa trong source | **21.144 đã có trên web1.59.0:** Rất cao(cũCao, cốđịnh)/Cao(mới,tựgiảm)/Trung bình/Thấp. IDlưu0/3/1/2 theo thứtựUI, không đổi pref cũ. DesktopRấtcao fullbaseline/mobileRấtcao planCao cũ; không governor/learneddrop/đổiHz. Cao có LOD0,6, tầm150m và phản chiếu448px. **21.147 có trên web 1.60.0:** giữ mật độ điểm ảnh và MSAA của Rất cao ở cả bốn mức để chữ biển rõ. |
-| Trang chủ HTML trong source | **21.119 đã có trên web1.53.0:** chỉ1ảnhPNG `poster-home.png` từgameTaixe.png người dùng gửi/1920×1080/nguyênbyte; bỏ2ảnh cũ/16:9contain.387layout12viewport+3refreshđạt; ảnhPNGmớinguyênbyteđãxácminhlive |
+| Trang chủ HTML | **21.168, web 1.64.0:** ba JPEG 2778 × 1284 của người dùng theo thứ tự gửi, khớp SHA, toàn khung và đã gỡ hai ảnh cũ. |
 | Xuất phát trong source | **21.150:** bắt đầu và chơi lại từ 0 km/h, tăng khoảng 22 → 43 → 65 km/h ở giây 1–3. Xe và quãng đường dùng tốc độ thực. Đã có trên web 1.61.0. |
 | Xe mặt đất lúc mở màn trong source | **21.151:** các xe có mặt lúc bắt đầu tăng dần từ đứng yên đến nhịp riêng trong khoảng 3,01 giây. Áp dụng cho các nhóm giao thông, xe đặc biệt và nhánh CSGT nếu được mở lại. Đã có trên web 1.61.0. |
-| Bánh xe trong source | **21.164:** bánh lăn theo vận tốc thực, giữ quán tính rồi ngừng sau va chạm. Xe đua và bốn mẫu ô tô Meshy có chi tiết trên mâm để thấy rõ vòng quay. Đã kiểm tra Unity, chờ build WebGL. |
+| Bánh xe | **21.164, web 1.64.0:** bánh lăn theo vận tốc thực, giữ quán tính rồi ngừng sau va chạm. Xe đua và bốn mẫu ô tô Meshy có chi tiết trên mâm. |
 | Phản hồi đổi làn trong source | **21.151:** xe người chơi đổi làn nhanh thêm 15% theo cả hai hướng, hệ số 1,53065 × 1,15, đã có trên web 1.61.0.  **21.81 đã có trên web1.46.0:** gain đầu quỹ đạo car + yawattack0,05s; nhận phím/vuốt ngay, giữ nhịp hoàn tất.779kiểm tra đạt/4ảnh đã xem; chi tiết huongdan21.81 |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Pickup tên lửa mẫu C đã duyệt | **21.131 đã có trên web1.55.0:** Hex Ammo nền lục giác xanh/viền vàng/mũi đỏ;3LOD1482/1014/592tri,pool70.735Unity đạt/5ảnh đã xem; chỉ pickup đường, HUD/nút/đạn bay giữ. Approvaltrue/C |
@@ -54,10 +54,11 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.167:** dùng nguyên SVG mẫu A gốc đã duyệt. Xuất bộ PNG 192/512/maskable/Apple 180 với URL `*-pho-len-den-*`. 17 kiểm tra Sharp/Chrome đạt. Chờ phát hành.
+- **21.168 đã phát hành WebGL 1.64.0:** đèn phanh, ba ảnh trang chủ, icon A và bánh xe. Build 467,457 giây. 17 kiểm tra đèn phanh, 603 bố cục, 18 WebGL cục bộ và 34 live đạt.
+- **21.167:** dùng nguyên SVG mẫu A gốc đã duyệt. Xuất bộ PNG 192/512/maskable/Apple 180 với URL `*-pho-len-den-*`. 17 kiểm tra Sharp/Chrome đạt. Có trên web 1.64.0.
 - **21.166:** dựng ba biến thể mẫu A với cờ đỏ sao vàng lớn hơn. Đã xem bản 32 px, 48 px và mặt nạ tròn. Web vẫn 1.63.0.
 - **21.165:** thiết kế 5 icon cài đặt Phố Việt theo xe đua xanh, đường phố, xe bay, trực thăng/tên lửa và nhặt năng lượng. Đã xem bảng render và thử bố cục Chrome ở 4 chiều rộng. Đây là mẫu duyệt, web vẫn 1.63.0.
-- **21.164:** nối tốc độ thực với trục bánh của xe người chơi và xe giao thông. Bánh giảm quay sau va chạm, lăn lại khi NPC chạy tiếp. Unity 0 lỗi/cảnh báo, 113 kiểm tra Play Mode đạt, đã xem hai ảnh cận cảnh. Thay đổi đang ở workspace, web vẫn 1.63.0.
+- **21.164:** nối tốc độ thực với trục bánh của xe người chơi và xe giao thông. Bánh giảm quay sau va chạm, lăn lại khi NPC chạy tiếp. 113 kiểm tra Play Mode đạt. Có trên web 1.64.0.
 - **21.163 đã phát hành WebGL 1.63.0:** ETC2/DXT 360,644 giây, 204 trước + 204 sau build, 585 SHA giữ nguyên, 43 kiểm gói Git + 34 gói Pages + 35 index. Chrome local 18, bố cục 459 và live 29 đạt. Pages `42508754502` đúng SHA `062e06f`.
 
 - **21.162 đã có trên web 1.63.0:** canvas mở dọc theo viewport được hiệu chỉnh trên iPhone; xe tăng/trực thăng của đợt sau rẽ bắn ngay phát tên lửa đầu khi xe người chơi đang bay và ở trong tầm.
@@ -272,7 +273,6 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.168 đang phát hành 1.64.0:** build mobile/desktop thành công, cache `d9d1ebc9a916b5f3`. Unity đạt 207 trước và 207 sau build. Gói Git/Pages/index đạt 48/39/40, bố cục Chrome 603, WebGL desktop/mobile/offline 18. Đang push và theo dõi Pages.
 
 
 - **21.163 hoàn tất.** Unity Edit Mode, scene sạch, máy chủ thử nghiệm đã dừng. Ca mở dọc được kiểm trên Chrome giả lập iPhone, chưa thử iPhone thật.

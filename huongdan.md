@@ -206,7 +206,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 - Cần mạng tải lần đầu. Service worker tải đủ shell + tài nguyên Unity mới báo sẵn sàng offline.
 - Hỗ trợ màn hình ngang/dọc; cảnh game phủ khung nhìn trên điện thoại/tablet, HUD/nút bấm tránh tai thỏ/thanh vuốt.
 - Nút menu nổi ba gạch đã ẩn trên mobile. Desktop còn điều khiển shell; có hướng dẫn, tải/lỗi/thử lại, trợ giúp cài và trạng thái offline.
-- Icon trong source từ **21.167** là mẫu A gốc **Phố lên đèn**, xe đua xanh với hai cờ đỏ sao vàng nhỏ. Bộ PNG 192/512/maskable/Apple 180 được xuất từ SVG. Web 1.63.0 còn dùng icon xe máy chính diện.
+- Từ **web 1.64.0**, icon là mẫu A gốc **Phố lên đèn**, xe đua xanh với hai cờ đỏ sao vàng nhỏ. Bộ PNG 192/512/maskable/Apple 180 được xuất từ SVG.
 - Rời ứng dụng, ẩn tab hoặc mở trợ giúp khi đang chạy sẽ tạm dừng game.
 
 ### 2.9. Nhảy và chạy trên nóc
@@ -781,7 +781,7 @@ Unity có thể chưa cập nhật GPU skin trong đúng frame vừa `Animation.
 
 **Camera dọc:** từ 24/10/2026 sau 1.34.0 (21.28, scene/source, **chưa build web**) `PortraitWorldScale=.75*.70*1.10=.5775`, công thức `2*atan(tan(65°/2)/.5775)` ≈95,62° — zoom gần hơn 10% so với 1.27.2–1.34.0 (.525, ≈101,017°). Lịch sử: giảm kích thước chiếu 25% ở 1.19, thêm 30% ở 1.27.2; game vẫn phủ kín màn hình, không scale nhỏ canvas. Cả bốn làn được giữ trong nhìn; camera bám độ cao khi nhảy, góc/camera cua theo tốc độ và delta thực. Camera jail riêng.
 
-**Icon vector:** nguồn `ArtSource/Web/pho-viet-app-icon.svg`. `AgentScripts/GenerateWebIcons.cjs` + Sharp xuất PNG 192/512, maskable 512 và Apple 180 nền kín. Từ source21.167, manifest/favicon/Apple dùng URL `*-pho-len-den-*` cho mẫu A gốc. Bản web 1.63.0 dùng URL `*-moto-*` và hình xe máy.
+**Icon vector:** nguồn `ArtSource/Web/pho-viet-app-icon.svg`. `AgentScripts/GenerateWebIcons.cjs` + Sharp xuất PNG 192/512, maskable 512 và Apple 180 nền kín. Từ web 1.64.0, manifest/favicon/Apple dùng URL `*-pho-len-den-*` cho mẫu A gốc.
 
 ### 12.1. Phân chia trách nhiệm web/Unity
 
@@ -3541,7 +3541,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Khi xe ngã hoặc thành xác xe, bánh giữ tốc độ lăn của khung hình trước đó rồi giảm theo mức 20 m/s² tính trên quãng lăn. Ở 54 km/h, bánh quay thêm khoảng 0,75 giây. Xe giao thông dựng dậy giữ pha quay cũ và lăn lại khi xe chạy tiếp. Phần hình dùng trạng thái va chạm có sẵn, giữ nguyên xử lý va chạm, tốc độ và tính điểm.
 - `CarWheelDetail.cs` thêm chi tiết nan mâm quay cho xe đua, ô tô thể thao, bán tải, tải phủ bạt và đầu kéo container. Mặt mâm được đo từ FBX và gắn vào các xương bánh hiện có. Mỗi mẫu chia sẻ một mesh nhẹ, mỗi xe hiện một renderer cho tất cả mâm. Lớp lốp gốc vẫn giữ cách xử lý chống nhấp nháy. Mô hình xe máy tiếp tục dùng hai xương bánh sẵn có. Xe đỗ và xe tăng bánh xích giữ hình dạng hiện tại.
 - Unity biên dịch 0 lỗi/cảnh báo. 113 kiểm tra Play Mode đạt, gồm bốn mẫu ô tô giao thông, cả hai bánh xe máy, trục bánh xe đua, nhịp giảm quay qua hàm va chạm người chơi, phục hồi, pause và chơi lại. Đã xem hai ảnh render cận cảnh ở hai pha quay khác nhau. Bằng chứng cục bộ `.tools/wheels-21164.txt` và `.tools/wheel164-player-*.png`.
-- Source đã sửa trong workspace. Chưa commit, build WebGL, push hay phát hành. Web vẫn là 1.63.0. Chưa thử trên thiết bị mobile thật.
+- Đã phát hành cùng web 1.64.0, xem 21.168. Chưa thử trên thiết bị mobile thật.
 
 ## 21.165. Năm mẫu icon cài đặt Phố Việt (09/11/2026 — Codex)
 
@@ -3560,11 +3560,12 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Dùng nguyên byte SVG `a-pho-len-den.svg` với hai lá cờ nhỏ. Cập nhật master `ArtSource/Web/pho-viet-app-icon.svg` và `AgentScripts/GenerateWebIcons.cjs`. Bộ PNG URL mới gồm 192/512 px thường, 512 px maskable và Apple 180 px nền kín. Giữ các URL moto cũ làm tài nguyên tương thích.
 - Cập nhật `Assets/WebGLTemplates/PhoVietPWA/manifest.webmanifest` và `index.html` để trỏ đến icon mới. Mô tả manifest dùng «xe đua» theo game hiện tại. ID ứng dụng, start URL và scope giữ nguyên. Quy trình WebGL hiện có sẽ đóng gói icon và cache cùng template.
 - 17 kiểm tra Sharp/Chrome đạt, gồm so khớp với SVG gốc, kích thước PNG, độ đục, mặt nạ tròn, nhận manifest qua HTTP và tải favicon/Apple Touch Icon. Đã xem ảnh PNG xuất. Bằng chứng `.tools/web-icon-2167-checks.json`. Tham chiếu [vùng an toàn maskable](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Define_app_icons) và [Apple Touch Icon](https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html).
-- Thay đổi ở nguồn PWA. Chưa kiểm tra cài thật trên thiết bị, chưa commit/build/push/phát hành. Bản web vẫn 1.63.0.
+- Đã phát hành cùng web 1.64.0, xem 21.168. Chưa kiểm tra cài thật trên thiết bị.
 
 ## 21.168. Đèn hậu khi đạp phanh và ba ảnh trang chủ mới (09/11/2026 — Codex)
 
 - `PhoVietDrivePedals.cs` cung cấp trạng thái báo phanh khi đang chơi hoặc đang tạm dừng từ lượt chơi. `DayNightLighting.cs` dùng hai halo sau của xe người chơi để báo đỏ từ lúc nhấn Đạp phanh, sáng cả ban ngày. Đêm tăng độ sáng so với đèn hậu thường. Giữ đèn báo khi xe dừng và phanh còn được chọn. Đạp ga, va chạm và chơi lại bỏ mức sáng phanh. `OpticalLight.shader` dùng mức tối thiểu theo từng renderer, không tăng đèn trước, đèn đường hay đèn xe khác.
 - Thay hai ảnh trang chủ cũ bằng `poster-home-jump.jpg`, `poster-home-missile.jpg`, `poster-home-encounter.jpg` theo thứ tự gửi. Ba tệp 2778 × 1284 khớp SHA-256 với ảnh gốc. HTML/CSS hiển thị toàn khung theo đúng tỷ lệ. `PhoVietWebBuild.RefreshWebShell` chép ba ảnh và dọn hai ảnh cũ trước khi tạo cache. Bộ kiểm tra bố cục và cập nhật shell dùng tên ảnh mới.
 - Unity biên dịch sạch trước thử Play Mode. Đèn phanh qua 17 kiểm tra, gồm ngày/đêm, giảm tốc, dừng, tạm dừng, đạp ga, va chạm, chơi lại và cách ly đèn khác. Đã xem ảnh render cận sau xe. Báo cáo và ảnh trong `.tools/brake-lamps-164.txt`, `.tools/brake-164-*.png`.
-- Đã build WebGL 1.64.0 gồm chuyển động bánh xe 21.164 và icon đã duyệt 21.167. Hai gói ETC2/DXT hoàn tất trong 467,457 giây, 0 lỗi build và cảnh báo cấu hình Runtime Pipeline quen thuộc. Đạt 207 kiểm tra Unity trước và sau build, giữ nguyên SHA của 592 tệp nguồn, 48 kiểm tra gói Git, 39 kiểm tra gói Pages, 40 kiểm tra index, 603 kiểm tra bố cục Chrome và 18 kiểm tra WebGL desktop/mobile/offline. Cache `d9d1ebc9a916b5f3`. Đang phát hành lên GitHub Pages.
+- Đã build WebGL 1.64.0 gồm chuyển động bánh xe 21.164 và icon đã duyệt 21.167. Hai gói ETC2/DXT hoàn tất trong 467,457 giây, 0 lỗi build và cảnh báo cấu hình Runtime Pipeline quen thuộc. Đạt 207 kiểm tra Unity trước và sau build, giữ nguyên SHA của 592 tệp nguồn, 48 kiểm tra gói Git, 39 kiểm tra gói Pages, 40 kiểm tra index, 603 kiểm tra bố cục Chrome và 18 kiểm tra WebGL desktop/mobile/offline.
+- Commit `695c436` đã push và triển khai đúng SHA qua [GitHub Pages run 42557744706](https://github.com/denispham1107/taixecongnghe/actions/runs/42557744706). Web công khai trả 1.64.0, cache `d9d1ebc9a916b5f3`. Đạt 34 kiểm tra live, gồm byte tài nguyên, tải scene, bắt đầu và tạm dừng. Không có lỗi runtime. Báo cáo `Captures/release164-pages.json` và `Captures/release164-live-results.json`. Unity về Edit Mode và máy chủ localhost đã dừng.
