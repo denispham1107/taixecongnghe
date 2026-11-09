@@ -17,10 +17,14 @@ namespace PhoViet
   const float AirRevealDistance=45,AirIconLift=.65f;
   // The Bay button and the jump-to-flight gesture hold at the same jump apex.
   public static float FlightHeightAboveSupport=>JumpHeightAtSpeed(0);
+  public const float MaximumFlightHeightRatio=2.2f;
+  public static float MaximumFlightHeightAboveSupport=>FlightHeightAboveSupport*MaximumFlightHeightRatio;
   public static float AirPickupHeight=>FlightHeightAboveSupport+AirIconLift;
   bool airIconsShown;
-  bool energyHover,barrelRolling,energyHoverRequested;float flightEnergyClock,barrelClock,energyClock;
+  bool energyHover,barrelRolling,energyHoverRequested;float flightEnergyClock,flightEnergyUsed,barrelClock,energyClock;
   float MinimumFlightHeight=>jumpBaseHeight+FlightHeightAboveSupport;
+  public static float FlightDrainMultiplier(float heightAboveSupport)
+   =>Mathf.Lerp(1,4,Mathf.InverseLerp(FlightHeightAboveSupport,MaximumFlightHeightAboveSupport,heightAboveSupport));
   Texture2D energyHudIcon;GameObject energyPickupPrefab;
   Material airPickupMaterial;
   System.Random energyRng;
@@ -88,7 +92,7 @@ namespace PhoViet
   }
   bool ToggleEnergyFlight()
   {
-   if(energyHover){energyHover=false;jumpVelocity=0;return true;}
+   if(energyHover){EndEnergyHover();return true;}
    return RequestEnergyHover();
   }
   bool RequestEnergyHover()
@@ -104,7 +108,8 @@ namespace PhoViet
    return true;
   }
   void StartEnergyHover(){CancelAssistedKick(false);energyHoverRequested=false;energyHover=true;jumpVelocity=0;}
-  void CancelEnergyFlight(){energyHoverRequested=false;energyHover=false;barrelRolling=false;flightEnergyClock=barrelClock=0;}
+  void EndEnergyHover(){energyHover=false;barrelRolling=false;jumpVelocity=0;CancelFlightButtonPress();}
+  void CancelEnergyFlight(){energyHoverRequested=false;EndEnergyHover();flightEnergyClock=flightEnergyUsed=barrelClock=0;}
   public bool TryBarrelRoll()
   {
    if(State!=RideState.Riding||ServiceStopped||!energyHover||barrelRolling)return false;
@@ -119,11 +124,15 @@ namespace PhoViet
    while(energyHover&&left>0)
    {
     float step=Mathf.Min(left,FlightEnergyInterval-flightEnergyClock);
+    float drainBefore=FlightDrainMultiplier(jumpHeight-jumpBaseHeight);
+    AdvanceFlightClimb(step);
+    float drainAfter=FlightDrainMultiplier(jumpHeight-jumpBaseHeight);
+    flightEnergyUsed+=(drainBefore+drainAfter)*.5f*(FlightEnergyCost/FlightEnergyInterval)*step;
     flightEnergyClock+=step;left-=step;
     if(flightEnergyClock>=FlightEnergyInterval-1e-6f)
     {
-     flightEnergyClock=0;Energy=Mathf.Max(0,Energy-FlightEnergyCost);
-     if(Energy==0){energyHover=false;jumpVelocity=0;}
+     flightEnergyClock=0;Energy=Mathf.Max(0,Energy-Mathf.RoundToInt(flightEnergyUsed));flightEnergyUsed=0;
+     if(Energy==0)EndEnergyHover();
     }
    }
    return energyHover?0:left;

@@ -6,6 +6,36 @@ namespace PhoViet
  {
   public bool FlightEngaged=>energyHover||energyHoverRequested;
   public bool FlightButtonReady=>FlightEngaged||jumpFlying&&Energy>0||Energy>=JumpEnergyCost;
+  const float FlightClimbHoldDelay=.25f,FlightClimbSpeed=3.1f;
+  bool flightButtonHeld,flightButtonCanClimb;
+  float flightButtonHeldTime;
+
+  bool BeginFlightButtonPress(Vector2 position)
+  {
+   if(State!=RideState.Riding||ServiceStopped||JobOffersOpen||!FlightButtonAt(position))return false;
+   lastTapTime=-100;
+   flightButtonHeld=true;flightButtonCanClimb=energyHover;flightButtonHeldTime=0;
+   return true;
+  }
+  void EndFlightButtonPress(Vector2 position,bool released)
+  {
+   bool toggle=flightButtonHeld&&released&&FlightButtonAt(position)&&
+    (!flightButtonCanClimb||flightButtonHeldTime<FlightClimbHoldDelay);
+   CancelFlightButtonPress();
+   if(toggle)TryToggleFlightButton();
+  }
+  void CancelFlightButtonPress()
+  {
+   flightButtonHeld=flightButtonCanClimb=false;flightButtonHeldTime=0;
+  }
+  void AdvanceFlightClimb(float dt)
+  {
+   if(!flightButtonHeld||!flightButtonCanClimb)return;
+   float previous=flightButtonHeldTime;
+   flightButtonHeldTime+=dt;
+   float climbTime=Mathf.Min(dt,Mathf.Max(0,flightButtonHeldTime-Mathf.Max(previous,FlightClimbHoldDelay)));
+   jumpHeight=Mathf.MoveTowards(jumpHeight,jumpBaseHeight+MaximumFlightHeightAboveSupport,FlightClimbSpeed*climbTime);
+  }
   public Rect FlightButtonPixels()=>FlightButtonLayout(GameGuiArea(),Screen.width<Screen.height,browserPixelRatio);
   // Stacked above the missile button, in the same left-thumb column.
   public static Rect FlightButtonLayout(Rect area,bool narrow,float pixelRatio=1)
@@ -24,7 +54,7 @@ namespace PhoViet
   {
    if(State!=RideState.Riding||ServiceStopped)return false;
    jumpQueued=0;
-   if(energyHover){energyHover=false;barrelRolling=false;jumpVelocity=0;return true;}
+   if(energyHover){EndEnergyHover();return true;}
    if(energyHoverRequested){energyHoverRequested=false;return true;}
    if(jumpFlying)
    {
@@ -41,10 +71,6 @@ namespace PhoViet
    var pixels=FlightButtonPixels();var area=GameGuiArea();
    var r=new Rect((pixels.x-area.x)/uiScale,(pixels.y-area.y)/uiScale,pixels.width/uiScale,pixels.height/uiScale);
    DrawArcadeControl(r,FlightEngaged?ArcadeControl.Land:ArcadeControl.Flight,FlightButtonReady?1:.55f);
-   bool click=GUI.Button(r,GUIContent.none,GUIStyle.none);
-#if !UNITY_WEBGL || UNITY_EDITOR
-   if(click&&Time.unscaledTime>=hudTouchSuppressUntil&&(Event.current.mousePosition-r.center).sqrMagnitude<=r.width*r.width*.25f)TryToggleFlightButton();
-#endif
   }
  }
 }

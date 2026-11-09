@@ -870,6 +870,8 @@ Python chạy trong Blender, không phải Python ngoài shell có sẵn `bpy`. 
 
 ### 13.3. Cầu nối Meshy → Unity (Meshy Bridge, 23/10/2026)
 
+> **Cập nhật 10/11/2026:** xem 21.176 cho bản Meshy Bridge 0.2.5 đang cài trong Phố Việt. Các chi tiết 0.2.4 bên dưới là lịch sử.
+
 Mục đích: bấm **Cầu DCC → Gửi đến Unity** trên meshy.ai để mô hình (ví dụ xe máy dựng bằng Meshy) tự tải vào editor đang mở.
 
 **Đã cài:**
@@ -3621,3 +3623,30 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Bản 1.66.0 gồm thanh máu và ba phát tên lửa hạ khủng long ở 21.173, cùng số trực thăng và nhịp tên lửa tăng theo lượt rẽ ở 21.174.
 - Unity 6000.5.6f1 build đủ ETC2/EAC và DXT trong 449,321 giây, 0 lỗi và 1 cảnh báo cấu hình Runtime Pipeline. 208 kiểm tra Unity trước và sau build, SHA của 592 tệp nguồn giữ nguyên. Cache `e0d6fc7506d5a965`. Đạt 48 kiểm tra gói Git, 39 kiểm tra gói ghép, 603 kiểm tra bố cục Chrome, 18 kiểm tra Chrome WebGL desktop/mobile/offline và 40 kiểm tra Git index. Máy chủ thử cục bộ đã dừng. Mobile được kiểm bằng Chrome giả lập.
 - Commit `6fcae72` đã push và [GitHub Pages run 42664763165](https://github.com/denispham1107/taixecongnghe/actions/runs/42664763165) triển khai thành công đúng SHA. Web công khai trả phiên bản và cache đúng bản đã kiểm thử. Đạt 34 kiểm tra live, gồm đối chiếu tệp, tải scene và kiểm tra thao tác bắt đầu/tạm dừng. Không ghi nhận lỗi runtime. Báo cáo `Captures/release166-pages.json` và `Captures/release166-live-results.json`.
+
+## 21.176. Khôi phục Meshy Bridge trong Unity Phố Việt (10/11/2026 — Codex)
+
+- **Hiện tượng và nguyên nhân:** menu Meshy mất vì thư mục plugin `Assets/ai.meshy/` và meta gốc không còn trong dự án. Lịch sử Git không có file tại đường dẫn đó. Các mô hình đã nhập vẫn ở `Assets/MeshyImports/`. Dự án Diablo25D có bản plugin riêng.
+- **Khôi phục:** lấy `meshy-for-unity-0.2.5.unitypackage` từ [trang tích hợp chính thức Meshy](https://www.meshy.ai/integrations/unity), SHA-256 `BC66D8FB8111808FE2E74CE889FDB8CD2307CEB983CDA3329D87E110EBB15E9D`. Chỉ nhập `Assets/ai.meshy/` và các meta gốc. Giữ `MeshyAssembly` chỉ dùng trong Editor, bỏ tham chiếu `Unity.Formats.Fbx.Editor` không được mã plugin sử dụng. Unity nhập FBX qua AssetDatabase, glTFast 6.20.0 có sẵn cho GLB.
+- **Kết nối:** `Assets/ai.meshy/Editor/Script/MeshyBridgeWindow.cs` giới hạn TCP ở `127.0.0.1:5326` với cổng dành riêng cho một Editor. Khôi phục header preflight `Access-Control-Allow-Private-Network: true`. Bản 0.2.5 đã nhận cả hai origin `https://meshy.ai` và `https://www.meshy.ai`, từ chối POST từ origin web khác.
+- **Đã kiểm tra:** Unity 6000.5.6f1 biên dịch `MeshyAssembly.dll`; chạy thành công menu **Meshy → Bridge** trong scene PhoViet, Edit Mode, scene sạch. `GET /status` trả 200 với `dcc: unity`, preflight `OPTIONS /import` trả 200 với các header đúng và `POST /import` từ origin khác trả 403. Cổng loopback thuộc đúng tiến trình Editor. Bridge được để mở cho người dùng, chưa gửi mô hình từ tài khoản Meshy trong lần này.
+- **Cách dùng:** giữ cửa sổ **Meshy → Bridge** mở với trạng thái **Bridge ON**, rồi chọn **Cầu DCC → Gửi đến Unity** trong Meshy. Mô hình gửi đến nằm trong `Assets/MeshyImports/`. Nếu một dự án Unity khác đang dùng cổng 5326, tắt Bridge trong dự án đó trước.
+- **Trạng thái:** plugin cài cục bộ trong dự án, chưa commit hoặc push. Gói gốc được lưu cục bộ trong `.tools/`. Web vẫn ở 1.66.0.
+
+## 21.177. Bay cao và máy bay hai tầng cánh Crimson Skywing (10/11/2026 — Codex)
+
+- **Điều khiển:** khi đang giữ bay, giữ nút Bay/Hạ trên màn hình từ 0,25 giây để lên thêm 3,1 m/s. Thả nút giữ độ cao vừa đạt, bấm ngắn để hạ. Space/vuốt lên vẫn nhảy, vào bay thường hoặc hạ. `PhoVietFlightButton.cs`, `PhoVietPortraitHud.cs`, `PhoVietGestures.cs`, `PhoVietWebRuntime.cs` và WebGL template `app.js` phân biệt nhấn/thả/hủy. Pause xóa thao tác đang giữ.
+- **Độ cao và năng lượng:** đỉnh nhảy và độ cao bay ban đầu vẫn 4,52832 m so với mặt đỡ khi cất cánh. Giới hạn bay cao 2,2×, khoảng 9,96230 m. `PhoVietEnergy.cs` tính tiêu hao tăng tuyến tính theo độ cao từ 10 tới 40 năng lượng mỗi 0,5 giây, tính theo độ cao thực trong chu kỳ. Hết năng lượng thì xe rơi và đáp theo vật lý hiện có.
+- **Máy bay hai tầng cánh:** nhận Crimson Skywing từ Meshy qua `Assets/MeshyImports/Crimson_Skywing_20261110_013834/`. `prepare_skywing.py` tách riêng cánh quạt trước và làm 3 LOD. `InstallSkywing21177.cs` tạo prefab `Resources/Skywing/PV_Skywing.prefab`, sải cánh 6 m, giữ texture gốc. `SkywingVisual.cs` quay cánh quạt theo trục mũi và tạo dao động khi bay.
+- **Tầng và chiến đấu:** `PhoVietSkywing.cs` sinh thêm 2 chiếc ở mỗi ngưỡng 1,3× / 1,7× / 2,1×, tối đa 6 chiếc. Mỗi cặp chọn hai làn khác nhau, giãn dọc đường và bay ngược chiều 20 m/s. Trực thăng theo cơ chế cũ, trực thăng thông thường giữ độ cao bay gốc. Máy bay dùng chung tên lửa địch, nhịp bắn và quy tắc né của trực thăng, có thể bị tên lửa người chơi bắn rơi. Va thân, cánh hoặc cánh quạt làm cả hai cháy và áp dụng kết thúc lượt như va trực thăng.
+- **Kiểm tra:** Unity 6000.5.6f1 biên dịch 0 lỗi, 0 cảnh báo. `VerifySkywing21177.cs` đạt 42 điều kiện, kiểm tra hồi quy độ cao/khóa tên lửa 205 và lượt rẽ/nhịp tên lửa 372. JavaScript kiểm tra 10 chuỗi nhấn, giữ, hủy và vuốt theo cả hai khổ. Hai bộ kiểm tra lịch sử 21.140/21.143 dừng ở các giả định đã cũ về góc dưới phải và mức 0,84 đỉnh nhảy. Đã xem render Unity tại `.tools/skywing-21177-preview.png`. Chưa kiểm tra WebGL build mới hoặc điện thoại thật.
+- **Scene và tài sản:** bỏ riêng bản xem trước FBX do Bridge tự thả ở gốc scene bằng Undo, giữ mô hình và texture nguồn. Xác minh Edit Mode, prefab tải được, bản xem trước đã vắng mặt. Không lưu scene đang có thay đổi trong Editor; file scene trên đĩa không đổi.
+- **Phạm vi phát hành:** triển khai và kiểm thử Unity ở mục này. Xem 21.178 cho bản WebGL 1.67.0.
+
+## 21.178. Build và phát hành WebGL 1.67.0 (10/11/2026 — Codex)
+
+- Gồm chế độ giữ nút Bay/Hạ để lên tối đa 9,96 m và ba tầng máy bay Crimson Skywing của 21.177. Meshy Bridge 0.2.5 vẫn là công cụ Editor cục bộ.
+- Bổ sung prefab Skywing vào dependency của `PhoVietWebMemorySettings.cs` để ba texture Meshy dùng ETC2/EAC 1K trên mobile và DXT 2K trên desktop. Scene đang mở khớp byte với scene trên đĩa trước khi mở lại, giữ nguyên scene và khóa công việc.
+- Unity 6000.5.6f1 build đủ hai biến thể trong 172,159 giây, 0 lỗi, 1 cảnh báo Runtime Pipeline. 214 kiểm tra trước build, 220 sau build; đối chiếu 602 tệp nguồn, chuẩn hóa một khoảng trắng cuối dòng do Unity sinh trong prefab trước khi stage. Cache `d7ae63b6ac6d824e`.
+- Đạt 48 kiểm tra gói Git, 39 kiểm tra site ghép, 42 kiểm tra Git index, 603 kiểm tra bố cục và 22 kiểm tra Chrome WebGL cục bộ. Đã tải scene desktop/mobile, thử chuỗi nhấn giữ/thả Bay và chạy offline desktop. Mobile là Chrome giả lập. Máy chủ thử đã dừng.
+- Trạng thái lúc commit build: đã kiểm tra gói phát hành, đang chờ push, GitHub Pages và kiểm tra live.

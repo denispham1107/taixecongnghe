@@ -11,6 +11,7 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 | Mục | Giá trị |
 | --- | --- |
 | Bản đã phát hành | **1.66.0** — WebGL `6fcae72`, Pages `42664763165` thành công đúng SHA, cache `e0d6fc7506d5a965`. Gồm thanh máu khủng long và độ khó tăng sau khi rẽ. **34 kiểm tra live đạt, 0 lỗi runtime.** |
+| Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra, plugin cục bộ chưa commit. |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
@@ -19,6 +20,7 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 | Chế độ chơi | **Web1.53.0/21.118:** reset quãngvăng trước dựngđường để chơi lại rẽđúng/khônglệchnhà. **21.115:** điểm/kỷlục dừngngaylúcva chạm, không cộngquãngvăng; physics giữ; truy đuổi CSGT tạm khóa trong source21.155. Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, thu nhỏ 15%. Q/chạm hai lần móc xích trong 4 m khi chưa bay, lộn khi bay (21.155, web 1.61.0). Space/vuốt lên nhảy với bốn luồng khói trắng. W/F/vuốt xuống bắn tên lửa. Boost tạm khóa và giữ mã hiệu ứng hai ống bô. |
+| Bay cao và máy bay hai tầng cánh | **21.177, WebGL 1.67.0 đã build:** giữ Bay lên tối đa 2,2× (9,96 m), tiêu hao 10–40 mỗi 0,5 s. Crimson Skywing sinh 2/4/6 chiếc theo độ cao, dùng tên lửa như trực thăng. Đang chờ Pages. |
 | Bay và nhảy | **21.169, web 1.65.0:** nút Bay và nhảy rồi giữ cùng đỉnh **4,52832 m** từ mặt đỡ. Đỉnh nhảy tăng 10%, cố định theo tốc độ. Lệnh giữ lúc đang rơi sẽ nâng lên đỉnh. |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Tối ưu mobile | **21.136/21.138 đã có trên web 1.57.1:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop **Rất cao (source21.144)** giữ baseline trừ cascades WebGL; Rấtcao không tựgiảm. Layer ẩn sớm gồm đèn tín hiệu và đèn đường từ source21.147 |
@@ -53,6 +55,12 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.178:** WebGL 1.67.0 đã build đủ ETC2/EAC và DXT, cache ``d7ae63b6ac6d824e``. Đạt 42 kiểm tra Git index, 603 bố cục và 22 Chrome cục bộ. Đang chờ Pages.
+
+- **21.177:** bay cao, tiêu hao năng lượng và máy bay Crimson Skywing đã kiểm tra xong trong Unity. 619 điều kiện Unity và 10 chuỗi thao tác JavaScript đạt. Trở về Edit Mode. Đã bỏ bản xem trước khỏi scene đang mở, không lưu scene. Web vẫn 1.66.0.
+
+- **21.176:** khôi phục Meshy Bridge chính thức, biên dịch Editor và kiểm tra HTTP 200/403. Unity Phố Việt đang mở Bridge để nhận mô hình. Xem mục 13.3 và 21.176.
 
 - **21.175 đã phát hành WebGL 1.66.0:** ETC2/DXT trong 449,321 giây. 208 kiểm tra Unity trước/sau, 603 bố cục, 18 Chrome cục bộ và 34 live đạt. Pages `42664763165`, commit `6fcae72`.
 - **21.174:** mỗi lượt rẽ hoàn tất cộng 1 trực thăng, giảm 0,1 giây giữa các phát tên lửa địch tới sàn 0,25 giây. 322 kiểm tra Play Mode đạt. Có trên web 1.66.0.
@@ -280,6 +288,9 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.178 đang làm:** build và phát hành WebGL 1.67.0 cho bay cao/Crimson Skywing. Scene đang mở đã được chụp và đối chiếu SHA với scene lưu, trùng byte. Đã đưa prefab Skywing vào danh sách nén texture WebGL và qua 214 kiểm tra trước build. Đã build cả hai biến thể, kiểm tra gói và Chrome cục bộ. Đang chuẩn bị push, chờ đúng run Pages và kiểm tra live.
+
+
 
 
 
@@ -473,6 +484,7 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 | Vuốt/nhảy/nút bay/icon năng lượng trên không | **21.140** | `PhoVietGestures.cs`, `PhoVietJump.cs`, `PhoVietFlightButton.cs`, `PhoVietEnergy.cs`, `PhoVietPortraitHud.cs`→GameplayPointerAllowed, `app.js`→swipeAction; `Resources/PlayerFlight/`, `ArtSource/UI/flight_button_icon.py`; `AgentScripts/VerifyFlight2140.cs`, `VerifySwipeShell2140.cjs`, `CaptureFlight2140.cs`, `InstallFlight2140.cs` |
 | Mapping W/vuốt xuống bắn, boost tạm khóa, nhặt+15 | **21.142** | `PhoVietGame.cs`, `PhoVietGestures.cs`, `PhoVietBoost.cs`, `PhoVietEnergy.cs`, `PhoVietLandscapeHud.cs`, HTML template; `AgentScripts/VerifyMissileInput2142.cs`, `VerifyGestures.cs`, `VerifyFlight2140.cs` |
 | Năng lượng6/7 / bắn tank dướiđất / xáccháy | **21.145** | `PhoVietPlayerTankMissiles.cs`, `PhoVietPlayerMissiles.cs`, `PhoVietTankFire.cs`, `PhoVietEnergy.cs`, `ThunderstormVisual.cs`, Traffic/Actions/Recovery; `AgentScripts/VerifyTankMissiles2145.cs`, `CaptureTank2145.cs` |
+| Bay cao, giữ nút Bay và máy bay Crimson Skywing | **21.177** | `PhoVietSkywing.cs`, `SkywingVisual.cs`, `PhoVietFlightButton.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`, `PhoVietHelicopter*.cs`, template WebGL `app.js`, `Resources/Skywing`, `AgentScripts/VerifySkywing21177.cs` |
 | Đỉnh nhảy và giữ bay / bắn xe tăng từ trên không | **21.169**, lịch sử 21.143/21.145 | `PhoVietJump.cs`, `PhoVietEnergy.cs` → FlightHeightAboveSupport/RequestEnergyHover, `PhoVietFlightButton.cs`, `PhoVietPlayerMissiles.cs`, `PhoVietPlayerTankMissiles.cs` |
 | Năng lượng / icon C / giữ cao độ / lộn360 | **21.148,21.121–21.123** | `Scripts/PhoVietEnergy.cs`, `PhoVietJump.cs`, `PlayerCarVisual.cs`, `PhoVietActions.cs`, `PhoVietRiver.cs`, `PhoVietDistanceHud.cs`; `Resources/Energy/`, `Art/Energy/`, `EnergyPickup.shader`; `AgentScripts/VerifyEnergyWeb.cjs`, `VerifyRelease154Scene.cs`, `AgentScripts/VerifyEnergy2122.cs`, `VerifyEnergyRoutes2122.cs`, `InstallEnergy2122.cs`, `CaptureEnergy2122.cs`; `ArtSource/Concepts/Energy-20261103/approval.json` |
 | WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.106**,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease159Scene.cs`, `VerifyStormWeb.cjs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |

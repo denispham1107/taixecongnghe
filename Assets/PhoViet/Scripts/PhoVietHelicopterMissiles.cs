@@ -52,7 +52,8 @@ namespace PhoViet
   bool FireHelicopterMissile(HelicopterActor h)
   {
    if(h==null||!h.active||h.wrecked||State!=RideState.Riding||!RiderFlying)return false;
-   Vector3 origin=h.root.localPosition+h.root.localRotation*new Vector3(0,-.15f,1.3f);
+   Vector3 launcher=h.skywing!=null?new Vector3(0,-.55f,1.05f):new Vector3(0,-.15f,1.3f);
+   Vector3 origin=h.root.localPosition+h.root.localRotation*launcher;
    return FireEnemyMissile(origin,false);
   }
   bool FireEnemyMissile(Vector3 origin,bool fromTank)
@@ -106,7 +107,7 @@ namespace PhoViet
    }
    time=enter;return true;
   }
-  void BurnAirAttackRider(Vector3 point,bool missile,bool fromTank=false)
+  void BurnAirAttackRider(Vector3 point,bool missile,bool fromTank=false,bool biplane=false)
   {
    if(State!=RideState.Riding||RiderAirAttackBurning)return;
    Vector3 before=riderVelocityValid?riderRoadVelocity:rider.localRotation*Vector3.forward*Speed;
@@ -115,12 +116,13 @@ namespace PhoViet
    riderFallVelocity=direction*Mathf.Clamp(before.magnitude*.6f,6,25)+Vector3.down*2;riderFallSpin=new Vector3(20,8,55);
    RiderAirAttackBurning=true;HitByHelicopterMissile|=missile&&!fromTank;HitByTankMissile|=missile&&fromTank;CrashDuringPursuit=false;IsChased=false;routePolice=false;chaseBoost=0;ResetCrashPoliceNavigation();siren?.Stop();
    EnsureThunderstorm();stormVisual?.Burn(rider,null);
-   notice=missile?"TRÚNG TÊN LỬA · CHUYẾN ĐI KẾT THÚC":"VA TRỰC THĂNG · CHUYẾN ĐI KẾT THÚC";noticeTimer=5;
+   notice=missile?"TRÚNG TÊN LỬA · CHUYẾN ĐI KẾT THÚC":biplane?"VA MÁY BAY · CHUYẾN ĐI KẾT THÚC":"VA TRỰC THĂNG · CHUYẾN ĐI KẾT THÚC";noticeTimer=5;
   }
   void KnockHelicopter(HelicopterActor h,Vector3 before,Vector3 away)
   {
    if(h.wrecked)return;h.wrecked=true;h.age=0;h.velocity=h.velocity*.55f+before*.15f-away*3+Vector3.down*2;
-   h.wreckEuler=h.root.localEulerAngles;h.wreckSpin=new Vector3(25,16,away.x>=0?-65:65);h.visual.SetWrecked();
+   h.wreckEuler=h.root.localEulerAngles;h.wreckSpin=new Vector3(25,16,away.x>=0?-65:65);
+   if(h.skywing!=null)h.skywing.SetWrecked();else h.visual.SetWrecked();
    EnsureThunderstorm();stormVisual?.Burn(h.root,null,1.65f);AirAttackBurst(h.root.localPosition);
   }
   void TickHelicopterWreck(HelicopterActor h,float dt)
@@ -134,6 +136,7 @@ namespace PhoViet
   public bool IsAircraftBurning(Transform target)
   {
    if(target==rider)return RiderAirAttackBurning;
+   foreach(var plane in skywings)if(plane.root==target)return plane.active&&plane.wrecked;
    foreach(var h in helicopters)if(h!=null&&h.root==target)return h.active&&h.wrecked;return false;
   }
   void AirAttackBurst(Vector3 at)

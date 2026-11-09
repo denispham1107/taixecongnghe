@@ -11,6 +11,7 @@ namespace PhoViet
   {
    public Transform root;public HelicopterVisual visual;public bool active,wrecked,turnFirstShotPending;
    public float age,shotRemaining,shotInterval;public Vector3 velocity,scroll,wreckEuler,wreckSpin,missilePrevious;public int generation;
+   public SkywingVisual skywing;public int tier,spawnLane;
   }
   readonly List<HelicopterActor> helicopters=new List<HelicopterActor>(MaximumDistanceHelicopters);
   readonly int[] helicopterLanes={0,1,2,3};int helicopterLaneCursor=4;
@@ -49,6 +50,7 @@ namespace PhoViet
    ResetHelicopterMissiles();
    ResetPlayerMissiles();
    ResetMissileLaunchAudio();
+   ResetSkywings();
   }
   int NextHelicopterLane()
   {
@@ -76,7 +78,7 @@ namespace PhoViet
     if(CompletedTurns==0||lateral<.1f)z=Mathf.Max(z,h.root.localPosition.z+HelicopterSpacing);
     else if(lateral<5.5f)z=Mathf.Max(z,h.root.localPosition.z+AdjacentHelicopterSpacing);
    }
-   float altitude=RiderFlying?rider.localPosition.y:FlightHeightAboveSupport;
+   float altitude=RiderFlying?MinimumFlightHeight:FlightHeightAboveSupport;
    LaunchHelicopter(free,new Vector3(laneX,altitude+PlayerHeight*.5f,z));
    if(RiderFlying){notice="TRỰC THĂNG NGƯỢC CHIỀU · CHÚ Ý KHI BAY";noticeTimer=2;}
    return true;
@@ -96,12 +98,14 @@ namespace PhoViet
   void LaunchHelicopter(HelicopterActor actor,Vector3 position,bool postTurn=false)
   {
    actor.root.localPosition=actor.missilePrevious=position;
-   actor.root.localRotation=Quaternion.Euler(0,180,0);actor.velocity=Vector3.back*HelicopterSpeed;
+   actor.root.localRotation=Quaternion.Euler(0,180,0);actor.velocity=Vector3.back*(actor.skywing!=null?SkywingSpeed:HelicopterSpeed);
    actor.generation++;actor.age=0;actor.scroll=Vector3.zero;
    actor.shotInterval=actor.shotRemaining=CurrentHelicopterMissileInterval;
    actor.active=true;actor.wrecked=false;
    actor.turnFirstShotPending=postTurn;
-   actor.root.gameObject.SetActive(true);actor.visual.ResetPose();HelicoptersSpawned++;
+   actor.root.gameObject.SetActive(true);
+   if(actor.skywing!=null)actor.skywing.ResetPose();
+   else{actor.visual.ResetPose();HelicoptersSpawned++;}
    if(postTurn)TickHelicopterWeapon(actor,0);
   }
   void SpawnTurnHelicopter(Dinosaur dinosaur)
@@ -119,20 +123,29 @@ namespace PhoViet
    lead.scroll=Vector3.forward*dinosaurScroll;
    turnHelicopterReinforcements=ActiveHelicopterCount<HelicopterTargetCount;
   }
-  void ScrollHelicopter(float delta){foreach(var h in helicopters)if(h!=null&&h.active)h.scroll+=Vector3.forward*delta;ScrollHelicopterMissiles(delta);ScrollPlayerMissiles(delta);ScrollMissileLaunchAudio(delta);}
+  void ScrollHelicopter(float delta)
+  {
+   foreach(var h in helicopters)if(h!=null&&h.active)h.scroll+=Vector3.forward*delta;
+   foreach(var plane in skywings)if(plane.active)plane.scroll+=Vector3.forward*delta;
+   ScrollHelicopterMissiles(delta);ScrollPlayerMissiles(delta);ScrollMissileLaunchAudio(delta);
+  }
   void RebaseHelicopter(Quaternion inverse,Vector3 origin)
   {
    turnHelicopterReinforcements=false;
    RebaseMissileLaunchAudio(inverse,origin);
-   if(!HelicopterActive&&ActiveHelicopterMissileCount==0&&ActiveTankMissileCount==0&&ActivePlayerMissileCount==0)return;
-   foreach(var h in helicopters)if(h!=null&&h.active)
-   {
-    h.root.localPosition=inverse*(h.root.localPosition-origin);h.root.localRotation=inverse*h.root.localRotation;
-    h.velocity=inverse*h.velocity;h.scroll=inverse*h.scroll;if(h.wrecked){h.wreckEuler=h.root.localEulerAngles;h.wreckSpin=inverse*h.wreckSpin;}
-   }
+   if(!HelicopterActive&&!skywings.Exists(plane=>plane.active)&&ActiveHelicopterMissileCount==0&&
+      ActiveTankMissileCount==0&&ActivePlayerMissileCount==0)return;
+   foreach(var h in helicopters)if(h!=null&&h.active)RebaseAircraft(h,inverse,origin);
+   foreach(var plane in skywings)if(plane.active)RebaseAircraft(plane,inverse,origin);
    RebaseHelicopterMissiles(inverse,origin);
    RebasePlayerMissiles(inverse,origin);
    helicopterRebased=true;helicopterRebaseRotation=inverse;helicopterRebaseOrigin=origin;
+  }
+  static void RebaseAircraft(HelicopterActor h,Quaternion inverse,Vector3 origin)
+  {
+   h.root.localPosition=inverse*(h.root.localPosition-origin);h.root.localRotation=inverse*h.root.localRotation;
+   h.velocity=inverse*h.velocity;h.scroll=inverse*h.scroll;
+   if(h.wrecked){h.wreckEuler=h.root.localEulerAngles;h.wreckSpin=inverse*h.wreckSpin;}
   }
   void TickHelicopter(float dt,Vector3 previousRider,bool collisions=true)
   {
@@ -140,9 +153,11 @@ namespace PhoViet
    // Both ends of every collision sweep use the destination street coordinates.
    if(helicopterRebased){previousRider=helicopterRebaseRotation*(previousRider-helicopterRebaseOrigin);helicopterRebased=false;}
    foreach(var h in helicopters)if(h!=null&&h.active){h.missilePrevious=h.root.localPosition-h.scroll;TickHelicopterActor(h,dt,previousRider,collisions);}
+   foreach(var plane in skywings)if(plane.active){plane.missilePrevious=plane.root.localPosition-plane.scroll;TickHelicopterActor(plane,dt,previousRider,collisions);}
    TickPlayerMissiles(dt);
    TickHelicopterMissiles(dt,previousRider,collisions);
    if(!collisions||State!=RideState.Riding||IsTurning)return;
+   SpawnSkywings();
    if(!RiderFlying&&!turnHelicopterReinforcements)return;
    // Fill the opening formation immediately; feed larger formations over successive steps.
    for(int i=0;i<MaximumDistanceHelicopters&&SpawnHelicopter();i++){}
@@ -152,7 +167,18 @@ namespace PhoViet
   {
    if(h.wrecked){TickHelicopterWreck(h,dt);return;}
    Vector3 from=h.root.localPosition;h.root.localPosition+=h.velocity*dt-h.scroll;h.scroll=Vector3.zero;h.age+=dt;
-   if(collisions&&State==RideState.Riding)
+   if(collisions&&State==RideState.Riding&&h.skywing!=null)
+   {
+    if(SkywingTouchesRider(from,h.root.localPosition,h.root.localRotation,previousRider))
+    {
+     Vector3 away=rider.localPosition-h.root.localPosition;
+     away.y=0;
+     if(away.sqrMagnitude<.01f)away=Vector3.back;
+     KnockHelicopter(h,riderRoadVelocity,away.normalized);
+     BurnAirAttackRider(h.root.localPosition,false,biplane:true);
+    }
+   }
+   else if(collisions&&State==RideState.Riding)
    {
     int steps=Mathf.Max(1,Mathf.CeilToInt(((h.root.localPosition-from)-(rider.localPosition-previousRider)).magnitude/.22f));
     for(int i=0;i<=steps;i++)

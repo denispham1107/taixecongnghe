@@ -16,7 +16,7 @@ namespace PhoViet
             if(State==RideState.Ready){WelcomeTap(new Vector2(tap.x*Screen.width,(1-tap.y)*Screen.height));return;}
             if(JobOffersOpen||State==RideState.GameOver||State==RideState.Jailed||State==RideState.Arrested)return;
             int choice=HudButtonAt(new Vector2(tap.x*Screen.width,(1-tap.y)*Screen.height));
-            if(choice<0)return;
+            if(choice<0||choice==3&&browserPointerActive)return;
             hudTouchSuppressUntil=Time.unscaledTime+.6f;
             HandleHudChoice(choice);
         }

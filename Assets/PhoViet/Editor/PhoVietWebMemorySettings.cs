@@ -23,6 +23,8 @@ namespace PhoViet.Editor
    var paths=new List<string>{"Assets/PhoViet/Scenes/PhoViet.unity"};
    const string helicopter="Assets/PhoViet/Resources/Helicopter/PV_Helicopter.prefab";
    if(File.Exists(helicopter))paths.Add(helicopter);
+   const string skywing="Assets/PhoViet/Resources/Skywing/PV_Skywing.prefab";
+   if(File.Exists(skywing))paths.Add(skywing);
    const string missile="Assets/PhoViet/Resources/Helicopter/PV_HelicopterMissile.prefab";
    if(File.Exists(missile))paths.Add(missile);
    const string playerPickup="Assets/PhoViet/Resources/PlayerMissile/PV_MissilePickup.prefab",playerIcon="Assets/PhoViet/Resources/PlayerMissile/PV_MissileHud.png";

@@ -8,7 +8,7 @@ namespace PhoViet
   const float PortraitBarTop=10,PortraitBarHeight=96,PortraitNoticeTop=112,PortraitNoticeHeight=28;
   static readonly Color PortraitGlass=new Color(.07f,.19f,.21f,.64f);
   bool swipeCanSteer;
-  int hudTouchChoice=-1;Vector2 hudTouchStart;float hudTouchSuppressUntil;
+  int hudTouchChoice=-1,hudTouchFinger;Vector2 hudTouchStart;float hudTouchSuppressUntil;
   int HudButtonAt(Vector2 position)
   {
    var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
@@ -29,18 +29,33 @@ namespace PhoViet
    // Browser touch taps arrive through ApplyHudTap even when a frame spans the whole tap.
    return;
 #else
-   if(JobOffersOpen||State==RideState.Ready||State==RideState.GameOver||State==RideState.Jailed||State==RideState.Arrested){hudTouchChoice=-1;return;}
-   if(Input.touchCount==0)return;
+   if(JobOffersOpen||State==RideState.Ready||State==RideState.GameOver||State==RideState.Jailed||State==RideState.Arrested){hudTouchChoice=-1;CancelFlightButtonPress();return;}
+   if(Input.touchCount==0)
+   {
+    if(hudTouchChoice==3)CancelFlightButtonPress();
+    hudTouchChoice=-1;
+    if(Time.unscaledTime<hudTouchSuppressUntil||!Application.isFocused){CancelFlightButtonPress();return;}
+    if(Input.GetMouseButtonDown(0))BeginFlightButtonPress(Input.mousePosition);
+    if(Input.GetMouseButtonUp(0))EndFlightButtonPress(Input.mousePosition,true);
+    else if(!Input.GetMouseButton(0))CancelFlightButtonPress();
+    return;
+   }
    var t=Input.GetTouch(0);
-   if(t.phase==TouchPhase.Began){hudTouchChoice=HudButtonAt(t.position);hudTouchStart=t.position;}
+   if(t.phase==TouchPhase.Began)
+   {
+    CancelFlightButtonPress();hudTouchChoice=HudButtonAt(t.position);hudTouchStart=t.position;hudTouchFinger=t.fingerId;
+    if(hudTouchChoice==3)BeginFlightButtonPress(t.position);
+   }
+   if(t.fingerId!=hudTouchFinger)return;
    if(hudTouchChoice>=0)hudTouchSuppressUntil=Time.unscaledTime+.6f;
    if(t.phase==TouchPhase.Ended)
    {
     int choice=hudTouchChoice;hudTouchChoice=-1;
-    if(choice>=0&&HudButtonAt(t.position)==choice&&Vector2.Distance(t.position,hudTouchStart)<Screen.width*.035f)
-    {HandleHudChoice(choice);}
+    bool tap=HudButtonAt(t.position)==choice&&Vector2.Distance(t.position,hudTouchStart)<Screen.width*.035f;
+    if(choice==3)EndFlightButtonPress(t.position,tap);
+    else if(choice>=0&&tap)HandleHudChoice(choice);
    }
-   if(t.phase==TouchPhase.Canceled)hudTouchChoice=-1;
+   if(t.phase==TouchPhase.Canceled){hudTouchChoice=-1;CancelFlightButtonPress();}
 #endif
   }
   bool HudButton(string value,Rect rect,Color bg,Color fg,int size)

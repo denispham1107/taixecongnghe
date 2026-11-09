@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.66.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.67.0**.
+
+## Cập nhật 1.67.0
+
+Giữ nút Bay/Hạ khi đang bay để lên tối đa 9,96 m. Năng lượng hao nhiều hơn ở độ cao lớn. Máy bay hai tầng cánh Crimson Skywing xuất hiện theo ba tầng và bắn tên lửa ngược chiều.
 
 ## Cập nhật 1.66.0
 

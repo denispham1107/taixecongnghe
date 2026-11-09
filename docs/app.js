@@ -223,8 +223,8 @@ canvas.addEventListener('pointerup',e=>{
   const tap=!p.consumed&&Math.hypot(e.clientX-p.x,e.clientY-p.y)<short*.035;
   if(tap){
     unityInstance.SendMessage(gameRoot,'ApplyHudTap',JSON.stringify({x:(e.clientX-p.rect.x)/p.rect.width,y:(e.clientY-p.rect.y)/p.rect.height}));
-    if(p.touch&&e.timeStamp-p.at<240)sendGesture(p,2,e);else sendGesture(p,3,e);
-  }else sendGesture(p,3,e);
+    if(p.touch&&e.timeStamp-p.at<240)sendGesture(p,2,e);else sendGesture(p,4,e,1);
+  }else sendGesture(p,4,e);
 },{passive:true});
 // Safari can start scrolling a sideways page and cancel the pointer before the swipe distance is reached.
 canvas.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});

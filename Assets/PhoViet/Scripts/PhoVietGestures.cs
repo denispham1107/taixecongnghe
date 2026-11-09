@@ -5,7 +5,7 @@ namespace PhoViet
  {
   bool swipeConsumed;int swipePointerId;int swipeWidth,swipeHeight;
   bool browserPointerActive;
-  void CancelSwipe(){browserPointerActive=false;swipeCanSteer=false;swipeConsumed=true;dragging=false;}
+  void CancelSwipe(){browserPointerActive=false;swipeCanSteer=false;swipeConsumed=true;dragging=false;CancelFlightButtonPress();}
   // Match the original portrait distances in either orientation (and at every DPR).
   public static int SwipeAction(Vector2 delta,float shortSide)
   {
@@ -63,11 +63,20 @@ namespace PhoViet
    var p=JsonUtility.FromJson<BrowserGesture>(json);
    if(p==null||!Finite(p.x)||!Finite(p.y)||!Finite(p.at)||p.x<0||p.x>1||p.y<0||p.y>1)return;
    var position=new Vector2(p.x*Screen.width,(1-p.y)*Screen.height);
-   if(p.phase==0){if(browserPointerActive&&p.id==swipePointerId)return;browserPointerActive=true;BeginSwipe(position,p.at,p.id);return;} // A repeated down for one finger must not re-arm it.
+   if(p.phase==0)
+   {
+    if(browserPointerActive&&p.id==swipePointerId)return;
+    CancelFlightButtonPress();browserPointerActive=true;
+    BeginSwipe(position,p.at,p.id);BeginFlightButtonPress(position);return;
+   }
    if(!browserPointerActive||p.id!=swipePointerId)return;
    if(p.phase==1)TriggerSwipe(p.action);
-   else if(p.phase==2){ContinueSwipe(position,true,p.at,true);swipeCanSteer=false;browserPointerActive=false;}
-   else if(p.phase==3){swipeCanSteer=false;browserPointerActive=false;}
+   else if(p.phase==2||p.phase==3||p.phase==4)
+   {
+    if(p.phase==2)ContinueSwipe(position,true,p.at,true);
+    EndFlightButtonPress(position,p.phase==2||p.phase==4&&p.action==1);
+    swipeCanSteer=false;browserPointerActive=false;
+   }
   }
   static bool Finite(float value)=>!float.IsNaN(value)&&!float.IsInfinity(value);
  }

@@ -31,9 +31,15 @@ namespace PhoViet
   HelicopterActor PlayerMissileTarget(Vector3 origin,Vector3 forward)
   {
    HelicopterActor best=null;float distance=160*160;
-   foreach(var h in helicopters)if(h!=null&&h.active&&!h.wrecked)
-   {Vector3 delta=h.root.localPosition-origin;if(Vector3.Dot(delta,forward)<=0||delta.sqrMagnitude>=distance)continue;distance=delta.sqrMagnitude;best=h;}
+   FindClosestAircraft(helicopters,origin,forward,ref best,ref distance);
+   FindClosestAircraft(skywings,origin,forward,ref best,ref distance);
    return best;
+  }
+  static void FindClosestAircraft(System.Collections.Generic.List<HelicopterActor> aircraft,Vector3 origin,Vector3 forward,
+   ref HelicopterActor best,ref float distance)
+  {
+   foreach(var h in aircraft)if(h!=null&&h.active&&!h.wrecked)
+   {Vector3 delta=h.root.localPosition-origin;if(Vector3.Dot(delta,forward)<=0||delta.sqrMagnitude>=distance)continue;distance=delta.sqrMagnitude;best=h;}
   }
   public bool TryFirePlayerMissile()
   {
@@ -61,7 +67,7 @@ namespace PhoViet
    free.scroll=Vector3.zero;free.age=0;free.root.localPosition=origin;free.root.localRotation=Quaternion.LookRotation(direction);free.active=true;free.root.gameObject.SetActive(true);free.visual.Begin();
    PlayMissileAudio(free.flightAudio,origin,true);
    PlayerMissiles--;PlayerMissilesFired++;playerMissileCooldown=PlayerMissileInterval;
-   notice=target!=null?"TÊN LỬA · ĐÃ KHÓA TRỰC THĂNG":tank!=null?"TÊN LỬA · ĐÃ KHÓA XE TĂNG":
+   notice=target!=null?(target.skywing!=null?"TÊN LỬA · ĐÃ KHÓA MÁY BAY":"TÊN LỬA · ĐÃ KHÓA TRỰC THĂNG"):tank!=null?"TÊN LỬA · ĐÃ KHÓA XE TĂNG":
     dinosaur!=null?"TÊN LỬA · ĐÃ KHÓA KHỦNG LONG":"TÊN LỬA · BAY THẲNG";noticeTimer=1.1f;return true;
   }
   void ScrollPlayerMissiles(float delta){foreach(var m in playerMissiles)if(m!=null&&m.active){m.scroll+=Vector3.forward*delta;m.visual.Scroll(delta);}}
@@ -112,20 +118,31 @@ namespace PhoViet
       if(dinosaur.active&&!dinosaur.Fallen&&PlayerMissileTouchesDinosaur(from,to,dinosaur,out float at)&&at<first)
       {hitDinosaur=dinosaur;first=at;}
     if(!m.groundShot)
-     foreach(var h in helicopters)
-      if(h!=null&&h.active&&!h.wrecked&&PlayerMissileTouchesHelicopter(from,to,h,out float at)&&at<first)
-      {hit=h;hitTank=null;first=at;}
+    {
+     FindAircraftHit(helicopters,from,to,ref hit,ref first);
+     FindAircraftHit(skywings,from,to,ref hit,ref first);
+     if(hit!=null)hitTank=null;
+    }
     if(hitDinosaur!=null){m.root.localPosition=Vector3.Lerp(from,to,first);HitDinosaurWithPlayerMissile(hitDinosaur,m.root.localPosition);RetirePlayerMissile(m);continue;}
     if(hitTank!=null){m.root.localPosition=Vector3.Lerp(from,to,first);DestroyPlayerTank(hitTank,m.root.localPosition);RetirePlayerMissile(m);continue;}
     if(hit!=null)
     {
      m.root.localPosition=Vector3.Lerp(from,to,first);
-     KnockHelicopter(hit,m.velocity*.2f,-m.velocity.normalized);PlayerHelicoptersDowned++;
-     notice="HẠ TRỰC THĂNG · TRÚNG TÊN LỬA";noticeTimer=1.6f;RetirePlayerMissile(m);continue;
+     KnockHelicopter(hit,m.velocity*.2f,-m.velocity.normalized);
+     if(hit.skywing==null)PlayerHelicoptersDowned++;
+     notice=hit.skywing!=null?"HẠ MÁY BAY · TRÚNG TÊN LỬA":"HẠ TRỰC THĂNG · TRÚNG TÊN LỬA";
+     noticeTimer=1.6f;RetirePlayerMissile(m);continue;
     }
     m.root.localPosition=to;m.root.localRotation=Quaternion.LookRotation(m.velocity);
     if(m.age>=PlayerMissileLifetime||Mathf.Abs(to.x)>180||to.z< -60||to.z>420||to.y<-.5f)RetirePlayerMissile(m);
    }
+  }
+  static void FindAircraftHit(System.Collections.Generic.List<HelicopterActor> aircraft,Vector3 from,Vector3 to,
+   ref HelicopterActor hit,ref float first)
+  {
+   foreach(var h in aircraft)
+    if(h!=null&&h.active&&!h.wrecked&&PlayerMissileTouchesHelicopter(from,to,h,out float at)&&at<first)
+    {hit=h;first=at;}
   }
   static bool PlayerMissileTouchesHelicopter(Vector3 from,Vector3 to,HelicopterActor h,out float at)
   {
@@ -134,6 +151,7 @@ namespace PhoViet
    // empty corners of a giant box containing the whole rotor.
    Quaternion inverse=Quaternion.Inverse(h.root.localRotation);
    Vector3 a=inverse*(from-h.missilePrevious),b=inverse*(to-h.root.localPosition),d=b-a;at=2;
+   if(h.skywing!=null)return SkywingTouchesSegment(a,b,Vector3.one*.13f,out at);
    for(int i=0;i<=20;i++)
    {
     float z=Mathf.Lerp(-4.3f,2.1f,i/20f),radius=z< -1.4f?.31f:.83f;
