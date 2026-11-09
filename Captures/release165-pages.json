@@ -1,0 +1,11 @@
+{
+  "release": "b7f7f92115ab01b0e700cdc5b988f8044194b964",
+  "run": {
+    "id": 42629982323,
+    "status": "completed",
+    "conclusion": "success",
+    "head_sha": "b7f7f92115ab01b0e700cdc5b988f8044194b964",
+    "html_url": "https://github.com/denispham1107/taixecongnghe/actions/runs/42629982323",
+    "name": "Deploy Phố Việt WebGL"
+  }
+}

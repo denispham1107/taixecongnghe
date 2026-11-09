@@ -10,7 +10,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.64.0** — WebGL `695c436`, Pages `42557744706` thành công đúng SHA, cache `d9d1ebc9a916b5f3`. Gồm đèn phanh, ba ảnh mới, bánh xe và icon A gốc. **34 kiểm tra live đạt, 0 lỗi runtime.** |
+| Bản đã phát hành | **1.65.0** — WebGL `b7f7f92`, Pages `42629982323` thành công đúng SHA, cache `bd32d01364ed5ca8`. Gồm độ cao nhảy/bay mới, bắn xe tăng từ trên không và mốc trực thăng 200/400 m. **34 kiểm tra live đạt, 0 lỗi runtime.** |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
@@ -19,7 +19,7 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | Chế độ chơi | **Web1.53.0/21.118:** reset quãngvăng trước dựngđường để chơi lại rẽđúng/khônglệchnhà. **21.115:** điểm/kỷlục dừngngaylúcva chạm, không cộngquãngvăng; physics giữ; truy đuổi CSGT tạm khóa trong source21.155. Chỉ thi quãng đường/kỷ lục. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, thu nhỏ 15%. Q/chạm hai lần móc xích trong 4 m khi chưa bay, lộn khi bay (21.155, web 1.61.0). Space/vuốt lên nhảy với bốn luồng khói trắng. W/F/vuốt xuống bắn tên lửa. Boost tạm khóa và giữ mã hiệu ứng hai ống bô. |
-| Bay và nhảy | **Source 21.169, chưa build WebGL:** nút Bay và nhảy rồi giữ cùng đỉnh **4,52832 m** từ mặt đỡ. Đỉnh nhảy tăng 10%, cố định theo tốc độ. Lệnh giữ lúc đang rơi sẽ nâng lên đỉnh. Web 1.64.0 vẫn có đỉnh nhảy 4,11665 m và ngưỡng bay 3,45799 m. |
+| Bay và nhảy | **21.169, web 1.65.0:** nút Bay và nhảy rồi giữ cùng đỉnh **4,52832 m** từ mặt đỡ. Đỉnh nhảy tăng 10%, cố định theo tốc độ. Lệnh giữ lúc đang rơi sẽ nâng lên đỉnh. |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
 | Tối ưu mobile | **21.136/21.138 đã có trên web 1.57.1:** mỗi mức có plan riêng + bộ tự giảm trên cảm ứng; desktop **Rất cao (source21.144)** giữ baseline trừ cascades WebGL; Rấtcao không tựgiảm. Layer ẩn sớm gồm đèn tín hiệu và đèn đường từ source21.147 |
 | Cài đặt đồ họa trong source | **21.144 đã có trên web1.59.0:** Rất cao(cũCao, cốđịnh)/Cao(mới,tựgiảm)/Trung bình/Thấp. IDlưu0/3/1/2 theo thứtựUI, không đổi pref cũ. DesktopRấtcao fullbaseline/mobileRấtcao planCao cũ; không governor/learneddrop/đổiHz. Cao có LOD0,6, tầm150m và phản chiếu448px. **21.147 có trên web 1.60.0:** giữ mật độ điểm ảnh và MSAA của Rất cao ở cả bốn mức để chữ biển rõ. |
@@ -33,9 +33,9 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 | Nút tên lửa/âm lượng/ảnh trang chủ mới | **21.134 đã có trên web 1.56.0:** nút góc trái dưới, master 1,56×/+3,86249dB, `poster-home-flight.png` dưới ảnh cũ |
 | Đạn trực thăng/âm lượng tổng trong source | **21.132 đã có trên web1.55.0:** đạn địch50→40m/s (−20%), mastervolume1,3×/+2,2788668dB cho engine/FX/CSGT/mưa/rotor/voice.1016Unity đạt; đoRMS1,305×; player missile/ảnh/gameplaykhác giữ |
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
-| Tên lửa người chơi | **Source 21.169, chưa build WebGL:** khi giữ bay chọn xe tăng hoặc trực thăng gần nhất phía trước. Dưới đất nhắm xe tăng như 21.145. Xe tăng trúng đạn dừng, cháy và vẫn là vật cản. Kho 5/5, nhặt +1, hồi 0,4 giây, bắn thẳng khi không có mục tiêu. |
+| Tên lửa người chơi | **21.169, web 1.65.0:** khi giữ bay chọn xe tăng hoặc trực thăng gần nhất phía trước. Dưới đất nhắm xe tăng như 21.145. Xe tăng trúng đạn dừng, cháy và vẫn là vật cản. Kho 5/5, nhặt +1, hồi 0,4 giây, bắn thẳng khi không có mục tiêu. |
 | Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
-| Trực thăng | **Source 21.171, chưa build WebGL:** sinh ngay khi vào chế độ giữ bay, mục tiêu 1/2/3 chiếc theo mốc quãng đường lượt 0/200/400 m. Chọn các làn khác nhau trong 4 làn, dùng chung giới hạn 3 với trực thăng trên đầu khủng long sau rẽ. Web 1.64.0 vẫn theo 21.161–21.162 với mốc 500 m. |
+| Trực thăng | **21.171, web 1.65.0:** sinh ngay khi vào chế độ giữ bay, mục tiêu 1/2/3 chiếc theo mốc quãng đường lượt 0/200/400 m. Chọn các làn khác nhau trong 4 làn, dùng chung giới hạn 3 với trực thăng trên đầu khủng long sau rẽ. |
 | Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Đã có trên web 1.61.0. |
 | Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Đã có trên web 1.61.0. |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
@@ -53,10 +53,10 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.172:** đã build và đóng gói WebGL 1.65.0 gồm 21.169–21.171. Cache `bd32d01364ed5ca8`. Xem mục 3 cho trạng thái triển khai.
-- **21.171:** đổi mốc giữ bay sang 0/200/400 m cho 1/2/3 chiếc. Biên dịch sạch, 128 kiểm tra Unity Play Mode đạt. Chưa commit, build hoặc phát hành.
-- **21.170:** bỏ việc chờ đợt sau rẽ mới sinh trực thăng thường. Giữ bay sinh ngay theo mốc 0/400/800 m, tối đa 3 chiếc tính cả đợt sau rẽ. 128 kiểm tra Unity Play Mode đạt. Chưa commit, build hoặc phát hành.
-- **21.169:** đồng bộ nút Bay và giữ bay ở đỉnh nhảy mới +10%. Tên lửa từ trên không hạ được xe tăng. Đạt 205 kiểm tra Unity Play Mode. Chưa commit, build hoặc phát hành. Web vẫn 1.64.0.
+- **21.172 đã phát hành WebGL 1.65.0:** ETC2/DXT trong 490,455 giây. 207 kiểm tra Unity trước/sau, 603 bố cục, 18 Chrome cục bộ và 34 live đạt. Pages `42629982323`, commit `b7f7f92`.
+- **21.171:** đổi mốc giữ bay sang 0/200/400 m cho 1/2/3 chiếc. 128 kiểm tra Unity Play Mode đạt. Có trên web 1.65.0.
+- **21.170:** bỏ việc chờ đợt sau rẽ mới sinh trực thăng thường. Giữ bay sinh ngay, tối đa 3 chiếc tính cả đợt sau rẽ. Mốc 400/800 m của bước này đã được thay ở 21.171 trước khi phát hành.
+- **21.169:** đồng bộ nút Bay và giữ bay ở đỉnh nhảy mới +10%. Tên lửa từ trên không hạ được xe tăng. 205 kiểm tra Unity Play Mode đạt. Có trên web 1.65.0.
 - **21.168 đã phát hành WebGL 1.64.0:** đèn phanh, ba ảnh trang chủ, icon A và bánh xe. Build 467,457 giây. 17 kiểm tra đèn phanh, 603 bố cục, 18 WebGL cục bộ và 34 live đạt.
 - **21.167:** dùng nguyên SVG mẫu A gốc đã duyệt. Xuất bộ PNG 192/512/maskable/Apple 180 với URL `*-pho-len-den-*`. 17 kiểm tra Sharp/Chrome đạt. Có trên web 1.64.0.
 - **21.166:** dựng ba biến thể mẫu A với cờ đỏ sao vàng lớn hơn. Đã xem bản 32 px, 48 px và mặt nạ tròn. Web vẫn 1.63.0.
@@ -276,7 +276,6 @@ Cập nhật lần cuối: **09/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.172 đang làm:** WebGL 1.65.0 gồm 21.169–21.171 đã build đủ ETC2/DXT và đóng gói, cache `bd32d01364ed5ca8`. 207 kiểm tra Unity trước/sau, 48 kiểm gói Git, 39 kiểm gói ghép và 603 kiểm tra bố cục đạt. Bước tiếp theo là push, chờ Pages và xác minh live.
 
 
 

@@ -211,15 +211,15 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 ### 2.9. Nhảy và chạy trên nóc
 
-**Source 21.169:** nút Bay và Space/vuốt lên lần hai khi đang nhảy đều giữ ở đỉnh nhảy mới, khoảng **4,53 m** so với mặt đường hoặc nóc xe lúc cất cánh. Đỉnh nhảy tăng 10% so với 4,11665 m của web 1.64.0 và vẫn cố định theo tốc độ. Nhấn giữ bay sớm thì lên đỉnh theo quỹ đạo nhảy, nhấn lúc đang rơi thì nâng lại đến đỉnh. Xem 21.169.
+**21.169, web 1.65.0:** nút Bay và Space/vuốt lên lần hai khi đang nhảy đều giữ ở đỉnh nhảy mới, khoảng **4,53 m** so với mặt đường hoặc nóc xe lúc cất cánh. Đỉnh nhảy tăng 10% so với 4,11665 m của web 1.64.0 và vẫn cố định theo tốc độ. Nhấn giữ bay sớm thì lên đỉnh theo quỹ đạo nhảy, nhấn lúc đang rơi thì nâng lại đến đỉnh. Xem 21.169.
 
-**Source 21.171:** lịch trực thăng bắt đầu ngay khi vào chế độ giữ bay trên đường, với 1 chiếc dưới 200 m, 2 chiếc từ 200 m và 3 chiếc từ 400 m tính theo tổng quãng đường của lượt. Đợt sau rẽ giữ mốc 0,5 giây sau khủng long và dùng chung giới hạn. Xem 21.170–21.171.
+**21.171, web 1.65.0:** lịch trực thăng bắt đầu ngay khi vào chế độ giữ bay trên đường, với 1 chiếc dưới 200 m, 2 chiếc từ 200 m và 3 chiếc từ 400 m tính theo tổng quãng đường của lượt. Đợt sau rẽ giữ mốc 0,5 giây sau khủng long và dùng chung giới hạn. Xem 21.170–21.171.
 
 Space/vuốt lên nhảy tới; source21.64 là ô tô phụt khói trắng xuống từ4góc, hơi ngẩng rồi lấy cân bằng khi đáp (xe máy trên web1.39.0 vẫn ngóc bánh trước); hồi2 s, chỉ nhảy từ đường/nóc đang đỡ, không nhảy thêm trên không. **21.100 (đã phát hành1.50.0):** độ cao cố định **4,1166525m** ở mọi tốc độ, gồm W; tăng3% so mức khởi đầu1.49.0 (3,99675m). Bỏ tăng đỉnh theo vận tốc của21.60/21.94. Gia tốc lên24,2m/s² và rơi22m/s² giữ nguyên; W trước/giữa nhảy đều không tăng đỉnh. Metadata tốc độ cất cánh còn dùng cho pose/chuyển động ngang. Độ cao là so với mặt đỡ lúc phóng. Có thể vượt xe máy nằm và đáp/chạy trên nóc bốn bánh nếu đủ cao; đỉnh cố định có thể không vượt được nóc tải cao nếu chưa đủ độ cao lúc gặp vách. Xe tải đứng thẳng còn là mặt đỡ, xe nghiêng/lật là vật cản. Rời mép rơi thật; tiếp đất theo vận tốc, hấp thụ lực rồi cân bằng; đâm thân/vách vẫn té.
 
 ### 2.10. Tăng tốc — tạm khóa từ source21.142
 
-**Source 21.169:** W/F/vuốt xuống hoặc nút tên lửa bắn dưới đất hoặc khi giữ bay. Dưới đất khóa xe tăng phía trước. Khi bay khóa xe tăng hoặc trực thăng gần nhất phía trước. Kho đạn 5/5, mỗi lần bắn dùng 1 quả, hồi 0,4 giây và bắn thẳng nếu không có mục tiêu. `BoostReleased=false` giữ khóa tăng tốc cho tới khi người dùng yêu cầu mở lại. Web 1.64.0 vẫn dùng quy tắc mục tiêu theo 21.145.
+**21.169, web 1.65.0:** W/F/vuốt xuống hoặc nút tên lửa bắn dưới đất hoặc khi giữ bay. Dưới đất khóa xe tăng phía trước. Khi bay khóa xe tăng hoặc trực thăng gần nhất phía trước. Kho đạn 5/5, mỗi lần bắn dùng 1 quả, hồi 0,4 giây và bắn thẳng nếu không có mục tiêu. `BoostReleased=false` giữ khóa tăng tốc cho tới khi người dùng yêu cầu mở lại.
 
 **Cơ chế lưu trữ trước21.142 (không còn kích hoạt):** W/vuốt xuống tăng **125% = nhân 2,25** tốc độ mong muốn trong4s; không cộng dồn, hồi2s sau hết/hủy. Xe khác giữ tốc độ nền/hành vi riêng. **Ngoại lệ21.114:** hai xe máy bổ sung sau mỗi cua luôn±1,2×Speed hiện tại của player nên cũng tăng/giảm khi player dùng/hếtW (thay1,5× của21.113); không áp lên các xe thường/quái xế/tải/tank khác. Dùng chung nhảy được; té/bị bắt/dừng dịch vụ hủy boost. Khói trắng dữ liệu Blender bám ống xả/pose xe; pause/rebase xử lý riêng.
 
@@ -3595,4 +3595,5 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 - Bản 1.65.0 gồm 21.169–21.171. Đỉnh nhảy và giữ bay cùng 4,52832 m trên mặt đỡ. Tên lửa khi bay có thể hạ xe tăng mặt đất. Trực thăng xuất hiện ngay khi giữ bay, số lượng tăng tại 200/400 m theo quãng đường của lượt, tối đa 3 chiếc.
 - Unity 6000.5.6f1 build đủ ETC2/EAC và DXT trong 490,455 giây, 0 lỗi và cảnh báo RuntimePipelineConfig quen thuộc. Hai gói dùng chung mã WASM/framework sau giải nén. Kiểm tra Unity 207 điều kiện trước và sau build, giữ nguyên SHA của 592 tệp nguồn. Bộ gói khớp cache `bd32d01364ed5ca8` qua 48 kiểm tra bản Git, 39 kiểm tra bản ghép và 603 kiểm tra bố cục Chrome. Xem `Captures/release165-build-report.json` và các báo cáo cùng tiền tố.
-- Bản WebGL đóng gói qua 18 kiểm tra Chrome desktop/mobile/offline, không lỗi runtime. Git index khớp qua 40 kiểm tra trước push. Đang triển khai lên GitHub Pages theo mục 15.2. Kết quả live sẽ được ghi cùng SHA và mã chạy Pages sau khi xác minh.
+- Bản WebGL đóng gói qua 18 kiểm tra Chrome desktop/mobile/offline, không lỗi runtime. Git index khớp qua 40 kiểm tra trước push. Máy chủ thử cục bộ đã dừng. Kiểm mobile bằng Chrome giả lập, chưa thử trên máy thật.
+- Đã push commit `b7f7f92` và [GitHub Pages run 42629982323](https://github.com/denispham1107/taixecongnghe/actions/runs/42629982323) triển khai thành công đúng SHA. Web công khai trả 1.65.0 và cache `bd32d01364ed5ca8`. Đạt 34 kiểm tra live, gồm đối chiếu byte tài nguyên, tải scene Unity, bắt đầu và tạm dừng lượt. Không có lỗi runtime. Báo cáo `Captures/release165-pages.json` và `Captures/release165-live-results.json`.
