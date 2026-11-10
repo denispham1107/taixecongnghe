@@ -221,7 +221,7 @@ Space/vuốt lên nhảy tới; source21.64 là ô tô phụt khói trắng xu�
 
 ### 2.10. Tăng tốc — tạm khóa từ source21.142
 
-**21.169, web 1.65.0:** W/F/vuốt xuống hoặc nút tên lửa bắn dưới đất hoặc khi giữ bay. Dưới đất khóa xe tăng phía trước. Khi bay khóa xe tăng hoặc trực thăng gần nhất phía trước. Kho đạn 5/5, mỗi lần bắn dùng 1 quả và bắn thẳng nếu không có mục tiêu. Nhịp trong source 21.179 là 0,25 giây; web 1.67.0 còn 0,4 giây. `BoostReleased=false` giữ khóa tăng tốc cho tới khi người dùng yêu cầu mở lại.
+**21.169, web 1.65.0:** W/F/vuốt xuống hoặc nút tên lửa bắn dưới đất hoặc khi giữ bay. Dưới đất khóa xe tăng phía trước. Khi bay khóa xe tăng hoặc trực thăng gần nhất phía trước. Kho đạn 5/5, mỗi lần bắn dùng 1 quả và bắn thẳng nếu không có mục tiêu. Từ 21.179, đã phát hành trên web 1.68.0, nhịp là 0,25 giây. `BoostReleased=false` giữ khóa tăng tốc cho tới khi người dùng yêu cầu mở lại.
 
 **Cơ chế lưu trữ trước21.142 (không còn kích hoạt):** W/vuốt xuống tăng **125% = nhân 2,25** tốc độ mong muốn trong4s; không cộng dồn, hồi2s sau hết/hủy. Xe khác giữ tốc độ nền/hành vi riêng. **Ngoại lệ21.114:** hai xe máy bổ sung sau mỗi cua luôn±1,2×Speed hiện tại của player nên cũng tăng/giảm khi player dùng/hếtW (thay1,5× của21.113); không áp lên các xe thường/quái xế/tải/tank khác. Dùng chung nhảy được; té/bị bắt/dừng dịch vụ hủy boost. Khói trắng dữ liệu Blender bám ống xả/pose xe; pause/rebase xử lý riêng.
 
@@ -3659,7 +3659,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Tên lửa:** `PlayerMissileInterval=.25f` trong `PhoVietPlayerMissiles.cs` áp dụng cho W, F, vuốt xuống và nút bắn. Điều kiện nhắm, kho 5 quả và nhịp tên lửa địch giữ nguyên.
 - **Sét:** `ThunderstormVisual.cs` tổng hợp một clip mono 2,2 giây gồm tiếng nổ ngắn và tiếng rền trầm. Bốn nguồn âm dùng chung clip, neo theo vị trí sét chạm đường/nước và định tuyến qua mixer. Ba tia bổ sung có âm lượng thấp hơn. Vòng cảnh báo im, Pause/tắt âm/chơi lại đồng bộ với nguồn sét. `PhoVietThunderstorm.cs` chuyển tiếng tại bước đánh xuống sang âm riêng của sét.
 - **Kiểm tra:** Unity 6000.5.6f1 biên dịch 0 lỗi, 0 cảnh báo. `VerifyVehicleImpact21179.cs` đạt 33 điều kiện, đo 6 mảnh ở cú nhẹ và 32 ở cú mạnh, từ chối bắn ở 249 ms và cho bắn ở 250 ms. Hồi quy `VerifyLocalLightning` đạt 636 điều kiện sau khi giới hạn kiểm tra renderer vào đúng pool sét, `VerifySkywing21177` đạt 42 và `VerifyContactFire2127` đạt 155. Đã xem render Unity `.tools/impact-21179-preview.png`. Bài kiểm tra giao thông tổng hợp cũ `VerifyContactTrafficRegression2127` còn giả định xe đã chạy ở đầu lượt, nên không đưa vào số đạt.
-- **Trạng thái:** Unity đã về Edit Mode, chưa commit, build hoặc phát hành. Web vẫn 1.67.0, Pages run `42685816470`. Hai khóa công việc giữ nguyên.
+- **Trạng thái:** Unity đã về Edit Mode. Đã phát hành cùng 21.180 trong WebGL 1.68.0, xem 21.181. Hai khóa công việc giữ nguyên.
 
 ## 21.180. Tốc độ trực thăng, tên lửa địch và nguồn bắn khi kết thúc (10/11/2026 — Codex)
 
@@ -3667,10 +3667,11 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - **Tên lửa địch:** `PhoVietHelicopterMissiles.cs` dùng 36 m/s thay cho 40 m/s (−10%) cho xe tăng, trực thăng và Skywing, bao gồm phép ngắm đón tại lúc phóng. Tăng thời gian bay tối đa từ 3,2 lên khoảng 3,56 giây để giữ giới hạn quãng bay 128 m. Giữ nhịp bắn và pháo mặt đất của xe tăng. Tên lửa người chơi vẫn dùng `max(70, Speed + 50)` m/s, hồi 0,25 giây như 21.179.
 - **Nguồn bắn:** mỗi viên tên lửa lưu loại phương tiện lúc phóng để giữ đúng thông tin khi phương tiện bị thu hồi hoặc slot đạn được tái sử dụng. Cú trúng giữ nguồn đến hết lượt và xóa khi chơi lại. `EndCard` trong `PhoVietGame.cs` ghi “Trúng tên lửa!” và dòng riêng chỉ rõ xe tăng, trực thăng hoặc máy bay hai tầng cánh. Nhánh đạn pháo và va thân vẫn có phân loại riêng.
 - **Kiểm tra:** Unity 6000.5.6f1 biên dịch 0 lỗi/cảnh báo. `VerifyMissileSource21180` đạt 31 điều kiện qua ba nguồn bắn, từ vận tốc thực tới khi xe dừng và vào GameOver, kể cả sau khi nguồn bắn đã bị ẩn. Hồi quy `VerifyVehicleImpact21179` đạt 33, `VerifySkywing21177` đạt 42. Chưa thử giao diện trên bản WebGL.
-- **Trạng thái:** sửa cục bộ trong Unity, chưa commit, build hoặc phát hành. Web vẫn 1.67.0, Pages run `42685816470`.
+- **Trạng thái:** đã phát hành cùng 21.179 trong WebGL 1.68.0, xem 21.181.
 
 ## 21.181. Build và phát hành WebGL 1.68.0 (10/11/2026 — Codex)
 
 - Gói 21.179–21.180 gồm mảnh văng theo lực tông, tiếng sét, hồi tên lửa người chơi 0,25 giây, trực thăng 18,4 m/s, tên lửa địch 36 m/s và tên nguồn bắn ở thẻ kết thúc. Các kiểm tra Play Mode của hai mục lần lượt đạt 866 và 106 điều kiện.
 - Unity 6000.5.6f1 build ETC2/EAC và DXT trong 399,105 giây, 0 lỗi và 1 cảnh báo. Đạt 220 kiểm tra trước build và 220 sau build. 604 tệp trong tập nguồn giữ nguyên SHA. Cache `5ff1a2b82a648276`.
-- Đạt 48 kiểm tra gói Git, 39 kiểm tra gói ghép như Pages và 603 kiểm tra bố cục. Đạt 22 kiểm tra Chrome cục bộ, gồm tải desktop/mobile giả lập, offline desktop và 0 lỗi runtime. Đang chờ xác minh Pages sau push.
+- Đạt 48 kiểm tra gói Git, 39 kiểm tra gói ghép như Pages và 603 kiểm tra bố cục. Đạt 22 kiểm tra Chrome cục bộ, gồm tải desktop/mobile giả lập, offline desktop và 0 lỗi runtime. Đối chiếu Git index đạt 42 điều kiện.
+- Commit `95ffa4d` đã push main và [GitHub Pages run 42731990683](https://github.com/denispham1107/taixecongnghe/actions/runs/42731990683) thành công đúng SHA. Bản công khai khớp version/cache và byte tài nguyên. Đạt 34 kiểm tra live và 5 kiểm tra bay/chạm trên Chrome mô phỏng iPhone, 0 lỗi runtime. Chưa thử thiết bị thật. Unity Edit Mode, máy chủ localhost đã dừng. Báo cáo `Captures/release168-pages.json`, `Captures/release168-live-results.json` và `Captures/release168-live-mobile-flight.json`.
