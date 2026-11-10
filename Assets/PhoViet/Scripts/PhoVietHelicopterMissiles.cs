@@ -6,19 +6,30 @@ namespace PhoViet
  {
   public const int HelicopterMissileCapacity=40; // Initial pool size; sustained fire can grow it.
   const float EnemyMissileTurnReduction=.1f,EnemyMissileMinimumInterval=.25f;
-  const float HelicopterMissileSpeed=40,HelicopterMissileLifetime=3.2f;
+  const float HelicopterMissileSpeed=36,HelicopterMissileLifetime=128f/HelicopterMissileSpeed;
+  enum EnemyMissileSource { None, Tank, Helicopter, Skywing }
   sealed class HelicopterMissile
-  {public Transform root;public MissileFlightVisual visual;public AudioSource flightAudio;public bool active,dodgeCounted,fromTank;public Vector3 velocity,scroll;public float age;}
+  {public Transform root;public MissileFlightVisual visual;public AudioSource flightAudio;public bool active,dodgeCounted;public EnemyMissileSource source;public Vector3 velocity,scroll;public float age;}
   readonly List<HelicopterMissile> helicopterMissiles=new List<HelicopterMissile>(HelicopterMissileCapacity);GameObject helicopterMissilePrefab;
   public int HelicopterMissilesFired{get;private set;}public int HelicopterMissilesDodged{get;private set;}
   public int TankMissilesFired{get;private set;}
-  public bool HitByHelicopterMissile{get;private set;}public bool HitByTankMissile{get;private set;}public bool RiderAirAttackBurning{get;private set;}
+  EnemyMissileSource missileHitSource;
+  public bool HitByHelicopterMissile=>missileHitSource==EnemyMissileSource.Helicopter||missileHitSource==EnemyMissileSource.Skywing;
+  public bool HitByTankMissile=>missileHitSource==EnemyMissileSource.Tank;
+  public bool RiderAirAttackBurning{get;private set;}
+  string MissileHitSourceLabel=>missileHitSource switch
+  {
+   EnemyMissileSource.Tank=>"xe tăng",
+   EnemyMissileSource.Helicopter=>"trực thăng",
+   EnemyMissileSource.Skywing=>"máy bay hai tầng cánh",
+   _=>null
+  };
   public int ActiveHelicopterMissileCount=>CountEnemyMissiles(false);
   public int ActiveTankMissileCount=>CountEnemyMissiles(true);
   int CountEnemyMissiles(bool fromTank)
   {
    int count=0;
-   foreach(var m in helicopterMissiles)if(m!=null&&m.active&&m.fromTank==fromTank)count++;
+   foreach(var m in helicopterMissiles)if(m!=null&&m.active&&(m.source==EnemyMissileSource.Tank)==fromTank)count++;
    return count;
   }
   public int BurningHelicopterCount{get{int n=0;foreach(var h in helicopters)if(h!=null&&h.active&&h.wrecked)n++;return n;}}
@@ -34,7 +45,8 @@ namespace PhoViet
   }
   void ResetHelicopterMissiles()
   {
-   HelicopterMissilesFired=HelicopterMissilesDodged=TankMissilesFired=0;HitByHelicopterMissile=HitByTankMissile=RiderAirAttackBurning=false;
+   HelicopterMissilesFired=HelicopterMissilesDodged=TankMissilesFired=0;
+   missileHitSource=EnemyMissileSource.None;RiderAirAttackBurning=false;
    if(Application.isPlaying&&helicopterMissilePrefab==null)helicopterMissilePrefab=Resources.Load<GameObject>("Helicopter/PV_HelicopterMissile");
    while(helicopterMissiles.Count<HelicopterMissileCapacity&&CreateEnemyMissile()!=null){}
    foreach(var m in helicopterMissiles){m.age=0;m.scroll=Vector3.zero;RetireHelicopterMissile(m);}
@@ -54,9 +66,9 @@ namespace PhoViet
    if(h==null||!h.active||h.wrecked||State!=RideState.Riding||!RiderFlying)return false;
    Vector3 launcher=h.skywing!=null?new Vector3(0,-.55f,1.05f):new Vector3(0,-.15f,1.3f);
    Vector3 origin=h.root.localPosition+h.root.localRotation*launcher;
-   return FireEnemyMissile(origin,false);
+   return FireEnemyMissile(origin,h.skywing==null?EnemyMissileSource.Helicopter:EnemyMissileSource.Skywing);
   }
-  bool FireEnemyMissile(Vector3 origin,bool fromTank)
+  bool FireEnemyMissile(Vector3 origin,EnemyMissileSource source)
   {
    HelicopterMissile free=null;foreach(var m in helicopterMissiles)if(!m.active){free=m;break;}
    free??=CreateEnemyMissile();if(free==null)return false;
@@ -67,8 +79,9 @@ namespace PhoViet
    float t=offset.magnitude/(HelicopterMissileSpeed+Mathf.Max(0,Speed)),disc=b*b-4*a*c;
    if(Mathf.Abs(a)>.001f&&disc>=0){float r1=(-b-Mathf.Sqrt(disc))/(2*a),r2=(-b+Mathf.Sqrt(disc))/(2*a);if(r1>0)t=r1;if(r2>0&&(r1<=0||r2<r1))t=r2;}
    free.velocity=(target+roadVelocity*t-origin).normalized*HelicopterMissileSpeed;free.scroll=Vector3.zero;free.age=0;free.dodgeCounted=false;
-   free.fromTank=fromTank;
+   free.source=source;
    free.root.localPosition=origin;free.root.localRotation=Quaternion.LookRotation(free.velocity);free.active=true;free.root.gameObject.SetActive(true);free.visual.Begin();
+   bool fromTank=source==EnemyMissileSource.Tank;
    if(fromTank)TankMissilesFired++;else HelicopterMissilesFired++;
    PlayMissileAudio(free.flightAudio,origin,false);
    notice=fromTank?"TÊN LỬA XE TĂNG · ĐỔI LÀN / HẠ / LỘN NÉ":"TÊN LỬA · ĐỔI LÀN / HẠ / LỘN NÉ";noticeTimer=1.2f;return true;
@@ -87,8 +100,8 @@ namespace PhoViet
     Vector3 nose=m.velocity.normalized*.65f;
     if(collisions&&State==RideState.Riding&&MissileTouchesRider(from+nose,m.root.localPosition+nose,previousRider,out float at))
     {
-     if(RiderRolling){if(!m.dodgeCounted){m.dodgeCounted=true;if(!m.fromTank)HelicopterMissilesDodged++;}}
-     else{Vector3 point=Vector3.Lerp(from,m.root.localPosition,at);AirAttackBurst(point);BurnAirAttackRider(point,true,m.fromTank);RetireHelicopterMissile(m);continue;}
+     if(RiderRolling){if(!m.dodgeCounted){m.dodgeCounted=true;if(m.source!=EnemyMissileSource.Tank)HelicopterMissilesDodged++;}}
+     else{Vector3 point=Vector3.Lerp(from,m.root.localPosition,at);AirAttackBurst(point);BurnAirAttackRider(point,m.source);RetireHelicopterMissile(m);continue;}
     }
     if(m.age>=HelicopterMissileLifetime||m.root.localPosition.z< -35||Mathf.Abs(m.root.localPosition.x)>38||m.root.localPosition.y<-.1f)RetireHelicopterMissile(m);
    }
@@ -107,16 +120,16 @@ namespace PhoViet
    }
    time=enter;return true;
   }
-  void BurnAirAttackRider(Vector3 point,bool missile,bool fromTank=false,bool biplane=false)
+  void BurnAirAttackRider(Vector3 point,EnemyMissileSource source=EnemyMissileSource.None,bool biplane=false)
   {
    if(State!=RideState.Riding||RiderAirAttackBurning)return;
    Vector3 before=riderVelocityValid?riderRoadVelocity:rider.localRotation*Vector3.forward*Speed;
    Vector3 direction=before;direction.y=0;if(direction.sqrMagnitude<.1f)direction=rider.localRotation*Vector3.forward;direction.Normalize();
    BeginRiderImpact(null,new Vector2(direction.x,direction.z),point,before);
    riderFallVelocity=direction*Mathf.Clamp(before.magnitude*.6f,6,25)+Vector3.down*2;riderFallSpin=new Vector3(20,8,55);
-   RiderAirAttackBurning=true;HitByHelicopterMissile|=missile&&!fromTank;HitByTankMissile|=missile&&fromTank;CrashDuringPursuit=false;IsChased=false;routePolice=false;chaseBoost=0;ResetCrashPoliceNavigation();siren?.Stop();
+   RiderAirAttackBurning=true;missileHitSource=source;CrashDuringPursuit=false;IsChased=false;routePolice=false;chaseBoost=0;ResetCrashPoliceNavigation();siren?.Stop();
    EnsureThunderstorm();stormVisual?.Burn(rider,null);
-   notice=missile?"TRÚNG TÊN LỬA · CHUYẾN ĐI KẾT THÚC":biplane?"VA MÁY BAY · CHUYẾN ĐI KẾT THÚC":"VA TRỰC THĂNG · CHUYẾN ĐI KẾT THÚC";noticeTimer=5;
+   notice=source!=EnemyMissileSource.None?"TRÚNG TÊN LỬA · "+MissileHitSourceLabel.ToUpperInvariant():biplane?"VA MÁY BAY · CHUYẾN ĐI KẾT THÚC":"VA TRỰC THĂNG · CHUYẾN ĐI KẾT THÚC";noticeTimer=5;
   }
   void KnockHelicopter(HelicopterActor h,Vector3 before,Vector3 away)
   {
@@ -127,7 +140,8 @@ namespace PhoViet
   }
   void TickHelicopterWreck(HelicopterActor h,float dt)
   {
-   h.age+=dt;h.velocity.y-=9.81f*dt;Vector3 p=h.root.localPosition+h.velocity*dt-h.scroll;h.scroll=Vector3.zero;
+   h.age+=dt;h.velocity.y-=9.81f*dt;h.contactVelocity=h.velocity;
+   Vector3 p=h.root.localPosition+h.velocity*dt-h.scroll;h.scroll=Vector3.zero;
    bool water=OverRiver(p);float floor=water?RiverBlock.WaterY-3:.85f;
    if(p.y<=floor){p.y=floor;h.velocity=Vector3.MoveTowards(new Vector3(h.velocity.x,0,h.velocity.z),Vector3.zero,dt*12);h.wreckSpin*=Mathf.Exp(-dt*4);}
    h.wreckEuler+=h.wreckSpin*dt;h.root.localPosition=p;h.root.localRotation=Quaternion.Euler(h.wreckEuler);

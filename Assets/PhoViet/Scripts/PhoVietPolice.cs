@@ -113,8 +113,9 @@ namespace PhoViet
             }
             if(hit==null){BeginPoliceRiver(policeVelocity);return;}
             bool fresh=policeContactUntil[hitIndex]<=timeRiding;
-            if(fresh&&-Vector2.Dot(Flat(BodyVelocity(hit)-policeVelocity),normal)>.35f)
-                BurnVehicleContact(policeBody,hit,normal,earliest);
+            float impactSpeed=-Vector2.Dot(Flat(BodyVelocity(hit)-policeVelocity),normal);
+            if(fresh&&impactSpeed>.35f)
+                ShowVehicleContact(policeBody,hit,normal,impactSpeed,earliest);
             Vector3 end=policeBike.localPosition;
             policeBike.localPosition=Vector3.Lerp(before,end,earliest);
             // Bộ lập đường CSGT khi người chơi té/khi cua (RoutePolicePathClear) chừa đệm

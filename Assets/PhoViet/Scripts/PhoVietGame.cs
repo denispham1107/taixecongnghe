@@ -197,8 +197,8 @@ namespace PhoViet
         {
             if(JobOffersOpen)return;
             CancelSwipe();
-            if(State==RideState.Riding||State==RideState.Falling){pauseFromState=State;State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);PauseMissileAudio(true);}
-            else if(State==RideState.Paused){State=pauseFromState;PauseRecklessFx(false);PauseMissileAudio(false);if(sound){if(State==RideState.Riding){engine.UnPause();navigationAudio?.UnPause();}if(IsChased)siren?.UnPause();}}
+            if(State==RideState.Riding||State==RideState.Falling){pauseFromState=State;State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);PauseMissileAudio(true);vehicleShards?.Pause();}
+            else if(State==RideState.Paused){State=pauseFromState;PauseRecklessFx(false);PauseMissileAudio(false);vehicleShards?.Play();if(sound){if(State==RideState.Riding){engine.UnPause();navigationAudio?.UnPause();}if(IsChased)siren?.UnPause();}}
         }
         public TrafficVehicle SpawnTraffic(int lane,float z,int preferred=-1)
         {
@@ -648,7 +648,14 @@ namespace PhoViet
             float w=portrait?432:480,h=paused?340:465,x=(uiW-w)/2,y=(uiH-h)/2;
             Panel(new Rect(x,y,w,h),Cream,18);
             Txt(paused?"NGHỈ MỘT CHÚT":"KẾT THÚC CHUYẾN XE",x+28,y+28,w-56,25,12,Red);
-            Txt(paused?"Dừng chân bên phố.":RiderInRiver?"Rơi xuống sông!":KilledByShell?"Trúng đạn xe tăng!":"Chuyến đi kết thúc!",x+27,y+69,w-54,70,portrait?31:36,Ink);
+            string missileSource=paused?null:MissileHitSourceLabel;
+            if(missileSource!=null)
+            {
+                Txt("Trúng tên lửa!",x+27,y+62,w-54,48,portrait?31:36,Ink);
+                Txt("Tên lửa do "+missileSource+" phóng.",x+28,y+109,w-56,24,portrait?17:19,Ink);
+            }
+            else
+                Txt(paused?"Dừng chân bên phố.":RiderInRiver?"Rơi xuống sông!":KilledByShell?"Trúng đạn xe tăng!":"Chuyến đi kết thúc!",x+27,y+69,w-54,70,portrait?31:36,Ink);
             if(paused)
             {
                 Txt("Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.",x+28,y+140,w-56,50,16,Teal);
@@ -669,6 +676,7 @@ namespace PhoViet
         {
             ShutdownChainArt();
             ShutdownTankCraters();
+            ShutdownVehicleImpactFx();
             ShutdownTrafficSignalFaces();
             ShutdownGraphicsSettings();
             if(engine!=null&&engine.clip!=null)Destroy(engine.clip);if(crashClip!=null)Destroy(crashClip);

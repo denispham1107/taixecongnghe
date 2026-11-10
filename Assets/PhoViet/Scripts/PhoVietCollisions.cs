@@ -106,8 +106,7 @@ namespace PhoViet
             }
             // Intersect the vertical time interval too: checking height only at the
             // horizontal entry could miss a descending rider or a rising crash body.
-            float ah=a.model.TryGetComponent<MeshyCarVariants>(out var am)?am.Height:a.halfLength>3?3.2f:a.halfWidth>.7f?1.9f:a.knocked?.6f:2.4f;
-            float bh=b.model.TryGetComponent<MeshyCarVariants>(out var bm)?bm.Height:b.halfLength>3?3.2f:b.halfWidth>.7f?1.9f:b.knocked?.6f:2.4f;
+            float ah=TrafficContactHeight(a),bh=TrafficContactHeight(b);
             float y0=a.previousPosition.y-b.previousPosition.y;
             float dy=a.model.localPosition.y-b.model.localPosition.y-y0;
             if(Mathf.Abs(dy)<.000001f){if(y0>bh||y0< -ah)return false;}
@@ -121,6 +120,13 @@ namespace PhoViet
             at=Mathf.Clamp01(enter);normal=entryNormal.sqrMagnitude>.5f?entryNormal:minNormal;
             penetration=Mathf.Max(0,ProjectedRadius(a,normal)+ProjectedRadius(b,normal)-Mathf.Abs(Vector2.Dot(to,normal)));
             return true;
+        }
+        static float TrafficContactHeight(TrafficVehicle v)
+        {
+            if(v.model.TryGetComponent<MeshyCarVariants>(out var car))return car.Height;
+            if(v.halfLength>3)return 3.2f;
+            if(v.halfWidth>.7f)return 1.9f;
+            return v.knocked?.6f:2.4f;
         }
         void ResolveVehicleCollisions()
         {
@@ -142,7 +148,7 @@ namespace PhoViet
                 {
                     // A tank can strike a wall-locked wreck even though neither
                     // body accepts an impulse. The wreck still gains contact fire.
-                    if(closing>=.35f){BurnVehicleContact(a,b,normal,at);contactUntil[i,j]=timeRiding+.12f;}
+                    if(closing>=.35f){ShowVehicleContact(a,b,normal,closing,at);contactUntil[i,j]=timeRiding+.12f;}
                     continue;
                 }
                 if(closing<.35f)
@@ -150,7 +156,7 @@ namespace PhoViet
                     if(depth>0&&at==0)SeparateBodies(a,b,normal,Mathf.Min(depth,.5f),invA/sum,invB/sum);
                     continue;
                 }
-                BurnVehicleContact(a,b,normal,at);
+                ShowVehicleContact(a,b,normal,closing,at);
                 // Low restitution and Coulomb friction dissipate energy instead of adding random launches.
                 const float restitution=.18f,friction=.28f;
                 float normalA=LeverCross(leverA,normal),normalB=LeverCross(leverB,normal);

@@ -6,11 +6,12 @@ namespace PhoViet
  {
   public const int MaximumDistanceHelicopters=3;
   const float HelicopterDistanceStep=200;
-  const float HelicopterSpeed=16,HelicopterSpacing=12,AdjacentHelicopterSpacing=6,TurnHelicopterHeadClearance=1.55f;
+  const float HelicopterSpeed=18.4f,HelicopterSpacing=12,AdjacentHelicopterSpacing=6,TurnHelicopterHeadClearance=1.55f;
   sealed class HelicopterActor
   {
    public Transform root;public HelicopterVisual visual;public bool active,wrecked,turnFirstShotPending;
-   public float age,shotRemaining,shotInterval;public Vector3 velocity,scroll,wreckEuler,wreckSpin,missilePrevious;public int generation;
+   public float age,shotRemaining,shotInterval,roadContactCooldown;
+   public Vector3 velocity,scroll,wreckEuler,wreckSpin,missilePrevious,previousContact,contactVelocity;public int generation;
    public SkywingVisual skywing;public int tier,spawnLane;
   }
   readonly List<HelicopterActor> helicopters=new List<HelicopterActor>(MaximumDistanceHelicopters);
@@ -97,9 +98,9 @@ namespace PhoViet
   }
   void LaunchHelicopter(HelicopterActor actor,Vector3 position,bool postTurn=false)
   {
-   actor.root.localPosition=actor.missilePrevious=position;
+   actor.root.localPosition=actor.missilePrevious=actor.previousContact=position;
    actor.root.localRotation=Quaternion.Euler(0,180,0);actor.velocity=Vector3.back*(actor.skywing!=null?SkywingSpeed:HelicopterSpeed);
-   actor.generation++;actor.age=0;actor.scroll=Vector3.zero;
+   actor.generation++;actor.age=actor.roadContactCooldown=0;actor.scroll=Vector3.zero;
    actor.shotInterval=actor.shotRemaining=CurrentHelicopterMissileInterval;
    actor.active=true;actor.wrecked=false;
    actor.turnFirstShotPending=postTurn;
@@ -154,6 +155,7 @@ namespace PhoViet
    if(helicopterRebased){previousRider=helicopterRebaseRotation*(previousRider-helicopterRebaseOrigin);helicopterRebased=false;}
    foreach(var h in helicopters)if(h!=null&&h.active){h.missilePrevious=h.root.localPosition-h.scroll;TickHelicopterActor(h,dt,previousRider,collisions);}
    foreach(var plane in skywings)if(plane.active){plane.missilePrevious=plane.root.localPosition-plane.scroll;TickHelicopterActor(plane,dt,previousRider,collisions);}
+   if(State==RideState.Riding||State==RideState.Falling)ResolveAircraftContacts(dt);
    TickPlayerMissiles(dt);
    TickHelicopterMissiles(dt,previousRider,collisions);
    if(!collisions||State!=RideState.Riding||IsTurning)return;
@@ -165,18 +167,26 @@ namespace PhoViet
   }
   void TickHelicopterActor(HelicopterActor h,float dt,Vector3 previousRider,bool collisions)
   {
-   if(h.wrecked){TickHelicopterWreck(h,dt);return;}
-   Vector3 from=h.root.localPosition;h.root.localPosition+=h.velocity*dt-h.scroll;h.scroll=Vector3.zero;h.age+=dt;
+   Vector3 from=h.previousContact=h.root.localPosition;
+   if(h.wrecked)
+   {
+    TickHelicopterWreck(h,dt);
+    if(h.active&&collisions&&State==RideState.Riding)
+    {
+     float height=PlayerHeight;
+     var car=new Bounds(Vector3.up*height*.5f,new Vector3(PlayerHalfWidth*2,height,PlayerHalfLength*2));
+     if(SweptAircraftParts(h,previousRider,rider,rider.localRotation,null,car,out float at,out Vector3 face,out Vector3 point)
+         &&Vector3.Dot(h.contactVelocity-RiderAircraftContactVelocity(previousRider,dt),face)>.35f)
+      ResolveRiderAircraftContact(h,previousRider,dt,at,point,face);
+    }
+    return;
+   }
+   h.contactVelocity=h.velocity;
+   h.root.localPosition+=h.velocity*dt-h.scroll;h.scroll=Vector3.zero;h.age+=dt;
    if(collisions&&State==RideState.Riding&&h.skywing!=null)
    {
-    if(SkywingTouchesRider(from,h.root.localPosition,h.root.localRotation,previousRider))
-    {
-     Vector3 away=rider.localPosition-h.root.localPosition;
-     away.y=0;
-     if(away.sqrMagnitude<.01f)away=Vector3.back;
-     KnockHelicopter(h,riderRoadVelocity,away.normalized);
-     BurnAirAttackRider(h.root.localPosition,false,biplane:true);
-    }
+    if(SkywingTouchesRider(from,h.root.localPosition,h.root.localRotation,previousRider,out float at))
+     ResolveRiderAircraftContact(h,previousRider,dt,at);
    }
    else if(collisions&&State==RideState.Riding)
    {
@@ -185,14 +195,39 @@ namespace PhoViet
     {
      float t=(float)i/steps;Vector3 at=Vector3.Lerp(from,h.root.localPosition,t),p=Vector3.Lerp(previousRider,rider.localPosition,t);
      if(!HelicopterTouches(at,h.root.localRotation,p,rider.localRotation))continue;
-     Vector3 away=p-at;away.y=0;if(away.sqrMagnitude<.01f)away=Vector3.back;away.Normalize();
-     Vector3 before=riderRoadVelocity;rider.localPosition=p;h.root.localPosition=at;
-     KnockHelicopter(h,before,away);HitByHelicopter=true;BurnAirAttackRider(at,false);break;
+     ResolveRiderAircraftContact(h,previousRider,dt,t);
+     break;
     }
    }
    if(collisions&&!h.wrecked)TickHelicopterWeapon(h,dt);
    if(h.root.localPosition.z< -32||Mathf.Abs(h.root.localPosition.x)>38||h.age>14)
    {h.active=false;h.root.gameObject.SetActive(false);}
+  }
+  Vector3 RiderAircraftContactVelocity(Vector3 previous,float dt)
+  {
+   var velocity=riderVelocityValid?riderRoadVelocity:rider.localRotation*Vector3.forward*Speed;
+   velocity.y=(rider.localPosition.y-previous.y)/dt;
+   return velocity;
+  }
+  void ResolveRiderAircraftContact(HelicopterActor aircraft,Vector3 previous,float dt,float at,
+      Vector3? contact=null,Vector3? face=null)
+  {
+   var before=RiderAircraftContactVelocity(previous,dt);
+   var aircraftAt=Vector3.Lerp(aircraft.previousContact,aircraft.root.localPosition,at);
+   var playerAt=Vector3.Lerp(previous,rider.localPosition,at);
+   var center=playerAt+Vector3.up*(PlayerHeight*.5f);
+   var normal=face??(center-aircraftAt).normalized;
+   if(normal.sqrMagnitude<.001f)normal=Vector3.back;
+   var rotation=rider.localRotation;
+   var local=Quaternion.Inverse(rotation)*(aircraftAt-center);
+   var panel=new Vector3(Mathf.Clamp(local.x,-PlayerHalfWidth,PlayerHalfWidth),
+       Mathf.Clamp(local.y,-PlayerHeight*.5f,PlayerHeight*.5f),Mathf.Clamp(local.z,-PlayerHalfLength,PlayerHalfLength));
+   var point=contact??(center+rotation*panel);
+   EmitVehicleImpact(point,normal,(before-aircraft.contactVelocity).magnitude);
+   rider.localPosition=playerAt;
+   CrashAircraftAtContact(aircraft,at,before,normal);
+   HitByHelicopter|=aircraft.skywing==null;
+   BurnAirAttackRider(point,biplane:aircraft.skywing!=null);
   }
   bool HelicopterTouches(Vector3 at,Quaternion heading,Vector3 p,Quaternion rotation)
   {

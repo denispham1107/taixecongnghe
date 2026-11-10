@@ -97,7 +97,7 @@ namespace PhoViet
             return at<=1;
         }
 
-        bool SkywingTouchesRider(Vector3 from,Vector3 to,Quaternion heading,Vector3 previousRider)
+        bool SkywingTouchesRider(Vector3 from,Vector3 to,Quaternion heading,Vector3 previousRider,out float at)
         {
             Quaternion inverse=Quaternion.Inverse(heading);
             Quaternion relative=inverse*rider.localRotation;
@@ -107,7 +107,7 @@ namespace PhoViet
             Vector3 half=new Vector3(Mathf.Abs(x.x)+Mathf.Abs(y.x)+Mathf.Abs(z.x),
                 Mathf.Abs(x.y)+Mathf.Abs(y.y)+Mathf.Abs(z.y),Mathf.Abs(x.z)+Mathf.Abs(y.z)+Mathf.Abs(z.z));
             Vector3 lift=Vector3.up*(PlayerHeight*.5f);
-            return SkywingTouchesSegment(inverse*(previousRider+lift-from),inverse*(rider.localPosition+lift-to),half,out _);
+            return SkywingTouchesSegment(inverse*(previousRider+lift-from),inverse*(rider.localPosition+lift-to),half,out at);
         }
     }
 }

@@ -26,7 +26,9 @@ public static class VerifyLocalLightning
   Check(lanes.Count==3,"Exactly three different additional lanes: "+label);
  }
  static int VisibleWarnings(ThunderstormVisual fx)=>fx.GetComponentsInChildren<MeshRenderer>(true).Count(r=>r.name.StartsWith("Cảnh báo sét")&&r.gameObject.activeInHierarchy);
- static int VisibleBolts(ThunderstormVisual fx)=>fx.GetComponentsInChildren<LineRenderer>(true).Count(r=>r.gameObject.activeInHierarchy)/5;
+ static IEnumerable<LineRenderer> BoltLines(ThunderstormVisual fx)=>
+  ((LineRenderer[][])typeof(ThunderstormVisual).GetField("boltLines",F).GetValue(fx)).SelectMany(lines=>lines);
+ static int VisibleBolts(ThunderstormVisual fx)=>BoltLines(fx).Count(r=>r.gameObject.activeInHierarchy)/5;
  public static object Main()
  {
   if(!Application.isPlaying)throw new Exception("Play Mode required");g=UnityEngine.Object.FindAnyObjectByType<PhoVietGame>();checks=new List<string>();
@@ -80,7 +82,7 @@ public static class VerifyLocalLightning
    g.TickThunderstorm(.011f,false);Call("RenderThunderstorm");Check(g.LightningStrikes==4&&g.AdditionalLightningCount==0&&!g.LightningPending,"Exactly four rays resolve together, then clear queue");
    Check(targets.All(v=>v.lightningWreck&&v.knocked&&v.recovery==null),"All three local strikes damage traffic with existing permanent wreck rule");
    Check(VisibleWarnings(fx)==0&&VisibleBolts(fx)==4,"All four bolts remain visible simultaneously without overwriting one another");
-   int lineCount=fx.GetComponentsInChildren<LineRenderer>(true).Length;Check(lineCount==20&&fx.LightningCapacity==4,"Fixed four-bolt pool, five lines each");
+   int lineCount=BoltLines(fx).Count();Check(lineCount==20&&fx.LightningCapacity==4,"Fixed four-bolt pool, five lines each");
    g.TickThunderstorm(.13f,false);g.StrikeLightning(new Vector3(-5,0,25));g.TickThunderstorm(.11f,false);Call("RenderThunderstorm");Check(VisibleBolts(fx)==1,"New primary strike never revives expired additional bolts");
    foreach(float height in new[]{0f,4.1f})
    {
@@ -97,7 +99,7 @@ public static class VerifyLocalLightning
    Fresh();Queue(5);g.WarnLightning(new Vector3(5,0,40));Check(g.AdditionalLightningCount==0,"Direct single warning replaces a pending batch without stale extras");g.TickThunderstorm(.801f,false);Check(g.LightningStrikes==1,"Manual single-strike API remains single");
    Fresh();Queue(6);g.thunderstormEnabled=false;g.TickThunderstorm(.1f,true);Call("RenderThunderstorm");Check(!g.LightningPending&&g.AdditionalLightningCount==0&&VisibleWarnings(fx)==0&&VisibleBolts(fx)==0,"Disabling weather cancels entire pending batch and visuals");
    Fresh();Queue(7);g.ResetRide();Call("RenderThunderstorm");Check(!g.LightningPending&&g.AdditionalLightningCount==0&&g.LightningStrikes==0&&VisibleWarnings(fx)==0&&VisibleBolts(fx)==0,"Retry clears all added warnings and bolts");
-   Check(g.daylight.lightPool.Length==6&&fx.ParticleBudget==2400&&fx.GetComponentsInChildren<LineRenderer>(true).Length==lineCount,"Existing lights/rain budget unchanged and no bolt-pool growth");Check(!g.jobsEnabled&&!PhoVietGame.RideJobsReleased,"Jobs stay locked");
+   Check(g.daylight.lightPool.Length==6&&fx.ParticleBudget==2400&&BoltLines(fx).Count()==lineCount,"Existing lights/rain budget unchanged and no bolt-pool growth");Check(!g.jobsEnabled&&!PhoVietGame.RideJobsReleased,"Jobs stay locked");
    var result=new{success=true,count=checks.Count,checks,randomSeeds=48,streetPositions=12,turnCases=4,boltPool=lineCount};File.WriteAllText("Captures/rain-three-strikes-checks.json",Newtonsoft.Json.JsonConvert.SerializeObject(result,Newtonsoft.Json.Formatting.Indented));return new{result.success,result.count};
   }
   finally{g.riversEnabled=rivers;g.dinosaursEnabled=dinos;g.tankBarrageEnabled=tanks;g.thunderstormEnabled=enabled;g.ResetRide();Time.timeScale=scale;}

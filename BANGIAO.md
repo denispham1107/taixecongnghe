@@ -33,11 +33,11 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Pickup tên lửa mẫu C đã duyệt | **21.131 đã có trên web1.55.0:** Hex Ammo nền lục giác xanh/viền vàng/mũi đỏ;3LOD1482/1014/592tri,pool70.735Unity đạt/5ảnh đã xem; chỉ pickup đường, HUD/nút/đạn bay giữ. Approvaltrue/C |
 | Nút tên lửa/âm lượng/ảnh trang chủ mới | **21.134 đã có trên web 1.56.0:** nút góc trái dưới, master 1,56×/+3,86249dB, `poster-home-flight.png` dưới ảnh cũ |
-| Đạn trực thăng/âm lượng tổng trong source | **21.132 đã có trên web1.55.0:** đạn địch50→40m/s (−20%), mastervolume1,3×/+2,2788668dB cho engine/FX/CSGT/mưa/rotor/voice.1016Unity đạt; đoRMS1,305×; player missile/ảnh/gameplaykhác giữ |
+| Tên lửa địch và âm lượng tổng | **Source 21.180:** tên lửa xe tăng/trực thăng/Skywing 36 m/s, thẻ kết thúc ghi đúng nguồn. Web 1.67.0 còn 40 m/s. Master +30% ở 21.132 vẫn có trên web. |
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
-| Tên lửa người chơi | **21.169, web 1.65.0:** khi giữ bay chọn xe tăng hoặc trực thăng gần nhất phía trước. Dưới đất nhắm xe tăng như 21.145. Xe tăng trúng đạn dừng, cháy và vẫn là vật cản. Kho 5/5, nhặt +1, hồi 0,4 giây, bắn thẳng khi không có mục tiêu. |
-| Cháy va chạm mặt đất trong source | **21.127 đã có trên web1.55.0:** đa điểm/player–NPC/NPC–NPC/CSGT; Tank miễn; xe dựng lại vẫn chạy kèm lửa/khói.802Unity/4ảnh đạt |
-| Trực thăng và tên lửa địch | **21.174, web 1.66.0:** mức 1/2/3 theo mốc 0/200/400 m cộng 1 chiếc mỗi lần rẽ xong, không có trần cố định. Đợt sau rẽ tăng quân cả khi xe ở dưới đất. Tên lửa trực thăng và xe tăng giảm 0,1 giây/lượt rẽ, sàn 0,25 giây. |
+| Tên lửa người chơi | **Source 21.179:** hồi 0,25 giây; web 1.67.0 còn 0,4 giây. Kho 5/5, nhặt +1; bắn thẳng khi thiếu mục tiêu. Dưới đất và khi bay giữ các loại mục tiêu theo 21.169/21.173/21.177. |
+| Va chạm phương tiện trong source | **21.179 chưa phát hành:** mảnh 3D và tia lửa tại tiếp xúc, tăng theo lực tông. Áp dụng xe–xe, người chơi–máy bay, máy bay–máy bay và máy bay–xe dưới đường. Giữ lửa/khói 21.127 và ngoại lệ cháy xe tăng. |
+| Trực thăng | **Source 21.180:** bay 18,4 m/s ngay khi xuất hiện; web 1.67.0 còn 16 m/s. Theo 21.174, có 1/2/3 chiếc ở mốc 0/200/400 m cộng mỗi lần rẽ xong 1 chiếc. Nhịp tên lửa giảm 0,1 giây/lượt rẽ, sàn 0,25 giây. |
 | Khủng long | **21.173, web 1.66.0:** thanh máu 3 nấc trên đầu. Tên lửa bắn từ mặt đất có thể hạ khủng long. Mỗi phát trúng thêm một điểm lửa/khói. Phát thứ ba làm khủng long ngã; xác cháy và vẫn gây va chạm. |
 | Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Đã có trên web 1.61.0. |
 | Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Đã có trên web 1.61.0. |
@@ -49,12 +49,16 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 | Chất liệu tường trong source | **21.98:** người dùng chọn vân rõ hơn21.97; relief0,42/scale0,65/contrast0,28/smoothness0,015, giữ màu/kính/kim loại/sông. UV mask25FBX/144mesh, texture1K nén/mipmap, không thêm renderer. Chi tiết21.97–21.98; đã có trên web1.50.0 |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Đã có trên web1.48.0** |
 | Góc đèn pha trong source | **21.108 đã có trên web1.53.0:** khôi phục đèn gốc1.52, chỉmởgócngang1,8×/spot≈90°;bỏreference0,65/mirror21.107,giữhướng/cườngđộ/tầm32m/nguồnđèn.435kiểmđạt/ảnhgốc-vàmởgóccùngframe |
-| Mưa giông/sét trong source | **21.109 đã có trên web1.53.0:** mỗi đợt giữ tia cũ +3tia đồng thời/3làn khác nhau trong tile hiện tại, báo0,8s;763kiểm đạt/4ảnh thật. **Web1.52.0 còn21.105:**15s quang/3s tăng/9s giông/3s tan; xe trúng cháy/văng/nằm lại, player hết lượt, Tank/Dino miễn, CSGT hết đuổi |
+| Mưa giông/sét trong source | **21.179 chưa phát hành:** tiếng nổ và rền 2,2 giây theo vị trí từng tia. **21.109 đã có trên web1.53.0:** mỗi đợt giữ tia cũ +3tia đồng thời/3làn khác nhau trong tile hiện tại, báo0,8s;763kiểm đạt/4ảnh thật. **Web1.52.0 còn21.105:**15s quang/3s tăng/9s giông/3s tan; xe trúng cháy/văng/nằm lại, player hết lượt, Tank/Dino miễn, CSGT hết đuổi |
 | Hố đạn và chỉnh lái trong source | **21.103 đã có trên web1.51.0:** hố R2,024m/lòng−0,40m/nứt/mảnh văng; bánh chạm kéo lệch tới khi nhấn/vuốt ngược, nhảy tránh được. **1.090 kiểm tra đạt/11 ảnh Unity**, không đổi hình ảnh ngoài hố. Xem21.103 |
 | Tàu và đèn phụ trong source | **21.102 đã có trên web1.51.0:** tàu đánh cá Meshy140chiếc,3LOD/texture2K; đènnhỏ chungtínhiệu2mặt vớiđènlớn;3346kiểmđạt |
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.180:** trực thăng +15%, tên lửa địch −10%, thẻ kết thúc ghi xe tăng/trực thăng/máy bay hai tầng cánh. 106 kiểm tra Play Mode đạt. Bản sửa cục bộ, web vẫn 1.67.0.
+
+- **21.179:** va chạm phương tiện có mảnh văng theo lực tông, tên lửa người chơi hồi 0,25 giây và sét có tiếng nổ/rền. 866 kiểm tra Play Mode đạt, đã xem ảnh Unity. Bản sửa cục bộ, web vẫn 1.67.0.
 
 - **21.178 đã phát hành WebGL 1.67.0:** ETC2/EAC và DXT, 172,159 giây. 214/220 kiểm tra Unity trước/sau, 603 bố cục, 22 Chrome cục bộ và 42 Git index đạt. Pages `42685816470`, commit `18dddeb`, cache `d7ae63b6ac6d824e`. 34 kiểm tra công khai và 5 kiểm tra bay khổ dọc đạt.
 
@@ -288,6 +292,8 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **Đang làm 21.181:** đã chọn gói 1.68.0 gồm 21.179–21.180 và cập nhật cấu hình version. Build ETC2/EAC + DXT thành công, cache 5ff1a2b82a648276. Đạt 220 kiểm tra trước và sau build, 604 SHA, 48 kiểm tra gói Git, 39 kiểm tra gói Pages và 603 bố cục. Chrome đạt 22 kiểm tra desktop, mobile giả lập và offline. Đang đối chiếu Git index để push rồi xác minh Pages. Web hiện 1.67.0.
+
 
 
 
@@ -433,6 +439,8 @@ Cập nhật lần cuối: **10/11/2026 — Codex**
 | Thiết kế icon cài đặt Phố Việt | **21.167**, 21.165–21.166, 15.2 | `ArtSource/Web/pho-viet-app-icon.svg`, `AgentScripts/GenerateWebIcons.cjs`, `ArtSource/Concepts/PWA-Icons-20261109/`, template PWA `manifest.webmanifest`, `index.html`, `icons/` |
 | Bánh xe lăn và giảm quay sau va chạm | **21.164** | `WheelRolling.cs`, `CarWheelDetail.cs`, `PlayerCarVisual.cs`, `CarVisualAnimator.cs`, `BikeVisualAnimator.cs`, `PhoVietCollisions.cs` |
 | Player tên lửa3/3/pickup/HUD/F/homing/shot-down | **21.128** | `PhoVietPlayerMissiles.cs`, `PhoVietMissilePickups.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietHelicopter.cs`, HUD/energy/river/web runtime; `Resources/PlayerMissile`, `ArtSource/UI/player_missile_icon.*`; verifier/capture `PlayerMissile*2128`, reports `player2128-*` |
+| Mảnh vỡ va chạm, nhịp tên lửa người chơi, tiếng sét | **21.179** | `PhoVietVehicleImpactFx.cs`, `PhoVietAircraftContacts.cs`, `PhoVietContactFire.cs`, `PhoVietPlayerMissiles.cs`, `ThunderstormVisual.cs`; `AgentScripts/VerifyVehicleImpact21179.cs` |
+| Tốc độ trực thăng/tên lửa địch và tên phương tiện trên thẻ kết thúc | **21.180** | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `PhoVietTankFire.cs`, `PhoVietGame.cs`; `AgentScripts/VerifyMissileSource21180.cs` |
 | Cháy/khói đa điểm va chạm mặt đất; xe hồi phục vẫn cháy | **21.127** | `PhoVietContactFire.cs`, `ContactFireVisual.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs`, `PhoVietPolice.cs`, `PhoVietPlayerVehicle.cs`, `PhoVietThunderstorm.cs`; verifier/report/capture `ContactFire2127`/`contact2127-*` |
 | Đội trực thăng theo quãng đường/lượt rẽ và nhịp tên lửa địch | **21.174**, 21.171/21.161/21.162/21.126/21.132 | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `PhoVietTankFire.cs`, `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `ThunderstormVisual.cs`; prefab trong `Resources/Helicopter` |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |

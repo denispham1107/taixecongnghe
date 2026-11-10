@@ -4,7 +4,7 @@ public static class ConfigureWebRelease
  {
   if(UnityEngine.Application.isPlaying)throw new System.InvalidOperationException("Exit Play Mode before configuring a web release.");
   PhoViet.Editor.PhoVietWebBuild.Configure();
-  UnityEditor.PlayerSettings.bundleVersion="1.67.0";
+  UnityEditor.PlayerSettings.bundleVersion="1.68.0";
   UnityEditor.AssetDatabase.SaveAssets();
   return new{success=true,version=UnityEngine.Application.version};
  }

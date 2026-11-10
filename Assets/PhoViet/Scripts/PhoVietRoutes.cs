@@ -217,6 +217,11 @@ namespace PhoViet
             RebaseAssistedKick(inverse,origin);
             RebaseDinosaurs(inverse,origin);RebaseThunderstorm(inverse,origin);
             RebaseHelicopter(inverse,origin);
+            if(tankFxAnchor!=null)
+            {
+                tankFxAnchor.localPosition=inverse*(tankFxAnchor.localPosition-origin);
+                tankFxAnchor.localRotation=inverse*tankFxAnchor.localRotation;
+            }
             foreach(var row in roadRows)
             {
                 if(row==roadRows[mainRow])

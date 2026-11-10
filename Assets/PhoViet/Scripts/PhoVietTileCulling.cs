@@ -18,7 +18,7 @@ namespace PhoViet
   {
    if(!Application.isPlaying)return;
    CreateRearStyleTextures();if(rearWarningArrow==null)CreateRearWarningArrow();
-   EnsureTankFx();EnsureThunderstorm();EnsureBoostSmoke();EnsurePlayerMissileHudIcon();EnsureArcadeControls();
+   EnsureTankFx();EnsureVehicleImpactFx();EnsureThunderstorm();EnsureBoostSmoke();EnsurePlayerMissileHudIcon();EnsureArcadeControls();
    for(int i=0;i<2;i++)shellPool.Push(PrewarmedShell());
    if(dinosaursEnabled&&dinosaurPrefab!=null)
     while(dinosaurs.Count<2)

@@ -50,6 +50,7 @@ namespace PhoViet
    turnTankAimRandom=new System.Random(RunSeed^0x21a110);
    foreach(var v in vehicles){v.turnTankAimGeneration=-1;v.turnTankTarget=Vector3.zero;}
    ResetTankCraters();
+   if(vehicleShards!=null){vehicleShards.Clear();vehicleShards.Play();}
    ClearShells();tankSpawnTimer=TankInterval;nextDistanceTank=TankDistanceInterval;pendingDistanceTanks=0;DistanceTanksScheduled=0;TanksScheduled=0;ShellsFired=0;ShellBlasts=0;ShellSplashes=0;VehiclesBlasted=0;KilledByShell=false;
    if(tankFxAnchor!=null){tankFxAnchor.localPosition=Vector3.zero;tankFxAnchor.localRotation=Quaternion.identity;foreach(var ps in new[]{muzzleFx,blastFx,smokeFx,sparkFx,trailFx})if(ps!=null)ps.Clear();}
   }
@@ -144,14 +145,14 @@ namespace PhoViet
     v.tankFireTimer=Mathf.Min(v.tankFireTimer,interval)-dt;
     if(v.tankFireTimer>0)continue;
     v.tankFireTimer=interval;
-    if(antiAir)FireEnemyMissile(TankMuzzle(v),true);
+    if(antiAir)FireEnemyMissile(TankMuzzle(v),EnemyMissileSource.Tank);
     else FireAutomaticTankShell(v);
    }
   }
   bool TurnTankAirShotReady(TrafficVehicle v)=>RiderFlying&&v.turnTankAirShotPending&&HasTurnTankAim(v);
   void FireTurnTankOpeningMissile(TrafficVehicle v)
   {
-   if(!FireEnemyMissile(TankMuzzle(v),true))return;
+   if(!FireEnemyMissile(TankMuzzle(v),EnemyMissileSource.Tank))return;
    v.turnTankAirShotPending=false;
    v.tankFireTimer=AirMissileIntervalAfterTurns(TankMissileInterval);
   }

@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.67.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.68.0**.
+
+## Cập nhật 1.68.0
+
+Va chạm giữa các phương tiện làm văng mảnh theo lực tông, kèm lửa và khói. Sét có tiếng nổ và tiếng rền. Trực thăng bay nhanh hơn 15%, tên lửa địch chậm hơn 10%, và màn hình kết thúc ghi phương tiện bắn trúng xe người chơi. Xe người chơi có thể bắn phát tiếp theo sau 0,25 giây.
 
 ## Cập nhật 1.67.0
 

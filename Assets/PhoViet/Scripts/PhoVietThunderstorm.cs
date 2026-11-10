@@ -124,8 +124,7 @@ namespace PhoViet
    if(!thunderstormEnabled||State==RideState.Paused||State==RideState.Ready||State==RideState.Jailed)return;
    EnsureThunderstorm();lightningWarning=0;LightningStrikes++;boltAge=0;StormFlash=.24f;
    var visualPoint=at;if(IsStormWater(at))visualPoint.y=RiverBlock.WaterY;
-   if(stormVisual!=null)stormVisual.Strike(visualPoint,LightningStrikes,slot);
-   if(slot==0&&sound&&fx!=null){EnsureTankFx();fx.PlayOneShot(blastClip,.6f);}
+   if(stormVisual!=null)stormVisual.Strike(visualPoint,LightningStrikes,slot,sound);
    foreach(var v in vehicles)
    {
     if(!v.active||v.armored||v.lightningWreck||v.riverFalling||v.wallCrashed||!UnderLightning(v.model,v.halfWidth,v.halfLength,at))continue;

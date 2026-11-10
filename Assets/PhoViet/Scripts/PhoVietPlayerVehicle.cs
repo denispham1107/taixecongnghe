@@ -32,7 +32,7 @@ namespace PhoViet
    rider.localPosition=p;hit.model.localPosition=target;
    LastKickCentreDistance=delta.magnitude;LastKickFootGap=0;
    LastKickFootPoint=p+right*kickDirection*PlayerHalfWidth+Vector3.up*.8f;
-   BurnVehicleContact(riderBody,hit,normal);
+   ShowVehicleContact(riderBody,hit,normal,(riderRoadVelocity-BodyVelocity(hit)).magnitude);
    ApplyAssistedKickImpact();
    // Separate the real panels at contact, retaining the return-to-lane offset.
    // Resolve along the contact face, which is oblique for crossing/oncoming
