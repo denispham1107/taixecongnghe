@@ -93,15 +93,16 @@ namespace PhoViet
             if(!RoutesReady||direction==0)return false;if(IsTurning)return true;
             if(QueuedTurn==Math.Sign(direction)&&CanTurnFromLane(direction,CurrentLane))return true;
             float near=NextJunctionDistance;
+            float riderLaneX=rider.localPosition.x-bikeAppliedOffset.x;
             // Accept an unqueued turn throughout the actual open intersection.
-            bool atEdge=direction<0?rider.localPosition.x<=-.65f:rider.localPosition.x>=.65f;
+            bool atEdge=direction<0?riderLaneX<=-.65f:riderLaneX>=.65f;
             if(near>=-7&&near<=7&&atEdge)
             {
-                CurrentLane=direction<0?(rider.localPosition.x<=-3.1f?0:1):(rider.localPosition.x>=3.1f?3:2);
+                CurrentLane=direction<0?(riderLaneX<=-3.1f?0:1):(riderLaneX>=3.1f?3:2);
                 QueuedTurn=Math.Sign(direction);StartJunctionTurn(true);return true;
             }
             bool lane=CanTurnFromLane(direction,CurrentLane);
-            if(near>=12&&near<=30&&lane&&Mathf.Abs(rider.localPosition.x-LaneX[CurrentLane])<.6f)
+            if(near>=12&&near<=30&&lane&&Mathf.Abs(riderLaneX-LaneX[CurrentLane])<.6f)
             {
                 QueuedTurn=Math.Sign(direction);notice=(direction<0?"ĐÃ CHỌN RẼ TRÁI · ":"ĐÃ CHỌN RẼ PHẢI · ")+junctionStreet.ToUpperInvariant();noticeTimer=2;return true;
             }
@@ -154,7 +155,8 @@ namespace PhoViet
         {
             // Thế giới sắp quay 90°: hủy đạn/cảnh báo đang bay (21.38).
             ClearShells();
-            IsTurning=true;turnSide=QueuedTurn;QueuedTurn=0;turnStart=rider.localPosition;turnStart.y=0;
+            IsTurning=true;turnSide=QueuedTurn;QueuedTurn=0;
+            turnStart=late?rider.localPosition-bikeAppliedOffset:rider.localPosition;turnStart.y=0;
             turnRadius=Mathf.Max(4,junctionDistance-turnSide*LaneX[CurrentLane]);turnTravel=0;TurnYaw=0;lateTurn=late;
             if(late)
             {
@@ -213,7 +215,7 @@ namespace PhoViet
             if(boostSmoke!=null)boostSmoke.Rebase();
             rider.GetComponent<CarJumpJetVisual>()?.Clear();
             Quaternion exit=Quaternion.Euler(0,turnSide*90,0),inverse=Quaternion.Inverse(exit);
-            Vector3 origin=rider.localPosition-kickAppliedOffset-craterAppliedOffset-exit*new Vector3(LaneX[CurrentLane],0,0);origin.y=0;
+            Vector3 origin=rider.localPosition-kickAppliedOffset-craterAppliedOffset-bikeAppliedOffset-exit*new Vector3(LaneX[CurrentLane],0,0);origin.y=0;
             RebaseAssistedKick(inverse,origin);
             RebaseDinosaurs(inverse,origin);RebaseThunderstorm(inverse,origin);
             RebaseHelicopter(inverse,origin);
@@ -256,7 +258,8 @@ namespace PhoViet
             for(int i=0;i<positions.Length;i++){chosen.tiles[i].localPosition=positions[i];chosen.tiles[i].localRotation=Quaternion.identity;}
             blocks=new List<Transform>(chosen.tiles);roadOffset=-TravelDistance-positions[0].z;
             craterAppliedOffset=Vector3.right*craterOffset;
-            rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0)+kickAppliedOffset+craterAppliedOffset;rider.localRotation=Quaternion.identity;lean=0;ClearLaneMotion();steerYaw=0;lastX=rider.localPosition.x;oldRiderZ=rider.localPosition.z;
+            bikeAppliedOffset=Vector3.right*bikeImpactOffset;
+            rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0)+kickAppliedOffset+craterAppliedOffset+bikeAppliedOffset;rider.localRotation=Quaternion.Euler(0,bikeImpactYaw,0);lean=0;ClearLaneMotion();steerYaw=0;lastX=rider.localPosition.x;oldRiderZ=rider.localPosition.z;
             if(daylight!=null)daylight.Rebase(inverse,origin);
             TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;cameraTurnBlend=.7f;turnEndAt=TravelDistance;
             float nearest=float.MaxValue;foreach(var b in blocks){float z=b.localPosition.z+70;if(z>12)nearest=Mathf.Min(nearest,z);}

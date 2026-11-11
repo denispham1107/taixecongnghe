@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": ".tools/release169/VerifyRelease169.cs",
+      "entry": "VerifyRelease169.Main",
+      "timeout_ms": "90000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 147,
+      "executeMs": 1635,
+      "assemblyName": "PipelineRunScript_VerifyRelease169_560db66bd16048c9bf7f3fcd68ce22f7",
+      "success": true,
+      "result": {
+        "success": true,
+        "checks": 11,
+        "dependencies": 475,
+        "version": "1.69.0"
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -11,29 +11,37 @@ namespace PhoViet
             if(State!=RideState.Riding)return false;
             if(!IsChased&&collisionImmunity>0)return true;
             riderBody.previousPosition=new Vector3(oldX,jumpPreviousHeight,oldRiderZ);riderBody.previousYaw=oldRiderYaw;riderBody.knocked=false;
-            TrafficVehicle hit=null;Vector2 hitNormal=Vector2.zero;float earliest=2;
-            foreach(var v in vehicles)
+            TrafficVehicle hit=null;Vector2 hitNormal=Vector2.zero;float earliest=2;int hitIndex=-1;
+            Vector3 riderBefore=riderVelocityValid?riderRoadVelocity:Quaternion.Euler(0,IsTurning?TurnYaw:0,0)*Vector3.forward*Speed;
+            for(int i=0;i<vehicles.Count;i++)
             {
+                var v=vehicles[i];
                 if(!v.active||(!IsChased&&v.playerGrace>0)||v.model.localPosition.y>=2.4f)continue;
                 if(!VehicleContact(riderBody,v,out Vector2 normal,out float at,out float depth)||at>=earliest)continue;
+                if(IsMotorcycleContact(v)&&(bikeImpactUntil[i]>timeRiding||
+                    at<.0001f&&Vector2.Dot(Flat(riderBefore-BodyVelocity(v)),normal)<.35f))continue;
                 if(IsPlayerCar&&kickHit&&v==kickTarget&&v.spawnGeneration==kickTargetSpawn&&at<.0001f&&depth<.001f)
                 {
                     Vector2 separation=Flat(v.model.localPosition-v.previousPosition-rider.localPosition+riderBody.previousPosition);
                     if(Vector2.Dot(separation,normal)>0)continue;
                 }
                 if((jumpHeight>.05f||jumpPreviousHeight>.05f)&&JumpClearsVehicle(v,at))continue;
-                earliest=at;hit=v;hitNormal=normal;
+                earliest=at;hit=v;hitNormal=normal;hitIndex=i;
             }
-            Vector3 riderBefore=riderVelocityValid?riderRoadVelocity:Quaternion.Euler(0,IsTurning?TurnYaw:0,0)*Vector3.forward*Speed;
             if(ResolveSceneryImpact(riderBody.previousPosition,riderBefore,earliest)){riderVelocityValid=false;return false;}
             if(hit!=null)
             {
                 if(TryResolvePlayerRam(hit,hitNormal,earliest)){riderVelocityValid=false;return true;}
-                Vector3 before=riderVelocityValid?riderRoadVelocity:Quaternion.Euler(0,IsTurning?TurnYaw:0,0)*Vector3.forward*Speed;
+                if(IsMotorcycleContact(hit))
+                {
+                    DeflectRiderFromMotorcycle(hit,hitIndex,hitNormal,earliest,riderBefore);
+                    riderVelocityValid=false;
+                    return true;
+                }
                 rider.localPosition=Vector3.Lerp(riderBody.previousPosition,rider.localPosition,earliest);
                 hit.model.localPosition=Vector3.Lerp(hit.previousPosition,hit.model.localPosition,earliest);
                 Vector3 contact=(rider.localPosition+hit.model.localPosition)*.5f;
-                BeginRiderImpact(hit,hitNormal,contact,before);riderVelocityValid=false;return false;
+                BeginRiderImpact(hit,hitNormal,contact,riderBefore);riderVelocityValid=false;return false;
             }
             riderVelocityValid=false;
             return true;

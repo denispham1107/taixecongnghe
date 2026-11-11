@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": ".tools/release169/VerifyRiverside.cs",
+      "entry": "VerifyRiverside.After",
+      "timeout_ms": "90000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 336,
+      "executeMs": 66,
+      "assemblyName": "PipelineRunScript_VerifyRiverside_761f90a2aae44d13bdaaac2da87da962",
+      "success": true,
+      "result": {
+        "success": true,
+        "meshes": 75,
+        "references": 2520
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -44,16 +44,12 @@ public static class VerifyThunderstorm
    foreach(bool down in new[]{false,true})
    {
     Fresh();Set("IsChased",true);if(down)g.Crash();g.policeBike.gameObject.SetActive(true);g.policeBike.localPosition=new Vector3(-4,0,20);Set("PoliceSpeed",16f);g.StrikeLightning(g.policeBike.localPosition);
-    Check(g.PoliceLightningWreck&&!g.IsChased&&!g.CrashDuringPursuit,"Officer strike cancels chase/wait "+down);
-    var body=(PhoVietGame.TrafficVehicle)typeof(PhoVietGame).GetField("policeBody",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(g);Check(body.lightningWreck&&body.knocked&&body.recovery==null,"Officer permanent burning wreck");
-    if(down){for(int i=0;i<900&&g.State==PhoVietGame.RideState.Falling;i++)Call("TickRiderCrash",1/60f);Check(g.State==PhoVietGame.RideState.GameOver,"No stuck waiting after police strike");}
-    else
-    {
-     Check(g.State==PhoVietGame.RideState.Riding,"Unhurt player continues after officer strike");Call("StartChase");
-     var fresh=(PhoVietGame.TrafficVehicle)typeof(PhoVietGame).GetField("policeBody",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(g);
-     Check(g.IsChased&&!g.PoliceLightningWreck&&!fresh.lightningWreck&&!fresh.knocked&&!fresh.physicalCrash&&!body.lightningWreck,"A later new offense starts a fresh officer without old wreck physics");
-     Call("RenderThunderstorm");Check(g.GetComponent<ThunderstormVisual>().BurningCount==0,"A later officer never inherits the old fire effect");
-    }
+    Check(!g.PoliceLightningWreck&&g.IsChased&&g.CrashDuringPursuit==down&&g.PoliceSpeed==16f,"Lightning leaves the patrol car and pursuit untouched "+down);
+    var body=(PhoVietGame.TrafficVehicle)typeof(PhoVietGame).GetField("policeBody",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(g);
+    Check(!body.lightningWreck&&!body.knocked&&body.recovery==null,"Lightning applies no patrol crash physics");
+    Call("RenderThunderstorm");Check(g.GetComponent<ThunderstormVisual>().BurningCount==0,"The patrol car does not ignite");
+    if(down){for(int i=0;i<900&&g.State==PhoVietGame.RideState.Falling;i++)Call("TickRiderCrash",1/60f);Check(g.State==PhoVietGame.RideState.Arrested,"The officer still arrives and arrests after lightning");}
+    else Check(g.State==PhoVietGame.RideState.Riding,"The chase continues after lightning strikes the patrol car");
    }
    Fresh();var visual=g.GetComponent<ThunderstormVisual>();Check(visual!=null&&visual.ParticleBudget==2400,"Bounded rain particle volume");
    g.riversEnabled=true;var tile=g.blocks[1];tile.GetComponent<RiverBlock>().SetBridge(true);var water=g.transform.InverseTransformPoint(tile.TransformPoint(new Vector3(5,0,30)));

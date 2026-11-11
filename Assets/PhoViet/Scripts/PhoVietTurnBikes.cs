@@ -67,7 +67,7 @@ namespace PhoViet
    if(Mathf.Abs(p.x-rider.localPosition.x)<candidate.halfWidth+PlayerHalfWidth+.5f&&Mathf.Abs(p.z-rider.localPosition.z)<candidate.halfLength+PlayerHalfLength+3)return false;
    foreach(var other in vehicles)if(other.active)
    {var half=VehicleFootprint(other);var d=p-other.model.localPosition;if(Mathf.Abs(d.x)<candidate.halfWidth+half.x+.6f&&Mathf.Abs(d.z)<candidate.halfLength+half.y+3)return false;}
-   if(IsChased&&policeBike!=null&&policeBike.gameObject.activeSelf){var d=p-policeBike.localPosition;if(Mathf.Abs(d.x)<candidate.halfWidth+.8f&&Mathf.Abs(d.z)<candidate.halfLength+3)return false;}
+   if(IsChased&&policeBike!=null&&policeBike.gameObject.activeSelf){var d=p-policeBike.localPosition;if(Mathf.Abs(d.x)<candidate.halfWidth+PoliceHalfWidth+.3f&&Mathf.Abs(d.z)<candidate.halfLength+PoliceHalfLength+1.8f)return false;}
    foreach(var d in dinosaurs)if(d.active&&Mathf.Abs(p.x-d.root.localPosition.x)<candidate.halfWidth+DinosaurWidth*.5f+.5f&&Mathf.Abs(p.z-d.root.localPosition.z)<candidate.halfLength+7)return false;
    return true;
   }

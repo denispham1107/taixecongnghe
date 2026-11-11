@@ -90,7 +90,7 @@ namespace PhoViet
                 if(clear&&IsChased&&policeBike!=null&&policeBike.gameObject.activeSelf)
                 {
                     Vector3 delta=position-policeBike.localPosition;
-                    if(Mathf.Abs(delta.x)<candidate.halfWidth+.8f&&Mathf.Abs(delta.z)<candidate.halfLength+2.7f)clear=false;
+                    if(Mathf.Abs(delta.x)<candidate.halfWidth+PoliceHalfWidth+.3f&&Mathf.Abs(delta.z)<candidate.halfLength+PoliceHalfLength+1.5f)clear=false;
                 }
                 if(!clear)continue;
                 if(rear)rearExitReserved[lane-2]=null;

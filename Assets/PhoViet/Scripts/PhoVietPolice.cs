@@ -8,6 +8,9 @@ namespace PhoViet
         public bool PoliceFallen=>PoliceFallRemaining>0;
         public int PoliceFalls {get;private set;}
         public int PoliceAvoidances {get;private set;}
+        public const float PoliceCruiserScale=.85f;
+        public const float PoliceCruiserLength=4.4f*PoliceCruiserScale;
+        const float PoliceHalfWidth=1.83f*PoliceCruiserScale*.5f,PoliceHalfLength=PoliceCruiserLength*.5f,PoliceHeight=1.605f*PoliceCruiserScale;
         TrafficVehicle policeBody;
         float[] policeContactUntil;
         float policeFallSide=1,policeTargetX;
@@ -18,9 +21,17 @@ namespace PhoViet
             policeContactUntil=new float[vehicles.Count];
             if(policeBike!=null)
             {
-                policeBody=new TrafficVehicle {model=policeBike,halfWidth=.5f,halfLength=1.2f};
+                policeBody=CreatePoliceBody();
                 policeBike.localRotation=Quaternion.identity;
             }
+        }
+        TrafficVehicle CreatePoliceBody()=>new TrafficVehicle {model=policeBike,halfWidth=PoliceHalfWidth,halfLength=PoliceHalfLength};
+        bool PoliceCanReachRider()
+        {
+            if(PoliceFallen||rider.localPosition.y>=1.25f)return false;
+            Vector3 relative=Quaternion.Inverse(policeBike.localRotation)*(rider.localPosition-policeBike.localPosition);
+            float dx=Mathf.Max(0,Mathf.Abs(relative.x)-PoliceHalfWidth),dz=Mathf.Max(0,Mathf.Abs(relative.z)-PoliceHalfLength);
+            return dx*dx+dz*dz<=1.3f*1.3f;
         }
         bool PolicePathClear(Vector3 from,float targetX,float roadSpeed,float horizon)
         {
@@ -34,7 +45,7 @@ namespace PhoViet
                     Vector3 next=police;next.x=Mathf.MoveTowards(police.x,targetX,8*step);next.z+=(roadSpeed-Speed)*step;
                     float lateral=(next.x-police.x)/step,angle=Mathf.Atan2(lateral,Mathf.Max(.01f,roadSpeed));
                     float c=Mathf.Abs(Mathf.Cos(angle)),s=Mathf.Abs(Mathf.Sin(angle));
-                    Vector2 policeHalf=new Vector2(.5f*c+1.2f*s+.12f,1.2f*c+.5f*s+.12f);
+                    Vector2 policeHalf=new Vector2(PoliceHalfWidth*c+PoliceHalfLength*s+.12f,PoliceHalfLength*c+PoliceHalfWidth*s+.12f);
                     Vector3 a=v.model.localPosition+relativeVelocity*(i*step)-police,b=v.model.localPosition+relativeVelocity*((i+1)*step)-next;
                     if(SweptOverlap(Flat(a),Flat(b),VehicleFootprint(v)+policeHalf))return false;
                     police=next;
@@ -58,19 +69,19 @@ namespace PhoViet
         void TickPoliceDriving(float dt)
         {
             if(policeBike==null||dt<=0)return;
-            if(policeBody==null)policeBody=new TrafficVehicle {model=policeBike,halfWidth=.5f,halfLength=1.2f};
+            if(policeBody==null)policeBody=CreatePoliceBody();
             if(policeContactUntil==null||policeContactUntil.Length!=vehicles.Count)policeContactUntil=new float[vehicles.Count];
             Vector3 before=policeBike.localPosition;
             policeBody.previousPosition=before;policeBody.previousYaw=policeBike.localEulerAngles.y;policeBody.knocked=PoliceFallen;
             if(PoliceFallen)
             {
-                // A downed motorcycle stays on the road while the camera and traffic scroll past it.
+                // Keep the patrol car in place on the road as the route scrolls past it.
                 policeBike.localPosition=before-Vector3.forward*Speed*dt;
                 TickDinosaurPolicePush(dt);
                 ResolvePoliceContact(before,Vector3.zero,false);
                 PoliceFallRemaining=Mathf.Max(0,PoliceFallRemaining-dt);if(PoliceFallRemaining<.00001f)PoliceFallRemaining=0;PoliceSpeed=0;
                 float fall=Mathf.Clamp01((1.2f-PoliceFallRemaining)/.16f);
-                policeBike.localRotation=Quaternion.Euler(0,0,-policeFallSide*78*fall);
+                policeBike.localRotation=Quaternion.Euler(0,policeFallYaw,-policeFallSide*8*fall);
                 PoliceDistance=-policeBike.localPosition.z;
                 if(!PoliceFallen)
                 {
@@ -83,6 +94,11 @@ namespace PhoViet
             float nominal=policeArrived?cruiseSpeed-.65f:cruiseSpeed+15*OpeningTrafficPace;
             if(OpeningTrafficPace<1)nominal=Mathf.Max(0,nominal);
             bool clear=ChoosePolicePath(before,nominal,out float target);
+            if(!clear&&nominal>6)
+            {
+                // A blocked fast approach may still have room for a slower lane change.
+                nominal=6;clear=ChoosePolicePath(before,nominal,out target);
+            }
             if(clear)
             {
                 PoliceSpeed=nominal;
@@ -96,11 +112,11 @@ namespace PhoViet
             Vector3 next=before;next.x=Mathf.MoveTowards(before.x,target,dt*8);next.z+=(PoliceSpeed-Speed)*dt;
             policeBike.localPosition=next;
             float sideways=(next.x-before.x)/dt;
-            policeBike.localRotation=Quaternion.Euler(0,Mathf.Atan2(sideways,Mathf.Max(PoliceSpeed,.01f))*Mathf.Rad2Deg,-sideways*1.4f);
+            policeBike.localRotation=Quaternion.Euler(0,Mathf.Atan2(sideways,Mathf.Max(PoliceSpeed,.01f))*Mathf.Rad2Deg,-sideways*.35f);
             Vector3 roadVelocity=(next-before)/dt+Vector3.forward*Speed;
             ResolvePoliceContact(before,roadVelocity,true);
             PoliceDistance=-policeBike.localPosition.z;
-            if(!PoliceFallen&&Mathf.Abs(PoliceDistance)<=2.2f&&Mathf.Abs(policeBike.localPosition.x-rider.localPosition.x)<1.7f)Arrest();
+            if(PoliceCanReachRider())Arrest();
         }
         void ResolvePoliceContact(Vector3 before,Vector3 policeVelocity,bool canFall)
         {
@@ -141,8 +157,9 @@ namespace PhoViet
             if(canFall)
             {
                 PoliceFallRemaining=1.2f;PoliceFalls++;PoliceSpeed=0;
+                policeFallYaw=policeBike.localEulerAngles.y;
                 policeFallSide=normal.x<0?-1:1;policeBody.knocked=true;
-                notice="CSGT VA CHẠM · NGÃ XE 1,2 GIÂY";noticeTimer=1.2f;
+                notice="CSGT VA CHẠM · TẠM CHẬM LẠI";noticeTimer=1.2f;
                 if(sound&&fx!=null)fx.PlayOneShot(crashClip,.55f);
             }
             BeginPoliceRiver(policeVelocity);

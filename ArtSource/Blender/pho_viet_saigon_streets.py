@@ -44,7 +44,23 @@ PAL = {
 NAMES = list(PAL.keys())
 assert len(NAMES) == 64, len(NAMES)
 CI = {n: i for i, n in enumerate(NAMES)}
-def uv_of(col): return ((col % 8 + .5)/8, (col//8 + .5)/8)
+# Extra swatches below the existing sample points in the pavement row.
+# Existing meshes still sample their original colors at the cell centers.
+PAVEMENT_SWATCHES = {
+    'pavingBeige': ('paveCream', 'CEC2B2'),
+    'pavingMauve': ('paveBrown', 'B3A0AA'),
+    'pavingJoint': ('grout', 'A69B94'),
+    'curbLimestone': ('curb', 'BDB6AA'),
+    'curbLimestoneShade': ('curbDark', 'B4ADA2'),
+    'bridgeCurbRed': ('steel', 'B35D53'),
+    'bridgeCurbIvory': ('chrome', 'DDD5C8'),
+}
+CI.update({name: len(NAMES) + CI[base] for name, (base, _) in PAVEMENT_SWATCHES.items()})
+
+def uv_of(col):
+    subcell = col >= len(NAMES)
+    index = col % len(NAMES)
+    return ((index % 8 + .5)/8, (index//8 + (.25 if subcell else .5))/8)
 
 class Geo:
     """Hình học tác giả: mỗi mặt mang màu palette và gợi ý pháp tuyến.
@@ -112,7 +128,7 @@ class Geo:
         u.normalize(); w = f.cross(u).normalized(); c = Vector(c)
         vs = [tuple(c)]+[tuple(c+(u*cos(i*2*pi/n)+w*sin(i*2*pi/n))*r) for i in range(n)]
         self.add(vs, [(0, 1+i, 1+(i+1) % n) for i in range(n)], col, ('d', tuple(f)), tag)
-    def leaf(self, base, direction, length, width, col, roll=0, tag='Leaf', face=None, wpos=.35):
+    def leaf(self, base, direction, length, width, col, roll=0, tag='Leaf', face=None, wpos=.35, folded=True):
         base = Vector(base); axis = Vector(direction).normalized()
         if face is not None:
             # Mặt lá quay theo `face` (vd. pháp tuyến ra ngoài tán) thay vì để mép lá hướng về người nhìn.
@@ -124,12 +140,16 @@ class Geo:
             if side.length < .1: side = axis.cross(Vector((1, 0, 0)))
             side.normalize(); side = Quaternion(axis, roll)@side
         normal = side.cross(axis).normalized()
-        mid = base+axis*length*.42+normal*width*.25
-        pts = [base, base+axis*length*wpos+side*width, base+axis*length, base+axis*length*wpos-side*width, mid]
-        vs = [tuple(p) for p in pts]
+        pts = [base, base+axis*length*wpos+side*width, base+axis*length, base+axis*length*wpos-side*width]
+        if folded:
+            pts.append(base+axis*length*.42+normal*width*.25)
+            front = [(4, 0, 1), (4, 1, 2), (4, 2, 3), (4, 3, 0)]
+        else:
+            # Lá phẳng giữ đường viền và số lá, dùng ít tam giác hơn cho nhà ven sông.
+            front = [(0, 1, 2), (0, 2, 3)]
         # Hai mặt: mặt trước theo normal, mặt sau ngược lại (Standard culling).
-        self.add(vs, [(4, 0, 1), (4, 1, 2), (4, 2, 3), (4, 3, 0)], col, ('d', tuple(normal)), tag)
-        self.add([tuple(p-normal*.004) for p in pts], [(4, 1, 0), (4, 2, 1), (4, 3, 2), (4, 0, 3)], col, ('d', tuple(-normal)), tag)
+        self.add([tuple(p) for p in pts], front, col, ('d', tuple(normal)), tag)
+        self.add([tuple(p-normal*.004) for p in pts], [(a, c, b) for a, b, c in front], col, ('d', tuple(-normal)), tag)
     def wedge(self, x0, x1, y0, z0, y1, z1, col, thick=.08, tag=''):
         # Mái dốc: tấm có độ dày từ (y0,z0) phía tường tới (y1,z1) phía ngoài.
         pts = [(x0, y0, z0), (x1, y0, z0), (x1, y1, z1), (x0, y1, z1)]
@@ -184,19 +204,28 @@ WIDTH = 8.36; HX = WIDTH/2; WALL = -3.9; GROUND = 4.9; STOREY = 3.0
 
 def shop_height(spec): return GROUND+spec['floors']*STOREY
 
+def striped_awning(g, center, width, stripes, start, edge, facing, colors, supports=True):
+    """Mái vải dốc với riềm lượn sóng hai mặt và thanh chống mảnh."""
+    y0, z0 = start
+    y1, z1 = edge
+    w = width/stripes
+    for i in range(stripes):
+        x = center-width*.5+i*w
+        col = colors[i % 2]
+        g.wedge(x, x+w, y0, z0, y1, z1, col, .04, 'Awning')
+        pts = [(x, y1, z1+facing*.005), (x+w, y1, z1+facing*.005),
+               (x+w*.85, y1-.34, z1+facing*.01), (x+w*.5, y1-.41, z1+facing*.012),
+               (x+w*.15, y1-.34, z1+facing*.01)]
+        g.add(pts, [(0, 1, 2, 3, 4)], col, ('d', (0, .15, facing)), 'Awning')
+        g.add([(px, py, pz-facing*.012) for px, py, pz in pts], [(4, 3, 2, 1, 0)], col,
+              ('d', (0, -.15, -facing)), 'Awning')
+    if supports:
+        for side in (-1, 1):
+            x = center+side*(width*.5-.13)
+            g.cyl((x, y0-.87, z0-facing*.07), (x, y1-.02, z1-facing*.05), .025, 'iron', n=5)
+
 def awning(g, spec, obstacles):
-    a, b = spec['stripe']; n = 14; w = 7.36/n
-    y0, z0, y1, z1 = 3.22, -4.02, 2.8, -5.4
-    for i in range(n):
-        x = -3.68+i*w
-        g.wedge(x, x+w, y0, z0, y1, z1, a if i % 2 == 0 else b, .04, 'Awning')
-        # Riềm lượn sóng phía trước, mỗi dải một vạt.
-        col = a if i % 2 == 0 else b; drop = .34
-        pts = [(x, y1, z1-.005), (x+w, y1, z1-.005), (x+w*.85, y1-drop, z1-.01), (x+w*.5, y1-drop-.07, z1-.012), (x+w*.15, y1-drop, z1-.01)]
-        g.add(pts, [(0, 1, 2, 3, 4)], col, ('d', (0, .15, -1)), 'Awning')
-        g.add([(p[0], p[1], p[2]+.012) for p in pts], [(4, 3, 2, 1, 0)], col, ('d', (0, -.15, 1)), 'Awning')
-    for x in (-3.55, 3.55):
-        g.cyl((x, 2.35, WALL-.05), (x, y1-.02, z1+.05), .025, 'iron', n=5)
+    striped_awning(g, 0, 7.36, 14, (3.22, -4.02), (2.8, -5.4), -1, spec['stripe'])
     obstacles.append(('Mái hiên', (0, 2.95, -4.7), (7.4, .5, 1.4)))
 
 def sign(g, spec, obstacles):
@@ -490,7 +519,7 @@ def name_panel(g, spec, x, y, z, w, h):
     else:
         g.text(spec['main'], (x, y, tz), h*.42, ink, w-.18, bold=.03)
 
-def mini_tree(g, base, height, d, seed, clusters=(8, 5, 3), per=(24, 16, 12)):
+def mini_tree(g, base, height, d, seed, clusters=(8, 5, 3), per=(24, 16, 12), folded_leaves=True):
     """Cây chậu thu nhỏ cùng kiểu cây mẫu (21.24): thân xám mảnh, cành chẻ, cụm lá bầu dục xanh tươi."""
     nc = clusters[d]; nl = per[d]
     if nc == 0: return
@@ -513,7 +542,7 @@ def mini_tree(g, base, height, d, seed, clusters=(8, 5, 3), per=(24, 16, 12)):
             light = (q.y-cc.y)/ry*.5+(q-cc).length/rx*.6+r.uniform(-.25, .25)+.18
             col = 'leaf4' if light > .95 else 'leaf3' if light > .6 else 'leaf2' if light > .3 else 'leaf1' if light > 0 else 'leaf5'
             ln = height*(.075+r.random()*.03)*(1+.3*d)
-            g.leaf(tuple(q), tuple(axis), ln, ln*.5, col, roll=r.uniform(-1, 1), face=tuple(face), wpos=.48)
+            g.leaf(tuple(q), tuple(axis), ln, ln*.5, col, roll=r.uniform(-1, 1), face=tuple(face), wpos=.48, folded=folded_leaves)
 
 def food_cabinet(g, x, z, kind, obstacles, spec):
     # Tủ kính bày đồ ăn trên thân inox có bánh xe, nồi nước dùng bên cạnh (phở/bún/hủ tiếu/cơm).
@@ -669,14 +698,42 @@ def sidewalk(g, spec, obstacles):
     if spec.get('menu'):
         title, lines = spec['menu']; a_frame(g, 3.4, -5.75, title, lines, obstacles)
 
-def window(g, x, y, w, h, d, shutters=None):
-    g.cube((x, y, WALL-.05), (w+.2, h+.2, .1), 'frame')
-    g.panel((x, y, WALL-.102), w, h, 'glass')
-    if d < 2:
-        g.cube((x, y, WALL-.11), (.05, h, .02), 'frame', skip=('+z',)); g.cube((x, y+h*.2, WALL-.11), (w, .05, .02), 'frame', skip=('+z',))
-        g.cube((x, y-h/2-.12, WALL-.12), (w+.3, .07, .2), 'trim')
-    if shutters and d < 2:
-        for s in (-1, 1): g.cube((x+s*(w/2+.22), y, WALL-.08), (.26, h, .05), shutters)
+def louver_window(g, x, y, z, w, h, facing, shutters, glazing=True):
+    if glazing:
+        g.panel((x, y, z+facing*.045), w+.16, h+.15, 'trim', facing)
+        g.panel((x, y, z+facing*.047), w, h, 'glass', facing)
+        g.panel((x, y, z+facing*.058), .055, h, 'woodDark', facing)
+        g.panel((x, y+h*.24, z+facing*.058), w, .05, 'woodDark', facing)
+    else:
+        for side in (-1, 1):
+            g.panel((x+side*(w*.5+.04), y, z+facing*.045), .08, h+.15, 'trim', facing)
+        g.panel((x, y+h*.5+.04, z+facing*.045), w, .08, 'trim', facing)
+    shutter_width = w*.29
+    slat_colour = 'green' if shutters == 'greenDark' else 'greenDark'
+    for side in (-1, 1):
+        sx = x+side*(w-shutter_width)*.5
+        if g.d == 0:
+            g.cube((sx, y, z+facing*.073), (shutter_width, h, .06), shutters)
+        else:
+            g.panel((sx, y, z+facing*.103), shutter_width, h, shutters, facing)
+        if g.d == 2:
+            g.panel((sx, y, z+facing*.104), shutter_width*.66, h*.82, slat_colour, facing)
+            continue
+        slats = 12 if g.d == 0 else 6
+        for j in range(slats):
+            sy = y+((j+.5)/slats-.5)*h*.88
+            g.panel((sx, sy, z+facing*.108), shutter_width*.73, h/slats*.32, slat_colour, facing)
+    g.cube((x, y-h*.5-.075, z+facing*.055), (w+.26, .08, .16), 'trim')
+
+def tile_canopy(g, x, w, y, z, reach, facing):
+    end = z+reach*facing
+    g.wedge(x-w*.5, x+w*.5, y, z, y-.26, end, 'tile', .07)
+    g.cube((x, y-.27, end), (w, .09, .07), 'tileDark')
+    if g.d == 0:
+        n = max(2, round(w/.24))
+        for j in range(n):
+            xx = x+((j+.5)/n-.5)*w
+            g.wedge(xx-.022, xx+.022, y+.017, z, y-.243, end, 'tileDark', .025)
 
 def railing(g, x0, x1, y, z, d, col='iron'):
     g.cube(((x0+x1)/2, y+.95, z), (x1-x0, .05, .06), col)
@@ -688,18 +745,28 @@ def railing(g, x0, x1, y, z, d, col='iron'):
         g.cube((x0+k*(x1-x0)/n, y+.53, z), (.025, .8, .025), col)
 
 def upper_floor(g, spec, k, top, obstacles, r):
-    d = g.d; y0 = GROUND+(k-1)*STOREY; fac = spec['facade']
-    g.cube((0, y0+.05, WALL-.08), (WIDTH+.02, .16, .2), 'trim')  # gờ sàn
+    d = g.d; y0 = GROUND+(k-1)*STOREY
     style = (k+len(spec['name'])) % 3
+    for x in (-3.82, 3.82):
+        g.cube((x, y0+1.5, WALL-.06), (.19, 3, .15), 'trim')
+    g.cube((0, y0+.05, WALL-.075), (WIDTH+.02, .115, .17), 'trim')
     if style != 1 or top:
-        # Ban công sâu, cửa đi kính khung trắng, lan can sắt đen.
-        g.cube((0, y0+.12, -4.4), (7.4, .16, 1.0), 'trim')
-        for x in (-2.4, 0, 2.4): window(g, x, y0+1.35, 1.4, 2.1, d)
-        railing(g, -3.65, 3.65, y0+.2, -4.85, d)
-        for x in (-3.65, 3.65):
-            # Lan can hai đầu ban công cũng là song sắt thoáng, không phải tấm đen đặc.
-            for yy in (y0+.32, y0+1.15): g.cube((x, yy, -4.4), (.04, .05, .95), 'iron')
-            for zz in range(4 if d < 2 else 2): g.cube((x, y0+.73, -3.98-zz*(.85/(3 if d < 2 else 1))), (.025, .8, .025), 'iron')
+        for side in (-1, 1):
+            x = side*2.04
+            edge = -4.85 if (k+side//2)%2 else -4.75
+            g.cube((x, y0+.12, (WALL+edge)/2), (3.3, .16, WALL-edge+.08), 'trim')
+            louver_window(g, x, y0+1.43, WALL-.055, 2.28, 2.16, -1, 'green' if k%2 else 'greenDark')
+            railing(g, x-1.62, x+1.62, y0+.2, edge, d, 'greenDark')
+            for end in (x-1.62, x+1.62):
+                for yy in (y0+.32, y0+1.15):
+                    g.cube((end, yy, (WALL+edge)/2), (.045, .045, WALL-edge), 'greenDark')
+                for j in range(3):
+                    g.cube((end, y0+.73, edge+(j+.5)*(WALL-edge)/3), (.026, .82, .026), 'greenDark')
+            if (top and spec['roof'] == 'tile') or (style == 2 and side == 1):
+                tile_canopy(g, x, 3.46, y0+2.9, WALL+.06, .97, -1)
+        # Dải vữa giữa hai ô nhà ống, kèm ô lấy gió nhỏ dưới mái.
+        g.cube((0, y0+1.49, WALL-.04), (.43, 2.74, .12), 'cream')
+        g.panel((0, y0+2.38, WALL-.102), .23, .28, 'greenDark')
         # Cây ban công, hoa giấy rủ.
         if d < 2:
             for px in (-3.0, 3.0):
@@ -708,14 +775,15 @@ def upper_floor(g, spec, k, top, obstacles, r):
         if (k+r.randrange(3)) % 2 == 0:
             # Tầng 1 rủ ngắn để hoa giấy không che chữ biển hiệu (đỉnh biển 4,875 m).
             vine(g, r.uniform(-3, -1), y0+1.1, -4.9, 1.8 if k > 1 else .85, d, flowers=(spec['floors'] >= 3))
-        if top and spec['roof'] == 'tile':
-            g.wedge(-3.9, 3.9, y0+2.9, WALL+.2, y0+2.35, -5.0, 'tile', .1)
-            if d == 0:
-                for kk in range(13): g.cube((-3.6+kk*.6, y0+2.66, -4.3), (.05, .05, 1.2), 'tileDark')
         obstacles.append(('Ban công', (0, y0+.6, -4.4), (7.4, 1.0, 1.0)))
     else:
         # Hai cửa sổ có cửa chớp và cục nóng điều hòa.
-        for x in (-1.8, 1.8): window(g, x, y0+1.5, 1.5, 1.6, d, shutters='glassLight' if k % 2 else 'green')
+        for x in (-1.8, 1.8):
+            louver_window(g, x, y0+1.5, WALL-.055, 1.82, 1.6, -1, 'green' if k%2 else 'greenDark')
+            g.cube((x, y0+2.47, WALL-.06), (1.86, .24, .11), 'trim')
+            count = 5 if d == 0 else 3
+            for j in range(count):
+                g.panel((x+((j+.5)/count-.5)*1.66, y0+2.47, WALL-.117), 1.3/count, .10, 'darkFrame')
         for x in (-1.8, 1.8): g.cube((x, y0+.62, -4.12), (1.7, .1, .35), 'trim')
         if d < 2:
             for x in (-1.8, 1.8):
@@ -732,19 +800,20 @@ def ac(g, x, y, d):
     condenser(g,x,y)
 
 
-def vine(g, x, y, z, length, d, flowers=False):
-    if d == 2: return
+def vine(g, x, y, z, length, d, flowers=False, facing=-1, tag='Leaf', keep_distant=False, folded_leaves=True):
+    if d == 2 and not keep_distant: return
     r = random.Random(int(x*77+y*13))
-    for strand in range(4 if d == 0 else 2):
+    for strand in range((4, 2, 2)[d]):
         sx = x+strand*.3
-        n = 7 if d == 0 else 3
+        n = (7, 3, 3)[d]
         for j in range(n):
             yy = y-j*length/n*(.6+.4*r.random())
-            cluster = 4 if d == 0 else 2
+            cluster = (4, 2, 1)[d]
             for c in range(cluster):
                 a = r.uniform(0, 2*pi)
                 col = ('pink', 'pinkLight', 'pink', 'leaf3')[(j+c) % 4] if flowers else ('leaf2', 'leaf3', 'leaf1')[(j+c) % 3]
-                g.leaf((sx+r.uniform(-.12, .12), yy+r.uniform(-.08, .08), z-r.uniform(0, .1)), (cos(a)*.8, sin(a)*.6-.2, -.5), .17, .1, col, roll=a)
+                g.leaf((sx+r.uniform(-.12, .12), yy+r.uniform(-.08, .08), z+facing*r.uniform(0, .1)),
+                       (cos(a)*.8, sin(a)*.6-.2, facing*.5), .17, .1, col, roll=a, tag=tag, folded=folded_leaves)
 
 def roof(g, spec, obstacles, r):
     d = g.d; h = shop_height(spec); fac = spec['facade']
@@ -873,6 +942,12 @@ def shop(i, detail):
     for x in (-HX+.01, HX-.01): g.cube((x, 1.7, WALL+DEPTH/2), (.02, 3.4, DEPTH), fac)
     g.cube((0, 3.42, WALL+.05), (WIDTH, .55, .1), fac)
     storefront(g, spec, obstacles); awning(g, spec, obstacles); sign(g, spec, obstacles)
+    # Glazed green plinth on the street piers. Store entrances remain open.
+    for x in (-3.95, 3.95):
+        g.cube((x, .56, WALL-.18), (.46, 1.04, .044), 'green')
+        for row in range(4):
+            g.panel((x, .15+row*.252, WALL-.204), .46, .014, 'glassLight')
+        g.panel((x, .56, WALL-.204), .013, 1.04, 'glassLight')
     for k in range(1, spec['floors']+1): upper_floor(g, spec, k, k == spec['floors'], obstacles, r)
     roof(g, spec, obstacles, r)
     # Cột nhà/biển nhỏ số nhà, cờ, biển dọc, chậu cây và thùng rác vỉa hè.
@@ -948,15 +1023,15 @@ def tree(seed, detail):
 
 def pavement(detail):
     g = Geo(detail)
-    g.cube((0, .1, 0), (4.2, .2, 8.4), 'grout', skip=('-y',))
+    g.cube((0, .1, 0), (4.2, .2, 8.4), 'pavingJoint', skip=('-y',))
     # Keep the same checker pattern at distance. The lower LODs need only the top faces.
     for xi in range(7):
         for zi in range(14):
-            x = -1.8+xi*.6; z = -3.9+zi*.6; col = 'paveCream' if (xi+zi) % 2 == 0 else 'paveBrown'
+            x = -1.8+xi*.6; z = -3.9+zi*.6; col = 'pavingBeige' if (xi+zi) % 2 == 0 else 'pavingMauve'
             if detail == 0: g.cube((x, .213, z), (.56, .03, .56), col, skip=('-y',))
             else: g.quad([(x-.28, .215, z-.28), (x+.28, .215, z-.28), (x+.28, .215, z+.28), (x-.28, .215, z+.28)], col, (0, 1, 0))
     for zi in range(12):
-        g.cube((-2.0, .17, -3.85+zi*.7), (.22, .36, .68), 'curb' if zi % 2 == 0 else 'stone')
+        g.cube((-2.0, .17, -3.85+zi*.7), (.22, .36, .68), 'curbLimestone' if zi % 2 == 0 else 'curbLimestoneShade')
     if detail < 2:
         for z in (-2.9, 2.9):
             g.cube((-1.7, .22, z), (.4, .02, .7), 'iron')
@@ -1048,8 +1123,12 @@ MAT = None
 GLASS = None
 def palette_material():
     pixels = []
+    subcells = {base: color for base, color in PAVEMENT_SWATCHES.values()}
     for y in range(128):
-        for x in range(128): pixels.extend(hexcol(PAL[NAMES[(y//16)*8+x//16]]))
+        for x in range(128):
+            name = NAMES[(y//16)*8+x//16]
+            color = subcells.get(name, PAL[name]) if 2 <= y % 16 < 7 else PAL[name]
+            pixels.extend(hexcol(color))
     im = bpy.data.images.get('PV_StreetPalette') or bpy.data.images.new('PV_StreetPalette', 128, 128)
     if im.size[0] != 128: im.scale(128, 128)
     im.pixels = pixels; im.filepath_raw = OUT+'/PV_StreetPalette.png'; im.file_format = 'PNG'; im.save()

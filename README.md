@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.68.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.69.0**.
+
+## Cập nhật 1.69.0
+
+Ô tô CSGT truy đuổi từ đầu lượt. Tông xe máy làm xe người chơi chệch lái, giảm tốc và móp tại điểm chạm. Xe CSGT khi tông xe khác và xe người chơi khi tông xe máy chỉ phát hiệu ứng va chạm tức thời. Phòng giam có cảnh mới. Vỉa hè và nhà ven sông được phối lại, thêm ban công hoa giấy và mái hiên sọc cho từng cửa hàng.
 
 ## Cập nhật 1.68.0
 

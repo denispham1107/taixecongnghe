@@ -117,7 +117,15 @@ namespace PhoViet
   {
    if(State!=RideState.Riding&&State!=RideState.Falling)return;
    if(noticeTimer<=0&&State==RideState.Riding)return;
-   string message=State==RideState.Falling&&RiderInRiver?"RƠI XUỐNG SÔNG · CHUYẾN ĐI KẾT THÚC":State==RideState.Falling&&KilledByShell?"TRÚNG ĐẠN XE TĂNG · CHUYẾN ĐI KẾT THÚC":State==RideState.Falling?(CrashDuringPursuit?(RiderFallComplete?"ĐÃ TÉ · CHỜ CSGT ĐẾN BẮT":"VA CHẠM · CSGT ĐANG ĐẾN"):"VA CHẠM · CHUYẾN ĐI KẾT THÚC"):notice;
+   string message=notice;
+   if(State==RideState.Falling)
+   {
+    if(CrashDuringPursuit)
+     message=!IsChased?"ĐÃ TÉ · ĐỘI CSGT KHÁC ĐANG ĐẾN":RiderFallComplete?"ĐÃ TÉ · CHỜ CSGT ĐẾN BẮT":"VA CHẠM · CSGT ĐANG ĐẾN";
+    else if(RiderInRiver)message="RƠI XUỐNG SÔNG · CHUYẾN ĐI KẾT THÚC";
+    else if(!KilledByShell&&!KilledByLightning&&!HitByDinosaur&&MissileHitSourceLabel==null)
+     message="VA CHẠM · CHUYẾN ĐI KẾT THÚC";
+   }
    if(portrait)
    {
     float width=uiW-20;Panel(new Rect(10,PortraitNoticeY,width,PortraitNoticeHeight),new Color(.07f,.19f,.21f,.70f),7);

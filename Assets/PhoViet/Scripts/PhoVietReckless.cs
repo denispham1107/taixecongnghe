@@ -88,7 +88,7 @@ namespace PhoViet
                 }
                 if(!blocked&&IsChased&&policeBike!=null&&policeBike.gameObject.activeSelf)
                 {
-                    Vector3 p=policeBike.localPosition;Vector2 half=policeBody!=null?VehicleFootprint(policeBody):new Vector2(.5f,1.2f);
+                    Vector3 p=policeBike.localPosition;Vector2 half=policeBody!=null?VehicleFootprint(policeBody):new Vector2(PoliceHalfWidth,PoliceHalfLength);
                     if(Mathf.Abs(spawn.x-p.x)<v.halfWidth+half.x+.3f&&Mathf.Abs(spawn.z-p.z)<v.halfLength+half.y+1)blocked=true;
                 }
                 if(!blocked)break;spawn.z+=oncoming?4:-4;

@@ -94,7 +94,7 @@ public static class VerifyVehicleImpact21179
             Check(!shards.isPaused,"Debris resumes.");
 
             Fresh();
-            var traffic=game.vehicles.First(v=>!v.eventOnly);
+            var traffic=game.vehicles.First(v=>!v.eventOnly&&v.halfWidth>.7f);
             var riderAt=game.rider.localPosition;
             float gap=traffic.halfLength+game.PlayerHalfLength+2;
             RoadBody(traffic,riderAt-Vector3.forward*gap,riderAt,Vector3.forward*24);

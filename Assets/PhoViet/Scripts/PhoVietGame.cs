@@ -157,7 +157,11 @@ namespace PhoViet
             RunSeed=seed;rng=new System.Random(seed);
             // Route setup reads TravelDistance; discard the previous throw before any reset reads it.
             State=RideState.Ready;Distance=0;crashTravelDistance=0;Speed=0;drivePedal=DrivePedalMode.Cruise;PassedVehicles=0;timeRiding=0;fallTime=0;streak=0;lean=0;steerYaw=0;ClearLaneMotion();noticeTimer=0;
-            rider.GetComponent<PlayerCarVisual>()?.ResetWheels();
+            if(rider.TryGetComponent<PlayerCarVisual>(out var playerCar))
+            {
+                playerCar.ResetWheels();
+                playerCar.ResetBodyDamage();
+            }
             rider.GetComponent<BikeVisualAnimator>()?.ResetWheels();
             RestorePlayerStartFrame();
             nextIntersectionDistance=VietnamStreet.IntersectionCenter-StartStreetPhase;ScheduledIntersections=0;
@@ -183,7 +187,7 @@ namespace PhoViet
             for(int i=0;i<openingCount;i++){SpawnTraffic(rng.Next(4),openingZ);openingZ+=11+(float)rng.NextDouble()*10;}
             spawnTimer=.7f+(float)rng.NextDouble()*1.1f;if(engine!=null)engine.Stop();ResetDaylight();PositionCamera(true);
         }
-        public void StartRide() { if(State==RideState.Ready&&!GraphicsSettingsOpen){State=RideState.Riding;engine?.Play();} }
+        public void StartRide() { if(State==RideState.Ready&&!GraphicsSettingsOpen){State=RideState.Riding;engine?.Play();StartChase();} }
         public void RestartRide(){ResetRide();StartRide();}
         public void MoveLane(int direction)
         {
@@ -324,7 +328,6 @@ namespace PhoViet
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
             if(State==RideState.Arrested)TickArrest(Time.deltaTime);
             UpdateTankCraterTerrain(Mathf.Min(Time.deltaTime,.05f));
-            TickStormPoliceWreck(State==RideState.Paused?0:Mathf.Min(Time.deltaTime,.05f));
             RenderThunderstorm();
             RenderChain();
             UpdateRiverMurk();AnimateLights();PositionCamera(false);
@@ -388,6 +391,7 @@ namespace PhoViet
             AdvanceDaylight(dt);
             TickWorkMotion(dt);
             TickActionTimers(dt);
+            AdvanceBikeImpact(dt);
             TickBoost(dt);
             if(!ServiceStopped)timeRiding+=dt;
             cruiseSpeed=Mathf.Min(LaunchAcceleration*timeRiding,TrafficPaceSpeed)+(IsChased?chaseBoost:0);
@@ -396,14 +400,14 @@ namespace PhoViet
             if(BoostActive)Speed*=BoostMultiplier;
             Speed=WorkSpeedLimit(Speed);
             Speed=WorkSpeedLimit(AssistedKickSpeed(Speed,previousSpeed,dt));
-            float driveTarget=JobAcceptanceSpeedLimit(Speed);
+            float driveTarget=JobAcceptanceSpeedLimit(Speed)*(1-bikeImpactSlowdown);
             Speed=JobAcceptanceSpeedLimit(WorkSpeedLimit(DrivePedalSpeed(driveTarget,previousSpeed,dt)));
             // Sample the final road speed (including W and any service limit)
             // at takeoff, before the existing +3 m/s airborne travel bonus.
             bool wasFlying=jumpFlying;TickJump(dt);
             if(!wasFlying&&jumpFlying)
             {
-                driveTarget=JobAcceptanceSpeedLimit(WorkSpeedLimit(driveTarget+3*(BoostActive?BoostMultiplier:1)));
+                driveTarget=JobAcceptanceSpeedLimit(WorkSpeedLimit(driveTarget+3*(BoostActive?BoostMultiplier:1)*(1-bikeImpactSlowdown)));
                 Speed=JobAcceptanceSpeedLimit(WorkSpeedLimit(DrivePedalSpeed(driveTarget,previousSpeed,dt)));
             }
             if(drivePedal==DrivePedalMode.PullAway&&Speed==driveTarget)drivePedal=DrivePedalMode.Cruise;
@@ -411,7 +415,7 @@ namespace PhoViet
             float oldX=rider.localPosition.x;
             oldRiderZ=rider.localPosition.z;
             oldRiderYaw=IsPlayerCar?rider.localEulerAngles.y:IsTurning?TurnYaw:0;
-            float baseX=oldX-kickAppliedOffset.x-craterAppliedOffset.x;
+            float baseX=oldX-kickAppliedOffset.x-craterAppliedOffset.x-bikeAppliedOffset.x;
             if(!DriveStopped)AdvanceCraterSteering(dt);
             float x=baseX,target=LaneX[CurrentLane],gap=target-baseX;
             if(ServiceStopped||DriveStopped){laneVelocity=0;laneAccel=0;lanePlanned=false;}
@@ -436,6 +440,7 @@ namespace PhoViet
             if(!DriveStopped||IsTurning)BeginOrContinueTurn(Speed*dt);
             {var p=rider.localPosition;p.y=jumpHeight;rider.localPosition=p;}
             ApplyCraterOffset();
+            ApplyBikeImpactOffset();
             TickAssistedKickMotion(dt,previousRider,previousRotation);x=rider.localPosition.x;
             lastX=x;
             riderRoadVelocity=dt>0?new Vector3((rider.localPosition.x-oldX)/dt,0,Speed+(rider.localPosition.z-oldRiderZ)/dt):Quaternion.Euler(0,TurnYaw,0)*Vector3.forward*Speed;
@@ -641,6 +646,7 @@ namespace PhoViet
             if(portrait)PortraitHud();else LandscapeHud();
             DrawPlayerMissileButton();DrawFlightButton();DrawDrivePedal(false);DrawDrivePedal(true);
             RearRecklessWarningHud();
+            ChaseHud();
         }
         void EndCard(bool paused)
         {

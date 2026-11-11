@@ -406,13 +406,13 @@ namespace PhoViet
   {
    if(PoliceInRiver)return true;
    if(policeBike==null||!policeBike.gameObject.activeSelf||!OverRiver(policeBike.localPosition))return false;
-   if(policeBody==null)policeBody=new TrafficVehicle{model=policeBike,halfWidth=.5f,halfLength=1.2f};
+   if(policeBody==null)policeBody=CreatePoliceBody();
    policeBody.active=true;policeBody.knocked=false;policeBody.physicalCrash=false;
    policeBody.motionVelocity=velocity;
    BeginVehicleRiverFall(policeBody,policeBike.localPosition,0);
    IsChased=false;routePolice=false;PoliceSpeed=0;PoliceFallRemaining=0;chaseBoost=0;
-   dinosaurPoliceVelocity=Vector3.zero;CrashDuringPursuit=false;ResetCrashPoliceNavigation();siren?.Stop();
-   notice=State==RideState.Falling?"CSGT RƠI SÔNG · CHUYẾN ĐI KẾT THÚC":"CSGT RƠI SÔNG · ĐÃ THOÁT TRUY ĐUỔI";noticeTimer=3;
+   dinosaurPoliceVelocity=Vector3.zero;policeReplacementDelay=2.5f;ResetCrashPoliceNavigation();siren?.Stop();
+   notice=CrashDuringPursuit?"CSGT RƠI SÔNG · ĐỘI KHÁC ĐANG ĐẾN":"CSGT RƠI SÔNG · ĐÃ THOÁT TRUY ĐUỔI";noticeTimer=3;
    return true;
   }
   void TickPoliceRiver(float dt,bool scrolling=true)

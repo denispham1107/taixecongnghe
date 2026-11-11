@@ -265,10 +265,10 @@ namespace PhoViet
     if(tail)DinosaurTailHits++;
    }
    ResolveDinosaurRiderHit(d,fraction);
-   if(IsChased&&!d.hitPolice&&policeBike.gameObject.activeSelf&&DinosaurTouches(d,policeBike.localPosition,policeBike.localRotation,.36f,.95f,2.15f,out Vector3 policeHit,out bool tailPolice))
+   if(IsChased&&!d.hitPolice&&policeBike.gameObject.activeSelf&&DinosaurTouches(d,policeBike.localPosition,policeBike.localRotation,PoliceHalfWidth,PoliceHalfLength,PoliceHeight,out Vector3 policeHit,out bool tailPolice))
    {
     d.hitPolice=true;PoliceFallRemaining=1.2f;PoliceFalls++;PoliceSpeed=0;
-    policeFallSide=policeBike.localPosition.x<policeHit.x?-1:1;policeBody.knocked=true;
+    policeFallSide=policeBike.localPosition.x<policeHit.x?-1:1;policeFallYaw=policeBike.localEulerAngles.y;policeBody.knocked=true;
     // Integrate a real shove/hop during the existing 1.2-second police recovery.
     var push=policeBike.localPosition-policeHit;push.y=0;if(push.sqrMagnitude<.01f)push=Vector3.right;
     dinosaurPoliceVelocity=push.normalized*7+Vector3.up*3;if(tailPolice)DinosaurTailHits++;
@@ -282,12 +282,13 @@ namespace PhoViet
     d.hitRider=true;Vector3 away=rider.localPosition-contact;away.y=0;if(away.sqrMagnitude<.01f)away=Vector3.right;away.Normalize();
     Vector3 before=riderRoadVelocity;rider.localPosition=riderAt;
     BeginRiderImpact(null,new Vector2(-away.x,-away.z),contact,before);
+    StopPursuitForFatalImpact();
     HitByDinosaur=true;
     if(d.Fallen){notice="VA CHẠM XÁC KHỦNG LONG · CHUYẾN ĐI KẾT THÚC";noticeTimer=4;return;}
     riderFallVelocity=away*11+Vector3.up*6+before*.2f;
     riderFallSpin=new Vector3(-90,120,-Mathf.Sign(away.x)*200);
     if(tailRider)DinosaurTailHits++;
-    notice=CrashDuringPursuit?"BỊ KHỦNG LONG HẤT · CHỜ CSGT ĐẾN BẮT":"BỊ KHỦNG LONG HẤT · CHUYẾN ĐI KẾT THÚC";noticeTimer=4;
+    notice="BỊ KHỦNG LONG HẤT · CHUYẾN ĐI KẾT THÚC";noticeTimer=4;
    }
   }
   void TickDinosaurPolicePush(float dt)

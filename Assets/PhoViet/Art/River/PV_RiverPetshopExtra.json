@@ -10,9 +10,24 @@
         "PV_RiverRoomLight"
       ],
       "lod_triangles": [
-        12864,
-        7352,
-        5020
+        38614,
+        14820,
+        8878
+      ],
+      "rental_signs": [
+        {
+          "label": "CHO THUÊ NHÀ",
+          "floor": 5,
+          "center": [
+            58.050000000000004,
+            18.31,
+            4.57
+          ],
+          "width": 11.2608,
+          "height": 0.88,
+          "font_size": 0.8351999999999999,
+          "facing": 1
+        }
       ],
       "shop_signs": [
         {
@@ -147,8 +162,8 @@
     }
   ],
   "lod_triangles": [
-    12864,
-    7352,
-    5020
+    38614,
+    14820,
+    8878
   ]
 }

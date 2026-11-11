@@ -105,6 +105,7 @@ namespace PhoViet.Editor
   {
    AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
    var i=(ModelImporter)AssetImporter.GetAtPath(Folder+Asset+".fbx");i.animationType=ModelImporterAnimationType.Legacy;i.importAnimation=true;i.optimizeGameObjects=false;i.materialImportMode=ModelImporterMaterialImportMode.None;i.importCameras=false;i.importLights=false;i.addCollider=false;i.globalScale=1;i.meshCompression=ModelImporterMeshCompression.Off;
+   i.isReadable=true;
    var takes=i.defaultClipAnimations;foreach(var c in takes){var n=PhoVietCarUpgrade.ClipNames.FirstOrDefault(n=>c.name.EndsWith(n,StringComparison.Ordinal));if(n!=null){c.name=n;c.loopTime=n=="Idle"||n=="Drive";c.wrapMode=c.loopTime?WrapMode.Loop:WrapMode.ClampForever;}}i.clipAnimations=takes;i.SaveAndReimport();
    foreach(string suffix in new[]{"Palette","Normal","Surface","Emission"})
    {var texture=(TextureImporter)AssetImporter.GetAtPath(Folder+Asset+"_"+suffix+".png");texture.textureType=suffix=="Normal"?TextureImporterType.NormalMap:TextureImporterType.Default;texture.sRGBTexture=suffix=="Palette"||suffix=="Emission";texture.mipmapEnabled=true;texture.filterMode=FilterMode.Trilinear;texture.anisoLevel=4;texture.maxTextureSize=2048;texture.textureCompression=TextureImporterCompression.Uncompressed;texture.wrapMode=TextureWrapMode.Clamp;texture.SaveAndReimport();}

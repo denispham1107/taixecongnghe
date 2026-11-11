@@ -3,9 +3,9 @@
   "generator": "pho_viet_river_bridge.py",
   "reference": "ArtSource/Reference/River/river_bridge_reference.png",
   "lod_triangles": [
-    50328,
-    13454,
-    3854
+    50984,
+    14110,
+    4894
   ],
   "slots": [
     "PV_StreetAtlas",

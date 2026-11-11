@@ -7,7 +7,7 @@ namespace PhoViet
     {
         public Transform policeBike,jailRoom,leftKickLeg,rightKickLeg;
         public Renderer redBeacon,blueBeacon;
-        public static bool PolicePursuitReleased=>false;
+        public static bool PolicePursuitReleased=>true;
         public bool IsChased {get;private set;}
         public float PoliceDistance {get;private set;}
         public float PoliceSpeed {get;private set;}
@@ -18,7 +18,9 @@ namespace PhoViet
         float lastTapTime=-100,touchStarted;
         Vector2 lastTapPoint;
         bool policeArrived,roadFog;
+        float policeReplacementDelay;
         Color roadBackground;
+        Texture2D jailWide,jailTall;
         AudioSource siren;AudioClip sirenClip;
 
         void InitializeActions()
@@ -39,6 +41,8 @@ namespace PhoViet
             CancelChain();
             lastTapTime=-100;policeArrived=false;
             ResetPoliceDriving();
+            ResetBikeImpact();
+            policeReplacementDelay=0;
             if(siren!=null)siren.Stop();if(policeBike!=null)policeBike.gameObject.SetActive(false);
             if(jailRoom!=null)jailRoom.gameObject.SetActive(false);
             if(scenery!=null)scenery.gameObject.SetActive(true);if(rider!=null)rider.gameObject.SetActive(true);
@@ -108,16 +112,30 @@ namespace PhoViet
         void StartChase()
         {
             if(!PolicePursuitReleased||IsChased)return;
-            if(PoliceLightningWreck&&policeBody!=null)policeBody.lightningWreck=false;
-            if(PoliceInRiver||PoliceLightningWreck)ResetPoliceDriving();
-            PoliceLightningWreck=false;if(policeBody!=null)policeBody.lightningWreck=false;
-            IsChased=true;PoliceDistance=38;PoliceSpeed=(TrafficPaceSpeed+15)*OpeningTrafficPace;policeArrived=false;chaseBoost=.5f;
-            if(policeBike!=null){policeBike.gameObject.SetActive(true);policeBike.localPosition=new Vector3(rider.localPosition.x-1,0,-PoliceDistance);}
+            if(PoliceInRiver)ResetPoliceDriving();
+            IsChased=true;PoliceDistance=38;PoliceSpeed=(TrafficPaceSpeed+15)*OpeningTrafficPace;policeArrived=false;chaseBoost=0;
+            if(policeBike!=null)
+            {
+                policeBike.gameObject.SetActive(true);
+                var start=new Vector3(rider.localPosition.x-1,0,rider.localPosition.z-PoliceDistance);
+                if(OverRiver(start))start.x=Mathf.Clamp(start.x,LaneX[1],LaneX[2]);
+                policeBike.localPosition=start;
+            }
             if(IsTurning){routePolice=true;policeRouteAt=Distance-PoliceDistance;policeBike.localPosition=SampleRoute(policeRouteAt).point;}
             if(sound)siren?.Play();
         }
+        void StopPursuitForFatalImpact()
+        {
+            IsChased=false;CrashDuringPursuit=false;routePolice=false;chaseBoost=0;
+            ResetCrashPoliceNavigation();siren?.Stop();
+        }
         void TickChase(float dt)
         {
+            if(!IsChased&&CrashDuringPursuit&&State==RideState.Falling)
+            {
+                policeReplacementDelay-=dt;
+                if(policeReplacementDelay<=0)StartChase();
+            }
             if(!IsChased)return;
             if(RiderCrashActive)TickCrashPolice(dt);else if(routePolice)TickRoutePolice(dt);else TickPoliceDriving(dt);
             bool flash=(int)(timeRiding*8)%2==0;
@@ -136,18 +154,14 @@ namespace PhoViet
         void TickArrest(float dt)
         {
             arrestTime+=dt;
-            if(policeBike!=null)
-            {
-                Vector3 from=policeBike.localPosition,to=Vector3.Lerp(from,rider.localPosition+Quaternion.Euler(0,IsTurning?TurnYaw:0,0)*new Vector3(-1.1f,0,-.7f),dt*5);bool clear=true;
-                foreach(var v in vehicles)if(v.active&&v.model.localPosition.y<2.4f&&SweptOverlap(Flat(v.model.localPosition-from),Flat(v.model.localPosition-to),VehicleFootprint(v)+new Vector2(.5f,1.2f))){clear=false;break;}
-                if(clear)policeBike.localPosition=to;
-            }
             if(arrestTime>=1.1f)
             {
                 State=RideState.Jailed;HideDinosaurs();scenery.gameObject.SetActive(false);rider.gameObject.SetActive(false);
                 foreach(var v in vehicles){v.model.gameObject.SetActive(false);if(v.crashEffect!=null)v.crashEffect.gameObject.SetActive(false);}
                 if(policeBike!=null)policeBike.gameObject.SetActive(false);
-                if(jailRoom!=null)jailRoom.gameObject.SetActive(true);
+                if(jailWide==null)jailWide=Resources.Load<Texture2D>("Jail/JailWide");
+                if(jailTall==null)jailTall=Resources.Load<Texture2D>("Jail/JailTall");
+                if(jailRoom!=null&&jailWide==null&&jailTall==null)jailRoom.gameObject.SetActive(true);
                 RenderSettings.fog=false;rideCamera.backgroundColor=Hex("394F51");PositionJailCamera(true);
             }
         }
@@ -160,22 +174,26 @@ namespace PhoViet
         }
         void ChaseHud()
         {
-            if(!IsChased||State==RideState.Jailed)return;
-            float w=portrait?300:360,x=(uiW-w)/2;
-            Panel(new Rect(x,162,w,55),Ink);
-            Txt(PoliceFallen?"CSGT NGÃ · DỰNG XE SAU "+PoliceFallRemaining.ToString("0.0")+" s":"CSGT ĐANG TRUY ĐUỔI   /   "+Mathf.Max(0,PoliceDistance).ToString("0.0")+" m",x+14,171,w-28,22,12,Cream);
-            Panel(new Rect(x+14,201,w-28,4),Hex("466363"),2);
-            Panel(new Rect(x+14,201,(w-28)*Mathf.Clamp01(1-PoliceDistance/38),4),Red,2);
+            if(!IsChased||State!=RideState.Riding)return;
+            float w=portrait?216:255,x=(uiW-w)/2,y=portrait?PortraitNoticeY+PortraitNoticeHeight+4:130;
+            Panel(new Rect(x,y,w,30),new Color(.07f,.19f,.21f,.82f),7);
+            string status=PoliceFallen?"CSGT ĐANG CHẬM LẠI":"CSGT ĐANG ĐUỔI  ·  "+Mathf.Max(0,PoliceDistance).ToString("0.0")+" m";
+            Txt(status,x+8,y+1,w-16,21,portrait?11:12,Cream,TextAnchor.MiddleCenter);
+            Panel(new Rect(x+12,y+24,w-24,3),Hex("466363"),2);
+            Panel(new Rect(x+12,y+24,(w-24)*Mathf.Clamp01(1-PoliceDistance/38),3),Red,2);
         }
         void JailScreen()
         {
-            float w=portrait?440:420,h=portrait?296:360,x=portrait?20:uiW-w-42,y=portrait?uiH-h-22:(uiH-h)/2;
+            Texture2D backdrop=portrait?(jailTall!=null?jailTall:jailWide):(jailWide!=null?jailWide:jailTall);
+            if(backdrop!=null)GUI.DrawTexture(new Rect(0,0,uiW,uiH),backdrop,ScaleMode.ScaleAndCrop);
+            float w=portrait?440:408,h=portrait?236:292,x=portrait?20:uiW-w-42,y=portrait?uiH-h-22:(uiH-h)/2;
             Panel(new Rect(x,y,w,h),Cream,18);
-            Txt("CSGT ĐÃ ĐƯA BẠN VÀO TÙ",x+26,y+24,w-52,24,12,Red);
-            Txt("ĐÃ BỊ BẮT",x+24,y+62,w-48,62,portrait?34:40,Ink);
-            Txt("Quãng đường  "+Mathf.Max(0,Mathf.FloorToInt(Distance))+" m\n"+(IsPlayerCar?"Húc xe  ":"Đạp xe  ")+KickCount+"   ·   Dây chuyền  "+ChainCount,x+26,y+132,w-52,62,16,Teal);
-            if(Btn("CHƠI LẠI   →",new Rect(x+26,y+(portrait?203:230),w-52,54),Red,Cream,18))RestartRide();
-            if(!portrait&&Btn("VỀ ĐẦU PHỐ",new Rect(x+26,y+300,w-52,32),Cream,Teal,13))ResetRide();
+            Txt("PHỐ VIỆT  ·  TẠM GIỮ",x+26,y+20,w-52,22,13,Red);
+            Txt("ĐÃ BỊ BẮT",x+24,y+45,w-48,52,portrait?34:40,Ink);
+            Txt("CSGT đã đưa bạn vào phòng giam.",x+26,y+100,w-52,25,16,Ink);
+            Txt("Quãng đường  "+Mathf.Max(0,Mathf.FloorToInt(Distance))+" m",x+26,y+129,w-52,28,17,Teal);
+            if(Btn("CHƠI LẠI",new Rect(x+26,y+(portrait?166:176),w-52,48),Red,Cream,18))RestartRide();
+            if(!portrait&&Btn("VỀ ĐẦU PHỐ",new Rect(x+26,y+238,w-52,32),Cream,Teal,13))ResetRide();
         }
     }
 }

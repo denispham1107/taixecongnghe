@@ -1,15 +1,36 @@
 {
-  "changed": 43,
+  "mobile": true,
+  "changed": 61,
   "changes": [
+    {
+      "path": "Assets/PhoViet/Art/River/FishingBoat/PV_FishingBoat_Normal.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/FishingBoat/PV_FishingBoat_Palette.png",
+      "format": "ETC2_RGB4",
+      "size": 1024
+    },
+    {
+      "path": "Assets/MeshyImports/Vietnam_Traffic_Police_Cruiser_20261110_230018/meshy_metallic_smoothness.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/Lighting/PV_StreetPool.png",
+      "format": "ETC2_RGB4",
+      "size": 512
+    },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_PaintMask.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Palette.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Lighting/PV_HeadlightCookie.png",
@@ -19,12 +40,12 @@
     {
       "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Normal.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Emission.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/TankFx/PV_TankFx_Explosion.png",
@@ -34,17 +55,22 @@
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Normal.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_PaintMask.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/River/FishingBoat/PV_FishingBoat_Surface.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Emission.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Palette.png",
@@ -54,17 +80,17 @@
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Surface.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Regions.png",
       "format": "EAC_RG",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Emission.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/TankFx/PV_TankFx_Muzzle.png",
@@ -74,27 +100,32 @@
     {
       "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Normal.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Palette.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/meshy_normal.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_PaintMask.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
+    },
+    {
+      "path": "Assets/MeshyImports/Vietnam_Traffic_Police_Cruiser_20261110_230018/meshy_normal.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Emission.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/TankFx/PV_TankFx_Warning.png",
@@ -104,52 +135,62 @@
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Surface.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_PaintMask.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/PoliceCruiser/PV_PoliceLivery.png",
+      "format": "ETC2_RGB4",
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Surface.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Palette.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Surface.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/Streets/PV_WallStuccoDetail.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Emission.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Normal.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/MeshyImports/Emerald Tyrant_20261026_221137/meshy_basecolor.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Surface.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Palette.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Resources/Wreck/PV_WreckSmoke.png",
@@ -159,17 +200,17 @@
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshySport_Normal.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Emission.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Surface.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Surface.png",
@@ -184,27 +225,27 @@
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_PaintMask.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyCovered_Palette.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/UrbanRider/PV_UrbanRider_Palette.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyContainer_Normal.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyTank_Emission.png",
       "format": "ETC2_RGB4",
-      "size": 2048
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Lighting/PV_OpticalGlare.png",
@@ -214,7 +255,57 @@
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Normal.png",
       "format": "ETC2_RGBA8",
-      "size": 2048
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/Helicopter/PV_Helicopter_Surface.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/Helicopter/PV_Helicopter_Normal.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/Helicopter/PV_Helicopter_Palette.png",
+      "format": "ETC2_RGB4",
+      "size": 1024
+    },
+    {
+      "path": "Assets/MeshyImports/Crimson_Skywing_20261110_013834/meshy_normal.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
+    },
+    {
+      "path": "Assets/MeshyImports/Crimson_Skywing_20261110_013834/meshy_basecolor.png",
+      "format": "ETC2_RGB4",
+      "size": 1024
+    },
+    {
+      "path": "Assets/MeshyImports/Crimson_Skywing_20261110_013834/meshy_metallic_smoothness.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Art/Helicopter/Missile/PV_MissileSmoke.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Resources/PlayerMissile/PV_MissileHud.png",
+      "format": "ETC2_RGBA8",
+      "size": 256
+    },
+    {
+      "path": "Assets/PhoViet/Resources/PlayerFlight/PV_FlightUp.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
+    },
+    {
+      "path": "Assets/PhoViet/Resources/PlayerFlight/PV_FlightLand.png",
+      "format": "ETC2_RGBA8",
+      "size": 1024
     }
   ],
   "subtarget": "Generic"

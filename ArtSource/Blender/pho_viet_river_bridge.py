@@ -8,8 +8,8 @@ Khối cầu: mặt sông z 4,8–55,2 = 50,4 m (25/10/2026: dài gấp đôi b�
 ngay sau vạch mũi tên của giao lộ trước tới sát vạch mũi tên giao lộ sau), cầu chỉ 2 làn giữa |x| ≤ 3,1.
 Hai bờ ngắn còn lại (0–4,8 và 55,2–58,8): vỉa hè đường chính lát lại và một dãy nhà ống ven sông sâu 3 m
 (21.48) quay mặt ra đường ngang, lưng ra sông, kéo tới hết sông |x| 95 — thay dãy nhà đường ngang bị ẩn vì
-đứng trên mặt sông; không phần nào lấn ra mặt nước. Từ 21.49 là khối căn hộ cao cấp 6–9 tầng: mặt hướng sông có
-ban công lõm lan can kính, vách kính trong suốt sàn–trần (submesh PV_StreetGlass) nhìn thấy phòng sáng đèn.
+đứng trên mặt sông; không phần nào lấn ra mặt nước. 21.186 dùng mặt tiền nhà ống, cửa chớp xanh và sân thượng
+tách theo từng gian, giữ kính và phòng sáng đèn phía sau các ô cửa mặt sông.
 Hai làn ngoài kết thúc ở mép kè; ra ngoài mặt cầu trên mặt sông là rơi xuống sông (luật trong Unity).
 Xuất: PV_RiverBridge.fbx (3 LOD, vật liệu: atlas + nước + mặt nạ nền + nhựa đường + vạch trắng/vàng)
 và PV_RiverBoat0/1.fbx (thuyền neo, Unity cho nhấp nhô), kèm JSON số đo cho trình cài Unity.
@@ -34,7 +34,7 @@ MURK = [-8.7, -7.6, -6.6, -5.7]  # các lớp nước đục trong suốt (sâu 
 GROUND_TOP = -.25            # mặt trên "Nền thành phố" (hộp 600×800, tâm y -0,4, dày 0,3)
 SIDE = 95.0                  # sông kéo dài sang hai bên, sương che phần xa
 ROAD = 3.1                   # mặt cầu = hai làn giữa (LaneX ±1,55 ± 1,55)
-CURB = 3.4                   # gờ bó trắng, sau đó lan can
+CURB = 3.4                   # gờ bó đỏ-trắng, sau đó lan can
 RAIL = 3.7                   # mép ngoài lan can/mặt cầu
 DECK_BOTTOM = -.9
 LAMPS = [10.0, 23.4, 36.6, 50.0]  # đèn LED (Unity đặt mẫu PV_LEDStreetLamp) ở x = ±3,55
@@ -112,11 +112,11 @@ def promenade(g, z0, z1, rail_z, facing):
     d = g.d
     for side in (-1, 1):
         xa, xb = (26.0, SIDE) if side > 0 else (-SIDE, -26.0)
-        g.quad([(xa, .02, z0), (xb, .02, z0), (xb, .02, z1), (xa, .02, z1)], 'paveCream', (0, 1, 0))
+        g.quad([(xa, .02, z0), (xb, .02, z0), (xb, .02, z1), (xa, .02, z1)], 'pavingBeige', (0, 1, 0))
         if d == 0:
             step = 2.0; x = xa
             while x < xb-.01:
-                g.cube((x+1.0, .03, (z0+z1)/2), (.04, .012, abs(z1-z0)), 'grout'); x += step
+                g.cube((x+1.0, .03, (z0+z1)/2), (.04, .012, abs(z1-z0)), 'pavingJoint'); x += step
         # Lan can sắt từ vỉa hè phố (|x| 7,1) ra xa; làn ngoài của đường KHÔNG có lan can để xe rơi được.
         ra, rb = (7.15, SIDE) if side > 0 else (-SIDE, -7.15)
         g.cube(((ra+rb)/2, .06, rail_z), (rb-ra, .12, .28), 'stone')
@@ -203,8 +203,14 @@ def deck(g):
     for zc in range(6, 55, 4):  # cùng nhịp vạch vàng đứt của phố: tâm 2 + 4k
         g.quad([(-.085, .007, zc-1.125), (.085, .007, zc-1.125), (.085, .007, zc+1.125), (-.085, .007, zc+1.125)], 'yellow', (0, 1, 0), 'LineYellow')
     for side in (-1, 1):
-        # Gờ bó trắng, lan can, mặt ngoài dầm cầu.
-        g.cube((side*(ROAD+CURB)/2, .075, (W0+W1)/2), (CURB-ROAD, .15, W1-W0), 'trim')
+        # Gờ bó đỏ-trắng, lan can, mặt ngoài dầm cầu.
+        segments = round((W1-W0)/.9)
+        for index in range(segments):
+            start = W0 + (W1-W0)*index/segments
+            end = W0 + (W1-W0)*(index+1)/segments
+            skip = ('-y',) + (('-z',) if index > 0 else ()) + (('+z',) if index < segments-1 else ())
+            color = 'bridgeCurbRed' if index % 2 == 0 else 'bridgeCurbIvory'
+            g.cube((side*(ROAD+CURB)/2, .075, (start+end)/2), (CURB-ROAD, .15, end-start), color, skip=skip)
         baluster_run(g, side*(CURB+RAIL)/2, W0+.2, W1-.2, side)
         g.quad([(side*RAIL, DECK_BOTTOM, W0), (side*RAIL, DECK_BOTTOM, W1), (side*RAIL, .15, W1), (side*RAIL, .15, W0)], 'stone', (side, 0, 0))
         g.cube((side*(RAIL+.04), -.12, (W0+W1)/2), (.1, .22, W1-W0), 'trim')
@@ -255,7 +261,7 @@ def bank_land(g, z0, z1, facing):
     d = g.d; top = .2
     for side in (-1, 1):
         lo, hi = sorted((side*6.99, side*11.2))
-        g.cube(((lo+hi)/2, top/2, (z0+z1)/2), (hi-lo, top, z1-z0), 'grout', skip=('-y',))
+        g.cube(((lo+hi)/2, top/2, (z0+z1)/2), (hi-lo, top, z1-z0), 'pavingJoint', skip=('-y',))
         zf = z1 if facing > 0 else z0
         g.quad([(lo, -.06, zf), (hi, -.06, zf), (hi, top+.03, zf), (lo, top+.03, zf)], 'stone', (0, 0, facing))
         k0 = math.ceil((z0-.3)/.6-1e-6); k1 = math.floor((z1-.3)/.6+1e-6)
@@ -263,18 +269,16 @@ def bank_land(g, z0, z1, facing):
             x = side*(9.1+(-1.8+xi*.6)*side)
             for k in range(k0, k1+1):
                 z = .3+.6*k; za, zb = max(z0, z-.28), min(z1, z+.28)
-                if zb-za < .05 or d == 2: continue
-                col = 'paveCream' if (xi+k) % 2 == 0 else 'paveBrown'
+                if zb-za < .05: continue
+                col = 'pavingBeige' if (xi+k) % 2 == 0 else 'pavingMauve'
                 g.quad([(x-.28, top+.015, za), (x+.28, top+.015, za), (x+.28, top+.015, zb), (x-.28, top+.015, zb)], col, (0, 1, 0))
-        if d == 2:
-            g.quad([(side*7.0, top+.015, z0), (side*11.2, top+.015, z0), (side*11.2, top+.015, z1), (side*7.0, top+.015, z1)], 'paveBrown', (0, 1, 0))
         n = max(1, int(round((z1-z0)/.7)))
         for k in range(n):
             za = z0+k*(z1-z0)/n; zb = za+(z1-z0)/n
-            g.cube((side*7.1, .17, (za+zb)/2), (.22, .36, zb-za-.02), 'curb' if k % 2 == 0 else 'stone')
+            g.cube((side*7.1, .17, (za+zb)/2), (.22, .36, zb-za-.02), 'curbLimestone' if k % 2 == 0 else 'curbLimestoneShade')
         # Nền lát dưới dãy nhà ven sông + mép đứng nhìn ra sông.
         lo, hi = sorted((side*11.2, side*SIDE))
-        g.quad([(lo, top, z0), (hi, top, z0), (hi, top, z1), (lo, top, z1)], 'paveCream', (0, 1, 0))
+        g.quad([(lo, top, z0), (hi, top, z0), (hi, top, z1), (lo, top, z1)], 'pavingBeige', (0, 1, 0))
         g.quad([(lo, -.06, zf), (hi, -.06, zf), (hi, top, zf), (lo, top, zf)], 'stone', (0, 0, facing))
         # Lan can sắt ngắn ở góc đường chính (từ vỉa hè tới nhà đầu dãy), không chắn đường ngang.
         rz = zf-facing*.12
@@ -324,8 +328,13 @@ def shop_unit(g, x0, x1, base, out, f, rng):
     d = g.d; w = x1-x0; cx = (x0+x1)/2; gw = w-.6
     rng.randrange(7); label = rng.choice(HOUSE_LABELS); lit = rng.random() < .65  # Preserve the original 7-choice RNG stream.
     ordered=sorted(petshop_order(),key=lambda k:(k[2],k[3],k[0])); key=(round(x0,4),round(x1,4),round(out(0),4),f)
-    board,ink=HOUSE_BOARDS[ordered.index(key)%len(HOUSE_BOARDS)]
-    awn = rng.random() < .45; awn_cols = rng.choice([('awnRed', 'awnWhite'), ('awnBlue', 'awnWhite'), ('awnGreen', 'awnWhite'), ('awnYellow', 'awnWhite')])
+    shop_index = ordered.index(key)
+    board,ink=HOUSE_BOARDS[shop_index%len(HOUSE_BOARDS)]
+    # Keep seeded shop signs, pets and interior props stable after removing random awnings.
+    rng.random()
+    rng.randrange(4)
+    stripe_colors = ('awnRed', 'awnBlue', 'awnGreen', 'awnYellow')
+    awning_colors = (stripe_colors[shop_index%len(stripe_colors)], 'awnWhite')
     branded=petshop_is_unit(x0,x1,out(0),f)
     if branded:
         board, ink, label = 'blue', 'white', 'Cù Lao Petshop'
@@ -354,19 +363,119 @@ def shop_unit(g, x0, x1, base, out, f, rng):
     if branded:
         g.text('Lưu Trú - Spa Pet',(cx,base+2.97,river_face-f*.14),.14,'white',w-.9,bold=.02,facing=-f)
         river_petshop_animals(g,x0,x1,base,out(0),f)
-    if awn and d < 2:
-        n = 4 if d == 0 else 2; sw = (w-.4)/n
-        for i in range(n):
-            xa = x0+.2+i*sw
-            g.wedge(xa, xa+sw, base+2.78, out(.02), base+2.4, out(1.15), awn_cols[i % 2], .04, 'Awning')
+    # Khung cửa sẫm nhìn từ phía sông.
+    for jamb in (-gw*.5, -gw*.16, gw*.16, gw*.5):
+        g.cube((cx+jamb, base+1.44, river_face-f*.052), (.063, 2.72, .062), 'darkFrame')
+    g.cube((cx, base+2.52, river_face-f*.052), (gw, .065, .062), 'darkFrame')
+    stripes = (max(8, 2*round((w-.38)/1.05)), 6, 4)[d]
+    striped_awning(g, cx, w-.38, stripes, (base+2.74, out(.08)), (base+2.32, out(1.42)),
+                   f, awning_colors, supports=d < 2)
+    # Cùng dáng mái hiên phố, thu tầm vươn phía sông theo lối đi hẹp dưới mái.
+    striped_awning(g, cx, w-.38, stripes, (base+2.74, river_face-f*.08), (base+2.43, river_face-f*.94),
+                   -f, awning_colors, supports=d < 2)
+
+def river_balcony(g, x, y, z, width, facing, reach, variant, vine_length):
+    """Ban công có sàn và lan can sắt thoáng. Dùng thanh ít hơn ở các LOD xa."""
+    edge = z+facing*reach
+    middle = (z+edge)*.5
+    half = width*.5
+    wall_face = '-z' if facing > 0 else '+z'
+    g.cube((x, y-.055, middle), (width, .11, reach), 'trim', 'RiverBalcony', skip=(wall_face,))
+    if g.d == 0:
+        g.cube((x, y-.12, edge-facing*.06), (width+.06, .09, .15), 'stone', 'RiverBalcony')
+    for rail_y, thickness in ((y+.12, .04), (y+.93, .055)):
+        if g.d < 2:
+            g.cube((x, rail_y, edge), (width, thickness, .052), 'iron', 'RiverBalcony')
+        else:
+            g.panel((x, rail_y, edge), width, thickness, 'iron', facing, 'RiverBalcony')
+        if g.d == 0 or rail_y > y+.5:
+            for side in (-1, 1):
+                end = x+side*(half-.026)
+                if g.d < 2:
+                    g.cube((end, rail_y, middle), (.052, thickness, reach), 'iron', 'RiverBalcony', skip=(wall_face,))
+                else:
+                    g.quad([(end, rail_y-thickness/2, z), (end, rail_y-thickness/2, edge),
+                            (end, rail_y+thickness/2, edge), (end, rail_y+thickness/2, z)],
+                           'iron', (side, 0, 0), 'RiverBalcony')
+    bars = (11, 7, 4)[g.d]
+    for j in range(bars+1):
+        rail_x = x+(j/bars-.5)*(width-.05)
+        if g.d == 0:
+            g.cube((rail_x, y+.52, edge), (.031, .80, .035), 'greenDark', 'RiverBalcony', skip=('-y', '+y'))
+        else:
+            g.panel((rail_x, y+.52, edge), .038, .80, 'greenDark', facing, 'RiverBalcony')
+
+    # Cùng chậu đất nung, cây nhỏ và hoa giấy như ban công phố mẫu.
+    side = -1 if variant % 2 else 1
+    pot_x = x+side*(half-.39)
+    pot_z = edge-facing*.29
+    g.cube((pot_x, y+.22, pot_z), (.50, .36, .38), 'tileDark', 'RiverBalconyPot')
+    mini_tree(g, (pot_x, y+.40, pot_z), .95, g.d, int(pot_x*37+(y-.2)*11),
+              clusters=(5, 3, 2), per=(18, 8, 3), folded_leaves=False)
+    if variant % 3 != 1:
+        vine_x = x-side*(half-.61)-.45
+        vine(g, vine_x, y+.90, edge+facing*.05, vine_length, g.d, flowers=True,
+             facing=facing, tag='RiverBalconyFlower', keep_distant=True, folded_leaves=False)
+
+
+def river_tube_frontage(g, x0, zf, f, base, floors, units, uw, rental_floors):
+    """Dãy nhà ống theo các gian cửa hàng sẵn có, với cửa sâu nhìn vào phòng phía sông."""
+    zb = zf-f*HOUSE_DEPTH
+    palette = ('mint', 'cream', 'sky', 'butter', 'stone', 'peach')
+    for unit in range(units):
+        cx = x0+(unit+.5)*uw
+        seed = round(cx*10)+round(zf*10)
+        fac = palette[seed%len(palette)]
+        for side in (-1, 1):
+            px = cx+side*(uw*.5-.125)
+            g.cube((px, base+1.44, zb), (.24, 2.88, .08), fac)
+            g.panel((px, base+.44, zb-f*.042), .24, .88, 'green', -f)
+        for k in range(1, floors):
+            y0 = base+3.6+(k-1)*3
+            opening = min(uw-.76, 2.64 if seed%2 else 2.95)
+            for z, facing in ((zf, f), (zb, -f)):
+                river_side = facing == -f
+                signed = river_side and k in rental_floors
+                opening_top = 2.02 if signed else 2.56
+                opening_bottom = .54
+                # Trụ, đà và bậu ốp vữa bao quanh khoảng mở; cửa kính sau giữ riêng.
+                g.panel((cx, y0+.27, z+facing*.0375), uw-.055, .54, fac, facing)
+                g.panel((cx, y0+(opening_top+3)*.5, z+facing*.0375), uw-.055, 3-opening_top, fac, facing)
+                pier = (uw-opening)*.5
+                for side in (-1, 1):
+                    px = cx+side*(opening+pier)*.5
+                    g.panel((px, y0+(opening_bottom+opening_top)*.5, z+facing*.0375),
+                            pier-.025, opening_top-opening_bottom, fac, facing)
+                g.panel((cx-uw*.5+.11, y0+1.5, z+facing*.052), .15, 2.98, 'trim', facing)
+                g.panel((cx, y0+.13, z+facing*.054), uw-.055, .11, 'trim', facing)
+                inset = -.075 if river_side else .048
+                louver_window(g, cx, y0+(opening_bottom+opening_top)*.5, z+facing*inset,
+                              opening, opening_top-opening_bottom, facing,
+                              'green' if (seed+k)%2 else 'greenDark', glazing=not river_side)
+                variant = seed//7+k+int(river_side)
+                width = min(uw-.32, opening+(.64 if variant%3 else 1.02))
+                if variant%5 != 0 or signed or k in (1, floors-1):
+                    reach = (.67 if variant%3 else .76) if river_side else (.75 if variant%3 else .86)
+                    vine_length = .85 if k == 1 or (river_side and k-1 in rental_floors) else 1.8
+                    river_balcony(g, cx, y0+.47, z, width, facing, reach, variant, vine_length)
+                else:
+                    g.cube((cx, y0+.47, z+facing*.16), (opening+.28, .12, .36), 'trim')
+                    g.cube((cx, y0+.60, z+facing*.20), (.85, .15, .24), 'woodDark', 'RiverBalconyFlower')
+                    for j in range(3 if g.d < 2 else 2):
+                        g.blob((cx+(j-1)*.24, y0+.73, z+facing*.22), (.15, .13, .13),
+                               ('pink', 'leaf3', 'pinkLight')[j], n=4, m=2, tag='RiverBalconyFlower')
+                if not signed and (variant%4 == 0 or k == floors-1):
+                    tile_canopy(g, cx, opening+.44, y0+2.86, z, .62 if river_side else .76, facing)
+        roof_y = base+3.6+(floors-1)*3
+        for z, facing in ((zf, f), (zb, -f)):
+            parapet = .44+(seed%3)*.2
+            g.cube((cx, roof_y+.2+parapet*.5, z), (uw-.11, parapet, .13), fac)
+            g.cube((cx, roof_y+.2+parapet, z), (uw-.09, .075, .16), 'trim')
+            if (seed+facing)%3 == 0:
+                tile_canopy(g, cx, uw-.18, roof_y+1.57, z-facing*1.08, 1.13, facing)
 
 def apartment_block(g, x0, x1, zf, f, rng, obstacles):
-    """Khối căn hộ cao cấp ven sông rộng x0–x1, 6–9 tầng, sâu 3 m (zf = mặt đường ngang, hướng f).
-    Mặt đường ngang: dãy cửa hàng tầng trệt + cửa sổ/ban công sắt các tầng trên.
-    Mặt hướng sông: mỗi tầng có gờ sàn + lan can kính trong suốt ở mặt lưng nhà, ban công lõm 1 m, vách kính
-    trong suốt từ sàn tới trần (submesh PV_StreetGlass) chia ô bằng đố, nhìn thấy phòng sáng đèn (sàn, trần có
-    đèn, vách sau, sofa, cây). Ba kiểu: tường kính đố tối, lam đứng, khung trắng. Không phần nào vươn quá 0,12 m
-    khỏi lưng nhà nên không lấn mặt sông (kè cách lưng nhà 0,3 m)."""
+    """Giữ khối nhà, gian bán hàng, kính và biển thuê. Mặt tiền chia theo bề ngang nhà ống."""
     d = g.d; w = x1-x0; cx = (x0+x1)/2; zb = zf-f*HOUSE_DEPTH; base = .2
     floors = rng.choice([6, 7, 7, 8, 8, 9]); gh = 3.6; fh = 3.0; h = base+gh+(floors-1)*fh
     shell = rng.choice(SHELLS); frame = rng.choice(FRAMES); style = rng.randrange(3)
@@ -390,22 +499,9 @@ def apartment_block(g, x0, x1, zf, f, rng, obstacles):
     # ---- mặt đường ngang
     for xe in (x0+.12, x1-.12): g.cube((xe, (base+h)/2, out(.06)), (.24, h-base, .12), 'trim')
     for u in range(units): shop_unit(g, x0+u*uw, x0+(u+1)*uw, base, out, f, rngs)
-    nwin = max(2, int(w/2.6)); pitch = w/nwin
     for k in range(1, floors):
         y0 = base+gh+(k-1)*fh
-        g.cube((cx, y0+.05, out(.08)), (w, .14, .16), 'trim')
-        if d == 2: continue
-        for j in range(nwin):
-            xw = x0+(j+.5)*pitch
-            g.cube((xw, y0+1.45, out(.04)), (1.36, 1.95, .08), 'frame')
-            g.quad([(xw-.6, y0+.55, out(.085)), (xw+.6, y0+.55, out(.085)), (xw+.6, y0+2.35, out(.085)), (xw-.6, y0+2.35, out(.085))], 'glass', (0, 0, f))
-        if (k+int(abs(cx))) % 2 == 0:
-            g.cube((cx, y0+.12, out(.45)), (w-.6, .14, .9), 'trim')
-            g.cube((cx, y0+1.02, out(.88)), (w-.6, .05, .05), 'iron'); g.cube((cx, y0+.55, out(.88)), (w-.6, .04, .04), 'iron')
-            if d == 0:
-                n = int((w-.6)/.5)
-                for j in range(n+1): g.cube((x0+.3+j*(w-.6)/n, y0+.6, out(.88)), (.025, .85, .025), 'iron')
-        elif d == 0 and rngs.random() < .6:
+        if (k+int(abs(cx))) % 2 and d == 0 and rngs.random() < .6:
             condenser(g,x0+.7 if rngs.random() < .5 else x1-.7,y0+.9,out(.22),f=f,scale=.93)
     # ---- mặt hướng sông: căn hộ kính
     glass_z = inner(LOGGIA); wall_z = inner(zone); mpitch = (1.5 if style != 1 else 1.25)
@@ -419,15 +515,13 @@ def apartment_block(g, x0, x1, zf, f, rng, obstacles):
         yt = base+gh if k == 0 else y0+fh
         # Sàn (là trần tầng dưới) qua vùng ban công + phòng; gờ sàn ở lưng nhà.
         g.cube((cx, y0+.1, inner(zone/2)), (w-.48, .2, zone), shell, skip=('-y',) if k == 0 else ())
-        g.cube((cx, y0+.15, back(.05)), (w, .3, .1), frame if style != 2 else 'white')
+        if k == 0:
+            g.cube((cx, y0+.15, back(.05)), (w, .3, .1), frame if style != 2 else 'white')
         if d == 2:
             g.quad([(x0+.25, y0+.3, glass_z), (x1-.25, y0+.3, glass_z), (x1-.25, yt, glass_z), (x0+.25, yt, glass_z)], 'glassLight', (0, 0, -f), 'Glass')
             g.panel((cx, (y0+yt)/2, wall_z), w-.5, yt-y0-.2, room_col, z_facing=-f, tag=room_tag)
             continue
         # Lan can kính trong suốt + tay vịn inox (không ở tầng trệt).
-        if k:
-            g.quad([(x0+.25, y0+.3, back(.0)), (x1-.25, y0+.3, back(.0)), (x1-.25, y0+1.3, back(.0)), (x0+.25, y0+1.3, back(.0))], 'glassLight', (0, 0, -f), 'Glass')
-            g.cube((cx, y0+1.33, back(.0)), (w-.5, .05, .07), 'chrome')
         # Vách kính sàn–trần lùi vào, chia ô bằng đố.
         g.quad([(x0+.25, y0+.2, glass_z), (x1-.25, y0+.2, glass_z), (x1-.25, yt, glass_z), (x0+.25, yt, glass_z)], 'glassLight', (0, 0, -f), 'Glass')
         for m in range(nm+1):
@@ -455,17 +549,13 @@ def apartment_block(g, x0, x1, zf, f, rng, obstacles):
     rental_sign(g,x0,x1,zf,f,floors)  # 21.91: one sign per tower, staggered floors.
     # ---- mái: sân thượng vườn, lan can kính, phòng kỹ thuật
     g.cube((cx, h+.1, (zf+zb)/2), (w, .2, HOUSE_DEPTH), shell)
-    g.cube((cx, h+.7, out(-.08)), (w, 1.0, .16), shell)
     if d < 2:
-        g.quad([(x0+.1, h+.2, back(.0)), (x1-.1, h+.2, back(.0)), (x1-.1, h+1.25, back(.0)), (x0+.1, h+1.25, back(.0))], 'glassLight', (0, 0, -f), 'Glass')
-        g.cube((cx, h+1.28, back(.0)), (w-.2, .06, .08), 'chrome')
         g.cube((cx-w*.25, h+1.2, out(-.9)), (w*.3, 2.0, 1.2), shell, skip=('-y',))
         if d == 0:
             for j in range(int(w/3)):
                 bx = x0+1.5+j*3.0
                 g.cube((bx, h+.45, inner(.7)), (1.0, .5, .6), 'woodDark'); g.blob((bx, h+.95, inner(.7)), (.5, .4, .35), ('leaf2', 'leaf3', 'leaf4')[j % 3], n=6, m=3)
-    else:
-        g.cube((cx, h+.7, back(.08)), (w, 1.0, .16), shell)
+    river_tube_frontage(g, x0, zf, f, base, floors, units, uw, {s['floor'] for s in g.rental_signs})
 
 def riverside_specs():
     """Danh sách khối căn hộ hai bờ: (x0, x1, zf, hướng, hạt giống). Dãy chạy hai bên đường chính (|x| 11,4 → 95),

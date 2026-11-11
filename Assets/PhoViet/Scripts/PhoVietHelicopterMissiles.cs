@@ -123,13 +123,15 @@ namespace PhoViet
   void BurnAirAttackRider(Vector3 point,EnemyMissileSource source=EnemyMissileSource.None,bool biplane=false)
   {
    if(State!=RideState.Riding||RiderAirAttackBurning)return;
+   if(source==EnemyMissileSource.None)StartChase();
    Vector3 before=riderVelocityValid?riderRoadVelocity:rider.localRotation*Vector3.forward*Speed;
    Vector3 direction=before;direction.y=0;if(direction.sqrMagnitude<.1f)direction=rider.localRotation*Vector3.forward;direction.Normalize();
    BeginRiderImpact(null,new Vector2(direction.x,direction.z),point,before);
    riderFallVelocity=direction*Mathf.Clamp(before.magnitude*.6f,6,25)+Vector3.down*2;riderFallSpin=new Vector3(20,8,55);
-   RiderAirAttackBurning=true;missileHitSource=source;CrashDuringPursuit=false;IsChased=false;routePolice=false;chaseBoost=0;ResetCrashPoliceNavigation();siren?.Stop();
+   RiderAirAttackBurning=true;missileHitSource=source;
+   if(source!=EnemyMissileSource.None)StopPursuitForFatalImpact();
    EnsureThunderstorm();stormVisual?.Burn(rider,null);
-   notice=source!=EnemyMissileSource.None?"TRÚNG TÊN LỬA · "+MissileHitSourceLabel.ToUpperInvariant():biplane?"VA MÁY BAY · CHUYẾN ĐI KẾT THÚC":"VA TRỰC THĂNG · CHUYẾN ĐI KẾT THÚC";noticeTimer=5;
+   notice=source!=EnemyMissileSource.None?"TRÚNG TÊN LỬA · "+MissileHitSourceLabel.ToUpperInvariant():biplane?"VA MÁY BAY · CSGT ĐANG ĐẾN":"VA TRỰC THĂNG · CSGT ĐANG ĐẾN";noticeTimer=5;
   }
   void KnockHelicopter(HelicopterActor h,Vector3 before,Vector3 away)
   {

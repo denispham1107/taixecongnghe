@@ -18,11 +18,25 @@ namespace PhoViet
    Vector3 pa=Vector3.Lerp(a.previousPosition,a.model.localPosition,at),pb=Vector3.Lerp(b.previousPosition,b.model.localPosition,at);
    Vector3 faceA=VehicleContactFace(a,pa,pb,normal),faceB=VehicleContactFace(b,pb,pa,-normal);
    EmitVehicleImpact((faceA+faceB)*.5f,new Vector3(normal.x,0,normal.y),closing);
-   IgniteVehicleContact(a,pa,faceA);IgniteVehicleContact(b,pb,faceB);
+   ApplyVehicleContactDamage(a,b,pa,faceA,normal,closing);
+   ApplyVehicleContactDamage(b,a,pb,faceB,-normal,closing);
+  }
+  void ApplyVehicleContactDamage(TrafficVehicle body,TrafficVehicle other,Vector3 centre,Vector3 point,Vector2 face,float closing)
+  {
+   if(body.model==rider&&IsMotorcycleContact(other))
+   {
+    Quaternion inverse=Quaternion.Inverse(rider.localRotation);
+    Vector3 outward=inverse*new Vector3(face.x,0,face.y);
+    // Align the deformation with the same panel chosen for the contact point.
+    outward=Mathf.Abs(outward.x)>Mathf.Abs(outward.z)?Vector3.right*Mathf.Sign(outward.x):Vector3.forward*Mathf.Sign(outward.z);
+    rider.GetComponent<PlayerCarVisual>()?.DentBody(inverse*(point-centre),outward,closing);
+    return;
+   }
+   IgniteVehicleContact(body,centre,point);
   }
   void IgniteVehicleContact(TrafficVehicle body,Vector3 centre,Vector3 point)
   {
-   if(body.armored)return;
+   if(body.armored||body.model==policeBike)return;
    if(contactFire==null&&Application.isPlaying&&stormFireTemplate!=null)
    {contactFire=gameObject.AddComponent<ContactFireVisual>();contactFire.Initialize(this,stormFireTemplate);}
    contactFire?.Ignite(body,Quaternion.Inverse(body.model.localRotation)*(point-centre));

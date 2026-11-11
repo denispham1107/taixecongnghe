@@ -268,7 +268,7 @@ namespace PhoViet
    // Nổ hất lên cao và ra xa; luôn kết thúc chuyến (kể cả khi đang bị CSGT đuổi).
    riderFallVelocity=away*8f+Vector3.up*7.5f+Vector3.forward*Speed*.25f;
    riderFallSpin=new Vector3(Random.Range(-220,220),Random.Range(-160,160),Random.Range(-260,260));
-   CrashDuringPursuit=false;KilledByShell=true;
+   StopPursuitForFatalImpact();KilledByShell=true;
    notice="TRÚNG ĐẠN XE TĂNG · CHUYẾN ĐI KẾT THÚC";noticeTimer=4;
   }
   // Mỗi bước mô phỏng (đang chạy, đang té, sau kết thúc): đạn đang bay vẫn bay tới và nổ.

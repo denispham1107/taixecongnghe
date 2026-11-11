@@ -3,7 +3,7 @@ namespace PhoViet
 {
  // Only this skin is animated. The outer player root belongs to road/impact physics.
  [DisallowMultipleComponent,SelectionBase]
- public sealed class PlayerCarVisual:MonoBehaviour
+ public sealed partial class PlayerCarVisual:MonoBehaviour
  {
   public Transform visual,body,exhaustMount;
   public Transform[] wheels,steering;

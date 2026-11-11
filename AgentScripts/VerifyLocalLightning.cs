@@ -93,8 +93,8 @@ public static class VerifyLocalLightning
    foreach(bool down in new[]{false,true})
    {
     Fresh();Queue(32);Set("IsChased",true);if(down)g.Crash();g.policeBike.gameObject.SetActive(true);g.policeBike.localPosition=g.AdditionalLightningTarget(0);g.TickThunderstorm(.801f,false);
-    Check(g.PoliceLightningWreck&&!g.IsChased&&!g.CrashDuringPursuit,"Additional ray cancels pursuit and waiting-for-officer state: "+down);
-    Check(g.LightningStrikes==4,"Officer hit never interrupts other rays in the same wave: "+down);
+    Check(!g.PoliceLightningWreck&&!g.PoliceFallen&&g.IsChased&&g.CrashDuringPursuit==down,"Additional ray leaves pursuit and waiting-for-officer state intact: "+down);
+    Check(g.LightningStrikes==4,"Patrol car never interrupts other rays in the same wave: "+down);
    }
    Fresh();Queue(5);g.WarnLightning(new Vector3(5,0,40));Check(g.AdditionalLightningCount==0,"Direct single warning replaces a pending batch without stale extras");g.TickThunderstorm(.801f,false);Check(g.LightningStrikes==1,"Manual single-strike API remains single");
    Fresh();Queue(6);g.thunderstormEnabled=false;g.TickThunderstorm(.1f,true);Call("RenderThunderstorm");Check(!g.LightningPending&&g.AdditionalLightningCount==0&&VisibleWarnings(fx)==0&&VisibleBolts(fx)==0,"Disabling weather cancels entire pending batch and visuals");

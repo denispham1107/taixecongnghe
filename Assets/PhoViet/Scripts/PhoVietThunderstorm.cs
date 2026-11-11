@@ -14,7 +14,7 @@ namespace PhoViet
   public int LightningStrikes {get;private set;}
   public int LightningVehiclesHit {get;private set;}
   public bool KilledByLightning {get;private set;}
-  public bool PoliceLightningWreck {get;private set;}
+  public bool PoliceLightningWreck=>false;
   public bool LightningPending=>lightningWarning>0;
   public Vector3 LightningTarget=>lightningPoint;
   public float LightningWarningRemaining=>lightningWarning;
@@ -39,7 +39,7 @@ namespace PhoViet
   {
    ResetContactFire();
    StormTime=StormIntensity=StormFlash=lightningWarning=0;boltAge=10;nextLightning=.55f;
-   LightningStrikes=LightningVehiclesHit=0;KilledByLightning=PoliceLightningWreck=false;
+   LightningStrikes=LightningVehiclesHit=0;KilledByLightning=false;
    stormRandom=new System.Random(RunSeed^0x514b27);
    localStormRandom=new System.Random(RunSeed^0x37ae51);extraLightningCount=0;Array.Clear(extraLightningPoints,0,extraLightningPoints.Length);
    foreach(var v in vehicles)v.lightningWreck=false;
@@ -135,7 +135,6 @@ namespace PhoViet
     v.angularVelocity+=new Vector3(18,0,v.halfWidth<.7f?90:35);LightningVehiclesHit++;
     if(stormVisual!=null)stormVisual.Burn(v.model,v);
    }
-   if(policeBike!=null&&policeBike.gameObject.activeSelf&&!PoliceLightningWreck&&!PoliceInRiver&&UnderLightning(policeBike,.5f,1.2f,at))StrikeStormPolice();
    if(!KilledByLightning&&(State==RideState.Riding||State==RideState.Falling)&&UnderLightning(rider,PlayerHalfWidth,PlayerHalfLength,at))StrikeStormRider();
   }
   void StrikeStormRider()
@@ -145,27 +144,9 @@ namespace PhoViet
    if(State!=RideState.Falling)return;
    Vector3 flat=before;flat.y=0;float speed=flat.magnitude;Vector3 direction=speed>.2f?flat/speed:rider.localRotation*Vector3.forward;
    riderFallVelocity=direction*Mathf.Clamp(speed*.7f+4,6,25)+Vector3.up*5.5f;
-   riderFallSpin=new Vector3(30,0,75);CrashDuringPursuit=false;KilledByLightning=true;
-   IsChased=false;routePolice=false;ResetCrashPoliceNavigation();siren?.Stop();
+   riderFallSpin=new Vector3(30,0,75);StopPursuitForFatalImpact();KilledByLightning=true;
    if(stormVisual!=null)stormVisual.Burn(rider,null);
    notice="TRÚNG SÉT · CHUYẾN ĐI KẾT THÚC";noticeTimer=5;
-  }
-  void StrikeStormPolice()
-  {
-   if(policeBody==null)policeBody=new TrafficVehicle{model=policeBike,halfWidth=.5f,halfLength=1.2f};
-   Vector3 before=policeBike.localRotation*Vector3.forward*Mathf.Max(PoliceSpeed,8);
-   ActivateCollisionBody(policeBody,before,before*.7f,Vector2.up*100,Vector2.zero,false,true,12);
-   policeBody.knockVelocity.y=4.5f;policeBody.lightningWreck=true;PoliceLightningWreck=true;
-   IsChased=false;routePolice=false;PoliceSpeed=PoliceFallRemaining=chaseBoost=0;CrashDuringPursuit=false;
-   dinosaurPoliceVelocity=Vector3.zero;ResetCrashPoliceNavigation();siren?.Stop();
-   if(stormVisual!=null)stormVisual.Burn(policeBike,policeBody);
-   notice=State==RideState.Falling?"CSGT TRÚNG SÉT · CHUYẾN ĐI KẾT THÚC":"CSGT TRÚNG SÉT · ĐÃ THOÁT TRUY ĐUỔI";noticeTimer=3;
-  }
-  void TickStormPoliceWreck(float dt)
-  {
-   if(!PoliceLightningWreck||policeBody==null||PoliceInRiver||dt<=0)return;
-   Vector3 previous=policeBike.localPosition;TickCollisionBody(policeBody,dt);CheckPoliceRiver(previous,dt);
-   if(policeBike.localPosition.z< -90)policeBike.gameObject.SetActive(false);
   }
   void ScrollThunderstorm(float delta){if(LightningPending){lightningPoint-=Vector3.forward*delta;for(int i=0;i<extraLightningCount;i++)extraLightningPoints[i]-=Vector3.forward*delta;}stormVisual?.Scroll(delta);}
   void RebaseThunderstorm(Quaternion inverse,Vector3 origin)

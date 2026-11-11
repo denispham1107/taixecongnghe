@@ -17,7 +17,7 @@ namespace PhoViet.Editor
    EditorUserBuildSettings.overrideTextureCompression=UnityEditor.Build.OverrideTextureCompression.NoOverride;
    AssetDatabase.Refresh();
   }
-  // Keep source pixels, mipmaps, filtering, colour space and all geometry.
+  // Keep source textures and their mipmaps, filtering and colour space.
   static string[] ReleaseDependencies()
   {
    var paths=new List<string>{"Assets/PhoViet/Scenes/PhoViet.unity"};
@@ -32,13 +32,13 @@ namespace PhoViet.Editor
    foreach(string icon in new[]{"Assets/PhoViet/Resources/PlayerFlight/PV_FlightUp.png","Assets/PhoViet/Resources/PlayerFlight/PV_FlightLand.png"})if(File.Exists(icon))paths.Add(icon);
    return paths.SelectMany(p=>AssetDatabase.GetDependencies(p,true)).Distinct().ToArray();
   }
-  // 21.136: each traffic vehicle carried five 2K maps, far more than it covers on a phone screen, and they alone took
-  // about 140 MB of GPU memory. The player's own car keeps its 2K paint; the desktop package keeps every map.
+  // Use the same size budget for ETC2/EAC and DXT so either can load within the WebGL heap.
+  // The player's paint and surface maps keep their source resolution.
   public const int MobileTextureLimit=1024;
-  static int WebTextureSize(string path,TextureImporter importer,bool mobile)
+  static int WebTextureSize(string path,TextureImporter importer)
   {
    int full=importer.maxTextureSize;
-   if(!mobile||path.EndsWith("PV_BlueSupercar_Surface.png",StringComparison.Ordinal)||path.EndsWith("PV_BlueSupercar_Palette.png",StringComparison.Ordinal))return full;
+   if(path.EndsWith("PV_BlueSupercar_Surface.png",StringComparison.Ordinal)||path.EndsWith("PV_BlueSupercar_Palette.png",StringComparison.Ordinal))return full;
    return Mathf.Min(full,MobileTextureLimit);
   }
   // GPU compression must match mobile WebGL: DXT is expanded on iPhone, and
@@ -67,7 +67,7 @@ namespace PhoViet.Editor
     TextureImporterFormat format=path.EndsWith("PV_UrbanRider_Regions.png",StringComparison.Ordinal)?TextureImporterFormat.EAC_RG:
      importer.textureType==TextureImporterType.NormalMap||importer.DoesSourceTextureHaveAlpha()?TextureImporterFormat.ETC2_RGBA8:TextureImporterFormat.ETC2_RGB4;
     if(!mobile)format=importer.textureType==TextureImporterType.NormalMap||importer.DoesSourceTextureHaveAlpha()||path.EndsWith("PV_UrbanRider_Regions.png",StringComparison.Ordinal)?TextureImporterFormat.DXT5:TextureImporterFormat.DXT1;
-    int size=WebTextureSize(path,importer,mobile);
+    int size=WebTextureSize(path,importer);
     if(web.overridden&&web.format==format&&web.compressionQuality==50&&web.maxTextureSize==size)continue;
     web.name="WebGL";web.maxTextureSize=size;
     web.overridden=true;web.format=format;web.textureCompression=TextureImporterCompression.CompressedHQ;
@@ -83,9 +83,10 @@ namespace PhoViet.Editor
    {
     var importer=AssetImporter.GetAtPath(path) as TextureImporter;if(importer==null)continue;
     var texture=AssetDatabase.LoadAssetAtPath<Texture2D>(path);if(texture==null||texture.width*texture.height<65536)continue;
-    var format=importer.GetPlatformTextureSettings("WebGL").format;
+    var web=importer.GetPlatformTextureSettings("WebGL");
+    var format=web.format;
     bool valid=mobile?(format==TextureImporterFormat.ETC2_RGB4||format==TextureImporterFormat.ETC2_RGBA8||format==TextureImporterFormat.EAC_RG):(format==TextureImporterFormat.DXT1||format==TextureImporterFormat.DXT5);
-    if(!valid)throw new InvalidOperationException("Web texture imports did not stabilize: "+path);
+    if(!valid||web.maxTextureSize!=WebTextureSize(path,importer))throw new InvalidOperationException("Web texture imports did not stabilize: "+path);
    }
    var report=new{mobile,changed=changes.Count,changes,subtarget=EditorUserBuildSettings.webGLBuildSubtarget.ToString()};
    Directory.CreateDirectory("Captures");File.WriteAllText(mobile?"Captures/web-memory-texture-settings.json":"Captures/web-memory-desktop-settings.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));

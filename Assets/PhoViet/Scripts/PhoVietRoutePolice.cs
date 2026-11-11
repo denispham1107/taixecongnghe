@@ -32,7 +32,7 @@ namespace PhoViet
                 for(int i=0;i<4&&overlap;i++)
                 {
                     Vector2 axis=i==0?right:i==1?forward:i==2?vr:vf;
-                    float radius=Mathf.Abs(Vector2.Dot(right,axis))*(.5f+pad)+Mathf.Abs(Vector2.Dot(forward,axis))*(1.2f+pad)+Mathf.Abs(Vector2.Dot(vr,axis))*width+Mathf.Abs(Vector2.Dot(vf,axis))*v.halfLength;
+                    float radius=Mathf.Abs(Vector2.Dot(right,axis))*(PoliceHalfWidth+pad)+Mathf.Abs(Vector2.Dot(forward,axis))*(PoliceHalfLength+pad)+Mathf.Abs(Vector2.Dot(vr,axis))*width+Mathf.Abs(Vector2.Dot(vf,axis))*v.halfLength;
                     float p=Vector2.Dot(from,axis),d=Vector2.Dot(delta,axis);
                     overlap=ContactHalfSpace(p-radius,d,ref enter,ref leave)&&ContactHalfSpace(-p-radius,-d,ref enter,ref leave);
                 }
@@ -43,13 +43,13 @@ namespace PhoViet
         void TickRoutePolice(float dt)
         {
             if(policeBike==null||dt<=0)return;
-            if(policeBody==null)policeBody=new TrafficVehicle{model=policeBike,halfWidth=.5f,halfLength=1.2f};
+            if(policeBody==null)policeBody=CreatePoliceBody();
             Vector3 before=policeBike.localPosition;policeBody.previousPosition=before;policeBody.previousYaw=policeBike.localEulerAngles.y;policeBody.knocked=PoliceFallen;
             if(PoliceFallen)
             {
                 policeBike.localPosition-=Vector3.forward*Speed*dt;ResolvePoliceContact(before,Vector3.zero,false);
                 PoliceFallRemaining=Mathf.Max(0,PoliceFallRemaining-dt);PoliceSpeed=0;
-                policeBike.localRotation=Quaternion.Euler(0,policeFallYaw,-policeFallSide*78*Mathf.Clamp01((1.2f-PoliceFallRemaining)/.16f));
+                policeBike.localRotation=Quaternion.Euler(0,policeFallYaw,-policeFallSide*8*Mathf.Clamp01((1.2f-PoliceFallRemaining)/.16f));
                 PoliceDistance=TravelDistance-policeRouteAt;
                 if(!PoliceFallen){policeBike.localRotation=Quaternion.Euler(0,policeFallYaw,0);policeBody.knocked=false;}
                 return;
@@ -58,7 +58,7 @@ namespace PhoViet
             if(IsTurning)nominal=(PoliceDistance<=6.5f?TrafficPaceSpeed-.65f:TrafficPaceSpeed+2)*OpeningTrafficPace;
             float nextAt=Mathf.Min(TravelDistance-.8f,policeRouteAt+Mathf.Max(0,nominal)*dt);var point=SampleRoute(nextAt);Quaternion yaw=Quaternion.Euler(0,point.yaw,0);
             Vector3 destination=point.point;bool clear=false;
-            foreach(float side in new[]{-.9f,0,.9f})
+            foreach(float side in new[]{-.9f,0,.9f,-3.1f,3.1f})
             {
                 var candidate=point.point+yaw*new Vector3(side,0,0);
                 if(!RoutePolicePathClear(before,candidate,point.yaw,dt))continue;
@@ -76,7 +76,7 @@ namespace PhoViet
             policeBike.localPosition=next;ResolvePoliceContact(before,(next-before)/dt+Vector3.forward*Speed,true);
             if(PoliceFallen)policeFallYaw=policeBike.localEulerAngles.y;
             PoliceDistance=TravelDistance-policeRouteAt;
-            if(!PoliceFallen&&Vector3.Distance(policeBike.localPosition,rider.localPosition)<2.2f)Arrest();
+            if(PoliceCanReachRider())Arrest();
             if(!IsTurning&&!PoliceFallen&&policeRouteAt>turnEndAt+1&&Mathf.Abs(Mathf.DeltaAngle(policeBike.localEulerAngles.y,0))<5)
             {routePolice=false;PoliceDistance=-policeBike.localPosition.z;}
         }
