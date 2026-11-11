@@ -3680,6 +3680,8 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 ## 21.182. Truy đuổi từ đầu, va xe máy và phòng giam mới (10/11/2026 — Codex)
 
+> Đã phát hành trong WebGL 1.69.0 ở mục 21.193. Các ghi chú cục bộ bên dưới mô tả thời điểm hoàn tất từng thay đổi.
+
 - **Truy đuổi:** `PhoVietGame.StartRide` gọi `StartChase` với `PolicePursuitReleased=true`. Mô tô CSGT bắt đầu sau 38 m, dùng nhịp tăng tốc mở màn hiện có, báo khoảng cách trên HUD ngang/dọc. Bắt khi đến gần khoảng 2,2 m và xe người chơi dưới 1,25 m nếu còn lái. Nếu người chơi đã té thì đợi xe ngừng văng. Giữ dự đoán né chướng ngại và hồi phục CSGT 1,2 giây. Nếu CSGT mất do sông/sét trong lúc người chơi chờ bắt thì đưa CSGT khác tới sau 2,5 giây. Các nhánh này ở `PhoVietActions.cs`, `PhoVietPolice.cs`, `PhoVietRiderCrash.cs`, `PhoVietRiver.cs`, `PhoVietThunderstorm.cs` và `PhoVietPortraitHud.cs`.
 - **Va xe máy:** `PhoVietCollisions.cs` dùng quét tiếp xúc hiện có, `PhoVietBikeImpact.cs` đo tốc độ khép theo pháp tuyến (0–38 m/s). Mỗi lần trúng giảm 12–65% tốc độ, lệch ngang 0,16–0,67 m và chệch hướng 4–17° ra xa điểm va rồi hồi dần. Khóa nhận lại cùng xe 0,5 giây, bỏ tiếp xúc chồng khi đã tách. Người chơi vẫn đánh lái, rẽ và cộng mét, không bị hất lên. Xe máy kia vẫn nhận lực và hiệu ứng va chạm. Va xe máy vào xe người chơi đã té không hất xe người chơi lần nữa. `PhoVietRoutes.cs` tách độ lệch tạm khỏi quỹ đạo khi rẽ và đổi hệ tọa độ sau cua.
 - **Phân loại kết thúc:** Va thân xe bốn bánh, xe tăng hoặc máy bay dùng hiệu ứng té hiện có, chờ bắt rồi chuyển `Arrested` → `Jailed`. Trúng đạn pháo, tên lửa từ xe tăng/trực thăng/Skywing, va khủng long sống hoặc xác khủng long, sét và rơi sông vẫn kết thúc trực tiếp sau hiệu ứng tương ứng. Giữ thông báo tên nguồn bắn của 21.180.
@@ -3689,12 +3691,16 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 ## 21.183. Trang phục tù nhân trong cảnh phòng giam (10/11/2026 — Codex)
 
+> Đã phát hành trong WebGL 1.69.0 ở mục 21.193. Các ghi chú cục bộ bên dưới mô tả thời điểm hoàn tất từng thay đổi.
+
 - Dùng Blender MCP thay áo đỏ sao vàng và quần jeans của bản sao Golden Star Stance trong phòng giam bằng áo cộc tay và quần dài tù nhân sọc ngang trắng ngà/xám than. Giữ model Meshy, tư thế ngồi và bố cục hai camera của 21.182.
 - `apply_prison_uniform` trong `ArtSource/Blender/pho_viet_jail.py` dùng màu texture và vùng thân để chỉ thay vải, che họa tiết sao trên ngực. Sọc dùng thuộc tính tọa độ gốc `Uniform Rest Position` để bám theo rig ở vai và đầu gối. Đã lưu cùng `ArtSource/Blender/PhoViet_Jail.blend`.
 - Render lại `Assets/PhoViet/Resources/Jail/JailWide.jpg` (1440×900) và `JailTall.jpg` (810×1200). Đã xem cả hai ảnh và xác nhận Unity nạp đúng kích thước qua `Resources.Load<Texture2D>`.
 - **Trạng thái:** cục bộ. Chưa build WebGL, commit, push hoặc phát hành. Web vẫn 1.68.0.
 
 ## 21.184. Ô tô tuần tra CSGT từ Meshy (10/11/2026 — Codex)
+
+> Đã phát hành trong WebGL 1.69.0 ở mục 21.193. Các ghi chú cục bộ bên dưới mô tả thời điểm hoàn tất từng thay đổi.
 
 - Nhận FBX trong `Assets/MeshyImports/Vietnam_Traffic_Police_Cruiser_20261110_230018/`. Blender MCP chiếu chữ `CẢNH SÁT GIAO THÔNG` lên UV hai bên hông, đọc đúng khi nhìn từ ngoài từng bên. Giữ atlas nguồn Meshy, huy hiệu và các chi tiết ngoài vùng chữ. Mặt sơn 2K đã sửa tại `Assets/PhoViet/Art/PoliceCruiser/PV_PoliceLivery.png`. Nguồn chữ và phép chiếu ở `ArtSource/Blender/PoliceLettering.png` và `pho_viet_police_livery.py`.
 - `AgentScripts/InstallPoliceCruiser21184.cs` thay visual mô tô trong scene `PhoViet.unity`, giữ tham chiếu slot CSGT đang dùng. Kích thước lắp ban đầu dài 4,40 m, rộng 1,83 m, cao 1,60 m, đã thu trong 21.185. Đặt đèn ưu tiên trên nóc, ghép hai đèn pha và hai đèn hậu vào hệ ngày đêm. FBX gốc là lưới tĩnh, không có rig bánh riêng.
@@ -3704,12 +3710,16 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 ## 21.185. Thu xe CSGT và phối cảnh nhà phố/ven sông để duyệt (11/11/2026 — Codex)
 
+> Đã phát hành trong WebGL 1.69.0 ở mục 21.193. Các ghi chú cục bộ bên dưới mô tả thời điểm hoàn tất từng thay đổi.
+
 - `PhoVietPolice.cs` và `InstallPoliceCruiser21184.Resize` thu sedan đồng đều theo hệ số 0,85. Chiều dài đo trong Unity **3,74 m** bằng Blue Petshop Supercar. Giữ tỷ lệ sedan, rộng 1,55 m và cao 1,36 m. Đèn pha, đèn hậu, đèn ưu tiên và vùng va chạm/né xe thu đồng bộ. Lưu scene trực tiếp, không tạo thêm instance xe tuần tra.
 - `ArtSource/Concepts/City-20261111/` lưu ba ảnh imagegen tham khảo kiến trúc, mỗi ảnh gồm phố/cửa hàng ở trên và khu ven sông/gần cầu ở dưới. **A Phố ống Sài Gòn** có nhà hẹp, cửa chớp, ban công sắt và tường pastel. **B Phố chợ miền Tây** có hiên sâu, cửa gỗ, mái ngói/tôn và dãy nhà thấp. **C Phố Việt đương đại** có gạch thông gió, lam và sân thượng giật cấp.
 - Bước này chỉ xuất ảnh để chọn. Người dùng sau đó duyệt mẫu A và yêu cầu dựng lại nguyên căn, hoàn thành ở 21.187. Bố cục cầu, cây và làn xe trong ảnh chỉ làm bối cảnh cho phương án nhà cửa. Bộ cũ 21.85–21.86 vẫn là hồ sơ riêng.
 - Unity biên dịch 0 lỗi/cảnh báo và `VerifyPursuit21182` đạt 50 điều kiện, gồm chiều dài so với xe người chơi, vị trí đèn và truy đuổi. Unity đã về Edit Mode. Chưa build, commit, push hoặc phát hành, web vẫn 1.68.0.
 
 ## 21.186. Phối lại mặt tiền theo mẫu A (11/11/2026 — Codex, đang dùng sau 21.188)
+
+> Đã phát hành trong WebGL 1.69.0 ở mục 21.193. Các ghi chú cục bộ bên dưới mô tả thời điểm hoàn tất từng thay đổi.
 
 - Người dùng duyệt `ArtSource/Concepts/City-20261111/A-pho-ong-sai-gon.png`. Nhà phố chia thành các ô mặt tiền hẹp, có cửa chớp xanh, ô thông gió, ban công sắt tách đôi, mái hiên ngói đỏ và chân trụ ốp gạch xanh. Nhà ven sông chia các khối hiện có thành từng gian mặt tiền màu pastel, có cửa chớp, ban công lõm và gờ mái riêng. Giữ kính và phòng phía sau, chiều cao chính của khối, nền tường nhám và vật liệu hiện có.
 - `ArtSource/Blender/pho_viet_saigon_streets.py` và `pho_viet_river_bridge.py` dùng chung hình học cửa chớp và mái ngói. `export_tube_houses_21186.py` chạy Blender nền và xuất vào `.tools/tube-houses-21186/`. Thay tại chỗ 12 shop thường, 12 Petshop, `PV_RiverApartments` (24 khối) và `PV_RiverPetshopExtra` (1 biến thể của khối 09). Mỗi phần có 3 LOD. Giữ bảng hiệu cửa hàng, 38 bảng thuê hiện có trong FBX ven sông chính, bảng màu, thú cưng, cây ven đường, cầu, mặt nước, vỉa hè và dữ liệu va chạm. Biến thể ven sông bổ sung giữ cấu hình bảng hiệu riêng đã có.
@@ -3727,11 +3737,15 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 ## 21.188. Khôi phục phiên bản 21.186 theo ảnh người dùng (11/11/2026 — Codex)
 
+> Đã phát hành trong WebGL 1.69.0 ở mục 21.193. Các ghi chú cục bộ bên dưới mô tả thời điểm hoàn tất từng thay đổi.
+
 - Phục hồi 26 FBX và 26 JSON nguyên bản từ `.tools/tube-houses-21186/`, cảnh `PhoViet.unity` từ bản sao trước khi cài 21.187 và metadata va chạm cầu. SHA-256 của cảnh khớp bản 21.186. Khôi phục hai script tạo phố/cầu và `export_tube_houses_21186.py`, cùng mã phụ và bài thử cầu về trạng thái trước 21.187. Sao lưu phần đã hoàn tác vào `.tools/rollback-21188/backup-21187/`.
 - Blender tái xuất trong thư mục thử và đối chiếu đúng metadata cùng số tam giác của cả 26 mẫu. Unity mở lại cảnh, kiểm tra đủ 147 mesh, 35 đoạn đường với 24 hộp va chạm ven sông mỗi đoạn cầu. Play Mode thấy 1.470 tham chiếu mesh phố và 24 nhóm LOD ven sông. Ảnh chụp tại `.tools/rollback-21188/A-nha-pho.png` và `.tools/rollback-21188/A-ven-song.png`. Unity đã về Edit Mode.
 - Khôi phục cục bộ, chưa build, commit, push hoặc phát hành. Web vẫn 1.68.0.
 
 ## 21.189. Phối màu vỉa hè hai bên và bó vỉa cầu theo mẫu A (11/11/2026 — Codex)
+
+> Đã phát hành trong WebGL 1.69.0 ở mục 21.193. Các ghi chú cục bộ bên dưới mô tả thời điểm hoàn tất từng thay đổi.
 
 - Hai vỉa hè phố và phần lát caro ở đầu cầu dùng gạch be xám `CEC2B2` xen hồng tím nhạt `B3A0AA`, ron `A69B94`, bó vỉa đá xám ấm `BDB6AA`/`B4ADA2`. Lối dạo ven sông dùng cùng màu be xám. Gờ hai bên mặt cầu xen đỏ gạch `B35D53` và trắng ngà `DDD5C8` theo từng đoạn 0,9 m. Gờ cảnh báo vàng đen ở hai đầu cầu giữ vai trò riêng.
 - Cập nhật `pho_viet_saigon_streets.py` và `pho_viet_river_bridge.py` trong `ArtSource/Blender/`. Bảy màu mới dùng UV ở 1/4 chiều cao ô atlas, giữ nguyên điểm mẫu cũ ở tâm ô cho nội thất, kim loại và các tài sản khác. Tái xuất tại chỗ `PV_StreetPavement.fbx`, `PV_RiverBridge.fbx` và `PV_StreetPalette.png`. JSON cầu cập nhật số tam giác 50.984 / 14.110 / 4.894 theo LOD. Tất cả LOD giữ hoa văn ở hai vỉa hè phố và đầu cầu. Dữ liệu bố trí cảnh, kích thước mặt cầu và vùng va chạm giữ theo 21.188.
@@ -3739,6 +3753,8 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Thay đổi cục bộ. Chưa build, commit, push hoặc phát hành. Web vẫn 1.68.0.
 
 ## 21.190. Nâng biển thuê, thêm ban công và dùng chậu cây hoa giấy của phố cũ cho hai bờ sông (11/11/2026 — Codex)
+
+> Đã phát hành trong WebGL 1.69.0 ở mục 21.193. Các ghi chú cục bộ bên dưới mô tả thời điểm hoàn tất từng thay đổi.
 
 - Mỗi biển **CHO THUÊ NHÀ** nhích lên 0,66 m trong tầng đã chỉ định, mép trên cách mép tầng 0,05 m. Giữ bề rộng, cỡ chữ, màu và hướng. Hạ mép trên cửa chớp ở tầng có biển để biển nằm trên mảng vữa. Dùng 38 biển trong mô hình chính và biển cùng vị trí trong biến thể Petshop 09 để thay phiên khối nhà không làm mất biển.
 - Cả mặt nhìn ra sông và mặt đường ngang của hai bờ có sàn ban công nhô, lan can sắt, cửa chớp xanh, mái ngói nhỏ và một số bậu hoa. Mặt nhìn ra sông thêm khung cửa tiệm sẫm và mái hiên sọc gọn phía dưới biển hiệu hiện có. Giữ bố trí cửa hàng, bảng hiệu, thú cưng và dữ liệu va chạm.
@@ -3749,12 +3765,16 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 ## 21.191. Mái hiên sọc kiểu phố cho tất cả cửa hàng ven sông (11/11/2026 — Codex)
 
+> Đã phát hành trong WebGL 1.69.0 ở mục 21.193. Các ghi chú cục bộ bên dưới mô tả thời điểm hoàn tất từng thay đổi.
+
 - Thay phân bố mái hiên rải rác ở 21.190 bằng mái trên cả 66 gian tầng trệt, phía hướng sông lẫn phía đường ngang ở hai bờ. Cả ba LOD có sọc và riềm lượn sóng. Phối đỏ, xanh dương, xanh lá, vàng với trắng ngà, lặp theo vị trí liền kề của các gian. Một gian dùng cùng phối màu ở hai mặt và ở biến thể Petshop.
 - Dùng chung hàm `striped_awning` trong `ArtSource/Blender/pho_viet_saigon_streets.py` cho dáng vải dốc, vạt riềm hai mặt và thanh chống. `shop_unit` trong `pho_viet_river_bridge.py` chỉnh bề ngang theo gian và đầu mái vươn đến 1,42 m từ tường phía đường, 0,94 m phía sông. Điểm gắn dưới biển hiệu. LOD trung/xa giảm số dải xuống 6/4, LOD xa lược thanh chống. Giữ tọa độ mái mẫu ở phố, biển hiệu, ban công, thú cưng và vùng va chạm.
 - Blender tái xuất hai FBX/JSON `PV_RiverApartments` và `PV_RiverPetshopExtra`, kiểm 408 vị trí theo gian, mặt và LOD (gồm cả hai gian trong mẫu thay thế), kiểm màu, riềm và khoảng cách tới biển. Ba LOD mô hình chính có 1.668.492 / 526.354 / 275.060 tam giác. Unity kiểm 75 mesh giữ GUID/FileID, ba submesh, số tam giác khớp JSON, 2.520 tham chiếu. Đã xem mặt sông và mặt đường trong Play Mode. Ảnh và bản sao nằm trong `.tools/awnings-21191/`. Unity đã về Edit Mode.
 - Cục bộ, chưa build, commit, push hoặc phát hành. Web vẫn 1.68.0.
 
 ## 21.192. Va chạm không cháy trên xe CSGT và móp thân Supercar khi tông xe máy (11/11/2026 — Codex)
+
+> Đã phát hành trong WebGL 1.69.0 ở mục 21.193. Các ghi chú cục bộ bên dưới mô tả thời điểm hoàn tất từng thay đổi.
 
 - `PhoVietContactFire.cs` luôn phát hiệu ứng tức thời theo tiếp xúc. Bỏ điểm lửa/khói trên xe CSGT. Nếu một bên là người chơi và bên kia là xe máy, chuyển hiệu ứng trên xe người chơi từ lửa/khói sang biến dạng thân xe. Xe bên kia vẫn xử lý theo quy tắc cháy cũ. Phản ứng vật lý và lửa do các loại va chạm khác giữ theo nhánh cũ.
 - `PlayerCarDamage.cs` biến dạng lưới thân ba LOD từ điểm chạm và mặt bị tông. Độ mạnh lấy vận tốc tiếp cận 0,35–36 m/s, độ lún mỗi lần 0,025–0,31 m trước khi nhân suy giảm theo khoảng cách, tổng biến dạng tối đa 0,38 m mỗi đỉnh. Tính trong hệ của xe qua xương và bind pose, giữ UV, điều chỉnh pháp tuyến cục bộ, bỏ xương bánh. Tạo mesh riêng khi có hư hại, trả lại mesh gốc khi chơi lại qua `PhoVietGame.ResetRide`. Chỉ bật quyền đọc CPU cho FBX Supercar và giữ cấu hình đó trong `PhoVietSupercarUpgrade`.
@@ -3768,5 +3788,5 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Sau khi giảm lưới, ETC2 mở được cảnh nhưng DXT vẫn OOM do các texture phụ 2K. `PhoVietWebMemorySettings.cs` áp dụng cùng ngân sách 1K cho nhóm texture thuộc cả hai gói. Vẫn giữ nguồn, mipmap, lọc, gamma, DPR/AA và 2K cho màu/bề mặt xe người chơi. Các bảng hiệu là hình học/atlas nhỏ giữ nguyên. Kiểm tra sau import đối chiếu cả định dạng lẫn kích thước, ngăn xuất gói trộn lẫn. Chưa đo FPS hoặc thử trên thiết bị thật.
 - Blender kiểm 408 vị trí mái hiên và 39 bản thể biển thuê qua hai mẫu (38 biển trên mẫu chính). Hai FBX còn 1.165.884 / 429.202 / 244.580 và 38.614 / 14.820 / 8.878 tam giác theo LOD. Unity giữ 75 mesh và 3.360 tham chiếu bao gồm hai mẫu, tổng đỉnh giảm 5.830.087 xuống 3.233.607. Phần FBX chính trong báo cáo build giảm 282,7 xuống 60,5 MiB sau cả hai biện pháp.
 - Build thành công, 0 lỗi và 1 cảnh báo rằng Runtime Pipeline của Unity bị tắt trong Player. Kiểm tra cấu trúc cảnh đã lưu và phụ thuộc Unity đạt 11 điều kiện, tìm thấy 475 đường dẫn. Kiểm tra gói trong `docs` đạt 48 điều kiện, bản tái tạo như GitHub Pages đạt 39 điều kiện. Báo cáo `Captures/release169-build-report.json`, `release169-repo-bundle-checks.json` và `release169-site-bundle-checks.json`.
-- Chrome desktop DXT và mobile ETC2 mô phỏng đạt 24 kiểm tra, gồm hiển thị cảnh thật, mật độ điểm ảnh ở cả bốn mức, chạm/giữ Bay, vuốt, màn hình dọc và tái mở offline. Trang chủ đạt 603 kiểm tra bố cục. Hồi quy va chạm đạt lại 73 điều kiện, metadata của 75 mesh và tham chiếu cảnh giữ đúng. Đã xem bốn ảnh Play Mode ven sông và ảnh WebGL desktop/mobile. Unity đã về Edit Mode, máy chủ local đã dừng. Chưa thử trên điện thoại thật.
-- Trạng thái: đã kiểm thử bản cục bộ, đang chuẩn bị commit/push và xác minh GitHub Pages. Web công khai vẫn 1.68.0.
+- Chrome desktop DXT và mobile ETC2 mô phỏng đạt 24 kiểm tra, gồm hiển thị cảnh thật, mật độ điểm ảnh ở cả bốn mức, chạm hai lần, chạm/giữ Bay, màn hình dọc và tái mở offline. Trang chủ đạt 603 kiểm tra bố cục. Hồi quy va chạm đạt lại 73 điều kiện, metadata của 75 mesh và tham chiếu cảnh giữ đúng. Đã chụp bốn ảnh Play Mode ven sông và xem hai ảnh cận cảnh và ảnh WebGL desktop/mobile. Unity đã về Edit Mode, máy chủ local đã dừng. Chưa thử trên điện thoại thật.
+- Commit `d297222` đã push main. [GitHub Pages run 42938120236](https://github.com/denispham1107/taixecongnghe/actions/runs/42938120236) thành công đúng SHA. Bản công khai đúng phiên bản 1.69.0/cache `18345e56412a04bc` và byte tài nguyên đã kiểm thử. 34 kiểm tra live và 5 kiểm tra bay trên mobile giả lập đạt, 0 lỗi runtime. Báo cáo `Captures/release169-pages.json`, `release169-live-results.json` và `release169-live-mobile-flight.json`. Đã cập nhật bàn giao để tiếp tục với Claude Code. Chưa thử điện thoại thật.

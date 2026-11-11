@@ -10,14 +10,14 @@ Cập nhật lần cuối: **11/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.68.0** — WebGL `95ffa4d`, Pages `42731990683` thành công đúng SHA, cache `5ff1a2b82a648276`. Gồm 21.179–21.180. **34 kiểm tra live và 5 kiểm tra bay trên mobile giả lập đạt, 0 lỗi runtime.** |
+| Bản đã phát hành | **1.69.0** — WebGL `d297222`, Pages `42938120236` thành công đúng SHA, cache `18345e56412a04bc`. Gồm 21.182–21.192 đang dùng và tối ưu bộ nhớ 21.193. **34 kiểm tra live và 5 kiểm tra bay trên mobile giả lập đạt, 0 lỗi runtime.** |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra, plugin cục bộ chưa commit. |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Simulator iPhone | **21.71:** đã thêm **Apple iPhone 14 Pro / 14 Pro Max**, Dynamic Island + Safe Area dọc/ngang; đang chọn Pro Max ngang, Safe Area bật. Asset chỉ trong Editor, chưa commit/push |
-| Chế độ chơi | **Source 21.182–21.184:** CSGT đuổi từ đầu bằng ô tô Meshy, miễn pháo/tên lửa/sét và phải né xe khác. Tông xe máy chỉ chệch lái và giảm tốc; tông phương tiện khác té rồi chờ bắt. Trúng đạn pháo/tên lửa địch, khủng long, sét hoặc rơi sông thì người chơi hết lượt. Điểm dừng khi té/bắt. **Web 1.68.0** còn khóa truy đuổi theo 21.155. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
+| Chế độ chơi | **21.182–21.184, web 1.69.0:** CSGT đuổi từ đầu bằng ô tô Meshy, miễn pháo/tên lửa/sét và phải né xe khác. Tông xe máy chỉ chệch lái và giảm tốc; tông phương tiện khác té rồi chờ bắt. Trúng đạn pháo/tên lửa địch, khủng long, sét hoặc rơi sông thì người chơi hết lượt. Điểm dừng khi té/bắt. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
 | Người chơi trong source/scene | **Blue Petshop Supercar** xanh, thu nhỏ 15%. Q/chạm hai lần móc xích trong 4 m khi chưa bay, lộn khi bay (21.155, web 1.61.0). Space/vuốt lên nhảy với bốn luồng khói trắng. W/F/vuốt xuống bắn tên lửa. Boost tạm khóa và giữ mã hiệu ứng hai ống bô. |
 | Bay cao và máy bay hai tầng cánh | **21.177, đã có trên WebGL 1.67.0:** giữ Bay lên tối đa 2,2× (9,96 m), tiêu hao 10–40 mỗi 0,5 s. Crimson Skywing sinh 2/4/6 chiếc theo độ cao, dùng tên lửa như trực thăng. |
@@ -36,14 +36,14 @@ Cập nhật lần cuối: **11/11/2026 — Codex**
 | Tên lửa địch và âm lượng tổng | **21.180, web 1.68.0:** tên lửa xe tăng/trực thăng/Skywing 36 m/s, thẻ kết thúc ghi đúng nguồn. Master +30% ở 21.132 vẫn có trên web. |
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
 | Tên lửa người chơi | **21.179, web 1.68.0:** hồi 0,25 giây. Kho 5/5, nhặt +1; bắn thẳng khi thiếu mục tiêu. Dưới đất và khi bay giữ các loại mục tiêu theo 21.169/21.173/21.177. |
-| Va chạm phương tiện trong source | **21.192, Unity cục bộ:** CSGT va xe chỉ có hiệu ứng tức thời trên xe CSGT. Người chơi tông xe máy có tia lửa/mảnh vỡ và thân xe móp theo điểm chạm, không cháy/khói. **21.179, web 1.68.0:** mảnh 3D và tia lửa tăng theo lực tông. |
+| Va chạm phương tiện trong source | **21.192, web 1.69.0:** CSGT va xe chỉ có hiệu ứng tức thời trên xe CSGT. Người chơi tông xe máy có tia lửa/mảnh vỡ và thân xe móp theo điểm chạm, không cháy/khói. **21.179, web 1.68.0:** mảnh 3D và tia lửa tăng theo lực tông. |
 | Trực thăng | **21.180, web 1.68.0:** bay 18,4 m/s ngay khi xuất hiện. Theo 21.174, có 1/2/3 chiếc ở mốc 0/200/400 m cộng mỗi lần rẽ xong 1 chiếc. Nhịp tên lửa giảm 0,1 giây/lượt rẽ, sàn 0,25 giây. |
 | Khủng long | **21.173, web 1.66.0:** thanh máu 3 nấc trên đầu. Tên lửa bắn từ mặt đất có thể hạ khủng long. Mỗi phát trúng thêm một điểm lửa/khói. Phát thứ ba làm khủng long ngã; xác cháy và vẫn gây va chạm. |
 | Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Đã có trên web 1.61.0. |
 | Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Đã có trên web 1.61.0. |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
 | Năng lượng / bay / lộn | **21.148 có trên web 1.60.0:** bắt đầu và tối đa 180. Biểu tượng xanh dưới đất hồi 15, biểu tượng cam trên không hồi 20. Nhảy tốn 5, bay tốn 10 mỗi 0,5 giây. |
-| Nhà phố và nhà ven sông | **21.190, Unity cục bộ:** cả hai bờ có ban công sắt, cùng mẫu chậu cây đất nung và hoa giấy rủ của phố mẫu A. Biển thuê sát mép trên tầng. Dùng khối nhà và vùng va chạm 21.186, khôi phục ở 21.188. |
+| Nhà phố và nhà ven sông | **21.190, web 1.69.0:** cả hai bờ có ban công sắt, cùng mẫu chậu cây đất nung và hoa giấy rủ của phố mẫu A. Biển thuê sát mép trên tầng. Dùng khối nhà và vùng va chạm 21.186, khôi phục ở 21.188. |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
 | Chất liệu tường trong source | **21.98:** người dùng chọn vân rõ hơn21.97; relief0,42/scale0,65/contrast0,28/smoothness0,015, giữ màu/kính/kim loại/sông. UV mask25FBX/144mesh, texture1K nén/mipmap, không thêm renderer. Chi tiết21.97–21.98; đã có trên web1.50.0 |
@@ -56,27 +56,29 @@ Cập nhật lần cuối: **11/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.192, Unity cục bộ:** tách lửa/khói khỏi xe CSGT khi va xe và khỏi xe người chơi khi tông xe máy. Supercar biến dạng cục bộ theo tốc độ va chạm, phục hồi khi chơi lại. Unity biên dịch sạch và đạt 73 kiểm tra Play Mode. Chưa build hoặc phát hành. Web vẫn 1.68.0.
+- **21.193 đã phát hành WebGL 1.69.0:** commit `d297222`, Pages `42938120236`, cache `18345e56412a04bc`. 603 kiểm tra bố cục, 24 Chrome cục bộ, 73 hồi quy va chạm và 42 Git index đạt. 34 kiểm tra live và 5 kiểm tra bay trên mobile giả lập đạt, 0 lỗi runtime. Đã sửa OOM bằng nén lưới/lá ban công ven sông và cùng ngân sách texture phụ 1K cho DXT/ETC2. Màu/bề mặt xe người chơi 2K và chữ bảng hiệu giữ nguyên. Chưa thử thiết bị thật.
 
-- **21.191, Unity cục bộ:** cả 66 gian ven sông có mái vải sọc có riềm theo mẫu phố, ở mặt đường và mặt sông. Đỏ, xanh dương, xanh lá và vàng xen kẽ theo từng tiệm, phối trắng ngà. Blender kiểm 408 vị trí tính cả LOD và biến thể Petshop. Unity đối chiếu 75 mesh, 2.520 tham chiếu và đã xem hai mặt trong Play Mode. Web vẫn 1.68.0.
+- **21.192, web 1.69.0:** tách lửa/khói khỏi xe CSGT khi va xe và khỏi xe người chơi khi tông xe máy. Supercar biến dạng cục bộ theo tốc độ va chạm, phục hồi khi chơi lại. Unity biên dịch sạch và đạt 73 kiểm tra Play Mode. Đã phát hành trong 1.69.0.
 
-- **21.190, Unity cục bộ:** nâng các biển thuê lên 0,66 m trong tầng cũ. Hai bờ có ban công, cửa chớp, chậu đất nung và hoa giấy rủ dùng cùng mẫu phố cũ. Mặt sông có thêm khung cửa sẫm và mái hiên sọc. Unity đối chiếu 75 mesh và 2.520 tham chiếu, đã xem ảnh hai bờ. Web vẫn 1.68.0.
+- **21.191, web 1.69.0:** cả 66 gian ven sông có mái vải sọc có riềm theo mẫu phố, ở mặt đường và mặt sông. Đỏ, xanh dương, xanh lá và vàng xen kẽ theo từng tiệm, phối trắng ngà. Blender kiểm 408 vị trí tính cả LOD và biến thể Petshop. Unity đối chiếu 75 mesh, 2.520 tham chiếu và đã xem hai mặt trong Play Mode. Đã phát hành trong 1.69.0.
 
-- **21.189, Unity cục bộ:** vỉa hè hai bên phố và đầu cầu đổi sang caro be xám xen hồng tím nhạt, bó vỉa đá xám ấm. Gờ hai bên cầu sơn đỏ gạch xen trắng ngà. Blender đối chiếu 6 mesh LOD và 7 mẫu màu. Unity đã nhập tài sản và đã xem màu phố trong Game view. Chưa build hoặc phát hành. Web vẫn 1.68.0.
+- **21.190, web 1.69.0:** nâng các biển thuê lên 0,66 m trong tầng cũ. Hai bờ có ban công, cửa chớp, chậu đất nung và hoa giấy rủ dùng cùng mẫu phố cũ. Mặt sông có thêm khung cửa sẫm và mái hiên sọc. Unity đối chiếu 75 mesh và 2.520 tham chiếu, đã xem ảnh hai bờ. Đã phát hành trong 1.69.0.
 
-- **21.188, Unity cục bộ:** đã khôi phục 21.186. Cảnh khớp SHA-256 cũ, Blender xuất lại khớp metadata 26 mẫu, Unity kiểm đủ 147 mesh và xem cả hai khu trong Play Mode. Bản 21.187 lưu riêng ở `.tools/rollback-21188/backup-21187/`. Web vẫn 1.68.0.
+- **21.189, web 1.69.0:** vỉa hè hai bên phố và đầu cầu đổi sang caro be xám xen hồng tím nhạt, bó vỉa đá xám ấm. Gờ hai bên cầu sơn đỏ gạch xen trắng ngà. Blender đối chiếu 6 mesh LOD và 7 mẫu màu. Unity đã nhập tài sản và đã xem màu phố trong Game view. Đã phát hành trong 1.69.0.
+
+- **21.188, web 1.69.0:** đã khôi phục 21.186. Cảnh khớp SHA-256 cũ, Blender xuất lại khớp metadata 26 mẫu, Unity kiểm đủ 147 mesh và xem cả hai khu trong Play Mode. Bản 21.187 lưu riêng ở `.tools/rollback-21188/backup-21187/`. Đã phát hành trong 1.69.0.
 
 - **21.187, lưu trữ:** bản dựng lại nguyên căn theo A, đã được thay bằng 21.186 theo yêu cầu ở 21.188.
 
-- **21.186, Unity cục bộ:** phối mẫu A cho mặt tiền nhà phố, cửa hàng và nhà hai bờ sông trên khung nhà có sẵn.
+- **21.186, web 1.69.0:** phối mẫu A cho mặt tiền nhà phố, cửa hàng và nhà hai bờ sông trên khung nhà có sẵn.
 
-- **21.185, Unity cục bộ:** thu sedan CSGT 15% đồng đều, dài 3,74 m bằng Supercar. Đèn và vùng va chạm thu theo xe. Đạt 50 điều kiện Play Mode. Ba bản phối kiến trúc được lưu làm mẫu. Chưa build hoặc phát hành. Web vẫn 1.68.0.
+- **21.185, web 1.69.0:** thu sedan CSGT 15% đồng đều, dài 3,74 m bằng Supercar. Đèn và vùng va chạm thu theo xe. Đạt 50 điều kiện Play Mode. Ba bản phối kiến trúc được lưu làm mẫu. Đã phát hành trong 1.69.0.
 
-- **21.184, Unity cục bộ:** ô tô CSGT Meshy thay mô tô, sửa chữ Việt trên hai hông, giữ đèn ưu tiên/pha/hậu. Miễn pháo, tên lửa và sét, vẫn vòng né giao thông theo kích thước ô tô. 898 điều kiện Play Mode đạt. Chưa build hoặc phát hành. Web vẫn 1.68.0.
+- **21.184, web 1.69.0:** ô tô CSGT Meshy thay mô tô, sửa chữ Việt trên hai hông, giữ đèn ưu tiên/pha/hậu. Miễn pháo, tên lửa và sét, vẫn vòng né giao thông theo kích thước ô tô. 898 điều kiện Play Mode đạt. Đã phát hành trong 1.69.0.
 
-- **21.183, Unity cục bộ:** nhân vật Meshy trong phòng giam mặc cả áo và quần tù nhân sọc ngang màu trắng ngà/xám than. Đã cập nhật file Blender và hai ảnh ngang/dọc trong `Resources/Jail/`. Web vẫn 1.68.0.
+- **21.183, web 1.69.0:** nhân vật Meshy trong phòng giam mặc cả áo và quần tù nhân sọc ngang màu trắng ngà/xám than. Đã cập nhật file Blender và hai ảnh ngang/dọc trong `Resources/Jail/`. Đã phát hành trong 1.69.0.
 
-- **21.182, Unity cục bộ:** mở truy đuổi từ đầu mỗi lượt, tách phản ứng tông xe máy khỏi va chạm gây té. Màn hình bị bắt dùng cảnh phòng giam Blender MCP dọc/ngang với rig nam Golden Star Stance từ Meshy. 137 điều kiện Play Mode đạt. Chưa build, commit, push hoặc phát hành. Web vẫn 1.68.0.
+- **21.182, web 1.69.0:** mở truy đuổi từ đầu mỗi lượt, tách phản ứng tông xe máy khỏi va chạm gây té. Màn hình bị bắt dùng cảnh phòng giam Blender MCP dọc/ngang với rig nam Golden Star Stance từ Meshy. 137 điều kiện Play Mode đạt. Đã phát hành trong 1.69.0.
 
 - **21.181 đã phát hành WebGL 1.68.0:** ETC2/EAC + DXT, 399,105 giây. 220 trước + 220 sau build, 604 SHA, 48/39 gói, 603 bố cục, 22 Chrome cục bộ và 42 Git index. Commit `95ffa4d`, Pages `42731990683`, cache `5ff1a2b82a648276`. 34 kiểm tra live + 5 kiểm tra mobile giả lập đạt.
 
@@ -316,7 +318,6 @@ Cập nhật lần cuối: **11/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.193 đang làm:** WebGL 1.69.0 đã build hai gói, cache `18345e56412a04bc`. Đã xử lý OOM bằng tối ưu lá ban công/nén lưới và đồng bộ ngân sách texture DXT/ETC2. Chrome desktop/mobile/offline đã đạt 24 kiểm tra, 603 bố cục và 73 hồi quy va chạm đạt. Tiếp theo commit/push, theo dõi Pages và kiểm bản công khai. Web đang phát hành vẫn 1.68.0.
 
 
 
@@ -448,7 +449,7 @@ Cập nhật lần cuối: **11/11/2026 — Codex**
 - **Source21.96:** xe tăng không bị thân/chân/đuôi khủng long hất, vẫn chạy/bắn theo quy tắc pháo hiện có; các phương tiện khác/player/CSGT giữ luật cũ. Đã có trênweb1.50.0, thay quyết định hất xe tăng ở21.62.
 
 - Hỏi lại bằng lựa chọn cụ thể nếu chưa chắc ≥90% ý người dùng.
-- **Source 21.182–21.184:** `PolicePursuitReleased=true`, bắt đầu cách 38 m. CSGT đi xuyên đạn và sét, vòng né giao thông. Va xe làm ô tô tuần tra chậm 1,2 s. Chỉ trường hợp CSGT rơi sông trong lúc chờ bắt mới cử xe thay thế sau 2,5 s. Khi đang lái, va xe máy làm lệch và giảm tốc, vẫn tính mét. Khi người chơi té do thân phương tiện khác thì chờ CSGT đến bắt. Pháo/tên lửa địch/khủng long, sét hoặc người chơi rơi sông kết thúc lượt trực tiếp.
+- **21.182–21.184, web 1.69.0:** `PolicePursuitReleased=true`, bắt đầu cách 38 m. CSGT đi xuyên đạn và sét, vòng né giao thông. Va xe làm ô tô tuần tra chậm 1,2 s. Chỉ trường hợp CSGT rơi sông trong lúc chờ bắt mới cử xe thay thế sau 2,5 s. Khi đang lái, va xe máy làm lệch và giảm tốc, vẫn tính mét. Khi người chơi té do thân phương tiện khác thì chờ CSGT đến bắt. Pháo/tên lửa địch/khủng long, sét hoặc người chơi rơi sông kết thúc lượt trực tiếp.
 - Từ 21.140: vuốt ở đâu cũng được trừ thanh HUD và hai nút; không được dựng lại dải cấm dưới màn hình ngang.
 - Nhảy cố định **4,11665m**, không tăng theo Speed/W (21.100/web1.50.0); lane pace1,53065 vẫn theo tốc độ.
 - **Source21.155:** Q móc xích/lộn, Space nhảy/bay/hạ, **W/F bắn tên lửa cả đất/bay theo21.145**; mobile chạm hai lần móc xích/lộn, vuốt lên nhảy/bay/hạ, **vuốt xuống bắn cả đất/bay theo21.145**; nút tròn vẫn bắn. Nhận khi đủ ngưỡng, một cú vuốt một lệnh. **Boost tạm khóa (`BoostReleased=false`)**, chỉ mở lại khi người dùng yêu cầu. Source21.148 có đất xanh +15, không cam +20, tối đa 180 và bay −10/0,5s.
@@ -521,7 +522,7 @@ Cập nhật lần cuối: **11/11/2026 — Codex**
 | Bay cao, giữ nút Bay và máy bay Crimson Skywing | **21.177** | `PhoVietSkywing.cs`, `SkywingVisual.cs`, `PhoVietFlightButton.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`, `PhoVietHelicopter*.cs`, template WebGL `app.js`, `Resources/Skywing`, `AgentScripts/VerifySkywing21177.cs` |
 | Đỉnh nhảy và giữ bay / bắn xe tăng từ trên không | **21.169**, lịch sử 21.143/21.145 | `PhoVietJump.cs`, `PhoVietEnergy.cs` → FlightHeightAboveSupport/RequestEnergyHover, `PhoVietFlightButton.cs`, `PhoVietPlayerMissiles.cs`, `PhoVietPlayerTankMissiles.cs` |
 | Năng lượng / icon C / giữ cao độ / lộn360 | **21.148,21.121–21.123** | `Scripts/PhoVietEnergy.cs`, `PhoVietJump.cs`, `PlayerCarVisual.cs`, `PhoVietActions.cs`, `PhoVietRiver.cs`, `PhoVietDistanceHud.cs`; `Resources/Energy/`, `Art/Energy/`, `EnergyPickup.shader`; `AgentScripts/VerifyEnergyWeb.cjs`, `VerifyRelease154Scene.cs`, `AgentScripts/VerifyEnergy2122.cs`, `VerifyEnergyRoutes2122.cs`, `InstallEnergy2122.cs`, `CaptureEnergy2122.cs`; `ArtSource/Concepts/Energy-20261103/approval.json` |
-| WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.106**,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease159Scene.cs`, `VerifyStormWeb.cjs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
+| WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.193**, 21.106,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease159Scene.cs`, `VerifyStormWeb.cjs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.
 
