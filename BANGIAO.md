@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **12/11/2026 — Codex**
+Cập nhật lần cuối: **13/11/2026 — Codex**
 
 ## 1. Trạng thái hiện tại
 
@@ -60,6 +60,13 @@ Cập nhật lần cuối: **12/11/2026 — Codex**
 | Thay đổi cục bộ ngoài phát hành | Simulator21.71/Packages, Art/Wave/.blend và Captures lịch sử giữ cục bộ, không reset/stage toàn bộ. **21.70/21.72–21.74 đã có trên web1.43.0**; **21.76 kéo điểm xuất phát và21.77 sửa Safari/bộ nhớ đã lên1.44.0**; xem mục2 |
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
+
+- **21.214, cục bộ.** Sau rẽ, mỗi trực thăng cộng theo số lượt rẽ vào đội hình cách 2 m sau khủng long. Đội bắn ngay khi xe nhảy qua vùng đầu khủng long, kể cả khi đang vào cua. Unity biên dịch sạch, đạt 341 kiểm tra Play Mode và đã về Edit Mode. Web vẫn 1.70.0.
+- **21.213, cục bộ.** Xe bắt lửa do va chạm cháy lan rồi nổ văng mảnh sau 2 giây, gồm xe người chơi và máy bay. Nhân vật tự rời xe đang cháy trước vụ nổ và vẫn có thể trốn tiệm hoặc lấy xe khác. Unity đạt 420 điều kiện Play Mode, đã xem hai ảnh và về Edit Mode. Web vẫn 1.70.0.
+- **21.212, cục bộ.** Xe dân sự bổ sung phía sau người đi bộ cách nhau khoảng 3 giây khi làn trống. Chiếc đầu xuất hiện ngay khi nhân vật đáp đất hoặc ra khỏi tiệm nếu có chỗ. Unity đã kiểm mốc thời gian và về Edit Mode. Web vẫn 1.70.0.
+- **21.211, cục bộ.** 66 cột mặt tiền ven sông xen trắng kem với xanh lam, cam đào, xanh bạc hà và vàng nhạt. Mỗi cầu thêm bốn tàu chạy dọc hai bờ. Khi đi bộ ngoài phố và lúc ra khỏi tiệm, ô tô dân sự chạy lên từ phía sau. Ném lựu đạn khi đi bộ hồi 0,5 giây. Unity đạt 542 kiểm tra chính và 236 hồi quy, đã về Edit Mode. Web vẫn 1.70.0.
+- **21.210, cục bộ.** Blender MCP dựng mái ngói cho tầng trệt và từng tầng trên của nhà phố, kể cả hai mặt nhà ven sông. Mái chính hai dốc và sân thượng có thêm ngói xếp lớp, phòng thang, bồn nước và chi tiết sân. Đã nhập 26 FBX, đối chiếu 3.588 vị trí qua ba LOD, kiểm 147 mesh và xem ảnh Unity ở hai khu. Play Mode đạt 110 kiểm tra hồi quy. Web vẫn 1.70.0.
+- **21.209, cục bộ.** Joystick đi bộ tăng đường kính 20%, vùng chạm tăng theo và cân lề với nút bên phải. Dùng Blender MCP dựng cửa chớp, lan can sắt hoa văn và mái ngói ban công cho nhà phố và hai mặt nhà ven sông. Unity nhận 26 FBX/147 mesh LOD, giữ GUID và FileID. Play Mode đạt 110 kiểm tra và đã xem ảnh hai khu. Chưa build hoặc phát hành web.
 
 - **21.208 đã phát hành WebGL 1.70.0:** commit `db23eab`, Pages `43196420184`, cache `59533571e855f2dd`. Gộp 21.194–21.207 và sửa lấy mẫu hoạt ảnh chạy trên WebGL. Build hai biến thể, Unity rời xe đạt lại 89 kiểm tra, Chrome cục bộ 27 kiểm tra, không có lỗi runtime. Chi tiết `huongdan.md` mục 21.208.
 
@@ -351,6 +358,12 @@ Cập nhật lần cuối: **12/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **21.215 chuẩn bị đẩy Pages.** WebGL 1.71.0 đã build và qua kiểm tra gói, scene và Chrome desktop/mobile cục bộ. Cache `1ebf80ce165465c3`. Unity ở Edit Mode, máy chủ thử đã dừng. Bước tiếp theo là kiểm Git index, đẩy lên `main` và xác minh bản live. Báo cáo `.tools/release171/`.
+
+
+
+
+
 
 
 
@@ -476,7 +489,7 @@ Cập nhật lần cuối: **12/11/2026 — Codex**
 
 - **21.145 đã có trên web1.59.0:** player5/5tên lửa,nhặt+1/tốiđa5,2icon/phố-cầu. W/F/vuốt xuống/nút bắn dưới đất tự nhắm tank gần nhất, khi bay nhắm trực thăng; chờ0,4s/không mục tiêu bắn thẳng.1hit tankdừng/cháylớn/xácgâyva chạm. Giữ đạn địch/roll/khođầygiữpickup.
 
-- **Source21.127:** va chạm xe mặt đất làm cả hai cháy tại chỗ tông; tông lại chỗ khác thêm điểm cháy. Tank không cháy. Xe thường vẫn dựng/chạy lại3s, CSGT1,2s, **vẫn chạy kèm lửa/khói**, chỉ dọn khi retire/generation/sông/retry. Giữ physics/score/chờ CSGT; lửa do sét/không chiến giữ luật riêng.
+- **Source 21.213:** xe bắt lửa do va chạm cháy lan rồi nổ sau 2 giây tính từ điểm cháy đầu. Tông thêm có thể tạo thêm điểm cháy. CSGT và xe tăng miễn cháy do va chạm. Xe người chơi đang cháy do va chạm có luồng thoát khẩn trước vụ nổ. Sét và vũ khí giữ hiệu ứng theo nguồn trúng đòn.
 
 - **Source21.109 (web1.52.0 còn21.105):** quang15s→tăngmưa3s→giông9s→tan3s/lặp30s, pause dừng. Mỗi đợt giữ tia cũ và thêm đồng thời3tia ở3làn ngẫu nhiên khác nhau trong tile hiện tại; cả4báo0,8s, điểm đã báo không retarget. Nhảy vẫn trúng; xe trúng cháy/văngtheohướng cũ/nằm lại. Playertrúngluônhếtlượt sauvăng,kểcảđangđuổi. Tank/Dino miễn. CSGTtrúng→hếtđuổi; playerđãtéchờbắt thìhếtlượt. Vi phạmmới vềsaumới cólầnđuổimới, khônghồi phụcCSGTcháyđểtiếptụclầnđuổicũ.
 
@@ -503,7 +516,7 @@ Cập nhật lần cuối: **12/11/2026 — Codex**
 | --- | --- | --- |
 | Thiết kế icon cài đặt Phố Việt | **21.167**, 21.165–21.166, 15.2 | `ArtSource/Web/pho-viet-app-icon.svg`, `AgentScripts/GenerateWebIcons.cjs`, `ArtSource/Concepts/PWA-Icons-20261109/`, template PWA `manifest.webmanifest`, `index.html`, `icons/` |
 | Bánh xe lăn và giảm quay sau va chạm | **21.164** | `WheelRolling.cs`, `CarWheelDetail.cs`, `PlayerCarVisual.cs`, `CarVisualAnimator.cs`, `BikeVisualAnimator.cs`, `PhoVietCollisions.cs` |
-| Rời xe, đi bộ, chặn/lấy ô tô và CSGT đuổi bộ | **21.196**, 2.2, 2.5 | `PhoVietFootEscape.cs`, `PhoVietFootHud.cs`, `PhoVietVehicleTakeover.cs`, `PhoVietGrenades.cs`, `PhoVietRiderCrash.cs`, `PhoVietPoliceOfficer.cs`, `PhoVietCrashPoliceNavigation.cs`, `VerifyFootEscape21196.cs` |
+| Rời xe, đi bộ, joystick, chặn/lấy ô tô và CSGT đuổi bộ | **21.212, 21.211, 21.196, 21.209**, 2.2, 2.5 | `PhoVietFootEscape.cs`, `PhoVietFootHud.cs`, `PhoVietVehicleTakeover.cs`, `PhoVietGrenades.cs`, `PhoVietRiderCrash.cs`, `PhoVietPoliceOfficer.cs`, `PhoVietCrashPoliceNavigation.cs`, `VerifyFootEscape21196.cs` |
 | Chỉ hướng tới cửa tạp hóa, thời gian tìm chỗ trốn, ẩn náu và xe kéo | **21.197–21.198**, 2.2, 2.5 | `PhoVietShopHideout.cs`, `PhoVietFootEscape.cs`, `PhoVietActions.cs`, `PhoVietVehicleTakeover.cs`, `VerifyShopHideout21197.cs`, `ArtSource/Blender/PhoViet_ShopHideout.blend`, `Assets/PhoViet/Resources/ShopHideout/` |
 | Camera đi bộ/tiệm, lấy ô tô va chạm và cách xe giao thông di chuyển | **21.199–21.200**, 2.2, 2.3, 2.5 | `PhoVietFootEscape.cs`, `PhoVietShopHideout.cs`, `PhoVietVehicleTakeover.cs`, `PhoVietTraffic.cs`, `PhoVietCollisions.cs`, `VerifyStreetPlay21199.cs` |
 | Rẽ và va chạm khi đi bộ; ô tô va xe máy | **21.201**, 2.3, 2.5 | `PhoVietFootEscape.cs`, `PhoVietFootContacts.cs`, `PhoVietBikeImpact.cs`, `PhoVietCollisions.cs`, `PhoVietContactFire.cs`, `PhoVietPolice.cs`, `PhoVietDinosaurs.cs`, `VerifyStreetPlay21199.cs` |
@@ -515,8 +528,8 @@ Cập nhật lần cuối: **12/11/2026 — Codex**
 | Player tên lửa3/3/pickup/HUD/F/homing/shot-down | **21.128** | `PhoVietPlayerMissiles.cs`, `PhoVietMissilePickups.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietHelicopter.cs`, HUD/energy/river/web runtime; `Resources/PlayerMissile`, `ArtSource/UI/player_missile_icon.*`; verifier/capture `PlayerMissile*2128`, reports `player2128-*` |
 | Mảnh vỡ va chạm, nhịp tên lửa người chơi, tiếng sét | **21.179** | `PhoVietVehicleImpactFx.cs`, `PhoVietAircraftContacts.cs`, `PhoVietContactFire.cs`, `PhoVietPlayerMissiles.cs`, `ThunderstormVisual.cs`; `AgentScripts/VerifyVehicleImpact21179.cs` |
 | Tốc độ trực thăng/tên lửa địch và tên phương tiện trên thẻ kết thúc | **21.180** | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `PhoVietTankFire.cs`, `PhoVietGame.cs`; `AgentScripts/VerifyMissileSource21180.cs` |
-| Cháy/khói đa điểm va chạm mặt đất; xe hồi phục vẫn cháy | **21.127** | `PhoVietContactFire.cs`, `ContactFireVisual.cs`, `PhoVietCollisions.cs`, `PhoVietRiderCrash.cs`, `PhoVietPolice.cs`, `PhoVietPlayerVehicle.cs`, `PhoVietThunderstorm.cs`; verifier/report/capture `ContactFire2127`/`contact2127-*` |
-| Đội trực thăng theo quãng đường/lượt rẽ và nhịp tên lửa địch | **21.174**, 21.171/21.161/21.162/21.126/21.132 | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `PhoVietTankFire.cs`, `PhoVietTurnHazards.cs`, `PhoVietRoutes.cs`, `ThunderstormVisual.cs`; prefab trong `Resources/Helicopter` |
+| Lửa lan do va chạm, nổ văng mảnh và thoát xe | **21.213, 21.127** | `PhoVietContactFire.cs`, `ContactFireVisual.cs`, `PhoVietVehicleImpactFx.cs`, `PhoVietAircraftContacts.cs`, `PhoVietFootEscape.cs`, `PhoVietVehicleTakeover.cs`, `PhoVietShopHideout.cs` |
+| Trực thăng sau khủng long, đội theo quãng đường/lượt rẽ và nhịp tên lửa địch | **21.214, 21.174**, 21.171/21.161/21.162/21.126/21.132 | `PhoVietHelicopter.cs`, `PhoVietHelicopterMissiles.cs`, `PhoVietTankFire.cs`, `PhoVietTurnHazards.cs`, `PhoVietDinosaurs.cs`, `PhoVietRoutes.cs`; prefab trong `Resources/Helicopter` |
 | Welcome/bánh răng/cài đặt đồ họa3mức/lưu lựa chọn | **21.78**,12 | `PhoVietGraphicsSettings.cs`, `PhoVietWelcome.cs`, `PhoVietGame.cs`, `PhoVietWebRuntime.cs`, `AgentScripts/VerifyGraphicsSettings.cs`, `CaptureGraphicsSettings.cs` |
 | Nút Đạp Ga/Đạp Phanh, đèn hậu và kích thước nút Bay/Tên lửa | **21.168**, 21.152 | `PhoVietDrivePedals.cs`, `DayNightLighting.cs`, `OpticalLight.shader`, `PhoVietGame.cs`, `PhoVietPlayerMissileHud.cs`, `PhoVietPortraitHud.cs` |
 | Lựu đạn, điều khiển và hố nhỏ | **21.195**, 2.2, 2.5 | `PhoVietGrenades.cs`, `PhoVietActions.cs`, `PhoVietTankCraters.cs`, `PhoVietTankFire.cs`, `PhoVietRoutes.cs`, `AgentScripts/VerifyGrenades21195.cs` |
@@ -540,10 +553,10 @@ Cập nhật lần cuối: **12/11/2026 — Codex**
 | Trang trí cầu hiện tại/chậuhoa/giá cờ | **21.87** | `ArtSource/Blender/pho_viet_river_bridge.py`, `patch_bridge_fixtures.py`, `PhoViet_BridgeFixtures.blend`, `Art/River/PV_RiverBridge.fbx/json`, `AgentScripts/VerifyBridgeFixtures.cs`, `CaptureBridgeFixtures.cs`; không chạy installer sông/cầu cũ |
 | Đèn giao thông, điều hòa xám trắng, bảng thuê nhà ven sông | **21.102**,21.94/21.92/21.91 | `pho_viet_fixture_details.py`, `upgrade_fixture_details.py`, `pho_viet_saigon_streets.py`, `pho_viet_river_bridge.py`, `AgentScripts/FixtureDetailsImport.cs`, `CaptureFixtureDetails.cs`;21.92 thêm`upgrade_signal_rental.py`, `PhoVietSignalFaces.cs`, `SignalRentalUpdate.cs`, `VerifySignalFaces.cs`, `CaptureSignalRental.cs`; chỉ export/import signal+river, không installer |
 | Thanh đen cạnh cờ ban công nhà phố | **21.88** | `pho_viet_saigon_streets.py`→`flag()`, `remove_balcony_flag_poles.py`, `PhoViet_BalconyFlags.blend`, `AgentScripts/BalconyFlagCleanup.cs`, `Captures/balcony-flags-*`; chỉ8mẫu0/3/6/9 thường+Petshop |
-| Nhà ống, cửa hàng, nhà ven sông | **21.186, 21.188, 21.190**, ảnh duyệt 21.185 | `ArtSource/Blender/pho_viet_saigon_streets.py`, `pho_viet_river_bridge.py`, `pho_viet_fixture_details.py`, `Assets/PhoViet/Art/River/PV_RiverApartments.fbx`, `PV_RiverPetshopExtra.fbx`. |
+| Nhà ống, cửa hàng, nhà ven sông, cửa chớp, ban công, mái ngói và sân thượng | **21.211, 21.210, 21.209, 21.186, 21.188, 21.190**, ảnh duyệt 21.185 | `ArtSource/Blender/pho_viet_roof_details.py`, `pho_viet_balcony_details.py`, `pho_viet_saigon_streets.py`, `pho_viet_river_bridge.py`, `Assets/PhoViet/Art/River/PV_RiverApartments.fbx`, `PV_RiverPetshopExtra.fbx` |
 | Mái hiên sọc hai mặt nhà ven sông | **21.191** | `striped_awning` trong `pho_viet_saigon_streets.py`, `shop_unit` trong `pho_viet_river_bridge.py`, hai FBX nhà ven sông. |
 | Tàu đánh cá Meshy / tín hiệu phụ2mặt | **21.102** | `Editor/PhoVietFishingBoatUpgrade.cs`, `Art/River/FishingBoat/`, `ArtSource/Blender/prepare_fishing_boat.py`, `PhoViet_FishingBoat.blend`, `PhoVietSignalFaces.cs`, `AgentScripts/VerifyBoatSignal.cs`, `CaptureBoatSignal.cs`; không chạy lại installer sông/nhà |
-| Sông, cầu, căn hộ ven sông, xe/CSGT rơi chìm | 21.35–21.37, 21.45–21.54, 21.63 | `PhoVietRiver.cs`, `RiverBlock.cs`, `RiverReflection.cs`, `River*.shader`, `Editor/PhoVietRiverUpgrade.cs`, `AgentScripts/VerifyRiverCrashSinking.cs` |
+| Sông, cầu, tàu đánh cá, căn hộ ven sông, xe/CSGT rơi chìm | **21.211**, 21.35–21.37, 21.45–21.54, 21.63 | `PhoVietRiver.cs`, `RiverBlock.cs`, `RiverBoat.cs`, `RiverReflection.cs`, `River*.shader`, `Editor/PhoVietRiverUpgrade.cs`, `AgentScripts/VerifyRiverCrashSinking.cs` |
 | Cảnh phố, nhà, cây | 11.4, 21.19–21.28, 21.43 | `VietnamStreet.cs`, `StreetArt.cs`, `Editor/PhoVietStreetUpgrade.cs` |
 | Tường sơn lì/vân vữa rõ hơn, 14biển thuê mới | **21.98/21.97**,21.91/21.94 | `Editor/PhoVietWallFinish.cs`, `StreetWall.shader`, `WallStucco.cginc`, `ApartmentRoom.shader`, `PV_WallStuccoDetail.png`, `pho_viet_fixture_details.py`, `upgrade_rental_walls_2197.py`, `AgentScripts/TuneWall2198.cs`, `VerifyRentalWalls*.cs` |
 | Ngày–đêm, đèn, sương | **21.108**,21.100,20,21.41 | `PhoVietDayNight.cs`, `DayNightLighting.cs`, `MorningFog.cs`, `MorningLooks.cs`; đèn player lệch: `PhoVietSupercarUpgrade.CenterHeadProjector`, `VerifyHeadlightAngle.cs`, `VerifyHeadlightAngleRender.cs`, `CaptureHeadlightAngle.cs` |

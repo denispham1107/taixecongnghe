@@ -6,7 +6,7 @@ namespace PhoViet
  {
   public const float TurnTankDelay=0;
   const float TurnHelicopterDelay=.5f;
-  sealed class TurnHazardWave {public bool dinosaurSpawned,tankWanted;}
+  sealed class TurnHazardWave {public bool dinosaurSpawned,tankWanted;public int completedTurn;}
   readonly List<TurnHazardWave> turnHazardWaves=new List<TurnHazardWave>();
   void ResetTurnHazards(){turnHazardWaves.Clear();}
   float TurnHazardJunction()
@@ -20,7 +20,7 @@ namespace PhoViet
   void QueueTurnHazards()
   {
    if(State!=RideState.Riding||!dinosaursEnabled||dinosaurPrefab==null)return;
-   var wave=new TurnHazardWave{tankWanted=tankBarrageEnabled};
+   var wave=new TurnHazardWave{tankWanted=tankBarrageEnabled,completedTurn=CompletedTurns};
    turnHazardWaves.Add(wave);
    if(TryTurnDinosaur(wave)&&TryTurnTank(wave))turnHazardWaves.Remove(wave);
   }
@@ -29,6 +29,7 @@ namespace PhoViet
    float z=TurnHazardJunction();if(z<=0)return false;
    var dinosaur=SpawnDinosaurAt(z);if(dinosaur==null)return false;
    dinosaur.turnHelicopterDelay=TurnHelicopterDelay;
+   dinosaur.turnHelicopterTurn=wave.completedTurn;
    wave.dinosaurSpawned=true;return true;
   }
   bool TryTurnTank(TurnHazardWave wave)
@@ -57,7 +58,7 @@ namespace PhoViet
      d.turnHelicopterDelay-=dt;
      if(d.turnHelicopterDelay>1e-5f)continue;
      d.turnHelicopterDelay=0;
-     SpawnTurnHelicopter(d);
+     if(!d.Fallen&&d.turnHelicopterTurn==CompletedTurns)SpawnTurnHelicopter(d);
     }
    }
    for(int i=0;i<turnHazardWaves.Count;)

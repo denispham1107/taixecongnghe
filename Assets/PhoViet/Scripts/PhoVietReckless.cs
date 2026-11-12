@@ -164,6 +164,7 @@ namespace PhoViet
             {
                 v.crashEffect.localPosition=WreckFxPosition(v);v.crashEffect.localRotation=Quaternion.identity;
                 v.crashEffect.gameObject.SetActive(true);if(v.smoke!=null)v.smoke.Play();if(v.fire!=null)v.fire.Play();
+                IgniteVehicleContact(v,p,WreckFxPosition(v));
             }
             if(sound)fx?.PlayOneShot(crashClip,.7f);
         }

@@ -6,10 +6,10 @@ namespace PhoViet
 {
  public partial class PhoVietGame
  {
-  public const float GrenadeCooldown=2f,GrenadeCraterRadius=1.15f;
+  public const float GrenadeCooldown=2f,FootGrenadeCooldown=.5f,GrenadeCraterRadius=1.15f;
   const float GrenadeFlight=.48f,GrenadeBlastRadius=1.4f,GrenadeSlowDuration=1.2f;
-  const float FootThrowDuration=.56f,FootThrowRelease=.20f;
-  float grenadeCooldown;
+  const float FootThrowDuration=FootGrenadeCooldown,FootThrowRelease=.20f;
+  float grenadeCooldown,footGrenadeCooldown;
   sealed class RoadGrenade
   {
    public Transform model;
@@ -57,7 +57,7 @@ namespace PhoViet
 
   public bool TryThrowFootGrenade()
   {
-   if(State!=RideState.OnFoot||InsideShop||footJumpTime>0||footFallRemaining>0||entryVehicle!=null||grenadeCooldown>.00001f)return false;
+   if(State!=RideState.OnFoot||InsideShop||footJumpTime>0||footFallRemaining>0||entryVehicle!=null||footGrenadeCooldown>.00001f)return false;
    EnsureTankFx();
    var grenade=grenadePool.Count>0?grenadePool.Pop():NewRoadGrenade();
    grenade.age=-FootThrowRelease;grenade.side=1;grenade.thrownOnFoot=true;
@@ -66,7 +66,7 @@ namespace PhoViet
    grenade.model.SetLocalPositionAndRotation(grenade.start,grenade.rotation);
    grenade.model.localScale=Vector3.one*.60f;
    grenade.model.gameObject.SetActive(true);grenades.Add(grenade);
-   grenadeCooldown=GrenadeCooldown;footThrowPose=FootThrowDuration;return true;
+   footGrenadeCooldown=FootGrenadeCooldown;footThrowPose=FootThrowDuration;return true;
   }
 
   RoadGrenade NewRoadGrenade()
@@ -167,7 +167,7 @@ namespace PhoViet
   void ResetGrenades()
   {
    foreach(var grenade in grenades)ReleaseGrenade(grenade);
-   grenades.Clear();grenadeCooldown=0;
+   grenades.Clear();grenadeCooldown=footGrenadeCooldown=0;
   }
 
   void ReleaseGrenade(RoadGrenade grenade)

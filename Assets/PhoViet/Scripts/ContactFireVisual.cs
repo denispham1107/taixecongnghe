@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace PhoViet
 {
- // Separate from weather/aircraft fire: many surface attachments per vehicle,
- // generation-safe pooling and no change to crash physics or recovery rules.
+ // Pooled fire attached to the struck panels and the places it spreads to.
  public sealed class ContactFireVisual:MonoBehaviour
  {
   sealed class Spot
@@ -60,7 +59,9 @@ namespace PhoViet
   void Position(Spot s)
   {s.root.position=s.body.model.TransformPoint(s.anchor);s.root.rotation=Quaternion.identity;}
   void Release(Spot s)
-  {s.active=false;s.root.gameObject.SetActive(false);foreach(var ps in s.particles)ps.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);}
+  {s.active=false;s.body=null;s.root.gameObject.SetActive(false);foreach(var ps in s.particles)ps.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);}
+  public void ReleaseFor(PhoVietGame.TrafficVehicle body)
+  {foreach(var s in spots)if(s.active&&s.body==body)Release(s);}
   bool Valid(Spot s)
   {
    var b=s.body;if(b==null||b.model==null)return false;

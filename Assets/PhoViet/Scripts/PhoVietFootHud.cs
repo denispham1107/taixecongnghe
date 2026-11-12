@@ -27,9 +27,10 @@ namespace PhoViet
   }
   public static Rect FootJoystickLayout(Rect area,bool portraitView,float pixelRatio=1)
   {
-   Rect reference=PlayerMissileButtonLayout(area,portraitView,pixelRatio);
-   float size=reference.width*1.55f;
-   return new Rect(reference.x,reference.yMax-size,size,size);
+   Rect opposite=DrivePedalLayout(area,portraitView,true,pixelRatio);
+   float size=opposite.width*1.55f*1.20f;
+   float inset=area.xMax-opposite.xMax;
+   return new Rect(area.x+inset,opposite.yMax-size,size,size);
   }
   static bool InsideControl(Rect bounds,Vector2 pixel)=>
    (pixel-bounds.center).sqrMagnitude<=bounds.width*bounds.width*.25f;
@@ -64,7 +65,7 @@ namespace PhoViet
    if(InsideShop||NearbyShop(ShopDoorReach)!=null)
     DrawFootButton(ExitVehicleLayout(area,portrait,browserPixelRatio),ShopDoorChoice,InsideShop?"RA PHỐ":"VÀO TIỆM",Hex("74DEBB"),!InsideShop||shopEvaded);
    if(InsideShop)return;
-   DrawFootButton(DrivePedalLayout(area,portrait,true,browserPixelRatio),FootGrenadeChoice,"LỰU ĐẠN",Hex("F0AE56"),grenadeCooldown<.001f&&footJumpTime<=0);
+   DrawFootButton(DrivePedalLayout(area,portrait,true,browserPixelRatio),FootGrenadeChoice,"LỰU ĐẠN",Hex("F0AE56"),footGrenadeCooldown<=.00001f&&footJumpTime<=0&&footFallRemaining<=0&&entryVehicle==null);
    if(NearbyTakeableVehicle()!=null)
     DrawFootButton(DrivePedalLayout(area,portrait,false,browserPixelRatio),TakeCarChoice,"LẤY XE",Hex("74DEBB"),true);
   }

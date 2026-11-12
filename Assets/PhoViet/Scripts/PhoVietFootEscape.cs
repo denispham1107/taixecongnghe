@@ -42,6 +42,9 @@ namespace PhoViet
   Vector3 PoliceTargetPosition=>ShowFootCamera?footActor.localPosition:rider.localPosition;
   bool VehicleOnRoadForExit=>!RiderAirborne&&!RiderFlying&&!RiderOnRoof&&!RiderInRiver&&rider.localPosition.y<=.001f;
   bool CanExitVehicle=>State==RideState.Riding&&IsPlayerCar&&!ServiceStopped&&!JobOffersOpen&&footCharacterPrefab!=null&&VehicleOnRoadForExit;
+  const float FootRearCarInterval=3f;
+  float footRearCarTimer;
+  int footRearCarLane=2;
 
   void ResetFootEscape()
   {
@@ -50,6 +53,7 @@ namespace PhoViet
    exitAfterCollision=false;footJumpTime=footRunClock=footThrowPose=takeoverGrace=abandonedFallSpeed=0;footEscapeTime=0;footFacing=Vector3.forward;
    footViewHeading=Quaternion.identity;footFallRemaining=0;footContactGrace=0;
    footFatalTitle=null;
+   footRearCarTimer=0;footRearCarLane=2;
    NotifyFootBrowser(false);
   }
 
@@ -81,13 +85,15 @@ namespace PhoViet
   }
 
   public bool TryExitVehicle()=>CanExitVehicle&&EnterFootMode();
-  bool EnterFootMode()
+  bool EnterFootMode()=>BeginFootExit(false);
+  bool BeginFootExit(bool emergency)
   {
-   if(footCharacterPrefab==null||!VehicleOnRoadForExit)return false;
+   if(footCharacterPrefab==null||RiderInRiver||!emergency&&!VehicleOnRoadForExit)return false;
    EnsureFootCharacter();
    Vector3 from=rider.localPosition;
    Quaternion yaw=Quaternion.Euler(0,rider.localEulerAngles.y,0);
-   if(!TryFindFootLanding(from,yaw,PlayerHalfWidth+1.3f,out footJumpEnd))return false;
+   if(!TryFindFootLanding(from,yaw,PlayerHalfWidth+1.3f,out footJumpEnd)&&
+      (!emergency||!TryFindFootLanding(from,yaw,PlayerHalfWidth+5.3f,out footJumpEnd)))return false;
    footFacing=yaw*Vector3.forward;
    footJumpStart=from+Vector3.up*.65f;
    footActor.localPosition=footJumpStart;footActor.localRotation=yaw;footActor.gameObject.SetActive(true);
@@ -96,6 +102,7 @@ namespace PhoViet
    footRunBlend=0;ApplyFootStandingPose(0);
    footViewHeading=Quaternion.identity;footFallRemaining=0;footContactGrace=0;
    footEscapeTime=FootEscapeSeconds;
+   footRearCarTimer=0;
    CancelSwipe();CancelAssistedKick(false);CancelBoost();ResetJump();ClearLaneMotion();
    Speed=0;riderFallVelocity=Vector3.zero;RiderFallComplete=true;exitAfterCollision=false;QueuedTurn=0;IsTurning=false;TurnYaw=0;abandonedFallSpeed=0;
    State=RideState.OnFoot;engine?.Stop();
@@ -312,6 +319,12 @@ namespace PhoViet
     if(!v.active||v==entryVehicle||v.footStopRemaining>0)continue;
     if(Flat(v.model.localPosition-foot).sqrMagnitude>125*125)RetireVehicle(v);
    }
+   if(!InsideShop&&footJumpTime<=0&&footFallRemaining<=0&&entryVehicle==null)
+   {
+    footRearCarTimer-=dt;
+    if(footRearCarTimer<=0)
+     footRearCarTimer=TrySpawnFootRearCar(foot)?FootRearCarInterval:.30f;
+   }
    spawnTimer-=dt;
    if(spawnTimer>0)return;
    spawnTimer=2.4f;
@@ -320,6 +333,53 @@ namespace PhoViet
       !FootGround(new Vector3(LaneX[lane],0,z),7,out _,out _))return;
    foreach(var v in vehicles)if(v.active&&Mathf.Abs(v.model.localPosition.x-LaneX[lane])<2&&Mathf.Abs(v.model.localPosition.z-z)<8)return;
    SpawnTraffic(lane,z);
+  }
+
+  bool TrySpawnFootRearCar(Vector3 foot)
+  {
+   if(!FootGround(foot,9.15f,out int row,out _)||row!=mainRow)return false;
+   int selected=-1,count=0;
+   for(int i=0;i<vehicles.Count;i++)
+   {
+    var candidate=vehicles[i];
+    if(candidate.active||candidate.eventOnly||RearExitReserved(candidate))continue;
+    var car=candidate.model.GetComponent<MeshyCarVariants>();
+    string role=car?.driver.AssetName;
+    if((role=="PV_Sedan"||role=="PV_Hatchback"||role=="PV_Taxi"||role=="PV_DeliveryVan")&&rng.Next(++count)==0)
+     selected=i;
+   }
+   if(selected<0)return false;
+   for(int gap=16;gap<=32;gap+=8)
+   {
+    for(int attempt=0;attempt<2;attempt++)
+    {
+     int lane=attempt==0?footRearCarLane:5-footRearCarLane;
+     Vector3 position=new Vector3(LaneX[lane],0,foot.z-gap);
+     if(lane==3&&OuterLaneNearBridge(position,lane))continue;
+     if(!FootGround(position,7,out int spawnRow,out _)||spawnRow!=mainRow)continue;
+     if(!FootRearCarSpaceClear(position))continue;
+     var vehicle=vehicles[selected];
+     vehicle.model.GetComponent<MeshyCarVariants>().PrepareForSpawn(rng,vehicle,false);
+     if(SpawnTraffic(lane,position.z,selected)==null)return false;
+     footRearCarLane=5-lane;
+     return true;
+    }
+   }
+   return false;
+  }
+
+  bool FootRearCarSpaceClear(Vector3 position)
+  {
+   foreach(var other in vehicles)
+   {
+    if(!other.active||other.riverFalling||other.model.localPosition.y>2.4f)continue;
+    Vector2 half=VehicleFootprint(other);
+    Vector3 delta=position-other.model.localPosition;
+    if(Mathf.Abs(delta.x)<half.x+1.45f&&Mathf.Abs(delta.z)<half.y+4.4f)return false;
+   }
+   if(AbandonedCarPresent&&FootInsideVehicle(position,rider,PlayerHalfWidth,PlayerHalfLength,3))return false;
+   return !IsChased||policeBike==null||!policeBike.gameObject.activeInHierarchy||
+    !FootInsideVehicle(position,policeBike,PoliceHalfWidth,PoliceHalfLength,3);
   }
 
   void WalkFoot(float dt)

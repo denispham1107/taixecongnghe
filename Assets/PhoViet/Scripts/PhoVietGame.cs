@@ -338,6 +338,7 @@ namespace PhoViet
             if(State==RideState.GameOver){TickRiverAftermath(Mathf.Min(Time.deltaTime,.05f));TickShells(Mathf.Min(Time.deltaTime,.05f));TickThunderstorm(Mathf.Min(Time.deltaTime,.05f),false);}
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
             if(State==RideState.Arrested){TickGrenades(Mathf.Min(Time.deltaTime,.05f));TickArrest(Time.deltaTime);}
+            TickCrashBurns(Mathf.Min(Time.deltaTime,.05f));
             UpdateTankCraterTerrain(Mathf.Min(Time.deltaTime,.05f));
             RenderThunderstorm();
             UpdateRiverMurk();AnimateLights();PositionCamera(false);
@@ -546,6 +547,7 @@ namespace PhoViet
                 Vector3 p=v.model.localPosition;
                 if(countPasses&&previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-rider.localPosition.x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
                 if(v.recovery!=null||v==entryVehicle)continue;
+                if(!v.riverFalling&&(p-rider.localPosition).sqrMagnitude<100*100&&IsCollisionBurning(v))continue;
                 if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || (v.enteringFromBehind&&!v.isReckless&&p.z< -95) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&!v.lightningWreck&&!v.tankDestroyed&&v.knockAge>8) || (v.riverFalling&&(v.riverAge>9||v.riverAge>3&&v.model.localPosition.y<=RiverBlock.BedY+.41f)) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
             }
         }

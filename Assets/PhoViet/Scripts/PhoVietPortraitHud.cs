@@ -123,7 +123,7 @@ namespace PhoViet
    if(State==RideState.Falling)
    {
     if(CrashDuringPursuit)
-     message=exitAfterCollision?"VA CHẠM · RỜI XE SAU "+Mathf.CeilToInt(Mathf.Max(0,ForcedVehicleExitDelay-fallTime))+" GIÂY":
+     message=exitAfterCollision?"VA CHẠM · RỜI XE SAU "+Mathf.CeilToInt(Mathf.Max(0,RiderExitCountdown()))+" GIÂY":
       !IsChased?"ĐÃ TÉ · ĐỘI CSGT KHÁC ĐANG ĐẾN":RiderFallComplete?"ĐÃ TÉ · CHỜ CSGT ĐẾN BẮT":"VA CHẠM · CSGT ĐANG ĐẾN";
     else if(RiderInRiver)message="RƠI XUỐNG SÔNG · CHUYẾN ĐI KẾT THÚC";
     else if(!KilledByShell&&!KilledByLightning&&!HitByDinosaur&&MissileHitSourceLabel==null)

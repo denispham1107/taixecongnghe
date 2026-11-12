@@ -54,6 +54,15 @@ namespace PhoViet
   void TickHelicopterWeapon(HelicopterActor h,float dt)
   {
    float interval=CurrentHelicopterMissileInterval;
+   if(State==RideState.Riding&&!h.wrecked&&!h.escortJumpShot&&RiderJumpingPastEscortedDinosaur(h)&&
+      LaunchAircraftMissile(h,Quaternion.Euler(0,TurnYaw,0)*Vector3.forward*Speed))
+   {
+    h.escortJumpShot=true;
+    h.turnFirstShotPending=false;
+    h.shotInterval=h.shotRemaining=interval;
+    if(!RiderFlying)notice="TÊN LỬA TRỰC THĂNG · ĐỔI LÀN NÉ";
+    return;
+   }
    if(State!=RideState.Riding||!RiderFlying||IsTurning||h.wrecked){h.shotInterval=h.shotRemaining=interval;return;}
    h.shotRemaining=Mathf.Max(0,h.shotRemaining+interval-h.shotInterval);h.shotInterval=interval;h.shotRemaining-=dt;
    Vector3 delta=rider.localPosition-h.root.localPosition;
@@ -61,20 +70,34 @@ namespace PhoViet
    // At most one missile per aircraft per control step. Never queue a burst while out of range.
    if(FireHelicopterMissile(h)){h.shotRemaining=interval;h.turnFirstShotPending=false;}else h.shotRemaining=.05f;
   }
+  bool RiderJumpingPastEscortedDinosaur(HelicopterActor h)
+  {
+   if(!RiderAirborne||!HasLivingEscortTarget(h))return false;
+   var d=h.escortedDinosaur;
+   Vector3 head=DinosaurPoint(d.visual.head),delta=rider.localPosition-head;
+   // The crossing spans the turn lanes on both sides of the dinosaur.
+   return Mathf.Abs(Vector3.Dot(d.root.localRotation*Vector3.forward,delta))<=8f&&
+          Mathf.Abs(Vector3.Dot(d.root.localRotation*Vector3.right,delta))<=6.5f;
+  }
   bool FireHelicopterMissile(HelicopterActor h)
   {
-   if(h==null||!h.active||h.wrecked||State!=RideState.Riding||!RiderFlying)return false;
+   return State==RideState.Riding&&RiderFlying&&LaunchAircraftMissile(h,Vector3.forward*Speed);
+  }
+  bool LaunchAircraftMissile(HelicopterActor h,Vector3 roadVelocity)
+  {
+   if(h==null||!h.active||h.wrecked)return false;
    Vector3 launcher=h.skywing!=null?new Vector3(0,-.55f,1.05f):new Vector3(0,-.15f,1.3f);
    Vector3 origin=h.root.localPosition+h.root.localRotation*launcher;
-   return FireEnemyMissile(origin,h.skywing==null?EnemyMissileSource.Helicopter:EnemyMissileSource.Skywing);
+   return FireEnemyMissileAlongRoad(origin,h.skywing==null?EnemyMissileSource.Helicopter:EnemyMissileSource.Skywing,roadVelocity);
   }
   bool FireEnemyMissile(Vector3 origin,EnemyMissileSource source)
+   =>FireEnemyMissileAlongRoad(origin,source,Vector3.forward*Speed);
+  bool FireEnemyMissileAlongRoad(Vector3 origin,EnemyMissileSource source,Vector3 roadVelocity)
   {
    HelicopterMissile free=null;foreach(var m in helicopterMissiles)if(!m.active){free=m;break;}
    free??=CreateEnemyMissile();if(free==null)return false;
    Vector3 target=rider.localPosition+Vector3.up*(PlayerHeight*.5f),offset=target-origin;
    // Lead only the road travel at launch. Steering/altitude changes after firing are evasion.
-   Vector3 roadVelocity=Vector3.forward*Speed;
    float a=roadVelocity.sqrMagnitude-HelicopterMissileSpeed*HelicopterMissileSpeed,b=2*Vector3.Dot(offset,roadVelocity),c=offset.sqrMagnitude;
    float t=offset.magnitude/(HelicopterMissileSpeed+Mathf.Max(0,Speed)),disc=b*b-4*a*c;
    if(Mathf.Abs(a)>.001f&&disc>=0){float r1=(-b-Mathf.Sqrt(disc))/(2*a),r2=(-b+Mathf.Sqrt(disc))/(2*a);if(r1>0)t=r1;if(r2>0&&(r1<=0||r2<r1))t=r2;}
@@ -131,6 +154,7 @@ namespace PhoViet
    RiderAirAttackBurning=true;missileHitSource=source;
    if(source!=EnemyMissileSource.None)StopPursuitForFatalImpact();
    EnsureThunderstorm();stormVisual?.Burn(rider,null);
+   if(source==EnemyMissileSource.None)IgniteVehicleContact(riderBody,rider.localPosition,point);
    notice=source!=EnemyMissileSource.None?"TRÚNG TÊN LỬA · "+MissileHitSourceLabel.ToUpperInvariant():biplane?"VA MÁY BAY · CSGT ĐANG ĐẾN":"VA TRỰC THĂNG · CSGT ĐANG ĐẾN";noticeTimer=5;
   }
   void KnockHelicopter(HelicopterActor h,Vector3 before,Vector3 away)
@@ -148,7 +172,8 @@ namespace PhoViet
    bool water=OverRiver(p);float floor=water?RiverBlock.WaterY-3:AircraftWreckFloor(h);
    if(p.y<=floor){p.y=floor;h.velocity=Vector3.MoveTowards(new Vector3(h.velocity.x,0,h.velocity.z),Vector3.zero,dt*12);h.wreckSpin*=Mathf.Exp(-dt*4);}
    h.root.localPosition=p;
-   if(h.age>24||p.z< -40||Mathf.Abs(p.x)>38||water&&p.y<=floor){h.active=false;h.root.gameObject.SetActive(false);}
+   bool pending=FindCrashBurn(h.root)!=null;
+   if(h.age>24||(!pending&&(p.z< -40||Mathf.Abs(p.x)>38))||water&&p.y<=floor){h.active=false;h.root.gameObject.SetActive(false);}
   }
   float AircraftWreckFloor(HelicopterActor h)
   {

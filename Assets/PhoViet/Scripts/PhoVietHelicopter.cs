@@ -7,17 +7,22 @@ namespace PhoViet
   public const int MaximumDistanceHelicopters=3;
   const float HelicopterDistanceStep=200;
   const float HelicopterSpeed=18.4f,HelicopterSpacing=12,AdjacentHelicopterSpacing=6,TurnHelicopterHeadClearance=1.55f;
+  const float TurnHelicopterRearGap=2f,TurnHelicopterRowHeight=3.6f;
   sealed class HelicopterActor
   {
    public Transform root;public HelicopterVisual visual;public bool active,wrecked,turnFirstShotPending;
    public float age,shotRemaining,shotInterval,roadContactCooldown;
    public Vector3 velocity,scroll,wreckEuler,wreckSpin,missilePrevious,previousContact,contactVelocity;public int generation;
    public SkywingVisual skywing;public int tier,spawnLane;
+   public Dinosaur escortedDinosaur;
+   public int escortedGeneration;
+   public Vector3 escortOffset;
+   public bool turnReinforcement,escortJumpShot;
   }
   readonly List<HelicopterActor> helicopters=new List<HelicopterActor>(MaximumDistanceHelicopters);
   readonly int[] helicopterLanes={0,1,2,3};int helicopterLaneCursor=4;
   GameObject helicopterPrefab;System.Random helicopterRng;
-  bool helicopterRebased,turnHelicopterReinforcements;Vector3 helicopterRebaseOrigin;Quaternion helicopterRebaseRotation;
+  bool helicopterRebased,turnHelicopterDistanceFill;Vector3 helicopterRebaseOrigin;Quaternion helicopterRebaseRotation;
   public bool HelicopterActive=>ActiveHelicopterCount>0;
   public int ActiveHelicopterCount{get{int count=0;foreach(var h in helicopters)if(h!=null&&h.active)count++;return count;}}
   public int HelicopterPoolCount=>helicopters.Count;
@@ -39,7 +44,7 @@ namespace PhoViet
   }
   void ResetHelicopter()
   {
-   helicopterRebased=turnHelicopterReinforcements=false;HelicoptersSpawned=0;HitByHelicopter=false;helicopterLaneCursor=4;
+   helicopterRebased=turnHelicopterDistanceFill=false;HelicoptersSpawned=0;HitByHelicopter=false;helicopterLaneCursor=4;
    helicopterRng=new System.Random(RunSeed^0x47ad124);
    for(int i=0;i<helicopterLanes.Length;i++)helicopterLanes[i]=i;
    if(Application.isPlaying&&helicopterPrefab==null)helicopterPrefab=Resources.Load<GameObject>("Helicopter/PV_Helicopter");
@@ -47,6 +52,8 @@ namespace PhoViet
    foreach(var h in helicopters)
    {
     h.active=h.wrecked=h.turnFirstShotPending=false;h.age=0;h.shotInterval=h.shotRemaining=CurrentHelicopterMissileInterval;h.velocity=h.scroll=Vector3.zero;h.root.gameObject.SetActive(false);
+    h.escortedDinosaur=null;
+    h.turnReinforcement=h.escortJumpShot=false;
    }
    ResetHelicopterMissiles();
    ResetPlayerMissiles();
@@ -69,6 +76,7 @@ namespace PhoViet
   }
   bool SpawnHelicopter()
   {
+   if(ActiveDistanceHelicopters()>=HelicopterLimitAtDistance(Distance))return false;
    var free=FreeHelicopterSlot();if(free==null)return false;
    float laneX=NextFreeHelicopterLaneX();
    float z=Mathf.Max(95,(Speed+HelicopterSpeed)*2.8f);
@@ -86,9 +94,14 @@ namespace PhoViet
   }
   HelicopterActor FreeHelicopterSlot()
   {
-   if(ActiveHelicopterCount>=HelicopterTargetCount)return null;
    foreach(var h in helicopters)if(!h.active)return h;
    return CreateHelicopter();
+  }
+  int ActiveDistanceHelicopters()
+  {
+   int count=0;
+   foreach(var h in helicopters)if(h.active&&!h.turnReinforcement)count++;
+   return count;
   }
   float NextFreeHelicopterLaneX()
   {
@@ -103,6 +116,8 @@ namespace PhoViet
    actor.generation++;actor.age=actor.roadContactCooldown=0;actor.scroll=Vector3.zero;
    actor.shotInterval=actor.shotRemaining=CurrentHelicopterMissileInterval;
    actor.active=true;actor.wrecked=false;
+   actor.escortedDinosaur=null;
+   actor.turnReinforcement=actor.escortJumpShot=false;
    actor.turnFirstShotPending=postTurn;
    actor.root.gameObject.SetActive(true);
    if(actor.skywing!=null)actor.skywing.ResetPose();
@@ -111,18 +126,52 @@ namespace PhoViet
   }
   void SpawnTurnHelicopter(Dinosaur dinosaur)
   {
-   var lead=FreeHelicopterSlot();
+   Vector3 head=DinosaurPoint(dinosaur.visual.head);
+   var lead=ActiveDistanceHelicopters()<HelicopterLimitAtDistance(Distance)
+    ?FreeHelicopterSlot()
+    :helicopters.Find(h=>h.active&&!h.wrecked&&!h.turnReinforcement);
+   if(lead!=null)LaunchDinosaurEscort(lead,dinosaur,head+Vector3.up*TurnHelicopterHeadClearance,false);
+
+   int placed=0;
+   // Reuse the previous street's reinforcements, leaving wrecks to finish their effects.
    foreach(var h in helicopters)
    {
-    if(h==null||!h.active)continue;
-    // Prioritize the next junction over an aircraft from the previous street.
-    if(lead==null||(lead.active&&Mathf.Abs(h.root.localPosition.x)>Mathf.Abs(lead.root.localPosition.x)))lead=h;
+    if(placed>=CompletedTurns)break;
+    if(h.active&&!h.wrecked&&h.turnReinforcement)LaunchTurnReinforcement(h,dinosaur,head.y,placed++);
    }
-   if(lead==null)return;
-   Vector3 head=DinosaurPoint(dinosaur.visual.head);
-   LaunchHelicopter(lead,head+Vector3.up*TurnHelicopterHeadClearance,true);
-   lead.scroll=Vector3.forward*dinosaurScroll;
-   turnHelicopterReinforcements=ActiveHelicopterCount<HelicopterTargetCount;
+   while(placed<CompletedTurns)
+   {
+    var slot=FreeHelicopterSlot();
+    if(slot==null)break;
+    LaunchTurnReinforcement(slot,dinosaur,head.y,placed++);
+   }
+   turnHelicopterDistanceFill=ActiveDistanceHelicopters()<HelicopterLimitAtDistance(Distance);
+  }
+  void LaunchTurnReinforcement(HelicopterActor h,Dinosaur dinosaur,float headHeight,int index)
+  {
+   // Slot zero is reserved for the lead above the head. Keep all extra rows on
+   // the same longitudinal plane so a larger squad does not spawn farther away.
+   int slot=index+1;
+   float x=slot%3==1?LaneX[0]:slot%3==2?LaneX[3]:0;
+   Vector3 position=dinosaur.root.localPosition+
+    dinosaur.root.localRotation*new Vector3(x,0,-TurnHelicopterRearGap);
+   position.y=headHeight+TurnHelicopterHeadClearance+(slot/3)*TurnHelicopterRowHeight;
+   LaunchDinosaurEscort(h,dinosaur,position,true);
+  }
+  void LaunchDinosaurEscort(HelicopterActor h,Dinosaur dinosaur,Vector3 position,bool reinforcement)
+  {
+   LaunchHelicopter(h,position);
+   h.escortedDinosaur=dinosaur;
+   h.escortedGeneration=dinosaur.generation;
+   h.escortOffset=Quaternion.Inverse(dinosaur.root.localRotation)*(position-dinosaur.root.localPosition);
+   h.turnReinforcement=reinforcement;
+   h.turnFirstShotPending=true;
+   TickHelicopterWeapon(h,0);
+  }
+  static bool HasLivingEscortTarget(HelicopterActor h)
+  {
+   var d=h.escortedDinosaur;
+   return d!=null&&d.active&&!d.Fallen&&d.generation==h.escortedGeneration;
   }
   void ScrollHelicopter(float delta)
   {
@@ -132,7 +181,7 @@ namespace PhoViet
   }
   void RebaseHelicopter(Quaternion inverse,Vector3 origin)
   {
-   turnHelicopterReinforcements=false;
+   turnHelicopterDistanceFill=false;
    RebaseMissileLaunchAudio(inverse,origin);
    if(!HelicopterActive&&!skywings.Exists(plane=>plane.active)&&ActiveHelicopterMissileCount==0&&
       ActiveTankMissileCount==0&&ActivePlayerMissileCount==0)return;
@@ -144,6 +193,7 @@ namespace PhoViet
   }
   static void RebaseAircraft(HelicopterActor h,Quaternion inverse,Vector3 origin)
   {
+   h.escortedDinosaur=null;
    h.root.localPosition=inverse*(h.root.localPosition-origin);h.root.localRotation=inverse*h.root.localRotation;
    h.velocity=inverse*h.velocity;h.scroll=inverse*h.scroll;
    if(h.wrecked){h.wreckEuler=h.root.localEulerAngles;h.wreckSpin=inverse*h.wreckSpin;}
@@ -160,10 +210,9 @@ namespace PhoViet
    TickHelicopterMissiles(dt,previousRider,collisions);
    if(!collisions||State!=RideState.Riding||IsTurning)return;
    SpawnSkywings();
-   if(!RiderFlying&&!turnHelicopterReinforcements)return;
-   // Fill the opening formation immediately; feed larger formations over successive steps.
+   if(!RiderFlying&&!turnHelicopterDistanceFill)return;
    for(int i=0;i<MaximumDistanceHelicopters&&SpawnHelicopter();i++){}
-   if(ActiveHelicopterCount>=HelicopterTargetCount)turnHelicopterReinforcements=false;
+   if(ActiveDistanceHelicopters()>=HelicopterLimitAtDistance(Distance))turnHelicopterDistanceFill=false;
   }
   void TickHelicopterActor(HelicopterActor h,float dt,Vector3 previousRider,bool collisions)
   {
@@ -182,8 +231,21 @@ namespace PhoViet
     }
     return;
    }
-   h.velocity=LimitRoadVelocity(h.velocity);h.contactVelocity=h.velocity;
-   h.root.localPosition+=h.velocity*dt-h.scroll;h.scroll=Vector3.zero;h.age+=dt;
+   h.velocity=LimitRoadVelocity(h.velocity);
+   var d=h.escortedDinosaur;
+   if(HasLivingEscortTarget(h)&&Vector3.Dot(d.root.localRotation*Vector3.forward,rider.localPosition-DinosaurPoint(d.visual.head))>=-9)
+   {
+    h.root.localPosition=d.root.localPosition+d.root.localRotation*h.escortOffset;
+    h.contactVelocity=(h.root.localPosition-from+h.scroll)/dt;
+   }
+   else
+   {
+    h.escortedDinosaur=null;
+    h.contactVelocity=h.velocity;
+    h.root.localPosition+=h.velocity*dt-h.scroll;
+    h.age+=dt;
+   }
+   h.scroll=Vector3.zero;
    ResolveAircraftFootContact(h);
    if(collisions&&State==RideState.Riding&&h.skywing!=null)
    {
@@ -227,7 +289,7 @@ namespace PhoViet
    var point=contact??(center+rotation*panel);
    EmitVehicleImpact(point,normal,(before-aircraft.contactVelocity).magnitude);
    rider.localPosition=playerAt;
-   CrashAircraftAtContact(aircraft,at,before,normal);
+   CrashAircraftAtContact(aircraft,at,before,normal,point);
    HitByHelicopter|=aircraft.skywing==null;
    BurnAirAttackRider(point,biplane:aircraft.skywing!=null);
   }

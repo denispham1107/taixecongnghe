@@ -4,7 +4,13 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.70.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.71.0**.
+
+## Cập nhật 1.71.0
+
+Mỗi lượt rẽ thêm một trực thăng bám sau khủng long 2 m. Đội bay khai hỏa ngay khi xe nhảy qua vùng đầu khủng long. Xe bắt lửa do va chạm cháy lan rồi nổ văng mảnh sau 2 giây. Nhân vật có thể thoát xe trước khi nổ.
+
+Joystick đi bộ lớn hơn 20%. Ô tô dân sự có thể chạy lên từ sau khoảng mỗi 3 giây khi còn làn trống, còn lựu đạn khi đi bộ hồi sau 0,5 giây. Nhà phố và nhà ven sông có thêm chi tiết cửa chớp, ban công và mái ngói. Mỗi cầu có thêm bốn tàu di chuyển dọc hai bờ.
 
 ## Cập nhật 1.70.0
 

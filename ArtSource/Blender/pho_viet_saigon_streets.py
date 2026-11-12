@@ -698,51 +698,11 @@ def sidewalk(g, spec, obstacles):
     if spec.get('menu'):
         title, lines = spec['menu']; a_frame(g, 3.4, -5.75, title, lines, obstacles)
 
-def louver_window(g, x, y, z, w, h, facing, shutters, glazing=True):
-    if glazing:
-        g.panel((x, y, z+facing*.045), w+.16, h+.15, 'trim', facing)
-        g.panel((x, y, z+facing*.047), w, h, 'glass', facing)
-        g.panel((x, y, z+facing*.058), .055, h, 'woodDark', facing)
-        g.panel((x, y+h*.24, z+facing*.058), w, .05, 'woodDark', facing)
-    else:
-        for side in (-1, 1):
-            g.panel((x+side*(w*.5+.04), y, z+facing*.045), .08, h+.15, 'trim', facing)
-        g.panel((x, y+h*.5+.04, z+facing*.045), w, .08, 'trim', facing)
-    shutter_width = w*.29
-    slat_colour = 'green' if shutters == 'greenDark' else 'greenDark'
-    for side in (-1, 1):
-        sx = x+side*(w-shutter_width)*.5
-        if g.d == 0:
-            g.cube((sx, y, z+facing*.073), (shutter_width, h, .06), shutters)
-        else:
-            g.panel((sx, y, z+facing*.103), shutter_width, h, shutters, facing)
-        if g.d == 2:
-            g.panel((sx, y, z+facing*.104), shutter_width*.66, h*.82, slat_colour, facing)
-            continue
-        slats = 12 if g.d == 0 else 6
-        for j in range(slats):
-            sy = y+((j+.5)/slats-.5)*h*.88
-            g.panel((sx, sy, z+facing*.108), shutter_width*.73, h/slats*.32, slat_colour, facing)
-    g.cube((x, y-h*.5-.075, z+facing*.055), (w+.26, .08, .16), 'trim')
+exec(compile(open(ROOT+'/ArtSource/Blender/pho_viet_balcony_details.py', encoding='utf8').read(),
+             'pho_viet_balcony_details.py', 'exec'))
 
-def tile_canopy(g, x, w, y, z, reach, facing):
-    end = z+reach*facing
-    g.wedge(x-w*.5, x+w*.5, y, z, y-.26, end, 'tile', .07)
-    g.cube((x, y-.27, end), (w, .09, .07), 'tileDark')
-    if g.d == 0:
-        n = max(2, round(w/.24))
-        for j in range(n):
-            xx = x+((j+.5)/n-.5)*w
-            g.wedge(xx-.022, xx+.022, y+.017, z, y-.243, end, 'tileDark', .025)
-
-def railing(g, x0, x1, y, z, d, col='iron'):
-    g.cube(((x0+x1)/2, y+.95, z), (x1-x0, .05, .06), col)
-    g.cube(((x0+x1)/2, y+.12, z), (x1-x0, .05, .05), col)
-    if d == 2:
-        g.panel(((x0+x1)/2, y+.53, z), x1-x0, .78, 'ironGrey'); return
-    step = .14 if d == 0 else .28; n = int((x1-x0)/step)
-    for k in range(n+1):
-        g.cube((x0+k*(x1-x0)/n, y+.53, z), (.025, .8, .025), col)
+exec(compile(open(ROOT+'/ArtSource/Blender/pho_viet_roof_details.py', encoding='utf8').read(),
+             'pho_viet_roof_details.py', 'exec'))
 
 def upper_floor(g, spec, k, top, obstacles, r):
     d = g.d; y0 = GROUND+(k-1)*STOREY
@@ -754,16 +714,9 @@ def upper_floor(g, spec, k, top, obstacles, r):
         for side in (-1, 1):
             x = side*2.04
             edge = -4.85 if (k+side//2)%2 else -4.75
-            g.cube((x, y0+.12, (WALL+edge)/2), (3.3, .16, WALL-edge+.08), 'trim')
+            wrought_balcony(g, x, y0+.20, WALL+.04, 3.30, -1, WALL+.04-edge)
             louver_window(g, x, y0+1.43, WALL-.055, 2.28, 2.16, -1, 'green' if k%2 else 'greenDark')
-            railing(g, x-1.62, x+1.62, y0+.2, edge, d, 'greenDark')
-            for end in (x-1.62, x+1.62):
-                for yy in (y0+.32, y0+1.15):
-                    g.cube((end, yy, (WALL+edge)/2), (.045, .045, WALL-edge), 'greenDark')
-                for j in range(3):
-                    g.cube((end, y0+.73, edge+(j+.5)*(WALL-edge)/3), (.026, .82, .026), 'greenDark')
-            if (top and spec['roof'] == 'tile') or (style == 2 and side == 1):
-                tile_canopy(g, x, 3.46, y0+2.9, WALL+.06, .97, -1)
+            tile_canopy(g, x, 3.46, y0+2.9, WALL+.06, .97, -1)
         # Dải vữa giữa hai ô nhà ống, kèm ô lấy gió nhỏ dưới mái.
         g.cube((0, y0+1.49, WALL-.04), (.43, 2.74, .12), 'cream')
         g.panel((0, y0+2.38, WALL-.102), .23, .28, 'greenDark')
@@ -780,6 +733,7 @@ def upper_floor(g, spec, k, top, obstacles, r):
         # Hai cửa sổ có cửa chớp và cục nóng điều hòa.
         for x in (-1.8, 1.8):
             louver_window(g, x, y0+1.5, WALL-.055, 1.82, 1.6, -1, 'green' if k%2 else 'greenDark')
+            tile_canopy(g, x, 2.22, y0+2.91, WALL+.035, .63, -1, drop=.19)
             g.cube((x, y0+2.47, WALL-.06), (1.86, .24, .11), 'trim')
             count = 5 if d == 0 else 3
             for j in range(count):
@@ -815,27 +769,14 @@ def vine(g, x, y, z, length, d, flowers=False, facing=-1, tag='Leaf', keep_dista
                 g.leaf((sx+r.uniform(-.12, .12), yy+r.uniform(-.08, .08), z+facing*r.uniform(0, .1)),
                        (cos(a)*.8, sin(a)*.6-.2, facing*.5), .17, .1, col, roll=a, tag=tag, folded=folded_leaves)
 
-def roof(g, spec, obstacles, r):
-    d = g.d; h = shop_height(spec); fac = spec['facade']
+def roof(g, spec, variant):
+    h = shop_height(spec)
+    facade = spec['facade']
     g.cube((0, h+.1, 0), (WIDTH+.06, .2, 7.86), 'trim')
     if spec['roof'] == 'tile':
-        # Mái ngói đỏ dốc về đường, đầu hồi tường.
-        g.wedge(-HX-.05, HX+.05, h+1.6, 1.2, h+.25, WALL-.5, 'tile', .14)
-        if d == 0:
-            for k in range(14): g.cube((-3.9+k*.6, h+.93, -1.4), (.06, .05, 5.3), 'tileDark')
-        g.cube((0, h+.8, 2.6), (WIDTH, 1.6, 2.6), fac)
-        for x in (-HX+.1, HX-.1): g.cube((x, h+.7, -1.2), (.2, 1.3, 5.2), fac)
+        pitched_roof(g, h, facade, WIDTH)
     else:
-        g.cube((0, h+.55, WALL+.1), (WIDTH, .9, .2), fac); g.cube((0, h+1.03, WALL+.1), (WIDTH+.1, .06, .3), 'trim')
-        if d < 2: railing(g, -3.6, 3.6, h+1.06, WALL+.1, d, 'ironGrey')
-        # Bồn nước inox, cây trên sân thượng.
-        g.cyl((-2.2, h+.3, 1.5), (-2.2, h+1.6, 1.5), .55, 'chrome', n=12 if d == 0 else 8)
-        if d < 2:
-            for px in (1.2, 2.6):
-                g.cube((px, h+.45, -2.6), (.6, .5, .6), 'tileDark')
-                for j in range(8 if d == 0 else 4):
-                    a = j*2.3+px; g.leaf((px, h+.7, -2.6), (cos(a)*.5, .9, sin(a)*.5), .6, .15, ('leaf3', 'leaf2', 'leaf4')[j % 3], roll=.2)
-    # Cột tiếp giáp hai bên và ống thoát nước.
+        roof_terrace(g, 0, h+.2, 0, WIDTH-.22, 7.64, facade, variant)
     for x in (-HX+.12, HX-.12): g.cube((x, h/2+2.4, WALL-.06), (.24, h-4.6, .14), 'trim')
     g.cyl((HX-.35, .3, WALL-.1), (HX-.35, h, WALL-.1), .045, 'ironGrey', n=6)
 
@@ -919,19 +860,10 @@ def back_tower(g, seed):
                     g.cube((side*(x1+.1), y0+.66, wz), (.14, .05, 1.7), 'trim')
     # Mái: lan can, đỉnh mặt tiền, phòng kỹ thuật, bồn nước, cục lạnh, ăng-ten.
     g.cube((0, h+.05, 9.0), (x1-x0+.1, .1, zb-zf+.1), shell)
-    g.cube((0, h+.55, zf+.05), (x1-x0+.1, 1.0, .2), shell)
-    g.cube((0, h+1.08, zf-.02), (x1-x0+.2, .1, .3), frame)
-    for x in (x0+.05, x1-.05): g.cube((x, h+.5, 9.0), (.12, .9, zb-zf), shell)
-    g.cube((0, h+.5, zb-.05), (x1-x0, .9, .12), shell)
-    g.cube((-1.2, h+1.25, 10.4), (2.6, 2.4, 2.6), 'stone', skip=('-y',))
+    roof_terrace(g, 0, h+.10, 9.0, x1-x0-.12, zb-zf-.16, shell, seed)
     if d < 2:
-        g.cube((-1.2, h+.9, 9.08), (.9, 1.7, .04), 'ironGrey', skip=('+z',))
-        g.cyl((1.8, h+.1, 10.6), (1.8, h+1.5, 10.6), .55, 'chrome', n=10 if d == 0 else 6)
-        for ax in (1.0, 2.4): g.cube((ax, h+.45, 7.4), (.9, .7, .6), 'white')
-        g.cyl((-1.8, h+2.45, 10.4), (-1.8, h+5.0, 10.4), .03, 'steel', n=4)
-        if d == 0:
-            g.cyl((-1.8, h+3.6, 10.4), (-1.3, h+3.6, 10.4), .015, 'steel', n=3)
-            for ax in (1.0, 2.4): g.disc((ax-.1, h+.45, 7.095), .22, 'ironGrey', n=8)
+        g.cyl((-3.26, h+.10, zb-.34), (-3.26, h+3.65, zb-.34), .027, 'steel', n=4, tag='RoofTerrace')
+
 
 def shop(i, detail):
     spec = SHOPS[i]; g = Geo(detail); obstacles = []; r = random.Random(500+i)
@@ -942,6 +874,7 @@ def shop(i, detail):
     for x in (-HX+.01, HX-.01): g.cube((x, 1.7, WALL+DEPTH/2), (.02, 3.4, DEPTH), fac)
     g.cube((0, 3.42, WALL+.05), (WIDTH, .55, .1), fac)
     storefront(g, spec, obstacles); awning(g, spec, obstacles); sign(g, spec, obstacles)
+    tile_canopy(g, 0, 7.60, 3.33, WALL-.04, .66, -1, drop=.095, compact=True)
     # Glazed green plinth on the street piers. Store entrances remain open.
     for x in (-3.95, 3.95):
         g.cube((x, .56, WALL-.18), (.46, 1.04, .044), 'green')
@@ -949,7 +882,7 @@ def shop(i, detail):
             g.panel((x, .15+row*.252, WALL-.204), .46, .014, 'glassLight')
         g.panel((x, .56, WALL-.204), .013, 1.04, 'glassLight')
     for k in range(1, spec['floors']+1): upper_floor(g, spec, k, k == spec['floors'], obstacles, r)
-    roof(g, spec, obstacles, r)
+    roof(g, spec, i)
     # Cột nhà/biển nhỏ số nhà, cờ, biển dọc, chậu cây và thùng rác vỉa hè.
     g.cube((-3.55, 2.55, WALL-.06), (.42, .3, .03), 'navy'); g.text(str(18+i*7), (-3.55, 2.55, WALL-.08), .17, 'white', .36)
     if i % 3 == 0: flag(g, -3.6, GROUND+1.0)

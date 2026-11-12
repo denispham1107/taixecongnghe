@@ -71,6 +71,11 @@ public static class VerifyFootEscape21196
 
         var area = (Rect)Call("GameGuiArea");
         var stick = PhoVietGame.FootJoystickLayout(area, Screen.width < Screen.height, Read<float>("browserPixelRatio"));
+        SendPointer(43, 0, stick.center - Vector2.up * (stick.width * .51f));
+        Check(Read<Vector2>("footStick") == Vector2.zero, "Touches outside the expanded joystick are ignored");
+        SendPointer(43, 0, stick.center - Vector2.up * (stick.width * .46f));
+        Check(Read<Vector2>("footStick").y > .95f, "The expanded edge can capture a touch");
+        SendPointer(43, 2, stick.center);
         SendPointer(41, 0, stick.center);
         SendPointer(41, 1, stick.center + Vector2.right * (stick.width * .34f));
         SendPointer(42, 2, stick.center);
@@ -294,13 +299,24 @@ public static class VerifyFootEscape21196
             Time.timeScale = 0;
             game.riversEnabled = game.tankBarrageEnabled = game.dinosaursEnabled = false;
             passed = 0;
-            foreach (var area in new[] { new Rect(0, 0, 393, 852), new Rect(0, 0, 852, 393), new Rect(0, 0, 1440, 900) })
+            foreach (var area in new[] { new Rect(0, 0, 393, 852), new Rect(0, 0, 852, 393), new Rect(0, 0, 1440, 900),
+                                         new Rect(0, 47, 390, 759), new Rect(47, 0, 750, 369) })
             {
                 bool portrait = area.width < area.height;
                 var exit = PhoVietGame.ExitVehicleLayout(area, portrait);
                 var gas = PhoVietGame.DrivePedalLayout(area, portrait, false);
                 Check(exit.yMax < gas.y && exit.x == gas.x && exit.yMin >= area.yMin, "Exit button fits above accelerator");
-                Check(PhoVietGame.FootJoystickLayout(area, portrait).xMax < gas.xMin, "Joystick is opposite the foot actions");
+                foreach (float ratio in new[] { 1f, 2f })
+                {
+                    var pixels = new Rect(area.position * ratio, area.size * ratio);
+                    var brake = PhoVietGame.DrivePedalLayout(pixels, portrait, true, ratio);
+                    var stick = PhoVietGame.FootJoystickLayout(pixels, portrait, ratio);
+                    Check(Mathf.Abs(stick.width / (1.55f * brake.width) - 1.20f) < .001f && stick.width == stick.height,
+                          "Joystick diameter grows 20 percent");
+                    Check(Mathf.Abs((stick.xMin-pixels.xMin)-(pixels.xMax-brake.xMax)) < .001f &&
+                          Mathf.Abs(stick.yMax-brake.yMax) < .001f && stick.yMin >= pixels.yMin && stick.xMax < brake.xMin,
+                          "Joystick respects safe-area bounds and mirrors the foot actions");
+                }
             }
             ExitAndTakeVehicle();
             ExitAfterLanding();

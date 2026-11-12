@@ -34,8 +34,8 @@ namespace PhoViet
      float closing=Vector3.Dot(av-bv,normal);
      if(closing<.35f)continue;
      EmitVehicleImpact(point,normal,closing);
-     CrashAircraftAtContact(a,at,bv,normal);
-     CrashAircraftAtContact(b,at,av,-normal);
+     CrashAircraftAtContact(a,at,bv,normal,point);
+     CrashAircraftAtContact(b,at,av,-normal,point);
     }
    }
    for(int i=0;i<AircraftPoolCount;i++)
@@ -76,7 +76,7 @@ namespace PhoViet
    var before=BodyVelocity(hit);
    EmitVehicleImpact(point,normal,closing);
    IgniteVehicleContact(hit,Vector3.Lerp(hit.previousPosition,hit.model.localPosition,first),point);
-   CrashAircraftAtContact(aircraft,first,before,normal);
+   CrashAircraftAtContact(aircraft,first,before,normal,point);
    aircraft.roadContactCooldown=.18f;
    if(hit.wallCrashed||hit.armored)return;
    var direction=Flat(normal);
@@ -102,11 +102,12 @@ namespace PhoViet
    PoseFootCharacter(0,false);
   }
 
-  void CrashAircraftAtContact(HelicopterActor aircraft,float at,Vector3 otherVelocity,Vector3 towardOther)
+  void CrashAircraftAtContact(HelicopterActor aircraft,float at,Vector3 otherVelocity,Vector3 towardOther,Vector3 point)
   {
-   if(aircraft.wrecked)return;
+   if(aircraft.wrecked){IgniteAircraftContact(aircraft,point);return;}
    aircraft.root.localPosition=Vector3.Lerp(aircraft.previousContact,aircraft.root.localPosition,at);
    KnockHelicopter(aircraft,otherVelocity,towardOther);
+   IgniteAircraftContact(aircraft,point);
    // An aircraft struck during this step must use the actual contact position in later sweeps.
    aircraft.previousContact=aircraft.root.localPosition;
    aircraft.contactVelocity=aircraft.velocity;

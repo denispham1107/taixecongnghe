@@ -24,6 +24,7 @@ namespace PhoViet
    public readonly HashSet<TrafficVehicle> hits=new HashSet<TrafficVehicle>();
    public bool hitPolice,hitRider;public float nextSweep;
    internal float turnHelicopterDelay;
+   internal int turnHelicopterTurn;
    public Vector3[] previous=new Vector3[6];
   }
   public readonly List<Dinosaur> dinosaurs=new List<Dinosaur>();

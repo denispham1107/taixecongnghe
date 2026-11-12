@@ -20,14 +20,31 @@ namespace PhoViet
   // Reapplying a block can restore street-only objects even if its kind stays
   // unchanged. Visibility caches must observe that operation as well.
   public uint LayoutRevision {get;private set;}
+  bool patrolBoatsCreated;
   public void SetBridge(bool on)
   {
    LayoutRevision++;
    if(bridge==null)on=false;
    isBridge=on;streetRun=on?0:streetRun;
    if(bridge!=null&&bridge.activeSelf!=on)bridge.SetActive(on);
+   if(on&&Application.isPlaying&&!patrolBoatsCreated)CreatePatrolBoats();
    foreach(var item in streetOnly)if(item!=null&&item.activeSelf==on)item.SetActive(!on);
    for(int i=0;i<clipFilters.Length;i++)if(clipFilters[i]!=null)clipFilters[i].sharedMesh=on?clippedMeshes[i]:fullMeshes[i];
+  }
+  void CreatePatrolBoats()
+  {
+   var moored=bridge.GetComponentsInChildren<RiverBoat>(true);
+   if(moored.Length==0)return;
+   patrolBoatsCreated=true;
+   // Four separate routes leave the bridge, bank walls and moored boats clear.
+   for(int i=0;i<4;i++)
+   {
+    var boat=Instantiate(moored[i%moored.Length],bridge.transform,false);
+    boat.name="Tàu đánh cá chạy dọc bờ "+(i+1);
+    float x=i<2?-47f:47f,z=i%2==0?Near+12:Far-12;
+    boat.phase=moored[0].phase+i*1.7f;
+    boat.SetPatrol(new Vector3(x,WaterY,z),.65f+i*1.57f);
+   }
   }
  }
 }

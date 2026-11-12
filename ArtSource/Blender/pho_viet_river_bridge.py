@@ -373,37 +373,13 @@ def shop_unit(g, x0, x1, base, out, f, rng):
     # Cùng dáng mái hiên phố, thu tầm vươn phía sông theo lối đi hẹp dưới mái.
     striped_awning(g, cx, w-.38, stripes, (base+2.74, river_face-f*.08), (base+2.43, river_face-f*.94),
                    -f, awning_colors, supports=d < 2)
+    tile_canopy(g, cx, w-.36, base+3.64, out(-.01), .63, f, drop=.12, compact=True)
+    tile_canopy(g, cx, w-.36, base+3.64, river_face+f*.01, .54, -f, drop=.12, compact=True)
 
 def river_balcony(g, x, y, z, width, facing, reach, variant, vine_length):
-    """Ban công có sàn và lan can sắt thoáng. Dùng thanh ít hơn ở các LOD xa."""
     edge = z+facing*reach
-    middle = (z+edge)*.5
     half = width*.5
-    wall_face = '-z' if facing > 0 else '+z'
-    g.cube((x, y-.055, middle), (width, .11, reach), 'trim', 'RiverBalcony', skip=(wall_face,))
-    if g.d == 0:
-        g.cube((x, y-.12, edge-facing*.06), (width+.06, .09, .15), 'stone', 'RiverBalcony')
-    for rail_y, thickness in ((y+.12, .04), (y+.93, .055)):
-        if g.d < 2:
-            g.cube((x, rail_y, edge), (width, thickness, .052), 'iron', 'RiverBalcony')
-        else:
-            g.panel((x, rail_y, edge), width, thickness, 'iron', facing, 'RiverBalcony')
-        if g.d == 0 or rail_y > y+.5:
-            for side in (-1, 1):
-                end = x+side*(half-.026)
-                if g.d < 2:
-                    g.cube((end, rail_y, middle), (.052, thickness, reach), 'iron', 'RiverBalcony', skip=(wall_face,))
-                else:
-                    g.quad([(end, rail_y-thickness/2, z), (end, rail_y-thickness/2, edge),
-                            (end, rail_y+thickness/2, edge), (end, rail_y+thickness/2, z)],
-                           'iron', (side, 0, 0), 'RiverBalcony')
-    bars = (11, 7, 4)[g.d]
-    for j in range(bars+1):
-        rail_x = x+(j/bars-.5)*(width-.05)
-        if g.d == 0:
-            g.cube((rail_x, y+.52, edge), (.031, .80, .035), 'greenDark', 'RiverBalcony', skip=('-y', '+y'))
-        else:
-            g.panel((rail_x, y+.52, edge), .038, .80, 'greenDark', facing, 'RiverBalcony')
+    wrought_balcony(g, x, y, z, width, facing, reach)
 
     # Cùng chậu đất nung, cây nhỏ và hoa giấy như ban công phố mẫu.
     side = -1 if variant % 2 else 1
@@ -418,17 +394,30 @@ def river_balcony(g, x, y, z, width, facing, reach, variant, vine_length):
              facing=facing, tag='RiverBalconyFlower', keep_distant=True, folded_leaves=False)
 
 
+def river_unit_count(width):
+    return max(2, round(width/5.0))
+
+
+def river_facade_colors(x0, zf, units):
+    # Count from the left end of each bank, across building boundaries.
+    column = sum(river_unit_count(b-a) for a, b, z, _, _ in riverside_specs()
+                 if z == zf and a < x0)
+    colors = ('sky', 'peach', 'mint', 'butter')
+    offset = 0 if zf < W0 else 3
+    return ['cream' if (i+offset)%2 == 0 else colors[((i+offset)//2)%len(colors)]
+            for i in range(column, column+units)]
+
+
 def river_tube_frontage(g, x0, zf, f, base, floors, units, uw, rental_floors):
     """Dãy nhà ống theo các gian cửa hàng sẵn có, với cửa sâu nhìn vào phòng phía sông."""
     zb = zf-f*HOUSE_DEPTH
-    palette = ('mint', 'cream', 'sky', 'butter', 'stone', 'peach')
-    for unit in range(units):
+    for unit, fac in enumerate(river_facade_colors(x0, zf, units)):
         cx = x0+(unit+.5)*uw
         seed = round(cx*10)+round(zf*10)
-        fac = palette[seed%len(palette)]
         for side in (-1, 1):
             px = cx+side*(uw*.5-.125)
             g.cube((px, base+1.44, zb), (.24, 2.88, .08), fac)
+            g.cube((px, base+1.44, zf+f*.0375), (.24, 2.88, .075), fac)
             g.panel((px, base+.44, zb-f*.042), .24, .88, 'green', -f)
         for k in range(1, floors):
             y0 = base+3.6+(k-1)*3
@@ -464,15 +453,13 @@ def river_tube_frontage(g, x0, zf, f, base, floors, units, uw, rental_floors):
                     for j in range(3 if g.d < 2 else 2):
                         g.blob((cx+(j-1)*.24, y0+.73, z+facing*.22), (.15, .13, .13),
                                ('pink', 'leaf3', 'pinkLight')[j], n=4, m=2, tag='RiverBalconyFlower')
-                if not signed and (variant%4 == 0 or k == floors-1):
-                    tile_canopy(g, cx, opening+.44, y0+2.86, z, .62 if river_side else .76, facing)
+                eave_y = y0+(2.045 if signed else 2.86)
+                tile_canopy(g, cx, opening+.44, eave_y, z, .62 if river_side else .76,
+                            facing, drop=.16 if signed else .24, compact=True)
         roof_y = base+3.6+(floors-1)*3
-        for z, facing in ((zf, f), (zb, -f)):
-            parapet = .44+(seed%3)*.2
-            g.cube((cx, roof_y+.2+parapet*.5, z), (uw-.11, parapet, .13), fac)
-            g.cube((cx, roof_y+.2+parapet, z), (uw-.09, .075, .16), 'trim')
-            if (seed+facing)%3 == 0:
-                tile_canopy(g, cx, uw-.18, roof_y+1.57, z-facing*1.08, 1.13, facing)
+        roof_terrace(g, cx, roof_y+.2, (zf+zb)*.5, uw-.16, HOUSE_DEPTH-.16,
+                     fac, seed, compact=True)
+
 
 def apartment_block(g, x0, x1, zf, f, rng, obstacles):
     """Giữ khối nhà, gian bán hàng, kính và biển thuê. Mặt tiền chia theo bề ngang nhà ống."""
@@ -483,7 +470,7 @@ def apartment_block(g, x0, x1, zf, f, rng, obstacles):
     def back(o): return zb-f*o         # ra phía sông (≤ 0,12)
     def inner(o): return zb+f*o        # vào trong nhà tính từ lưng nhà
     zone = LOGGIA+ROOM
-    units = max(2, int(round(w/5.0))); uw = w/units
+    units = river_unit_count(w); uw = w/units
     pet_units=[(x0+u*uw,x0+(u+1)*uw) for u in range(units) if petshop_is_unit(x0+u*uw,x0+(u+1)*uw,zf,f)]
     # Keep the original upper shell, opening only the Petshop ground-floor bays.
     if pet_units:
@@ -549,12 +536,6 @@ def apartment_block(g, x0, x1, zf, f, rng, obstacles):
     rental_sign(g,x0,x1,zf,f,floors)  # 21.91: one sign per tower, staggered floors.
     # ---- mái: sân thượng vườn, lan can kính, phòng kỹ thuật
     g.cube((cx, h+.1, (zf+zb)/2), (w, .2, HOUSE_DEPTH), shell)
-    if d < 2:
-        g.cube((cx-w*.25, h+1.2, out(-.9)), (w*.3, 2.0, 1.2), shell, skip=('-y',))
-        if d == 0:
-            for j in range(int(w/3)):
-                bx = x0+1.5+j*3.0
-                g.cube((bx, h+.45, inner(.7)), (1.0, .5, .6), 'woodDark'); g.blob((bx, h+.95, inner(.7)), (.5, .4, .35), ('leaf2', 'leaf3', 'leaf4')[j % 3], n=6, m=3)
     river_tube_frontage(g, x0, zf, f, base, floors, units, uw, {s['floor'] for s in g.rental_signs})
 
 def riverside_specs():

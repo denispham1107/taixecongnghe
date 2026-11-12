@@ -83,6 +83,7 @@ namespace PhoViet
         {
             kickCooldown=Mathf.Max(0,kickCooldown-dt);kickTime=Mathf.Max(0,kickTime-dt);
             grenadeCooldown=Mathf.Max(0,grenadeCooldown-dt);
+            footGrenadeCooldown=Mathf.Max(0,footGrenadeCooldown-dt);
             takeoverGrace=Mathf.Max(0,takeoverGrace-dt);
             collisionImmunity=Mathf.Max(0,collisionImmunity-dt);
             if(IsChased)chaseBoost=Mathf.Min(12,chaseBoost+dt*.28f);

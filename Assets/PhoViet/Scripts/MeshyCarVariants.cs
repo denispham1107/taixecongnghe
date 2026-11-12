@@ -27,6 +27,7 @@ namespace PhoViet
         public Transform[] frontHalos,tailHalos;
         public int SelectedVariant {get;private set;}
         public int PaintIndex {get;private set;}
+        internal Color CurrentPaint=>Paints[PaintIndex];
         public Vector2[] RoofProfile=>variants[SelectedVariant].roofProfile;
         public float Height=>variants[SelectedVariant].size.y;
         public string ModelAsset=>variants[SelectedVariant].asset;

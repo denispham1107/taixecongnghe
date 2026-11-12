@@ -63,7 +63,7 @@ namespace PhoViet
 
   Transform NearbyShop(float reach,bool forGuide=false)
   {
-   if(!PlayerOnFoot||InsideShop||shopEvaded||(!forGuide&&footJumpTime>0)||entryVehicle!=null||!AbandonedCarPresent)return null;
+   if(!PlayerOnFoot||InsideShop||shopEvaded||(!forGuide&&footJumpTime>0)||entryVehicle!=null||(!AbandonedCarPresent&&!riderWreckExploded))return null;
    Transform nearest=null;
    float best=reach*reach;
    if(RoutesReady)
@@ -218,6 +218,7 @@ namespace PhoViet
    footFacing=-inward;
    footActor.SetLocalPositionAndRotation(outside,Quaternion.LookRotation(footFacing));
    footFrameStart=outside;
+   footRearCarTimer=0;
    PositionFootCamera(true,0);
    notice="XE ĐÃ BỊ KÉO · LẤY XE KHÁC ĐỂ ĐI TIẾP";noticeTimer=4;
    return true;

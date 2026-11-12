@@ -15,6 +15,8 @@ namespace PhoViet
    if(v==null||!v.active||v.armored||v.riverFalling||v.wallCrashed||v.lightningWreck||
       v.halfWidth<=.7f||v.model.localPosition.y>=.15f)return false;
    if(v==entryVehicle)return true;
+   var burn=FindCrashBurn(v.model);
+   if(burn!=null&&CrashBurnValid(burn)&&CrashExplosionDelay-burn.age<FootDoorTime+FootExitFlight+.1f)return false;
    if(!v.knocked)return v.footStopRemaining>0;
    return v.trafficCrashTakeable&&v.recovery?.phase==0&&Flat(v.knockVelocity).sqrMagnitude<=9&&
     Mathf.Abs(v.knockVelocity.y)<.6f&&v.angularVelocity.sqrMagnitude<18*18;
@@ -174,6 +176,7 @@ namespace PhoViet
    ResetBikeImpact();ResetJump();ClearLaneMotion();ResetRiderImpactForVehicleEntry();
    Speed=0;drivePedal=DrivePedalMode.PullAway;takeoverGrace=.65f;HideFootActors();CancelFootPointer();
    State=RideState.Riding;rider.gameObject.SetActive(true);if(sound)engine?.Play();
+   riderWreckExploded=false;RiderAirAttackBurning=false;
    shopEvaded=false;ScheduleChaseAfterTakeover();
    notice="ĐÃ LẤY XE · CSGT ĐUỔI LẠI SAU 3 GIÂY";noticeTimer=PoliceTakeoverDelay;
   }
