@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "command": "command run_script",
+  "data": {
+    "command": "run_script",
+    "parameters": {
+      "file": "AgentScripts/VerifyFootEscape21196.cs",
+      "entry": "VerifyFootEscape21196.Main",
+      "timeout_ms": "90000"
+    },
+    "result": {
+      "diagnostics": [],
+      "compileMs": 8795,
+      "executeMs": 5781,
+      "assemblyName": "PipelineRunScript_VerifyFootEscape21196_9f273ec3e3704e488f0a6926fd2058db",
+      "success": true,
+      "result": {
+        "passed": 89,
+        "forcedExitSeconds": 3,
+        "stopSeconds": 8
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\HP\\Documents\\GameUnity\\Taixecongnghe"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

@@ -10,6 +10,8 @@ namespace PhoViet
   public float LastRiderImpactSpeed {get;private set;}
   public float RiderFallRoll=>fallTargetRoll;
   public bool RiderCrashActive=>State==RideState.Falling||State==RideState.Paused&&pauseFromState==RideState.Falling;
+  // The wreck remains after Falling transitions to OnFoot, Arrested or GameOver.
+  internal bool RiderWreckOnRoad=>riderBody!=null&&riderBody.knocked&&!RiderInRiver&&!InRiverWater(rider);
   RideState pauseFromState=RideState.Riding;
   TrafficVehicle riderBody;
   Vector3 riderFallVelocity,riderFallEuler,riderFallSpin,riderRoadVelocity;
@@ -35,11 +37,12 @@ namespace PhoViet
    if((int)Distance<=BestDistance)return;
    BestDistance=(int)Distance;PlayerPrefs.SetInt(BestKey,BestDistance);PlayerPrefs.Save();
   }
-  void BeginRiderImpact(TrafficVehicle hit,Vector2 normal,Vector3 contact,Vector3 before)
+  void BeginRiderImpact(TrafficVehicle hit,Vector2 normal,Vector3 contact,Vector3 before,bool aircraft=false)
   {
    if(State!=RideState.Riding)return;
    if(hit!=null&&!IsMotorcycleContact(hit))StartChase();
-   CrashDuringPursuit=IsChased;RiderFallComplete=false;CancelSwipe();CancelAssistedKick(false);
+   CrashDuringPursuit=IsChased||policeTakeoverRemaining>0;RiderFallComplete=false;CancelSwipe();CancelAssistedKick(false);
+   exitAfterCollision=IsPlayerCar&&(hit!=null||aircraft);
    ResetCrashPoliceNavigation();
    crashTurnRotation=Quaternion.Euler(0,IsTurning?TurnYaw:0,0);
    QueuedTurn=0;fallTime=0;settledTime=0;RiderFallTravel=0;
@@ -63,7 +66,8 @@ namespace PhoViet
    if(closing<.35f&&relative.sqrMagnitude>.1f){normal=-relative.normalized;closing=relative.magnitude;}
    closing=Mathf.Max(.35f,closing);LastRiderImpactSpeed=closing;
    if(hit!=null)ShowVehicleContact(riderBody,hit,normal,Mathf.Max(closing,Mathf.Abs(before.y-other.y)));
-   bool hitFixed=hit==null||hit.wallCrashed||hit.armored;
+   bool hitProtected=hit!=null&&IsProtectedContainer(hit,riderBody);
+   bool hitFixed=hit==null||!CanDisplaceRoadCar(hit)||hitProtected;
    float mass=VehicleMass(riderBody),invA=1f/mass,invB=hitFixed?0:1f/VehicleMass(hit);
    Vector2 lever=Flat(contact-rider.localPosition),otherLever=hit==null?Vector2.zero:Flat(contact-hit.model.localPosition);
    float torque=LeverCross(lever,normal),otherTorque=LeverCross(otherLever,normal);
@@ -88,6 +92,11 @@ namespace PhoViet
     Vector3 otherAfter=other+new Vector3(push.x,0,push.y)*invB;
     ActivateCollisionBody(hit,other,otherAfter,push,otherLever,false,!hit.knocked,closing);TrafficCollisions++;
    }
+   else if(hitProtected&&CanDisplaceRoadCar(hit)&&!hit.knocked)
+   {
+    DisturbRoadContact(hit,normal);
+    TrafficCollisions++;
+   }
    settledTime=0;
   }
   void TickRiderCrash(float dt)
@@ -96,6 +105,7 @@ namespace PhoViet
    fallTime+=dt;timeRiding+=dt;TickActionTimers(dt);TickBoost(dt);
    TickShells(dt);TickThunderstorm(dt,false);
    if(RiderInRiver){TickRiderRiver(dt);return;}
+   riderFallVelocity=LimitRoadVelocity(riderFallVelocity);
    Vector3 previous=rider.localPosition;
    Speed=Mathf.Max(0,riderFallVelocity.z);
    float scroll=Speed*dt;crashTravelDistance+=scroll;ScrollRoutes(scroll);
@@ -123,8 +133,9 @@ namespace PhoViet
    }
    TickTrafficMotion(dt);
    TickDinosaurs(dt,false);
-   ResolveFallenRiderContacts(previous);
+   if(!RiderFallComplete)ResolveFallenRiderContacts(previous);
    ResolveFallenScenery(previous);
+   if(exitAfterCollision&&fallTime>=ForcedVehicleExitDelay&&EnterFootMode())return;
    TickChase(dt);TickPoliceRiver(dt);RetireTraffic(false);
    if(State==RideState.Arrested)return;
    if(!IsTurning)EndRouteFrame(dt);
@@ -134,7 +145,7 @@ namespace PhoViet
     if(settledTime>=.7f)
     {
      RiderFallComplete=true;
-     if(!CrashDuringPursuit){State=RideState.GameOver;SaveRideRecord();siren?.Stop();}
+     if(!CrashDuringPursuit&&!exitAfterCollision){State=RideState.GameOver;SaveRideRecord();siren?.Stop();}
     }
    }
   }
@@ -151,11 +162,11 @@ namespace PhoViet
     riderContactUntil[i]=fallTime+.3f;
     if(IsMotorcycleContact(v))
     {
-     KnockMotorcycleFromContact(v,normal,at,other,closing,Mathf.InverseLerp(0,38,closing));
+     if(v.footStopRemaining<=0)KnockMotorcycleFromContact(v,normal,at,other,closing);
      continue;
     }
     if(at>0)rider.localPosition=Vector3.Lerp(previous,rider.localPosition,at);
-    v.model.localPosition=Vector3.Lerp(v.previousPosition,v.model.localPosition,at);
+    if(v.footStopRemaining<=0)v.model.localPosition=Vector3.Lerp(v.previousPosition,v.model.localPosition,at);
     if(depth>0)rider.localPosition-=new Vector3(normal.x,0,normal.y)*(Mathf.Min(depth,.8f)+.02f);
     ApplyRiderImpulse(v,normal,(rider.localPosition+v.model.localPosition)*.5f,riderFallVelocity);
     State=RideState.Falling;
@@ -164,12 +175,21 @@ namespace PhoViet
   void TickCrashPolice(float dt)
   {
    if(policeBike==null||dt<=0)return;
-   if(PoliceFallen){crashPolicePath.Clear();crashPoliceReplan=0;if(routePolice)TickRoutePolice(dt);else TickPoliceDriving(dt);return;}
+   if(OfficerOnFoot){TickPoliceOfficer(dt);return;}
+   if(PoliceFallen)
+   {
+    crashPolicePath.Clear();crashPoliceReplan=0;
+    var old=policeBike.localPosition;
+    if(routePolice)TickRoutePolice(dt);else TickPoliceDriving(dt);
+    TickBlockedPoliceOfficer(old,PoliceTargetPosition,dt);return;
+   }
    if(policeBody==null)policeBody=CreatePoliceBody();
-   Vector3 before=policeBike.localPosition,start=before-Vector3.forward*Speed*dt,next=start;
+   AdvanceGrenadeDrive(policeBody,dt);
+   Vector3 before=PoliceRoadPosition(),start=before-Vector3.forward*Speed*dt,next=start;
    policeBody.previousPosition=before;policeBody.previousYaw=policeBike.localEulerAngles.y;policeBody.knocked=false;
-   float nominal=Mathf.Max(12,cruiseSpeed+5);bool clear=false;
-   bool arrived=Vector3.Distance(start,rider.localPosition)<=2.1f;
+   float nominal=Mathf.Clamp(cruiseSpeed+5,12,VehicleSpeedLimit)*GrenadeDriveFactor(policeBody);bool clear=false;
+   Vector3 goal=PoliceTargetPosition;
+   bool arrived=PoliceCanReachTarget(start,goal);
    if(!arrived&&CrashPoliceWaypoint(start,dt,out Vector3 target))
    {
     next=Vector3.MoveTowards(start,target,nominal*dt);Vector3 direction=next-start;
@@ -178,10 +198,12 @@ namespace PhoViet
     else {next=start;crashPolicePath.Clear();}
    }
    PoliceSpeed=clear?nominal:0;if(!clear&&!arrived)PoliceAvoidances++;
-   policeBike.localPosition=next;ResolvePoliceContact(before,(next-before)/dt+Vector3.forward*Speed,true);
+   policeBike.localPosition=next;ApplyVehicleRoadStep(policeBody,before,dt);
+   ResolvePoliceContact(before,(policeBike.localPosition-before)/dt+Vector3.forward*Speed,true);
    if(PoliceFallen)policeFallYaw=policeBike.localEulerAngles.y;
-   PoliceDistance=Vector2.Distance(Flat(policeBike.localPosition),Flat(rider.localPosition));
+   PoliceDistance=Vector2.Distance(Flat(policeBike.localPosition),Flat(goal));
    if(PoliceCanReachRider())Arrest();
+   if(State==RideState.Falling||State==RideState.OnFoot)TickBlockedPoliceOfficer(before,goal,dt);
   }
  }
 }

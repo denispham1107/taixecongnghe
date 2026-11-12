@@ -1,8 +1,8 @@
 using UnityEngine;
 namespace PhoViet
 {
- // Only this skin is animated. The outer player root belongs to road/impact physics.
- [DisallowMultipleComponent,SelectionBase]
+ // Mount a claimed car before CarVisualAnimator samples and grounds its skin.
+ [DisallowMultipleComponent,SelectionBase,DefaultExecutionOrder(-10)]
  public sealed partial class PlayerCarVisual:MonoBehaviour
  {
   public Transform visual,body,exhaustMount;
@@ -22,6 +22,7 @@ namespace PhoViet
   bool initialized;
   float clock,pitchVelocity;
   WheelRolling wheelRolling;
+  static readonly Vector3[] WreckPoints=VehicleWreckSupport.Points("Player");
   internal void ResetWheels(){wheelRolling=default;WheelAngle=0;}
   public void Initialize()
   {
@@ -37,7 +38,8 @@ namespace PhoViet
   {
    Initialize();if(!initialized||game.State==PhoVietGame.RideState.Paused)return;
    clock+=dt;bool moving=game.State==PhoVietGame.RideState.Riding;
-   string clip=game.RiderCrashActive?"ImpactFront":moving&&game.Speed>.1f?"Drive":"Idle";
+   bool wreck=game.RiderWreckOnRoad;
+   string clip=game.RiderCrashActive||wreck?"ImpactFront":moving&&game.Speed>.1f?"Drive":"Idle";
    var state=animationPlayer[clip];
    if(state!=null){animationPlayer.Play(clip,PlayMode.StopAll);state.speed=0;state.normalizedTime=clip=="Drive"?Mathf.Repeat(clock,1):0;animationPlayer.Sample();animationPlayer.Stop();CurrentClip=clip;}
    float target=0;
@@ -58,19 +60,18 @@ namespace PhoViet
     Quaternion spin=Quaternion.AngleAxis(game.RiderBarrelRoll,Vector3.forward);
     visual.localPosition+=visual.localRotation*(pivot-spin*pivot);visual.localRotation*=spin;
    }
-   bool coasting=game.RiderCrashActive||game.State==PhoVietGame.RideState.GameOver||
+   bool coasting=wreck||game.RiderCrashActive||game.State==PhoVietGame.RideState.GameOver||
     game.State==PhoVietGame.RideState.Arrested&&game.CrashDuringPursuit;
    WheelAngle=WheelRolling.Rotate(WheelAngle,wheelRolling.Advance(dt,moving?game.Speed:0,coasting),wheelRadius);
    float delta=Mathf.Atan((frontAxle+rearAxle)*game.RiderLateralAcceleration/Mathf.Max(64,game.Speed*game.Speed))*Mathf.Rad2Deg;
    WheelSteerAngle=Mathf.Lerp(WheelSteerAngle,Mathf.Clamp(delta,-24,24),1-Mathf.Exp(-dt*16));
    for(int i=0;i<wheels.Length;i++){steering[i].localRotation=Quaternion.Euler(0,i<2?WheelSteerAngle:0,0);wheels[i].localRotation=Quaternion.Euler(WheelAngle,0,0);}
-   if(game.RiderCrashActive&&!game.RiderInRiver)
+   if(wreck&&!game.HasClaimedCar)
    {
-    float low=float.PositiveInfinity;
-    for(int x=-1;x<=1;x+=2)for(int z=-1;z<=1;z+=2)for(int y=0;y<=1;y++)
-     low=Mathf.Min(low,visual.TransformPoint(new Vector3(x*size.x*.5f,y*size.y,z*size.z*.5f)/ModelScale).y);
-    visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.01f-low);
+    float low=VehicleWreckSupport.LowestY(visual,WreckPoints);
+    visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.025f-low);
    }
+   game.PositionClaimedCar(visual);
   }
  }
 }

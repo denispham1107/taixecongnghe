@@ -16,6 +16,8 @@ namespace PhoViet
         public string AssetName;
         public UrbanRiderMotion urbanMotion;
         float rearWheelAngle;
+        static readonly Vector3[] UrbanFallLeft=VehicleWreckSupport.Points("Urban Rider left"),
+            UrbanFallRight=VehicleWreckSupport.Points("Urban Rider right");
         WheelRolling wheelRolling;
         public string CurrentClip {get;private set;}="Idle";
         public float SampleTime {get;private set;}
@@ -105,7 +107,7 @@ namespace PhoViet
             {clock=0;fallAge=0;}
             previousState=game.State;clock+=dt;
             bool recovering=role==ActorRole.Traffic&&vehicle.IsStandingUp;
-            bool falling=role==ActorRole.Player?(game.State==PhoVietGame.RideState.Falling||game.State==PhoVietGame.RideState.GameOver||game.State==PhoVietGame.RideState.Arrested&&game.CrashDuringPursuit):
+            bool falling=role==ActorRole.Player?(game.RiderCrashActive||game.RiderWreckOnRoad||game.RiderInRiver):
                 role==ActorRole.Police?(game.PoliceFallen||game.PoliceInRiver):vehicle.knocked;
             float speed=role==ActorRole.Player?game.Speed:role==ActorRole.Police?game.PoliceSpeed:
                 game.TrafficWheelSpeed(vehicle);
@@ -128,7 +130,7 @@ namespace PhoViet
                 {clip=kickSide<0?"KickLeft":"KickRight";normalized=game.KickSwingPose;}
                 else
                 {
-                    bool moving=game.State==PhoVietGame.RideState.Riding||role!=ActorRole.Player&&game.RiderCrashActive;
+                    bool moving=game.State==PhoVietGame.RideState.Riding||role!=ActorRole.Player&&(game.RiderCrashActive||game.PlayerOnFoot);
                     if(!moving)speed=0;
                     if(speed>.1f){clip="Ride";normalized=Mathf.Repeat(clock,.8f)/.8f;}
                     else normalized=Mathf.Repeat(clock,2.4f)/2.4f;
@@ -167,7 +169,13 @@ namespace PhoViet
             RotateWheels();
             // Rơi/chìm dưới sông thì không nâng hình lên mặt đường (trước đây làm xe/người như nổi ngang mặt đường).
             bool inRiver=role==ActorRole.Player?game.RiderInRiver:(vehicle!=null&&vehicle.riverFalling)||game.InRiverWater(transform);
-            if((falling||recovering||urbanMotion!=null)&&!inRiver)visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.012f-LowestSupport());
+            if((falling||recovering||urbanMotion!=null)&&!inRiver)
+            {
+                var points=CurrentClip=="FallLeft"?UrbanFallLeft:UrbanFallRight;
+                float bottom=urbanMotion!=null&&falling&&!recovering&&normalized>=1&&points!=null?
+                    VehicleWreckSupport.LowestY(visual,points):LowestSupport();
+                visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+(falling&&!recovering?.032f:.012f)-bottom);
+            }
         }
         void Sample(string name,float normalized)
         {
@@ -199,6 +207,12 @@ namespace PhoViet
         float LowestSupport()
         {
             float lowest=urbanMotion!=null?urbanMotion.LowestWheelSupport():float.PositiveInfinity;
+            if(urbanMotion!=null)
+            {
+                // The rear fender and front cowl can reach the road before the tyres when pitching.
+                lowest=Mathf.Min(lowest,visual.TransformPoint(new Vector3(0,.62f,-1.24f)).y);
+                lowest=Mathf.Min(lowest,visual.TransformPoint(new Vector3(0,.65f,1.25f)).y);
+            }
             // Tyre outlines follow the visual's actual roll/pitch, including the smooth
             // police recovery. This is visual ground contact; no gameplay body is moved.
             for(int wheel=0;wheel<(urbanMotion!=null?0:2);wheel++)for(int i=0;i<8;i++)for(int side=-1;side<=1;side+=2)

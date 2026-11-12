@@ -71,7 +71,7 @@ namespace PhoViet
             if(model==null)return null;
             TrafficVehicle v=vehicles.Find(t=>t.eventOnly&&t.model==model);
             if(v==null)return null;
-            if(v.active)return null;
+            if(v.active||v.playerClaimed)return null;
             v.model.GetComponent<MeshyCarVariants>()?.PrepareForSpawn(rng,v);
             int adjacent=oncoming?rng.Next(2):rearLane;
             float rearZ=Mathf.Min(-28,rideCamera.transform.localPosition.z-v.halfLength-12);
@@ -121,7 +121,8 @@ namespace PhoViet
             if(v.enteringFromBehind)
             {
                 v.speed=Mathf.Max(v.speed,(TrafficPaceSpeed+(truck?9:12))*OpeningTrafficPace);
-                Vector3 previous=v.model.localPosition,entryPosition=previous;entryPosition.z+=(v.speed-Speed)*dt;
+                v.speed=Mathf.Min(v.speed,VehicleSpeedLimit);
+                Vector3 previous=v.model.localPosition,entryPosition=previous;entryPosition.z+=(v.speed*GrenadeDriveFactor(v)-Speed)*dt;
                 float merge=Mathf.InverseLerp(truck?-10:-7,truck?-4:-2.6f,entryPosition.z);
                 entryPosition.x=Mathf.Lerp(v.rearStartX,v.startPosition.x,Mathf.SmoothStep(0,1,merge));v.model.localPosition=entryPosition;
                 float sideSpeed=dt>0?(entryPosition.x-previous.x)/dt:0;
@@ -142,7 +143,8 @@ namespace PhoViet
             Vector3 p=v.model.localPosition;
             float x=Mathf.MoveTowards(p.x,target,dt*pace*(v.swerveSpeed>0?v.swerveSpeed:truck?9:13));
             float sideways=dt>0?(x-p.x)/dt:0;
-            p.x=x;p.z+=(v.speed-Speed)*dt;v.model.localPosition=p;
+            v.speed=Mathf.Clamp(v.speed,-VehicleSpeedLimit,VehicleSpeedLimit);
+            p.x=x;p.z+=(v.speed*GrenadeDriveFactor(v)-Speed)*dt;v.model.localPosition=p;
             float yaw=Mathf.Atan2(sideways,v.speed)*Mathf.Rad2Deg;
             v.model.localRotation=Quaternion.Euler(0,yaw,-sideways*(truck?.3f:1.5f));
         }

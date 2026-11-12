@@ -18,7 +18,9 @@ namespace PhoViet
         float lastTapTime=-100,touchStarted;
         Vector2 lastTapPoint;
         bool policeArrived,roadFog;
+        const float PoliceTakeoverDelay=3f;
         float policeReplacementDelay;
+        float policeTakeoverRemaining;
         Color roadBackground;
         Texture2D jailWide,jailTall;
         AudioSource siren;AudioClip sirenClip;
@@ -42,7 +44,7 @@ namespace PhoViet
             lastTapTime=-100;policeArrived=false;
             ResetPoliceDriving();
             ResetBikeImpact();
-            policeReplacementDelay=0;
+            policeReplacementDelay=policeTakeoverRemaining=0;
             if(siren!=null)siren.Stop();if(policeBike!=null)policeBike.gameObject.SetActive(false);
             if(jailRoom!=null)jailRoom.gameObject.SetActive(false);
             if(scenery!=null)scenery.gameObject.SetActive(true);if(rider!=null)rider.gameObject.SetActive(true);
@@ -52,7 +54,7 @@ namespace PhoViet
         }
         public bool TryKick()
         {
-            return energyHover?TryBarrelRoll():TryThrowChain();
+            return energyHover?TryBarrelRoll():TryThrowGrenades();
         }
         public bool RegisterTap(Vector2 position,float atTime)
         {
@@ -73,13 +75,15 @@ namespace PhoViet
             v.initialYaw=v.model.localEulerAngles.y;v.previousPosition=v.model.localPosition;v.playerGrace=.45f;
             v.knockFromPlayer=credited;
             bool car=v.halfWidth>.7f;
-            v.knockVelocity=new Vector3(v.knockDirection*(car?8:9),car?7.5f:2.2f,v.crossing?0:v.speed);
+            v.knockVelocity=LimitRoadVelocity(new Vector3(v.knockDirection*(car?8:9),car?7.5f:2.2f,v.crossing?0:v.speed));
             if(chain&&credited){ChainCount++;notice="VA CHẠM DÂY CHUYỀN  ×"+ChainCount;noticeTimer=1.3f;}
             if(sound&&fx!=null)fx.PlayOneShot(crashClip,.4f);
         }
         void TickActionTimers(float dt)
         {
             kickCooldown=Mathf.Max(0,kickCooldown-dt);kickTime=Mathf.Max(0,kickTime-dt);
+            grenadeCooldown=Mathf.Max(0,grenadeCooldown-dt);
+            takeoverGrace=Mathf.Max(0,takeoverGrace-dt);
             collisionImmunity=Mathf.Max(0,collisionImmunity-dt);
             if(IsChased)chaseBoost=Mathf.Min(12,chaseBoost+dt*.28f);
         }
@@ -111,43 +115,65 @@ namespace PhoViet
         }
         void StartChase()
         {
-            if(!PolicePursuitReleased||IsChased)return;
+            if(!PolicePursuitReleased||IsChased||policeTakeoverRemaining>0)return;
             if(PoliceInRiver)ResetPoliceDriving();
-            IsChased=true;PoliceDistance=38;PoliceSpeed=(TrafficPaceSpeed+15)*OpeningTrafficPace;policeArrived=false;chaseBoost=0;
+            IsChased=true;PoliceDistance=38;PoliceSpeed=Mathf.Min(VehicleSpeedLimit,(TrafficPaceSpeed+15)*OpeningTrafficPace);policeArrived=false;chaseBoost=0;
             if(policeBike!=null)
             {
                 policeBike.gameObject.SetActive(true);
-                var start=new Vector3(rider.localPosition.x-1,0,rider.localPosition.z-PoliceDistance);
+                var start=new Vector3(PoliceTargetPosition.x-1,0,PoliceTargetPosition.z-PoliceDistance);
                 if(OverRiver(start))start.x=Mathf.Clamp(start.x,LaneX[1],LaneX[2]);
                 policeBike.localPosition=start;
             }
-            if(IsTurning){routePolice=true;policeRouteAt=Distance-PoliceDistance;policeBike.localPosition=SampleRoute(policeRouteAt).point;}
+            if(IsTurning&&policeBike!=null){routePolice=true;policeRouteAt=TravelDistance-PoliceDistance;policeBike.localPosition=SampleRoute(policeRouteAt).point;}
             if(sound)siren?.Play();
+        }
+        void ScheduleChaseAfterTakeover()
+        {
+            IsChased=false;PoliceSpeed=PoliceDistance=0;chaseBoost=0;
+            policeReplacementDelay=0;policeTakeoverRemaining=PoliceTakeoverDelay;
+            ResetPoliceDriving(false);siren?.Stop();
+            if(policeBike!=null)policeBike.gameObject.SetActive(false);
         }
         void StopPursuitForFatalImpact()
         {
-            IsChased=false;CrashDuringPursuit=false;routePolice=false;chaseBoost=0;
+            IsChased=false;CrashDuringPursuit=false;routePolice=false;chaseBoost=0;exitAfterCollision=false;
+            policeTakeoverRemaining=0;
             ResetCrashPoliceNavigation();siren?.Stop();
         }
         void TickChase(float dt)
         {
-            if(!IsChased&&CrashDuringPursuit&&State==RideState.Falling)
+            if(State==RideState.Paused||InsideShop||shopEvaded&&State==RideState.OnFoot)return;
+            if(policeTakeoverRemaining>0)
+            {
+                policeTakeoverRemaining-=dt;
+                if(policeTakeoverRemaining>.00001f)return;
+                policeTakeoverRemaining=0;
+                StartChase();
+                return;
+            }
+            if(!IsChased&&(CrashDuringPursuit&&State==RideState.Falling||State==RideState.OnFoot))
             {
                 policeReplacementDelay-=dt;
                 if(policeReplacementDelay<=0)StartChase();
             }
             if(!IsChased)return;
-            if(RiderCrashActive)TickCrashPolice(dt);else if(routePolice)TickRoutePolice(dt);else TickPoliceDriving(dt);
+            if(policeBody!=null&&!OfficerOnFoot&&TickFootGrenadeStop(policeBody,policeBike.localPosition,dt))
+            {PoliceSpeed=0;PoliceDistance=Vector2.Distance(Flat(policeBike.localPosition),Flat(PoliceTargetPosition));return;}
+            if(RiderCrashActive||State==RideState.OnFoot)TickCrashPolice(dt);else if(routePolice)TickRoutePolice(dt);else TickPoliceDriving(dt);
             bool flash=(int)(timeRiding*8)%2==0;
             if(redBeacon!=null)redBeacon.sharedMaterial=Mat(flash?Hex("FF423D"):Hex("652F31"),true);
             if(blueBeacon!=null)blueBeacon.sharedMaterial=Mat(flash?Hex("284568"):Hex("4CBAFF"),true);
         }
         public void Arrest()
         {
-            if((State!=RideState.Riding&&State!=RideState.Falling)||!IsChased)return;
+            if((State!=RideState.Riding&&State!=RideState.Falling&&State!=RideState.OnFoot)||!IsChased)return;
             // A nearby officer waits for the physical fall to finish; no jail
             // transition can cut off the throw/landing animation.
-            if(State==RideState.Falling&&!RiderFallComplete)return;
+            if(State==RideState.Falling&&(!RiderFallComplete||exitAfterCollision))return;
+            if(State==RideState.OnFoot&&(InsideShop||footJumpTime>0||footEscapeTime>0))return;
+            if(State==RideState.OnFoot&&deferFootArrest){footArrestRequested=true;return;}
+            CancelVehicleEntry();CancelFootPointer();
             CancelAssistedKick(false);CancelBoost();State=RideState.Arrested;Speed=0;arrestTime=0;engine.Stop();siren?.Stop();
             if((int)Distance>BestDistance){BestDistance=(int)Distance;PlayerPrefs.SetInt(BestKey,BestDistance);PlayerPrefs.Save();}
         }
@@ -157,6 +183,7 @@ namespace PhoViet
             if(arrestTime>=1.1f)
             {
                 State=RideState.Jailed;HideDinosaurs();scenery.gameObject.SetActive(false);rider.gameObject.SetActive(false);
+                HideFootActors();
                 foreach(var v in vehicles){v.model.gameObject.SetActive(false);if(v.crashEffect!=null)v.crashEffect.gameObject.SetActive(false);}
                 if(policeBike!=null)policeBike.gameObject.SetActive(false);
                 if(jailWide==null)jailWide=Resources.Load<Texture2D>("Jail/JailWide");
@@ -174,10 +201,16 @@ namespace PhoViet
         }
         void ChaseHud()
         {
-            if(!IsChased||State!=RideState.Riding)return;
+            if(State==RideState.OnFoot&&!InsideShop&&!shopEvaded)
+            {
+                DrawFootEscapeGuide();
+                return;
+            }
+            if(InsideShop||!IsChased||(State!=RideState.Riding&&State!=RideState.OnFoot))return;
             float w=portrait?216:255,x=(uiW-w)/2,y=portrait?PortraitNoticeY+PortraitNoticeHeight+4:130;
             Panel(new Rect(x,y,w,30),new Color(.07f,.19f,.21f,.82f),7);
-            string status=PoliceFallen?"CSGT ĐANG CHẬM LẠI":"CSGT ĐANG ĐUỔI  ·  "+Mathf.Max(0,PoliceDistance).ToString("0.0")+" m";
+            string label=OfficerOnFoot?"CSGT ĐUỔI BỘ":"CSGT ĐANG ĐUỔI";
+            string status=PoliceFallen&&!OfficerOnFoot?"CSGT ĐANG CHẬM LẠI":label+"  ·  "+Mathf.Max(0,PoliceDistance).ToString("0.0")+" m";
             Txt(status,x+8,y+1,w-16,21,portrait?11:12,Cream,TextAnchor.MiddleCenter);
             Panel(new Rect(x+12,y+24,w-24,3),Hex("466363"),2);
             Panel(new Rect(x+12,y+24,(w-24)*Mathf.Clamp01(1-PoliceDistance/38),3),Red,2);
@@ -185,7 +218,7 @@ namespace PhoViet
         void JailScreen()
         {
             Texture2D backdrop=portrait?(jailTall!=null?jailTall:jailWide):(jailWide!=null?jailWide:jailTall);
-            if(backdrop!=null)GUI.DrawTexture(new Rect(0,0,uiW,uiH),backdrop,ScaleMode.ScaleAndCrop);
+            if(backdrop!=null)GUI.DrawTexture(FullscreenGuiRect(),backdrop,ScaleMode.ScaleAndCrop);
             float w=portrait?440:408,h=portrait?236:292,x=portrait?20:uiW-w-42,y=portrait?uiH-h-22:(uiH-h)/2;
             Panel(new Rect(x,y,w,h),Cream,18);
             Txt("PHỐ VIỆT  ·  TẠM GIỮ",x+26,y+20,w-52,22,13,Red);

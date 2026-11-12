@@ -171,6 +171,7 @@ namespace PhoViet
    if(h.wrecked)
    {
     TickHelicopterWreck(h,dt);
+    if(h.active)ResolveAircraftFootContact(h);
     if(h.active&&collisions&&State==RideState.Riding)
     {
      float height=PlayerHeight;
@@ -181,8 +182,9 @@ namespace PhoViet
     }
     return;
    }
-   h.contactVelocity=h.velocity;
+   h.velocity=LimitRoadVelocity(h.velocity);h.contactVelocity=h.velocity;
    h.root.localPosition+=h.velocity*dt-h.scroll;h.scroll=Vector3.zero;h.age+=dt;
+   ResolveAircraftFootContact(h);
    if(collisions&&State==RideState.Riding&&h.skywing!=null)
    {
     if(SkywingTouchesRider(from,h.root.localPosition,h.root.localRotation,previousRider,out float at))

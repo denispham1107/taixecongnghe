@@ -11,7 +11,9 @@ namespace PhoViet
   int hudTouchChoice=-1,hudTouchFinger;Vector2 hudTouchStart;float hudTouchSuppressUntil;
   int HudButtonAt(Vector2 position)
   {
+   int footControl=FootControlAt(position);if(footControl>=0)return footControl;
    var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
+   if(InsideShop)return ShopPausePixels(area,narrow).Contains(new Vector2(position.x,Screen.height-position.y))?0:-1;
    if(PlayerMissileButtonAt(position))return 2;
    if(FlightButtonAt(position))return 3;
    int pedal=DrivePedalAt(position);
@@ -29,7 +31,7 @@ namespace PhoViet
    // Browser touch taps arrive through ApplyHudTap even when a frame spans the whole tap.
    return;
 #else
-   if(JobOffersOpen||State==RideState.Ready||State==RideState.GameOver||State==RideState.Jailed||State==RideState.Arrested){hudTouchChoice=-1;CancelFlightButtonPress();return;}
+   if(JobOffersOpen||State==RideState.Ready||State==RideState.GameOver||State==RideState.Jailed||State==RideState.Arrested||State==RideState.OnFoot){hudTouchChoice=-1;CancelFlightButtonPress();return;}
    if(Input.touchCount==0)
    {
     if(hudTouchChoice==3)CancelFlightButtonPress();
@@ -115,13 +117,14 @@ namespace PhoViet
   }
   void DrawRideNotice()
   {
-   if(State!=RideState.Riding&&State!=RideState.Falling)return;
-   if(noticeTimer<=0&&State==RideState.Riding)return;
+   if(State!=RideState.Riding&&State!=RideState.Falling&&State!=RideState.OnFoot)return;
+   if(noticeTimer<=0&&State!=RideState.Falling)return;
    string message=notice;
    if(State==RideState.Falling)
    {
     if(CrashDuringPursuit)
-     message=!IsChased?"ĐÃ TÉ · ĐỘI CSGT KHÁC ĐANG ĐẾN":RiderFallComplete?"ĐÃ TÉ · CHỜ CSGT ĐẾN BẮT":"VA CHẠM · CSGT ĐANG ĐẾN";
+     message=exitAfterCollision?"VA CHẠM · RỜI XE SAU "+Mathf.CeilToInt(Mathf.Max(0,ForcedVehicleExitDelay-fallTime))+" GIÂY":
+      !IsChased?"ĐÃ TÉ · ĐỘI CSGT KHÁC ĐANG ĐẾN":RiderFallComplete?"ĐÃ TÉ · CHỜ CSGT ĐẾN BẮT":"VA CHẠM · CSGT ĐANG ĐẾN";
     else if(RiderInRiver)message="RƠI XUỐNG SÔNG · CHUYẾN ĐI KẾT THÚC";
     else if(!KilledByShell&&!KilledByLightning&&!HitByDinosaur&&MissileHitSourceLabel==null)
      message="VA CHẠM · CHUYẾN ĐI KẾT THÚC";

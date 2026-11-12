@@ -44,18 +44,16 @@ namespace PhoViet
         {
             if(policeBike==null||dt<=0)return;
             if(policeBody==null)policeBody=CreatePoliceBody();
-            Vector3 before=policeBike.localPosition;policeBody.previousPosition=before;policeBody.previousYaw=policeBike.localEulerAngles.y;policeBody.knocked=PoliceFallen;
+            AdvanceGrenadeDrive(policeBody,dt);
+            Vector3 before=PoliceRoadPosition();policeBody.previousPosition=before;policeBody.previousYaw=policeBike.localEulerAngles.y;policeBody.knocked=PoliceFallen;
             if(PoliceFallen)
             {
-                policeBike.localPosition-=Vector3.forward*Speed*dt;ResolvePoliceContact(before,Vector3.zero,false);
-                PoliceFallRemaining=Mathf.Max(0,PoliceFallRemaining-dt);PoliceSpeed=0;
-                policeBike.localRotation=Quaternion.Euler(0,policeFallYaw,-policeFallSide*8*Mathf.Clamp01((1.2f-PoliceFallRemaining)/.16f));
-                PoliceDistance=TravelDistance-policeRouteAt;
-                if(!PoliceFallen){policeBike.localRotation=Quaternion.Euler(0,policeFallYaw,0);policeBody.knocked=false;}
+                TickPoliceRecovery(before,dt);
                 return;
             }
             float nominal=PoliceDistance<=6.5f?cruiseSpeed-.65f:cruiseSpeed+15*OpeningTrafficPace;
             if(IsTurning)nominal=(PoliceDistance<=6.5f?TrafficPaceSpeed-.65f:TrafficPaceSpeed+2)*OpeningTrafficPace;
+            nominal=Mathf.Clamp(nominal,0,VehicleSpeedLimit)*GrenadeDriveFactor(policeBody);
             float nextAt=Mathf.Min(TravelDistance-.8f,policeRouteAt+Mathf.Max(0,nominal)*dt);var point=SampleRoute(nextAt);Quaternion yaw=Quaternion.Euler(0,point.yaw,0);
             Vector3 destination=point.point;bool clear=false;
             foreach(float side in new[]{-.9f,0,.9f,-3.1f,3.1f})
@@ -73,7 +71,8 @@ namespace PhoViet
                 policeBike.localRotation=Quaternion.Euler(0,point.yaw,0);
             }
             else {PoliceSpeed=Mathf.MoveTowards(PoliceSpeed,0,dt*45);PoliceAvoidances++;}
-            policeBike.localPosition=next;ResolvePoliceContact(before,(next-before)/dt+Vector3.forward*Speed,true);
+            policeBike.localPosition=next;ApplyVehicleRoadStep(policeBody,before,dt);
+            ResolvePoliceContact(before,(policeBike.localPosition-before)/dt+Vector3.forward*Speed,true);
             if(PoliceFallen)policeFallYaw=policeBike.localEulerAngles.y;
             PoliceDistance=TravelDistance-policeRouteAt;
             if(PoliceCanReachRider())Arrest();

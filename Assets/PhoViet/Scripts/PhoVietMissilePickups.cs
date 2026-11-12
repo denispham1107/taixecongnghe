@@ -44,7 +44,7 @@ namespace PhoViet
   }
   void TickMissilePickups(float dt,Vector3 previousRider)
   {
-   missilePickupClock+=dt;if(missilePickupPrefab==null)return;
+   if(missilePickupPrefab==null||State!=RideState.Riding||PlayerMissiles>=MaximumPlayerMissiles)return;
    Quaternion inverse=Quaternion.Inverse(Quaternion.Euler(0,rider.localEulerAngles.y,0));
    Vector3 half=new Vector3(PlayerHalfWidth+.38f,PlayerHeight*.5f+.5f,PlayerHalfLength+.3f);
    foreach(var e in missilePickupTiles)
@@ -52,14 +52,31 @@ namespace PhoViet
     if(!e.tile.gameObject.activeInHierarchy)continue;
     for(int i=0;i<2;i++)
     {
-     if(e.collected[i])continue;var icon=e.icons[i];var p=icon.localPosition;p.y=1.15f+Mathf.Sin(missilePickupClock*2.6f+i*2)*.08f;icon.localPosition=p;
-     Vector3 view=rideCamera.transform.position-icon.position;view.y=0;if(view.sqrMagnitude>.01f)icon.rotation=Quaternion.LookRotation(view,Vector3.up);
-     if(State!=RideState.Riding||PlayerMissiles>=MaximumPlayerMissiles)continue;
+     if(e.collected[i]||PlayerMissiles>=MaximumPlayerMissiles)continue;
+     var icon=e.icons[i];
      Vector3 at=transform.InverseTransformPoint(icon.position),center=Vector3.up*(PlayerHeight*.5f);
      Vector3 from=inverse*(previousRider+center-at-Vector3.forward*(Speed*dt)),to=inverse*(rider.localPosition+center-at);
      if(!EnergySweptContact(from,to,half))continue;
      e.collected[i]=true;icon.gameObject.SetActive(false);PlayerMissiles=Mathf.Min(MaximumPlayerMissiles,PlayerMissiles+1);MissilePickupsCollected++;
      notice="NHẶT TÊN LỬA +1 · "+PlayerMissiles+"/"+MaximumPlayerMissiles;noticeTimer=1.2f;
+    }
+   }
+  }
+  void PoseMissilePickups(float dt)
+  {
+   if(rideCamera==null||!(State==RideState.Riding||PlayerOnFoot&&!InsideShop))return;
+   missilePickupClock+=dt;
+   foreach(var e in missilePickupTiles)
+   {
+    if(!e.tile.gameObject.activeInHierarchy)continue;
+    for(int i=0;i<2;i++)
+    {
+     if(e.collected[i])continue;
+     var icon=e.icons[i];
+     var p=icon.localPosition;p.y=1.15f+Mathf.Sin(missilePickupClock*2.6f+i*2)*.08f;icon.localPosition=p;
+     Vector3 view=rideCamera.transform.position-icon.position;
+     if(!PlayerOnFoot)view.y=0;
+     if(view.sqrMagnitude>.01f)icon.rotation=Quaternion.LookRotation(view,Vector3.up);
     }
    }
   }

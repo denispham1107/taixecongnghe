@@ -8,6 +8,10 @@ namespace PhoViet
         float age, spin, angle;
         bool wrecked;
         PhoVietGame game;
+        static readonly Vector3[] BodySupport=VehicleWreckSupport.Points("Skywing"),
+            PropellerSupport=VehicleWreckSupport.Points("Front propeller");
+        internal float WreckBottomY()=>Mathf.Min(VehicleWreckSupport.LowestY(airframe,BodySupport),
+            VehicleWreckSupport.LowestY(propeller,PropellerSupport));
 
         public void ResetPose()
         {

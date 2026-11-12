@@ -103,7 +103,7 @@ namespace PhoViet
    }
    return false;
   }
-  float TurnBikeRoadSpeed(bool rear)=>(rear?1:-1)*TrafficPaceSpeed*TurnBikeSpeedMultiplier*OpeningTrafficPace;
+  float TurnBikeRoadSpeed(bool rear)=>(rear?1:-1)*Mathf.Min(VehicleSpeedLimit,TrafficPaceSpeed*TurnBikeSpeedMultiplier*OpeningTrafficPace);
   void TickTurnBikeSteering(TrafficVehicle v,float dt)
   {
    v.turnBikeSwerveTimer-=dt;if(v.changingLane||v.turnBikeSwerveTimer>0||dt<=0)return;

@@ -126,7 +126,7 @@ namespace PhoViet
    if(source==EnemyMissileSource.None)StartChase();
    Vector3 before=riderVelocityValid?riderRoadVelocity:rider.localRotation*Vector3.forward*Speed;
    Vector3 direction=before;direction.y=0;if(direction.sqrMagnitude<.1f)direction=rider.localRotation*Vector3.forward;direction.Normalize();
-   BeginRiderImpact(null,new Vector2(direction.x,direction.z),point,before);
+   BeginRiderImpact(null,new Vector2(direction.x,direction.z),point,before,source==EnemyMissileSource.None);
    riderFallVelocity=direction*Mathf.Clamp(before.magnitude*.6f,6,25)+Vector3.down*2;riderFallSpin=new Vector3(20,8,55);
    RiderAirAttackBurning=true;missileHitSource=source;
    if(source!=EnemyMissileSource.None)StopPursuitForFatalImpact();
@@ -142,12 +142,19 @@ namespace PhoViet
   }
   void TickHelicopterWreck(HelicopterActor h,float dt)
   {
-   h.age+=dt;h.velocity.y-=9.81f*dt;h.contactVelocity=h.velocity;
+   h.age+=dt;h.velocity.y-=9.81f*dt;h.velocity=LimitRoadVelocity(h.velocity);h.contactVelocity=h.velocity;
    Vector3 p=h.root.localPosition+h.velocity*dt-h.scroll;h.scroll=Vector3.zero;
-   bool water=OverRiver(p);float floor=water?RiverBlock.WaterY-3:.85f;
+   h.wreckEuler+=h.wreckSpin*dt;h.root.localRotation=Quaternion.Euler(h.wreckEuler);
+   bool water=OverRiver(p);float floor=water?RiverBlock.WaterY-3:AircraftWreckFloor(h);
    if(p.y<=floor){p.y=floor;h.velocity=Vector3.MoveTowards(new Vector3(h.velocity.x,0,h.velocity.z),Vector3.zero,dt*12);h.wreckSpin*=Mathf.Exp(-dt*4);}
-   h.wreckEuler+=h.wreckSpin*dt;h.root.localPosition=p;h.root.localRotation=Quaternion.Euler(h.wreckEuler);
+   h.root.localPosition=p;
    if(h.age>24||p.z< -40||Mathf.Abs(p.x)>38||water&&p.y<=floor){h.active=false;h.root.gameObject.SetActive(false);}
+  }
+  float AircraftWreckFloor(HelicopterActor h)
+  {
+   // Use the rotated parts, including wings and skids, rather than a fixed pivot height.
+   float lowest=h.skywing!=null?h.skywing.WreckBottomY():h.visual.WreckBottomY();
+   return .02f+h.root.position.y-lowest;
   }
   public bool IsAircraftBurning(Transform target)
   {

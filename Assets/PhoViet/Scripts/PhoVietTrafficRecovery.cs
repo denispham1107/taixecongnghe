@@ -115,7 +115,7 @@ namespace PhoViet
    v.model.localPosition=Vector3.Lerp(r.standStart,r.standTarget,t);
    v.model.localRotation=Quaternion.Slerp(r.standRotation,Quaternion.LookRotation(r.heading,Vector3.up),t);
    if(r.standAge<duration)return true;
-   v.knocked=false;v.physicalCrash=false;v.knockAge=0;v.knockVelocity=Vector3.zero;v.angularVelocity=Vector3.zero;
+   v.knocked=false;v.physicalCrash=false;v.trafficCrashTakeable=false;v.knockAge=0;v.knockVelocity=Vector3.zero;v.angularVelocity=Vector3.zero;
    v.changingLane=v.turning=v.roadTurning=v.enteringFromBehind=false;v.brakeRemaining=0;v.laneCooldown=1.5f;v.brakeCooldown=1.5f;
    v.speed=v.baseTrafficSpeed=r.speed*Mathf.Sign(Vector3.Dot(r.heading,r.forward));v.lane=r.lane;v.motionVelocity=r.heading*r.speed;v.crossing=false;v.isReckless=r.reckless;
    if(r.finishTurn)

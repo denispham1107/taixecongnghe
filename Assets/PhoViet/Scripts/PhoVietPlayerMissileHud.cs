@@ -47,6 +47,10 @@ namespace PhoViet
    if(choice==0)TogglePause();else if(choice==1)sound=!sound;else if(choice==2){lastTapTime=-100;TryFirePlayerMissile();}
    else if(choice==3){lastTapTime=-100;TryToggleFlightButton();}
    else if(choice==GasHudChoice||choice==BrakeHudChoice)SelectDrivePedal(choice==BrakeHudChoice);
+   else if(choice==ExitCarChoice)TryExitVehicle();
+   else if(choice==FootGrenadeChoice)TryThrowFootGrenade();
+   else if(choice==TakeCarChoice)TryTakeVehicle();
+   else if(choice==ShopDoorChoice){if(InsideShop)TryLeaveShop();else TryEnterShop();}
   }
  }
 }

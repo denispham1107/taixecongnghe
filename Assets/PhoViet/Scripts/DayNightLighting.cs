@@ -228,7 +228,8 @@ namespace PhoViet
             foreach(var vehicle in vehicles)
             {
                 if(vehicle.root==null||vehicle.head==null)continue;
-                bool active=vehicle.root.gameObject.activeInHierarchy;
+                bool active=vehicle.root.gameObject.activeInHierarchy&&!(vehicle.player&&game.HasClaimedCar);
+                bool playerVehicle=vehicle.player||vehicle.root.parent==game.rider;
                 bool on=enabled&&active;
                 bool wide=HasTwoHeadlamps(vehicle);
                 if(vehicle.roadLight!=null)
@@ -261,7 +262,7 @@ namespace PhoViet
                     if(halo.source==null||halo.glow==null)continue;
                     Vector3 p=halo.source.position,toCamera=eye-p;
                     float facing=Mathf.Max(0,Vector3.Dot(halo.rear?-halo.source.forward:halo.source.forward,toCamera.normalized));
-                    bool braking=active&&playerBraking&&vehicle.player&&halo.rear;
+                    bool braking=active&&playerBraking&&playerVehicle&&halo.rear;
                     halo.glow.enabled=(on||braking)&&facing>.06f;
                     if(halo.glow.enabled)
                     {
@@ -276,7 +277,7 @@ namespace PhoViet
                 if(on)
                 {
                     Vector3 direction=(vehicle.head.forward-vehicle.head.up*.085f).normalized;
-                    float score=vehicle.player?-100000:(vehicle.head.position-focus).sqrMagnitude+25;
+                    float score=playerVehicle?-100000:(vehicle.head.position-focus).sqrMagnitude+25;
                     if(score<3000)Offer(score,vehicle.head.position,direction,false,0,3,wide);
                 }
             }

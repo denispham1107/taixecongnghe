@@ -1,6 +1,6 @@
 {
   "mobile": false,
-  "changed": 61,
+  "changed": 64,
   "changes": [
     {
       "path": "Assets/PhoViet/Art/River/FishingBoat/PV_FishingBoat_Normal.png",
@@ -143,6 +143,16 @@
       "size": 1024
     },
     {
+      "path": "Assets/MeshyImports/Golden Star Stance_20261023_150426/meshy_normal.png",
+      "format": "DXT5",
+      "size": 1024
+    },
+    {
+      "path": "Assets/MeshyImports/Golden Star Stance_20261023_150426/meshy_basecolor.png",
+      "format": "DXT1",
+      "size": 1024
+    },
+    {
       "path": "Assets/PhoViet/Art/PoliceCruiser/PV_PoliceLivery.png",
       "format": "DXT1",
       "size": 1024
@@ -251,6 +261,11 @@
       "path": "Assets/PhoViet/Art/Lighting/PV_OpticalGlare.png",
       "format": "DXT1",
       "size": 512
+    },
+    {
+      "path": "Assets/MeshyImports/Golden Star Stance_20261023_150426/meshy_metallic_smoothness.png",
+      "format": "DXT5",
+      "size": 1024
     },
     {
       "path": "Assets/PhoViet/Art/Cars/Meshy/PV_MeshyPickup_Normal.png",

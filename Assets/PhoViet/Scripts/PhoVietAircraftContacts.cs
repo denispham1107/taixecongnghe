@@ -87,6 +87,21 @@ namespace PhoViet
        Flat(point-hit.model.localPosition),false,!hit.knocked,closing);
   }
 
+  void ResolveAircraftFootContact(HelicopterActor aircraft)
+  {
+   if(!PlayerOnFoot||InsideShop||footFatalTitle!=null)return;
+   Vector3 velocity=aircraft.contactVelocity;
+   bool fatal=IsFatalFootVehicleSpeed(velocity);
+   if(!fatal&&footContactGrace>0)return;
+   var body=new Bounds(Vector3.up*(FootStandingHeight*.5f),
+    new Vector3(FootContactRadius*2,FootStandingHeight,FootContactRadius*2));
+   if(!SweptAircraftParts(aircraft,footFrameStart,footActor,Quaternion.identity,null,body,
+     out float time,out Vector3 normal,out _)||Vector3.Dot(velocity,normal)<=.35f)return;
+   footActor.localPosition=Vector3.Lerp(footFrameStart,footActor.localPosition,time);
+   BeginFootVehicleFall(normal,velocity,fatal);
+   PoseFootCharacter(0,false);
+  }
+
   void CrashAircraftAtContact(HelicopterActor aircraft,float at,Vector3 otherVelocity,Vector3 towardOther)
   {
    if(aircraft.wrecked)return;

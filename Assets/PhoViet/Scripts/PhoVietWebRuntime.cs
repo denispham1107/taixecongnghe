@@ -44,11 +44,12 @@ namespace PhoViet
             return new Rect(area.x,Screen.height-area.yMax,area.width,area.height);
         }
 
-        void FullscreenTint(Color color)
+        Rect FullscreenGuiRect()
         {
             var area=GameGuiArea();
-            Panel(new Rect(-area.x/uiScale,-area.y/uiScale,Screen.width/uiScale,Screen.height/uiScale),color,0);
+            return new Rect(-area.x/uiScale,-area.y/uiScale,Screen.width/uiScale,Screen.height/uiScale);
         }
+        void FullscreenTint(Color color)=>Panel(FullscreenGuiRect(),color,0);
 
         Texture2D guiStar;
         static string PortableGuiText(string value)
@@ -93,7 +94,7 @@ namespace PhoViet
         [UnityEngine.Scripting.Preserve]
         public void PauseForBrowser()
         {
-            if(State==RideState.Riding)TogglePause();
+            if(State==RideState.Riding||State==RideState.OnFoot)TogglePause();
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]

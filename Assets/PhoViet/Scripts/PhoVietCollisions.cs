@@ -4,12 +4,33 @@ namespace PhoViet
 {
     public partial class PhoVietGame
     {
+        const float GentleCarSpeed=51f/3.6f;
+
+        static bool IsRoadCar(TrafficVehicle body)=>!body.armored&&body.halfWidth>.7f;
+
+        bool IsProtectedContainer(TrafficVehicle body,TrafficVehicle other)
+        {
+            if(!IsRoadCar(body)||other.armored||body.halfLength<6)return false;
+            Transform model=body==riderBody?claimedVehicle?.model:body.model;
+            return model!=null&&model.TryGetComponent<MeshyCarVariants>(out var variants)&&variants.ModelAsset=="PV_MeshyContainer";
+        }
+
+        static bool IsUprightCarPair(TrafficVehicle a,TrafficVehicle b)=>IsRoadCar(a)&&IsRoadCar(b)&&!a.knocked&&!b.knocked;
+
+        static bool IsGentleCarPair(TrafficVehicle a,TrafficVehicle b,Vector3 aVelocity,Vector3 bVelocity,bool continuingContact=false)
+        {
+            if(!IsUprightCarPair(a,b))return false;
+            if(continuingContact)return true;
+            float aSpeed=Flat(aVelocity).sqrMagnitude,bSpeed=Flat(bVelocity).sqrMagnitude;
+            return aSpeed>.08f*.08f&&bSpeed>.08f*.08f&&aSpeed<GentleCarSpeed*GentleCarSpeed&&bSpeed<GentleCarSpeed*GentleCarSpeed;
+        }
+
         // Start the crash once. Fallen bodies keep exchanging physical impulses
         // while the normal end-of-ride or police capture sequence completes.
         bool ResolveRiderContacts(float oldX,float dt)
         {
             if(State!=RideState.Riding)return false;
-            if(!IsChased&&collisionImmunity>0)return true;
+            if(takeoverGrace>0||!IsChased&&collisionImmunity>0)return true;
             riderBody.previousPosition=new Vector3(oldX,jumpPreviousHeight,oldRiderZ);riderBody.previousYaw=oldRiderYaw;riderBody.knocked=false;
             TrafficVehicle hit=null;Vector2 hitNormal=Vector2.zero;float earliest=2;int hitIndex=-1;
             Vector3 riderBefore=riderVelocityValid?riderRoadVelocity:Quaternion.Euler(0,IsTurning?TurnYaw:0,0)*Vector3.forward*Speed;
@@ -18,8 +39,10 @@ namespace PhoViet
                 var v=vehicles[i];
                 if(!v.active||(!IsChased&&v.playerGrace>0)||v.model.localPosition.y>=2.4f)continue;
                 if(!VehicleContact(riderBody,v,out Vector2 normal,out float at,out float depth)||at>=earliest)continue;
-                if(IsMotorcycleContact(v)&&(bikeImpactUntil[i]>timeRiding||
+                if(IsMotorcycleContact(v)&&(riderSoftImpactUntil[i]>timeRiding||
                     at<.0001f&&Vector2.Dot(Flat(riderBefore-BodyVelocity(v)),normal)<.35f))continue;
+                if(at<.0001f&&IsPlayerCar&&(IsGentleCarPair(riderBody,v,riderBefore,BodyVelocity(v),riderSoftImpactUntil[i]>timeRiding)||IsProtectedContainer(riderBody,v))&&
+                    Vector2.Dot(Flat(riderBefore-BodyVelocity(v)),normal)<.35f)continue;
                 if(IsPlayerCar&&kickHit&&v==kickTarget&&v.spawnGeneration==kickTargetSpawn&&at<.0001f&&depth<.001f)
                 {
                     Vector2 separation=Flat(v.model.localPosition-v.previousPosition-rider.localPosition+riderBody.previousPosition);
@@ -38,6 +61,14 @@ namespace PhoViet
                     riderVelocityValid=false;
                     return true;
                 }
+                Vector3 otherVelocity=BodyVelocity(hit);
+                bool gentlePair=IsGentleCarPair(riderBody,hit,riderBefore,otherVelocity,riderSoftImpactUntil[hitIndex]>timeRiding);
+                if(gentlePair||IsProtectedContainer(riderBody,hit))
+                {
+                    ResolveGentlePlayerContact(hit,hitIndex,hitNormal,earliest,riderBefore,otherVelocity,gentlePair);
+                    riderVelocityValid=false;
+                    return true;
+                }
                 rider.localPosition=Vector3.Lerp(riderBody.previousPosition,rider.localPosition,earliest);
                 hit.model.localPosition=Vector3.Lerp(hit.previousPosition,hit.model.localPosition,earliest);
                 Vector3 contact=(rider.localPosition+hit.model.localPosition)*.5f;
@@ -45,6 +76,53 @@ namespace PhoViet
             }
             riderVelocityValid=false;
             return true;
+        }
+
+        void ResolveGentlePlayerContact(TrafficVehicle hit,int index,Vector2 normal,float at,Vector3 before,Vector3 other,bool gentlePair)
+        {
+            float closing=Mathf.Max(0,Vector2.Dot(Flat(before-other),normal));
+            bool fresh=riderSoftImpactUntil[index]<=timeRiding;
+            if(fresh&&closing>=.35f)ShowVehicleContact(riderBody,hit,normal,closing,at,gentlePair);
+            StopBodiesAtContact(riderBody,hit,normal,at,true,CanDisplaceRoadCar(hit));
+            if(!fresh||closing<.35f)return;
+
+            ApplyRiderSoftImpact(index,normal,closing);
+            if(gentlePair||IsProtectedContainer(hit,riderBody))
+            {
+                if(CanDisplaceRoadCar(hit)&&!hit.knocked)DisturbRoadContact(hit,normal);
+            }
+            else if(CanDisplaceRoadCar(hit))
+            {
+                Vector3 push=new Vector3(normal.x,0,normal.y)*Mathf.Clamp(closing*.38f,1,9);
+                ActivateCollisionBody(hit,other,other+push,Flat(push)*VehicleMass(hit),Vector2.zero,false,!hit.knocked,closing);
+                hit.trafficCrashTakeable=true;
+            }
+            notice="VA CHẠM · XE CHỆCH HƯỚNG";
+            noticeTimer=1.2f;
+            TrafficCollisions++;
+            if(sound&&fx!=null)fx.PlayOneShot(crashClip,.45f);
+        }
+
+        bool CanDisplaceRoadCar(TrafficVehicle body)=>!body.wallCrashed&&!body.armored&&body.footStopRemaining<=0&&body!=entryVehicle;
+
+        static void DisturbRoadContact(TrafficVehicle body,Vector2 away)
+        {
+            float side=Vector2.Dot(away,BodyRight(body));
+            // Head-on drivers steer toward their own side. A rear-end pair
+            // drifts in opposite directions instead of staying nose-to-tail.
+            if(Mathf.Abs(side)<.10f)side=Vector2.Dot(away,BodyForward(body))<=0?1:-1;
+            body.grenadeSide=Mathf.Sign(side);
+            body.grenadeSlowTime=GrenadeSlowDuration;
+        }
+
+        static void StopBodiesAtContact(TrafficVehicle a,TrafficVehicle b,Vector2 normal,float at,bool moveA,bool moveB)
+        {
+            if(!moveA&&!moveB)return;
+            if(moveA)a.model.localPosition=Vector3.Lerp(a.previousPosition,a.model.localPosition,at);
+            if(moveB)b.model.localPosition=Vector3.Lerp(b.previousPosition,b.model.localPosition,at);
+            float depth=ProjectedRadius(a,normal)+ProjectedRadius(b,normal)-Vector2.Dot(Flat(b.model.localPosition-a.model.localPosition),normal);
+            float share=moveA&&moveB?.5f:1;
+            SeparateBodies(a,b,normal,Mathf.Clamp(depth,0,2)+.015f,moveA?share:0,moveB?share:0);
         }
         public static float VehicleMass(TrafficVehicle v)
         {return v.halfLength>3?4500:v.halfWidth>.7f?(v.model.name.Contains("tải")?2200:1350):220;}
@@ -55,7 +133,7 @@ namespace PhoViet
         {float omega=v.physicalCrash?v.angularVelocity.y*Mathf.Deg2Rad:0;return new Vector2(omega*lever.y,-omega*lever.x);}
         Vector3 BodyVelocity(TrafficVehicle v)
         {
-            if(v.wallCrashed)return Vector3.zero;
+            if(v.wallCrashed||v.footStopRemaining>0||v==entryVehicle)return Vector3.zero;
             if(v.knocked)return v.knockVelocity;
             if(v.motionVelocity.sqrMagnitude>.0001f)return v.motionVelocity;
             if(v.routeDetached)return DetachedTrafficVelocity(v);
@@ -142,14 +220,38 @@ namespace PhoViet
             for(int i=0;i<vehicles.Count;i++)for(int j=i+1;j<vehicles.Count;j++)
             {
                 var a=vehicles[i];var b=vehicles[j];
-                if(!a.active||!b.active||(a.wallCrashed&&b.wallCrashed)||contactUntil[i,j]>timeRiding)continue;
+                if(!a.active||!b.active||(a.wallCrashed&&b.wallCrashed))continue;
+                bool cooldown=contactUntil[i,j]>timeRiding;
+                if(cooldown&&!IsUprightCarPair(a,b)&&a.halfLength<6&&b.halfLength<6)continue;
                 if(!VehicleContact(a,b,out Vector2 normal,out float at,out float depth))continue;
+                bool containerA=IsProtectedContainer(a,b),containerB=IsProtectedContainer(b,a);
+                Vector3 av=BodyVelocity(a),bv=BodyVelocity(b);
+                bool gentlePair=IsGentleCarPair(a,b,av,bv,cooldown&&!a.armored&&!b.armored);
+                if(cooldown&&!containerA&&!containerB&&!gentlePair)continue;
                 Vector2 impactA=Flat(Vector3.Lerp(a.previousPosition,a.model.localPosition,at)),impactB=Flat(Vector3.Lerp(b.previousPosition,b.model.localPosition,at));
                 Vector2 contact=(impactA+impactB)*.5f,leverA=contact-impactA,leverB=contact-impactB;
-                Vector3 av=BodyVelocity(a),bv=BodyVelocity(b);
                 Vector2 relative=Flat(bv-av)+SpinVelocity(b,leverB)-SpinVelocity(a,leverA);float closing=-Vector2.Dot(relative,normal);
                 // Xe tăng như vật khối lượng vô hạn: giữ hướng/tốc độ, xe kia nhận toàn bộ xung lực và văng ra.
-                bool fixedA=a.wallCrashed||a.armored,fixedB=b.wallCrashed||b.armored;
+                bool moveA=CanDisplaceRoadCar(a),moveB=CanDisplaceRoadCar(b);
+                if((gentlePair||containerA&&containerB)&&(closing>=.35f||depth>.01f))
+                {
+                    if(!cooldown&&closing>=.35f)ShowVehicleContact(a,b,normal,closing,at,gentlePair);
+                    StopBodiesAtContact(a,b,normal,at,moveA,moveB);
+                    if(cooldown||closing<.35f)continue;
+                    if(moveA&&!a.knocked)DisturbRoadContact(a,-normal);
+                    if(moveB&&!b.knocked)DisturbRoadContact(b,normal);
+                    contactUntil[i,j]=timeRiding+.5f;
+                    TrafficCollisions++;
+                    if(sound&&fx!=null&&Mathf.Min(Mathf.Abs(a.model.localPosition.z),Mathf.Abs(b.model.localPosition.z))<50)
+                        fx.PlayOneShot(crashClip,.35f);
+                    continue;
+                }
+                if(cooldown)
+                {
+                    if(depth>.01f&&closing>=0)StopBodiesAtContact(a,b,normal,at,moveA,moveB);
+                    continue;
+                }
+                bool fixedA=!moveA||containerA,fixedB=!moveB||containerB;
                 float invA=fixedA?0:1/VehicleMass(a),invB=fixedB?0:1/VehicleMass(b),sum=invA+invB;
                 float invIA=fixedA?0:1/BodyInertia(a),invIB=fixedB?0:1/BodyInertia(b);
                 if(sum<=0)
@@ -165,6 +267,19 @@ namespace PhoViet
                     continue;
                 }
                 ShowVehicleContact(a,b,normal,closing,at);
+                if(IsCarBikeContact(a,b)||IsCarBikeContact(b,a))
+                {
+                    bool carFirst=IsCarBikeContact(a,b);
+                    var car=carFirst?a:b;var bike=carFirst?b:a;
+                    bool carFixed=carFirst?!moveA:!moveB;
+                    Vector2 towardBike=carFirst?normal:-normal;
+                    if(!carFixed&&!car.knocked)DisturbRoadContact(car,-towardBike);
+                    if(!bike.wallCrashed)LaunchMotorcycleAfterContact(bike,towardBike,at,carFirst?bv:av,closing,car.knockFromPlayer);
+                    else if(!carFixed&&depth>0)SeparateBodies(a,b,normal,Mathf.Min(depth,2),carFirst?1:0,carFirst?0:1);
+                    contactUntil[i,j]=timeRiding+.5f;TrafficCollisions++;
+                    if(sound&&fx!=null&&Mathf.Abs(car.model.localPosition.z)<50)fx.PlayOneShot(crashClip,.45f);
+                    continue;
+                }
                 // Low restitution and Coulomb friction dissipate energy instead of adding random launches.
                 const float restitution=.18f,friction=.28f;
                 float normalA=LeverCross(leverA,normal),normalB=LeverCross(leverB,normal);
@@ -177,16 +292,22 @@ namespace PhoViet
                 bool credited=a.knockFromPlayer||b.knockFromPlayer;
                 bool newA=!a.knocked,newB=!b.knocked;
                 if((a.isReckless&&newB)||(b.isReckless&&newA))RecklessRamCount++;
-                if(!fixedA)ActivateCollisionBody(a,av,aAfter,-push,contact-impactA,credited,newA,closing);
-                if(!fixedB)ActivateCollisionBody(b,bv,bAfter,push,contact-impactB,credited,newB,closing);
-                if(at>0)
+                if(!fixedA){ActivateCollisionBody(a,av,aAfter,-push,contact-impactA,credited,newA,closing);a.trafficCrashTakeable=true;}
+                if(!fixedB){ActivateCollisionBody(b,bv,bAfter,push,contact-impactB,credited,newB,closing);b.trafficCrashTakeable=true;}
+                if(containerA||containerB)
+                {
+                    if(containerA&&moveA&&!a.knocked)DisturbRoadContact(a,-normal);
+                    if(containerB&&moveB&&!b.knocked)DisturbRoadContact(b,normal);
+                    StopBodiesAtContact(a,b,normal,at,moveA,moveB);
+                }
+                else if(at>0)
                 {
                     // Restore the impact position for a swept hit, preventing vehicles passing through each other.
                     if(!fixedA)a.model.localPosition=Vector3.Lerp(a.previousPosition,a.model.localPosition,at);
                     if(!fixedB)b.model.localPosition=Vector3.Lerp(b.previousPosition,b.model.localPosition,at);
                 }
                 else if(depth>0)SeparateBodies(a,b,normal,Mathf.Min(depth,2),invA/sum,invB/sum);
-                contactUntil[i,j]=timeRiding+.12f;TrafficCollisions++;
+                contactUntil[i,j]=timeRiding+(containerA||containerB?.5f:.12f);TrafficCollisions++;
                 if(sound&&fx!=null&&Mathf.Min(Mathf.Abs(a.model.localPosition.z),Mathf.Abs(b.model.localPosition.z))<50)fx.PlayOneShot(crashClip,Mathf.Clamp01(closing/25)*.45f);
             }
         }
@@ -220,7 +341,7 @@ namespace PhoViet
             v.angularVelocity.x=Mathf.Clamp(v.angularVelocity.x+Vector2.Dot(Flat(after-before),BodyForward(v))*1.5f,-40,40);
             // Ground reaction can bounce a hard impact; a motorcycle cannot launch a much heavier truck.
             float hop=v.halfWidth<.7f?Mathf.Clamp(deltaV*.12f,0,2.8f):Mathf.Clamp((deltaV-6)*.08f,0,v.halfLength>3?.5f:1.2f);
-            after.y=Mathf.Max(before.y,closing>6?hop:0);v.knockVelocity=after;v.motionVelocity=after;
+            after.y=Mathf.Max(before.y,closing>6?hop:0);v.knockVelocity=LimitRoadVelocity(after);v.motionVelocity=v.knockVelocity;
         }
         void TickCollisionBody(TrafficVehicle v,float dt)
         {

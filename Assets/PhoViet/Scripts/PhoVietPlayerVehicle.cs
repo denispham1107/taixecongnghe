@@ -4,9 +4,9 @@ namespace PhoViet
  public partial class PhoVietGame
  {
   public bool IsPlayerCar=>rider!=null&&rider.GetComponent<PlayerCarVisual>()!=null;
-  public float PlayerHalfWidth=>IsPlayerCar?rider.GetComponent<PlayerCarVisual>().size.x*.5f:.33f;
-  public float PlayerHalfLength=>IsPlayerCar?rider.GetComponent<PlayerCarVisual>().size.z*.5f:.91f;
-  public float PlayerHeight=>IsPlayerCar?rider.GetComponent<PlayerCarVisual>().size.y:2.15f;
+  public float PlayerHalfWidth=>HasClaimedCar?claimedSize.x*.5f:IsPlayerCar?rider.GetComponent<PlayerCarVisual>().size.x*.5f:.33f;
+  public float PlayerHalfLength=>HasClaimedCar?claimedSize.z*.5f:IsPlayerCar?rider.GetComponent<PlayerCarVisual>().size.z*.5f:.91f;
+  public float PlayerHeight=>HasClaimedCar?claimedSize.y:IsPlayerCar?rider.GetComponent<PlayerCarVisual>().size.y:2.15f;
   float PlayerRearAxle=>IsPlayerCar?rider.GetComponent<PlayerCarVisual>().rearAxle:.73f;
   float PlayerFrontAxle=>IsPlayerCar?rider.GetComponent<PlayerCarVisual>().frontAxle:.90f;
   string PlayerAction=>IsPlayerCar?"HÚC":"ĐẠP";

@@ -49,7 +49,7 @@ namespace PhoViet
   {
    turnTankAimRandom=new System.Random(RunSeed^0x21a110);
    foreach(var v in vehicles){v.turnTankAimGeneration=-1;v.turnTankTarget=Vector3.zero;}
-   ResetTankCraters();
+   ResetTankCraters();ResetGrenades();
    if(vehicleShards!=null){vehicleShards.Clear();vehicleShards.Play();}
    ClearShells();tankSpawnTimer=TankInterval;nextDistanceTank=TankDistanceInterval;pendingDistanceTanks=0;DistanceTanksScheduled=0;TanksScheduled=0;ShellsFired=0;ShellBlasts=0;ShellSplashes=0;VehiclesBlasted=0;KilledByShell=false;
    if(tankFxAnchor!=null){tankFxAnchor.localPosition=Vector3.zero;tankFxAnchor.localRotation=Quaternion.identity;foreach(var ps in new[]{muzzleFx,blastFx,smokeFx,sparkFx,trailFx})if(ps!=null)ps.Clear();}
@@ -70,6 +70,7 @@ namespace PhoViet
   {
    if(tankFxAnchor!=null)tankFxAnchor.localPosition-=Vector3.forward*delta;
    foreach(var s in shells){s.start-=Vector3.forward*delta;s.target-=Vector3.forward*delta;}
+   ScrollGrenades(delta);
    foreach(var v in vehicles)if(HasTurnTankAim(v))v.turnTankTarget-=Vector3.forward*delta;
   }
 
@@ -100,7 +101,9 @@ namespace PhoViet
    int first=rng.Next(2);
    for(int attempt=0;attempt<2;attempt++)
    {
-    int lane=(first+attempt)%2;float z=junctionZ??(122+(float)rng.NextDouble()*8);
+    int lane=(first+attempt)%2;
+    float spawnAhead=PlayerOnFoot&&!InsideShop?footActor.localPosition.z+48:122;
+    float z=junctionZ??(spawnAhead+(float)rng.NextDouble()*8);
     bool clear=true;
     foreach(var o in vehicles)if(o.active&&Mathf.Abs(o.model.localPosition.x-LaneX[lane])<2.6f&&Mathf.Abs(o.model.localPosition.z-z)<14){clear=false;break;}
     if(!clear)continue;
@@ -125,17 +128,18 @@ namespace PhoViet
   // ------------------------------------------------------------ bắn
   bool TankCanFire(TrafficVehicle v)
   {
-   if(!v.active||!v.armored||v.tankDestroyed||v.knocked||v.riverFalling||v.routeDetached||v.crossing||v.roadTurning||v.baseTrafficSpeed>=0)return false;
-   float z=v.model.localPosition.z;if(z>=TankFireFar)return false;
+   if(!v.active||!v.armored||v.tankDestroyed||v.knocked||v.footStopRemaining>0||v.riverFalling||v.routeDetached||v.crossing||v.roadTurning||v.baseTrafficSpeed>=0)return false;
+   float origin=PlayerOnFoot?footActor.localPosition.z:0;
+   float z=v.model.localPosition.z-origin;if(z>=TankFireFar)return false;
    if(TurnTankAirShotReady(v))return TankMuzzle(v).z-rider.localPosition.z>=8;
    if(z<=TankFireNear)return false;
    // Chỉ đạn pháo cần đủ khoảng cách để điểm rơi còn nằm trước nòng.
-   return RiderFlying||TankMuzzle(v).z-5>=Mathf.Max(Speed,8)*ShellFlight;
+   return RiderFlying||TankMuzzle(v).z-origin-5>=Mathf.Max(Speed,8)*ShellFlight;
   }
   void TickTankFire(float dt)
   {
-   if(!tankBarrageEnabled||State!=RideState.Riding||IsTurning||dt<=0)return;
-   bool antiAir=RiderFlying;
+   if(!tankBarrageEnabled||!(State==RideState.Riding||PlayerOnFoot&&!InsideShop)||IsTurning||dt<=0)return;
+   bool antiAir=State==RideState.Riding&&RiderFlying;
    float interval=antiAir?AirMissileIntervalAfterTurns(TankMissileInterval):CurrentTankFireInterval;
    foreach(var v in vehicles)
    {
@@ -146,6 +150,7 @@ namespace PhoViet
     if(v.tankFireTimer>0)continue;
     v.tankFireTimer=interval;
     if(antiAir)FireEnemyMissile(TankMuzzle(v),EnemyMissileSource.Tank);
+    else if(PlayerOnFoot)FireTankShellAtFoot(v,dt);
     else FireAutomaticTankShell(v);
    }
   }
@@ -164,6 +169,19 @@ namespace PhoViet
    if(HasTurnTankAim(v)&&turnTankAimRandom.NextDouble()<TurnTankAimChance)
     return LaunchTankShell(v,3,v.turnTankTarget,true);
    return FireTankShell(v,lane);
+  }
+  void FireTankShellAtFoot(TrafficVehicle v,float dt)
+  {
+   Vector3 foot=footActor.localPosition;
+   Vector3 movement=foot-footFrameStart;movement.y=0;
+   Vector3 velocity=Vector3.ClampMagnitude(movement/dt,FootSpeed);
+   Vector3 target=foot+velocity*ShellFlight;
+   target.x=Mathf.Clamp(target.x,-6.65f,6.65f);
+   target.y=0;
+   target.z=Mathf.Min(target.z,TankMuzzle(v).z-5);
+   int lane=0;
+   for(int i=1;i<LaneX.Length;i++)if(Mathf.Abs(LaneX[i]-target.x)<Mathf.Abs(LaneX[lane]-target.x))lane=i;
+   LaunchTankShell(v,lane,target,true);
   }
   public Vector3 TankMuzzle(TrafficVehicle v)=>transform.InverseTransformPoint(v.model.TransformPoint(new Vector3(0,1.42f,3.62f)));
   // Đạn rơi đúng chỗ người chơi sẽ tới sau thời gian bay, ở làn được chọn.
@@ -208,18 +226,25 @@ namespace PhoViet
   }
   void TickShells(float dt)
   {
+   TickGrenades(dt);
    if(dt<=0||shells.Count==0)return;
    for(int i=shells.Count-1;i>=0;i--)
    {
-    var s=shells[i];s.age+=dt;
+    var s=shells[i];float previousAge=s.age;s.age+=dt;
     var p=ShellPosition(s,s.age);var next=ShellPosition(s,s.age+.02f);
     s.body.localPosition=p;if((next-p).sqrMagnitude>1e-6f)s.body.localRotation=Quaternion.LookRotation(next-p);
     PlaceMarker(s,Mathf.Clamp01(s.age/s.flight));
     // Vệt lửa sáng sát đuôi đạn + vệt khói xám nhạt kéo dài.
     Emit(trailFx,p,Vector3.zero,Random.Range(.7f,1f),.12f,new Color(1,.78f,.35f,1));
     Emit(trailFx,p-(next-p).normalized*.4f,Vector3.up*.25f,Random.Range(.5f,.8f),Random.Range(.4f,.7f),new Color(.85f,.83f,.8f,.7f));
-    // Trúng trực tiếp giữa đường bay (chỉ khi người chơi còn đang chạy).
+    // A direct hit on foot sweeps both the shell and the moving character.
     bool direct=State==RideState.Riding&&Vector3.Distance(p,rider.localPosition+Vector3.up*(.9f+jumpHeight))<1f;
+    if(PlayerOnFoot&&!InsideShop&&footFatalTitle==null)
+    {
+     Vector3 centre=Vector3.up*(FootStandingHeight*.5f);
+     var half=new Vector3(FootContactRadius+.18f,centre.y+.18f,FootContactRadius+.18f);
+     direct=EnergySweptContact(ShellPosition(s,previousAge)-footFrameStart-centre,p-footActor.localPosition-centre,half);
+    }
     if(s.age>=s.flight||direct)
     {
      shells.RemoveAt(i);Detonate(s,direct?p:s.target,direct);ReleaseShell(s);
@@ -236,14 +261,7 @@ namespace PhoViet
    }
    ShellBlasts++;
    if(!direct)CreateTankCrater(at);
-   Emit(blastFx,at+Vector3.up*1.6f,Vector3.zero,7.5f,.9f,Color.white);
-   for(int i=0;i<26;i++)
-   {
-    var dir=new Vector3(Random.Range(-1f,1f),Random.Range(.4f,1.3f),Random.Range(-1f,1f));
-    Emit(sparkFx,at+Vector3.up*.4f,dir*Random.Range(4f,9f),Random.Range(.12f,.28f),Random.Range(.5f,1f),new Color(1,.62f,.2f,1));
-   }
-   for(int i=0;i<4;i++)Emit(smokeFx,at+new Vector3(Random.Range(-1f,1f),1+i*.5f,Random.Range(-1f,1f)),Vector3.up*Random.Range(1f,2.2f),Random.Range(3f,4.5f),Random.Range(1.6f,2.4f),new Color(.32f,.3f,.29f,.85f));
-   if(sound&&fx!=null)fx.PlayOneShot(blastClip,Mathf.Lerp(.75f,.3f,Mathf.InverseLerp(0,60,Mathf.Abs(at.z))));
+   PlayRoadExplosion(at,1);
    // Xe khác trong bán kính nổ văng ra (xe tăng không bị đẩy).
    foreach(var v in vehicles)
    {
@@ -256,9 +274,30 @@ namespace PhoViet
     v.knockVelocity.y=Mathf.Max(v.knockVelocity.y,v.halfWidth>.7f?3.5f:5.5f);VehiclesBlasted++;
    }
    // Người chơi: trúng trực tiếp hoặc trong bán kính nổ (không đang nhảy cao qua) → văng ra, kết thúc chuyến.
+   if(PlayerOnFoot&&!InsideShop&&footFatalTitle==null)
+   {
+    Vector3 offset=footActor.localPosition-at;
+    if(direct||(Flat(offset).sqrMagnitude<BlastRadius*BlastRadius&&offset.y<2.2f))
+    {
+     KilledByShell=true;
+     EndFootCollision("Trúng đạn xe tăng!");
+    }
+    return;
+   }
    if(State!=RideState.Riding)return;
    Vector3 r=rider.localPosition-at;float flat=new Vector2(r.x,r.z).magnitude;
    if(direct||(flat<BlastRadius&&jumpHeight<2.2f))BlastRider(at);
+  }
+  void PlayRoadExplosion(Vector3 at,float scale)
+  {
+   Emit(blastFx,at+Vector3.up*(1.6f*scale),Vector3.zero,7.5f*scale,.9f,Color.white);
+   for(int i=0;i<Mathf.RoundToInt(26*scale);i++)
+   {
+    var dir=new Vector3(Random.Range(-1f,1f),Random.Range(.4f,1.3f),Random.Range(-1f,1f));
+    Emit(sparkFx,at+Vector3.up*(.4f*scale),dir*(Random.Range(4f,9f)*scale),Random.Range(.12f,.28f)*scale,Random.Range(.5f,1f),new Color(1,.62f,.2f,1));
+   }
+   for(int i=0;i<4;i++)Emit(smokeFx,at+new Vector3(Random.Range(-1f,1f),1+i*.5f,Random.Range(-1f,1f))*scale,Vector3.up*(Random.Range(1f,2.2f)*scale),Random.Range(3f,4.5f)*scale,Random.Range(1.6f,2.4f),new Color(.32f,.3f,.29f,.85f));
+   if(sound&&fx!=null)fx.PlayOneShot(blastClip,scale*Mathf.Lerp(.75f,.3f,Mathf.InverseLerp(0,60,Mathf.Abs(at.z))));
   }
   void BlastRider(Vector3 at)
   {

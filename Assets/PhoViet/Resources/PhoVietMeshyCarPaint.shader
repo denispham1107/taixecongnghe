@@ -10,6 +10,8 @@ Shader "PhoViet/Meshy Car Paint"
         _EmissionMap ("Actual lamps",2D)="black"{}
         _EmissionColor ("Night lamp level",Color)=(0,0,0,1)
         _Color ("Color",Color)=(1,1,1,1)
+        [HideInInspector] _PVDoorCut ("Left door mode and cut",Vector)=(0,0,0,0)
+        [HideInInspector] _PVDoorSpan ("Left door depth",Vector)=(0,0,0,0)
     }
     SubShader
     {
@@ -20,9 +22,18 @@ Shader "PhoViet/Meshy Car Paint"
         #pragma target 3.0
         sampler2D _MainTex,_BumpMap,_MetallicGlossMap,_PaintMask,_EmissionMap;
         fixed4 _PaintColor,_EmissionColor,_Color;
-        struct Input {float2 uv_MainTex;};
+        float4 _PVDoorCut,_PVDoorSpan;
+        float4x4 _PVDoorFrame;
+        struct Input {float2 uv_MainTex;float3 worldPos;};
         void surf(Input IN,inout SurfaceOutputStandard o)
         {
+            if(abs(_PVDoorCut.x)>.5)
+            {
+                float3 p=mul(_PVDoorFrame,float4(IN.worldPos,1)).xyz;
+                float inside=min(_PVDoorCut.y-p.x,min(p.y-_PVDoorCut.z,_PVDoorCut.w-p.y));
+                inside=min(inside,min(p.z-_PVDoorSpan.x,_PVDoorSpan.y-p.z));
+                clip(inside*_PVDoorCut.x);
+            }
             fixed3 original=tex2D(_MainTex,IN.uv_MainTex).rgb;
             half mask=tex2D(_PaintMask,IN.uv_MainTex).r;
             half value=max(original.r,max(original.g,original.b));

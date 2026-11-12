@@ -310,6 +310,7 @@ namespace PhoViet
   }
   void TickRiderRiver(float dt)
   {
+   riderFallVelocity=LimitRoadVelocity(riderFallVelocity);
    Speed=Mathf.Max(0,riderFallVelocity.z);float scroll=Speed*dt;crashTravelDistance+=scroll;ScrollRoutes(scroll);
    SinkRider(dt,true);
    TickTrafficMotion(dt);RetireTraffic(false);
@@ -362,7 +363,7 @@ namespace PhoViet
    Vector3 velocity=v.knocked||v.physicalCrash?v.knockVelocity:v.motionVelocity.sqrMagnitude>.0001f?v.motionVelocity:dt>0?(v.model.localPosition-previous)/dt+Vector3.forward*Speed:BodyVelocity(v);
    float side=Mathf.Sign(v.model.localPosition.x);
    v.riverFalling=true;v.riverAge=0;v.riverSplashed=false;v.riverRipple=0;v.riverBubble=0;UpdateRiverMurk();
-   v.riverVelocity=new Vector3(Mathf.Clamp(velocity.x,-4,4)+side*.8f,velocity.y,velocity.z);
+   v.riverVelocity=LimitRoadVelocity(new Vector3(Mathf.Clamp(velocity.x,-4,4)+side*.8f,velocity.y,velocity.z));
    RiverZone(v.model.localPosition,out _,out v.riverTile);
    v.riverSpin=new Vector3(Mathf.Clamp(velocity.z*2.2f,-40,40),0,-side*(v.halfWidth>.7f?38:90));
    v.riverRestRotation=Quaternion.Euler(0,v.model.localEulerAngles.y,-side*(v.halfWidth>.7f?65:82));

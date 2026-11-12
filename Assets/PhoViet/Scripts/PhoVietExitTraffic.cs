@@ -11,7 +11,7 @@ namespace PhoViet
         float exitWaveTimer,exitWaveAge;
         readonly TrafficVehicle[] rearExitReserved=new TrafficVehicle[2];
         readonly float[] rearExitWarning=new float[2];
-        bool RearExitReserved(TrafficVehicle v)=>rearExitReserved[0]==v||rearExitReserved[1]==v||TurnBikeReserved(v);
+        bool RearExitReserved(TrafficVehicle v)=>v.playerClaimed||rearExitReserved[0]==v||rearExitReserved[1]==v||TurnBikeReserved(v);
         public bool OrdinaryRearWarningVisible(int lane)=>lane>=2&&lane<=3&&turnExitTrafficEnabled&&rearExitReserved[lane-2]!=null&&!IsTurning&&!ServiceStopped;
         public float OrdinaryRearWarningRemaining(int lane)=>lane>=2&&lane<=3&&rearExitReserved[lane-2]!=null?rearExitWarning[lane-2]:-1;
         void ClearRearExitWarnings(){for(int i=0;i<2;i++){rearExitReserved[i]=null;rearExitWarning[i]=0;}}

@@ -9,7 +9,7 @@ namespace PhoViet
         float TrafficPaceSpeed=>Mathf.Min(17+DifficultyTime*.12f,30);
         float OpeningTrafficPace=>Mathf.Clamp01(timeRiding/LaunchDuration);
         internal float CrossingSpeed(TrafficVehicle v)=>v.crossDelay>0?0:v.crossSpeed*OpeningTrafficPace;
-        Vector3 DetachedTrafficVelocity(TrafficVehicle v)=>v.routeVelocity*OpeningTrafficPace;
+        Vector3 DetachedTrafficVelocity(TrafficVehicle v)=>LimitRoadVelocity(v.routeVelocity)*(OpeningTrafficPace*GrenadeDriveFactor(v));
 
         float CrossTrafficDepartureDelay(float arrivalIn,float travel)
         {
@@ -46,6 +46,8 @@ namespace PhoViet
             v.spawnGeneration++;
             v.previousCrashWidth=-1;
             v.recovery=null;v.lightningWreck=false;v.tankDestroyed=false;
+            v.grenadeSlowTime=v.grenadeSide=v.grenadeYaw=0;v.lastGrenadeCrater=0;
+            v.footStopRemaining=0;v.footResumeVelocity=Vector3.zero;v.trafficCrashTakeable=false;
             v.jobYieldLane=-1;
             v.routeDetached=false;v.routeVelocity=Vector3.zero;v.rearEntryBoost=0;
             v.roadTurning=false;v.roadDecisionAt=float.NaN;v.roadTurnAngle=0;
@@ -60,6 +62,8 @@ namespace PhoViet
             int index=vehicles.IndexOf(v);
             if(contactUntil!=null&&index>=0&&index<contactUntil.GetLength(0))
                 for(int i=0;i<vehicles.Count;i++){contactUntil[index,i]=0;contactUntil[i,index]=0;}
+            if(index>=0&&riderSoftImpactUntil!=null&&index<riderSoftImpactUntil.Length)riderSoftImpactUntil[index]=0;
+            if(index>=0&&policeContactUntil!=null&&index<policeContactUntil.Length)policeContactUntil[index]=0;
             if(v.brakeLights==null)
             {
                 var lights=Group("Đèn phanh động",v.model);v.brakeLights=lights;
@@ -127,7 +131,9 @@ namespace PhoViet
             float pace=OpeningTrafficPace;
             float target=(braking?Mathf.Max(.7f,v.baseTrafficSpeed*.1f):v.baseTrafficSpeed)*(turnBike?1:pace);
             float acceleration=pace<1?Mathf.Max(6,Mathf.Abs(v.baseTrafficSpeed)/LaunchDuration):6;
+            target=Mathf.Clamp(target,-VehicleSpeedLimit,VehicleSpeedLimit);
             v.speed=trafficSurprises?Mathf.MoveTowards(v.speed,target,dt*(braking?38:acceleration)):target;
+            v.speed=Mathf.Clamp(v.speed,-VehicleSpeedLimit,VehicleSpeedLimit);
             v.brakeRemaining=Mathf.Max(0,v.brakeRemaining-dt);
             if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(v.brakeRemaining>0);
             float previousX=p.x;
@@ -141,7 +147,7 @@ namespace PhoViet
                 if(urban)urbanSideways=(v.targetX-v.changeFromX)*30*u*u*(1-u)*(1-u)/v.changeDuration;
                 if(v.changeProgress>=1)v.changingLane=false;
             }
-            p.z+=(v.speed-Speed)*dt;v.model.localPosition=p;
+            p.z+=(v.speed*GrenadeDriveFactor(v)-Speed)*dt;v.model.localPosition=p;
             float sideways=urban?urbanSideways:dt>0?(p.x-previousX)/dt:0;
             float yaw=Mathf.Atan2(sideways,v.speed)*Mathf.Rad2Deg;
             v.model.localRotation=Quaternion.Euler(0,yaw,v.halfWidth<.7f?-sideways*1.7f:0);
@@ -152,7 +158,7 @@ namespace PhoViet
             v.model.localPosition-=Vector3.forward*Speed*dt;
             float direction=Mathf.Sign(v.crossSpeed),velocity=Mathf.Abs(v.crossSpeed);
             if(!trafficSurprises)v.turnChoice=0;
-            moving*=OpeningTrafficPace;
+            moving*=OpeningTrafficPace*GrenadeDriveFactor(v);
             if(moving<=0||velocity<=0)return;
             if(!v.turning&&v.turnChoice!=0)
             {

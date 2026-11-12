@@ -21,6 +21,7 @@ namespace PhoViet
         [NonSerialized] bool initialized;
         float clock,impactAge=10,lastYaw;
         WheelRolling wheelRolling;
+        Vector3[] wreckPoints;
         string impactClip="ImpactFront";
         bool wasKnocked;
 
@@ -35,6 +36,7 @@ namespace PhoViet
             foreach(var clip in clips)animationPlayer.AddClip(clip,clip.name);
             foreach(AnimationState state in animationPlayer){state.enabled=false;state.weight=0;state.speed=0;}
             var variant=GetComponent<MeshyCarVariants>();
+            wreckPoints=VehicleWreckSupport.Points(variant!=null?variant.ModelAsset:AssetName);
             if(variant!=null)CarWheelDetail.Bind(variant.ModelAsset,visual,wheels,wheelRadius);
             lastYaw=transform.localEulerAngles.y;initialized=true;Sample("Idle",0);
         }
@@ -49,15 +51,16 @@ namespace PhoViet
         void LateUpdate(){Advance(Mathf.Min(Time.deltaTime,.05f));}
         public void Advance(float dt)
         {
-            Initialize();if(!initialized||!vehicle.active)return;
+            Initialize();if(!initialized||!vehicle.active&&!vehicle.playerClaimed)return;
             if(game.State==PhoVietGame.RideState.Paused){PoseWheels();return;}
             clock+=dt;
             if(vehicle.knocked&&!wasKnocked&&impactAge>1)ReceiveImpact(new Vector3(-vehicle.knockDirection,0,-1),10);
             if(!vehicle.knocked&&wasKnocked)SteeringAngle=0;
             wasKnocked=vehicle.knocked;
-            bool trafficMoving=game.State==PhoVietGame.RideState.Riding||game.RiderCrashActive;
-            float speed=trafficMoving?game.TrafficWheelSpeed(vehicle):0;
-            bool coasting=vehicle.knocked||vehicle.wallCrashed||vehicle.riverFalling||vehicle.IsStandingUp;
+            bool trafficMoving=game.State==PhoVietGame.RideState.Riding||game.PlayerOnFoot||game.RiderCrashActive;
+            float speed=vehicle.playerClaimed?(game.State==PhoVietGame.RideState.Riding?game.Speed:0):trafficMoving?game.TrafficWheelSpeed(vehicle):0;
+            bool wreck=vehicle.playerClaimed?game.RiderWreckOnRoad:vehicle.knocked||vehicle.IsStandingUp;
+            bool coasting=wreck||vehicle.riverFalling;
             impactAge=vehicle.knocked?impactAge+dt:10;
             string clip;float normalized;
             if(vehicle.knocked){clip=impactClip;normalized=Mathf.Clamp01(impactAge/.8f);}
@@ -78,7 +81,8 @@ namespace PhoViet
             PoseWheels();
             visual.position=transform.position;
             // Xe rơi/chìm dưới sông không bị nâng hình lên mặt đường.
-            if(vehicle.knocked&&!vehicle.riverFalling&&!game.InRiverWater(transform))visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.01f-LowestSupport());
+            if(wreck&&!vehicle.riverFalling&&(vehicle.playerClaimed||!game.InRiverWater(transform)))
+                visual.position+=Vector3.up*Mathf.Max(0,game.transform.position.y+.055f-LowestSupport());
             // Dynamic brake overlays follow animated body suspension and impact rotation.
             if(vehicle.brakeLights!=null&&body!=null)
             {
@@ -88,6 +92,7 @@ namespace PhoViet
         }
         float LowestSupport()
         {
+            if(wreckPoints!=null)return VehicleWreckSupport.LowestY(visual,wreckPoints);
             float lowest=float.PositiveInfinity;
             foreach(var wheel in wheels)for(int i=0;i<12;i++)
             {
@@ -97,7 +102,11 @@ namespace PhoViet
             var meshy=GetComponent<MeshyCarVariants>();
             bool heavy=wheelRadius>.45f;float width=meshy!=null?vehicle.halfWidth:heavy?1.14f:.90f,top=meshy!=null?meshy.Height:heavy?3.18f:AssetName=="PV_DeliveryVan"?2.14f:1.73f,length=meshy!=null?vehicle.halfLength:heavy?3.23f:2.15f;
             for(int s=-1;s<=1;s+=2)for(int z=-1;z<=1;z+=2)
+            {
+                // Include the lower body edges as well as the roof when a wreck rolls or pitches.
                 lowest=Mathf.Min(lowest,visual.TransformPoint(new Vector3(s*width,top,z*length)).y);
+                lowest=Mathf.Min(lowest,visual.TransformPoint(new Vector3(s*width,wheelRadius*.35f,z*length)).y);
+            }
             return lowest;
         }
         void PoseWheels()

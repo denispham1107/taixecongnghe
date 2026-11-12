@@ -65,7 +65,7 @@ namespace PhoViet
   {
    var b=s.body;if(b==null||b.model==null)return false;
    bool player=b.model==game.rider,police=b.model==game.policeBike;
-   return b.model.gameObject.activeInHierarchy&&!b.armored&&b.spawnGeneration==s.generation&&(player||police||b.active)&&!b.riverFalling&&b.model.localPosition.y>RiverBlock.WaterY+.25f&&game.State!=PhoVietGame.RideState.Ready;
+   return b.model.gameObject.activeInHierarchy&&!b.armored&&b.spawnGeneration==s.generation&&(player||police||b.active||b.playerClaimed)&&!b.riverFalling&&b.model.localPosition.y>RiverBlock.WaterY+.25f&&game.State!=PhoVietGame.RideState.Ready;
   }
   public void Render()
   {

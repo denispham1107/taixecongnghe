@@ -36,7 +36,7 @@ namespace PhoViet
    foreach(var d in dinosaurs){d.active=false;d.root.gameObject.SetActive(false);d.hits.Clear();}
   }
   public Dinosaur SpawnDinosaur()
-  {return SpawnDinosaurAt(Mathf.Max(110,Speed*2.5f+20));}
+  {return SpawnDinosaurAt(PlayerOnFoot&&!InsideShop?footActor.localPosition.z+36:Mathf.Max(110,Speed*2.5f+20));}
   Dinosaur SpawnDinosaurAt(float z)
   {
    if(!dinosaursEnabled||dinosaurPrefab==null)return null;
@@ -51,7 +51,7 @@ namespace PhoViet
    d.health=DinosaurMaxHealth;d.generation++;d.fallAge=0;
    d.hits.Clear();d.hitPolice=d.hitRider=false;d.nextSweep=d.turnHelicopterDelay=0;d.visual.ResetPose();
    CopyDinosaurTail(d);DinosaursSpawned++;
-   notice="KHỦNG LONG PHÍA TRƯỚC · NHẢY NÉ ĐUÔI";noticeTimer=2;
+   notice=PlayerOnFoot?"KHỦNG LONG PHÍA TRƯỚC · TRÁNH XA":"KHỦNG LONG PHÍA TRƯỚC · NHẢY NÉ ĐUÔI";noticeTimer=2;
    return d;
   }
   void ScrollDinosaurs(float delta){dinosaurScroll+=delta;}
@@ -158,13 +158,14 @@ namespace PhoViet
   {
    if(dt<=0)return;
    if(!dinosaursEnabled){dinosaurScroll=0;foreach(var d in dinosaurs)if(d.active){d.active=false;d.root.gameObject.SetActive(false);}return;}
-   if(schedule&&State==RideState.Riding)
+   if(schedule&&(State==RideState.Riding||PlayerOnFoot&&!InsideShop))
    {
     dinosaurTimer-=dt;
     // Keep the ten-second game clock through a turn; release on its first straight frame.
     if(dinosaurTimer<=0&&!IsTurning&&SpawnDinosaur()!=null)dinosaurTimer+=DinosaurInterval;
    }
    float scroll=dinosaurScroll;dinosaurScroll=0;int count=Mathf.CeilToInt(dt/(1f/120));float step=dt/count;
+   Vector3 target=PlayerOnFoot&&!InsideShop?footActor.localPosition:rider.localPosition;
    foreach(var d in dinosaurs)if(d.active)
    {
     d.missilePrevious=d.root.localPosition-Vector3.forward*scroll;
@@ -182,22 +183,23 @@ namespace PhoViet
     {
      d.root.localPosition+=(d.root.localRotation*Vector3.forward*DinosaurWalkSpeed*dt-Vector3.forward*scroll)/count;
      d.nextSweep-=step;
-     Vector3 toward=rider.localPosition-d.root.localPosition;
+     Vector3 toward=target-d.root.localPosition;
      float closing=Mathf.Max(1,Speed+DinosaurWalkSpeed);
      // Predict the real tail crossing for the rider's lateral position. A late
      // right-edge crossing must load earlier than a left-edge crossing.
-     float lane=Mathf.InverseLerp(-4.65f,4.65f,rider.localPosition.x);
+     float lane=Mathf.InverseLerp(-4.65f,4.65f,target.x);
      float meetAt=Mathf.Lerp(1.10f,1.28f,lane),reach=4.7f+Mathf.Sin(lane*Mathf.PI)*1.15f;
      if(!d.visual.Sweeping&&d.nextSweep<=0&&Vector3.Dot(toward,d.root.localRotation*Vector3.forward)>0&&toward.magnitude<closing*meetAt+reach)
      {
       d.hits.Clear();d.hitPolice=d.hitRider=false;d.visual.StartSweep();d.nextSweep=3.4f;
-      notice="QUẤT ĐUÔI · NHẢY LÊN!";noticeTimer=1.1f;
+      if(!InsideShop&&footFatalTitle==null)
+      {notice=PlayerOnFoot?"QUẤT ĐUÔI · TRÁNH XA!":"QUẤT ĐUÔI · NHẢY LÊN!";noticeTimer=1.1f;}
      }
      d.visual.Advance(step);
      ResolveDinosaurHits(d,(float)(n+1)/count);
      CopyDinosaurTail(d);
     }
-    Vector3 p=d.root.localPosition-rider.localPosition;
+    Vector3 p=d.root.localPosition-target;
     if(p.z< -65||Mathf.Abs(p.x)>100||p.magnitude>240){d.active=false;d.root.gameObject.SetActive(false);}
    }
   }
@@ -268,14 +270,26 @@ namespace PhoViet
    if(IsChased&&!d.hitPolice&&policeBike.gameObject.activeSelf&&DinosaurTouches(d,policeBike.localPosition,policeBike.localRotation,PoliceHalfWidth,PoliceHalfLength,PoliceHeight,out Vector3 policeHit,out bool tailPolice))
    {
     d.hitPolice=true;PoliceFallRemaining=1.2f;PoliceFalls++;PoliceSpeed=0;
-    policeFallSide=policeBike.localPosition.x<policeHit.x?-1:1;policeFallYaw=policeBike.localEulerAngles.y;policeBody.knocked=true;
-    // Integrate a real shove/hop during the existing 1.2-second police recovery.
+    policeFallYaw=policeBike.localEulerAngles.y;policeBody.knocked=true;
+    // Slide along the road during the existing 1.2-second police recovery.
     var push=policeBike.localPosition-policeHit;push.y=0;if(push.sqrMagnitude<.01f)push=Vector3.right;
-    dinosaurPoliceVelocity=push.normalized*7+Vector3.up*3;if(tailPolice)DinosaurTailHits++;
+    dinosaurPoliceVelocity=push.normalized*7;if(tailPolice)DinosaurTailHits++;
    }
   }
   void ResolveDinosaurRiderHit(Dinosaur d,float fraction)
   {
+   if(PlayerOnFoot&&!InsideShop&&!d.hitRider)
+   {
+    if(footFatalTitle!=null)return;
+    Vector3 footAt=Vector3.Lerp(footFrameStart,footActor.localPosition,fraction);
+    if(DinosaurTouches(d,footAt,footActor.localRotation,FootContactRadius,FootContactRadius,FootStandingHeight,out _,out bool tailFoot))
+    {
+     d.hitRider=true;HitByDinosaur=true;
+     if(tailFoot)DinosaurTailHits++;
+     EndFootCollision("Va vào khủng long!");
+    }
+    return;
+   }
    Vector3 riderAt=Vector3.Lerp(riderBody.previousPosition,rider.localPosition,fraction);
    if(State==RideState.Riding&&!d.hitRider&&DinosaurTouches(d,riderAt,Quaternion.Euler(0,rider.localEulerAngles.y,0),PlayerHalfWidth,PlayerHalfLength,PlayerHeight,out Vector3 contact,out bool tailRider))
    {
@@ -294,11 +308,11 @@ namespace PhoViet
   void TickDinosaurPolicePush(float dt)
   {
    if(dinosaurPoliceVelocity.sqrMagnitude<.001f)return;
-   dinosaurPoliceVelocity.y-=9.81f*dt;var p=policeBike.localPosition+dinosaurPoliceVelocity*dt;
-   if(p.y<0){p.y=0;dinosaurPoliceVelocity.y=0;}
-   p.x=Mathf.Clamp(p.x,-7,7);policeBike.localPosition=p;
-   dinosaurPoliceVelocity.x=Mathf.MoveTowards(dinosaurPoliceVelocity.x,0,dt*8);
-   dinosaurPoliceVelocity.z=Mathf.MoveTowards(dinosaurPoliceVelocity.z,0,dt*8);
+   var before=policeBike.localPosition;
+   var next=before+dinosaurPoliceVelocity*dt;
+   next.x=Mathf.Clamp(next.x,Mathf.Min(-7,before.x),Mathf.Max(7,before.x));
+   policeBike.localPosition=next;
+   dinosaurPoliceVelocity=Vector3.MoveTowards(dinosaurPoliceVelocity,Vector3.zero,dt*8);
   }
  }
 }

@@ -7,6 +7,10 @@ namespace PhoViet
   public AudioSource rotorAudio;
   public float MainAngle{get;private set;}public float TailAngle{get;private set;}
   PhoVietGame game;float clock,gain,rotorFactor=1;bool wrecked;
+  static readonly Vector3[] BodySupport=VehicleWreckSupport.Points("Helicopter"),
+   MainSupport=VehicleWreckSupport.Points("Main rotor"),TailSupport=VehicleWreckSupport.Points("Tail rotor");
+  internal float WreckBottomY()=>Mathf.Min(VehicleWreckSupport.LowestY(airframe,BodySupport),
+   Mathf.Min(VehicleWreckSupport.LowestY(mainRotor,MainSupport),VehicleWreckSupport.LowestY(tailRotor,TailSupport)));
   public bool Wrecked=>wrecked;
   public void SetWrecked(){wrecked=true;airframe.localPosition=Vector3.zero;airframe.localRotation=Quaternion.identity;}
   void Awake(){game=GetComponentInParent<PhoVietGame>();PhoVietAudio.Route(rotorAudio);}

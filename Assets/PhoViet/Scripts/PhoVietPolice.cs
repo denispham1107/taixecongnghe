@@ -13,11 +13,13 @@ namespace PhoViet
         const float PoliceHalfWidth=1.83f*PoliceCruiserScale*.5f,PoliceHalfLength=PoliceCruiserLength*.5f,PoliceHeight=1.605f*PoliceCruiserScale;
         TrafficVehicle policeBody;
         float[] policeContactUntil;
-        float policeFallSide=1,policeTargetX;
+        float policeTargetX;
 
-        void ResetPoliceDriving()
+        void ResetPoliceDriving(bool resetStats=true)
         {
-            PoliceFallRemaining=0;PoliceFalls=0;PoliceAvoidances=0;policeFallSide=1;policeTargetX=0;
+            PoliceFallRemaining=0;policeTargetX=0;
+            dinosaurPoliceVelocity=Vector3.zero;
+            if(resetStats)PoliceFalls=PoliceAvoidances=0;
             policeContactUntil=new float[vehicles.Count];
             if(policeBike!=null)
             {
@@ -26,10 +28,42 @@ namespace PhoViet
             }
         }
         TrafficVehicle CreatePoliceBody()=>new TrafficVehicle {model=policeBike,halfWidth=PoliceHalfWidth,halfLength=PoliceHalfLength};
+        Vector3 PoliceRoadPosition()
+        {
+            Vector3 position=policeBike.localPosition;
+            if(position.y!=0&&!PoliceInRiver)
+            {
+                position.y=0;
+                policeBike.localPosition=position;
+            }
+            return position;
+        }
+        void TickPoliceRecovery(Vector3 before,float dt)
+        {
+            // Keep the sedan on the road throughout the recovery, including during a turn.
+            policeBike.localPosition=before-Vector3.forward*Speed*dt;
+            TickDinosaurPolicePush(dt);
+            ResolvePoliceContact(before,Vector3.zero,false);
+            if(PoliceInRiver)return;
+            PoliceFallRemaining=Mathf.Max(0,PoliceFallRemaining-dt);
+            if(PoliceFallRemaining<.00001f)PoliceFallRemaining=0;
+            PoliceSpeed=0;
+            policeBike.localRotation=Quaternion.Euler(0,routePolice||PoliceFallen?policeFallYaw:0,0);
+            PoliceDistance=routePolice?TravelDistance-policeRouteAt:-policeBike.localPosition.z;
+            if(!PoliceFallen)
+            {
+                policeBody.knocked=false;
+                if(!routePolice)policeArrived=PoliceDistance<=6.5f;
+            }
+        }
         bool PoliceCanReachRider()
         {
-            if(PoliceFallen||rider.localPosition.y>=1.25f)return false;
-            Vector3 relative=Quaternion.Inverse(policeBike.localRotation)*(rider.localPosition-policeBike.localPosition);
+            return !PoliceFallen&&PoliceCanReachTarget(policeBike.localPosition,PoliceTargetPosition);
+        }
+        bool PoliceCanReachTarget(Vector3 position,Vector3 target)
+        {
+            if(target.y>=1.25f)return false;
+            Vector3 relative=Quaternion.Inverse(policeBike.localRotation)*(target-position);
             float dx=Mathf.Max(0,Mathf.Abs(relative.x)-PoliceHalfWidth),dz=Mathf.Max(0,Mathf.Abs(relative.z)-PoliceHalfLength);
             return dx*dx+dz*dz<=1.3f*1.3f;
         }
@@ -71,28 +105,18 @@ namespace PhoViet
             if(policeBike==null||dt<=0)return;
             if(policeBody==null)policeBody=CreatePoliceBody();
             if(policeContactUntil==null||policeContactUntil.Length!=vehicles.Count)policeContactUntil=new float[vehicles.Count];
-            Vector3 before=policeBike.localPosition;
+            AdvanceGrenadeDrive(policeBody,dt);
+            Vector3 before=PoliceRoadPosition();
             policeBody.previousPosition=before;policeBody.previousYaw=policeBike.localEulerAngles.y;policeBody.knocked=PoliceFallen;
             if(PoliceFallen)
             {
-                // Keep the patrol car in place on the road as the route scrolls past it.
-                policeBike.localPosition=before-Vector3.forward*Speed*dt;
-                TickDinosaurPolicePush(dt);
-                ResolvePoliceContact(before,Vector3.zero,false);
-                PoliceFallRemaining=Mathf.Max(0,PoliceFallRemaining-dt);if(PoliceFallRemaining<.00001f)PoliceFallRemaining=0;PoliceSpeed=0;
-                float fall=Mathf.Clamp01((1.2f-PoliceFallRemaining)/.16f);
-                policeBike.localRotation=Quaternion.Euler(0,policeFallYaw,-policeFallSide*8*fall);
-                PoliceDistance=-policeBike.localPosition.z;
-                if(!PoliceFallen)
-                {
-                    policeBike.localRotation=Quaternion.identity;policeBody.knocked=false;policeArrived=PoliceDistance<=6.5f;
-                }
+                TickPoliceRecovery(before,dt);
                 return;
             }
             if(PoliceDistance<=6.5f)policeArrived=true;
             if(PoliceDistance>16)policeArrived=false;
             float nominal=policeArrived?cruiseSpeed-.65f:cruiseSpeed+15*OpeningTrafficPace;
-            if(OpeningTrafficPace<1)nominal=Mathf.Max(0,nominal);
+            nominal=Mathf.Clamp(nominal,0,VehicleSpeedLimit)*GrenadeDriveFactor(policeBody);
             bool clear=ChoosePolicePath(before,nominal,out float target);
             if(!clear&&nominal>6)
             {
@@ -112,8 +136,9 @@ namespace PhoViet
             Vector3 next=before;next.x=Mathf.MoveTowards(before.x,target,dt*8);next.z+=(PoliceSpeed-Speed)*dt;
             policeBike.localPosition=next;
             float sideways=(next.x-before.x)/dt;
-            policeBike.localRotation=Quaternion.Euler(0,Mathf.Atan2(sideways,Mathf.Max(PoliceSpeed,.01f))*Mathf.Rad2Deg,-sideways*.35f);
-            Vector3 roadVelocity=(next-before)/dt+Vector3.forward*Speed;
+            policeBike.localRotation=Quaternion.Euler(0,Mathf.Atan2(sideways,Mathf.Max(PoliceSpeed,.01f))*Mathf.Rad2Deg,0);
+            ApplyVehicleRoadStep(policeBody,before,dt);
+            Vector3 roadVelocity=(policeBike.localPosition-before)/dt+Vector3.forward*Speed;
             ResolvePoliceContact(before,roadVelocity,true);
             PoliceDistance=-policeBike.localPosition.z;
             if(PoliceCanReachRider())Arrest();
@@ -129,28 +154,69 @@ namespace PhoViet
             }
             if(hit==null){BeginPoliceRiver(policeVelocity);return;}
             bool fresh=policeContactUntil[hitIndex]<=timeRiding;
-            float impactSpeed=-Vector2.Dot(Flat(BodyVelocity(hit)-policeVelocity),normal);
+            Vector3 otherVelocity=BodyVelocity(hit);
+            float impactSpeed=-Vector2.Dot(Flat(otherVelocity-policeVelocity),normal);
+            bool gentlePair=IsGentleCarPair(policeBody,hit,policeVelocity,otherVelocity,!fresh&&!PoliceFallen);
             if(fresh&&impactSpeed>.35f)
-                ShowVehicleContact(policeBody,hit,normal,impactSpeed,earliest);
+                ShowVehicleContact(policeBody,hit,normal,impactSpeed,earliest,gentlePair);
+            if(gentlePair)
+            {
+                if(impactSpeed>.35f||penetration>.01f)
+                    StopBodiesAtContact(policeBody,hit,normal,earliest,true,CanDisplaceRoadCar(hit));
+                if(fresh&&impactSpeed>.35f)
+                {
+                    DisturbRoadContact(policeBody,-normal);
+                    PoliceSpeed*=.8f;
+                    DisturbRoadContact(hit,normal);
+                    policeContactUntil[hitIndex]=timeRiding+.5f;
+                    TrafficCollisions++;
+                    if(sound&&fx!=null)fx.PlayOneShot(crashClip,.35f);
+                }
+                BeginPoliceRiver(policeVelocity);
+                return;
+            }
+            if(IsCarBikeContact(policeBody,hit))
+            {
+                if(fresh&&impactSpeed>.35f)
+                {
+                    DisturbVehicle(policeBody,hit.model.localPosition,null);
+                    PoliceSpeed*=.8f;
+                    if(!hit.wallCrashed)
+                        LaunchMotorcycleAfterContact(hit,normal,earliest,BodyVelocity(hit),impactSpeed,hit.knockFromPlayer);
+                    policeContactUntil[hitIndex]=timeRiding+.5f;TrafficCollisions++;
+                    if(sound&&fx!=null)fx.PlayOneShot(crashClip,.45f);
+                }
+                BeginPoliceRiver(policeVelocity);
+                return;
+            }
             Vector3 end=policeBike.localPosition;
             policeBike.localPosition=Vector3.Lerp(before,end,earliest);
             // Bộ lập đường CSGT khi người chơi té/khi cua (RoutePolicePathClear) chừa đệm
             // PolicePathPadding; dừng sát thân xe hơn khoảng đó thì mọi bước kế tiếp đều bị coi là
             // chồng lấn và CSGT đứng im mãi cạnh xe đứng yên (21.50). Đuổi trên đường thẳng giữ 2,5 cm.
-            float clearance=RiderCrashActive||routePolice?PolicePathPadding+.02f:.025f;
+            float clearance=RiderCrashActive||PlayerOnFoot||routePolice?PolicePathPadding+.02f:.025f;
             if(earliest==0&&penetration>0)policeBike.localPosition-=new Vector3(normal.x,0,normal.y)*(penetration+clearance);
             else if(clearance>.025f)policeBike.localPosition-=new Vector3(normal.x,0,normal.y)*clearance;
             if(fresh)
             {
                 Vector3 velocity=BodyVelocity(hit);float closing=-Vector2.Dot(Flat(velocity-policeVelocity),normal);
-                if(closing>.35f&&!hit.wallCrashed&&!hit.armored)
+                if(closing>.35f&&CanDisplaceRoadCar(hit))
                 {
-                    float impulse=1.12f*closing/(1/VehicleMass(policeBody)+1/VehicleMass(hit));
-                    Vector2 push=normal*impulse;
-                    Vector3 after=velocity+new Vector3(push.x,0,push.y)/VehicleMass(hit);
-                    Vector2 lever=Flat(policeBike.localPosition-hit.model.localPosition)*.5f;
-                    ActivateCollisionBody(hit,velocity,after,push,lever,hit.knockFromPlayer,!hit.knocked,closing);
-                    TrafficCollisions++;
+                    if(IsProtectedContainer(hit,policeBody))
+                    {
+                        if(!hit.knocked)DisturbRoadContact(hit,normal);
+                        TrafficCollisions++;
+                    }
+                    else
+                    {
+                        float impulse=1.12f*closing/(1/VehicleMass(policeBody)+1/VehicleMass(hit));
+                        Vector2 push=normal*impulse;
+                        Vector3 after=velocity+new Vector3(push.x,0,push.y)/VehicleMass(hit);
+                        Vector2 lever=Flat(policeBike.localPosition-hit.model.localPosition)*.5f;
+                        ActivateCollisionBody(hit,velocity,after,push,lever,hit.knockFromPlayer,!hit.knocked,closing);
+                        hit.trafficCrashTakeable=true;
+                        TrafficCollisions++;
+                    }
                 }
                 policeContactUntil[hitIndex]=timeRiding+.18f;
             }
@@ -158,7 +224,7 @@ namespace PhoViet
             {
                 PoliceFallRemaining=1.2f;PoliceFalls++;PoliceSpeed=0;
                 policeFallYaw=policeBike.localEulerAngles.y;
-                policeFallSide=normal.x<0?-1:1;policeBody.knocked=true;
+                policeBody.knocked=true;
                 notice="CSGT VA CHẠM · TẠM CHẬM LẠI";noticeTimer=1.2f;
                 if(sound&&fx!=null)fx.PlayOneShot(crashClip,.55f);
             }

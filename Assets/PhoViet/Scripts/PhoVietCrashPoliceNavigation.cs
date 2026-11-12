@@ -19,7 +19,7 @@ namespace PhoViet
    // A strong tail/traffic impulse can throw a rider into the cross street even
    // when no turn was selected. That street is still real drivable asphalt.
    bool crossStreet=Mathf.Abs(p.x)<=40&&junction<=6;
-   return Mathf.Abs(p.x)<=8.4f||crossStreet||(IsTurning&&Mathf.Abs(p.z-NextJunctionDistance)<=8.4f);
+   return FootGround(p,8.4f,out _,out _)||crossStreet&&!OverRiver(p);
   }
   bool CrashPoliceSegmentClear(Vector3 from,Vector3 to,float dt)
   {
@@ -28,40 +28,51 @@ namespace PhoViet
    Vector3 delta=to-from;float yaw=Mathf.Atan2(delta.x,delta.z)*Mathf.Rad2Deg;
    return RoutePolicePathClear(from,to,yaw,dt);
   }
-  bool CrashPoliceWaypoint(Vector3 start,float dt,out Vector3 target)
+  bool CrashPoliceWaypoint(Vector3 start,float dt,out Vector3 target,bool walking=false)
   {
    Vector3 scroll=Vector3.forward*Speed*dt;
    for(int i=crashPoliceWaypoint;i<crashPolicePath.Count;i++)crashPolicePath[i]-=scroll;
    crashPoliceGoal-=scroll;crashPoliceReplan=Mathf.Max(0,crashPoliceReplan-dt);
-   Vector3 goal=rider.localPosition;goal.y=0;
+   Vector3 goal=PoliceTargetPosition;goal.y=0;
    if(Flat(goal-crashPoliceGoal).sqrMagnitude>2.25f){crashPolicePath.Clear();crashPoliceReplan=0;}
    while(crashPoliceWaypoint<crashPolicePath.Count&&Vector3.Distance(start,crashPolicePath[crashPoliceWaypoint])<.08f)crashPoliceWaypoint++;
    if(crashPoliceWaypoint<crashPolicePath.Count)
    {
     target=crashPolicePath[crashPoliceWaypoint];
-    if(CrashPoliceSegmentClear(start,target,dt))return true;
+    if(PursuitSegmentClear(start,target,dt,walking))return true;
     crashPolicePath.Clear();crashPoliceWaypoint=0;
    }
    // Use a direct approach whenever the whole segment is clear, not just the
    // next 3 metres. A blocked local fan can otherwise alternate forever.
    Vector3 delta=goal-start;
    Vector3 localGoal=start+Vector3.ClampMagnitude(delta,60);
-   if(CrashPoliceSegmentClear(start,localGoal,dt)){target=localGoal;return true;}
+   if(PursuitSegmentClear(start,localGoal,dt,walking)){target=localGoal;return true;}
    if(crashPoliceReplan<=0)
    {
     crashPoliceGoal=goal;crashPoliceReplan=.4f;CrashPoliceReplans++;
-    PlanCrashPolicePath(start,localGoal,delta.magnitude<=60?2.05f:1.2f);
+    PlanCrashPolicePath(start,localGoal,delta.magnitude<=60?(walking?1.75f:1.9f):1.2f,walking);
    }
    target=crashPoliceWaypoint<crashPolicePath.Count?crashPolicePath[crashPoliceWaypoint]:start;
    return crashPoliceWaypoint<crashPolicePath.Count;
   }
-  void PlanCrashPolicePath(Vector3 start,Vector3 goal,float captureRadius)
+  bool PursuitSegmentClear(Vector3 from,Vector3 to,float dt,bool walking)
+  {
+   if(!walking)return CrashPoliceSegmentClear(from,to,dt);
+   int samples=Mathf.Max(1,Mathf.CeilToInt(Vector3.Distance(from,to)/.45f));
+   for(int i=1;i<=samples;i++)
+   {
+    Vector3 point=Vector3.Lerp(from,to,i/(float)samples);
+    if(!FootGround(point,9.15f,out _,out _)||!FootTrafficClear(point,null,State==RideState.OnFoot))return false;
+   }
+   return true;
+  }
+  void PlanCrashPolicePath(Vector3 start,Vector3 goal,float captureRadius,bool walking)
   {
    crashPolicePath.Clear();crashPoliceWaypoint=0;
-   const float cell=1.2f;
+   float cell=walking?.8f:1.2f;
    float minX=Mathf.Min(start.x,goal.x)-10,maxX=Mathf.Max(start.x,goal.x)+10;
    bool crossApproach=(Mathf.Abs(goal.x)>8.4f&&CrashPoliceRoad(goal))||(Mathf.Abs(start.x)>8.4f&&CrashPoliceRoad(start));
-   if(!IsTurning&&!crossApproach){minX=Mathf.Max(-8.4f,minX);maxX=Mathf.Min(8.4f,maxX);}
+   if(!IsTurning&&!crossApproach&&!walking){minX=Mathf.Max(-8.4f,minX);maxX=Mathf.Min(8.4f,maxX);}
    int left=Mathf.FloorToInt((minX-start.x)/cell),right=Mathf.CeilToInt((maxX-start.x)/cell);
    int bottom=Mathf.FloorToInt((Mathf.Min(start.z,goal.z)-14-start.z)/cell),top=Mathf.CeilToInt((Mathf.Max(start.z,goal.z)+14-start.z)/cell);
    int width=right-left+1,height=top-bottom+1,count=width*height;
@@ -84,7 +95,7 @@ namespace PhoViet
      for(int ring=0;ring<16;ring++)
      {
       float angle=ring*Mathf.PI/8;Vector3 q=goal+new Vector3(Mathf.Sin(angle),0,Mathf.Cos(angle))*captureRadius;
-      if(!CrashPoliceSegmentClear(p,q,.15f))continue;
+      if(!PursuitSegmentClear(p,q,.15f,walking))continue;
       found=current;finalApproach=q;useFinalApproach=true;break;
      }
      if(found>=0)break;
@@ -94,7 +105,7 @@ namespace PhoViet
      if(dx==0&&dz==0)continue;int nx=x+dx,nz=z+dz;if(nx<left||nx>right||nz<bottom||nz>top)continue;
      int next=(nz-bottom)*width+nx-left;if(closed[next])continue;
      Vector3 q=start+new Vector3(nx*cell,0,nz*cell);float nextCost=cost[current]+Vector3.Distance(p,q);
-     if(nextCost>=cost[next]||!CrashPoliceSegmentClear(p,q,.15f))continue;
+     if(nextCost>=cost[next]||!PursuitSegmentClear(p,q,.15f,walking))continue;
      bool fresh=float.IsPositiveInfinity(cost[next]);cost[next]=nextCost;score[next]=nextCost+Mathf.Max(0,Vector3.Distance(q,goal)-captureRadius);parent[next]=current;
      if(fresh)open.Add(next);
     }

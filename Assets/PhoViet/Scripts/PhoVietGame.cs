@@ -7,7 +7,7 @@ namespace PhoViet
 {
     public partial class PhoVietGame : MonoBehaviour
     {
-        public enum RideState { Ready, Riding, Paused, Falling, GameOver, Arrested, Jailed }
+        public enum RideState { Ready, Riding, Paused, Falling, GameOver, Arrested, Jailed, OnFoot }
         [Serializable] public partial class TrafficVehicle
         {
             public Transform model;
@@ -66,7 +66,14 @@ namespace PhoViet
         public List<TrafficVehicle> vehicles=new List<TrafficVehicle>();
         public RideState State { get; private set; }=RideState.Ready;
         public float Distance { get; private set; }
-        public float Speed { get; private set; }
+        public const float VehicleSpeedLimit=110f/3.6f;
+        float speed;
+        public float Speed { get=>speed; private set=>speed=Mathf.Clamp(value,0,VehicleSpeedLimit); }
+        static Vector3 LimitRoadVelocity(Vector3 value,float limit=VehicleSpeedLimit)
+        {
+            Vector2 planar=Vector2.ClampMagnitude(new Vector2(value.x,value.z),limit);
+            return new Vector3(planar.x,value.y,planar.y);
+        }
         public int CurrentLane { get; private set; }=2;
         public int PassedVehicles { get; private set; }
         public int BestDistance { get; private set; }
@@ -152,6 +159,7 @@ namespace PhoViet
         public void ResetRide()
         {
             GraphicsSettingsOpen=false;
+            ResetFootEscape();
             CancelSwipe();
             int seed;do{seed=Guid.NewGuid().GetHashCode()&int.MaxValue;}while(seed==RunSeed);
             RunSeed=seed;rng=new System.Random(seed);
@@ -201,7 +209,7 @@ namespace PhoViet
         {
             if(JobOffersOpen)return;
             CancelSwipe();
-            if(State==RideState.Riding||State==RideState.Falling){pauseFromState=State;State=RideState.Paused;engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);PauseMissileAudio(true);vehicleShards?.Pause();}
+            if(State==RideState.Riding||State==RideState.Falling||State==RideState.OnFoot){pauseFromState=State;State=RideState.Paused;CancelFootPointer();engine.Pause();if(siren!=null)siren.Pause();navigationAudio?.Pause();PauseRecklessFx(true);PauseMissileAudio(true);vehicleShards?.Pause();}
             else if(State==RideState.Paused){State=pauseFromState;PauseRecklessFx(false);PauseMissileAudio(false);vehicleShards?.Play();if(sound){if(State==RideState.Riding){engine.UnPause();navigationAudio?.UnPause();}if(IsChased)siren?.UnPause();}}
         }
         public TrafficVehicle SpawnTraffic(int lane,float z,int preferred=-1)
@@ -227,7 +235,7 @@ namespace PhoViet
             if(v==null)return null;
             direction=direction>=0?1:-1;
             v.active=true;v.crossing=true;v.lane=-1;v.speed=0;v.knocked=false;v.knockAge=0;v.playerGrace=0;
-            v.crossSpeed=direction*Mathf.Abs(crossSpeed);v.crossDelay=Mathf.Max(0,delay);
+            v.crossSpeed=direction*Mathf.Min(VehicleSpeedLimit,Mathf.Abs(crossSpeed));v.crossDelay=Mathf.Max(0,delay);
             v.model.localPosition=new Vector3(-direction*16,0,z);
             v.model.localRotation=Quaternion.Euler(0,direction*90,0);v.model.gameObject.SetActive(true);
             InitializeDriver(v);v.turnChoice=rng.NextDouble()<.75?(rng.Next(2)==0?-1:1):0;
@@ -236,7 +244,7 @@ namespace PhoViet
         float TimeToIntersection(float metres)
         {
             float chaseAcceleration=IsChased?.28f:0;
-            float acceleration=CruiseAcceleration+chaseAcceleration,cap=30+(IsChased?chaseBoost:0);
+            float acceleration=CruiseAcceleration+chaseAcceleration,cap=Mathf.Min(VehicleSpeedLimit,30+(IsChased?chaseBoost:0));
             float speed=Speed;
             float launchRemaining=Mathf.Max(0,LaunchDuration-timeRiding);
             if(launchRemaining>0&&!BoostActive)
@@ -249,7 +257,7 @@ namespace PhoViet
             speed=Mathf.Max(speed,17);
             if(BoostActive)
             {
-                float boostedSpeed=Mathf.Max(Speed,17*BoostMultiplier),boostedAcceleration=acceleration*BoostMultiplier,boostedCap=cap*BoostMultiplier;
+                float boostedSpeed=Mathf.Min(VehicleSpeedLimit,Mathf.Max(Speed,17*BoostMultiplier)),boostedAcceleration=acceleration*BoostMultiplier,boostedCap=Mathf.Min(VehicleSpeedLimit,cap*BoostMultiplier);
                 float fastTime=TravelTimeToIntersection(metres,boostedSpeed,boostedAcceleration,boostedCap);
                 if(fastTime<=boostRemaining)return fastTime;
                 float toCap=Mathf.Max(0,(boostedCap-boostedSpeed)/boostedAcceleration),ramp=Mathf.Min(toCap,boostRemaining);
@@ -261,6 +269,7 @@ namespace PhoViet
         }
         static float TravelTimeToIntersection(float metres,float speed,float acceleration,float cap)
         {
+            speed=Mathf.Min(speed,cap);
             float toCap=Mathf.Max(0,(cap-speed)/acceleration);
             float beforeCap=speed*toCap+.5f*acceleration*toCap*toCap;
             if(metres>=beforeCap)return toCap+(metres-beforeCap)/cap;
@@ -313,24 +322,26 @@ namespace PhoViet
             if(!graphicsWasOpen&&(Input.GetKeyDown(KeyCode.Escape)||Input.GetKeyDown(KeyCode.P)))TogglePause();
             if(State==RideState.Riding)
             {
+                if(wasRiding&&Input.GetKeyDown(KeyCode.E))TryExitVehicle();
                 if(wasRiding&&!ServiceStopped&&Input.GetKeyDown(KeyCode.Q))TryKick();
                 if(wasRiding&&Input.GetKeyDown(KeyCode.Space))TryJump();
                 if(wasRiding&&(Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.F)))TryFirePlayerMissile();
                 if(Input.GetKeyDown(KeyCode.LeftArrow)||Input.GetKeyDown(KeyCode.A))MoveLane(-1);
                 if(Input.GetKeyDown(KeyCode.RightArrow)||Input.GetKeyDown(KeyCode.D))MoveLane(1);
                 ReadSwipe();
-                if(wasRiding)TickRide(Mathf.Min(Time.deltaTime,.05f));
+                if(wasRiding&&State==RideState.Riding)TickRide(Mathf.Min(Time.deltaTime,.05f));
             }
+            else if(State==RideState.OnFoot){ReadFootInput();TickOnFoot(Mathf.Min(Time.deltaTime,.05f));}
             UpdateWork(Mathf.Min(Time.deltaTime,.05f));
             if(State==RideState.Falling)TickRiderCrash(Mathf.Min(Time.deltaTime,.05f));
             if(State!=RideState.Riding&&State!=RideState.Paused&&State!=RideState.Ready)TickHelicopter(Mathf.Min(Time.deltaTime,.05f),rider.localPosition,false);
             if(State==RideState.GameOver){TickRiverAftermath(Mathf.Min(Time.deltaTime,.05f));TickShells(Mathf.Min(Time.deltaTime,.05f));TickThunderstorm(Mathf.Min(Time.deltaTime,.05f),false);}
             if(noticeTimer>0)noticeTimer-=Time.deltaTime;
-            if(State==RideState.Arrested)TickArrest(Time.deltaTime);
+            if(State==RideState.Arrested){TickGrenades(Mathf.Min(Time.deltaTime,.05f));TickArrest(Time.deltaTime);}
             UpdateTankCraterTerrain(Mathf.Min(Time.deltaTime,.05f));
             RenderThunderstorm();
-            RenderChain();
             UpdateRiverMurk();AnimateLights();PositionCamera(false);
+            PoseMissilePickups(Mathf.Min(Time.deltaTime,.05f));
             UpdateJobMarker();
             UpdateDangerSigns();
             if(engine!=null){engine.mute=!sound;engine.pitch=.85f+Speed/45f;}
@@ -394,7 +405,7 @@ namespace PhoViet
             AdvanceBikeImpact(dt);
             TickBoost(dt);
             if(!ServiceStopped)timeRiding+=dt;
-            cruiseSpeed=Mathf.Min(LaunchAcceleration*timeRiding,TrafficPaceSpeed)+(IsChased?chaseBoost:0);
+            cruiseSpeed=Mathf.Min(VehicleSpeedLimit,Mathf.Min(LaunchAcceleration*timeRiding,TrafficPaceSpeed)+(IsChased?chaseBoost:0));
             Speed=cruiseSpeed;
             if(jumpFlying&&!ServiceStopped)Speed+=3;
             if(BoostActive)Speed*=BoostMultiplier;
@@ -407,11 +418,10 @@ namespace PhoViet
             bool wasFlying=jumpFlying;TickJump(dt);
             if(!wasFlying&&jumpFlying)
             {
-                driveTarget=JobAcceptanceSpeedLimit(WorkSpeedLimit(driveTarget+3*(BoostActive?BoostMultiplier:1)*(1-bikeImpactSlowdown)));
+                driveTarget=Mathf.Min(VehicleSpeedLimit,JobAcceptanceSpeedLimit(WorkSpeedLimit(driveTarget+3*(BoostActive?BoostMultiplier:1)*(1-bikeImpactSlowdown))));
                 Speed=JobAcceptanceSpeedLimit(WorkSpeedLimit(DrivePedalSpeed(driveTarget,previousSpeed,dt)));
             }
             if(drivePedal==DrivePedalMode.PullAway&&Speed==driveTarget)drivePedal=DrivePedalMode.Cruise;
-            Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             float oldX=rider.localPosition.x;
             oldRiderZ=rider.localPosition.z;
             oldRiderYaw=IsPlayerCar?rider.localEulerAngles.y:IsTurning?TurnYaw:0;
@@ -420,6 +430,12 @@ namespace PhoViet
             float x=baseX,target=LaneX[CurrentLane],gap=target-baseX;
             if(ServiceStopped||DriveStopped){laneVelocity=0;laneAccel=0;lanePlanned=false;}
             else x=AdvanceLaneCurve(baseX,target,dt);
+            if(!IsTurning&&dt>0)
+            {
+                float lateral=Mathf.Clamp((x+craterOffset+bikeImpactOffset-oldX)/dt,-VehicleSpeedLimit,VehicleSpeedLimit);
+                Speed=Mathf.Min(Speed,Mathf.Sqrt(VehicleSpeedLimit*VehicleSpeedLimit-lateral*lateral));
+            }
+            Distance+=Speed*dt;ScrollRoutes(Speed*dt);
             // Đầu xe theo tiếp tuyến đường đi; khi đang đạp áp sát giữ thẳng để giày khớp mẫu chạm đã đo.
             float rawSteer=IsTurning||KickAssistActive?0:Mathf.Atan2(laneVelocity+craterSideSpeed,Mathf.Max(Speed,8))*Mathf.Rad2Deg;
             float steerTarget=MaxSteerYaw*(float)Math.Tanh(rawSteer/MaxSteerYaw);
@@ -458,7 +474,6 @@ namespace PhoViet
             TickOrdinaryRearWarnings(dt);
             if(!ResolveRiderContacts(oldX,dt))return;
             TickAssistedKickContact(dt);
-            TickChain(dt);
             if(!ServiceStopped&&Speed>.1f)rearDepartureProtection=Mathf.Max(0,rearDepartureProtection-dt);
             x=rider.localPosition.x;lastX=x;
             if(CheckRiderRiver())return;
@@ -486,9 +501,11 @@ namespace PhoViet
             foreach(var v in vehicles)
             {
                 if(!v.active)continue;
+                AdvanceGrenadeDrive(v,dt);
                 Vector3 previous=v.model.localPosition;
                 v.previousPosition=previous;v.previousYaw=v.model.localEulerAngles.y;v.previousCrashWidth=BodyWidth(v);v.playerGrace=Mathf.Max(0,v.playerGrace-dt);
                 ScrollTrafficRecovery(v,Vector3.forward*Speed*dt);
+                if(TickFootGrenadeStop(v,previous,dt))continue;
                 if(v.riverFalling){TickVehicleRiverFall(v,dt);if(dt>0)v.motionVelocity=v.riverVelocity;continue;}
                 if(TryBeginVehicleRiverFall(v,previous,dt)){TickVehicleRiverFall(v,dt);v.motionVelocity=v.riverVelocity;continue;}
                 if(v.tankDestroyed)v.model.localPosition-=Vector3.forward*Speed*dt;
@@ -510,6 +527,7 @@ namespace PhoViet
                 }
                 BrakeBeforeStoppedRider(v);
                 YieldRearForService(v);
+                ApplyVehicleRoadStep(v,previous,dt);
                 if((v.isReckless||v.knocked)&&!v.tankDestroyed&&!v.wallCrashed&&!v.routeDetached)CheckBuildingImpact(v);
                 if(TryBeginVehicleRiverFall(v,previous,dt)){v.motionVelocity=v.riverVelocity;continue;}
                 if(dt>0)v.motionVelocity=v.wallCrashed?Vector3.zero:v.knocked?v.knockVelocity:(v.model.localPosition-previous)/dt+Vector3.forward*Speed;
@@ -527,7 +545,7 @@ namespace PhoViet
                 Vector3 previous=v.previousPosition;
                 Vector3 p=v.model.localPosition;
                 if(countPasses&&previous.z>0 && p.z<=0){PassedVehicles++;if(Mathf.Abs(p.x-rider.localPosition.x)<1.7f){streak++;notice="NÉ ĐẸP!  +"+(10*(int)streak);noticeTimer=1.4f;}}
-                if(v.recovery!=null)continue;
+                if(v.recovery!=null||v==entryVehicle)continue;
                 if((p.z<rider.localPosition.z-(IsTurning?25:18)&&(!v.enteringFromBehind||v.knocked)) || (v.enteringFromBehind&&!v.isReckless&&p.z< -95) || Mathf.Abs(p.x)>(IsTurning||v.routeDetached?36:24) || (v.knocked&&!v.lightningWreck&&!v.tankDestroyed&&v.knockAge>8) || (v.riverFalling&&(v.riverAge>9||v.riverAge>3&&v.model.localPosition.y<=RiverBlock.BedY+.41f)) || (!IsTurning&&!v.routeDetached&&v.crossing&&!v.knocked&&p.x*Mathf.Sign(v.crossSpeed)>19))RetireVehicle(v);
             }
         }
@@ -548,10 +566,14 @@ namespace PhoViet
         }
         void PositionCamera(bool snap)
         {PositionRideCamera(snap,Mathf.Min(Time.unscaledDeltaTime,.05f));}
+        static float RideCameraFov(bool narrow,float speed)=>narrow?
+            2*Mathf.Atan(Mathf.Tan(65*Mathf.Deg2Rad*.5f)/PortraitWorldScale)*Mathf.Rad2Deg:55+Mathf.Max(0,speed-17)*.13f;
         void PositionRideCamera(bool snap,float cameraDt)
         {
             if(rideCamera==null)return;
             if(State==RideState.Jailed){PositionJailCamera(snap);return;}
+            if(InsideShop){PositionShopCamera(snap,cameraDt);return;}
+            if(ShowFootCamera){PositionFootCamera(snap,cameraDt);return;}
             if(!snap&&State==RideState.Paused&&IsTurning)return;
             bool narrow=Screen.width<Screen.height;
             float x=rider!=null?rider.localPosition.x:LaneX[2];
@@ -579,7 +601,7 @@ namespace PhoViet
             Quaternion rotation=Quaternion.LookRotation(transform.TransformPoint(look)-rideCamera.transform.position,Vector3.up);
             rideCamera.transform.rotation=!snap&&(IsTurning||cameraTurnBlend>0)?Quaternion.Slerp(rideCamera.transform.rotation,rotation,1-Mathf.Exp(-cameraDt*9*cornerTracking)):rotation;
             // Perspective zoom: tan(FOV/2) scales inversely with apparent size.
-            rideCamera.fieldOfView=narrow?2*Mathf.Atan(Mathf.Tan(65*Mathf.Deg2Rad*.5f)/PortraitWorldScale)*Mathf.Rad2Deg:55+Mathf.Max(0,Speed-17)*.13f;
+            rideCamera.fieldOfView=RideCameraFov(narrow,Speed);
         }
         public string Telemetry()=>JsonUtility.ToJson(new RunTelemetry {state=State.ToString(),distance=Distance,speed=Speed,lane=CurrentLane,x=rider.localPosition.x,frames=Frames,passed=PassedVehicles,street=CurrentStreet,chased=IsChased,policeGap=PoliceDistance,policeSpeed=PoliceSpeed,kicks=KickCount,chain=ChainCount});
         [Serializable] class RunTelemetry{public string state,street;public float distance,speed,x,policeGap,policeSpeed;public int lane,frames,passed,kicks,chain;public bool chased;}
@@ -636,17 +658,18 @@ namespace PhoViet
             if(!portrait)
             {
                 float by=uiH-82;Panel(new Rect(48,by,754,43),WelcomeGlass,12);
-                Txt("← → / A D: ĐỔI LÀN     Q: MÓC XÍCH/LỘN     SPACE: NHẢY/BAY/HẠ     W / F: TÊN LỬA     P: TẠM DỪNG",64,by+13,724,23,11,Ink);
+                Txt("← → / A D: ĐỔI LÀN     Q: LỰU ĐẠN/LỘN     SPACE: NHẢY/BAY/HẠ     W / F: TÊN LỬA     P: TẠM DỪNG",64,by+13,724,23,11,Ink);
             }
-            else {Panel(new Rect(18,uiH-68,uiW-36,44),WelcomeGlass,10);Txt("VUỐT LÊN: NHẢY / BAY / HẠ · GIỮ NÚT BAY: LÊN CAO",25,uiH-63,uiW-50,16,9,Ink,TextAnchor.MiddleCenter);Txt("CHẠM 2 LẦN: MÓC XÍCH / LỘN",25,uiH-47,uiW-50,16,9,Ink,TextAnchor.MiddleCenter);}
+            else {Panel(new Rect(18,uiH-68,uiW-36,44),WelcomeGlass,10);Txt("VUỐT LÊN: NHẢY / BAY / HẠ · GIỮ NÚT BAY: LÊN CAO",25,uiH-63,uiW-50,16,9,Ink,TextAnchor.MiddleCenter);Txt("CHẠM 2 LẦN: QUĂNG LỰU ĐẠN / LỘN",25,uiH-47,uiW-50,16,9,Ink,TextAnchor.MiddleCenter);}
         }
         void Hud()
         {
+            if(InsideShop){DrawShopHud();if(PlayerOnFoot)DrawFootHud();return;}
             DrawDinosaurHealth();
-            if(portrait)PortraitHud();else LandscapeHud();
-            DrawPlayerMissileButton();DrawFlightButton();DrawDrivePedal(false);DrawDrivePedal(true);
+            if(portrait){PortraitHud();ChaseHud();}else LandscapeHud();
+            if(State==RideState.OnFoot){DrawShopDoorMarker();DrawFootHud();}
+            else{DrawPlayerMissileButton();DrawFlightButton();DrawDrivePedal(false);DrawDrivePedal(true);DrawExitVehicleHud();}
             RearRecklessWarningHud();
-            ChaseHud();
         }
         void EndCard(bool paused)
         {
@@ -661,7 +684,7 @@ namespace PhoViet
                 Txt("Tên lửa do "+missileSource+" phóng.",x+28,y+109,w-56,24,portrait?17:19,Ink);
             }
             else
-                Txt(paused?"Dừng chân bên phố.":RiderInRiver?"Rơi xuống sông!":KilledByShell?"Trúng đạn xe tăng!":"Chuyến đi kết thúc!",x+27,y+69,w-54,70,portrait?31:36,Ink);
+                Txt(paused?"Dừng chân bên phố.":footFatalTitle??(RiderInRiver?"Rơi xuống sông!":KilledByShell?"Trúng đạn xe tăng!":"Chuyến đi kết thúc!"),x+27,y+69,w-54,70,portrait?31:36,Ink);
             if(paused)
             {
                 Txt("Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.",x+28,y+140,w-56,50,16,Teal);

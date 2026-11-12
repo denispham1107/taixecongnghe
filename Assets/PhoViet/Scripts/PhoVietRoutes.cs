@@ -30,7 +30,15 @@ namespace PhoViet
         string junctionStreet;
         bool routePolice;float policeRouteAt,policeFallYaw,turnEndAt;
         readonly List<RoutePoint> routeTrail=new List<RoutePoint>();
-        struct RoutePoint {public float at;public Vector3 point;public float yaw;public RoutePoint(float a,Vector3 p,float y){at=a;point=p;yaw=y;}}
+        struct RoutePoint
+        {
+            public float at;
+            public Vector3 point;
+            public float yaw;
+            // The patrol route follows the player's path on the road, including when the player flies.
+            public RoutePoint(float at,Vector3 point,float yaw)
+            {this.at=at;point.y=0;this.point=point;this.yaw=yaw;}
+        }
         bool RoutesReady=>roadRows!=null&&roadRows.Count==5;
         void ResetRoutes()
         {
@@ -114,7 +122,13 @@ namespace PhoViet
             ScrollTankFire(delta);ScrollThunderstorm(delta);
             ScrollDinosaurs(delta);
             ScrollHelicopter(delta);
-            foreach(var b in blocks){b.localPosition-=Vector3.forward*delta;if(b.localPosition.z<-160){b.localPosition+=Vector3.forward*80*blocks.Count;AssignRecycledRiverBlock(b);}}
+            float streetSpan=VietnamStreet.Length*blocks.Count;
+            foreach(var b in blocks)
+            {
+                b.localPosition-=Vector3.forward*delta;
+                if(b.localPosition.z< -160){b.localPosition+=Vector3.forward*streetSpan;AssignRecycledRiverBlock(b);}
+                else if(delta<0&&b.localPosition.z>streetSpan-160){b.localPosition-=Vector3.forward*streetSpan;AssignRecycledRiverBlock(b);}
+            }
             for(int i=0;i<routeTrail.Count;i++){var p=routeTrail[i];p.point-=Vector3.forward*delta;routeTrail[i]=p;}
             // Phố còn cuộn khi té/rơi sông (TickRiderCrash, SinkRider): ẩn lại nhà đường ngang đứng trên sông theo vị trí mới (21.52).
             UpdateTileCulling();HideBuildingsOverRiver();
@@ -216,8 +230,23 @@ namespace PhoViet
             rider.GetComponent<CarJumpJetVisual>()?.Clear();
             Quaternion exit=Quaternion.Euler(0,turnSide*90,0),inverse=Quaternion.Inverse(exit);
             Vector3 origin=rider.localPosition-kickAppliedOffset-craterAppliedOffset-bikeAppliedOffset-exit*new Vector3(LaneX[CurrentLane],0,0);origin.y=0;
+            RebaseStreetActors(inverse,origin,turnSide*90);
+            int oldMain=mainRow,unused=turnSide<0?rightRow:leftRow;
+            int selected=turnSide<0?leftRow:rightRow;UseStreetRow(selected);
+            craterAppliedOffset=Vector3.right*craterOffset;
+            bikeAppliedOffset=Vector3.right*bikeImpactOffset;
+            rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0)+kickAppliedOffset+craterAppliedOffset+bikeAppliedOffset;rider.localRotation=Quaternion.Euler(0,bikeImpactYaw,0);lean=0;ClearLaneMotion();steerYaw=0;lastX=rider.localPosition.x;oldRiderZ=rider.localPosition.z;
+            TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;cameraTurnBlend=.7f;turnEndAt=TravelDistance;
+            leftRow=oldMain;rightRow=unused;PrepareNextStreetJunction();notice="ĐÃ VÀO ĐƯỜNG "+RouteStreet.ToUpperInvariant();noticeTimer=2;
+            QueueTurnHazards();
+            QueueExitTraffic();
+            SyncTankCraterMasks(true);
+        }
+        void RebaseStreetActors(Quaternion inverse,Vector3 origin,float angle)
+        {
             RebaseAssistedKick(inverse,origin);
             RebaseDinosaurs(inverse,origin);RebaseThunderstorm(inverse,origin);
+            RebaseGrenades(inverse,origin);
             RebaseHelicopter(inverse,origin);
             if(tankFxAnchor!=null)
             {
@@ -237,36 +266,37 @@ namespace PhoViet
             {
                 if(!v.active)continue;
                 v.model.localPosition=inverse*(v.model.localPosition-origin);v.model.localRotation=inverse*v.model.localRotation;
-                v.model.GetComponent<UrbanRiderMotion>()?.Rebase(-turnSide*90);
-                v.previousPosition=inverse*(v.previousPosition-origin);v.previousYaw-=turnSide*90;v.initialYaw-=turnSide*90;
-                v.knockVelocity=inverse*v.knockVelocity;v.motionVelocity=inverse*v.motionVelocity;v.crashEuler.y-=turnSide*90;
+                v.model.GetComponent<UrbanRiderMotion>()?.Rebase(-angle);
+                v.previousPosition=inverse*(v.previousPosition-origin);v.previousYaw-=angle;v.initialYaw-=angle;
+                v.knockVelocity=inverse*v.knockVelocity;v.motionVelocity=inverse*v.motionVelocity;v.crashEuler.y-=angle;
                 if(v.riverFalling){v.riverVelocity=inverse*v.riverVelocity;v.riverSpin=inverse*v.riverSpin;v.riverRestRotation=inverse*v.riverRestRotation;}
                 RebaseTrafficRecovery(v,inverse,origin);
                 v.roadTurnStart=inverse*(v.roadTurnStart-origin);v.roadTurnForward=inverse*v.roadTurnForward;v.roadTurnSide=inverse*v.roadTurnSide;
-                v.routeDetached=true;v.routeVelocity=v.motionVelocity/Mathf.Max(OpeningTrafficPace,.01f);
+                v.footResumeVelocity=inverse*v.footResumeVelocity;
+                v.routeDetached=true;v.routeVelocity=(v.footStopRemaining>0?v.footResumeVelocity:v.motionVelocity)/Mathf.Max(OpeningTrafficPace,.01f);
                 if(v.crashEffect!=null){v.crashEffect.localPosition=inverse*(v.crashEffect.localPosition-origin);v.crashEffect.localRotation=inverse*v.crashEffect.localRotation;v.routeEffectOffset=v.crashEffect.localPosition-v.model.localPosition;}
             }
             if(policeBike!=null){policeBike.localPosition=inverse*(policeBike.localPosition-origin);policeBike.localRotation=inverse*policeBike.localRotation;}
+            dinosaurPoliceVelocity=inverse*dinosaurPoliceVelocity;
             if(PoliceInRiver){policeBody.previousPosition=inverse*(policeBody.previousPosition-origin);policeBody.riverVelocity=inverse*policeBody.riverVelocity;policeBody.riverSpin=inverse*policeBody.riverSpin;policeBody.riverRestRotation=inverse*policeBody.riverRestRotation;}
-            policeFallYaw-=turnSide*90;
+            policeFallYaw-=angle;
             rideCamera.transform.localPosition=inverse*(rideCamera.transform.localPosition-origin);rideCamera.transform.localRotation=inverse*rideCamera.transform.localRotation;
-            for(int i=0;i<routeTrail.Count;i++){var p=routeTrail[i];p.point=inverse*(p.point-origin);p.yaw-=turnSide*90;routeTrail[i]=p;}
-            int oldMain=mainRow,unused=turnSide<0?rightRow:leftRow;
-            int selected=turnSide<0?leftRow:rightRow;mainRow=selected;var chosen=roadRows[mainRow];
+            for(int i=0;i<routeTrail.Count;i++){var p=routeTrail[i];p.point=inverse*(p.point-origin);p.yaw-=angle;routeTrail[i]=p;}
+            if(daylight!=null)daylight.Rebase(inverse,origin);
+        }
+        void UseStreetRow(int selected)
+        {
+            mainRow=selected;var chosen=roadRows[mainRow];
             var positions=new Vector3[chosen.tiles.Count];for(int i=0;i<positions.Length;i++)positions[i]=chosen.root.localPosition+chosen.root.localRotation*chosen.tiles[i].localPosition;
             chosen.root.localPosition=Vector3.zero;chosen.root.localRotation=Quaternion.identity;
             for(int i=0;i<positions.Length;i++){chosen.tiles[i].localPosition=positions[i];chosen.tiles[i].localRotation=Quaternion.identity;}
             blocks=new List<Transform>(chosen.tiles);roadOffset=-TravelDistance-positions[0].z;
-            craterAppliedOffset=Vector3.right*craterOffset;
-            bikeAppliedOffset=Vector3.right*bikeImpactOffset;
-            rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0)+kickAppliedOffset+craterAppliedOffset+bikeAppliedOffset;rider.localRotation=Quaternion.Euler(0,bikeImpactYaw,0);lean=0;ClearLaneMotion();steerYaw=0;lastX=rider.localPosition.x;oldRiderZ=rider.localPosition.z;
-            if(daylight!=null)daylight.Rebase(inverse,origin);
-            TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;cameraTurnBlend=.7f;turnEndAt=TravelDistance;
+        }
+        void PrepareNextStreetJunction()
+        {
             float nearest=float.MaxValue;foreach(var b in blocks){float z=b.localPosition.z+70;if(z>12)nearest=Mathf.Min(nearest,z);}
-            nextIntersectionDistance=TravelDistance+nearest;leftRow=oldMain;rightRow=unused;PrepareBranches(nearest);notice="ĐÃ VÀO ĐƯỜNG "+RouteStreet.ToUpperInvariant();noticeTimer=2;
-            QueueTurnHazards();
-            QueueExitTraffic();
-            SyncTankCraterMasks(true);
+            if(nearest==float.MaxValue)nearest=80;
+            nextIntersectionDistance=TravelDistance+nearest;PrepareBranches(nearest);
         }
         void RouteTurnHud()
         {

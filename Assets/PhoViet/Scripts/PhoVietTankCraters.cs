@@ -18,7 +18,8 @@ namespace PhoViet
   public sealed class TankCrater
   {
    public Transform model;public Renderer renderer;public RiverBlock owner;public uint revision;
-   public Vector3 previousCentre;public float age,seed;public bool touching;
+   public Vector3 previousCentre;public float age,seed,radius;public bool touching,grenade;
+   public int id;
    public readonly MaterialPropertyBlock block=new MaterialPropertyBlock();
   }
   public readonly List<TankCrater> tankCraters=new List<TankCrater>(TankCraterCapacity);
@@ -52,7 +53,8 @@ namespace PhoViet
    craterWheelsReady=true;
    for(int i=0;i<8;i++){var c=NewTankCrater();c.model.gameObject.SetActive(false);craterPool.Push(c);}
   }
-  public TankCrater CreateTankCrater(Vector3 at)
+  public TankCrater CreateTankCrater(Vector3 at)=>CreateCrater(at,TankCraterRadius,false);
+  TankCrater CreateCrater(Vector3 at,float radius,bool grenade)
   {
    if(tankCraterMaterial==null||Mathf.Abs(at.y)>.1f||riversEnabled&&OverRiver(at))return null;
    RiverBlock owner=null;Vector3 local=Vector3.zero;
@@ -61,20 +63,35 @@ namespace PhoViet
     var p=tile.InverseTransformPoint(transform.TransformPoint(at));
     if(Mathf.Abs(p.x)<=7.05f&&p.z>=0&&p.z<=VietnamStreet.Length){owner=tile.GetComponent<RiverBlock>();local=p;break;}
    }
+   if(owner==null&&grenade&&RoutesReady)
+    foreach(var row in roadRows)
+    {
+     if(!row.root.gameObject.activeInHierarchy)continue;
+     foreach(var tile in row.tiles)
+     {
+      var p=tile.InverseTransformPoint(transform.TransformPoint(at));
+      if(Mathf.Abs(p.x)>7.05f||p.z<0||p.z>VietnamStreet.Length)continue;
+      owner=tile.GetComponent<RiverBlock>();local=p;break;
+     }
+     if(owner!=null)break;
+    }
    if(owner==null)return null;
    EnsureTankCraters();
    // Repeated hits in the same depression reuse it, while fresh debris still flies.
-   foreach(var existing in tankCraters)if(Vector3.Distance(existing.model.position,transform.TransformPoint(at))<TankCraterRadius*.65f){ThrowCraterDebris(at);return existing;}
+   foreach(var existing in tankCraters)if(existing.grenade==grenade&&Vector3.Distance(existing.model.position,transform.TransformPoint(at))<radius*.65f){ThrowCraterDebris(at,radius/TankCraterRadius);return existing;}
    if(tankCraters.Count>=TankCraterCapacity)
    {
     TankCrater far=null;float distance=20;
     foreach(var c in tankCraters){float z=-transform.InverseTransformPoint(c.model.position).z;if(z>distance){distance=z;far=c;}}
-    if(far==null){ThrowCraterDebris(at);return null;}ReleaseTankCrater(far);
+    if(far==null){ThrowCraterDebris(at,radius/TankCraterRadius);return null;}ReleaseTankCrater(far);
    }
    var crater=craterPool.Count>0?craterPool.Pop():NewTankCrater();int variant=CratersCreated%3;crater.seed=variant*1.73f+.41f;
    crater.model.GetComponent<MeshFilter>().sharedMesh=craterMeshes[variant];crater.owner=owner;crater.revision=owner.LayoutRevision;crater.age=0;crater.touching=false;
    crater.model.SetParent(owner.transform,false);local.y=0;crater.model.localPosition=local;crater.model.localRotation=Quaternion.identity;crater.model.localScale=new Vector3(.001f,.001f,.001f);crater.model.gameObject.SetActive(true);
-   crater.previousCentre=transform.InverseTransformPoint(crater.model.position);tankCraters.Add(crater);CratersCreated++;ThrowCraterDebris(at);SyncTankCraterMasks();return crater;
+   crater.radius=radius;crater.grenade=grenade;crater.id=++CratersCreated;
+   crater.previousCentre=transform.InverseTransformPoint(crater.model.position);tankCraters.Add(crater);
+   if(grenade)grenadeCraters.Add(crater);
+   ThrowCraterDebris(at,radius/TankCraterRadius);SyncTankCraterMasks();return crater;
   }
   TankCrater NewTankCrater()
   {
@@ -82,16 +99,16 @@ namespace PhoViet
    var r=go.AddComponent<MeshRenderer>();r.sharedMaterial=tankCraterMaterial;r.shadowCastingMode=ShadowCastingMode.On;r.receiveShadows=true;
    return new TankCrater{model=go.transform,renderer=r};
   }
-  void ThrowCraterDebris(Vector3 at)
+  void ThrowCraterDebris(Vector3 at,float scale)
   {
    for(int i=0;i<18;i++)
    {
     float a=i*Mathf.PI*2/18;var v=new Vector3(Mathf.Cos(a)*(3+i%3),4+i%4,Mathf.Sin(a)*(3+i%3));
-    Emit(craterDebris,at+Vector3.up*.07f,v,.22f+(i%4)*.07f,.7f+(i%3)*.18f,Color.white);
+    Emit(craterDebris,at+Vector3.up*.07f,v*scale,(.22f+(i%4)*.07f)*scale,.7f+(i%3)*.18f,Color.white);
    }
   }
   void ReleaseTankCrater(TankCrater c)
-  {tankCraters.Remove(c);c.model.gameObject.SetActive(false);c.model.SetParent(craterPoolRoot,false);c.owner=null;c.touching=false;craterPool.Push(c);}
+  {tankCraters.Remove(c);if(c.grenade)grenadeCraters.Remove(c);c.model.gameObject.SetActive(false);c.model.SetParent(craterPoolRoot,false);c.owner=null;c.touching=false;craterPool.Push(c);}
   void ResetTankCraters()
   {
    for(int i=tankCraters.Count-1;i>=0;i--)ReleaseTankCrater(tankCraters[i]);
@@ -106,7 +123,7 @@ namespace PhoViet
    {
     var c=tankCraters[i];var p=transform.InverseTransformPoint(c.model.position);
     if(c.owner==null||c.owner.LayoutRevision!=c.revision||p.z< -90||p.sqrMagnitude>220*220){ReleaseTankCrater(c);continue;}
-    c.age+=dt;float open=Mathf.SmoothStep(0,1,Mathf.Clamp01(c.age/.18f));c.model.localScale=new Vector3(TankCraterRadius*open,open,TankCraterRadius*open);
+    c.age+=dt;float open=Mathf.SmoothStep(0,1,Mathf.Clamp01(c.age/.18f));c.model.localScale=new Vector3(c.radius*open,open*c.radius/TankCraterRadius,c.radius*open);
     if(c.owner.IsBridge){c.block.SetMatrix("_PVCraterOwnerInverse",c.owner.transform.worldToLocalMatrix);c.block.SetVector("_PVCraterClipBand",new Vector4(RiverBlock.Near,RiverBlock.Far,RiverBlock.DeckHalf,1));}
     else c.block.SetVector("_PVCraterClipBand",Vector4.zero);
     c.renderer.SetPropertyBlock(c.block);
@@ -157,6 +174,7 @@ namespace PhoViet
    var oldYaw=Quaternion.Euler(0,rotation.eulerAngles.y,0);var yaw=Quaternion.Euler(0,rider.localEulerAngles.y,0);
    foreach(var c in tankCraters)
    {
+    if(c.grenade)continue;
     var centre=transform.InverseTransformPoint(c.model.position);bool hit=false;float severity=0;
     if(grounded&&c.model.gameObject.activeInHierarchy)for(int i=0;i<4;i++)
     {

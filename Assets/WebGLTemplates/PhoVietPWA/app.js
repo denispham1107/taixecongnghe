@@ -174,6 +174,25 @@ canvas.addEventListener('contextmenu',e=>e.preventDefault());
 // the required travel. One pointer owns one action, triggered before finger-up.
 let gamePointer=null;
 const gameRoot='PHỐ VIỆT • Chuyến xe không ngừng';
+let footMode=false;
+const footPointers=new Map();
+window.phoVietSetFootMode=enabled=>{
+  if(footMode===enabled)return;
+  footMode=enabled;
+  cancelGamePointer();
+  footPointers.clear();
+};
+function sendFootPointer(p,phase,e){
+  const x=Math.max(0,Math.min(1,(e.clientX-p.rect.x)/p.rect.width));
+  const y=Math.max(0,Math.min(1,(e.clientY-p.rect.y)/p.rect.height));
+  unityInstance?.SendMessage(gameRoot,'ApplyFootPointer',JSON.stringify({phase,id:p.id,x,y}));
+  if(phase===2&&Math.hypot(e.clientX-p.x,e.clientY-p.y)<Math.min(p.rect.width,p.rect.height)*.035)
+    unityInstance?.SendMessage(gameRoot,'ApplyHudTap',JSON.stringify({x,y}));
+}
+function cancelFootPointers(){
+  for(const p of footPointers.values())sendFootPointer(p,3,{clientX:p.x,clientY:p.y});
+  footPointers.clear();
+}
 function sendGesture(p,phase,e,action=0){
   if(!unityInstance)return;
   unityInstance.SendMessage(gameRoot,'ApplyBrowserGesture',JSON.stringify({phase,id:p.id,action,
@@ -194,6 +213,8 @@ function swipeAction(dx,dy,short,scale=1){
   return 0;
 }
 function pointerMoved(e){
+  const foot=footPointers.get(e.pointerId);
+  if(foot){sendFootPointer(foot,1,e);return;}
   const p=gamePointer;
   if(!p||p.id!==e.pointerId||p.consumed)return;
   // A toolbar or render-scale change mid-swipe keeps the gesture; only a rotation ends it.
@@ -205,6 +226,10 @@ function pointerMoved(e){
 canvas.addEventListener('pointerdown',e=>{
   if(e.button!==0||!unityInstance)return;
   const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;
+  if(footMode){
+    const foot={id:e.pointerId,x:e.clientX,y:e.clientY,rect};footPointers.set(foot.id,foot);
+    canvas.setPointerCapture?.(foot.id);sendFootPointer(foot,0,e);return;
+  }
   // Newest finger wins: a thumb resting on a sideways phone must not block the one that swipes.
   if(gamePointer)cancelGamePointer();
   gamePointer={id:e.pointerId,x:e.clientX,y:e.clientY,at:e.timeStamp,rect,consumed:false,touch:e.pointerType!=='mouse'};
@@ -212,6 +237,8 @@ canvas.addEventListener('pointerdown',e=>{
 },{passive:true});
 canvas.addEventListener('pointermove',pointerMoved,{passive:true});
 canvas.addEventListener('pointerup',e=>{
+  const foot=footPointers.get(e.pointerId);
+  if(foot){footPointers.delete(foot.id);sendFootPointer(foot,2,e);return;}
   if(!gamePointer||gamePointer.id!==e.pointerId)return;
   pointerMoved(e);const p=gamePointer;if(!p)return;gamePointer=null;
   const short=Math.min(p.rect.width,p.rect.height);
@@ -228,11 +255,17 @@ canvas.addEventListener('pointerup',e=>{
 },{passive:true});
 // Safari can start scrolling a sideways page and cancel the pointer before the swipe distance is reached.
 canvas.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
-canvas.addEventListener('pointercancel',e=>{if(gamePointer?.id===e.pointerId)cancelGamePointer();},{passive:true});
-canvas.addEventListener('lostpointercapture',e=>{if(gamePointer?.id===e.pointerId)cancelGamePointer();},{passive:true});
-window.addEventListener('orientationchange',cancelGamePointer);
-window.addEventListener('blur',cancelGamePointer);
-document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelGamePointer();});
+function cancelPointer(e){
+  const foot=footPointers.get(e.pointerId);
+  if(foot){footPointers.delete(foot.id);sendFootPointer(foot,3,e);}
+  if(gamePointer?.id===e.pointerId)cancelGamePointer();
+}
+canvas.addEventListener('pointercancel',cancelPointer,{passive:true});
+canvas.addEventListener('lostpointercapture',cancelPointer,{passive:true});
+function cancelAllPointers(){cancelGamePointer();cancelFootPointers();}
+window.addEventListener('orientationchange',cancelAllPointers);
+window.addEventListener('blur',cancelAllPointers);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAllPointers();});
 window.addEventListener('keydown',e=>{
   if(unityInstance && document.activeElement===canvas && ['Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault();
 });

@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.69.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.70.0**.
+
+## Cập nhật 1.70.0
+
+Khi xe đã chạm đất, dùng **E** hoặc **Nhảy ra** để đi bộ. Nhân vật đáp xuống đường cạnh xe, có thể trốn CSGT trong tiệm tạp hóa hoặc lấy ô tô đã dừng từ cửa trái. CSGT đuổi lại sau 3 giây kể từ khi bạn ngồi vào xe mới. **Q** hoặc chạm hai lần quăng lựu đạn khi lái dưới đất, còn khi đang bay thì lộn ngang.
 
 ## Cập nhật 1.69.0
 
