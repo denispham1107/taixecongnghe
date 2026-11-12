@@ -10,20 +10,20 @@ Cập nhật lần cuối: **12/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.69.0** — WebGL `d297222`, Pages `42938120236` thành công đúng SHA, cache `18345e56412a04bc`. Gồm 21.182–21.192 đang dùng và tối ưu bộ nhớ 21.193. **34 kiểm tra live và 5 kiểm tra bay trên mobile giả lập đạt, 0 lỗi runtime.** |
+| Bản đã phát hành | **1.70.0** — WebGL `db23eab`, Pages `43196420184` thành công đúng SHA, cache `59533571e855f2dd`. Gồm 21.194–21.208. Đạt 34 kiểm tra gói/cảnh live và 16 kiểm tra Chrome mobile mô phỏng, 0 lỗi runtime. |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra, plugin cục bộ chưa commit. |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
 | Repo | <https://github.com/denispham1107/taixecongnghe>, nhánh `main` |
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Simulator iPhone | **21.71:** đã thêm **Apple iPhone 14 Pro / 14 Pro Max**, Dynamic Island + Safe Area dọc/ngang; đang chọn Pro Max ngang, Safe Area bật. Asset chỉ trong Editor, chưa commit/push |
-| Chế độ chơi | **21.182–21.184, web 1.69.0:** CSGT đuổi từ đầu bằng ô tô Meshy, miễn pháo/tên lửa/sét và phải né xe khác. Tông xe máy chỉ chệch lái và giảm tốc; tông phương tiện khác té rồi chờ bắt. Trúng đạn pháo/tên lửa địch, khủng long, sét hoặc rơi sông thì người chơi hết lượt. Điểm dừng khi té/bắt. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
-| Rời xe và đi bộ trong Unity | **21.196–21.207 cục bộ.** Nút Nhảy ra hoặc E chỉ mở khi xe chạm đường. Va chạm nặng buộc rời ô tô sau ít nhất 3 giây và khi xe đã chạm đường. Nhân vật đáp bên ngoài thân xe và giữ chân trên đường khi đứng hoặc chạy. CSGT đuổi lại 3 giây sau khi ngồi vào xe lấy được. Đi bộ không cộng mét và rẽ được tại giao lộ. Xe đứng yên chặn đường. Xe thường tông ở tốc độ đến 60 km/h làm té 1,5 giây, trên 60 km/h kết thúc lượt sau khi ngã. Xe tăng đang chạy, đạn pháo và khủng long gây hết lượt. Xe tăng/khủng long tiếp tục xuất hiện ngoài phố. Nhân vật cao khoảng 2,15 m và vung tay phải khi ném. |
-| Camera đi bộ, lấy xe bị nạn và giao thông | **21.199–21.200, 21.205 cục bộ:** camera ngoài phố giống góc lái, trong tiệm thu tỷ lệ hình còn 70% so với bản trước. Có thể lấy ô tô dân sự nằm ổn định sau khi bị xe khác tông. Xe mặt đất dùng lại cách di chuyển trước thử nghiệm né 90%. |
-| Tìm chỗ trốn và ẩn trong tạp hóa | **21.197–21.198, 21.206 cục bộ:** có 10 giây tìm chỗ trốn từ lúc nhảy ra, HUD chỉ hướng và khoảng cách đến cửa tạp hóa gần nhất. Sau 3 giây trong tiệm, CSGT rời đi và xe bỏ lại bị kéo. Ra lại cùng cửa, lấy xe khác và được 3 giây trước khi CSGT đuổi lại. |
+| Chế độ chơi | **Web 1.70.0:** CSGT đuổi từ đầu bằng ô tô Meshy, miễn pháo/tên lửa/sét và phải né xe khác. Tông xe máy chỉ chệch lái và giảm tốc. Va chạm nặng có thể buộc rời ô tô. Trúng đạn pháo/tên lửa địch, khủng long, sét hoặc rơi sông thì người chơi hết lượt. Điểm dừng khi té/bắt. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
+| Rời xe và đi bộ | **21.196–21.208, web 1.70.0.** Nút Nhảy ra hoặc E chỉ mở khi xe chạm đường. Va chạm nặng buộc rời ô tô sau ít nhất 3 giây và khi xe đã chạm đường. Nhân vật đáp bên ngoài thân xe và giữ chân trên đường khi đứng hoặc chạy. CSGT đuổi lại 3 giây sau khi ngồi vào xe lấy được. Đi bộ không cộng mét và rẽ được tại giao lộ. Xe đứng yên chặn đường. Xe thường tông ở tốc độ đến 60 km/h làm té 1,5 giây, trên 60 km/h kết thúc lượt sau khi ngã. Xe tăng đang chạy, đạn pháo và khủng long gây hết lượt. Xe tăng/khủng long tiếp tục xuất hiện ngoài phố. Nhân vật cao khoảng 2,15 m và vung tay phải khi ném. |
+| Camera đi bộ, lấy xe bị nạn và giao thông | **21.199–21.200, 21.205, web 1.70.0:** camera ngoài phố giống góc lái, trong tiệm thu tỷ lệ hình còn 70% so với bản trước. Có thể lấy ô tô dân sự nằm ổn định sau khi bị xe khác tông. Xe mặt đất dùng lại cách di chuyển trước thử nghiệm né 90%. |
+| Tìm chỗ trốn và ẩn trong tạp hóa | **21.197–21.198, 21.206, web 1.70.0:** có 10 giây tìm chỗ trốn từ lúc nhảy ra, HUD chỉ hướng và khoảng cách đến cửa tạp hóa gần nhất. Sau 3 giây trong tiệm, CSGT rời đi và xe bỏ lại bị kéo. Ra lại cùng cửa, lấy xe khác và được 3 giây trước khi CSGT đuổi lại. |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
-| Người chơi trong source/scene | **Blue Petshop Supercar** xanh, thu nhỏ 15%. Từ **21.195 cục bộ**, Q/chạm hai lần quăng hai lựu đạn phía sau, hồi 2 giây hoặc lộn khi giữ bay. Web 1.69.0 còn dùng móc xích. Space/vuốt lên nhảy, W/F/vuốt xuống bắn tên lửa. Boost tạm khóa. |
-| Trần tốc độ trong source | **21.195, cục bộ:** 110 km/h cho mọi phương tiện, gồm CSGT và máy bay. Giới hạn tính trên chuyển động ngang trong thế giới game. |
+| Người chơi | **Blue Petshop Supercar** xanh, thu nhỏ 15%. **21.195, web 1.70.0:** Q/chạm hai lần quăng hai lựu đạn phía sau, hồi 2 giây hoặc lộn khi giữ bay. Space/vuốt lên nhảy, W/F/vuốt xuống bắn tên lửa. Boost tạm khóa. |
+| Trần tốc độ | **21.195, web 1.70.0:** 110 km/h cho mọi phương tiện, gồm CSGT và máy bay. Giới hạn tính trên chuyển động ngang trong thế giới game. |
 | Bay cao và máy bay hai tầng cánh | **21.177, đã có trên WebGL 1.67.0:** giữ Bay lên tối đa 2,2× (9,96 m), tiêu hao 10–40 mỗi 0,5 s. Crimson Skywing sinh 2/4/6 chiếc theo độ cao, dùng tên lửa như trực thăng. |
 | Bay và nhảy | **21.169, web 1.65.0:** nút Bay và nhảy rồi giữ cùng đỉnh **4,52832 m** từ mặt đỡ. Đỉnh nhảy tăng 10%, cố định theo tốc độ. Lệnh giữ lúc đang rơi sẽ nâng lên đỉnh. |
 | NPC xe máy trong source21.67 | **Urban Rider mới:31actor(17traffic+14parked)+56baked nhánh**, rig19xương/3LOD42k/18,5k/6,7k, cổ+tay+thân đồngbộ; **đã có trên web1.41.0**. PlayerSupercar/CSGT giữ nguyên |
@@ -40,8 +40,8 @@ Cập nhật lần cuối: **12/11/2026 — Codex**
 | Tên lửa địch và âm lượng tổng | **21.180, web 1.68.0:** tên lửa xe tăng/trực thăng/Skywing 36 m/s, thẻ kết thúc ghi đúng nguồn. Master +30% ở 21.132 vẫn có trên web. |
 | Vệt lửa/khói tên lửa trong source | **21.129 đã có trên web1.55.0:** plume vàng-cam theo đường bay/6,5m/0,14s/32điểm, khói32hạt/0,6s rõ hơn; chung52player+heli/pause-scroll-rebase-pool.722Unity đạt/5ảnh đã xem; UnityEdit/scene sạch |
 | Tên lửa người chơi | **21.179, web 1.68.0:** hồi 0,25 giây. Kho 5/5, nhặt +1; bắn thẳng khi thiếu mục tiêu. Dưới đất và khi bay giữ các loại mục tiêu theo 21.169/21.173/21.177. |
-| Va chạm phương tiện trong source | **21.203 cục bộ.** Hai ô tô cùng đang chạy dưới 51 km/h chỉ chệch nhẹ và giảm tốc, có hiệu ứng tức thời. Đầu kéo container 12,8 m giữ phản ứng nhẹ khi đụng xe thường. Va ô tô–xe máy vẫn theo 21.201. **Web 1.69.0** vẫn theo 21.192 (xe người chơi tông xe máy có móp). |
-| Độ cao xác xe trong source | **21.204 cục bộ.** Điểm tựa theo lưới giữ xe trên đường/mặt cầu lúc lật, sau khi người chơi bước ra và ở màn kết thúc. Xe rơi qua mép cầu vẫn chìm. |
+| Va chạm phương tiện | **21.201/21.203, web 1.70.0.** Hai ô tô cùng đang chạy dưới 51 km/h chỉ chệch nhẹ và giảm tốc, có hiệu ứng tức thời. Đầu kéo container 12,8 m giữ phản ứng nhẹ khi đụng xe thường. Khi ô tô va xe máy, ô tô chệch nhẹ và giảm tốc, xe máy bị văng và bốc cháy. |
+| Độ cao xác xe | **21.204, web 1.70.0.** Điểm tựa theo lưới giữ xe trên đường/mặt cầu lúc lật, sau khi người chơi bước ra và ở màn kết thúc. Xe rơi qua mép cầu vẫn chìm. |
 | Trực thăng | **21.180, web 1.68.0:** bay 18,4 m/s ngay khi xuất hiện. Theo 21.174, có 1/2/3 chiếc ở mốc 0/200/400 m cộng mỗi lần rẽ xong 1 chiếc. Nhịp tên lửa giảm 0,1 giây/lượt rẽ, sàn 0,25 giây. |
 | Khủng long | **21.173, web 1.66.0:** thanh máu 3 nấc trên đầu. Tên lửa bắn từ mặt đất có thể hạ khủng long. Mỗi phát trúng thêm một điểm lửa/khói. Phát thứ ba làm khủng long ngã; xác cháy và vẫn gây va chạm. |
 | Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Đã có trên web 1.61.0. |
@@ -61,31 +61,33 @@ Cập nhật lần cuối: **12/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.207, cục bộ.** Nhân vật đáp xuống đường cạnh xác xe kể cả khi điểm đáp ban đầu bị chắn ở khung cuối. Sửa độ cao bị giữ khi đi bộ. Unity đạt 725 kiểm tra và lặp bài rời xe ở Game View dọc. Đã về Edit Mode. Chưa build WebGL.
+- **21.208 đã phát hành WebGL 1.70.0:** commit `db23eab`, Pages `43196420184`, cache `59533571e855f2dd`. Gộp 21.194–21.207 và sửa lấy mẫu hoạt ảnh chạy trên WebGL. Build hai biến thể, Unity rời xe đạt lại 89 kiểm tra, Chrome cục bộ 27 kiểm tra, không có lỗi runtime. Chi tiết `huongdan.md` mục 21.208.
 
-- **21.206, cục bộ.** CSGT đuổi lại sau 3 giây kể từ khi ngồi vào xe lấy được. Chặn rời xe khi cất cánh, đang bay, đang hạ hoặc trên nóc xe. Unity đạt 705 kiểm tra, hai bài chính chạy ở cả dọc và ngang. Đã về Edit Mode. Chưa build WebGL.
+- **21.207, web 1.70.0.** Nhân vật đáp xuống đường cạnh xác xe kể cả khi điểm đáp ban đầu bị chắn ở khung cuối. Sửa độ cao bị giữ khi đi bộ. Unity đạt 725 kiểm tra và lặp bài rời xe ở Game View dọc. Đã về Edit Mode.
 
-- **21.205, cục bộ.** Thu góc tiệm 30%, sửa mặt icon tên lửa khi đi bộ, tiếp tục lịch xe tăng/khủng long ngoài phố. Trúng pháo hoặc bị xe tông trên 60 km/h kết thúc lượt. Unity đạt 683 kiểm tra và lặp 139 ca chính trên cả hai khổ. Đã xem ảnh tiệm dọc/ngang và về Edit Mode. Chưa build WebGL.
+- **21.206, web 1.70.0.** CSGT đuổi lại sau 3 giây kể từ khi ngồi vào xe lấy được. Chặn rời xe khi cất cánh, đang bay, đang hạ hoặc trên nóc xe. Unity đạt 705 kiểm tra, hai bài chính chạy ở cả dọc và ngang. Đã về Edit Mode.
 
-- **21.204, cục bộ.** Sửa xe đua lún sau khi rời xe. Kiểm tra cả xe lấy được, xe giao thông, CSGT, xe tăng, trực thăng và Skywing. 99 kiểm tra độ cao lưới và 516 kiểm tra hồi quy đạt. Đã xem ảnh Unity sau khi rời xe. Chưa build WebGL.
+- **21.205, web 1.70.0.** Thu góc tiệm 30%, sửa mặt icon tên lửa khi đi bộ, tiếp tục lịch xe tăng/khủng long ngoài phố. Trúng pháo hoặc bị xe tông trên 60 km/h kết thúc lượt. Unity đạt 683 kiểm tra và lặp 139 ca chính trên cả hai khổ. Đã xem ảnh tiệm dọc/ngang và về Edit Mode.
 
-- **21.203, cục bộ.** Va chạm nhẹ cho hai ô tô dưới 51 km/h và cho đầu kéo container khi gặp xe thường. Nhân vật đi bộ vung tay phải khi ném, té hoặc văng theo tốc độ xe tông. Unity biên dịch sạch, đạt 516 kiểm tra Play Mode, đã xem 4 khung hình và về Edit Mode. Chưa build WebGL.
+- **21.204, web 1.70.0.** Sửa xe đua lún sau khi rời xe. Kiểm tra cả xe lấy được, xe giao thông, CSGT, xe tăng, trực thăng và Skywing. 99 kiểm tra độ cao lưới và 516 kiểm tra hồi quy đạt. Đã xem ảnh Unity sau khi rời xe.
 
-- **21.202, cục bộ** — xe đứng yên và xe máy đậu vỉa hè chặn người đi bộ. Xe đang chạy vẫn có thể hất ngã. Nhân vật áo đỏ cao ngang đầu người lái xe trắng và chuyển sang tư thế đứng khi dừng. Unity đạt 499 kiểm tra Play Mode. Chưa build WebGL.
+- **21.203, web 1.70.0.** Va chạm nhẹ cho hai ô tô dưới 51 km/h và cho đầu kéo container khi gặp xe thường. Nhân vật đi bộ vung tay phải khi ném, té hoặc văng theo tốc độ xe tông. Unity biên dịch sạch, đạt 516 kiểm tra Play Mode, đã xem 4 khung hình và về Edit Mode.
 
-- **21.201, cục bộ:** ô tô va xe máy chỉ chệch hướng/giảm tốc, người đi bộ rẽ được hai phía, camera không nhảy khi cuộn phố. Va xe thường té 1,5 giây; xe tăng/khủng long kết thúc ngay. Unity đạt 485 kiểm tra Play Mode và đã về Edit Mode. Chưa build WebGL.
+- **21.202, web 1.70.0** — xe đứng yên và xe máy đậu vỉa hè chặn người đi bộ. Xe đang chạy vẫn có thể hất ngã. Nhân vật áo đỏ cao ngang đầu người lái xe trắng và chuyển sang tư thế đứng khi dừng. Unity đạt 499 kiểm tra Play Mode.
 
-- **21.200, cục bộ:** bỏ thử nghiệm tự né 90%, khôi phục chuyển động trước 21.199. Camera và lấy xe bị nạn vẫn dùng bản 21.199. 332 kiểm tra Unity đạt. Chưa build WebGL.
+- **21.201, web 1.70.0:** ô tô va xe máy chỉ chệch hướng/giảm tốc, người đi bộ rẽ được hai phía, camera không nhảy khi cuộn phố. Va xe thường té 1,5 giây; xe tăng/khủng long kết thúc ngay. Unity đạt 485 kiểm tra Play Mode và đã về Edit Mode.
 
-- **21.199, cục bộ:** camera đi bộ/tiệm rộng hơn, mở cửa trái lấy ô tô bị nạn mà không cần lựu đạn, xe dự báo để phanh hoặc đổi làn né nhau. 259 kiểm tra mới và 445 hồi quy đạt. Đã xem 4 ảnh Unity dọc/ngang. Ba probe cũ còn lệch giả định, xem 21.199. Chưa build WebGL.
+- **21.200, web 1.70.0:** bỏ thử nghiệm tự né 90%, khôi phục chuyển động trước 21.199. Camera và lấy xe bị nạn vẫn dùng bản 21.199. 332 kiểm tra Unity đạt.
 
-- **21.198, cục bộ:** 10 giây tính từ lúc nhảy khỏi xe để tìm cửa tạp hóa, CSGT chỉ bắt được sau mốc này. HUD chỉ hướng/khoảng cách và cửa có biển xanh. Ẩn trong tiệm vẫn 3 giây. 445 kiểm tra Play Mode đạt, đã xem Game View dọc/ngang. Chưa build WebGL.
+- **21.199, web 1.70.0:** camera đi bộ/tiệm rộng hơn, mở cửa trái lấy ô tô bị nạn mà không cần lựu đạn, xe dự báo để phanh hoặc đổi làn né nhau. 259 kiểm tra mới và 445 hồi quy đạt. Đã xem 4 ảnh Unity dọc/ngang. Ba probe cũ còn lệch giả định, xem 21.199.
 
-- **21.197, cục bộ:** thêm cửa tạp hóa, nội thất Blender 3D, HUD ẩn náu 3 giây, kéo xe và truy đuổi lại sau khi lấy xe khác. 31 kiểm tra mới + 401 hồi quy đạt. Đã xem Game View dọc/ngang, Unity về Edit Mode. Chưa build WebGL.
-- **21.196, cục bộ:** sửa CSGT dừng ngoài tầm bắt và thêm chế độ rời xe, đi bộ, chặn/lấy xe. Golden Star Stance dùng rig/clip Meshy gốc. Đạt 47 kiểm tra mới và 435 hồi quy Unity. Chưa build WebGL.
-- **21.195, cục bộ:** trần 110 km/h, Q/chạm hai lần quăng lựu đạn hai bên về sau. Hố 1,15 m làm xe giao thông và CSGT giảm tốc/chệch lái trong 1,2 giây. Đạt 82 kiểm tra mới, 271 hồi quy CSGT, 81 hồi quy hố pháo và đã xem hai ảnh Unity. Chưa build WebGL.
+- **21.198, web 1.70.0:** 10 giây tính từ lúc nhảy khỏi xe để tìm cửa tạp hóa, CSGT chỉ bắt được sau mốc này. HUD chỉ hướng/khoảng cách và cửa có biển xanh. Ẩn trong tiệm vẫn 3 giây. 445 kiểm tra Play Mode đạt, đã xem Game View dọc/ngang.
 
-- **21.194, cục bộ:** xe CSGT bám mặt đường khi đuổi theo người chơi đang bay, qua giao lộ và lúc hồi phục sau va chạm. Cảnh phòng giam phủ toàn canvas, giữ nút trong vùng an toàn. Unity đạt 271 kiểm tra và đã xem 3 ảnh dọc/ngang/desktop. Web vẫn 1.69.0.
+- **21.197, web 1.70.0:** thêm cửa tạp hóa, nội thất Blender 3D, HUD ẩn náu 3 giây, kéo xe và truy đuổi lại sau khi lấy xe khác. 31 kiểm tra mới + 401 hồi quy đạt. Đã xem Game View dọc/ngang, Unity về Edit Mode.
+- **21.196, web 1.70.0:** sửa CSGT dừng ngoài tầm bắt và thêm chế độ rời xe, đi bộ, chặn/lấy xe. Golden Star Stance dùng rig/clip Meshy gốc. Đạt 47 kiểm tra mới và 435 hồi quy Unity.
+- **21.195, web 1.70.0:** trần 110 km/h, Q/chạm hai lần quăng lựu đạn hai bên về sau. Hố 1,15 m làm xe giao thông và CSGT giảm tốc/chệch lái trong 1,2 giây. Đạt 82 kiểm tra mới, 271 hồi quy CSGT, 81 hồi quy hố pháo và đã xem hai ảnh Unity.
+
+- **21.194, web 1.70.0:** xe CSGT bám mặt đường khi đuổi theo người chơi đang bay, qua giao lộ và lúc hồi phục sau va chạm. Cảnh phòng giam phủ toàn canvas, giữ nút trong vùng an toàn. Unity đạt 271 kiểm tra và đã xem 3 ảnh dọc/ngang/desktop.
 
 - **21.193 đã phát hành WebGL 1.69.0:** commit `d297222`, Pages `42938120236`, cache `18345e56412a04bc`. 603 kiểm tra bố cục, 24 Chrome cục bộ, 73 hồi quy va chạm và 42 Git index đạt. 34 kiểm tra live và 5 kiểm tra bay trên mobile giả lập đạt, 0 lỗi runtime. Đã sửa OOM bằng nén lưới/lá ban công ven sông và cùng ngân sách texture phụ 1K cho DXT/ETC2. Màu/bề mặt xe người chơi 2K và chữ bảng hiệu giữ nguyên. Chưa thử thiết bị thật.
 
@@ -349,7 +351,6 @@ Cập nhật lần cuối: **12/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.208 chuẩn bị đưa lên Pages.** WebGL 1.70.0 build đủ ETC2/EAC và DXT, cache `59533571e855f2dd`. Clip chạy đã chuyển sang Legacy, xác nhận qua 89 kiểm tra rời xe Unity và 27 kiểm tra Chrome desktop/mobile mô phỏng, 0 lỗi runtime. Git index đã qua 42 kiểm tra. Web công khai còn 1.69.0 trước khi xác nhận triển khai.
 
 
 
@@ -569,7 +570,7 @@ Cập nhật lần cuối: **12/11/2026 — Codex**
 | Bay cao, giữ nút Bay và máy bay Crimson Skywing | **21.177** | `PhoVietSkywing.cs`, `SkywingVisual.cs`, `PhoVietFlightButton.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`, `PhoVietHelicopter*.cs`, template WebGL `app.js`, `Resources/Skywing`, `AgentScripts/VerifySkywing21177.cs` |
 | Đỉnh nhảy và giữ bay / bắn xe tăng từ trên không | **21.169**, lịch sử 21.143/21.145 | `PhoVietJump.cs`, `PhoVietEnergy.cs` → FlightHeightAboveSupport/RequestEnergyHover, `PhoVietFlightButton.cs`, `PhoVietPlayerMissiles.cs`, `PhoVietPlayerTankMissiles.cs` |
 | Năng lượng / icon C / giữ cao độ / lộn360 | **21.148,21.121–21.123** | `Scripts/PhoVietEnergy.cs`, `PhoVietJump.cs`, `PlayerCarVisual.cs`, `PhoVietActions.cs`, `PhoVietRiver.cs`, `PhoVietDistanceHud.cs`; `Resources/Energy/`, `Art/Energy/`, `EnergyPickup.shader`; `AgentScripts/VerifyEnergyWeb.cjs`, `VerifyRelease154Scene.cs`, `AgentScripts/VerifyEnergy2122.cs`, `VerifyEnergyRoutes2122.cs`, `InstallEnergy2122.cs`, `CaptureEnergy2122.cs`; `ArtSource/Concepts/Energy-20261103/approval.json` |
-| WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.193**, 21.106,15.2–15.4,21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyRelease159Scene.cs`, `VerifyStormWeb.cjs`, `ConfigureWebRelease.cs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `VerifyWebMemory.cjs`, `VerifyWebCache.cjs`, `VerifyStagedWeb.py`, `.github/workflows/pages.yml` |
+| WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.208**, 21.193, 21.106, 15.2–15.4, 21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyPublishedGame.cjs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs`, `.github/workflows/pages.yml` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.
 
