@@ -1,0 +1,127 @@
+{
+  "url": "https://denispham1107.github.io/taixecongnghe/",
+  "live": {
+    "version": "1.71.0",
+    "cache": "1ebf80ce165465c3",
+    "unity": "6000.5.6f1",
+    "utc": "2026-11-12T18:58:37.6719663Z"
+  },
+  "matches": [
+    {
+      "name": "build-info.json",
+      "sha256": "e451f74d926ea74b8f7dbbafbc84431b90aa9d621153e3678e683dbb420d49a9"
+    },
+    {
+      "name": "precache.json",
+      "sha256": "622ec20e85d2266444995e88ebc06bb977f945a976a2ccd82a8a765a7c5ec2cd"
+    },
+    {
+      "name": "Build/0154bfc38dc428dd38c360d4de2da42c.framework.js.unityweb",
+      "sha256": "9167306182ecea34fa53d6788ff25f3c08a87b4fcddc184fc8f293cc3c5cb749"
+    },
+    {
+      "name": "Build/52fd5cc46484d38a6e747cea344796fa.data.unityweb",
+      "sha256": "7790bb722041c99fc47ddaf91dc78f7d49adad6cda91d3e3b146698216f418c4"
+    },
+    {
+      "name": "Build/5df63cc8dd3705ca54958ea8d7db9854.wasm.unityweb",
+      "sha256": "1c001c5e3f9e98f71bdc2c111cd1111986aa96be7ece3490e11b78cdbaa60a5e"
+    },
+    {
+      "name": "Build/b8d74a9eb622446a8df06aa0d17cecef.data.unityweb",
+      "sha256": "6e1816ef709b9aab9efa4111f7c56e241bf25890f45c5fd36f730c543976756e"
+    },
+    {
+      "name": "Build/e0ea2443f7b0ac818d1826900b5838b9.loader.js",
+      "sha256": "2f3de997c16c38bc3e5cc0dbb71dc8944382b7a0618bec56490a9c930fc87141"
+    },
+    {
+      "name": "FONT-LICENSE.txt",
+      "sha256": "6b7f8f73609a25ea78c891e34cf37b06f8a676b7ea986e941e43b009110f2a85"
+    },
+    {
+      "name": "app.js",
+      "sha256": "cda31590be1387285b9d3d44aaae022246226cfb8137566319238b232caa015e"
+    },
+    {
+      "name": "font.ttf",
+      "sha256": "bd8e27eb02720b9d91e59e4f10a90878643219f25ce6a8d9a4f06a8a88d3bb71"
+    },
+    {
+      "name": "icons/apple-touch-icon-moto.png",
+      "sha256": "498f8cfb5fb3aa12a1699b11a939d4ccce6bc4962d3a2379c71a6ed08ffee628"
+    },
+    {
+      "name": "icons/apple-touch-icon-pho-len-den.png",
+      "sha256": "af47b017837ae2496a7a0cfd94e5e7f01f047435268def7534cccbcd3c59441c"
+    },
+    {
+      "name": "icons/apple-touch-icon.png",
+      "sha256": "af47b017837ae2496a7a0cfd94e5e7f01f047435268def7534cccbcd3c59441c"
+    },
+    {
+      "name": "icons/icon-192.png",
+      "sha256": "b8e9740e137e25cff4aa657d3472b811d3ff1233e52620206bb34fd1297a402d"
+    },
+    {
+      "name": "icons/icon-512.png",
+      "sha256": "18bb58c35a2cb417362f3a36a94990f0bd5250769e6799a6ce196babcbc05137"
+    },
+    {
+      "name": "icons/icon-maskable-512.png",
+      "sha256": "18bb58c35a2cb417362f3a36a94990f0bd5250769e6799a6ce196babcbc05137"
+    },
+    {
+      "name": "icons/icon-moto-192.png",
+      "sha256": "16137e3f355fc3b8f4de8be77d5828509275cbe41dc00e5c044e35b63ca1b5bb"
+    },
+    {
+      "name": "icons/icon-moto-512.png",
+      "sha256": "c74da7278ed1939364fb5e1da8e3332bad1e0bcb0d47e4599ce9a1b8f408bb49"
+    },
+    {
+      "name": "icons/icon-moto-maskable-512.png",
+      "sha256": "c74da7278ed1939364fb5e1da8e3332bad1e0bcb0d47e4599ce9a1b8f408bb49"
+    },
+    {
+      "name": "icons/icon-pho-len-den-192.png",
+      "sha256": "b8e9740e137e25cff4aa657d3472b811d3ff1233e52620206bb34fd1297a402d"
+    },
+    {
+      "name": "icons/icon-pho-len-den-512.png",
+      "sha256": "18bb58c35a2cb417362f3a36a94990f0bd5250769e6799a6ce196babcbc05137"
+    },
+    {
+      "name": "icons/icon-pho-len-den-maskable-512.png",
+      "sha256": "18bb58c35a2cb417362f3a36a94990f0bd5250769e6799a6ce196babcbc05137"
+    },
+    {
+      "name": "icons/icon.svg",
+      "sha256": "825c0ee2fe887182988eac4da582e4b0a39ca127ab24b8965cb25d4449742899"
+    },
+    {
+      "name": "index.html",
+      "sha256": "eba68fc82c1062eb68e77d26711769f8582e9ecafd75c35f2add6e36cebf66f9"
+    },
+    {
+      "name": "manifest.webmanifest",
+      "sha256": "5e528022fcf0ab2814c28c3a1d46431380f953849dd0f254e49a5d499cc0e639"
+    },
+    {
+      "name": "poster-home-encounter.jpg",
+      "sha256": "f4b6af294d09da059b161d1c3644619479475f33fe5022de8abef8898d6338f0"
+    },
+    {
+      "name": "poster-home-jump.jpg",
+      "sha256": "791a26ace8858346a8c3932731fbb953b425df5206a0dc3b9adbb250de9f05aa"
+    },
+    {
+      "name": "poster-home-missile.jpg",
+      "sha256": "eed9cfce9b885b5cfbc838d5c2fd9a8a89c16bd3b615fc985cc4ba1919650307"
+    },
+    {
+      "name": "style.css",
+      "sha256": "cbc759a97380b98df311cc495164bd79d2ce9971410849e25e6436fc402dfebd"
+    }
+  ]
+}

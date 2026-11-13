@@ -1,0 +1,46 @@
+{
+  "checks": [
+    "Artifact reports 1.71.0 and a versioned cache",
+    "mobile web guide lists the grenade action",
+    "mobile is controlled by the published service worker",
+    "mobile renders the game scene",
+    "mobile loads the matching ETC2 or DXT data",
+    "First portrait load corrects the reported 44px short canvas",
+    "Immersive document background is dark",
+    "mobile uses the expected Very High pixel ratio",
+    "mobile level 3 keeps framebuffer dimensions",
+    "mobile level 1 keeps framebuffer dimensions",
+    "mobile level 2 keeps framebuffer dimensions",
+    "Two real mobile taps reach the Unity browser gesture bridge",
+    "mobile click and hold use a single release each",
+    "mobile passes hold duration and distinguishes release from cancellation",
+    "mobile enters walking mode from a real grounded input",
+    "Walking touch sends begin, move and end through the WebGL bridge",
+    "No browser or Unity runtime errors"
+  ],
+  "errors": [],
+  "samples": [
+    {
+      "profile": "mobile",
+      "level": 3,
+      "ratio": 2,
+      "width": 780,
+      "height": 1548
+    },
+    {
+      "profile": "mobile",
+      "level": 1,
+      "ratio": 2,
+      "width": 780,
+      "height": 1548
+    },
+    {
+      "profile": "mobile",
+      "level": 2,
+      "ratio": 2,
+      "width": 780,
+      "height": 1548
+    }
+  ],
+  "success": true
+}

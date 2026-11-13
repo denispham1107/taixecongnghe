@@ -10,7 +10,7 @@ Cập nhật lần cuối: **13/11/2026 — Codex**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.70.0** — WebGL `db23eab`, Pages `43196420184` thành công đúng SHA, cache `59533571e855f2dd`. Gồm 21.194–21.208. Đạt 34 kiểm tra gói/cảnh live và 16 kiểm tra Chrome mobile mô phỏng, 0 lỗi runtime. |
+| Bản đã phát hành | **1.71.0** — WebGL `e218796`, Pages `43373400486` thành công đúng SHA, cache `1ebf80ce165465c3`. Gồm 21.209–21.214. Đã đối chiếu 29 tệp live, mở và chơi offline trên Chrome desktop, kiểm mobile mô phỏng. |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra, plugin cục bộ chưa commit. |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -18,7 +18,7 @@ Cập nhật lần cuối: **13/11/2026 — Codex**
 | Unity | 6000.5.6f1, Built-in RP, Legacy Input, IMGUI (`OnGUI`); scene `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Simulator iPhone | **21.71:** đã thêm **Apple iPhone 14 Pro / 14 Pro Max**, Dynamic Island + Safe Area dọc/ngang; đang chọn Pro Max ngang, Safe Area bật. Asset chỉ trong Editor, chưa commit/push |
 | Chế độ chơi | **Web 1.70.0:** CSGT đuổi từ đầu bằng ô tô Meshy, miễn pháo/tên lửa/sét và phải né xe khác. Tông xe máy chỉ chệch lái và giảm tốc. Va chạm nặng có thể buộc rời ô tô. Trúng đạn pháo/tên lửa địch, khủng long, sét hoặc rơi sông thì người chơi hết lượt. Điểm dừng khi té/bắt. **Công việc/khách/GPS/Coin HUD đang khóa** (`RideJobsReleased=false`, scene `jobsEnabled=false`) |
-| Rời xe và đi bộ | **21.196–21.208, web 1.70.0.** Nút Nhảy ra hoặc E chỉ mở khi xe chạm đường. Va chạm nặng buộc rời ô tô sau ít nhất 3 giây và khi xe đã chạm đường. Nhân vật đáp bên ngoài thân xe và giữ chân trên đường khi đứng hoặc chạy. CSGT đuổi lại 3 giây sau khi ngồi vào xe lấy được. Đi bộ không cộng mét và rẽ được tại giao lộ. Xe đứng yên chặn đường. Xe thường tông ở tốc độ đến 60 km/h làm té 1,5 giây, trên 60 km/h kết thúc lượt sau khi ngã. Xe tăng đang chạy, đạn pháo và khủng long gây hết lượt. Xe tăng/khủng long tiếp tục xuất hiện ngoài phố. Nhân vật cao khoảng 2,15 m và vung tay phải khi ném. |
+| Rời xe và đi bộ | **21.196–21.213, web 1.71.0.** Nút Nhảy ra hoặc E chỉ mở khi xe chạm đường. Xe bắt lửa sau tông cho thoát khẩn trước khi nổ ở giây thứ 2. Cú tông nặng không cháy vẫn dùng mốc rời xe 3 giây. Đi bộ không cộng mét, rẽ được tại giao lộ. Joystick lớn hơn 20%, ném lựu đạn hồi 0,5 giây. Xe dân sự có thể chạy lên từ sau mỗi 3 giây khi còn chỗ. Xe đứng yên chặn đường. Xe thường tông ở tốc độ đến 60 km/h làm té 1,5 giây, trên 60 km/h kết thúc lượt sau khi ngã. Xe tăng, đạn pháo và khủng long vẫn xuất hiện và có thể kết thúc lượt. |
 | Camera đi bộ, lấy xe bị nạn và giao thông | **21.199–21.200, 21.205, web 1.70.0:** camera ngoài phố giống góc lái, trong tiệm thu tỷ lệ hình còn 70% so với bản trước. Có thể lấy ô tô dân sự nằm ổn định sau khi bị xe khác tông. Xe mặt đất dùng lại cách di chuyển trước thử nghiệm né 90%. |
 | Tìm chỗ trốn và ẩn trong tạp hóa | **21.197–21.198, 21.206, web 1.70.0:** có 10 giây tìm chỗ trốn từ lúc nhảy ra, HUD chỉ hướng và khoảng cách đến cửa tạp hóa gần nhất. Sau 3 giây trong tiệm, CSGT rời đi và xe bỏ lại bị kéo. Ra lại cùng cửa, lấy xe khác và được 3 giây trước khi CSGT đuổi lại. |
 | Tài liệu bàn giao | `BANGIAO.md`/`AGENTS.md`/`CLAUDE.md` đã commit riêng lên `main` (21.56) |
@@ -42,13 +42,13 @@ Cập nhật lần cuối: **13/11/2026 — Codex**
 | Tên lửa người chơi | **21.179, web 1.68.0:** hồi 0,25 giây. Kho 5/5, nhặt +1; bắn thẳng khi thiếu mục tiêu. Dưới đất và khi bay giữ các loại mục tiêu theo 21.169/21.173/21.177. |
 | Va chạm phương tiện | **21.201/21.203, web 1.70.0.** Hai ô tô cùng đang chạy dưới 51 km/h chỉ chệch nhẹ và giảm tốc, có hiệu ứng tức thời. Đầu kéo container 12,8 m giữ phản ứng nhẹ khi đụng xe thường. Khi ô tô va xe máy, ô tô chệch nhẹ và giảm tốc, xe máy bị văng và bốc cháy. |
 | Độ cao xác xe | **21.204, web 1.70.0.** Điểm tựa theo lưới giữ xe trên đường/mặt cầu lúc lật, sau khi người chơi bước ra và ở màn kết thúc. Xe rơi qua mép cầu vẫn chìm. |
-| Trực thăng | **21.180, web 1.68.0:** bay 18,4 m/s ngay khi xuất hiện. Theo 21.174, có 1/2/3 chiếc ở mốc 0/200/400 m cộng mỗi lần rẽ xong 1 chiếc. Nhịp tên lửa giảm 0,1 giây/lượt rẽ, sàn 0,25 giây. |
+| Trực thăng | **21.214, web 1.71.0:** mỗi lượt rẽ cộng 1 chiếc bám cách thân khủng long 2 m về sau. Đội khai hỏa khi xe nhảy qua vùng đầu. Đội cơ bản theo mốc 0/200/400 m và bay 18,4 m/s. Nhịp tên lửa giảm 0,1 giây/lượt rẽ, sàn 0,25 giây. |
 | Khủng long | **21.173, web 1.66.0:** thanh máu 3 nấc trên đầu. Tên lửa bắn từ mặt đất có thể hạ khủng long. Mỗi phát trúng thêm một điểm lửa/khói. Phát thứ ba làm khủng long ngã; xác cháy và vẫn gây va chạm. |
 | Bộ icon HUD trong source | **21.154:** B Arcade đã duyệt. Bỏ hai cánh nhô ở Bay/Hạ, áp dụng cả bốn nút. Số đạn động, bố cục và vùng chạm giữ theo 21.152. Đã có trên web 1.61.0. |
 | Ga và Phanh trong source | **21.152:** Ga trên, Phanh dưới ở góc phải, bấm một lần giữ chế độ. Phanh giảm đến 0 và giữ xe, Ga tăng dần trở lại. Xe khác có tốc độ riêng. Bay và Phóng tên lửa lớn thêm 15% ở màn hình ngang. Đã có trên web 1.61.0. |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
 | Năng lượng / bay / lộn | **21.148 có trên web 1.60.0:** bắt đầu và tối đa 180. Biểu tượng xanh dưới đất hồi 15, biểu tượng cam trên không hồi 20. Nhảy tốn 5, bay tốn 10 mỗi 0,5 giây. |
-| Nhà phố và nhà ven sông | **21.190, web 1.69.0:** cả hai bờ có ban công sắt, cùng mẫu chậu cây đất nung và hoa giấy rủ của phố mẫu A. Biển thuê sát mép trên tầng. Dùng khối nhà và vùng va chạm 21.186, khôi phục ở 21.188. |
+| Nhà phố và nhà ven sông | **21.209–21.211, web 1.71.0:** cửa chớp, lan can sắt, mái ngói từng tầng và sân thượng chi tiết hơn. Mặt tiền ven sông xen trắng kem và màu khác. Mỗi cầu thêm 4 tàu đánh cá chạy dọc hai bờ. |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
 | Chất liệu tường trong source | **21.98:** người dùng chọn vân rõ hơn21.97; relief0,42/scale0,65/contrast0,28/smoothness0,015, giữ màu/kính/kim loại/sông. UV mask25FBX/144mesh, texture1K nén/mipmap, không thêm renderer. Chi tiết21.97–21.98; đã có trên web1.50.0 |
@@ -61,12 +61,13 @@ Cập nhật lần cuối: **13/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.214, cục bộ.** Sau rẽ, mỗi trực thăng cộng theo số lượt rẽ vào đội hình cách 2 m sau khủng long. Đội bắn ngay khi xe nhảy qua vùng đầu khủng long, kể cả khi đang vào cua. Unity biên dịch sạch, đạt 341 kiểm tra Play Mode và đã về Edit Mode. Web vẫn 1.70.0.
-- **21.213, cục bộ.** Xe bắt lửa do va chạm cháy lan rồi nổ văng mảnh sau 2 giây, gồm xe người chơi và máy bay. Nhân vật tự rời xe đang cháy trước vụ nổ và vẫn có thể trốn tiệm hoặc lấy xe khác. Unity đạt 420 điều kiện Play Mode, đã xem hai ảnh và về Edit Mode. Web vẫn 1.70.0.
-- **21.212, cục bộ.** Xe dân sự bổ sung phía sau người đi bộ cách nhau khoảng 3 giây khi làn trống. Chiếc đầu xuất hiện ngay khi nhân vật đáp đất hoặc ra khỏi tiệm nếu có chỗ. Unity đã kiểm mốc thời gian và về Edit Mode. Web vẫn 1.70.0.
-- **21.211, cục bộ.** 66 cột mặt tiền ven sông xen trắng kem với xanh lam, cam đào, xanh bạc hà và vàng nhạt. Mỗi cầu thêm bốn tàu chạy dọc hai bờ. Khi đi bộ ngoài phố và lúc ra khỏi tiệm, ô tô dân sự chạy lên từ phía sau. Ném lựu đạn khi đi bộ hồi 0,5 giây. Unity đạt 542 kiểm tra chính và 236 hồi quy, đã về Edit Mode. Web vẫn 1.70.0.
-- **21.210, cục bộ.** Blender MCP dựng mái ngói cho tầng trệt và từng tầng trên của nhà phố, kể cả hai mặt nhà ven sông. Mái chính hai dốc và sân thượng có thêm ngói xếp lớp, phòng thang, bồn nước và chi tiết sân. Đã nhập 26 FBX, đối chiếu 3.588 vị trí qua ba LOD, kiểm 147 mesh và xem ảnh Unity ở hai khu. Play Mode đạt 110 kiểm tra hồi quy. Web vẫn 1.70.0.
-- **21.209, cục bộ.** Joystick đi bộ tăng đường kính 20%, vùng chạm tăng theo và cân lề với nút bên phải. Dùng Blender MCP dựng cửa chớp, lan can sắt hoa văn và mái ngói ban công cho nhà phố và hai mặt nhà ven sông. Unity nhận 26 FBX/147 mesh LOD, giữ GUID và FileID. Play Mode đạt 110 kiểm tra và đã xem ảnh hai khu. Chưa build hoặc phát hành web.
+- **21.215 đã phát hành WebGL 1.71.0.** Commit `e218796`, Pages `43373400486`, cache `1ebf80ce165465c3`. Hai gói desktop/mobile đã được kiểm, 29 tệp live khớp SHA. Chrome desktop mở được offline sau khi cache sẵn sàng, mobile mô phỏng đạt 17 kiểm tra. Chưa thử điện thoại thật.
+- **21.214, web 1.71.0.** Sau rẽ, mỗi trực thăng cộng theo số lượt rẽ vào đội hình cách 2 m sau khủng long. Đội bắn ngay khi xe nhảy qua vùng đầu khủng long, kể cả khi đang vào cua. Unity đạt 341 kiểm tra Play Mode.
+- **21.213, web 1.71.0.** Xe bắt lửa do va chạm cháy lan rồi nổ văng mảnh sau 2 giây, gồm xe người chơi và máy bay. Nhân vật tự rời xe đang cháy trước vụ nổ và vẫn có thể trốn tiệm hoặc lấy xe khác. Unity đạt 420 điều kiện Play Mode.
+- **21.212, web 1.71.0.** Xe dân sự bổ sung phía sau người đi bộ cách nhau khoảng 3 giây khi làn trống. Chiếc đầu xuất hiện ngay khi nhân vật đáp đất hoặc ra khỏi tiệm nếu có chỗ.
+- **21.211, web 1.71.0.** 66 cột mặt tiền ven sông xen trắng kem với xanh lam, cam đào, xanh bạc hà và vàng nhạt. Mỗi cầu thêm bốn tàu chạy dọc hai bờ. Ném lựu đạn khi đi bộ hồi 0,5 giây. Unity đạt 542 kiểm tra chính và 236 hồi quy.
+- **21.210, web 1.71.0.** Mái ngói từng tầng, mái chính hai dốc và sân thượng chi tiết cho cả nhà phố và ven sông. Đã nhập 26 FBX và kiểm 3.588 vị trí mái, 147 mesh LOD và 110 điều kiện hồi quy.
+- **21.209, web 1.71.0.** Joystick đi bộ tăng đường kính 20%, vùng chạm tăng theo. Cửa chớp, lan can sắt và mái ngói ban công mới. Unity nhận 26 FBX/147 mesh LOD, giữ GUID và FileID.
 
 - **21.208 đã phát hành WebGL 1.70.0:** commit `db23eab`, Pages `43196420184`, cache `59533571e855f2dd`. Gộp 21.194–21.207 và sửa lấy mẫu hoạt ảnh chạy trên WebGL. Build hai biến thể, Unity rời xe đạt lại 89 kiểm tra, Chrome cục bộ 27 kiểm tra, không có lỗi runtime. Chi tiết `huongdan.md` mục 21.208.
 
@@ -357,8 +358,6 @@ Cập nhật lần cuối: **13/11/2026 — Codex**
 6. **1.36.0:** xe tăng Meshy “Iron Sentinel” (21.33–21.34). **1.35.0:** đổi làn kiểu đánh lái, nhà kính, zoom dọc +10% (21.28–21.32). **1.34.0:** phố Sài Gòn (21.19–21.27).
 
 ## 3. Đang dở / cần người dùng quyết
-
-- **21.215 chuẩn bị đẩy Pages.** WebGL 1.71.0 đã build và qua kiểm tra gói, scene và Chrome desktop/mobile cục bộ. Cache `1ebf80ce165465c3`. Unity ở Edit Mode, máy chủ thử đã dừng. Bước tiếp theo là kiểm Git index, đẩy lên `main` và xác minh bản live. Báo cáo `.tools/release171/`.
 
 
 
