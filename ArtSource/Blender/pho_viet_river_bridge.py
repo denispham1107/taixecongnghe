@@ -21,6 +21,7 @@ from mathutils import Vector
 ROOT = 'C:/Users/HP/Documents/GameUnity/Taixecongnghe'
 exec(compile(open(ROOT+'/ArtSource/Blender/pho_viet_saigon_streets.py', encoding='utf8').read(), 'pho_viet_saigon_streets.py', 'exec'))
 exec(compile(open(ROOT+'/ArtSource/Blender/pho_viet_petshop_layout.py', encoding='utf8').read(), 'pho_viet_petshop_layout.py', 'exec'))
+exec(compile(open(ROOT+'/ArtSource/Blender/pho_viet_riverside_sidewalk.py', encoding='utf8').read(), 'pho_viet_riverside_sidewalk.py', 'exec'))
 OUT = ROOT+'/Assets/PhoViet/Art/River'
 SOURCE = ROOT+'/ArtSource/Blender/PhoViet_RiverBridge.blend'
 SCENE = 'PV_RiverBridge'
@@ -298,6 +299,44 @@ LIT_INTERIORS = ['interiorWall', 'interior', 'cream', 'woodLight', 'peach', 'tri
 HOUSE_BOARDS = SHOP_BOARDS  # Non-blue, spatially cycled below; RNG draw retained.
 HOUSE_LABELS = ['TẠP HÓA', 'NHÀ THUỐC', 'CƠM BÌNH DÂN', 'SỬA ĐIỆN', 'TIỆM VÀNG', 'BÚN RIÊU', 'IN ẤN', 'NHÀ MAY', 'CÀ PHÊ', 'HỚT TÓC', 'ĐIỆN THOẠI', 'BÁNH CUỐN',
                 'NƯỚC MÍA', 'TRÀ SỮA', 'MINI MART', 'KHÓA - CHÌA', 'VĂN PHÒNG PHẨM', 'XÔI', 'SPA', 'ỐC', 'NGÂN HÀNG', 'BẤT ĐỘNG SẢN']
+HOUSE_TAGLINES = {
+    'TẠP HÓA': 'BÁCH HÓA TỔNG HỢP', 'NHÀ THUỐC': 'THUỐC TÂY - DƯỢC PHẨM',
+    'CƠM BÌNH DÂN': 'CƠM NHÀ - MÓN MỖI NGÀY', 'SỬA ĐIỆN': 'ĐỒ ĐIỆN GIA DỤNG',
+    'TIỆM VÀNG': 'VÀNG BẠC - TRANG SỨC', 'BÚN RIÊU': 'RIÊU CUA - ĐẬU HŨ',
+    'IN ẤN': 'IN MÀU - PHOTOCOPY', 'NHÀ MAY': 'MAY ĐO - SỬA QUẦN ÁO',
+    'CÀ PHÊ': 'CÀ PHÊ PHIN - BẠC XỈU', 'HỚT TÓC': 'CẮT TÓC - CẠO RÂU',
+    'ĐIỆN THOẠI': 'ĐIỆN THOẠI - PHỤ KIỆN', 'BÁNH CUỐN': 'BÁNH CUỐN NÓNG',
+    'NƯỚC MÍA': 'MÍA TƯƠI ÉP TẠI CHỖ', 'TRÀ SỮA': 'TRÀ SỮA - TRÀ TRÁI CÂY',
+    'MINI MART': 'THỰC PHẨM - ĐỒ GIA DỤNG', 'KHÓA - CHÌA': 'SỬA KHÓA - CẮT CHÌA',
+    'VĂN PHÒNG PHẨM': 'SÁCH - VỞ - BÚT', 'XÔI': 'XÔI MẶN - XÔI NGỌT',
+    'SPA': 'CHĂM SÓC DA - THƯ GIÃN', 'ỐC': 'ỐC TƯƠI - MÓN XÀO',
+    'NGÂN HÀNG': 'GIAO DỊCH - ATM', 'BẤT ĐỘNG SẢN': 'MUA BÁN - CHO THUÊ',
+    'Cù Lao Petshop': 'Lưu Trú - Spa Pet',
+}
+
+
+def river_shop_sign(g, center, width, base, wall, facing, label, board, ink, depth):
+    """Street-style plaque fitted between the awning and first floor."""
+    trim = ink if board == 'white' else 'white'
+    y = base+3.23
+    g.cube((center, y, wall+facing*depth*.50), (width, 1.00, depth), trim)
+    g.cube((center, y, wall+facing*(depth+.009)), (width-.15, .85, .019), board)
+    g.cube((center, y+.48, wall+facing*(depth*.50+.013)), (width+.035, .048, depth+.052), 'darkFrame')
+    z = wall+facing*(depth+.024)
+    marked = label in ('TẠP HÓA', 'NHÀ THUỐC')
+    title_x = center+(-facing*.18 if marked else 0)
+    text_width = width-(.94 if marked else .37)
+    show_subtitle = g.d < 2 or label == 'Cù Lao Petshop'
+    g.text(label, (title_x, y+(.075 if show_subtitle else 0), z), .62, ink, text_width, bold=.035, facing=facing)
+    if show_subtitle:
+        g.text(HOUSE_TAGLINES[label], (title_x, y-.295, z), .19, ink, text_width, bold=.025, facing=facing)
+    icon_x = center+facing*(width*.5-.31)
+    if label == 'TẠP HÓA':
+        g.star((icon_x, y+.055, z), .165, 'yellow' if board != 'yellow' else 'redDark', facing=facing)
+    elif label == 'NHÀ THUỐC':
+        color = 'green' if board == 'white' else ink
+        g.cube((icon_x, y+.055, z), (.27, .083, .014), color)
+        g.cube((icon_x, y+.055, z), (.083, .27, .016), color)
 
 # Petshop signs21.72: a shared stable ordering lets the Unity installer balance
 # the floor/ceil variants across its 35 pooled blocks to exactly 30 percent.
@@ -351,17 +390,11 @@ def shop_unit(g, x0, x1, base, out, f, rng):
             g.quad([(cx-gw/2+.1, base+2.27, out(.02)), (cx+gw/2-.1, base+2.27, out(.02)), (cx+gw/2-.1, base+2.48, out(.02)), (cx-gw/2+.1, base+2.48, out(.02))], 'lamp', (0, 0, f))
     elif d == 0:
         for k in range(9): g.cube((cx, base+.3+k*.26, out(.02)), (gw, .03, .02), 'ironGrey')
-    g.cube((cx, base+3.15, out(.12)), (w-.4, .72, .16), board)
-    # Keep the name in every authored LOD; otherwise distant shops have blank boards.
-    g.text(label, (cx, base+(3.27 if branded else 3.15), out(.21)), .34, ink, w-.9, bold=.02, facing=f)
-    if branded:g.text('Lưu Trú - Spa Pet',(cx,base+2.97,out(.21)),.14,'white',w-.9,bold=.02,facing=f)
-    # The glazed river elevation is what the bridge camera sees. Repeat the
-    # same business above its ground-floor glass, within the 0.30m bank margin.
+    river_shop_sign(g, cx, w-.34, base, out(0), f, label, board, ink, depth=.215)
+    # The bridge camera sees the same sign over the river elevation.
     river_face = out(0)-f*HOUSE_DEPTH
-    g.cube((cx, base+3.15, river_face-f*.09), (w-.4, .72, .06), board)
-    g.text(label, (cx, base+(3.27 if branded else 3.15), river_face-f*.14), .34, ink, w-.9, bold=.02, facing=-f)
+    river_shop_sign(g, cx, w-.34, base, river_face, -f, label, board, ink, depth=.138)
     if branded:
-        g.text('Lưu Trú - Spa Pet',(cx,base+2.97,river_face-f*.14),.14,'white',w-.9,bold=.02,facing=-f)
         river_petshop_animals(g,x0,x1,base,out(0),f)
     # Khung cửa sẫm nhìn từ phía sông.
     for jamb in (-gw*.5, -gw*.16, gw*.16, gw*.5):
@@ -373,8 +406,6 @@ def shop_unit(g, x0, x1, base, out, f, rng):
     # Cùng dáng mái hiên phố, thu tầm vươn phía sông theo lối đi hẹp dưới mái.
     striped_awning(g, cx, w-.38, stripes, (base+2.74, river_face-f*.08), (base+2.43, river_face-f*.94),
                    -f, awning_colors, supports=d < 2)
-    tile_canopy(g, cx, w-.36, base+3.64, out(-.01), .63, f, drop=.12, compact=True)
-    tile_canopy(g, cx, w-.36, base+3.64, river_face+f*.01, .54, -f, drop=.12, compact=True)
 
 def river_balcony(g, x, y, z, width, facing, reach, variant, vine_length):
     edge = z+facing*reach
@@ -537,6 +568,9 @@ def apartment_block(g, x0, x1, zf, f, rng, obstacles):
     # ---- mái: sân thượng vườn, lan can kính, phòng kỹ thuật
     g.cube((cx, h+.1, (zf+zb)/2), (w, .2, HOUSE_DEPTH), shell)
     river_tube_frontage(g, x0, zf, f, base, floors, units, uw, {s['floor'] for s in g.rental_signs})
+    for sign in g.shop_signs:
+        river_shop_sidewalk(g, sign)
+        river_shop_apron(g, sign)
 
 def riverside_specs():
     """Danh sách khối căn hộ hai bờ: (x0, x1, zf, hướng, hạt giống). Dãy chạy hai bên đường chính (|x| 11,4 → 95),

@@ -1,4 +1,5 @@
 using UnityEngine;
+using static PhoViet.StreetArt;
 
 namespace PhoViet
 {
@@ -7,10 +8,49 @@ namespace PhoViet
         Vector4 browserInsets;
         bool hasBrowserInsets;
         float browserPixelRatio=1;
+        bool orientationPaused,browserPortraitBlocked;
+        float beforeOrientationTimeScale;
+        bool beforeOrientationAudioPause;
+        bool PortraitGameBlocked=>Screen.width<Screen.height||browserPortraitBlocked;
+
+        [UnityEngine.Scripting.Preserve]
+        public void ApplyBrowserOrientation(string blocked)
+        {
+            browserPortraitBlocked=blocked=="1";
+            UpdateOrientationGate();
+        }
+
+        bool UpdateOrientationGate()
+        {
+            bool blocked=PortraitGameBlocked;
+            if(blocked==orientationPaused)return blocked;
+            if(!blocked){ReleaseOrientationGate();return false;}
+            CancelFootPointer();CancelSwipe();hudTouchChoice=-1;lastTapTime=-100;
+            beforeOrientationTimeScale=Time.timeScale;beforeOrientationAudioPause=AudioListener.pause;
+            Time.timeScale=0;AudioListener.pause=true;orientationPaused=true;
+            return true;
+        }
+
+        void ReleaseOrientationGate()
+        {
+            if(!orientationPaused)return;
+            orientationPaused=false;
+            Time.timeScale=beforeOrientationTimeScale;AudioListener.pause=beforeOrientationAudioPause;
+        }
+
+        void DrawOrientationGate()
+        {
+            FullscreenTint(Ink);
+            float w=Mathf.Min(412,uiW-32),x=(uiW-w)*.5f,y=(uiH-180)*.5f;
+            Panel(new Rect(x,y,w,180),WelcomeGlass,14);
+            Txt("Xoay ngang để chơi",x+14,y+44,w-28,40,27,Ink,TextAnchor.MiddleCenter);
+            Txt("Giữ thiết bị theo chiều ngang để vào phố.",x+14,y+94,w-28,32,13,Ink,TextAnchor.MiddleCenter);
+        }
         [System.Serializable] class BrowserTap {public float x,y;}
         [UnityEngine.Scripting.Preserve]
         public void ApplyHudTap(string json)
         {
+            if(PortraitGameBlocked)return;
             var tap=JsonUtility.FromJson<BrowserTap>(json);
             if(tap==null||float.IsNaN(tap.x)||float.IsNaN(tap.y)||tap.x<0||tap.x>1||tap.y<0||tap.y>1)return;
             if(State==RideState.Ready){WelcomeTap(new Vector2(tap.x*Screen.width,(1-tap.y)*Screen.height));return;}

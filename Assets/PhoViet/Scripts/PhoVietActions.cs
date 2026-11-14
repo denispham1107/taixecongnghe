@@ -99,7 +99,7 @@ namespace PhoViet
             if(v.tankDestroyed)return; // A burnt tank stays still, including the GameOver aftermath.
             if(v.physicalCrash){TickCollisionBody(v,dt);return;}
             v.knockAge+=dt;v.knockVelocity.y-=18*dt;
-            Vector3 p=v.model.localPosition+(v.knockVelocity-Vector3.forward*Speed)*dt;
+            Vector3 p=v.model.localPosition+(v.knockVelocity-Vector3.forward*RoadScrollSpeed)*dt;
             if(p.y<0){p.y=0;v.knockVelocity.y=0;v.knockVelocity.x=Mathf.MoveTowards(v.knockVelocity.x,0,dt*5);}
             v.model.localPosition=p;
             bool car=v.halfWidth>.7f;float fall=Mathf.Clamp01(v.knockAge/.42f);
@@ -114,11 +114,18 @@ namespace PhoViet
         {
             ResolveVehicleCollisions();
         }
+        void StartOpeningChase()
+        {
+            if(!PolicePursuitReleased)return;
+            policeOpeningRemaining=PoliceOpeningDelay;
+            policeOpeningSpeedLimit=0;
+            StartChase();
+        }
         void StartChase()
         {
             if(!PolicePursuitReleased||IsChased||policeTakeoverRemaining>0)return;
             if(PoliceInRiver)ResetPoliceDriving();
-            IsChased=true;PoliceDistance=38;PoliceSpeed=Mathf.Min(VehicleSpeedLimit,(TrafficPaceSpeed+15)*OpeningTrafficPace);policeArrived=false;chaseBoost=0;
+            IsChased=true;PoliceDistance=38;PoliceSpeed=LimitPoliceOpeningSpeed((TrafficPaceSpeed+15)*OpeningTrafficPace);policeArrived=false;chaseBoost=0;
             if(policeBike!=null)
             {
                 policeBike.gameObject.SetActive(true);
@@ -126,8 +133,8 @@ namespace PhoViet
                 if(OverRiver(start))start.x=Mathf.Clamp(start.x,LaneX[1],LaneX[2]);
                 policeBike.localPosition=start;
             }
-            if(IsTurning&&policeBike!=null){routePolice=true;policeRouteAt=TravelDistance-PoliceDistance;policeBike.localPosition=SampleRoute(policeRouteAt).point;}
-            if(sound)siren?.Play();
+            if(IsTurning&&policeBike!=null){routePolice=true;policeRouteAt=ChaseTrailDistance-PoliceDistance;policeBike.localPosition=SampleRoute(policeRouteAt).point;}
+            if(sound&&!PoliceWaitingToStart)siren?.Play();
         }
         void ScheduleChaseAfterTakeover()
         {
@@ -139,6 +146,7 @@ namespace PhoViet
         void StopPursuitForFatalImpact()
         {
             IsChased=false;CrashDuringPursuit=false;routePolice=false;chaseBoost=0;exitAfterCollision=false;
+            ResetPoliceOpening();
             policeTakeoverRemaining=0;
             ResetCrashPoliceNavigation();siren?.Stop();
         }
@@ -159,6 +167,18 @@ namespace PhoViet
                 if(policeReplacementDelay<=0)StartChase();
             }
             if(!IsChased)return;
+            if(PoliceWaitingToStart)
+            {
+                if(policeBike!=null)PoliceDistance=Vector2.Distance(Flat(policeBike.localPosition),Flat(PoliceTargetPosition));
+                policeOpeningRemaining=Mathf.Max(0,policeOpeningRemaining-dt);
+                if(policeOpeningRemaining<=.00001f)
+                {
+                    policeOpeningRemaining=0;
+                    if(sound)siren?.Play();
+                }
+                return;
+            }
+            policeOpeningSpeedLimit=Mathf.MoveTowards(policeOpeningSpeedLimit,VehicleSpeedLimit,PoliceOpeningAcceleration*dt);
             if(policeBody!=null&&!OfficerOnFoot&&TickFootGrenadeStop(policeBody,policeBike.localPosition,dt))
             {PoliceSpeed=0;PoliceDistance=Vector2.Distance(Flat(policeBike.localPosition),Flat(PoliceTargetPosition));return;}
             if(RiderCrashActive||State==RideState.OnFoot)TickCrashPolice(dt);else if(routePolice)TickRoutePolice(dt);else TickPoliceDriving(dt);
@@ -168,7 +188,7 @@ namespace PhoViet
         }
         public void Arrest()
         {
-            if((State!=RideState.Riding&&State!=RideState.Falling&&State!=RideState.OnFoot)||!IsChased)return;
+            if((State!=RideState.Riding&&State!=RideState.Falling&&State!=RideState.OnFoot)||!IsChased||PoliceWaitingToStart)return;
             // A nearby officer waits for the physical fall to finish; no jail
             // transition can cut off the throw/landing animation.
             if(State==RideState.Falling&&(!RiderFallComplete||exitAfterCollision))return;
@@ -211,7 +231,8 @@ namespace PhoViet
             float w=portrait?216:255,x=(uiW-w)/2,y=portrait?PortraitNoticeY+PortraitNoticeHeight+4:130;
             Panel(new Rect(x,y,w,30),new Color(.07f,.19f,.21f,.82f),7);
             string label=OfficerOnFoot?"CSGT ĐUỔI BỘ":"CSGT ĐANG ĐUỔI";
-            string status=PoliceFallen&&!OfficerOnFoot?"CSGT ĐANG CHẬM LẠI":label+"  ·  "+Mathf.Max(0,PoliceDistance).ToString("0.0")+" m";
+            string status=PoliceWaitingToStart?"CSGT XUẤT PHÁT SAU "+Mathf.CeilToInt(policeOpeningRemaining)+" GIÂY":
+                PoliceFallen&&!OfficerOnFoot?"CSGT ĐANG CHẬM LẠI":label+"  ·  "+Mathf.Max(0,PoliceDistance).ToString("0.0")+" m";
             Txt(status,x+8,y+1,w-16,21,portrait?11:12,Cream,TextAnchor.MiddleCenter);
             Panel(new Rect(x+12,y+24,w-24,3),Hex("466363"),2);
             Panel(new Rect(x+12,y+24,(w-24)*Mathf.Clamp01(1-PoliceDistance/38),3),Red,2);

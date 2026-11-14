@@ -874,7 +874,6 @@ def shop(i, detail):
     for x in (-HX+.01, HX-.01): g.cube((x, 1.7, WALL+DEPTH/2), (.02, 3.4, DEPTH), fac)
     g.cube((0, 3.42, WALL+.05), (WIDTH, .55, .1), fac)
     storefront(g, spec, obstacles); awning(g, spec, obstacles); sign(g, spec, obstacles)
-    tile_canopy(g, 0, 7.60, 3.33, WALL-.04, .66, -1, drop=.095, compact=True)
     # Glazed green plinth on the street piers. Store entrances remain open.
     for x in (-3.95, 3.95):
         g.cube((x, .56, WALL-.18), (.46, 1.04, .044), 'green')

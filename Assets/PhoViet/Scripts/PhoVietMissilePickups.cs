@@ -55,7 +55,7 @@ namespace PhoViet
      if(e.collected[i]||PlayerMissiles>=MaximumPlayerMissiles)continue;
      var icon=e.icons[i];
      Vector3 at=transform.InverseTransformPoint(icon.position),center=Vector3.up*(PlayerHeight*.5f);
-     Vector3 from=inverse*(previousRider+center-at-Vector3.forward*(Speed*dt)),to=inverse*(rider.localPosition+center-at);
+     Vector3 from=inverse*(previousRider+center-at-Vector3.forward*(RoadScrollSpeed*dt)),to=inverse*(rider.localPosition+center-at);
      if(!EnergySweptContact(from,to,half))continue;
      e.collected[i]=true;icon.gameObject.SetActive(false);PlayerMissiles=Mathf.Min(MaximumPlayerMissiles,PlayerMissiles+1);MissilePickupsCollected++;
      notice="NHẶT TÊN LỬA +1 · "+PlayerMissiles+"/"+MaximumPlayerMissiles;noticeTimer=1.2f;

@@ -16,3 +16,10 @@ dialog{position:fixed;margin:auto;top:calc(var(--safe-top) + 12px);bottom:calc(v
 @media(prefers-reduced-motion:no-preference){button{transition:background-color .16s,box-shadow .16s}button:active{filter:brightness(.9)}}
 /* Keep the supplied photo intact, with the main action at the top on desktop. */
 .street-gallery{display:grid;grid-template-columns:minmax(0,1fr);gap:20px;min-width:0;align-self:start}.landing-main{align-items:start}@media(max-width:700px){.street-gallery{gap:18px}}
+#rotate-game{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:max(20px,var(--safe-top)) max(20px,var(--safe-right)) max(20px,var(--safe-bottom)) max(20px,var(--safe-left));background:#102438;color:#f5fbff;overflow:auto}
+#rotate-game[hidden]{display:none}
+.rotate-card{width:min(100%,340px);padding:24px;text-align:center;border:1px solid #55748d;border-radius:20px;background:#17324a}
+.rotate-card svg{color:#76d8ff}
+.rotate-card h2{margin:12px 0 8px;font-size:22px}
+.rotate-card p{margin:0 0 22px;color:#d2e4f1;font-size:13px;line-height:1.65}
+.rotate-card button{min-height:44px;padding:8px 20px;background:#eff7ff;color:#17324a}

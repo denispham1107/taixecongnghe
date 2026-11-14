@@ -162,7 +162,7 @@ namespace PhoViet
    Vector3 at=transform.InverseTransformPoint(world);
    // Tiles/branches scrolled by the same delta. Test relative swept motion,
    // including fast W travel and the car's width during a junction curve.
-   Vector3 from=inverse*(previousRider+Vector3.up*(PlayerHeight*.5f)-at-Vector3.forward*(Speed*dt));
+   Vector3 from=inverse*(previousRider+Vector3.up*(PlayerHeight*.5f)-at-Vector3.forward*(RoadScrollSpeed*dt));
    Vector3 to=inverse*(rider.localPosition+Vector3.up*(PlayerHeight*.5f)-at);
    return EnergySweptContact(from,to,half);
   }

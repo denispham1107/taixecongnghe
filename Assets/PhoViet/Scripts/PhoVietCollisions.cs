@@ -51,7 +51,7 @@ namespace PhoViet
                 if((jumpHeight>.05f||jumpPreviousHeight>.05f)&&JumpClearsVehicle(v,at))continue;
                 earliest=at;hit=v;hitNormal=normal;hitIndex=i;
             }
-            if(ResolveSceneryImpact(riderBody.previousPosition,riderBefore,earliest)){riderVelocityValid=false;return false;}
+            if(ResolveSceneryImpact(riderBody.previousPosition,riderBefore,earliest)){riderVelocityValid=false;return State==RideState.Riding;}
             if(hit!=null)
             {
                 if(TryResolvePlayerRam(hit,hitNormal,earliest)){riderVelocityValid=false;return true;}
@@ -346,7 +346,7 @@ namespace PhoViet
         void TickCollisionBody(TrafficVehicle v,float dt)
         {
             v.knockAge+=dt;v.knockVelocity.y-=9.81f*dt;
-            Vector3 p=v.model.localPosition+(v.knockVelocity-Vector3.forward*Speed)*dt;
+            Vector3 p=v.model.localPosition+(v.knockVelocity-Vector3.forward*RoadScrollSpeed)*dt;
             bool grounded=p.y<=0;
             if(grounded)
             {

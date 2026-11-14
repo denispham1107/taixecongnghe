@@ -42,10 +42,27 @@ namespace PhoViet
     else if(!Input.GetMouseButton(0))CancelFlightButtonPress();
     return;
    }
-   var t=Input.GetTouch(0);
+   for(int i=0;i<Input.touchCount;i++)
+   {
+    var touch=Input.GetTouch(i);
+    if(touch.fingerId==footPointer||touch.phase==TouchPhase.Began&&JoystickAt(touch.position))
+    {
+     int phase=touch.phase==TouchPhase.Began?0:touch.phase==TouchPhase.Ended?2:touch.phase==TouchPhase.Canceled?3:1;
+     UpdateFootPointer(touch.fingerId,phase,touch.position);
+     hudTouchSuppressUntil=Time.unscaledTime+.6f;
+     continue;
+    }
+    ReadActionTouch(touch);
+   }
+#endif
+  }
+#if !UNITY_WEBGL || UNITY_EDITOR
+  void ReadActionTouch(Touch t)
+  {
    if(t.phase==TouchPhase.Began)
    {
-    CancelFlightButtonPress();hudTouchChoice=HudButtonAt(t.position);hudTouchStart=t.position;hudTouchFinger=t.fingerId;
+    if(hudTouchChoice>=0)return;
+    hudTouchChoice=HudButtonAt(t.position);hudTouchStart=t.position;hudTouchFinger=t.fingerId;
     if(hudTouchChoice==3)BeginFlightButtonPress(t.position);
    }
    if(t.fingerId!=hudTouchFinger)return;
@@ -58,8 +75,8 @@ namespace PhoViet
     else if(choice>=0&&tap)HandleHudChoice(choice);
    }
    if(t.phase==TouchPhase.Canceled){hudTouchChoice=-1;CancelFlightButtonPress();}
-#endif
   }
+#endif
   bool HudButton(string value,Rect rect,Color bg,Color fg,int size)
   {
    bool clicked=Btn(value,rect,bg,fg,size);
@@ -142,7 +159,7 @@ namespace PhoViet
   }
   bool GameplayPointerAllowed(Vector2 position)
   {
-   if(PlayerMissileButtonAt(position)||FlightButtonAt(position)||DrivePedalAt(position)>=0)return false;
+   if(JoystickAt(position)||PlayerMissileButtonAt(position)||FlightButtonAt(position)||DrivePedalAt(position)>=0||FootControlAt(position)>=0)return false;
    var area=GameGuiArea();bool narrow=Screen.width<Screen.height;
    float scale=narrow?area.width/480f:Mathf.Min(area.width/1440f,area.height/900f);
    float top=Screen.height-position.y;

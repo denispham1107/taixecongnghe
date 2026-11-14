@@ -9,12 +9,13 @@ namespace PhoViet
    return PlayerMissileButtonLayout(GameGuiArea(),Screen.width<Screen.height,browserPixelRatio);
   }
   public static Rect PlayerMissileButtonLayout(Rect area,bool narrow,float pixelRatio=1)
+   =>DriveActionLayout(area,narrow,2,pixelRatio);
+
+  static Rect ControlButtonBase(Rect area,bool narrow,float pixelRatio)
   {
    float scale=narrow?area.width/480f:LandscapeHudScale(area);
-   // Keep a real56CSS-pixel touch target on short landscape phones, including
-   // dense WebGL buffers; this does not change the game's render resolution.
-   // Góc dưới bên trái theo yêu cầu người dùng (21.134), không còn ở bên phải.
-   float size=Mathf.Max(76*scale,56*pixelRatio)*(narrow?1:1.15f);
+   // Keep the touch target large without crowding the top HUD on short screens.
+   float size=Mathf.Min(Mathf.Max(76*scale,56*pixelRatio)*(narrow?1:1.15f),area.height*.21f);
    return new Rect(area.x+18*scale,area.yMax-size-24*scale,size,size);
   }
   bool PlayerMissileButtonAt(Vector2 position)

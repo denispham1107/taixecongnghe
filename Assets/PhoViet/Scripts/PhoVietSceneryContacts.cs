@@ -3,9 +3,12 @@ namespace PhoViet
 {
  public partial class PhoVietGame
  {
+  const float CurbRolloverSpeed=65f/3.6f,StreetCurbFace=6.99f,StreetCurbHeight=.35f;
+  const string CurbImpact="Bó vỉa";
+  float curbFeedbackUntil;
   StreetObstacleSet[] streetObstacles;
   public string LastSceneryImpact {get;private set;}="";
-  void CacheStreetObstacles(){streetObstacles=scenery!=null?scenery.GetComponentsInChildren<StreetObstacleSet>(true):new StreetObstacleSet[0];LastSceneryImpact="";}
+  void CacheStreetObstacles(){streetObstacles=scenery!=null?scenery.GetComponentsInChildren<StreetObstacleSet>(true):new StreetObstacleSet[0];LastSceneryImpact="";curbFeedbackUntil=0;}
   bool SceneryContact(Vector3 from,Vector3 to,out Vector2 normal,out float at,out string kind)
   {
    if(!IsPlayerCar)return SceneryContactAtRotation(from,to,rider.localRotation,out normal,out at,out kind);
@@ -25,6 +28,13 @@ namespace PhoViet
   bool SceneryContactAtRotation(Vector3 from,Vector3 to,Quaternion rotation,out Vector2 normal,out float at,out string kind)
   {
    normal=Vector2.zero;at=2;kind="";
+   if(IsPlayerCar&&State==RideState.Riding&&!IsTurning&&RoutesReady&&
+      Mathf.Min(from.y,to.y)<StreetCurbHeight&&
+      Mathf.Max(Mathf.Abs(from.x),Mathf.Abs(to.x))+PlayerHalfLength>=StreetCurbFace)
+   {
+    CheckRowCurb(roadRows[mainRow],from,to,rotation,ref normal,ref at);
+    if(at<=1)kind=CurbImpact;
+   }
    if(streetObstacles==null)CacheStreetObstacles();
    EnsureObstacleBatches();
    foreach(var batch in obstacleBatches)
@@ -65,11 +75,67 @@ namespace PhoViet
    }
    return at<=1;
   }
+  void CheckRowCurb(RoadRow row,Vector3 from,Vector3 to,Quaternion rotation,ref Vector2 normal,ref float at)
+  {
+   // The main street tiles are already aligned with the gameplay frame.
+   Vector3 forward=rotation*Vector3.forward,right=rotation*Vector3.right;
+   float reach=Mathf.Abs(forward.x)*PlayerHalfLength+Mathf.Abs(right.x)*PlayerHalfWidth;
+   float front=Mathf.Abs(forward.z)*PlayerHalfLength+Mathf.Abs(right.z)*PlayerHalfWidth;
+   float delta=to.x-from.x;
+   if(Mathf.Abs(delta)<.00001f)return;
+   float side=Mathf.Sign(delta),face=StreetCurbFace-reach;
+   if(side*to.x<face)return;
+   float contact=Mathf.Max(0,(face-side*from.x)/Mathf.Abs(delta));
+   if(contact>=at||contact>1||Mathf.Lerp(from.y,to.y,contact)>=StreetCurbHeight)return;
+   float z=Mathf.Lerp(from.z,to.z,contact);
+   foreach(var tile in row.tiles)
+   {
+    float localZ=z-tile.localPosition.z;
+    if(localZ+front<0||localZ-front>63)continue;
+    var river=RiverOf(tile);
+    if(river!=null&&river.IsBridge&&localZ>RiverBlock.Near&&localZ<RiverBlock.Far)continue;
+    at=contact;normal=new Vector2(side,0);return;
+   }
+  }
   bool ResolveSceneryImpact(Vector3 from,Vector3 velocity,float beforeTrafficAt)
   {
    if(!SceneryContact(from,rider.localPosition,out var normal,out float at,out string kind)||at>=beforeTrafficAt)return false;
    rider.localPosition=Vector3.Lerp(from,rider.localPosition,at)-new Vector3(normal.x,0,normal.y)*.035f;
-   LastSceneryImpact=kind;BeginRiderImpact(null,normal,rider.localPosition+new Vector3(normal.x,0,normal.y)*.5f,velocity);return true;
+   LastSceneryImpact=kind;
+   if(kind==CurbImpact)
+   {
+    Vector2 horizontal=Flat(velocity);
+    float speed=Mathf.Max(horizontal.magnitude,driveSpeedBeforeRoadBoundary);
+    Vector3 outward=new Vector3(normal.x,0,normal.y);
+    if(timeRiding>=curbFeedbackUntil)
+    {
+     EmitVehicleImpact(rider.localPosition+outward*PlayerHalfWidth+Vector3.up*.2f,outward,speed);
+     if(sound&&fx!=null)fx.PlayOneShot(crashClip,.4f);
+     curbFeedbackUntil=timeRiding+.24f;
+    }
+    if(speed<CurbRolloverSpeed)
+    {
+     SlowCarAtCurb(horizontal,normal);
+     return true;
+    }
+    BeginRiderImpact(null,normal,rider.localPosition+outward*PlayerHalfWidth,velocity);
+    exitAfterCollision=true;
+    return true;
+   }
+   BeginRiderImpact(null,normal,rider.localPosition+new Vector3(normal.x,0,normal.y)*.5f,velocity);return true;
+  }
+  void SlowCarAtCurb(Vector2 incoming,Vector2 normal)
+  {
+   float intoCurb=Mathf.Max(0,Vector2.Dot(incoming,normal));
+   Vector2 along=incoming-normal*intoCurb;
+   float carry=Mathf.Max(along.magnitude*.8f,incoming.magnitude*.22f);
+   Vector2 away=along.sqrMagnitude>.01f?along.normalized:Vector2.up;
+   away=(away-normal*.12f).normalized;
+   freeDriveHeading=steerYaw=Mathf.Atan2(away.x,away.y)*Mathf.Rad2Deg;
+   rider.localRotation=Quaternion.Euler(0,steerYaw,lean);
+   driveYawRate=0;
+   freeDriveSpeed=Speed=carry;
+   riderRoadVelocity=new Vector3(away.x,0,away.y)*carry;
   }
   void ResolveFallenScenery(Vector3 from)
   {

@@ -39,11 +39,7 @@ namespace PhoViet
   public Rect FlightButtonPixels()=>FlightButtonLayout(GameGuiArea(),Screen.width<Screen.height,browserPixelRatio);
   // Stacked above the missile button, in the same left-thumb column.
   public static Rect FlightButtonLayout(Rect area,bool narrow,float pixelRatio=1)
-  {
-   var missile=PlayerMissileButtonLayout(area,narrow,pixelRatio);
-   float scale=narrow?area.width/480f:LandscapeHudScale(area);
-   return new Rect(missile.x,missile.y-missile.height-14*scale,missile.width,missile.height);
-  }
+   =>DriveActionLayout(area,narrow,3,pixelRatio);
   bool FlightButtonAt(Vector2 position)
   {
    if(State!=RideState.Riding&&State!=RideState.Paused)return false;

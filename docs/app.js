@@ -2,7 +2,9 @@
 'use strict';
 const $ = id => document.getElementById(id);
 const canvas = $('unity-canvas');
+const rotateGame = $('rotate-game');
 let unityInstance, installPrompt, starting = false;
+let gameRequested=false, gamePortrait=false, lastGameOrientation;
 const standalone = matchMedia('(display-mode: standalone), (display-mode: fullscreen)').matches || navigator.standalone;
 const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 const iphoneApp=standalone && /iPhone|iPod/.test(navigator.userAgent);
@@ -54,6 +56,7 @@ function syncViewport(){
      Math.abs(screen.width-width)<=2&&missing>0&&missing<=Math.max(64,top+2,bottom+2))height=screen.height;
   document.documentElement.style.setProperty('--viewport-width',width+'px');
   document.documentElement.style.setProperty('--viewport-height',height+'px');
+  syncGameOrientation(width,height);
   if(!unityInstance)return;
   const bounds=canvas.getBoundingClientRect();
   if(!bounds.width||!bounds.height)return;
@@ -68,6 +71,22 @@ function syncViewport(){
     pixelRatio:unityInstance.Module.devicePixelRatio
   });
   if(insets!==lastInsets){unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','ApplyBrowserInsets',insets);lastInsets=insets;}
+}
+function syncGameOrientation(width,height){
+  const blocked=gameRequested&&width<height;
+  if(blocked!==gamePortrait){
+    gamePortrait=blocked;
+    cancelAllPointers();
+    rotateGame.hidden=!blocked;
+    $('welcome').inert=$('toolbar').inert=canvas.inert=$('game-menu').inert=blocked;
+    if(blocked)$('rotate-back').focus({preventScroll:true});
+    else if(unityInstance)canvas.focus({preventScroll:true});
+  }
+  if(unityInstance&&lastGameOrientation!==blocked){
+    unityInstance.SendMessage(gameRoot,'ApplyBrowserOrientation',blocked?'1':'0');
+    lastGameOrientation=blocked;
+  }
+  if(gameRequested&&!blocked&&!starting)void loadGame();
 }
 function scheduleViewport(){
   requestAnimationFrame(()=>requestAnimationFrame(syncViewport));
@@ -124,17 +143,25 @@ function fail(error) {
   console.error(error);$('load-status').textContent='Chưa tải được game. Kiểm tra kết nối và thử tải lại. Nếu máy thiếu bộ nhớ, hãy đóng bớt ứng dụng.';
   $('retry').hidden=false;$('progress').hidden=true;
 }
-$('play').addEventListener('click', async () => {
+$('rotate-back').addEventListener('click',()=>{
+  if(starting){location.reload();return;}
+  gameRequested=false;syncViewport();$('play').focus({preventScroll:true});
+});
+$('play').addEventListener('click',()=>{
+  gameRequested=true;
+  if(innerWidth>=innerHeight&&touchDevice)void requestNativeFullscreen();
+  syncViewport();
+});
+async function loadGame(){
   if(starting)return;
   const probe=document.createElement('canvas'),gl=probe.getContext('webgl2');
   const supported=Boolean(window.WebAssembly&&gl);
   const mobileTextures=Boolean(gl?.getExtension('WEBGL_compressed_texture_etc'));
   gl?.getExtension('WEBGL_lose_context')?.loseContext();
   if(!supported) {
+    gameRequested=false;
     $('load-status').textContent='Thiết bị cần trình duyệt hỗ trợ WebGL 2 và WebAssembly. Hãy mở bằng Chrome, Edge hoặc Safari mới nhất.';return;
   }
-  // Invoke while the tap still grants user activation, before loading WebAssembly.
-  if(touchDevice)void requestNativeFullscreen();
   starting=true;$('play').disabled=true;$('play').textContent='ĐANG MỞ PHỐ…';$('progress').hidden=false;
   $('load-status').textContent='Đang tải game, lần đầu có thể mất một chút thời gian…';
   await controlGameRequests();
@@ -157,12 +184,12 @@ $('play').addEventListener('click', async () => {
       window.phoVietInstance=unityInstance;
       checkOffline();
       setImmersive(touchDevice||standalone||Boolean(document.fullscreenElement));
-      $('welcome').hidden=true;canvas.focus();
+      $('welcome').hidden=true;if(!gamePortrait)canvas.focus();
       if(document.hidden) unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','PauseForBrowser');
-    }catch(error){canvas.hidden=true;setImmersive(false);fail(error);}
+    }catch(error){gameRequested=false;canvas.hidden=true;setImmersive(false);fail(error);}
   };
   document.body.appendChild(script);
-});
+}
 document.addEventListener('visibilitychange',()=>{
   if(document.hidden && unityInstance) unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','PauseForBrowser');
   if(!document.hidden)scheduleViewport();
@@ -172,15 +199,14 @@ canvas.addEventListener('contextmenu',e=>e.preventDefault());
 // DOM events retain very quick gestures even when one Unity frame spans the entire
 // touch. Use the short CSS edge, so rotating or changing render DPR never doubles
 // the required travel. One pointer owns one action, triggered before finger-up.
-let gamePointer=null;
+const gamePointers=new Map();
 const gameRoot='PHỐ VIỆT • Chuyến xe không ngừng';
 let footMode=false;
 const footPointers=new Map();
 window.phoVietSetFootMode=enabled=>{
   if(footMode===enabled)return;
   footMode=enabled;
-  cancelGamePointer();
-  footPointers.clear();
+  cancelAllPointers();
 };
 function sendFootPointer(p,phase,e){
   const x=Math.max(0,Math.min(1,(e.clientX-p.rect.x)/p.rect.width));
@@ -199,9 +225,9 @@ function sendGesture(p,phase,e,action=0){
     x:Math.max(0,Math.min(1,(e.clientX-p.rect.x)/p.rect.width)),
     y:Math.max(0,Math.min(1,(e.clientY-p.rect.y)/p.rect.height)),at:e.timeStamp/1000}));
 }
-function cancelGamePointer(){
-  if(!gamePointer)return;
-  const p=gamePointer;gamePointer=null;
+function cancelGamePointer(id){
+  const p=gamePointers.get(id);if(!p)return;
+  gamePointers.delete(id);
   sendGesture(p,3,{clientX:p.x,clientY:p.y,timeStamp:performance.now()});
 }
 // Keep in step with IsJumpSwipe/IsBoostSwipe/SwipeAction in Unity. No angle may match nothing: a thumb on a
@@ -215,32 +241,32 @@ function swipeAction(dx,dy,short,scale=1){
 function pointerMoved(e){
   const foot=footPointers.get(e.pointerId);
   if(foot){sendFootPointer(foot,1,e);return;}
-  const p=gamePointer;
-  if(!p||p.id!==e.pointerId||p.consumed)return;
+  const p=gamePointers.get(e.pointerId);
+  if(!p)return;
   // A toolbar or render-scale change mid-swipe keeps the gesture; only a rotation ends it.
   const r=canvas.getBoundingClientRect();
-  if((r.width>r.height)!==(p.rect.width>p.rect.height)){cancelGamePointer();return;}
-  const action=swipeAction(e.clientX-p.x,e.clientY-p.y,Math.min(r.width,r.height));
-  if(action){p.consumed=true;sendGesture(p,1,e,action);}
+  if((r.width>r.height)!==(p.rect.width>p.rect.height)){cancelGamePointer(p.id);return;}
+  const action=p.consumed?0:swipeAction(e.clientX-p.x,e.clientY-p.y,Math.min(r.width,r.height));
+  if(action)p.consumed=true;
+  sendGesture(p,1,e,action);
 }
 canvas.addEventListener('pointerdown',e=>{
-  if(e.button!==0||!unityInstance)return;
+  if(e.button!==0||!unityInstance||gamePortrait)return;
   const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;
   if(footMode){
     const foot={id:e.pointerId,x:e.clientX,y:e.clientY,rect};footPointers.set(foot.id,foot);
     canvas.setPointerCapture?.(foot.id);sendFootPointer(foot,0,e);return;
   }
-  // Newest finger wins: a thumb resting on a sideways phone must not block the one that swipes.
-  if(gamePointer)cancelGamePointer();
-  gamePointer={id:e.pointerId,x:e.clientX,y:e.clientY,at:e.timeStamp,rect,consumed:false,touch:e.pointerType!=='mouse'};
-  canvas.setPointerCapture?.(e.pointerId);sendGesture(gamePointer,0,e);
+  const pointer={id:e.pointerId,x:e.clientX,y:e.clientY,at:e.timeStamp,rect,consumed:false,touch:e.pointerType!=='mouse'};
+  gamePointers.set(pointer.id,pointer);
+  canvas.setPointerCapture?.(pointer.id);sendGesture(pointer,0,e);
 },{passive:true});
 canvas.addEventListener('pointermove',pointerMoved,{passive:true});
 canvas.addEventListener('pointerup',e=>{
   const foot=footPointers.get(e.pointerId);
   if(foot){footPointers.delete(foot.id);sendFootPointer(foot,2,e);return;}
-  if(!gamePointer||gamePointer.id!==e.pointerId)return;
-  pointerMoved(e);const p=gamePointer;if(!p)return;gamePointer=null;
+  if(!gamePointers.has(e.pointerId))return;
+  pointerMoved(e);const p=gamePointers.get(e.pointerId);if(!p)return;gamePointers.delete(p.id);
   const short=Math.min(p.rect.width,p.rect.height);
   // A quick flick that lifts before the normal distance still counts.
   if(!p.consumed&&e.timeStamp-p.at<220){
@@ -258,11 +284,14 @@ canvas.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
 function cancelPointer(e){
   const foot=footPointers.get(e.pointerId);
   if(foot){footPointers.delete(foot.id);sendFootPointer(foot,3,e);}
-  if(gamePointer?.id===e.pointerId)cancelGamePointer();
+  cancelGamePointer(e.pointerId);
 }
 canvas.addEventListener('pointercancel',cancelPointer,{passive:true});
 canvas.addEventListener('lostpointercapture',cancelPointer,{passive:true});
-function cancelAllPointers(){cancelGamePointer();cancelFootPointers();}
+function cancelAllPointers(){
+  for(const id of gamePointers.keys())cancelGamePointer(id);
+  cancelFootPointers();
+}
 window.addEventListener('orientationchange',cancelAllPointers);
 window.addEventListener('blur',cancelAllPointers);
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAllPointers();});

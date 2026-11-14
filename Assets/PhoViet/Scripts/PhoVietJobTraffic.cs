@@ -52,8 +52,8 @@ namespace PhoViet
     {
      float t=step*.25f,at=t*seconds;
      float ox=q.x+(other.motionVelocity.x)*at;
-     float oz=q.z+(other.speed-Speed)*at;
-     float vx=Mathf.Lerp(p.x,x,t),vz=p.z+(v.speed-Speed)*at;
+     float oz=q.z+(other.speed-RoadScrollSpeed)*at;
+     float vx=Mathf.Lerp(p.x,x,t),vz=p.z+(v.speed-RoadScrollSpeed)*at;
      if(Mathf.Abs(vx-ox)<v.halfWidth+bounds.x+.35f&&Mathf.Abs(vz-oz)<v.halfLength+bounds.y+1.5f)return false;
     }
    }
@@ -63,7 +63,7 @@ namespace PhoViet
   {
    if(!TrafficYieldActive||dt<=0)return false;
    Vector3 p=v.model.localPosition,r=rider.localPosition;
-   float relative=(ServiceStopped&&Mathf.Abs(v.speed)<.1f?v.baseTrafficSpeed:v.speed)-Speed,z=p.z-r.z;
+   float relative=(ServiceStopped&&Mathf.Abs(v.speed)<.1f?v.baseTrafficSpeed:v.speed)-RoadScrollSpeed,z=p.z-r.z;
    Vector2 footprint=ServiceTrafficFootprint(v);
    float separation=footprint.y+.91f;
    bool converging=z*relative<0&&Mathf.Abs(z)<separation+Mathf.Abs(relative)*1.5f+5;
@@ -80,7 +80,7 @@ namespace PhoViet
     if(z>0&&v.baseTrafficSpeed<0)v.speed=Mathf.MoveTowards(v.speed,0,60*dt);
     else if(z<0)v.speed=Mathf.MoveTowards(v.speed,Mathf.Min(v.speed,Speed),60*dt);
     // A vehicle ahead keeps its own speed; the protected rider yields below.
-    p.z+=(v.speed-Speed)*dt;v.model.localPosition=p;
+    p.z+=(v.speed-RoadScrollSpeed)*dt;v.model.localPosition=p;
     float sideways=(p.x-oldX)/dt;
     float yaw=Mathf.Abs(sideways)+Mathf.Abs(v.speed)<.01f?(v.baseTrafficSpeed<0?180:0):Mathf.Atan2(sideways,v.speed)*Mathf.Rad2Deg;
     v.model.localRotation=Quaternion.Euler(0,yaw,0);
@@ -90,7 +90,7 @@ namespace PhoViet
    {
     // A blocked rear driver brakes; forward traffic holds its gap. Oncoming traffic stops to yield.
     float target=v.baseTrafficSpeed<0?0:z<0?Mathf.Min(v.speed,Speed):v.speed;
-    v.speed=Mathf.MoveTowards(v.speed,target,60*dt);p.z+=(v.speed-Speed)*dt;v.model.localPosition=p;
+    v.speed=Mathf.MoveTowards(v.speed,target,60*dt);p.z+=(v.speed-RoadScrollSpeed)*dt;v.model.localPosition=p;
    }
    if(v.brakeLights!=null)v.brakeLights.gameObject.SetActive(true);
    return true;

@@ -21,6 +21,14 @@
   </header>
   <main id="game">
     <canvas id="unity-canvas" tabindex="0" aria-label="Game Phố Việt" hidden></canvas>
+    <section id="rotate-game" role="dialog" aria-modal="true" aria-labelledby="rotate-title" hidden>
+      <div class="rotate-card">
+        <svg viewBox="0 0 56 56" width="56" height="56" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="24" width="40" height="24" rx="5"/><path d="M42 34v4M15 17a14 14 0 0 1 24-7m-1-6 2 7-7 2"/></svg>
+        <h2 id="rotate-title">Xoay ngang để chơi</h2>
+        <p>Xoay điện thoại hoặc máy tính bảng sang ngang để vào phố.</p>
+        <button type="button" id="rotate-back">Về trang chủ</button>
+      </div>
+    </section>
     <section id="welcome" aria-labelledby="landing-title">
       <div class="landing-main">
         <div class="intro">
@@ -34,9 +42,9 @@
             <button id="retry" hidden>Tải lại trang</button>
           </div>
           <div class="controls" aria-label="Điều khiển bằng bàn phím">
-            <span><b>← → / A D</b>Đổi làn / rẽ</span><span><b>SPACE</b>Nhảy / bay / hạ</span><span><b>W / F</b>Tên lửa</span><span><b>Q</b>Lựu đạn / lộn</span><span><b>P</b>Tạm dừng</span>
+            <span><b>← ↑ ↓ →</b>Lái xe</span><span><b>SPACE</b>Nhảy / bay / hạ</span><span><b>W / F</b>Tên lửa</span><span><b>Q</b>Lựu đạn / lộn</span><span><b>P</b>Tạm dừng</span>
           </div>
-          <p class="touch-guide"><span aria-hidden="true">↔</span> Vuốt ngang để đổi làn / rẽ, vuốt lên để nhảy / bay / hạ, vuốt xuống để bắn. Khi đang bay, giữ nút Bay để lên cao. Chạm hai lần để quăng lựu đạn hoặc lộn khi bay.</p>
+          <p class="touch-guide"><span aria-hidden="true">↔</span> Xoay ngang để chơi. Dùng joystick bên trái để lái hoặc đi bộ. Các nút Bay, Tên lửa, Ga, Phanh và Nhảy ra ở bên phải khi lái xe.</p>
         </div>
         <div class="street-gallery" aria-label="Hình ảnh Phố Việt">
         <figure class="street-preview">
@@ -67,22 +75,22 @@
   <dialog id="guide" aria-labelledby="guide-title">
     <div class="guide-heading"><p class="eyebrow">SẴN SÀNG LÊN ĐƯỜNG</p><button id="close-help" class="close" aria-label="Đóng hướng dẫn">×</button></div>
     <h2 id="guide-title">Cầm lái. Khám phá. Phá kỷ lục.</h2>
-    <div class="guide-section"><h3>Máy tính</h3><p>← → hoặc A / D đổi làn. Space nhảy / bay / hạ, Q quăng lựu đạn hoặc lộn khi giữ bay, W / F bắn tên lửa. E nhảy khỏi xe khi xe đã chạm đất. Khi đi bộ, dùng WASD hoặc phím mũi tên, Q ném theo hướng nhìn và E lấy xe từ cửa trái. P / Esc tạm dừng.</p></div>
-    <div class="guide-section"><h3>Điện thoại</h3><p>Vuốt ngang để đổi làn, lên để nhảy và xuống để bắn. Chạm hai lần để quăng lựu đạn hoặc lộn khi giữ bay. Chạm Nhảy ra khi xe đã chạm đất để đi bộ. Dùng joystick bên trái, nút Lựu đạn bên phải và nút Lấy xe khi đến gần cửa trái của ô tô đã dừng.</p></div>
+    <div class="guide-section"><h3>Máy tính</h3><p>Giữ phím mũi tên để lái theo hướng đó. Thả phím để dừng xe. Space nhảy / bay / hạ, Q quăng lựu đạn hoặc lộn khi giữ bay, W / F bắn tên lửa. E nhảy khỏi xe khi xe đã chạm đất. Khi đi bộ, dùng WASD hoặc phím mũi tên, Q ném theo hướng nhìn và E lấy xe từ cửa trái. P / Esc tạm dừng.</p></div>
+    <div class="guide-section"><h3>Điện thoại</h3><p>Xoay ngang để chơi. Kéo joystick bên trái theo hướng muốn đi. Giữ joystick để xe tăng tốc tối đa 110 km/h. Thả tay để xe phanh dần đến khi dừng. Các nút Bay, Tên lửa, Đạp ga, Đạp phanh và Nhảy ra ở bên phải. Đạp ga nhả chế độ phanh để bạn lái tiếp. Vuốt lên để nhảy và vuốt xuống để bắn. Chạm hai lần để quăng lựu đạn hoặc lộn khi giữ bay.</p><p>Chạm Nhảy ra khi xe chạm đất. Dùng joystick để đi bộ, nút Lựu đạn để ném và nút Lấy xe khi đến gần cửa trái của ô tô đã dừng.</p></div>
     <div class="guide-section"><h3>Nhảy & bay</h3><p>Nhảy từ mặt đường hoặc nóc xe, hồi chiêu 1,6 giây. Độ cao nhảy cố định khoảng 4,12 m ở mọi tốc độ; có thể đáp lên nóc xe bốn bánh còn đứng thẳng nếu đủ cao. Tránh đâm vào thân xe. Dùng nút xe bay hoặc nhấn Space / vuốt lên lần hai để giữ cao độ, nhấn thêm lần nữa để hạ.</p></div>
-    <div class="guide-section"><h3>Trên đường</h3><p>Hai làn bên trái có thể rẽ trái, hai làn bên phải có thể rẽ phải ở giao lộ; hai làn giữa cũng đi thẳng được. Chú ý mũi tên báo xe từ phía sau, xe tăng và khủng long: nhảy đủ cao để né đuôi. Sau mỗi lần rẽ có thêm khủng long và xe tăng cùng lúc; mỗi 400 m có thêm một xe tăng ngược chiều.</p><p>Đạn pháo để lại hố nứt trên đường. Bánh xe đi qua hố sẽ kéo xe lệch hướng; nhấn hoặc vuốt ngược hướng lệch để lấy lại cân bằng, sau đó đổi làn như thường. Nhảy qua hố sẽ tránh được tác động.</p><p>Mưa giông xuất hiện theo chu kỳ. Sét báo trước 0,8 giây tại điểm sắp đánh: đổi làn để né, nhảy vẫn có thể trúng. Xe trúng sét sẽ cháy và nằm lại; người chơi trúng sét sẽ kết thúc lượt. Xe tăng và khủng long miễn nhiễm.</p><p>Thi quãng đường xa nhất. Sau va chạm nặng với phương tiện, nhân vật rời xe khi xe đã chạm đường. Chạy đến tiệm tạp hóa có dấu Trốn CSGT để ẩn náu, hoặc lấy ô tô đã dừng từ cửa trái. CSGT đuổi lại 3 giây sau khi bạn ngồi vào xe lấy được.</p><p><b>Năng lượng:</b> khởi đầu 180/180. Nhảy tốn 5. Vòng sét xanh dưới đất hồi 15, vòng sét cam trên không hồi 20. Mỗi khu phố/cầu có 6 icon dưới đất và 7 icon trên không xuất hiện ở các làn ngẫu nhiên. SPACE hoặc vuốt lên bật nhảy ngay. Nhấn/vuốt lên lần hai để giữ cao độ; xe tự nâng tới độ cao bay khoảng 3,46 m so với mặt đỡ (cao hơn trước 20%), kể cả khi đang rơi thấp. Độ cao nhảy vẫn khoảng 4,12 m. Nhấn thêm lần nữa để hạ. Bay tốn 10 mỗi 0,5 giây, hết năng lượng xe tự hạ. Khi đang bay, nhấn Q hoặc chạm hai lần để lộn ngang 360°. Khi xe đang bay, có 2 trực thăng ngược chiều ngang tầm xe trên các làn ngẫu nhiên; vượt mỗi 400 m thêm 1 chiếc, tối đa 5 chiếc. Hai chiếc đầu ở hai làn khác nhau. Trực thăng bắn tên lửa 1 giây/phát; mỗi 400 m giảm 0,2 giây, thấp nhất 0,5 giây. Đổi làn hoặc hạ xuống để né. Nhào lộn khi đang bay cũng né được tên lửa, nhưng vẫn có thể đâm thân/cánh quạt trực thăng. Trúng tên lửa hoặc đâm trực thăng làm xe rơi cháy và kết thúc lượt.</p><p><b>Tên lửa của bạn:</b> bắt đầu 5/5 quả; nhặt biểu tượng tên lửa để nạp thêm 1, tối đa 5. Bấm nút tên lửa tròn góc dưới bên trái, phím W / F hoặc vuốt xuống để bắn, cách nhau 0,4 giây. Dưới đất tên lửa tự khóa xe tăng gần nhất phía trước; khi bay tên lửa khóa trực thăng. Một tên lửa hạ xe tăng: xe ngừng chạy, ngừng bắn, cháy lớn và bốc khói; xác xe vẫn gây va chạm. Tên lửa bám mục tiêu; nếu không có mục tiêu, tên lửa bay thẳng. Trực thăng trúng đạn sẽ cháy, bốc khói và rơi xuống.</p></div>
+    <div class="guide-section"><h3>Trên đường</h3><p>Điều hướng xe vào đường nhánh bằng joystick hoặc phím mũi tên khi qua giao lộ. Chú ý mũi tên báo xe từ phía sau, xe tăng và khủng long: nhảy đủ cao để né đuôi. Sau mỗi lần rẽ có thêm khủng long và xe tăng cùng lúc; mỗi 400 m có thêm một xe tăng ngược chiều.</p><p>Đạn pháo để lại hố nứt trên đường. Bánh xe đi qua hố sẽ kéo xe lệch hướng; lái ngược hướng lệch để lấy lại cân bằng. Nhảy qua hố sẽ tránh được tác động.</p><p>Mưa giông xuất hiện theo chu kỳ. Sét báo trước 0,8 giây tại điểm sắp đánh: đổi làn để né, nhảy vẫn có thể trúng. Xe trúng sét sẽ cháy và nằm lại; người chơi trúng sét sẽ kết thúc lượt. Xe tăng và khủng long miễn nhiễm.</p><p>Thi quãng đường xa nhất. Sau va chạm nặng với phương tiện, nhân vật rời xe khi xe đã chạm đường. Chạy đến tiệm tạp hóa có dấu Trốn CSGT để ẩn náu, hoặc lấy ô tô đã dừng từ cửa trái. CSGT đuổi lại 3 giây sau khi bạn ngồi vào xe lấy được.</p><p><b>Năng lượng:</b> khởi đầu 180/180. Nhảy tốn 5. Vòng sét xanh dưới đất hồi 15, vòng sét cam trên không hồi 20. Mỗi khu phố/cầu có 6 icon dưới đất và 7 icon trên không xuất hiện ở các làn ngẫu nhiên. SPACE hoặc vuốt lên bật nhảy ngay. Nhấn/vuốt lên lần hai để giữ cao độ; xe tự nâng tới độ cao bay khoảng 3,46 m so với mặt đỡ (cao hơn trước 20%), kể cả khi đang rơi thấp. Độ cao nhảy vẫn khoảng 4,12 m. Nhấn thêm lần nữa để hạ. Bay tốn 10 mỗi 0,5 giây, hết năng lượng xe tự hạ. Khi đang bay, nhấn Q hoặc chạm hai lần để lộn ngang 360°. Khi xe đang bay, có 2 trực thăng ngược chiều ngang tầm xe trên các làn ngẫu nhiên; vượt mỗi 400 m thêm 1 chiếc, tối đa 5 chiếc. Hai chiếc đầu ở hai làn khác nhau. Trực thăng bắn tên lửa 1 giây/phát; mỗi 400 m giảm 0,2 giây, thấp nhất 0,5 giây. Đổi làn hoặc hạ xuống để né. Nhào lộn khi đang bay cũng né được tên lửa, nhưng vẫn có thể đâm thân/cánh quạt trực thăng. Trúng tên lửa hoặc đâm trực thăng làm xe rơi cháy và kết thúc lượt.</p><p><b>Tên lửa của bạn:</b> bắt đầu 5/5 quả; nhặt biểu tượng tên lửa để nạp thêm 1, tối đa 5. Bấm nút Tên lửa bên phải, phím W / F hoặc vuốt xuống để bắn, cách nhau 0,25 giây. Dưới đất tên lửa tự khóa xe tăng gần nhất phía trước; khi bay tên lửa khóa trực thăng. Một tên lửa hạ xe tăng: xe ngừng chạy, ngừng bắn, cháy lớn và bốc khói; xác xe vẫn gây va chạm. Tên lửa bám mục tiêu; nếu không có mục tiêu, tên lửa bay thẳng. Trực thăng trúng đạn sẽ cháy, bốc khói và rơi xuống.</p></div>
     <div class="guide-section"><h3>Cài game & chơi offline</h3><p><b>Android / Chrome / Edge:</b> chọn “Cài ứng dụng” hoặc mục cài đặt trong menu trình duyệt.</p><p><b>iPhone / iPad:</b> mở bằng Safari → Chia sẻ → Thêm vào Màn hình chính → bật “Mở dưới dạng ứng dụng web” nếu có → Thêm.</p><p id="cache-help">Lần đầu cần mạng để tải game. Khi thông báo “Đã lưu để chơi offline” xuất hiện, bạn có thể mở lại trên máy này khi mất mạng.</p></div>
   </dialog>
   <script>
     window.PHO_VIET_BUILD={
-      mobileDataUrl:"Build/b8d74a9eb622446a8df06aa0d17cecef.data.unityweb",
-      loaderUrl:"Build/e0ea2443f7b0ac818d1826900b5838b9.loader.js",
-      dataUrl:"Build/52fd5cc46484d38a6e747cea344796fa.data.unityweb",
-      frameworkUrl:"Build/0154bfc38dc428dd38c360d4de2da42c.framework.js.unityweb",
-      codeUrl:"Build/5df63cc8dd3705ca54958ea8d7db9854.wasm.unityweb",
+      mobileDataUrl:"Build/18f90788c5964215ca7be2110a39bd5b.data.unityweb",
+      loaderUrl:"Build/f59219078b8f78abf1951c6f8fe75fde.loader.js",
+      dataUrl:"Build/0981fc6925e7ea6c518c6626da8c8769.data.unityweb",
+      frameworkUrl:"Build/18b17cb7aa96193ab5474123ac240c5c.framework.js.unityweb",
+      codeUrl:"Build/6ebca82f16640f68e15864e0e6e4b501.wasm.unityweb",
       companyName:"Pho Viet Studio",
       productName:"Phố Việt - Chuyến xe không ngừng",
-      productVersion:"1.71.0"
+      productVersion:"1.72.0"
     };
   </script>
   <script src="app.js" defer></script>

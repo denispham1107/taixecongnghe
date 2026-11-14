@@ -3,9 +3,9 @@
   "generator": "pho_viet_saigon_streets.py",
   "reference": "ArtSource/Reference/Street/saigon_street_reference.webp",
   "lod_triangles": [
-    18475,
-    9389,
-    5737
+    18383,
+    9337,
+    5700
   ],
   "materials": 1,
   "palette_grid": [

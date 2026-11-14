@@ -8,11 +8,12 @@ namespace PhoViet
  public partial class PhoVietGame
  {
   public const float ShopHideSeconds=3f;
-  const float ShopCameraZoom=.70f;
+  const float ShopCameraZoom=.42f;
   const float ShopDoorReach=1.45f,ShopGuideRange=96f,ShopMarkerRange=36f;
   static readonly string[] ShopGuideArrows={"→","↘","↓","↙","←","↖","↑","↗"};
   static readonly Vector3 ShopInteriorOrigin=new Vector3(500,0,0);
   readonly Dictionary<Transform,List<Transform>> shopDoorsByTile=new Dictionary<Transform,List<Transform>>();
+  readonly Dictionary<Transform,float> shopDoorOffsets=new Dictionary<Transform,float>();
   Transform shopDoor,shopInterior,shopTow;
   float shopHideElapsed;
   bool shopEvaded;
@@ -34,13 +35,28 @@ namespace PhoViet
    if(shopTow!=null)shopTow.gameObject.SetActive(false);
   }
 
+  static string ShopName(Transform door)
+   =>door.name.StartsWith("Blender • ",StringComparison.Ordinal)?door.name.Substring("Blender • ".Length):door.name;
+
   List<Transform> ShopDoors(Transform tile)
   {
    if(shopDoorsByTile.TryGetValue(tile,out var doors))return doors;
    doors=new List<Transform>();
    foreach(Transform child in tile)
-    if(child.name.Equals("Blender • TẠP HÓA",StringComparison.Ordinal)||
-       child.name.Equals("TẠP HÓA",StringComparison.Ordinal))doors.Add(child);
+   {
+    string name=ShopName(child);
+    if(name=="Cù Lao Petshop")
+    {
+     // A branded storefront keeps the original model's glass door position.
+     var filter=child.GetComponentInChildren<MeshFilter>(true);
+     string mesh=filter!=null&&filter.sharedMesh!=null?filter.sharedMesh.name:"";
+     if(mesh.StartsWith("PV_StreetShop05",StringComparison.Ordinal))continue;
+     shopDoorOffsets[child]=mesh.StartsWith("PV_StreetShop03",StringComparison.Ordinal)?.45f:
+      mesh.StartsWith("PV_StreetShop04",StringComparison.Ordinal)||mesh.StartsWith("PV_StreetShop11",StringComparison.Ordinal)?.4f:.65f;
+    }
+    else if(name=="SỬA XE"||Array.IndexOf(VietnamStreet.Shops,name)<0)continue;
+    doors.Add(child);
+   }
    shopDoorsByTile.Add(tile,doors);
    return doors;
   }
@@ -48,7 +64,12 @@ namespace PhoViet
   Vector3 ShopApproach(Transform door)
   {
    if(door.name.StartsWith("Blender • ",StringComparison.Ordinal))
-    return transform.InverseTransformPoint(door.TransformPoint(new Vector3(.45f,0,-4.47f)));
+   {
+    string name=ShopName(door);
+    if(!shopDoorOffsets.TryGetValue(door,out float x))
+     x=name=="TẠP HÓA"?.45f:name=="THUỐC TÂY"||name=="TIỆM BÁNH"?.4f:.65f;
+    return transform.InverseTransformPoint(door.TransformPoint(new Vector3(x,0,-4.47f)));
+   }
    var tilePosition=door.localPosition;
    return transform.InverseTransformPoint(door.parent.TransformPoint(
     new Vector3(Mathf.Sign(tilePosition.x)*8.73f,0,tilePosition.z)));
@@ -63,7 +84,7 @@ namespace PhoViet
 
   Transform NearbyShop(float reach,bool forGuide=false)
   {
-   if(!PlayerOnFoot||InsideShop||shopEvaded||(!forGuide&&footJumpTime>0)||entryVehicle!=null||(!AbandonedCarPresent&&!riderWreckExploded))return null;
+   if(!CanFindShop(forGuide))return null;
    Transform nearest=null;
    float best=reach*reach;
    if(RoutesReady)
@@ -78,7 +99,10 @@ namespace PhoViet
    return nearest;
   }
 
-  void ScanShopTiles(List<Transform> tiles,Vector3 player,float reach,ref float best,ref Transform nearest)
+  bool CanFindShop(bool forGuide)
+   =>PlayerOnFoot&&!InsideShop&&!shopEvaded&&(forGuide||footJumpTime<=0)&&entryVehicle==null&&(AbandonedCarPresent||riderWreckExploded);
+
+  void ScanShopTiles(List<Transform> tiles,Vector3 player,float reach,ref float best,ref Transform nearest,int side=0)
   {
    Vector3 world=transform.TransformPoint(player);
    foreach(var tile in tiles)
@@ -87,11 +111,12 @@ namespace PhoViet
     if(Mathf.Abs(local.x)>9+reach||local.z< -reach||local.z>58+reach)continue;
     foreach(var door in ShopDoors(tile))
     {
+     int doorSide=door.localPosition.x<0?1:2;
+     if(side!=0&&doorSide!=side)continue;
      if(!door.gameObject.activeInHierarchy)continue;
      Vector3 approach=ShopApproach(door);
      float distance=Flat(approach-player).sqrMagnitude;
-     if(distance>=best||OverRiver(approach))continue;
-     nearest=door;best=distance;
+     if(distance<best&&!OverRiver(approach)){nearest=door;best=distance;}
     }
    }
   }
@@ -241,27 +266,43 @@ namespace PhoViet
 
   void DrawShopDoorMarker()
   {
-   if(Event.current.type!=EventType.Repaint)return;
-   Transform door=NearbyShop(ShopGuideRange,true);
-   if(door==null||rideCamera==null)return;
+   if(Event.current.type!=EventType.Repaint||rideCamera==null||!CanFindShop(true))return;
+   if(!FootGround(footActor.localPosition,10.2f,out int rowIndex,out _))return;
+   var tiles=RoutesReady?roadRows[rowIndex].tiles:blocks;
+   Rect drawn=default;
+   for(int side=1;side<=2;side++)
+   {
+    float range=ShopMarkerRange*ShopMarkerRange;
+    Transform door=null;
+    ScanShopTiles(tiles,footActor.localPosition,ShopMarkerRange,ref range,ref door,side);
+    drawn=DrawShopDoorMarkerAt(door,drawn);
+   }
+   if(drawn.width==0)DrawShopDoorMarkerAt(NearbyShop(ShopGuideRange,true),default);
+  }
+
+  Rect DrawShopDoorMarkerAt(Transform door,Rect previous)
+  {
+   if(door==null)return previous;
    Vector3 approach=ShopApproach(door);
-   if(Flat(approach-footActor.localPosition).sqrMagnitude>ShopMarkerRange*ShopMarkerRange)return;
+   if(Flat(approach-footActor.localPosition).sqrMagnitude>ShopMarkerRange*ShopMarkerRange)return previous;
    var marker=rideCamera.WorldToScreenPoint(transform.TransformPoint(approach+Vector3.up*1.65f));
    var area=GameGuiArea();
-   if(marker.z<=0||!area.Contains(new Vector2(marker.x,Screen.height-marker.y)))return;
+   if(marker.z<=0||!area.Contains(new Vector2(marker.x,Screen.height-marker.y)))return previous;
    float x=(marker.x-area.x)/uiScale,y=(Screen.height-marker.y-area.y)/uiScale;
    float hudScale=portrait?uiScale:LandscapeHudScale(area);
    float unit=hudScale/uiScale;
-   if(y<(portrait?PortraitNoticeY:126)*unit)return;
+   if(y<(portrait?PortraitNoticeY:126)*unit)return previous;
    Color mint=Hex("A5FFCC");
    float left=Mathf.Clamp(x-65*unit,2*unit,uiW-132*unit);
    var guide=FootEscapeGuideRect(uiW*uiScale/hudScale);
    var guideInCurrentUnits=new Rect(guide.position*unit,guide.size*unit);
-   if(new Rect(left,y-36*unit,130*unit,47*unit).Overlaps(guideInCurrentUnits))return;
+   var markerBounds=new Rect(left,y-36*unit,130*unit,47*unit);
+   if(markerBounds.Overlaps(guideInCurrentUnits)||markerBounds.Overlaps(previous))return previous;
    Panel(new Rect(left,y-36*unit,130*unit,28*unit),mint,6*unit);
    Panel(new Rect(left+2*unit,y-34*unit,126*unit,24*unit),Hex("103E34"),4*unit);
    Txt("TRỐN CSGT",left,y-35*unit,130*unit,26*unit,Mathf.RoundToInt(14*unit),mint,TextAnchor.MiddleCenter);
    DrawShopGuideArrow(new Rect(x-10*unit,y-9*unit,20*unit,20*unit),Vector2.up,mint);
+   return markerBounds;
   }
 
   static Vector2 ShopGuideBearing(Vector3 displacement,Vector3 cameraRight,Vector3 cameraForward)
@@ -286,14 +327,14 @@ namespace PhoViet
    Panel(card,new Color(.035f,.17f,.14f,.94f),8);
    Panel(new Rect(x+7,y+8,34,34),Hex("206650"),8);
    Transform target=NearbyShop(ShopGuideRange,true);
-   string label="TÌM CỬA TIỆM TẠP HÓA";
+   string label="TÌM CỬA TIỆM ĐỂ TRỐN";
    if(target!=null)
    {
     Vector3 delta=ShopApproach(target)-footActor.localPosition;
     float metres=Flat(delta).magnitude;
     Vector2 bearing=ShopGuideBearing(transform.TransformVector(delta),rideCamera.transform.right,rideCamera.transform.forward);
     DrawShopGuideArrow(new Rect(x+7,y+8,34,34),bearing,mint);
-    label=metres<=ShopDoorReach&&footJumpTime<=0?"CỬA TRỐN · VÀO TIỆM":"CỬA TRỐN · TẠP HÓA · "+Mathf.CeilToInt(metres)+" m";
+    label=metres<=ShopDoorReach&&footJumpTime<=0?"CỬA TRỐN · VÀO TIỆM":"CỬA TRỐN · "+Mathf.CeilToInt(metres)+" m";
    }
    else Txt("?",x+7,y+8,34,34,19,mint,TextAnchor.MiddleCenter);
    Txt(label,x+49,y+6,w-54,19,portrait?12:13,mint,TextAnchor.MiddleLeft);

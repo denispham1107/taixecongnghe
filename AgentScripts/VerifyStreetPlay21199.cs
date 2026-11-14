@@ -218,7 +218,7 @@ public static class VerifyStreetPlay21199
         Check(game.TryEnterShop(), "Enter an authored shop for camera validation.");
         float oldShopFov=Screen.width<Screen.height?87:76;
         float shopZoom=Mathf.Tan(oldShopFov*Mathf.Deg2Rad*.5f)/Mathf.Tan(camera.fieldOfView*Mathf.Deg2Rad*.5f);
-        Check(Mathf.Abs(shopZoom-.7f)<.001f && camera.transform.localPosition.y < 3.1f, "Shop projection is 30% smaller and the camera stays inside.");
+        Check(Mathf.Abs(shopZoom/.70f-.60f)<.001f && camera.transform.localPosition.y < 3.1f, "Shop projection is 40% smaller than before and the camera stays inside.");
 
         Restart();
         Check(game.TryExitVehicle(), "Exit again for the wreck test.");

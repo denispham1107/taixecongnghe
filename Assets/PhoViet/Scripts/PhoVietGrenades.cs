@@ -195,7 +195,7 @@ namespace PhoViet
   void ApplyVehicleRoadStep(TrafficVehicle v,Vector3 before,float dt)
   {
    if(dt<=0)return;
-   Vector3 scroll=Vector3.forward*(Speed*dt);
+   Vector3 scroll=Vector3.forward*(RoadScrollSpeed*dt);
    Vector3 travel=LimitRoadVelocity(v.model.localPosition-before+scroll,VehicleSpeedLimit*dt);
    if(!v.knocked&&before.y<.18f&&v.model.localPosition.y<.18f)
    {

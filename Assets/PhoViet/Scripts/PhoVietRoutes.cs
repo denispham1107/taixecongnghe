@@ -118,6 +118,8 @@ namespace PhoViet
         }
         void ScrollRoutes(float delta)
         {
+            // The parked cruiser moves with the road in the scrolling game frame.
+            if(PoliceWaitingToStart&&policeBike!=null)policeBike.localPosition-=Vector3.forward*delta;
             if(RoutesReady)foreach(var row in roadRows)if(row!=roadRows[mainRow]&&row.root.gameObject.activeSelf)row.root.localPosition-=Vector3.forward*delta;
             ScrollTankFire(delta);ScrollThunderstorm(delta);
             ScrollDinosaurs(delta);
@@ -198,7 +200,7 @@ namespace PhoViet
                 turnArcLengths[j]=turnArcLengths[j-1]+Vector3.Distance(previous,p);previous=p;
             }
             turnLength=turnArcLengths[turnArcLengths.Length-1];
-            if(IsChased&&!routePolice){routePolice=true;policeRouteAt=TravelDistance-PoliceDistance;}
+            if(IsChased&&!routePolice){routePolice=true;policeRouteAt=ChaseTrailDistance-PoliceDistance;}
             PreviewJunctionNavigation();
         }
         Vector3 TurnPoint(float t)
@@ -218,10 +220,16 @@ namespace PhoViet
         void EndRouteFrame(float dt)
         {
             if(!RoutesReady)return;
-            if(routeTrail.Count==0||TravelDistance-routeTrail[routeTrail.Count-1].at>.3f)routeTrail.Add(new RoutePoint(TravelDistance,rider.localPosition,TurnYaw));
-            while(routeTrail.Count>2&&routeTrail[1].at<TravelDistance-180)routeTrail.RemoveAt(0);
+            if(routeTrail.Count==0||ChaseTrailDistance-routeTrail[routeTrail.Count-1].at>.3f)
+                routeTrail.Add(new RoutePoint(ChaseTrailDistance,rider.localPosition,IsPlayerCar?freeDriveHeading:TurnYaw));
+            while(routeTrail.Count>2&&routeTrail[1].at<ChaseTrailDistance-180)routeTrail.RemoveAt(0);
             if(IsTurning&&turnTravel>=turnLength-.0001f){FinishJunctionTurn();return;}
-            if(!IsTurning&&NextJunctionDistance< -18){PassCityJunction();PrepareBranches(NextJunctionDistance+80);}
+            if(!IsTurning&&NextJunctionDistance< -18&&RoadScrollSpeed>=0){PassCityJunction();PrepareBranches(NextJunctionDistance+80);}
+            else if(IsPlayerCar&&RoadScrollSpeed<0&&NextJunctionDistance>62)
+            {
+                navNext-=CityNavigation.Directions[navHeading];
+                PrepareBranches(NextJunctionDistance-80);
+            }
             cameraTurnBlend=Mathf.Max(0,cameraTurnBlend-dt);
         }
         void FinishJunctionTurn()
@@ -236,7 +244,11 @@ namespace PhoViet
             craterAppliedOffset=Vector3.right*craterOffset;
             bikeAppliedOffset=Vector3.right*bikeImpactOffset;
             rider.localPosition=new Vector3(LaneX[CurrentLane],jumpHeight,0)+kickAppliedOffset+craterAppliedOffset+bikeAppliedOffset;rider.localRotation=Quaternion.Euler(0,bikeImpactYaw,0);lean=0;ClearLaneMotion();steerYaw=0;lastX=rider.localPosition.x;oldRiderZ=rider.localPosition.z;
-            TurnCityJunction(turnSide);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;cameraTurnBlend=.7f;turnEndAt=TravelDistance;
+            FinishStreetTransition(turnSide,oldMain,unused);
+        }
+        void FinishStreetTransition(int side,int oldMain,int unused)
+        {
+            TurnCityJunction(side);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);CompletedTurns++;IsTurning=false;TurnYaw=0;cameraTurnBlend=.7f;turnEndAt=ChaseTrailDistance;
             leftRow=oldMain;rightRow=unused;PrepareNextStreetJunction();notice="ĐÃ VÀO ĐƯỜNG "+RouteStreet.ToUpperInvariant();noticeTimer=2;
             QueueTurnHazards();
             QueueExitTraffic();

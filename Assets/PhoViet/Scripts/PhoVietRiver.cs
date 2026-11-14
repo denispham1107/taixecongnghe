@@ -292,7 +292,7 @@ namespace PhoViet
     riderFallVelocity.x=Mathf.MoveTowards(riderFallVelocity.x,0,dt*3.5f);riderFallVelocity.z=Mathf.MoveTowards(riderFallVelocity.z,0,dt*3.5f);
     riderFallVelocity.y=Mathf.MoveTowards(riderFallVelocity.y,-SinkSpeed,dt*(riderFallVelocity.y<-SinkSpeed?9:1.6f));
    }
-   Vector3 p=previous+(riderFallVelocity-(scrolling?Vector3.forward*Speed:Vector3.zero))*dt;
+   Vector3 p=previous+(riderFallVelocity-(scrolling?Vector3.forward*RoadScrollSpeed:Vector3.zero))*dt;
    if(!riderRiverSplashed&&p.y<=RiverBlock.WaterY)
    {
     riderRiverSplashed=true;Splash(riderRiverTile,p,1.15f);
@@ -360,7 +360,7 @@ namespace PhoViet
   {if(!RiverCandidate(v)||!OverRiver(v.model.localPosition))return false;BeginVehicleRiverFall(v,previous,dt);return true;}
   void BeginVehicleRiverFall(TrafficVehicle v,Vector3 previous,float dt)
   {
-   Vector3 velocity=v.knocked||v.physicalCrash?v.knockVelocity:v.motionVelocity.sqrMagnitude>.0001f?v.motionVelocity:dt>0?(v.model.localPosition-previous)/dt+Vector3.forward*Speed:BodyVelocity(v);
+   Vector3 velocity=v.knocked||v.physicalCrash?v.knockVelocity:v.motionVelocity.sqrMagnitude>.0001f?v.motionVelocity:dt>0?(v.model.localPosition-previous)/dt+Vector3.forward*RoadScrollSpeed:BodyVelocity(v);
    float side=Mathf.Sign(v.model.localPosition.x);
    v.riverFalling=true;v.riverAge=0;v.riverSplashed=false;v.riverRipple=0;v.riverBubble=0;UpdateRiverMurk();
    v.riverVelocity=LimitRoadVelocity(new Vector3(Mathf.Clamp(velocity.x,-4,4)+side*.8f,velocity.y,velocity.z));
@@ -386,7 +386,7 @@ namespace PhoViet
     v.riverVelocity.x=Mathf.MoveTowards(v.riverVelocity.x,0,dt*3);v.riverVelocity.z=Mathf.MoveTowards(v.riverVelocity.z,0,dt*3);
     v.riverVelocity.y=Mathf.MoveTowards(v.riverVelocity.y,-sink,dt*(v.riverVelocity.y<-sink?8:1.8f));
    }
-   p+=(v.riverVelocity-(scrolling?Vector3.forward*Speed:Vector3.zero))*dt;
+   p+=(v.riverVelocity-(scrolling?Vector3.forward*RoadScrollSpeed:Vector3.zero))*dt;
    if(!v.riverSplashed&&p.y<=RiverBlock.WaterY+.2f)
    {
     v.riverSplashed=true;Splash(v.riverTile,p,v.halfWidth>.7f?1.6f:1f);
@@ -402,7 +402,7 @@ namespace PhoViet
   public bool PoliceInRiver=>policeBody!=null&&policeBody.riverFalling;
   public float PoliceRiverAge=>policeBody!=null?policeBody.riverAge:0;
   bool CheckPoliceRiver(Vector3 previous,float dt)
-  {return policeBike!=null&&BeginPoliceRiver(dt>0?(policeBike.localPosition-previous)/dt+Vector3.forward*Speed:Vector3.zero);}
+  {return policeBike!=null&&BeginPoliceRiver(dt>0?(policeBike.localPosition-previous)/dt+Vector3.forward*RoadScrollSpeed:Vector3.zero);}
   bool BeginPoliceRiver(Vector3 velocity)
   {
    if(PoliceInRiver)return true;
@@ -418,7 +418,7 @@ namespace PhoViet
   }
   void TickPoliceRiver(float dt,bool scrolling=true)
   {
-   if(dt<=0||policeBike==null||!policeBike.gameObject.activeSelf)return;
+   if(dt<=0||PoliceWaitingToStart||policeBike==null||!policeBike.gameObject.activeSelf)return;
    if(!PoliceInRiver)CheckPoliceRiver(policeBody!=null?policeBody.previousPosition:policeBike.localPosition,dt);
    if(!PoliceInRiver)return;
    TickVehicleRiverFall(policeBody,dt,scrolling);

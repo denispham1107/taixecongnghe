@@ -271,7 +271,7 @@ namespace PhoViet
    crashTravelDistance+=shift;
    footActor.localPosition-=scroll;footFrameStart-=scroll;rider.localPosition-=scroll;
    if(rideCamera!=null)rideCamera.transform.localPosition-=scroll;
-   if(policeBike!=null)policeBike.localPosition-=scroll;
+   if(policeBike!=null&&!PoliceWaitingToStart)policeBike.localPosition-=scroll;
    if(PoliceInRiver)policeBody.previousPosition-=scroll;
    if(OfficerOnFoot)policeOfficer.localPosition-=scroll;
    crashPolicePath.Clear();crashPoliceReplan=0;
@@ -420,7 +420,7 @@ namespace PhoViet
    bool portraitView=Screen.width<Screen.height;
    float lateral=Mathf.Clamp(point.x,-9.15f,9.15f);
    float blend=snap?1:1-Mathf.Exp(-dt*5);
-   footViewHeading=Quaternion.Slerp(footViewHeading,Quaternion.identity,snap?1:1-Mathf.Exp(-dt*2.6f));
+   footViewHeading=snap?Quaternion.identity:EaseStreetView(footViewHeading,dt);
    Vector3 target=point+footViewHeading*new Vector3(-lateral*(portraitView?.15f:.75f),7.8f,-14f);
    rideCamera.transform.localPosition=Vector3.Lerp(rideCamera.transform.localPosition,target,blend);
    Vector3 look=point+footViewHeading*new Vector3(-lateral*(portraitView?.15f:.82f),1.2f,8);
@@ -429,11 +429,14 @@ namespace PhoViet
    rideCamera.fieldOfView=Mathf.Lerp(rideCamera.fieldOfView,RideCameraFov(portraitView,0),blend);
   }
 
+  static Quaternion EaseStreetView(Quaternion heading,float dt)=>
+   Quaternion.Slerp(heading,Quaternion.identity,1-Mathf.Exp(-dt*2.6f));
+
   bool TickFootGrenadeStop(TrafficVehicle v,Vector3 previous,float dt)
   {
    if((v.footStopRemaining<=0&&v!=entryVehicle)||v.riverFalling)return false;
    if(v!=entryVehicle)v.footStopRemaining=Mathf.Max(0,v.footStopRemaining-dt);
-   Vector3 scroll=Vector3.forward*(Speed*dt);
+   Vector3 scroll=Vector3.forward*(RoadScrollSpeed*dt);
    v.model.localPosition=previous-scroll;v.roadTurnStart-=scroll;
    v.motionVelocity=Vector3.zero;
    return true;

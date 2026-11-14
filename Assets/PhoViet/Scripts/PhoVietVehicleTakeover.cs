@@ -168,13 +168,13 @@ namespace PhoViet
      int direction=Vector3.Dot(heading*Vector3.forward,Vector3.right)>0?1:-1;
      TurnCityJunction(direction);RouteStreet=junctionStreet;visitedStreets.Add(RouteStreet);
     }
-    UseStreetRow(selected);PrepareNextStreetJunction();SyncTankCraterMasks(true);
+    UseStreetRow(selected);ExtendDrivingStreetBehind();PrepareNextStreetJunction();SyncTankCraterMasks(true);
    }
    int lane=0;for(int i=1;i<LaneX.Length;i++)if(Mathf.Abs(LaneX[i]-x)<Mathf.Abs(LaneX[lane]-x))lane=i;
    rider.localPosition=new Vector3(Mathf.Clamp(x,-6,6),0,0);rider.localRotation=Quaternion.identity;CurrentLane=lane;
    oldRiderZ=0;lastX=rider.localPosition.x;IsTurning=false;TurnYaw=0;QueuedTurn=0;routePolice=false;cameraTurnBlend=.7f;
-   ResetBikeImpact();ResetJump();ClearLaneMotion();ResetRiderImpactForVehicleEntry();
-   Speed=0;drivePedal=DrivePedalMode.PullAway;takeoverGrace=.65f;HideFootActors();CancelFootPointer();
+   ResetDriveInput();ResetBikeImpact();ResetJump();ClearLaneMotion();ResetRiderImpactForVehicleEntry();
+   Speed=0;drivePedal=DrivePedalMode.Cruise;takeoverGrace=.65f;HideFootActors();
    State=RideState.Riding;rider.gameObject.SetActive(true);if(sound)engine?.Play();
    riderWreckExploded=false;RiderAirAttackBurning=false;
    shopEvaded=false;ScheduleChaseAfterTakeover();

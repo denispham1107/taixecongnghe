@@ -122,7 +122,7 @@ namespace PhoViet
             {
                 v.speed=Mathf.Max(v.speed,(TrafficPaceSpeed+(truck?9:12))*OpeningTrafficPace);
                 v.speed=Mathf.Min(v.speed,VehicleSpeedLimit);
-                Vector3 previous=v.model.localPosition,entryPosition=previous;entryPosition.z+=(v.speed*GrenadeDriveFactor(v)-Speed)*dt;
+                Vector3 previous=v.model.localPosition,entryPosition=previous;entryPosition.z+=(v.speed*GrenadeDriveFactor(v)-RoadScrollSpeed)*dt;
                 float merge=Mathf.InverseLerp(truck?-10:-7,truck?-4:-2.6f,entryPosition.z);
                 entryPosition.x=Mathf.Lerp(v.rearStartX,v.startPosition.x,Mathf.SmoothStep(0,1,merge));v.model.localPosition=entryPosition;
                 float sideSpeed=dt>0?(entryPosition.x-previous.x)/dt:0;
@@ -144,7 +144,7 @@ namespace PhoViet
             float x=Mathf.MoveTowards(p.x,target,dt*pace*(v.swerveSpeed>0?v.swerveSpeed:truck?9:13));
             float sideways=dt>0?(x-p.x)/dt:0;
             v.speed=Mathf.Clamp(v.speed,-VehicleSpeedLimit,VehicleSpeedLimit);
-            p.x=x;p.z+=(v.speed*GrenadeDriveFactor(v)-Speed)*dt;v.model.localPosition=p;
+            p.x=x;p.z+=(v.speed*GrenadeDriveFactor(v)-RoadScrollSpeed)*dt;v.model.localPosition=p;
             float yaw=Mathf.Atan2(sideways,v.speed)*Mathf.Rad2Deg;
             v.model.localRotation=Quaternion.Euler(0,yaw,-sideways*(truck?.3f:1.5f));
         }
@@ -170,7 +170,7 @@ namespace PhoViet
         }
         void TickWallWreck(TrafficVehicle v,float dt)
         {
-            v.knockAge+=dt;v.model.localPosition-=Vector3.forward*Speed*dt;
+            v.knockAge+=dt;v.model.localPosition-=Vector3.forward*RoadScrollSpeed*dt;
             if(v.crashEffect!=null)
             {
                 v.crashEffect.localPosition=v.routeDetached?v.model.localPosition+v.routeEffectOffset:WreckFxPosition(v);

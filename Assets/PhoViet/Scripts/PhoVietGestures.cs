@@ -23,6 +23,7 @@ namespace PhoViet
   {
    if(!swipeCanSteer||swipeConsumed||(swipeWidth<swipeHeight)!=(Screen.width<Screen.height)||State!=RideState.Riding||JobOffersOpen)return;
    if(action!= -1&&action!=1&&action!=2&&action!=3)return;
+   if(IsPlayerCar&&(action==-1||action==1))return;
    swipeConsumed=true;lastTapTime=-100;
    if(action==2)TryJump();else if(action==3)TryFirePlayerMissile();else MoveLane(action);
   }
@@ -60,9 +61,14 @@ namespace PhoViet
   [UnityEngine.Scripting.Preserve]
   public void ApplyBrowserGesture(string json)
   {
+   if(PortraitGameBlocked)return;
    var p=JsonUtility.FromJson<BrowserGesture>(json);
    if(p==null||!Finite(p.x)||!Finite(p.y)||!Finite(p.at)||p.x<0||p.x>1||p.y<0||p.y>1)return;
    var position=new Vector2(p.x*Screen.width,(1-p.y)*Screen.height);
+   if(p.id==footPointer||p.phase==0&&JoystickAt(position))
+   {
+    UpdateFootPointer(p.id,p.phase,position);return;
+   }
    if(p.phase==0)
    {
     if(browserPointerActive&&p.id==swipePointerId)return;

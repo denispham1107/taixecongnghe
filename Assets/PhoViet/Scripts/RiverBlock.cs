@@ -36,14 +36,17 @@ namespace PhoViet
    var moored=bridge.GetComponentsInChildren<RiverBoat>(true);
    if(moored.Length==0)return;
    patrolBoatsCreated=true;
-   // Four separate routes leave the bridge, bank walls and moored boats clear.
+   // Each route pairs the red marker near the bridge with the green marker farther out.
    for(int i=0;i<4;i++)
    {
     var boat=Instantiate(moored[i%moored.Length],bridge.transform,false);
     boat.name="Tàu đánh cá chạy dọc bờ "+(i+1);
-    float x=i<2?-47f:47f,z=i%2==0?Near+12:Far-12;
+    bool upstream=i<2,nearBank=i%2==0;
+    float redX=upstream?-15f:9f,greenX=upstream?-26f:20f;
+    float redZ=nearBank?Near+12f:Far-12f;
+    float greenZ=redZ+(nearBank?1.5f:-1.5f);
     boat.phase=moored[0].phase+i*1.7f;
-    boat.SetPatrol(new Vector3(x,WaterY,z),.65f+i*1.57f);
+    boat.SetPatrol(new Vector3(redX,WaterY,redZ),new Vector3(greenX,WaterY,greenZ));
    }
   }
  }

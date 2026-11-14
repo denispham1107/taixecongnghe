@@ -11,7 +11,7 @@ namespace PhoViet
         DrivePedalMode drivePedal;
         Texture2D arcadeControls;
         bool DriveBraking=>drivePedal==DrivePedalMode.Brake;
-        internal bool PlayerBrakeLampsOn=>DriveBraking&&(State==RideState.Riding||
+        internal bool PlayerBrakeLampsOn=>(DriveBraking||IsPlayerCar&&driveNeutralBraking)&&(State==RideState.Riding||
             State==RideState.Paused&&pauseFromState==RideState.Riding);
         bool DriveStopped=>DriveBraking&&Speed==0;
 
@@ -24,7 +24,7 @@ namespace PhoViet
                 if(!DriveBraking)CancelAssistedKick();
                 drivePedal=DrivePedalMode.Brake;
             }
-            else if(DriveBraking)drivePedal=DrivePedalMode.PullAway;
+            else if(DriveBraking)drivePedal=IsPlayerCar?DrivePedalMode.Cruise:DrivePedalMode.PullAway;
         }
 
         float DrivePedalSpeed(float target,float previous,float dt)
@@ -36,10 +36,21 @@ namespace PhoViet
 
         public static Rect DrivePedalLayout(Rect area,bool narrow,bool brake,float pixelRatio=1)
         {
-            var reference=brake?PlayerMissileButtonLayout(area,narrow,pixelRatio):FlightButtonLayout(area,narrow,pixelRatio);
+            var reference=ControlButtonBase(area,narrow,pixelRatio);
             float inset=(narrow?18:40)*(narrow?area.width/480f:LandscapeHudScale(area));
             reference.x=area.xMax-inset-reference.width;
+            if(!brake)reference.y-=reference.height+Mathf.Max(6*pixelRatio,reference.width*.14f);
             return reference;
+        }
+
+        static Rect DriveActionLayout(Rect area,bool narrow,int choice,float pixelRatio)
+        {
+            Rect button=DrivePedalLayout(area,narrow,choice==BrakeHudChoice||choice==2,pixelRatio);
+            float gap=Mathf.Max(6*pixelRatio,button.width*.14f);
+            if(choice==2||choice==3)button.x-=button.width+gap;
+            if(choice==3)button.y+=gap*.55f;
+            if(choice==ExitCarChoice){button.y-=button.height+gap;button.x-=button.width*.32f;}
+            return button;
         }
 
         int DrivePedalAt(Vector2 position)

@@ -20,7 +20,7 @@ namespace PhoViet
   bool riderVelocityValid;
   // Physics may keep scrolling after impact; only riding distance earns score.
   float crashTravelDistance;
-  internal float TravelDistance=>Distance+crashTravelDistance;
+  internal float TravelDistance=>Distance+crashTravelDistance+driveRouteOffset;
   const float RiderGroundDrag=9f;
   void ResetRiderImpact()
   {
@@ -187,7 +187,7 @@ namespace PhoViet
    AdvanceGrenadeDrive(policeBody,dt);
    Vector3 before=PoliceRoadPosition(),start=before-Vector3.forward*Speed*dt,next=start;
    policeBody.previousPosition=before;policeBody.previousYaw=policeBike.localEulerAngles.y;policeBody.knocked=false;
-   float nominal=Mathf.Clamp(cruiseSpeed+5,12,VehicleSpeedLimit)*GrenadeDriveFactor(policeBody);bool clear=false;
+   float nominal=LimitPoliceOpeningSpeed(Mathf.Max(cruiseSpeed+5,12))*GrenadeDriveFactor(policeBody);bool clear=false;
    Vector3 goal=PoliceTargetPosition;
    bool arrived=PoliceCanReachTarget(start,goal);
    if(!arrived&&CrashPoliceWaypoint(start,dt,out Vector3 target))

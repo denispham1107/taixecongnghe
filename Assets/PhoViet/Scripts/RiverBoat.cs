@@ -6,13 +6,17 @@ namespace PhoViet
  {
   public Vector3 restPosition;
   public float restYaw,phase;
-  const float PatrolHalfLength=30f,PatrolHalfWidth=2.1f,PatrolRadiansPerSecond=.094f;
+  const float PatrolTurnWidth=1.4f,PatrolRadiansPerSecond=.22f;
   bool patrolling;
+  Vector3 patrolAxis,patrolSide;
   float patrolAngle;
   void OnEnable(){if(phase==0)phase=Random.value*6.28f;}
-  public void SetPatrol(Vector3 centre,float startAngle)
+  public void SetPatrol(Vector3 red,Vector3 green)
   {
-   restPosition=centre;patrolAngle=startAngle;patrolling=true;
+   restPosition=(red+green)*.5f;
+   patrolAxis=(green-red)*.5f;
+   patrolSide=Vector3.Cross(Vector3.up,patrolAxis.normalized)*PatrolTurnWidth;
+   patrolAngle=0;patrolling=true;
    UpdatePose(Time.time+phase);
   }
   void Update()
@@ -28,9 +32,10 @@ namespace PhoViet
    if(patrolling)
    {
     float sin=Mathf.Sin(patrolAngle),cos=Mathf.Cos(patrolAngle);
-    p.x+=cos*PatrolHalfLength;p.z+=sin*PatrolHalfWidth;
+    p+=-cos*patrolAxis+sin*patrolSide;
     // The imported fishing boat's bow points along local +X.
-    yaw=Mathf.Atan2(-sin*PatrolHalfLength,cos*PatrolHalfWidth)*Mathf.Rad2Deg-90;
+    Vector3 heading=sin*patrolAxis+cos*patrolSide;
+    yaw=Mathf.Atan2(-heading.z,heading.x)*Mathf.Rad2Deg;
    }
    transform.SetLocalPositionAndRotation(p,Quaternion.Euler(Mathf.Sin(t*.9f)*1.2f,yaw,Mathf.Sin(t*1.1f+1)*2.2f));
   }

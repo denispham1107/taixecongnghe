@@ -118,20 +118,21 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 
 | Thao tác | Desktop | Điện thoại/tablet |
 | --- | --- | --- |
-| Bắt đầu | Nút “LÊN XE THÔI”, Enter hoặc Space | Chạm nút bắt đầu |
-| Đổi làn/chọn rẽ | ←/→ hoặc A/D; rẽ theo nửa đường trong vùng hợp lệ | Vuốt trái/phải |
+| Bắt đầu | Nút “LÊN XE THÔI”, Enter hoặc Space | Chọn “VÀO PHỐ”, xoay ngang nếu đang cầm dọc, rồi chạm nút bắt đầu |
+| Đổi làn/chọn rẽ bằng phím hoặc vuốt (chỉ nhánh mô tô cũ) | ←/→ hoặc A/D; rẽ theo nửa đường trong vùng hợp lệ | Vuốt trái/phải ngoài cụm nút và joystick |
+| Lái ô tô (source 21.222, 21.224–21.225) | Giữ các phím mũi tên hoặc kéo joystick bằng chuột | Kéo joystick trái theo bất kỳ hướng nào. Giữ để tăng tốc đến 110 km/h, thả để phanh dần đến khi dừng. Kéo về phía đường nhánh để rẽ khi vào giao lộ. Xe vào cua rộng hơn khi chạy nhanh. |
 | Quăng hai lựu đạn phía sau, hồi 2 giây / lộn 360° khi giữ bay (source 21.195) | **Q** | Chạm hai lần gần nhau trong vùng chơi |
-| Nhảy khỏi xe (source 21.196) | **E** hoặc nút “NHẢY RA” | Nút “NHẢY RA” phía trên Đạp ga |
+| Nhảy khỏi xe (source 21.196) | **E** hoặc nút “NHẢY RA” | Nút “NHẢY RA” trên cùng của cụm bên phải |
 | Đi bộ / quăng lựu đạn theo hướng đang nhìn / mở cửa trái xe (source 21.196) | **WASD** hoặc phím mũi tên / **Q** / **E** | Joystick trái / “LỰU ĐẠN” / “LẤY XE” |
 | Lấy ô tô dân sự vừa bị xe khác tông (source 21.199) | Đến cửa trái khi xe đã nằm ổn định và nhấn **E** | Đến cửa trái bằng joystick và chạm **LẤY XE** |
 | Trốn vào tạp hóa và ra phố (source 21.197–21.198) | Từ lúc nhảy khỏi xe có 10 giây tìm cửa theo HUD. Đi qua cửa hoặc nhấn **E** gần cửa. Sau 3 giây trong tiệm, đi ra cửa hoặc nhấn **E** | Theo HUD đến cửa bằng joystick hoặc chạm “VÀO TIỆM” khi đến gần. Sau 3 giây trong tiệm, chạm “RA PHỐ” hoặc đi ra cửa |
 | Nhảy / giữ cao độ bay / hạ (21.122) | **SpaceBar**, nhấn tiếp khi ở trên không | Vuốt từ dưới lên, vuốt tiếp để bay/hạ |
-| Phóng tên lửa (boost tạm khóa) | **W / F** hoặc nút tên lửa | Vuốt từ trên xuống hoặc chạm nút tên lửa |
+| Phóng tên lửa (boost tạm khóa) | **W / F** hoặc nút tên lửa | Vuốt từ trên xuống hoặc chạm nút Tên lửa bên phải |
 | Tạm dừng/tiếp tục | P, Esc hoặc nút tạm dừng | Nút tạm dừng/tiếp tục |
 | Chơi lại | R, Space hoặc nút chơi lại | Chạm nút chơi lại |
 | Chọn công việc | **Đang ẩn/tắt** | **Đang ẩn/tắt** |
 
-**Đổi làn hiện hành (21.60, thay nhịp nhanh21.55):** A/D/←/→ hoặc vuốt ngang nhận lệnh ngay nhưng chuyển một làn theo đường cong bậc5 trong0,72 s (90% sau~0,55 s, gần tâm~0,68 s). Bẻ đầu xe0,16 s; trả lái0,45 s; giữ nghiêng ngắn0,18 s rồi hồi phục nghiêng bằng SmoothDamp0,45 s. Vẫn chạy tới trong suốt nhịp, đầu xe gần thẳng sau~1,45 s và độ nghiêng xuống<2° sau~2 s ở tốc độ17 m/s. Chuyển tiếp/reverse giữ vị trí/vận tốc/gia tốc liên tục. Hộp va chạm vẫn theo đường, không tự giảm tốc chạy tới. Mỗi lần vuốt một lệnh; nhảy/tăng tốc/Q và quy tắc rẽ giao lộ giữ nguyên.
+**Lịch sử nhịp đổi làn bằng nút/vuốt (21.60, thay nhịp nhanh21.55):** A/D/←/→ hoặc vuốt ngang nhận lệnh ngay nhưng chuyển một làn theo đường cong bậc5 trong0,72 s (90% sau~0,55 s, gần tâm~0,68 s). Bẻ đầu xe0,16 s; trả lái0,45 s; giữ nghiêng ngắn0,18 s rồi hồi phục nghiêng bằng SmoothDamp0,45 s. Vẫn chạy tới trong suốt nhịp, đầu xe gần thẳng sau~1,45 s và độ nghiêng xuống<2° sau~2 s ở tốc độ17 m/s. Chuyển tiếp/reverse giữ vị trí/vận tốc/gia tốc liên tục. Hộp va chạm vẫn theo đường, không tự giảm tốc chạy tới. Mỗi lần vuốt một lệnh; nhảy/tăng tốc/Q và quy tắc rẽ giao lộ giữ nguyên.
 
 - **Source21.81, chưa phát hành:** xe đua có nhịp khởi đầu đổi làn phản hồi ngay từ khung hình nhận lệnh, giữ quãng/thời gian hoàn tất theo tốc độ và nhịp trả lái cũ. Input phím/vuốt nhận ngay; xem số đo và công thức ở21.81.
 
@@ -168,7 +169,8 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 - **Source 21.197:** khi đã xuống xe, có thể vào các tiệm **TẠP HÓA** được đánh dấu để ẩn náu. Sau 3 giây, CSGT rời đi và xe bỏ lại bị kéo đi. Có thể ra lại phố qua đúng cửa, tìm xe khác và bị truy đuổi lại ngay khi vào xe đó thành công.
 - **Source 21.198:** từ lúc bắt đầu nhảy khỏi xe, dù chủ động hay bắt buộc, có 10 giây để tìm cửa tiệm. CSGT vẫn áp sát nhưng chỉ có thể bắt sau khi hết thời gian tìm. Tạm dừng ngưng đếm. HUD chỉ hướng và khoảng cách đến cửa tạp hóa gần nhất. Thời gian ẩn trong tiệm là 3 giây tính riêng từ lúc vào.
 - Từ **21.199 cục bộ**, khi xe dân sự vừa bị phương tiện khác tông và đã nằm ổn định, người đi bộ có thể mở cửa trái bằng E hoặc nút **LẤY XE**. Cách chặn xe bằng lựu đạn vẫn hoạt động.
-- Từ **21.206 cục bộ**, khi đã ngồi vào xe lấy được, CSGT đợi 3 giây thời gian chơi rồi bắt đầu truy đuổi lại từ 38 m phía sau. Nút **NHẢY RA** và phím **E** chỉ dùng được khi xe đã chạm mặt đường hoặc mặt cầu. Xe trên nóc phương tiện khác chưa được tính là đã chạm đất.
+- Từ **21.223 cục bộ**, khi bắt đầu hoặc chơi lại, xe CSGT đứng yên 3 giây rồi xuất phát từ 0 km/h. Đồng hồ dừng khi tạm dừng lượt.
+- Từ **21.206**, khi đã ngồi vào xe lấy được, CSGT đợi 3 giây thời gian chơi rồi bắt đầu truy đuổi lại từ 38 m phía sau. Nút **NHẢY RA** và phím **E** chỉ dùng được khi xe đã chạm mặt đường hoặc mặt cầu. Xe trên nóc phương tiện khác chưa được tính là đã chạm đất.
 - Từ **21.207 cục bộ**, rời xe chọn điểm đáp ngoài thân xe. Nếu xe khác chắn điểm đáp ở khung hình cuối, kiểm tra lại các điểm cạnh đó. Sau khi đáp, nhân vật đi và đứng ở độ cao mặt đường.
 - Phần dưới đây lưu **hành vi lịch sử trước 21.155** để tra cứu. Xem 21.196 cho truy đuổi hiện tại trong Unity.
 
@@ -3697,7 +3699,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 > Đã phát hành trong WebGL 1.69.0 ở mục 21.193. Các ghi chú cục bộ bên dưới mô tả thời điểm hoàn tất từng thay đổi.
 
-- **Truy đuổi:** `PhoVietGame.StartRide` gọi `StartChase` với `PolicePursuitReleased=true`. Mô tô CSGT bắt đầu sau 38 m, dùng nhịp tăng tốc mở màn hiện có, báo khoảng cách trên HUD ngang/dọc. Bắt khi đến gần khoảng 2,2 m và xe người chơi dưới 1,25 m nếu còn lái. Nếu người chơi đã té thì đợi xe ngừng văng. Giữ dự đoán né chướng ngại và hồi phục CSGT 1,2 giây. Nếu CSGT mất do sông/sét trong lúc người chơi chờ bắt thì đưa CSGT khác tới sau 2,5 giây. Các nhánh này ở `PhoVietActions.cs`, `PhoVietPolice.cs`, `PhoVietRiderCrash.cs`, `PhoVietRiver.cs`, `PhoVietThunderstorm.cs` và `PhoVietPortraitHud.cs`.
+- **Truy đuổi ở bản 1.69.0 (source hiện tại xem 21.223):** `PhoVietGame.StartRide` gọi `StartChase` với `PolicePursuitReleased=true`. Mô tô CSGT bắt đầu sau 38 m, dùng nhịp tăng tốc mở màn hiện có, báo khoảng cách trên HUD ngang/dọc. Bắt khi đến gần khoảng 2,2 m và xe người chơi dưới 1,25 m nếu còn lái. Nếu người chơi đã té thì đợi xe ngừng văng. Giữ dự đoán né chướng ngại và hồi phục CSGT 1,2 giây. Nếu CSGT mất do sông/sét trong lúc người chơi chờ bắt thì đưa CSGT khác tới sau 2,5 giây. Các nhánh này ở `PhoVietActions.cs`, `PhoVietPolice.cs`, `PhoVietRiderCrash.cs`, `PhoVietRiver.cs`, `PhoVietThunderstorm.cs` và `PhoVietPortraitHud.cs`.
 - **Va xe máy:** `PhoVietCollisions.cs` dùng quét tiếp xúc hiện có, `PhoVietBikeImpact.cs` đo tốc độ khép theo pháp tuyến (0–38 m/s). Mỗi lần trúng giảm 12–65% tốc độ, lệch ngang 0,16–0,67 m và chệch hướng 4–17° ra xa điểm va rồi hồi dần. Khóa nhận lại cùng xe 0,5 giây, bỏ tiếp xúc chồng khi đã tách. Người chơi vẫn đánh lái, rẽ và cộng mét, không bị hất lên. Xe máy kia vẫn nhận lực và hiệu ứng va chạm. Va xe máy vào xe người chơi đã té không hất xe người chơi lần nữa. `PhoVietRoutes.cs` tách độ lệch tạm khỏi quỹ đạo khi rẽ và đổi hệ tọa độ sau cua.
 - **Phân loại kết thúc:** Va thân xe bốn bánh, xe tăng hoặc máy bay dùng hiệu ứng té hiện có, chờ bắt rồi chuyển `Arrested` → `Jailed`. Trúng đạn pháo, tên lửa từ xe tăng/trực thăng/Skywing, va khủng long sống hoặc xác khủng long, sét và rơi sông vẫn kết thúc trực tiếp sau hiệu ứng tương ứng. Giữ thông báo tên nguồn bắn của 21.180.
 - **Cảnh phòng giam:** Dựng bằng Blender MCP, dùng rig Meshy Golden Star Stance (`Assets/MeshyImports/Golden Star Stance_20261023_150430/`). Nhân vật áo đỏ sao vàng ngồi trên ghế gỗ, với tường vữa cũ, sàn gạch, song sắt và ánh sáng từ cửa sổ. File nguồn Blender đã đóng gói `ArtSource/Blender/PhoViet_Jail.blend`, script dựng bố cục `ArtSource/Blender/pho_viet_jail.py`. `JailScreen` hiển thị ảnh render tĩnh riêng cho ngang (`JailWide.jpg`, 1440×900) và dọc (`JailTall.jpg`, 810×1200) từ `Assets/PhoViet/Resources/Jail/`. Hai ảnh nhập nguyên tỷ lệ, không mipmap. Hộp kết quả đặt lệch phải ở ngang và phía dưới ở dọc để thấy nhân vật.
@@ -3923,6 +3925,7 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 ## 21.210. Mái ngói từng tầng, mái chính và sân thượng (12/11/2026 — Codex)
 
+- Từ 21.216, dải ngói tầng trệt ngay dưới bảng hiệu được bỏ. Mái vải sọc, ngói tầng trên, mái chính và sân thượng vẫn dùng bộ thiết kế này.
 - `pho_viet_saigon_streets.py` và `pho_viet_river_bridge.py` thêm mái ngói đất nung trên mỗi mặt tiền tầng trệt và từng tầng trên, gồm cửa sổ có và không có ban công, cả hai mặt của dãy ven sông. Mái thấp ở tầng trệt đặt giữa biển cửa hàng và mái bạt. Ở tầng có biển “CHO THUÊ NHÀ”, đặt mái dưới biển để giữ dòng chữ thoáng. Biển, mái bạt, cửa chớp và chậu cây/hoa dùng lại thiết kế đã có. `pho_viet_balcony_details.py` dựng mái dốc có lớp ngói, mép và đầu hồi theo ba LOD.
 - Dựng lại mái và sân thượng bằng Blender MCP trong scene riêng `Pho Viet - Mai nha 21.210`. `pho_viet_roof_details.py` có mái hai dốc với ngói xếp 6/3/1 hàng theo LOD, ngói nóc, diềm và ô thoáng đầu hồi. Sân thượng có nền lát, tường thấp và lan can, phòng thang với mái dốc, bồn nước, chậu cây và biến thể giàn che hoặc tấm pin. Dùng bố cục hẹp cho từng gian ven sông và dùng bộ mái/sân thượng trên các tháp kính phía sau, giữ mặt kính hiện tại. Dùng lại atlas và vật liệu dự án.
 - Xuất 26 FBX/JSON qua `export_tube_houses_21186.py`, nhập tại chỗ từ `.tools/roofs-21210/final-v2` và giữ các tham chiếu Unity. `coverage.json` kiểm 516 vị trí mái nhà phố và 3.072 vị trí mái nhà ven sông khi tính cả ba LOD, gồm 480 vị trí tầng trệt và 321 vị trí dưới biển thuê. So với 21.209, số tam giác ba LOD của bộ nhà phố tăng 13,4% / 4,7% / 7,6%, bộ nhà ven sông đổi −2,4% / +6,3% / +8,0%.
@@ -3962,3 +3965,86 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 - Chrome cục bộ đạt 603 kiểm tra bố cục và 27 kiểm tra game trên desktop và mobile mô phỏng, gồm gói đồ họa đúng thiết bị, mở game offline, nút rời xe và joystick. Không ghi nhận lỗi JavaScript hoặc Unity runtime. Máy chủ localhost đã dừng.
 - Git index đạt 43 kiểm tra. Commit `e218796` đã lên `main`, Pages run `43373400486` thành công đúng SHA. GitHub nhận FBX nhà ven sông 53,03 MB với cảnh báo vượt mốc khuyến nghị 50 MB. Web trả 1.71.0/cache `1ebf80ce165465c3`; cả 29 tệp live, gồm hai gói dữ liệu, khớp SHA-256 với bản đã thử.
 - Chrome bản công khai đã dựng cảnh thật, kiểm nút điều khiển và rời xe trên desktop, đồng thời mở lại game khi ngắt mạng. Lần thử đầu hết thời gian đợi cache sau khi mở game ngay; khi chờ service worker quản lý trang trước khi mở, thử offline đạt. Mobile dọc mô phỏng đạt 17 kiểm tra, gồm tải đúng gói, vào chế độ đi bộ và joystick, không có lỗi runtime. Chưa thử trên điện thoại thật. Báo cáo `Captures/release171-*.json` và `.tools/release171/`.
+
+## 21.216. Dải mái tầng trệt, icon thao tác và chỗ trốn hai bên đường (13/11/2026 — Codex)
+
+- `pho_viet_saigon_streets.py` và `pho_viet_river_bridge.py` bỏ dải ngói đỏ dưới bảng hiệu tầng trệt. Áp dụng cho 24 mẫu nhà phố, dãy ven sông ở cả hai mặt và biến thể Petshop ven sông. Giữ mái vải sọc, mái ngói ở các tầng trên và mái chính. Xuất lại 26 cặp FBX/JSON; Blender đối chiếu 444 vị trí mái tầng trên của nhà phố và 2.664 vị trí ven sông qua các LOD. Unity kiểm 147 mesh khớp số tam giác, GUID, FileID và số submesh. Scene giữ nguyên.
+- `PhoVietFootHud.cs` dùng icon nét bo và khử răng cưa cho Nhảy ra (xe + mũi tên chéo), Vào tiệm và Ra phố (khung cửa + mũi tên theo hai hướng). Nút Lấy xe cũng dùng biểu tượng xe tương ứng. Icon 96 px tạo một lần, vẽ độc lập với phép xoay IMGUI, thu hồi cùng game ở `PhoVietGame.cs`. Nhãn và vùng chạm theo bố cục hiện hành.
+- `PhoVietShopHideout.cs` tìm cửa tiệm theo khoảng cách trên cả hai vỉa hè, dùng đúng vị trí cửa theo loại mặt tiền, kể cả một số mẫu Petshop. Chỉ chọn tiệm đang hiển thị và có lối vào từ phần đất liền. Mỗi bên có thể hiện một dấu TRỐN CSGT khi cửa trong tầm nhìn, tránh chồng lên HUD và dấu bên kia. Các cửa dùng chung nội thất và bộ đếm 3 giây, khi ra trở về đúng cửa đã vào.
+- Unity biên dịch sạch, đạt 167 điều kiện mới trên 30 khối phố và 5 khối cầu, gồm bấm nút hoặc đi vào, thoát truy đuổi và ra đúng phía. Hai bài hồi quy chỗ trốn và rời xe đạt 44 + 110 điều kiện. Đã xem ảnh mặt tiền phố, ven sông và ba biểu tượng tại `.tools/storefront-21216/`. Unity về Edit Mode. Chưa build WebGL, commit, push hay phát hành, web vẫn 1.71.0.
+
+## 21.217. Thu góc nhìn trong tiệm và sơn lại tàu đánh cá (13/11/2026 — Codex)
+
+- `PhoVietShopHideout.cs` đổi tỷ lệ chiếu `ShopCameraZoom` từ `0.70` xuống `0.42`, còn 60% cỡ hình của bản trước. Giữ vị trí máy quay trong phòng. Đối chiếu chiều cao của cùng đoạn 1,7 m tại vị trí nhân vật trong Game View ngang và dọc cho tỷ lệ lần lượt 0,600000 và 0,5999997. `VerifyStreetPlay21199.cs` kiểm mức thu 40% theo tỷ lệ chiếu của bản trước. Luồng vào, trốn 3 giây và ra đúng cửa vẫn đạt bài kiểm.
+- Đổi các pixel sơn xanh lam/xanh lơ thành vàng cam ở `PV_FishingBoat_Palette.png`. Chuyển màu có hòa mép để giữ vân sơn cũ. Giữ sọc đỏ, cờ, gỗ và lưới. Cả tàu neo và tàu chạy dùng chung atlas qua `PV_FishingBoat.mat` ở cả ba LOD. Ảnh nguồn vẫn 2.048 × 2.048, giữ `.meta` và thiết lập nén hiện hành. Unity Editor trên cấu hình đang mở nạp texture ở 1.024 × 1.024.
+- Unity biên dịch sạch. Sau khi khởi động lại Play Mode, hai bài hồi quy đạt 44 + 139 điều kiện. Kiểm thêm 202 điều kiện ở khổ ngang và 218 ở khổ dọc, gồm tỷ lệ chiếu, quy trình rời tiệm và vật liệu tàu. Đã xem ảnh Unity của hai khổ màn hình, tàu neo và tàu đang chạy trong `.tools/shop-boat-21217/`. Unity đã về Edit Mode. Chưa build WebGL, commit, push hoặc phát hành. Web vẫn 1.71.0.
+- Tuyến chạy theo ảnh có ô đỏ/xanh được cập nhật ở 21.218.
+
+## 21.218. Tuyến tàu từ ô đỏ sang ô xanh (13/11/2026 — Codex)
+
+- `RiverBlock.cs` ghép bốn ô đỏ gần cầu với bốn ô xanh xa cầu ở cùng phía và cùng bên bờ, mỗi cặp một tàu. Quy đổi gần đúng từ ảnh vào tọa độ `(x, z)` cục bộ của cầu. Hai tuyến phía âm X bắt đầu tại `x = -15 m` và quay ở `x = -26 m`, hai tuyến phía dương X từ `9 m` đến `20 m`. Tâm tuyến dịch vào lòng sông 1,5 m từ đầu đỏ đến đầu xanh. Bắt đầu ở ô đỏ khi tàu được tạo lần đầu trong Play Mode.
+- `RiverBoat.cs` chạy theo vòng hẹp giữa hai điểm quay đầu, lệch ngang tối đa 1,4 m để quay mượt, nhịp 0,22 rad/s. Mũi tàu hướng theo tiếp tuyến và vẫn có chuyển động nhấp nhô. Tàu neo không đổi vị trí. Bốn tàu chạy được tái sử dụng khi khối cầu ẩn rồi hiện lại.
+- Unity biên dịch sạch. Play Mode đạt 3.605 điều kiện, lấy 128 mẫu cho mỗi tuyến, kiểm đầu đỏ/xanh, hướng thân tàu, khoảng hở với cầu/trụ, bờ và tàu neo, cùng tái sử dụng khi bật lại cầu. Khoảng hở đo bằng hộp bao mô hình tối thiểu khoảng 0,72 m với cầu, 7 m với bờ và 3,25 m với tàu neo ở lần kiểm cuối. Đã xem ảnh hai đầu tuyến trong `.tools/river-21218/`. Unity về Edit Mode. Chưa build WebGL, commit, push hoặc phát hành. Web vẫn 1.71.0.
+
+## 21.219. Đồ đạc theo cửa tiệm trên vỉa hè ven sông (13/11/2026 — Codex)
+
+- `pho_viet_riverside_sidewalk.py` dùng tên, màu bảng và hướng mặt đường từ `shop_signs` trong `pho_viet_river_bridge.py`. Tạo quầy inox có khay, kính, bánh xe và nồi cho hàng ăn, máy ép và bó mía cho tiệm nước mía, bàn ghế và ly cho tiệm đồ uống, tủ chai/kệ/két hàng cho tạp hóa, máy may và cuộn vải, tủ thuốc/trang sức, ghế và trụ hiệu hớt tóc, dụng cụ sửa điện/làm chìa, ATM, bảng nhà đất và chậu cây. Petshop giữ thú cưng, thêm bát ăn/uống và chậu cây, không có bàn ghế hay tủ trưng bày. Gắn đồ dưới mái hiên ở mặt đường. Dải gạch kem và tím xám rộng 1,44 m có mép đá.
+- Xuất bằng Blender nền riêng vào `PV_RiverApartments` và `PV_RiverPetshopExtra`. Kiểm 204 bố trí qua ba LOD, gồm 66 gian gốc và hai gian trong biến thể thay thế. Có 20 tên tiệm thực tế, đồ nhô tối đa 1,29 m và khoảng trống giữa gian tối thiểu 1,41 m theo kiểm hình học. Dùng atlas và slot vật liệu cũ, gộp vào mesh nhà hiện có. Tăng 61.083/41.004/25.824 tam giác qua từng LOD của FBX chính. Đồ đạc là trang trí, không thêm collider.
+- Unity nhập và đối chiếu 75 mesh về GUID, FileID, submesh và số tam giác. SHA scene giữ nguyên. Xem ba góc chụp trong `.tools/river-21219/`. Hồi quy cửa trốn đạt 44 mục, bốn tuyến tàu đạt 3.605 điều kiện. Unity đã về Edit Mode. Chưa đo FPS trên thiết bị thật, build WebGL, commit, push hoặc phát hành. Web vẫn 1.71.0.
+
+## 21.220. Bảng hiệu cửa hàng ven sông theo mẫu phố đối diện (13/11/2026 — Codex)
+
+- `river_shop_sign` trong `pho_viet_river_bridge.py` dựng bảng cao 1 m với viền, mặt màu lõm, nẹp trên và tên lớn đậm cùng phông với phố đối diện. Thêm dòng giới thiệu riêng theo ngành hàng, hình sao cho tạp hóa và chữ thập cho nhà thuốc. Giữ tên, màu biển, màu chữ và vị trí gian tiệm hiện có. Cù Lao Petshop giữ nền xanh, chữ trắng và dòng “Lưu Trú - Spa Pet”. Hai mặt nhận cùng thiết kế, bản hướng sông gọn chiều sâu. LOD xa nhất giữ tên tiệm và dòng phụ của Petshop, lược dòng phụ của các tiệm còn lại. Biển thuê nhà, mái hiên và đồ đạc 21.219 giữ nguyên.
+- Blender nền xuất lại `PV_RiverApartments` và `PV_RiverPetshopExtra` với cùng atlas và ô vật liệu. Kiểm 408 vị trí bảng, gồm 66 gian chính và hai gian trong biến thể Petshop, hai mặt, ba LOD. Kiểm chữ và dấu tiếng Việt nằm trong vùng nền màu, bảng nằm trong khoảng hở mặt tiền. FBX chính tăng khoảng 2,8% / 6,8% / 2,4% số tam giác ở ba LOD so với 21.219.
+- Unity đối chiếu 75 mesh theo GUID, FileID, submesh và số tam giác, chụp mặt đường, mặt sông và cận cảnh trong `.tools/river-21220/`. Scene giữ nguyên. Bản cục bộ, chưa build WebGL, commit, push hoặc phát hành. Web vẫn 1.71.0.
+
+## 21.221. Chơi ngang, lái ô tô tự do và cụm nút bên phải (14/11/2026 — Codex)
+
+Cách điều khiển ô tô ở mục lịch sử này đã được thay bằng 21.222. Bố cục chơi ngang và vị trí nút tiếp tục dùng 21.221.
+
+- Trang chủ vẫn hiển thị ở hai hướng. WebGL template chờ màn hình ngang sau khi chọn “VÀO PHỐ”, thông báo “Xoay ngang để chơi” có nút về trang chủ. Nếu xoay dọc giữa lượt, Unity dừng thời gian/âm thanh và hủy chạm đang giữ. Xoay ngang tiếp tục trạng thái đang có, gồm cả menu Pause nếu đã mở. Tệp `Assets/WebGLTemplates/PhoVietPWA/{index.html,style.css,app.js}`, `PhoVietWebRuntime.cs` và các điểm vào Update/OnGUI trong `PhoVietGame.cs`.
+- `PhoVietFreeDrive.cs` và `PhoVietRoutes.cs`: joystick lái liên tục qua mặt đường, thả giữ vị trí ngang thay vì ép về tâm làn. Kéo xuống lùi tối đa 8 m/s và không cộng mét kỷ lục. Tại giao lộ điều hướng vào nhánh, chuyển hệ tọa độ phố, camera và xe khác, đồng thời gọi lại hệ thống sự kiện sau khi rẽ. Phím/vuốt vẫn chọn làn theo cách hiện có. Lái tự do giới hạn theo lòng đường và dùng các đường nhánh của bản đồ cuộn, chưa có quay đầu 180° giữa đường. Tách tốc độ cuộn phố có dấu khỏi tốc độ HUD/quãng đường và đồng bộ với xe/CSGT, hố, đạn, vật phẩm và dấu đường. Giữ chế độ Ga/Phanh hiện hành. Công việc/khách vẫn khóa.
+- `PhoVietFootHud.cs`: joystick bên trái dùng chung khi đi bộ, trong tiệm hoặc lái ô tô, đường kính 2,046 lần nút Phanh thay cho 1,86 lần. `PhoVietDrivePedals.cs`, `PhoVietFlightButton.cs` và `PhoVietPlayerMissileHud.cs` dùng chung bố cục nút theo vùng an toàn, Bay/Tên lửa ở cột trong, Ga/Phanh ở cột ngoài, Nhảy ra phía trên. `PhoVietGestures.cs` và `PhoVietPortraitHud.cs` nhận riêng ngón joystick với ngón thao tác.
+- Unity biên dịch sạch, thử Play Mode 360 điều kiện gồm lái giữa làn, lùi/phanh/đạp ga, rẽ trái/phải, dùng Bay/Tên lửa song song với joystick, đi bộ, khóa dọc và nút theo vùng an toàn. Điểm xuất phát qua 66 điều kiện. Các bản chạy hồi quy tạm đã điều chỉnh bộ dữ liệu cũ cho khởi hành từ 0 km/h và luật buộc rời xe hiện tại, đạt 109 điều kiện đổi làn, 433 điều kiện rẽ/chơi lại bằng phím và 445 qua cầu nối vuốt. Chrome mô phỏng điện thoại, máy tính bảng và desktop đạt 41 điều kiện trên template với Unity loader giả lập. Ảnh kiểm bố cục trong `.tools/drive-21221/HUD.png`. Chưa thử thiết bị thật hoặc build WebGL.
+- Bản source cục bộ. Chưa commit, push hay phát hành. Web hiện vẫn 1.71.0.
+
+## 21.222. Ô tô chạy theo joystick như nhân vật (14/11/2026 — Codex)
+
+- Ô tô khởi hành, chơi lại và sau khi lấy xe ở 0 km/h. Joystick trái dùng cùng vùng chạm với nhân vật, nhận góc liên tục đủ vòng tròn và độ mạnh theo độ kéo. Giữ hướng để tăng tốc 6 m/s², kéo hết lực đạt tối đa 110 km/h. Vùng chết 0,12. Ở 21.222, thả tay, hủy chạm hoặc đưa về giữa từng làm xe dừng ngay. Từ 21.225, xe phanh dần. Không ép về tâm làn. Xe quay đầu khi kéo về phía sau. Quãng chạy ngược chiều cuộn phố không cộng kỷ lục, theo luật trước đó.
+- PhoVietFreeDrive.cs và PhoVietGame.cs tách tốc độ ngang thực, tốc độ cuộn phố có dấu và quãng đường. Ở 21.222, hướng xe xoay tối đa 540 độ/s và đầu xe dùng SmoothDampAngle 0,08 s. Cấu hình đó đã được thay bằng 21.224. Khi sang đường nhánh, giữ hướng đang kéo trong lúc camera xoay theo phố mới, dùng chung nhịp chuyển góc với camera đi bộ. Có thêm khối đường phía sau sau khi chuyển phố để có thể quay lại. Tuyến CSGT theo hướng thực của xe. Cùng logic áp dụng cho xe lấy lại qua PhoVietVehicleTakeover.cs.
+- Ga nhả khóa Phanh, xe tăng tốc khi có hướng. Phanh giảm tốc đến 0 kể cả khi giữ hướng. Desktop có bốn phím mũi tên hoặc kéo joystick bằng chuột, W/F vẫn bắn. Mobile lái bằng joystick, vuốt dọc vẫn điều khiển nhảy/bay hoặc bắn. Cập nhật hướng dẫn trong HUD và Assets/WebGLTemplates/PhoVietPWA/index.html. Thao tác lái áp dụng cả trên đất lẫn khi bay. Công việc/khách vẫn khóa.
+- Unity Play Mode ngang 1138 × 640 đạt 157 kiểm tra cho 8 hướng ở 3 bước thời gian, tăng dần/giới hạn 110 km/h, điều khiển analog, dừng/thả/hủy, Ga/Phanh, hướng phím, nhảy tại chỗ, rẽ hai phía rồi quay lại, xoay màn hình và rời xe. Một số kiểm tra chuyển động tạm tắt đối thủ để đo riêng điều khiển. Chrome mô phỏng với Unity loader giả lập đạt 41 kiểm tra lớp chạm và xoay của template. Chưa thử thiết bị thật.
+- Bản source cục bộ. Chưa build WebGL, commit, push hay phát hành. Web vẫn 1.71.0.
+
+## 21.223. CSGT chờ 3 giây và xuất phát chậm hơn (14/11/2026 — Codex)
+
+- Bắt đầu/chơi lại, xe tuần tra đỗ cách 38 m phía sau tại vạch xuất phát. Trong 3 giây thời gian chơi, CSGT ở 0 km/h, chưa bật còi, chưa được bắt và HUD đếm ngược. Khi phố cuộn, vị trí xe cập nhật theo khung tọa độ của mặt đường để xe thực sự đứng yên. Đồng hồ dừng khi Pause hoặc game bị khóa do màn hình dọc. Hết giờ thì xe xuất phát kể cả khi người chơi còn đứng yên.
+- Xe tuần tra có giới hạn tốc độ tăng từ 0 với gia tốc 4 m/s², tương đương khoảng 14,4 km/h sau giây đầu tiên trên đường thoáng. Giới hạn tăng đến trần hiện có 110 km/h rồi giao lại cho tốc độ truy đuổi thông thường. Áp dụng cùng giới hạn trên đường thẳng, đường đã rẽ và khi CSGT tới chỗ người chơi gặp nạn/đi bộ. Khi lấy xe, luồng riêng của 21.206 vẫn chờ 3 giây tính từ khi ngồi vào xe và giữ nhịp truy đuổi cũ. Xe CSGT thay thế sau khi chìm và công việc đưa đón giữ quy tắc hiện tại.
+- Code ở PhoVietActions.cs (lịch, còi, HUD, chặn bắt), PhoVietPolice.cs (giới hạn tốc độ), PhoVietGame.cs (bắt đầu lượt), PhoVietRoutePolice.cs và PhoVietRiderCrash.cs (áp dụng giới hạn), PhoVietRoutes.cs/PhoVietFootEscape.cs (cuộn vị trí xe đỗ) và PhoVietRiver.cs (không xử lý xe đỗ như đang chạy).
+- Unity Play Mode ngang 1138 × 640 đạt 3.203 kiểm tra cô lập đối thủ. Đã kiểm ba bước thời gian với xe người chơi đứng yên/chạy tới/quay ngược, tạm dừng, chơi lại, bắt sau khi hết chờ, chờ khi gặp nạn và lịch truy đuổi sau khi lấy xe. Khi giữ hết hướng tiến, người chơi đạt 64,8 km/h lúc CSGT bắt đầu xuất phát. Bài lái tự do 21.222 chạy lại đạt 157 kiểm tra. Bản cục bộ chưa build WebGL, commit, push hay phát hành.
+
+## 21.224. Đánh lái ô tô theo vận tốc (14/11/2026 — Codex)
+
+- Joystick tiếp tục chỉ hướng liên tục như khi đi bộ. Xe bắt đầu đổi hướng ngay khi nhận lệnh, quay chậm hơn ở vận tốc cao. Khi đổi hướng gắt, tốc độ di chuyển giảm dần để xe vào cua. Khi thả joystick, áp dụng phanh dần theo 21.225. Chạy thẳng vẫn đạt 110 km/h.
+- PhoVietFreeDrive.cs giới hạn tốc độ xoay theo căn bậc hai của tỷ lệ vận tốc, từ 138°/s khi đứng yên đến 29°/s ở 110 km/h, với gia tốc xoay giới hạn 400°/s². Tính bước theo tiếp tuyến ở giữa bước và vận tốc xoay trung bình để giảm sai lệch giữa các khung hình. Khi góc cần xoay tăng từ 12° đến 65°, tốc độ mục tiêu hạ mềm về 5,5 m/s và giảm tiếp khi hướng yêu cầu nằm phía sau xe. Gia tốc giảm tốc riêng khi bẻ gắt tối đa 14 m/s². Xe dừng có thể xoay để đi theo hướng mới. PhoVietGame.cs đồng bộ đầu xe với quỹ đạo và làm mượt độ nghiêng thân theo gia tốc ngang. Chế độ đi bộ, cụm HUD, cơ chế CSGT và công việc đưa đón giữ theo source trước đó.
+- Unity Play Mode đạt 865 điều kiện ở bước 10/20/50 ms. Kiểm hai phía, bắt đầu ở 14,4 / 57,6 / 104,4 km/h, đổi tay lái, dừng, rẽ trái/phải qua giao lộ, quay đầu và tốc độ tối đa. Cùng hướng chéo 45°, sau 0,25 giây xe xoay khoảng 12,4° ở 14,4 km/h và 7,4° ở 104,4 km/h trong bài 10 ms. Bài hồi quy CSGT đạt 3.203 kiểm tra. Chưa thử cảm giác lái trên thiết bị thật.
+- Bản Unity cục bộ. Chưa build WebGL, commit, push hay phát hành. Web vẫn 1.71.0.
+
+## 21.225. Phanh dần khi thả joystick (14/11/2026 — Codex)
+
+- Khi người chơi thả joystick, đưa cần về vùng giữa, hủy chạm hoặc nhả phím hướng, ô tô giữ đà theo hướng đang di chuyển rồi phanh về 0 km/h. Nếu đang xoay, tốc độ xoay giảm dần. Đạp ga lại bằng joystick khi đang phanh thì tiếp tục điều khiển và tăng tốc từ tốc độ còn lại. Trần 110 km/h và nút Phanh giữ chế độ riêng như trước.
+- PhoVietFreeDrive.cs dùng mức giảm tốc hiện có của nút Phanh là 9 m/s². Tích phân quãng đường bằng vận tốc trung bình và chỉ dùng phần thời gian còn chuyển động ở bước cuối. Đồng hồ hiển thị tốc độ cuối bước và quãng đường vẫn được tính theo chuyển động thực. PhoVietDrivePedals.cs bật đèn hậu khi phanh bằng joystick. Cập nhật hướng dẫn trang chủ trong Assets/WebGLTemplates/PhoVietPWA/index.html.
+- Đã biên dịch và đạt 9.715 kiểm tra Play Mode Unity. Kiểm kéo về giữa/thả tay/hủy chạm, nhả phím, đèn phanh, kéo lại, nút Ga/Phanh, rẽ hai bên và trần tốc độ. Ba tốc độ 14,4 / 57,6 / 110 km/h được thử với bước 10/20/50 ms. Từ 110 km/h trên đường thoáng, xe dừng sau khoảng 3,4 giây và khoảng 52 m. Chưa thử trên thiết bị thật.
+- Bản Unity cục bộ. Chưa build WebGL, commit, push hay phát hành. Web vẫn 1.71.0.
+
+## 21.226. Va chạm bó vỉa theo ngưỡng 65 km/h (14/11/2026 — Codex)
+
+- Ô tô người chơi chạm bó vỉa dưới 65 km/h phát tia lửa, mảnh va chạm và âm thanh, giảm tốc và chỉnh nhẹ hướng về lòng đường. Xe vẫn ở chế độ lái. Từ 65 km/h, dùng phản ứng lật hiện có rồi tự thoát sang chế độ đi bộ khi đã chạm đất và đủ thời gian rời xe 3 giây. Công việc đưa đón vẫn khóa.
+- PhoVietSceneryContacts.cs quét cạnh bó vỉa hai bên dùng bề rộng ô tô theo góc lái và tọa độ khối phố. Bó vỉa kết thúc trước nút giao, đoạn sông dùng mép cầu hiện hành. PhoVietFreeDrive.cs giữ vận tốc trước giới hạn ngang để phân loại đúng cú tông sát mép. PhoVietCollisions.cs vẫn tiếp tục bước chạy sau phản ứng nhẹ.
+- Unity đạt 51 kiểm tra cả hai phía ở 25 / 64,9 / 65 / 80 km/h, lái lại và tự rời xe thật, kiểm khoảng trống ở giao lộ và khi nhảy đủ cao. Hồi quy đạt 9.715 kiểm tra phanh/lái và 3.203 kiểm tra CSGT. Chuẩn bị WebGL 1.72.0; xem mục 21.227 khi phát hành.
+
+## 21.227. Build và phát hành WebGL 1.72.0 (14/11/2026 — Codex)
+
+- Gói 1.72.0 gồm toàn bộ thay đổi đã làm trong 21.216–21.226. Build hai biến thể DXT/ETC2 bằng Unity 6000.5.6f1, thành công với 0 lỗi ở báo cáo cuối. Kiểm 16 điều kiện scene và 628 đầu vào khớp trước/sau build. Công việc đưa đón vẫn khóa.
+- Cache PWA `b0fdc16c80aac035`. Dữ liệu DXT và ETC2 chia thành các phần trong Git và được ghép lại theo SHA-256 ở GitHub Pages. Kiểm cấu trúc và dữ liệu đạt 49 điều kiện ở `docs/` và 39 điều kiện ở gói đã ghép.
+- Trạng thái tại mốc này: đã build cục bộ, đang kiểm WebGL trên Chrome trước khi đẩy lên `main`.

@@ -11,12 +11,15 @@ namespace PhoViet
         public const float PoliceCruiserScale=.85f;
         public const float PoliceCruiserLength=4.4f*PoliceCruiserScale;
         const float PoliceHalfWidth=1.83f*PoliceCruiserScale*.5f,PoliceHalfLength=PoliceCruiserLength*.5f,PoliceHeight=1.605f*PoliceCruiserScale;
+        const float PoliceOpeningDelay=3f,PoliceOpeningAcceleration=4f;
         TrafficVehicle policeBody;
         float[] policeContactUntil;
-        float policeTargetX;
+        float policeTargetX,policeOpeningRemaining,policeOpeningSpeedLimit=VehicleSpeedLimit;
+        bool PoliceWaitingToStart=>policeOpeningRemaining>0;
 
         void ResetPoliceDriving(bool resetStats=true)
         {
+            ResetPoliceOpening();
             PoliceFallRemaining=0;policeTargetX=0;
             dinosaurPoliceVelocity=Vector3.zero;
             if(resetStats)PoliceFalls=PoliceAvoidances=0;
@@ -27,6 +30,12 @@ namespace PhoViet
                 policeBike.localRotation=Quaternion.identity;
             }
         }
+        void ResetPoliceOpening()
+        {
+            policeOpeningRemaining=0;
+            policeOpeningSpeedLimit=VehicleSpeedLimit;
+        }
+        float LimitPoliceOpeningSpeed(float speed)=>Mathf.Clamp(speed,0,policeOpeningSpeedLimit);
         TrafficVehicle CreatePoliceBody()=>new TrafficVehicle {model=policeBike,halfWidth=PoliceHalfWidth,halfLength=PoliceHalfLength};
         Vector3 PoliceRoadPosition()
         {
@@ -41,7 +50,7 @@ namespace PhoViet
         void TickPoliceRecovery(Vector3 before,float dt)
         {
             // Keep the sedan on the road throughout the recovery, including during a turn.
-            policeBike.localPosition=before-Vector3.forward*Speed*dt;
+            policeBike.localPosition=before-Vector3.forward*RoadScrollSpeed*dt;
             TickDinosaurPolicePush(dt);
             ResolvePoliceContact(before,Vector3.zero,false);
             if(PoliceInRiver)return;
@@ -49,7 +58,7 @@ namespace PhoViet
             if(PoliceFallRemaining<.00001f)PoliceFallRemaining=0;
             PoliceSpeed=0;
             policeBike.localRotation=Quaternion.Euler(0,routePolice||PoliceFallen?policeFallYaw:0,0);
-            PoliceDistance=routePolice?TravelDistance-policeRouteAt:-policeBike.localPosition.z;
+            PoliceDistance=routePolice?ChaseTrailDistance-policeRouteAt:-policeBike.localPosition.z;
             if(!PoliceFallen)
             {
                 policeBody.knocked=false;
@@ -72,11 +81,11 @@ namespace PhoViet
             foreach(var v in vehicles)
             {
                 if(!v.active||v.model.localPosition.y>2.45f)continue;
-                Vector3 relativeVelocity=BodyVelocity(v)-Vector3.forward*Speed;
+                Vector3 relativeVelocity=BodyVelocity(v)-Vector3.forward*RoadScrollSpeed;
                 Vector3 police=from;float step=horizon/10;
                 for(int i=0;i<10;i++)
                 {
-                    Vector3 next=police;next.x=Mathf.MoveTowards(police.x,targetX,8*step);next.z+=(roadSpeed-Speed)*step;
+                    Vector3 next=police;next.x=Mathf.MoveTowards(police.x,targetX,8*step);next.z+=(roadSpeed-RoadScrollSpeed)*step;
                     float lateral=(next.x-police.x)/step,angle=Mathf.Atan2(lateral,Mathf.Max(.01f,roadSpeed));
                     float c=Mathf.Abs(Mathf.Cos(angle)),s=Mathf.Abs(Mathf.Sin(angle));
                     Vector2 policeHalf=new Vector2(PoliceHalfWidth*c+PoliceHalfLength*s+.12f,PoliceHalfLength*c+PoliceHalfWidth*s+.12f);
@@ -116,7 +125,7 @@ namespace PhoViet
             if(PoliceDistance<=6.5f)policeArrived=true;
             if(PoliceDistance>16)policeArrived=false;
             float nominal=policeArrived?cruiseSpeed-.65f:cruiseSpeed+15*OpeningTrafficPace;
-            nominal=Mathf.Clamp(nominal,0,VehicleSpeedLimit)*GrenadeDriveFactor(policeBody);
+            nominal=LimitPoliceOpeningSpeed(nominal)*GrenadeDriveFactor(policeBody);
             bool clear=ChoosePolicePath(before,nominal,out float target);
             if(!clear&&nominal>6)
             {
@@ -133,12 +142,12 @@ namespace PhoViet
             {
                 PoliceSpeed=Mathf.MoveTowards(PoliceSpeed,0,dt*45);target=before.x;
             }
-            Vector3 next=before;next.x=Mathf.MoveTowards(before.x,target,dt*8);next.z+=(PoliceSpeed-Speed)*dt;
+            Vector3 next=before;next.x=Mathf.MoveTowards(before.x,target,dt*8);next.z+=(PoliceSpeed-RoadScrollSpeed)*dt;
             policeBike.localPosition=next;
             float sideways=(next.x-before.x)/dt;
             policeBike.localRotation=Quaternion.Euler(0,Mathf.Atan2(sideways,Mathf.Max(PoliceSpeed,.01f))*Mathf.Rad2Deg,0);
             ApplyVehicleRoadStep(policeBody,before,dt);
-            Vector3 roadVelocity=(policeBike.localPosition-before)/dt+Vector3.forward*Speed;
+            Vector3 roadVelocity=(policeBike.localPosition-before)/dt+Vector3.forward*RoadScrollSpeed;
             ResolvePoliceContact(before,roadVelocity,true);
             PoliceDistance=-policeBike.localPosition.z;
             if(PoliceCanReachRider())Arrest();

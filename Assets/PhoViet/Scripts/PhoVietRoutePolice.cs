@@ -5,7 +5,7 @@ namespace PhoViet
     {
         RoutePoint SampleRoute(float at)
         {
-            if(routeTrail.Count==0)return new RoutePoint(at,new Vector3(rider.localPosition.x,0,at-TravelDistance),0);
+            if(routeTrail.Count==0)return new RoutePoint(at,new Vector3(rider.localPosition.x,0,at-ChaseTrailDistance),0);
             for(int i=1;i<routeTrail.Count;i++)if(routeTrail[i].at>=at)
             {
                 var a=routeTrail[i-1];var b=routeTrail[i];float t=Mathf.InverseLerp(a.at,b.at,at);
@@ -20,7 +20,7 @@ namespace PhoViet
             foreach(var v in vehicles)
             {
                 if(!v.active||v.model.localPosition.y>2.45f)continue;
-                Vector3 next=v.model.localPosition+(BodyVelocity(v)-Vector3.forward*Speed)*Mathf.Max(dt,.15f);
+                Vector3 next=v.model.localPosition+(BodyVelocity(v)-Vector3.forward*RoadScrollSpeed)*Mathf.Max(dt,.15f);
                 // Quét hai hộp xoay thật (SAT 4 trục) thay hộp AABB của xe xoay: container 12,8 m nằm
                 // chéo 43° có AABB ~10,6×11 m phủ cả mặt đường trống, CSGT đứng ngoài thân xe vẫn bị
                 // coi là kẹt bên trong và đứng im mãi (21.50). Đệm chỉ bù sai số ngoại suy của xe đang
@@ -53,8 +53,8 @@ namespace PhoViet
             }
             float nominal=PoliceDistance<=6.5f?cruiseSpeed-.65f:cruiseSpeed+15*OpeningTrafficPace;
             if(IsTurning)nominal=(PoliceDistance<=6.5f?TrafficPaceSpeed-.65f:TrafficPaceSpeed+2)*OpeningTrafficPace;
-            nominal=Mathf.Clamp(nominal,0,VehicleSpeedLimit)*GrenadeDriveFactor(policeBody);
-            float nextAt=Mathf.Min(TravelDistance-.8f,policeRouteAt+Mathf.Max(0,nominal)*dt);var point=SampleRoute(nextAt);Quaternion yaw=Quaternion.Euler(0,point.yaw,0);
+            nominal=LimitPoliceOpeningSpeed(nominal)*GrenadeDriveFactor(policeBody);
+            float nextAt=Mathf.Min(ChaseTrailDistance-.8f,policeRouteAt+Mathf.Max(0,nominal)*dt);var point=SampleRoute(nextAt);Quaternion yaw=Quaternion.Euler(0,point.yaw,0);
             Vector3 destination=point.point;bool clear=false;
             foreach(float side in new[]{-.9f,0,.9f,-3.1f,3.1f})
             {
@@ -62,7 +62,7 @@ namespace PhoViet
                 if(!RoutePolicePathClear(before,candidate,point.yaw,dt))continue;
                 destination=candidate;clear=true;break;
             }
-            Vector3 next=before-Vector3.forward*Speed*dt;
+            Vector3 next=before-Vector3.forward*RoadScrollSpeed*dt;
             if(clear)
             {
                 // Bound lateral correction so avoidance never teleports across traffic.
@@ -72,9 +72,9 @@ namespace PhoViet
             }
             else {PoliceSpeed=Mathf.MoveTowards(PoliceSpeed,0,dt*45);PoliceAvoidances++;}
             policeBike.localPosition=next;ApplyVehicleRoadStep(policeBody,before,dt);
-            ResolvePoliceContact(before,(policeBike.localPosition-before)/dt+Vector3.forward*Speed,true);
+            ResolvePoliceContact(before,(policeBike.localPosition-before)/dt+Vector3.forward*RoadScrollSpeed,true);
             if(PoliceFallen)policeFallYaw=policeBike.localEulerAngles.y;
-            PoliceDistance=TravelDistance-policeRouteAt;
+            PoliceDistance=ChaseTrailDistance-policeRouteAt;
             if(PoliceCanReachRider())Arrest();
             if(!IsTurning&&!PoliceFallen&&policeRouteAt>turnEndAt+1&&Mathf.Abs(Mathf.DeltaAngle(policeBike.localEulerAngles.y,0))<5)
             {routePolice=false;PoliceDistance=-policeBike.localPosition.z;}

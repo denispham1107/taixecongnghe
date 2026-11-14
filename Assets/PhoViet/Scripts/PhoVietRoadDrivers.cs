@@ -31,7 +31,7 @@ namespace PhoViet
         }
         void TickRoadTurn(TrafficVehicle v,float dt)
         {
-            v.roadTurnStart-=Vector3.forward*Speed*dt;
+            v.roadTurnStart-=Vector3.forward*RoadScrollSpeed*dt;
             dt*=OpeningTrafficPace*GrenadeDriveFactor(v);
             float previous=v.roadTurnAngle;
             float angle=Mathf.Min(Mathf.PI*.5f,previous+v.roadTurnSpeed*dt/v.roadTurnRadius);v.roadTurnAngle=angle;

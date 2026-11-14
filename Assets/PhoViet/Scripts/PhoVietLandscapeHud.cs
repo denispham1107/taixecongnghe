@@ -48,10 +48,13 @@ namespace PhoViet
    finally{GUI.matrix=matrix;uiScale=previousScale;uiW=previousWidth;uiH=previousHeight;}
    if(State==RideState.Riding&&!TouchGraphics)
    {
-    // Nút tên lửa ở góc trái (21.134): dải hướng dẫn nằm ngay bên phải nút để không đè lên nhau.
-    float hintX=(PlayerMissileButtonPixels().xMax-GameGuiArea().x)/uiScale+12;
-    Panel(new Rect(hintX,uiH-72,550,39),new Color(.07f,.19f,.21f,.46f));
-    Txt("← → LÀN · Q LỰU ĐẠN/LỘN · SPACE NHẢY/BAY/HẠ · W/F TÊN LỬA · P DỪNG · "+PassedVehicles+" XE NÉ",hintX+16,uiH-63,520,24,9,Cream);
+    float hintX=(FootJoystickLayout(area,false,browserPixelRatio).xMax-area.x)/uiScale+12;
+    float hintWidth=Mathf.Min(550,(PlayerMissileButtonPixels().x-area.x)/uiScale-hintX-12);
+    if(hintWidth>=430)
+    {
+     Panel(new Rect(hintX,uiH-72,hintWidth,39),new Color(.07f,.19f,.21f,.46f));
+     Txt("← ↑ ↓ → LÁI XE · Q LỰU ĐẠN/LỘN · SPACE NHẢY/BAY/HẠ · W/F TÊN LỬA · P DỪNG · "+PassedVehicles+" XE NÉ",hintX+12,uiH-63,hintWidth-24,24,9,Cream);
+    }
    }
   }
  }

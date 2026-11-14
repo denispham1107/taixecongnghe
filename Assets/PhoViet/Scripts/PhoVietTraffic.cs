@@ -147,7 +147,7 @@ namespace PhoViet
                 if(urban)urbanSideways=(v.targetX-v.changeFromX)*30*u*u*(1-u)*(1-u)/v.changeDuration;
                 if(v.changeProgress>=1)v.changingLane=false;
             }
-            p.z+=(v.speed*GrenadeDriveFactor(v)-Speed)*dt;v.model.localPosition=p;
+            p.z+=(v.speed*GrenadeDriveFactor(v)-RoadScrollSpeed)*dt;v.model.localPosition=p;
             float sideways=urban?urbanSideways:dt>0?(p.x-previousX)/dt:0;
             float yaw=Mathf.Atan2(sideways,v.speed)*Mathf.Rad2Deg;
             v.model.localRotation=Quaternion.Euler(0,yaw,v.halfWidth<.7f?-sideways*1.7f:0);
@@ -155,7 +155,7 @@ namespace PhoViet
         void TickIntersectionVehicle(TrafficVehicle v,float dt)
         {
             v.crossDelay-=dt;float moving=Mathf.Clamp(-v.crossDelay,0,dt);
-            v.model.localPosition-=Vector3.forward*Speed*dt;
+            v.model.localPosition-=Vector3.forward*RoadScrollSpeed*dt;
             float direction=Mathf.Sign(v.crossSpeed),velocity=Mathf.Abs(v.crossSpeed);
             if(!trafficSurprises)v.turnChoice=0;
             moving*=OpeningTrafficPace*GrenadeDriveFactor(v);
