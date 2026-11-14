@@ -102,6 +102,124 @@ def wrought_balcony(g, x, y, z, width, facing, reach):
                    'greenDark', (0, 0, facing), tag)
 
 
+def timber_glazed_window(g, x, y, z, width, height, facing=-1, *, see_through=False, compact=False):
+    """Four timber leaves with a continuous, recessed ventilation header."""
+    tag = 'FacadeWindow'
+    sill, head = y-height*.5, y+height*.5
+    def depth(offset): return z+facing*offset
+    def panel(cx, cy, offset, w, h, color, material_tag=tag):
+        g.panel((cx, cy, depth(offset)), w, h, color, facing, material_tag)
+    wall_face = '+z' if facing < 0 else '-z'
+    if see_through:
+        for side in (-1, 1):
+            panel(x+side*(width*.5+.041), y, .060, .099, height+.16, 'trim')
+        panel(x, head+.025, .060, width, .044, 'trim')
+    else:
+        g.cube((x, y, depth(.029)), (width+.18, height+.16, .062), 'trim', tag, skip=(wall_face,))
+        panel(x, y, .061, width+.024, height+.018, 'woodDark')
+    g.cube((x, sill-.047, depth(.083)), (width+.23, .085, .21), 'trim', tag, skip=(wall_face,))
+    casing = .063
+    for side in (-1, 1):
+        stile_x = x+side*(width-casing)*.5
+        if compact and g.d > 0:
+            panel(stile_x, y, .138, casing, height, 'wood')
+        else:
+            g.cube((stile_x, y, depth(.099)), (casing, height, .078), 'wood', tag, skip=(wall_face,))
+    aperture = width-2*casing
+    vent_h, lower_h = height*.14, height*.17
+    vent_y = head-vent_h*.5
+    glass_low, glass_high = sill+lower_h, head-vent_h
+    vents = (9, 7, 5)[g.d]
+    vent_pitch = aperture/vents
+    hole = min(.11, vent_pitch*.48)
+    strip = vent_h*.285
+    flat_vents = compact and g.d > 0
+    if flat_vents:
+        panel(x, vent_y, .104, aperture, vent_h, 'wood')
+    else:
+        for side in (-1, 1):
+            panel(x, vent_y+side*(vent_h-strip)*.5, .104, aperture, strip, 'wood')
+    for i in range(vents):
+        vx = x+(i+.5-vents*.5)*vent_pitch
+        panel(vx, vent_y, .107 if flat_vents else .079, hole, vent_h*.43, 'darkFrame')
+        if not flat_vents:
+            gap = (vent_pitch-hole)*.5
+            for side in (-1, 1):
+                panel(vx+side*(hole+gap)*.5, vent_y, .104, gap, vent_h*.43, 'wood')
+        if g.d == 0:
+            panel(vx, vent_y-vent_h*.19, .117, hole, .021, 'woodLight')
+
+    span = aperture/4
+    for i in range(4):
+        cx = x+(i-1.5)*span
+        panel(cx, (glass_low+glass_high)*.5, .077, span, glass_high-glass_low,
+              'glass' if i in (0, 3) else 'glassLight', 'Glass' if see_through else tag)
+        panel(cx, sill+lower_h*.5, .107, span if see_through else span-.024, lower_h, 'wood')
+        if g.d == 0:
+            panel(cx, sill+lower_h*.5, .115, span-.085, lower_h*.59, 'woodLight')
+    for index in (1, 2, 3):
+        xx = x-aperture*.5+index*span
+        panel(xx, y-vent_h*.5, .118, .045, height-vent_h, 'wood')
+    for part in (.0, .36, .72, 1.0):
+        panel(x, glass_low+(glass_high-glass_low)*part, .115, aperture, .041, 'woodLight')
+    if g.d < 2:
+        for side in (-1, 1):
+            g.cube((x+side*.074, y-.058, depth(.134)), (.024, .127, .036), 'woodLight', tag, skip=(wall_face,))
+
+
+def terracotta_balcony(g, x, y, z, width, reach, facing=-1, *, compact=False):
+    """Two rows of open diagonal clay blocks, between plastered returns."""
+    tag = 'FacadeBalcony'
+    edge = z+facing*reach
+    middle = (z+edge)*.5
+    wall_face = '+z' if facing < 0 else '-z'
+    g.cube((x, y-.069, middle), (width, .139, reach), 'trim', tag, skip=(wall_face,))
+    g.cube((x, y-.148, edge-facing*.080), (width+.032, .040, .184), 'stone', tag, skip=('+y',))
+    if g.d < 2:
+        for side in (-1, 1):
+            g.cube((x+side*width*.34, y-.227, z+facing*.17), (.22, .161, .31), 'stone', tag, skip=('+y', wall_face))
+    how_many = (11, 8, 6)[g.d]
+    gable = .14
+    span = (width-2*gable)/how_many
+    rail_z = edge-facing*.077
+    thickness = .132
+    block_height = .313
+    front = rail_z+facing*thickness*.5
+    rib_front = front+facing*(.002 if compact and g.d > 0 else 0)
+    for side in (-1, 1):
+        g.cube((x+side*(width-gable)*.5, y+.329, middle),
+               (gable, .658, reach-.045), 'cream', tag, skip=('-y', wall_face))
+    g.cube((x, y+.684, rail_z), (width+.038, .059, .175), 'wood', tag, skip=('-y',))
+    for row in range(3):
+        yy = y+.027+row*block_height
+        if compact and g.d > 0:
+            g.panel((x, yy, front), width-2*gable, .044, 'tile', facing, tag)
+        else:
+            g.cube((x, yy, rail_z), (width-2*gable, .044, thickness), 'tile', tag)
+    for i in range(how_many+1):
+        xx = x+(i-how_many*.5)*span
+        if compact and g.d > 0:
+            g.panel((xx, y+.339, front), .041, .605, 'tile', facing, tag)
+        else:
+            g.cube((xx, y+.339, rail_z), (.041, .605, thickness), 'tile', tag, skip=('-y', '+y'))
+    for row in range(2):
+        cy = y+.027+(row+.5)*block_height
+        for i in range(how_many):
+            cx = x+(i+.5-how_many*.5)*span
+            dx, dy = span*.50, block_height*.46
+            direction = 1 if (row+i)%2 == 0 else -1
+            corners = [
+                (cx-dx, cy-direction*dy-.028, rib_front), (cx+dx, cy+direction*dy-.028, rib_front),
+                (cx+dx, cy+direction*dy+.028, rib_front), (cx-dx, cy-direction*dy+.028, rib_front),
+            ]
+            g.quad(corners, 'woodLight', (0, 0, facing), tag)
+            if g.d == 0:
+                back = [(a, b, c-facing*thickness) for a, b, c in corners]
+                g.quad(back, 'tile', (0, 0, -facing), tag)
+                for a, b, normal_y in ((0, 1, -1), (3, 2, 1)):
+                    g.quad([corners[a], corners[b], back[b], back[a]], 'tile', (0, normal_y, 0), tag)
+
+
 def tile_canopy(g, x, w, y, z, reach, facing, *, drop=.26, compact=False, rows=None, tag='FacadeTiles'):
     end = z+reach*facing
     g.wedge(x-w*.5, x+w*.5, y-.051, z, y-.051-drop, end, 'woodDark', .035, tag)

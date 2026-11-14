@@ -28,8 +28,8 @@ namespace PhoViet.Editor
             PlayerSettings.WebGL.memoryGrowthMode=WebGLMemoryGrowthMode.Geometric;
             PlayerSettings.WebGL.geometricMemoryGrowthStep=.1f;
             PlayerSettings.WebGL.memoryGeometricGrowthCap=32;
-            // GPU-compressed Web textures avoid the former RGB(A)32 expansion.
-            PlayerSettings.WebGL.maximumMemorySize=512;
+            // Growth remains on demand. The denser 1.73 facades can exceed 512 MiB while the scene loads.
+            PlayerSettings.WebGL.maximumMemorySize=640;
             PhoVietWebMemorySettings.Apply();
             PlayerSettings.runInBackground=false;
             // 21.136: cascaded directional shadows make Unity draw the whole scene once more into a screen-space depth
@@ -39,7 +39,7 @@ namespace PhoViet.Editor
                 var settings=UnityEditor.Rendering.EditorGraphicsSettings.GetTierSettings(BuildTargetGroup.WebGL,tier);
                 if(settings.cascadedShadowMaps){settings.cascadedShadowMaps=false;UnityEditor.Rendering.EditorGraphicsSettings.SetTierSettings(BuildTargetGroup.WebGL,tier,settings);}
             }
-            PlayerSettings.bundleVersion="1.72.0";
+            PlayerSettings.bundleVersion="1.73.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }

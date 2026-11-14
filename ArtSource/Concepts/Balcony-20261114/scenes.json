@@ -1,0 +1,17 @@
+{
+  "A": {
+    "scene": "A - Sat ren va cua chop",
+    "objects": 54,
+    "mesh_faces": 7538
+  },
+  "B": {
+    "scene": "B - Vom cung va ban cong cong",
+    "objects": 54,
+    "mesh_faces": 6084
+  },
+  "C": {
+    "scene": "C - Gach thong gio va go",
+    "objects": 51,
+    "mesh_faces": 6202
+  }
+}

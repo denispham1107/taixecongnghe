@@ -4,7 +4,11 @@ Game né xe vô tận bằng Unity 6, lấy cảm hứng từ nhịp chơi endle
 
 ## Chơi bản web và cài ứng dụng
 
-**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.72.0**.
+**[Mở Phố Việt](https://denispham1107.github.io/taixecongnghe/)** · Bản web **1.73.0**.
+
+## Cập nhật 1.73.0
+
+Nhà phố và nhà ven sông có lan can gạch thông gió, cửa gỗ kính và tường sơn sần kiểu vữa nhà tù. Đèn treo mới nằm giữa các ô cửa nhà phố. Joystick ô tô dễ giữ hướng thẳng hơn khi kéo lệch nhẹ.
 
 ## Cập nhật 1.72.0
 

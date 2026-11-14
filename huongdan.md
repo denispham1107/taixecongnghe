@@ -2805,6 +2805,8 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 ### 21.98. Vân vữa rõ hơn và tường lì hơn (30/10/2026, Codex — source đã xong, chưa build)
 
+Mức vật liệu này được thay trong dự án cục bộ ở 21.234 bằng vân vữa lấy từ cảnh nhà tù Blender.
+
 - **Yêu cầu mới:** người dùng lặp lại phản ánh nhà quá trơn bóng. Kiểm tra Git/material cho thấy21.97 đã sửa trong Unity nhưng chưa phát hành; đọc trực tiếpHTTP`build-info.json` xác nhận web vẫn1.49.0/cache`e37aaa3a16abef99`. Khi được chọn phát hành bản đã sửa hoặc chỉnh vân rõ hơn trước, người dùng chọn **“Chỉnh vân tường rõ hơn trước khi phát hành”**. Chỉ chỉnh chất liệu hiện tại; giữ màu nhà, kính, kim loại, nước và cây. Không tự áp dụng bộ nhà/cầu concept chưa duyệt.
 - **Thông số hiện hành thay21.97:** `_StuccoScale`1→0,65 (kích thước hạt theo mét lớn hơn~1,54lần), `_StuccoStrength`0,20→0,42, `_StuccoContrast`0,10→0,28, `_WallSmoothness`0,035→0,015. Chỉ2material`PV_StreetAtlas.mat`/`PV_RiverRoomLight.mat`; đồng bộ default trong`StreetWall.shader`/`ApartmentRoom.shader` và helper`InstallWallFinish.cs` để cài lại không quay về mức nhẹ. Metallic của mặt tường vẫn0; palette/texture màu/glow1,15/tint phòng và slot kính không đổi. Vẫn dùng map vữa1K21.97/11mip/Trilinear/Repeat/aniso4/DXT5, không tạo map/mesh mới hay tăng renderer/sample shader. Vân vị trí tác giả/UV mask vẫn như21.97 nên không trượt theo đường/rebase.
 - **Áp dụng:** `AgentScripts/TuneWall2198.cs` chỉ đổi4float và save đúng2material trong Edit/scene sạch; không reimportFBX, không save scene. `CaptureRentalWalls.Stronger` lưu6ảnh riêng`rental-walls-stronger-*.png`, không ghi đè cặp ảnh21.97. Đã xem cận tường phố, cận tường căn hộ và góc nhìn chơi; hạt vữa rõ hơn ở gần, xa mượt theo mip, màu phố giữ nguyên. Chụp cả toàn cảnh sông/biển thuê/ban đêm để giữ bằng chứng.
@@ -4052,3 +4054,64 @@ Cách điều khiển ô tô ở mục lịch sử này đã được thay bằn
 - Chrome kiểm 603 điều kiện bố cục trang chủ ở 12 kích thước và 29 điều kiện chạy WebGL desktop/mobile mô phỏng, gồm chọn đúng gói texture, vào đi bộ, xoay màn hình và mở lại offline trên desktop. Kiểm thêm 43 điều kiện trên Git index.
 - Đã commit và push `dbb0d5c` lên `main`. Pages `43537083914` thành công đúng SHA; 29 tệp live khớp SHA-256. GitHub cảnh báo kích thước FBX nguồn dãy nhà ven sông (56,39 MB) và đã nhận commit. Chưa kiểm trên điện thoại thật.
 - Chạy lại 29 điều kiện trên URL live bằng Chrome desktop và mobile mô phỏng đều đạt, gồm mở desktop offline và điều khiển đi bộ trên màn hình ngang. Không có lỗi trình duyệt hay Unity runtime trong bài kiểm tra. Unity đã về Edit Mode và máy chủ thử cục bộ đã dừng.
+
+## 21.228. Joystick ô tô dễ đi thẳng và kính cửa chớp tầng trên (14/11/2026 — Codex)
+
+Thiết kế cửa sổ của mục này đã được khôi phục về mẫu trước ở 21.229. Phần điều chỉnh joystick tiếp tục dùng 21.228.
+
+- Joystick ô tô kéo trong phạm vi 10° quanh trục tiến/lùi sẽ chọn hướng dọc. Từ 10° đến 80°, góc mục tiêu được giảm dần theo đường cong mượt, đối xứng trái/phải. Kéo chéo 45° cho góc mục tiêu 22,5°; kéo từ 80° giữ đủ góc để vào nhánh. Độ mạnh joystick vẫn tính theo khoảng kéo gốc. Điều chỉnh trong `PhoVietFreeDrive.cs` chỉ áp dụng cho joystick ô tô. Cách đọc phím, điều khiển đi bộ, động học đánh lái theo vận tốc và phanh dần dùng quy tắc trước đó.
+- `pho_viet_balcony_details.py` bỏ hai đố ngang trong lòng cửa chớp, giữ đố đứng và cửa chớp hai bên. Dùng vật liệu kính trong có sẵn, tạo hốc cửa và rèm nhạt phía sau cho mặt đường. `pho_viet_saigon_streets.py` và `pho_viet_river_bridge.py` chừa ô cửa trên tường để kính thấy được hốc. Vách kính tầng trên mặt hướng sông cũng bỏ đố ngang bên trong. Giữ mặt kính tầng trệt, cửa thông gió, lan can và biển hiệu. Xuất lại 26 FBX/JSON qua Blender 5.2, giữ GUID và FileID của 147 mesh. Unity gắn vật liệu kính ở 120 renderer của mẫu 05 và biến thể Petshop có thêm khe kính.
+- Unity Play Mode đạt 1.445 điều kiện điều hướng mới, 9.715 điều kiện hồi quy lái/phanh và 51 điều kiện va bó vỉa. Đã kiểm 1.470 tham chiếu nhà phố và 24 cụm LOD ven sông trong scene. Báo cáo và ảnh nằm trong `.tools/street-21228/`. Chưa đo trên điện thoại thật.
+- Thay đổi cục bộ trong Unity, chưa build WebGL, commit, push hay phát hành. Web vẫn 1.72.0. Công việc đưa đón vẫn khóa.
+
+## 21.229. Khôi phục cửa sổ và bổ sung dải đứng giữa hai ô nhà phố (14/11/2026 — Codex)
+
+- Khôi phục kính cửa chớp, các đố ngang và mặt đứng nhà ven sông về thiết kế trước 21.228. Đã đối chiếu scene và asset ven sông với mốc web 1.72.0. Điều chỉnh joystick của 21.228 vẫn áp dụng.
+- Trong `pho_viet_saigon_streets.py`, dùng cùng dải vữa màu kem rộng 0,43 m và cao 2,74 m ở tâm mặt tiền trên mỗi tầng. Dải có sẵn ở các tầng ban công được dùng làm mẫu cho các tầng có hai cửa sổ nhưng thiếu ban công. Ô chữ nhật trên dải được thay bằng đèn treo ở 21.230.
+- Blender xác nhận 14 mẫu nhà phố (7 mẫu và 7 biến thể Petshop) bổ sung đúng một dải trên mỗi mẫu, thêm 14 tam giác mỗi LOD. Các dữ liệu vật cản, tầng, bố trí và biển hiệu khớp bản cũ. Unity đối chiếu định danh và khe vật liệu của 147 mesh trong 26 FBX. Lệnh chụp qua Play Mode hết thời gian chờ, nên đã kiểm trực quan bằng ảnh Blender dựng từ chính FBX đã nhập, tại `.tools/street-21229/dai-kem.png`.
+- Thay đổi cục bộ. Chưa build WebGL, commit, push hoặc phát hành. Bản web vẫn 1.72.0. Công việc đưa đón vẫn khóa.
+
+## 21.230. Đèn treo tường trên dải kem nhà phố (14/11/2026 — Codex)
+
+- Thay ô chữ nhật sẫm ở giữa hai cửa sổ trên mỗi tầng nhà phố bằng đèn treo rộng 0,32 m và cao khoảng 0,50 m. Thân kính màu hổ phách sáu mặt thuôn dần, có gân sắt, chụp chống mưa, viền chân đèn, tay treo cong, đế bắt tường và chốt nhỏ ở LOD0.
+- `upper_floor()` trong `pho_viet_saigon_streets.py` gọi `facade_lantern()` trong `pho_viet_fixture_details.py`. Đèn dùng atlas và mesh của mặt tiền, giảm mức chi tiết ở từng LOD. Màu kính lấy từ atlas và dùng ánh sáng của cảnh. Không thêm nguồn sáng Unity riêng.
+- Phiên riêng Blender 5.2 dựng thành công mẫu 164 mặt qua add-on Blender MCP cục bộ. Kết nối MCP mặc định tại cổng 9876 không phản hồi nên dùng loopback tạm cho cùng add-on. Xuất 24 mẫu phố, gồm 12 mẫu thường và 12 biến thể Petshop vào các FBX/JSON sẵn có. Blender kiểm 74 vị trí ở mỗi LOD và so khớp mặt hình học ngoài đèn cùng metadata vật cản. Số tam giác tăng mỗi vị trí lần lượt 370, 298, 174. Phạm vi thay đổi là ô đen trên dải giữa cửa sổ nhà phố; hệ thống lỗ thông gió trên cửa sổ và asset ven sông giữ thiết kế hiện hành.
+- Unity Edit Mode nhập đồng bộ và xác nhận tên, GUID, ID nội bộ và khe vật liệu của 147 mesh trong 26 FBX khớp mốc trước. Đã xem hai ảnh Cycles từ FBX xuất: `.tools/street-21230/den-mat-tien.png` và `.tools/street-21230/den-can-canh.png`. Chưa đo hiệu năng điện thoại.
+- Thay đổi cục bộ trong Unity. Chưa build WebGL, commit, push hay phát hành. Web vẫn 1.72.0. Công việc đưa đón vẫn khóa.
+
+## 21.231. Ba mẫu ban công và khung cửa chờ duyệt (14/11/2026 — Codex)
+
+- Dựng ba phương án trên mặt tiền hai tầng, rộng khoảng 8,2 m. Mỗi phương án có hai ô cửa ban công ở trên và hai ô cửa sổ có bệ hoa ở dưới. Cả ba dùng cùng màu tường mẫu, dải đứng màu kem, đèn treo 21.230 và hai góc máy để so sánh.
+- A dùng lan can sắt uốn họa tiết oval, cửa chớp gỗ xanh với nan nghiêng, khung kính và tay nắm đồng. B dùng sàn ban công cong, lan can sắt uốn nhẹ và cửa vòm xanh lam xám có nan tỏa ở ô kính trên cùng. C dùng lan can gạch nung thông gió có gân chéo, cửa gỗ kính chia ô và dải ô thoáng vuông phía trên.
+- Add-on Blender MCP dựng và lưu ba scene bằng `ArtSource/Concepts/Balcony-20261114/build_concepts.py` trong phiên Blender riêng. Kết nối MCP mặc định không phản hồi nên gọi add-on cục bộ trên loopback tạm. Bộ nguồn gồm `PhoViet_BaMauBanCong.blend`, bảng `Ba-mau-ban-cong.jpg`, sáu render PNG và `selection.json`. Đã mở lại file lưu bằng Blender, kiểm tra hai tầng, hai camera, sáu ảnh render và bảng so sánh.
+- Ở giai đoạn duyệt, SHA-256 của 3.099 tệp Unity/WebGL khớp trước và sau khi dựng mẫu. Người dùng đã chọn C. Xem 21.232 để biết phần tích hợp mẫu đã chọn.
+
+## 21.232. Tích hợp mẫu C ban công và cửa sổ nhà phố (14/11/2026 — Codex)
+
+- Xác nhận mẫu C trong `ArtSource/Concepts/Balcony-20261114/selection.json`. Đưa lan can gạch nung có hai hàng ô rỗng và gân chéo, gờ gỗ, trụ vữa vào tầng ban công. Tầng có và không có ban công đều dùng cửa bốn cánh gỗ kính, ô thoáng vuông, bệ cửa và tay nắm ở LOD gần. Cửa rộng 2,44 m ở tầng ban công và 2,08 m ở tầng chỉ có cửa sổ.
+- `terracotta_balcony()` và `timber_glazed_window()` trong `pho_viet_balcony_details.py` được gọi từ `upper_floor()` trong `pho_viet_saigon_streets.py`. Dùng atlas hiện hành, kết cấu kính bằng màu atlas. LOD0/1/2 lần lượt dùng 11/8/6 ô gạch trên mỗi hàng và 9/7/5 ô thoáng ở khung gỗ. Thay FBX/JSON tại chỗ cho 12 mẫu thường và 12 biến thể Petshop. Phần triển khai chỉ dùng các hàm mới ở nhà phố; đèn, mái, biển, cây và thiết kế nhà ven sông dùng dữ liệu hiện hành.
+- Blender kiểm 98 tầng tính trên 24 biến thể ở mỗi LOD. Đối chiếu metadata vật cản, các mặt ngoài phạm vi lan can/cửa/ô thoáng và số tam giác mốc trước. Mỗi mẫu thêm 664–1.776 tam giác ở LOD0, 552–1.416 ở LOD1 và 552–1.408 ở LOD2. Đã xem ảnh từ FBX mới tại `.tools/balcony-21232/mau-c-mat-tien.png`.
+- Unity Edit Mode xác nhận 147 mesh trong 26 FBX khớp định danh và số khe vật liệu, cùng 1.470 tham chiếu mesh nhà phố đang hoạt động trong hệ thống cảnh. Chưa kiểm Play Mode hoặc đo hiệu năng điện thoại.
+- Tích hợp Unity cục bộ. Chưa build WebGL, commit, push hay phát hành. Bản web theo hồ sơ vẫn 1.72.0. Công việc đưa đón vẫn khóa.
+
+## 21.233. Mở rộng mẫu C cho toàn bộ dãy nhà ven sông (14/11/2026 — Codex)
+
+- Cả mặt đường và mặt sông của các khối nhà trên hai bờ dùng cửa gỗ kính bốn cánh có ô thoáng và lan can hai hàng gạch thông gió tại mọi ban công hiện có. Tầng chỉ có cửa sổ dùng cùng bộ khung, bệ và bồn hoa. Kính mặt sông dùng slot kính trong suốt sẵn có. Ô cửa dưới biển thuê vẫn theo chiều cao rút gọn, mái và biển giữ nguyên vị trí.
+- `pho_viet_river_bridge.py` gọi hai hàm mẫu C trong `pho_viet_balcony_details.py` với hướng mặt tiền và chế độ LOD tinh giản cho số lượng gian lớn. LOD1/2 đơn giản hóa khung đứng, ô thoáng và gờ gạch nhưng giữ ô rỗng và họa tiết chéo. Nhà phố vẫn dùng thiết lập 21.232. Chỉ xuất lại `PV_RiverApartments.fbx/json` và `PV_RiverPetshopExtra.fbx/json`.
+- Mỗi LOD phủ 432 cửa mỗi mặt và 754 ban công trên 24 khối chính. Biến thể Petshop bổ sung 12 cửa mỗi mặt và 22 ban công. Đã đối chiếu số tam giác trước sửa, hình học ngoài cửa/lan can/bậu cũ, metadata biển hiệu và vật cản. Tổng tam giác của 24 khối sau sửa lần lượt là 1.456.981/602.862/372.428. Đã kiểm ảnh Blender từ FBX ở `.tools/river-21233/mat-duong.png` và `.tools/river-21233/mat-song.png`.
+- Unity Edit Mode nhập lại, xác nhận 75 mesh khớp định danh, số khe vật liệu và số tam giác theo manifest. Đã kiểm 168 cụm LOD trong các khối cảnh, mỗi cụm liên kết đủ ba mức. Chưa kiểm Play Mode hoặc đo FPS trên điện thoại.
+- Đã tích hợp vào dự án Unity cục bộ. Chưa build WebGL, commit, push hoặc phát hành. Theo hồ sơ, bản web là 1.72.0. Công việc đưa đón vẫn khóa.
+
+## 21.234. Vân vữa nhà tù trên tường sơn (14/11/2026 — Codex)
+
+- `ArtSource/Blender/bake_jail_wall_finish.py` đọc trực tiếp hai node Noise 5 và 25 của vật liệu `Weathered lime plaster` trong `PhoViet_Jail.blend`. Bake Cycles, trộn dải lặp và đóng gói mảng loang/normal vào texture `PV_WallStuccoDetail.png` 1024², dùng lại GUID, 11 mip, Repeat, Trilinear và nén DXT5. Mẫu lặp 2 m, mức nổi quy đổi 0,014 m. Đây là độ nổi ánh sáng bằng normal map.
+- `StreetWall.shader`, `ApartmentRoom.shader`, `PV_StreetAtlas.mat`, `PV_RiverRoomLight.mat` và helper `InstallWallFinish.cs` cùng dùng scale 0,5, strength 0,95, contrast 1,8, smoothness 0,005. Hai lớp vân đi theo tọa độ mesh và được phủ lên màu sơn hiện tại, vẫn một lần đọc texture chi tiết. Kính, chữ, mặt bảng hiệu và đồ kim loại dùng phần vật liệu hiện hành. Phòng bên trong có thể hiện vân qua kính; công thức đèn đêm giữ nguyên.
+- `PhoVietWallFinish.cs` đánh dấu thêm `PV_RiverPetshopExtra.fbx`, giới hạn theo slot/palette/hình học và loại nền bảng hiệu trên các mặt ở vị trí xác định. Đổi version postprocessor để Unity nhập lại. Không thay FBX nguồn, số renderer, collider hoặc cảnh cho thay đổi này.
+- Unity Edit Mode kiểm 26 FBX và 147 mesh, 134.128 đỉnh được đánh dấu vữa, 13.414 tam giác kính không nhận vữa. Lặp đánh dấu không khác UV vượt ngưỡng 0,001. Cả hai shader được hỗ trợ và không báo lỗi. Đã xem ảnh tường trước/sau và ảnh từ hai mesh nhà thật trong Preview Unity ở `.tools/wall-21234/`. Chưa đo FPS hoặc thử trên thiết bị thật.
+- Dự án Unity cục bộ đã cập nhật. Chưa build WebGL, commit, push hoặc phát hành. Bản web theo hồ sơ vẫn 1.72.0. Công việc đưa đón vẫn khóa.
+
+## 21.235. Build và phát hành WebGL 1.73.0 (15/11/2026 — Codex)
+
+- Gói 1.73.0 gồm 21.228–21.234, với joystick ô tô, mẫu C, đèn treo nhà phố và vân vữa nhà tù. Unity 6000.5.6f1 kiểm 18 điều kiện cảnh, gồm khóa đưa đón, và 628 đầu vào khớp SHA-256 qua build.
+- Chrome tái hiện lỗi hết bộ nhớ ở lần build đầu có trần WebAssembly 512 MiB. Bản build cuối dùng trần 640 MiB, giữ mức đầu 128 MiB và tăng theo nhu cầu. Hai gói DXT/ETC2 dùng chung mã, báo cáo build cuối 0 lỗi, 1 cảnh báo. Chưa đo trên điện thoại thật.
+- Cache PWA `7cfc755ec7ebf1fb`. Đạt 49 kiểm trong `docs/`, 39 kiểm gói đã ghép, 43 kiểm Git index, 603 kiểm giao diện và 29 kiểm Chrome cục bộ. Thử đúng biến thể desktop/mobile mô phỏng, đi bộ, cảm ứng, xoay ngang/dọc và mở lại offline trên desktop. Bằng chứng trong `.tools/release173/`.

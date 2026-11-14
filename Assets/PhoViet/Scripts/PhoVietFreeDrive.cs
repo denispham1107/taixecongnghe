@@ -5,6 +5,7 @@ namespace PhoViet
  public partial class PhoVietGame
  {
   const float DriveStickDeadZone=.12f,StreetDriveEdge=6.45f,JunctionDriveEdge=6.35f;
+  const float DriveStickStraightAngle=10f,DriveStickFullSteeringAngle=80f;
   const float DriveTightCornerSpeed=5.5f,DriveCornerDeceleration=14f,DriveYawAcceleration=400f;
   float freeDriveHeading,freeDriveSpeed,driveScrollSpeed,driveRouteOffset,unscoredDriveMileage;
   float driveYawRate;
@@ -60,7 +61,8 @@ namespace PhoViet
 
   void FreeDriveStep(float baseX,float dt,out float x,out float scroll,out float travelled)
   {
-   Vector2 input=footPointer!=int.MinValue?footStick:driveKeys;
+   bool usingStick=footPointer!=int.MinValue;
+   Vector2 input=usingStick?footStick:driveKeys;
    float strength=input.magnitude;
    driveViewHeading=EaseStreetView(driveViewHeading,dt);
    if(ServiceStopped||JobOffersOpen)
@@ -81,7 +83,7 @@ namespace PhoViet
     // Keep a held direction steady while the camera swings onto the new street.
     if((input-driveInputAtTurn).sqrMagnitude>.12f*.12f)driveInputAtTurn=Vector2.zero;
     Quaternion inputHeading=driveInputAtTurn==Vector2.zero?driveViewHeading:driveTurnInputHeading;
-    Vector3 move=inputHeading*new Vector3(input.x,0,input.y);
+    Vector3 move=inputHeading*(usingStick?DriveStickDirection(input):new Vector3(input.x,0,input.y));
     if(Mathf.Abs(move.x)>.2f)CorrectCraterSteering(move.x<0?-1:1);
     aim=Mathf.Atan2(move.x,move.z)*Mathf.Rad2Deg;
     if(!DriveBraking)
@@ -123,6 +125,15 @@ namespace PhoViet
    travelled=scroll<-.0001f?0:pathLength;
    unscoredDriveMileage+=pathLength-travelled;
    SelectNearestDrivingLane(x);
+  }
+
+  static Vector3 DriveStickDirection(Vector2 input)
+  {
+   // Bias small thumb offsets toward the longitudinal axis, while keeping full left/right for turns.
+   float angle=Mathf.Atan2(Mathf.Abs(input.x),Mathf.Abs(input.y))*Mathf.Rad2Deg;
+   float response=Mathf.SmoothStep(0,1,Mathf.InverseLerp(DriveStickStraightAngle,DriveStickFullSteeringAngle,angle));
+   float heading=angle*response*Mathf.Deg2Rad;
+   return new Vector3(Mathf.Sin(heading)*Mathf.Sign(input.x),0,Mathf.Cos(heading)*Mathf.Sign(input.y))*input.magnitude;
   }
 
   bool ContinueFreeDriveStreet()

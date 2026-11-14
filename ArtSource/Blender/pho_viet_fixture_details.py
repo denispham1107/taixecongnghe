@@ -14,6 +14,78 @@ def fixture_ring(g,x,y,z,outer,inner,col,n,tag='Fixture'):
     vs=[(x+r*cos(i*2*pi/n),y+r*sin(i*2*pi/n),z) for r in (outer,inner) for i in range(n)]
     g.add(vs,[(i,(i+1)%n,(i+1)%n+n,i+n) for i in range(n)],col,('d',(0,0,-1)),tag)
 
+def facade_lantern(g, y, wall_face):
+    """Forged wall bracket and a tapered, six-pane hanging lantern."""
+    tag = 'FacadeLantern'
+    metal = 'iron'
+    mount_z = wall_face - .014
+    body_z = wall_face - .222
+    mount_y = y + .104
+    if g.d < 2:
+        fixture_case(g, (0, mount_y, mount_z), (.14, .244, .04), .029, metal, tag)
+        fixture_case(g, (0, mount_y, mount_z-.023), (.112, .211, .012), .022, 'ironGrey', tag)
+    else:
+        g.cube((0, mount_y, mount_z), (.13, .235, .04), metal, tag)
+
+    # Sweep a continuous tube from the backplate, up and out to the pendant.
+    path = [
+        (mount_y+.018, mount_z-.018),
+        (mount_y+.077, mount_z-.055),
+        (mount_y+.115, mount_z-.106),
+        (mount_y+.118, body_z+.042),
+        (mount_y+.099, body_z+.014),
+        (mount_y+.060, body_z),
+    ]
+    if g.d == 2:
+        path = [path[0], path[2], path[3], path[-1]]
+    sides = (8, 6, 4)[g.d]
+    vertices = []
+    for i, (py, pz) in enumerate(path):
+        before, after = path[max(0, i-1)], path[min(len(path)-1, i+1)]
+        dy, dz = after[0]-before[0], after[1]-before[1]
+        scale = .014 / math.hypot(dy, dz)
+        for j in range(sides):
+            angle = 2*pi*j/sides
+            vertices.append((.014*cos(angle), py-dz*scale*sin(angle), pz+dy*scale*sin(angle)))
+    faces, hints = [], []
+    for i in range(len(path)-1):
+        a, b = i*sides, (i+1)*sides
+        faces.extend((a+j, a+(j+1)%sides, b+(j+1)%sides, b+j) for j in range(sides))
+        cy, cz = ((p+q)/2 for p, q in zip(path[i], path[i+1]))
+        hints.extend([('c', (0, cy, cz))]*sides)
+    g.add(vertices, faces, metal, hints, tag)
+
+    # Glass tapers to a smaller foot. The roof has an overhanging drip lip.
+    upper, lower = y+.042, y-.188
+    glass_r, foot_r = .134, .091
+    g.cyl((0, lower, body_z), (0, upper, body_z), foot_r, 'interior', n=6,
+          r2=glass_r, caps=False, tag=tag)
+    for low, high, r0, r1, color in (
+        (y-.216, lower+.007, .098, .104, metal),
+        (upper-.006, y+.065, .148, .160, metal),
+        (y+.065, y+.130, .160, .041, 'ironGrey'),
+        (y+.130, mount_y+.060, .042, .021, metal),
+    ):
+        g.cyl((0, low, body_z), (0, high, body_z), r0, color, n=6, r2=r1, tag=tag)
+    for j in range(6):
+        angle = j*pi/3
+        dx, dz = sin(angle), -cos(angle)
+        g.cyl((dx*foot_r, lower, body_z+dz*foot_r),
+              (dx*glass_r, upper, body_z+dz*glass_r), .009, metal, n=4, caps=False, tag=tag)
+    if g.d == 2:
+        return
+
+    for level, radius in ((y-.197, .105), (y+.058, .162)):
+        g.cyl((0, level-.004, body_z), (0, level+.004, body_z), radius, 'woodDark',
+              n=6, caps=False, tag=tag)
+    g.cyl((0, y-.257, body_z), (0, y-.215, body_z), .008, metal, n=6, r2=.036, tag=tag)
+    if g.d == 0:
+        for height in (mount_y-.073, mount_y+.073):
+            g.cyl((0, height, mount_z-.028), (0, height, mount_z-.034), .011,
+                  'woodLight', n=6, tag=tag)
+        # A slim service-door latch on the street-facing glass edge.
+        g.cube((.020, y-.049, body_z-.121), (.039, .018, .013), 'woodDark', tag)
+
 def condenser(g,x,y,z=-4.12,f=-1,scale=1):
     """Soft grey housing, recessed impeller, real guard, louvres and L brackets."""
     d=g.d; local=Geo(d)

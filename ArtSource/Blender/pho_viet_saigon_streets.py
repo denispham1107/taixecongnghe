@@ -710,16 +710,16 @@ def upper_floor(g, spec, k, top, obstacles, r):
     for x in (-3.82, 3.82):
         g.cube((x, y0+1.5, WALL-.06), (.19, 3, .15), 'trim')
     g.cube((0, y0+.05, WALL-.075), (WIDTH+.02, .115, .17), 'trim')
+    # The shared centre strip aligns the two window bays on every upper storey.
+    g.cube((0, y0+1.49, WALL-.04), (.43, 2.74, .12), 'cream')
+    facade_lantern(g, y0+2.38, WALL-.10)
     if style != 1 or top:
         for side in (-1, 1):
             x = side*2.04
             edge = -4.85 if (k+side//2)%2 else -4.75
-            wrought_balcony(g, x, y0+.20, WALL+.04, 3.30, -1, WALL+.04-edge)
-            louver_window(g, x, y0+1.43, WALL-.055, 2.28, 2.16, -1, 'green' if k%2 else 'greenDark')
+            terracotta_balcony(g, x, y0+.20, WALL+.04, 3.30, WALL+.04-edge)
+            timber_glazed_window(g, x, y0+1.43, WALL-.055, 2.44, 2.16)
             tile_canopy(g, x, 3.46, y0+2.9, WALL+.06, .97, -1)
-        # Dải vữa giữa hai ô nhà ống, kèm ô lấy gió nhỏ dưới mái.
-        g.cube((0, y0+1.49, WALL-.04), (.43, 2.74, .12), 'cream')
-        g.panel((0, y0+2.38, WALL-.102), .23, .28, 'greenDark')
         # Cây ban công, hoa giấy rủ.
         if d < 2:
             for px in (-3.0, 3.0):
@@ -730,14 +730,10 @@ def upper_floor(g, spec, k, top, obstacles, r):
             vine(g, r.uniform(-3, -1), y0+1.1, -4.9, 1.8 if k > 1 else .85, d, flowers=(spec['floors'] >= 3))
         obstacles.append(('Ban công', (0, y0+.6, -4.4), (7.4, 1.0, 1.0)))
     else:
-        # Hai cửa sổ có cửa chớp và cục nóng điều hòa.
+        # Hai cửa sổ gỗ kính có hàng ô thoáng và bồn hoa dưới bệ.
         for x in (-1.8, 1.8):
-            louver_window(g, x, y0+1.5, WALL-.055, 1.82, 1.6, -1, 'green' if k%2 else 'greenDark')
+            timber_glazed_window(g, x, y0+1.5, WALL-.055, 2.08, 1.6)
             tile_canopy(g, x, 2.22, y0+2.91, WALL+.035, .63, -1, drop=.19)
-            g.cube((x, y0+2.47, WALL-.06), (1.86, .24, .11), 'trim')
-            count = 5 if d == 0 else 3
-            for j in range(count):
-                g.panel((x+((j+.5)/count-.5)*1.66, y0+2.47, WALL-.117), 1.3/count, .10, 'darkFrame')
         for x in (-1.8, 1.8): g.cube((x, y0+.62, -4.12), (1.7, .1, .35), 'trim')
         if d < 2:
             for x in (-1.8, 1.8):

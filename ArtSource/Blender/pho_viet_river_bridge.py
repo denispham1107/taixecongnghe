@@ -410,7 +410,7 @@ def shop_unit(g, x0, x1, base, out, f, rng):
 def river_balcony(g, x, y, z, width, facing, reach, variant, vine_length):
     edge = z+facing*reach
     half = width*.5
-    wrought_balcony(g, x, y, z, width, facing, reach)
+    terracotta_balcony(g, x, y, z, width, reach, facing, compact=True)
 
     # Cùng chậu đất nung, cây nhỏ và hoa giấy như ban công phố mẫu.
     side = -1 if variant % 2 else 1
@@ -468,10 +468,9 @@ def river_tube_frontage(g, x0, zf, f, base, floors, units, uw, rental_floors):
                             pier-.025, opening_top-opening_bottom, fac, facing)
                 g.panel((cx-uw*.5+.11, y0+1.5, z+facing*.052), .15, 2.98, 'trim', facing)
                 g.panel((cx, y0+.13, z+facing*.054), uw-.055, .11, 'trim', facing)
-                inset = -.075 if river_side else .048
-                louver_window(g, cx, y0+(opening_bottom+opening_top)*.5, z+facing*inset,
-                              opening, opening_top-opening_bottom, facing,
-                              'green' if (seed+k)%2 else 'greenDark', glazing=not river_side)
+                timber_glazed_window(g, cx, y0+(opening_bottom+opening_top)*.5, z+facing*.048,
+                                     opening, opening_top-opening_bottom, facing,
+                                     see_through=river_side, compact=True)
                 variant = seed//7+k+int(river_side)
                 width = min(uw-.32, opening+(.64 if variant%3 else 1.02))
                 if variant%5 != 0 or signed or k in (1, floors-1):
@@ -479,7 +478,6 @@ def river_tube_frontage(g, x0, zf, f, base, floors, units, uw, rental_floors):
                     vine_length = .85 if k == 1 or (river_side and k-1 in rental_floors) else 1.8
                     river_balcony(g, cx, y0+.47, z, width, facing, reach, variant, vine_length)
                 else:
-                    g.cube((cx, y0+.47, z+facing*.16), (opening+.28, .12, .36), 'trim')
                     g.cube((cx, y0+.60, z+facing*.20), (.85, .15, .24), 'woodDark', 'RiverBalconyFlower')
                     for j in range(3 if g.d < 2 else 2):
                         g.blob((cx+(j-1)*.24, y0+.73, z+facing*.22), (.15, .13, .13),

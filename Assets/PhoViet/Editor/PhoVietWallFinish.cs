@@ -9,17 +9,20 @@ namespace PhoViet.Editor
     // Kept in the model importer so a new Blender export or a clean checkout retains the finish.
     public sealed class PhoVietWallFinish : AssetPostprocessor
     {
-        public override uint GetVersion()=>2197;
+        public override uint GetVersion()=>2123401;
+        const string RiverFolder="Assets/PhoViet/Art/River/";
         public static bool IsBuilding(string path)=>
             path.StartsWith("Assets/PhoViet/Art/Streets/PV_StreetShop",StringComparison.Ordinal)&&path.EndsWith(".fbx",StringComparison.OrdinalIgnoreCase)||
-            path=="Assets/PhoViet/Art/River/PV_RiverApartments.fbx";
+            path==RiverFolder+"PV_RiverApartments.fbx"||
+            path==RiverFolder+"PV_RiverPetshopExtra.fbx";
         void OnPostprocessModel(GameObject root)
         {
             if(!IsBuilding(assetPath))return;
             foreach(var f in root.GetComponentsInChildren<MeshFilter>(true))
-                if(f.sharedMesh!=null)MarkPlaster(f.sharedMesh,f.GetComponent<Renderer>()?.sharedMaterials);
+                if(f.sharedMesh!=null)MarkPlaster(f.sharedMesh,f.GetComponent<Renderer>()?.sharedMaterials,
+                    assetPath.StartsWith(RiverFolder,StringComparison.Ordinal));
         }
-        public static int MarkPlaster(Mesh mesh,Material[] materials)
+        public static int MarkPlaster(Mesh mesh,Material[] materials,bool river=false)
         {
             var uv=mesh.uv;var vertices=mesh.vertices;
             if(uv.Length!=vertices.Length)return 0;
@@ -42,12 +45,32 @@ namespace PhoViet.Editor
                     // FBX author-space up is Z. Roofs/floors, fine lettering, foliage and narrow metal frames are excluded.
                     if(area<.25f||Mathf.Abs(cross.z)>cross.magnitude*.65f)continue;
                     float y=(vertices[a].z+vertices[b].z+vertices[c].z)/3;
+                    // Flat painted boards sit in front of the shell at their own fixed elevations.
+                    // Keep the board substrate in its original finish, even when it shares the wall swatch.
+                    if(s==0&&IsShopBoard(vertices[a],vertices[b],vertices[c],cross,river))continue;
                     if((colour==8||colour==9)&&area<1.2f&&y<3.2f)continue;
                     marked[a]=marked[b]=marked[c]=true;faces++;
                 }
             }
             for(int i=0;i<uv.Length;i++)uv[i].x=(Mathf.Floor(uv[i].x*8)+(marked[i] ? .75f : .5f))/8;
             mesh.uv=uv;return faces;
+        }
+        static bool IsShopBoard(Vector3 a,Vector3 b,Vector3 c,Vector3 normal,bool river)
+        {
+            if(Mathf.Abs(normal.y)<normal.magnitude*.99f)return false;
+            float low=Mathf.Min(a.z,Mathf.Min(b.z,c.z)),high=Mathf.Max(a.z,Mathf.Max(b.z,c.z));
+            float depth=(a.y+b.y+c.y)/3;
+            if(!river)return low>=3.32f&&high<=4.88f&&depth>=3.89f&&depth<=4.13f;
+            if(low<2.92f||high>3.94f)return false;
+            // Four front wall planes in author space (road and canal on each bank).
+            return IsPlaqueFace(depth,-1.5f,-1,.215f)||IsPlaqueFace(depth,-4.5f,1,.138f)||
+                   IsPlaqueFace(depth,-58.5f,1,.215f)||IsPlaqueFace(depth,-55.5f,-1,.138f);
+        }
+        static bool IsPlaqueFace(float depth,float wall,float facing,float projection)
+        {
+            float offset=(wall-depth)*facing;
+            return Mathf.Abs(offset)<.001f||Mathf.Abs(offset-projection)<.002f||
+                   Mathf.Abs(offset-(projection+.0185f))<.002f;
         }
     }
 }

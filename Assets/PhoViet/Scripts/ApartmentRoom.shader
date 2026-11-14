@@ -10,10 +10,10 @@ Shader "PhoViet/Apartment Room"
         _Warm ("Warm tint", Color) = (1,0.86,0.66,1)
         _Glossiness ("Smoothness", Range(0,1)) = 0.2
         _StuccoDetail ("Plaster detail", 2D) = "gray" {}
-        _StuccoScale ("Plaster repeats per metre", Float) = 0.65
-        _StuccoStrength ("Plaster relief", Range(0,1)) = 0.42
-        _StuccoContrast ("Paint variation", Range(0,0.3)) = 0.28
-        _WallSmoothness ("Plaster smoothness", Range(0,1)) = 0.015
+        _StuccoScale ("Plaster repeats per metre", Float) = 0.5
+        _StuccoStrength ("Plaster relief", Range(0,1)) = 0.95
+        _StuccoContrast ("Paint variation", Range(0,2)) = 1.8
+        _WallSmoothness ("Plaster smoothness", Range(0,1)) = 0.005
     }
     SubShader
     {
