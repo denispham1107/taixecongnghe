@@ -3968,6 +3968,8 @@ Hướng dẫn duy trì này cũng được ghi ở AGENTS.md tại gốc repo v
 
 ## 21.216. Dải mái tầng trệt, icon thao tác và chỗ trốn hai bên đường (13/11/2026 — Codex)
 
+Các mục 21.216–21.226 đã được phát hành chung trong WebGL 1.72.0. Trạng thái ở cuối mỗi mục là ghi nhận tại thời điểm hoàn tất thay đổi cục bộ. Xem 21.227 để biết kết quả phát hành.
+
 - `pho_viet_saigon_streets.py` và `pho_viet_river_bridge.py` bỏ dải ngói đỏ dưới bảng hiệu tầng trệt. Áp dụng cho 24 mẫu nhà phố, dãy ven sông ở cả hai mặt và biến thể Petshop ven sông. Giữ mái vải sọc, mái ngói ở các tầng trên và mái chính. Xuất lại 26 cặp FBX/JSON; Blender đối chiếu 444 vị trí mái tầng trên của nhà phố và 2.664 vị trí ven sông qua các LOD. Unity kiểm 147 mesh khớp số tam giác, GUID, FileID và số submesh. Scene giữ nguyên.
 - `PhoVietFootHud.cs` dùng icon nét bo và khử răng cưa cho Nhảy ra (xe + mũi tên chéo), Vào tiệm và Ra phố (khung cửa + mũi tên theo hai hướng). Nút Lấy xe cũng dùng biểu tượng xe tương ứng. Icon 96 px tạo một lần, vẽ độc lập với phép xoay IMGUI, thu hồi cùng game ở `PhoVietGame.cs`. Nhãn và vùng chạm theo bố cục hiện hành.
 - `PhoVietShopHideout.cs` tìm cửa tiệm theo khoảng cách trên cả hai vỉa hè, dùng đúng vị trí cửa theo loại mặt tiền, kể cả một số mẫu Petshop. Chỉ chọn tiệm đang hiển thị và có lối vào từ phần đất liền. Mỗi bên có thể hiện một dấu TRỐN CSGT khi cửa trong tầm nhìn, tránh chồng lên HUD và dấu bên kia. Các cửa dùng chung nội thất và bộ đếm 3 giây, khi ra trở về đúng cửa đã vào.
@@ -4047,4 +4049,6 @@ Cách điều khiển ô tô ở mục lịch sử này đã được thay bằn
 
 - Gói 1.72.0 gồm toàn bộ thay đổi đã làm trong 21.216–21.226. Build hai biến thể DXT/ETC2 bằng Unity 6000.5.6f1, thành công với 0 lỗi ở báo cáo cuối. Kiểm 16 điều kiện scene và 628 đầu vào khớp trước/sau build. Công việc đưa đón vẫn khóa.
 - Cache PWA `b0fdc16c80aac035`. Dữ liệu DXT và ETC2 chia thành các phần trong Git và được ghép lại theo SHA-256 ở GitHub Pages. Kiểm cấu trúc và dữ liệu đạt 49 điều kiện ở `docs/` và 39 điều kiện ở gói đã ghép.
-- Trạng thái tại mốc này: đã build cục bộ, đang kiểm WebGL trên Chrome trước khi đẩy lên `main`.
+- Chrome kiểm 603 điều kiện bố cục trang chủ ở 12 kích thước và 29 điều kiện chạy WebGL desktop/mobile mô phỏng, gồm chọn đúng gói texture, vào đi bộ, xoay màn hình và mở lại offline trên desktop. Kiểm thêm 43 điều kiện trên Git index.
+- Đã commit và push `dbb0d5c` lên `main`. Pages `43537083914` thành công đúng SHA; 29 tệp live khớp SHA-256. GitHub cảnh báo kích thước FBX nguồn dãy nhà ven sông (56,39 MB) và đã nhận commit. Chưa kiểm trên điện thoại thật.
+- Chạy lại 29 điều kiện trên URL live bằng Chrome desktop và mobile mô phỏng đều đạt, gồm mở desktop offline và điều khiển đi bộ trên màn hình ngang. Không có lỗi trình duyệt hay Unity runtime trong bài kiểm tra. Unity đã về Edit Mode và máy chủ thử cục bộ đã dừng.
