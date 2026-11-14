@@ -4,13 +4,13 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **14/11/2026 — Codex**
+Cập nhật lần cuối: **15/11/2026 — Codex**
 
 ## 1. Trạng thái hiện tại
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.72.0** — WebGL `dbb0d5c`, Pages `43537083914` thành công đúng SHA, cache `b0fdc16c80aac035`. Gồm 21.216–21.226. Đối chiếu 29 tệp live và 29 kiểm tra chạy live desktop/mobile mô phỏng, xem 21.227. |
+| Bản đã phát hành | **1.73.0** — WebGL `3c56a7a`, Pages `43620017833` thành công đúng SHA, cache `7cfc755ec7ebf1fb`. Gồm 21.228–21.234. Đã khớp 29 tệp live và đạt 29 kiểm Chrome trên URL thật. Xem 21.235. |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra, plugin cục bộ chưa commit. |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -33,7 +33,7 @@ Cập nhật lần cuối: **14/11/2026 — Codex**
 | Xuất phát và hướng màn hình | **21.221–21.222, web 1.72.0:** trang chủ dọc/ngang, chỉ chơi ngang. Ô tô đứng yên khi bắt đầu, chơi lại và lấy xe. Giữ joystick/mũi tên để tăng tốc dần tới 110 km/h. **21.225:** thả joystick để phanh dần về 0, có đèn phanh. |
 | Xe mặt đất lúc mở màn trong source | **21.151:** các xe có mặt lúc bắt đầu tăng dần từ đứng yên đến nhịp riêng trong khoảng 3,01 giây. Áp dụng cho các nhóm giao thông, xe đặc biệt và nhánh CSGT nếu được mở lại. Đã có trên web 1.61.0. |
 | Bánh xe | **21.164, web 1.64.0:** bánh lăn theo vận tốc thực, giữ quán tính rồi ngừng sau va chạm. Xe đua và bốn mẫu ô tô Meshy có chi tiết trên mâm. |
-| Phản hồi đổi hướng | **21.228, cục bộ:** joystick ô tô thẳng trong khoảng ±10° quanh trục tiến/lùi, giảm góc kéo chéo, vẫn cho bẻ ngang. **21.224, web 1.72.0:** đánh lái chậm hơn khi đi nhanh và giảm tốc khi bẻ gắt. |
+| Phản hồi đổi hướng | **21.228, web 1.73.0:** joystick ô tô thẳng trong khoảng ±10° quanh trục tiến/lùi, giảm góc kéo chéo, vẫn cho bẻ ngang. **21.224, web 1.72.0:** đánh lái chậm hơn khi đi nhanh và giảm tốc khi bẻ gắt. |
 | Đợt bổ sung sau rẽ và mỗi400m trong source | **21.114 đã có trên web1.53.0:**2bike sau cua sinhngay/tạt làn/vịtrígần giữ; rear thường/quái xế/tải ngủ gật báo0,6s. Rear làncùngchiềugầnnhất; oncoming sinh sauDino/Tank ởphíaplayerhơn; Tank70%/junction−24m/bắn0,4s/lịch400m-9s/Dino10s giữ |
 | Pickup tên lửa mẫu C đã duyệt | **21.131 đã có trên web1.55.0:** Hex Ammo nền lục giác xanh/viền vàng/mũi đỏ;3LOD1482/1014/592tri,pool70.735Unity đạt/5ảnh đã xem; chỉ pickup đường, HUD/nút/đạn bay giữ. Approvaltrue/C |
 | Nút tên lửa/âm lượng/ảnh trang chủ mới | **21.134 đã có trên web 1.56.0:** nút góc trái dưới, master 1,56×/+3,86249dB, `poster-home-flight.png` dưới ảnh cũ |
@@ -48,10 +48,10 @@ Cập nhật lần cuối: **14/11/2026 — Codex**
 | Ga và Phanh | **21.222, web 1.72.0:** Ga nhả khóa Phanh, phải giữ hướng mới tăng tốc. Phanh giảm đến 0 và giữ xe kể cả khi kéo joystick. Xe khác có tốc độ riêng. |
 | Nút bay / icon trên không | **Source21.145:**6iconđất+7iconbay mỗi tile (+4mỗiloại), pool210+245/35tile. Bayvẫnchỉhiệnicontrênkhôngkhiengaged; nút bay trên nút tên lửa; vuốt lên 8,5%, góc rộng, nhảy hồi 1,6 giây + đệm 0,55 giây |
 | Năng lượng / bay / lộn | **21.148 có trên web 1.60.0:** bắt đầu và tối đa 180. Biểu tượng xanh dưới đất hồi 15, biểu tượng cam trên không hồi 20. Nhảy tốn 5, bay tốn 10 mỗi 0,5 giây. |
-| Nhà phố và nhà ven sông | **21.232–21.233, cục bộ:** mẫu C trên nhà phố và toàn bộ dãy ven sông, gồm mặt đường và mặt sông. Lan can gạch thông gió, cửa gỗ kính có ô thoáng trên cả hai dạng tầng. **21.229–21.230:** dải màu kem và đèn treo nhà phố. **21.216, 21.219–21.220, web 1.72.0:** bảng hiệu, đồ vỉa hè và mái hiên ven sông. **21.209–21.211:** sân thượng, mái ngói và mặt tiền xen trắng kem. |
+| Nhà phố và nhà ven sông | **21.232–21.233, web 1.73.0:** mẫu C trên nhà phố và toàn bộ dãy ven sông, gồm mặt đường và mặt sông. Lan can gạch thông gió, cửa gỗ kính có ô thoáng trên cả hai dạng tầng. **21.229–21.230:** dải màu kem và đèn treo nhà phố. **21.216, 21.219–21.220, web 1.72.0:** bảng hiệu, đồ vỉa hè và mái hiên ven sông. **21.209–21.211:** sân thượng, mái ngói và mặt tiền xen trắng kem. |
 | Trang trí cầu hiện tại trong source | **21.87 đã sửa:** bỏ12chậuhoa/cầu,8cờ dùng16tayđỡngangxanhcóđaikẹp,đủ3LOD;45Blender+27assetUnity+101sceneđạt/6ảnhđãxem. **Đã có trên web1.48.0**,khôngápdụngmẫucầu21.85 |
 | Đèn giao thông/điều hòa/biển thuê nhà | Signal2mặt/ACxámtrắng đã có trên web1.48.0. Web1.49.0 có24biển cỡ21.94. **Source21.97 thêm14biển đúng tầng theo ảnh →38biển/3LOD**, giữ cỡ/màu/vị trí24biển cũ; đã có trên web1.50.0 |
-| Chất liệu tường trong source | **21.234, cục bộ:** vữa lì, sần và loang từ vật liệu nhà tù Blender. 26 FBX / 147 mesh, có Petshop ven sông. Texture 1K nén, cùng màu sơn từng nhà. Vật liệu 21.98 vẫn thuộc bản web hiện hành. |
+| Chất liệu tường trong source | **21.234, web 1.73.0:** vữa lì, sần và loang từ vật liệu nhà tù Blender. 26 FBX / 147 mesh, có Petshop ven sông. Texture 1K nén, cùng màu sơn từng nhà. |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Đã có trên web1.48.0** |
 | Góc đèn pha trong source | **21.108 đã có trên web1.53.0:** khôi phục đèn gốc1.52, chỉmởgócngang1,8×/spot≈90°;bỏreference0,65/mirror21.107,giữhướng/cườngđộ/tầm32m/nguồnđèn.435kiểmđạt/ảnhgốc-vàmởgóccùngframe |
 | Mưa giông/sét trong source | **21.179, web 1.68.0:** tiếng nổ và rền 2,2 giây theo vị trí từng tia. **21.109 đã có trên web1.53.0:** mỗi đợt giữ tia cũ +3tia đồng thời/3làn khác nhau trong tile hiện tại, báo0,8s;763kiểm đạt/4ảnh thật. **Web1.52.0 còn21.105:**15s quang/3s tăng/9s giông/3s tan; xe trúng cháy/văng/nằm lại, player hết lượt, Tank/Dino miễn, CSGT hết đuổi |
@@ -61,13 +61,14 @@ Cập nhật lần cuối: **14/11/2026 — Codex**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.234, cục bộ:** Áp dụng vân vữa nhà tù lên tường sơn nhà phố và hai bờ sông. Unity đã nhập lại và kiểm 147 mesh, kiểm ảnh tường và mặt tiền. Chưa build/phát hành WebGL.
-- **21.233, cục bộ:** Mở rộng mẫu C sang cả hai mặt của 24 khối ven sông và biến thể Petshop. Unity kiểm 75 mesh đã nhập và 168 cụm LOD trong cảnh. Chưa build/phát hành WebGL.
-- **21.232, cục bộ:** Mẫu C đã tích hợp vào 24 FBX nhà phố và Petshop, đủ 3 LOD. Unity kiểm 147 mesh trong 26 FBX và 1.470 tham chiếu trong cảnh. Chưa build hay phát hành WebGL.
+- **21.235:** Phát hành WebGL 1.73.0. Sau khi sửa lỗi tải bằng trần cấp phát 640 MiB, bản cuối đạt 29 kiểm cục bộ và 29 kiểm trên Pages.
+- **21.234, web 1.73.0:** Áp dụng vân vữa nhà tù lên tường sơn nhà phố và hai bờ sông. Unity đã nhập lại và kiểm 147 mesh, kiểm ảnh tường và mặt tiền.
+- **21.233, web 1.73.0:** Mở rộng mẫu C sang cả hai mặt của 24 khối ven sông và biến thể Petshop. Unity kiểm 75 mesh đã nhập và 168 cụm LOD trong cảnh.
+- **21.232, web 1.73.0:** Mẫu C đã tích hợp vào 24 FBX nhà phố và Petshop, đủ 3 LOD. Unity kiểm 147 mesh trong 26 FBX và 1.470 tham chiếu trong cảnh.
 - **21.231, mẫu duyệt:** Bộ ba phương án và sáu ảnh từ Blender MCP ở `ArtSource/Concepts/Balcony-20261114/`. Người dùng chọn C.
-- **21.230, cục bộ:** Dựng đèn treo bằng add-on Blender MCP, xuất lại 24 FBX nhà phố và biến thể Petshop. Đã kiểm ảnh cận cảnh/mặt tiền và so khớp định danh cùng khe vật liệu của 147 mesh trong Unity. Chưa build hay phát hành WebGL.
-- **21.229, cục bộ:** Khôi phục mẫu cửa sổ trước 21.228 và bổ sung dải đứng ở tầng thiếu ban công của 14 mẫu nhà phố. Định danh và khe vật liệu của 147 mesh khớp mốc cũ. Chưa build WebGL.
-- **21.228, cục bộ:** Nắn các góc joystick sát hướng tiến/lùi và giảm góc kéo chéo, đạt 1.445 điều kiện điều hướng. Thiết kế kính của mốc này đã được thay ở 21.229.
+- **21.230, web 1.73.0:** Dựng đèn treo bằng add-on Blender MCP, xuất lại 24 FBX nhà phố và biến thể Petshop. Đã kiểm ảnh cận cảnh/mặt tiền và so khớp định danh cùng khe vật liệu của 147 mesh trong Unity.
+- **21.229, web 1.73.0:** Khôi phục mẫu cửa sổ trước 21.228 và bổ sung dải đứng ở tầng thiếu ban công của 14 mẫu nhà phố. Định danh và khe vật liệu của 147 mesh khớp mốc cũ.
+- **21.228, web 1.73.0:** Nắn các góc joystick sát hướng tiến/lùi và giảm góc kéo chéo, đạt 1.445 điều kiện điều hướng. Thiết kế kính của mốc này đã được thay ở 21.229.
 - **21.227:** Đã phát hành WebGL 1.72.0 gồm 21.216–21.226. Hai gói texture DXT/ETC2, 603 kiểm bố cục, 29 kiểm WebGL cục bộ và 43 kiểm tệp trong Git.
 - **21.226:** Chạm bó vỉa dưới 65 km/h giảm tốc rồi lái tiếp. Từ 65 km/h, ô tô lật rồi nhân vật tự thoát sang đi bộ khi đủ 3 giây và đã chạm đất. Đạt 51 kiểm tra hai phía và 12.918 kiểm tra hồi quy phanh/lái, CSGT.
 - **21.221–21.225:** Chỉ chơi ngang, lái tự do bằng joystick, chuyển hướng theo vận tốc, phanh dần khi thả. CSGT chờ 3 giây rồi xuất phát từ 0.
@@ -370,7 +371,6 @@ Cập nhật lần cuối: **14/11/2026 — Codex**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.235 đang làm:** Bản build cuối với trần heap 640 MiB đã đạt 603 kiểm bố cục và 29 kiểm WebGL desktop/mobile mô phỏng, gồm tải offline trên desktop. Gói `7cfc755ec7ebf1fb` và 43 kiểm Git đã đạt. Chuẩn bị push và xác minh Pages.
 
 
 
