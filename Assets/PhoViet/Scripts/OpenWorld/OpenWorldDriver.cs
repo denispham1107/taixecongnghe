@@ -34,122 +34,170 @@ namespace PhoViet.OpenWorld
             return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
 
-        // ------------------------------------------------------------ 21.262: joystick cảm ứng (góc trái dưới)
-        // Kiểu game cũ (21.228): đẩy joystick về hướng nào thì xe quay MƯỢT về hướng đó — so với hướng xe lúc bắt đầu đẩy
-        // (giữ nguyên khi còn giữ tay) — rồi chạy thẳng; đẩy càng xa tâm càng nhanh (tới 97 km/h). Trong ±10° quanh trục dọc coi là
-        // thẳng. Kéo xuống (±40° quanh trục sau) = phanh rồi lùi, lái ngược như số lùi. Thả tay = phanh dần về 0.
-        // Quay xe theo tốc độ góc có gia tốc (không giật), tốc độ góc tối đa giảm khi chạy nhanh, cua gắt thì tự giảm tốc.
-        [Header("Joystick cảm ứng (21.262)")]
-        public float stickDeadZone = 0.14f, stickStraightDeg = 10f, stickReverseDeg = 40f;
-        public float stickTurnSlow = 125f, stickTurnFast = 50f, stickTurnAccel = 420f, stickCornerSpeed = 9f;
-        [Tooltip("Hiện joystick cả khi máy không có cảm ứng (thử trong Editor)")] public bool stickAlwaysVisible;
-        [System.NonSerialized] public bool testStickHeld; [System.NonSerialized] public Vector2 testStick;   // kiểm thử tự động
-        int stickId = int.MinValue; Vector2 stickRaw, stickSmooth; bool stickRefValid; float stickRefYaw, yawRate;
-        public bool StickActive => stickId != int.MinValue || testStickHeld;
-        public Vector2 Stick => stickSmooth;
-        public float StickAim { get; private set; }
-        const int MouseStick = -1000;
+        // ------------------------------------------------------------ 21.265: vô lăng + bàn đạp cảm ứng (thay joystick 21.262)
+        // • Vô lăng góc trái dưới: đặt ngón lên vành rồi XOAY quanh tâm như vô lăng thật (theo chiều kim đồng hồ = rẽ phải),
+        //   tối đa ±135° = đánh lái hết; thả tay vô lăng tự trả về giữa (360°/s). Chỉ lái trái/phải.
+        // • Nút bên phải (giữ để dùng): Ga = tiến (như ↑), Lùi = lùi/phanh (như ↓), Stop = phanh gấp về 0 trong ≤ 1 s;
+        //   NHẢY, TÊN LỬA chạm là ăn. Mỗi ngón tay được gán cho đúng một nút khi chạm xuống (đa điểm): vừa xoay vô lăng
+        //   vừa giữ Ga và chạm TÊN LỬA được (trước 21.265 nút TÊN LỬA là nút IMGUI chỉ nhận một ngón).
+        // • Chạm nửa phải ngoài các nút vẫn là NHẢY. Bàn phím giữ như cũ.
+        [Header("Vô lăng + bàn đạp cảm ứng (21.265)")]
+        public float wheelMaxDeg = 135f, wheelReturnDegPerSec = 360f;
+        [Tooltip("Hiện vô lăng/nút cả khi máy không có cảm ứng (thử trong Editor)")] public bool touchControlsAlwaysVisible;
+        [System.NonSerialized] public bool testWheelHeld; [System.NonSerialized] public float testWheel;   // kiểm thử: −1…1
+        [System.NonSerialized] public int testPedal;                                                       // kiểm thử: 1 Ga, −1 Lùi, 2 Stop
+        enum Ctl { None, Wheel, Gas, Rev, Stop, Jump, Fire, Other }
+        readonly System.Collections.Generic.Dictionary<int, Ctl> fingers = new System.Collections.Generic.Dictionary<int, Ctl>();
+        float wheelAngle, wheelFingerAngle; int wheelFinger = int.MinValue;
+        bool gasHeld, revHeld, stopHeld;
+        OpenWorldHazards hazardsRef;
+        const int MouseFinger = -1000;
+        public float WheelAngle => wheelAngle;
+        public float WheelSteer => Mathf.Clamp(wheelAngle / wheelMaxDeg, -1f, 1f);
+        public bool GasHeld => gasHeld || testPedal == 1;
+        public bool RevHeld => revHeld || testPedal == -1;
+        public bool StopHeld => stopHeld || testPedal == 2;
+        public int FireTaps { get; private set; }
+        public int StopBrakes { get; private set; }
+        public bool TouchControlsVisible => !frozen && !Crashed && (touchControlsAlwaysVisible || Input.touchSupported || UnityEngine.Device.Application.isMobilePlatform || testWheelHeld);
+        bool TouchDriving => TouchControlsVisible && (wheelFinger != int.MinValue || testWheelHeld || GasHeld || RevHeld || StopHeld || Mathf.Abs(wheelAngle) > 0.5f);
 
-        // vị trí joystick (pixel, gốc trên-trái như GUI) — tránh tai thỏ/viền bo (Screen.safeArea)
-        public static Rect StickRect()
+        // Bố cục (pixel, gốc trên-trái như GUI) — né tai thỏ/thanh home (OpenWorldGame.Safe*).
+        static float BtnSize => Mathf.Max(70f, Screen.height * 0.13f);
+        static float Gap => BtnSize * 0.14f;
+        // 21.268 (người dùng đổi chỗ): hàng dưới Stop · Lùi · Ga (góc phải dưới); hàng trên Tên lửa (trên Lùi) · Nhảy (trên Ga).
+        public static Rect GasRect => new Rect(Screen.width - BtnSize - 24 - OpenWorldGame.SafeRightPx, Screen.height - BtnSize - 24 - OpenWorldGame.SafeBottomPx, BtnSize, BtnSize);
+        public static Rect RevRect { get { var g = GasRect; return new Rect(g.x - BtnSize - Gap, g.y, BtnSize, BtnSize); } }
+        public static Rect StopRect { get { var r = RevRect; return new Rect(r.x - BtnSize - Gap, r.y, BtnSize, BtnSize); } }
+        // Máy tính (không có Ga/Lùi/Stop): giữ bố cục cũ — Nhảy góc phải dưới, Tên lửa ngay trên.
+        static bool touchLayout = true;
+        public static Rect JumpRect { get { var g = GasRect; return touchLayout ? new Rect(g.x, g.y - BtnSize - Gap, BtnSize, BtnSize) : g; } }
+        public static Rect FireRect { get { var r = touchLayout ? RevRect : GasRect; return new Rect(r.x, r.y - BtnSize - Gap, BtnSize, BtnSize); } }
+        public static Rect WheelRect()
         {
-            var sa = Screen.safeArea;
-            float size = Mathf.Clamp(Mathf.Min(Screen.width, Screen.height) * 0.36f, 150f, 420f);
-            float inset = Mathf.Max(18f, size * 0.12f);
-            float left = sa.xMin + inset + OpenWorldGame.InsetLeft, guiBottom = Screen.height - sa.yMin - inset - OpenWorldGame.InsetBottom;
-            return new Rect(left, guiBottom - size, size, size);
+            float size = Mathf.Clamp(Mathf.Min(Screen.width, Screen.height) * 0.40f, 160f, 460f);
+            float inset = Mathf.Max(18f, size * 0.10f);
+            return new Rect(OpenWorldGame.SafeLeftPx + inset, Screen.height - OpenWorldGame.SafeBottomPx - inset - size, size, size);
         }
         static Vector2 ToGui(Vector2 screen) => new Vector2(screen.x, Screen.height - screen.y);
+        static float Grow(Rect r, Vector2 p, float pad) => (p.x >= r.x - pad && p.x <= r.xMax + pad && p.y >= r.y - pad && p.y <= r.yMax + pad) ? 1f : 0f;
 
-        void UpdateStick()
+        Ctl HitControl(Vector2 g)
         {
-            var r = StickRect(); var c = r.center; float rad = r.width * 0.5f;
-            bool allowed = !frozen && !Crashed;
-            if (!allowed) { stickId = int.MinValue; stickRaw = Vector2.zero; }
-            Vector2 Axis(Vector2 gui) { var d = gui - c; return Vector2.ClampMagnitude(new Vector2(d.x, -d.y) / (rad * 0.62f), 1f); }
+            var w = WheelRect(); float pad = BtnSize * 0.06f;
+            if ((g - w.center).magnitude <= w.width * 0.5f * 1.25f) return Ctl.Wheel;
+            if (Grow(FireRect, g, pad) > 0 && FireVisible) return Ctl.Fire;
+            if (Grow(JumpRect, g, pad) > 0) return Ctl.Jump;
+            if (Grow(GasRect, g, pad) > 0) return Ctl.Gas;
+            if (Grow(RevRect, g, pad) > 0) return Ctl.Rev;
+            if (Grow(StopRect, g, pad) > 0) return Ctl.Stop;
+            return g.x >= Screen.width * 0.5f ? Ctl.Jump : Ctl.Other;      // chạm nửa phải ngoài nút = nhảy (như cũ)
+        }
+        bool FireVisible => hazardsRef && hazardsRef.enabled;
+
+        void Press(int id, Vector2 g)
+        {
+            var c = HitControl(g); fingers[id] = c;
+            if (c == Ctl.Wheel) { wheelFinger = id; var d = g - WheelRect().center; wheelFingerAngle = Mathf.Atan2(d.y, d.x) * Mathf.Rad2Deg; }
+            else if (c == Ctl.Jump) jumpRequest = true;
+            else if (c == Ctl.Fire && hazardsRef) { hazardsRef.RequestFire(); FireTaps++; }
+        }
+        void Drag(int id, Vector2 g)
+        {
+            if (id != wheelFinger) return;
+            var w = WheelRect(); var d = g - w.center;
+            if (d.magnitude < w.width * 0.12f) return;                       // sát tâm: góc không ổn định
+            float a = Mathf.Atan2(d.y, d.x) * Mathf.Rad2Deg;                  // GUI y hướng xuống → tăng theo chiều kim đồng hồ
+            wheelAngle = Mathf.Clamp(wheelAngle + Mathf.DeltaAngle(wheelFingerAngle, a), -wheelMaxDeg, wheelMaxDeg);
+            wheelFingerAngle = a;
+        }
+        void Release(int id) { fingers.Remove(id); if (id == wheelFinger) wheelFinger = int.MinValue; }
+
+        void UpdateTouchControls()
+        {
+            if (!hazardsRef) hazardsRef = FindAnyObjectByType<OpenWorldHazards>();
+            touchLayout = touchControlsAlwaysVisible || Input.touchSupported || UnityEngine.Device.Application.isMobilePlatform || testWheelHeld;
+            if (!TouchControlsVisible) { fingers.Clear(); wheelFinger = int.MinValue; gasHeld = revHeld = stopHeld = false; wheelAngle = 0f; return; }
             for (int i = 0; i < Input.touchCount; i++)
             {
                 var t = Input.GetTouch(i); var g = ToGui(t.position);
-                if (t.phase == TouchPhase.Began && stickId == int.MinValue && allowed && (g - c).magnitude <= rad * 1.35f) stickId = t.fingerId;
-                if (t.fingerId != stickId) continue;
-                if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled) { stickId = int.MinValue; stickRaw = Vector2.zero; continue; }
-                stickRaw = Axis(g);
+                if (t.phase == TouchPhase.Began) Press(t.fingerId, g);
+                else if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled) Release(t.fingerId);
+                else Drag(t.fingerId, g);
             }
             if (Input.touchCount == 0)
-            {
-                // chuột (Editor/máy tính): bấm vào joystick rồi kéo
+            {   // chuột (Editor/máy tính có bật touchControlsAlwaysVisible)
                 var g = ToGui(Input.mousePosition);
-                if (Input.GetMouseButtonDown(0) && stickId == int.MinValue && allowed && (StickVisible || Input.touchSupported) && (g - c).magnitude <= rad * 1.35f) stickId = MouseStick;
-                if (stickId == MouseStick) { if (Input.GetMouseButton(0)) stickRaw = Axis(g); else { stickId = int.MinValue; stickRaw = Vector2.zero; } }
-                else if (stickId != int.MinValue) { stickId = int.MinValue; stickRaw = Vector2.zero; }
+                if (Input.GetMouseButtonDown(0)) Press(MouseFinger, g);
+                else if (Input.GetMouseButton(0)) { if (fingers.ContainsKey(MouseFinger)) Drag(MouseFinger, g); }
+                else if (fingers.ContainsKey(MouseFinger)) Release(MouseFinger);
+                // ngón chạm đã mất mà không có Ended (mất tiêu điểm) → thả
+                if (!Input.GetMouseButton(0)) { foreach (var k in new System.Collections.Generic.List<int>(fingers.Keys)) if (k != MouseFinger) Release(k); }
             }
-            var want = testStickHeld ? Vector2.ClampMagnitude(testStick, 1f) : stickRaw;
-            // làm mượt rung tay ngón cái (≈ 60 ms), không trễ khi đổi hướng lớn
-            stickSmooth = Vector2.Lerp(stickSmooth, want, 1f - Mathf.Exp(-16f * Time.deltaTime));
-            if (!StickActive && stickSmooth.sqrMagnitude < 1e-4f) stickSmooth = Vector2.zero;
-        }
-        bool StickVisible => !frozen && !Crashed && (stickAlwaysVisible || Input.touchSupported || Application.isMobilePlatform || StickActive);
-
-        // trả về góc quay (độ) cho bước vật lý này; đặt Speed
-        float StickDrive(float dt)
-        {
-            var s = stickSmooth; float strength = s.magnitude;
-            float yaw = transform.eulerAngles.y;
-            if (strength <= stickDeadZone)
-            {
-                stickRefValid = false;
-                Speed = Mathf.MoveTowards(Speed, 0f, brake * 0.55f * dt);                       // thả tay: phanh dần
-                yawRate = Mathf.MoveTowards(yawRate, 0f, stickTurnAccel * dt);
-                return yawRate * dt * Mathf.Clamp01(Mathf.Abs(Speed) / 3f);
-            }
-            float ang = Mathf.Atan2(s.x, s.y) * Mathf.Rad2Deg;                                 // 0 = đẩy lên
-            float k = Mathf.InverseLerp(stickDeadZone, 1f, strength);
-            if (Mathf.Abs(ang) >= 180f - stickReverseDeg)
-            {   // kéo xuống: phanh rồi lùi; lái như số lùi
-                stickRefValid = false;
-                Speed = Mathf.MoveTowards(Speed, -reverseSpeed * k, (Speed > 0.3f ? brake : accel) * dt);
-                float side = Mathf.Clamp(s.x / Mathf.Max(0.2f, strength), -1f, 1f);
-                float target = side * steerDegPerSec * 0.8f * Mathf.Clamp01(Mathf.Abs(Speed) / 4f) * Mathf.Sign(Speed == 0 ? 1 : Speed);
-                yawRate = Mathf.MoveTowards(yawRate, target, stickTurnAccel * dt);
-                return yawRate * dt;
-            }
-            if (Mathf.Abs(ang) <= stickStraightDeg) ang = 0f;
-            if (!stickRefValid) { stickRefValid = true; stickRefYaw = yaw; }
-            float aim = stickRefYaw + ang; StickAim = aim;
-            float error = Mathf.DeltaAngle(yaw, aim);
-            float ratio = Mathf.Clamp01(Mathf.Abs(Speed) / maxSpeed);
-            float rateLimit = Mathf.Lerp(stickTurnSlow, stickTurnFast, Mathf.Sqrt(ratio));
-            float move = Mathf.Clamp01((Mathf.Abs(Speed) + 1f) / 5f);                                // đứng yên thì quay rất chậm
-            float targetRate = Mathf.Clamp(error * 4.5f, -rateLimit, rateLimit) * move;
-            float old = yawRate;
-            yawRate = Mathf.MoveTowards(yawRate, targetRate, stickTurnAccel * dt);
-            float arc = (old + yawRate) * 0.5f * dt;
-            if (arc * error > 0f && Mathf.Abs(arc) >= Mathf.Abs(error)) { arc = error; yawRate = 0f; }   // không quá đà
-            // cua gắt thì giảm tốc; xe đang quay lưng với hướng đẩy phải quay xong mới tăng tốc
-            float turnErr = Mathf.Abs(error);
-            float corner = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(12f, 65f, turnErr));
-            float cap = Mathf.Lerp(maxSpeed, stickCornerSpeed, corner) * Mathf.Lerp(1f, 0.35f, Mathf.InverseLerp(90f, 150f, turnErr));
-            float requested = Mathf.Min(maxSpeed * k, cap);
-            Speed = Mathf.MoveTowards(Speed, requested, (Speed < 0f || requested < Speed ? brake * 0.7f : accel) * dt);
-            return arc;
+            gasHeld = revHeld = stopHeld = false;
+            foreach (var c in fingers.Values) { if (c == Ctl.Gas) gasHeld = true; else if (c == Ctl.Rev) revHeld = true; else if (c == Ctl.Stop) stopHeld = true; }
+            if (testWheelHeld) wheelAngle = Mathf.Clamp(testWheel, -1f, 1f) * wheelMaxDeg;
+            else if (wheelFinger == int.MinValue) wheelAngle = Mathf.MoveTowards(wheelAngle, 0f, wheelReturnDegPerSec * Time.deltaTime);   // tự trả lái
         }
 
-        void DrawStick()
+        static void Disc(Rect q, Color col, float border = 0f) =>
+            GUI.DrawTexture(q, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, col, border, q.width * 0.5f);
+        static void Bar(Rect q, Color col, float radius) =>
+            GUI.DrawTexture(q, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, col, 0, radius);
+
+        // 21.266: ảnh vẽ sẵn (ArtSource/UI/build_touch_controls.py → Resources/TouchControls), phong cách icon «B Arcade».
+        static Texture2D wheelTex, gasTex, revTex, stopTex, jumpTex;
+        public static Texture2D MissileButtonTex { get; private set; }
+        static void LoadTouchArt()
         {
-            if (!StickVisible) return;
-            var r = StickRect(); float size = r.width;
-            void Disc(Rect q, Color col) => GUI.DrawTexture(q, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, col, 0, q.width * 0.5f);
-            Disc(r, new Color(.05f, .13f, .21f, StickActive ? .78f : .55f));
-            float ring = size * .12f;
-            Disc(new Rect(r.x + ring, r.y + ring, size - 2 * ring, size - 2 * ring), new Color(.19f, .35f, .49f, StickActive ? .55f : .38f));
-            // vạch hướng: tiến / lùi
-            var mid = r.center; float tick = size * .05f;
-            GUI.DrawTexture(new Rect(mid.x - tick * .5f, r.y + ring * .35f, tick, tick * 1.6f), Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, new Color(.85f, .95f, 1f, .55f), 0, tick * .5f);
-            GUI.DrawTexture(new Rect(mid.x - tick * .5f, r.yMax - ring * .35f - tick * 1.6f, tick, tick * 1.6f), Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, new Color(1f, .55f, .45f, .45f), 0, tick * .5f);
-            float knob = size * .39f;
-            var k = mid + new Vector2(stickSmooth.x, -stickSmooth.y) * size * .29f;
-            Disc(new Rect(k.x - knob * .5f - 2, k.y - knob * .5f + 3, knob + 4, knob + 4), new Color(0, 0, 0, .18f));
-            Disc(new Rect(k.x - knob * .5f, k.y - knob * .5f, knob, knob), new Color(0.447f, 0.784f, 0.941f, StickActive ? 1f : .85f));
+            if (wheelTex) return;
+            wheelTex = Resources.Load<Texture2D>("TouchControls/PV_Wheel");
+            gasTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Gas");
+            revTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Reverse");
+            stopTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Stop");
+            jumpTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Jump");
+            MissileButtonTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Missile");
+        }
+
+        // Vẽ một nút ảnh: đang giữ → thu nhỏ 7 % + quầng màu nhấn phía sau; tắt (hồi chiêu/hết đạn) → xám mờ.
+        public static void DrawArtButton(Rect b, Texture2D tex, Color accent, bool held, bool enabled = true, float alpha = .92f)
+        {
+            if (held) Disc(new Rect(b.x - b.width * .06f, b.y - b.width * .06f, b.width * 1.12f, b.height * 1.12f), new Color(accent.r, accent.g, accent.b, .38f));
+            var q = held ? new Rect(b.x + b.width * .035f, b.y + b.height * .035f, b.width * .93f, b.height * .93f) : b;
+            var tint = enabled ? new Color(1f, 1f, 1f, held ? 1f : alpha) : new Color(.55f, .58f, .62f, .55f);
+            if (tex) GUI.DrawTexture(q, tex, ScaleMode.ScaleToFit, true, 0, tint, 0, 0);
+            else Bar(q, new Color(.1f, .15f, .2f, .7f * tint.a), q.width * .2f);
+        }
+
+        void DrawWheel()
+        {
+            var r = WheelRect(); var c = r.center;
+            bool held = wheelFinger != int.MinValue || testWheelHeld;
+            var m = GUI.matrix;
+            GUIUtility.RotateAroundPivot(wheelAngle, c);
+            // bán trong suốt để không che màn chơi; rõ hơn khi đang cầm
+            if (wheelTex) GUI.DrawTexture(r, wheelTex, ScaleMode.ScaleToFit, true, 0, new Color(1f, 1f, 1f, held ? .95f : .78f), 0, 0);
+            else Disc(r, new Color(.10f, .12f, .15f, .8f), r.width * .12f);
+            GUI.matrix = m;
+        }
+
+        // Máy tính: chữ phím nhỏ ở góc nút.
+        public static void KeyBadge(Rect b, string key)
+        {
+            float s = b.width * .26f; var q = new Rect(b.xMax - s * 1.05f, b.y + s * .05f, s, s);
+            Disc(q, new Color(.06f, .12f, .19f, .92f));
+            var st = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold, fontSize = Mathf.RoundToInt(s * .58f) };
+            st.normal.textColor = new Color(1f, .96f, .84f); GUI.Label(q, key, st);
+        }
+
+        void DrawTouchControls()
+        {
+            if (!TouchControlsVisible) return;
+            LoadTouchArt();
+            DrawWheel();
+            DrawArtButton(GasRect, gasTex, new Color(1f, .54f, .24f), GasHeld);
+            DrawArtButton(RevRect, revTex, new Color(.21f, .78f, .42f), RevHeld);
+            DrawArtButton(StopRect, stopTex, new Color(.24f, .55f, .94f), StopHeld);
         }
 
         void FixedUpdate()
@@ -173,25 +221,28 @@ namespace PhoViet.OpenWorld
             if (transform.position.y > -0.2f && Mathf.Abs(rb.linearVelocity.y) < 0.5f && Time.time - lastSafeTime > 1f)
             { lastSafePos = transform.position; lastSafeRot = transform.rotation; lastSafeTime = Time.time; }
             bool locked = frozen || stunned || stopping;
-            bool useStick = !locked && StickActive && scriptedInput == Vector2.zero;
-            var inp = locked || useStick ? Vector2.zero : ReadInput();
+            var inp = locked ? Vector2.zero : ReadInput();
+            // 21.265: vô lăng + Ga/Lùi trên màn hình cảm ứng (bàn phím/kiểm thử vẫn ưu tiên khi có tín hiệu)
+            if (!locked && scriptedInput == Vector2.zero && TouchDriving)
+            {
+                if (Mathf.Abs(inp.x) < 0.05f) inp.x = WheelSteer;
+                if (Mathf.Abs(inp.y) < 0.05f) inp.y = GasHeld ? 1f : RevHeld ? -1f : 0f;
+            }
             bool hand = locked || Input.GetKey(KeyCode.Space);
+            bool hardStop = !locked && StopHeld && TouchControlsVisible;
             // Bị nhà/cây/cột chặn: tốc độ trên HUD tụt theo vận tốc thực.
             var fwd0 = transform.forward; fwd0.y = 0; fwd0.Normalize();
             float actual = Vector3.Dot(rb.linearVelocity, fwd0);
             if (Mathf.Abs(actual) < Mathf.Abs(Speed) - 4f && Time.time - spawnTime > 0.5f) Speed = Mathf.MoveTowards(Speed, actual, 60f * dt);
-            float steer;
-            if (useStick) steer = StickDrive(dt);                                    // 21.262: joystick cảm ứng
-            else
-            {
-                stickRefValid = false; yawRate = 0f;
-                if (inp.y > 0.05f) Speed = Mathf.MoveTowards(Speed, maxSpeed * inp.y, (Speed < 0 ? brake : accel) * dt);
-                else if (inp.y < -0.05f) Speed = Mathf.MoveTowards(Speed, -reverseSpeed, (Speed > 0 ? brake : accel) * dt);
-                else Speed = Mathf.MoveTowards(Speed, 0f, drag * dt);
-                // Lái mạnh dần theo tốc độ, đảo chiều khi lùi.
-                steer = inp.x * steerDegPerSec * Mathf.Clamp01(Mathf.Abs(Speed) / 6f) * Mathf.Sign(Speed == 0 ? 1 : Speed) * dt;
-            }
+            if (hardStop) inp.y = 0f;
+            if (inp.y > 0.05f) Speed = Mathf.MoveTowards(Speed, maxSpeed * inp.y, (Speed < 0 ? brake : accel) * dt);
+            else if (inp.y < -0.05f) Speed = Mathf.MoveTowards(Speed, -reverseSpeed, (Speed > 0 ? brake : accel) * dt);
+            else Speed = Mathf.MoveTowards(Speed, 0f, drag * dt);
+            // Lái mạnh dần theo tốc độ, đảo chiều khi lùi.
+            float steer = inp.x * steerDegPerSec * Mathf.Clamp01(Mathf.Abs(Speed) / 6f) * Mathf.Sign(Speed == 0 ? 1 : Speed) * dt;
             if (hand) Speed = Mathf.MoveTowards(Speed, 0f, brake * 1.5f * dt);
+            // Stop: phanh gấp — từ tốc độ tối đa về 0 trong 1 giây
+            if (hardStop) { if (Mathf.Abs(Speed) > 0.05f && Mathf.Abs(Speed) > maxSpeed * dt) StopBrakes++; Speed = Mathf.MoveTowards(Speed, 0f, maxSpeed * dt); }
             if (Time.time < joltUntil && !jumping)
             {
                 float k = (joltUntil - Time.time) / Mathf.Max(0.01f, joltLength);
@@ -241,21 +292,14 @@ namespace PhoViet.OpenWorld
             rb.AddForce(Vector3.down * ((rb.linearVelocity.y > 0 ? JumpRise : JumpFall) - g), ForceMode.Acceleration);
             if (Time.time - jumpAt > 0.25f && rb.linearVelocity.y <= 0.5f && Grounded()) jumping = false;
         }
-        // 21.258: vùng màn hình (toạ độ GUI, gốc trên-trái) của nút TÊN LỬA — chạm vào đó không tính là nhảy.
-        public static Rect TouchBlock;
         void Update()
         {
             UpdateStars();
             TickStunSmoke();
-            UpdateStick();
+            UpdateTouchControls();
             // Khói xe hỏng luôn bốc thẳng lên trời dù xe lật ngửa.
             if (smoke && Crashed) smoke.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.9f, Quaternion.identity);
             if (Input.GetKeyDown(KeyCode.J)) jumpRequest = true;
-            for (int i = 0; i < Input.touchCount; i++)
-            {
-                var t = Input.GetTouch(i);
-                if (t.phase == TouchPhase.Began && t.fingerId != stickId && t.position.x >= Screen.width * 0.5f && !TouchBlock.Contains(new Vector2(t.position.x, Screen.height - t.position.y))) jumpRequest = true;
-            }
         }
 
         // ------------------------------------------------------------ 21.255: hố đạn kéo lệch
@@ -507,14 +551,14 @@ namespace PhoViet.OpenWorld
             else if (!frozen)
             {
                 // Nút NHẢY (cảm ứng: chạm nửa phải màn hình; bàn phím: J), mờ khi đang hồi.
-                float sz = Mathf.Max(70, Screen.height * 0.13f);
-                var b = new Rect(Screen.width - sz - 24 - OpenWorldGame.InsetRight, Screen.height - sz - 24 - OpenWorldGame.InsetBottom, sz, sz);
-                var bs = new GUIStyle(GUI.skin.box) { fontSize = Mathf.RoundToInt(sz * 0.2f), fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter };
-                bs.normal.textColor = Color.white;
-                var old = GUI.color; GUI.color = new Color(1, 1, 1, jumping || Time.time - jumpAt < JumpCooldown ? 0.35f : 0.85f);
-                GUI.Box(b, Input.touchSupported ? "NHẢY" : "NHẢY\n(J)", bs); GUI.color = old;
+                LoadTouchArt();
+                var b = JumpRect; float sz = b.width;
+                bool ready = !jumping && Time.time - jumpAt >= JumpCooldown;
+                bool held = false; foreach (var k in fingers.Values) if (k == Ctl.Jump) held = true;
+                DrawArtButton(b, jumpTex, new Color(.96f, .76f, .29f), held, ready);
+                if (!TouchControlsVisible) KeyBadge(b, "J");
             }
-            if (!Crashed && !frozen) DrawStick();
+            DrawTouchControls();
         }
     }
 }

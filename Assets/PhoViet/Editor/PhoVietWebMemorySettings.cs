@@ -22,6 +22,8 @@ namespace PhoViet.Editor
   {
    // 1.74.0 (21.264): bản web là bản đồ mở; scene phố cuộn cũ đã xóa.
    var paths=new List<string>{"Assets/PhoViet/Scenes/PhoVietOpenWorld.unity","Assets/PhoViet/Resources/Jail/JailWide.jpg","Assets/PhoViet/Resources/Jail/JailTall.jpg"};
+   // 21.266: vô lăng + 5 nút cảm ứng vẽ sẵn (Resources/TouchControls)
+   foreach(string n in new[]{"PV_Wheel","PV_Btn_Gas","PV_Btn_Reverse","PV_Btn_Stop","PV_Btn_Jump","PV_Btn_Missile"})paths.Add("Assets/PhoViet/Resources/TouchControls/"+n+".png");
    const string helicopter="Assets/PhoViet/Resources/Helicopter/PV_Helicopter.prefab";
    if(File.Exists(helicopter))paths.Add(helicopter);
    const string skywing="Assets/PhoViet/Resources/Skywing/PV_Skywing.prefab";

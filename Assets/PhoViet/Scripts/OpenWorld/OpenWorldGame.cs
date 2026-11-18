@@ -75,6 +75,12 @@ namespace PhoViet.OpenWorld
         public static float InsetRight => insetFraction.z * Screen.width;
         public static float InsetBottom => insetFraction.w * Screen.height;
         public static bool MobileProfile { get; private set; }
+        // 21.265: vùng an toàn thực = lớn hơn giữa Screen.safeArea (Simulator/app gốc) và vùng khung trang web báo về (iPhone X trở lên).
+        public static float SafeLeftPx => Mathf.Max(Screen.safeArea.xMin, InsetLeft);
+        public static float SafeRightPx => Mathf.Max(Screen.width - Screen.safeArea.xMax, InsetRight);
+        public static float SafeBottomPx => Mathf.Max(Screen.safeArea.yMin, InsetBottom);
+        public static float SafeTopPx => Mathf.Max(Screen.height - Screen.safeArea.yMax, InsetTop);
+        float SL => SafeLeftPx / uiScale; float SR => SafeRightPx / uiScale; float ST => SafeTopPx / uiScale; float SB => SafeBottomPx / uiScale;
         public void PauseForBrowser() { if (Mode == State.Riding) TogglePause(); }
         public void ApplyBrowserOrientation(string blocked) { if (blocked == "1" && Mode == State.Riding) TogglePause(); }
         public void ApplyBrowserInsets(string json)
@@ -90,7 +96,7 @@ namespace PhoViet.OpenWorld
         void Awake()
         {
             // Điện thoại/máy tính bảng (trình duyệt di động): bóng ngắn hơn, LOD sớm hơn, bớt xe NPC (đặt trước Start của giao thông).
-            if (!Application.isMobilePlatform) return;
+            if (!UnityEngine.Device.Application.isMobilePlatform) return;
             MobileProfile = true;
             QualitySettings.shadowDistance = Mathf.Min(QualitySettings.shadowDistance, 45f);
             QualitySettings.lodBias *= 0.75f;
@@ -259,15 +265,15 @@ namespace PhoViet.OpenWorld
 
         void ReadyScreen()
         {
-            Brand(portrait ? 24 : 48, portrait ? 24 : 38);
+            Brand((portrait ? 24 : 48) + SL, (portrait ? 24 : 38) + ST);
             if (!portrait)
             {
-                Panel(new Rect(uiW - 277, 40, 229, 56), WelcomeGlass);
-                Txt("ĐỊA ĐIỂM HÔM NAY", uiW - 257, 48, 200, 18, 9, Teal); Txt(CurrentStreet, uiW - 257, 67, 200, 25, 16, Ink);
+                Panel(new Rect(uiW - 277 - SR, 40 + ST, 229, 56), WelcomeGlass);
+                Txt("ĐỊA ĐIỂM HÔM NAY", uiW - 257 - SR, 48 + ST, 200, 18, 9, Teal); Txt(CurrentStreet, uiW - 257 - SR, 67 + ST, 200, 25, 16, Ink);
             }
             float w = portrait ? 432 : 360, h = portrait ? 258 : 276;
-            float y = Mathf.Clamp(uiH * (portrait ? .15f : .27f), 105, Mathf.Max(105, uiH - h - 95));
-            var card = new Rect(portrait ? (uiW - w) / 2 : 48, y, w, h); float x = card.x;
+            float y = Mathf.Clamp(uiH * (portrait ? .15f : .27f), 105 + ST, Mathf.Max(105 + ST, uiH - h - 95 - SB));
+            var card = new Rect(portrait ? SL + (uiW - SL - SR - w) / 2 : 48 + SL, y, w, h); float x = card.x;
             Panel(new Rect(x - 3, y + 5, w + 6, h + 3), new Color(.04f, .13f, .20f, .14f), 21);
             Panel(new Rect(x - 1, y - 1, w + 2, h + 2), new Color(1, 1, 1, .68f), 19); Panel(card, WelcomeWhite, 18);
             Panel(new Rect(x + 22, y + 20, 5, 13), Red, 2);
@@ -276,22 +282,22 @@ namespace PhoViet.OpenWorld
             Txt("Né CSGT, khủng long, xe tăng\nvà trực thăng trên phố mở.", x + 23, y + (portrait ? 143 : 152), w - 46, 42, 15, Hex("4C657A"));
             if (Btn("LÊN XE THÔI", new Rect(x + 22, y + h - 70, w - 44, 44), Red, Color.white, 17)) StartRun();
             Txt("KỶ LỤC  /  " + Metres(Best), x + 23, y + h - 20, w - 46, 17, 10, Teal);
-            if (!portrait && !Input.touchSupported)
+            if (!portrait && !Input.touchSupported && !UnityEngine.Device.Application.isMobilePlatform)
             {
-                float by = uiH - 82; Panel(new Rect(48, by, 754, 43), WelcomeGlass, 12);
-                Txt("MŨI TÊN / WASD: LÁI     J: NHẢY     SPACE: PHANH TAY     P: TẠM DỪNG", 64, by + 13, 724, 23, 11, Ink);
+                float by = uiH - 82 - SB; Panel(new Rect(48 + SL, by, 754, 43), WelcomeGlass, 12);
+                Txt("MŨI TÊN / WASD: LÁI     J: NHẢY     F: TÊN LỬA     SPACE: PHANH TAY     P: TẠM DỪNG", 64 + SL, by + 13, 724, 23, 11, Ink);
             }
             else
             {
-                float hw = portrait ? uiW - 36 : 560, hx = portrait ? 18 : (uiW - hw) / 2;
-                Panel(new Rect(hx, uiH - 68, hw, 44), WelcomeGlass, 10);
-                Txt("JOYSTICK TRÁI: ĐẨY HƯỚNG NÀO XE CHẠY HƯỚNG ĐÓ · CHẠM NỬA PHẢI: NHẢY", hx + 7, uiH - 55, hw - 14, 16, 10, Ink, TextAnchor.MiddleCenter);
+                float hw = portrait ? uiW - 36 - SL - SR : 600, hx = SL + (uiW - SL - SR - hw) / 2;
+                Panel(new Rect(hx, uiH - 68 - SB, hw, 44), WelcomeGlass, 10);
+                Txt("VÔ LĂNG TRÁI: XOAY ĐỂ LÁI · GIỮ GA / LÙI / STOP · NHẢY · TÊN LỬA", hx + 7, uiH - 55 - SB, hw - 14, 16, 10, Ink, TextAnchor.MiddleCenter);
             }
         }
 
         void Hud()
         {
-            float bw = portrait ? uiW - 24 : 760, x = (uiW - bw) / 2, y = portrait ? 12 : 18;
+            float bw = portrait ? uiW - 24 - SL - SR : 760, x = SL + (uiW - SL - SR - bw) / 2, y = (portrait ? 12 : 18) + ST;
             Panel(new Rect(x, y, bw, 76), Glass, 10);
             Txt(CurrentStreet.ToUpperInvariant(), x + 14, y + 8, bw * 0.45f, 16, 11, Gold);
             Txt(Metres(Score), x + 14, y + 25, 190, 34, 28, Cream);
@@ -334,14 +340,23 @@ namespace PhoViet.OpenWorld
         // Nút TÊN LỬA phía trên nút NHẢY (góc phải dưới); bàn phím: F.
         void FireButton()
         {
-            if (!hazards || !player || player.frozen || player.Crashed || Mode != State.Riding) { OpenWorldDriver.TouchBlock = Rect.zero; return; }
-            float jump = Mathf.Max(70, Screen.height * 0.13f) / uiScale;                  // cỡ nút NHẢY của OpenWorldDriver (px màn hình → đơn vị GUI)
-            float sz = jump * 0.95f, rx = uiW - sz - (24 + InsetRight) / uiScale, ry = uiH - jump - (24 + InsetBottom) / uiScale - sz - 14;
-            var r = new Rect(rx, ry, sz, sz);
-            bool ready = hazards.CanFire;
-            if (Btn(Input.touchSupported ? "TÊN LỬA\n" + hazards.PlayerMissiles : "TÊN LỬA\n(F) " + hazards.PlayerMissiles, r,
-                ready ? new Color(.85f, .2f, .17f, .88f) : new Color(.3f, .3f, .3f, .55f), Color.white, 13)) hazards.RequestFire();
-            OpenWorldDriver.TouchBlock = new Rect(r.x * uiScale, r.y * uiScale, r.width * uiScale, r.height * uiScale);
+            if (!hazards || !player || player.frozen || player.Crashed || Mode != State.Riding) return;
+            // 21.265: vị trí theo bố cục nút cảm ứng của OpenWorldDriver (px → đơn vị GUI). Máy cảm ứng: chạm do OpenWorldDriver đọc
+            // đa điểm (vừa lái vừa bắn); nút IMGUI chỉ còn cho chuột.
+            var f = OpenWorldDriver.FireRect; var r = new Rect(f.x / uiScale, f.y / uiScale, f.width / uiScale, f.height / uiScale);
+            bool ready = hazards.CanFire, touch = player.TouchControlsVisible;
+            // 21.266: nút vẽ sẵn (PV_Btn_Missile) + huy hiệu số tên lửa; máy tính thêm chữ phím F, bấm chuột vẫn bắn.
+            var m = GUI.matrix; GUI.matrix = Matrix4x4.identity;
+            OpenWorldDriver.DrawArtButton(f, OpenWorldDriver.MissileButtonTex, new Color(.91f, .27f, .23f), false, ready);
+            float bs = f.width * .3f; var badge = new Rect(f.x - bs * .1f, f.y - bs * .1f, bs, bs);
+            GUI.DrawTexture(badge, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, ready ? Gold : new Color(.55f, .58f, .62f), 0, bs * .5f);
+            GUI.DrawTexture(badge, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, Ink, bs * .1f, bs * .5f);
+            var st = new GUIStyle(label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(bs * .56f) }; st.normal.textColor = Ink;
+            GUI.Label(badge, hazards.PlayerMissiles.ToString(), st);
+            if (!touch) OpenWorldDriver.KeyBadge(f, "F");
+            bool click = !touch && Event.current.type == EventType.MouseDown && f.Contains(Event.current.mousePosition);
+            GUI.matrix = m;
+            if (click) { hazards.RequestFire(); Event.current.Use(); }
         }
 
         void EndCard(bool paused)
@@ -374,7 +389,7 @@ namespace PhoViet.OpenWorld
         {
             var tex = portrait ? (jailTall ? jailTall : jailWide) : (jailWide ? jailWide : jailTall);
             if (tex) GUI.DrawTexture(Fullscreen(), tex, ScaleMode.ScaleAndCrop);
-            float w = portrait ? 440 : 408, h = portrait ? 262 : 318, x = portrait ? 20 : uiW - w - 42, y = portrait ? uiH - h - 22 : (uiH - h) / 2;
+            float w = portrait ? 440 : 408, h = portrait ? 262 : 318, x = portrait ? 20 + SL : uiW - w - 42 - SR, y = portrait ? uiH - h - 22 - SB : (uiH - h) / 2;
             Panel(new Rect(x, y, w, h), Cream, 18);
             Txt("PHỐ VIỆT  ·  TẠM GIỮ", x + 26, y + 20, w - 52, 22, 13, Red);
             Txt("ĐÃ BỊ BẮT", x + 24, y + 45, w - 48, 52, portrait ? 34 : 40, Ink);
