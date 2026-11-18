@@ -1,5 +1,8 @@
-/* The shell contains no gameplay timers: Unity owns the run and touch input. */
+/* The shell contains no gameplay timers: Unity owns the run and touch input.
+   1.74.0 (21.264): bản đồ mở — Unity tự nhận chạm (joystick, NHẢY, TÊN LỬA); khung trang chỉ báo tạm dừng,
+   hướng màn hình và vùng tai thỏ cho đối tượng "VongChoi" (OpenWorldGame). */
 'use strict';
+const gameRoot='VongChoi';
 const $ = id => document.getElementById(id);
 const canvas = $('unity-canvas');
 const rotateGame = $('rotate-game');
@@ -23,8 +26,8 @@ async function controlGameRequests(){
     const timer=setTimeout(done,1500);navigator.serviceWorker.addEventListener('controllerchange',done);
   });
 }
-// The graphics level sets the render density (21.136); touch devices start modestly until Unity reports it.
-let pixelCap=touchDevice?1.6:0;
+// Bản đồ mở nặng hơn phố cuộn cũ: điện thoại giữ mật độ điểm ảnh tối đa 1,3.
+let pixelCap=touchDevice?1.3:0;
 window.phoVietTouchDevice=touchDevice;
 function gamePixelRatio(width,height){
   const nativeRatio=Number.isFinite(window.devicePixelRatio)&&window.devicePixelRatio>0?window.devicePixelRatio:1;
@@ -34,7 +37,7 @@ function gamePixelRatio(width,height){
   return Math.min(nativeRatio,cap,Math.sqrt(budget/Math.max(1,width*height)));
 }
 window.phoVietSetPixelCap=cap=>{pixelCap=Number.isFinite(cap)&&cap>=0?cap:0;if(typeof syncViewport==='function')syncViewport();};
-function pauseGame(){if(unityInstance)unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','PauseForBrowser');}
+function pauseGame(){if(unityInstance)unityInstance.SendMessage(gameRoot,'PauseForBrowser');}
 function setMenu(open){
   menuOpen=Boolean(open);$('toolbar').hidden=immersive&&!menuOpen;
   $('game-menu').setAttribute('aria-expanded',String(menuOpen));
@@ -70,7 +73,7 @@ function syncViewport(){
     bottom:clamp((Math.max(bottom,height-measuredHeight)-(Math.max(height,bounds.bottom)-bounds.bottom))/bounds.height),
     pixelRatio:unityInstance.Module.devicePixelRatio
   });
-  if(insets!==lastInsets){unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','ApplyBrowserInsets',insets);lastInsets=insets;}
+  if(insets!==lastInsets){unityInstance.SendMessage(gameRoot,'ApplyBrowserInsets',insets);lastInsets=insets;}
 }
 function syncGameOrientation(width,height){
   const blocked=gameRequested&&width<height;
@@ -185,116 +188,21 @@ async function loadGame(){
       checkOffline();
       setImmersive(touchDevice||standalone||Boolean(document.fullscreenElement));
       $('welcome').hidden=true;if(!gamePortrait)canvas.focus();
-      if(document.hidden) unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','PauseForBrowser');
+      if(document.hidden) unityInstance.SendMessage(gameRoot,'PauseForBrowser');
     }catch(error){gameRequested=false;canvas.hidden=true;setImmersive(false);fail(error);}
   };
   document.body.appendChild(script);
 }
 document.addEventListener('visibilitychange',()=>{
-  if(document.hidden && unityInstance) unityInstance.SendMessage('PHỐ VIỆT • Chuyến xe không ngừng','PauseForBrowser');
+  if(document.hidden && unityInstance) unityInstance.SendMessage(gameRoot,'PauseForBrowser');
   if(!document.hidden)scheduleViewport();
 });
 window.addEventListener('pageshow',scheduleViewport);
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
-// DOM events retain very quick gestures even when one Unity frame spans the entire
-// touch. Use the short CSS edge, so rotating or changing render DPR never doubles
-// the required travel. One pointer owns one action, triggered before finger-up.
-const gamePointers=new Map();
-const gameRoot='PHỐ VIỆT • Chuyến xe không ngừng';
-let footMode=false;
-const footPointers=new Map();
-window.phoVietSetFootMode=enabled=>{
-  if(footMode===enabled)return;
-  footMode=enabled;
-  cancelAllPointers();
-};
-function sendFootPointer(p,phase,e){
-  const x=Math.max(0,Math.min(1,(e.clientX-p.rect.x)/p.rect.width));
-  const y=Math.max(0,Math.min(1,(e.clientY-p.rect.y)/p.rect.height));
-  unityInstance?.SendMessage(gameRoot,'ApplyFootPointer',JSON.stringify({phase,id:p.id,x,y}));
-  if(phase===2&&Math.hypot(e.clientX-p.x,e.clientY-p.y)<Math.min(p.rect.width,p.rect.height)*.035)
-    unityInstance?.SendMessage(gameRoot,'ApplyHudTap',JSON.stringify({x,y}));
-}
-function cancelFootPointers(){
-  for(const p of footPointers.values())sendFootPointer(p,3,{clientX:p.x,clientY:p.y});
-  footPointers.clear();
-}
-function sendGesture(p,phase,e,action=0){
-  if(!unityInstance)return;
-  unityInstance.SendMessage(gameRoot,'ApplyBrowserGesture',JSON.stringify({phase,id:p.id,action,
-    x:Math.max(0,Math.min(1,(e.clientX-p.rect.x)/p.rect.width)),
-    y:Math.max(0,Math.min(1,(e.clientY-p.rect.y)/p.rect.height)),at:e.timeStamp/1000}));
-}
-function cancelGamePointer(id){
-  const p=gamePointers.get(id);if(!p)return;
-  gamePointers.delete(id);
-  sendGesture(p,3,{clientX:p.x,clientY:p.y,timeStamp:performance.now()});
-}
-// Keep in step with IsJumpSwipe/IsBoostSwipe/SwipeAction in Unity. No angle may match nothing: a thumb on a
-// sideways phone arcs diagonally, and the old 1.3 ratio dropped 37-52 degree swipes without any response (21.140).
-function swipeAction(dx,dy,short,scale=1){
-  if(dy<0&&-dy>short*.085*scale&&-dy>=Math.abs(dx)*.85)return 2;
-  if(dy>0&&dy>short*.12*scale&&dy>=Math.abs(dx)*.85)return 3;
-  if(Math.abs(dx)>short*.075*scale&&Math.abs(dy)<Math.abs(dx)*.85)return dx>0?1:-1;
-  return 0;
-}
-function pointerMoved(e){
-  const foot=footPointers.get(e.pointerId);
-  if(foot){sendFootPointer(foot,1,e);return;}
-  const p=gamePointers.get(e.pointerId);
-  if(!p)return;
-  // A toolbar or render-scale change mid-swipe keeps the gesture; only a rotation ends it.
-  const r=canvas.getBoundingClientRect();
-  if((r.width>r.height)!==(p.rect.width>p.rect.height)){cancelGamePointer(p.id);return;}
-  const action=p.consumed?0:swipeAction(e.clientX-p.x,e.clientY-p.y,Math.min(r.width,r.height));
-  if(action)p.consumed=true;
-  sendGesture(p,1,e,action);
-}
-canvas.addEventListener('pointerdown',e=>{
-  if(e.button!==0||!unityInstance||gamePortrait)return;
-  const rect=canvas.getBoundingClientRect();if(!rect.width||!rect.height)return;
-  if(footMode){
-    const foot={id:e.pointerId,x:e.clientX,y:e.clientY,rect};footPointers.set(foot.id,foot);
-    canvas.setPointerCapture?.(foot.id);sendFootPointer(foot,0,e);return;
-  }
-  const pointer={id:e.pointerId,x:e.clientX,y:e.clientY,at:e.timeStamp,rect,consumed:false,touch:e.pointerType!=='mouse'};
-  gamePointers.set(pointer.id,pointer);
-  canvas.setPointerCapture?.(pointer.id);sendGesture(pointer,0,e);
-},{passive:true});
-canvas.addEventListener('pointermove',pointerMoved,{passive:true});
-canvas.addEventListener('pointerup',e=>{
-  const foot=footPointers.get(e.pointerId);
-  if(foot){footPointers.delete(foot.id);sendFootPointer(foot,2,e);return;}
-  if(!gamePointers.has(e.pointerId))return;
-  pointerMoved(e);const p=gamePointers.get(e.pointerId);if(!p)return;gamePointers.delete(p.id);
-  const short=Math.min(p.rect.width,p.rect.height);
-  // A quick flick that lifts before the normal distance still counts.
-  if(!p.consumed&&e.timeStamp-p.at<220){
-    const flick=swipeAction(e.clientX-p.x,e.clientY-p.y,short,.6);
-    if(flick){p.consumed=true;sendGesture(p,1,e,flick);sendGesture(p,3,e);return;}
-  }
-  const tap=!p.consumed&&Math.hypot(e.clientX-p.x,e.clientY-p.y)<short*.035;
-  if(tap){
-    unityInstance.SendMessage(gameRoot,'ApplyHudTap',JSON.stringify({x:(e.clientX-p.rect.x)/p.rect.width,y:(e.clientY-p.rect.y)/p.rect.height}));
-    if(p.touch&&e.timeStamp-p.at<240)sendGesture(p,2,e);else sendGesture(p,4,e,1);
-  }else sendGesture(p,4,e);
-},{passive:true});
-// Safari can start scrolling a sideways page and cancel the pointer before the swipe distance is reached.
+// Unity nhận chạm trực tiếp (Input.touches). Khung trang chỉ chặn cuộn/thu phóng và menu chuột phải.
+function cancelAllPointers(){}
+window.phoVietSetFootMode=()=>{};
 canvas.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
-function cancelPointer(e){
-  const foot=footPointers.get(e.pointerId);
-  if(foot){footPointers.delete(foot.id);sendFootPointer(foot,3,e);}
-  cancelGamePointer(e.pointerId);
-}
-canvas.addEventListener('pointercancel',cancelPointer,{passive:true});
-canvas.addEventListener('lostpointercapture',cancelPointer,{passive:true});
-function cancelAllPointers(){
-  for(const id of gamePointers.keys())cancelGamePointer(id);
-  cancelFootPointers();
-}
-window.addEventListener('orientationchange',cancelAllPointers);
-window.addEventListener('blur',cancelAllPointers);
-document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAllPointers();});
 window.addEventListener('keydown',e=>{
   if(unityInstance && document.activeElement===canvas && ['Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault();
 });
@@ -306,7 +214,7 @@ if(new URLSearchParams(location.search).has('perf')){
   document.body.appendChild(box);
   let last=performance.now(),frames=0,worst=0,previous=last;
   const tick=now=>{frames++;worst=Math.max(worst,now-previous);previous=now;
-    if(now-last>=1000){box.textContent=`${Math.round(frames*1000/(now-last))} FPS  max ${Math.round(worst)} ms\n${canvas.width}x${canvas.height}  dpr ${unityInstance?.Module.devicePixelRatio?.toFixed(2)||'-'}`;frames=0;worst=0;last=now;}
+    if(now-last>=1000){const heap=unityInstance?.Module?.HEAPU32?.buffer?.byteLength;box.textContent=`${Math.round(frames*1000/(now-last))} FPS  max ${Math.round(worst)} ms\n${canvas.width}x${canvas.height}  dpr ${unityInstance?.Module.devicePixelRatio?.toFixed(2)||'-'}  heap ${heap?Math.round(heap/1048576)+' MB':'-'}`;frames=0;worst=0;last=now;}
     requestAnimationFrame(tick);};
   requestAnimationFrame(tick);
 }

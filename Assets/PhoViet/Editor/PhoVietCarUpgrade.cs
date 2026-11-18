@@ -82,7 +82,9 @@ namespace PhoViet.Editor
     public sealed class PhoVietCarImport : AssetPostprocessor
     {
         const string Folder="Assets/PhoViet/Art/Cars/";
-        void OnPreprocessModel(){if(assetPath.StartsWith(Folder,StringComparison.Ordinal)){Configure((ModelImporter)assetImporter);if(assetPath.Contains("/Meshy/"))((ModelImporter)assetImporter).meshCompression=ModelImporterMeshCompression.Off;}}
+        void OnPreprocessModel(){if(assetPath.StartsWith(Folder,StringComparison.Ordinal)){Configure((ModelImporter)assetImporter);if(assetPath.Contains("/Meshy/"))((ModelImporter)assetImporter).meshCompression=ModelImporterMeshCompression.Off;
+            // 21.259: bản đồ mở làm móp thân 4 mẫu ô tô Meshy theo điểm chạm (OpenWorldCarDent) → cần đọc đỉnh lưới lúc chạy. Không gồm xe tăng.
+            if(assetPath.Contains("/Meshy/PV_Meshy")&&!assetPath.Contains("Tank"))((ModelImporter)assetImporter).isReadable=true;}}
         static void Configure(ModelImporter i)
         {
             i.animationType=ModelImporterAnimationType.Legacy;i.importAnimation=true;i.optimizeGameObjects=false;i.materialImportMode=ModelImporterMaterialImportMode.None;

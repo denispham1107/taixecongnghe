@@ -1,0 +1,681 @@
+{
+  "name": "Pho Viet open world v1",
+  "created": "2026-11-17",
+  "units": "metres; x = east, z = north (Unity x/z)",
+  "references": [
+    "ref-1-cau-vom.webp: duong ven song phia nam, cau vom trang phia truoc, song ben trai, pho ben phai",
+    "ref-2-cho-ben-thanh.webp: dai lo Le Loi, cho Ben Thanh ben trai, nha pho ben phai, thap tai chinh phia truoc",
+    "ref-3-pho-ven-song.webp: duong Ton Duc Thang, nha pho ben trai, song ben phai, thap tai chinh phia truoc ben trai"
+  ],
+  "bounds": {
+    "minX": -600,
+    "maxX": 700,
+    "minZ": -600,
+    "maxZ": 700
+  },
+  "roadProfiles": {
+    "main": {
+      "lanes": 4,
+      "laneWidth": 3.5,
+      "carriageway": 14,
+      "sidewalk": 6,
+      "centerLine": "double yellow",
+      "laneLine": "white dashed"
+    },
+    "local": {
+      "lanes": 2,
+      "laneWidth": 3.5,
+      "carriageway": 7,
+      "sidewalk": 4,
+      "centerLine": "single yellow dashed"
+    }
+  },
+  "river": {
+    "name": "Song Sai Gon",
+    "comment": "Song hinh chu L bao quanh trung tam: nhanh doc chay bac-nam o phia dong, nhanh ngang chay dong-tay o phia bac.",
+    "outline": [
+      [
+        234.5,
+        -600
+      ],
+      [
+        400,
+        -600
+      ],
+      [
+        400,
+        300
+      ],
+      [
+        395,
+        340
+      ],
+      [
+        375,
+        375
+      ],
+      [
+        340,
+        395
+      ],
+      [
+        300,
+        400
+      ],
+      [
+        -600,
+        400
+      ],
+      [
+        -600,
+        228.5
+      ],
+      [
+        222,
+        228.5
+      ],
+      [
+        229.5,
+        226.5
+      ],
+      [
+        233.5,
+        221.5
+      ],
+      [
+        234.5,
+        214
+      ]
+    ],
+    "waterLevel": -2.2,
+    "embankment": "ke da + lan can sat den, loi di bo lat gach",
+    "westBankNote": "21.239: mep ke bo tay nhanh doc doan R2 la x 234.5 (anh 3: via he + dai cay + lan can sat duong)",
+    "southBankNote": "21.247: doan R3 Bach Dang, mep ke bo nam nhanh ngang o map z 228.5 (loi di ven song hep 6.5 m, lan can tru da) cho giong anh 1",
+    "outlineNote": "21.248: bo tay nhanh doc x 234.5 (anh 3), bo nam nhanh ngang z 228.5 (anh 1)"
+  },
+  "roads": [
+    {
+      "id": "R1",
+      "name": "Dai lo Le Loi",
+      "profile": "main",
+      "from": [
+        -560,
+        -150
+      ],
+      "to": [
+        215,
+        -150
+      ],
+      "ref": "ref-2"
+    },
+    {
+      "id": "R2",
+      "name": "Ton Duc Thang (ven song)",
+      "profile": "main",
+      "from": [
+        215,
+        -560
+      ],
+      "to": [
+        215,
+        215
+      ],
+      "ref": "ref-3",
+      "riverSide": "east"
+    },
+    {
+      "id": "R3",
+      "name": "Bach Dang (ven song bac)",
+      "profile": "main",
+      "from": [
+        -560,
+        215
+      ],
+      "to": [
+        680,
+        215
+      ],
+      "ref": "ref-1",
+      "riverSide": "north",
+      "bridge": "B1"
+    },
+    {
+      "id": "R4",
+      "name": "Hai Ba Trung",
+      "profile": "main",
+      "from": [
+        -150,
+        -560
+      ],
+      "to": [
+        -150,
+        680
+      ],
+      "bridge": "B2"
+    },
+    {
+      "id": "L1",
+      "name": "Ly Thuong Kiet",
+      "profile": "local",
+      "from": [
+        -450,
+        -560
+      ],
+      "to": [
+        -450,
+        215
+      ]
+    },
+    {
+      "id": "L2",
+      "name": "Tran Hung Dao",
+      "profile": "local",
+      "from": [
+        -228,
+        -560
+      ],
+      "to": [
+        -228,
+        215
+      ],
+      "note": "21.241: doi tu x -300 de cho Ben Thanh lien mot khoi"
+    },
+    {
+      "id": "L3",
+      "name": "Quang Trung",
+      "profile": "local",
+      "from": [
+        0,
+        -560
+      ],
+      "to": [
+        0,
+        215
+      ]
+    },
+    {
+      "id": "L4",
+      "name": "Ly Nam De",
+      "profile": "local",
+      "from": [
+        110,
+        -560
+      ],
+      "to": [
+        110,
+        215
+      ]
+    },
+    {
+      "id": "L5",
+      "name": "Dinh Bo Linh",
+      "profile": "local",
+      "from": [
+        -560,
+        -430
+      ],
+      "to": [
+        215,
+        -430
+      ],
+      "note": "21.248: doi tu z -450 de khong cat day quan Pho Thinh (anh 3)"
+    },
+    {
+      "id": "L6",
+      "name": "Nguyen Trai",
+      "profile": "local",
+      "from": [
+        -560,
+        -300
+      ],
+      "to": [
+        215,
+        -300
+      ]
+    },
+    {
+      "id": "L7",
+      "name": "Pasteur",
+      "profile": "local",
+      "from": [
+        -560,
+        0
+      ],
+      "to": [
+        215,
+        0
+      ]
+    },
+    {
+      "id": "L8",
+      "name": "Dong Khoi",
+      "profile": "local",
+      "from": [
+        -560,
+        100
+      ],
+      "to": [
+        215,
+        100
+      ]
+    },
+    {
+      "id": "P1",
+      "name": "Vanh dai tay",
+      "profile": "local",
+      "from": [
+        -560,
+        -560
+      ],
+      "to": [
+        -560,
+        215
+      ]
+    },
+    {
+      "id": "P2",
+      "name": "Vanh dai nam",
+      "profile": "local",
+      "from": [
+        -560,
+        -560
+      ],
+      "to": [
+        215,
+        -560
+      ]
+    },
+    {
+      "id": "E1",
+      "name": "Ven song Thu Thiem",
+      "profile": "local",
+      "from": [
+        425,
+        -560
+      ],
+      "to": [
+        425,
+        425
+      ],
+      "riverSide": "west"
+    },
+    {
+      "id": "E2",
+      "name": "Mai Chi Tho",
+      "profile": "main",
+      "from": [
+        425,
+        -150
+      ],
+      "to": [
+        680,
+        -150
+      ]
+    },
+    {
+      "id": "E3",
+      "name": "Vanh dai dong",
+      "profile": "local",
+      "from": [
+        680,
+        -560
+      ],
+      "to": [
+        680,
+        680
+      ]
+    },
+    {
+      "id": "E4",
+      "name": "Vanh dai nam bo dong",
+      "profile": "local",
+      "from": [
+        425,
+        -560
+      ],
+      "to": [
+        680,
+        -560
+      ]
+    },
+    {
+      "id": "N1",
+      "name": "Ven song bac",
+      "profile": "local",
+      "from": [
+        -560,
+        425
+      ],
+      "to": [
+        680,
+        425
+      ],
+      "riverSide": "south"
+    },
+    {
+      "id": "N2",
+      "name": "Vanh dai bac",
+      "profile": "local",
+      "from": [
+        -560,
+        680
+      ],
+      "to": [
+        680,
+        680
+      ]
+    },
+    {
+      "id": "N3",
+      "name": "Vanh dai tay bac",
+      "profile": "local",
+      "from": [
+        -560,
+        425
+      ],
+      "to": [
+        -560,
+        680
+      ]
+    }
+  ],
+  "bridges": [
+    {
+      "id": "B1",
+      "name": "Cau vom Anh Duong",
+      "road": "R3",
+      "from": [
+        229,
+        215
+      ],
+      "to": [
+        406,
+        215
+      ],
+      "style": "21.247: hai vom thep trang doc o mep ngoai le bo hanh (x +-10.2 quanh tim duong), nhip vom chinh map X 243..317, cao 34 m, day treo dung moi 2 m; cong vom nho bac ngang mat duong o cuoi cau (map X 392); nhip dan con lai tren tru; lan can thep trang, bo via do-trang",
+      "ref": "ref-1"
+    },
+    {
+      "id": "B2",
+      "name": "Cau vom nho phia bac",
+      "road": "R4",
+      "from": [
+        -150,
+        240
+      ],
+      "to": [
+        -150,
+        400
+      ],
+      "style": "mot vom trang giua, nho hon B1 (thay o xa trong ref-1)"
+    }
+  ],
+  "roundabouts": [
+    {
+      "id": "Q1",
+      "name": "Bung binh Quach Thi Trang",
+      "center": [
+        -450,
+        -150
+      ],
+      "radius": 22,
+      "island": "tuong dai + bon hoa vang",
+      "note": "21.240: doi tu (-300,-150) sang giao L1 de khong nam giua camera anh 2 va cho"
+    }
+  ],
+  "landmarks": [
+    {
+      "id": "M1",
+      "name": "Cho Ben Thanh",
+      "center": [
+        -306,
+        -97
+      ],
+      "size": [
+        128,
+        62
+      ],
+      "facing": "21.241: mat day vom chay doc Le Loi (dai sap hoa phia truoc), khoi thap dong ho nho ra phia duong o map x -316; cong vom + chu CHO BEN THANH + dong ho quay ve tay (camera anh 2), dong ho thu hai quay ra duong",
+      "ref": "ref-2",
+      "notes": "tuong kem, mai ngoi do, thap dong ho giua, vom cua, sap hoa va du che truoc cho"
+    },
+    {
+      "id": "M2",
+      "name": "Thap Tai Chinh (dang bup sen)",
+      "center": [
+        160,
+        -60
+      ],
+      "height": 262,
+      "ref": "ref-1,2,3",
+      "notes": "kinh xanh xam, dinh nhon, san truc thang; 21.240 nguoi dung chon dat lai o khu tai chinh de thay o anh 2 va 3 (o anh 3 to va vuot khung)"
+    },
+    {
+      "id": "M3",
+      "name": "Cum cao oc trung tam",
+      "area": [
+        [
+          0,
+          -450
+        ],
+        [
+          215,
+          100
+        ]
+      ],
+      "notes": "15-40 tang, kinh va be tong sang"
+    },
+    {
+      "id": "M4",
+      "name": "Can ho bo dong Thu Thiem",
+      "area": [
+        [
+          440,
+          -540
+        ],
+        [
+          660,
+          400
+        ]
+      ],
+      "notes": "20-35 tang, cong vien ven song phia truoc"
+    },
+    {
+      "id": "M5",
+      "name": "Ben tau du lich",
+      "center": [
+        415,
+        60
+      ],
+      "notes": "tau du lich trang-do (ref-1), tau nho chay tren song"
+    }
+  ],
+  "districts": [
+    {
+      "id": "D1",
+      "name": "Pho cho Ben Thanh",
+      "area": [
+        [
+          -560,
+          -560
+        ],
+        [
+          -150,
+          0
+        ]
+      ],
+      "style": "nha pho Phap cu 3-4 tang, ban cong sat, mai hien soc, banner do-xanh tren cot",
+      "ref": "ref-2"
+    },
+    {
+      "id": "D2",
+      "name": "Pho ven song",
+      "strips": [
+        "R2 phia tay",
+        "R3 phia nam"
+      ],
+      "style": "nha ong 4-6 tang cu, ban cong hoa giay hong, may lanh, quan ca phe via he, xe may dau",
+      "ref": "ref-1,3"
+    },
+    {
+      "id": "D3",
+      "name": "Khu tai chinh",
+      "area": [
+        [
+          0,
+          -450
+        ],
+        [
+          215,
+          100
+        ]
+      ],
+      "style": "cao oc, khoi de thuong mai"
+    },
+    {
+      "id": "D4",
+      "name": "Pho co trung tam",
+      "area": [
+        [
+          -560,
+          0
+        ],
+        [
+          0,
+          215
+        ]
+      ],
+      "style": "nha ong + cay xanh lon"
+    },
+    {
+      "id": "D5",
+      "name": "Bo dong Thu Thiem",
+      "area": [
+        [
+          400,
+          -600
+        ],
+        [
+          700,
+          400
+        ]
+      ],
+      "style": "cao oc can ho + cong vien"
+    },
+    {
+      "id": "D6",
+      "name": "Bo bac",
+      "area": [
+        [
+          -600,
+          400
+        ],
+        [
+          700,
+          700
+        ]
+      ],
+      "style": "cong vien ven song, nha thap tang, chua"
+    }
+  ],
+  "shopSigns": [
+    {
+      "text": "Ca Phe Cu Lao",
+      "color": "#1F6B45",
+      "ref": "ref-1"
+    },
+    {
+      "text": "Hai San Tuoi Song",
+      "color": "#1D4FA0",
+      "ref": "ref-1"
+    },
+    {
+      "text": "Banh Mi Hue",
+      "color": "#E2B21C",
+      "ref": "ref-2"
+    },
+    {
+      "text": "Com Tam Sai Gon",
+      "color": "#7A1F2B",
+      "ref": "ref-2"
+    },
+    {
+      "text": "Pho Thinh / Pho Bo - Pho Ga",
+      "color": "#6E2333",
+      "ref": "ref-3"
+    },
+    {
+      "text": "Nha Sach Minh Tam",
+      "color": "#E3B323",
+      "ref": "ref-3"
+    },
+    {
+      "text": "Dien May Hai Dang",
+      "color": "#2154A6",
+      "ref": "ref-3"
+    },
+    {
+      "text": "Ca Phe Sai Gon",
+      "color": "#2C7A3C",
+      "ref": "ref-3"
+    },
+    {
+      "text": "Nha Thuoc An Khang",
+      "color": "#1F7A4A",
+      "ref": "ref-3"
+    },
+    {
+      "text": "Banh Mi Co Lan (xe day)",
+      "color": "#C9302C",
+      "ref": "ref-3"
+    }
+  ],
+  "streetFurniture": [
+    "cay sao/dau tan rong tren via he, khoang 14 m",
+    "chau hoa giay hong vuong be tong (ref-1)",
+    "cot den cao mot canh xam (ref-1, ref-3)",
+    "hang rao sat den thap mep via he (ref-2, ref-3)",
+    "bo via son do-trang tren doan cau va loi len cau (ref-1)",
+    "banner doc do/xanh tren cot den (ref-2, ref-3)",
+    "ban ghe ca phe, xe may dau, xe day banh mi (ref-3)",
+    "bien mui ten vang den cuoi duong (ref-3)"
+  ],
+  "playerStart": {
+    "position": [
+      218.5,
+      -400
+    ],
+    "heading": "north",
+    "ref": "ref-3 nhin tu sau xe"
+  },
+  "reuseAssets": {
+    "trees": "Assets/PhoViet/Art/Streets/PV_StreetTree0..2.fbx",
+    "planter": "planter() trong ArtSource/Blender/pho_viet_saigon_streets.py (Chau cay lon)",
+    "fishingBoat": "Assets/PhoViet/Art/River/FishingBoat/PV_FishingBoat.fbx",
+    "riverWater": "RiverWater.shader + PV_RiverWater.mat (Unity)",
+    "vehicles": "Assets/PhoViet/Art/PlayerCar, Cars, Bikes"
+  },
+  "cameras": {
+    "ref-3": {
+      "map": [
+        216.4,
+        -492
+      ],
+      "heading": "north"
+    },
+    "ref-2": {
+      "map": [
+        -375,
+        -151.75
+      ],
+      "heading": "east"
+    },
+    "ref-1": {
+      "map": [
+        155,
+        213.6
+      ],
+      "heading": "east"
+    }
+  }
+}

@@ -5,19 +5,20 @@ namespace PhoViet
  {
   public Transform flame;public ParticleSystem smoke;public AnimationCurve plumePulse;public float plumePeriod=.16666667f;
   public LineRenderer fireTrail;
+  [System.NonSerialized] public bool standalone; // 21.256: bản đồ mở, không có PhoVietGame
   public const float FireTrailLifetime=.14f,FireTrailLength=6.5f;
   PhoVietGame game;float clock;bool emitting;readonly ParticleSystem.Particle[] trail=new ParticleSystem.Particle[32];
   readonly Vector3[] firePoints=new Vector3[32];readonly float[] fireAges=new float[32];int fireCount;
   MaterialPropertyBlock fireProperties;static readonly int FirePhase=Shader.PropertyToID("_Phase");
   public int FireTrailPointCount=>fireCount;
   void Awake(){game=GetComponentInParent<PhoVietGame>();fireProperties=new MaterialPropertyBlock();}
-  public void Begin(){clock=0;emitting=true;if(game==null)game=GetComponentInParent<PhoVietGame>();if(smoke!=null){var main=smoke.main;main.customSimulationSpace=game.transform;smoke.Clear();smoke.Play();}if(flame!=null){flame.gameObject.SetActive(true);flame.localScale=new Vector3(1.8f,2.2f,1.8f);}ClearFire();UpdateFire(0);}
+  public void Begin(){clock=0;emitting=true;if(game==null)game=GetComponentInParent<PhoVietGame>();if(smoke!=null){var main=smoke.main;if(game!=null)main.customSimulationSpace=game.transform;else main.simulationSpace=ParticleSystemSimulationSpace.World;smoke.Clear();smoke.Play();}if(flame!=null){flame.gameObject.SetActive(true);flame.localScale=new Vector3(1.8f,2.2f,1.8f);}ClearFire();UpdateFire(0);}
   public void End(){emitting=false;if(smoke!=null)smoke.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);if(flame!=null)flame.gameObject.SetActive(false);ClearFire();}
   void LateUpdate(){Advance(Mathf.Min(Time.deltaTime,.05f));}
   public void Advance(float dt)
   {
-   if(game==null)game=GetComponentInParent<PhoVietGame>();if(game==null||!emitting)return;
-   if(game.State==PhoVietGame.RideState.Paused){if(smoke!=null&&smoke.isPlaying)smoke.Pause();return;}
+   if(game==null)game=GetComponentInParent<PhoVietGame>();if((game==null&&!standalone)||!emitting)return;
+   if(game!=null&&game.State==PhoVietGame.RideState.Paused){if(smoke!=null&&smoke.isPlaying)smoke.Pause();return;}
    clock+=dt;if(smoke!=null&&smoke.isPaused)smoke.Play();
    if(flame!=null){float pulse=plumePulse==null?1:plumePulse.Evaluate(Mathf.Repeat(clock/Mathf.Max(.01f,plumePeriod),1));flame.localScale=new Vector3(1.8f,2.2f*pulse,1.8f);}
    UpdateFire(dt);

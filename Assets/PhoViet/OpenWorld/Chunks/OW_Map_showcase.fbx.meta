@@ -1,0 +1,809 @@
+fileFormatVersion: 2
+guid: a5bf9357ebbaf584aa1c265d5cc77013
+ModelImporter:
+  serializedVersion: 24501
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_AirCon
+    second: {fileID: 2100000, guid: 6d327b4f2d2e6a046a35bcfa751dee92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_AwningCanvas
+    second: {fileID: 2100000, guid: d58004a4639517048a695b08e699ac70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_AwningGrey
+    second: {fileID: 2100000, guid: 599384b287750914e9617ee67a6e718f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_CartYellow
+    second: {fileID: 2100000, guid: 5e53d647fe2fec84082560169b0173a9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_alu
+    second: {fileID: 2100000, guid: 39ce11ba160690f41ae97bc193538fc9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_alu_dark
+    second: {fileID: 2100000, guid: a58f18c9f0c8823438b67e34af66b842, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_bamboo
+    second: {fileID: 2100000, guid: 75bb7944ad5178e448a7b7d2e93a62e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_base
+    second: {fileID: 2100000, guid: 4cdc3f45106c6b64bb705f8060e768f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_broth
+    second: {fileID: 2100000, guid: 373f92a027bcf0c4fbaaca63d78e360d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_cap
+    second: {fileID: 2100000, guid: 091551c798aa47846adaeb60bd864324, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_ceramic
+    second: {fileID: 2100000, guid: 4e753c00fc4c5f64a8f14f7f2b3bf3e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_chili_sauce
+    second: {fileID: 2100000, guid: dbf56c807f455df4ca22c2b315735f8b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_egg
+    second: {fileID: 2100000, guid: e6f618a3d41297943a2ac213aad8fa60, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_fab_cream
+    second: {fileID: 2100000, guid: 54019b25ebec43149a71b797d15cb84b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_fab_green
+    second: {fileID: 2100000, guid: e5f55c53f711f514fb9a80c83a13fd42, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_fab_red
+    second: {fileID: 2100000, guid: c5e1d85ae99c1d14882a59b179f3976a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_glass
+    second: {fileID: 2100000, guid: 768b7dee5bef473418ed1a18437ee881, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_herb
+    second: {fileID: 2100000, guid: 13b691bc54954a94bb083d30b2b26c65, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_ice
+    second: {fileID: 2100000, guid: 6f47ffb7968b20247bb9faa07c2afdf1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_napkin
+    second: {fileID: 2100000, guid: 71f77b5c231f0e842a01c0bde002ef2c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_plastic_blue
+    second: {fileID: 2100000, guid: f26404c537073cd46a3b7b989e47af90, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_plastic_green
+    second: {fileID: 2100000, guid: 95d0418c102585f418c2ea129e165ffa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_plastic_red
+    second: {fileID: 2100000, guid: 4860fc217cb06734ba3df570c1ade373, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_pole
+    second: {fileID: 2100000, guid: 2a73472b824acc648b24992e7da0b782, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_pork
+    second: {fileID: 2100000, guid: 09780866d860dc945b359a20e0504744, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_rib
+    second: {fileID: 2100000, guid: c5420fe6d982e0146aa4e18f9c529ca8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_rice
+    second: {fileID: 2100000, guid: 72897dffac11bdb4691a1f6f17649771, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_soy
+    second: {fileID: 2100000, guid: 439d5885e60a00946850be203bf4a404, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_tea
+    second: {fileID: 2100000, guid: ac4ff4269cda9714ab911273886fec02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Cf_wood_chair
+    second: {fileID: 2100000, guid: c688a10d6bfc5e24c8c886d74a60dc8c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_ClockFace
+    second: {fileID: 2100000, guid: 84610515d8920db4b8096fdc17dc967c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_ClockHand
+    second: {fileID: 2100000, guid: ce27c43e208287c408c7608e16cdea92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Concrete
+    second: {fileID: 2100000, guid: cc452e080792b6543b5a9099aeec2811, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Facade_cream
+    second: {fileID: 2100000, guid: f3c8dd29fba38744382a18a5f1adbbed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Facade_gray
+    second: {fileID: 2100000, guid: 3a5376c3388ec5041a4d9e815f441317, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Facade_offwhite
+    second: {fileID: 2100000, guid: 085ec3639c98b0a429707af7c50cd22e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Facade_olive
+    second: {fileID: 2100000, guid: 701020d2a67284340bd46f795699399d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Facade_pinkish
+    second: {fileID: 2100000, guid: c369374cb3f3dd14e96b4c8d0bb2da4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Facade_yellowish
+    second: {fileID: 2100000, guid: 56ead80c240704a4d9eb6a9a70a25431, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_FlowerYellow
+    second: {fileID: 2100000, guid: 7fbe7bde24770fa49bfbcbe5fedcc025, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_FrameDark
+    second: {fileID: 2100000, guid: 96b5d71fe6d1a4a42922b9f69b41c8c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_FrameWhite
+    second: {fileID: 2100000, guid: c5198b0129ecd5b49953c2843a8584c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_IronBlack
+    second: {fileID: 2100000, guid: c2889792c68fd1547b755bc6d5b11d3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_MarketArchDark
+    second: {fileID: 2100000, guid: 41f1ca056c148a147b38401ce97db274, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_MarketDoorGreen
+    second: {fileID: 2100000, guid: 8bb1056ae876bce44ac31bcee88bd190, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_MarketGrille
+    second: {fileID: 2100000, guid: a4918933e08992846b860e9797b44ffb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_MarketLetterRed
+    second: {fileID: 2100000, guid: 4f69896090198314ba40972ea21bb6cc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_MarketTrim
+    second: {fileID: 2100000, guid: 13d34dbb470e8e14495b403509e266a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_MarketWall
+    second: {fileID: 2100000, guid: 829ed48aaadd53a44a584812c0dda68a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_MetalGray
+    second: {fileID: 2100000, guid: d1577c381c2372442ab8d16a5217c67a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Paving
+    second: {fileID: 2100000, guid: 89b7decffe4f3e5428cc64fb219e07d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_PlasticChairRed
+    second: {fileID: 2100000, guid: a0478db104ec7274292609ab85f83b23, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_RoofBarrelTiles
+    second: {fileID: 2100000, guid: 9776f24f73042454291edbf2286974b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_RoofFascia
+    second: {fileID: 2100000, guid: eb1c0b35a03c60141b08cdfd8485568c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_RoofTin
+    second: {fileID: 2100000, guid: 9f24fb1849377d54d8ec2ef806fdd096, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_ShopGlow
+    second: {fileID: 2100000, guid: 4a9e7536d5e0c234bbf65fc930217480, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_ShopGlowCool
+    second: {fileID: 2100000, guid: 1fc3e9b9f7a6cb249a5c9b7cdb4466a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_1D4FA0
+    second: {fileID: 2100000, guid: 3079f2b75a6dc8f4c9da6c5dd30e3da6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_1F6B45
+    second: {fileID: 2100000, guid: 0e067ad9dd9e770498c58715b945bd02, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_1F7A4A
+    second: {fileID: 2100000, guid: 5746fc46bac753b46b41c6329bcd62ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_2154A6
+    second: {fileID: 2100000, guid: 22bfbe0d09680e84986b9d5bce12a042, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_2B5E3A
+    second: {fileID: 2100000, guid: 106e6e8f25da484428a34063bfc53431, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_2B5E8A
+    second: {fileID: 2100000, guid: beac226b2dc17ad448644e88c533456a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_2B7A3B
+    second: {fileID: 2100000, guid: 5e6a14a3e9652eb46aa9640f63405f0f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_3E6E9A
+    second: {fileID: 2100000, guid: 4c13337bc41a52846bc4a1f3ab4aebea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_6A2232
+    second: {fileID: 2100000, guid: 2c3528052c7002a43b5d9e978027a355, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_7A1F2B
+    second: {fileID: 2100000, guid: a526bce885d4da94babcd57417bb8265, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_B3362C
+    second: {fileID: 2100000, guid: e2c7d186d8d7e734d8c0a1c77a4b2883, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_B42A26
+    second: {fileID: 2100000, guid: 344c48e6dd3ea214e9a8f27741fbefa6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_C9952A
+    second: {fileID: 2100000, guid: 54eae91726a25584e983e7e04ad503ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_E2B21C
+    second: {fileID: 2100000, guid: 218d0d77af725ed4f913f53b2ec8e5a3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignBG_E3B323
+    second: {fileID: 2100000, guid: 059391942c7fe6f4693c9359cf5a6c48, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignTextDark
+    second: {fileID: 2100000, guid: ff25e51a3d1b1b548b23d9e21e19560c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SignTextWhite
+    second: {fileID: 2100000, guid: 8d28b269009f13f44ae48ef109c1657e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_apple
+    second: {fileID: 2100000, guid: f640c47db5436b84ba7908c5bdc5b99f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_banana
+    second: {fileID: 2100000, guid: 8029ee7dcb0e4a9448ae2ab73cc9de64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_bean
+    second: {fileID: 2100000, guid: aa34d4d5f72877e40849b269fe4ab7a3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_bucket_blue
+    second: {fileID: 2100000, guid: e2c6bc0fa21483e4aa9d3f024f409db3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_bucket_green
+    second: {fileID: 2100000, guid: 9f0a8491760bbc6449b9881f8c530950, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_bucket_red
+    second: {fileID: 2100000, guid: 57a24f10e057fb8478537943bf08e1c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_burlap
+    second: {fileID: 2100000, guid: 2d778db150c346c448a501b9add0c096, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_candy_a
+    second: {fileID: 2100000, guid: 025b34220e527da4da6d895c7426a8d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_candy_b
+    second: {fileID: 2100000, guid: 267c3c501765d5045ba9f4717b7c0b26, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_candy_c
+    second: {fileID: 2100000, guid: ff318e9122953ee40808d6bdb1fbacce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_chili
+    second: {fileID: 2100000, guid: a3c2cc9fa9de5844ca1baf2281e0fa07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_chrys_orange
+    second: {fileID: 2100000, guid: 9e0ad8e03db0b284ea956db6500549fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_chrys_white
+    second: {fileID: 2100000, guid: 4c5ee61f6596d0f40bcaf8ab89d636c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_chrys_yellow
+    second: {fileID: 2100000, guid: 79e57a0cdf910ab45aa8846f58024341, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_cloth_blue
+    second: {fileID: 2100000, guid: ff7678ce44673d64284922092a4cf0dd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_cloth_cream
+    second: {fileID: 2100000, guid: 10efa359280798a45a98b36076da9b38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_cloth_green
+    second: {fileID: 2100000, guid: 5381325abb7fbc6439281e50bdc83057, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_cloth_red
+    second: {fileID: 2100000, guid: d9497113279d59340b6f193360498fa9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_coconut
+    second: {fileID: 2100000, guid: 91025e7aab3c7b24bb57c0c70fc67a2e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_coffee
+    second: {fileID: 2100000, guid: d3edd374cb431844dab13e5a0fe2b7dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_dragon
+    second: {fileID: 2100000, guid: 63744b8d2c62c954c9f8c3fc4470b3c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_dragon_tip
+    second: {fileID: 2100000, guid: 6c6f93a107aed304c8cad4a3c18f999c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_glass
+    second: {fileID: 2100000, guid: fd6f0fcd0277ea147b52476a339586ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_gold
+    second: {fileID: 2100000, guid: 2c563c93e41b27840b03dc0700e4049a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_grape
+    second: {fileID: 2100000, guid: 4320b7b9528bc5d4b987ea67731dda66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_lacquer_black
+    second: {fileID: 2100000, guid: ac18ef04aa8b72b4787b6cc8d492957e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_lacquer_red
+    second: {fileID: 2100000, guid: 9d1129ea978a6f44989114349da9486e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_leaf
+    second: {fileID: 2100000, guid: fb7c8a6bb0c977645bf76ba96992e3a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_lily_white
+    second: {fileID: 2100000, guid: 45d19e9d8d2587045ac5efd84b3d8488, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_lime
+    second: {fileID: 2100000, guid: ed37ab3a69669fb46bf152466f643985, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_mango
+    second: {fileID: 2100000, guid: 1c0da42038deb0c4da56910b0c1cd235, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_melon
+    second: {fileID: 2100000, guid: 026f651740b8d7249a6e2f0f8a36d41a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_orange
+    second: {fileID: 2100000, guid: 0aac781005c2ca54098edfeeffc81afe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_orchid
+    second: {fileID: 2100000, guid: 468ee59162cbd5b47910401e2825b5dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_peanut
+    second: {fileID: 2100000, guid: 91510a6d0db5a554290cbdd609777a31, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_pineapple
+    second: {fileID: 2100000, guid: c41bf90447372da48b598c4f0c0103a3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_rice
+    second: {fileID: 2100000, guid: 3a091d078f8aa134fb42b9aedf04d1cd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_rose_pink
+    second: {fileID: 2100000, guid: 9a4eecefd7adb5847b998d16e27289c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_rose_red
+    second: {fileID: 2100000, guid: 0cc1daba5ca8d8f4da6c039e14f59e60, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_silk_blue
+    second: {fileID: 2100000, guid: c7c479852414c9d47893dca6bec1e393, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_silk_pink
+    second: {fileID: 2100000, guid: f7f6092b448221b438f3c2b18b46ee72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_silk_red
+    second: {fileID: 2100000, guid: 109cb0e535e767749a159ccc8698d459, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_silk_white
+    second: {fileID: 2100000, guid: a2d1c0a9daff429479f1e49178044507, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_silk_yellow
+    second: {fileID: 2100000, guid: beee842a2b51ef548819ef90fa301cff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_stem
+    second: {fileID: 2100000, guid: cec9cfa3d583087498ee1b6c3e3e6c17, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_straw
+    second: {fileID: 2100000, guid: 6960c6fb53677744699d1da1e828cd6f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_stripe_blue
+    second: {fileID: 2100000, guid: a60eb085685498142b74138ec5cdac93, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_stripe_green
+    second: {fileID: 2100000, guid: 6b8ca00568c3f6f479d282e09398f1ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_stripe_red
+    second: {fileID: 2100000, guid: b54b04f08acf04c4fb7fc4126d13f624, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_stripe_white
+    second: {fileID: 2100000, guid: 8a3fe914dbacc334ab9553dfa9cd784e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_sun_center
+    second: {fileID: 2100000, guid: 6de437989f6ba994493b9a41836b3be3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_sun_petal
+    second: {fileID: 2100000, guid: a7bddaea22dd29b4a9e88ff1d89fef11, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_tag
+    second: {fileID: 2100000, guid: 609664ed38152ff448fc7a658d4828fa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_tag_text
+    second: {fileID: 2100000, guid: 6ccf9656274ac5c4896ac590ca53e63f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_tee_gray
+    second: {fileID: 2100000, guid: 18d62bff7b7d65948a60a7ee04d2e109, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_tee_green
+    second: {fileID: 2100000, guid: b2ee5622d866412469db1220b9ca3948, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_terracotta
+    second: {fileID: 2100000, guid: daf41f6cbe85c2841b3871aff3706515, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_wicker
+    second: {fileID: 2100000, guid: 13ab5c92130218042893b4673ff80ce8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_wood
+    second: {fileID: 2100000, guid: 1d77ba47e3865b04d89674634a3ec40e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_St_wood_dark
+    second: {fileID: 2100000, guid: 487a12bd6bb86eb4d826738ce0e178ee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_SteelTank
+    second: {fileID: 2100000, guid: 3f167ede2b31f9a43a60dd3445192c35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_TowerGlass
+    second: {fileID: 2100000, guid: 1a54eb32a7829974bac16e8d5d13acd6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_UmbrellaBlue
+    second: {fileID: 2100000, guid: 855bae1fb0e35de4296464e2716f24ed, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_UmbrellaRed
+    second: {fileID: 2100000, guid: a4cf035bd808eba4a909e92753428bee, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_WindowGlass
+    second: {fileID: 2100000, guid: cc68665eb66b2a642a545e8e2b4e6806, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+    searchTexturesGlobally: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    importUVs: -1
+    importVertexColors: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+    calculateBlendshapeNormalsDeltaFromImportedNormals: 0
+  referencedClips: []
+  importAnimation: 0
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 0
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

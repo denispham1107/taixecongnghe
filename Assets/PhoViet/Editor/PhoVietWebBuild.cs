@@ -13,6 +13,8 @@ namespace PhoViet.Editor
     public sealed class PhoVietWebBuild : IPostprocessBuildWithReport
     {
         public int callbackOrder => 100;
+        // 1.74.0 (21.264): bản web chạy bản đồ mở; scene phố cuộn cũ PhoViet.unity đã xóa khỏi dự án.
+        public const string Scene="Assets/PhoViet/Scenes/PhoVietOpenWorld.unity";
 
         [MenuItem("Phố Việt/Cấu hình bản Web PWA")]
         public static void Configure()
@@ -28,8 +30,9 @@ namespace PhoViet.Editor
             PlayerSettings.WebGL.memoryGrowthMode=WebGLMemoryGrowthMode.Geometric;
             PlayerSettings.WebGL.geometricMemoryGrowthStep=.1f;
             PlayerSettings.WebGL.memoryGeometricGrowthCap=32;
-            // Growth remains on demand. The denser 1.73 facades can exceed 512 MiB while the scene loads.
-            PlayerSettings.WebGL.maximumMemorySize=640;
+            // Growth remains on demand. 1.74.0 (21.264): bản đồ mở nặng hơn phố cuộn cũ (1.73 cần 640 MiB) → trần 1024 MiB.
+            PlayerSettings.WebGL.maximumMemorySize=1024;
+            EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene(Scene,true)};
             PhoVietWebMemorySettings.Apply();
             PlayerSettings.runInBackground=false;
             // 21.136: cascaded directional shadows make Unity draw the whole scene once more into a screen-space depth
@@ -39,7 +42,7 @@ namespace PhoViet.Editor
                 var settings=UnityEditor.Rendering.EditorGraphicsSettings.GetTierSettings(BuildTargetGroup.WebGL,tier);
                 if(settings.cascadedShadowMaps){settings.cascadedShadowMaps=false;UnityEditor.Rendering.EditorGraphicsSettings.SetTierSettings(BuildTargetGroup.WebGL,tier,settings);}
             }
-            PlayerSettings.bundleVersion="1.73.0";
+            PlayerSettings.bundleVersion="1.74.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
@@ -87,7 +90,7 @@ namespace PhoViet.Editor
         static void BuildSingle()
         {
             var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions {
-                scenes=new[]{"Assets/PhoViet/Scenes/PhoViet.unity"},
+                scenes=new[]{Scene},
                 target=BuildTarget.WebGL,
                 locationPathName="Builds/WebGL",
                 options=BuildOptions.None

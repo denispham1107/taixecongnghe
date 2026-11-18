@@ -20,7 +20,8 @@ namespace PhoViet.Editor
   // Keep source textures and their mipmaps, filtering and colour space.
   static string[] ReleaseDependencies()
   {
-   var paths=new List<string>{"Assets/PhoViet/Scenes/PhoViet.unity"};
+   // 1.74.0 (21.264): bản web là bản đồ mở; scene phố cuộn cũ đã xóa.
+   var paths=new List<string>{"Assets/PhoViet/Scenes/PhoVietOpenWorld.unity","Assets/PhoViet/Resources/Jail/JailWide.jpg","Assets/PhoViet/Resources/Jail/JailTall.jpg"};
    const string helicopter="Assets/PhoViet/Resources/Helicopter/PV_Helicopter.prefab";
    if(File.Exists(helicopter))paths.Add(helicopter);
    const string skywing="Assets/PhoViet/Resources/Skywing/PV_Skywing.prefab";

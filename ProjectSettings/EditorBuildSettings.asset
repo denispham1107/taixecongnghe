@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/PhoViet/Scenes/PhoViet.unity
-    guid: 29082fe1b620acf4ea7e8826ec1b50bd
+    path: Assets/PhoViet/Scenes/PhoVietOpenWorld.unity
+    guid: 1c4516529d5bbfc4cb572f43662cf525
   m_configObjects: {}

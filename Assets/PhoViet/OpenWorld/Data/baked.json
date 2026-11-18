@@ -1,0 +1,242 @@
+{
+ "OW_Asphalt": {
+  "tex": "Textures/OW_Asphalt.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_AsphaltPatch": {
+  "tex": "Textures/OW_AsphaltPatch.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_AwningCanvas": {
+  "tex": "Textures/OW_AwningCanvas.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_AwningGrey": {
+  "tex": "Textures/OW_AwningGrey.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_BankStone": {
+  "tex": "Textures/OW_BankStone.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Concrete": {
+  "tex": "Textures/OW_Concrete.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Curb": {
+  "tex": "Textures/OW_Curb.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Facade_cream": {
+  "tex": "Textures/OW_Facade_cream.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Facade_gray": {
+  "tex": "Textures/OW_Facade_gray.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Facade_offwhite": {
+  "tex": "Textures/OW_Facade_offwhite.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Facade_olive": {
+  "tex": "Textures/OW_Facade_olive.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Facade_pinkish": {
+  "tex": "Textures/OW_Facade_pinkish.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Facade_yellowish": {
+  "tex": "Textures/OW_Facade_yellowish.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_FlowerYellow": {
+  "tex": "Textures/OW_FlowerYellow.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Granite": {
+  "tex": "Textures/OW_Granite.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Grass": {
+  "tex": "Textures/OW_Grass.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_MarketWall": {
+  "tex": "Textures/OW_MarketWall.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Paving": {
+  "tex": "Textures/OW_Paving.png",
+  "tileH": 4.8,
+  "tileV": 4.8
+ },
+ "OW_PavingBig": {
+  "tex": "Textures/OW_PavingBig.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_PavingBrickRed": {
+  "tex": "Textures/OW_PavingBrickRed.png",
+  "tileH": 4.5,
+  "tileV": 4.5
+ },
+ "OW_PierConcrete": {
+  "tex": "Textures/OW_PierConcrete.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_RoofBarrelTiles": {
+  "tex": "Textures/OW_RoofBarrelTiles.png",
+  "tileH": 4.4,
+  "tileV": 4.16
+ },
+ "OW_RoofTin": {
+  "tex": "Textures/OW_RoofTin.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_ShopGlow": {
+  "tex": "Textures/OW_ShopGlow.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_ShopGlowCool": {
+  "tex": "Textures/OW_ShopGlowCool.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_bean": {
+  "tex": "Textures/OW_St_bean.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_burlap": {
+  "tex": "Textures/OW_St_burlap.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_chili": {
+  "tex": "Textures/OW_St_chili.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_chrys_orange": {
+  "tex": "Textures/OW_St_chrys_orange.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_chrys_white": {
+  "tex": "Textures/OW_St_chrys_white.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_chrys_yellow": {
+  "tex": "Textures/OW_St_chrys_yellow.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_coconut": {
+  "tex": "Textures/OW_St_coconut.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_coffee": {
+  "tex": "Textures/OW_St_coffee.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_leaf": {
+  "tex": "Textures/OW_St_leaf.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_melon": {
+  "tex": "Textures/OW_St_melon.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_peanut": {
+  "tex": "Textures/OW_St_peanut.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_pineapple": {
+  "tex": "Textures/OW_St_pineapple.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_rice": {
+  "tex": "Textures/OW_St_rice.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_straw": {
+  "tex": "Textures/OW_St_straw.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_sun_center": {
+  "tex": "Textures/OW_St_sun_center.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_wicker": {
+  "tex": "Textures/OW_St_wicker.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_wood": {
+  "tex": "Textures/OW_St_wood.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_St_wood_dark": {
+  "tex": "Textures/OW_St_wood_dark.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_TowerGlass": {
+  "tex": "Textures/OW_TowerGlass.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_TowerGrid_0": {
+  "tex": "Textures/OW_TowerGrid_0.png",
+  "tileH": 9.6,
+  "tileV": 9.9
+ },
+ "OW_TowerGrid_1": {
+  "tex": "Textures/OW_TowerGrid_1.png",
+  "tileH": 9.6,
+  "tileV": 9.9
+ },
+ "OW_TowerGrid_2": {
+  "tex": "Textures/OW_TowerGrid_2.png",
+  "tileH": 9.6,
+  "tileV": 9.9
+ },
+ "OW_TowerGrid_3": {
+  "tex": "Textures/OW_TowerGrid_3.png",
+  "tileH": 9.6,
+  "tileV": 9.9
+ }
+}

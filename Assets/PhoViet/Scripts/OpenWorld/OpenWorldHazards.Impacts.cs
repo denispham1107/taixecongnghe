@@ -1,0 +1,101 @@
+using UnityEngine;
+
+namespace PhoViet.OpenWorld
+{
+    // 21.259 — hiệu ứng va chạm khi xe người chơi húc xe NPC (bản đồ mở):
+    // • Mảnh vỡ thân xe (lưới TankCraterGeometry.Debris + vật liệu hố, 3 tông xám/trắng/xanh) + tia lửa ở điểm chạm, số lượng
+    //   và tốc độ theo vận tốc khép — như EmitVehicleImpact của game cũ.
+    // • Xe bị húc nổ (OpenWorldTraffic.WreckExploded, 1 s sau va chạm): vụ nổ như đạn pháo (không hố), hất xe NPC quanh đó,
+    //   CSGT khựng; xe người chơi còn trong bán kính nổ 2,2 m (chưa nhảy cao) → «XE BỊ HÚC NỔ TUNG», kết thúc lượt.
+    // • Xe người chơi húc ở tốc độ tối đa (OpenWorldDriver.ExplodeAt): văng, cháy, 1 s sau nổ tung.
+    public partial class OpenWorldHazards
+    {
+        ParticleSystem shards; Mesh shardMesh; Material shardMaterial;
+        public int Impacts { get; private set; }
+        public int WreckBlasts { get; private set; }
+
+        void HookTraffic()
+        {
+            if (!traffic) return;
+            traffic.ImpactFx -= OnImpactFx; traffic.ImpactFx += OnImpactFx;
+            traffic.WreckExploded -= OnWreckExploded; traffic.WreckExploded += OnWreckExploded;
+        }
+        void OnDestroy()
+        {
+            if (!traffic) return;
+            traffic.ImpactFx -= OnImpactFx; traffic.WreckExploded -= OnWreckExploded;
+        }
+
+        void EnsureShards()
+        {
+            if (shards || !craterMaterial) return;
+            shards = Fx("ManhVoVaCham", null, 1, 1, 1.1f, false);
+            var main = shards.main; main.maxParticles = 320; main.startSize3D = true; main.startRotation3D = true;
+            var spin = shards.rotationOverLifetime; spin.enabled = true; spin.separateAxes = true;
+            spin.x = new ParticleSystem.MinMaxCurve(-11f, 11f); spin.y = new ParticleSystem.MinMaxCurve(-14f, 14f); spin.z = new ParticleSystem.MinMaxCurve(-9f, 9f);
+            var size = shards.sizeOverLifetime; size.enabled = true;
+            size.size = new ParticleSystem.MinMaxCurve(1, new AnimationCurve(new Keyframe(0, 1), new Keyframe(.72f, 1), new Keyframe(1, 0)));
+            shardMesh = TankCraterGeometry.Debris(); shardMesh.name = "OW_ManhVoThanXe";
+            shardMaterial = new Material(craterMaterial) { name = "OW_ManhVoThanXe", color = Color.white };
+            shardMaterial.SetFloat("_UseVertexColor", 1);
+            var r = shards.GetComponent<ParticleSystemRenderer>(); r.renderMode = ParticleSystemRenderMode.Mesh; r.mesh = shardMesh; r.sharedMaterial = shardMaterial;
+        }
+
+        public void ImpactShards(Vector3 point, Vector3 normal, float closing, bool metal = false)
+        {
+            EnsureShards(); if (!shards) return;
+            Impacts++;
+            float severity = Mathf.InverseLerp(.35f, 42f, closing);
+            int count = Mathf.RoundToInt(Mathf.Lerp(6, 34, severity));
+            float speed = Mathf.Lerp(2.5f, 13f, severity);
+            for (int i = 0; i < count; i++)
+            {
+                float sz = Random.Range(.13f, .32f) * (1 + severity * .65f);
+                var dir = normal * (i % 2 == 0 ? .65f : -.65f) + Random.insideUnitSphere * .85f + Vector3.up * .62f;
+                var tone = metal ? (i % 2 == 0 ? new Color(.1f, .1f, .11f) : new Color(.26f, .26f, .28f))      // 21.261: mảnh sắt hàng rào
+                    : i % 3 == 0 ? new Color(.25f, .28f, .32f) : i % 3 == 1 ? new Color(.87f, .91f, .95f) : new Color(.26f, .51f, .76f);
+                shards.Emit(new ParticleSystem.EmitParams
+                {
+                    position = point + Random.insideUnitSphere * .12f, velocity = dir * Random.Range(speed * .55f, speed),
+                    startSize3D = new Vector3(sz, sz * .27f, sz * .72f), rotation3D = Random.insideUnitSphere * 180, startColor = tone,
+                    startLifetime = Random.Range(.28f, .73f) + severity * .17f
+                }, 1);
+            }
+            int sparks = 3 + Mathf.RoundToInt(severity * 10);
+            for (int i = 0; i < sparks; i++)
+                Emit(sparkFx, point, (Random.insideUnitSphere + normal * .3f + Vector3.up * .4f) * speed, Random.Range(.05f, .11f), Random.Range(.09f, .24f), new Color(1, .72f, .35f, .95f));
+            PlayAt(blastClip, point, Mathf.Lerp(.15f, .5f, severity));
+        }
+
+        void OnImpactFx(Vector3 point, Vector3 normal, float closing) => ImpactShards(point, normal, closing);
+
+        void OnWreckExploded(Vector3 at, bool bike)
+        {
+            WreckBlasts++;
+            float gy = GroundY(at, out bool water);
+            if (water || at.y < OpenWorldDriver.WaterY + 0.5f)
+            {
+                Splashes++;
+                for (int k = 0; k < 14; k++) Emit(sparkFx, at + Vector3.up * .2f, new Vector3(Random.Range(-2f, 2f), Random.Range(5f, 9f), Random.Range(-2f, 2f)), Random.Range(.3f, .6f), Random.Range(.6f, 1f), new Color(.8f, .9f, 1f, .9f));
+                PlayAt(blastClip, at, .3f); return;
+            }
+            Explode(new Vector3(at.x, Mathf.Max(gy, at.y - 0.6f), at.z), false, false, "XE BỊ HÚC NỔ TUNG", bike ? "xe máy nổ" : "ô tô nổ");
+        }
+
+        void TickPlayerExplosion()
+        {
+            if (!player || player.ExplodeAt <= 0f || Time.time < player.ExplodeAt) return;
+            var at = player.transform.position;
+            player.ConsumeExplosion();
+            Emit(blastFx, at + Vector3.up * 1.2f, Vector3.zero, 9f, 1.0f, Color.white);
+            for (int i = 0; i < 34; i++)
+                Emit(sparkFx, at, Random.insideUnitSphere * 9f + Vector3.up * 4f, Random.Range(.12f, .3f), Random.Range(.6f, 1.1f), new Color(1, .62f, .2f, 1));
+            for (int i = 0; i < 5; i++)
+                Emit(smokeFx, at + new Vector3(Random.Range(-1f, 1f), 1 + i * .5f, Random.Range(-1f, 1f)), Vector3.up * Random.Range(1f, 2.2f), Random.Range(3.5f, 5f), Random.Range(1.8f, 2.6f), new Color(.25f, .23f, .22f, .9f));
+            PlayAt(blastClip, at, 1f);
+            if (traffic) NpcKnocked += traffic.KnockAround(at, blastRadius + 1f);
+            if (police && Flat(police.transform.position - at) < blastRadius + 2f) police.Stun(1.2f, "xe người chơi nổ");
+            Note("xe người chơi nổ tung");
+        }
+    }
+}

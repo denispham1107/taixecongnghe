@@ -1,0 +1,2885 @@
+{
+ "materials": [
+  {
+   "name": "OW_AirCon",
+   "color": [
+    0.6939,
+    0.6939,
+    0.6445
+   ],
+   "rough": 0.45,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Asphalt",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.88,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Asphalt.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_AsphaltPatch",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_AsphaltPatch.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_AwningCanvas",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_AwningCanvas.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_AwningGrey",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_AwningGrey.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_BankStone",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.95,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_BankStone.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_BridgeCable",
+   "color": [
+    0.6795,
+    0.7011,
+    0.7084
+   ],
+   "rough": 0.3,
+   "metal": 0.8,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_CartYellow",
+   "color": [
+    0.807,
+    0.4851,
+    0.0232
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_alu",
+   "color": [
+    0.5647,
+    0.5972,
+    0.624
+   ],
+   "rough": 0.28,
+   "metal": 0.85,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_alu_dark",
+   "color": [
+    0.2705,
+    0.2918,
+    0.314
+   ],
+   "rough": 0.35,
+   "metal": 0.85,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_bamboo",
+   "color": [
+    0.5841,
+    0.3564,
+    0.1022
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_base",
+   "color": [
+    0.0232,
+    0.0252,
+    0.0273
+   ],
+   "rough": 0.6,
+   "metal": 0.3,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_broth",
+   "color": [
+    0.4793,
+    0.1746,
+    0.0273
+   ],
+   "rough": 0.15,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_cap",
+   "color": [
+    0.807,
+    0.7605,
+    0.6445
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_ceramic",
+   "color": [
+    0.9216,
+    0.9047,
+    0.855
+   ],
+   "rough": 0.2,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_chili_sauce",
+   "color": [
+    0.5395,
+    0.0168,
+    0.0103
+   ],
+   "rough": 0.25,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_egg",
+   "color": [
+    0.8879,
+    0.5395,
+    0.0296
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_fab_cream",
+   "color": [
+    0.8796,
+    0.8308,
+    0.7157
+   ],
+   "rough": 0.75,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_fab_green",
+   "color": [
+    0.0284,
+    0.2051,
+    0.0685
+   ],
+   "rough": 0.75,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_fab_red",
+   "color": [
+    0.552,
+    0.0284,
+    0.0212
+   ],
+   "rough": 0.75,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_glass",
+   "color": [
+    0.7231,
+    0.8308,
+    0.855
+   ],
+   "rough": 0.05,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_herb",
+   "color": [
+    0.0723,
+    0.2542,
+    0.0273
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_ice",
+   "color": [
+    0.8228,
+    0.9047,
+    0.9216
+   ],
+   "rough": 0.05,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_napkin",
+   "color": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "rough": 0.8,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_plastic_blue",
+   "color": [
+    0.0284,
+    0.162,
+    0.552
+   ],
+   "rough": 0.32,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_plastic_green",
+   "color": [
+    0.0273,
+    0.3231,
+    0.0908
+   ],
+   "rough": 0.32,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_plastic_red",
+   "color": [
+    0.6445,
+    0.0409,
+    0.0262
+   ],
+   "rough": 0.32,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_pole",
+   "color": [
+    0.0423,
+    0.0467,
+    0.0513
+   ],
+   "rough": 0.35,
+   "metal": 0.8,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_pork",
+   "color": [
+    0.2542,
+    0.0685,
+    0.016
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_rib",
+   "color": [
+    0.5841,
+    0.6038,
+    0.624
+   ],
+   "rough": 0.3,
+   "metal": 0.9,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_rice",
+   "color": [
+    0.9647,
+    0.9387,
+    0.8714
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_soy",
+   "color": [
+    0.0232,
+    0.008,
+    0.0037
+   ],
+   "rough": 0.2,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_tea",
+   "color": [
+    0.4342,
+    0.1274,
+    0.013
+   ],
+   "rough": 0.1,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Cf_wood_chair",
+   "color": [
+    0.1559,
+    0.0595,
+    0.0222
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_ClockFace",
+   "color": [
+    0.9216,
+    0.8879,
+    0.7913
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    1.0,
+    0.9216,
+    0.7231
+   ],
+   "emitStrength": 0.2
+  },
+  {
+   "name": "OW_ClockHand",
+   "color": [
+    0.0075,
+    0.0075,
+    0.0075
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Concrete",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Concrete.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_Curb",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Curb.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_CurbRed",
+   "color": [
+    0.4564,
+    0.0319,
+    0.0242
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_CurbWhite",
+   "color": [
+    0.8388,
+    0.807,
+    0.7305
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Facade_cream",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Facade_cream.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_Facade_gray",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Facade_gray.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_Facade_offwhite",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Facade_offwhite.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_Facade_olive",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Facade_olive.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_Facade_pinkish",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Facade_pinkish.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_Facade_yellowish",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Facade_yellowish.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_FlagRed",
+   "color": [
+    0.7011,
+    0.0185,
+    0.0123
+   ],
+   "rough": 0.7,
+   "metal": 0.0,
+   "emit": [
+    0.7011,
+    0.0185,
+    0.0123
+   ],
+   "emitStrength": 0.35
+  },
+  {
+   "name": "OW_FlagStar",
+   "color": [
+    1.0,
+    0.6105,
+    0.0
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    1.0,
+    0.6105,
+    0.0
+   ],
+   "emitStrength": 0.25
+  },
+  {
+   "name": "OW_FlowerYellow",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.7,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_FlowerYellow.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_FrameDark",
+   "color": [
+    0.0242,
+    0.0242,
+    0.0212
+   ],
+   "rough": 0.5,
+   "metal": 0.3,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_FrameWhite",
+   "color": [
+    0.8148,
+    0.7913,
+    0.7305
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Granite",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.7,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Granite.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_Grass",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Grass.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_IronBlack",
+   "color": [
+    0.007,
+    0.008,
+    0.0086
+   ],
+   "rough": 0.45,
+   "metal": 0.6,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_LampBulb",
+   "color": [
+    1.0,
+    0.8879,
+    0.6308
+   ],
+   "rough": 0.3,
+   "metal": 0.0,
+   "emit": [
+    1.0,
+    0.7682,
+    0.3916
+   ],
+   "emitStrength": 6.0
+  },
+  {
+   "name": "OW_MarketArchDark",
+   "color": [
+    0.0232,
+    0.0176,
+    0.0144
+   ],
+   "rough": 0.8,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_MarketDoorGreen",
+   "color": [
+    0.0284,
+    0.0685,
+    0.0423
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_MarketGrille",
+   "color": [
+    0.8148,
+    0.7529,
+    0.5841
+   ],
+   "rough": 0.45,
+   "metal": 0.3,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_MarketLetterRed",
+   "color": [
+    0.5776,
+    0.016,
+    0.0116
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    0.5776,
+    0.016,
+    0.0116
+   ],
+   "emitStrength": 0.45
+  },
+  {
+   "name": "OW_MarketTrim",
+   "color": [
+    0.8796,
+    0.7991,
+    0.6038
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_MarketWall",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_MarketWall.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_MetalGray",
+   "color": [
+    0.1559,
+    0.1683,
+    0.1746
+   ],
+   "rough": 0.4,
+   "metal": 0.7,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_PaintWhite",
+   "color": [
+    0.807,
+    0.7913,
+    0.7379
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_PaintYellow",
+   "color": [
+    0.7913,
+    0.4452,
+    0.0116
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_Paving",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_Paving.png",
+   "tileH": 4.8,
+   "tileV": 4.8
+  },
+  {
+   "name": "OW_PavingBig",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_PavingBig.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_PavingBrickRed",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_PavingBrickRed.png",
+   "tileH": 4.5,
+   "tileV": 4.5
+  },
+  {
+   "name": "OW_PierConcrete",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_PierConcrete.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_PlasticChairRed",
+   "color": [
+    0.5841,
+    0.0296,
+    0.0252
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_RiverWater",
+   "color": [
+    0.03,
+    0.11,
+    0.16
+   ],
+   "rough": 0.05,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "water": true
+  },
+  {
+   "name": "OW_RoofBarrelTiles",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.7,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_RoofBarrelTiles.png",
+   "tileH": 4.4,
+   "tileV": 4.16
+  },
+  {
+   "name": "OW_RoofFascia",
+   "color": [
+    0.1022,
+    0.0437,
+    0.0194
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_RoofTin",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_RoofTin.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_ShopGlow",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.08,
+   "metal": 0.0,
+   "emit": [
+    1.0,
+    0.4793,
+    0.1356
+   ],
+   "emitStrength": 3.5,
+   "tex": "Textures/OW_ShopGlow.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_ShopGlowCool",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.08,
+   "metal": 0.0,
+   "emit": [
+    1.0,
+    0.7605,
+    0.4342
+   ],
+   "emitStrength": 2.8,
+   "tex": "Textures/OW_ShopGlowCool.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_SignBG_1D4FA0",
+   "color": [
+    0.0123,
+    0.0782,
+    0.3515
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_1F5FA8",
+   "color": [
+    0.0137,
+    0.1144,
+    0.3916
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_1F6B45",
+   "color": [
+    0.0137,
+    0.147,
+    0.0595
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_1F7A4A",
+   "color": [
+    0.0137,
+    0.1946,
+    0.0685
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_2154A6",
+   "color": [
+    0.0152,
+    0.0887,
+    0.3813
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_2B4A7A",
+   "color": [
+    0.0242,
+    0.0685,
+    0.1946
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_2B5E3A",
+   "color": [
+    0.0242,
+    0.1119,
+    0.0423
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_2B5E8A",
+   "color": [
+    0.0242,
+    0.1119,
+    0.2542
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_2B7A3B",
+   "color": [
+    0.0242,
+    0.1946,
+    0.0437
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_2B8A3E",
+   "color": [
+    0.0242,
+    0.2542,
+    0.0482
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_3E6E9A",
+   "color": [
+    0.0482,
+    0.1559,
+    0.3231
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_4E3628",
+   "color": [
+    0.0762,
+    0.0369,
+    0.0212
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_5B3A7A",
+   "color": [
+    0.1046,
+    0.0423,
+    0.1946
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_6A2232",
+   "color": [
+    0.1441,
+    0.016,
+    0.0319
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_7A1F2B",
+   "color": [
+    0.1946,
+    0.0137,
+    0.0242
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_7E2A1E",
+   "color": [
+    0.2086,
+    0.0232,
+    0.013
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_8A2B2B",
+   "color": [
+    0.2542,
+    0.0242,
+    0.0242
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_9A3A22",
+   "color": [
+    0.3231,
+    0.0423,
+    0.016
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_B3362C",
+   "color": [
+    0.4508,
+    0.0369,
+    0.0252
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_B42A26",
+   "color": [
+    0.4564,
+    0.0232,
+    0.0194
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_C9952A",
+   "color": [
+    0.5841,
+    0.3005,
+    0.0232
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_E0A321",
+   "color": [
+    0.7454,
+    0.3663,
+    0.0152
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_E2B21C",
+   "color": [
+    0.7605,
+    0.4452,
+    0.0116
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignBG_E3B323",
+   "color": [
+    0.7682,
+    0.4508,
+    0.0168
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignTextDark",
+   "color": [
+    0.0232,
+    0.0103,
+    0.006
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SignTextWhite",
+   "color": [
+    0.9301,
+    0.9047,
+    0.8388
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "emitStrength": 0.3
+  },
+  {
+   "name": "OW_St_apple",
+   "color": [
+    0.552,
+    0.0252,
+    0.0232
+   ],
+   "rough": 0.3,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_banana",
+   "color": [
+    0.8879,
+    0.6308,
+    0.0319
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_bean",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_bean.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_bucket_blue",
+   "color": [
+    0.0284,
+    0.1981,
+    0.5271
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_bucket_green",
+   "color": [
+    0.0482,
+    0.3231,
+    0.0762
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_bucket_red",
+   "color": [
+    0.5776,
+    0.0343,
+    0.0252
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_burlap",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.95,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_burlap.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_candy_a",
+   "color": [
+    0.807,
+    0.0513,
+    0.1022
+   ],
+   "rough": 0.3,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_candy_b",
+   "color": [
+    0.8879,
+    0.4678,
+    0.0144
+   ],
+   "rough": 0.3,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_candy_c",
+   "color": [
+    0.0685,
+    0.4233,
+    0.1022
+   ],
+   "rough": 0.3,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_chili",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_chili.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_chrys_orange",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.7,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_chrys_orange.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_chrys_white",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.7,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_chrys_white.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_chrys_yellow",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.7,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_chrys_yellow.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_cloth_blue",
+   "color": [
+    0.0284,
+    0.1095,
+    0.3231
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_cloth_cream",
+   "color": [
+    0.807,
+    0.7379,
+    0.5647
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_cloth_green",
+   "color": [
+    0.0482,
+    0.1946,
+    0.0482
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_cloth_red",
+   "color": [
+    0.4793,
+    0.0319,
+    0.0232
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_coconut",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_coconut.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_coffee",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_coffee.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_dragon",
+   "color": [
+    0.6445,
+    0.0296,
+    0.147
+   ],
+   "rough": 0.45,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_dragon_tip",
+   "color": [
+    0.2384,
+    0.4564,
+    0.0423
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_glass",
+   "color": [
+    0.6867,
+    0.807,
+    0.8228
+   ],
+   "rough": 0.05,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_gold",
+   "color": [
+    0.6584,
+    0.3813,
+    0.0423
+   ],
+   "rough": 0.25,
+   "metal": 0.9,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_grape",
+   "color": [
+    0.1046,
+    0.0232,
+    0.1559
+   ],
+   "rough": 0.25,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_lacquer_black",
+   "color": [
+    0.0103,
+    0.007,
+    0.007
+   ],
+   "rough": 0.12,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_lacquer_red",
+   "color": [
+    0.3419,
+    0.0137,
+    0.0103
+   ],
+   "rough": 0.15,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_leaf",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_leaf.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_lily_white",
+   "color": [
+    0.9387,
+    0.9047,
+    0.8228
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_lime",
+   "color": [
+    0.2051,
+    0.4508,
+    0.0423
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_mango",
+   "color": [
+    0.807,
+    0.5395,
+    0.0423
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_melon",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.4,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_melon.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_orange",
+   "color": [
+    0.8714,
+    0.2384,
+    0.0103
+   ],
+   "rough": 0.45,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_orchid",
+   "color": [
+    0.3613,
+    0.0782,
+    0.521
+   ],
+   "rough": 0.45,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_peanut",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.8,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_peanut.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_pineapple",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.7,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_pineapple.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_rice",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.9,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_rice.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_rose_pink",
+   "color": [
+    0.807,
+    0.1384,
+    0.3231
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_rose_red",
+   "color": [
+    0.5271,
+    0.0091,
+    0.0242
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_silk_blue",
+   "color": [
+    0.0232,
+    0.107,
+    0.4793
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_silk_pink",
+   "color": [
+    0.807,
+    0.1946,
+    0.3916
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_silk_red",
+   "color": [
+    0.5776,
+    0.0144,
+    0.0232
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_silk_white",
+   "color": [
+    0.9047,
+    0.8796,
+    0.8228
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_silk_yellow",
+   "color": [
+    0.807,
+    0.4793,
+    0.0144
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_stem",
+   "color": [
+    0.0762,
+    0.1946,
+    0.0273
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_straw",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_straw.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_stripe_blue",
+   "color": [
+    0.0262,
+    0.1248,
+    0.3916
+   ],
+   "rough": 0.8,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_stripe_green",
+   "color": [
+    0.0423,
+    0.2542,
+    0.0685
+   ],
+   "rough": 0.8,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_stripe_red",
+   "color": [
+    0.5395,
+    0.0423,
+    0.0273
+   ],
+   "rough": 0.8,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_stripe_white",
+   "color": [
+    0.8879,
+    0.855,
+    0.7758
+   ],
+   "rough": 0.8,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_sun_center",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.8,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_sun_center.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_sun_petal",
+   "color": [
+    0.9301,
+    0.552,
+    0.006
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_tag",
+   "color": [
+    0.9647,
+    0.9387,
+    0.855
+   ],
+   "rough": 0.6,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_tag_text",
+   "color": [
+    0.2705,
+    0.011,
+    0.008
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_tee_gray",
+   "color": [
+    0.2542,
+    0.2705,
+    0.2874
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_tee_green",
+   "color": [
+    0.0423,
+    0.3231,
+    0.1022
+   ],
+   "rough": 0.55,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_terracotta",
+   "color": [
+    0.3916,
+    0.1022,
+    0.0369
+   ],
+   "rough": 0.8,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_St_wicker",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.85,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_wicker.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_wood",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.75,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_wood.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_St_wood_dark",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.75,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_St_wood_dark.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_SteelTank",
+   "color": [
+    0.4851,
+    0.5149,
+    0.521
+   ],
+   "rough": 0.25,
+   "metal": 0.9,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_SteelWhite",
+   "color": [
+    0.855,
+    0.8714,
+    0.855
+   ],
+   "rough": 0.3,
+   "metal": 0.35,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_TowerGlass",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.12,
+   "metal": 0.55,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_TowerGlass.png",
+   "tileH": 4.0,
+   "tileV": 4.0
+  },
+  {
+   "name": "OW_TowerGrid_0",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_TowerGrid_0.png",
+   "tileH": 9.6,
+   "tileV": 9.9
+  },
+  {
+   "name": "OW_TowerGrid_1",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_TowerGrid_1.png",
+   "tileH": 9.6,
+   "tileV": 9.9
+  },
+  {
+   "name": "OW_TowerGrid_2",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_TowerGrid_2.png",
+   "tileH": 9.6,
+   "tileV": 9.9
+  },
+  {
+   "name": "OW_TowerGrid_3",
+   "color": [
+    1,
+    1,
+    1
+   ],
+   "rough": 0.5,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0,
+   "tex": "Textures/OW_TowerGrid_3.png",
+   "tileH": 9.6,
+   "tileV": 9.9
+  },
+  {
+   "name": "OW_UmbrellaBlue",
+   "color": [
+    0.0176,
+    0.1046,
+    0.3916
+   ],
+   "rough": 0.7,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_UmbrellaRed",
+   "color": [
+    0.4793,
+    0.0168,
+    0.0137
+   ],
+   "rough": 0.7,
+   "metal": 0.0,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  },
+  {
+   "name": "OW_WindowGlass",
+   "color": [
+    0.0116,
+    0.0232,
+    0.0296
+   ],
+   "rough": 0.08,
+   "metal": 0.3,
+   "emit": [
+    0,
+    0,
+    0
+   ],
+   "emitStrength": 0.0
+  }
+ ]
+}
