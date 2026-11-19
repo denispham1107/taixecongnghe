@@ -4597,3 +4597,10 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - Bản build = bản thử 21.275 (`Builds/WebGL`, cache `ca5b0deaa41d32de`): gói máy tính 90,1 MB, điện thoại 82,9 MB, heap khi tải 401 MB. `docs/` thay bằng bản này, `AgentScripts/PublishWebArtifact.py pack --source docs` (mỗi gói dữ liệu 3 phần 32 MiB), `materialize` ra thư mục tạm: **31/31 tệp khớp SHA-256** với bản build.
 - Commit chỉ gồm bản đồ mở + tài liệu + ảnh; giữ ngoài commit như mọi lần: file Blender riêng của người dùng, `Captures/*.json`, `Packages/`, `PV_StreetAtlas.mat`, `ArtSource/Concepts/City-20261111/`.
 - Kết quả triển khai GitHub Pages ghi ở mục cập nhật kế tiếp của 21.276 (commit ghi nhận).
+
+## 21.277. Phát hành WebGL 1.76.1 — gói điện thoại nhẹ hơn (Safari iPhone/iPad sập với 1.76.0) (19/11/2026 — Claude Code)
+
+- 21.276: 1.76.0 đã commit + push (`c0db8ab`) và Pages tự triển khai. Người dùng gửi ảnh Safari (iPhone/iPad) «Đã có sự cố xảy ra liên tục với "https://denispham1107.github.io/taixecongnghe/"» = trang bị hệ điều hành đóng vì quá bộ nhớ (không phải GitHub lỗi). 1.76.0: heap khi tải 401 MB (1.75.0: 366 MB), gói điện thoại 82,9 MB (1.75.0: 69,1 MB); phần tăng lớn nhất là mesh nội thất 3D (Editor đo ~71 MB cho 136 mesh) + ~3.300 đối tượng.
+- **Sửa:** `Editor/PhoVietMobileSceneStrip.cs` (`IProcessSceneWithReport`, chỉ bật khi `PhoVietWebBuild.Build()` dựng gói điện thoại ETC2; build dừng nếu gỡ < 1.000): trong bản scene đang build, bỏ con «3D» của mọi «NoiThat», LODGroup chỉ còn tấm ảnh xa (0,02) → **gói điện thoại không có nội thất 3D**, nhìn qua kính vẫn thấy ảnh nội thất chụp sẵn. File scene không đổi; gói máy tính giữ đủ 3D. Gỡ **3.297** nội thất.
+- Build **1.76.1** (`bundleVersion`): 551 s, không lỗi, cache `56be6ade3a1f0638`; gói điện thoại `51df6c89…data.unityweb` **73,9 MB** (−9 MB so với 1.76.0, +4,8 MB so với 1.75.0: mặt sông, probe, mesh nhà rút ngắn, ảnh xa), gói máy tính `cec0d4db…` 90,1 MB; wasm/framework giữ nguyên (cùng mã). `docs/` thay, pack (3 phần/gói), materialize: 31/31 tệp khớp SHA-256.
+- **Chưa thử trên iPhone thật** (không có thiết bị). Nếu vẫn sập: giảm tiếp trên gói điện thoại (giới hạn texture, mặt sông/probe, số tàu).

@@ -42,7 +42,7 @@ namespace PhoViet.Editor
                 var settings=UnityEditor.Rendering.EditorGraphicsSettings.GetTierSettings(BuildTargetGroup.WebGL,tier);
                 if(settings.cascadedShadowMaps){settings.cascadedShadowMaps=false;UnityEditor.Rendering.EditorGraphicsSettings.SetTierSettings(BuildTargetGroup.WebGL,tier,settings);}
             }
-            PlayerSettings.bundleVersion="1.76.0";
+            PlayerSettings.bundleVersion="1.76.1";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
@@ -52,7 +52,10 @@ namespace PhoViet.Editor
         public static void Build()
         {
             Configure();
-            BuildSingle();
+            // 21.277: gói điện thoại bỏ nội thất 3D (chỉ ảnh xa) cho Safari iPhone/iPad không sập vì hết bộ nhớ
+            PhoVietMobileSceneStrip.Active=true;
+            try{BuildSingle();}finally{PhoVietMobileSceneStrip.Active=false;}
+            if(PhoVietMobileSceneStrip.LastStripped<1000)throw new Exception("Mobile interior strip did not run: "+PhoVietMobileSceneStrip.LastStripped);
             CompleteTextureVariants();
         }
 
