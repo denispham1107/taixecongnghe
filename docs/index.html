@@ -45,6 +45,18 @@
             <span><b>← ↑ ↓ → / WASD</b>Lái xe</span><span><b>J</b>Nhảy</span><span><b>F</b>Tên lửa</span><span><b>SPACE</b>Phanh tay</span><span><b>P</b>Tạm dừng</span>
           </div>
           <p class="touch-guide"><span aria-hidden="true">↔</span> Xoay ngang để chơi. Giữ nút ← / → bên trái để lái, giữ Ga / Lùi / Stop bên phải; Nhảy và Tên lửa ở hàng trên.</p>
+          <!-- Bản cập nhật: mỗi lần phát hành sửa ngày + danh sách bên dưới; số phiên bản tự lấy từ bản build (app.js). -->
+          <details class="release-notes" id="release-notes">
+            <summary><span class="release-tag">MỚI</span> Bản cập nhật <b id="release-version">—</b> · <span id="release-date">19/11/2026</span></summary>
+            <ul>
+              <li>Điện thoại iPhone/iPad: giảm bộ nhớ để Safari không còn báo «Đã có sự cố xảy ra liên tục».</li>
+              <li>Nút <b>← / →</b> bên trái thay vô lăng, lái như phím mũi tên trên máy tính.</li>
+              <li>Mặt sông mới có sóng, phản chiếu; tàu đánh cá chạy trên sông với vệt sóng sau đuôi.</li>
+              <li>Cửa hàng và nhà phố có mặt tiền kính, nhìn thấy nội thất bên trong đúng tên biển hiệu.</li>
+              <li>Sửa xe CSGT bị lún xuống đường; xe không còn lún khi chạy lên vỉa hè.</li>
+            </ul>
+            <p id="release-check" class="release-check" hidden></p>
+          </details>
         </div>
         <div class="street-gallery" aria-label="Hình ảnh Phố Việt">
         <figure class="street-preview">
@@ -82,14 +94,14 @@
   </dialog>
   <script>
     window.PHO_VIET_BUILD={
-      mobileDataUrl:"Build/51df6c89780b42e440405775b319e7b8.data.unityweb",
+      mobileDataUrl:"Build/4beb00f1cfde09eb9d897176557e1b19.data.unityweb",
       loaderUrl:"Build/7644429be806b5308eb621f98d90bdaf.loader.js",
-      dataUrl:"Build/cec0d4dbcd56fb6b17d50fa727aefdad.data.unityweb",
+      dataUrl:"Build/c846520345cccc2d288429299bc210e4.data.unityweb",
       frameworkUrl:"Build/235b0a5a0a58d8cd13f6c9a8ac721da4.framework.js.unityweb",
       codeUrl:"Build/630306e9adedd59bffcbab01aaecd135.wasm.unityweb",
       companyName:"Pho Viet Studio",
       productName:"Phố Việt - Chuyến xe không ngừng",
-      productVersion:"1.76.1"
+      productVersion:"1.76.2"
     };
   </script>
   <script src="app.js" defer></script>

@@ -2,6 +2,9 @@
 const PREFIX='phoviet:'+self.registration.scope+':';
 const CACHE=PREFIX+'__PHOVIET_CACHE__';
 const ROOT=new URL('./',self.location.href);
+// 21.278: Safari/WebKit (mọi trình duyệt trên iPhone/iPad) giới hạn bộ nhớ chặt — không sao chép gói dữ liệu Unity
+// (70–90 MB) vào bộ nhớ đệm trong lúc game đang tải; các tệp nhỏ vẫn lưu offline như cũ.
+const WEBKIT=/AppleWebKit/.test(self.navigator.userAgent)&&!/Chrome|Chromium|Edg|Android|Firefox/.test(self.navigator.userAgent);
 let manifestPromise;
 function manifest(){
   return manifestPromise ||= (async()=>{
@@ -21,11 +24,13 @@ async function offlineStatus(client){
   const alternatives=new Set(dataVariants);
   const ready=files.filter(file=>!alternatives.has(file)).every(file=>stored.has(new URL(file,ROOT).href))&&
     (!dataVariants.length||dataVariants.some(file=>stored.has(new URL(file,ROOT).href)));
-  const message={type:'PHOVIET_OFFLINE_STATUS',ready};
+  const message={type:'PHOVIET_OFFLINE_STATUS',ready:ready&&!WEBKIT,online:WEBKIT};
   if(client)client.postMessage(message);
   else for(const view of await self.clients.matchAll())view.postMessage(message);
 }
 self.addEventListener('install',event=>{
+  // 21.278: bản mới thay ngay bản cũ (không chờ đóng hết tab) để máy không kẹt ở bản đã lưu.
+  self.skipWaiting();
   // Cache the small shell first, one response at a time. Fetching a second copy
   // of the whole Unity build during startup can kill mobile WebKit.
   // Runtime files are cached from their actual game requests below.
@@ -61,6 +66,7 @@ self.addEventListener('fetch',event=>{
     const response=await fetch(event.request);
     const relative=url.pathname.substring(ROOT.pathname.length);
     if(!response.ok||!(await manifest()).files.includes(relative)){finishWrite();return response;}
+    if(WEBKIT&&relative.endsWith('.data.unityweb')){finishWrite();return response;}
     // Stream to the cache without materializing an ArrayBuffer in JavaScript.
     const write=cache.put(event.request,response.clone()).then(()=>offlineStatus()).catch(()=>{});
     write.finally(finishWrite);

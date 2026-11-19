@@ -23,3 +23,16 @@ dialog{position:fixed;margin:auto;top:calc(var(--safe-top) + 12px);bottom:calc(v
 .rotate-card h2{margin:12px 0 8px;font-size:22px}
 .rotate-card p{margin:0 0 22px;color:#d2e4f1;font-size:13px;line-height:1.65}
 .rotate-card button{min-height:44px;padding:8px 20px;background:#eff7ff;color:#17324a}
+/* 21.278: khung «Bản cập nhật» trên trang chủ — số phiên bản lấy từ bản build, báo khi máy chủ đã có bản mới hơn. */
+.release-notes{margin:18px 0 0;max-width:415px;border:1px solid #d7e3ed;border-radius:12px;background:#f8fbffcc;font-size:11px;line-height:1.7;color:var(--muted)}
+.release-notes summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;padding:9px 12px;color:var(--ink);font-weight:700}
+.release-notes summary::-webkit-details-marker{display:none}
+.release-notes summary::after{content:'▾';margin-left:auto;color:var(--blue);transition:transform .15s}
+.release-notes[open] summary::after{transform:rotate(180deg)}
+.release-notes b{color:var(--ink)}
+.release-tag{font-size:9px;font-weight:800;letter-spacing:.08em;color:#fff;background:var(--blue);border-radius:6px;padding:2px 6px}
+.release-notes ul{margin:0;padding:0 14px 10px 30px}
+.release-notes li{margin:3px 0}
+.release-check{margin:0;padding:0 12px 10px;color:var(--red);font-weight:700}
+.release-check button{margin-left:6px;padding:4px 10px;font-size:11px;border-radius:8px}
+@media(min-width:701px) and (max-height:620px){.release-notes{margin-top:12px;font-size:10px}}

@@ -42,7 +42,7 @@ namespace PhoViet.Editor
                 var settings=UnityEditor.Rendering.EditorGraphicsSettings.GetTierSettings(BuildTargetGroup.WebGL,tier);
                 if(settings.cascadedShadowMaps){settings.cascadedShadowMaps=false;UnityEditor.Rendering.EditorGraphicsSettings.SetTierSettings(BuildTargetGroup.WebGL,tier,settings);}
             }
-            PlayerSettings.bundleVersion="1.76.1";
+            PlayerSettings.bundleVersion="1.76.2";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }

@@ -4605,3 +4605,34 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - Build **1.76.1** (`bundleVersion`): 551 s, không lỗi, cache `56be6ade3a1f0638`; gói điện thoại `51df6c89…data.unityweb` **73,9 MB** (−9 MB so với 1.76.0, +4,8 MB so với 1.75.0: mặt sông, probe, mesh nhà rút ngắn, ảnh xa), gói máy tính `cec0d4db…` 90,1 MB; wasm/framework giữ nguyên (cùng mã). `docs/` thay, pack (3 phần/gói), materialize: 31/31 tệp khớp SHA-256.
 - **Chưa thử trên iPhone thật** (không có thiết bị). Nếu vẫn sập: giảm tiếp trên gói điện thoại (giới hạn texture, mặt sông/probe, số tàu).
 - **Đã phát hành:** commit `50db0d1`, GitHub Pages run `44461337994` thành công; trang thật `build-info.json` = 1.76.1, cache `56be6ade3a1f0638`; **30/30 tệp live khớp SHA-256** với `Builds/WebGL` (trừ `.nojekyll`). Bản 1.76.0 (`c0db8ab`) đã bị thay.
+
+## 21.278. Phát hành WebGL 1.76.2 — iPhone vẫn sập «ngay khi mở link» + khung «Bản cập nhật» trên trang chủ (19/11/2026 — Claude Code)
+
+- **Báo lỗi:** sau 1.76.1, người dùng xóa và mở lại vẫn thấy Safari «Đã có sự cố xảy ra liên tục…». Đã kiểm: 1.76.1 đã commit + push (`50db0d1`) và Pages live khớp 30/30, nên không phải chưa phát hành. Người dùng trả lời: **iPhone**, sập **ngay khi mở link**.
+- **Chẩn đoán:** trang chủ 1.76.1 giống hệt 1.75 và không tự tải Unity. Nghi vấn chính:
+  1. Service worker cũ (`sw.js`) vẫn tải trước gói dữ liệu và cache nó bằng `response.clone()`, nên WebKit giữ thêm một bản ~74 MB trong bộ nhớ.
+  2. Safari tự tải lại sau khi trang game bị đóng vì hết bộ nhớ, rồi lại sập.
+  3. Bản thân game vẫn nặng với iPhone (texture 1024 px).
+- **Sửa (mẫu PWA `Assets/WebGLTemplates/PhoVietPWA/`):**
+  - `sw.js`: `WEBKIT` = Safari/iOS (AppleWebKit, không phải Chrome/Edge/Firefox/Android). Trên WebKit, `*.data.unityweb` **không ghi vào cache** (trả thẳng phản hồi mạng, không clone). Báo offline gửi `ready:false, online:true`. Thêm `self.skipWaiting()` ở install để worker mới thay ngay worker cũ.
+  - `app.js`: khi `online` thì hiện «iPhone/iPad: cần kết nối mạng khi chơi (để tiết kiệm bộ nhớ)». Hiện số phiên bản trong khung «Bản cập nhật» từ `PHO_VIET_BUILD.productVersion`. Tải `build-info.json` (no-store); nếu bản trên máy khác bản trên mạng thì hiện «Máy đang mở bản X, đã có bản Y.» và nút **Tải bản mới** (gỡ service worker, xóa cache `phoviet:*`, tải lại).
+  - `index.html` + `style.css`: khung `<details id="release-notes">` dưới hướng dẫn cảm ứng (nhãn MỚI, số bản, ngày, danh sách thay đổi ngắn cho người chơi).
+- **Luật mới của người dùng (19/11/2026, đã ghi vào `AGENTS.md` và memory):** mỗi lần push + phát hành web, sửa khung release-notes (ngày `#release-date` + danh sách) **trước khi build**.
+- **Gói điện thoại nhẹ hơn:** `Editor/PhoVietWebMemorySettings.cs` có `PhoneTextureLimit=512`; `WebTextureSize(path, importer, mobile)` đưa gói ETC2 về 512 px, trừ:
+  - xe người chơi (giữ cỡ gốc);
+  - `/NoiThat/` (ảnh nội thất);
+  - `Resources/TouchControls`, `Jail`, `PlayerMissile`, `PlayerFlight` (giữ 1024).
+
+  Gói máy tính (DXT) giữ 1024. Có 118 texture bị hạ.
+- **Build 1.76.2:** `bundleVersion=1.76.2`, 359 s, không lỗi, gỡ 3.297 nội thất 3D khỏi gói điện thoại, cache `1da791573408b434`.
+
+  | Thành phần | Tệp | Kích thước |
+  | --- | --- | --- |
+  | Gói điện thoại | `4beb00f1…data.unityweb` | **60,5 MB** (1.76.1: 73,9; 1.75.0: 69,1) |
+  | Gói máy tính | `c8465203…` | 90,1 MB |
+  | wasm/framework | — | không đổi mã |
+
+- **Kiểm tra:**
+  - Trang chủ cục bộ hiện khung «Bản cập nhật 1.76.2 · 19/11/2026», đủ 5 mục; khi phiên bản khớp thì ẩn dòng báo bản cũ.
+  - `docs/` đã thay, pack (gói điện thoại 2 phần, máy tính 3 phần). Materialize: **31/31 tệp khớp SHA-256**.
+- **Chưa thử iPhone thật.** Người dùng cần vào Cài đặt → Safari → Nâng cao → Dữ liệu trang web, xóa `github.io`, rồi mở lại; trang chủ phải hiện «Bản cập nhật 1.76.2». Nếu vẫn sập ngay khi mở trang chủ (chưa bấm VÀO PHỐ), xem lại phần trang chủ (ảnh poster 2778 px, service worker tải trước).

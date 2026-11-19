@@ -207,6 +207,25 @@ window.addEventListener('keydown',e=>{
   if(unityInstance && document.activeElement===canvas && ['Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault();
 });
 
+// 21.278: khung «Bản cập nhật» — phiên bản của trang đang chạy (cấu hình build) và bản trên máy chủ (build-info.json,
+// không qua bộ nhớ đệm). Lệch nhau = máy còn giữ bản cũ → nút tải bản mới (xóa bộ nhớ đệm offline rồi tải lại).
+(()=>{
+  const here=window.PHO_VIET_BUILD?.productVersion||'';
+  if($('release-version'))$('release-version').textContent=here||'—';
+  fetch('build-info.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(info=>{
+    if(!info?.version||!here||info.version===here)return;
+    const box=$('release-check');if(!box)return;
+    box.hidden=false;box.textContent='Máy đang mở bản '+here+', đã có bản '+info.version+'. ';
+    const btn=document.createElement('button');btn.textContent='Tải bản mới';box.appendChild(btn);
+    $('release-notes').open=true;
+    btn.addEventListener('click',async()=>{
+      try{const regs=await navigator.serviceWorker?.getRegistrations?.()||[];await Promise.all(regs.map(r=>r.unregister()));}catch(e){}
+      try{const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('phoviet:')).map(k=>caches.delete(k)));}catch(e){}
+      location.reload();
+    });
+  }).catch(()=>{});
+})();
+
 // ?perf=1 shows frame rate and render size on a real phone, for reporting back (21.136).
 if(new URLSearchParams(location.search).has('perf')){
   const box=document.createElement('div');box.id='perf-readout';
@@ -220,7 +239,7 @@ if(new URLSearchParams(location.search).has('perf')){
 }
 if('serviceWorker' in navigator) {
   navigator.serviceWorker.addEventListener('message',event=>{
-    if(event.data?.type==='PHOVIET_OFFLINE_STATUS')$('offline-status').textContent=event.data.ready?
+    if(event.data?.type==='PHOVIET_OFFLINE_STATUS')$('offline-status').textContent=event.data.online?'iPhone/iPad: cần kết nối mạng khi chơi (để tiết kiệm bộ nhớ)':event.data.ready?
       'Đã lưu để chơi offline trên máy này':'Game sẽ được lưu offline sau khi tải xong';
   });
   navigator.serviceWorker.addEventListener('controllerchange',checkOffline);
