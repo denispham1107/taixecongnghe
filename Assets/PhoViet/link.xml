@@ -11,4 +11,7 @@
     <type fullname="UnityEngine.MeshFilter" preserve="all" />
     <type fullname="UnityEngine.MeshRenderer" preserve="all" />
   </assembly>
+  <!-- 21.281: build web dùng Managed Stripping = Medium → giữ toàn bộ mã game (app.js gọi SendMessage tới VongChoi:
+       PauseForBrowser, ApplyBrowserOrientation, ApplyBrowserInsets; JsonUtility đọc các lớp [Serializable]). -->
+  <assembly fullname="Assembly-CSharp" preserve="all" />
 </linker>

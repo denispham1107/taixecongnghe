@@ -44,9 +44,26 @@ namespace PhoViet.Editor
                 var settings=UnityEditor.Rendering.EditorGraphicsSettings.GetTierSettings(BuildTargetGroup.WebGL,tier);
                 if(settings.cascadedShadowMaps){settings.cascadedShadowMaps=false;UnityEditor.Rendering.EditorGraphicsSettings.SetTierSettings(BuildTargetGroup.WebGL,tier,settings);}
             }
-            PlayerSettings.bundleVersion="1.78.0";
+            // 21.281: mã WebAssembly tối ưu kích thước. Trước đây «BuildTimes» (chế độ build nhanh khi phát triển, không tối ưu):
+            // wasm 22 MB → Safari iOS tốn nhiều bộ nhớ biên dịch và biên dịch lại khi chơi. Nội dung game không đổi.
+            PlayerSettings.SetManagedStrippingLevel(UnityEditor.Build.NamedBuildTarget.WebGL,ManagedStrippingLevel.Medium);
+            PlayerSettings.SetIl2CppCodeGeneration(UnityEditor.Build.NamedBuildTarget.WebGL,UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize);
+            PlayerSettings.SetIl2CppCompilerConfiguration(UnityEditor.Build.NamedBuildTarget.WebGL,Il2CppCompilerConfiguration.Master);
+            SetWasmCodeOptimization("DiskSizeLTO");
+            PlayerSettings.bundleVersion="1.79.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
+        }
+
+        // UnityEditor.WebGL.UserBuildSettings.codeOptimization lưu theo máy (Library), nên đặt lại mỗi lần build qua reflection.
+        static void SetWasmCodeOptimization(string value)
+        {
+            Type t=null;
+            foreach(var a in AppDomain.CurrentDomain.GetAssemblies()){t=a.GetType("UnityEditor.WebGL.UserBuildSettings");if(t!=null)break;}
+            var p=t?.GetProperty("codeOptimization",System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.Static);
+            if(p==null)throw new Exception("WebGL codeOptimization setting not found");
+            p.SetValue(null,Enum.Parse(p.PropertyType,value));
+            if(p.GetValue(null).ToString()!=value)throw new Exception("WebGL codeOptimization not applied: "+p.GetValue(null));
         }
 
         // Can also run with Unity -batchmode -executeMethod PhoViet.Editor.PhoVietWebBuild.Build.

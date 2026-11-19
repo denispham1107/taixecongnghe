@@ -185,6 +185,7 @@ async function loadGame(){
         $('progress').value=p;$('load-status').textContent=`Đang tải game · ${Math.round(p*100)}%`;
       });
       window.phoVietInstance=unityInstance;
+      startRunRecorder();
       checkOffline();
       setImmersive(touchDevice||standalone||Boolean(document.fullscreenElement));
       $('welcome').hidden=true;if(!gamePortrait)canvas.focus();
@@ -225,6 +226,31 @@ window.addEventListener('keydown',e=>{
     });
   }).catch(()=>{});
 })();
+
+// 21.281: «hộp đen» — khi đang chơi, mỗi 2 giây ghi thời gian chơi, FPS, heap Unity, khung hình vào localStorage.
+// Safari đóng trang vì sự cố thì không chạy pagehide → lần mở sau trang chủ hiện số liệu lần chơi bị đóng đột ngột.
+const RUN_KEY='phoviet:lastRun';
+function runStore(value){try{if(value)localStorage.setItem(RUN_KEY,JSON.stringify(value));else localStorage.removeItem(RUN_KEY);}catch(e){}}
+(()=>{
+  let prev=null;try{prev=JSON.parse(localStorage.getItem(RUN_KEY)||'null');}catch(e){}
+  runStore(null);
+  if(!prev||prev.ended||Date.now()-prev.last>30*60*1000)return;
+  const box=$('release-check');if(!box)return;
+  box.hidden=false;$('release-notes').open=true;
+  box.textContent=`Lần chơi trước bị đóng đột ngột sau ${prev.secs} giây (bản ${prev.v}, FPS ${prev.fps}, heap ${prev.heap} MB, khung ${prev.size}, ${prev.ua}). Nếu lỗi còn, hãy chụp màn hình dòng này gửi lại.`;
+})();
+function startRunRecorder(){
+  const start=Date.now();let frames=0,fps=0,last=performance.now();
+  const tick=now=>{frames++;if(now-last>=1000){fps=Math.round(frames*1000/(now-last));frames=0;last=now;}requestAnimationFrame(tick);};
+  requestAnimationFrame(tick);
+  const write=ended=>{const heap=unityInstance?.Module?.HEAPU32?.buffer?.byteLength;
+    runStore({v:window.PHO_VIET_BUILD?.productVersion||'',secs:Math.round((Date.now()-start)/1000),last:Date.now(),fps,
+      heap:heap?Math.round(heap/1048576):0,size:canvas.width+'x'+canvas.height+'@'+(unityInstance?.Module?.devicePixelRatio||0).toFixed(2),
+      ua:(navigator.userAgent.match(/OS [\d_]+|Android [\d.]+|Chrome\/\d+|Version\/[\d.]+/g)||[]).join(' '),ended});};
+  setInterval(()=>{if(!document.hidden)write(false);},2000);write(false);
+  window.addEventListener('pagehide',()=>write(true));
+  document.addEventListener('visibilitychange',()=>write(document.hidden));
+}
 
 // ?perf=1 shows frame rate and render size on a real phone, for reporting back (21.136).
 if(new URLSearchParams(location.search).has('perf')){

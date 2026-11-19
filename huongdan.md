@@ -4749,3 +4749,37 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - `docs/` thay, pack, materialize: **31/31 tệp khớp SHA-256**.
 - **Chưa thử iPhone thật.** Nếu vẫn sập: đo lại theo cách trên. Các hướng còn lại đều đổi nội dung chứ không đổi độ phân giải (bớt xe NPC hoặc tàu trên điện thoại, bỏ ảnh nội thất xa…), phải hỏi người dùng trước.
 - **Đã phát hành:** commit `aa77e0b`, GitHub Pages run `44607132596` thành công. Trang thật: `build-info.json` = 1.78.0, cache `4f4741ce6f55471a`; **30/30 tệp live khớp SHA-256** với `Builds/WebGL` (`sw.js` khớp sau khi chuẩn hóa xuống dòng).
+
+## 21.281. Phát hành WebGL 1.79.0: mã WebAssembly tối ưu kích thước + «hộp đen» báo lần chơi bị đóng đột ngột (20/11/2026, Claude Code)
+
+- **Báo lỗi:** 1.78.0 vẫn sập trên iPhone. Yêu cầu tìm phương án khác, **không bớt nội dung** (giữ xe NPC, tàu…) và không giảm độ phân giải.
+- **Phát hiện:** `UnityEditor.WebGL.UserBuildSettings.codeOptimization` đang là **BuildTimes**, chế độ build nhanh khi phát triển, không tối ưu. Cài đặt này lưu theo máy (Library), nên mọi bản web trước đều build theo chế độ này.
+  - Các thiết lập đi kèm cũng chưa tối ưu: IL2CPP `OptimizeSpeed` + `Release`, Managed Stripping `Minimal`.
+  - Hậu quả: wasm giải nén **22,1 MB**. Safari phải biên dịch mã này thành mã máy và còn biên dịch lại các hàm chạy nhiều khi chơi, nên tốn bộ nhớ và CPU đúng lúc vào game.
+- **Sửa trong `PhoVietWebBuild.Configure()`:**
+  - `SetWasmCodeOptimization("DiskSizeLTO")`: đặt qua reflection, kiểm lại giá trị, build dừng nếu không đặt được.
+  - IL2CPP `OptimizeSize` + `Master`.
+  - Managed Stripping **Medium**. `Assets/PhoViet/link.xml` thêm `Assembly-CSharp preserve="all"` để giữ đích `SendMessage` của `app.js` và các lớp JsonUtility.
+  - `bundleVersion=1.79.0`.
+  - `ProjectSettings` ghi WebGL: stripping 2, codegen 1, cấu hình 2.
+- **«Hộp đen» trong `app.js`:**
+  - Khi đang chơi, mỗi 2 giây ghi `localStorage['phoviet:lastRun']`: bản, số giây chơi, FPS, heap Unity, khung canvas/DPR, phiên bản iOS/Safari.
+  - `pagehide` hoặc ẩn tab ghi `ended=true`. Safari đóng trang vì sự cố thì không kịp ghi.
+  - Lần mở sau (trong 30 phút), trang chủ mở khung «Bản cập nhật» và hiện «Lần chơi trước bị đóng đột ngột sau X giây (…)» để người dùng chụp gửi lại; hiện một lần rồi xóa.
+  - Đã thử: tạo bản ghi giả → hiện đúng, lần tải sau không hiện.
+- **Release-notes** 20/11/2026 cập nhật.
+- **Build 1.79.0** (sạch 2 gói, LTO): 1.171 giây, gỡ 3.297 nội thất 3D khỏi gói điện thoại, cache `d756123ff1c80759`.
+
+  | Thành phần | Kích thước |
+  | --- | --- |
+  | wasm nén | 6,84 → **5,76 MB** |
+  | wasm giải nén | 22,1 → **16,2 MB (−27%)** |
+  | Gói điện thoại `16da9155…` | 69,6 MB |
+  | Gói máy tính `54aa22e8…` | 85,9 MB |
+
+- **Đo:**
+  - WebKit khi lái 75 giây: **1,74 GB** (1.78: 1,78; 1.77: 1,98).
+  - Gói điện thoại (Chrome SwiftShader): JS heap **115 MB** (1.78: 122), heap 384 MiB không nở.
+  - Chơi thử bằng WebKit và gói điện thoại: lái, CSGT đuổi bắt, phòng giam «ĐÃ BỊ BẮT», nút cảm ứng đều đúng. Console chỉ có lỗi cũ `AudioClip.SetData` (WebKit Windows) và «Rotation quaternions…», cả hai có từ 1.75.
+- `docs/` thay, pack, materialize: **31/31 tệp khớp SHA-256**.
+- **Chưa thử iPhone thật.** Nếu vẫn sập: nhờ người dùng chụp dòng «Lần chơi trước bị đóng đột ngột…» trên trang chủ; số giây, FPS và khung hình sẽ cho biết nên xử lý hướng nào.
