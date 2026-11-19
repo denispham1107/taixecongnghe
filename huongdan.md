@@ -4636,3 +4636,5 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Trang chủ cục bộ hiện khung «Bản cập nhật 1.76.2 · 19/11/2026», đủ 5 mục; khi phiên bản khớp thì ẩn dòng báo bản cũ.
   - `docs/` đã thay, pack (gói điện thoại 2 phần, máy tính 3 phần). Materialize: **31/31 tệp khớp SHA-256**.
 - **Chưa thử iPhone thật.** Người dùng cần vào Cài đặt → Safari → Nâng cao → Dữ liệu trang web, xóa `github.io`, rồi mở lại; trang chủ phải hiện «Bản cập nhật 1.76.2». Nếu vẫn sập ngay khi mở trang chủ (chưa bấm VÀO PHỐ), xem lại phần trang chủ (ảnh poster 2778 px, service worker tải trước).
+- **Đã phát hành:** commit `bdd5f54`, GitHub Pages run `44464973493` thành công. Trên trang thật, `build-info.json` = 1.76.2, cache `1da791573408b434`. **30/30 tệp live khớp SHA-256** với `Builds/WebGL` (trừ `.nojekyll`).
+  - Riêng `sw.js` chỉ khớp sau khi đổi CRLF → LF: Git chuẩn hóa xuống dòng, còn mẫu `sw.js` có CRLF và `FinalizeWebOutput` ghi `sw.js` sau bước chuẩn hóa. Không ảnh hưởng chạy hay mã cache.
