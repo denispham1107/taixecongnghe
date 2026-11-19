@@ -4845,3 +4845,4 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Chơi thử: lái, CSGT bắt, phòng giam, tàu, sông đều đúng.
 - `docs/` thay, pack, materialize: **31/31 tệp khớp SHA-256**.
 - **Chưa thử iPhone thật.** Nếu còn sập, nhờ người dùng mở lần lượt `…/taixecongnghe/?diag=noshadow`, `?diag=near`, `?diag=noint`, `?diag=notraffic,noboats`, `?diag=all`, `?diag=dpr1` và gửi dòng «hộp đen». Link nào không sập là chỉ ra hệ thống gây lỗi.
+- **Đã phát hành:** commit `632245d`, GitHub Pages run `44636930661` thành công. Trang thật: `build-info.json` = 1.80.0, cache `9d1fd625cdd2c5a3`; **30/30 tệp live khớp SHA-256** (`sw.js` khớp sau khi chuẩn hóa xuống dòng).
