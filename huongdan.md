@@ -4748,3 +4748,4 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Gói điện thoại khi lái: heap giữ 384 MiB (không nở), JS 121–124 MB.
 - `docs/` thay, pack, materialize: **31/31 tệp khớp SHA-256**.
 - **Chưa thử iPhone thật.** Nếu vẫn sập: đo lại theo cách trên. Các hướng còn lại đều đổi nội dung chứ không đổi độ phân giải (bớt xe NPC hoặc tàu trên điện thoại, bỏ ảnh nội thất xa…), phải hỏi người dùng trước.
+- **Đã phát hành:** commit `aa77e0b`, GitHub Pages run `44607132596` thành công. Trang thật: `build-info.json` = 1.78.0, cache `4f4741ce6f55471a`; **30/30 tệp live khớp SHA-256** với `Builds/WebGL` (`sw.js` khớp sau khi chuẩn hóa xuống dòng).
