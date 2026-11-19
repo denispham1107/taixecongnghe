@@ -34,33 +34,34 @@ namespace PhoViet.OpenWorld
             return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         }
 
-        // ------------------------------------------------------------ 21.265: vô lăng + bàn đạp cảm ứng (thay joystick 21.262)
-        // • Vô lăng góc trái dưới: đặt ngón lên vành rồi XOAY quanh tâm như vô lăng thật (theo chiều kim đồng hồ = rẽ phải),
-        //   tối đa ±135° = đánh lái hết; thả tay vô lăng tự trả về giữa (360°/s). Chỉ lái trái/phải.
+        // ------------------------------------------------------------ 21.265/21.270: nút lái + bàn đạp cảm ứng
+        // • 21.270: góc trái dưới là 2 nút MŨI TÊN TRÁI / PHẢI (thay vô lăng xoay 21.265). Giữ nút = y hệt giữ phím ←/→ trên
+        //   máy tính (Input.GetAxisRaw: −1 / +1 ngay lập tức, thả = 0); giữ cả hai = 0. Trượt ngón từ nút này sang nút kia
+        //   thì đổi hướng luôn, không cần nhấc tay.
         // • Nút bên phải (giữ để dùng): Ga = tiến (như ↑), Lùi = lùi/phanh (như ↓), Stop = phanh gấp về 0 trong ≤ 1 s;
-        //   NHẢY, TÊN LỬA chạm là ăn. Mỗi ngón tay được gán cho đúng một nút khi chạm xuống (đa điểm): vừa xoay vô lăng
+        //   NHẢY, TÊN LỬA chạm là ăn. Mỗi ngón tay được gán cho đúng một nút khi chạm xuống (đa điểm): vừa giữ nút lái
         //   vừa giữ Ga và chạm TÊN LỬA được (trước 21.265 nút TÊN LỬA là nút IMGUI chỉ nhận một ngón).
         // • Chạm nửa phải ngoài các nút vẫn là NHẢY. Bàn phím giữ như cũ.
-        [Header("Vô lăng + bàn đạp cảm ứng (21.265)")]
-        public float wheelMaxDeg = 135f, wheelReturnDegPerSec = 360f;
-        [Tooltip("Hiện vô lăng/nút cả khi máy không có cảm ứng (thử trong Editor)")] public bool touchControlsAlwaysVisible;
-        [System.NonSerialized] public bool testWheelHeld; [System.NonSerialized] public float testWheel;   // kiểm thử: −1…1
+        [Header("Nút lái + bàn đạp cảm ứng (21.265/21.270)")]
+        [Tooltip("Hiện nút cảm ứng cả khi máy không có cảm ứng (thử trong Editor)")] public bool touchControlsAlwaysVisible;
+        [System.NonSerialized] public bool testTouchUI;                                                    // kiểm thử: hiện nút cảm ứng
+        [System.NonSerialized] public int testSteer;                                                       // kiểm thử: −1 Trái, 1 Phải
         [System.NonSerialized] public int testPedal;                                                       // kiểm thử: 1 Ga, −1 Lùi, 2 Stop
-        enum Ctl { None, Wheel, Gas, Rev, Stop, Jump, Fire, Other }
+        enum Ctl { None, Left, Right, Gas, Rev, Stop, Jump, Fire, Other }
         readonly System.Collections.Generic.Dictionary<int, Ctl> fingers = new System.Collections.Generic.Dictionary<int, Ctl>();
-        float wheelAngle, wheelFingerAngle; int wheelFinger = int.MinValue;
-        bool gasHeld, revHeld, stopHeld;
+        bool leftHeld, rightHeld, gasHeld, revHeld, stopHeld;
         OpenWorldHazards hazardsRef;
         const int MouseFinger = -1000;
-        public float WheelAngle => wheelAngle;
-        public float WheelSteer => Mathf.Clamp(wheelAngle / wheelMaxDeg, -1f, 1f);
+        public bool LeftHeld => leftHeld || testSteer == -1;
+        public bool RightHeld => rightHeld || testSteer == 1;
+        public float TouchSteer => (RightHeld ? 1f : 0f) - (LeftHeld ? 1f : 0f);   // như GetAxisRaw("Horizontal")
         public bool GasHeld => gasHeld || testPedal == 1;
         public bool RevHeld => revHeld || testPedal == -1;
         public bool StopHeld => stopHeld || testPedal == 2;
         public int FireTaps { get; private set; }
         public int StopBrakes { get; private set; }
-        public bool TouchControlsVisible => !frozen && !Crashed && (touchControlsAlwaysVisible || Input.touchSupported || UnityEngine.Device.Application.isMobilePlatform || testWheelHeld);
-        bool TouchDriving => TouchControlsVisible && (wheelFinger != int.MinValue || testWheelHeld || GasHeld || RevHeld || StopHeld || Mathf.Abs(wheelAngle) > 0.5f);
+        public bool TouchControlsVisible => !frozen && !Crashed && (touchControlsAlwaysVisible || Input.touchSupported || UnityEngine.Device.Application.isMobilePlatform || testTouchUI);
+        bool TouchDriving => TouchControlsVisible && (LeftHeld || RightHeld || GasHeld || RevHeld || StopHeld);
 
         // Bố cục (pixel, gốc trên-trái như GUI) — né tai thỏ/thanh home (OpenWorldGame.Safe*).
         static float BtnSize => Mathf.Max(70f, Screen.height * 0.13f);
@@ -73,19 +74,17 @@ namespace PhoViet.OpenWorld
         static bool touchLayout = true;
         public static Rect JumpRect { get { var g = GasRect; return touchLayout ? new Rect(g.x, g.y - BtnSize - Gap, BtnSize, BtnSize) : g; } }
         public static Rect FireRect { get { var r = touchLayout ? RevRect : GasRect; return new Rect(r.x, r.y - BtnSize - Gap, BtnSize, BtnSize); } }
-        public static Rect WheelRect()
-        {
-            float size = Mathf.Clamp(Mathf.Min(Screen.width, Screen.height) * 0.40f, 160f, 460f);
-            float inset = Mathf.Max(18f, size * 0.10f);
-            return new Rect(OpenWorldGame.SafeLeftPx + inset, Screen.height - OpenWorldGame.SafeBottomPx - inset - size, size, size);
-        }
+        // 21.270: hai nút mũi tên góc trái dưới, to hơn nút bên phải 20 % vì phải giữ liên tục.
+        static float SteerSize => BtnSize * 1.2f;
+        public static Rect LeftRect => new Rect(OpenWorldGame.SafeLeftPx + 24, Screen.height - SteerSize - 24 - OpenWorldGame.SafeBottomPx, SteerSize, SteerSize);
+        public static Rect RightRect { get { var l = LeftRect; return new Rect(l.xMax + Gap, l.y, SteerSize, SteerSize); } }
         static Vector2 ToGui(Vector2 screen) => new Vector2(screen.x, Screen.height - screen.y);
         static float Grow(Rect r, Vector2 p, float pad) => (p.x >= r.x - pad && p.x <= r.xMax + pad && p.y >= r.y - pad && p.y <= r.yMax + pad) ? 1f : 0f;
 
         Ctl HitControl(Vector2 g)
         {
-            var w = WheelRect(); float pad = BtnSize * 0.06f;
-            if ((g - w.center).magnitude <= w.width * 0.5f * 1.25f) return Ctl.Wheel;
+            float pad = BtnSize * 0.06f;
+            var s = SteerControl(g); if (s != Ctl.None) return s;
             if (Grow(FireRect, g, pad) > 0 && FireVisible) return Ctl.Fire;
             if (Grow(JumpRect, g, pad) > 0) return Ctl.Jump;
             if (Grow(GasRect, g, pad) > 0) return Ctl.Gas;
@@ -94,30 +93,33 @@ namespace PhoViet.OpenWorld
             return g.x >= Screen.width * 0.5f ? Ctl.Jump : Ctl.Other;      // chạm nửa phải ngoài nút = nhảy (như cũ)
         }
         bool FireVisible => hazardsRef && hazardsRef.enabled;
+        // Vùng chạm lái nới rộng (ngón cái hay chạm lệch): chia đôi ở giữa khe hai nút, dư 35 % lên trên và ra mép trái.
+        static Ctl SteerControl(Vector2 g)
+        {
+            Rect l = LeftRect, r = RightRect; float pad = SteerSize * 0.35f, mid = (l.xMax + r.x) * 0.5f;
+            if (g.y < l.y - pad || g.x < l.x - pad || g.x > r.xMax + pad * 0.5f) return Ctl.None;
+            return g.x < mid ? Ctl.Left : Ctl.Right;
+        }
 
         void Press(int id, Vector2 g)
         {
             var c = HitControl(g); fingers[id] = c;
-            if (c == Ctl.Wheel) { wheelFinger = id; var d = g - WheelRect().center; wheelFingerAngle = Mathf.Atan2(d.y, d.x) * Mathf.Rad2Deg; }
-            else if (c == Ctl.Jump) jumpRequest = true;
+            if (c == Ctl.Jump) jumpRequest = true;
             else if (c == Ctl.Fire && hazardsRef) { hazardsRef.RequestFire(); FireTaps++; }
         }
         void Drag(int id, Vector2 g)
         {
-            if (id != wheelFinger) return;
-            var w = WheelRect(); var d = g - w.center;
-            if (d.magnitude < w.width * 0.12f) return;                       // sát tâm: góc không ổn định
-            float a = Mathf.Atan2(d.y, d.x) * Mathf.Rad2Deg;                  // GUI y hướng xuống → tăng theo chiều kim đồng hồ
-            wheelAngle = Mathf.Clamp(wheelAngle + Mathf.DeltaAngle(wheelFingerAngle, a), -wheelMaxDeg, wheelMaxDeg);
-            wheelFingerAngle = a;
+            // ngón đang lái trượt sang nút kia → đổi hướng; trượt ra ngoài vùng lái vẫn giữ hướng cũ tới khi nhấc
+            if (!fingers.TryGetValue(id, out var c) || (c != Ctl.Left && c != Ctl.Right)) return;
+            var s = SteerControl(g); if (s != Ctl.None) fingers[id] = s;
         }
-        void Release(int id) { fingers.Remove(id); if (id == wheelFinger) wheelFinger = int.MinValue; }
+        void Release(int id) { fingers.Remove(id); }
 
         void UpdateTouchControls()
         {
             if (!hazardsRef) hazardsRef = FindAnyObjectByType<OpenWorldHazards>();
-            touchLayout = touchControlsAlwaysVisible || Input.touchSupported || UnityEngine.Device.Application.isMobilePlatform || testWheelHeld;
-            if (!TouchControlsVisible) { fingers.Clear(); wheelFinger = int.MinValue; gasHeld = revHeld = stopHeld = false; wheelAngle = 0f; return; }
+            touchLayout = touchControlsAlwaysVisible || Input.touchSupported || UnityEngine.Device.Application.isMobilePlatform || testTouchUI;
+            if (!TouchControlsVisible) { fingers.Clear(); leftHeld = rightHeld = gasHeld = revHeld = stopHeld = false; return; }
             for (int i = 0; i < Input.touchCount; i++)
             {
                 var t = Input.GetTouch(i); var g = ToGui(t.position);
@@ -134,10 +136,12 @@ namespace PhoViet.OpenWorld
                 // ngón chạm đã mất mà không có Ended (mất tiêu điểm) → thả
                 if (!Input.GetMouseButton(0)) { foreach (var k in new System.Collections.Generic.List<int>(fingers.Keys)) if (k != MouseFinger) Release(k); }
             }
-            gasHeld = revHeld = stopHeld = false;
-            foreach (var c in fingers.Values) { if (c == Ctl.Gas) gasHeld = true; else if (c == Ctl.Rev) revHeld = true; else if (c == Ctl.Stop) stopHeld = true; }
-            if (testWheelHeld) wheelAngle = Mathf.Clamp(testWheel, -1f, 1f) * wheelMaxDeg;
-            else if (wheelFinger == int.MinValue) wheelAngle = Mathf.MoveTowards(wheelAngle, 0f, wheelReturnDegPerSec * Time.deltaTime);   // tự trả lái
+            leftHeld = rightHeld = gasHeld = revHeld = stopHeld = false;
+            foreach (var c in fingers.Values)
+            {
+                if (c == Ctl.Left) leftHeld = true; else if (c == Ctl.Right) rightHeld = true;
+                else if (c == Ctl.Gas) gasHeld = true; else if (c == Ctl.Rev) revHeld = true; else if (c == Ctl.Stop) stopHeld = true;
+            }
         }
 
         static void Disc(Rect q, Color col, float border = 0f) =>
@@ -146,12 +150,13 @@ namespace PhoViet.OpenWorld
             GUI.DrawTexture(q, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, col, 0, radius);
 
         // 21.266: ảnh vẽ sẵn (ArtSource/UI/build_touch_controls.py → Resources/TouchControls), phong cách icon «B Arcade».
-        static Texture2D wheelTex, gasTex, revTex, stopTex, jumpTex;
+        static Texture2D leftTex, rightTex, gasTex, revTex, stopTex, jumpTex;
         public static Texture2D MissileButtonTex { get; private set; }
         static void LoadTouchArt()
         {
-            if (wheelTex) return;
-            wheelTex = Resources.Load<Texture2D>("TouchControls/PV_Wheel");
+            if (leftTex) return;
+            leftTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Left");
+            rightTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Right");
             gasTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Gas");
             revTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Reverse");
             stopTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Stop");
@@ -169,18 +174,6 @@ namespace PhoViet.OpenWorld
             else Bar(q, new Color(.1f, .15f, .2f, .7f * tint.a), q.width * .2f);
         }
 
-        void DrawWheel()
-        {
-            var r = WheelRect(); var c = r.center;
-            bool held = wheelFinger != int.MinValue || testWheelHeld;
-            var m = GUI.matrix;
-            GUIUtility.RotateAroundPivot(wheelAngle, c);
-            // bán trong suốt để không che màn chơi; rõ hơn khi đang cầm
-            if (wheelTex) GUI.DrawTexture(r, wheelTex, ScaleMode.ScaleToFit, true, 0, new Color(1f, 1f, 1f, held ? .95f : .78f), 0, 0);
-            else Disc(r, new Color(.10f, .12f, .15f, .8f), r.width * .12f);
-            GUI.matrix = m;
-        }
-
         // Máy tính: chữ phím nhỏ ở góc nút.
         public static void KeyBadge(Rect b, string key)
         {
@@ -194,7 +187,9 @@ namespace PhoViet.OpenWorld
         {
             if (!TouchControlsVisible) return;
             LoadTouchArt();
-            DrawWheel();
+            var steerAccent = new Color(.18f, .78f, .91f);
+            DrawArtButton(LeftRect, leftTex, steerAccent, LeftHeld);
+            DrawArtButton(RightRect, rightTex, steerAccent, RightHeld);
             DrawArtButton(GasRect, gasTex, new Color(1f, .54f, .24f), GasHeld);
             DrawArtButton(RevRect, revTex, new Color(.21f, .78f, .42f), RevHeld);
             DrawArtButton(StopRect, stopTex, new Color(.24f, .55f, .94f), StopHeld);
@@ -222,10 +217,10 @@ namespace PhoViet.OpenWorld
             { lastSafePos = transform.position; lastSafeRot = transform.rotation; lastSafeTime = Time.time; }
             bool locked = frozen || stunned || stopping;
             var inp = locked ? Vector2.zero : ReadInput();
-            // 21.265: vô lăng + Ga/Lùi trên màn hình cảm ứng (bàn phím/kiểm thử vẫn ưu tiên khi có tín hiệu)
+            // 21.265/21.270: nút ← / → + Ga/Lùi trên màn hình cảm ứng (bàn phím/kiểm thử vẫn ưu tiên khi có tín hiệu)
             if (!locked && scriptedInput == Vector2.zero && TouchDriving)
             {
-                if (Mathf.Abs(inp.x) < 0.05f) inp.x = WheelSteer;
+                if (Mathf.Abs(inp.x) < 0.05f) inp.x = TouchSteer;
                 if (Mathf.Abs(inp.y) < 0.05f) inp.y = GasHeld ? 1f : RevHeld ? -1f : 0f;
             }
             bool hand = locked || Input.GetKey(KeyCode.Space);

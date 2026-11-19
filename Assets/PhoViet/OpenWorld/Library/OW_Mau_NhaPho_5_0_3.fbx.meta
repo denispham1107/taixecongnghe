@@ -7,7 +7,37 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: NT_HopCuaCuon
+    second: {fileID: 2100000, guid: fcd7a261bd5b7ce40b7f6b2ffc9ce9a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NT_Inox
+    second: {fileID: 2100000, guid: 7c6a91607c0a92546b666203e3483422, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NT_KhungNhom
+    second: {fileID: 2100000, guid: cbd5f93103b2c334eba8f1ade6d4de7c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NT_KinhMatTien
+    second: {fileID: 2100000, guid: e9ddb1b9924f67244a03e29e30bb4fa5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NT_LanhTo
+    second: {fileID: 2100000, guid: d214850589bfe424a8c6b6ccda118d28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: OW_AirCon
+    second: {fileID: 2100000, guid: 6d327b4f2d2e6a046a35bcfa751dee92, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_AirCon.011
     second: {fileID: 2100000, guid: 6d327b4f2d2e6a046a35bcfa751dee92, type: 2}
   - first:
       type: UnityEngine:Material
@@ -17,12 +47,27 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: OW_AwningGrey.005
+    second: {fileID: 2100000, guid: 599384b287750914e9617ee67a6e718f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: OW_Concrete
     second: {fileID: 2100000, guid: cc452e080792b6543b5a9099aeec2811, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: OW_Concrete.014
+    second: {fileID: 2100000, guid: cc452e080792b6543b5a9099aeec2811, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: OW_Facade_pinkish
+    second: {fileID: 2100000, guid: c369374cb3f3dd14e96b4c8d0bb2da4f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Facade_pinkish.005
     second: {fileID: 2100000, guid: c369374cb3f3dd14e96b4c8d0bb2da4f, type: 2}
   - first:
       type: UnityEngine:Material
@@ -37,7 +82,17 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: OW_FrameWhite.014
+    second: {fileID: 2100000, guid: c5198b0129ecd5b49953c2843a8584c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: OW_IronBlack
+    second: {fileID: 2100000, guid: c2889792c68fd1547b755bc6d5b11d3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_IronBlack.013
     second: {fileID: 2100000, guid: c2889792c68fd1547b755bc6d5b11d3f, type: 2}
   - first:
       type: UnityEngine:Material
@@ -52,7 +107,17 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: OW_SteelTank.009
+    second: {fileID: 2100000, guid: 3f167ede2b31f9a43a60dd3445192c35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: OW_WindowGlass
+    second: {fileID: 2100000, guid: cc68665eb66b2a642a545e8e2b4e6806, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_WindowGlass.014
     second: {fileID: 2100000, guid: cc68665eb66b2a642a545e8e2b4e6806, type: 2}
   materials:
     materialImportMode: 2

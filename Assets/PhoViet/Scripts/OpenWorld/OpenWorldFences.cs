@@ -31,7 +31,8 @@ namespace PhoViet.OpenWorld
 
         public const int SidewalkLayer = 29, DownLayer = 30;
         // Các truy vấn vật lý khác của bản đồ mở bỏ qua hộp vỉa hè ẩn và tấm rào đổ.
-        public const int WorldMask = ~((1 << SidewalkLayer) | (1 << DownLayer));
+        // 21.274: thêm layer MatLe (28, mặt lề chỉ để nâng hình xe — OpenWorldGroundFit).
+        public const int WorldMask = ~((1 << SidewalkLayer) | (1 << DownLayer) | (1 << OpenWorldGroundFit.SurfaceLayer));
 
         class Panel
         {

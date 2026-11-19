@@ -272,7 +272,7 @@ namespace PhoViet.OpenWorld
             haloFront = Quad(-1f); haloBack = Quad(1f);
             unitCube = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
             var root = new GameObject("DenGiaoThong").transform; root.SetParent(transform, false);
-            int mask = ~0;
+            int mask = OpenWorldFences.WorldMask;   // 21.274: bỏ qua mặt lề MatLe
             foreach (var n in nodes)
             {
                 if (!n.signal) continue;

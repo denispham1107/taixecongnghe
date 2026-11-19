@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: OW_River
+  m_Shader: {fileID: 4800000, guid: dd44e8f06de61a04ca324d59eded349d, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Foam:
+        m_Texture: {fileID: 2800000, guid: a25c63d690b843942aa8aa81efce3e24, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WaveNormal:
+        m_Texture: {fileID: 2800000, guid: bc90f0e3f8b671b4ca0b081d678a3762, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _FlowSpeed: 0.55
+    - _MaxReflect: 0.92
+    - _MinReflect: 0.18
+    - _NormalStrength: 0.85
+    - _ReflectBlur: 1.2
+    - _ShadowStrength: 0.55
+    - _ShoreFoam: 1
+    - _Sparkle: 2
+    - _SunSpec: 2.2
+    m_Colors:
+    - _DeepColor: {r: 0.045, g: 0.11, b: 0.095, a: 1}
+    - _FoamColor: {r: 0.92, g: 0.95, b: 0.93, a: 1}
+    - _MidColor: {r: 0.09, g: 0.17, b: 0.13, a: 1}
+    - _ReflectTint: {r: 0.8, g: 0.88, b: 0.86, a: 1}
+    - _ShoreColor: {r: 0.19, g: 0.2, b: 0.13, a: 1}
+    - _Tiling: {r: 14, g: 5.5, b: 3.2, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

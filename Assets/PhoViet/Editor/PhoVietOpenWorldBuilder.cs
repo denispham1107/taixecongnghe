@@ -576,7 +576,8 @@ namespace PhoViet.OpenWorldEditor
             }
             else Debug.LogWarning("[Bản đồ mở] thiếu FBX xe CSGT Meshy");
             var bc = root.AddComponent<BoxCollider>();
-            bc.center = new Vector3(0, size.y / 2 + 0.06f, 0); bc.size = new Vector3(size.x, size.y - 0.12f, size.z);
+            // 21.274: đáy hộp va chạm = đáy bánh (trước đây cao hơn 0,12 m → xe CSGT lún 12 cm xuống mặt đường)
+            bc.center = new Vector3(0, size.y / 2, 0); bc.size = new Vector3(size.x, size.y, size.z);
             root.AddComponent<Rigidbody>();
             var pol = root.AddComponent<OpenWorldPolice>();
             pol.player = player.GetComponent<OpenWorldDriver>();

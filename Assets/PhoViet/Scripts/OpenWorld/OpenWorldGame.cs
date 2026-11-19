@@ -291,7 +291,7 @@ namespace PhoViet.OpenWorld
             {
                 float hw = portrait ? uiW - 36 - SL - SR : 600, hx = SL + (uiW - SL - SR - hw) / 2;
                 Panel(new Rect(hx, uiH - 68 - SB, hw, 44), WelcomeGlass, 10);
-                Txt("VÔ LĂNG TRÁI: XOAY ĐỂ LÁI · GIỮ GA / LÙI / STOP · NHẢY · TÊN LỬA", hx + 7, uiH - 55 - SB, hw - 14, 16, 10, Ink, TextAnchor.MiddleCenter);
+                Txt("GIỮ TRÁI / PHẢI ĐỂ LÁI · GIỮ GA / LÙI / STOP · NHẢY · TÊN LỬA", hx + 7, uiH - 55 - SB, hw - 14, 16, 10, Ink, TextAnchor.MiddleCenter);
             }
         }
 

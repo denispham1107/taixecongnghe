@@ -7,6 +7,31 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: NT_HopCuaCuon
+    second: {fileID: 2100000, guid: fcd7a261bd5b7ce40b7f6b2ffc9ce9a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NT_Inox
+    second: {fileID: 2100000, guid: 7c6a91607c0a92546b666203e3483422, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NT_KhungNhom
+    second: {fileID: 2100000, guid: cbd5f93103b2c334eba8f1ade6d4de7c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NT_KinhMatTien
+    second: {fileID: 2100000, guid: e9ddb1b9924f67244a03e29e30bb4fa5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NT_LanhTo
+    second: {fileID: 2100000, guid: d214850589bfe424a8c6b6ccda118d28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: OW_AirCon
     second: {fileID: 2100000, guid: 6d327b4f2d2e6a046a35bcfa751dee92, type: 2}
   - first:

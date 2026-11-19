@@ -5,7 +5,8 @@ khối phẳng có bóng nhẹ. Vẽ ở 4× rồi thu nhỏ để khử răng c
 quyết định (OpenWorldDriver: vô lăng 78 % khi để yên, 95 % khi đang giữ; nút 88 %).
 
 Chạy:  python ArtSource/UI/build_touch_controls.py
-Ra:    Assets/PhoViet/Resources/TouchControls/PV_Wheel.png (768²), PV_Btn_{Gas,Reverse,Stop,Jump,Missile}.png (320²)
+Ra:    Assets/PhoViet/Resources/TouchControls/PV_Btn_{Left,Right,Gas,Reverse,Stop,Jump,Missile}.png (320²)
+       (21.270: bỏ PV_Wheel.png — vô lăng thay bằng 2 nút mũi tên)
 """
 import math
 import os
@@ -335,7 +336,28 @@ def icon_missile(d, S):
     d.line(R([(c[0] - S * .05, c[1] + S * .1), (c[0] + S * .05, c[1] + S * .1)]), fill=OUTLINE, width=int(w * .6))
 
 
+def icon_arrow(d, S, sign):
+    """21.270: mũi tên lái dày (sign = +1 phải, −1 trái): thân + đầu nhọn xanh ngọc có viền đậm, dải sáng phía trên,
+    ba vệt tốc độ phía đuôi."""
+    w = int(S * .026); cx, cy = S * .5, S * .40
+    def X(pts): return [(cx + sign * x * S, cy + y * S) for x, y in pts]
+    for k, (x0, y0, ln) in enumerate(((-.36, -.075, .09), (-.39, 0.0, .12), (-.36, .075, .09))):
+        d.line(X([(x0, y0), (x0 + ln, y0)]), fill=(255, 255, 255, 170 - k * 20), width=int(S * .024))
+    arrow = [(-.23, -.075), (.02, -.075), (.02, -.19), (.25, 0.0), (.02, .19), (.02, .075), (-.23, .075)]
+    poly(d, X(arrow), hexc('#2FC7E8'), w)
+    d.polygon(X([(-.21, -.058), (.04, -.058), (.04, -.155), (.205, -.012), (.04, -.012), (-.21, -.012)]), fill=hexc('#9BEBFF'))
+    d.polygon(X([(.04, .03), (.19, .012), (.04, .15)]), fill=hexc('#1C9DC2'))
+
+
+def icon_left(d, S): icon_arrow(d, S, -1)
+
+
+def icon_right(d, S): icon_arrow(d, S, 1)
+
+
 BUTTONS = [
+    ('Left', 'TRÁI', '#2FC7E8', icon_left, .16),
+    ('Right', 'PHẢI', '#2FC7E8', icon_right, .16),
     ('Gas', 'GA', '#FF8A3D', icon_gas, .17),
     ('Reverse', 'LÙI', '#35C76B', icon_reverse, .17),
     ('Stop', 'STOP', '#3D8BF0', icon_stop, .15),
@@ -355,15 +377,13 @@ def build_button(name, text, accent_hex, icon, size_frac, final=320):
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    build_wheel().save(os.path.join(OUT, 'PV_Wheel.png'))
-    sheet = Image.new('RGBA', (320 * 5 + 40, 320), (70, 80, 90, 255))
+    # 21.270: vô lăng thay bằng 2 nút mũi tên trái/phải (build_wheel giữ lại để tham khảo, không xuất nữa).
+    sheet = Image.new('RGBA', (330 * len(BUTTONS), 320), (70, 80, 90, 255))
     for i, (name, text, acc, icon, sf) in enumerate(BUTTONS):
         im = build_button(name, text, acc, icon, sf); im.save(os.path.join(OUT, 'PV_Btn_%s.png' % name))
         sheet.alpha_composite(im, (i * 330, 0))
     prev = os.path.join(ROOT, 'ArtSource', 'UI', 'touch_controls_preview.png')
-    wheel = Image.open(os.path.join(OUT, 'PV_Wheel.png')).resize((320, 320), Image.LANCZOS)
-    full = Image.new('RGBA', (sheet.width + 340, 320), (70, 80, 90, 255)); full.alpha_composite(wheel, (0, 0)); full.alpha_composite(sheet, (340, 0))
-    full.save(prev)
+    sheet.save(prev)
     print('ok', OUT)
 
 
