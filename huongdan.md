@@ -4702,3 +4702,49 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - Bản build chia đôi ở `Builds/WebGL-Bisect-*`, ngoài Git, có thể xóa.
 
 - **Đã phát hành:** commit `17b28d7`, GitHub Pages run `44589427204` thành công. Trang thật: `build-info.json` = 1.77.0, cache `dfed8608f7274cb5`; **30/30 tệp live khớp SHA-256** với `Builds/WebGL`. Riêng `sw.js` khớp sau khi chuẩn hóa xuống dòng (CRLF → LF), như 21.278.
+
+## 21.280. Phát hành WebGL 1.78.0: iPhone sập sau 10–20 giây chơi → nén đỉnh mesh thế giới, heap ban đầu 384 MiB (20/11/2026, Claude Code)
+
+- **Báo lỗi:** với 1.77.0, iPhone 13 Pro Max mở được trang chủ (khung «Bản cập nhật 1.77.0 · 20/11/2026») và vào được game. Nhưng chơi khoảng 10–20 giây thì Safari đóng trang («Đã có sự cố xảy ra liên tục»). Yêu cầu: kiểm tra toàn bộ, build lại, **không giảm độ phân giải**.
+- **Đo (scratchpad `pw/`):**
+  - `drive.cjs`: WebKit, UA iPhone, lái bằng phím 75–90 giây, đo bộ nhớ tiến trình và heap Unity.
+  - `phoneheap.cjs` / `phonedrive.cjs`: Chrome dùng SwiftShader có ETC2, nên tải đúng **gói điện thoại**; đo heap Unity và JS heap khi lái.
+
+  | Phép đo | Kết quả |
+  | --- | --- |
+  | Gói điện thoại 1.77 so với 1.75 | Như nhau: heap **366 MiB**, JS 129/125 MB. Heap **không nở khi lái** (90 giây) |
+  | WebKit, gói máy tính, khi lái | 1.75: 1,70 GB · 1.77: 1,96–1,98 GB. Tăng ~60–100 MB ở 10–15 giây đầu rồi chững lại |
+  | Heap WebKit | 1.77: 434 MiB · 1.75: 365 MiB |
+
+  Kết luận:
+  - Không có rò rỉ mới. Game nằm sát trần bộ nhớ của Safari iOS; phần tăng trong vài giây đầu chơi đẩy qua trần.
+  - Âm thanh tạo bằng code chỉ tạo 1 lần. Lỗi `AudioClip.SetData` trên WebKit Windows có cả ở 1.75.
+  - Chất lượng WebGL = High: bóng 1024, điện thoại không khử răng cưa.
+- **Phần lớn có thể cắt mà không đổi hình:** dữ liệu đỉnh mesh.
+  - Toàn scene có 219 MB đỉnh và chỉ số; riêng tangent 61 MB và pháp tuyến Float32 46 MB.
+  - Shader của phố, đường và nhà (`PhoViet/OpenWorld/Triplanar`, `ShopGlass`, `Unlit/Color`, `RiverWaterMirror`) **chỉ đọc vị trí + pháp tuyến**: vân lấy theo toạ độ thế giới, không UV, không normal map.
+  - Không bật `StripUnusedMeshComponents` cho cả dự án: prefab xe NPC, xe tăng, tàu, xe máy dùng `Default-Material` nhưng được gán vật liệu normal map lúc chạy, nên vẫn cần tangent (`AgentScripts/RuntimeMaterials21280.cs`).
+- **Sửa:**
+  - **`Editor/PhoVietWorldMeshPostprocessor.cs` (mới, phiên bản 2):** khi nhập `OpenWorld/Chunks/OW_Map_*.fbx` và `OpenWorld/Library/OW_Mau_NhaPho_*.fbx`, xếp lại đỉnh thành **vị trí Float32×3 (giữ nguyên chính xác) + pháp tuyến SNorm8×4 = 16 byte** (trước ~40–52 byte).
+    - Bỏ qua mesh rỗng. Bản 1 ném lỗi ở `OW_Duong_*_DoViaHe` 0 đỉnh làm dừng cả `OW_Map_street.fbx`; đã sửa.
+    - 581/581 mesh đã nén, 21 mesh rỗng.
+  - `AgentScripts/RepackWorldMeshes21280.cs`:
+    - nhập lại các FBX trên;
+    - nén **62 mesh `.asset`** nhà rút ngắn / nhà nổi bật (`Library/NhaNgan`, `NhaNoiBat`; 7 → 2,8 MB) bằng `PhoVietWorldMeshPostprocessor.Repack`;
+    - **3 cây phố** `PV_StreetTree0..2.fbx`: `importTangents=None`. Shader `Street Wall Finish` không có normal map; vẫn giữ UV.
+  - **Kết quả mesh toàn scene:** 219 → **143 MB** (gói điện thoại không có nội thất 3D: ~183 → ~107 MB). Số tam giác, hình khối và texture không đổi. Ảnh Play: phố ven sông giống hệt trước.
+  - **`PhoVietWebBuild`:**
+    - `initialMemorySize` 128 → **384 MiB**. Gói điện thoại cần ~366 MiB, nên heap không phải nở lúc nạp/chơi; Safari iOS có thể phải chép cả heap khi nở. Trang chưa dùng không tốn bộ nhớ thật.
+    - `bundleVersion=1.78.0`.
+  - **Release-notes** 20/11/2026: sửa lỗi Safari đóng game sau 10–20 giây; giữ nguyên độ phân giải.
+- **Build 1.78.0** (sạch 2 gói): 1.068 giây, gỡ 3.297 nội thất 3D khỏi gói điện thoại, cache `4f4741ce6f55471a`.
+
+  | Gói | Tệp | Kích thước |
+  | --- | --- | --- |
+  | Điện thoại | `41fa8d76…` | **69,6 MB** (1.77: 73,9) |
+  | Máy tính | `28bb9487…` | 85,9 MB (1.77: 90,1) |
+
+  - Đo WebKit khi lái 75 giây: **1,78 GB** (1.77: 1,98 GB).
+  - Gói điện thoại khi lái: heap giữ 384 MiB (không nở), JS 121–124 MB.
+- `docs/` thay, pack, materialize: **31/31 tệp khớp SHA-256**.
+- **Chưa thử iPhone thật.** Nếu vẫn sập: đo lại theo cách trên. Các hướng còn lại đều đổi nội dung chứ không đổi độ phân giải (bớt xe NPC hoặc tàu trên điện thoại, bỏ ảnh nội thất xa…), phải hỏi người dùng trước.

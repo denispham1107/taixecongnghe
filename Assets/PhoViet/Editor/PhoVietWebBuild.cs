@@ -26,7 +26,9 @@ namespace PhoViet.Editor
             PlayerSettings.WebGL.dataCaching=false; // One versioned offline cache owns all web files.
             PlayerSettings.WebGL.threadsSupport=false; // GitHub Pages cannot supply isolation headers.
             PlayerSettings.WebGL.wasm2023=false; // Keep compatibility with Safari 15+.
-            PlayerSettings.WebGL.initialMemorySize=128;
+            // 21.280: heap ban đầu 384 MiB (gói điện thoại nạp xong ~366 MiB) → không nở heap lúc nạp/chơi; Safari iOS có thể phải
+            // chép cả heap mỗi lần nở (tạm thời gấp đôi). Trang chưa dùng không tốn bộ nhớ thật.
+            PlayerSettings.WebGL.initialMemorySize=384;
             PlayerSettings.WebGL.memoryGrowthMode=WebGLMemoryGrowthMode.Geometric;
             PlayerSettings.WebGL.geometricMemoryGrowthStep=.1f;
             PlayerSettings.WebGL.memoryGeometricGrowthCap=32;
@@ -42,7 +44,7 @@ namespace PhoViet.Editor
                 var settings=UnityEditor.Rendering.EditorGraphicsSettings.GetTierSettings(BuildTargetGroup.WebGL,tier);
                 if(settings.cascadedShadowMaps){settings.cascadedShadowMaps=false;UnityEditor.Rendering.EditorGraphicsSettings.SetTierSettings(BuildTargetGroup.WebGL,tier,settings);}
             }
-            PlayerSettings.bundleVersion="1.77.0";
+            PlayerSettings.bundleVersion="1.78.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
