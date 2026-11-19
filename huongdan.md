@@ -4783,3 +4783,4 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Chơi thử bằng WebKit và gói điện thoại: lái, CSGT đuổi bắt, phòng giam «ĐÃ BỊ BẮT», nút cảm ứng đều đúng. Console chỉ có lỗi cũ `AudioClip.SetData` (WebKit Windows) và «Rotation quaternions…», cả hai có từ 1.75.
 - `docs/` thay, pack, materialize: **31/31 tệp khớp SHA-256**.
 - **Chưa thử iPhone thật.** Nếu vẫn sập: nhờ người dùng chụp dòng «Lần chơi trước bị đóng đột ngột…» trên trang chủ; số giây, FPS và khung hình sẽ cho biết nên xử lý hướng nào.
+- **Đã phát hành:** commit `5049a16`, GitHub Pages run `44614291444` thành công. Trang thật: `build-info.json` = 1.79.0, cache `d756123ff1c80759`; **30/30 tệp live khớp SHA-256** (`sw.js` khớp sau khi chuẩn hóa xuống dòng).
