@@ -4701,3 +4701,4 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Chưa thử iPhone thật.**
 - Bản build chia đôi ở `Builds/WebGL-Bisect-*`, ngoài Git, có thể xóa.
 
+- **Đã phát hành:** commit `17b28d7`, GitHub Pages run `44589427204` thành công. Trang thật: `build-info.json` = 1.77.0, cache `dfed8608f7274cb5`; **30/30 tệp live khớp SHA-256** với `Builds/WebGL`. Riêng `sw.js` khớp sau khi chuẩn hóa xuống dòng (CRLF → LF), như 21.278.
