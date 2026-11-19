@@ -29,13 +29,29 @@ namespace PhoViet.OpenWorld
         static readonly int[] MaxId = { Shader.PropertyToID("_OWReflMax0"), Shader.PropertyToID("_OWReflMax1"), Shader.PropertyToID("_OWReflMax2"), Shader.PropertyToID("_OWReflMax3") };
         public int WindowStart { get; private set; } = -1;
 
+        // 21.279: thành phần ReflectionProbe phải TẮT (enabled = false). Probe bật làm Unity tự gán/trộn phản chiếu cho cả
+        // ~28.000 renderer của bản đồ (mất GPU instancing, thêm ~560 MB và rò bộ nhớ trên WebKit → Safari iPhone sập).
+        // Script chỉ đọc cubemap + vị trí + hộp của probe; mặt sông vẫn phản chiếu như cũ.
+        Vector3[] bmin, bmax;
+
+        void Awake()
+        {
+            foreach (var p in GetComponentsInChildren<ReflectionProbe>(true)) p.enabled = false;
+        }
+
         void OnEnable()
         {
             var list = new List<ReflectionProbe>();
-            foreach (var p in GetComponentsInChildren<ReflectionProbe>()) if (p.customBakedTexture) list.Add(p);
+            foreach (var p in GetComponentsInChildren<ReflectionProbe>(true)) { p.enabled = false; if (p.customBakedTexture) list.Add(p); }
             list.Sort((a, b) => SOf(a.transform.position.x, a.transform.position.z).CompareTo(SOf(b.transform.position.x, b.transform.position.z)));
             probes = list.ToArray(); sp = new float[probes.Length];
-            for (int i = 0; i < probes.Length; i++) sp[i] = SOf(probes[i].transform.position.x, probes[i].transform.position.z);
+            bmin = new Vector3[probes.Length]; bmax = new Vector3[probes.Length];
+            for (int i = 0; i < probes.Length; i++)
+            {
+                var t = probes[i].transform; sp[i] = SOf(t.position.x, t.position.z);
+                Vector3 c = t.position + probes[i].center, h = probes[i].size * 0.5f;   // hộp chiếu (probe trục thẳng, không xoay)
+                bmin[i] = c - h; bmax[i] = c + h;
+            }
             WindowStart = -1; Apply(Camera.main ? Camera.main.transform.position : Vector3.zero, true);
         }
 
@@ -59,11 +75,10 @@ namespace PhoViet.OpenWorld
             for (int j = 0; j < 4; j++)
             {
                 var p = probes[start + j]; var c = p.transform.position;
-                var b = p.bounds;
                 Shader.SetGlobalTexture(TexId[j], p.customBakedTexture);
                 Shader.SetGlobalVector(PosId[j], c);
-                Shader.SetGlobalVector(MinId[j], b.min);
-                Shader.SetGlobalVector(MaxId[j], b.max);
+                Shader.SetGlobalVector(MinId[j], bmin[start + j]);
+                Shader.SetGlobalVector(MaxId[j], bmax[start + j]);
                 sv[j] = sp[start + j];
             }
             Shader.SetGlobalVector(SId, sv);

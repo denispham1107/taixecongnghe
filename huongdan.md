@@ -4618,7 +4618,7 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - `app.js`: khi `online` thì hiện «iPhone/iPad: cần kết nối mạng khi chơi (để tiết kiệm bộ nhớ)». Hiện số phiên bản trong khung «Bản cập nhật» từ `PHO_VIET_BUILD.productVersion`. Tải `build-info.json` (no-store); nếu bản trên máy khác bản trên mạng thì hiện «Máy đang mở bản X, đã có bản Y.» và nút **Tải bản mới** (gỡ service worker, xóa cache `phoviet:*`, tải lại).
   - `index.html` + `style.css`: khung `<details id="release-notes">` dưới hướng dẫn cảm ứng (nhãn MỚI, số bản, ngày, danh sách thay đổi ngắn cho người chơi).
 - **Luật mới của người dùng (19/11/2026, đã ghi vào `AGENTS.md` và memory):** mỗi lần push + phát hành web, sửa khung release-notes (ngày `#release-date` + danh sách) **trước khi build**.
-- **Gói điện thoại nhẹ hơn:** `Editor/PhoVietWebMemorySettings.cs` có `PhoneTextureLimit=512`; `WebTextureSize(path, importer, mobile)` đưa gói ETC2 về 512 px, trừ:
+- **Gói điện thoại nhẹ hơn** *(đã bỏ ở 21.279 — trả về 1024 px; nguyên nhân sập thật là probe phản chiếu sông)*: `Editor/PhoVietWebMemorySettings.cs` có `PhoneTextureLimit=512`; `WebTextureSize(path, importer, mobile)` đưa gói ETC2 về 512 px, trừ:
   - xe người chơi (giữ cỡ gốc);
   - `/NoiThat/` (ảnh nội thất);
   - `Resources/TouchControls`, `Jail`, `PlayerMissile`, `PlayerFlight` (giữ 1024).
@@ -4638,3 +4638,66 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Chưa thử iPhone thật.** Người dùng cần vào Cài đặt → Safari → Nâng cao → Dữ liệu trang web, xóa `github.io`, rồi mở lại; trang chủ phải hiện «Bản cập nhật 1.76.2». Nếu vẫn sập ngay khi mở trang chủ (chưa bấm VÀO PHỐ), xem lại phần trang chủ (ảnh poster 2778 px, service worker tải trước).
 - **Đã phát hành:** commit `bdd5f54`, GitHub Pages run `44464973493` thành công. Trên trang thật, `build-info.json` = 1.76.2, cache `1da791573408b434`. **30/30 tệp live khớp SHA-256** với `Builds/WebGL` (trừ `.nojekyll`).
   - Riêng `sw.js` chỉ khớp sau khi đổi CRLF → LF: Git chuẩn hóa xuống dòng, còn mẫu `sw.js` có CRLF và `FinalizeWebOutput` ghi `sw.js` sau bước chuẩn hóa. Không ảnh hưởng chạy hay mã cache.
+
+## 21.279. Phát hành WebGL 1.77.0: tìm ra nguyên nhân Safari iPhone sập (probe phản chiếu sông), build sạch, giữ độ phân giải đầy đủ (20/11/2026, Claude Code)
+
+- **Yêu cầu:** 1.76.2 vẫn sập trên iPhone 13 Pro Max (Safari «Đã có sự cố xảy ra liên tục…»). Người dùng yêu cầu:
+  - kiểm tra lại toàn bộ;
+  - bỏ qua logic các bước build trước;
+  - build và phát hành một bản mới hoàn toàn;
+  - không giảm độ phân giải;
+  - không được sập.
+- **Cách đo:** dùng Playwright **WebKit 18.2**, cùng lõi với Safari.
+  - Cài trong scratchpad (`pw/measure.cjs`), không thuộc dự án.
+  - Kịch bản: mở trang với UA iPhone, khung ngang 926×428, bấm VÀO PHỐ, đo bộ nhớ tiến trình `WebKitWebProcess` trong 150 giây.
+  - WebKit trên Windows không có ETC2 nên dùng gói máy tính (DXT). Trên Windows, WebGL của WebKit nằm trong tiến trình trang. Trên iOS, bộ nhớ GPU cũng được tính cho tiến trình trang.
+  - Đây là phép so sánh tương đối giữa các bản, không phải giới hạn thật của iPhone.
+- **Kết quả (đỉnh working set):**
+
+  | Bản build | Đỉnh | Ghi chú |
+  | --- | --- | --- |
+  | 1.75.0 (chạy được trên iPhone) | **1,65 GB** | ổn định |
+  | 1.76.2 | **2,43 GB** | tăng đều ~1,5 MB/giây |
+
+  Build chia đôi bằng `AgentScripts/BisectBuild21279.cs`, dùng móc `PhoVietMobileSceneStrip.Extra` để bỏ từng phần trong lúc build:
+
+  | Phần bỏ đi | Đỉnh |
+  | --- | --- |
+  | Nội thất + probe + tàu + mặt lề + mặt sông | 1,71 GB |
+  | Riêng nội thất | 2,16 GB |
+  | Probe + tàu + mặt lề + mặt sông (giữ nội thất 3D) | 1,85 GB |
+  | **Chỉ 13 probe phản chiếu sông** | **1,87 GB, hết rò rỉ** |
+
+- **Nguyên nhân:** 13 `ReflectionProbe` (chế độ Custom) của `PhanChieuSong` (21.271) để **bật** trong scene.
+  - Unity built-in tự gán và trộn probe cho **mọi** renderer của bản đồ (~28.000), không chỉ mặt sông. GPU instancing bị phá, mỗi vật đổi cubemap riêng, nên tốn thêm khoảng 560 MB và rò bộ nhớ trên WebKit.
+  - Mặt sông chỉ cần cubemap của probe; `OpenWorldRiverReflections` tự đưa vào shader.
+  - Bản sửa 1.76.1/1.76.2 (bỏ nội thất 3D, texture 512) không chạm vào nguyên nhân này.
+- **Lưu ý build:** build tăng dần có thể **dùng lại scene đã xử lý** mà không gọi `OnProcessScene`. Bằng chứng: bản chia đôi thứ hai chỉ 21 giây, gỡ 0, dữ liệu giống hệt bản trước. Vì vậy bản phát hành build sạch.
+- **Sửa:**
+  - **Scene:** tắt thành phần ReflectionProbe (`enabled=false`) của 13 probe, giữ cubemap. Script `AgentScripts/DisableRiverProbes21279.cs` so hộp chiếu cũ/mới (lệch 0) rồi lưu scene.
+  - `OpenWorldRiverReflections`: Awake/OnEnable tắt mọi probe con, đọc cả probe tắt, tính hộp chiếu từ `position + center ± size/2`. Play: `_OWReflOn=1`, cubemap `OW_SongProbe_08`, 0 probe bật; ảnh cho thấy sông vẫn phản chiếu.
+  - `PhoVietOpenWorldRiverBuilder` (menu 9): bật probe chỉ trong lúc nướng, xong thì tắt.
+  - `OpenWorldBoats.BuildWake`: không `Mesh.Clear()` mỗi khung (WebGL tạo lại bộ đệm), chỉ ghi lại đỉnh/uv/màu khi số đỉnh không đổi.
+  - `PhoVietWebMemorySettings`: **bỏ giới hạn 512 px** của 21.278, trả về 1024 như 1.76.1. Theo yêu cầu không giảm độ phân giải.
+  - `PhoVietWebBuild`:
+    - `bundleVersion=1.77.0`;
+    - `BuildSingle` dùng `BuildOptions.CleanBuildCache` và kiểm `PhoVietMobileSceneStrip.Processed≥1`;
+    - `Build()` dừng nếu còn ReflectionProbe bật trong scene.
+  - Giữ từ trước:
+    - gói điện thoại chỉ ảnh nội thất xa, không phải độ phân giải;
+    - service worker không cache gói dữ liệu trên Safari;
+    - `skipWaiting`;
+    - khung «Bản cập nhật» (cập nhật 20/11/2026).
+- **Build 1.77.0 (sạch 2 gói):** 1.199 giây, không lỗi, gỡ 3.297 nội thất 3D khỏi gói điện thoại, cache `dfed8608f7274cb5`.
+
+  | Thành phần | Tệp | Kích thước |
+  | --- | --- | --- |
+  | Gói điện thoại ETC2 1024 | `f47149e5…` | 73,9 MB |
+  | Gói máy tính | `00e19d32…` | 90,1 MB |
+  | wasm | `6d6a3bd0…` | — |
+
+  Đo WebKit gói máy tính (đủ nội thất 3D): **1,88 GB, ổn định** (1.76.2: 2,43 GB tăng dần). Gói điện thoại (không nội thất 3D) theo phép chia đôi ≈ 1,7 GB, gần 1.75.0. Lỗi console `AudioClip.SetData … offsetSamples` có cả ở 1.75.0 (âm thanh WebKit Windows), không mới.
+- `docs/` thay, pack, materialize: **31/31 tệp khớp SHA-256**.
+- **Chưa thử iPhone thật.**
+- Bản build chia đôi ở `Builds/WebGL-Bisect-*`, ngoài Git, có thể xóa.
+

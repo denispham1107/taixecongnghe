@@ -213,7 +213,10 @@ namespace PhoViet.OpenWorld
                 var c = new Color(1, 1, 1, Mathf.Clamp01(b.speed / 5f)); wc.Add(c); wc.Add(c);
                 if (k < n) { int i = k * 2; wi.Add(i); wi.Add(i + 2); wi.Add(i + 1); wi.Add(i + 1); wi.Add(i + 2); wi.Add(i + 3); }
             }
-            var m = b.wake; m.Clear(); m.SetVertices(wv); m.SetUVs(0, wu); m.SetColors(wc); m.SetTriangles(wi, 0, false);
+            var m = b.wake;
+            // 21.279: không Clear() mỗi khung (WebGL tạo lại bộ đệm GPU mỗi lần) — số đỉnh cố định, chỉ ghi lại đỉnh/uv/màu
+            if (m.vertexCount != wv.Count) { m.Clear(); m.SetVertices(wv); m.SetUVs(0, wu); m.SetColors(wc); m.SetTriangles(wi, 0, false); }
+            else { m.SetVertices(wv); m.SetUVs(0, wu); m.SetColors(wc); }
             m.bounds = new Bounds(new Vector3(b.pos.x, waterY, b.pos.y), new Vector3(wakeLength * 2.4f, 2f, wakeLength * 2.4f));
         }
 

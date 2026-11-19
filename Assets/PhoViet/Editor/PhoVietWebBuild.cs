@@ -42,7 +42,7 @@ namespace PhoViet.Editor
                 var settings=UnityEditor.Rendering.EditorGraphicsSettings.GetTierSettings(BuildTargetGroup.WebGL,tier);
                 if(settings.cascadedShadowMaps){settings.cascadedShadowMaps=false;UnityEditor.Rendering.EditorGraphicsSettings.SetTierSettings(BuildTargetGroup.WebGL,tier,settings);}
             }
-            PlayerSettings.bundleVersion="1.76.2";
+            PlayerSettings.bundleVersion="1.77.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
@@ -56,6 +56,9 @@ namespace PhoViet.Editor
             PhoVietMobileSceneStrip.Active=true;
             try{BuildSingle();}finally{PhoVietMobileSceneStrip.Active=false;}
             if(PhoVietMobileSceneStrip.LastStripped<1000)throw new Exception("Mobile interior strip did not run: "+PhoVietMobileSceneStrip.LastStripped);
+            // 21.279: probe phản chiếu sông phải tắt (bật = Unity trộn cho mọi renderer → +560 MB, Safari iPhone sập).
+            foreach(var probe in UnityEngine.Object.FindObjectsByType<ReflectionProbe>(FindObjectsInactive.Include))
+                if(probe.enabled&&probe.gameObject.scene.path==Scene)throw new Exception("Reflection probe must stay disabled: "+probe.name);
             CompleteTextureVariants();
         }
 
@@ -92,14 +95,17 @@ namespace PhoViet.Editor
 
         static void BuildSingle()
         {
+            // 21.279: build sạch mỗi lần — build tăng dần có thể bỏ qua bước xử lý scene (gói điện thoại/máy tính lẫn nhau).
+            PhoVietMobileSceneStrip.Processed=0;
             var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions {
                 scenes=new[]{Scene},
                 target=BuildTarget.WebGL,
                 locationPathName="Builds/WebGL",
-                options=BuildOptions.None
+                options=BuildOptions.CleanBuildCache
             });
             if(report.summary.result!=BuildResult.Succeeded)
                 throw new Exception("Web build failed: "+report.summary.result);
+            if(PhoVietMobileSceneStrip.Processed<1)throw new Exception("Scene was not processed in this build (stale build cache)");
             PruneRuntimeOutput("Builds/WebGL");
             FinalizeWebOutput("Builds/WebGL");
         }

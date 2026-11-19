@@ -4,13 +4,13 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **19/11/2026 — Claude Code**
+Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 ## 1. Trạng thái hiện tại
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.76.2 — bản đồ mở** (iPhone: gói điện thoại 60,5 MB, texture 512 px, service worker không cache gói dữ liệu trên Safari; trang chủ có khung «Bản cập nhật») — commit `bdd5f54`, Pages run `44464973493` thành công, cache `1da791573408b434`, 30/30 tệp live khớp SHA-256. 1.76.0/1.76.1 làm Safari iPhone sập («Đã có sự cố xảy ra liên tục»), người dùng báo sập ngay khi mở link. **Chưa thử iPhone thật.** Bản trước 1.76.1 (`50db0d1`), 1.75.0 (`9861c51`). |
+| Bản đã phát hành | **1.77.0 — bản đồ mở, build sạch** (sửa Safari iPhone sập: 13 probe phản chiếu sông tắt — trước đó Unity trộn probe cho ~28.000 renderer, +560 MB và rò bộ nhớ; texture điện thoại trở lại 1024) — commit/Pages: **xem 21.279**, cache `dfed8608f7274cb5`. Đo WebKit: 1.75.0 1,65 GB · 1.76.2 2,43 GB tăng dần · 1.77.0 1,88 GB ổn định (gói máy tính). **Chưa thử iPhone thật.** Bản trước 1.76.2 (`bdd5f54`), 1.75.0 (`9861c51`). |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra. Plugin `Assets/ai.meshy` đã commit cùng 1.74.0 (`bee5707`). |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -62,6 +62,7 @@ Cập nhật lần cuối: **19/11/2026 — Claude Code**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.279 (phát hành 1.77.0, build sạch):** Tìm ra nguyên nhân Safari iPhone sập bằng đo Playwright WebKit + build chia đôi: **13 ReflectionProbe bật ở `PhanChieuSong`** (21.271) làm Unity trộn probe cho mọi renderer (+560 MB, rò bộ nhớ). Tắt probe trong scene (mặt sông vẫn phản chiếu qua `OpenWorldRiverReflections`), builder sông giữ tắt, `PhoVietWebBuild` dừng nếu có probe bật + build `CleanBuildCache` (build tăng dần có thể bỏ qua xử lý scene), vệt sóng tàu không `Mesh.Clear` mỗi khung, **bỏ giới hạn 512 px** (về 1024). Chi tiết `huongdan.md` 21.279.
 - **21.278 (`bdd5f54`, Pages `44464973493`, live 30/30 khớp — phát hành 1.76.2):** iPhone vẫn sập «ngay khi mở link» với 1.76.1 → `sw.js` không cache `*.data.unityweb` trên Safari/WebKit + `skipWaiting`; `PhoVietWebMemorySettings` texture gói điện thoại 512 px (118 texture, trừ xe người chơi/nội thất/nút cảm ứng/tù/tên lửa/máy bay); gói điện thoại 73,9 → 60,5 MB. **Trang chủ có khung «Bản cập nhật»** (`#release-notes` trong `index.html`, số bản tự lấy từ build, `app.js` báo + nút «Tải bản mới» khi máy giữ bản cũ). **Luật mới:** mỗi lần phát hành sửa khung này. Chi tiết `huongdan.md` 21.278.
 - **21.277 (`50db0d1`, Pages `44461337994`, live 30/30 khớp):** **Phát hành 1.76.1.** 1.76.0 (`c0db8ab`, 21.276) làm Safari iPhone/iPad sập («Đã có sự cố xảy ra liên tục») vì quá bộ nhớ → `Editor/PhoVietMobileSceneStrip.cs` bỏ nội thất 3D khỏi gói điện thoại (chỉ ảnh xa), gói 82,9 → 73,9 MB; gói máy tính giữ 3D. Chưa thử iPhone thật. Chi tiết `huongdan.md` 21.276–21.277.
 - **21.275 (build thử, chưa phát hành/commit):** Build WebGL **1.76.0** (21.270–21.274) trong 30,6 phút, không lỗi: gói máy tính 90,1 MB / điện thoại 82,9 MB (+14 MB so với 1.75.0); heap khi tải 401 MB (1.75.0: 366 MB, cùng cách đo); console không lỗi Unity. Chưa đo FPS (khung trình duyệt ẩn) và chưa thử điện thoại thật. Bản ở `Builds/WebGL`. Chi tiết `huongdan.md` 21.275.
@@ -414,6 +415,7 @@ Cập nhật lần cuối: **19/11/2026 — Claude Code**
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **Chờ người dùng (21.279):** thử 1.77.0 trên iPhone 13 Pro Max (xóa dữ liệu trang `github.io` trong Safari, trang chủ phải hiện «Bản cập nhật 1.77.0»). Nếu vẫn sập: đo lại bằng WebKit (`measure.cjs` — Playwright WebKit, hướng dẫn ở `huongdan.md` 21.279) và chia đôi bằng `AgentScripts/BisectBuild21279.cs`.
 - **Tiến độ việc đang làm — Dựng lại cảnh quan thành bản đồ mở (21.238, Claude Code, 17/11/2026).** Yêu cầu: xóa toàn bộ cảnh quan cũ, dựng lại 100% theo 3 ảnh (`ArtSource/Concepts/OpenWorld-20261117/ref-*.webp`) bằng Blender MCP; giữ model xe, máy bay, xe tăng, khủng long. Đã chốt: bản đồ mở lái tự do; asset cũ **ngắt và lưu trữ ngoài build** (không xóa hẳn); **chi tiết tối đa**; làm **từng đợt có ảnh duyệt**. Kế hoạch 7 đợt trong `README.md` của thư mục đó; `layout.json` là nguồn số liệu chung.
   - Xong: đợt 1 (sơ đồ) và đợt 2 (ảnh 3, v2 đã duyệt; v3 chỉ dời tháp). Đợt 3 ảnh 2 **v5 đã duyệt** (`PhoViet_OW_Ref2.blend`). Đoạn ảnh 3 v5 (bàn ghế/dù mới, hàng rào né bồn cây) đã xem. Đợt 4 ảnh 1 v1 **đã duyệt** (`PhoViet_OW_Ref1.blend`). Tháp Tài Chính ở bản đồ (160; −60) theo người dùng chọn.
   - **Luật mới 17/11:** cây xanh, chậu cây, tàu đánh cá, hiệu ứng nước sông *(21.271: người dùng yêu cầu dựng lại mặt sông bằng Blender → shader mới `PhoViet/OpenWorld/River`)* **dùng lại asset có sẵn** (`PV_StreetTree0..2.fbx`, `planter()` của `pho_viet_saigon_streets.py`, `PV_FishingBoat.fbx`, `RiverWater.shader`/`PV_RiverWater.mat`), không dựng mới. Xe/máy bay/xe tăng/khủng long giữ như cũ.
@@ -558,6 +560,7 @@ Cập nhật lần cuối: **19/11/2026 — Claude Code**
 
 ## 4. Luật đã chốt — không tự đổi
 
+- **21.279:** Không để `ReflectionProbe` **bật** trong scene bản đồ mở (Unity trộn cho mọi renderer → Safari iPhone sập); probe sông chỉ là nguồn cubemap cho `OpenWorldRiverReflections`. Bản web phát hành luôn build sạch (`CleanBuildCache`).
 - **Source21.145:**6NLđất+7NLbay/phố-cầu, randomlàn; cầuđất2làngiữa, bay4làn. Source21.148 đổi lên 180, đất +15 và không +20. W/F/vuốtxuống/nútbắn cả đất(nhắm tank)/bay(nhắm trực thăng), 5/5/chờ0,4s. Tankbịđạnplayer1phát dừng/cháylớn/khônghồi/xácactive-armoredgâyva chạm; tankcònnguyên miễnDino/sét nhưcũ. Đạnpháođãbắnvẫn tiếp tục bay.
 
 - **Source21.144:** Rấtcao giữ nguyên Cao cũ/không tựgiảm cả desktop-mobile; Cao mới giữaRấtcao-Trungbình/tựgiảm. Giữ mức đãchọn riêng mức hiệu dụng. IDpref0=Rấtcao,3=Cao,1=Trungbình,2=Thấp; không đổi lại thứtựenum hoặc tựmở adaptive choRấtcao.
@@ -664,7 +667,7 @@ Cập nhật lần cuối: **19/11/2026 — Claude Code**
 | Bay cao, giữ nút Bay và máy bay Crimson Skywing | **21.177** | `PhoVietSkywing.cs`, `SkywingVisual.cs`, `PhoVietFlightButton.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`, `PhoVietHelicopter*.cs`, template WebGL `app.js`, `Resources/Skywing`, `AgentScripts/VerifySkywing21177.cs` |
 | Đỉnh nhảy và giữ bay / bắn xe tăng từ trên không | **21.169**, lịch sử 21.143/21.145 | `PhoVietJump.cs`, `PhoVietEnergy.cs` → FlightHeightAboveSupport/RequestEnergyHover, `PhoVietFlightButton.cs`, `PhoVietPlayerMissiles.cs`, `PhoVietPlayerTankMissiles.cs` |
 | Năng lượng / icon C / giữ cao độ / lộn360 | **21.148,21.121–21.123** | `Scripts/PhoVietEnergy.cs`, `PhoVietJump.cs`, `PlayerCarVisual.cs`, `PhoVietActions.cs`, `PhoVietRiver.cs`, `PhoVietDistanceHud.cs`; `Resources/Energy/`, `Art/Energy/`, `EnergyPickup.shader`; `AgentScripts/VerifyEnergyWeb.cjs`, `VerifyRelease154Scene.cs`, `AgentScripts/VerifyEnergy2122.cs`, `VerifyEnergyRoutes2122.cs`, `InstallEnergy2122.cs`, `CaptureEnergy2122.cs`; `ArtSource/Concepts/Energy-20261103/approval.json` |
-| WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.278**, 21.277, 21.208, 21.193, 21.106, 15.2–15.4, 21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyPublishedGame.cjs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs` (512 px gói điện thoại), `PhoVietMobileSceneStrip.cs` (bỏ nội thất 3D gói điện thoại), template `sw.js` (WebKit không cache data), `.github/workflows/pages.yml` |
+| WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.279** (đo WebKit, chia đôi, probe), 21.278, 21.277, 21.208, 21.193, 21.106, 15.2–15.4, 21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyPublishedGame.cjs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs` (1024 px; 512 px của 21.278 đã bỏ), `PhoVietMobileSceneStrip.cs` (bỏ nội thất 3D gói điện thoại; móc `Extra`/`Processed`), `AgentScripts/BisectBuild21279.cs` (build chia đôi đo bộ nhớ), template `sw.js` (WebKit không cache data), `.github/workflows/pages.yml` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.
 

@@ -37,17 +37,13 @@ namespace PhoViet.Editor
   }
   // Use the same size budget for ETC2/EAC and DXT so either can load within the WebGL heap.
   // The player's paint and surface maps keep their source resolution.
+  // 21.279: bỏ giới hạn 512 px của 1.76.2 (người dùng yêu cầu không giảm độ phân giải); nguyên nhân sập iPhone là probe sông.
   public const int MobileTextureLimit=1024;
-  // 21.278: gói điện thoại (ETC2) — Safari iPhone sập vì bộ nhớ ở 1.76.x → ảnh bề mặt chung tối đa 512 px;
-  // giữ 1024 cho ảnh nội thất xa, nút cảm ứng, phòng giam, biểu tượng HUD; xe người chơi giữ nguyên.
-  public const int PhoneTextureLimit=512;
-  static int WebTextureSize(string path,TextureImporter importer,bool mobile)
+  static int WebTextureSize(string path,TextureImporter importer)
   {
    int full=importer.maxTextureSize;
    if(path.EndsWith("PV_BlueSupercar_Surface.png",StringComparison.Ordinal)||path.EndsWith("PV_BlueSupercar_Palette.png",StringComparison.Ordinal))return full;
-   if(!mobile)return Mathf.Min(full,MobileTextureLimit);
-   bool keep=path.Contains("/NoiThat/")||path.Contains("/Resources/TouchControls/")||path.Contains("/Resources/Jail/")||path.Contains("/Resources/PlayerMissile/")||path.Contains("/Resources/PlayerFlight/");
-   return Mathf.Min(full,keep?MobileTextureLimit:PhoneTextureLimit);
+   return Mathf.Min(full,MobileTextureLimit);
   }
   // GPU compression must match mobile WebGL: DXT is expanded on iPhone, and
   // the player/rider's former RGB(A)32 maps alone consumed ~169 MiB.
@@ -75,7 +71,7 @@ namespace PhoViet.Editor
     TextureImporterFormat format=path.EndsWith("PV_UrbanRider_Regions.png",StringComparison.Ordinal)?TextureImporterFormat.EAC_RG:
      importer.textureType==TextureImporterType.NormalMap||importer.DoesSourceTextureHaveAlpha()?TextureImporterFormat.ETC2_RGBA8:TextureImporterFormat.ETC2_RGB4;
     if(!mobile)format=importer.textureType==TextureImporterType.NormalMap||importer.DoesSourceTextureHaveAlpha()||path.EndsWith("PV_UrbanRider_Regions.png",StringComparison.Ordinal)?TextureImporterFormat.DXT5:TextureImporterFormat.DXT1;
-    int size=WebTextureSize(path,importer,mobile);
+    int size=WebTextureSize(path,importer);
     if(web.overridden&&web.format==format&&web.compressionQuality==50&&web.maxTextureSize==size)continue;
     web.name="WebGL";web.maxTextureSize=size;
     web.overridden=true;web.format=format;web.textureCompression=TextureImporterCompression.CompressedHQ;
@@ -94,7 +90,7 @@ namespace PhoViet.Editor
     var web=importer.GetPlatformTextureSettings("WebGL");
     var format=web.format;
     bool valid=mobile?(format==TextureImporterFormat.ETC2_RGB4||format==TextureImporterFormat.ETC2_RGBA8||format==TextureImporterFormat.EAC_RG):(format==TextureImporterFormat.DXT1||format==TextureImporterFormat.DXT5);
-    if(!valid||web.maxTextureSize!=WebTextureSize(path,importer,mobile))throw new InvalidOperationException("Web texture imports did not stabilize: "+path);
+    if(!valid||web.maxTextureSize!=WebTextureSize(path,importer))throw new InvalidOperationException("Web texture imports did not stabilize: "+path);
    }
    var report=new{mobile,changed=changes.Count,changes,subtarget=EditorUserBuildSettings.webGLBuildSubtarget.ToString()};
    Directory.CreateDirectory("Captures");File.WriteAllText(mobile?"Captures/web-memory-texture-settings.json":"Captures/web-memory-desktop-settings.json",Newtonsoft.Json.JsonConvert.SerializeObject(report,Newtonsoft.Json.Formatting.Indented));

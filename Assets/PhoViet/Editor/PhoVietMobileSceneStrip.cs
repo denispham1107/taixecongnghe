@@ -16,8 +16,16 @@ namespace PhoViet.Editor
         public static int LastStripped { get; private set; }
         public int callbackOrder => 0;
 
+        // 21.279: móc kiểm thử (build chia đôi đo bộ nhớ) — chỉ đặt từ script kiểm thử, null khi build phát hành.
+        public static System.Action<Scene> Extra;
+        // 21.279: số lần scene thật sự được xử lý trong build — build tăng dần có thể dùng lại scene đã xử lý từ lần trước
+        // (không gọi OnProcessScene) → bản phát hành build sạch (CleanBuildCache) và kiểm tra số này.
+        public static int Processed;
+
         public void OnProcessScene(Scene scene, BuildReport report)
         {
+            if (report != null) Processed++;
+            if (report != null && Extra != null) Extra(scene);
             if (!Active || report == null) return;
             int n = 0;
             foreach (var root in scene.GetRootGameObjects())

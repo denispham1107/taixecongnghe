@@ -113,8 +113,10 @@ namespace PhoViet.OpenWorldEditor
                 {
                     EditorUtility.DisplayProgressBar("Phản chiếu sông", "Probe " + i, i / (float)probes.Count);
                     var rp = probes[i]; string path = ProbeDir + "OW_SongProbe_" + i.ToString("00") + ".png";
-                    rp.mode = UnityEngine.Rendering.ReflectionProbeMode.Baked;
-                    if (!Lightmapping.BakeReflectionProbe(rp, path)) continue;
+                    rp.mode = UnityEngine.Rendering.ReflectionProbeMode.Baked; rp.enabled = true;
+                    bool baked = Lightmapping.BakeReflectionProbe(rp, path);
+                    rp.enabled = false;   // 21.279: chỉ OpenWorldRiverReflections đọc probe; probe bật = Unity trộn cho mọi renderer → Safari sập
+                    if (!baked) continue;
                     AssetDatabase.ImportAsset(path);
                     var ti = (TextureImporter)AssetImporter.GetAtPath(path);
                     if (ti)
