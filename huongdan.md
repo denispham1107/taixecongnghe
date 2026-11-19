@@ -4784,3 +4784,64 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - `docs/` thay, pack, materialize: **31/31 tệp khớp SHA-256**.
 - **Chưa thử iPhone thật.** Nếu vẫn sập: nhờ người dùng chụp dòng «Lần chơi trước bị đóng đột ngột…» trên trang chủ; số giây, FPS và khung hình sẽ cho biết nên xử lý hướng nào.
 - **Đã phát hành:** commit `5049a16`, GitHub Pages run `44614291444` thành công. Trang thật: `build-info.json` = 1.79.0, cache `d756123ff1c80759`; **30/30 tệp live khớp SHA-256** (`sw.js` khớp sau khi chuẩn hóa xuống dòng).
+
+## 21.282. Phát hành WebGL 1.80.0: nướng occlusion culling (giảm ~47% lệnh vẽ) + công tắc chẩn đoán `?diag=` (20/11/2026, Claude Code)
+
+- **Dữ liệu từ iPhone («hộp đen» 1.79.0):** game bị đóng **6 giây** và **10 giây** sau khi nạp xong.
+  - FPS 33/30, heap 384 MB (không nở), khung 1204×556@1.30, iOS 18_7, Safari Version/27.0.1.
+  - Kết luận: game bị đóng ngay sau khi bắt đầu vẽ, không phải bộ nhớ tăng dần khi chơi lâu.
+- **Đo đồ họa (scratchpad `pw/`):**
+  - `gltrack.cjs` bọc API WebGL2 để đếm bộ đệm/texture/renderbuffer game xin và đếm lệnh gọi mỗi khung. Chạy trên Chrome GPU thật (`SWIFT=0`) hoặc SwiftShader (gói điện thoại).
+  - `phonegpu.cjs` đo bộ nhớ tiến trình GPU/renderer của Chrome SwiftShader (`procs.ps1`).
+- **Kết quả đo:**
+  - Mỗi khung khi lái (1.79): **~2.200 `drawElements` + ~700 `drawElementsInstanced`**, ~720 lần gán UBO instancing 8 KB/7 KB (`bindBufferBase(UNIFORM_BUFFER)` + `bufferSubData(COPY_WRITE_BUFFER)`).
+  - **Kho bộ đệm UBO phình trong 15–20 giây đầu:** buffer WebGL tăng 2.018 → ~6.600, chủ yếu 8192/7168 byte `DYNAMIC_DRAW`; Unity giữ cho các khung đang chờ GPU. Sau đó chững lại. 1.75 cũng vậy.
+  - Gói điện thoại (SwiftShader): tiến trình GPU ~810 MB lúc nạp xong, +140 MB trong 3 giây đầu, ~980 MB; 1.75 gần như vậy (~1.010 MB).
+  - Phân tích trong Editor (`AgentScripts/DrawBreakdown21282.cs`): camera xa **1.500 m**, ~12.000 phần mesh trong khung nhìn.
+  - **15.255 renderer đã có cờ Occluder/Occludee và camera bật occlusion, nhưng chưa từng nướng dữ liệu** (`umbraDataSize` = 0) → Unity vẽ cả nhà/phố bị che khuất.
+- **Sửa — `Editor/PhoVietOpenWorldOcclusionBuilder.cs` (menu Phố Việt/Bản đồ mở/12):**
+  - **Quy tắc cờ:**
+    - **nội thất** (LODGroup «NoiThat», nhìn qua kính): không cờ + `allowOcclusionWhenDynamic=false`, nên **không bao giờ bị loại**;
+    - renderer chỉ vật liệu trong suốt và renderer LOD>0: chỉ Occludee;
+    - còn lại, kể cả 3.297 nhà mặt tiền kính (tường hông/sau vẫn chắn): Occluder + Occludee.
+    - Kết quả: nội thất 6.594, chỉ occludee 8.151, occluder+occludee 13.724.
+  - **Nướng nền:** smallest occluder 5 m, smallest hole 0,25 m, backface 100 → `Assets/PhoViet/Scenes/PhoVietOpenWorld/OcclusionCullingData.asset` (20,7 MB văn bản; gói dữ liệu tăng ~3,6 MB). 21 cảnh báo assert từ 21 mesh rỗng `OW_Duong_*_DoViaHe`, vô hại.
+  - Đo trong Editor ở điểm xuất phát (đường ven sông, tầm nhìn rộng nhất): lệnh vẽ **4.237 → 2.466**, tam giác 2,66 → 1,75 triệu; ảnh không đổi.
+  - `PhoVietWebBuild.Build()` dừng nếu thiếu dữ liệu occlusion. `bundleVersion=1.80.0`.
+  - **Dựng lại mặt tiền (menu 10) xong phải chạy lại menu 12.**
+- **Công tắc chẩn đoán** (chỉ khi mở link có `?diag=`; bản mặc định giữ nguyên toàn bộ nội dung):
+  - `OpenWorldGame.ApplyDiagnostics()` đọc `Application.absoluteURL`:
+
+    | Mã | Tác dụng |
+    | --- | --- |
+    | `noinst` | tắt GPU instancing mọi vật liệu |
+    | `noshadow` | tắt bóng |
+    | `near` | tầm nhìn 350 m |
+    | `noint` | ẩn nội thất |
+    | `notraffic` | không xe NPC |
+    | `noboats` | không tàu |
+    | `noriver` | tắt phản chiếu sông |
+    | `nopolice` | không CSGT |
+    | `all` | bật tất cả các mã trên |
+
+  - `app.js`: `dpr1` đặt mật độ điểm ảnh 1. «Hộp đen» ghi thêm `diag`.
+- Release-notes 20/11/2026: che khuất, giữ nguyên nội dung.
+- **Mặc định trên điện thoại: tắt GPU instancing** (`OpenWorldGame.ApplyDiagnostics`, `UnityEngine.Device.Application.isMobilePlatform`; `?diag=inst` bật lại để so sánh). Máy tính giữ instancing.
+  - Đo trên Chrome GPU thật với `?diag=noinst`: không còn UBO, 32 FPS (mặc định 28).
+  - Gói điện thoại (SwiftShader, UA iPhone): không còn `drawElementsInstanced` / UBO.
+  - Hình ảnh không đổi.
+- **Build 1.80.0** (sạch 2 gói): 1.184 giây, cache `9d1fd625cdd2c5a3`.
+
+  | Thành phần | Tệp | Kích thước |
+  | --- | --- | --- |
+  | Gói điện thoại | `0157efc9…` | 73,3 MB (có dữ liệu occlusion) |
+  | Gói máy tính | `3d50182b…` | 89,5 MB |
+  | wasm | `4e33a5d9…` | 5,82 MB |
+
+- **Đo:**
+  - Chrome GPU thật, gói máy tính, khi lái: mỗi khung **~1.170 `drawElements` + ~390 instanced** (1.79: ~2.220 + ~700), 28 FPS so với 21.
+  - WebKit (UA iPhone → không instancing) khi lái 60 giây: **1,56 GB** (1.79: 1,74; 1.77: 1,98; 1.75: ~1,70).
+  - Gói điện thoại: heap 384 không nở, JS 119–122 MB.
+  - Chơi thử: lái, CSGT bắt, phòng giam, tàu, sông đều đúng.
+- `docs/` thay, pack, materialize: **31/31 tệp khớp SHA-256**.
+- **Chưa thử iPhone thật.** Nếu còn sập, nhờ người dùng mở lần lượt `…/taixecongnghe/?diag=noshadow`, `?diag=near`, `?diag=noint`, `?diag=notraffic,noboats`, `?diag=all`, `?diag=dpr1` và gửi dòng «hộp đen». Link nào không sập là chỉ ra hệ thống gây lỗi.

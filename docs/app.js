@@ -28,6 +28,8 @@ async function controlGameRequests(){
 }
 // Bản đồ mở nặng hơn phố cuộn cũ: điện thoại giữ mật độ điểm ảnh tối đa 1,3.
 let pixelCap=touchDevice?1.3:0;
+// 21.282: ?diag=dpr1 (chẩn đoán) — mật độ điểm ảnh 1.
+if(/[?&]diag=[^&]*dpr1/.test(location.search))pixelCap=1;
 window.phoVietTouchDevice=touchDevice;
 function gamePixelRatio(width,height){
   const nativeRatio=Number.isFinite(window.devicePixelRatio)&&window.devicePixelRatio>0?window.devicePixelRatio:1;
@@ -237,7 +239,7 @@ function runStore(value){try{if(value)localStorage.setItem(RUN_KEY,JSON.stringif
   if(!prev||prev.ended||Date.now()-prev.last>30*60*1000)return;
   const box=$('release-check');if(!box)return;
   box.hidden=false;$('release-notes').open=true;
-  box.textContent=`Lần chơi trước bị đóng đột ngột sau ${prev.secs} giây (bản ${prev.v}, FPS ${prev.fps}, heap ${prev.heap} MB, khung ${prev.size}, ${prev.ua}). Nếu lỗi còn, hãy chụp màn hình dòng này gửi lại.`;
+  box.textContent=`Lần chơi trước bị đóng đột ngột sau ${prev.secs} giây (bản ${prev.v}, FPS ${prev.fps}, heap ${prev.heap} MB, khung ${prev.size}${prev.diag?', diag '+prev.diag:''}, ${prev.ua}). Nếu lỗi còn, hãy chụp màn hình dòng này gửi lại.`;
 })();
 function startRunRecorder(){
   const start=Date.now();let frames=0,fps=0,last=performance.now();
@@ -246,7 +248,7 @@ function startRunRecorder(){
   const write=ended=>{const heap=unityInstance?.Module?.HEAPU32?.buffer?.byteLength;
     runStore({v:window.PHO_VIET_BUILD?.productVersion||'',secs:Math.round((Date.now()-start)/1000),last:Date.now(),fps,
       heap:heap?Math.round(heap/1048576):0,size:canvas.width+'x'+canvas.height+'@'+(unityInstance?.Module?.devicePixelRatio||0).toFixed(2),
-      ua:(navigator.userAgent.match(/OS [\d_]+|Android [\d.]+|Chrome\/\d+|Version\/[\d.]+/g)||[]).join(' '),ended});};
+      diag:(location.search.match(/diag=([^&]*)/)||[])[1]||'',ua:(navigator.userAgent.match(/OS [\d_]+|Android [\d.]+|Chrome\/\d+|Version\/[\d.]+/g)||[]).join(' '),ended});};
   setInterval(()=>{if(!document.hidden)write(false);},2000);write(false);
   window.addEventListener('pagehide',()=>write(true));
   document.addEventListener('visibilitychange',()=>write(document.hidden));

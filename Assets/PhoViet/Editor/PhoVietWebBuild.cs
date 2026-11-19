@@ -50,7 +50,7 @@ namespace PhoViet.Editor
             PlayerSettings.SetIl2CppCodeGeneration(UnityEditor.Build.NamedBuildTarget.WebGL,UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize);
             PlayerSettings.SetIl2CppCompilerConfiguration(UnityEditor.Build.NamedBuildTarget.WebGL,Il2CppCompilerConfiguration.Master);
             SetWasmCodeOptimization("DiskSizeLTO");
-            PlayerSettings.bundleVersion="1.79.0";
+            PlayerSettings.bundleVersion="1.80.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
@@ -75,6 +75,8 @@ namespace PhoViet.Editor
             PhoVietMobileSceneStrip.Active=true;
             try{BuildSingle();}finally{PhoVietMobileSceneStrip.Active=false;}
             if(PhoVietMobileSceneStrip.LastStripped<1000)throw new Exception("Mobile interior strip did not run: "+PhoVietMobileSceneStrip.LastStripped);
+            // 21.282: phải có dữ liệu occlusion culling (menu Bản đồ mở/12) — thiếu thì mỗi khung vẽ mọi thứ trong tầm 1.500 m.
+            if(!System.IO.File.Exists("Assets/PhoViet/Scenes/PhoVietOpenWorld/OcclusionCullingData.asset"))throw new Exception("Missing occlusion culling data: run Phố Việt/Bản đồ mở/12");
             // 21.279: probe phản chiếu sông phải tắt (bật = Unity trộn cho mọi renderer → +560 MB, Safari iPhone sập).
             foreach(var probe in UnityEngine.Object.FindObjectsByType<ReflectionProbe>(FindObjectsInactive.Include))
                 if(probe.enabled&&probe.gameObject.scene.path==Scene)throw new Exception("Reflection probe must stay disabled: "+probe.name);

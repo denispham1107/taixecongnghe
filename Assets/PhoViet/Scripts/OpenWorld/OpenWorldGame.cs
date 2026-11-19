@@ -93,8 +93,35 @@ namespace PhoViet.OpenWorld
             catch (System.Exception) { }
         }
 
+        // 21.282: công tắc CHẨN ĐOÁN qua link (?diag=a,b,...) — chỉ để tìm nguyên nhân Safari iPhone đóng game; bản mặc định
+        // (không có ?diag) giữ nguyên toàn bộ nội dung. noinst = tắt GPU instancing, noshadow = tắt bóng, near = tầm nhìn 350 m,
+        // noint = ẩn nội thất, notraffic = không xe NPC, noboats = không tàu, noriver = tắt phản chiếu sông, nopolice = không CSGT.
+        public static string Diag { get; private set; } = "";
+        static bool Has(string k) => k == "inst" ? System.Array.IndexOf(Diag.Split(','), "inst") >= 0 : Diag.Contains(k);
+        void ApplyDiagnostics()
+        {
+            string url = Application.absoluteURL ?? ""; int i = url.IndexOf("diag=");
+            if (i >= 0) Diag = url.Substring(i + 5).Split('&', '#')[0].ToLowerInvariant();
+            // Mặc định trên điện thoại: TẮT GPU instancing. Đo WebGL: instancing cần ~500–700 bộ đệm UBO 8 KB mỗi khung, Unity giữ
+            // kho ~3.000–4.600 bộ đệm cho các khung đang chờ (phình trong 15–20 s đầu, đúng lúc Safari iPhone đóng game); tắt đi
+            // thì không còn kho này và còn nhanh hơn (Chrome: 28 → 32 FPS). Hình ảnh không đổi. ?diag=inst bật lại để so sánh.
+            if (UnityEngine.Device.Application.isMobilePlatform && !Has("inst") && !Diag.Contains("noinst")) Diag = Diag.Length > 0 ? Diag + ",noinst" : "noinst";
+            if (Diag.Length == 0) return;
+            if (Has("all")) Diag = "noinst,noshadow,near,noint,notraffic,noboats,noriver,nopolice";
+            if (Has("noinst")) foreach (var m in Resources.FindObjectsOfTypeAll<Material>()) if (m) m.enableInstancing = false;
+            if (Has("noshadow")) QualitySettings.shadows = ShadowQuality.Disable;
+            if (Has("noint")) foreach (var lg in FindObjectsByType<LODGroup>(FindObjectsInactive.Exclude)) if (lg.name == "NoiThat") lg.gameObject.SetActive(false);
+            var tr = traffic ? traffic : FindAnyObjectByType<OpenWorldTraffic>();
+            if (Has("notraffic") && tr) { tr.carCount = 0; tr.bikeCount = 0; }
+            if (Has("noboats")) { var b = FindAnyObjectByType<OpenWorldBoats>(); if (b) b.gameObject.SetActive(false); }
+            if (Has("noriver")) { var rr = FindAnyObjectByType<OpenWorldRiverReflections>(); if (rr) rr.enabled = false; }
+            if (Has("nopolice")) { var po = police ? police : FindAnyObjectByType<OpenWorldPolice>(); if (po) po.gameObject.SetActive(false); }
+            Debug.Log("[Phố Việt] chẩn đoán: " + Diag);
+        }
+
         void Awake()
         {
+            ApplyDiagnostics();
             // Điện thoại/máy tính bảng (trình duyệt di động): bóng ngắn hơn, LOD sớm hơn, bớt xe NPC (đặt trước Start của giao thông).
             if (!UnityEngine.Device.Application.isMobilePlatform) return;
             MobileProfile = true;
@@ -108,6 +135,7 @@ namespace PhoViet.OpenWorld
 
         void Start()
         {
+            if (Has("near")) foreach (var c in FindObjectsByType<Camera>(FindObjectsInactive.Exclude)) c.farClipPlane = Mathf.Min(c.farClipPlane, 350f);
             if (!hazards) hazards = FindAnyObjectByType<OpenWorldHazards>();
             if (!police) police = FindAnyObjectByType<OpenWorldPolice>();
             if (!traffic) traffic = FindAnyObjectByType<OpenWorldTraffic>();
