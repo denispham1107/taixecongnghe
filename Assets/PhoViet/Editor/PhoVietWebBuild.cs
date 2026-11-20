@@ -50,7 +50,7 @@ namespace PhoViet.Editor
             PlayerSettings.SetIl2CppCodeGeneration(UnityEditor.Build.NamedBuildTarget.WebGL,UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize);
             PlayerSettings.SetIl2CppCompilerConfiguration(UnityEditor.Build.NamedBuildTarget.WebGL,Il2CppCompilerConfiguration.Master);
             SetWasmCodeOptimization("DiskSizeLTO");
-            PlayerSettings.bundleVersion="1.80.1";
+            PlayerSettings.bundleVersion="1.81.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }

@@ -67,15 +67,19 @@ namespace PhoViet.OpenWorld
         static float BtnSize => Mathf.Max(70f, Screen.height * 0.13f);
         static float Gap => BtnSize * 0.14f;
         // 21.268 (người dùng đổi chỗ): hàng dưới Stop · Lùi · Ga (góc phải dưới); hàng trên Tên lửa (trên Lùi) · Nhảy (trên Ga).
-        public static Rect GasRect => new Rect(Screen.width - BtnSize - 24 - OpenWorldGame.SafeRightPx, Screen.height - BtnSize - 24 - OpenWorldGame.SafeBottomPx, BtnSize, BtnSize);
-        public static Rect RevRect { get { var g = GasRect; return new Rect(g.x - BtnSize - Gap, g.y, BtnSize, BtnSize); } }
-        public static Rect StopRect { get { var r = RevRect; return new Rect(r.x - BtnSize - Gap, r.y, BtnSize, BtnSize); } }
+        // 21.284 (người dùng): Ga + Nhảy to hơn 25 %, Lùi/Stop/Tên lửa to hơn 10 %; hàng dưới canh đáy, Nhảy đứng thẳng trên Ga,
+        // Tên lửa canh giữa trên Lùi (thấp hơn Nhảy một chút → hàng trên chạy theo vòng ngón cái).
+        static float BigSize => BtnSize * 1.25f;
+        static float SmallSize => BtnSize * 1.1f;
+        public static Rect GasRect => new Rect(Screen.width - BigSize - 24 - OpenWorldGame.SafeRightPx, Screen.height - BigSize - 24 - OpenWorldGame.SafeBottomPx, BigSize, BigSize);
+        public static Rect RevRect { get { var g = GasRect; return new Rect(g.x - SmallSize - Gap, g.yMax - SmallSize, SmallSize, SmallSize); } }
+        public static Rect StopRect { get { var r = RevRect; return new Rect(r.x - SmallSize - Gap, r.y, SmallSize, SmallSize); } }
         // Máy tính (không có Ga/Lùi/Stop): giữ bố cục cũ — Nhảy góc phải dưới, Tên lửa ngay trên.
         static bool touchLayout = true;
-        public static Rect JumpRect { get { var g = GasRect; return touchLayout ? new Rect(g.x, g.y - BtnSize - Gap, BtnSize, BtnSize) : g; } }
-        public static Rect FireRect { get { var r = touchLayout ? RevRect : GasRect; return new Rect(r.x, r.y - BtnSize - Gap, BtnSize, BtnSize); } }
-        // 21.270: hai nút mũi tên góc trái dưới, to hơn nút bên phải 20 % vì phải giữ liên tục.
-        static float SteerSize => BtnSize * 1.2f;
+        public static Rect JumpRect { get { var g = GasRect; return touchLayout ? new Rect(g.x, g.y - BigSize - Gap, BigSize, BigSize) : g; } }
+        public static Rect FireRect { get { var r = touchLayout ? RevRect : GasRect; return new Rect(r.center.x - SmallSize * .5f, r.y - SmallSize - Gap, SmallSize, SmallSize); } }
+        // 21.270: hai nút mũi tên góc trái dưới (phải giữ liên tục). 21.284: to hơn 25 % (1,2 → 1,5 × nút chuẩn).
+        static float SteerSize => BtnSize * 1.5f;
         public static Rect LeftRect => new Rect(OpenWorldGame.SafeLeftPx + 24, Screen.height - SteerSize - 24 - OpenWorldGame.SafeBottomPx, SteerSize, SteerSize);
         public static Rect RightRect { get { var l = LeftRect; return new Rect(l.xMax + Gap, l.y, SteerSize, SteerSize); } }
         static Vector2 ToGui(Vector2 screen) => new Vector2(screen.x, Screen.height - screen.y);
@@ -165,11 +169,12 @@ namespace PhoViet.OpenWorld
         }
 
         // Vẽ một nút ảnh: đang giữ → thu nhỏ 7 % + quầng màu nhấn phía sau; tắt (hồi chiêu/hết đạn) → xám mờ.
-        public static void DrawArtButton(Rect b, Texture2D tex, Color accent, bool held, bool enabled = true, float alpha = .92f)
+        // 21.284: trong suốt hơn để không che cảnh — để yên 68 % (nền nút trong ảnh cũng mỏng hơn), đang giữ 100 %.
+        public static void DrawArtButton(Rect b, Texture2D tex, Color accent, bool held, bool enabled = true, float alpha = .68f)
         {
             if (held) Disc(new Rect(b.x - b.width * .06f, b.y - b.width * .06f, b.width * 1.12f, b.height * 1.12f), new Color(accent.r, accent.g, accent.b, .38f));
             var q = held ? new Rect(b.x + b.width * .035f, b.y + b.height * .035f, b.width * .93f, b.height * .93f) : b;
-            var tint = enabled ? new Color(1f, 1f, 1f, held ? 1f : alpha) : new Color(.55f, .58f, .62f, .55f);
+            var tint = enabled ? new Color(1f, 1f, 1f, held ? 1f : alpha) : new Color(.55f, .58f, .62f, .42f);
             if (tex) GUI.DrawTexture(q, tex, ScaleMode.ScaleToFit, true, 0, tint, 0, 0);
             else Bar(q, new Color(.1f, .15f, .2f, .7f * tint.a), q.width * .2f);
         }
@@ -211,6 +216,7 @@ namespace PhoViet.OpenWorld
             // 21.255: xe hỏng (trúng đạn pháo/khủng long/đâm xe tăng) → văng theo vật lý, khóa lái, nằm chờ CSGT.
             if (Crashed) { Speed = 0; return; }
             TickJump(dt);
+            TickUnstick(dt);
             bool stunned = Time.time < stunUntil, stopping = Time.time < stopUntil;
             if (Time.time < flingUntil) { Speed = 0f; return; }               // 21.259: đang văng sau cú húc — để vật lý tự bay
             if (transform.position.y > -0.2f && Mathf.Abs(rb.linearVelocity.y) < 0.5f && Time.time - lastSafeTime > 1f)
@@ -269,7 +275,77 @@ namespace PhoViet.OpenWorld
         }
         void OnCollisionStay(Collision c)
         {
-            for (int i = 0; i < c.contactCount; i++) if (c.GetContact(i).normal.y > 0.55f) { supportAt = Time.time; return; }
+            for (int i = 0; i < c.contactCount; i++)
+            {
+                if (c.GetContact(i).normal.y <= 0.55f) continue;
+                supportAt = Time.time;
+                if (IsRoad(c.collider)) roadSupportAt = Time.time; else { otherSupport = c.collider; otherSupportAt = Time.time; }
+                return;
+            }
+        }
+
+        // ------------------------------------------------------------ 21.284: không kẹt lơ lửng trên xe khác / mép vật
+        // Lỗi: đang nhảy mà va xe NPC → xe người chơi rơi lên nóc/mép xe kia. Thân xe bị khóa nghiêng (FreezeRotationX/Z) nên
+        // tì một góc lên mép là treo luôn, không trượt xuống; xe NPC bên dưới lại chờ người chơi rời chỗ mới về làn (WaitRecover,
+        // không thu hồi khi còn trong khung hình) → kẹt mãi. Sửa: xe đứng yên theo phương đứng, cao hơn mặt đường ≥ 0,35 m, chỉ
+        // tì lên xe khác (hoặc vật tĩnh thấp ≥ 0,6 m mà không nhích được) quá 0,3 s → tạm bỏ va chạm với vật đó, đẩy xe trượt ra
+        // phía gần nhất và để rơi xuống đường; hết chồng lấn thì bật va chạm lại.
+        public int Unsticks { get; private set; }
+        float roadSupportAt = -10f, otherSupportAt = -10f, perchTime, unstickClearAt, unstickGiveUpAt;
+        Collider otherSupport, body;
+        readonly List<Collider> unstickIgnored = new List<Collider>();
+        readonly RaycastHit[] roadHits = new RaycastHit[8];
+
+        static bool IsRoad(Collider c) => c && c.attachedRigidbody == null && (c.name == "MatDat" || c.name == "MatCau");
+
+        // Độ cao mặt đường/mặt cầu ngay dưới xe (bỏ nóc xe, bồn cây…); NaN nếu không thấy.
+        float RoadBelow()
+        {
+            var p = transform.position;
+            int n = Physics.RaycastNonAlloc(p + Vector3.up * 0.5f, Vector3.down, roadHits, 30f, OpenWorldFences.WorldMask, QueryTriggerInteraction.Ignore);
+            float best = float.NaN;
+            for (int i = 0; i < n; i++)
+                if (IsRoad(roadHits[i].collider) && roadHits[i].point.y <= p.y + 0.3f && (float.IsNaN(best) || roadHits[i].point.y > best)) best = roadHits[i].point.y;
+            return best;
+        }
+
+        void TickUnstick(float dt)
+        {
+            if (!body) body = GetComponent<Collider>();
+            if (unstickIgnored.Count > 0 && Time.time >= unstickClearAt)
+            {
+                bool clear = true;
+                foreach (var c in unstickIgnored)
+                    if (c && c.enabled && c.gameObject.activeInHierarchy && Physics.ComputePenetration(body, body.transform.position, body.transform.rotation, c, c.transform.position, c.transform.rotation, out _, out _)) { clear = false; break; }
+                if (clear || Time.time >= unstickGiveUpAt) RestoreUnstick();
+            }
+            bool onOther = otherSupport && Time.time - otherSupportAt < 0.12f && Time.time - roadSupportAt > 0.12f;
+            float road = onOther ? RoadBelow() : float.NaN;
+            float h = float.IsNaN(road) ? 0f : transform.position.y - road;
+            bool vehicle = onOther && otherSupport.attachedRigidbody != null && otherSupport.attachedRigidbody != rb;
+            var flat = rb.linearVelocity; flat.y = 0;
+            bool perched = onOther && Mathf.Abs(rb.linearVelocity.y) < 0.8f
+                           && (vehicle ? h > 0.35f : h > 0.6f && flat.magnitude < 0.6f && otherSupport.bounds.size.y < 3f);
+            perchTime = perched ? perchTime + dt : 0f;
+            if (perchTime < (vehicle ? 0.3f : 0.6f)) return;
+            perchTime = 0f; Unsticks++;
+            var sup = otherSupport;
+            var away = transform.position - sup.bounds.center; away.y = 0;
+            if (away.sqrMagnitude < 0.04f) away = transform.right; away.Normalize();
+            var cols = vehicle ? sup.attachedRigidbody.GetComponentsInChildren<Collider>() : new[] { sup };
+            foreach (var c in cols) if (c && !c.isTrigger && !unstickIgnored.Contains(c)) { Physics.IgnoreCollision(body, c, true); unstickIgnored.Add(c); }
+            unstickClearAt = Time.time + 0.4f; unstickGiveUpAt = Time.time + 5f;
+            // trượt ra mép gần nhất ~2,2 m trong 0,5 s rồi rơi theo trọng lực (lái/ga khóa trong lúc trượt như khi bị văng)
+            rb.linearVelocity = away * 4.5f + Vector3.up * Mathf.Min(0f, rb.linearVelocity.y);
+            flingUntil = Mathf.Max(flingUntil, Time.time + 0.5f);
+            Speed = 0f; jumping = false; otherSupport = null;
+        }
+
+        void RestoreUnstick()
+        {
+            if (!body) body = GetComponent<Collider>();
+            foreach (var c in unstickIgnored) if (c && body) Physics.IgnoreCollision(body, c, false);
+            unstickIgnored.Clear();
         }
         void TickJump(float dt)
         {
@@ -490,6 +566,7 @@ namespace PhoViet.OpenWorld
             if (stunSmoke) stunSmoke.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear); stunSmokeUntil = 0f; LastHit = null;
             rb.position = pos; rb.rotation = rot; transform.SetPositionAndRotation(pos, rot);
             rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; spawnTime = Time.time;
+            RestoreUnstick(); perchTime = 0f; otherSupport = null;
             lastSafePos = pos; lastSafeRot = rot; lastSafeTime = Time.time;
         }
         public int RiverFalls { get; private set; }

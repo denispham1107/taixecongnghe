@@ -10,7 +10,7 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.80.1 — bản đồ mở** (sửa nội thất nhìn qua kính: tấm ảnh xa bộ 6 m/8 m mất UV → 1.618 căn chỉ hiện màu nâu; giữ mọi sửa của 1.80.0: occlusion, điện thoại không GPU instancing, `?diag=`, «hộp đen») — commit `28648ac` (+ `a77b7ba` kích hoạt lại Pages vì lượt đầu lỗi bước Deploy phía GitHub), Pages run `44669974461` thành công, cache `78993db4c960ea32`, 30/30 tệp live khớp SHA-256. **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** Bản trước 1.80.0 (`632245d`). |
+| Bản đã phát hành | **1.81.0 — bản đồ mở** (nút cảm ứng to/trong/nét 512² không nén; gỡ kẹt lơ lửng khi nhảy va xe; xe máy ngã khi bị húc; icon tên lửa 2 mặt; xóa cục điều hòa trắng) — build cache `4f45ba5f028f5e80`, **đang đẩy lên Pages (xem mục 3)**. Bản trước 1.80.1 (`28648ac`, nội thất qua kính). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra. Plugin `Assets/ai.meshy` đã commit cùng 1.74.0 (`bee5707`). |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -62,6 +62,7 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.284 (phát hành 1.81.0):** người dùng gửi 6 yêu cầu: icon tên lửa một mặt đen → gương mặt trước ra sau + shader ForwardBase; xe kẹt lơ lửng khi nhảy va xe (tì mép xe khác, khóa nghiêng) → `TickUnstick` cho trượt xuống; nút Trái/Phải 1,5×, Ga/Nhảy 1,25×, Lùi/Stop/Tên lửa 1,1×, để yên 68 %; ảnh nút 512² RGBA32 + mipmap; xe máy bị húc nghiêng ngã/lộn/nằm đường (`BeginFall`/`FallPose`); xóa cục điều hòa `OW_AirCon` (postprocessor + 52 mesh .asset). Heap gói điện thoại 384 MB không đổi. Chi tiết `huongdan.md` 21.284.
 - **21.283 (`28648ac`/`a77b7ba`, Pages `44669974461`, live 30/30 khớp — phát hành 1.80.1):** người dùng: 1.80.0 chơi được trên iPhone, không văng. Sửa nội thất qua kính: tấm ảnh xa bộ 6 m/8 m (`NT_*_Xa.001/.002`) bị `PhoVietInteriorMeshPostprocessor` nén mất UV → mảng nâu ở 1.618 căn (813 cửa hàng, 805 nhà ở). Sửa so tên bỏ hậu tố + nhập lại `OW_NoiThat_6_0/8_0.fbx`. Chi tiết `huongdan.md` 21.283.
 - **21.282 (`632245d`, Pages `44636930661`, live 30/30 khớp — phát hành 1.80.0):** «Hộp đen» iPhone: 1.79 bị đóng 6–10 s sau khi nạp. Đo WebGL (`pw/gltrack.cjs`): ~2.900 lệnh vẽ/khung, kho UBO instancing phình ~4.600 bộ đệm 15–20 s đầu; occlusion **chưa từng được nướng**. Sửa: `Editor/PhoVietOpenWorldOcclusionBuilder.cs` (menu 12, nội thất không bao giờ bị loại) → lệnh vẽ −47%; điện thoại tắt GPU instancing; công tắc chẩn đoán `?diag=`. WebKit khi lái 1,74 → 1,56 GB. Chi tiết `huongdan.md` 21.282.
 - **21.281 (`5049a16`, Pages `44614291444`, live 30/30 khớp — phát hành 1.79.0):** 1.78.0 vẫn sập trên iPhone; không được bớt nội dung. Phát hiện bản web luôn build wasm ở chế độ **BuildTimes** (không tối ưu) → `PhoVietWebBuild.Configure` đặt DiskSizeLTO (reflection), IL2CPP OptimizeSize + Master, stripping Medium (`link.xml` giữ Assembly-CSharp): wasm 22,1 → 16,2 MB, WebKit khi lái 1,78 → 1,74 GB, JS gói điện thoại 122 → 115 MB. `app.js` «hộp đen» báo lần chơi bị đóng đột ngột. Chi tiết `huongdan.md` 21.281.
@@ -419,7 +420,8 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **Chờ người dùng (21.283):** xem 1.80.1 trên iPhone (trang chủ «Bản cập nhật 1.80.1»): các căn có bảng hiệu (và mọi căn 6–8 m) phải thấy nội thất qua kính.
+- **Đang phát hành 21.284 (1.81.0):** build xong, `docs/` đã pack, 31/31 khớp. Còn: commit + push, chờ Pages, chạy `live.py` (30/30), commit «Record verified». Sau đó chờ người dùng thử iPhone.
+
 - **Tiến độ việc đang làm — Dựng lại cảnh quan thành bản đồ mở (21.238, Claude Code, 17/11/2026).** Yêu cầu: xóa toàn bộ cảnh quan cũ, dựng lại 100% theo 3 ảnh (`ArtSource/Concepts/OpenWorld-20261117/ref-*.webp`) bằng Blender MCP; giữ model xe, máy bay, xe tăng, khủng long. Đã chốt: bản đồ mở lái tự do; asset cũ **ngắt và lưu trữ ngoài build** (không xóa hẳn); **chi tiết tối đa**; làm **từng đợt có ảnh duyệt**. Kế hoạch 7 đợt trong `README.md` của thư mục đó; `layout.json` là nguồn số liệu chung.
   - Xong: đợt 1 (sơ đồ) và đợt 2 (ảnh 3, v2 đã duyệt; v3 chỉ dời tháp). Đợt 3 ảnh 2 **v5 đã duyệt** (`PhoViet_OW_Ref2.blend`). Đoạn ảnh 3 v5 (bàn ghế/dù mới, hàng rào né bồn cây) đã xem. Đợt 4 ảnh 1 v1 **đã duyệt** (`PhoViet_OW_Ref1.blend`). Tháp Tài Chính ở bản đồ (160; −60) theo người dùng chọn.
   - **Luật mới 17/11:** cây xanh, chậu cây, tàu đánh cá, hiệu ứng nước sông *(21.271: người dùng yêu cầu dựng lại mặt sông bằng Blender → shader mới `PhoViet/OpenWorld/River`)* **dùng lại asset có sẵn** (`PV_StreetTree0..2.fbx`, `planter()` của `pho_viet_saigon_streets.py`, `PV_FishingBoat.fbx`, `RiverWater.shader`/`PV_RiverWater.mat`), không dựng mới. Xe/máy bay/xe tăng/khủng long giữ như cũ.
@@ -564,6 +566,7 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 ## 4. Luật đã chốt — không tự đổi
 
+- **21.284:** Nút cảm ứng `Resources/TouchControls` giữ 512² RGBA32 không nén + mipmap (vẽ lại bằng `build_touch_controls.py`). Cỡ: Trái/Phải 1,5×, Ga/Nhảy 1,25×, Lùi/Stop/Tên lửa 1,1× nút chuẩn; để yên 68 %. Không đưa lại cục điều hòa (`OW_AirCon`) — postprocessor làm rỗng khi nhập; mesh nhà `.asset` mới phải chạy `RemoveAirCon21284.cs asset`. Icon tên lửa 2 mặt (`PickupTwoSided21284.cs` nếu thay mesh).
 - **21.283:** Tấm ảnh xa nội thất (`NT_*_Xa`, có thể kèm hậu tố `.00x`) phải giữ UV — xuất lại/thêm bộ nội thất thì chạy `AgentScripts/CardAttrs21283.cs` (mọi tấm phải «with UV»).
 - **21.282:** Scene bản đồ mở phải có dữ liệu occlusion (menu Bản đồ mở/12; build dừng nếu thiếu). Dựng lại mặt tiền/nhà (menu 10) hoặc đổi vật thể tĩnh → chạy lại menu 12. Nội thất (NoiThat) giữ `allowOcclusionWhenDynamic=false`. Điện thoại mặc định không GPU instancing.
 - **21.281:** Bản web phát hành dùng wasm DiskSizeLTO + IL2CPP OptimizeSize/Master + stripping Medium (đặt trong `PhoVietWebBuild.Configure`, không để BuildTimes). Mã gọi qua `SendMessage`/reflection phải nằm trong Assembly-CSharp (được `link.xml` giữ). Không bớt nội dung trên điện thoại (NPC, tàu…) khi tối ưu (người dùng chốt 20/11/2026).
@@ -600,6 +603,7 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 | Muốn đụng tới | Mục `huongdan.md` | File chính |
 | --- | --- | --- |
+| Nút cảm ứng cỡ/trong suốt/ảnh 512, gỡ kẹt lơ lửng trên xe khác, xe máy ngã, icon tên lửa 2 mặt, xóa điều hòa | **21.284** | `Scripts/OpenWorld/OpenWorldDriver.cs` (bố cục nút, `TickUnstick`), `OpenWorldTraffic.cs` (`BeginFall`/`FallPose`), `ArtSource/UI/build_touch_controls.py`, `Editor/PhoVietWebMemorySettings.cs`, `Editor/PhoVietWorldMeshPostprocessor.cs` (`StripAirCon`), `Scripts/EnergyPickup.shader`; `AgentScripts/PickupTwoSided21284.cs`, `RemoveAirCon21284.cs`, `StuckOnCar21284.cs`, `BikeFall21284.cs`, `QueueRelease21284.cs` |
 | Thiết kế icon cài đặt Phố Việt | **21.167**, 21.165–21.166, 15.2 | `ArtSource/Web/pho-viet-app-icon.svg`, `AgentScripts/GenerateWebIcons.cjs`, `ArtSource/Concepts/PWA-Icons-20261109/`, template PWA `manifest.webmanifest`, `index.html`, `icons/` |
 | Bánh xe lăn và giảm quay sau va chạm | **21.164** | `WheelRolling.cs`, `CarWheelDetail.cs`, `PlayerCarVisual.cs`, `CarVisualAnimator.cs`, `BikeVisualAnimator.cs`, `PhoVietCollisions.cs` |
 | Rời xe, đi bộ, joystick, chặn/lấy ô tô và CSGT đuổi bộ | **21.212, 21.211, 21.196, 21.209**, 2.2, 2.5 | `PhoVietFootEscape.cs`, `PhoVietFootHud.cs`, `PhoVietVehicleTakeover.cs`, `PhoVietGrenades.cs`, `PhoVietRiderCrash.cs`, `PhoVietPoliceOfficer.cs`, `PhoVietCrashPoliceNavigation.cs`, `VerifyFootEscape21196.cs` |

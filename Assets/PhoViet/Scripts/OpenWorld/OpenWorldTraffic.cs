@@ -488,6 +488,7 @@ namespace PhoViet.OpenWorld
             public ParticleSystem smoke; public OpenWorldCarDent dent; public float wreckAt;
             // 21.260: khối lượng; choáng rồi về làn chạy tiếp (không nổ); xe ẩu (vượt đèn đỏ, không giữ khoảng cách).
             public float mass = 1.4f; public bool fatal, recovering, reckless;
+            public float fallSign, fallSev, fallRoll, fallPitch, fallLift, fallStart = -1f;   // 21.284: xe máy nghiêng ngã khi va chạm
             public float recWait, stunFor, stunUntil, recoverT, recDur, recS, recklessUntil, vmaxBase, lastHitAt; public int lastHit = -1;
             public Vector3 recFromPos; public Quaternion recFromRot; public Lane recLane;
         }
@@ -765,11 +766,45 @@ namespace PhoViet.OpenWorld
             v.hitClip = v.bike ? (local.x > 0 ? "FallLeft" : "FallRight") : (Mathf.Abs(local.x) / Mathf.Max(0.3f, v.halfW) > Mathf.Abs(local.z) / Mathf.Max(0.5f, v.halfL) ? (local.x > 0 ? "ImpactRight" : "ImpactLeft") : (local.z > 0 ? "ImpactFront" : "ImpactRear"));
             v.hitUntil = float.MaxValue; v.recoverAt = 0f;
             if (v.anim && v.anim.GetClip(v.hitClip)) { v.anim.Stop(); v.anim.Play(v.hitClip); var st = v.anim[v.hitClip]; if (st != null) { st.speed = 1f; st.wrapMode = WrapMode.ClampForever; } v.clip = v.hitClip; }
+            if (v.bike) BeginFall(v, local.x, closing);
             DentAt(v, point, closing);
             Smoke(v, false);
             SetBrake(v, false, true);
             Hits++; Wrecks++;
             if (fx) ImpactFx?.Invoke(point, normal, closing);
+        }
+
+        // ---- 21.284: xe máy nghiêng ngã (người dùng: «văng ra nhưng vẫn thẳng đứng như đang chạy là không đúng»)
+        // • Ngã về phía ngược chỗ bị va (va bên phải → đổ sang trái). Va chạm càng mạnh (vận tốc khép 9 → 90 km/h) đổ càng nhanh;
+        //   từ ~55 km/h còn lộn thêm một vòng trên không, chúi đầu/bốc đầu theo nhịp văng.
+        // • Đang bay: nghiêng dần; chạm đất (hoặc bị hất nhẹ tại chỗ): nằm hẳn xuống mặt đường (nghiêng 80°), nâng gốc 0,28 m để
+        //   tay lái/gác chân không chìm xuống đường. Dựng xe về làn (TickRecover / «Recover») thì đứng dần lên.
+        const float LieRoll = 80f, LieLift = 0.28f, KnockRoll = 62f;
+        void BeginFall(Vehicle v, float hitLocalX, float closing)
+        {
+            v.fallSign = hitLocalX > 0f ? 1f : -1f;                      // Euler z dương: đổ sang trái (−x)
+            v.fallSev = Mathf.InverseLerp(MinClosing, FatalClosing, closing);
+            if (v.fallStart < 0f) { v.fallRoll = 0f; v.fallPitch = 0f; }
+            v.fallStart = Time.time;
+        }
+        Quaternion FallPose(Vehicle v, float now)
+        {
+            float dt = Time.deltaTime, k = v.fallSev;
+            bool down = !v.wreck ? now < v.hitUntil && (v.recoverAt <= 0f || now < v.recoverAt) : !v.recovering;
+            float extra = k > 0.55f ? 360f : 0f;
+            float target = down ? v.fallSign * ((v.wreck ? LieRoll : KnockRoll) + extra) : 0f;   // hất nhẹ tại chỗ (không nâng gốc) đổ 62°
+            bool flying = v.wreck && !v.landed && !v.recovering;
+            float rate = down ? (flying ? 220f + 520f * k : 300f) : 160f;
+            if (v.recovering) target = v.fallSign * LieRoll * (1f - Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(v.recoverT)));
+            else if (!down && Mathf.Abs(v.fallRoll) > 180f) v.fallRoll -= Mathf.Sign(v.fallRoll) * 360f;
+            if (v.wreck && !flying && Mathf.Abs(v.fallRoll) > 180f && Mathf.Abs(target) < 180f) v.fallRoll -= Mathf.Sign(v.fallRoll) * 360f;
+            v.fallRoll = v.recovering ? target : Mathf.MoveTowards(v.fallRoll, target, rate * dt);
+            float pitchWant = flying ? Mathf.Sin((now - v.fallStart) * (6f + 6f * k)) * (8f + 22f * k) : 0f;
+            v.fallPitch = Mathf.MoveTowards(v.fallPitch, pitchWant, 120f * dt);
+            float lie = Mathf.Abs(Mathf.Sin(v.fallRoll * Mathf.Deg2Rad));
+            v.fallLift = LieLift * lie;
+            if (!down && !v.recovering && Mathf.Abs(v.fallRoll) < 0.5f && Mathf.Abs(v.fallPitch) < 0.5f) { v.fallStart = -1f; v.fallLift = 0f; return Quaternion.Euler(0, 0, v.lean); }
+            return Quaternion.Euler(v.fallPitch, 0f, v.fallRoll);
         }
 
         void DentAt(Vehicle v, Vector3 point, float closing)
@@ -817,7 +852,7 @@ namespace PhoViet.OpenWorld
                 var hv = Vector3.MoveTowards(v.wreckVel, Vector3.zero, 7f * dt); v.wreckVel = hv;
                 v.wreckSpin = Vector3.MoveTowards(v.wreckSpin, Vector3.zero, 300f * dt);
                 var step = hv * dt; BlockWreck(v, ref step);
-                v.pos += step; v.pos.y = Mathf.MoveTowards(v.pos.y, ground, 4f * dt);
+                v.pos += step; v.pos.y = Mathf.MoveTowards(v.pos.y, ground + (v.bike ? v.fallLift : 0f), 4f * dt);
                 v.rot = Quaternion.Euler(v.wreckSpin * dt) * v.rot;
             }
             v.fwd = v.rot * Vector3.forward;
@@ -935,7 +970,7 @@ namespace PhoViet.OpenWorld
                 v.wreck = false; v.recovering = false; v.landed = false; v.fatal = false;
                 v.lane = L; v.s = v.recS; v.inConn = false; v.committed = false; v.claimed = false; v.waiting = false; v.exitBlocked = false; v.conn = null;
                 v.next = PickNext(L, v); v.speed = 0f; v.prevSpeed = 0f; v.lateral = 0f; v.shift = 0f; v.stopTime = 0f; v.blockedTime = 0f;
-                v.hitUntil = 0f; v.recoverAt = 0f; v.clip = null; v.lean = 0f; v.visual.localRotation = Quaternion.identity;
+                v.hitUntil = 0f; v.recoverAt = 0f; v.clip = null; v.lean = 0f; v.fallStart = -1f; v.fallLift = 0f; v.visual.localRotation = Quaternion.identity;
                 Recovered++;
             }
             v.rb.MovePosition(v.pos); v.rb.MoveRotation(v.rot);
@@ -1120,6 +1155,7 @@ namespace PhoViet.OpenWorld
             {
                 v.hitClip = local.x > 0 ? "FallLeft" : "FallRight";       // bị đâm bên phải → ngã sang trái
                 v.hitUntil = Time.time + 3.6f; v.recoverAt = Time.time + 2.4f;
+                BeginFall(v, local.x, 6f);
             }
             else
             {
@@ -1160,7 +1196,7 @@ namespace PhoViet.OpenWorld
                 v.baseLateral = v.bike ? ((float)rnd.NextDouble() * 2f - 1f) * 0.7f : 0f; v.lateral = v.baseLateral;
                 v.pos = p + L.right * v.lateral; v.fwd = L.dir; v.rot = Quaternion.LookRotation(L.dir);
                 v.root.SetPositionAndRotation(v.pos, v.rot); v.rb.position = v.pos; v.rb.rotation = v.rot;
-                v.root.gameObject.SetActive(true); v.active = true; v.clip = null; v.lean = 0; v.visual.localRotation = Quaternion.identity;
+                v.root.gameObject.SetActive(true); v.active = true; v.clip = null; v.lean = 0; v.fallStart = -1f; v.fallLift = 0f; v.visual.localRotation = Quaternion.identity;
                 SetBrake(v, false, true);
                 if (v.bike && bikeMaterials != null && bikeMaterials.Length > 0)
                 {
@@ -1496,7 +1532,7 @@ namespace PhoViet.OpenWorld
             {
                 if (!v.active) continue;
                 bool hit = now < v.hitUntil;
-                if (v.bike) v.visual.localRotation = hit ? Quaternion.identity : Quaternion.Euler(0, 0, v.lean);
+                if (v.bike) v.visual.localRotation = v.fallStart >= 0f ? FallPose(v, now) : hit ? Quaternion.identity : Quaternion.Euler(0, 0, v.lean);
                 if (!v.anim) continue;
                 if (hit)
                 {

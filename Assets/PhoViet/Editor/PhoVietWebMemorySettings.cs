@@ -35,6 +35,7 @@ namespace PhoViet.Editor
    foreach(string icon in new[]{"Assets/PhoViet/Resources/PlayerFlight/PV_FlightUp.png","Assets/PhoViet/Resources/PlayerFlight/PV_FlightLand.png"})if(File.Exists(icon))paths.Add(icon);
    return paths.SelectMany(p=>AssetDatabase.GetDependencies(p,true)).Distinct().ToArray();
   }
+  static bool IsTouchButton(string path)=>path.StartsWith("Assets/PhoViet/Resources/TouchControls/",StringComparison.Ordinal);
   // Use the same size budget for ETC2/EAC and DXT so either can load within the WebGL heap.
   // The player's paint and surface maps keep their source resolution.
   // 21.279: bỏ giới hạn 512 px của 1.76.2 (người dùng yêu cầu không giảm độ phân giải); nguyên nhân sập iPhone là probe sông.
@@ -71,6 +72,9 @@ namespace PhoViet.Editor
     TextureImporterFormat format=path.EndsWith("PV_UrbanRider_Regions.png",StringComparison.Ordinal)?TextureImporterFormat.EAC_RG:
      importer.textureType==TextureImporterType.NormalMap||importer.DoesSourceTextureHaveAlpha()?TextureImporterFormat.ETC2_RGBA8:TextureImporterFormat.ETC2_RGB4;
     if(!mobile)format=importer.textureType==TextureImporterType.NormalMap||importer.DoesSourceTextureHaveAlpha()||path.EndsWith("PV_UrbanRider_Regions.png",StringComparison.Ordinal)?TextureImporterFormat.DXT5:TextureImporterFormat.DXT1;
+    // 21.284: nút cảm ứng (người dùng: «tăng độ phân giải tối đa, đang bị bể») — giữ RGBA32 không nén ở cả hai gói (ảnh 512² có
+    // mipmap, 7 ảnh ≈ 9,3 MB), không nén khối ETC2/DXT làm nhòe nét viền và chữ.
+    if(IsTouchButton(path))format=TextureImporterFormat.RGBA32;
     int size=WebTextureSize(path,importer);
     if(web.overridden&&web.format==format&&web.compressionQuality==50&&web.maxTextureSize==size)continue;
     web.name="WebGL";web.maxTextureSize=size;
@@ -90,6 +94,7 @@ namespace PhoViet.Editor
     var web=importer.GetPlatformTextureSettings("WebGL");
     var format=web.format;
     bool valid=mobile?(format==TextureImporterFormat.ETC2_RGB4||format==TextureImporterFormat.ETC2_RGBA8||format==TextureImporterFormat.EAC_RG):(format==TextureImporterFormat.DXT1||format==TextureImporterFormat.DXT5);
+    if(IsTouchButton(path))valid=format==TextureImporterFormat.RGBA32;
     if(!valid||web.maxTextureSize!=WebTextureSize(path,importer))throw new InvalidOperationException("Web texture imports did not stabilize: "+path);
    }
    var report=new{mobile,changed=changes.Count,changes,subtarget=EditorUserBuildSettings.webGLBuildSubtarget.ToString()};

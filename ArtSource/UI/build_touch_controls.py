@@ -5,7 +5,8 @@ khối phẳng có bóng nhẹ. Vẽ ở 4× rồi thu nhỏ để khử răng c
 quyết định (OpenWorldDriver: vô lăng 78 % khi để yên, 95 % khi đang giữ; nút 88 %).
 
 Chạy:  python ArtSource/UI/build_touch_controls.py
-Ra:    Assets/PhoViet/Resources/TouchControls/PV_Btn_{Left,Right,Gas,Reverse,Stop,Jump,Missile}.png (320²)
+Ra:    Assets/PhoViet/Resources/TouchControls/PV_Btn_{Left,Right,Gas,Reverse,Stop,Jump,Missile}.png (512², 21.284; trước 320²)
+       21.284: nền nút mỏng hơn (alpha 235 → 150) để thấy cảnh phía sau; icon và chữ giữ đặc.
        (21.270: bỏ PV_Wheel.png — vô lăng thay bằng 2 nút mũi tên)
 """
 import math
@@ -18,6 +19,8 @@ OUT = os.path.join(ROOT, 'Assets', 'PhoViet', 'Resources', 'TouchControls')
 FONT = os.path.join(ROOT, 'Assets', 'PhoViet', 'Fonts', 'BeVietnamPro-SemiBold.ttf')
 OUTLINE = (16, 38, 58, 255)
 CREAM = (255, 244, 214, 255)
+FINAL = 512          # 21.284: cạnh ảnh nút (vẽ 3× rồi thu nhỏ); Unity nhập không nén + mipmap
+PLATE_A = 150        # 21.284: độ đặc nền nút (trước 235)
 
 
 def hexc(h, a=255):
@@ -178,7 +181,7 @@ def plate(S, accent):
     m = S * .07; box = (m, m, S - m, S - m); rad = S * .2
     pm = mask_rrect((S, S), box, rad)
     shadow(img, pm, (0, int(S * .03)), S * .03, .55)
-    paste_masked(img, vgrad((S, S), hexc('#24476a', 235), hexc('#0c1b2c', 235)), pm)
+    paste_masked(img, vgrad((S, S), hexc('#24476a', PLATE_A), hexc('#0c1b2c', PLATE_A)), pm)
     # ánh màu nhấn dưới đáy
     glow = rgrad((S, S), (S / 2, S * .95), accent[:3] + (110,), accent[:3] + (0,), S * .55)
     paste_masked(img, glow, pm)
@@ -366,7 +369,7 @@ BUTTONS = [
 ]
 
 
-def build_button(name, text, accent_hex, icon, size_frac, final=320):
+def build_button(name, text, accent_hex, icon, size_frac, final=FINAL):
     S = final * 3; accent = hexc(accent_hex)
     img = plate(S, accent)
     d = ImageDraw.Draw(img)
@@ -380,8 +383,8 @@ def main():
     # 21.270: vô lăng thay bằng 2 nút mũi tên trái/phải (build_wheel giữ lại để tham khảo, không xuất nữa).
     sheet = Image.new('RGBA', (330 * len(BUTTONS), 320), (70, 80, 90, 255))
     for i, (name, text, acc, icon, sf) in enumerate(BUTTONS):
-        im = build_button(name, text, acc, icon, sf); im.save(os.path.join(OUT, 'PV_Btn_%s.png' % name))
-        sheet.alpha_composite(im, (i * 330, 0))
+        im = build_button(name, text, acc, icon, sf); im.save(os.path.join(OUT, 'PV_Btn_%s.png' % name), optimize=True)
+        sheet.alpha_composite(im.resize((320, 320), Image.LANCZOS), (i * 330, 0))
     prev = os.path.join(ROOT, 'ArtSource', 'UI', 'touch_controls_preview.png')
     sheet.save(prev)
     print('ok', OUT)

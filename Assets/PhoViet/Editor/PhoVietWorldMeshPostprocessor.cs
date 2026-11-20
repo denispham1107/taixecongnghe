@@ -23,7 +23,26 @@ namespace PhoViet.OpenWorldEditor
         void OnPostprocessModel(GameObject root)
         {
             if (!Applies(assetPath)) return;
-            foreach (var mf in root.GetComponentsInChildren<MeshFilter>(true)) if (mf.sharedMesh) Repack(mf.sharedMesh);
+            foreach (var mf in root.GetComponentsInChildren<MeshFilter>(true))
+            {
+                if (!mf.sharedMesh) continue;
+                Repack(mf.sharedMesh);
+                var r = mf.GetComponent<MeshRenderer>(); if (r) StripAirCon(mf.sharedMesh, r.sharedMaterials);
+            }
+        }
+
+        // 21.284 (người dùng: «khối vuông chữ nhật màu trắng trên bảng hiệu, ban công, tường… xóa đi»): cục điều hòa (vật liệu
+        // OW_AirCon) dựng sẵn trong mặt tiền nhà — ở tầng trệt nó đè lên bảng hiệu. Làm rỗng submesh đó (giữ số submesh để vật
+        // liệu các phần khác không lệch). Nhà .asset (NhaNgan/NhaNoiBat) xử lý bằng AgentScripts/RemoveAirCon21284.cs.
+        public static int StripAirCon(Mesh m, Material[] mats)
+        {
+            int n = 0;
+            for (int s = 0; s < m.subMeshCount && s < mats.Length; s++)
+            {
+                if (!mats[s] || !mats[s].name.StartsWith("OW_AirCon") || m.GetIndexCount(s) == 0) continue;
+                m.SetIndices(new int[0], m.GetTopology(s), s, false); n++;
+            }
+            return n;
         }
 
         public static bool Repack(Mesh m)

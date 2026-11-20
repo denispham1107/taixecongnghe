@@ -6,6 +6,9 @@ Shader "PhoViet/Energy Pickup"
   Tags {"RenderType"="Opaque" "Queue"="Geometry"}
   Pass
   {
+   // 21.284: pass không có LightMode chạy ở dạng «Always» → bản WebGL không nạp _WorldSpaceLightPos0 (= 0) → normalize(0) = NaN
+   // → cả icon tên lửa thành khối đen trên iPhone. Đặt ForwardBase + hướng nắng dự phòng khi thiếu.
+   Tags {"LightMode"="ForwardBase"}
    CGPROGRAM
    #pragma vertex vert
    #pragma fragment frag
@@ -17,7 +20,8 @@ Shader "PhoViet/Energy Pickup"
    v2f vert(appdata_full v){v2f o;o.pos=UnityObjectToClipPos(v.vertex);o.normal=UnityObjectToWorldNormal(v.normal);o.view=_WorldSpaceCameraPos-mul(unity_ObjectToWorld,v.vertex).xyz;o.color=v.color;UNITY_TRANSFER_FOG(o,o.pos);return o;}
    fixed4 frag(v2f i):SV_Target
    {
-    float3 n=normalize(i.normal),v=normalize(i.view),l=normalize(_WorldSpaceLightPos0.xyz);
+    float3 n=normalize(i.normal),v=normalize(i.view),l0=_WorldSpaceLightPos0.xyz;
+    float3 l=dot(l0,l0)>1e-6?normalize(l0):float3(.32,.86,.4);
     float lambert=max(0,dot(n,l)),rim=pow(1-saturate(dot(n,v)),3);
     float spec=pow(max(0,dot(n,normalize(v+l))),40)*.25;
     float3 warm=float3(i.color.b, i.color.g*.62+i.color.b*.17, i.color.r*.60+i.color.g*.06);
