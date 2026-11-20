@@ -10,7 +10,7 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.80.0 — bản đồ mở, build sạch** (occlusion culling đã nướng — lệnh vẽ −47%; điện thoại tắt GPU instancing (kho UBO phình 15–20 s đầu); công tắc chẩn đoán `?diag=`; «hộp đen»; giữ nguyên nội dung/độ phân giải) — commit `632245d`, Pages run `44636930661` thành công, cache `9d1fd625cdd2c5a3`, 30/30 tệp live khớp SHA-256. WebKit khi lái: 1.75 ~1,70 · 1.77 1,98 · 1.79 1,74 · 1.80 **1,56 GB**. **Chưa thử iPhone thật.** Bản trước 1.79.0 (`5049a16`). |
+| Bản đã phát hành | **1.80.1 — bản đồ mở** (sửa nội thất nhìn qua kính: tấm ảnh xa bộ 6 m/8 m mất UV → 1.618 căn chỉ hiện màu nâu; giữ mọi sửa của 1.80.0: occlusion, điện thoại không GPU instancing, `?diag=`, «hộp đen») — commit: xem mục 2, cache `78993db4c960ea32`. **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** Bản trước 1.80.0 (`632245d`). |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra. Plugin `Assets/ai.meshy` đã commit cùng 1.74.0 (`bee5707`). |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -62,6 +62,7 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.283 (phát hành 1.80.1):** người dùng: 1.80.0 chơi được trên iPhone, không văng. Sửa nội thất qua kính: tấm ảnh xa bộ 6 m/8 m (`NT_*_Xa.001/.002`) bị `PhoVietInteriorMeshPostprocessor` nén mất UV → mảng nâu ở 1.618 căn (813 cửa hàng, 805 nhà ở). Sửa so tên bỏ hậu tố + nhập lại `OW_NoiThat_6_0/8_0.fbx`. Chi tiết `huongdan.md` 21.283.
 - **21.282 (`632245d`, Pages `44636930661`, live 30/30 khớp — phát hành 1.80.0):** «Hộp đen» iPhone: 1.79 bị đóng 6–10 s sau khi nạp. Đo WebGL (`pw/gltrack.cjs`): ~2.900 lệnh vẽ/khung, kho UBO instancing phình ~4.600 bộ đệm 15–20 s đầu; occlusion **chưa từng được nướng**. Sửa: `Editor/PhoVietOpenWorldOcclusionBuilder.cs` (menu 12, nội thất không bao giờ bị loại) → lệnh vẽ −47%; điện thoại tắt GPU instancing; công tắc chẩn đoán `?diag=`. WebKit khi lái 1,74 → 1,56 GB. Chi tiết `huongdan.md` 21.282.
 - **21.281 (`5049a16`, Pages `44614291444`, live 30/30 khớp — phát hành 1.79.0):** 1.78.0 vẫn sập trên iPhone; không được bớt nội dung. Phát hiện bản web luôn build wasm ở chế độ **BuildTimes** (không tối ưu) → `PhoVietWebBuild.Configure` đặt DiskSizeLTO (reflection), IL2CPP OptimizeSize + Master, stripping Medium (`link.xml` giữ Assembly-CSharp): wasm 22,1 → 16,2 MB, WebKit khi lái 1,78 → 1,74 GB, JS gói điện thoại 122 → 115 MB. `app.js` «hộp đen» báo lần chơi bị đóng đột ngột. Chi tiết `huongdan.md` 21.281.
 - **21.280 (`aa77e0b`, Pages `44607132596`, live 30/30 khớp — phát hành 1.78.0):** iPhone vào được 1.77.0 nhưng sập sau 10–20 s. Đo: gói điện thoại 1.77 ≈ 1.75 (heap 366 MiB, không nở khi lái) → game sát trần Safari. Không giảm độ phân giải: `Editor/PhoVietWorldMeshPostprocessor.cs` nén đỉnh mesh thế giới (Triplanar/ShopGlass chỉ đọc vị trí + pháp tuyến), 62 mesh nhà `.asset`, cây bỏ tangent → mesh 219 → 143 MB, gói điện thoại 73,9 → 69,6 MB; heap đầu 384 MiB. WebKit khi lái 1,98 → 1,78 GB. Chi tiết `huongdan.md` 21.280.
@@ -418,7 +419,7 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **Chờ người dùng (21.282):** thử 1.80.0 trên iPhone (trang chủ «Bản cập nhật 1.80.0»). Nếu còn sập: thử lần lượt các link `?diag=noshadow`, `near`, `noint`, `notraffic,noboats`, `all`, `dpr1` (bảng mã ở `huongdan.md` 21.282) và gửi dòng «hộp đen» — link nào không sập chỉ ra hệ thống gây lỗi. Không bớt nội dung/độ phân giải trong bản mặc định (người dùng chốt).
+- **Chờ người dùng (21.283):** xem 1.80.1 trên iPhone (trang chủ «Bản cập nhật 1.80.1»): các căn có bảng hiệu (và mọi căn 6–8 m) phải thấy nội thất qua kính.
 - **Tiến độ việc đang làm — Dựng lại cảnh quan thành bản đồ mở (21.238, Claude Code, 17/11/2026).** Yêu cầu: xóa toàn bộ cảnh quan cũ, dựng lại 100% theo 3 ảnh (`ArtSource/Concepts/OpenWorld-20261117/ref-*.webp`) bằng Blender MCP; giữ model xe, máy bay, xe tăng, khủng long. Đã chốt: bản đồ mở lái tự do; asset cũ **ngắt và lưu trữ ngoài build** (không xóa hẳn); **chi tiết tối đa**; làm **từng đợt có ảnh duyệt**. Kế hoạch 7 đợt trong `README.md` của thư mục đó; `layout.json` là nguồn số liệu chung.
   - Xong: đợt 1 (sơ đồ) và đợt 2 (ảnh 3, v2 đã duyệt; v3 chỉ dời tháp). Đợt 3 ảnh 2 **v5 đã duyệt** (`PhoViet_OW_Ref2.blend`). Đoạn ảnh 3 v5 (bàn ghế/dù mới, hàng rào né bồn cây) đã xem. Đợt 4 ảnh 1 v1 **đã duyệt** (`PhoViet_OW_Ref1.blend`). Tháp Tài Chính ở bản đồ (160; −60) theo người dùng chọn.
   - **Luật mới 17/11:** cây xanh, chậu cây, tàu đánh cá, hiệu ứng nước sông *(21.271: người dùng yêu cầu dựng lại mặt sông bằng Blender → shader mới `PhoViet/OpenWorld/River`)* **dùng lại asset có sẵn** (`PV_StreetTree0..2.fbx`, `planter()` của `pho_viet_saigon_streets.py`, `PV_FishingBoat.fbx`, `RiverWater.shader`/`PV_RiverWater.mat`), không dựng mới. Xe/máy bay/xe tăng/khủng long giữ như cũ.
@@ -563,6 +564,7 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 ## 4. Luật đã chốt — không tự đổi
 
+- **21.283:** Tấm ảnh xa nội thất (`NT_*_Xa`, có thể kèm hậu tố `.00x`) phải giữ UV — xuất lại/thêm bộ nội thất thì chạy `AgentScripts/CardAttrs21283.cs` (mọi tấm phải «with UV»).
 - **21.282:** Scene bản đồ mở phải có dữ liệu occlusion (menu Bản đồ mở/12; build dừng nếu thiếu). Dựng lại mặt tiền/nhà (menu 10) hoặc đổi vật thể tĩnh → chạy lại menu 12. Nội thất (NoiThat) giữ `allowOcclusionWhenDynamic=false`. Điện thoại mặc định không GPU instancing.
 - **21.281:** Bản web phát hành dùng wasm DiskSizeLTO + IL2CPP OptimizeSize/Master + stripping Medium (đặt trong `PhoVietWebBuild.Configure`, không để BuildTimes). Mã gọi qua `SendMessage`/reflection phải nằm trong Assembly-CSharp (được `link.xml` giữ). Không bớt nội dung trên điện thoại (NPC, tàu…) khi tối ưu (người dùng chốt 20/11/2026).
 - **21.280:** Mesh `OpenWorld/Chunks/OW_Map_*.fbx` và `Library/OW_Mau_NhaPho_*.fbx` chỉ còn vị trí + pháp tuyến (nén khi nhập). Không gán cho chúng shader cần UV/tangent/màu; mesh nhà `.asset` mới tạo phải chạy `PhoVietWorldMeshPostprocessor.Repack`. Không giảm độ phân giải texture/màn hình khi tối ưu bộ nhớ (người dùng chốt).
