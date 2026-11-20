@@ -4,13 +4,13 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **21/11/2026 — Claude Code (21.291, phát hành 1.84.0)**
+Cập nhật lần cuối: **21/11/2026 — Claude Code (21.292, phát hành 1.85.0)**
 
 ## 1. Trạng thái hiện tại
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.84.0 — bản đồ mở** (bánh răng «Cấu hình đồ họa» 4 mức: Rất cao = mật độ điểm ảnh gốc, Cao, Trung bình tự động — mặc định điện thoại, Yếu; thông báo dạng thẻ; tạm bỏ chữ tường) — commit `a273fb0`, Pages run `44813186429` thành công, cache `10a027ef8e5fb1a5`, 30/30 tệp live khớp SHA-256. Gói điện thoại 102,5 MB, heap 384 MB (418 MB sau đợt xe tăng đầu). Bản trước 1.83.0 (`c714450`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
+| Bản đã phát hành | **1.85.0 — bản đồ mở** (hộp nhà phố ở xa đúng khối + chừa kính tầng trệt: hết tường lấn đường ở giao lộ và tường che kính khi nhìn xa; nút Trái/Phải/Nhảy/Ga +10 %; thả ga trôi lâu hơn) — commit `72586cc`, Pages run `44824413385` thành công, cache `20ad4cb65cf2110c`, 30/30 tệp live khớp SHA-256. Gói điện thoại 102,4 MB, heap 384 MB (418 MB sau đợt xe tăng đầu). Bản trước 1.84.0 (`a273fb0`, cấu hình đồ họa 4 mức, thông báo dạng thẻ). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra. Plugin `Assets/ai.meshy` đã commit cùng 1.74.0 (`bee5707`). |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -62,6 +62,7 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (21.291, phát hành 1.8
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.292 (`72586cc`, Pages `44824413385`, live 30/30 khớp — phát hành 1.85.0):** hộp xa `LOD1_Hop` của 3.283 nhà phố nằm nghiêng (cao 3 m, dài 18 m dọc phố) → tường lấn đường ở giao lộ + che kính khi nhìn xa; menu 16 `PhoVietOpenWorldFarBoxBuilder` dựng lại hộp đúng khối, chừa hốc kính tầng trệt (69 lưới `Library/HopXa`), nướng lại occlusion. Nút Trái/Phải ×1,65, Ga/Nhảy ×1,375 (+10 %); `drag` 2,2 → 1,6. Chi tiết `huongdan.md` 21.292.
 - **21.291 (`a273fb0`, Pages `44813186429`, live 30/30 khớp — phát hành 1.84.0):** tạm bỏ chữ tường (xóa gốc `ChuTuong`, vẽ lại bằng menu 15); bánh răng góc phải thẻ chào → «Cấu hình đồ họa» Rất cao (mật độ gốc, iPhone 3x; không MSAA, bóng 1 tầng) / Cao (0,8 gốc) / Trung bình (tự động 0,4–0,67 gốc, mặc định điện thoại) / Yếu (1x, tắt bóng), lưu PlayerPrefs + localStorage; thông báo trong game dạng thẻ `OpenWorldToast` (CSGT, hiểm họa, xe). Gói điện thoại 102,5 MB. Chi tiết `huongdan.md` 21.291.
 - **21.290 (`c714450`, Pages `44800981848`, live 30/30 khớp — phát hành 1.83.0 cùng 21.286/21.288/21.289; chữ tường giao lộ):** 274 bảng chữ to trên mảng tường hông trống nhìn ra phố (25 % mỗi câu Cù Lao Petshop Tắm Làm Đẹp 66K / Lưu Trú 66K / Hỏa Táng 300K, 25 % khẩu hiệu CẤM ĐÁI BẬY / AI XE ÔM KHÔNG / CẤM ĐỔ RÁC / HÚT BỒN CẦU ĐÂY), ngang hoặc dọc, canh giữa, 2 màu tương phản tường. Blender `build_wall_texts.py` → `Library/OW_ChuTuong.fbx`; Unity menu 15 `Editor/PhoVietOpenWorldWallTextBuilder.cs` (gốc scene `ChuTuong`). Chi tiết `huongdan.md` 21.290.
 - **21.289 (phát hành 1.83.0 — mặt tiền nhà phố):** toàn bộ nhà phố (48 mẫu + 14 nhà nổi bật) đổi sang mặt tiền shophouse hiện đại chi tiết (cửa sổ, ban công, cây lá thật) dựng bằng Blender; tầng trệt cửa hàng giữ nguyên. Chi tiết `huongdan.md` 21.289.
@@ -427,9 +428,7 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (21.291, phát hành 1.8
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **ĐANG LÀM 21.292 (Claude Code):** đã sửa hộp xa 3.283 nhà phố (menu 16, scene đã lưu), nút +10 %, drag 1,6; đang nướng occlusion nền (menu 12) → build 1.85.0 (`AgentScripts/QueueRelease21292.cs`) → phát hành (người dùng đã đồng ý).
-
-- **Chờ người dùng (21.291):** thử 1.84.0 trên iPhone: bánh răng thẻ chào → Rất cao/Cao/Trung bình/Yếu, thông báo dạng thẻ. Nếu văng ở Rất cao: chuyển Cao/Trung bình; nghi heap nở +35 MB khi đợt xe tăng đầu (mét 150) — có từ trước 21.291.
+- **Chờ người dùng (21.292):** thử 1.85.0 trên iPhone: không còn tường lấn đường ở giao lộ, kính cửa hàng hiện ở mọi khoảng cách (cả mức Yếu), nút Trái/Phải/Nhảy/Ga to hơn, thả ga trôi lâu hơn; cấu hình bánh răng 21.291. Nếu văng ở Rất cao: chuyển Cao/Trung bình; nghi heap nở +35 MB khi đợt xe tăng đầu (mét 150) — có từ trước.
 
 - **Chờ người dùng (21.285):** thử 1.82.0 trên iPhone (trang chủ «Bản cập nhật 1.82.0»): tàu bắn khi lên lề sông + hạ tàu, hố trên lề sông, tiệm «Cù Lao Petshop», xe nét hơn. Nếu iPhone văng: hạ `PV_BlueSupercar_Palette` về ETC2 chất lượng 100 (`PhoVietWebMemorySettings`) trước tiên.
 
