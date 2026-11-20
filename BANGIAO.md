@@ -10,7 +10,7 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.81.0 — bản đồ mở** (nút cảm ứng to/trong/nét 512² không nén; gỡ kẹt lơ lửng khi nhảy va xe; xe máy ngã khi bị húc; icon tên lửa 2 mặt; xóa cục điều hòa trắng) — build cache `4f45ba5f028f5e80`, **đang đẩy lên Pages (xem mục 3)**. Bản trước 1.80.1 (`28648ac`, nội thất qua kính). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
+| Bản đã phát hành | **1.81.0 — bản đồ mở** (nút cảm ứng to/trong/nét 512² không nén; gỡ kẹt lơ lửng khi nhảy va xe; xe máy ngã khi bị húc; icon tên lửa 2 mặt; xóa cục điều hòa trắng) — commit `280d6e1`, Pages run `44685300563` thành công, cache `4f45ba5f028f5e80`, 30/30 tệp live khớp SHA-256. Bản trước 1.80.1 (`28648ac`, nội thất qua kính). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra. Plugin `Assets/ai.meshy` đã commit cùng 1.74.0 (`bee5707`). |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -62,7 +62,7 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.284 (phát hành 1.81.0):** người dùng gửi 6 yêu cầu: icon tên lửa một mặt đen → gương mặt trước ra sau + shader ForwardBase; xe kẹt lơ lửng khi nhảy va xe (tì mép xe khác, khóa nghiêng) → `TickUnstick` cho trượt xuống; nút Trái/Phải 1,5×, Ga/Nhảy 1,25×, Lùi/Stop/Tên lửa 1,1×, để yên 68 %; ảnh nút 512² RGBA32 + mipmap; xe máy bị húc nghiêng ngã/lộn/nằm đường (`BeginFall`/`FallPose`); xóa cục điều hòa `OW_AirCon` (postprocessor + 52 mesh .asset). Heap gói điện thoại 384 MB không đổi. Chi tiết `huongdan.md` 21.284.
+- **21.284 (`280d6e1`, Pages `44685300563`, live 30/30 khớp — phát hành 1.81.0):** người dùng gửi 6 yêu cầu: icon tên lửa một mặt đen → gương mặt trước ra sau + shader ForwardBase; xe kẹt lơ lửng khi nhảy va xe (tì mép xe khác, khóa nghiêng) → `TickUnstick` cho trượt xuống; nút Trái/Phải 1,5×, Ga/Nhảy 1,25×, Lùi/Stop/Tên lửa 1,1×, để yên 68 %; ảnh nút 512² RGBA32 + mipmap; xe máy bị húc nghiêng ngã/lộn/nằm đường (`BeginFall`/`FallPose`); xóa cục điều hòa `OW_AirCon` (postprocessor + 52 mesh .asset). Heap gói điện thoại 384 MB không đổi. Chi tiết `huongdan.md` 21.284.
 - **21.283 (`28648ac`/`a77b7ba`, Pages `44669974461`, live 30/30 khớp — phát hành 1.80.1):** người dùng: 1.80.0 chơi được trên iPhone, không văng. Sửa nội thất qua kính: tấm ảnh xa bộ 6 m/8 m (`NT_*_Xa.001/.002`) bị `PhoVietInteriorMeshPostprocessor` nén mất UV → mảng nâu ở 1.618 căn (813 cửa hàng, 805 nhà ở). Sửa so tên bỏ hậu tố + nhập lại `OW_NoiThat_6_0/8_0.fbx`. Chi tiết `huongdan.md` 21.283.
 - **21.282 (`632245d`, Pages `44636930661`, live 30/30 khớp — phát hành 1.80.0):** «Hộp đen» iPhone: 1.79 bị đóng 6–10 s sau khi nạp. Đo WebGL (`pw/gltrack.cjs`): ~2.900 lệnh vẽ/khung, kho UBO instancing phình ~4.600 bộ đệm 15–20 s đầu; occlusion **chưa từng được nướng**. Sửa: `Editor/PhoVietOpenWorldOcclusionBuilder.cs` (menu 12, nội thất không bao giờ bị loại) → lệnh vẽ −47%; điện thoại tắt GPU instancing; công tắc chẩn đoán `?diag=`. WebKit khi lái 1,74 → 1,56 GB. Chi tiết `huongdan.md` 21.282.
 - **21.281 (`5049a16`, Pages `44614291444`, live 30/30 khớp — phát hành 1.79.0):** 1.78.0 vẫn sập trên iPhone; không được bớt nội dung. Phát hiện bản web luôn build wasm ở chế độ **BuildTimes** (không tối ưu) → `PhoVietWebBuild.Configure` đặt DiskSizeLTO (reflection), IL2CPP OptimizeSize + Master, stripping Medium (`link.xml` giữ Assembly-CSharp): wasm 22,1 → 16,2 MB, WebKit khi lái 1,78 → 1,74 GB, JS gói điện thoại 122 → 115 MB. `app.js` «hộp đen» báo lần chơi bị đóng đột ngột. Chi tiết `huongdan.md` 21.281.
@@ -420,7 +420,7 @@ Cập nhật lần cuối: **20/11/2026 — Claude Code**
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **Đang phát hành 21.284 (1.81.0):** build xong, `docs/` đã pack, 31/31 khớp. Còn: commit + push, chờ Pages, chạy `live.py` (30/30), commit «Record verified». Sau đó chờ người dùng thử iPhone.
+- **Chờ người dùng (21.284):** thử 1.81.0 trên iPhone (trang chủ «Bản cập nhật 1.81.0»): cỡ/độ trong của nút, icon nút nét, nhảy va xe không kẹt, xe máy ngã nằm đường, icon tên lửa 2 mặt, không còn khối trắng trên bảng hiệu/ban công.
 
 - **Tiến độ việc đang làm — Dựng lại cảnh quan thành bản đồ mở (21.238, Claude Code, 17/11/2026).** Yêu cầu: xóa toàn bộ cảnh quan cũ, dựng lại 100% theo 3 ảnh (`ArtSource/Concepts/OpenWorld-20261117/ref-*.webp`) bằng Blender MCP; giữ model xe, máy bay, xe tăng, khủng long. Đã chốt: bản đồ mở lái tự do; asset cũ **ngắt và lưu trữ ngoài build** (không xóa hẳn); **chi tiết tối đa**; làm **từng đợt có ảnh duyệt**. Kế hoạch 7 đợt trong `README.md` của thư mục đó; `layout.json` là nguồn số liệu chung.
   - Xong: đợt 1 (sơ đồ) và đợt 2 (ảnh 3, v2 đã duyệt; v3 chỉ dời tháp). Đợt 3 ảnh 2 **v5 đã duyệt** (`PhoViet_OW_Ref2.blend`). Đoạn ảnh 3 v5 (bàn ghế/dù mới, hàng rào né bồn cây) đã xem. Đợt 4 ảnh 1 v1 **đã duyệt** (`PhoViet_OW_Ref1.blend`). Tháp Tài Chính ở bản đồ (160; −60) theo người dùng chọn.
