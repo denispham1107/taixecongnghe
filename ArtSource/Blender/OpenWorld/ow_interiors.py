@@ -1177,4 +1177,147 @@ def furnish_LauBo(X, rnd):
     back_sign(X, X.title or 'Lẩu Bò', 'Nước dùng ninh xương', '#8A2B2B', '#F7E7B8', z=3.2)
 
 
+# ------------------------------------------------------------------------------------------------ 21.285: Cù Lao Petshop
+# Biển «Cù Lao Petshop» + «Spa-Lưu Trú-Thú y» (50 % nhà không biển). Từ ngoài vào: khu spa (bàn cắt tỉa + chó, máy sấy,
+# bồn tắm) và kệ thức ăn/đồ chơi + nhà cây cho mèo; giữa: quầy thu ngân + nhân viên; trong: dãy chuồng lưu trú hai tầng
+# (có chó/mèo), góc thú y (bàn khám inox, tủ thuốc, áp phích); tường hậu: bảng tên tiệm. Dấu chân thú trên sàn.
+PETSHOP_TEAL, PETSHOP_ORANGE = '#16808A', '#F28C28'
+STYLE['PetShop'] = ('#EAF6F4', PETSHOP_TEAL, '#F4F1EA', '#E4DED2', 'cool')
+
+def pet(X, x, y, z, kind, col, yaw=0.0, s=1.0, sit=False):
+    """Chó/mèo khối tròn: thân bầu dục, đầu, mõm, tai, 4 chân, đuôi. yaw: hướng đầu (rad, 0 = +x ra đường)."""
+    ca, sa = math.cos(yaw), math.sin(yaw)
+    def Pt(dx, dy, dz): return (x + (dx * ca - dy * sa) * s, y + (dx * sa + dy * ca) * s, z + dz * s)
+    m = X.c('Long_' + col, col, rough=0.9); dark = X.c('MuiThu', '#2A2522', rough=0.6)
+    cat = kind == 'cat'
+    bl, bh = (0.30, 0.13) if cat else (0.36, 0.17)
+    if sit:
+        X.sph(Pt(-0.02, 0, bh * 1.6), bh * 1.15 * s, m, scale=(0.9, 0.85, 1.25))
+        head = Pt(0.06, 0, bh * 3.0)
+    else:
+        X.sph(Pt(0, 0, bh * 1.75), bh * s, m, scale=(bl / bh, 0.85, 0.85))
+        for dx in (bl * 0.6, -bl * 0.6):
+            for dy in (-bh * 0.45, bh * 0.45):
+                X.cyl(Pt(dx, dy, 0), 0.035 * s, bh * 1.3 * s, m, seg=6)
+        head = Pt(bl * 0.95, 0, bh * 2.6)
+    hr = (0.10 if cat else 0.12) * s
+    X.sph(head, hr, m, scale=(1.05, 1, 0.95))
+    hx, hy, hz = head
+    X.sph((hx + ca * hr * 0.85, hy + sa * hr * 0.85, hz - hr * 0.25), hr * (0.38 if cat else 0.5), m, scale=(1.2, 1, 0.8))   # mõm
+    X.sph((hx + ca * hr * 1.25, hy + sa * hr * 1.25, hz - hr * 0.15), hr * 0.13, dark)                                     # mũi
+    for sd in (-1, 1):
+        ex, ey = hx + (-sa) * sd * hr * 0.55, hy + ca * sd * hr * 0.55
+        if cat: X.cyl((ex, ey, hz + hr * 0.7), hr * 0.32, hr * 0.5, m, seg=4, r2=0.005)                                   # tai nhọn
+        else: X.sph((ex - ca * hr * 0.1, ey - sa * hr * 0.1, hz + hr * 0.35), hr * 0.38, m, scale=(0.5, 0.6, 1.3))          # tai cụp
+        X.sph((hx + ca * hr * 0.8 + (-sa) * sd * hr * 0.35, hy + sa * hr * 0.8 + ca * sd * hr * 0.35, hz + hr * 0.2), hr * 0.12, dark)  # mắt
+    tail = Pt(-bl * 1.0, 0, bh * (1.6 if sit else 2.0)); tip = Pt(-bl * 1.5, 0, bh * (2.3 if cat else 2.8))
+    X.rod(tail, tip, 0.03 * s, m)
+
+def cage_row(X, x0, x1, y_wall, side, z0, h, n, rnd, pets=True):
+    """Dãy chuồng lưu trú dọc tường bên: khung trắng, song inox mặt trước, khay đáy, thú bên trong (có ô trống)."""
+    frame = X.c('KhungChuong', '#F2F4F3', rough=0.4); bar = X.c('SongChuong', '#B9C1C6', rough=0.3, metal=0.8)
+    tray = X.c('KhayChuong', '#7FB8C2', rough=0.5); d = 0.62
+    yi = y_wall - side * d; cw = (x1 - x0) / n
+    for k in range(n):
+        a = x0 + k * cw; b = a + cw
+        X.ab((a, min(y_wall, yi), z0), (b, max(y_wall, yi), z0 + 0.04), tray)                                  # đáy
+        X.ab((a, min(y_wall, yi), z0 + h - 0.03), (b, max(y_wall, yi), z0 + h), frame)                         # nóc
+        X.box((a, (y_wall + yi) / 2, z0 + h / 2), (0.04, d, h), frame)                                          # vách ngăn
+        nb = max(5, int(cw / 0.09))
+        for j in range(1, nb):
+            xx = a + (b - a) * j / nb
+            X.rod((xx, yi, z0 + 0.05), (xx, yi, z0 + h - 0.04), 0.008, bar, seg=4)
+        X.box(((a + b) / 2, yi, z0 + h * 0.55), (cw - 0.06, 0.02, 0.03), bar)                                   # chốt ngang
+        if pets and rnd.random() < 0.75:
+            kind = 'cat' if rnd.random() < 0.4 else 'dog'
+            col = rnd.choice(['#F2E2C4', '#C98A4B', '#3A3230', '#FFFFFF', '#9C9C9C', '#E0A35C'])
+            pet(X, (a + b) / 2, (y_wall + yi) / 2, z0 + 0.04, kind, col, yaw=-side * math.pi / 2, s=0.72, sit=rnd.random() < 0.5)
+        X.box(((a + b) / 2, yi - side * 0.01, z0 + h - 0.1), (0.16, 0.01, 0.07), X.c('TheTen', '#FFF8E1'))      # thẻ tên
+    X.box((x1, (y_wall + yi) / 2, z0 + h / 2), (0.04, d, h), frame)
+
+def paw(X, x, y, m, s=0.12):
+    """Dấu chân thú dán sàn."""
+    X.cyl((x, y, FLOOR + 0.002), s * 0.5, 0.004, m, seg=10)
+    for dx, dy in ((0.55, -0.45), (0.75, -0.15), (0.75, 0.15), (0.55, 0.45)):
+        X.cyl((x + dx * s, y + dy * s, FLOOR + 0.002), s * 0.18, 0.004, m, seg=8)
+
+def furnish_PetShop(X, rnd):
+    shell(X, 'PetShop')
+    teal = X.c('XanhPetshop', PETSHOP_TEAL, rough=0.45); orange = X.c('CamPetshop', PETSHOP_ORANGE, rough=0.45)
+    yl, yr, inner = X.yl, X.yr, X.inner
+    rotL = (math.pi / 2, 0, math.pi); rotR = (math.pi / 2, 0, 0)          # chữ trên tường trái (mặt +y) / phải (mặt −y)
+    # --- khu spa (trước, bên trái): bàn cắt tỉa inox + cần treo, chó đứng trên bàn, máy sấy đứng, bồn tắm ốp gạch
+    gx, gy = -1.55, yl + 0.55
+    X.ab((gx - 0.45, gy - 0.3, FLOOR + 0.82), (gx + 0.45, gy + 0.3, FLOOR + 0.86), X.steel)
+    X.ab((gx - 0.42, gy - 0.27, FLOOR + 0.86), (gx + 0.42, gy + 0.27, FLOOR + 0.875), X.c('ThamCaoSu', '#2F3A44', rough=0.9))
+    for dx in (-0.35, 0.35): X.rod((gx + dx, gy, FLOOR), (gx + dx, gy, FLOOR + 0.82), 0.025, X.steelD)
+    X.ab((gx - 0.4, gy - 0.25, FLOOR + 0.02), (gx + 0.4, gy + 0.25, FLOOR + 0.06), X.steelD)
+    X.rod((gx - 0.42, gy - 0.25, FLOOR + 0.86), (gx - 0.42, gy - 0.25, FLOOR + 1.85), 0.02, X.steel)
+    X.rod((gx - 0.42, gy - 0.25, FLOOR + 1.85), (gx, gy - 0.25, FLOOR + 1.85), 0.02, X.steel)
+    pet(X, gx, gy, FLOOR + 0.875, 'dog', '#FFFFFF', yaw=0.0, s=1.0)                                       # chó trắng đang spa
+    X.rod((gx, gy - 0.25, FLOOR + 1.85), (gx + 0.33, gy, FLOOR + 1.36), 0.006, orange)                    # dây giữ
+    sx, sy = -1.0, yl + 1.25                                                                               # máy sấy đứng
+    X.cyl((sx, sy, FLOOR), 0.22, 0.04, X.steelD, seg=10); X.rod((sx, sy, FLOOR), (sx, sy, FLOOR + 1.4), 0.025, X.steel)
+    X.box((sx, sy - 0.12, FLOOR + 1.45), (0.2, 0.3, 0.22), X.c('MaySay', '#E9EEF2', rough=0.4))
+    X.cyl((sx, sy - 0.35, FLOOR + 1.45), 0.07, 0.25, teal, seg=8, axis='Y')
+    bx = -2.85                                                                                             # bồn tắm thú
+    X.ab((bx - 0.55, yl, FLOOR), (bx + 0.55, yl + 0.7, FLOOR + 0.85), X.c('OpBon', '#DDEFF1', rough=0.3))
+    X.ab((bx - 0.48, yl + 0.07, FLOOR + 0.6), (bx + 0.48, yl + 0.63, FLOOR + 0.86), X.c('LongBon', '#B9DDE2', rough=0.15))
+    X.rod((bx, yl + 0.04, FLOOR + 0.86), (bx, yl + 0.04, FLOOR + 1.6), 0.015, X.steel)
+    X.cyl((bx + 0.05, yl + 0.18, FLOOR + 1.55), 0.05, 0.03, X.steel, seg=8, axis='Y')
+    for k in range(3):                                                                                     # chai dầu tắm
+        X.cyl((bx - 0.35 + k * 0.12, yl + 0.05, FLOOR + 0.86), 0.035, 0.18, X.c('ChaiSpa_%d' % k, [PETSHOP_ORANGE, '#7FC97F', '#F7A6C2'][k]), seg=8)
+    poster(X, -1.9, yl, -1, 0.7, 0.9, 2.55, '#FFF3E0', PETSHOP_ORANGE)                                    # áp phích SPA
+    X.text('SPA', (-1.9, yl + 0.035, 2.95), 0.16, orange, rot=rotL)
+    # --- kệ thức ăn/đồ chơi (trước, bên phải) + nhà cây cho mèo
+    pal = ['#F28C28', '#16808A', '#E53935', '#FDD835', '#8E24AA', '#43A047', '#FFFFFF', '#6D4C41']
+    products_shelf(X, -4.6, -1.3, yr, 1, 5, 2.1, 0.4, rnd, pal, kind='box', frame=X.c('KeGoPet', '#D9C2A0'))
+    tx, ty = -1.0, yr - 0.75
+    X.ab((tx - 0.3, ty - 0.3, FLOOR), (tx + 0.3, ty + 0.3, FLOOR + 0.08), X.c('ThamMeo', '#C9B79C', rough=0.95))
+    X.cyl((tx, ty, FLOOR + 0.08), 0.07, 1.5, X.c('CotCaoMong', '#CDB48C', rough=0.95), seg=8)
+    for zz, dd in ((0.55, 0.0), (1.05, 0.12), (1.55, -0.05)):
+        X.ab((tx - 0.24 + dd, ty - 0.24, FLOOR + zz), (tx + 0.24 + dd, ty + 0.24, FLOOR + zz + 0.05), X.c('ThamMeo', '#C9B79C', rough=0.95))
+    pet(X, tx, ty, FLOOR + 1.6, 'cat', '#E0A35C', yaw=0.2, s=0.7, sit=True)                               # mèo cam ngồi trên cây
+    # --- quầy thu ngân giữa phòng (song song mặt tiền) + nhân viên áo xanh
+    cy = yl + inner * 0.62; cl = max(1.0, min(2.2, inner - 1.9))
+    X.ab((-4.05, cy - cl / 2, FLOOR), (-3.45, cy + cl / 2, FLOOR + 1.0), X.c('QuayGo', '#E7D6BC'))
+    X.ab((-3.46, cy - cl / 2, FLOOR + 0.25), (-3.44, cy + cl / 2, FLOOR + 0.75), teal)                     # dải màu mặt quầy
+    X.ab((-4.1, cy - cl / 2 - 0.05, FLOOR + 1.0), (-3.4, cy + cl / 2 + 0.05, FLOOR + 1.04), X.white)
+    register(X, -3.75, cy + cl / 2 - 0.35)
+    for k in range(4):                                                                                     # hũ bánh thưởng
+        X.cyl((-3.7, cy - cl / 2 + 0.25 + k * 0.18, FLOOR + 1.04), 0.06, 0.16, X.c('HuBanh', '#E3F1F2', rough=0.05, alpha=0.5), seg=8)
+        X.cyl((-3.7, cy - cl / 2 + 0.25 + k * 0.18, FLOOR + 1.05), 0.05, 0.08, X.c('BanhThuong_%d' % (k % 2), ['#C98A4B', '#F2C14E'][k % 2]), seg=8)
+    px = -4.5
+    X.cyl((px, cy, FLOOR), 0.16, 0.75, X.c('QuanNV', '#2E3B4E'), r2=0.19)
+    X.cyl((px, cy, FLOOR + 0.75), 0.2, 0.55, teal, r2=0.17)
+    X.sph((px, cy, FLOOR + 1.45), 0.11, X.c('Da', '#E9C4A0'), scale=(0.9, 0.9, 1.15)); X.sph((px - 0.02, cy, FLOOR + 1.5), 0.115, X.black, scale=(0.95, 0.95, 0.8))
+    pet(X, -3.0, cy - cl / 2 - 0.45, FLOOR, 'dog', '#C98A4B', yaw=0.9, s=1.0)                              # chó vàng dắt dây
+    # --- lưu trú: dãy chuồng hai tầng dọc tường trái (phía trong)
+    cage_row(X, -7.7, -4.9, yl, -1, FLOOR + 0.02, 0.72, 4, rnd)
+    cage_row(X, -7.7, -4.9, yl, -1, FLOOR + 0.78, 0.72, 4, rnd)
+    X.box((-6.3, yl + 0.012, 2.45), (2.4, 0.02, 0.32), teal)
+    X.text('LƯU TRÚ', (-6.3, yl + 0.03, 2.45), 0.15, X.white, rot=rotL)
+    # --- thú y: bàn khám inox, tủ thuốc kính, đèn khám, áp phích (tường phải, phía trong)
+    vx, vy = -6.4, yr - 0.6
+    X.ab((vx - 0.55, vy - 0.32, FLOOR + 0.85), (vx + 0.55, vy + 0.32, FLOOR + 0.9), X.steel)
+    X.ab((vx - 0.5, vy - 0.28, FLOOR), (vx + 0.5, vy + 0.28, FLOOR + 0.85), X.steelD)
+    pet(X, vx, vy, FLOOR + 0.9, 'cat', '#9C9C9C', yaw=math.pi / 2, s=1.0)
+    X.rod((vx + 0.3, yr - 0.05, FLOOR + 2.3), (vx, vy, FLOOR + 1.8), 0.02, X.steel)
+    X.cyl((vx, vy, FLOOR + 1.72), 0.16, 0.08, X.c('DenKham', '#FFFFFF', emit=4.0), seg=12)
+    glass_cabinet(X, -7.55, yr - 0.35, 0.5, 0.6, 1.7, frame=X.white)
+    for k in range(6):
+        X.box((-7.55, yr - 0.5 + (k % 3) * 0.15, FLOOR + 0.9 + (k // 3) * 0.4), (0.12, 0.1, 0.14), X.c('HopThuocThuY_%d' % (k % 3), ['#FFFFFF', '#1E88E5', '#43A047'][k % 3]))
+    poster(X, -5.4, yr, 1, 0.65, 0.9, 2.5, '#E3F2FD', '#1E88E5'); poster(X, -6.2, yr, 1, 0.65, 0.9, 2.5, '#E8F5E9', '#43A047')
+    X.box((-5.8, yr - 0.012, 3.15), (1.7, 0.02, 0.3), X.c('BangThuY', '#1E88E5'))
+    X.text('THÚ Y', (-5.8, yr - 0.03, 3.15), 0.15, X.white, rot=rotR)
+    for k in range(3):                                                                                     # bao thức ăn lớn dựng góc
+        X.ab((-4.85 + k * 0.38, yr - 0.45, FLOOR), (-4.55 + k * 0.38, yr - 0.2, FLOOR + 0.62), X.c('BaoThucAn_%d' % k, ['#F28C28', '#16808A', '#E53935'][k]))
+    # --- dấu chân trên sàn, cây xanh, tên tiệm tường hậu
+    pm = X.c('DauChan', PETSHOP_ORANGE, rough=0.6)
+    for k in range(6): paw(X, -1.0 - k * 0.55, yl + inner * (0.42 if k % 2 == 0 else 0.5), pm)
+    plant(X, -0.95, yl + inner * 0.5 - 0.6, 0.9, '#FFFFFF')
+    back_sign(X, 'Cù Lao Petshop', 'Spa - Lưu Trú - Thú y', PETSHOP_TEAL, '#FFFFFF', z=2.95)
+
+EXTRA_TYPES = EXTRA_TYPES + ['PetShop']
+
 FURNISH = {k: globals()['furnish_' + k] for k in SHOP_TYPES + HOME_TYPES + EXTRA_TYPES}

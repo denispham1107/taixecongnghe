@@ -17,9 +17,9 @@ namespace PhoViet.OpenWorldEditor
         const string Root = "Assets/PhoViet/OpenWorld/";
         static readonly string[] Kinds = { "PhoBo", "ComTam", "BanhMi", "CaPhe", "TraSua", "TapHoa", "NhaThuoc", "SuaXe", "HuTieu", "TiemVang",
                                            "DienThoai", "BunBoHue", "ThoiTrang", "BachHoa", "NhaO_Salon", "NhaO_XeMay", "NhaO_PhongKhach", "NhaO_ViVong" };
-        static string Strip(string n) => Regex.Replace(n, @"\.\d{3}$", "");
+        internal static string Strip(string n) => Regex.Replace(n, @"\.\d{3}$", "");
 
-        static Material Mat(string name, string shader, string hex, System.Action<Material> setup = null)
+        internal static Material Mat(string name, string shader, string hex, System.Action<Material> setup = null)
         {
             string path = Root + "Materials/" + name + ".mat";
             var m = AssetDatabase.LoadAssetAtPath<Material>(path);
@@ -140,6 +140,8 @@ namespace PhoViet.OpenWorldEditor
                 lg.RecalculateBounds(); placed++;
             }
             string featured = corners + " | " + BuildFeatured(map, childIndex, interior, interiorGlass, far);
+            // 21.285: căn đã đổi thành «Cù Lao Petshop» (tên kết thúc _PetShop) → gắn lại nội thất PetShop (bước trên vừa gắn nhà ở)
+            featured += " | " + PhoVietOpenWorldPetshopBuilder.Apply(map, false, false);
             EditorSceneManager.MarkSceneDirty(map.scene); EditorSceneManager.SaveScene(map.scene);
             var sb = new System.Text.StringBuilder(); sb.Append(featured).Append(" | ");
             sb.Append("gắn ").Append(placed).Append(", thiếu mẫu ").Append(missing).Append("; remap ").Append(remapped).Append("; cửa hàng ").Append(nShop).Append(", nhà ở ").Append(nHome).Append(", nhà có chỗ biển nhưng không thấy biển ").Append(nMissingSign).Append(" |");
@@ -154,8 +156,8 @@ namespace PhoViet.OpenWorldEditor
         static readonly float[] LibW = { 4.5f, 5f, 5.5f, 6f, 7f, 8f };
         // 3 bộ nội thất (5 / 6 / 8 m); căn bề ngang khác co giãn theo chiều ngang (≤ ±12,5 %)
         static readonly string[] NtKeys = { "5_0", "6_0", "8_0" };
-        static float NtWidth(string k) => float.Parse(k.Replace('_', '.'), System.Globalization.CultureInfo.InvariantCulture);
-        static string NtKey(float w) { string best = NtKeys[0]; foreach (var k in NtKeys) if (Mathf.Abs(NtWidth(k) - w) < Mathf.Abs(NtWidth(best) - w)) best = k; return best; }
+        internal static float NtWidth(string k) => float.Parse(k.Replace('_', '.'), System.Globalization.CultureInfo.InvariantCulture);
+        internal static string NtKey(float w) { string best = NtKeys[0]; foreach (var k in NtKeys) if (Mathf.Abs(NtWidth(k) - w) < Mathf.Abs(NtWidth(best) - w)) best = k; return best; }
         static int KindFromSign(string t)
         {
             t = t.ToLowerInvariant();
@@ -166,7 +168,7 @@ namespace PhoViet.OpenWorldEditor
             if (t.Contains("bách hóa")) return 13; return 0;
         }
 
-        static void SetLocal(Transform t, Matrix4x4 m)
+        internal static void SetLocal(Transform t, Matrix4x4 m)
         {
             t.localPosition = m.GetColumn(3);
             t.localRotation = Quaternion.LookRotation(m.GetColumn(2), m.GetColumn(1));
@@ -259,7 +261,7 @@ namespace PhoViet.OpenWorldEditor
         // Bước 1: căn nào có thân đè lên phòng tầng trệt (sâu 0,5–8,25 m) của căn khác → rút thân còn 8,6 m (mesh chép
         //         Library/NhaNgan/*_Ngan.asset: đỉnh sâu > 8,7 m kéo về 8,6 m; hộp LOD1 + hộp va chạm co theo).
         // Bước 2: còn xung đột (khối góc 8,6 × 8,6 m) → bỏ căn có nhiều xung đột nhất (kèm biển + va chạm) tới khi hết.
-        const float ShortDepth = 8.6f;
+        internal const float ShortDepth = 8.6f;
         public static string ResolveCorners(GameObject map)
         {
             var root = map.transform.Find("NhaPho"); var hs = new List<Transform>(); foreach (Transform h in root) hs.Add(h);
@@ -407,9 +409,9 @@ namespace PhoViet.OpenWorldEditor
             return "trong phòng: bỏ " + trees + " cây lọt vào nhà, bỏ " + houses + " căn bị đè sát kính, giữ " + kept + " căn có vật cản ≥ 4,5 m (như tường hậu)";
         }
 
-        static int Hash(Vector3 p) => Mathf.Abs(Mathf.RoundToInt(p.x * 7.31f) * 73856093 ^ Mathf.RoundToInt(p.z * 3.17f) * 19349663) & 0x7fffffff;
+        internal static int Hash(Vector3 p) => Mathf.Abs(Mathf.RoundToInt(p.x * 7.31f) * 73856093 ^ Mathf.RoundToInt(p.z * 3.17f) * 19349663) & 0x7fffffff;
 
-        static Renderer Child(Transform parent, string name, Transform srcChild, Matrix4x4 inv, Material m0, Material m1)
+        internal static Renderer Child(Transform parent, string name, Transform srcChild, Matrix4x4 inv, Material m0, Material m1)
         {
             var g = new GameObject(name); g.transform.SetParent(parent, false);
             var mtx = inv * srcChild.localToWorldMatrix;

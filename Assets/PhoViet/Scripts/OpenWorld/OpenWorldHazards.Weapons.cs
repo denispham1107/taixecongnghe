@@ -4,7 +4,8 @@ using UnityEngine;
 namespace PhoViet.OpenWorld
 {
     // 21.258 — tên lửa của người chơi + ô nạp tên lửa trên phố (bản đồ mở). Dựa trên PhoVietPlayerMissiles/MissilePickups cũ:
-    // • Vào lượt có 5 quả, tối đa 10 (người dùng chốt). Phím F hoặc nút TÊN LỬA; hồi 0,25 s.
+    // • Vào lượt có 5 quả, tối đa 10 (người dùng chốt). Phím F hoặc nút TÊN LỬA; hồi 0,3 s (21.284; trước 0,25 s).
+    // • 21.284: khóa cả tàu trên sông (OpenWorldHazards.Boats) — trúng thì tàu cháy, nổ, chìm.
     // • Tự khóa xe tăng (chưa bị hạ) hoặc trực thăng gần nhất phía trước (trong 180 m, lệch ≤ 55°), bay ≥ 70 m/s (= tốc độ xe
     //   + 50), bẻ hướng dò mục tiêu 300°/s, sống 4 s; không có mục tiêu thì bay thẳng. Lửa đuôi/khói = PV_HelicopterMissile.
     // • Trúng xe tăng → nổ, xe tăng thành xác cháy đứng yên (vẫn là vật cản, ngừng bắn), dọn sau 25 s.
@@ -17,7 +18,7 @@ namespace PhoViet.OpenWorld
         [Header("Tên lửa người chơi (21.258)")]
         public GameObject pickupPrefab;
         public int startMissiles = 5, maxMissiles = 10, pickupCount = 14;
-        public float playerMissileInterval = 0.25f;
+        [Tooltip("21.284: người dùng chốt 0,3 s giữa hai lần bắn")] public float playerMissileInterval = 0.3f;
 
         public int PlayerMissiles { get; private set; }
         public int PlayerMissilesFired { get; private set; }
@@ -27,7 +28,7 @@ namespace PhoViet.OpenWorld
         public bool CanFire => PlayerMissiles > 0 && fireCooldown <= 0f && player && !player.Crashed && !player.frozen;
 
         bool fireRequest; float fireCooldown, pickupClock, pickupCheck;
-        class PMissile { public Transform root; public MissileFlightVisual vis; public Vector3 vel; public float age, speed; public Tank tank; public Heli heli; }
+        class PMissile { public Transform root; public MissileFlightVisual vis; public Vector3 vel; public float age, speed; public Tank tank; public Heli heli; public int boat = -1; }
         readonly List<PMissile> pmissiles = new List<PMissile>();
         readonly Stack<PMissile> pmPool = new Stack<PMissile>();
         class Pickup { public Transform root; public bool live; public float phase; }
@@ -81,16 +82,18 @@ namespace PhoViet.OpenWorld
                 if (Vector3.Dot(flat.normalized, fwd) < 0.57f || d.sqrMagnitude >= bd) continue;
                 bd = d.sqrMagnitude; bestH = h; bestT = null;
             }
-            var dir = bestT != null ? (TankAim(bestT) - origin).normalized : bestH != null ? (bestH.root.position - origin).normalized : fwd;
+            int bestB = NearestBoatTarget(origin, fwd, ref bd);                 // 21.284: tàu gần hơn thì khóa tàu
+            if (bestB >= 0) { bestT = null; bestH = null; }
+            var dir = bestB >= 0 ? (boats.BoatCenter(bestB) - origin).normalized : bestT != null ? (TankAim(bestT) - origin).normalized : bestH != null ? (bestH.root.position - origin).normalized : fwd;
             var m = pmPool.Count > 0 ? pmPool.Pop() : NewPM(); if (m == null) return false;
-            m.speed = Mathf.Max(70f, Mathf.Abs(player.Speed) + 50f); m.vel = dir * m.speed; m.age = 0f; m.tank = bestT; m.heli = bestH;
+            m.speed = Mathf.Max(70f, Mathf.Abs(player.Speed) + 50f); m.vel = dir * m.speed; m.age = 0f; m.tank = bestT; m.heli = bestH; m.boat = bestB;
             m.root.gameObject.SetActive(true); m.root.SetPositionAndRotation(origin, Quaternion.LookRotation(dir));
             if (m.vis) { m.vis.standalone = true; m.vis.Begin(); }
             pmissiles.Add(m);
             PlayerMissiles--; PlayerMissilesFired++; fireCooldown = playerMissileInterval;
             Emit(muzzleFx, origin, dir * 4f, 1.4f, .14f, Color.white);
             PlayAt(launchClip, origin, 0.7f);
-            Say(bestT != null ? "TÊN LỬA · ĐÃ KHÓA XE TĂNG" : bestH != null ? "TÊN LỬA · ĐÃ KHÓA TRỰC THĂNG" : "TÊN LỬA · BAY THẲNG", 1.0f);
+            Say(bestB >= 0 ? "TÊN LỬA · ĐÃ KHÓA TÀU" : bestT != null ? "TÊN LỬA · ĐÃ KHÓA XE TĂNG" : bestH != null ? "TÊN LỬA · ĐÃ KHÓA TRỰC THĂNG" : "TÊN LỬA · BAY THẲNG", 1.0f);
             return true;
         }
         static Vector3 TankAim(Tank t) => t.root.TransformPoint(new Vector3(0, 1.2f, -0.9f));
@@ -106,7 +109,7 @@ namespace PhoViet.OpenWorld
         {
             if (m.vis) m.vis.End();
             if (m.root) m.root.gameObject.SetActive(false);
-            m.tank = null; m.heli = null; pmPool.Push(m);
+            m.tank = null; m.heli = null; m.boat = -1; pmPool.Push(m);
             if (removeFromList) pmissiles.Remove(m);
         }
 
@@ -118,7 +121,8 @@ namespace PhoViet.OpenWorld
                 var m = pmissiles[i]; m.age += dt;
                 if (m.tank != null && (!m.tank.root || m.tank.destroyed)) m.tank = null;
                 if (m.heli != null && (!m.heli.root || m.heli.downed)) m.heli = null;
-                var aim = m.tank != null ? TankAim(m.tank) : m.heli != null ? m.heli.root.position : (Vector3?)null;
+                if (m.boat >= 0 && !boats.Alive(m.boat)) m.boat = -1;
+                var aim = m.boat >= 0 ? boats.BoatCenter(m.boat) : m.tank != null ? TankAim(m.tank) : m.heli != null ? m.heli.root.position : (Vector3?)null;
                 if (aim.HasValue) { var want = aim.Value - m.root.position; if (want.sqrMagnitude > .001f) m.vel = Vector3.RotateTowards(m.vel, want.normalized * m.speed, 300f * Mathf.Deg2Rad * dt, 0); }
                 var from = m.root.position; var to = from + m.vel * dt;
                 // trúng xe tăng (hộp thân) / trực thăng (cầu 3,2 m)
@@ -135,11 +139,14 @@ namespace PhoViet.OpenWorld
                         if (!h.root || h.downed) continue;
                         if (DistPointSeg(h.root.position, from, to) < 3.2f) { hitH = h; break; }
                     }
+                int hitB = hitT == null && hitH == null ? BoatHit(from, to) : -1;
+                if (hitB >= 0) { HitBoat(hitB, to); pmissiles.RemoveAt(i); RetirePM(m, false); continue; }
                 if (hitT != null) { DestroyTank(hitT, to); pmissiles.RemoveAt(i); RetirePM(m, false); continue; }
                 if (hitH != null) { DownHeli(hitH, m.vel); pmissiles.RemoveAt(i); RetirePM(m, false); continue; }
                 // nhà/mặt đất (không tính xe người chơi, xe NPC, CSGT)
                 bool wall = false; Vector3 wallAt = to;
-                int n = Physics.RaycastNonAlloc(from, (to - from).normalized, pmHits, Vector3.Distance(from, to), OpenWorldFences.WorldMask, QueryTriggerInteraction.Ignore);
+                // 21.284: tên lửa khóa tàu bay chúi qua lan can/kè ven sông → không tính va vật tĩnh (giữa lề và sông không có nhà)
+                int n = m.boat >= 0 ? 0 : Physics.RaycastNonAlloc(from, (to - from).normalized, pmHits, Vector3.Distance(from, to), OpenWorldFences.WorldMask, QueryTriggerInteraction.Ignore);
                 for (int k = 0; k < n; k++) if (pmHits[k].collider.attachedRigidbody == null && !pmHits[k].collider.GetComponentInParent<OpenWorldHazardBody>()) { wall = true; wallAt = pmHits[k].point; break; }
                 if (wall || m.age > 4f)
                 {

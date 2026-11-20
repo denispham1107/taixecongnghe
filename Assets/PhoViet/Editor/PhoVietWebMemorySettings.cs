@@ -36,6 +36,11 @@ namespace PhoViet.Editor
    return paths.SelectMany(p=>AssetDatabase.GetDependencies(p,true)).Distinct().ToArray();
   }
   static bool IsTouchButton(string path)=>path.StartsWith("Assets/PhoViet/Resources/TouchControls/",StringComparison.Ordinal);
+  // 21.284 (người dùng: «xe người chơi độ phân giải cao thêm, đang bị mờ»): ảnh Meshy có hàng nghìn mảnh UV nhỏ → nén khối
+  // ETC2/DXT ở chất lượng 50 làm nhòe. Ảnh màu (Palette) giữ RGBA32 2048² không nén; các ảnh khác của xe nén chất lượng 100,
+  // pháp tuyến đủ 2048².
+  static bool IsPlayerCar(string path)=>path.StartsWith("Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_",StringComparison.Ordinal);
+  static int WebQuality(string path)=>IsPlayerCar(path)?100:50;
   // Use the same size budget for ETC2/EAC and DXT so either can load within the WebGL heap.
   // The player's paint and surface maps keep their source resolution.
   // 21.279: bỏ giới hạn 512 px của 1.76.2 (người dùng yêu cầu không giảm độ phân giải); nguyên nhân sập iPhone là probe sông.
@@ -44,6 +49,7 @@ namespace PhoViet.Editor
   {
    int full=importer.maxTextureSize;
    if(path.EndsWith("PV_BlueSupercar_Surface.png",StringComparison.Ordinal)||path.EndsWith("PV_BlueSupercar_Palette.png",StringComparison.Ordinal))return full;
+   if(path.EndsWith("PV_BlueSupercar_Normal.png",StringComparison.Ordinal))return Mathf.Max(full,2048);
    return Mathf.Min(full,MobileTextureLimit);
   }
   // GPU compression must match mobile WebGL: DXT is expanded on iPhone, and
@@ -75,11 +81,12 @@ namespace PhoViet.Editor
     // 21.284: nút cảm ứng (người dùng: «tăng độ phân giải tối đa, đang bị bể») — giữ RGBA32 không nén ở cả hai gói (ảnh 512² có
     // mipmap, 7 ảnh ≈ 9,3 MB), không nén khối ETC2/DXT làm nhòe nét viền và chữ.
     if(IsTouchButton(path))format=TextureImporterFormat.RGBA32;
+    if(path.EndsWith("PV_BlueSupercar_Palette.png",StringComparison.Ordinal))format=TextureImporterFormat.RGBA32;
     int size=WebTextureSize(path,importer);
-    if(web.overridden&&web.format==format&&web.compressionQuality==50&&web.maxTextureSize==size)continue;
+    if(web.overridden&&web.format==format&&web.compressionQuality==WebQuality(path)&&web.maxTextureSize==size)continue;
     web.name="WebGL";web.maxTextureSize=size;
     web.overridden=true;web.format=format;web.textureCompression=TextureImporterCompression.CompressedHQ;
-    web.compressionQuality=50;web.crunchedCompression=false;
+    web.compressionQuality=WebQuality(path);web.crunchedCompression=false;
     importer.SetPlatformTextureSettings(web);AssetDatabase.WriteImportSettingsIfDirty(path);
     AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport|ImportAssetOptions.ForceUpdate);
     changes.Add(new{path,format=format.ToString(),size});
@@ -94,7 +101,7 @@ namespace PhoViet.Editor
     var web=importer.GetPlatformTextureSettings("WebGL");
     var format=web.format;
     bool valid=mobile?(format==TextureImporterFormat.ETC2_RGB4||format==TextureImporterFormat.ETC2_RGBA8||format==TextureImporterFormat.EAC_RG):(format==TextureImporterFormat.DXT1||format==TextureImporterFormat.DXT5);
-    if(IsTouchButton(path))valid=format==TextureImporterFormat.RGBA32;
+    if(IsTouchButton(path)||path.EndsWith("PV_BlueSupercar_Palette.png",StringComparison.Ordinal))valid=format==TextureImporterFormat.RGBA32;
     if(!valid||web.maxTextureSize!=WebTextureSize(path,importer))throw new InvalidOperationException("Web texture imports did not stabilize: "+path);
    }
    var report=new{mobile,changed=changes.Count,changes,subtarget=EditorUserBuildSettings.webGLBuildSubtarget.ToString()};

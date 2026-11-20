@@ -400,3 +400,49 @@ def export_featured():
 
 if MODE == 'export_featured':
     for k in export_featured(): print('noibat', *k)
+
+# ------------------------------------------------------------------------------------------------ 21.285: Cù Lao Petshop
+# MODE 'export_petshop': nội thất PetShop 3 bề ngang (5/6/8 m) → Library/NoiThat/OW_NoiThat_PetShop.fbx gồm NT_PetShop_<w>
+# (3D, màu đỉnh) + NT_PetShop_<w>_Xa (tấm ảnh xa, UV ô thứ i của atlas 3 × 1 OW_NoiThat_PetShop_AnhXa.png — ghép bằng Python
+# ngoài vì Blender không có PIL). Có thể gọi từng bề ngang qua Blender MCP: petshop_width(w) rồi petshop_export().
+PCARD_DIR = ROOT + '/ArtSource/Concepts/OpenWorld-20261117/Petshop-21285/AnhXa'
+PET_WIDTHS = [5.0, 6.0, 8.0]
+
+def petshop_card_object(i, w):
+    import bmesh
+    u0, u1, v0, v1 = i / 3.0, (i + 1) / 3.0, 0.0, 1.0
+    y0, y1, z0, z1, x = -w / 2 + 0.42, w / 2 - 0.42, 0.29, 3.4, -0.46
+    key = str(w).replace('.', '_')
+    me = bpy.data.meshes.new('NT_PetShop_%s_Xa' % key); bm = bmesh.new(); uv = bm.loops.layers.uv.new('UVMap')
+    vs = [bm.verts.new(p) for p in ((x, y1, z0), (x, y0, z0), (x, y0, z1), (x, y1, z1))]
+    f = bm.faces.new(vs)
+    for loop, (u, v) in zip(f.loops, ((u0, v0), (u1, v0), (u1, v1), (u0, v1))): loop[uv].uv = (u, v)
+    f.normal_update()
+    if f.normal.x < 0: f.normal_flip()
+    bm.to_mesh(me); bm.free()
+    mat = bpy.data.materials.get('NT_NoiThatXaPetShop') or bpy.data.materials.new('NT_NoiThatXaPetShop'); me.materials.append(mat)
+    ob = bpy.data.objects.new(me.name, me); bpy.context.scene.collection.objects.link(ob)
+    return ob
+
+def petshop_width(w):
+    """Dựng NT_PetShop_<w> + render ảnh xa + tấm ảnh xa (giữ trong cảnh để xuất chung)."""
+    global CARD_DIR, card_index
+    i = PET_WIDTHS.index(w); key = str(w).replace('.', '_')
+    ob = build_interior_object('PetShop', w, 2100 + i, name='PetShop_' + key)
+    old_dir, old_ci = CARD_DIR, card_index
+    CARD_DIR = PCARD_DIR; card_index = lambda k, ww, _i=i: _i
+    try: render_card('PetShop', w, [ob])
+    finally: CARD_DIR, card_index = old_dir, old_ci
+    card = petshop_card_object(i, w)
+    return ob, card, sum(len(p.vertices) - 2 for p in ob.data.polygons)
+
+def petshop_export():
+    objs = [o for o in bpy.data.objects if o.type == 'MESH' and o.name.startswith('NT_PetShop_')]
+    for o in [o for o in bpy.data.objects if o.type in ('LIGHT', 'CAMERA')]: bpy.data.objects.remove(o)
+    _fbx_export(objs, LIBDIR + '/NoiThat/OW_NoiThat_PetShop.fbx')
+    return [o.name for o in objs]
+
+if MODE == 'export_petshop':
+    _clear()
+    for w in PET_WIDTHS: print('petshop', w, petshop_width(w)[2])
+    print('fbx', petshop_export())

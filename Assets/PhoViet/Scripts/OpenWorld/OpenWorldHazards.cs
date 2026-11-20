@@ -116,7 +116,7 @@ namespace PhoViet.OpenWorld
             shells.Clear();
             foreach (var c in craters) Destroy(c.go);
             craters.Clear();
-            DistanceDriven = 0; NextAt = firstAt; NextKind = 0; notice = null;
+            DistanceDriven = 0; NextAt = firstAt; NextKind = 0; notice = null; ResetBoatGuns();
             NextTankAt = tankEvery; NextHeliAt = heliEvery; TankWave = HeliWave = 1;
             ResetWeapons();
             if (player) lastPlayerPos = player.transform.position;
@@ -389,14 +389,18 @@ namespace PhoViet.OpenWorld
         }
 
         // ------------------------------------------------------------ đạn pháo
-        class Shell { public Vector3 start, target; public float age, apex; public Transform body; public Renderer marker; public bool water; }
+        class Shell { public Vector3 start, target; public float age, apex; public Transform body; public Renderer marker; public bool water; public string reason = "TRÚNG ĐẠN XE TĂNG", what = "đạn pháo"; }
         readonly List<Shell> shells = new List<Shell>();
         readonly Stack<Transform> shellPool = new Stack<Transform>();
         readonly Stack<Renderer> markerPool = new Stack<Renderer>();
         MaterialPropertyBlock mpb;
         static readonly int ProgressId = Shader.PropertyToID("_Progress");
 
-        void Fire(Tank t, Vector3 muzzle, Vector3 pp, Vector3 pv)
+        void Fire(Tank t, Vector3 muzzle, Vector3 pp, Vector3 pv) => FireShell(muzzle, t.root.forward, pp, pv, true, "TRÚNG ĐẠN XE TĂNG", "đạn pháo");
+
+        // 21.284: dùng chung cho xe tăng và tàu trên sông. onRoad: các phát lệch rơi vào làn đường khác; không thì lệch ngang
+        // ±1,75/3,5 m miễn không rơi xuống nước (lề/lối ven sông).
+        void FireShell(Vector3 muzzle, Vector3 f, Vector3 pp, Vector3 pv, bool onRoad, string reason, string what)
         {
             var target = pp + new Vector3(pv.x, 0, pv.z) * shellFlight;
             // 40 %: đúng chỗ xe sẽ tới; còn lại: một làn khác của con đường (ngang hướng xe), không ra ngoài lòng đường.
@@ -404,17 +408,16 @@ namespace PhoViet.OpenWorld
             {
                 var hd = pv.sqrMagnitude > 1f ? new Vector3(pv.x, 0, pv.z).normalized : player.transform.forward;
                 var side = new Vector3(hd.z, 0, -hd.x);
-                float[] lanes = { -5.25f, -1.75f, 1.75f, 5.25f };
+                float[] lanes = onRoad ? new[] { -5.25f, -1.75f, 1.75f, 5.25f } : new[] { -3.5f, -1.75f, 1.75f, 3.5f };
                 var alt = target + side * lanes[rnd.Next(4)];
-                if (OnRoad(alt)) target = alt;
+                if (onRoad ? OnRoad(alt) : !WaterAt(alt)) target = alt;
             }
             target.y = GroundY(target, out bool water);
-            var s = new Shell { start = muzzle, target = target, water = water, apex = 3.2f + Vector3.Distance(muzzle, target) * .06f };
+            var s = new Shell { start = muzzle, target = target, water = water, apex = 3.2f + Vector3.Distance(muzzle, target) * .06f, reason = reason, what = what };
             s.body = shellPool.Count > 0 ? shellPool.Pop() : NewShell(); s.body.gameObject.SetActive(true); s.body.position = muzzle;
             s.marker = markerPool.Count > 0 ? markerPool.Pop() : NewMarker(); s.marker.gameObject.SetActive(true);
             PlaceMarker(s, 0f);
             shells.Add(s); ShellsFired++;
-            var f = t.root.forward;
             Emit(muzzleFx, muzzle, f * 2.5f, 3.4f, .22f, Color.white);
             for (int i = 0; i < 5; i++) Emit(smokeFx, muzzle + f * (.6f + i * .4f), f * Random.Range(1.5f, 3f) + Vector3.up * Random.Range(.4f, 1.2f), Random.Range(1.4f, 2.4f), Random.Range(.9f, 1.5f), new Color(.75f, .72f, .68f, .85f));
             PlayAt(cannonClip, muzzle, 0.55f);
@@ -427,6 +430,7 @@ namespace PhoViet.OpenWorld
             return false;
         }
 
+        bool WaterAt(Vector3 p) { GroundY(p, out bool w); return w; }
         float GroundY(Vector3 p, out bool water)
         {
             water = false;
@@ -485,7 +489,7 @@ namespace PhoViet.OpenWorld
                 return;
             }
             Blasts++;
-            Explode(at, direct, !direct, "TRÚNG ĐẠN XE TĂNG", "đạn pháo");
+            Explode(at, direct, !direct, s.reason, s.what);
         }
 
         // Vụ nổ dùng chung (đạn pháo xe tăng, tên lửa trực thăng): hiệu ứng, âm thanh, hất xe NPC, CSGT khựng, xe người chơi hỏng.
@@ -661,7 +665,8 @@ namespace PhoViet.OpenWorld
                             Emit(sparkFx, at + Vector3.up * .2f, new Vector3(Random.Range(-2f, 2f), Random.Range(5f, 9f), Random.Range(-2f, 2f)), Random.Range(.3f, .6f), Random.Range(.6f, 1f), new Color(.8f, .9f, 1f, .9f));
                         PlayAt(blastClip, at, 0.25f);
                     }
-                    else Explode(at, direct, false, "TRÚNG TÊN LỬA TRỰC THĂNG", "tên lửa");
+                    // 21.285: tên lửa máy bay rơi trúng lề / lối sát sông (không trúng xe) cũng để lại hố như đạn pháo
+                    else Explode(at, direct, !direct && IsRiverBank(at), "TRÚNG TÊN LỬA TRỰC THĂNG", "tên lửa");
                 }
             }
         }
@@ -683,6 +688,10 @@ namespace PhoViet.OpenWorld
             if (!craterMaterial) return;
             if (craterMeshes == null) { craterMeshes = new Mesh[4]; for (int i = 0; i < 4; i++) craterMeshes[i] = TankCraterGeometry.Build(i); }
             var go = new GameObject("HoDan");
+            // 21.285: điểm rơi dò bằng WorldMask (bỏ layer MatLe) nên trên vỉa hè / lối ven sông (cao 0,15–0,17 m) at.y = mặt đất 0
+            // → hố chìm dưới mặt lề, không thấy. Nâng lên mặt lề nếu có.
+            float lip = OpenWorldGroundFit.SurfaceAt(at, 0.8f, 0.4f);
+            if (!float.IsNegativeInfinity(lip) && lip > at.y && lip < at.y + 0.5f) at.y = lip;
             // Mặt đường bản đồ mở không khoét lỗ được như game cũ → lòng hố ép dẹt nổi sát mặt đường (vết cháy + gờ vỡ).
             go.transform.position = at + Vector3.up * 0.065f;
             go.transform.rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
@@ -747,6 +756,7 @@ namespace PhoViet.OpenWorld
                 HeliWave++; NextHeliAt = DistanceDriven + heliEvery;
             }
             TickWeapons(dt, pp, pv);
+            TickBoatGuns(dt, pp, pv, live);
             for (int i = dinos.Count - 1; i >= 0; i--)
             {
                 var d = dinos[i];

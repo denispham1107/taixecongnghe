@@ -90,6 +90,9 @@ namespace PhoViet.OpenWorld
         {
             public Transform tr; public Loop loop; public float s, speed, phase; public bool moored;
             public Vector2 pos, dir; public Mesh wake; public float pitch, roll;
+            public Renderer wakeRenderer; public float baseSpeed;
+            // 21.284: bị tên lửa người chơi bắn → cháy (dừng dần), nổ, chìm rồi ẩn; sau respawnAfter giây xuất hiện lại
+            public int state; public float stateAt, sink; public GameObject fx;          // 0 chạy, 1 cháy, 2 chìm, 3 ẩn
         }
         readonly List<Boat> boats = new List<Boat>();
         public int MovingCount { get; private set; }
@@ -97,6 +100,42 @@ namespace PhoViet.OpenWorld
         public Transform BoatTransform(int i) => i >= 0 && i < boats.Count ? boats[i].tr : null;
         public bool IsMoored(int i) => boats[i].moored;
         public float BoatS(int i) => boats[i].s;
+
+        // ---------------------------------------------------------------- 21.284: tàu bắn / bị bắn
+        [Header("Bị bắn (21.284)")] public float burnSeconds = 1.2f, sinkSeconds = 5f, respawnAfter = 30f;
+        public int Count => boats.Count;
+        public bool Alive(int i) => i >= 0 && i < boats.Count && boats[i].state == 0;
+        public bool Burning(int i) => i >= 0 && i < boats.Count && boats[i].state == 1;
+        public Vector3 BoatCenter(int i) => boats[i].tr.position + Vector3.up * 1.6f;
+        public Vector3 BoatForward(int i) { var f = boats[i].dir.sqrMagnitude > 1e-4f ? boats[i].dir.normalized : Vector2.up; return new Vector3(f.x, 0, f.y); }
+        public int Sunk { get; private set; }
+        /// Bắt đầu cháy (gọi khi trúng tên lửa); fx = hiệu ứng lửa/khói gắn lên tàu (hủy khi chìm hẳn). Trả về false nếu tàu đã cháy/chìm.
+        public bool Ignite(int i, GameObject fx)
+        {
+            if (!Alive(i)) return false;
+            var b = boats[i]; b.state = 1; b.stateAt = Time.time; b.fx = fx; return true;
+        }
+        /// Đang cháy đủ lâu → true một lần để bên gọi phát vụ nổ, tàu chuyển sang chìm.
+        public bool ExplodeDue(int i)
+        {
+            var b = boats[i]; if (b.state != 1 || Time.time - b.stateAt < burnSeconds) return false;
+            b.state = 2; b.stateAt = Time.time; Sunk++; return true;
+        }
+        void TickDamage(Boat b, float dt)
+        {
+            if (b.state == 1) b.speed = Mathf.MoveTowards(b.speed, 0f, 4f * dt);
+            else if (b.state == 2)
+            {
+                b.speed = 0f; b.sink = Mathf.Clamp01((Time.time - b.stateAt) / sinkSeconds);
+                if (b.sink >= 1f) { b.state = 3; b.stateAt = Time.time; b.tr.gameObject.SetActive(false); if (b.fx) Destroy(b.fx); b.fx = null; }
+            }
+            else if (b.state == 3 && Time.time - b.stateAt > respawnAfter)
+            {
+                b.state = 0; b.sink = 0f; b.speed = b.baseSpeed; b.tr.gameObject.SetActive(true);
+                if (!b.moored) b.s += b.loop.Length * 0.5f;                      // hiện lại ở phía bên kia vòng chạy
+            }
+            if (b.wakeRenderer) b.wakeRenderer.enabled = b.state == 0 || (b.state == 1 && b.speed > 0.5f);
+        }
 
         void OnEnable() { Shader.SetGlobalFloat(WaveAmpId, waveAmp); }
         void OnValidate() { Shader.SetGlobalFloat(WaveAmpId, waveAmp); }
@@ -129,7 +168,7 @@ namespace PhoViet.OpenWorld
                     b.wake = new Mesh { name = "OW_BoatWake" }; b.wake.MarkDynamic();
                     var w = new GameObject("VetSong"); w.transform.SetParent(transform, false);
                     w.AddComponent<MeshFilter>().sharedMesh = b.wake;
-                    var mr = w.AddComponent<MeshRenderer>(); mr.sharedMaterial = wakeMaterial;
+                    var mr = w.AddComponent<MeshRenderer>(); mr.sharedMaterial = wakeMaterial; b.wakeRenderer = mr; b.baseSpeed = e.v;
                     mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off; mr.receiveShadows = false;
                     boats.Add(b); MovingCount++;
                 }
@@ -176,9 +215,11 @@ namespace PhoViet.OpenWorld
             float t = Time.timeSinceLevelLoad;           // = _Time.y của shader
             foreach (var b in boats)
             {
+                if (b.state != 0) TickDamage(b, dt);
+                if (b.state == 3) continue;
                 if (!b.moored) { b.s += b.speed * dt; b.pos = b.loop.Sample(b.s, out b.dir); }
                 Place(b, t, dt);
-                if (!b.moored) BuildWake(b);
+                if (!b.moored && (b.wakeRenderer == null || b.wakeRenderer.enabled)) BuildWake(b);
             }
         }
 
@@ -194,7 +235,9 @@ namespace PhoViet.OpenWorld
             b.pitch = Mathf.Lerp(b.pitch, targetPitch, k); b.roll = Mathf.Lerp(b.roll, targetRoll, k);
             var yaw = Quaternion.LookRotation(new Vector3(f.x, 0, f.y)) * Quaternion.Euler(0, -90f, 0);    // mũi tàu = trục +X của mô hình
             // mô hình: +X mũi, +Z mạn trái → chúc mũi = quay quanh Z, lắc = quay quanh X
-            b.tr.SetPositionAndRotation(new Vector3(b.pos.x, waterY + hullOffset + h * 0.85f, b.pos.y), yaw * Quaternion.Euler(-b.roll, 0, b.pitch));
+            // 21.284: chìm — hạ 3,2 m, chúc mũi 18°, nghiêng 24°
+            float sk = b.sink * b.sink;
+            b.tr.SetPositionAndRotation(new Vector3(b.pos.x, waterY + hullOffset + h * 0.85f - 3.2f * sk, b.pos.y), yaw * Quaternion.Euler(-b.roll - 24f * sk, 0, b.pitch - 18f * sk));
         }
 
         readonly List<Vector3> wv = new List<Vector3>(); readonly List<Vector2> wu = new List<Vector2>(); readonly List<Color> wc = new List<Color>(); readonly List<int> wi = new List<int>();
