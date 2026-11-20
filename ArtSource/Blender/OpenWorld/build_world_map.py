@@ -411,6 +411,9 @@ def build_showcase_w(C):
 
 # ---------------------------------------------------------------- 8. lõi khối nhà (trung tâm: nhà cao 4–9 tầng; khu tài chính: cao ốc; bờ đông: căn hộ; bờ bắc: thấp + công viên)
 def build_blocks_w(C):
+    # 21.288: các hộp cao ốc (vật liệu OW_TowerGrid_*: kind tower/apt/apt_low) và vành OW_Map_ChanTroi chỉ là CHỖ ĐẶT.
+    # Sau khi dựng lại bản đồ phải chạy ow_towers_apply_map.py (Blender nền trên PhoViet_OW_Map.blend): ghi Data/towers.json,
+    # xoá các hộp này rồi xuất lại Chunks/OW_Map_blocks.fbx; Unity menu «Bản đồ mở/13» đặt cao ốc thư viện ow_towers.py.
     hi = MB('OW_Map_LoiKhoi')
     grids = [mat_windows_grid('OW_TowerGrid_%d' % i, w, g) for i, (w, g) in enumerate([('#D8D4CA', '#41566A'), ('#E4E1DA', '#4C6377'), ('#C9CDD0', '#3A4C5C'), ('#DCD3C2', '#4A5A66')])]
     facades = [M['facade_' + k] for k in ('gray', 'offwhite', 'olive', 'cream', 'yellowish')]

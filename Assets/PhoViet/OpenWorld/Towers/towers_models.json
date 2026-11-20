@@ -1,0 +1,501 @@
+{
+ "note": "Khung bao LOD1 theo to\u1ea1 \u0111\u1ed9 Blender c\u1ee7a m\u1eabu (x \u0111\u00f4ng, y b\u1eafc, z l\u00ean); g\u1ed1c \u1edf t\u00e2m ch\u00e2n nh\u00e0.",
+ "models": [
+  {
+   "name": "OW_CaoOc_VP_VayDoc_64",
+   "spec": "VP_VayDoc",
+   "kind": "office",
+   "h": 64,
+   "top": 96.0,
+   "x0": -15.0,
+   "x1": 15.0,
+   "y0": -15.0,
+   "y1": 15.0,
+   "tris": [
+    1192,
+    172,
+    40
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_VayDoc_104",
+   "spec": "VP_VayDoc",
+   "kind": "office",
+   "h": 104,
+   "top": 136.0,
+   "x0": -15.0,
+   "x1": 15.0,
+   "y0": -15.0,
+   "y1": 15.0,
+   "tris": [
+    1192,
+    172,
+    40
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_VayDoc_152",
+   "spec": "VP_VayDoc",
+   "kind": "office",
+   "h": 152,
+   "top": 184.0,
+   "x0": -15.0,
+   "x1": 15.0,
+   "y0": -15.0,
+   "y1": 15.0,
+   "tris": [
+    1192,
+    172,
+    40
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_VatGoc_64",
+   "spec": "VP_VatGoc",
+   "kind": "office",
+   "h": 64,
+   "top": 88.1,
+   "x0": -16.5,
+   "x1": 16.5,
+   "y0": -13.5,
+   "y1": 13.5,
+   "tris": [
+    718,
+    178,
+    40
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_VatGoc_104",
+   "spec": "VP_VatGoc",
+   "kind": "office",
+   "h": 104,
+   "top": 128.1,
+   "x0": -16.5,
+   "x1": 16.5,
+   "y0": -13.5,
+   "y1": 13.5,
+   "tris": [
+    1118,
+    178,
+    40
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_VatGoc_152",
+   "spec": "VP_VatGoc",
+   "kind": "office",
+   "h": 152,
+   "top": 176.1,
+   "x0": -16.5,
+   "x1": 16.5,
+   "y0": -13.5,
+   "y1": 13.5,
+   "tris": [
+    1598,
+    178,
+    40
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_KhungDa_64",
+   "spec": "VP_KhungDa",
+   "kind": "office",
+   "h": 64,
+   "top": 69.6,
+   "x0": -17.0,
+   "x1": 17.0,
+   "y0": -12.5,
+   "y1": 12.5,
+   "tris": [
+    386,
+    142,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_KhungDa_104",
+   "spec": "VP_KhungDa",
+   "kind": "office",
+   "h": 104,
+   "top": 109.6,
+   "x0": -17.0,
+   "x1": 17.0,
+   "y0": -12.5,
+   "y1": 12.5,
+   "tris": [
+    386,
+    142,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_KhungDa_152",
+   "spec": "VP_KhungDa",
+   "kind": "office",
+   "h": 152,
+   "top": 157.6,
+   "x0": -17.0,
+   "x1": 17.0,
+   "y0": -12.5,
+   "y1": 12.5,
+   "tris": [
+    386,
+    142,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_KhoiLech_64",
+   "spec": "VP_KhoiLech",
+   "kind": "office",
+   "h": 64,
+   "top": 70.0,
+   "x0": -14.0,
+   "x1": 14.5,
+   "y0": -11.0,
+   "y1": 11.0,
+   "tris": [
+    554,
+    326,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_KhoiLech_104",
+   "spec": "VP_KhoiLech",
+   "kind": "office",
+   "h": 104,
+   "top": 110.0,
+   "x0": -14.0,
+   "x1": 14.5,
+   "y0": -11.0,
+   "y1": 11.0,
+   "tris": [
+    554,
+    326,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_KhoiLech_152",
+   "spec": "VP_KhoiLech",
+   "kind": "office",
+   "h": 152,
+   "top": 158.0,
+   "x0": -14.0,
+   "x1": 14.5,
+   "y0": -11.0,
+   "y1": 11.0,
+   "tris": [
+    554,
+    326,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_BoTron_64",
+   "spec": "VP_BoTron",
+   "kind": "office",
+   "h": 64,
+   "top": 71.0,
+   "x0": -15.5,
+   "x1": 15.5,
+   "y0": -15.5,
+   "y1": 15.5,
+   "tris": [
+    1620,
+    568,
+    64
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_BoTron_104",
+   "spec": "VP_BoTron",
+   "kind": "office",
+   "h": 104,
+   "top": 111.0,
+   "x0": -15.5,
+   "x1": 15.5,
+   "y0": -15.5,
+   "y1": 15.5,
+   "tris": [
+    2260,
+    568,
+    64
+   ]
+  },
+  {
+   "name": "OW_CaoOc_VP_BoTron_152",
+   "spec": "VP_BoTron",
+   "kind": "office",
+   "h": 152,
+   "top": 159.0,
+   "x0": -15.5,
+   "x1": 15.5,
+   "y0": -15.5,
+   "y1": 15.5,
+   "tris": [
+    3220,
+    568,
+    64
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_BanCong_52",
+   "spec": "CH_BanCong",
+   "kind": "res",
+   "h": 52,
+   "top": 55.8,
+   "x0": -18.0,
+   "x1": 18.0,
+   "y0": -10.0,
+   "y1": 10.0,
+   "tris": [
+    834,
+    116,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_BanCong_82",
+   "spec": "CH_BanCong",
+   "kind": "res",
+   "h": 82,
+   "top": 85.8,
+   "x0": -18.0,
+   "x1": 18.0,
+   "y0": -10.0,
+   "y1": 10.0,
+   "tris": [
+    1230,
+    116,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_BanCong_116",
+   "spec": "CH_BanCong",
+   "kind": "res",
+   "h": 116,
+   "top": 119.8,
+   "x0": -18.0,
+   "x1": 18.0,
+   "y0": -10.0,
+   "y1": 10.0,
+   "tris": [
+    1714,
+    116,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_ChuThap_52",
+   "spec": "CH_ChuThap",
+   "kind": "res",
+   "h": 52,
+   "top": 56.0,
+   "x0": -18.0,
+   "x1": 18.0,
+   "y0": -18.0,
+   "y1": 18.0,
+   "tris": [
+    3822,
+    594,
+    44
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_ChuThap_82",
+   "spec": "CH_ChuThap",
+   "kind": "res",
+   "h": 82,
+   "top": 86.0,
+   "x0": -18.0,
+   "x1": 18.0,
+   "y0": -18.0,
+   "y1": 18.0,
+   "tris": [
+    6198,
+    594,
+    44
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_ChuThap_116",
+   "spec": "CH_ChuThap",
+   "kind": "res",
+   "h": 116,
+   "top": 120.0,
+   "x0": -18.0,
+   "x1": 18.0,
+   "y0": -18.0,
+   "y1": 18.0,
+   "tris": [
+    9102,
+    594,
+    44
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_GocLom_52",
+   "spec": "CH_GocLom",
+   "kind": "res",
+   "h": 52,
+   "top": 58.0,
+   "x0": -14.0,
+   "x1": 14.0,
+   "y0": -14.0,
+   "y1": 14.0,
+   "tris": [
+    2284,
+    672,
+    52
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_GocLom_82",
+   "spec": "CH_GocLom",
+   "kind": "res",
+   "h": 82,
+   "top": 88.0,
+   "x0": -14.0,
+   "x1": 14.0,
+   "y0": -14.0,
+   "y1": 14.0,
+   "tris": [
+    3436,
+    672,
+    52
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_GocLom_116",
+   "spec": "CH_GocLom",
+   "kind": "res",
+   "h": 116,
+   "top": 122.0,
+   "x0": -14.0,
+   "x1": 14.0,
+   "y0": -14.0,
+   "y1": 14.0,
+   "tris": [
+    4844,
+    672,
+    52
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_ZigZag_52",
+   "spec": "CH_ZigZag",
+   "kind": "res",
+   "h": 52,
+   "top": 61.0,
+   "x0": -15.0,
+   "x1": 15.0,
+   "y0": -12.0,
+   "y1": 12.0,
+   "tris": [
+    1128,
+    100,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_ZigZag_82",
+   "spec": "CH_ZigZag",
+   "kind": "res",
+   "h": 82,
+   "top": 91.0,
+   "x0": -15.0,
+   "x1": 15.0,
+   "y0": -12.0,
+   "y1": 12.0,
+   "tris": [
+    1920,
+    100,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_CH_ZigZag_116",
+   "spec": "CH_ZigZag",
+   "kind": "res",
+   "h": 116,
+   "top": 125.0,
+   "x0": -15.0,
+   "x1": 15.0,
+   "y0": -12.0,
+   "y1": 12.0,
+   "tris": [
+    2888,
+    100,
+    28
+   ]
+  },
+  {
+   "name": "OW_CaoOc_TT_ChungCu_26",
+   "spec": "TT_ChungCu",
+   "kind": "res",
+   "h": 26,
+   "top": 29.8,
+   "x0": -15.05,
+   "x1": 15.05,
+   "y0": -7.05,
+   "y1": 7.05,
+   "tris": [
+    404,
+    106,
+    18
+   ]
+  },
+  {
+   "name": "OW_CaoOc_TT_ChungCu_40",
+   "spec": "TT_ChungCu",
+   "kind": "res",
+   "h": 40,
+   "top": 43.8,
+   "x0": -15.05,
+   "x1": 15.05,
+   "y0": -7.05,
+   "y1": 7.05,
+   "tris": [
+    624,
+    106,
+    18
+   ]
+  },
+  {
+   "name": "OW_CaoOc_TT_VanPhong_26",
+   "spec": "TT_VanPhong",
+   "kind": "office",
+   "h": 26,
+   "top": 29.8,
+   "x0": -11.5,
+   "x1": 11.5,
+   "y0": -11.5,
+   "y1": 11.5,
+   "tris": [
+    326,
+    108,
+    20
+   ]
+  },
+  {
+   "name": "OW_CaoOc_TT_VanPhong_40",
+   "spec": "TT_VanPhong",
+   "kind": "office",
+   "h": 40,
+   "top": 43.8,
+   "x0": -11.5,
+   "x1": 11.5,
+   "y0": -11.5,
+   "y1": 11.5,
+   "tris": [
+    366,
+    108,
+    20
+   ]
+  }
+ ]
+}

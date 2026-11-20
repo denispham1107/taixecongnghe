@@ -238,5 +238,35 @@
   "tex": "Textures/OW_TowerGrid_3.png",
   "tileH": 9.6,
   "tileV": 9.9
+ },
+ "OW_BalconyTile": {
+  "tex": "Textures/OW_BalconyTile.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_FrameConcrete": {
+  "tex": "Textures/OW_FrameConcrete.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_LeavesDark": {
+  "tex": "Textures/OW_LeavesDark.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_LeavesTamarind": {
+  "tex": "Textures/OW_LeavesTamarind.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_Soil": {
+  "tex": "Textures/OW_Soil.png",
+  "tileH": 4.0,
+  "tileV": 4.0
+ },
+ "OW_WoodSlat": {
+  "tex": "Textures/OW_WoodSlat.png",
+  "tileH": 4.0,
+  "tileV": 4.0
  }
 }

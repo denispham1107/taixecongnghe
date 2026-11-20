@@ -40,3 +40,6 @@ __pycache__/
 /_site/
 # Runtime Unity data is reconstructed from SHA-verified Git-sized parts for Pages.
 /docs/Build/*.data.unityweb
+
+# 21.286: mô hình Meshy gốc rất nặng (>300 MB) — chỉ giữ cục bộ
+ArtSource/MeshyRaw/

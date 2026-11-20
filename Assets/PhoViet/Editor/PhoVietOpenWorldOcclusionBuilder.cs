@@ -49,6 +49,8 @@ namespace PhoViet.OpenWorldEditor
                 var keep = f & ~Occ;
                 StaticEditorFlags want; bool dyn = true;
                 bool allTransparent = r.sharedMaterials.Length > 0 && r.sharedMaterials.All(m => m && m.renderQueue >= 2450);
+                // 21.286: cây dừa (tán lá thưa, bệ thấp) không che khuất vật khác
+                if (r.sharedMaterials.Any(m => m && m.shader && m.shader.name == "PhoViet/OpenWorld/Palm")) allTransparent = true;
                 if (interior.Contains(r)) { want = 0; dyn = false; nInt++; }
                 else if (allTransparent || (lodLevel.TryGetValue(r, out int lv) && lv > 0)) { want = StaticEditorFlags.OccludeeStatic; nDee++; }
                 else { want = Occ; nBoth++; }

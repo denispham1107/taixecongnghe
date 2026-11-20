@@ -37,13 +37,28 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: OW_AluCharcoal.023
+    second: {fileID: 2100000, guid: 47b282dc12c26784b9ad92f364b532b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: OW_AwningCanvas
+    second: {fileID: 2100000, guid: d58004a4639517048a695b08e699ac70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_AwningCanvas.014
     second: {fileID: 2100000, guid: d58004a4639517048a695b08e699ac70, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: OW_AwningCanvas.015
     second: {fileID: 2100000, guid: d58004a4639517048a695b08e699ac70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_BalconyTile.023
+    second: {fileID: 2100000, guid: 301a1c3113418384cbc265fc8b5f1f48, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -67,6 +82,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: OW_FrameConcrete.023
+    second: {fileID: 2100000, guid: ee42f84216bb29b4db3da9313f6d7e2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: OW_FrameDark
     second: {fileID: 2100000, guid: 96b5d71fe6d1a4a42922b9f69b41c8c2, type: 2}
   - first:
@@ -82,6 +102,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: OW_GlassBlue.023
+    second: {fileID: 2100000, guid: 1cdc1b7aa6534a24280fcb1e201e368c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_GlassSky.022
+    second: {fileID: 2100000, guid: 478c76939343d8943b1c5e6256ad05b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: OW_IronBlack
     second: {fileID: 2100000, guid: c2889792c68fd1547b755bc6d5b11d3f, type: 2}
   - first:
@@ -92,8 +122,38 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: OW_LampBulb.023
+    second: {fileID: 2100000, guid: 05e9a907f69d8fb4cae6f9c9ab64113e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_LeavesDark.023
+    second: {fileID: 2100000, guid: 60d481322620f2040ac1226044c2bd6b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_LeavesTamarind.023
+    second: {fileID: 2100000, guid: 0c48e6212d2f37941a19903eb375a9df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_MetalGray.023
+    second: {fileID: 2100000, guid: d1577c381c2372442ab8d16a5217c67a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_PlanterGrey.023
+    second: {fileID: 2100000, guid: ef71261043de52241916322ad65ecc4a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: OW_ShopGlowCool
     second: {fileID: 2100000, guid: 1fc3e9b9f7a6cb249a5c9b7cdb4466a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_Soil.023
+    second: {fileID: 2100000, guid: 7da96d17f375c9b469cf16a544d04574, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -114,6 +174,16 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: OW_WindowGlass.023
     second: {fileID: 2100000, guid: cc68665eb66b2a642a545e8e2b4e6806, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_WoodSlat.022
+    second: {fileID: 2100000, guid: 7d999cc71641b8944a26b5e639403553, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: OW_WoodSlat.023
+    second: {fileID: 2100000, guid: 7d999cc71641b8944a26b5e639403553, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

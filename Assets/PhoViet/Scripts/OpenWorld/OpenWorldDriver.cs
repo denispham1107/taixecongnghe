@@ -41,7 +41,7 @@ namespace PhoViet.OpenWorld
         // • Nút bên phải (giữ để dùng): Ga = tiến (như ↑), Lùi = lùi/phanh (như ↓), Stop = phanh gấp về 0 trong ≤ 1 s;
         //   NHẢY, TÊN LỬA chạm là ăn. Mỗi ngón tay được gán cho đúng một nút khi chạm xuống (đa điểm): vừa giữ nút lái
         //   vừa giữ Ga và chạm TÊN LỬA được (trước 21.265 nút TÊN LỬA là nút IMGUI chỉ nhận một ngón).
-        // • Chạm nửa phải ngoài các nút vẫn là NHẢY. Bàn phím giữ như cũ.
+        // • 21.286: chạm/vuốt ngoài các nút không làm gì (trước đây nửa phải = NHẢY, vuốt lên cũng nhảy). Bàn phím giữ như cũ.
         [Header("Nút lái + bàn đạp cảm ứng (21.265/21.270)")]
         [Tooltip("Hiện nút cảm ứng cả khi máy không có cảm ứng (thử trong Editor)")] public bool touchControlsAlwaysVisible;
         [System.NonSerialized] public bool testTouchUI;                                                    // kiểm thử: hiện nút cảm ứng
@@ -94,7 +94,8 @@ namespace PhoViet.OpenWorld
             if (Grow(GasRect, g, pad) > 0) return Ctl.Gas;
             if (Grow(RevRect, g, pad) > 0) return Ctl.Rev;
             if (Grow(StopRect, g, pad) > 0) return Ctl.Stop;
-            return g.x >= Screen.width * 0.5f ? Ctl.Jump : Ctl.Other;      // chạm nửa phải ngoài nút = nhảy (như cũ)
+            // 21.286 (người dùng): bỏ «chạm/vuốt ở nửa phải màn hình = nhảy» — chỉ nút NHẢY mới nhảy.
+            return Ctl.Other;
         }
         bool FireVisible => hazardsRef && hazardsRef.enabled;
         // Vùng chạm lái nới rộng (ngón cái hay chạm lệch): chia đôi ở giữa khe hai nút, dư 35 % lên trên và ra mép trái.
@@ -260,7 +261,7 @@ namespace PhoViet.OpenWorld
 
         // ------------------------------------------------------------ 21.255: nhảy như game cũ
         // Đỉnh cố định 4,1166525 m so với mặt đỡ lúc phóng (21.100), gia tốc lên 24,2 m/s², rơi 22 m/s², hồi 2 s,
-        // chỉ nhảy khi bánh chạm mặt đường/cầu. Phím J (Space vẫn là phanh tay) hoặc chạm nửa phải màn hình.
+        // chỉ nhảy khi bánh chạm mặt đường/cầu. Phím J (Space vẫn là phanh tay) hoặc nút NHẢY (21.286: bỏ chạm nửa phải màn hình).
         public const float JumpApex = 4.1166525f, JumpRise = 24.2f, JumpFall = 22f, JumpCooldown = 2f;
         public bool Airborne => jumping;
         public float Lift => jumping ? Mathf.Max(0f, transform.position.y - jumpBase) : 0f;   // độ cao so với mặt đỡ lúc phóng
@@ -622,7 +623,7 @@ namespace PhoViet.OpenWorld
             }
             else if (!frozen)
             {
-                // Nút NHẢY (cảm ứng: chạm nửa phải màn hình; bàn phím: J), mờ khi đang hồi.
+                // Nút NHẢY (cảm ứng: chỉ nút này; bàn phím: J), mờ khi đang hồi.
                 LoadTouchArt();
                 var b = JumpRect; float sz = b.width;
                 bool ready = !jumping && Time.time - jumpAt >= JumpCooldown;
