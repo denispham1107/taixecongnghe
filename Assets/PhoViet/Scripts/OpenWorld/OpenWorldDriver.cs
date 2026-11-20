@@ -403,7 +403,7 @@ namespace PhoViet.OpenWorld
         public int Bumps { get; private set; }
         public int Stuns { get; private set; }
         public string LastHit { get; private set; }
-        float stunUntil, stopUntil, flingUntil;
+        float stunUntil, stopUntil, flingUntil, stunAt, stunTotal = 1f, crashShownAt;
         OpenWorldCarDent dent;
         Transform stars; readonly List<Transform> starList = new List<Transform>();
         ParticleSystem stunSmoke; float stunSmokeUntil;
@@ -470,7 +470,7 @@ namespace PhoViet.OpenWorld
                 rb.linearVelocity = (away * 0.75f + side * 0.35f).normalized * (closing * 0.38f * f) + Vector3.up * (1.6f + closing * 0.09f) * fu;
                 rb.angularVelocity = new Vector3(0, (Random.value < .5f ? -1f : 1f) * (2f + k * 3f) * fu, 0);
                 flingUntil = Time.time + (0.6f + k * 0.6f) * Mathf.Clamp(f, 0.4f, 1f);
-                stunUntil = Time.time + o.stun;
+                stunUntil = Time.time + o.stun; stunAt = Time.time; stunTotal = Mathf.Max(.1f, o.stun);
                 Speed = 0f; Stuns++; jumping = false;
                 StunSmoke(o.stun);
                 return;
@@ -522,7 +522,7 @@ namespace PhoViet.OpenWorld
         public void Crash(Vector3 from, string reason, float power)
         {
             if (Crashed || sinking) return;
-            Crashed = true; frozen = true; CrashReason = reason; Crashes++; jumping = false; Speed = 0;
+            Crashed = true; frozen = true; CrashReason = reason; crashShownAt = Time.time; Crashes++; jumping = false; Speed = 0;
             var away = transform.position - from; away.y = 0;
             if (away.sqrMagnitude < 0.01f) away = transform.right; away.Normalize();
             rb.constraints = RigidbodyConstraints.None;
@@ -603,24 +603,35 @@ namespace PhoViet.OpenWorld
             if (Vector3.Dot(c.GetContact(0).normal, transform.forward) < -0.5f) Speed *= 0.25f;
         }
 
+        // «TRÚNG ĐẠN TÀU» → «Trúng đạn tàu» (giữ chữ hoa của tên riêng viết tắt như CSGT).
+        public static string SentenceCase(string s)
+        {
+            if (string.IsNullOrEmpty(s)) return "Xe hỏng";
+            var words = s.Split(' ');
+            for (int i = 0; i < words.Length; i++)
+            {
+                string w = words[i];
+                if (w == "CSGT") continue;
+                w = w.ToLowerInvariant();
+                if (i == 0 && w.Length > 0) w = char.ToUpperInvariant(w[0]) + w.Substring(1);
+                words[i] = w;
+            }
+            return string.Join(" ", words);
+        }
+
         void OnGUI()
         {
             var st = new GUIStyle(GUI.skin.label) { fontSize = Mathf.Max(18, Screen.height / 28), fontStyle = FontStyle.Bold };
             st.normal.textColor = Color.white;
             if (showSpeed) GUI.Label(new Rect(20, 16, 400, 60), Mathf.RoundToInt(Mathf.Abs(Speed) * 3.6f) + " km/h", st);
             if (sinking && respawnAfterSink) GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height / 3, 400, 60), "Rơi xuống sông!", st);
+            // 21.291: thông báo dạng thẻ (OpenWorldToast) thay chữ to có bóng.
             if (Stunned && !Crashed)
-            {
-                var sc = new GUIStyle(st) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(st.fontSize * 1.15f) };
-                sc.normal.textColor = new Color(1f, 0.85f, 0.25f);
-                GUI.Label(new Rect(0, Screen.height * 0.36f, Screen.width, st.fontSize * 2f), "CHOÁNG  " + StunRemaining.ToString("0.0") + " s", sc);
-            }
-            if (Crashed)
-            {
-                var c = new GUIStyle(st) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(st.fontSize * 1.3f) };
-                c.normal.textColor = new Color(1f, 0.82f, 0.3f);
-                GUI.Label(new Rect(0, Screen.height * 0.42f, Screen.width, st.fontSize * 2.4f), CrashReason + " · XE HỎNG", c);
-            }
+                OpenWorldToast.Show("CHOÁNG", "Xe bị húc choáng", "Lái lại được sau " + StunRemaining.ToString("0.0") + " s", OpenWorldToast.Kind.Warn,
+                                    Time.time - stunAt, StunRemaining, progress: StunRemaining / stunTotal);
+            if (Crashed && Time.time - crashShownAt < 1.75f)                 // OpenWorldGame mở thẻ KẾT THÚC sau 1,6 s
+                OpenWorldToast.Show("XE HỎNG", SentenceCase(CrashReason), "Chuyến xe dừng tại đây", OpenWorldToast.Kind.Danger,
+                                    Time.time - crashShownAt, 1.75f - (Time.time - crashShownAt), center: true);
             else if (!frozen)
             {
                 // Nút NHẢY (cảm ứng: chỉ nút này; bàn phím: J), mờ khi đang hồi.

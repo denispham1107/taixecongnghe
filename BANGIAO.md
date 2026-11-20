@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **21/11/2026 — Claude Code (21.290, phát hành 1.83.0)**
+Cập nhật lần cuối: **21/11/2026 — Claude Code (21.291, build 1.84.0 cục bộ chưa phát hành)**
 
 ## 1. Trạng thái hiện tại
 
@@ -62,6 +62,7 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (21.290, phát hành 1.8
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.291 (chưa phát hành, build 1.84.0 cục bộ):** tạm bỏ chữ tường (xóa gốc `ChuTuong`, vẽ lại bằng menu 15); bánh răng góc phải thẻ chào → «Cấu hình đồ họa» Rất cao (mật độ gốc, iPhone 3x; không MSAA, bóng 1 tầng) / Cao (0,8 gốc) / Trung bình (tự động 0,4–0,67 gốc, mặc định điện thoại) / Yếu (1x, tắt bóng), lưu PlayerPrefs + localStorage; thông báo trong game dạng thẻ `OpenWorldToast` (CSGT, hiểm họa, xe). Gói điện thoại 102,5 MB. Chi tiết `huongdan.md` 21.291.
 - **21.290 (`c714450`, Pages `44800981848`, live 30/30 khớp — phát hành 1.83.0 cùng 21.286/21.288/21.289; chữ tường giao lộ):** 274 bảng chữ to trên mảng tường hông trống nhìn ra phố (25 % mỗi câu Cù Lao Petshop Tắm Làm Đẹp 66K / Lưu Trú 66K / Hỏa Táng 300K, 25 % khẩu hiệu CẤM ĐÁI BẬY / AI XE ÔM KHÔNG / CẤM ĐỔ RÁC / HÚT BỒN CẦU ĐÂY), ngang hoặc dọc, canh giữa, 2 màu tương phản tường. Blender `build_wall_texts.py` → `Library/OW_ChuTuong.fbx`; Unity menu 15 `Editor/PhoVietOpenWorldWallTextBuilder.cs` (gốc scene `ChuTuong`). Chi tiết `huongdan.md` 21.290.
 - **21.289 (phát hành 1.83.0 — mặt tiền nhà phố):** toàn bộ nhà phố (48 mẫu + 14 nhà nổi bật) đổi sang mặt tiền shophouse hiện đại chi tiết (cửa sổ, ban công, cây lá thật) dựng bằng Blender; tầng trệt cửa hàng giữ nguyên. Chi tiết `huongdan.md` 21.289.
 - **21.286 (phát hành 1.83.0 — cây dừa Meshy):** toàn bộ 2.427 cây bản đồ mở thay bằng cây dừa Meshy người dùng gửi (cắt bệ đất, gắn bệ gạch bát giác cũ P2), 3 LOD, va chạm mới, occlusion nướng lại; kèm bỏ vuốt/chạm nửa phải để nhảy. Chi tiết `huongdan.md` 21.286.
@@ -426,6 +427,8 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (21.290, phát hành 1.8
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **Chờ người dùng (21.291):** bản **1.84.0 đã build cục bộ** (`Builds/WebGL`, cache `10a027ef8e5fb1a5`), CHƯA phát hành/commit: bỏ chữ tường (gốc `ChuTuong` đã xóa khỏi scene), bánh răng «Cấu hình đồ họa» 4 mức, thông báo dạng thẻ. Người dùng đồng ý thì làm tiếp quy trình phát hành (`rm -rf docs/Build && cp -r Builds/WebGL/. docs/`, pack/materialize/cmp, commit, push, kiểm live). Heap điện thoại 384 → 418 MB khi qua đợt xe tăng đầu (mét 150) ở mọi mức — có từ trước, chưa từng đo tới đó.
+
 - **Chờ người dùng (21.285):** thử 1.82.0 trên iPhone (trang chủ «Bản cập nhật 1.82.0»): tàu bắn khi lên lề sông + hạ tàu, hố trên lề sông, tiệm «Cù Lao Petshop», xe nét hơn. Nếu iPhone văng: hạ `PV_BlueSupercar_Palette` về ETC2 chất lượng 100 (`PhoVietWebMemorySettings`) trước tiên.
 
 
@@ -603,7 +606,7 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (21.290, phát hành 1.8
 - **Source21.155:** Q móc xích/lộn, Space nhảy/bay/hạ, **W/F bắn tên lửa cả đất/bay theo21.145**; mobile chạm hai lần móc xích/lộn, vuốt lên nhảy/bay/hạ, **vuốt xuống bắn cả đất/bay theo21.145**; nút tròn vẫn bắn. Nhận khi đủ ngưỡng, một cú vuốt một lệnh. **Boost tạm khóa (`BoostReleased=false`)**, chỉ mở lại khi người dùng yêu cầu. Source21.148 có đất xanh +15, không cam +20, tối đa 180 và bay −10/0,5s.
 - Hai làn trái rẽ trái, hai làn phải rẽ phải, giữ số làn sau cua, cua không giảm tốc.
 - **Source21.65: player Blue Petshop Supercar** xanh scale0,85; đã có trên web1.40.0; hero xe máy xanh–đen21.58 là lịch sử. NPC xe máy source21.67 dùngUrbanRider nhiều màu xe/áo, CSGT giữ cả người+xe; NPC4mẫu ô tô×8màu, xe tăng giữ nguyên.
-- Phong cách bán hiện thực vui nhộn, tối ưu điện thoại/WebGL. **Từ 21.136 trên cảm ứng ưu tiên mượt hơn độ nét:** không quay lại DPR3/AA4 nếu người dùng không yêu cầu.
+- Phong cách bán hiện thực vui nhộn, tối ưu điện thoại/WebGL. **Từ 21.291 người chơi tự chọn mật độ điểm ảnh** (bánh răng thẻ chào: Rất cao = mật độ gốc, mặc định điện thoại Trung bình tự động); máy cảm ứng không MSAA ở mọi mức. Không đổi mặc định/không bớt nội dung (xe NPC, tàu) nếu người dùng không yêu cầu.
 - Không bật lại công việc khi nâng cấp/sửa lỗi/build. Giữ dữ liệu Coin và mã jobs.
 - Không ghi đè/reset file Blender cục bộ, không dựng lại cả scene bằng builder lịch sử.
 
@@ -611,6 +614,7 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (21.290, phát hành 1.8
 
 | Muốn đụng tới | Mục `huongdan.md` | File chính |
 | --- | --- | --- |
+| Cấu hình đồ họa bản đồ mở (bánh răng thẻ chào, 4 mức, mật độ điểm ảnh, tự điều chỉnh) + thông báo dạng thẻ | **21.291** | `Scripts/OpenWorld/OpenWorldGame.Graphics.cs` (`PlanFor`, `ApplyGraphics`, `TickGovernor`, `GraphicsWindow`), `OpenWorldGame.cs` (`ApplyBrowserInsets`), `Plugins/WebGL/PhoVietWeb.jslib` (`PhoVietSetPixelPlan`), template `app.js` (`phoVietSetPixelPlan`, `gamePixelRatio`); thông báo `Scripts/OpenWorld/OpenWorldToast.cs` + `OpenWorldHazards.Say`, `OpenWorldPolice.OnGUI`, `OpenWorldDriver.OnGUI` |
 | Tàu bắn/bị bắn, hố lề sông, tiệm Cù Lao Petshop, ảnh xe người chơi | **21.285** | `Scripts/OpenWorld/OpenWorldHazards.Boats.cs`, `OpenWorldBoats.cs`, `OpenWorldHazards.cs` (`FireShell`, `MakeCrater`), `.Weapons.cs`; `Editor/PhoVietOpenWorldPetshopBuilder.cs` (menu 13), `PhoVietWebMemorySettings.cs`; Blender `ow_interiors.py` (`furnish_PetShop`), `build_interiors.py` (`export_petshop`), `build_petshop_signs.py`, `PhoViet_OW_Petshop_21285.blend`; `Library/NoiThat/OW_NoiThat_PetShop*`, `Library/OW_Mau_Bang_*_14.fbx` |
 | Nút cảm ứng cỡ/trong suốt/ảnh 512, gỡ kẹt lơ lửng trên xe khác, xe máy ngã, icon tên lửa 2 mặt, xóa điều hòa | **21.284** | `Scripts/OpenWorld/OpenWorldDriver.cs` (bố cục nút, `TickUnstick`), `OpenWorldTraffic.cs` (`BeginFall`/`FallPose`), `ArtSource/UI/build_touch_controls.py`, `Editor/PhoVietWebMemorySettings.cs`, `Editor/PhoVietWorldMeshPostprocessor.cs` (`StripAirCon`), `Scripts/EnergyPickup.shader`; `AgentScripts/PickupTwoSided21284.cs`, `RemoveAirCon21284.cs`, `StuckOnCar21284.cs`, `BikeFall21284.cs`, `QueueRelease21284.cs` |
 | Thiết kế icon cài đặt Phố Việt | **21.167**, 21.165–21.166, 15.2 | `ArtSource/Web/pho-viet-app-icon.svg`, `AgentScripts/GenerateWebIcons.cjs`, `ArtSource/Concepts/PWA-Icons-20261109/`, template PWA `manifest.webmanifest`, `index.html`, `icons/` |
@@ -661,7 +665,7 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (21.290, phát hành 1.8
 | Mái hiên sọc hai mặt nhà ven sông | **21.191** | `striped_awning` trong `pho_viet_saigon_streets.py`, `shop_unit` trong `pho_viet_river_bridge.py`, hai FBX nhà ven sông. |
 | Tàu đánh cá Meshy / tín hiệu phụ2mặt | **21.102** | `Editor/PhoVietFishingBoatUpgrade.cs`, `Art/River/FishingBoat/`, `ArtSource/Blender/prepare_fishing_boat.py`, `PhoViet_FishingBoat.blend`, `PhoVietSignalFaces.cs`, `AgentScripts/VerifyBoatSignal.cs`, `CaptureBoatSignal.cs`; không chạy lại installer sông/nhà |
 | Sông, cầu, tàu đánh cá, căn hộ ven sông, xe/CSGT rơi chìm | **21.218, 21.217, 21.211**, 21.35–21.37, 21.45–21.54, 21.63 | `PhoVietRiver.cs`, `RiverBlock.cs`, `RiverBoat.cs`, `RiverReflection.cs`, `River*.shader`, `Editor/PhoVietRiverUpgrade.cs`, `AgentScripts/VerifyRiverCrashSinking.cs` |
-| Chữ vẽ trên tường hông trống (giao lộ) | **21.290** | Blender nền `ArtSource/Blender/OpenWorld/build_wall_texts.py` → `Assets/PhoViet/OpenWorld/Library/OW_ChuTuong.fbx` (14 lưới, Arial Bold); Unity menu 15 `Editor/PhoVietOpenWorldWallTextBuilder.cs` (dò tường, tỉ lệ nội dung, màu `Materials/OW_ChuTuong_<hex>.mat`), gốc scene `ChuTuong` |
+| Chữ vẽ trên tường hông trống (giao lộ) — **đã gỡ khỏi scene ở 21.291**, vẽ lại bằng menu 15 | **21.290**, 21.291 | Blender nền `ArtSource/Blender/OpenWorld/build_wall_texts.py` → `Assets/PhoViet/OpenWorld/Library/OW_ChuTuong.fbx` (14 lưới, Arial Bold); Unity menu 15 `Editor/PhoVietOpenWorldWallTextBuilder.cs` (dò tường, tỉ lệ nội dung, màu `Materials/OW_ChuTuong_<hex>.mat`), gốc scene `ChuTuong` |
 | Mặt tiền nhà phố bản đồ mở (shophouse hiện đại) | **21.289** | Blender `ArtSource/Blender/OpenWorld/ow_facade.py` (`shophouse2`, `facade_mats`, cây lá `leaf/plant_broad/plant_strap/trailing`), chạy nền `build_facade_library.py` (48 mẫu + vật liệu/`materials.json`) → `build_interiors.py` MODE export_houses (kính tầng trệt), `build_facade_featured.py` (14 nhà nổi bật → `Library/NhaNoiBat/Src`); nguồn `PhoViet_OW_MatTien_21289(_v2).blend`; Unity menu 1 rồi dựng lại `NhaNgan/*_Ngan.asset` + `NhaNoiBat/*_Kinh.asset` (xem huongdan 21.289) |
 | Cây dừa bản đồ mở (Meshy + bệ gạch cũ) | **21.286** | Blender nền `ArtSource/Blender/OpenWorld/build_meshy_palm.py` (đọc `ArtSource/MeshyRaw/<mô hình>/mesh_unity.bin` do Unity xuất), bệ `build_coconut_palm.planter_p2_aged`; Unity `Assets/PhoViet/Art/Streets/CayDua/` (`PV_CayDua.fbx/.prefab`, `PV_CayDua(_Be).mat`), shader `Scripts/OpenWorld/OpenWorldPalm.shader`, menu 14 `Editor/PhoVietOpenWorldPalmBuilder.cs`; menu 12 cho cây chỉ occludee |
 | Cao ốc bản đồ mở (khu tài chính, chung cư bờ đông/bắc, vành chân trời) | **21.288** | Blender `ArtSource/Blender/OpenWorld/ow_towers.py` (MODE tex/preview/export, texture `towers_tex/`), `ow_towers_apply_map.py`, `PhoViet_OW_CaoOc_21288.blend`; Unity `Assets/PhoViet/OpenWorld/Towers/` (Models/Textures/Materials/Prefabs, `towers_models.json`), `OpenWorld/Data/towers.json`, `Editor/PhoVietOpenWorldTowerBuilder.cs` (menu 13, `Batch`, `Capture`) |

@@ -501,6 +501,7 @@ namespace PhoViet.OpenWorld
 
         // ------------------------------------------------------------ HUD
         GUIStyle big, small, btn;
+        State toastMode = (State)(-1); float toastAt, closeAt; bool wasClose;
         void OnGUI()
         {
             if (big == null)
@@ -525,15 +526,29 @@ namespace PhoViet.OpenWorld
                 if (GUI.Button(new Rect((W - bw) / 2, H * 0.78f, bw, bh), "CHƠI LẠI", btn)) ResetChase(true);
                 return;
             }
-            if (Mode == State.Arrested) { Shadowed(new Rect(0, H * 0.3f, W, fs * 3f), "BỊ CSGT BẮT!", big, new Color(1f, 0.3f, 0.25f)); return; }
-            if (Mode == State.Waiting)
-                Shadowed(new Rect(0, H * 0.22f, W, fs * 3f), "CSGT xuất phát sau " + Mathf.CeilToInt(WaitRemaining), big, Color.white);
-
+            // 21.291: thông báo dạng thẻ (OpenWorldToast) thay chữ to có bóng; màu nhấn nháy đỏ/xanh như đèn xe tuần tra.
             bool flash = Mathf.FloorToInt(Time.time * 4f) % 2 == 0;
-            var col = Distance < 15f ? (flash ? new Color(1f, 0.3f, 0.25f) : new Color(0.35f, 0.65f, 1f)) : Color.white;
+            var siren = flash ? new Color(1f, .33f, .29f) : new Color(.36f, .66f, 1f);
+            if (Mode != toastMode) { toastMode = Mode; toastAt = Time.time; }
+            bool close = Mode == State.Chasing && Distance < 15f;
+            if (close != wasClose) { wasClose = close; closeAt = Time.time; }
+            if (Mode == State.Arrested)
+            {
+                OpenWorldToast.Show("CSGT", "Bị CSGT bắt!", "Xe đã bị chặn lại", OpenWorldToast.Kind.Danger, Time.time - toastAt, -1f, accentOverride: siren, center: true);
+                return;
+            }
+            if (Mode == State.Waiting)
+            {
+                int left = Mathf.CeilToInt(WaitRemaining);
+                OpenWorldToast.Show("CHUẨN BỊ", "CSGT xuất phát sau " + left + " giây", "Chạy ngay kẻo bị bắt!", OpenWorldToast.Kind.Warn,
+                                    Time.time - toastAt, WaitRemaining, badge: left.ToString(), progress: startDelay > 0 ? WaitRemaining / startDelay : -1f);
+            }
+
+            var col = Distance < 15f ? siren : Color.white;
             if (showDistance) Shadowed(new Rect(W - 420, 16, 400, fs * 1.6f), "CSGT  " + Mathf.RoundToInt(Distance) + " m", small, col);
-            if (Mode == State.Chasing && Distance < 15f)
-                Shadowed(new Rect(0, H * 0.14f, W, fs * 2.5f), "CSGT ÁP SÁT!", big, col);
+            if (close)
+                OpenWorldToast.Show("CSGT ÁP SÁT", "Còn " + Mathf.RoundToInt(Distance) + " m", "Tăng tốc hoặc rẽ để cắt đuôi", OpenWorldToast.Kind.Danger,
+                                    Time.time - closeAt, -1f, accentOverride: siren);
 
             // Mũi chỉ hướng xe CSGT khi ngoài khung hình (thường là phía sau).
             var cam = Camera.main;
@@ -546,8 +561,9 @@ namespace PhoViet.OpenWorld
                     var rel = cam.transform.InverseTransformDirection(transform.position - cam.transform.position);
                     float ang = Mathf.Atan2(rel.x, rel.z);                // 0 = trước, ±π = sau
                     float x = W / 2 + Mathf.Sin(ang) * W * 0.42f;
-                    float y = rel.z < 0 ? H - fs * 2.6f : fs * 3.5f;
-                    Shadowed(new Rect(x - fs * 3, y, fs * 6, fs * 1.6f), (rel.z < 0 ? "▼ " : "▲ ") + "CSGT", new GUIStyle(small) { alignment = TextAnchor.MiddleCenter }, flash ? new Color(1f, 0.3f, 0.25f) : new Color(0.35f, 0.65f, 1f));
+                    float sc = OpenWorldToast.Scale;
+                    float y = rel.z < 0 ? H - OpenWorldGame.SafeBottomPx - 46f * sc : OpenWorldGame.SafeTopPx + 150f * sc;
+                    OpenWorldToast.Chip(x, y, (rel.z < 0 ? "▼  CSGT phía sau  " : "▲  CSGT phía trước  ") + Mathf.RoundToInt(Distance) + " m", siren);
                 }
             }
         }

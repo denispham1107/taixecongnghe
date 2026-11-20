@@ -56,7 +56,7 @@ namespace PhoViet.OpenWorld
                 BoatBlast(boats.BoatCenter(i));
             }
             bool bank = live && player.Lift < 2.2f && IsRiverBank(pp);
-            if (bank && !OnRiverBank && Time.time - bankNoticeAt > 6f) { Say("TÀU TRÊN SÔNG NỔ SÚNG · RỜI BỜ SÔNG HOẶC BẮN HẠ TÀU", 2.2f); bankNoticeAt = Time.time; }
+            if (bank && !OnRiverBank && Time.time - bankNoticeAt > 6f) { Say("Tàu trên sông nổ súng!", "Rời bờ sông hoặc bắn hạ tàu", 2.2f, OpenWorldToast.Kind.Danger); bankNoticeAt = Time.time; }
             OnRiverBank = bank;
             for (int i = 0; i < boats.Count; i++)
             {
@@ -111,7 +111,7 @@ namespace PhoViet.OpenWorld
             for (int k = 0; k < 18; k++)
                 Emit(sparkFx, at, Random.insideUnitSphere * 7f + Vector3.up * 3f, Random.Range(.12f, .26f), Random.Range(.5f, .9f), new Color(1, .62f, .2f, 1));
             PlayAt(blastClip, at, 0.8f);
-            Say("TRÚNG TÀU · TÀU BỐC CHÁY", 1.4f); Note("người chơi bắn trúng tàu");
+            Say("Trúng tàu!", "Tàu đang bốc cháy", 1.4f, OpenWorldToast.Kind.Good, "TRÚNG ĐÍCH"); Note("người chơi bắn trúng tàu");
         }
 
         void BoatBlast(Vector3 at)
@@ -124,7 +124,7 @@ namespace PhoViet.OpenWorld
             for (int k = 0; k < 16; k++)                                          // cột nước
                 Emit(sparkFx, at + Vector3.down * 1.2f, new Vector3(Random.Range(-3f, 3f), Random.Range(7f, 12f), Random.Range(-3f, 3f)), Random.Range(.3f, .6f), Random.Range(.7f, 1.1f), new Color(.8f, .9f, 1f, .9f));
             PlayAt(blastClip, at, 1f);
-            Say("TÀU NỔ TUNG", 1.4f); Note("tàu nổ");
+            Say("Tàu nổ tung!", "Đã hạ tàu trên sông", 1.4f, OpenWorldToast.Kind.Good, "HẠ GỌN"); Note("tàu nổ");
         }
     }
 }

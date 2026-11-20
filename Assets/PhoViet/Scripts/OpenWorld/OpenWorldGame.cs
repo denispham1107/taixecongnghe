@@ -14,7 +14,7 @@ namespace PhoViet.OpenWorld
     //   «KẾT THÚC CHUYẾN XE · Rơi xuống sông!» (không hồi sinh). Cả hai lưu kỷ lục cục bộ (PlayerPrefs, khóa riêng của bản
     //   đồ mở) và có THỬ MỘT CHUYẾN NỮA / CHƠI LẠI (R, Enter, Space) và VỀ ĐẦU PHỐ.
     [DefaultExecutionOrder(120)]
-    public class OpenWorldGame : MonoBehaviour
+    public partial class OpenWorldGame : MonoBehaviour
     {
         public OpenWorldDriver player;
         public OpenWorldPolice police;
@@ -68,7 +68,7 @@ namespace PhoViet.OpenWorld
         // ------------------------------------------------------------ 21.264: bản web (khung PWA app.js) + điện thoại
         // app.js gọi SendMessage("VongChoi", …): PauseForBrowser (ẩn tab/mở menu), ApplyBrowserOrientation ("1" = đang cầm dọc,
         // khung trang che bằng lời nhắc xoay ngang), ApplyBrowserInsets (vùng tai thỏ/thanh home, tỉ lệ 0–0,4 theo khung canvas).
-        [System.Serializable] class BrowserInsetData { public float left, top, right, bottom, pixelRatio; }
+        [System.Serializable] class BrowserInsetData { public float left, top, right, bottom, pixelRatio, nativeRatio; }
         static Vector4 insetFraction;
         public static float InsetLeft => insetFraction.x * Screen.width;
         public static float InsetTop => insetFraction.y * Screen.height;
@@ -88,7 +88,11 @@ namespace PhoViet.OpenWorld
             try
             {
                 var d = JsonUtility.FromJson<BrowserInsetData>(json);
-                if (d != null) insetFraction = new Vector4(Mathf.Clamp(d.left, 0f, .4f), Mathf.Clamp(d.top, 0f, .4f), Mathf.Clamp(d.right, 0f, .4f), Mathf.Clamp(d.bottom, 0f, .4f));
+                if (d != null)
+                {
+                    insetFraction = new Vector4(Mathf.Clamp(d.left, 0f, .4f), Mathf.Clamp(d.top, 0f, .4f), Mathf.Clamp(d.right, 0f, .4f), Mathf.Clamp(d.bottom, 0f, .4f));
+                    OnBrowserRatios(d.pixelRatio, d.nativeRatio);           // 21.291: cấu hình đồ họa (OpenWorldGame.Graphics.cs)
+                }
             }
             catch (System.Exception) { }
         }
@@ -147,6 +151,7 @@ namespace PhoViet.OpenWorld
             if (player) { player.respawnAfterSink = false; player.showSpeed = false; }
             if (police) { police.drawJail = false; police.showDistance = false; }
             GoReady();
+            InitGraphics();                                                 // 21.291: mức đồ họa đã lưu (sau thiết lập điện thoại ở Awake)
         }
 
         // ------------------------------------------------------------ chuyển trạng thái
@@ -165,7 +170,7 @@ namespace PhoViet.OpenWorld
             if (hazards) { hazards.ClearAll(); hazards.enabled = true; }   // số mét về 0 ngay khung hình này
             if (police) { police.enabled = true; police.ResetChase(true); }   // đưa xe về chỗ xuất phát, Runs++ → hiểm họa dọn sạch
             if (player) player.frozen = false;
-            Mode = State.Riding; EndReason = null; EndDetail = null; NewBest = false; sinkAt = -1f; crashAt = -1f; Runs++;
+            Mode = State.Riding; EndReason = null; EndDetail = null; NewBest = false; sinkAt = -1f; crashAt = -1f; Runs++; GraphicsOpen = false;
         }
 
         public void TogglePause()
@@ -196,9 +201,11 @@ namespace PhoViet.OpenWorld
             switch (Mode)
             {
                 case State.Ready:
+                    if (GraphicsOpen) { GraphicsKeys(); break; }
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space)) StartRun();
                     break;
                 case State.Riding:
+                    TickGovernor();
                     if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) { TogglePause(); break; }
                     if (police && police.Jailed) { EndRun(State.Jailed, "CSGT đã đưa bạn vào phòng giam."); break; }
                     if (player && player.Crashed)
@@ -275,7 +282,10 @@ namespace PhoViet.OpenWorld
             GUI.matrix = Matrix4x4.Scale(Vector3.one * uiScale);
             switch (Mode)
             {
-                case State.Ready: ReadyScreen(); break;
+                case State.Ready:
+                    if (GraphicsOpen) { GUI.enabled = false; ReadyScreen(); GUI.enabled = true; GraphicsWindow(); }
+                    else ReadyScreen();
+                    break;
                 case State.Riding: Hud(); break;
                 case State.Paused: Hud(); EndCard(true); break;
                 case State.Jailed: JailScreen(); break;
@@ -305,7 +315,8 @@ namespace PhoViet.OpenWorld
             Panel(new Rect(x - 3, y + 5, w + 6, h + 3), new Color(.04f, .13f, .20f, .14f), 21);
             Panel(new Rect(x - 1, y - 1, w + 2, h + 2), new Color(1, 1, 1, .68f), 19); Panel(card, WelcomeWhite, 18);
             Panel(new Rect(x + 22, y + 20, 5, 13), Red, 2);
-            Txt("BẢN ĐỒ MỞ · SÀI GÒN", x + 36, y + 18, w - 60, 21, 11, Teal);
+            Txt("BẢN ĐỒ MỞ · SÀI GÒN", x + 36, y + 18, w - 110, 21, 11, Teal);
+            GearButton(card);                                               // 21.291: cấu hình đồ họa
             Txt("LÁI QUA\nPHỐ QUEN.", x + 20, y + 48, w - 40, 108, portrait ? 39 : 41, Ink);
             Txt("Né CSGT, khủng long, xe tăng\nvà trực thăng trên phố mở.", x + 23, y + (portrait ? 143 : 152), w - 46, 42, 15, Hex("4C657A"));
             if (Btn("LÊN XE THÔI", new Rect(x + 22, y + h - 70, w - 44, 44), Red, Color.white, 17)) StartRun();

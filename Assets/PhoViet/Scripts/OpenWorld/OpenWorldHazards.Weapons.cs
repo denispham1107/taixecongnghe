@@ -93,7 +93,7 @@ namespace PhoViet.OpenWorld
             PlayerMissiles--; PlayerMissilesFired++; fireCooldown = playerMissileInterval;
             Emit(muzzleFx, origin, dir * 4f, 1.4f, .14f, Color.white);
             PlayAt(launchClip, origin, 0.7f);
-            Say(bestB >= 0 ? "TÊN LỬA · ĐÃ KHÓA TÀU" : bestT != null ? "TÊN LỬA · ĐÃ KHÓA XE TĂNG" : bestH != null ? "TÊN LỬA · ĐÃ KHÓA TRỰC THĂNG" : "TÊN LỬA · BAY THẲNG", 1.0f);
+            Say(bestB >= 0 ? "Đã khóa tàu" : bestT != null ? "Đã khóa xe tăng" : bestH != null ? "Đã khóa trực thăng" : "Bay thẳng", bestB >= 0 || bestT != null || bestH != null ? "Tên lửa tự bám mục tiêu" : "Không có mục tiêu trong tầm", 1.0f, OpenWorldToast.Kind.Info, "TÊN LỬA");
             return true;
         }
         static Vector3 TankAim(Tank t) => t.root.TransformPoint(new Vector3(0, 1.2f, -0.9f));
@@ -187,7 +187,7 @@ namespace PhoViet.OpenWorld
             {
                 var b = new MaterialPropertyBlock(); r.GetPropertyBlock(b); b.SetColor("_Color", new Color(.28f, .26f, .24f)); b.SetColor("_PaintColor", new Color(.28f, .26f, .24f)); r.SetPropertyBlock(b);
             }
-            Say("XE TĂNG BỊ HẠ · TRÁNH XÁC XE", 1.8f); Note("người chơi hạ xe tăng");
+            Say("Hạ xe tăng!", "Tránh xác xe phía trước", 1.8f, OpenWorldToast.Kind.Good, "HẠ GỌN"); Note("người chơi hạ xe tăng");
         }
 
         ParticleSystem BurnFx(Transform parent, Vector3 local)
@@ -217,7 +217,7 @@ namespace PhoViet.OpenWorld
             Emit(blastFx, h.root.position, Vector3.zero, 6f, .8f, Color.white);
             PlayAt(blastClip, h.root.position, 0.9f);
             BurnFx(h.root, Vector3.zero);
-            Say("HẠ TRỰC THĂNG · TRÚNG TÊN LỬA", 1.6f); Note("người chơi hạ trực thăng");
+            Say("Hạ trực thăng!", "Tên lửa trúng đích", 1.6f, OpenWorldToast.Kind.Good, "HẠ GỌN"); Note("người chơi hạ trực thăng");
         }
 
         // trực thăng bị hạ: rơi xoáy, chạm đất/nước thì nổ — true = dọn
@@ -253,7 +253,7 @@ namespace PhoViet.OpenWorld
                 {
                     p.live = false; p.root.gameObject.SetActive(false);
                     PlayerMissiles = Mathf.Min(maxMissiles, PlayerMissiles + 1); PickupsCollected++;
-                    Say("NHẶT TÊN LỬA +1 · " + PlayerMissiles + "/" + maxMissiles, 1.2f);
+                    Say("Nhặt tên lửa +1", "Trong kho " + PlayerMissiles + "/" + maxMissiles, 1.2f, OpenWorldToast.Kind.Good, "TIẾP TẾ");
                     PlayAt(launchClip, p.root.position, 0.25f);
                 }
             }

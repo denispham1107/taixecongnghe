@@ -72,7 +72,8 @@ namespace PhoViet.OpenWorld
         System.Random rnd;
         Rigidbody playerRb;
         Vector3 lastPlayerPos; int seenRun;
-        string notice; float noticeUntil;
+        // 21.291: thông báo dạng thẻ (OpenWorldToast) — tiêu đề + dòng phụ + loại màu; notice giữ chuỗi gộp cho báo cáo kiểm thử.
+        string notice, noticeTitle, noticeDetail, noticeCaption; OpenWorldToast.Kind noticeKind; float noticeUntil, noticeAt;
 
         // ------------------------------------------------------------ đồ thị đường
         readonly List<Vector3> gp = new List<Vector3>();
@@ -106,7 +107,13 @@ namespace PhoViet.OpenWorld
         }
 
         void Note(string m) { Log.Add($"{DistanceDriven:F0}m {m}"); if (Log.Count > 60) Log.RemoveAt(0); }
-        void Say(string text, float seconds) { notice = text; noticeUntil = Time.time + seconds; }
+        void Say(string title, string detail, float seconds, OpenWorldToast.Kind kind, string caption = null)
+        {
+            bool same = notice != null && Time.time < noticeUntil && title == noticeTitle;      // cùng thẻ đang hiện: không chạy lại hiệu ứng vào
+            noticeTitle = title; noticeDetail = detail; noticeKind = kind; noticeCaption = caption;
+            notice = string.IsNullOrEmpty(detail) ? title : title + " · " + detail; noticeUntil = Time.time + seconds;
+            if (!same) noticeAt = Time.time;
+        }
 
         // ------------------------------------------------------------ chơi lại
         public void ClearAll()
@@ -196,7 +203,7 @@ namespace PhoViet.OpenWorld
             if (traffic) { traffic.blockers.Add(d.rb); traffic.blockerHalf[d.rb] = new Vector2(2.4f, 2.6f); }
             for (int i = 0; i < 6; i++) d.prev[i] = d.vis.tail[i].position;
             dinos.Add(d); DinosSpawned++;
-            Say("KHỦNG LONG PHÍA TRƯỚC · NHẢY NÉ ĐUÔI (J)", 2.2f); Note("khủng long @" + Fmt(c));
+            Say("Khủng long phía trước", player && player.TouchControlsVisible ? "Bấm NHẢY để né đuôi" : "Nhấn J để nhảy né đuôi", 2.2f, OpenWorldToast.Kind.Warn); Note("khủng long @" + Fmt(c));
             return true;
         }
 
@@ -212,7 +219,7 @@ namespace PhoViet.OpenWorld
             if (!d.vis.Sweeping && d.nextSweep <= 0 && Vector3.Dot(toward, fwd) > 0 && dist < closing * 1.19f + 5.3f && !player.Crashed)
             {
                 d.vis.StartSweep(); d.nextSweep = 3.4f; d.hitPlayer = d.hitPolice = false; d.sweepId++; Sweeps++;
-                Say("QUẤT ĐUÔI · NHẢY LÊN!", 1.1f);
+                Say("Khủng long quất đuôi!", "Nhảy lên ngay!", 1.1f, OpenWorldToast.Kind.Danger);
             }
             if (autoJumpTest && d.vis.Sweeping && d.vis.SweepAge >= 0.68f && d.vis.SweepAge < 0.68f + dt * 1.5f && dist < 40f) player.RequestJump();
             d.vis.Advance(dt);
@@ -322,7 +329,7 @@ namespace PhoViet.OpenWorld
             if (t.anim && t.anim.GetClip("Drive")) { t.anim.playAutomatically = false; t.anim["Drive"].wrapMode = WrapMode.Loop; t.anim.Play("Drive"); }
             if (traffic) { traffic.blockers.Add(t.rb); traffic.blockerHalf[t.rb] = new Vector2(1.3f, 3.5f); }
             tanks.Add(t); TanksSpawned++;
-            if (announce) Say("XE TĂNG PHÍA TRƯỚC · NÉ ĐẠN PHÁO", 2.2f);
+            if (announce) Say("Xe tăng phía trước", "Né đạn pháo", 2.2f, OpenWorldToast.Kind.Warn);
             Note("xe tăng @" + Fmt(pos));
             return true;
         }
@@ -557,7 +564,7 @@ namespace PhoViet.OpenWorld
             var h = new Heli { root = go.transform, vis = go.GetComponent<HelicopterVisual>(), fire = 3.0f + (float)rnd.NextDouble() * 1.5f, yaw = go.transform.eulerAngles.y, vel = dir * 20f, slot = FreeHeliSlot() };
             if (h.vis) { h.vis.standalone = true; h.vis.ResetPose(); }
             helis.Add(h); HelisSpawned++;
-            if (announce) Say("TRỰC THĂNG PHÍA TRƯỚC · NÉ TÊN LỬA", 2.2f);
+            if (announce) Say("Trực thăng phía trước", "Né tên lửa", 2.2f, OpenWorldToast.Kind.Warn);
             Note("trực thăng @" + Fmt(c));
             return true;
         }
@@ -625,7 +632,7 @@ namespace PhoViet.OpenWorld
             if (autoDodgeTest) dodgeUntil = Time.time + 0.45f;
             Emit(muzzleFx, origin, m.vel.normalized * 4f, 1.6f, .15f, Color.white);
             PlayAt(launchClip, origin, 0.6f);
-            Say("TÊN LỬA · ĐỔI HƯỚNG / PHANH ĐỂ NÉ", 1.0f);
+            Say("Tên lửa lao tới!", "Đổi hướng hoặc phanh để né", 1.0f, OpenWorldToast.Kind.Danger);
         }
 
         Missile NewMissile()
@@ -714,7 +721,7 @@ namespace PhoViet.OpenWorld
                     float side = Vector3.Dot(pp - c.p, player.transform.right);
                     float sign = Mathf.Abs(side) < 0.2f ? (rnd.Next(2) == 0 ? -1f : 1f) : Mathf.Sign(side);
                     player.Jolt(sign * 30f, 1.5f, 0.82f); CraterJolts++;
-                    Say(sign > 0 ? "HỐ ĐẠN · LÁI SANG TRÁI ĐỂ CHỈNH" : "HỐ ĐẠN · LÁI SANG PHẢI ĐỂ CHỈNH", 1.4f);
+                    Say("Sụp hố đạn", sign > 0 ? "Lái sang trái để chỉnh xe" : "Lái sang phải để chỉnh xe", 1.4f, OpenWorldToast.Kind.Warn);
                 }
                 c.inside = inside;
             }
@@ -745,14 +752,14 @@ namespace PhoViet.OpenWorld
             {
                 int want = Mathf.Min(TankWave, maxTanks - ActiveTankCount()), made = 0;
                 for (int i = 0; i < want; i++) if (SpawnTankAhead(tankAhead + i * 17f + (float)rnd.NextDouble() * 6f, i, false)) made++;
-                if (made > 0) Say(made > 1 ? "XE TĂNG ×" + made + " PHÍA TRƯỚC · NÉ ĐẠN PHÁO" : "XE TĂNG PHÍA TRƯỚC · NÉ ĐẠN PHÁO", 2.2f);
+                if (made > 0) Say(made > 1 ? made + " xe tăng phía trước" : "Xe tăng phía trước", "Né đạn pháo", 2.2f, OpenWorldToast.Kind.Warn);
                 TankWave++; NextTankAt = DistanceDriven + tankEvery;
             }
             if (live && DistanceDriven >= NextHeliAt)
             {
                 int want = Mathf.Min(HeliWave, maxHelis - ActiveHeliCount()), made = 0;
                 for (int i = 0; i < want; i++) if (SpawnHelicopterAhead(heliAhead + i * 10f, false)) made++;
-                if (made > 0) Say(made > 1 ? "TRỰC THĂNG ×" + made + " PHÍA TRƯỚC · NÉ TÊN LỬA" : "TRỰC THĂNG PHÍA TRƯỚC · NÉ TÊN LỬA", 2.2f);
+                if (made > 0) Say(made > 1 ? made + " trực thăng phía trước" : "Trực thăng phía trước", "Né tên lửa", 2.2f, OpenWorldToast.Kind.Warn);
                 HeliWave++; NextHeliAt = DistanceDriven + heliEvery;
             }
             TickWeapons(dt, pp, pv);
@@ -875,18 +882,11 @@ namespace PhoViet.OpenWorld
         static string Fmt(Vector3 p) => $"({p.x:F0},{p.z:F0})";
 
         // ------------------------------------------------------------ HUD
-        GUIStyle st;
         void OnGUI()
         {
-            if (st == null) st = new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter, wordWrap = true };
-            int fs = Mathf.Max(18, Screen.height / 26); st.fontSize = fs;
             if (police && police.Jailed) return;
             if (notice != null && Time.time < noticeUntil && player && !player.Crashed)
-            {
-                var r = new Rect(0, Screen.height * 0.26f, Screen.width, fs * 2.4f);
-                st.normal.textColor = new Color(0, 0, 0, .75f); GUI.Label(new Rect(r.x + 2, r.y + 2, r.width, r.height), notice, st);
-                st.normal.textColor = new Color(1f, .78f, .2f); GUI.Label(r, notice, st);
-            }
+                OpenWorldToast.Show(noticeCaption, noticeTitle, noticeDetail, noticeKind, Time.time - noticeAt, noticeUntil - Time.time);
         }
 
         public string Report() => $"km={DistanceDriven:F0} dino@{NextAt:F0} tank@{NextTankAt:F0}×{TankWave} heli@{NextHeliAt:F0}×{HeliWave} ammo={PlayerMissiles}/{maxMissiles} fired={PlayerMissilesFired} tankKills={TanksDestroyed} heliKills={HelisDowned} pickups={PickupsCollected} helis={helis.Count}/{HelisSpawned} missiles={MissilesFired}/{MissileBlasts} dinos={dinos.Count}/{DinosSpawned} tanks={tanks.Count}/{TanksSpawned} sweeps={Sweeps} shells={ShellsFired} blasts={Blasts} splash={Splashes} craters={craters.Count} jolts={CraterJolts} npcKnocked={NpcKnocked}";

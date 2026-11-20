@@ -26,19 +26,30 @@ async function controlGameRequests(){
     const timer=setTimeout(done,1500);navigator.serviceWorker.addEventListener('controllerchange',done);
   });
 }
-// Bản đồ mở nặng hơn phố cuộn cũ: điện thoại giữ mật độ điểm ảnh tối đa 1,3.
-let pixelCap=touchDevice?1.3:0;
+// 21.291: mật độ điểm ảnh do mức «Cấu hình đồ họa» trong game quyết định (OpenWorldGame.Graphics.cs → jslib
+// PhoVietSetPixelPlan). Lưu localStorage để lần mở sau tải đúng mật độ ngay từ đầu. Chưa chọn lần nào: điện thoại 1,6
+// (mức Trung bình tự động bắt đầu 55 % mật độ gốc), máy tính 2.
+const pixelPlanKey='phoviet.ow.pixelplan.v1';
+let pixelCap=touchDevice?1.6:0,pixelBudget=0;
+try{const saved=JSON.parse(localStorage.getItem(pixelPlanKey)||'null');if(saved&&saved.cap>0){pixelCap=saved.cap;pixelBudget=saved.budget>0?saved.budget:0;}}catch(_){}
 // 21.282: ?diag=dpr1 (chẩn đoán) — mật độ điểm ảnh 1.
-if(/[?&]diag=[^&]*dpr1/.test(location.search))pixelCap=1;
+const diagDpr1=/[?&]diag=[^&]*dpr1/.test(location.search);
+if(diagDpr1)pixelCap=1;
 window.phoVietTouchDevice=touchDevice;
+function nativePixelRatio(){return Number.isFinite(window.devicePixelRatio)&&window.devicePixelRatio>0?window.devicePixelRatio:1;}
 function gamePixelRatio(width,height){
-  const nativeRatio=Number.isFinite(window.devicePixelRatio)&&window.devicePixelRatio>0?window.devicePixelRatio:1;
   const cap=pixelCap>0?pixelCap:2;
   // Bound large tablet framebuffers.
-  const budget=touchDevice?2600000:8300000;
-  return Math.min(nativeRatio,cap,Math.sqrt(budget/Math.max(1,width*height)));
+  const budget=pixelBudget>0?pixelBudget:(touchDevice?3800000:8300000);
+  return Math.max(.5,Math.min(nativePixelRatio(),cap,Math.sqrt(budget/Math.max(1,width*height))));
 }
-window.phoVietSetPixelCap=cap=>{pixelCap=Number.isFinite(cap)&&cap>=0?cap:0;if(typeof syncViewport==='function')syncViewport();};
+window.phoVietSetPixelCap=cap=>{if(!diagDpr1)pixelCap=Number.isFinite(cap)&&cap>=0?cap:0;if(typeof syncViewport==='function')syncViewport();};
+window.phoVietSetPixelPlan=(cap,budget)=>{
+  if(!diagDpr1)pixelCap=Number.isFinite(cap)&&cap>0?cap:0;
+  pixelBudget=Number.isFinite(budget)&&budget>0?budget:0;
+  try{localStorage.setItem(pixelPlanKey,JSON.stringify({cap:pixelCap,budget:pixelBudget}));}catch(_){}
+  if(typeof syncViewport==='function')syncViewport();
+};
 function pauseGame(){if(unityInstance)unityInstance.SendMessage(gameRoot,'PauseForBrowser');}
 function setMenu(open){
   menuOpen=Boolean(open);$('toolbar').hidden=immersive&&!menuOpen;
@@ -73,7 +84,8 @@ function syncViewport(){
     top:clamp((top-bounds.top)/bounds.height),
     right:clamp(((parseFloat(css.paddingRight)||0)-(width-bounds.right))/bounds.width),
     bottom:clamp((Math.max(bottom,height-measuredHeight)-(Math.max(height,bounds.bottom)-bounds.bottom))/bounds.height),
-    pixelRatio:unityInstance.Module.devicePixelRatio
+    pixelRatio:unityInstance.Module.devicePixelRatio,
+    nativeRatio:nativePixelRatio()
   });
   if(insets!==lastInsets){unityInstance.SendMessage(gameRoot,'ApplyBrowserInsets',insets);lastInsets=insets;}
 }
