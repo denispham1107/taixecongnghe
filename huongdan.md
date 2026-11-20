@@ -4860,3 +4860,4 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - `docs/` thay, pack, materialize: **31/31 tệp khớp SHA-256**.
 - Commit `28648ac`: GitHub Pages run `44666790513` **lỗi ở bước «Deploy to GitHub Pages»** (khôi phục dữ liệu, kiểm tra game, tải artifact đều đạt) → lỗi phía GitHub; đẩy commit ghi chú này để chạy lại.
 - Workflow Pages chỉ chạy khi `docs/**` đổi (commit ghi chú không kích hoạt; máy không có `gh` để bấm chạy lại) → thêm một dòng trống cuối `docs/web-data-parts.json` (tệp kê phần dữ liệu, không lên trang; `pack` lần sau tự ghi lại) để chạy lại triển khai.
+- **Đã phát hành:** commit phát hành `28648ac` (+ `e975629` ghi chú, `a77b7ba` kích hoạt lại), GitHub Pages run `44669974461` thành công. Trang thật: `build-info.json` = 1.80.1, cache `78993db4c960ea32`; **30/30 tệp live khớp SHA-256** (`sw.js` khớp sau khi chuẩn hóa xuống dòng). Chưa xem trên iPhone thật.
