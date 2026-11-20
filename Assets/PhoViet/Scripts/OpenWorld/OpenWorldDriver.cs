@@ -11,7 +11,8 @@ namespace PhoViet.OpenWorld
     {
         public float maxSpeed = 27f;          // ≈ 97 km/h
         public float reverseSpeed = 8f;
-        public float accel = 7f, brake = 16f, drag = 2.2f;
+        // 21.292 (người dùng): thả ga xe trôi lâu hơn — drag 2,2 → 1,6 m/s² (từ 97 km/h về 0: 12 s → 17 s).
+        public float accel = 7f, brake = 16f, drag = 1.6f;
         public float steerDegPerSec = 95f;
         public float Speed { get; private set; }
 
@@ -69,7 +70,8 @@ namespace PhoViet.OpenWorld
         // 21.268 (người dùng đổi chỗ): hàng dưới Stop · Lùi · Ga (góc phải dưới); hàng trên Tên lửa (trên Lùi) · Nhảy (trên Ga).
         // 21.284 (người dùng): Ga + Nhảy to hơn 25 %, Lùi/Stop/Tên lửa to hơn 10 %; hàng dưới canh đáy, Nhảy đứng thẳng trên Ga,
         // Tên lửa canh giữa trên Lùi (thấp hơn Nhảy một chút → hàng trên chạy theo vòng ngón cái).
-        static float BigSize => BtnSize * 1.25f;
+        // 21.292 (người dùng): Ga + Nhảy và hai mũi tên to thêm 10 % (1,25 → 1,375; 1,5 → 1,65 × nút chuẩn).
+        static float BigSize => BtnSize * 1.375f;
         static float SmallSize => BtnSize * 1.1f;
         public static Rect GasRect => new Rect(Screen.width - BigSize - 24 - OpenWorldGame.SafeRightPx, Screen.height - BigSize - 24 - OpenWorldGame.SafeBottomPx, BigSize, BigSize);
         public static Rect RevRect { get { var g = GasRect; return new Rect(g.x - SmallSize - Gap, g.yMax - SmallSize, SmallSize, SmallSize); } }
@@ -79,7 +81,7 @@ namespace PhoViet.OpenWorld
         public static Rect JumpRect { get { var g = GasRect; return touchLayout ? new Rect(g.x, g.y - BigSize - Gap, BigSize, BigSize) : g; } }
         public static Rect FireRect { get { var r = touchLayout ? RevRect : GasRect; return new Rect(r.center.x - SmallSize * .5f, r.y - SmallSize - Gap, SmallSize, SmallSize); } }
         // 21.270: hai nút mũi tên góc trái dưới (phải giữ liên tục). 21.284: to hơn 25 % (1,2 → 1,5 × nút chuẩn).
-        static float SteerSize => BtnSize * 1.5f;
+        static float SteerSize => BtnSize * 1.65f;
         public static Rect LeftRect => new Rect(OpenWorldGame.SafeLeftPx + 24, Screen.height - SteerSize - 24 - OpenWorldGame.SafeBottomPx, SteerSize, SteerSize);
         public static Rect RightRect { get { var l = LeftRect; return new Rect(l.xMax + Gap, l.y, SteerSize, SteerSize); } }
         static Vector2 ToGui(Vector2 screen) => new Vector2(screen.x, Screen.height - screen.y);

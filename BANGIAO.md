@@ -427,6 +427,8 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (21.291, phát hành 1.8
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **ĐANG LÀM 21.292 (Claude Code):** đã sửa hộp xa 3.283 nhà phố (menu 16, scene đã lưu), nút +10 %, drag 1,6; đang nướng occlusion nền (menu 12) → build 1.85.0 (`AgentScripts/QueueRelease21292.cs`) → phát hành (người dùng đã đồng ý).
+
 - **Chờ người dùng (21.291):** thử 1.84.0 trên iPhone: bánh răng thẻ chào → Rất cao/Cao/Trung bình/Yếu, thông báo dạng thẻ. Nếu văng ở Rất cao: chuyển Cao/Trung bình; nghi heap nở +35 MB khi đợt xe tăng đầu (mét 150) — có từ trước 21.291.
 
 - **Chờ người dùng (21.285):** thử 1.82.0 trên iPhone (trang chủ «Bản cập nhật 1.82.0»): tàu bắn khi lên lề sông + hạ tàu, hố trên lề sông, tiệm «Cù Lao Petshop», xe nét hơn. Nếu iPhone văng: hạ `PV_BlueSupercar_Palette` về ETC2 chất lượng 100 (`PhoVietWebMemorySettings`) trước tiên.
@@ -614,6 +616,7 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (21.291, phát hành 1.8
 
 | Muốn đụng tới | Mục `huongdan.md` | File chính |
 | --- | --- | --- |
+| Hộp nhà phố nhìn từ xa (LOD1_Hop), tường lấn đường / che kính ở xa | **21.292** | `Editor/PhoVietOpenWorldFarBoxBuilder.cs` (menu 16), lưới `OpenWorld/Library/HopXa/`, gốc `PhoVietOpenWorldBuilder.BuildingLOD`; chụp `AgentScripts/CaptureFarBox21292.cs`; sau khi sửa chạy menu 12 |
 | Cấu hình đồ họa bản đồ mở (bánh răng thẻ chào, 4 mức, mật độ điểm ảnh, tự điều chỉnh) + thông báo dạng thẻ | **21.291** | `Scripts/OpenWorld/OpenWorldGame.Graphics.cs` (`PlanFor`, `ApplyGraphics`, `TickGovernor`, `GraphicsWindow`), `OpenWorldGame.cs` (`ApplyBrowserInsets`), `Plugins/WebGL/PhoVietWeb.jslib` (`PhoVietSetPixelPlan`), template `app.js` (`phoVietSetPixelPlan`, `gamePixelRatio`); thông báo `Scripts/OpenWorld/OpenWorldToast.cs` + `OpenWorldHazards.Say`, `OpenWorldPolice.OnGUI`, `OpenWorldDriver.OnGUI` |
 | Tàu bắn/bị bắn, hố lề sông, tiệm Cù Lao Petshop, ảnh xe người chơi | **21.285** | `Scripts/OpenWorld/OpenWorldHazards.Boats.cs`, `OpenWorldBoats.cs`, `OpenWorldHazards.cs` (`FireShell`, `MakeCrater`), `.Weapons.cs`; `Editor/PhoVietOpenWorldPetshopBuilder.cs` (menu 13), `PhoVietWebMemorySettings.cs`; Blender `ow_interiors.py` (`furnish_PetShop`), `build_interiors.py` (`export_petshop`), `build_petshop_signs.py`, `PhoViet_OW_Petshop_21285.blend`; `Library/NoiThat/OW_NoiThat_PetShop*`, `Library/OW_Mau_Bang_*_14.fbx` |
 | Nút cảm ứng cỡ/trong suốt/ảnh 512, gỡ kẹt lơ lửng trên xe khác, xe máy ngã, icon tên lửa 2 mặt, xóa điều hòa | **21.284** | `Scripts/OpenWorld/OpenWorldDriver.cs` (bố cục nút, `TickUnstick`), `OpenWorldTraffic.cs` (`BeginFall`/`FallPose`), `ArtSource/UI/build_touch_controls.py`, `Editor/PhoVietWebMemorySettings.cs`, `Editor/PhoVietWorldMeshPostprocessor.cs` (`StripAirCon`), `Scripts/EnergyPickup.shader`; `AgentScripts/PickupTwoSided21284.cs`, `RemoveAirCon21284.cs`, `StuckOnCar21284.cs`, `BikeFall21284.cs`, `QueueRelease21284.cs` |
