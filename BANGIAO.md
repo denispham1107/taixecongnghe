@@ -432,7 +432,7 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (phát hành 1.86.1 = 21
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **Chờ người dùng (1.86.1):** thử trên iPhone: nhà phố xa dọc phố/bên kia sông hiện như Play Editor ở mọi cấu hình; để ý FPS (+23 % tam giác). Khác biệt còn lại so với Editor (chưa đổi, cần người dùng quyết): điện thoại giới hạn giao thông 24 ô tô + 18 xe máy (máy tính 34 + 26, `OpenWorldGame.Awake`), gói điện thoại bỏ nội thất 3D tầng trệt (chỉ ảnh xa, `PhoVietMobileSceneStrip` 21.277), bóng 1 tầng ngắn hơn, cây/cao ốc đổi LOD sớm hơn.
+- **Chờ người dùng (1.86.1):** thử trên iPhone: nhà phố xa dọc phố/bên kia sông hiện như Play Editor ở mọi cấu hình; để ý FPS (+23 % tam giác). Khác biệt còn lại so với Editor — **người dùng 21/11/2026 chốt giữ như hiện tại**: điện thoại giới hạn giao thông 24 ô tô + 18 xe máy (máy tính 34 + 26, `OpenWorldGame.Awake`), gói điện thoại bỏ nội thất 3D tầng trệt (chỉ ảnh xa, `PhoVietMobileSceneStrip` 21.277), bóng 1 tầng ngắn hơn, cây/cao ốc đổi LOD sớm hơn.
 
 
 
