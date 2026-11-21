@@ -108,7 +108,53 @@ namespace PhoViet.OpenWorld
             if (TouchGfx || Graphics == Gfx.Low) QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
             RequestedRatio = ratio;
             PhoVietSetPixelPlan(ratio, p.budget);
+            MatchHouseLods();
         }
+
+        // 21.296 — người dùng 21/11/2026: «Play trong Unity thấy nhà phố xa đầy đủ chi tiết, trên điện thoại thì biến dạng».
+        // Editor chạy mức chất lượng Ultra (lodBias 2); bản web dùng mức High (lodBias 1), điện thoại × 0,75, Trung bình × 0,85
+        // (≈ 0,64) → nhà phố đổi sang hộp ảnh xa ở ~47 m thay vì ~150 m. Đặt lodBias 2 cho mọi thứ thì số tam giác gấp đôi
+        // (1,56 → 3,15 triệu), nên chỉ nhóm nhà phố (nhà, nội thất qua kính, bảng hiệu) được chia ngưỡng LOD theo tỉ lệ
+        // lodBias hiện tại / 2 → đổi LOD và ẩn đúng khoảng cách như Play trong Editor ở mọi cấu hình và mọi máy (+36 % tam giác).
+        // Cây, cao ốc, cột đèn giữ lodBias của từng mức.
+        const float EditorLodBias = 2f;                                  // ProjectSettings/QualitySettings: Ultra = mức Editor
+        LODGroup[] houseLods; float[][] houseLodBase; float houseLodBias = -1f;
+
+        static bool IsHouseLod(LODGroup lg)
+        {
+            if (lg.name == "NoiThat") return true;
+            var p = lg.transform.parent; if (!p) return false;
+            return p.name.StartsWith("NhaPho") || p.name.StartsWith("BangHieu");
+        }
+
+        void MatchHouseLods()
+        {
+            float bias = QualitySettings.lodBias;
+            if (Mathf.Abs(bias - houseLodBias) < 1e-4f) return;
+            if (houseLods == null)
+            {
+                var list = new System.Collections.Generic.List<LODGroup>();
+                foreach (var lg in FindObjectsByType<LODGroup>(FindObjectsInactive.Include)) if (lg && IsHouseLod(lg)) list.Add(lg);
+                houseLods = list.ToArray(); houseLodBase = new float[houseLods.Length][];
+                for (int i = 0; i < houseLods.Length; i++)
+                {
+                    var lods = houseLods[i].GetLODs(); var b = new float[lods.Length];
+                    for (int j = 0; j < lods.Length; j++) b[j] = lods[j].screenRelativeTransitionHeight;
+                    houseLodBase[i] = b;
+                }
+            }
+            float k = Mathf.Min(1f, bias / EditorLodBias);
+            for (int i = 0; i < houseLods.Length; i++)
+            {
+                var lg = houseLods[i]; if (!lg) continue;
+                var lods = lg.GetLODs(); var b = houseLodBase[i]; if (lods.Length != b.Length) continue;
+                for (int j = 0; j < lods.Length; j++) lods[j].screenRelativeTransitionHeight = b[j] * k;
+                lg.SetLODs(lods);
+            }
+            houseLodBias = bias;
+        }
+
+        public string HouseLodReport() => $"houseLods={(houseLods == null ? 0 : houseLods.Length)} bias={QualitySettings.lodBias:F3} k={Mathf.Min(1f, QualitySettings.lodBias / EditorLodBias):F3}";
 
         public void SetGraphics(int level)
         {

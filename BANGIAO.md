@@ -4,13 +4,13 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **21/11/2026 — Claude Code (phát hành 1.86.0 = 21.293 Tháp Tài Chính + 21.294 mặt tiền nhà xa + 21.295 nút/khói nhảy/đạn/xe máy/ảnh trang chủ)**
+Cập nhật lần cuối: **21/11/2026 — Claude Code (phát hành 1.86.1 = 21.296 nhà phố xa trên điện thoại hiện như Play Editor)**
 
 ## 1. Trạng thái hiện tại
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.86.0 — bản đồ mở** (Tháp Tài Chính mới theo ảnh mẫu; nhà phố ở xa có ảnh mặt tiền thật; 10 tên lửa khởi đầu, nhảy lại ngay khi đáp, khói nhảy Blender mới; nút Tạm dừng vẽ lại + nút loa; nút Nhảy/Ga/Stop +5 %, Tên lửa/Lùi +10 %; xe máy cỡ thật; đạn pháo có màu; trang chủ một ảnh chụp chế độ điện thoại) — commit `466e81b`, Pages run `44877860185` thành công, cache `232bbd3b94bd6cec`, **28/28 tệp live khớp SHA-256**, trang chủ thật hiện đúng 1 ảnh + bản 1.86.0. Gói điện thoại 103,8 MB, máy tính 119,6 MB. Bản trước 1.85.0 (`72586cc`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
+| Bản đã phát hành | **1.86.1 — bản đồ mở** (21.296: nhà phố xa, nội thất qua kính, bảng hiệu trên điện thoại/web đổi LOD đúng khoảng cách như Play trong Editor ở mọi cấu hình) — commit **(xem mục 2 21.296)**, cache `f718d41fb422540d`, gói điện thoại 103,8 MB, máy tính 119,6 MB. Bản trước 1.86.0 (`466e81b`: Tháp Tài Chính, mặt tiền nhà xa, 10 tên lửa, nút loa/tạm dừng, khói nhảy, xe máy cỡ thật, đạn màu, trang chủ một ảnh). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra. Plugin `Assets/ai.meshy` đã commit cùng 1.74.0 (`bee5707`). |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -62,6 +62,7 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (phát hành 1.86.0 = 21
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.296 (phát hành 1.86.1):** người dùng: Play trong Unity thấy nhà phố xa đầy đủ, điện thoại thì biến dạng thành hộp trắng. Nguyên nhân: Editor ở mức chất lượng Ultra (lodBias 2), web High (1) × điện thoại 0,75 × Trung bình 0,85 ≈ 0,64 → nhà đổi sang hộp ảnh xa ở ~47 m thay vì ~150 m. Sửa `OpenWorldGame.Graphics.cs` `MatchHouseLods()`: 8.206 LODGroup nhóm nhà phố (`NhaPho*`, `NoiThat`, `BangHieu*`) có ngưỡng = gốc × lodBias/2 → đổi LOD như Editor ở mọi cấu hình/máy; cây/cao ốc/cột đèn giữ lodBias từng mức. Tải mô phỏng điện thoại +23 % tam giác (1,59 → 1,95 triệu), +15 % lượt vẽ; bộ nhớ không đổi. Ảnh `Captures/lod21296-{a-editor,b-truoc,c-sau}.png`. Chi tiết `huongdan.md` 21.296.
 - **21.295 (`466e81b`, Pages `44877860185`, live 28/28 khớp — phát hành 1.86.0 cùng 21.293/21.294):** 10 tên lửa khởi đầu; nút Tạm dừng vẽ bằng hình (font không có «Ⅱ/▶») + nút loa thay chữ «ÂM: BẬT» (tắt: gạch chéo đỏ); Nhảy/Ga/Stop +5 %, Tên lửa/Lùi +10 %; nhảy lại ngay khi đáp (hồi 0,3 s + đệm 0,2 s); khói nhảy mới Blender `ow_jump_smoke.py` → `Resources/Boost/PV_JumpSmoke4x4.png`, `OpenWorldJumpJets` 3 lớp + vòng khói đất; đạn pháo có màu (`Art/TankFx/PV_TankShell.shader` + `_Mat`); xe máy NPC + người lái thu về cỡ thật (`OpenWorldTraffic.bikeScale` 0,75 → cao 1,61 m, dài 1,70 m). Chi tiết `huongdan.md` 21.295.
 - **21.294 (phát hành 1.86.0, `466e81b`):** hộp xa `LOD1_Hop` của 3.283 nhà phố mang **ảnh mặt tiền thật** (trước/hậu/2 hông/mái của 93 mẫu, atlas 2048² `Library/HopXa/MatTien/`, shader `PhoViet/OpenWorld/FarFacade`) → dọc phố và bên kia sông luôn thấy cửa sổ/ban công/cây ở mọi cấu hình, không thêm tam giác. Unity menu 18 `PhoVietOpenWorldFarFacadeBuilder`; hình hộp không đổi nên không nướng lại occlusion. Chi tiết `huongdan.md` 21.294.
 - **21.293 (phát hành 1.86.0, `466e81b`):** dựng lại Tháp Tài Chính theo ảnh mẫu (thân búp sen 262,5 m, cánh xoắn tạo đường chéo, sân trực thăng nhô trái, ngọn vát + ăng-ten, khối đế kính có khối ốp nhôm + biển tên). Blender `ow_thap_taichinh.py` → `OpenWorld/ThapTaiChinh/` (3 LOD 14.052/2.548/702 tam giác + va chạm lồi); Unity menu 17 `PhoVietOpenWorldLandmarkBuilder` đặt `BanDoMo/ThapTaiChinh` (156; −58) mặt chính quay ra sông, ẩn tháp cũ trong showcase, xóa va chạm cũ; occlusion nướng lại. Chi tiết `huongdan.md` 21.293.
@@ -431,6 +432,8 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (phát hành 1.86.0 = 21
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **Chờ người dùng (1.86.1):** thử trên iPhone: nhà phố xa dọc phố/bên kia sông hiện như Play Editor ở mọi cấu hình; để ý FPS (+23 % tam giác). Khác biệt còn lại so với Editor (chưa đổi, cần người dùng quyết): điện thoại giới hạn giao thông 24 ô tô + 18 xe máy (máy tính 34 + 26, `OpenWorldGame.Awake`), gói điện thoại bỏ nội thất 3D tầng trệt (chỉ ảnh xa, `PhoVietMobileSceneStrip` 21.277), bóng 1 tầng ngắn hơn, cây/cao ốc đổi LOD sớm hơn.
+
 
 
 - **Chờ người dùng (1.86.0):** thử trên iPhone: Tháp Tài Chính mới (nhìn từ sông), mặt tiền nhà phố ở xa/bên kia sông, nút loa + nút tạm dừng, 10 tên lửa, nhảy liên tục, khói nhảy, đạn pháo có màu, xe máy cỡ thật (bikeScale 0,64), trang chủ một ảnh. Nếu văng ở Rất cao: chuyển Cao/Trung bình.
@@ -622,6 +625,7 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (phát hành 1.86.0 = 21
 | Muốn đụng tới | Mục `huongdan.md` | File chính |
 | --- | --- | --- |
 | Hộp nhà phố nhìn từ xa (LOD1_Hop), tường lấn đường / che kính ở xa | **21.292** | `Editor/PhoVietOpenWorldFarBoxBuilder.cs` (menu 16), lưới `OpenWorld/Library/HopXa/`, gốc `PhoVietOpenWorldBuilder.BuildingLOD`; chụp `AgentScripts/CaptureFarBox21292.cs`; sau khi sửa chạy menu 12 |
+| Nhà phố xa trên điện thoại/web hiện như Play Editor (ngưỡng LOD nhóm nhà phố theo lodBias 2) | **21.296** | `Scripts/OpenWorld/OpenWorldGame.Graphics.cs` (`MatchHouseLods`, `IsHouseLod`, `EditorLodBias`, `HouseLodReport`); mức chất lượng `ProjectSettings/QualitySettings.asset` (Editor Ultra 2, WebGL High 1) |
 | Hộp nhà phố ở xa có ảnh mặt tiền thật (dọc phố, bên kia sông) | **21.294** | `Editor/PhoVietOpenWorldFarFacadeBuilder.cs` (menu 18, chạy sau menu 16), shader chụp `Editor/Shaders/FarFacadeCapture.shader`, shader chơi `OpenWorld/Shaders/OpenWorldFarFacade.shader`, atlas/lưới/vật liệu `OpenWorld/Library/HopXa/MatTien/`; chụp `AgentScripts/CaptureFacade21294.cs` |
 | Khói nhảy 4 vòi + vòng khói đất, nhảy lại ngay khi đáp | **21.295** | Blender `ArtSource/Blender/OpenWorld/ow_jump_smoke.py` → `Resources/Boost/PV_JumpSmoke4x4.png`, `Scripts/OpenWorld/OpenWorldJumpJets.cs`, `OpenWorldDriver.TickJump` (`JumpCooldown`, `JumpBuffer`) |
 | Nút Tạm dừng / nút loa HUD (vẽ bằng texture trong mã), cỡ nút cảm ứng | **21.295** | `OpenWorldGame.cs` (`DrawPauseIcon`, `DrawSpeakerIcon`), `OpenWorldDriver.cs` (`BigSize`, `StopSize`, `SmallSize`) |
