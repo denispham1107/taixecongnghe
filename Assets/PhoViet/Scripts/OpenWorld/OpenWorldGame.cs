@@ -334,55 +334,151 @@ namespace PhoViet.OpenWorld
             }
         }
 
+        // 21.297 — thanh thông tin mẫu A (người dùng chọn 21/11/2026): một dải kính tối bo tròn 20 (giữ độ trong suốt Glass cũ),
+        // viền sáng mảnh, to hơn ~12 % (760 × 76 → 850 × 86). Mỗi mục có biểu tượng vàng vẽ bằng mã (ghim địa điểm, cúp kỷ lục,
+        // đèn CSGT, tên lửa); quãng đường số to + đơn vị nhỏ + ô tốc độ; kho tên lửa thành 10 vạch bo góc; nút loa/tạm dừng tròn.
+        public const float HudHeight = 86f, HudTopLandscape = 18f, HudTopPortrait = 12f, HudMissileRow = 40f;
+        static readonly Color HudLine = new Color(.99f, .95f, .81f, .18f), HudBtn = new Color(1, .945f, .812f, .88f);
+        Texture2D pinTex, trophyTex, sirenTex, rocketTex;
+
+        void HudLabel(Texture2D icon, string text, float x, float y, float w)
+        {
+            if (icon) DrawIcon(new Rect(x, y + 1, 14, 14), icon, Gold);
+            Txt(text, x + (icon ? 19 : 0), y, w, 17, 11, Gold);
+        }
+
+        static string MetresNum(float m) => Mathf.Max(0, Mathf.FloorToInt(m)).ToString("N0", System.Globalization.CultureInfo.InvariantCulture).Replace(",", ".");
+
+        // Số to + «m» nhỏ; trả về x ngay sau chữ «m».
+        float BigMetres(float m, float x, float y, int size)
+        {
+            string n = MetresNum(m);
+            label.fontSize = size; float nw = label.CalcSize(new GUIContent(n)).x;
+            Txt(n, x, y, nw + 4, size + 10, size, Cream);
+            int us = Mathf.RoundToInt(size * .5f); label.fontSize = us; float uw = label.CalcSize(new GUIContent("m")).x;
+            Txt("m", x + nw + 2, y + size * .48f, uw + 4, us + 6, us, new Color(.99f, .95f, .81f, .85f));
+            return x + nw + 2 + uw;
+        }
+
         void Hud()
         {
-            float bw = portrait ? uiW - 24 - SL - SR : 760, x = SL + (uiW - SL - SR - bw) / 2, y = (portrait ? 12 : 18) + ST;
-            Panel(new Rect(x, y, bw, 76), Glass, 10);
-            Txt(CurrentStreet.ToUpperInvariant(), x + 14, y + 8, bw * 0.45f, 16, 11, Gold);
-            Txt(Metres(Score), x + 14, y + 25, 190, 34, 28, Cream);
+            EnsureHudIcons();
+            float bw = portrait ? uiW - 24 - SL - SR : 850, x = SL + (uiW - SL - SR - bw) / 2, y = (portrait ? HudTopPortrait : HudTopLandscape) + ST;
+            float h = HudHeight;
+            var bar = new Rect(x, y, bw, h);
+            Panel(bar, Glass, 20);
+            GUI.DrawTexture(bar, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, new Color(1, 1, 1, .2f), 1f, 20);
+
+            // quãng đường + tốc độ
+            float lx = x + 18;
+            HudLabel(pinTex, CurrentStreet.ToUpperInvariant(), lx, y + 14, (portrait ? bw * .4f : 210) - 20);
+            float after = BigMetres(Score, lx, y + 30, 32);
             float kmh = player ? Mathf.Abs(player.Speed) * 3.6f : 0f;
-            Txt(Mathf.RoundToInt(kmh) + " km/h", x + 18, y + 57, 120, 16, 11, Hex("B5CFC2"));
-            float c1 = x + (portrait ? bw * 0.42f : 220);
-            Panel(new Rect(c1 - 16, y + 11, 1, 54), new Color(.8f, .95f, .9f, .18f), 0);
-            Txt("KỶ LỤC", c1, y + 13, 120, 16, 11, Gold);
-            Txt(Metres(Mathf.Max(Best, Score)), c1, y + 33, 130, 26, 20, Cream);
+            string sp = Mathf.RoundToInt(kmh) + " km/h";
+            label.fontSize = 11; float spw = label.CalcSize(new GUIContent(sp)).x + 16;
+            var pill = portrait ? new Rect(lx, y + h - 22, spw, 18) : new Rect(Mathf.Max(after + 10, lx + 92), y + 46, spw, 20);
+            Panel(pill, new Color(.99f, .95f, .81f, .14f), pill.height * .5f);
+            Txt(sp, pill.x, pill.y, pill.width, pill.height, 11, Cream, TextAnchor.MiddleCenter);
+
+            // kỷ lục
+            float c1 = x + (portrait ? bw * 0.42f : 250);
+            Panel(new Rect(c1 - 17, y + 14, 1, h - 28), HudLine, 0);
+            HudLabel(trophyTex, "KỶ LỤC", c1, y + 14, 130);
+            Txt(Metres(Mathf.Max(Best, Score)), c1, y + 38, 140, 30, 22, Cream);
+
+            // CSGT
             if (police && police.enabled && police.Mode != OpenWorldPolice.State.Waiting)
             {
-                float c2 = x + (portrait ? bw * 0.68f : 370);
+                float c2 = x + (portrait ? bw * 0.68f : 405);
                 bool flash = Mathf.FloorToInt(Time.unscaledTime * 4f) % 2 == 0;
                 var col = police.Distance < 15f ? (flash ? Hex("FF5A4D") : Hex("5FA8FF")) : Cream;
-                Panel(new Rect(c2 - 16, y + 11, 1, 54), new Color(.8f, .95f, .9f, .18f), 0);
-                Txt("CSGT", c2, y + 13, 100, 16, 11, Gold);
-                Txt(Mathf.RoundToInt(police.Distance) + " m", c2, y + 33, 110, 26, 20, col);
+                Panel(new Rect(c2 - 17, y + 14, 1, h - 28), HudLine, 0);
+                HudLabel(sirenTex, "CSGT", c2, y + 14, 100);
+                Txt(Mathf.RoundToInt(police.Distance) + " m", c2, y + 38, 110, 30, 22, col);
             }
-            // 21.258: kho tên lửa (biểu tượng × số quả / tối đa)
+
+            // kho tên lửa: 10 vạch bo góc (còn = vàng, đã bắn = mờ)
             if (hazards)
             {
-                float c3 = x + (portrait ? bw * 0.03f : 480);
-                float cy = portrait ? y + 80 : y;
-                if (portrait) Panel(new Rect(x, cy, bw, 34), Glass, 10);
-                else Panel(new Rect(c3 - 16, y + 11, 1, 54), new Color(.8f, .95f, .9f, .18f), 0);
-                Txt("TÊN LỬA  " + hazards.PlayerMissiles + "/" + hazards.maxMissiles, c3, cy + (portrait ? 8 : 13), 150, 16, 11, Gold);
-                if (missileIcon)
-                    for (int i = 0; i < hazards.maxMissiles; i++)
-                    {
-                        var old = GUI.color; GUI.color = i < hazards.PlayerMissiles ? Color.white : new Color(1, 1, 1, .22f);
-                        GUI.DrawTexture(new Rect(c3 + (portrait ? 120 : 0) + i * 16, cy + (portrait ? 9 : 36), 16, 16), missileIcon, ScaleMode.ScaleToFit);
-                        GUI.color = old;
-                    }
+                float c3, ly, by;
+                if (portrait)
+                {
+                    var row = new Rect(x, y + h + 6, bw, HudMissileRow);
+                    Panel(row, Glass, 16);
+                    GUI.DrawTexture(row, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, new Color(1, 1, 1, .2f), 1f, 16);
+                    c3 = x + 16; ly = row.y + 12; by = row.y + 12;
+                }
+                else
+                {
+                    c3 = x + 535; ly = y + 14; by = y + 42;
+                    Panel(new Rect(c3 - 17, y + 14, 1, h - 28), HudLine, 0);
+                }
+                HudLabel(rocketTex, "TÊN LỬA  " + hazards.PlayerMissiles + "/" + hazards.maxMissiles, c3, ly, 150);
+                float bx = portrait ? c3 + 160 : c3;
+                for (int i = 0; i < hazards.maxMissiles; i++)
+                    Panel(new Rect(bx + i * 14, by, 10, portrait ? 16 : 18), i < hazards.PlayerMissiles ? Gold : new Color(.99f, .95f, .81f, .2f), 3);
             }
             FireButton();
-            // 21.295: font web không có «Ⅱ»/«▶» → nút chỉ còn nền kem. Vẽ biểu tượng bằng hình; chữ «ÂM: BẬT/TẮT» thay bằng nút loa
-            // bên trái nút tạm dừng (tắt tiếng: loa + gạch chéo đỏ).
-            var pauseRect = new Rect(x + bw - 56, y + 10, 40, 36);
-            if (Btn("", pauseRect, new Color(1, .945f, .812f, .86f), Ink)) TogglePause();
+            // 21.295: font web không có «Ⅱ»/«▶» → vẽ biểu tượng bằng hình; nút loa bên trái nút tạm dừng (tắt tiếng: gạch chéo đỏ).
+            // 21.297: nút tròn 44.
+            const float bs = 44;
+            var pauseRect = new Rect(x + bw - 16 - bs, y + (h - bs) / 2, bs, bs);
+            if (RoundBtn(pauseRect)) TogglePause();
             DrawPauseIcon(pauseRect, Mode == State.Paused, Ink);
             if (!portrait)
             {
-                var soundRect = new Rect(x + bw - 102, y + 10, 40, 36);
-                if (Btn("", soundRect, new Color(1, .945f, .812f, .86f), Ink)) SetSound(!Sound);
+                var soundRect = new Rect(pauseRect.x - 10 - bs, pauseRect.y, bs, bs);
+                if (RoundBtn(soundRect)) SetSound(!Sound);
                 DrawSpeakerIcon(soundRect, Sound, Ink);
             }
+        }
+
+        bool RoundBtn(Rect r)
+        {
+            Panel(r, HudBtn, r.height * .5f);
+            return GUI.Button(r, GUIContent.none, GUIStyle.none);
+        }
+
+        void EnsureHudIcons()
+        {
+            if (pinTex) return;
+            // v: 0 = trên. Ghim địa điểm: đầu tròn có lỗ + mũi nhọn xuống.
+            pinTex = MaskTex((u, v) =>
+            {
+                float dx = u - .5f, dy = v - .38f, d = Mathf.Sqrt(dx * dx + dy * dy);
+                if (d < .3f && d > .12f) return true;
+                return v > .5f && InTri(u, v, new Vector2(.24f, .5f), new Vector2(.76f, .5f), new Vector2(.5f, .96f)) && !(d < .12f);
+            });
+            // Cúp: thân chén nửa elip, hai quai, cổ và đế.
+            trophyTex = MaskTex((u, v) =>
+            {
+                if (v >= .1f && v <= .52f) { float t = (v - .1f) / .42f; if (Mathf.Abs(u - .5f) < .28f * Mathf.Sqrt(Mathf.Max(0, 1 - t * t))) return true; }
+                float hx = u < .5f ? .25f : .75f, ddx = u - hx, ddy = v - .27f, hd = Mathf.Sqrt(ddx * ddx + ddy * ddy);
+                if (hd > .09f && hd < .15f && (u < .5f ? u < .25f : u > .75f)) return true;
+                if (Mathf.Abs(u - .5f) < .055f && v > .5f && v < .78f) return true;
+                return u > .3f && u < .7f && v > .76f && v < .9f;
+            });
+            // Đèn CSGT: chóp tròn + đế + tia sáng.
+            sirenTex = MaskTex((u, v) =>
+            {
+                float dx = u - .5f, dy = v - .62f;
+                if (v <= .62f && v >= .3f && dx * dx + dy * dy < .29f * .29f) return true;
+                if (u > .12f && u < .88f && v > .66f && v < .82f) return true;
+                if (Mathf.Abs(u - .5f) < .045f && v > .04f && v < .2f) return true;
+                float ax = Mathf.Abs(u - .5f);                                      // hai tia chéo
+                return ax > .3f && ax < .44f && Mathf.Abs((v - .3f) + (ax - .3f) * .9f) < .045f;
+            });
+            // Tên lửa nghiêng 45°, mũi hướng lên phải: thân, mũi, hai cánh.
+            rocketTex = MaskTex((u0, v0) =>
+            {
+                float cu = u0 - .5f, cv = v0 - .5f, c = .7071f;
+                float u = .5f + c * (cu + cv), v = .5f + c * (cv - cu);
+                if (Mathf.Abs(u - .5f) < .12f && v > .28f && v < .74f) return true;
+                if (InTri(u, v, new Vector2(.38f, .29f), new Vector2(.62f, .29f), new Vector2(.5f, .02f))) return true;
+                if (InTri(u, v, new Vector2(.38f, .56f), new Vector2(.38f, .8f), new Vector2(.2f, .84f))) return true;
+                if (InTri(u, v, new Vector2(.62f, .56f), new Vector2(.62f, .8f), new Vector2(.8f, .84f))) return true;
+                return Mathf.Abs(u - .5f) < .06f && v > .74f && v < .92f;
+            });
         }
 
         // Nút TÊN LỬA phía trên nút NHẢY (góc phải dưới); bàn phím: F.

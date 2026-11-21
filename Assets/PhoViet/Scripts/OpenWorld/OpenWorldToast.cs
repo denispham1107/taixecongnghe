@@ -47,7 +47,9 @@ namespace PhoViet.OpenWorld
                 stackFrame = Time.frameCount; stackEvent = e;
                 float sc = Scale; bool portrait = Screen.width < Screen.height;
                 float top = OpenWorldGame.SafeTopPx / sc;
-                stackY = top + (portrait ? 140f : 108f);                     // ngay dưới thanh HUD (+ hàng tên lửa khi cầm dọc)
+                // ngay dưới thanh HUD (+ hàng tên lửa khi cầm dọc); 21.297 thanh cao 86 + hàng tên lửa 40
+                stackY = top + (portrait ? OpenWorldGame.HudTopPortrait + OpenWorldGame.HudHeight + 6f + OpenWorldGame.HudMissileRow + 14f
+                                         : OpenWorldGame.HudTopLandscape + OpenWorldGame.HudHeight + 14f);
             }
             float y = stackY; stackY += h + 10f; return y;
         }
