@@ -563,7 +563,7 @@ namespace PhoViet.OpenWorld
                     float x = W / 2 + Mathf.Sin(ang) * W * 0.42f;
                     float sc = OpenWorldToast.Scale;
                     float y = rel.z < 0 ? H - OpenWorldGame.SafeBottomPx - 46f * sc : OpenWorldGame.SafeTopPx + 150f * sc;
-                    OpenWorldToast.Chip(x, y, (rel.z < 0 ? "▼  CSGT phía sau  " : "▲  CSGT phía trước  ") + Mathf.RoundToInt(Distance) + " m", siren);
+                    OpenWorldToast.Chip(x, y, (rel.z < 0 ? "CSGT phía sau  " : "CSGT phía trước  ")   /* 21.295: font web không có ▼/▲ */ + Mathf.RoundToInt(Distance) + " m", siren);
                 }
             }
         }

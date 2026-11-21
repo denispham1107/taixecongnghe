@@ -25,6 +25,10 @@ namespace PhoViet.OpenWorld
         public RoadDef[] roads;
         public CarModel[] cars;
         public GameObject bikeModel;
+        // 21.295 (người dùng: xe máy + người lái to vô lý so với xe người chơi): mẫu PV_UrbanRider gốc cao 2,15 m, dài 2,27 m, rộng 1,1 m
+        // → thu 0,75 (cao 1,61 m) — người dùng vẫn thấy to → 0,64: cao ~1,38 m, dài ~1,45 m, rộng ~0,7 m = cỡ xe tay ga + người ngồi
+        // ngoài đời nhân cùng tỉ lệ ~0,84 của xe người chơi (dài 3,8 m so với xe thể thao thật ~4,5 m). Đèn, va chạm, khói, độ nâng khi ngã theo tỉ lệ.
+        [Range(0.5f, 1f)] public float bikeScale = 0.64f;
         public Material[] bikeMaterials;
         public Transform player;
         public int carCount = 34, bikeCount = 26;
@@ -560,6 +564,7 @@ namespace PhoViet.OpenWorld
             var root = new GameObject(bike ? "XeMayNPC" : "OtoNPC");
             root.transform.SetParent(transform, false);
             var vis = Instantiate(model, root.transform, false); vis.name = model.name;
+            if (bike) vis.transform.localScale = Vector3.one * bikeScale;
             var rends = vis.GetComponentsInChildren<Renderer>(true);
             Renderer lod0 = null, lod1 = null, lod2 = null;
             foreach (var r in rends)
@@ -606,7 +611,7 @@ namespace PhoViet.OpenWorld
             }
             var anim = vis.GetComponent<Animation>();
             if (anim) { anim.cullingType = AnimationCullingType.BasedOnRenderers; anim.playAutomatically = false; }
-            float halfL = Mathf.Max(bike ? 0.95f : 2.0f, (bike ? b.size.z - 0.1f : b.size.z) / 2), halfW = bike ? 0.45f : Mathf.Max(0.9f, b.size.x / 2 - 0.08f);
+            float halfL = Mathf.Max(bike ? 0.88f : 2.0f, (bike ? b.size.z - 0.1f : b.size.z) / 2), halfW = bike ? 0.4f : Mathf.Max(0.9f, b.size.x / 2 - 0.08f);
             var bc = root.AddComponent<BoxCollider>();
             bc.center = new Vector3(0, b.size.y / 2, 0); bc.size = new Vector3(halfW * 2, Mathf.Max(1f, b.size.y - 0.1f), halfL * 2);
             var rb = root.AddComponent<Rigidbody>(); rb.isKinematic = true; rb.interpolation = RigidbodyInterpolation.Interpolate;
@@ -802,7 +807,7 @@ namespace PhoViet.OpenWorld
             float pitchWant = flying ? Mathf.Sin((now - v.fallStart) * (6f + 6f * k)) * (8f + 22f * k) : 0f;
             v.fallPitch = Mathf.MoveTowards(v.fallPitch, pitchWant, 120f * dt);
             float lie = Mathf.Abs(Mathf.Sin(v.fallRoll * Mathf.Deg2Rad));
-            v.fallLift = LieLift * lie;
+            v.fallLift = LieLift * lie * (v.bike ? bikeScale : 1f);
             if (!down && !v.recovering && Mathf.Abs(v.fallRoll) < 0.5f && Mathf.Abs(v.fallPitch) < 0.5f) { v.fallStart = -1f; v.fallLift = 0f; return Quaternion.Euler(0, 0, v.lean); }
             return Quaternion.Euler(v.fallPitch, 0f, v.fallRoll);
         }
@@ -1076,7 +1081,7 @@ namespace PhoViet.OpenWorld
             if (!smokeMaterial) return;
             if (!v.smoke)
             {
-                var go = new GameObject("KhoiXeBiHuc"); go.transform.SetParent(v.root, false); go.transform.localPosition = new Vector3(0, v.bike ? 0.8f : 1.1f, v.bike ? 0f : v.halfL * 0.45f);
+                var go = new GameObject("KhoiXeBiHuc"); go.transform.SetParent(v.root, false); go.transform.localPosition = new Vector3(0, v.bike ? 0.8f * bikeScale : 1.1f, v.bike ? 0f : v.halfL * 0.45f);
                 var ps = go.AddComponent<ParticleSystem>(); ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                 var m = ps.main; m.loop = true; m.simulationSpace = ParticleSystemSimulationSpace.World; m.maxParticles = 120; m.gravityModifier = -0.07f;
                 m.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;

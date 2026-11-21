@@ -5,10 +5,10 @@ const url=process.argv[2]||'http://127.0.0.1:8783/';
 const capturePrefix=process.argv[3]||'landing';
 const report={url,checks:[],errors:[],layouts:[]};
 const check=(name,ok)=>{assert(ok,name);report.checks.push(name);};
-const photos=['poster-home-jump.jpg','poster-home-missile.jpg','poster-home-encounter.jpg'];
+const photos=['poster-home-mobile.jpg'];
 async function inspect(page,label,safe){
  const images=page.locator('.street-gallery img');
- check(label+': exactly three home photos are present',await images.count()===photos.length);
+ check(label+': exactly one home photo is present',await images.count()===photos.length);
  for(let i=0;i<photos.length;i++){
   await images.nth(i).scrollIntoViewIfNeeded();
   await page.waitForFunction(index=>{const e=document.querySelectorAll('.street-gallery img')[index];return e?.complete&&e.naturalWidth>0;},i);

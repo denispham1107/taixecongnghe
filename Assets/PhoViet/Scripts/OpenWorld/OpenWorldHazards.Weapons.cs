@@ -17,7 +17,7 @@ namespace PhoViet.OpenWorld
     {
         [Header("Tên lửa người chơi (21.258)")]
         public GameObject pickupPrefab;
-        public int startMissiles = 5, maxMissiles = 10, pickupCount = 14;
+        public int startMissiles = 10, maxMissiles = 10, pickupCount = 14;   // 21.295 (người dùng): vào game mang sẵn đầy 10 quả
         [Tooltip("21.284: người dùng chốt 0,3 s giữa hai lần bắn")] public float playerMissileInterval = 0.3f;
 
         public int PlayerMissiles { get; private set; }

@@ -71,11 +71,13 @@ namespace PhoViet.OpenWorld
         // 21.284 (người dùng): Ga + Nhảy to hơn 25 %, Lùi/Stop/Tên lửa to hơn 10 %; hàng dưới canh đáy, Nhảy đứng thẳng trên Ga,
         // Tên lửa canh giữa trên Lùi (thấp hơn Nhảy một chút → hàng trên chạy theo vòng ngón cái).
         // 21.292 (người dùng): Ga + Nhảy và hai mũi tên to thêm 10 % (1,25 → 1,375; 1,5 → 1,65 × nút chuẩn).
-        static float BigSize => BtnSize * 1.375f;
-        static float SmallSize => BtnSize * 1.1f;
+        // 21.295 (người dùng): Nhảy, Ga, Stop to thêm 5 % (1,375 → 1,444; 1,1 → 1,155); Tên lửa, Lùi to thêm 10 % (1,1 → 1,21).
+        static float BigSize => BtnSize * 1.44375f;
+        static float StopSize => BtnSize * 1.155f;
+        static float SmallSize => BtnSize * 1.21f;                                  // Lùi + Tên lửa
         public static Rect GasRect => new Rect(Screen.width - BigSize - 24 - OpenWorldGame.SafeRightPx, Screen.height - BigSize - 24 - OpenWorldGame.SafeBottomPx, BigSize, BigSize);
         public static Rect RevRect { get { var g = GasRect; return new Rect(g.x - SmallSize - Gap, g.yMax - SmallSize, SmallSize, SmallSize); } }
-        public static Rect StopRect { get { var r = RevRect; return new Rect(r.x - SmallSize - Gap, r.y, SmallSize, SmallSize); } }
+        public static Rect StopRect { get { var r = RevRect; return new Rect(r.x - StopSize - Gap, r.yMax - StopSize, StopSize, StopSize); } }
         // Máy tính (không có Ga/Lùi/Stop): giữ bố cục cũ — Nhảy góc phải dưới, Tên lửa ngay trên.
         static bool touchLayout = true;
         public static Rect JumpRect { get { var g = GasRect; return touchLayout ? new Rect(g.x, g.y - BigSize - Gap, BigSize, BigSize) : g; } }
@@ -264,11 +266,16 @@ namespace PhoViet.OpenWorld
         // ------------------------------------------------------------ 21.255: nhảy như game cũ
         // Đỉnh cố định 4,1166525 m so với mặt đỡ lúc phóng (21.100), gia tốc lên 24,2 m/s², rơi 22 m/s², hồi 2 s,
         // chỉ nhảy khi bánh chạm mặt đường/cầu. Phím J (Space vẫn là phanh tay) hoặc nút NHẢY (21.286: bỏ chạm nửa phải màn hình).
-        public const float JumpApex = 4.1166525f, JumpRise = 24.2f, JumpFall = 22f, JumpCooldown = 2f;
+        // 21.295 (người dùng): đáp đất là nhảy lại được ngay — bỏ thời gian hồi 2 s tính từ lúc phóng (cũ: chờ thêm ~0,8 s sau khi
+        // đáp). Chỉ chặn bấm lặp trong 0,3 s đầu; bấm Nhảy hơi sớm (≤ 0,2 s trước khi chạm đất) được giữ lại và phóng ngay khi đáp.
+        public const float JumpApex = 4.1166525f, JumpRise = 24.2f, JumpFall = 22f, JumpCooldown = 0.3f, JumpBuffer = 0.2f;
         public bool Airborne => jumping;
         public float Lift => jumping ? Mathf.Max(0f, transform.position.y - jumpBase) : 0f;   // độ cao so với mặt đỡ lúc phóng
         public int Jumps { get; private set; }
-        bool jumping, jumpRequest; float jumpBase, jumpAt = -10f;
+        public int Landings { get; private set; }
+        public float LandedAt { get; private set; } = -10f;
+        public float JumpedAt => jumpAt;
+        bool jumping, jumpRequest; float jumpBase, jumpAt = -10f, jumpRequestAt = -10f;
         public void RequestJump() { jumpRequest = true; }
         // Chạm đất: tia dò ở tâm xe, hoặc mặt dưới thân xe đang tì lên vật gì đó (bồn cây, nóc xe khác…) — 21.258.
         float supportAt = -10f;
@@ -352,19 +359,19 @@ namespace PhoViet.OpenWorld
         }
         void TickJump(float dt)
         {
-            if (jumpRequest)
+            if (jumpRequest) { jumpRequest = false; jumpRequestAt = Time.time; }
+            if (jumping)
             {
-                jumpRequest = false;
-                if (!jumping && !frozen && Time.time - jumpAt >= JumpCooldown && Grounded())
-                {
-                    jumping = true; jumpAt = Time.time; jumpBase = transform.position.y; Jumps++;
-                    var v = rb.linearVelocity; v.y = Mathf.Sqrt(2f * JumpRise * JumpApex); rb.linearVelocity = v;
-                }
+                float g = -Physics.gravity.y;
+                rb.AddForce(Vector3.down * ((rb.linearVelocity.y > 0 ? JumpRise : JumpFall) - g), ForceMode.Acceleration);
+                if (Time.time - jumpAt > 0.25f && rb.linearVelocity.y <= 0.5f && Grounded()) { jumping = false; Landings++; LandedAt = Time.time; }
             }
-            if (!jumping) return;
-            float g = -Physics.gravity.y;
-            rb.AddForce(Vector3.down * ((rb.linearVelocity.y > 0 ? JumpRise : JumpFall) - g), ForceMode.Acceleration);
-            if (Time.time - jumpAt > 0.25f && rb.linearVelocity.y <= 0.5f && Grounded()) jumping = false;
+            if (!jumping && Time.time - jumpRequestAt <= JumpBuffer && !frozen && Time.time - jumpAt >= JumpCooldown && Grounded())
+            {
+                jumpRequestAt = -10f;
+                jumping = true; jumpAt = Time.time; jumpBase = transform.position.y; Jumps++;
+                var v = rb.linearVelocity; v.y = Mathf.Sqrt(2f * JumpRise * JumpApex); rb.linearVelocity = v;
+            }
         }
         void Update()
         {
@@ -561,7 +568,7 @@ namespace PhoViet.OpenWorld
         public void ResetTo(Vector3 pos, Quaternion rot)
         {
             sinking = false; rb.useGravity = true; Speed = 0; frozen = false;
-            Crashed = false; CrashReason = null; jumping = false; jumpRequest = false; joltUntil = 0f;
+            Crashed = false; CrashReason = null; jumping = false; jumpRequest = false; jumpRequestAt = -10f; joltUntil = 0f;
             stunUntil = stopUntil = flingUntil = 0f; ExplodeAt = -1f; LastCrashInfo = null;
             if (dent != null) dent.Restore();
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;

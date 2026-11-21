@@ -8,7 +8,7 @@ namespace PhoViet.OpenWorld
     // • Màn chào (Ready): thương hiệu PHỐ VIỆT, thẻ «LÊN XE THÔI» (Enter/Space), kỷ lục; xe đứng yên ở điểm xuất phát,
     //   giao thông vẫn chạy, CSGT và hiểm họa tạm nghỉ.
     // • Đang chạy: thanh HUD trên cùng — tên phố đang đi (có dấu), số mét (= quãng đường lái, OpenWorldHazards.DistanceDriven:
-    //   không cộng khi xe hỏng/bị bắt/chìm), km/h, KỶ LỤC, khoảng cách CSGT, nút Ⅱ (P/Esc) và ÂM: BẬT/TẮT.
+    //   không cộng khi xe hỏng/bị bắt/chìm), km/h, KỶ LỤC, khoảng cách CSGT, nút tạm dừng (P/Esc) và nút loa bật/tắt tiếng (21.295, vẽ bằng hình).
     // • Tạm dừng: «NGHỈ MỘT CHÚT» — ĐI TIẾP / VỀ ĐẦU PHỐ (Time.timeScale = 0, tắt tiếng tạm thời).
     // • Thua (luật cũ): xe hỏng hoặc bị chặn → CSGT tới bắt → thẻ phòng giam «ĐÃ BỊ BẮT» trên ảnh Jail; rơi xuống sông →
     //   «KẾT THÚC CHUYẾN XE · Rơi xuống sông!» (không hồi sinh). Cả hai lưu kỷ lục cục bộ (PlayerPrefs, khóa riêng của bản
@@ -372,8 +372,17 @@ namespace PhoViet.OpenWorld
                     }
             }
             FireButton();
-            if (Btn(Mode == State.Paused ? "▶" : "Ⅱ", new Rect(x + bw - 56, y + 10, 40, 36), new Color(1, .945f, .812f, .86f), Ink, 19)) TogglePause();
-            if (!portrait && Btn(Sound ? "ÂM: BẬT" : "ÂM: TẮT", new Rect(x + bw - 103, y + 53, 87, 20), new Color(.07f, .19f, .21f, .35f), Cream, 11)) SetSound(!Sound);
+            // 21.295: font web không có «Ⅱ»/«▶» → nút chỉ còn nền kem. Vẽ biểu tượng bằng hình; chữ «ÂM: BẬT/TẮT» thay bằng nút loa
+            // bên trái nút tạm dừng (tắt tiếng: loa + gạch chéo đỏ).
+            var pauseRect = new Rect(x + bw - 56, y + 10, 40, 36);
+            if (Btn("", pauseRect, new Color(1, .945f, .812f, .86f), Ink)) TogglePause();
+            DrawPauseIcon(pauseRect, Mode == State.Paused, Ink);
+            if (!portrait)
+            {
+                var soundRect = new Rect(x + bw - 102, y + 10, 40, 36);
+                if (Btn("", soundRect, new Color(1, .945f, .812f, .86f), Ink)) SetSound(!Sound);
+                DrawSpeakerIcon(soundRect, Sound, Ink);
+            }
         }
 
         // Nút TÊN LỬA phía trên nút NHẢY (góc phải dưới); bàn phím: F.
@@ -437,6 +446,71 @@ namespace PhoViet.OpenWorld
             Txt("Quãng đường  " + Metres(Score) + (NewBest ? "  ·  KỶ LỤC MỚI!" : "  ·  Kỷ lục " + Metres(Best)), x + 26, y + 150, w - 52, 28, 16, Teal);
             if (Btn("CHƠI LẠI", new Rect(x + 26, y + (portrait ? 190 : 196), w - 52, 48), Red, Cream, 18)) StartRun();
             if (!portrait && Btn("VỀ ĐẦU PHỐ", new Rect(x + 26, y + 258, w - 52, 32), Cream, Teal, 13)) GoReady();
+        }
+
+        // 21.295: biểu tượng vẽ bằng texture tạo trong mã (font web thiếu glyph). Tô màu bằng GUI.color.
+        Texture2D playTex, speakerTex, wavesTex, slashTex;
+        static Texture2D MaskTex(System.Func<float, float, bool> inside, int size = 96)
+        {
+            var t = new Texture2D(size, size, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Bilinear };
+            var px = new Color32[size * size];
+            for (int yy = 0; yy < size; yy++)
+                for (int xx = 0; xx < size; xx++)
+                {
+                    int hit = 0;                                                   // khử răng cưa 4×4
+                    for (int sy = 0; sy < 4; sy++) for (int sx = 0; sx < 4; sx++)
+                            if (inside((xx + (sx + .5f) / 4f) / size, 1f - (yy + (sy + .5f) / 4f) / size)) hit++;   // v: 0 = trên
+                    px[yy * size + xx] = new Color32(255, 255, 255, (byte)(hit * 255 / 16));
+                }
+            t.SetPixels32(px); t.Apply(false, true); return t;
+        }
+        static bool InTri(float x, float y, Vector2 a, Vector2 b, Vector2 c)
+        {
+            float d1 = (x - b.x) * (a.y - b.y) - (a.x - b.x) * (y - b.y), d2 = (x - c.x) * (b.y - c.y) - (b.x - c.x) * (y - c.y), d3 = (x - a.x) * (c.y - a.y) - (c.x - a.x) * (y - a.y);
+            return !((d1 < 0 || d2 < 0 || d3 < 0) && (d1 > 0 || d2 > 0 || d3 > 0));
+        }
+        void DrawIcon(Rect r, Texture2D t, Color c) { var old = GUI.color; GUI.color = c; GUI.DrawTexture(r, t, ScaleMode.ScaleToFit); GUI.color = old; }
+        Rect IconRect(Rect b, float s) { float h = b.height * s; return new Rect(b.center.x - h / 2, b.center.y - h / 2, h, h); }
+
+        void DrawPauseIcon(Rect b, bool paused, Color c)
+        {
+            var ir = IconRect(b, .52f);
+            if (paused)
+            {
+                if (!playTex) playTex = MaskTex((u, v) => InTri(u, v, new Vector2(.22f, .12f), new Vector2(.22f, .88f), new Vector2(.86f, .5f)));
+                DrawIcon(ir, playTex, c);
+                return;
+            }
+            float w = ir.width * .26f;                                             // hai vạch dọc bo góc
+            GUI.DrawTexture(new Rect(ir.x + ir.width * .16f, ir.y + ir.height * .1f, w, ir.height * .8f), Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, c, 0, w * .3f);
+            GUI.DrawTexture(new Rect(ir.xMax - ir.width * .16f - w, ir.y + ir.height * .1f, w, ir.height * .8f), Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, c, 0, w * .3f);
+        }
+
+        void DrawSpeakerIcon(Rect b, bool on, Color c)
+        {
+            if (!speakerTex)
+            {
+                speakerTex = MaskTex((u, v) => (u >= .08f && u <= .3f && v >= .36f && v <= .64f)
+                    || InTri(u, v, new Vector2(.26f, .36f), new Vector2(.54f, .12f), new Vector2(.54f, .88f))
+                    || InTri(u, v, new Vector2(.26f, .36f), new Vector2(.54f, .88f), new Vector2(.26f, .64f)));
+                wavesTex = MaskTex((u, v) =>
+                {
+                    float dx = u - .54f, dy = v - .5f, d = Mathf.Sqrt(dx * dx + dy * dy);
+                    if (dx <= 0 || Mathf.Abs(dy) > dx * 1.05f) return false;
+                    return (d > .15f && d < .22f) || (d > .3f && d < .37f);
+                });
+                slashTex = MaskTex((u, v) =>
+                {
+                    // đường chéo từ trên-trái xuống dưới-phải, dày 0,1
+                    float t = Mathf.Clamp01(((u - .1f) * .8f + (v - .1f) * .8f) / (.8f * .8f * 2f));
+                    float px = .1f + t * .8f, py = .1f + t * .8f, dx = u - px, dy = v - py;
+                    return dx * dx + dy * dy < .055f * .055f;
+                });
+            }
+            var ir = IconRect(b, .66f);
+            DrawIcon(ir, speakerTex, c);
+            if (on) DrawIcon(ir, wavesTex, c);
+            else DrawIcon(ir, slashTex, Red);
         }
 
         // Ngôi sao 5 cánh (font web không có glyph ★, như DrawGuiStar của game cũ).

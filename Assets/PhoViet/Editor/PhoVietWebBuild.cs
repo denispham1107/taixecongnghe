@@ -50,7 +50,7 @@ namespace PhoViet.Editor
             PlayerSettings.SetIl2CppCodeGeneration(UnityEditor.Build.NamedBuildTarget.WebGL,UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize);
             PlayerSettings.SetIl2CppCompilerConfiguration(UnityEditor.Build.NamedBuildTarget.WebGL,Il2CppCompilerConfiguration.Master);
             SetWasmCodeOptimization("DiskSizeLTO");
-            PlayerSettings.bundleVersion="1.85.0";
+            PlayerSettings.bundleVersion="1.86.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
@@ -128,7 +128,17 @@ namespace PhoViet.Editor
                 throw new Exception("Web build failed: "+report.summary.result);
             if(PhoVietMobileSceneStrip.Processed<1)throw new Exception("Scene was not processed in this build (stale build cache)");
             PruneRuntimeOutput("Builds/WebGL");
+            PruneUnusedPosters("Builds/WebGL");
             FinalizeWebOutput("Builds/WebGL");
+        }
+
+        // 21.295: trang chủ chỉ còn MỘT ảnh (poster-home-mobile.jpg). Ảnh poster*.jpg/png khác trong template (lịch sử) không được
+        // index.html tham chiếu → xóa khỏi bản phát hành trước khi tính cache offline.
+        static void PruneUnusedPosters(string root)
+        {
+            string html=File.ReadAllText(Path.Combine(root,"index.html"));
+            foreach(string path in Directory.GetFiles(root,"poster*"))
+                if(!html.Contains(Path.GetFileName(path)))File.Delete(path);
         }
 
         static void PruneRuntimeOutput(string root)
@@ -155,7 +165,7 @@ namespace PhoViet.Editor
         {
             const string root="Builds/WebGL";
             if(!File.Exists(Path.Combine(root,"index.html")))throw new Exception("Build WebGL first");
-            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-home-jump.jpg","poster-home-missile.jpg","poster-home-encounter.jpg"})
+            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-home-mobile.jpg"})
                 File.Copy("Assets/WebGLTemplates/PhoVietPWA/"+file,Path.Combine(root,file),true);
             Directory.CreateDirectory(Path.Combine(root,"icons"));
             foreach(string icon in Directory.GetFiles("Assets/WebGLTemplates/PhoVietPWA/icons"))
@@ -170,8 +180,7 @@ namespace PhoViet.Editor
             html=System.Text.RegularExpressions.Regex.Replace(template,configPattern,_=>config.Value);
             if(html.Contains("{{{"))throw new Exception("Unexpanded Unity template token");
             File.WriteAllText(htmlPath,html);
-            foreach(string oldPoster in new[]{"poster.png","poster-morning.jpg","poster-morning-portrait.jpg","poster-action.jpg","poster-night.jpg","poster-home.png","poster-home-flight.png"})
-            {string oldPath=Path.Combine(root,oldPoster);if(File.Exists(oldPath))File.Delete(oldPath);}
+            PruneUnusedPosters(root);
             FinalizeWebOutput(root);
         }
 

@@ -674,7 +674,7 @@ namespace PhoViet.OpenWorldEditor
                 var sm = AssetDatabase.LoadAssetAtPath<Material>(matPath);
                 if (!sm) { sm = new Material(Shader.Find("PhoViet/Soft Particle")); AssetDatabase.CreateAsset(sm, matPath); }
                 sm.shader = Shader.Find("PhoViet/Soft Particle");
-                sm.mainTexture = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/PhoViet/Resources/Boost/PV_WhiteBoostSmoke.png");
+                sm.mainTexture = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/PhoViet/Resources/Boost/PV_JumpSmoke4x4.png");   // 21.295: khói Blender 4×4 khung (ow_jump_smoke.py)
                 EditorUtility.SetDirty(sm);
                 jets.smokeMaterial = sm;
                 var bc = drv.GetComponent<BoxCollider>();
@@ -712,7 +712,7 @@ namespace PhoViet.OpenWorldEditor
                 string n = mesh.name;
                 bool fence = n.Contains("_HangRao_"), rail = n.Contains("LanCanSong");
                 bool house = !fence && !rail && mf.transform.parent && mf.transform.parent.parent && mf.transform.parent.parent.name == "OW_Map_showcase"
-                             && (mf.name.StartsWith("OW_NhaPho_") || mf.name.StartsWith("OW_NhaThuoc")) || mf.name == "OW_ThapTaiChinh";
+                             && (mf.name.StartsWith("OW_NhaPho_") || mf.name.StartsWith("OW_NhaThuoc")); // 21.293: bỏ tháp cũ OW_ThapTaiChinh (tháp mới có MeshCollider riêng)
                 if (!fence && !rail && !house) continue;
                 var w = WorldVerts(mf);
                 if (w.Count == 0) continue;
