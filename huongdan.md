@@ -5813,4 +5813,6 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - **1.491 giây**, 3.356 nội thất 3D lược ở gói điện thoại, cache `32be047b66713b80`.
   - Gói điện thoại `ee621a11…` **106,0 MB** (1.89.0: 105,4), gói máy tính `fc478fe4…` **121,9 MB** (121,3), wasm 5,9 MB.
 - **`docs/`** thay bằng `Builds/WebGL`, `PublishWebArtifact.py pack` (mỗi gói 4 phần), materialize `_site`: **31/31 tệp khớp SHA-256**.
+- **Commit/push/Pages:** commit **`99c16f3`**, push `main`; Pages run `45021001158` **lỗi tạm của GitHub** ở bước Deploy («No artifacts named "github-pages"… re-run the deployment at a later time»; các bước khôi phục/kiểm tra/tải gói đều đạt, trang vẫn 1.89.0). Người dùng chọn đẩy commit kích hoạt: **`c1f6af1`** chỉ thêm 1 dòng chú thích đầu `.github/workflows/pages.yml` → Pages run `45023323110` **thành công**.
+- **Trang thật:** `build-info.json` 1.90.0 cache `32be047b66713b80`, **30/30 tệp live khớp SHA-256**, khung bản cập nhật có 4 dòng mới. Chưa thử iPhone thật.
 

@@ -4,13 +4,13 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **22/11/2026 — Claude Code (21.317 thời tiết mưa giông + sét, chưa phát hành; bản phát hành vẫn 1.89.0)**
+Cập nhật lần cuối: **22/11/2026 — Claude Code (phát hành 1.90.0 = 21.316–21.317)**
 
 ## 1. Trạng thái hiện tại
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.89.0 — bản đồ mở** (21.312–21.315: nút KHIÊN 6 s/hồi 10 s miễn va chạm + đạn, phá lưới điện; trúng đạn cháy + nổ tung; Tên lửa +5 %, Lazer hạ thấp; trang chủ thêm 2 ảnh) — commit `6e6b362`, Pages run `45000179835` thành công, **30/30 tệp live khớp SHA-256**, cache `624705e30bbb847d`, gói điện thoại 105,4 MB, máy tính 121,3 MB. Bản trước 1.88.0 (`d7b1180`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
+| Bản đã phát hành | **1.90.0 — bản đồ mở** (21.316–21.317: lái kiểu ô tô thật + P/DRIFT + khói lốp/tiếng rít; thời tiết ngẫu nhiên 50 % mưa giông 2 phút, đợt 7 tia sét/15 s có hại, KHIÊN chặn) — commit `99c16f3` + kích hoạt lại `c1f6af1`, Pages run `45023323110` thành công (run đầu `45021001158` lỗi tạm GitHub), **30/30 tệp live khớp SHA-256**, cache `32be047b66713b80`, gói điện thoại 106,0 MB, máy tính 121,9 MB. Bản trước 1.89.0 (`6e6b362`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra. Plugin `Assets/ai.meshy` đã commit cùng 1.74.0 (`bee5707`). |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -55,7 +55,7 @@ Cập nhật lần cuối: **22/11/2026 — Claude Code (21.317 thời tiết m�
 | Chất liệu tường trong source | **21.234, web 1.73.0:** vữa lì, sần và loang từ vật liệu nhà tù Blender. 26 FBX / 147 mesh, có Petshop ven sông. Texture 1K nén, cùng màu sơn từng nhà. |
 | Cờ ban công trong source | **21.88 đã sửa:** bỏ thanhđen cạnh cờ ở8biếnthểnhà/24LOD,giữcờ-sao/hoa/lan can;64Blenderđạt/24mesh+510refsUnitygiữnguyên,4ảnhđãxem. **Đã có trên web1.48.0** |
 | Góc đèn pha trong source | **21.108 đã có trên web1.53.0:** khôi phục đèn gốc1.52, chỉmởgócngang1,8×/spot≈90°;bỏreference0,65/mirror21.107,giữhướng/cườngđộ/tầm32m/nguồnđèn.435kiểmđạt/ảnhgốc-vàmởgóccùngframe |
-| Mưa giông/sét bản đồ mở | **21.317 (chưa phát hành):** mưa giông ngẫu nhiên 50 % mỗi lượt, 2 phút, đợt 7 tia sét/15 s — xem mục 2. Dòng dưới là hệ thống của scene cũ (đã xóa ở 21.264). |
+| Mưa giông/sét bản đồ mở | **21.317, web 1.90.0:** mưa giông ngẫu nhiên 50 % mỗi lượt, 2 phút, đợt 7 tia sét/15 s — xem mục 2. Dòng dưới là hệ thống của scene cũ (đã xóa ở 21.264). |
 | Mưa giông/sét trong source | **21.179, web 1.68.0:** tiếng nổ và rền 2,2 giây theo vị trí từng tia. **21.109 đã có trên web1.53.0:** mỗi đợt giữ tia cũ +3tia đồng thời/3làn khác nhau trong tile hiện tại, báo0,8s;763kiểm đạt/4ảnh thật. **Web1.52.0 còn21.105:**15s quang/3s tăng/9s giông/3s tan; xe trúng cháy/văng/nằm lại, player hết lượt, Tank/Dino miễn, CSGT hết đuổi |
 | Hố đạn và chỉnh lái trong source | **21.103 đã có trên web1.51.0:** hố R2,024m/lòng−0,40m/nứt/mảnh văng; bánh chạm kéo lệch tới khi nhấn/vuốt ngược, nhảy tránh được. **1.090 kiểm tra đạt/11 ảnh Unity**, không đổi hình ảnh ngoài hố. Xem21.103 |
 | Tàu và đèn phụ | **21.217–21.218, web 1.72.0:** tàu đánh cá vàng cam, bốn tàu chạy giữa từng cặp ô đỏ/xanh trong ảnh, hai chiếc mỗi phía cầu. **21.102:** tàu Meshy 3 LOD và đèn phụ hai mặt chung tín hiệu với đèn lớn. |
@@ -63,13 +63,14 @@ Cập nhật lần cuối: **22/11/2026 — Claude Code (21.317 thời tiết m�
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
-- **21.317 (chưa commit/phát hành):** thời tiết ngẫu nhiên 50/50 khi mở game / CHƠI LẠI / VỀ ĐẦU PHỐ (chuyển nhanh 2 s); mưa giông 2 phút lái rồi tạnh dần 20 s; mỗi đợt 7 tia sét cùng lúc (đường, lề đường, lề sông, lề biển, 1 tia nhắm lối xe chạy), cảnh báo vòng xanh 1 s, nghỉ 15 s; sét có hại (KHIÊN chặn). Mưa + sét dựng bằng Blender (`build_mua_set.py` → `Resources/ThoiTiet`). Sửa lỗi console vận tốc khói lốp 21.316g. Chi tiết `huongdan.md` 21.317.
-- **21.316f–g (chưa commit/phát hành):** nút Stop đổi chữ **P/DRIFT** (ảnh `PV_Btn_Stop.png` + trang chủ); khói trắng ở lốp + tiếng lốp rít khi drift/phanh gấp/thiếu lái (`OpenWorldTireFx.cs`, `OpenWorldDriver.RearSlip/FrontSlip`). Chi tiết `huongdan.md` 21.316f–g.
-- **21.316e (chưa commit/phát hành, chờ người dùng thử Play):** lái kiểu ô tô thật trong `OpenWorldDriver`: góc bánh 35°, L 2,65 m, r = v·tanδ/(L+Ku·v²), bám 1,7 g (phanh +12 %), lái tỉ số thay đổi, vòng ma sát + giảm tốc khi cua, thắng tay (Space/Stop) drift; bỏ `steerDegPerSec/highSpeedSteer`. Thử bằng `AgentScripts/Corner21316e.cs`. Chi tiết `huongdan.md` 21.316e.
-- **21.316d (chưa commit/phát hành):** bẻ lái nhanh hơn: 82°/s chậm → ~39°/s ở 97 km/h, vào lái 0,18 s. Đã lưu vào scene. Chi tiết `huongdan.md` 21.316d.
-- **21.316c (chưa commit/phát hành, chờ người dùng thử Play):** lái 72°/s chậm → ~30°/s ở 97 km/h (giảm từ 5 m/s), camera trễ 0,6 s; bộ ghi `Editor/PhoVietPlayProbe.cs` (bật bằng tệp cờ `Captures/steer21316/probe.on`) ghi CSV mỗi lần người dùng Play. Chi tiết `huongdan.md` 21.316c.
-- **21.316b (chưa commit/phát hành, chờ người dùng thử Play):** lái bớt gắt (tăng 0,28 s, ~43°/s ở tốc độ cao), hướng chạy trễ sau đầu xe (trượt nhẹ ~5–7°), thân xe nghiêng ra ngoài cua ≤ 3,5°, camera theo hướng chạy trễ 0,45 s; giá trị lưu cả trong scene. Chi tiết `huongdan.md` 21.316b.
-- **21.316 (chưa commit/phát hành):** lái mượt hơn: vô lăng ảo (tăng dần 0,2 s, trả 0,12 s), lái nhẹ dần theo tốc độ (95 → ~55°/s), camera trễ hướng 0,25 s (`OpenWorldDriver.steerRise/steerReturn/highSpeedSteer`, `OpenWorldCamera.headingLag`). Chưa làm phương án 4 (trượt đuôi + nghiêng thân). Chi tiết `huongdan.md` 21.316.
+- **21.318 — phát hành 1.90.0:** gộp 21.316–21.317; trang chủ 4 dòng bản cập nhật + phím K/L/drift. Chi tiết `huongdan.md` 21.318.
+- **21.317 (phát hành 1.90.0):** thời tiết ngẫu nhiên 50/50 khi mở game / CHƠI LẠI / VỀ ĐẦU PHỐ (chuyển nhanh 2 s); mưa giông 2 phút lái rồi tạnh dần 20 s; mỗi đợt 7 tia sét cùng lúc (đường, lề đường, lề sông, lề biển, 1 tia nhắm lối xe chạy), cảnh báo vòng xanh 1 s, nghỉ 15 s; sét có hại (KHIÊN chặn). Mưa + sét dựng bằng Blender (`build_mua_set.py` → `Resources/ThoiTiet`). Sửa lỗi console vận tốc khói lốp 21.316g. Chi tiết `huongdan.md` 21.317.
+- **21.316f–g (phát hành 1.90.0):** nút Stop đổi chữ **P/DRIFT** (ảnh `PV_Btn_Stop.png` + trang chủ); khói trắng ở lốp + tiếng lốp rít khi drift/phanh gấp/thiếu lái (`OpenWorldTireFx.cs`, `OpenWorldDriver.RearSlip/FrontSlip`). Chi tiết `huongdan.md` 21.316f–g.
+- **21.316e (phát hành 1.90.0):** lái kiểu ô tô thật trong `OpenWorldDriver`: góc bánh 35°, L 2,65 m, r = v·tanδ/(L+Ku·v²), bám 1,7 g (phanh +12 %), lái tỉ số thay đổi, vòng ma sát + giảm tốc khi cua, thắng tay (Space/Stop) drift; bỏ `steerDegPerSec/highSpeedSteer`. Thử bằng `AgentScripts/Corner21316e.cs`. Chi tiết `huongdan.md` 21.316e.
+- **21.316d (phát hành 1.90.0):** bẻ lái nhanh hơn: 82°/s chậm → ~39°/s ở 97 km/h, vào lái 0,18 s. Đã lưu vào scene. Chi tiết `huongdan.md` 21.316d.
+- **21.316c (phát hành 1.90.0):** lái 72°/s chậm → ~30°/s ở 97 km/h (giảm từ 5 m/s), camera trễ 0,6 s; bộ ghi `Editor/PhoVietPlayProbe.cs` (bật bằng tệp cờ `Captures/steer21316/probe.on`) ghi CSV mỗi lần người dùng Play. Chi tiết `huongdan.md` 21.316c.
+- **21.316b (phát hành 1.90.0):** lái bớt gắt (tăng 0,28 s, ~43°/s ở tốc độ cao), hướng chạy trễ sau đầu xe (trượt nhẹ ~5–7°), thân xe nghiêng ra ngoài cua ≤ 3,5°, camera theo hướng chạy trễ 0,45 s; giá trị lưu cả trong scene. Chi tiết `huongdan.md` 21.316b.
+- **21.316 (phát hành 1.90.0):** lái mượt hơn: vô lăng ảo (tăng dần 0,2 s, trả 0,12 s), lái nhẹ dần theo tốc độ (95 → ~55°/s), camera trễ hướng 0,25 s (`OpenWorldDriver.steerRise/steerReturn/highSpeedSteer`, `OpenWorldCamera.headingLag`). Chưa làm phương án 4 (trượt đuôi + nghiêng thân). Chi tiết `huongdan.md` 21.316.
 - **21.315 — phát hành 1.89.0:** gộp 21.312–21.314. Trang chủ thêm 2 ảnh (`poster-home-lazer.jpg` ảnh người dùng, `poster-home-khien.jpg` chụp dàn cảnh `AgentScripts/Poster21315.cs`). Chi tiết `huongdan.md` 21.315.
 - **21.314 (phát hành 1.89.0):** khiên trong suốt hơn (giữa khiên gần như trong, sáng dồn ra viền) — `OpenWorldShield.shader`. Chi tiết `huongdan.md` 21.314.
 - **21.313 (phát hành 1.89.0):** Khiên tồn tại 6 s (trước 4 s), hồi 10 s (trước 15 s) — `OpenWorldShield.Duration/Cooldown`. Chi tiết `huongdan.md` 21.313.
@@ -487,7 +488,7 @@ Cập nhật lần cuối: **22/11/2026 — Claude Code (21.317 thời tiết m�
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **ĐANG LÀM — phát hành 1.90.0:** build xong (cache `32be047b66713b80`, 31/31 SHA khớp), đang commit/push và chờ Pages; còn kiểm live + ghi kết quả vào `huongdan.md` 21.318 và mục 1.
+- **Chờ người dùng (1.90.0):** thử trên iPhone: lái mới + P/DRIFT, khói lốp; mưa giông (FPS khi ~3.900 hạt mưa + 7 tia sét + đèn chớp), vòng cảnh báo sét, sét trúng xe/KHIÊN chặn. **Lưu ý build:** dùng `QueueRelease21317.BuildNow()` (delayCall của script tạm không chạy), lệnh MCP báo hết giờ sau 60 s nhưng build vẫn chạy — theo dõi `Builds/release1900-status.json`.
 
 - **Chờ người dùng (1.89.0):** thử trên iPhone: nút Khiên (vị trí, bấm không lẫn nút lái), khiên chặn đạn/va chạm, phá lưới điện, xe cháy nổ khi trúng đạn; 2 ảnh mới trên trang chủ.
 
