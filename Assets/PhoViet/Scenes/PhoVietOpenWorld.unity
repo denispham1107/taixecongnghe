@@ -1778933,7 +1778933,20 @@ MonoBehaviour:
   accel: 7
   brake: 16
   drag: 1.6
-  steerDegPerSec: 95
+  steerRise: 0.18
+  steerReturn: 0.14
+  wheelBase: 2.65
+  maxWheelAngle: 35
+  understeerK: 0.002
+  gripG: 1.7
+  yawLag: 0.09
+  scrubDecel: 3.5
+  handbrakeSlide: 0.6
+  handbrakeYawBoost: 1.8
+  gripLow: 0.04
+  gripHigh: 0.11
+  bodyRollMax: 3.5
+  bodyRollGain: 0.16
   scriptedInput: {x: 0, y: 0}
   touchControlsAlwaysVisible: 0
   flingSpeed: 11.11
@@ -2541264,6 +2541277,7 @@ MonoBehaviour:
   height: 4.2
   lookAhead: 6
   follow: 6
+  headingLag: 0.6
 --- !u!81 &1972966803
 AudioListener:
   m_ObjectHideFlags: 0

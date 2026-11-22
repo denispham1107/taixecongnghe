@@ -363,7 +363,7 @@ BUTTONS = [
     ('Right', 'PHẢI', '#2FC7E8', icon_right, .16),
     ('Gas', 'GA', '#FF8A3D', icon_gas, .17),
     ('Reverse', 'LÙI', '#35C76B', icon_reverse, .17),
-    ('Stop', 'STOP', '#3D8BF0', icon_stop, .15),
+    ('Stop', 'P/DRIFT', '#3D8BF0', icon_stop, .125),   # 21.316f (người dùng): đổi chữ STOP → P/DRIFT (giữ = phanh gấp; giữ + đánh lái = thắng tay drift)
     ('Jump', 'NHẢY', '#F4C24A', icon_jump, .15),
     ('Missile', 'TÊN LỬA', '#E8463A', icon_missile, .12),
 ]

@@ -5557,3 +5557,260 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **`docs/`** thay bằng `Builds/WebGL`, `PublishWebArtifact.py pack` (mỗi gói 4 phần 32 MiB), materialize `_site`: **31/31 tệp khớp SHA-256**.
 - **Commit/push/Pages:** commit **`6e6b362`**, push `main`; Pages run `45000179835` **thành công**. Trang thật: `build-info.json` 1.89.0 cache `624705e30bbb847d`, **30/30 tệp live khớp SHA-256**, trang chủ có 3 ảnh (`poster-home-mobile/lazer/khien.jpg`) và 4 dòng bản cập nhật. Chưa thử iPhone thật.
 
+## 21.316. Đổi hướng trái/phải mượt hơn: vô lăng ảo, lái nhẹ dần theo tốc độ, camera trễ hướng (22/11/2026, Claude Code)
+
+- **Người dùng:** đổi hướng trái/phải chưa mượt. Đã đưa 4 phương án; người dùng chọn **1 + 2 + 3** (chưa làm phương án 4: trượt đuôi nhẹ + thân xe nghiêng khi cua).
+- **Nguyên nhân** (đo bằng `AgentScripts/SteerFeel21316.cs`):
+  - Nút/phím lái là bật/tắt (−1/0/+1), nên tốc độ quay thân xe nhảy ngay 0 → 95°/s → −95°/s trong 1 bước.
+  - Tốc độ quay 95°/s như nhau ở mọi tốc độ; giữ Phải 0,45 s ở 80 km/h là xe quay 43° và đâm lề.
+  - Hướng camera bám ngay theo đầu xe.
+- **(1) Vô lăng ảo** (`OpenWorldDriver.cs`, `steerRise` = 0,2 s, `steerReturn` = 0,12 s — **21.316b: 0,28 / 0,14 s**):
+  - Giữ nút thì góc lái `steerVal` tăng dần tới đủ trong 0,2 s.
+  - Nhả hoặc đổi bên thì trả về giữa trong 0,12 s, rồi mới bẻ sang bên kia.
+  - Áp dụng cho cả bàn phím và nút cảm ứng. `ResetTo` đặt lại về 0.
+- **(2) Lái nhẹ dần theo tốc độ** (`highSpeedSteer` = 0,58 — **21.316b: 0,45**): từ 8 m/s tới `maxSpeed` (27 m/s ≈ 97 km/h) tốc độ quay giảm từ 95 xuống ~55°/s. Đi chậm vẫn quay gắt như cũ.
+- **(3) Camera trễ hướng** (`OpenWorldCamera.cs`, `headingLag` = 0,25 s — **21.316b: 0,45 s, theo hướng chạy**):
+  - Hướng camera đuổi theo đầu xe theo hàm mũ, khi vào cua thấy xe đổi hướng trước rồi camera mới xoay theo.
+  - Xe bị dịch chuyển (nhảy > 25 m hoặc lệch > 120°) thì hướng camera chụp ngay.
+  - Xe lật chúc thẳng đứng thì giữ hướng cũ.
+- **Đo** (xe chạy thật 66 → 85 km/h, giữ Phải 0,25 s → Trái 0,28 s → thả):
+
+  | Chỉ số | Trước | Sau |
+  | --- | --- | --- |
+  | Đổi tốc độ quay thân xe lớn nhất trong 1 khung hình | 190°/s | 39°/s |
+  | Tốc độ quay lớn nhất của thân xe | 95°/s | 68°/s |
+  | Tốc độ xoay lớn nhất của camera | 80°/s | 30°/s |
+
+  Ảnh động so sánh (chậm 2×): `Captures/steer21316-truoc-sau.gif`; khung hình `Captures/steer21316/{truoc,sau}/`. Biên dịch không lỗi.
+- **Trạng thái:** chỉnh tiếp ở 21.316b (người dùng thử Play thấy chưa mượt).
+
+## 21.316b. Lái mượt — chỉnh tiếp sau khi người dùng thử Play: bớt gắt, trượt nhẹ khi cua, thân xe nghiêng, camera theo hướng chạy (22/11/2026, Claude Code)
+
+- **Người dùng:** thử Play trong Unity thấy không mượt như ảnh «Sau». Hỏi lại, người dùng chọn 3 cảm giác: **xe bẻ lái quá gắt**, **camera xoay theo quá nhiều**, **xe như xoay tại chỗ**.
+- **Đo lại:**
+  - Thử đo Play thời gian thực qua MCP: Unity không chạy khung hình khi bị điều khiển từ ngoài (kẹt khung 2, kể cả bật autotick/focus). `Time.captureDeltaTime` cũng không đổi nhịp khi bước khung.
+  - Vẫn đo bằng bước khung 0,02 s (`AgentScripts/SteerFeel21316.cs`, có ghi góc trượt + độ nghiêng). `AgentScripts/Realtime21316.cs` giữ lại làm công cụ.
+- **Sửa** (`OpenWorldDriver.cs`, `OpenWorldCamera.cs`; giá trị đặt cả trong scene `PhoVietOpenWorld.unity`, diff scene chỉ 8 dòng thông số):
+  - **Bớt gắt:**
+    - `steerRise` 0,2 → **0,28 s**, `steerReturn` 0,12 → **0,14 s**;
+    - `highSpeedSteer` 0,58 → **0,45**: ~43°/s ở 97 km/h; chạy chậm vẫn 95°/s để quay đầu.
+  - **Hết «xoay tại chỗ»** — hướng chạy `MoveDir` đuổi theo hướng đầu xe:
+    - theo hàm mũ, thời gian `gripLow` = 0,04 s (≤ 8 m/s, gần như bám ngay) → `gripHigh` = 0,15 s (tốc độ tối đa);
+    - vào cua đầu xe chúc vào trong trước, đuôi trượt nhẹ (đổi làn ~4,6°, cua dài tốc độ cao ~7°) rồi đường chạy mới đổi theo;
+    - chạy chậm, lùi đổi chiều hoặc lệch > 45° (vừa va chạm) → bám ngay;
+    - `ResetTo` xóa trạng thái.
+  - **Thân xe nghiêng ra ngoài cua** (`UpdateBodyRoll`):
+    - chỉ xoay mô hình con `PV_BlueSupercar`, không đụng vật lý;
+    - góc = tốc độ quay × tốc độ × `bodyRollGain` 0,16, tối đa `bodyRollMax` 3,5°, mượt 0,15 s;
+    - không nghiêng khi hỏng/nhảy/văng/bị khóa;
+    - đã kiểm hướng bằng ảnh phóng đại 10°: cua phải thì sườn trái hạ.
+  - **Camera:** bám theo **hướng chạy** (`MoveDir`) thay vì hướng đầu xe, `headingLag` 0,25 → **0,45 s**.
+- **Đo** (đổi làn 66 → 85 km/h, Phải 0,25 s → Trái 0,28 s):
+
+  | Chỉ số | 1.89.0 | 21.316 | 21.316b |
+  | --- | --- | --- | --- |
+  | Giật thân xe | 190°/s/khung | 39 | **9** |
+  | Tốc độ quay thân xe lớn nhất | 95°/s | 68 | **55** |
+  | Camera xoay lớn nhất | 80°/s | 30 | **13** |
+
+  - Góc trượt lớn nhất 4,6°, nghiêng 1,9° (đổi làn ngắn).
+  - Ảnh động `Captures/steer21316b-truoc-sau.gif`. Biên dịch không lỗi.
+- **Trạng thái:** chỉnh tiếp ở 21.316c (người dùng: vẫn gắt / xoay nhiều).
+
+## 21.316c. Lái — giảm gắt thêm, camera trễ 0,6 s; bộ ghi số liệu khi người dùng tự Play (22/11/2026, Claude Code)
+
+- **Người dùng:** vẫn chưa mượt. Hỏi lại: **vẫn gắt / xoay nhiều**, lái bằng **phím mũi tên / A D** trong Unity.
+- **Nguyên nhân còn lại:** ở tốc độ phố 40–60 km/h xe vẫn quay ~79°/s, vì mức giảm theo tốc độ chỉ bắt đầu từ 8 m/s và mức gốc là 95°/s.
+- **Sửa** (giá trị lưu cả trong scene):
+  - `steerDegPerSec` 95 → **72°/s** (chạy chậm);
+  - `highSpeedSteer` 0,45 → **0,42**; giảm bắt đầu từ **5 m/s** (trước 8). Kết quả: 50 km/h ~55°/s, 80 km/h ~40°/s, 97 km/h ~30°/s;
+  - camera `headingLag` 0,45 → **0,6 s**.
+- **Đo đổi làn** (`SteerFeel21316.cs`, 66 → 85 km/h): thân xe quay tối đa **38°/s** (1.89.0: 95), giật 6°/s/khung (190), camera **8°/s** (80), trượt 3,3°, nghiêng 1,3°.
+- **Bộ ghi khi người dùng tự Play** (`Assets/PhoViet/Editor/PhoVietPlayProbe.cs`):
+  - Chỉ chạy trong Editor, không vào bản build, chỉ khi có tệp cờ `Captures/steer21316/probe.on`.
+  - Mỗi lần Play ghi `Captures/steer21316/play-<giờ>.csv`. Mỗi khung hình: thời gian thực, dt, bước vật lý, vị trí/hướng xe, hướng camera, góc lái ảo, tốc độ, phím/nút lái, hướng chạy, độ nghiêng, fps.
+  - Dùng để đo đúng cảm giác trên máy người dùng nếu vẫn chưa vừa ý. Xóa tệp cờ để tắt.
+- **Trạng thái:** chỉnh tiếp ở 21.316d (người dùng: hơi chậm).
+
+## 21.316d. Lái — bẻ lái nhanh hơn một chút (22/11/2026, Claude Code)
+
+- **Người dùng:** tốc độ bẻ lái trái/phải còn hơi chậm, tăng nhanh hơn một chút.
+- **Số liệu lần người dùng tự Play** (`Captures/steer21316/play-155454.csv`, bộ ghi 21.316c, 345 s):
+  - 135 lần giữ phím, trung vị **0,58 s**, nhiều lần chỉ 0,2–0,4 s ở 40–70 km/h. Vô lăng ảo vào đủ góc 0,28 s nên chạm ngắn chưa kịp bẻ hết.
+  - Unity Editor trên máy người dùng chạy **~31 khung hình/giây** (10 % khung < 25 fps).
+- **Sửa:**
+  - `steerDegPerSec` 72 → **82°/s**;
+  - `highSpeedSteer` 0,42 → **0,48**;
+  - `steerRise` 0,28 → **0,18 s** (`steerReturn` giữ 0,14 s);
+  - camera giữ trễ 0,6 s.
+  - Kết quả: 50 km/h ~65°/s, 80 km/h ~49°/s, 97 km/h ~39°/s.
+  - Đã đổi giá trị mặc định trong mã và lưu vào scene `PhoVietOpenWorld.unity` (sau khi người dùng đồng ý thoát Play).
+- **Trạng thái:** thay bằng mô hình ô tô thật ở 21.316e.
+
+## 21.316e. Lái kiểu ô tô thật: bẻ lái, ôm cua tốc độ cao, quay đầu, thắng tay (22/11/2026, Claude Code)
+
+- **Người dùng:** góc bẻ lái, ôm cua và quay đầu chưa giống ngoài đời và chưa mượt. Yêu cầu nghiên cứu cách ô tô bẻ lái, quay đầu, ôm cua (nhất là cua gắt ở tốc độ cao) rồi áp dụng vào game.
+- **Tra cứu:**
+  - Mô hình xe hai trục (bicycle model): tốc độ quay ổn định r = v·δ/(L + Ku·v²), có bão hòa ở giới hạn bám ([USPTO 6658342](https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/6658342), [arXiv 1804.08290](https://arxiv.org/pdf/1804.08290)).
+  - Mô hình động học chỉ đúng khi gia tốc ngang thấp (~0,3–0,5 g).
+  - Xe thể thao bám ngang ~0,95–1,0 g, kỷ lục xe đường phố 1,18 g ([Skidpad — Wikipedia](https://en.wikipedia.org/wiki/Skidpad), [Ultima GTR](https://www.ultimasports.co.uk/Records/Skidpan)).
+- **Mô hình mới** (`OpenWorldDriver.FixedUpdate`; bỏ `steerDegPerSec`/`highSpeedSteer`):
+  - **Vô lăng ảo:** giữ (`steerRise` 0,18 s, `steerReturn` 0,14 s) → góc bánh trước δ, tối đa `maxWheelAngle` **35°**.
+  - **Hình học:** r = v·tanδ/(L + Ku·v²), `wheelBase` L = **2,65 m**, `understeerK` Ku = 0,002. Chạy chậm xe vòng đúng bán kính (quay đầu ≈ 4,2 m); đứng yên không xoay được; lùi tự đảo chiều lái.
+  - **Giới hạn bám:** v·r ≤ μg, `gripG` **1,7 g** (xe thật ~1 g, tăng cho dễ chơi).
+    - Phanh khi cua +12 % bám (dồn tải bánh trước, ôm cua chặt hơn).
+    - Đạp ga khi cua −4 %.
+  - **Lái tỉ số thay đổi:** đi nhanh, bấm hết lái chỉ tới góc làm xe sát giới hạn ×1,15, nên chạm phím ngắn ăn lái tỉ lệ.
+  - **Quán tính quay** `yawLag` 0,09 s.
+  - **Vòng ma sát:** đang bám ngang thì lực kéo của ga còn √(1 − tỉ lệ²) (≥ 20 %).
+    - Cản khi cua 2,2 m/s² × tỉ lệ²; vượt giới hạn (thiếu lái) thêm `scrubDecel` 3,5 m/s².
+    - Kết quả: cua gắt ở tốc độ cao xe tự giảm tốc.
+  - **Trượt:** hướng chạy trễ sau đầu xe (`gripLow` 0,04 → `gripHigh` **0,11 s**), sát giới hạn trượt thêm tới 1,5×. Thân xe nghiêng (21.316b), camera theo hướng chạy trễ 0,6 s (21.316c).
+  - **Thắng tay** (Space; cảm ứng: nút Stop) khi > 4 m/s:
+    - bánh sau mất bám, cho quay tới `handbrakeYawBoost` 1,8 × giới hạn, cho hết góc lái;
+    - hướng chạy trễ `handbrakeSlide` 0,6 s, đuôi văng (drift);
+    - đang đánh lái chỉ hãm ~0,6 g (6 m/s²) để xe trượt xoay thay vì đứng khựng;
+    - không đánh lái thì Stop/Space phanh gấp như cũ.
+  - Thuộc tính đọc: `YawRate`, `GripUse`, `Understeering`, `Drifting`, `SlipAngle`, `BodyRoll`.
+  - Giá trị lưu cả trong scene; diff scene chỉ các dòng thông số lái.
+- **Đo** (`AgentScripts/Corner21316e.cs`: bước 0,02 s, tạm tắt va chạm + trọng lực xe để vòng tự do qua nhà):
+
+  | Tình huống | Kết quả |
+  | --- | --- |
+  | Cua hết lái 97 km/h, giữ ga 3 s | 35–39°/s, **1,62 g**, trượt 6°, bán kính ~43 m, **97 → 85 km/h** |
+  | Cua hết lái 97 km/h, phanh (bản trước khi chỉnh tỉ số lái) | ôm chặt hơn: bán kính ~14 m |
+  | Cua 50 km/h giữ ga | 66°/s, 1,61 g, bán kính ~15 m, quay 90° trong 1,6 s |
+  | Quay đầu chậm 15 km/h (có ga) | bán kính ~4,3 m, 180° trong 1,9 s |
+  | Thắng tay (Stop) + đánh lái 70 km/h | đuôi văng tới ~60°, quay **135° trong ~1,2 s** rồi dừng |
+  | Đổi làn 75 km/h (`SteerFeel21316.cs`) | tối đa ~39°/s, camera ~11°/s, trượt 3,7°, nghiêng 1,6° |
+
+  - Ảnh động `Captures/steer21316e-truoc-sau.gif`. Biên dịch không lỗi.
+- **Trạng thái:** chưa commit/build/phát hành (xem tiếp 21.316f–g).
+
+## 21.316f. Nút «Stop» đổi tên thành «P/DRIFT» (22/11/2026, Claude Code)
+
+- **Người dùng:** sửa tên nút «Stop» thành «P/Drift».
+- **Ảnh nút** `Resources/TouchControls/PV_Btn_Stop.png`: dựng lại chỉ nút này bằng `build_touch_controls.build_button`, mục `BUTTONS` đổi chữ `STOP` → **`P/DRIFT`**, cỡ chữ 0,15 → 0,125 cho vừa. Icon cần thắng tay + chữ P giữ nguyên từng điểm ảnh; viết hoa như các nút khác; tên tệp/mã nút giữ `Stop`.
+- **Trang chủ** (`index.html`, chưa phát hành) thay «Stop» → «P/Drift»:
+  - dòng hướng dẫn cảm ứng;
+  - alt ảnh `poster-home-mobile.jpg`;
+  - hộp hướng dẫn: thêm «vừa giữ P/Drift vừa đánh lái khi đang chạy nhanh để thắng tay drift, quay đầu gấp».
+- **Kiểm tra:** ảnh Play cảm ứng có nút **P/DRIFT** (`Captures/tirefx21316g-drift.png`).
+
+## 21.316g. Khói bụi ở lốp + tiếng lốp rít khi phanh gấp và drift (22/11/2026, Claude Code)
+
+- **Người dùng:** khi phanh và drift có hiệu ứng khói bụi ở các lốp xe và tiếng động.
+- **Mức trượt lốp** (`OpenWorldDriver`): thêm `RearSlip` / `FrontSlip` (0..1), mỗi bước vật lý:
+  - **drift** (thắng tay + đánh lái hoặc `Drifting`): sau 0,55–1 theo góc trượt, trước ×0,3;
+  - **phanh gấp** (Space / P-DRIFT không đánh lái, > 5 m/s): sau ×0,9, trước ×0,75;
+  - **phím lùi khi đang chạy > 6 m/s:** ≤ 0,45;
+  - **thiếu lái** (bánh trước): ≤ 0,55;
+  - **sát giới hạn bám** > 90 %: ≤ 0,3.
+  - Đang nhảy = 0; `ResetTo` xóa.
+- **Hiệu ứng** `Scripts/OpenWorld/OpenWorldTireFx.cs` (gắn vào xe người chơi trong `OpenWorldGame` như LAZER/KHIÊN):
+  - **Khói** (một ParticleSystem không gian thế giới, tối đa 480 hạt):
+    - vật liệu khói trắng của vòi nhảy `OW_KhoiNhay` (4×4 khung, qua `OpenWorldJumpJets.smokeMaterial`; không có thì dùng khói xe hỏng);
+    - 72 lượt/s mỗi bánh, xác suất theo mức trượt;
+    - hạt 1–1,7 m nở ×2,6, trong 25–50 %, sống 1,1–1,9 s, cuộn nhiễu, bốc nhẹ;
+    - văng ngang ra ngoài và lùi về sau;
+    - vị trí bánh `frontWheel` (±0,82; 0,12; 1,32), `rearWheel` (±0,84; 0,12; −1,3).
+  - **Tiếng lốp rít:**
+    - tự tổng hợp: vòng lặp 2 s, 3 dải rít 1,18/1,47/2,35 kHz rung 23 Hz + tiếng xào xạc;
+    - âm lượng ≤ `maxVolume` 0,55 theo mức trượt, vào 0,08 s / ra 0,2 s;
+    - cao độ 0,85 → 1,18 theo trượt bánh sau (drift cao hơn phanh);
+    - qua `PhoVietAudio` (âm lượng tổng + nút loa).
+- **Kiểm tra Play** (`AgentScripts/Corner21316e.cs`):
+  - Drift 70 km/h: khói trắng liền vệt cong theo đường drift ở 2 bánh sau (`Captures/tirefx21316g-drift.png`), `RearSlip` = 1, âm lượng 0,55.
+  - Phanh gấp 90 → 38 km/h: khói cả 4 bánh (`Captures/tirefx21316g-phanh.png`), 202 hạt, âm lượng 0,28.
+  - Lưu ý: Editor đang tạm dừng thì mọi nguồn âm dừng; bỏ tạm dừng thì nguồn tiếng rít `isPlaying = true` (Master).
+  - Biên dịch không lỗi.
+- **Trạng thái:** chưa commit/build/phát hành.
+
+## 21.317. Thời tiết ngẫu nhiên: mưa giông 2 phút + đợt 7 tia sét (22/11/2026, Claude Code)
+
+- **Người dùng:**
+  - Mỗi lần bắt đầu game mới, bấm «Chơi lại» hoặc «Về đầu phố»: 50 % trời thường, 50 % trời mưa. Đang trời thường mà «Về đầu phố» ra mưa thì chuyển nhanh sang mưa.
+  - Mưa dựng bằng Blender MCP cho giống thật, kèm 7 tia sét đánh ngẫu nhiên cùng lúc xuống đường phố, lề đường, lề sông, lề biển (tia sét + ánh sáng dựng bằng Blender MCP, chân thật như ngoài đời).
+  - 7 tia đánh xong nghỉ 15 s rồi đánh tiếp. Mưa kéo dài 2 phút rồi chuyển dần về trời thường.
+  - Người dùng chọn sét **có hại, có cảnh báo**.
+- **Tung thời tiết** (`OpenWorldGame`):
+  - `GoReady()` (mở game, VỀ ĐẦU PHỐ) gọi `weather.Roll`; lần đầu hiện ngay, các lần sau chuyển 2 s.
+  - `StartRun()` từ GameOver/Jailed (CHƠI LẠI, THỬ MỘT CHUYẾN NỮA) cũng tung lại. LÊN XE THÔI ở màn chào giữ thời tiết đang có.
+  - Mỗi lượt lái `BeginRun()` đặt lại đồng hồ 2 phút mưa, hiện thẻ «Trời đổ mưa giông · Sét đánh từng đợt 7 tia · né vòng xanh».
+  - Đo 400 lần VỀ ĐẦU PHỐ: 204 lần mưa (51 %).
+- **Đồng hồ mưa** (`Scripts/OpenWorld/OpenWorldWeather.cs`, gắn vào VongChoi trong `OpenWorldGame.Start`):
+  - `RainSeconds` 120 s chỉ đếm khi đang lái (màn chào/tạm dừng/kết thúc không trừ).
+  - Hết giờ: thẻ «Trời tạnh mưa», `Wet` 1 → 0 trong `EndFade` 20 s (đo: 10 s sau còn 0,50).
+- **Sét** (`OpenWorldWeather`):
+  - Khi `Wet` > 0,85: đợt đầu sau 3–3,5 s; mỗi đợt 7 tia; xong đợt nghỉ `VolleyPause` 15 s (đo: kết thúc 17,86 s → đợt sau 32,86 s).
+  - Cảnh báo `WarnSeconds` 1 s: vòng xanh điện dưới đất (vật liệu vòng cảnh báo xe tăng, đổi màu bằng MPB), đường kính 6 m.
+  - **Chọn chỗ đánh** (`PickTargets`, trong 9–135 m quanh xe, phần lớn trong tầm nhìn phía trước, cách nhau ≥ 11 m, lệch hướng nhìn ≥ 6° với tia xa để khỏi chồng thành cột sáng):
+    - 1 tia **lối xe chạy** (đang lái > 6 m/s): đúng chỗ xe sẽ tới khi sét đánh (0,95–1,2 s × vận tốc ± 2,2 m) — giữ ga là trúng, phải phanh hoặc lách;
+    - 1 **lề sông** (tim sông `OpenWorldBoats.Centerlines` ± 84–96 m);
+    - 1 **lề biển** (`OpenWorldHazards.CoastPoint`: chân kè gần nhất, lùi vào dải lề biển);
+    - 2 **lề đường** (mặt lề layer MatLe) và còn lại **đường phố** (lòng đường `traffic.roads`, nửa rộng 7/3,5 m);
+    - lượt cuối nới điều kiện hướng cho đủ 7 tia.
+    - Mỗi điểm dò từ trên cao xuống: nhận mặt đường/lề cao −0,6..0,6 m hoặc nóc xe; loại mái nhà, cây, rào, mặt nước.
+  - **Gây hại** (`OpenWorldHazards.Weather.cs` → `LightningBlast`, bán kính 3 m):
+    - xe người chơi: «SÉT ĐÁNH TRÚNG» → cháy rồi nổ, hết lượt (thẻ «Sét đánh trúng xe! · Né vòng xanh dưới đất hoặc bật KHIÊN.»);
+    - đang bật KHIÊN: chặn được, chỉ giảm tốc;
+    - xe NPC: cháy 0,45 s rồi nổ thành mảnh (`OpenWorldTraffic.LightningAround` → đường LAZER), xe sát bên bị hất;
+    - CSGT gần: khựng 1,5 s.
+    - Màn chào/kết thúc: sét vẫn đánh (cách xe ≥ 16 m) nhưng không hại xe người chơi.
+- **Dựng bằng Blender MCP** (`ArtSource/Blender/OpenWorld/build_mua_set.py`, scene riêng «ThoiTiet», lưu `PhoViet_OW_ThoiTiet.blend`, xuất `Assets/PhoViet/Resources/ThoiTiet/`):
+  - `PV_Mua_Hat.png` 64×512: một hạt mưa rơi nhanh (lưới giọt kéo dài, đầu giọt đặc, đuôi mờ, render EEVEE nền trong suốt).
+  - `PV_Mua_Man.png` 512×1024: màn mưa lặp liền 2 chiều (260 vệt, gần rõ/xa mảnh).
+  - `PV_Mua_Toe.png` 512×128: 4 khung giọt bắn vương miện (nhú → loe có giọt văng → vỡ → gợn tan).
+  - `PV_Set_VetChay.png` 256×256: vết cháy sém (tối giữa, tia xém hướng tâm, nhiễu loang).
+  - `PV_Mua.fbx`: 2 ống màn mưa quanh camera (r 8 m cao 26 m, r 20 m cao 40 m).
+  - `PV_Set.fbx`: 8 tia sét cao 150 m: kênh chính gấp khúc fractal (~500 điểm) + 6–10 nhánh + nhánh con + 2–3 nhánh bò ngang dưới chân mây. Mỗi nhánh là dải 2 đỉnh/điểm trên đường tâm; UV0 = (bên, thời điểm tới), UV1/UV2 = hướng tiếp tuyến (đã đổi trục Unity −x, z, −y; kiểm tra trong Unity: tích vô hướng trung bình 0,955), UV2.y = bề rộng, UV3 = (độ sáng nhánh, vị trí dọc nhánh).
+- **Shader:**
+  - `OpenWorld/Shaders/OpenWorldLightning.shader` (`PhoViet/OpenWorld/Lightning`): nở dải theo hướng nhìn camera.
+    - Hai pass cộng sáng: quầng xanh tím 6,5 m + lõi trắng nóng 0,95 m; bề rộng tối thiểu theo khoảng cách.
+    - `_Reveal`: tia dẫn đường đi xuống; `_Flash`, `_Branch`: nhánh tắt nhanh hơn kênh chính.
+    - Đoạn sát camera mờ đi (6–28 m).
+  - `OpenWorld/Shaders/OpenWorldRain.shader` (`PhoViet/OpenWorld/Rain`), 4 chế độ:
+    - 0: hạt mưa, giọt bắn;
+    - 1: màn mưa cuộn 2 lớp, nghiêng gió, mờ đỉnh/đáy;
+    - 2: vết cháy;
+    - 3: **vòm mây giông** (cầu r 500 m theo camera, hàng đợi 2950). Xám đen phía trên, sát chân trời đúng màu sương mù; mây fbm trôi; sáng bừng theo `_Flash`.
+  - Vật liệu trong `Resources/ThoiTiet`: `PV_Mua_Hat`, `PV_Mua_Toe`, `PV_Mua_Man`, `PV_Set_VetChay`, `PV_Set_Tia`, `PV_Set_Hat` (Electric chế độ hạt). Lúc chạy mỗi vật liệu được nhân bản; bầu trời dùng bản sao `RenderSettings.skybox`, không sửa asset.
+- **Hiệu ứng lúc chạy:**
+  - **Mưa:**
+    - ~3.600 hạt/s × độ mưa², hộp 46 × 46 m trên camera, lệch theo vận tốc xe, tối đa 4.200 hạt;
+    - hạt dạng vệt kéo dài theo vận tốc + vận tốc camera, nên xe chạy nhanh thấy mưa xiên;
+    - 130 giọt bắn/s dò mặt đường/nóc xe phía trước camera;
+    - tiếng mưa tổng hợp: rào + lộp độp.
+  - **Trời mưa:**
+    - mặt trời ×0,3;
+    - ánh sáng môi trường ×0,62;
+    - sương mù 40 → 560 m màu xám xanh;
+    - bầu trời tối + vòm mây.
+  - **Mỗi tia sét:**
+    - Diễn biến: tia dẫn đường 0,06 s → chớp chính → tái phóng ở 0,14 s và 0,30 s → tắt ở 0,62 s.
+    - Khi chớp: trời, mây, sương sáng lên (mặt trời +0,55, môi trường +0,4, bầu trời +1,3); 1 đèn điểm (60 m, 2 × chớp) ở tia gần camera.
+    - Ở chân sét: 46 tia lửa điện, chớp sáng, khói, vết cháy (mờ sau 6–9 s).
+    - Sấm: tia gần nhất nổ chát, 3 tia khác rền; trễ theo khoảng cách (340 m/s, tối đa 0,6 s).
+- **Sửa kèm:** `OpenWorldTireFx` (21.316g) đặt trục x/z của vận tốc khói cùng kiểu «hai hằng số» với trục y. Trước đó Unity báo lỗi «Particle Velocity curves must all be in the same mode» mỗi khi khói lốp chạy; nay console 0 lỗi.
+- **Kiểm tra Play** (`AgentScripts/Weather21317.cs`, bước 0,02 s):
+  - Mưa đủ trong 2 s (`Captures/weather21317-chuyennhanh.png` lúc đang chuyển). Mưa to: 3.850–3.890 hạt (`weather21317-mua.png`).
+  - Vòng cảnh báo (`weather21317-canhbao.png`).
+  - Sét đánh lề đường bờ biển Vành đai Bắc: đủ 7 tia, có «lề biển» (`weather21317-bienset.png`). Phố ven sông: có «lề sông» (`weather21317-set5.png`).
+  - Giữ ga 82 km/h → trúng sét, hết lượt (`weather21317-trungset.png`); bật KHIÊN → không hỏng, 83 → 60 km/h; phanh khi thấy vòng → dừng trước chỗ sét, không trúng.
+  - 2 + 1 xe NPC trúng sét cháy nổ.
+  - Ảnh đầu (`weather21317-set.png`) cho thấy chớp quá mạnh làm trắng cảnh → đã giảm; cột sáng do các tia xa chồng nhau (`weather21317-set4.png`) → đã thu hẹp quầng và tỏa hướng.
+  - Biên dịch không lỗi, console 0 lỗi.
+- **Trạng thái:** phát hành trong 1.90.0 (21.318).
+
+## 21.318. Phát hành 1.90.0 (21.316–21.317) (22/11/2026, Claude Code)
+
+- **Người dùng:** «Build và phát hành web».
+- **Gộp:** 21.316–21.316g (lái kiểu ô tô thật, P/DRIFT, khói lốp + tiếng rít) và 21.317 (thời tiết mưa giông + sét).
+- **Trang chủ, khung «Bản cập nhật» 22/11/2026** (4 dòng): thời tiết ngẫu nhiên (mưa giông 2 phút); sét từng đợt 7 tia có vòng báo, trúng là cháy nổ, KHIÊN chặn được, nghỉ 15 s; lái mượt giống ô tô thật; nút Stop → P/Drift + khói lốp, tiếng rít. Hướng dẫn máy tính thêm «giữ Space + đánh lái để drift», K khiên, L lazer.
+- **Phiên bản 1.90.0** (`PhoVietWebBuild.cs`, `ProjectSettings.asset`).
+- **Build** (`AgentScripts/QueueRelease21317.cs`):
+  - `Main()` hẹn build qua `EditorApplication.delayCall` không chạy (55 phút vẫn «building», kể cả bật autotick + focus). Đã thêm `BuildNow()` gọi build ngay trên luồng chính; lệnh MCP báo hết giờ sau 60 s nhưng build vẫn chạy và ghi `Builds/release1900-status.json`. Lần sau dùng thẳng `BuildNow()`.
+  - **1.491 giây**, 3.356 nội thất 3D lược ở gói điện thoại, cache `32be047b66713b80`.
+  - Gói điện thoại `ee621a11…` **106,0 MB** (1.89.0: 105,4), gói máy tính `fc478fe4…` **121,9 MB** (121,3), wasm 5,9 MB.
+- **`docs/`** thay bằng `Builds/WebGL`, `PublishWebArtifact.py pack` (mỗi gói 4 phần), materialize `_site`: **31/31 tệp khớp SHA-256**.
+

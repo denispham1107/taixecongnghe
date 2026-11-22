@@ -50,6 +50,7 @@ namespace PhoViet.OpenWorld
                 case "ĐÂM XE TĂNG": return ("Đâm vào xe tăng!", "Thép xe tăng không nhường đường.");
                 case "XE BỊ HÚC NỔ TUNG": return ("Bị cuốn vào vụ nổ!", "Xe vừa bị húc phát nổ ngay cạnh.");
                 case "HÚC XE Ở TỐC ĐỘ TỐI ĐA": return ("Xe nổ tung!", "Va chạm từ 90 km/h với xe không nhỏ hơn.");
+                case "SÉT ĐÁNH TRÚNG": return ("Sét đánh trúng xe!", "Né vòng xanh dưới đất hoặc bật KHIÊN.");   // 21.317
                 default: return ("Chuyến đi kết thúc!", reason);
             }
         }
@@ -152,14 +153,22 @@ namespace PhoViet.OpenWorld
             if (police) { police.drawJail = false; police.showDistance = false; }
             if (player) { laser = player.GetComponent<OpenWorldLaser>(); if (!laser) laser = player.gameObject.AddComponent<OpenWorldLaser>(); }   // 21.300
             if (player) { shield = player.GetComponent<OpenWorldShield>(); if (!shield) shield = player.gameObject.AddComponent<OpenWorldShield>(); }   // 21.312
+            if (player && !player.GetComponent<OpenWorldTireFx>()) player.gameObject.AddComponent<OpenWorldTireFx>();   // 21.316g: khói lốp + tiếng rít
+            weather = GetComponent<OpenWorldWeather>(); if (!weather) weather = gameObject.AddComponent<OpenWorldWeather>();   // 21.317: mưa giông
             GoReady();
             InitGraphics();                                                 // 21.291: mức đồ họa đã lưu (sau thiết lập điện thoại ở Awake)
         }
 
         // ------------------------------------------------------------ chuyển trạng thái
+        // 21.317: thời tiết tung lại (50 % mưa giông) khi mở game, VỀ ĐẦU PHỐ và CHƠI LẠI / THỬ MỘT CHUYẾN NỮA; lần đầu hiện ngay,
+        // các lần sau chuyển nhanh 2 s. Bấm LÊN XE THÔI ở màn chào giữ thời tiết đang có, chỉ tính lại 2 phút mưa.
+        OpenWorldWeather weather; bool weatherRolled;
+        public OpenWorldWeather Weather => weather;
+
         public void GoReady()
         {
             Resume();
+            if (weather) { weather.Roll(!weatherRolled); weatherRolled = true; }
             ClearSquad();                                                   // 21.301
             if (police) { police.enabled = true; police.ResetChase(true); police.Halt(); police.enabled = false; }
             if (hazards) { hazards.ClearAll(); hazards.enabled = false; }
@@ -170,6 +179,11 @@ namespace PhoViet.OpenWorld
         public void StartRun()
         {
             Resume();
+            if (weather)
+            {
+                if (Mode == State.GameOver || Mode == State.Jailed || !weatherRolled) { weather.Roll(!weatherRolled); weatherRolled = true; }
+                weather.BeginRun();
+            }
             if (hazards) { hazards.ClearAll(); hazards.enabled = true; }   // số mét về 0 ngay khung hình này
             ClearSquad();                                                   // 21.301: xóa xe CSGT tăng viện của lượt trước
             if (police) { police.enabled = true; police.ResetChase(true); }   // đưa xe về chỗ xuất phát, Runs++ → hiểm họa dọn sạch

@@ -732,6 +732,19 @@ namespace PhoViet.OpenWorld
             v.laserKill = true; v.explodeAt = Time.time + 0.45f; Smoke(v, true); LaserKills++;
             return true;
         }
+        // 21.317: sét đánh trúng xe NPC trong bán kính → bốc cháy rồi nổ tung thành mảnh như trúng LAZER (LaserExploded).
+        public int LightningAround(Vector3 p, float radius)
+        {
+            int n = 0;
+            for (int i = 0; i < pool.Count; i++)
+            {
+                var v = pool[i]; if (!v.active || v.exploded || v.laserKill) continue;
+                var d = v.pos - p; d.y = 0f;
+                if (d.magnitude > radius + Mathf.Max(v.halfW, v.halfL) * 0.5f) continue;
+                if (LaserKill(i, p, d.sqrMagnitude > 0.01f ? d.normalized : Vector3.forward)) n++;
+            }
+            return n;
+        }
         public int Wrecks { get; private set; }
         public int Explosions { get; private set; }
         public int Recovered { get; private set; }
