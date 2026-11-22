@@ -25,6 +25,24 @@ namespace PhoViet.OpenWorld
         public Phase State { get; private set; }
         public int Shots { get; private set; }
         public int Hits { get; private set; }
+        // 21.312: khiên năng lượng (OpenWorldShield) phá vỡ lưới — lưới đang giữ xe vỡ ngay khi bật khiên, lưới bắn tới khi khiên
+        // đang bật vỡ lúc chạm khiên (OpenWorldNetShatter: mảnh lưới Blender văng tung + sóng xung kích + tia lửa điện).
+        public int Breaks { get; private set; }
+        public static float LastBreakAt = -99f;
+        public static readonly List<OpenWorldPoliceNet> All = new List<OpenWorldPoliceNet>();
+        void OnEnable() { if (!All.Contains(this)) All.Add(this); }
+        void OnDisable() { All.Remove(this); }
+        public void ShatterIfOnPlayer() { if (State == Phase.Holding) Shatter(); }
+        void Shatter()
+        {
+            if (!root) return;
+            var rb = player ? player.GetComponent<Rigidbody>() : null;
+            OpenWorldNetShatter.Spawn(root.position, root.rotation, halfExt * root.localScale.x, rb ? rb.linearVelocity : Vector3.zero);
+            if (player && State == Phase.Holding) player.ClearNet();
+            if (player && player.Shield) player.Shield.Absorb(root.position + Vector3.up * 0.4f, 0.7f);
+            State = Phase.Idle; readyAt = Time.time + cooldown; root.gameObject.SetActive(false); if (buzz) buzz.Stop();
+            Breaks++; OpenWorldShield.NetsBroken++; LastBreakAt = Time.time;
+        }
 
         const float PhiMax = 1.35f, Cell = 0.1f;
         const int Arcs = 9, ArcPts = 16, Nodes = 40;
@@ -80,6 +98,7 @@ namespace PhoViet.OpenWorld
                     if (k >= 1f)
                     {
                         if (player.Crashed || player.Sinking) { Fade(now); break; }
+                        if (player.Shielded) { Shatter(); return; }          // 21.312: chạm khiên → vỡ tung
                         player.Net(holdSeconds); Hits++;
                         State = Phase.Holding; t0 = now; flash = 1f;
                         if (buzz) buzz.volume = 0.55f;
@@ -89,6 +108,7 @@ namespace PhoViet.OpenWorld
                 }
                 case Phase.Holding:
                     root.SetPositionAndRotation(targetPos, pr); root.localScale = Vector3.one;
+                    if (player.Shielded) { Shatter(); return; }              // 21.312
                     // 21.300: lưới giữ xe tới khi CSGT bắt (OpenWorldPolice.ResetChase/ResetNet dọn khi chơi lại); chốt an toàn holdSeconds
                     if (now - t0 >= holdSeconds || !player.Netted) Fade(now);
                     break;

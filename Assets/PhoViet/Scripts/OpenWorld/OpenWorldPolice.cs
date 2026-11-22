@@ -622,6 +622,10 @@ namespace PhoViet.OpenWorld
                 OpenWorldToast.Show("LƯỚI ĐIỆN CSGT", "Xe dính lưới điện!", "Không chạy được nữa · CSGT đang tới bắt", OpenWorldToast.Kind.Danger,
                                     Time.time - netAt, -1f, accentOverride: siren);
             }
+            // 21.312: khiên phá vỡ lưới điện
+            float bAge = Time.time - OpenWorldPoliceNet.LastBreakAt;
+            if (bAge >= 0f && bAge < 1.8f && !netted)
+                OpenWorldToast.Show("PHÁ LƯỚI ĐIỆN", "Khiên phá vỡ lưới CSGT!", "Chạy tiếp ngay", OpenWorldToast.Kind.Good, bAge, 1.8f - bAge);
             // 21.307: thẻ báo CSGT dịch chuyển tức thời (xe gốc vẽ cho mọi xe CSGT)
             float tAge = Time.time - LastTeleportAt;
             if (tAge >= 0f && tAge < 2.4f && !netted)

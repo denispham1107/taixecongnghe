@@ -93,6 +93,12 @@ namespace PhoViet.OpenWorld
             for (int i = 0; i < 5; i++)
                 Emit(smokeFx, at + new Vector3(Random.Range(-1f, 1f), 1 + i * .5f, Random.Range(-1f, 1f)), Vector3.up * Random.Range(1f, 2.2f), Random.Range(3.5f, 5f), Random.Range(1.8f, 2.6f), new Color(.25f, .23f, .22f, .9f));
             PlayAt(blastClip, at, 1f);
+            // 21.312: nổ tung — mảnh vỡ thân xe văng tứ phía, quả cầu lửa thứ hai, xe bị hất lên lộn vòng
+            ImpactShards(at + Vector3.up * 0.8f, Vector3.up, 42f);
+            Emit(blastFx, at + Vector3.up * 2.4f, Vector3.up * 2f, 6.5f, 1.1f, new Color(1f, .85f, .7f, 1f));
+            for (int i = 0; i < 6; i++)
+                Emit(blastFx, at + new Vector3(Random.Range(-1.6f, 1.6f), Random.Range(.6f, 2f), Random.Range(-1.6f, 1.6f)), Random.insideUnitSphere * 2f, Random.Range(3f, 4.5f), Random.Range(.6f, .9f), Color.white);
+            player.BlastUp(at - player.transform.forward * 0.3f);
             if (traffic) NpcKnocked += traffic.KnockAround(at, blastRadius + 1f);
             foreach (var pol in OpenWorldPolice.All) if (pol && Flat(pol.transform.position - at) < blastRadius + 2f) pol.Stun(1.2f, "xe người chơi nổ");
             Note("xe người chơi nổ tung");

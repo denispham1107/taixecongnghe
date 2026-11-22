@@ -519,7 +519,19 @@ namespace PhoViet.OpenWorld
             if (player && !player.Crashed)
             {
                 var off = player.transform.position - at;
-                if (direct || (Flat(off) < blastRadius + 0.6f && player.Lift < 2.2f)) { player.Crash(at, reason, 10f); Note(what + " trúng người chơi"); }
+                if (direct || (Flat(off) < blastRadius + 0.6f && player.Lift < 2.2f))
+                {
+                    if (player.Shielded)
+                    {   // 21.312: khiên năng lượng chặn đạn pháo/tên lửa — không hỏng xe, chỉ giảm tốc
+                        player.Crash(at, reason, 10f); ShieldBlocks++; Note(what + " bị khiên chặn");
+                    }
+                    else
+                    {
+                        player.Crash(at, reason, 10f); Note(what + " trúng người chơi");
+                        // 21.312 (người dùng): trúng đạn/tên lửa → xe bốc cháy + khói, 0,55 s sau nổ tung (TickPlayerExplosion)
+                        if (player.Crashed) player.Ignite(BurnFx(player.transform, new Vector3(0, 0.7f, 0)), 0.55f);
+                    }
+                }
             }
         }
         static float Flat(Vector3 v) { v.y = 0; return v.magnitude; }
@@ -919,6 +931,7 @@ namespace PhoViet.OpenWorld
                 OpenWorldToast.Show(noticeCaption, noticeTitle, noticeDetail, noticeKind, Time.time - noticeAt, noticeUntil - Time.time);
         }
 
-        public string Report() => $"coast={OnCoast} coastIn={CoastEntries} sea={(boats ? boats.SeaAlive : 0)}/{(boats ? boats.SeaCount : 0)} planes={ActivePlanes}/{PlanesSpawned} planeKills={PlanesDowned} km={DistanceDriven:F0} dino@{NextAt:F0} tank@{NextTankAt:F0}×{TankWave} heli@{NextHeliAt:F0}×{HeliWave} ammo={PlayerMissiles}/{maxMissiles} fired={PlayerMissilesFired} tankKills={TanksDestroyed} heliKills={HelisDowned} pickups={PickupsCollected} helis={helis.Count}/{HelisSpawned} missiles={MissilesFired}/{MissileBlasts} dinos={dinos.Count}/{DinosSpawned} tanks={tanks.Count}/{TanksSpawned} sweeps={Sweeps} shells={ShellsFired} blasts={Blasts} splash={Splashes} craters={craters.Count} jolts={CraterJolts} npcKnocked={NpcKnocked}";
+        public int ShieldBlocks { get; private set; }
+        public string Report() => $"shieldBlocks={ShieldBlocks} coast={OnCoast} coastIn={CoastEntries} sea={(boats ? boats.SeaAlive : 0)}/{(boats ? boats.SeaCount : 0)} planes={ActivePlanes}/{PlanesSpawned} planeKills={PlanesDowned} km={DistanceDriven:F0} dino@{NextAt:F0} tank@{NextTankAt:F0}×{TankWave} heli@{NextHeliAt:F0}×{HeliWave} ammo={PlayerMissiles}/{maxMissiles} fired={PlayerMissilesFired} tankKills={TanksDestroyed} heliKills={HelisDowned} pickups={PickupsCollected} helis={helis.Count}/{HelisSpawned} missiles={MissilesFired}/{MissileBlasts} dinos={dinos.Count}/{DinosSpawned} tanks={tanks.Count}/{TanksSpawned} sweeps={Sweeps} shells={ShellsFired} blasts={Blasts} splash={Splashes} craters={craters.Count} jolts={CraterJolts} npcKnocked={NpcKnocked}";
     }
 }

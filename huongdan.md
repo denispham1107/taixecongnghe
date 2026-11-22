@@ -5442,3 +5442,118 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **`docs/`** thay bằng `Builds/WebGL`, `PublishWebArtifact.py pack` (mỗi gói 4 phần 32 MiB), materialize: **29/29 tệp khớp SHA-256**.
 - **Commit `d7b1180`, push `main`** (GitHub cảnh báo scene 89,2 MB > 50 MB khuyến nghị, không chặn). Pages run `44983606585` **thành công**. Trang thật: `build-info.json` 1.88.0 cache `dc5d99b638c75345`, **28/28 tệp live khớp SHA-256**, trang chủ hiện 5 dòng bản cập nhật ngày 22/11/2026. Chưa thử iPhone thật.
 
+## 21.312. Nút KHIÊN năng lượng (4 s, hồi 15 s — 21.313 đổi thành 6 s, hồi 10 s; miễn va chạm + đạn, phá lưới điện); trúng đạn → cháy + nổ tung; LAZER xích xuống; TÊN LỬA +5 % (22/11/2026, Claude Code)
+
+- **Yêu cầu:**
+  1. Nút «Lazer» xích xuống một chút, không đè nút «Nhảy».
+  2. Nút «Tên lửa» to thêm 5 %.
+  3. Xe người chơi trúng đạn xe tăng/tàu hoặc tên lửa trực thăng/máy bay cánh kép → bốc cháy, bốc khói và nổ tung.
+  4. Nút «Khiên» (icon đẹp, chi tiết) phía trên giữa 2 nút Trái/Phải, cỡ bằng nút Tên lửa mới. Bấm → khiên năng lượng 4 s:
+     - miễn mọi va chạm (không văng, chỉ giảm tốc);
+     - miễn mọi đạn xe tăng/tàu, tên lửa trực thăng/máy bay;
+     - có tia năng lượng xẹt xẹt bên ngoài;
+     - hết 4 s hồi 15 s;
+     - đang bật thì phá vỡ lưới điện CSGT, xe chạy tiếp.
+     Hiệu ứng khiên và vỡ lưới dựng bằng Blender MCP. Người dùng chọn màu **xanh ngọc #33F0D2**.
+- **(1)(2) Bố cục** (`OpenWorldDriver.cs`):
+  - `LaserRect` hạ 0,16 × nút chuẩn: khe −0,02 × nút chuẩn. Viền trong suốt 7 % của hai ảnh nút vẫn chừa ~28 px (màn 2778×1284) giữa hai tấm nút.
+  - Vùng chạm NHẢY xét trước LAZER.
+  - `FireSize` = `SmallSize` × 1,05 cho nút TÊN LỬA (1,21 → 1,2705 × nút chuẩn); Lùi giữ 1,21.
+- **(4) Nút KHIÊN:**
+  - `OpenWorldDriver.ShieldRect`: cỡ `FireSize`, tâm ngang = giữa khe 2 nút TRÁI/PHẢI, cách trên 1,5 × Gap.
+  - Vùng chạm chỉ trong tấm nút (bỏ viền 7 %) và xét trước nút lái, nên chạm hụt lên trên nút lái vẫn là lái.
+  - Máy tính: bên trái nút LAZER, phím **K**, bấm chuột được.
+  - Ảnh `Resources/TouchControls/PV_Btn_Shield.png` (512², không nén như nút khác), vẽ bằng `ArtSource/UI/build_shield_button.py` (cùng nền «B Arcade»): khiên huy hiệu viền thép 2 tông + 8 đinh tán + viền vàng kim, mặt xanh ngọc có lưới lục giác năng lượng và vài ô lóe, huy hiệu tia sét trắng có quầng, vệt bóng kính, 4 tia điện xẹt quanh mép + chớp sao + tia lửa, chữ «KHIÊN».
+  - HUD `OpenWorldGame.ShieldButton`: đang bật thì nút sáng + quầng xanh ngọc + số giây còn lại; đang hồi thì xám + số giây hồi.
+- **Logic** (`Scripts/OpenWorld/OpenWorldShield.cs`, gắn vào xe người chơi lúc chạy như LAZER; `ResetShield` khi vào lượt mới):
+  - `Duration` = 4 s, `Cooldown` = 15 s (tính từ lúc tắt) — **21.313: 6 s / 10 s**. Xe hỏng/chìm thì khiên tắt ngay và vào hồi.
+  - Chỉ dùng khi đang chạy (không khi bị bắt/hỏng/chìm/tạm dừng); dùng được cả khi đang dính lưới.
+  - `OpenWorldDriver.Shielded` khi bật:
+    - `Crash()` (đạn, tên lửa, khủng long, thân xe tăng) và `HitVehicle()` (húc xe NPC/CSGT) chuyển thành `ShieldBump`: chỉ giảm tốc ×0,8 → ×0,45 theo lực, không văng/choáng/nổ;
+    - `Net()` bị bỏ qua.
+  - `OpenWorldHazards.Explode`: khiên chặn đạn/tên lửa (`ShieldBlocks`).
+- **Hiệu ứng khiên** (Blender MCP: `ArtSource/Blender/OpenWorld/build_khien.py` → file mới `PhoViet_OW_Khien.blend`, FBX `Resources/Khien/PV_Khien.fbx`):
+  - Lưới: vỏ elip (bán trục 1,55 × 1,30 × 2,65 m) + 162 ô lục giác (khung viền + mặt ô, UV2 = số ngẫu nhiên ô/độ cao) + 6 mẫu tia sét có nhánh (dải chữ thập) + vành sáng dưới đất.
+  - Shader mới `PhoViet/OpenWorld/Shield` (`OpenWorld/Shaders/OpenWorldShield.shader`, cộng sáng):
+    - vỏ fresnel;
+    - khung lục giác nhấp nháy theo ô;
+    - ô lóe ngẫu nhiên;
+    - dải quét chạy từ đáy lên;
+    - gợn sóng lan từ chỗ bị trúng (`_Hit`).
+  - Bật: nở 0,55 → 1 trong 0,22 s + chớp. 0,9 s cuối nháy báo sắp tắt.
+  - 12 tia năng lượng (vật liệu Electric xanh ngọc) đổi chỗ mỗi 0,055 s, 1/3 phóng chĩa ra ngoài, tia lửa ở đầu tia.
+  - Đèn điểm xanh ngọc nhấp nháy, tiếng ù năng lượng + tiếng bật/chặn tự tổng hợp.
+  - Vật liệu nằm trong `Resources/Khien/` (`PV_Khien_Vo/Khung/O/Vanh/Tia/Hat`, `PV_LuoiVo_Song`).
+- **Phá lưới điện** (`OpenWorldPoliceNet.cs`):
+  - Lưới đang giữ xe vỡ ngay khi bật khiên (`ShatterIfOnPlayer`). Lưới bay tới khi khiên đang bật vỡ lúc chạm khiên.
+  - Khi vỡ: `ClearNet`, CSGT hồi lưới 4 s như thường, thẻ xanh «PHÁ LƯỚI ĐIỆN — Khiên phá vỡ lưới CSGT! · Chạy tiếp ngay» 1,8 s (`OpenWorldPolice`).
+  - Hiệu ứng `Scripts/OpenWorld/OpenWorldNetShatter.cs`, mảnh Blender `Resources/Khien/PV_LuoiVo.fbx` (10 mảnh lưới thoi rách, dây lõi + quầng, tua dây đứt, vòng sóng):
+    - 16 mảnh văng 5–10 m/s, xoay lộn, rơi, tắt dần trong 0,9–1,4 s, dùng vật liệu lưới gốc;
+    - sóng xung kích nở 1,2 → 7 m;
+    - 160 tia lửa điện, chớp đèn 0,4 s, tiếng nổ điện.
+- **(3) Trúng đạn → cháy + nổ tung** (`OpenWorldHazards.Explode` + `Impacts.TickPlayerExplosion`, `OpenWorldDriver.Ignite/BlastUp`):
+  - Sau `Crash`, gắn lửa cháy + khói (`BurnFx`, luôn bốc thẳng lên dù xe lật); khói xe hỏng giữ như cũ.
+  - 0,55 s sau nổ tung: quả cầu lửa + 6 cụm lửa phụ, mảnh vỡ thân xe, xe bị hất lên 8,5 m/s lộn vòng.
+  - Áp dụng mọi vụ nổ trúng người chơi: đạn pháo xe tăng/tàu, tên lửa trực thăng/máy bay, xe NPC nổ cạnh bên.
+  - Thẻ KẾT THÚC vẫn mở sau 1,6 s. Lửa được dọn khi chơi lại (`ResetTo`).
+- **Kiểm tra Play** (`AgentScripts/Shield21312.cs`, xe chạy thật bằng `testTouchUI` + `testPedal`, màn 2778×1284):
+  - Bố cục: KHIÊN tâm x = 311,1 = giữa khe Trái/Phải; LAZER cách tấm NHẢY 27,7 px.
+  - Bật khiên + trực thăng: chặn 3 tên lửa (gợn sóng + tóe tia), xe không hỏng, vẫn chạy 32–46 km/h. Hết 4 s → hồi 15 s.
+  - Quả tiếp theo trúng → `crashed + burning`, nổ ở +0,55 s, xe bay lên 2,7 m.
+  - Lưới điện: dính lưới → bật khiên → lưới vỡ (`shatters = 1`), thả lưới, xe tăng tốc 0 → 26 km/h trong 1 s. Lưới bắn tới khi khiên bật → vỡ khi chạm (`shatters = 2`), không dính.
+  - `Crash()` thử khi bật khiên → không hỏng.
+  - Console không lỗi mới (lỗi tên biến `line` trong shader đã sửa).
+  - Ảnh: `Captures/khien21312-{bocuc,bat,chan,notung,volu}.png`.
+- **Trạng thái:** phát hành trong **1.89.0** (21.315). Blender: file mới `ArtSource/Blender/OpenWorld/PhoViet_OW_Khien.blend` (không đụng file cũ).
+
+## 21.313. Khiên tồn tại 6 s, hồi 10 s (22/11/2026, Claude Code)
+
+- **Yêu cầu:** giảm thời gian hồi của Khiên còn 10 giây, khiên tồn tại 6 giây thay vì 4 giây.
+- **Sửa:** `OpenWorldShield.Duration` 4 → **6 s**, `Cooldown` 15 → **10 s** (tính từ lúc khiên tắt), cùng cập nhật chú thích trong `OpenWorldShield.cs`/`OpenWorldGame.cs`. Số giây trên nút tự theo hằng số; 0,9 s cuối vẫn nháy báo sắp tắt.
+- **Kiểm tra Play** (`AgentScripts/Shield21312.cs`, xe chạy thật): bật lúc t = 6,40 s, còn bật tới t = 11,92 s (còn 0,5 s), tắt ở t = 12,40 s rồi hồi đúng 10,0 s. Biên dịch không lỗi.
+- **Trạng thái:** phát hành trong **1.89.0** (21.315).
+
+## 21.314. Khiên trong suốt hơn — thấy rõ xe bên trong (22/11/2026, Claude Code)
+
+- **Yêu cầu:** bên trong khiên còn hơi đục, cho trong suốt hơn để thấy rõ xe.
+- **Sửa** (`OpenWorld/Shaders/OpenWorldShield.shader`): ánh sáng dồn ra viền, giữa khiên gần như trong suốt.
+  - Fresnel mũ 2,4 → 3,0 (viền sáng mỏng hơn).
+  - Vỏ: nền 0,05 → 0,012, dải quét 0,12 → 0,05.
+  - Khung lục giác:
+    - vạch mảnh hơn (mũ 1,4 → 2,0, nền 0,18 → 0,06);
+    - độ sáng nền 0,32 → 0,12, dải quét 1,3 → 0,7;
+    - phần nhìn thẳng (giữa khiên) còn 55 % (`lerp(0.55, 1, fres)`).
+  - Mặt ô: nền 0,035 → 0,008, ô lóe 0,42 → 0,28, dải quét 0,16 → 0,05.
+  - Gợn sóng khi bị trúng, tia năng lượng và vành dưới đất giữ nguyên.
+- **Kiểm tra Play:** xe đang chạy bật khiên, so ảnh trước/sau `Captures/khien21314-truoc-sau.png` (trái 21.312, phải 21.314): thân, kính, đèn xe trong khiên thấy rõ, viền lục giác vẫn sáng. Shader không lỗi.
+- **Trạng thái:** phát hành trong **1.89.0** (21.315).
+
+## 21.315. Hai ảnh mới trên trang chủ + phát hành 1.89.0 (21.312–21.315) (22/11/2026, Claude Code)
+
+- **Người dùng:**
+  - thêm ảnh gửi kèm (xe bắn LAZER hạ khủng long) vào trang chủ;
+  - chụp thêm 1 ảnh chế độ điện thoại: vụ nổ kế bên, xe bật khiên, lazer nổ tung xe phía trước, đặt ngay dưới ảnh trước;
+  - rồi build và phát hành.
+  - Sau khi xem các ảnh chụp, người dùng chọn ảnh có vụ nổ sát đầu xe (`Captures/poster21315-b.png`).
+- **Ảnh** (template `Assets/WebGLTemplates/PhoVietPWA/`, khối `.street-gallery` của `index.html`, thứ tự từ trên xuống):
+  1. `poster-home-mobile.jpg` (giữ);
+  2. **`poster-home-lazer.jpg`** — ảnh người dùng gửi, 1389×642 giữ nguyên độ phân giải, JPEG 92, 236 KB, nhãn «Lazer hạ khủng long»;
+  3. **`poster-home-khien.jpg`** — 2778×1284 (màn iPhone 14 Pro Max ngang, cấu hình Rất cao), JPEG 88, 765 KB, nhãn «Bật khiên, phóng lazer».
+  - Ảnh 2 và 3 tải lười (`loading="lazy"`), có alt mô tả. `PruneUnusedPosters` giữ mọi ảnh `poster*` mà `index.html` tham chiếu.
+  - Dàn cảnh ảnh 3: `AgentScripts/Poster21315.cs`.
+    - `TestPlace` xe đỗ phía trước 16 m, bật khiên, giữ lazer (`testHold`);
+    - gọi `OpenWorldHazards.Explode` hai bên đường;
+    - chụp `capture_game_view` 2778×1284. Các ảnh thử `Captures/poster21315-{a,b,c,d}.png`.
+- **Trang chủ, khung «Bản cập nhật» 22/11/2026** (4 dòng):
+  - nút KHIÊN (6 s, miễn va chạm/đạn/tên lửa, hồi 10 s);
+  - bật khiên phá vỡ lưới điện CSGT;
+  - trúng đạn/tên lửa thì xe cháy rồi nổ tung;
+  - nút Tên lửa to hơn, Lazer gọn hơn, thêm 2 ảnh mới.
+  - Hàng phím máy tính thêm **L** Lazer, **K** Khiên; hướng dẫn cảm ứng nói vị trí nút Khiên.
+- **Phiên bản 1.89.0** (`PhoVietWebBuild.cs`, `ProjectSettings.asset`).
+- **Build:** `AgentScripts/QueueRelease21315.cs` → `Builds/release1890-status.json`.
+  - **1.509 giây**, 3.356 nội thất 3D lược ở gói điện thoại, cache `624705e30bbb847d`.
+  - Gói điện thoại `722b512f…` **105,4 MB** (1.88.0: 104,5), gói máy tính `41fcee7f…` **121,3 MB** (120,5), wasm 5,9 MB.
+- **`docs/`** thay bằng `Builds/WebGL`, `PublishWebArtifact.py pack` (mỗi gói 4 phần 32 MiB), materialize `_site`: **31/31 tệp khớp SHA-256**.
+- **Commit/push/Pages:** COMMIT_PLACEHOLDER
+

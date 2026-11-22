@@ -4,13 +4,13 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **22/11/2026 — Claude Code (phát hành 1.88.0 = 21.299–21.310, commit `d7b1180`)**
+Cập nhật lần cuối: **22/11/2026 — Claude Code (phát hành 1.89.0 = 21.312–21.315)**
 
 ## 1. Trạng thái hiện tại
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.88.0 — bản đồ mở** (21.299–21.310: bán đảo + biển giống sông, lan can biển kiểu sông, tàu chiến + máy bay cánh kép bờ biển, trực thăng/máy bay bắn ngay, LAZER, tên lửa tự hồi, lưới điện + tăng viện + dịch chuyển CSGT, HUD 1,1×, thẻ thông báo 75 %, nhà phố khu cao tầng) — commit `d7b1180`, Pages run `44983606585` thành công, cache `dc5d99b638c75345`, **28/28 tệp live khớp SHA-256**, gói điện thoại 104,5 MB, máy tính 120,5 MB. Bản trước 1.87.0 (`259aceb`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
+| Bản đã phát hành | **1.89.0 — bản đồ mở** (21.312–21.315: nút KHIÊN 6 s/hồi 10 s miễn va chạm + đạn, phá lưới điện; trúng đạn cháy + nổ tung; Tên lửa +5 %, Lazer hạ thấp; trang chủ thêm 2 ảnh) — BUILD_PLACEHOLDER, cache `624705e30bbb847d`, gói điện thoại 105,4 MB, máy tính 121,3 MB. Bản trước 1.88.0 (`d7b1180`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra. Plugin `Assets/ai.meshy` đã commit cùng 1.74.0 (`bee5707`). |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -62,6 +62,15 @@ Cập nhật lần cuối: **22/11/2026 — Claude Code (phát hành 1.88.0 = 21
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.315 — phát hành 1.89.0:** gộp 21.312–21.314. Trang chủ thêm 2 ảnh (`poster-home-lazer.jpg` ảnh người dùng, `poster-home-khien.jpg` chụp dàn cảnh `AgentScripts/Poster21315.cs`). Chi tiết `huongdan.md` 21.315.
+- **21.314 (phát hành 1.89.0):** khiên trong suốt hơn (giữa khiên gần như trong, sáng dồn ra viền) — `OpenWorldShield.shader`. Chi tiết `huongdan.md` 21.314.
+- **21.313 (phát hành 1.89.0):** Khiên tồn tại 6 s (trước 4 s), hồi 10 s (trước 15 s) — `OpenWorldShield.Duration/Cooldown`. Chi tiết `huongdan.md` 21.313.
+- **21.312 (phát hành 1.89.0):**
+  - Nút **KHIÊN** (trên giữa Trái/Phải, phím K): khiên xanh ngọc 4 s, hồi 15 s (21.313: 6 s, hồi 10 s). Miễn va chạm (chỉ giảm tốc) + đạn/tên lửa, phá vỡ lưới điện CSGT.
+  - Hiệu ứng khiên + vỡ lưới dựng bằng Blender MCP (`build_khien.py`).
+  - Trúng đạn/tên lửa → xe cháy + khói, 0,55 s sau nổ tung.
+  - LAZER hạ 0,16 × nút; TÊN LỬA +5 %.
+  - Chi tiết `huongdan.md` 21.312.
 - **21.311 — phát hành 1.88.0 (`d7b1180`, Pages `44983606585`, live 28/28 khớp):** gộp 21.299–21.310; song lan can biển đổi sang 2 mặt phẳng (lưới nhẹ ½) trước build. Chi tiết `huongdan.md` 21.311.
 - **21.310 (phát hành 1.88.0):** thẻ thông báo nhỏ lại còn 75 % (`OpenWorldToast.CardScale`), người dùng xác nhận vừa. Chi tiết `huongdan.md` 21.310.
 - **21.309 (phát hành 1.88.0):** tên lửa trực thăng + máy bay cánh kép nhanh thêm 15 % (41,4–103,5 m/s, `OpenWorldHazards.EnemyMissileSpeedMul`). Chi tiết `huongdan.md` 21.309.
@@ -470,6 +479,10 @@ Cập nhật lần cuối: **22/11/2026 — Claude Code (phát hành 1.88.0 = 21
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **Chờ người dùng (1.89.0):** thử trên iPhone: nút Khiên (vị trí, bấm không lẫn nút lái), khiên chặn đạn/va chạm, phá lưới điện, xe cháy nổ khi trúng đạn; 2 ảnh mới trên trang chủ.
+
+
+
 - **Chờ người dùng (1.88.0):** thử trên iPhone: bán đảo + biển, lan can biển, tàu + máy bay bờ biển (FPS, bộ nhớ), lazer, lưới điện, CSGT dịch chuyển, thẻ thông báo nhỏ.
 
 - **Chờ người dùng (1.87.0):** thử trên iPhone thanh thông tin mới (chữ/biểu tượng rõ, không che nút) và cờ bay gió (FPS). Còn khác biệt điện thoại/Editor đã được người dùng chốt giữ.
@@ -674,6 +687,7 @@ Cập nhật lần cuối: **22/11/2026 — Claude Code (phát hành 1.88.0 = 21
 | Tên lửa tự hồi 12 s (bỏ ô nạp) · 5 tàu sát bờ | **21.301** | `OpenWorldHazards.Weapons.cs` (`pickupsEnabled`, `missileRegenSeconds`), `OpenWorldBoats.cs` (`ShoreOffset`, `AddMover`, `Trim`) |
 | Lazer (nút, năng lượng, tia, phá xe/xe tăng/khủng long) | **21.300** | `Scripts/OpenWorld/OpenWorldLaser.cs`, `OpenWorldHazards.Laser.cs`, `OpenWorldTraffic.cs` (`LaserKill`, `LaserExploded`, `VehicleIndexOf`), `OpenWorldDriver.cs` (`LaserRect`, `LaserHeld`), `OpenWorldGame.cs` (`LaserButton`, `EnergyRow`), shader `OpenWorld/Shaders/OpenWorldLaser.shader`, `Resources/Laser/`; ảnh Blender `ArtSource/Blender/OpenWorld/ow_laser_fx.py`; nút `ArtSource/UI/build_laser_button.py` |
 | Lưới điện CSGT (21.300: ≤ 6 m, giữ tới khi bị bắt) | **21.299** | `Scripts/OpenWorld/OpenWorldPoliceNet.cs`, `OpenWorldPolice.cs` (`TryFire` trong Chasing, thẻ «LƯỚI ĐIỆN CSGT»), `OpenWorldDriver.cs` (`Net`, `Netted`), `OpenWorld/Shaders/OpenWorldElectric.shader`, `Resources/PoliceNet/`; chụp `AgentScripts/CaptureNet21299.cs` |
+| Khiên năng lượng (nút KHIÊN, 6 s / hồi 10 s từ 21.313, phá lưới) + trúng đạn cháy nổ | **21.312** | `Scripts/OpenWorld/OpenWorldShield.cs`, `OpenWorldNetShatter.cs`, `OpenWorldDriver.cs` (`ShieldRect`, `Shielded`, `ShieldBump`, `Ignite`, `BlastUp`), `OpenWorldPoliceNet.cs` (`ShatterIfOnPlayer`), `OpenWorldHazards.cs` (`Explode`), `OpenWorldGame.cs` (`ShieldButton`), shader `OpenWorld/Shaders/OpenWorldShield.shader`, `Resources/Khien/`; Blender `ArtSource/Blender/OpenWorld/build_khien.py` → `PhoViet_OW_Khien.blend`; nút `ArtSource/UI/build_shield_button.py`; thử `AgentScripts/Shield21312.cs` |
 | Thanh thông tin trên cùng (HUD) mẫu A | **21.297** | `Scripts/OpenWorld/OpenWorldGame.cs` (`Hud`, `EnsureHudIcons`, `BigMetres`, `RoundBtn`, hằng `HudHeight`…), `OpenWorldToast.cs` (`NextY`) |
 | Nhà phố xa trên điện thoại/web hiện như Play Editor (ngưỡng LOD nhóm nhà phố theo lodBias 2) | **21.296** | `Scripts/OpenWorld/OpenWorldGame.Graphics.cs` (`MatchHouseLods`, `IsHouseLod`, `EditorLodBias`, `HouseLodReport`); mức chất lượng `ProjectSettings/QualitySettings.asset` (Editor Ultra 2, WebGL High 1) |
 | Hộp nhà phố ở xa có ảnh mặt tiền thật (dọc phố, bên kia sông) | **21.294** | `Editor/PhoVietOpenWorldFarFacadeBuilder.cs` (menu 18, chạy sau menu 16), shader chụp `Editor/Shaders/FarFacadeCapture.shader`, shader chơi `OpenWorld/Shaders/OpenWorldFarFacade.shader`, atlas/lưới/vật liệu `OpenWorld/Library/HopXa/MatTien/`; chụp `AgentScripts/CaptureFacade21294.cs` |

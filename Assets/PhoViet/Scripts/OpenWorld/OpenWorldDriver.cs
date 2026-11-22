@@ -48,7 +48,7 @@ namespace PhoViet.OpenWorld
         [System.NonSerialized] public bool testTouchUI;                                                    // kiểm thử: hiện nút cảm ứng
         [System.NonSerialized] public int testSteer;                                                       // kiểm thử: −1 Trái, 1 Phải
         [System.NonSerialized] public int testPedal;                                                       // kiểm thử: 1 Ga, −1 Lùi, 2 Stop
-        enum Ctl { None, Left, Right, Gas, Rev, Stop, Jump, Fire, Laser, Other }
+        enum Ctl { None, Left, Right, Gas, Rev, Stop, Jump, Fire, Laser, Shield, Other }
         readonly System.Collections.Generic.Dictionary<int, Ctl> fingers = new System.Collections.Generic.Dictionary<int, Ctl>();
         bool leftHeld, rightHeld, gasHeld, revHeld, stopHeld, laserHeld;
         public bool LaserHeld => laserHeld;                                    // 21.300: giữ nút LAZER (OpenWorldLaser đọc)
@@ -75,21 +75,36 @@ namespace PhoViet.OpenWorld
         // 21.295 (người dùng): Nhảy, Ga, Stop to thêm 5 % (1,375 → 1,444; 1,1 → 1,155); Tên lửa, Lùi to thêm 10 % (1,1 → 1,21).
         static float BigSize => BtnSize * 1.44375f;
         static float StopSize => BtnSize * 1.155f;
-        static float SmallSize => BtnSize * 1.21f;                                  // Lùi + Tên lửa
+        static float SmallSize => BtnSize * 1.21f;                                  // Lùi (+ Lazer)
+        // 21.312 (người dùng): Tên lửa to thêm 5 % (1,21 → 1,2705 × nút chuẩn); nút KHIÊN cùng cỡ.
+        static float FireSize => SmallSize * 1.05f;
         public static Rect GasRect => new Rect(Screen.width - BigSize - 24 - OpenWorldGame.SafeRightPx, Screen.height - BigSize - 24 - OpenWorldGame.SafeBottomPx, BigSize, BigSize);
         public static Rect RevRect { get { var g = GasRect; return new Rect(g.x - SmallSize - Gap, g.yMax - SmallSize, SmallSize, SmallSize); } }
         public static Rect StopRect { get { var r = RevRect; return new Rect(r.x - StopSize - Gap, r.yMax - StopSize, StopSize, StopSize); } }
         // Máy tính (không có Ga/Lùi/Stop): giữ bố cục cũ — Nhảy góc phải dưới, Tên lửa ngay trên.
         static bool touchLayout = true;
         public static Rect JumpRect { get { var g = GasRect; return touchLayout ? new Rect(g.x, g.y - BigSize - Gap, BigSize, BigSize) : g; } }
-        public static Rect FireRect { get { var r = touchLayout ? RevRect : GasRect; return new Rect(r.center.x - SmallSize * .5f, r.y - SmallSize - Gap, SmallSize, SmallSize); } }
+        public static Rect FireRect { get { var r = touchLayout ? RevRect : GasRect; return new Rect(r.center.x - FireSize * .5f, r.y - FireSize - Gap, FireSize, FireSize); } }
         // 21.300 (người dùng): nút LAZER cỡ nút TÊN LỬA, ngay phía trên nút NHẢY (canh giữa). Máy tính: bên trái nút TÊN LỬA.
         public static Rect LaserRect
         {
             get
             {
                 if (!touchLayout) { var f = FireRect; return new Rect(f.x - SmallSize - Gap, f.y, SmallSize, SmallSize); }
-                var j = JumpRect; return new Rect(j.center.x - SmallSize * .5f, j.y - SmallSize - Gap, SmallSize, SmallSize);
+                // 21.312 (người dùng): xích xuống 0,16 × nút chuẩn (khe 0,14 → −0,02); viền trong suốt 7 % của hai ảnh nút vẫn chừa
+                // ~0,17 × nút chuẩn giữa hai tấm nút → không đè nút NHẢY. Vùng chạm NHẢY được xét trước LAZER.
+                var j = JumpRect; return new Rect(j.center.x - SmallSize * .5f, j.y - SmallSize - Gap + BtnSize * 0.16f, SmallSize, SmallSize);
+            }
+        }
+        // 21.312 (người dùng): nút KHIÊN phía trên 2 nút TRÁI/PHẢI, canh giữa khe hai nút, cỡ bằng nút TÊN LỬA mới; khe dưới 1,5 × Gap để
+        // không lẫn vùng chạm nới rộng của nút lái. Máy tính (không có nút lái): bên trái nút LAZER, phím K.
+        public static Rect ShieldRect
+        {
+            get
+            {
+                if (!touchLayout) { var lz = LaserRect; return new Rect(lz.x - FireSize - Gap, lz.yMax - FireSize, FireSize, FireSize); }
+                Rect l = LeftRect, r = RightRect; float cx = (l.xMax + r.x) * 0.5f;
+                return new Rect(cx - FireSize * .5f, l.y - FireSize - Gap * 1.5f, FireSize, FireSize);
             }
         }
         // 21.270: hai nút mũi tên góc trái dưới (phải giữ liên tục). 21.284: to hơn 25 % (1,2 → 1,5 × nút chuẩn).
@@ -102,10 +117,13 @@ namespace PhoViet.OpenWorld
         Ctl HitControl(Vector2 g)
         {
             float pad = BtnSize * 0.06f;
+            // 21.312: KHIÊN xét trước nút lái nhưng chỉ trong tấm nút thật (bỏ viền trong suốt 7 %), để chạm hụt lên trên nút lái vẫn là lái
+            var sr = ShieldRect; float si = sr.width * 0.07f;
+            if (shieldRef && Grow(new Rect(sr.x + si, sr.y + si, sr.width - 2 * si, sr.height - 2 * si), g, 0f) > 0) return Ctl.Shield;
             var s = SteerControl(g); if (s != Ctl.None) return s;
             if (Grow(FireRect, g, pad) > 0 && FireVisible) return Ctl.Fire;
-            if (Grow(LaserRect, g, pad) > 0 && laserRef) return Ctl.Laser;
             if (Grow(JumpRect, g, pad) > 0) return Ctl.Jump;
+            if (Grow(LaserRect, g, pad) > 0 && laserRef) return Ctl.Laser;
             if (Grow(GasRect, g, pad) > 0) return Ctl.Gas;
             if (Grow(RevRect, g, pad) > 0) return Ctl.Rev;
             if (Grow(StopRect, g, pad) > 0) return Ctl.Stop;
@@ -114,6 +132,10 @@ namespace PhoViet.OpenWorld
         }
         bool FireVisible => hazardsRef && hazardsRef.enabled;
         OpenWorldLaser laserRef;
+        OpenWorldShield shieldRef;
+        public OpenWorldShield Shield { get { if (!shieldRef) shieldRef = GetComponent<OpenWorldShield>(); return shieldRef; } }
+        public bool Shielded => Shield && shieldRef.Active;
+        public bool ShieldHeld { get { foreach (var k in fingers.Values) if (k == Ctl.Shield) return true; return false; } }
         // Vùng chạm lái nới rộng (ngón cái hay chạm lệch): chia đôi ở giữa khe hai nút, dư 35 % lên trên và ra mép trái.
         static Ctl SteerControl(Vector2 g)
         {
@@ -127,6 +149,7 @@ namespace PhoViet.OpenWorld
             var c = HitControl(g); fingers[id] = c;
             if (c == Ctl.Jump) jumpRequest = true;
             else if (c == Ctl.Fire && hazardsRef) { hazardsRef.RequestFire(); FireTaps++; }
+            else if (c == Ctl.Shield && Shield) shieldRef.requested = true;
         }
         void Drag(int id, Vector2 g)
         {
@@ -140,6 +163,7 @@ namespace PhoViet.OpenWorld
         {
             if (!hazardsRef) hazardsRef = FindAnyObjectByType<OpenWorldHazards>();
             if (!laserRef) laserRef = GetComponent<OpenWorldLaser>();
+            if (!shieldRef) shieldRef = GetComponent<OpenWorldShield>();
             touchLayout = touchControlsAlwaysVisible || Input.touchSupported || UnityEngine.Device.Application.isMobilePlatform || testTouchUI;
             if (!TouchControlsVisible) { fingers.Clear(); leftHeld = rightHeld = gasHeld = revHeld = stopHeld = laserHeld = false; return; }
             for (int i = 0; i < Input.touchCount; i++)
@@ -176,6 +200,7 @@ namespace PhoViet.OpenWorld
         static Texture2D leftTex, rightTex, gasTex, revTex, stopTex, jumpTex;
         public static Texture2D MissileButtonTex { get; private set; }
         public static Texture2D LaserButtonTex { get; private set; }
+        public static Texture2D ShieldButtonTex { get; private set; }
         public static void EnsureTouchArt() => LoadTouchArt();
         static void LoadTouchArt()
         {
@@ -188,6 +213,7 @@ namespace PhoViet.OpenWorld
             jumpTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Jump");
             MissileButtonTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Missile");
             LaserButtonTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Laser");
+            ShieldButtonTex = Resources.Load<Texture2D>("TouchControls/PV_Btn_Shield");     // 21.312 (ArtSource/UI/build_shield_button.py)
         }
 
         // Vẽ một nút ảnh: đang giữ → thu nhỏ 7 % + quầng màu nhấn phía sau; tắt (hồi chiêu/hết đạn) → xám mờ.
@@ -399,6 +425,7 @@ namespace PhoViet.OpenWorld
             UpdateTouchControls();
             // Khói xe hỏng luôn bốc thẳng lên trời dù xe lật ngửa.
             if (smoke && Crashed) smoke.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.9f, Quaternion.identity);
+            if (burn) burn.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.7f, Quaternion.identity);   // 21.312: lửa luôn bốc lên
             if (Input.GetKeyDown(KeyCode.J)) jumpRequest = true;
         }
 
@@ -478,6 +505,7 @@ namespace PhoViet.OpenWorld
         {
             var ct = c.GetContact(0); float closing = c.relativeVelocity.magnitude;
             if (closing < OpenWorldTraffic.MinClosing) return;
+            if (Shielded) { ShieldBump(ct.point, closing); return; }            // 21.312: khiên — không văng/choáng/nổ, chỉ giảm tốc
             Dent(ct.point, closing);
             var other = c.collider.attachedRigidbody ? c.collider.attachedRigidbody.position : ct.point;
             var away = transform.position - other; away.y = 0; away = away.sqrMagnitude > 0.01f ? away.normalized : -transform.forward;
@@ -547,9 +575,42 @@ namespace PhoViet.OpenWorld
         public int Crashes { get; private set; }
         public Material smokeMaterial;
         ParticleSystem smoke;
+        // 21.312: khiên chặn va chạm — chỉ giảm tốc (cú mạnh giảm nhiều hơn), khiên gợn sóng + tóe tia ở chỗ chạm.
+        public int ShieldBumps { get; private set; }
+        void ShieldBump(Vector3 at, float closing)
+        {
+            ShieldBumps++;
+            Speed *= Mathf.Lerp(0.8f, 0.45f, Mathf.InverseLerp(2f, 30f, closing));
+            if (Shield) shieldRef.Absorb(at, Mathf.InverseLerp(2f, 30f, closing));
+        }
+        public void ClearNet() { netUntil = 0f; }
+
+        // 21.312 (người dùng): trúng đạn pháo/tên lửa → xe bốc cháy, bốc khói rồi nổ tung (OpenWorldHazards gọi sau Crash).
+        ParticleSystem burn;
+        public bool Burning => burn && burn.isPlaying;
+        public void Ignite(ParticleSystem fire, float explodeAfter)
+        {
+            if (!Crashed) return;
+            if (burn && burn != fire) Destroy(burn.gameObject);
+            burn = fire;
+            if (explodeAfter >= 0f && ExplodeAt <= 0f) ExplodeAt = Time.time + explodeAfter;
+        }
+        // nổ tung: hất xe lên, lộn vòng
+        public void BlastUp(Vector3 at)
+        {
+            if (sinking) return;
+            rb.constraints = RigidbodyConstraints.None;
+            var away = transform.position - at; away.y = 0;
+            if (away.sqrMagnitude < 0.01f) away = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
+            away.Normalize();
+            rb.linearVelocity = rb.linearVelocity * 0.3f + Vector3.up * 8.5f + away * 3f;
+            rb.angularVelocity = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 7f;
+        }
+
         public void Crash(Vector3 from, string reason, float power)
         {
             if (Crashed || sinking) return;
+            if (Shielded) { ShieldBump(from, power * 2.5f); return; }       // 21.312: khiên miễn nhiễm mọi va chạm/đạn
             Crashed = true; frozen = true; CrashReason = reason; crashShownAt = Time.time; Crashes++; jumping = false; Speed = 0;
             var away = transform.position - from; away.y = 0;
             if (away.sqrMagnitude < 0.01f) away = transform.right; away.Normalize();
@@ -589,7 +650,7 @@ namespace PhoViet.OpenWorld
         public bool Netted => Time.time < netUntil;
         public float NetRemaining => Mathf.Max(0f, netUntil - Time.time);
         public int NetHits { get; private set; }
-        public void Net(float seconds) { if (Crashed || sinking) return; netUntil = Time.time + seconds; NetHits++; }
+        public void Net(float seconds) { if (Crashed || sinking || Shielded) return; netUntil = Time.time + seconds; NetHits++; }
         public void ResetTo(Vector3 pos, Quaternion rot)
         {
             sinking = false; rb.useGravity = true; Speed = 0; frozen = false;
@@ -598,6 +659,7 @@ namespace PhoViet.OpenWorld
             if (dent != null) dent.Restore();
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             if (smoke) smoke.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            if (burn) { Destroy(burn.gameObject); burn = null; }               // 21.312
             if (stunSmoke) stunSmoke.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear); stunSmokeUntil = 0f; LastHit = null;
             rb.position = pos; rb.rotation = rot; transform.SetPositionAndRotation(pos, rot);
             rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; spawnTime = Time.time;

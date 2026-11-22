@@ -151,6 +151,7 @@ namespace PhoViet.OpenWorld
             if (player) { player.respawnAfterSink = false; player.showSpeed = false; }
             if (police) { police.drawJail = false; police.showDistance = false; }
             if (player) { laser = player.GetComponent<OpenWorldLaser>(); if (!laser) laser = player.gameObject.AddComponent<OpenWorldLaser>(); }   // 21.300
+            if (player) { shield = player.GetComponent<OpenWorldShield>(); if (!shield) shield = player.gameObject.AddComponent<OpenWorldShield>(); }   // 21.312
             GoReady();
             InitGraphics();                                                 // 21.291: mức đồ họa đã lưu (sau thiết lập điện thoại ở Awake)
         }
@@ -174,6 +175,7 @@ namespace PhoViet.OpenWorld
             if (police) { police.enabled = true; police.ResetChase(true); }   // đưa xe về chỗ xuất phát, Runs++ → hiểm họa dọn sạch
             if (player) player.frozen = false;
             if (laser) laser.ResetLaser();
+            if (shield) shield.ResetShield();                               // 21.312
             Mode = State.Riding; EndReason = null; EndDetail = null; NewBest = false; sinkAt = -1f; crashAt = -1f; Runs++; GraphicsOpen = false;
         }
 
@@ -259,6 +261,7 @@ namespace PhoViet.OpenWorld
 
         // ------------------------------------------------------------ IMGUI theo kiểu game cũ
         OpenWorldLaser laser;                                              // 21.300
+        OpenWorldShield shield;                                            // 21.312
         GUIStyle label, button; bool portrait; float uiScale = 1, uiW, uiH;
         static readonly Color Glass = new Color(.07f, .19f, .21f, .64f), WelcomeWhite = new Color(.97f, .985f, 1, .93f), WelcomeGlass = new Color(.97f, .985f, 1, .82f);
         Texture2D star;
@@ -452,6 +455,7 @@ namespace PhoViet.OpenWorld
             GUI.matrix = hudMatrix;
             FireButton();
             LaserButton();
+            ShieldButton();
             SquadToast();
         }
 
@@ -506,6 +510,31 @@ namespace PhoViet.OpenWorld
             GUI.matrix = m;
             if (!Input.GetMouseButton(0)) laserMouse = false;
             laser.mouseHeld = laserMouse;
+        }
+
+        // 21.312: nút KHIÊN (bấm 1 lần → khiên 6 s, hồi 10 s (21.313)) phía trên giữa 2 nút TRÁI/PHẢI; máy cảm ứng do OpenWorldDriver đọc
+        // đa điểm, chuột/phím K ở đây. Đang bật: nút sáng + quầng xanh ngọc + số giây còn lại; đang hồi: xám + số giây hồi.
+        void ShieldButton()
+        {
+            if (!shield || !player || player.frozen || player.Crashed || Mode != State.Riding) return;
+            OpenWorldDriver.EnsureTouchArt();
+            var f = OpenWorldDriver.ShieldRect; bool touch = player.TouchControlsVisible;
+            var m = GUI.matrix; GUI.matrix = Matrix4x4.identity;
+            var acc = new Color(.2f, .94f, .82f);
+            OpenWorldDriver.DrawArtButton(f, OpenWorldDriver.ShieldButtonTex, acc, shield.Active || player.ShieldHeld, shield.Ready || shield.Active);
+            if (shield.Active || shield.CooldownLeft > 0f)
+            {
+                float left = shield.Active ? shield.ActiveLeft : shield.CooldownLeft;
+                float bs = f.width * .42f; var badge = new Rect(f.center.x - bs / 2, f.y + f.height * .22f, bs, bs);
+                GUI.DrawTexture(badge, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, shield.Active ? new Color(.02f, .3f, .27f, .9f) : new Color(.06f, .1f, .16f, .85f), 0, bs * .5f);
+                GUI.DrawTexture(badge, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, acc, bs * .08f, bs * .5f);
+                var st = new GUIStyle(label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(bs * .5f) }; st.normal.textColor = Cream;
+                GUI.Label(badge, Mathf.CeilToInt(left).ToString(), st);
+            }
+            if (!touch) OpenWorldDriver.KeyBadge(f, "K");
+            var ev = Event.current;
+            if (!touch && ev.type == EventType.MouseDown && f.Contains(ev.mousePosition)) { shield.requested = true; ev.Use(); }
+            GUI.matrix = m;
         }
 
         bool RoundBtn(Rect r)

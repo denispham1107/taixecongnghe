@@ -42,18 +42,17 @@
             <button id="retry" hidden>Tải lại trang</button>
           </div>
           <div class="controls" aria-label="Điều khiển bằng bàn phím">
-            <span><b>← ↑ ↓ → / WASD</b>Lái xe</span><span><b>J</b>Nhảy</span><span><b>F</b>Tên lửa</span><span><b>SPACE</b>Phanh tay</span><span><b>P</b>Tạm dừng</span>
+            <span><b>← ↑ ↓ → / WASD</b>Lái xe</span><span><b>J</b>Nhảy</span><span><b>F</b>Tên lửa</span><span><b>L</b>Lazer</span><span><b>K</b>Khiên</span><span><b>SPACE</b>Phanh tay</span><span><b>P</b>Tạm dừng</span>
           </div>
-          <p class="touch-guide"><span aria-hidden="true">↔</span> Xoay ngang để chơi. Giữ nút ← / → bên trái để lái, giữ Ga / Lùi / Stop bên phải; Nhảy và Tên lửa ở hàng trên.</p>
+          <p class="touch-guide"><span aria-hidden="true">↔</span> Xoay ngang để chơi. Giữ nút ← / → bên trái để lái, giữ Ga / Lùi / Stop bên phải; Nhảy, Tên lửa, Lazer ở hàng trên; nút Khiên phía trên hai nút lái.</p>
           <!-- Bản cập nhật: mỗi lần phát hành sửa ngày + danh sách bên dưới; số phiên bản tự lấy từ bản build (app.js). -->
           <details class="release-notes" id="release-notes">
             <summary><span class="release-tag">MỚI</span> Bản cập nhật <b id="release-version">—</b> · <span id="release-date">22/11/2026</span></summary>
             <ul>
-              <li>Bản đồ thành bán đảo: biển bao quanh cùng màu, cùng sóng với sông; bờ kè và lan can đá như bờ sông.</li>
-              <li>Bờ biển có 5 tàu chiến và 2 máy bay cánh kép canh gác; trực thăng và máy bay bắn tên lửa ngay, có vòng báo dưới đất.</li>
-              <li>Vũ khí mới LAZER (giữ nút, 100 năng lượng); tên lửa tự hồi 1 quả mỗi 12 giây.</li>
-              <li>CSGT mạnh hơn: bắn lưới điện giữ xe, có thêm xe tăng viện mỗi 300 m, bị bỏ xa quá 70 m sẽ dịch chuyển tức thời tới gần.</li>
-              <li>Thanh thông tin to hơn, thẻ thông báo gọn hơn, xe máy to hơn, khu cao tầng ven sông đã đủ nhà phố.</li>
+              <li>Nút KHIÊN mới (phía trên hai nút Trái/Phải, phím K): khiên năng lượng 6 giây, không bị văng khi va chạm, miễn mọi đạn pháo và tên lửa; hồi 10 giây.</li>
+              <li>Bật khiên là phá vỡ lưới điện của CSGT, xe chạy tiếp được.</li>
+              <li>Trúng đạn pháo hoặc tên lửa: xe bốc cháy, bốc khói rồi nổ tung.</li>
+              <li>Nút Tên lửa to hơn, nút Lazer hạ thấp gọn hơn; thêm 2 ảnh mới trên trang chủ.</li>
             </ul>
             <p id="release-check" class="release-check" hidden></p>
           </details>
@@ -64,6 +63,18 @@
             <img src="poster-home-mobile.jpg" width="2778" height="1284" alt="Màn hình chơi trên điện thoại: xe đua xanh chạy trên phố Tôn Đức Thắng ven sông, phía trước có xe tăng, xe máy, ô tô và trực thăng, trên sông có tàu cá; hai nút lái bên trái, các nút Ga, Lùi, Stop, Nhảy, Tên lửa bên phải" fetchpriority="high" decoding="async">
           </picture>
           <figcaption class="preview-label"><span class="preview-dot" aria-hidden="true"></span><span><b>Lái xe trên phố ven sông</b><small>Hình ảnh trong game Phố Việt trên điện thoại · cấu hình Rất cao</small></span><span class="preview-tag">3D</span></figcaption>
+        </figure>
+        <figure class="street-preview">
+          <picture>
+            <img src="poster-home-lazer.jpg" width="1389" height="642" alt="Xe đua xanh bắn hai tia lazer đỏ hạ khủng long phía trước, khủng long nổ tung thành lửa và mảnh vỡ, bên cạnh là ô tô xanh lá; nút Lazer đang sáng" loading="lazy" decoding="async">
+          </picture>
+          <figcaption class="preview-label"><span class="preview-dot" aria-hidden="true"></span><span><b>Lazer hạ khủng long</b><small>Hình ảnh trong game Phố Việt trên điện thoại</small></span><span class="preview-tag">MỚI</span></figcaption>
+        </figure>
+        <figure class="street-preview">
+          <picture>
+            <img src="poster-home-khien.jpg" width="2778" height="1284" alt="Xe đua xanh bật khiên năng lượng xanh ngọc hình lục giác có tia điện xẹt quanh, bắn tia lazer làm xe phía trước nổ tung ngay sát đầu xe, hai vụ nổ lớn và khói đen hai bên đường; nút Khiên phía trên hai nút lái" loading="lazy" decoding="async">
+          </picture>
+          <figcaption class="preview-label"><span class="preview-dot" aria-hidden="true"></span><span><b>Bật khiên, phóng lazer</b><small>Hình ảnh trong game Phố Việt trên điện thoại · cấu hình Rất cao</small></span><span class="preview-tag">MỚI</span></figcaption>
         </figure>
         </div>
       </div>
@@ -82,14 +93,14 @@
   </dialog>
   <script>
     window.PHO_VIET_BUILD={
-      mobileDataUrl:"Build/789e1e1de912f32b877d055f03b0fb2a.data.unityweb",
-      loaderUrl:"Build/9f3ce7d8bbcacdfd0ec5f920752449d8.loader.js",
-      dataUrl:"Build/eb27890a227e96096b969af4e398ae27.data.unityweb",
-      frameworkUrl:"Build/6d0affb9a9f04d0c4d977c3fe1bef905.framework.js.unityweb",
-      codeUrl:"Build/d593641078f6670bf0385d9f22f17644.wasm.unityweb",
+      mobileDataUrl:"Build/722b512f00174094628e90fb5b1f7ef4.data.unityweb",
+      loaderUrl:"Build/daeb718db855245bbee6fa0cd8e3fbd7.loader.js",
+      dataUrl:"Build/41fcee7fe08f3ece1a9bd9d3d36a9c19.data.unityweb",
+      frameworkUrl:"Build/638471c969032b7b74c8d093b1356cf8.framework.js.unityweb",
+      codeUrl:"Build/7fe41722612ef5b72c7c15d681d45aea.wasm.unityweb",
       companyName:"Pho Viet Studio",
       productName:"Phố Việt - Chuyến xe không ngừng",
-      productVersion:"1.88.0"
+      productVersion:"1.89.0"
     };
   </script>
   <script src="app.js" defer></script>
