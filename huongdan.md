@@ -5440,5 +5440,5 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Gói điện thoại `789e1e1d…` **104,5 MB** (1.87.0: 104,0), gói máy tính `eb27890a…` **120,5 MB** (119,9), wasm 5,9 MB.
   - Occlusion giữ dữ liệu nướng ở 21.302.
 - **`docs/`** thay bằng `Builds/WebGL`, `PublishWebArtifact.py pack` (mỗi gói 4 phần 32 MiB), materialize: **29/29 tệp khớp SHA-256**.
-- **Commit/push/Pages/live:** xem dòng cập nhật kế tiếp.
+- **Commit `d7b1180`, push `main`** (GitHub cảnh báo scene 89,2 MB > 50 MB khuyến nghị, không chặn). Pages run `44983606585` **thành công**. Trang thật: `build-info.json` 1.88.0 cache `dc5d99b638c75345`, **28/28 tệp live khớp SHA-256**, trang chủ hiện 5 dòng bản cập nhật ngày 22/11/2026. Chưa thử iPhone thật.
 
