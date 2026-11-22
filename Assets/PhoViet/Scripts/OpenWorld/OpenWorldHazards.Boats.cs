@@ -14,7 +14,9 @@ namespace PhoViet.OpenWorld
     {
         [Header("Tàu bắn (21.284)")]
         public OpenWorldBoats boats;
-        public float riverBankRange = 100f, boatFireNear = 25f, boatFireFar = 140f;
+        // 21.302 (người dùng): mọi tàu — xa bờ, sát bờ bên kia, xa xe — đều thấy xe khi xe vào lề sát sông và bắn ngay:
+        // bỏ giới hạn tầm (gần 0 m, xa 5 km), vừa vào lề thì mọi tàu nạp xong ngay (lệch 0–0,2 s cho khỏi bắn trùng khung).
+        public float riverBankRange = 100f, boatFireNear = 0f, boatFireFar = 5000f;
         public int BoatShells { get; private set; }
         public int BoatsSunk { get; private set; }
         public bool OnRiverBank { get; private set; }
@@ -46,7 +48,14 @@ namespace PhoViet.OpenWorld
         {
             if (!boats) boats = FindAnyObjectByType<OpenWorldBoats>();
             if (!boats || boats.Count == 0) return;
-            if (boatFire == null || boatFire.Length != boats.Count) { boatFire = new float[boats.Count]; ResetBoatGuns(); }
+            bool coast = live && player.Lift < 2.2f && IsCoast(pp);                  // 21.303: lề sát biển
+            TickCoast(coast, pp, pv);                                                 // có thể thêm tàu biển → mảng nhịp bắn nới theo
+            if (boatFire == null) { boatFire = new float[boats.Count]; ResetBoatGuns(); }
+            else if (boatFire.Length != boats.Count)
+            {   // 21.303: giữ nhịp cũ, tàu mới thêm bắn ngay
+                int old = boatFire.Length; System.Array.Resize(ref boatFire, boats.Count);
+                for (int i = old; i < boatFire.Length; i++) boatFire[i] = Random.Range(0f, 0.2f);
+            }
             // tàu đang cháy → tới giờ thì nổ tung
             for (int k = burningBoats.Count - 1; k >= 0; k--)
             {
@@ -57,12 +66,15 @@ namespace PhoViet.OpenWorld
             }
             bool bank = live && player.Lift < 2.2f && IsRiverBank(pp);
             if (bank && !OnRiverBank && Time.time - bankNoticeAt > 6f) { Say("Tàu trên sông nổ súng!", "Rời bờ sông hoặc bắn hạ tàu", 2.2f, OpenWorldToast.Kind.Danger); bankNoticeAt = Time.time; }
-            OnRiverBank = bank;
+            if (bank && !OnRiverBank) for (int i = 0; i < boatFire.Length; i++) if (!boats.IsSea(i)) boatFire[i] = Random.Range(0f, 0.2f);   // 21.302: bắn ngay
+            if (coast && !OnCoast) for (int i = 0; i < boatFire.Length; i++) if (boats.IsSea(i)) boatFire[i] = Random.Range(0f, 0.2f);  // 21.303: tàu biển bắn ngay
+            OnRiverBank = bank; OnCoast = coast;
             for (int i = 0; i < boats.Count; i++)
             {
                 boatFire[i] -= dt;
                 if (boatFire[i] > 0f) continue;
-                if (!bank || !boats.Alive(i) || player.Crashed || player.frozen || shells.Count >= maxShellsInFlight) { boatFire[i] = 0.25f; continue; }
+                bool armed = boats.IsSea(i) ? coast : bank;                           // 21.303: tàu biển chỉ bắn khi xe ở lề sát biển
+                if (!armed || !boats.Alive(i) || player.Crashed || player.frozen || shells.Count >= maxShellsInFlight) { boatFire[i] = 0.25f; continue; }
                 var c = boats.BoatCenter(i); var to = pp - c; to.y = 0; float dist = to.magnitude;
                 if (dist < boatFireNear || dist > boatFireFar) { boatFire[i] = 0.25f; continue; }
                 var muzzle = c + Vector3.up * 1.2f + to / dist * 2f;

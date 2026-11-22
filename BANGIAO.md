@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **21/11/2026 — Claude Code (phát hành 1.87.0 = 21.297 thanh thông tin mẫu A + 21.298 cờ đỏ sao vàng bay gió)**
+Cập nhật lần cuối: **22/11/2026 — Claude Code (21.299–21.310 trong source, chưa phát hành; bản web vẫn 1.87.0)**
 
 ## 1. Trạng thái hiện tại
 
@@ -62,6 +62,41 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (phát hành 1.87.0 = 21
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.310 (chưa commit/phát hành):** thẻ thông báo nhỏ lại còn 75 % (`OpenWorldToast.CardScale`), người dùng xác nhận vừa. Chi tiết `huongdan.md` 21.310.
+- **21.309 (chưa commit/phát hành):** tên lửa trực thăng + máy bay cánh kép nhanh thêm 15 % (41,4–103,5 m/s, `OpenWorldHazards.EnemyMissileSpeedMul`). Chi tiết `huongdan.md` 21.309.
+- **21.308 (chưa commit/phát hành):**
+  - Trực thăng bắn ngay (0,3 s), mọi lúc trong tầm 5 km, nhịp như xe tăng/tàu (trước gần như không bắn khi xe chạy).
+  - Máy bay xuất hiện và lượn phía trước mặt xe, bay thấp 22 m.
+  - Tên lửa địch to ×2,2, tối đa 90 m/s, chớp phóng + khói.
+  - Đo: trực thăng 1 quả/s, máy bay 2 quả/s khi xe đang chạy.
+  - Chi tiết `huongdan.md` 21.308.
+- **21.307 (chưa commit/phát hành):**
+  - Máy bay bắn tên lửa trong tầm 5 km như tàu (scene `planeFireRange` = 5000), mọi hướng; tên lửa xa bay nhanh tới trong ~3,5 s.
+  - CSGT lạc > 70 m dịch chuyển tức thời tới đường gần người chơi cách 20–45 m, không hồi chiêu, có thẻ «CSGT DỊCH CHUYỂN» (`OpenWorldPolice.TeleportNear`).
+  - Tăng viện xuất hiện trong 68 m.
+  - Chi tiết `huongdan.md` 21.307.
+- **21.306 (chưa commit/phát hành):**
+  - Lưu phần người dùng xóa tay (7 vật: nhà thuốc An Khang, quán vỉa hè TĐT, vài chữ biển).
+  - Lấp hàng nhà phố mặt bắc + mặt nam khu cao tầng x 430–675, z 229–416: 55 căn + 4 căn lấp khe, mặt tiền ra đường (menu 21 `Editor/PhoVietOpenWorldBlockFill.cs`).
+  - Các khu khác có sân trong hở: người dùng chọn **giữ nguyên** (không lấp).
+  - Chi tiết `huongdan.md` 21.306.
+- **21.305 (chưa commit/phát hành):**
+  - Lan can lề biển dựng lại giống lan can sông (trụ granite + song sắt, 83 khúc LOD); 4 góc dùng chung trụ, hết đâm xuyên.
+  - Vá góc tây nam (mặt đường nút giao + vỉa hè chữ L) và 4 đoạn lan can sông bị mất ở cửa sông.
+  - Bờ cửa sông sửa thành 234,5 / 228,5; tường vô hình lùi vào 0,7 m.
+  - Chi tiết `huongdan.md` 21.305.
+- **21.304 (chưa commit/phát hành):**
+  - Máy bay bắn tên lửa ngay khi xuất hiện, nhịp như xe tăng/tàu (1,0→0,55 s), vòng báo **vàng** (`TankWarning.shader` `_Recolor` + `TintMarker`), giới hạn riêng 12 tên lửa.
+  - Cắt cạnh nam/tây bán đảo vào **−567,5** (bỏ đường dạo 32,5 m, kè sát vỉa hè), co hộp va chạm mặt đất.
+  - Xóa tàu du lịch trang trí trên sông.
+  - Chi tiết `huongdan.md` 21.304.
+- **21.303 (chưa commit/phát hành):** lề sát biển có 5 tàu chiến + 2 máy bay cánh kép (Skywing). Tàu bắn đạn pháo khi xe ở lề biển; rời đi thì tàu ở nguyên chỗ. Máy bay đuổi bắn tên lửa tới hết lượt. File mới `OpenWorldHazards.Coast.cs`. Đã chụp ảnh kiểm tra (`Captures/bandao21302-bien_tau_maybay.png`, `maybay_gan`, `gocchoi_bien`); chưa thử trên điện thoại. Chi tiết `huongdan.md` 21.303.
+- **21.302c (chưa commit/phát hành):** mặt biển dựng lại giống hoàn toàn mặt sông. Biển dùng chung 4 probe phản chiếu của sông: sát cửa sông trộn theo s như mặt sông, ra xa trộn theo khoảng cách. Độ dốc sóng tính theo điểm ảnh. Renderer không light/reflection probe, đổ/nhận bóng như sông. Thêm dải lót 12 m dưới mép lưới sông ở cửa sông. **Nướng lại 13 probe sông** (`AgentScripts/RebakeProbes21302.cs`; probe trong phố gần như không đổi). Chi tiết `huongdan.md` 21.302c.
+- **21.302b (chưa commit/phát hành):** bỏ toàn bộ đảo ngoài biển (builder menu 20 không dựng `DaoXa`, xóa asset đảo); vật liệu biển `OW_Bien.mat` chép nguyên `OW_River`, màu `_SeaDeep/_SeaMid` = màu sông → biển cùng màu và sóng với sông. Chi tiết `huongdan.md` 21.302b.
+- **21.302 (chưa commit/phát hành):** tàu bắn từ mọi khoảng cách, bắn ngay khi xe vào lề sát sông; **bản đồ thu về vùng phố x, z ∈ [−600, 700] thành bán đảo**: xóa 70 cao ốc vành ngoài + cắt mặt đất/sông theo ranh giới, biển bao quanh (shader sông `_SeaMode`), kè + lan can, đường dạo 130 dừa + 134 cột đèn, tường vô hình; occlusion nướng lại. Unity menu 20 `PhoVietOpenWorldPeninsulaBuilder` (gốc scene `BanDao`). Chi tiết `huongdan.md` 21.302.
+- **21.301 (chưa commit/phát hành):** bỏ ô nạp tên lửa (`pickupsEnabled=false`), hồi 1 quả/12 s (vạch kế tiếp đầy dần); mỗi 300 m thêm 1 xe CSGT nhân bản từ xe gốc, **luân phiên ngược chiều (trước ~95 m) / cùng chiều (sau ~75 m)**, tối đa 10, xe nào bắt cũng vào tù, HUD «CSGT ×n» xe gần nhất (`OpenWorldGame.Squad.cs`, `OpenWorldPolice.Deploy/All`); 5 tàu chạy sát bờ (vòng lệch 66 m, `OpenWorldBoats.AddMover/Trim`). Chi tiết `huongdan.md` 21.301.
+- **21.300 + 21.300b (chưa commit/phát hành; 21.300b: tia 3 lớp sáng + xung chạy dọc, bán kính +10 %, tầm **15 m**, ngọn tia khi bắn trượt, hiệu ứng trúng đích mới: vòng sóng, mưa tia lửa nóng chảy, vết cháy phát sáng):** lưới điện CSGT tầm **6 m**, dính lưới đứng yên tới khi bị bắt; nút **LAZER** (trên NHẢY, cỡ TÊN LỬA, phím L) + dòng **NĂNG LƯỢNG 100/100** dưới tên lửa (thanh thông tin cao 112): giữ → 2 tia đỏ từ đèn pha tầm 15 m (ảnh Blender `ow_laser_fx.py`), 25 năng lượng/0,5 s (tối đa 2 s), thả → khóa 10 s rồi hồi đầy; trúng xe NPC/xe tăng/khủng long → cháy, khói, nổ tung thành mảnh (không hại xe mình); CSGT chỉ khựng 1,5 s. `OpenWorldLaser.cs`, `OpenWorldHazards.Laser.cs`, `OpenWorldTraffic.LaserKill`, `build_laser_button.py`. Chi tiết `huongdan.md` 21.300.
+- **21.299 (chưa commit/phát hành):** thanh thông tin máy ngang phóng 1,1× (935 × 95, chữ to theo); xe máy `bikeScale` 0,704 (cao 1,52 m); CSGT trong 4,5 m bắn **lưới điện** trùm xe (21.299b: mắt lưới hình thoi phát sáng, 6 quả nặng, 9 tia điện có quầng + đèn điểm thật + vệt sáng mặt đường), khóa lái/ga/nhảy 3 s (`OpenWorldPoliceNet.cs`, `OpenWorldDriver.Net`, shader `PhoViet/OpenWorld/Electric`, vật liệu `Resources/PoliceNet/`). Ảnh `Captures/net21299-*.png`. Chi tiết `huongdan.md` 21.299.
 - **21.298 + 21.298b (phát hành 1.87.0):** cờ đỏ sao vàng trên 235 cột đèn thay bằng tấm vải thật dài 1,65 m (+10 %), mép trên cuộn ống quanh thanh treo (hết lơ lửng), gió biên độ 0,22 m (shader `PhoViet/OpenWorld/FlagWind`, ảnh vải `Library/CoVN/OW_CoVN.png`); Unity menu 19 `PhoVietOpenWorldFlagBuilder` (chạy lại sau mỗi lần dựng lại bản đồ). Ảnh `Captures/flag21298-*.png`. Chi tiết `huongdan.md` 21.298.
 - **21.297 (`259aceb`, Pages `44900135396`, live 28/28 khớp — phát hành 1.87.0 cùng 21.298):** thanh thông tin trên cùng thiết kế lại theo **mẫu A** người dùng chọn: dải kính bo tròn 850 × 86 (to ~12 %, giữ độ trong suốt), biểu tượng vàng vẽ bằng mã, số quãng đường to + ô km/h, tên lửa 10 vạch, nút loa/tạm dừng tròn. `OpenWorldGame.cs` `Hud()`/`EnsureHudIcons`, `OpenWorldToast.NextY`. Ảnh `Captures/hud21297-c.png`. Chi tiết `huongdan.md` 21.297.
 - **21.296 (`e9f61c1`, Pages `44890016749`, live 28/28 khớp — phát hành 1.86.1):** người dùng: Play trong Unity thấy nhà phố xa đầy đủ, điện thoại thì biến dạng thành hộp trắng. Nguyên nhân: Editor ở mức chất lượng Ultra (lodBias 2), web High (1) × điện thoại 0,75 × Trung bình 0,85 ≈ 0,64 → nhà đổi sang hộp ảnh xa ở ~47 m thay vì ~150 m. Sửa `OpenWorldGame.Graphics.cs` `MatchHouseLods()`: 8.206 LODGroup nhóm nhà phố (`NhaPho*`, `NoiThat`, `BangHieu*`) có ngưỡng = gốc × lodBias/2 → đổi LOD như Editor ở mọi cấu hình/máy; cây/cao ốc/cột đèn giữ lodBias từng mức. Tải mô phỏng điện thoại +23 % tam giác (1,59 → 1,95 triệu), +15 % lượt vẽ; bộ nhớ không đổi. Ảnh `Captures/lod21296-{a-editor,b-truoc,c-sau}.png`. Chi tiết `huongdan.md` 21.296.
@@ -434,6 +469,14 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (phát hành 1.87.0 = 21
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **ĐANG PHÁT HÀNH 1.88.0 (22/11/2026, Claude Code, người dùng «Phát hành luôn»):**
+  - Đã sửa release-notes `index.html` (5 dòng, ngày 22/11/2026) và phiên bản 1.88.0 (`PhoVietWebBuild.cs` + `ProjectSettings.asset`).
+  - Song lan can biển đổi thành 2 mặt phẳng (nhẹ hơn), chạy lại menu 20.
+  - Đang build bằng `AgentScripts/QueueRelease21311.cs` → trạng thái `Builds/release1880-status.json`.
+  - Bước kế: chép `Builds/WebGL` → `docs` → `python AgentScripts/PublishWebArtifact.py pack --source docs` → materialize + so SHA → commit (không gồm các tệp giữ cục bộ) → push → kiểm Pages + live.
+
+- **Chờ người dùng quyết phát hành 1.88.0:** gồm 21.299–21.310 (HUD 1,1×, xe máy to, lưới điện CSGT, lazer + năng lượng, hồi tên lửa 12 s, CSGT tăng viện mỗi 300 m, tàu bắn mọi nơi, bán đảo + biển giống hệt sông, bỏ đảo — gồm cả 13 ảnh probe sông nướng lại `OpenWorld/River/Probes/`). Khi phát hành: sửa release-notes `index.html`, nâng 1.88.0 (`PhoVietWebBuild.cs` + ProjectSettings), build, chép `docs`, commit (giữ cục bộ các file trong danh sách không commit), push, kiểm tra Pages + live.
+
 - **Chờ người dùng (1.87.0):** thử trên iPhone thanh thông tin mới (chữ/biểu tượng rõ, không che nút) và cờ bay gió (FPS). Còn khác biệt điện thoại/Editor đã được người dùng chốt giữ.
 
 - **Chờ người dùng (1.86.1):** thử trên iPhone: nhà phố xa dọc phố/bên kia sông hiện như Play Editor ở mọi cấu hình; để ý FPS (+23 % tam giác). Khác biệt còn lại so với Editor — **người dùng 21/11/2026 chốt giữ như hiện tại**: điện thoại giới hạn giao thông 24 ô tô + 18 xe máy (máy tính 34 + 26, `OpenWorldGame.Awake`), gói điện thoại bỏ nội thất 3D tầng trệt (chỉ ảnh xa, `PhoVietMobileSceneStrip` 21.277), bóng 1 tầng ngắn hơn, cây/cao ốc đổi LOD sớm hơn.
@@ -630,6 +673,12 @@ Cập nhật lần cuối: **21/11/2026 — Claude Code (phát hành 1.87.0 = 21
 | --- | --- | --- |
 | Hộp nhà phố nhìn từ xa (LOD1_Hop), tường lấn đường / che kính ở xa | **21.292** | `Editor/PhoVietOpenWorldFarBoxBuilder.cs` (menu 16), lưới `OpenWorld/Library/HopXa/`, gốc `PhoVietOpenWorldBuilder.BuildingLOD`; chụp `AgentScripts/CaptureFarBox21292.cs`; sau khi sửa chạy menu 12 |
 | Cờ đỏ sao vàng bay gió trên cột đèn | **21.298** | `Editor/PhoVietOpenWorldFlagBuilder.cs` (menu 19), `OpenWorld/Shaders/OpenWorldFlagWind.shader`, `OpenWorld/Library/CoVN/` (ảnh, lưới, vật liệu); chụp `AgentScripts/CaptureFlag21298.cs`; nguồn cờ cũ `build_ref3_segment.py` `banner()` |
+| Lấp hàng nhà phố thiếu (khu cao tầng) | **21.306** | `Editor/PhoVietOpenWorldBlockFill.cs` (menu 21, hậu tố `_Lap21306`); bản đồ ô dò chỗ hở `AgentScripts/OccMap21306.cs` |
+| Bán đảo + biển bao quanh (ranh giới bản đồ) | **21.302** | `Editor/PhoVietOpenWorldPeninsulaBuilder.cs` (menu 20, gốc `BanDao`; nướng lại probe sông: `AgentScripts/RebakeProbes21302.cs`), lưới cắt `OpenWorld/Library/BanDao/`, shader `Scripts/OpenWorld/OpenWorldRiver.shader` (`_SeaMode`, `_SeaDeep/_SeaMid`); tàu trong ranh giới `OpenWorldBoats.Centerlines`; tàu bắn `OpenWorldHazards.Boats.cs` |
+| CSGT tăng viện mỗi 300 m (luân phiên chiều) | **21.301** | `Scripts/OpenWorld/OpenWorldGame.Squad.cs`, `OpenWorldPolice.cs` (`deploy`, `Deploy`, `All`, `PlaceOnRoad(preferAhead)`) |
+| Tên lửa tự hồi 12 s (bỏ ô nạp) · 5 tàu sát bờ | **21.301** | `OpenWorldHazards.Weapons.cs` (`pickupsEnabled`, `missileRegenSeconds`), `OpenWorldBoats.cs` (`ShoreOffset`, `AddMover`, `Trim`) |
+| Lazer (nút, năng lượng, tia, phá xe/xe tăng/khủng long) | **21.300** | `Scripts/OpenWorld/OpenWorldLaser.cs`, `OpenWorldHazards.Laser.cs`, `OpenWorldTraffic.cs` (`LaserKill`, `LaserExploded`, `VehicleIndexOf`), `OpenWorldDriver.cs` (`LaserRect`, `LaserHeld`), `OpenWorldGame.cs` (`LaserButton`, `EnergyRow`), shader `OpenWorld/Shaders/OpenWorldLaser.shader`, `Resources/Laser/`; ảnh Blender `ArtSource/Blender/OpenWorld/ow_laser_fx.py`; nút `ArtSource/UI/build_laser_button.py` |
+| Lưới điện CSGT (21.300: ≤ 6 m, giữ tới khi bị bắt) | **21.299** | `Scripts/OpenWorld/OpenWorldPoliceNet.cs`, `OpenWorldPolice.cs` (`TryFire` trong Chasing, thẻ «LƯỚI ĐIỆN CSGT»), `OpenWorldDriver.cs` (`Net`, `Netted`), `OpenWorld/Shaders/OpenWorldElectric.shader`, `Resources/PoliceNet/`; chụp `AgentScripts/CaptureNet21299.cs` |
 | Thanh thông tin trên cùng (HUD) mẫu A | **21.297** | `Scripts/OpenWorld/OpenWorldGame.cs` (`Hud`, `EnsureHudIcons`, `BigMetres`, `RoundBtn`, hằng `HudHeight`…), `OpenWorldToast.cs` (`NextY`) |
 | Nhà phố xa trên điện thoại/web hiện như Play Editor (ngưỡng LOD nhóm nhà phố theo lodBias 2) | **21.296** | `Scripts/OpenWorld/OpenWorldGame.Graphics.cs` (`MatchHouseLods`, `IsHouseLod`, `EditorLodBias`, `HouseLodReport`); mức chất lượng `ProjectSettings/QualitySettings.asset` (Editor Ultra 2, WebGL High 1) |
 | Hộp nhà phố ở xa có ảnh mặt tiền thật (dọc phố, bên kia sông) | **21.294** | `Editor/PhoVietOpenWorldFarFacadeBuilder.cs` (menu 18, chạy sau menu 16), shader chụp `Editor/Shaders/FarFacadeCapture.shader`, shader chơi `OpenWorld/Shaders/OpenWorldFarFacade.shader`, atlas/lưới/vật liệu `OpenWorld/Library/HopXa/MatTien/`; chụp `AgentScripts/CaptureFacade21294.cs` |

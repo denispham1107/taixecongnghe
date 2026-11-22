@@ -26,6 +26,12 @@ namespace PhoViet.OpenWorld
         public Material beaconOff, beaconRed, beaconBlue;
         [Header("Lái")]
         public float startDelay = 3f, startBehind = 38f;
+        // 21.307 (người dùng): CSGT lạc xa người chơi quá teleportFar (70 m) → dịch chuyển tức thời tới chỗ trên đường gần người chơi
+        // nhất nhưng cách tối thiểu teleportMin (20 m); dùng liên tục, không hồi chiêu; có thẻ thông báo cho người chơi.
+        public float teleportFar = 70f, teleportMin = 20f;
+        public int Teleports { get; private set; }
+        public static float LastTeleportAt = -99f; public static float LastTeleportDist; public static bool LastTeleportAhead; public static int TeleportsAll;
+        float nextTeleportTry;
         public float baseSpeed = 25f, maxBoost = 11f, boostRate = 0.2f;
         public float accel = 8.5f, brakeDecel = 13f, steerDegPerSec = 115f;
         public float halfLength = 1.87f, halfWidth = 0.78f;
@@ -76,16 +82,46 @@ namespace PhoViet.OpenWorld
             jailWide = Resources.Load<Texture2D>("Jail/JailWide");
             jailTall = Resources.Load<Texture2D>("Jail/JailTall");
             BuildSiren();
+            net = GetComponent<OpenWorldPoliceNet>(); if (!net) net = gameObject.AddComponent<OpenWorldPoliceNet>();   // 21.299: lưới điện (bản sao 21.301 đã có sẵn)
         }
+
+        OpenWorldPoliceNet net;
+        public OpenWorldPoliceNet Net => net;
+
+        // 21.301 — xe CSGT tăng viện (OpenWorldGame.Squad): mỗi 300 m thêm 1 xe, luân phiên «cùng chiều đuổi lên từ phía sau» (0) và
+        // «ngược chiều chạy xuống từ phía trước» (1). Xe gốc giữ mọi vai trò cũ (Runs, chơi lại); xe tăng viện không vẽ HUD riêng.
+        [System.NonSerialized] public int deploy = -1;
+        public bool Reinforcement => deploy >= 0;
+        public static readonly List<OpenWorldPolice> All = new List<OpenWorldPolice>();
+        void OnEnable() { if (!All.Contains(this)) All.Add(this); }
+        void OnDisable() { All.Remove(this); }
 
         void Start()
         {
+            if (net) net.player = player;
             if (player) { playerRb = player.GetComponent<Rigidbody>(); playerStartPos = player.transform.position; playerStartRot = player.transform.rotation; }
             if (traffic) traffic.blockers.Add(rb);
-            ResetChase(false);
+            if (Reinforcement) Deploy(deploy == 1); else ResetChase(false);
         }
 
-        void OnDestroy() { if (traffic) traffic.blockers.Remove(rb); }
+        /// <summary>21.301: đặt xe tăng viện lên đường — ahead: phía trước ~95 m, đầu xe quay về phía người chơi (chạy ngược chiều xuống);
+        /// không: phía sau ~75 m cùng chiều (đuổi lên). Vào thẳng trạng thái đuổi, bật còi.</summary>
+        public void Deploy(bool ahead)
+        {
+            if (!player) return;
+            var f = player.transform.forward; f.y = 0; f.Normalize();
+            // 21.307: xuất hiện trong 68 m (ngoài 70 m sẽ dịch chuyển tức thời ngay)
+            float lim = teleportFar - 2f;
+            bool ok = ahead ? PlaceOnRoad(player.transform.position, f, 58f, false, true, teleportMin, lim) || PlaceOnRoad(player.transform.position, f, 45f, false, true, teleportMin, lim)
+                            : PlaceOnRoad(player.transform.position, f, 52f, true, false, teleportMin, lim) || PlaceOnRoad(player.transform.position, f, 52f, false, false, teleportMin, lim);
+            if (!ok) Teleport(player.transform.position + f * (ahead ? 58f : -52f) + Vector3.up * 0.3f, Quaternion.LookRotation(ahead ? -f : f));
+            Mode = State.Chasing; ChaseTime = 0f; arrestTimer = 0f; stuckTime = 0f; stuckCount = 0; Speed = baseSpeed * 0.5f;
+            if (rb) rb.linearVelocity = transform.forward * Speed;
+            if (siren && !siren.isPlaying) siren.Play();
+            Note(ahead ? "tăng viện ngược chiều" : "tăng viện cùng chiều");
+        }
+
+        void OnDestroy() { if (traffic) traffic.blockers.Remove(rb); All.Remove(this); }
 
         bool EnsureGraph()
         {
@@ -107,6 +143,7 @@ namespace PhoViet.OpenWorld
             if (player) player.frozen = false;
             Mode = State.Waiting; waitUntil = Time.time + startDelay; ChaseTime = 0; Speed = 0;
             arrestTimer = 0; arrestedAt = -99f; stuckTime = 0; stuckCount = 0;
+            if (net) net.ResetNet();
             if (siren) siren.Stop();
             if (player)
             {
@@ -123,7 +160,7 @@ namespace PhoViet.OpenWorld
         }
 
         // Đặt xe trên làn phải của một đoạn đường cách người chơi ~`behind` m, ưu tiên phía sau; hidden = ngoài khung hình.
-        bool PlaceOnRoad(Vector3 pp, Vector3 pfwd, float behind, bool hidden)
+        bool PlaceOnRoad(Vector3 pp, Vector3 pfwd, float behind, bool hidden, bool preferAhead = false, float minR = 0f, float maxR = float.MaxValue)
         {
             if (!EnsureGraph()) return false;
             var cam = Camera.main;
@@ -138,7 +175,7 @@ namespace PhoViet.OpenWorld
                 {
                     var c = a + d * t;
                     float r = Vector3.Distance(new Vector3(c.x, 0, c.z), new Vector3(pp.x, 0, pp.z));
-                    if (r < behind - 15f || r > behind + 25f) continue;
+                    if (r < Mathf.Max(behind - 15f, minR) || r > Mathf.Min(behind + 25f, maxR)) continue;
                     var to = (pp - c); to.y = 0;
                     var dir = Vector3.Dot(d, to) >= 0 ? d : -d;                    // hướng về phía người chơi
                     var right = new Vector3(dir.z, 0, -dir.x);
@@ -149,7 +186,8 @@ namespace PhoViet.OpenWorld
                         if (vp.z > 0 && vp.x > -0.1f && vp.x < 1.1f && vp.y > -0.1f && vp.y < 1.1f) continue;
                     }
                     if (Occupied(q + Vector3.up * 1.0f, new Vector3(halfWidth + 0.4f, 0.7f, halfLength + 1.5f), Quaternion.LookRotation(dir))) continue;
-                    float score = Mathf.Abs(r - behind) + (1f + Vector3.Dot(pfwd, (q - pp).normalized)) * 25f;   // phía sau được ưu tiên
+                    float side = Vector3.Dot(pfwd, (q - pp).normalized);
+                    float score = Mathf.Abs(r - behind) + (preferAhead ? 1f - side : 1f + side) * 25f;   // phía sau (hoặc trước, 21.301) được ưu tiên
                     if (score < best) { best = score; bestP = q; bestD = dir; }
                 }
             }
@@ -349,6 +387,14 @@ namespace PhoViet.OpenWorld
                     break;
             }
 
+            // 21.307: lạc quá xa → dịch chuyển tức thời tới gần người chơi (≥ 20 m), không hồi chiêu
+            if ((Mode == State.Chasing || Mode == State.Reversing || Mode == State.Stunned) && Distance > teleportFar && now >= nextTeleportTry
+                && !player.Crashed && !player.frozen && !player.Sinking)
+            {
+                if (TeleportNear(pSpeed)) return;
+                nextTeleportTry = now + 0.25f;                       // chưa có chỗ trống trên đường: thử lại sau 0,25 s
+            }
+
             if (Mode == State.Chasing)
             {
                 ChaseTime += dt;
@@ -421,6 +467,9 @@ namespace PhoViet.OpenWorld
                 }
                 if (Distance > 320f) { Replace(); return; }
 
+                // 21.299/21.300: trong tầm 6 m → bắn lưới điện trùm xe người chơi (đứng yên tới khi bị bắt)
+                if (net) net.TryFire(Distance);
+
                 // bắt
                 if (playerStill && Distance < arrestDistance && Mathf.Abs(Speed) < 3.5f)
                 {
@@ -442,6 +491,23 @@ namespace PhoViet.OpenWorld
             rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, steer, 0f));
             var vel = rb.linearVelocity; var tv = fwd * Speed; tv.y = vel.y;
             rb.linearVelocity = Vector3.Lerp(vel, tv, 0.35f);
+        }
+
+        bool TeleportNear(float pSpeed)
+        {
+            var pp = player.transform.position; var f = player.transform.forward; f.y = 0; f.Normalize();
+            float before = Distance;
+            if (!PlaceOnRoad(pp, f, teleportMin, false, false, teleportMin, teleportMin + 25f) &&
+                !PlaceOnRoad(pp, f, teleportMin + 15f, false, false, teleportMin, teleportFar - 5f)) return false;
+            var np = rb.position;
+            Distance = Vector3.Distance(new Vector3(np.x, 0, np.z), new Vector3(pp.x, 0, pp.z));
+            Mode = State.Chasing; stuckTime = 0f; stuckCount = 0; path.Clear(); nextPlan = 0f; arrestTimer = 0f;
+            Speed = Mathf.Clamp(pSpeed * 0.9f, 8f, baseSpeed); rb.linearVelocity = transform.forward * Speed;
+            if (siren && !siren.isPlaying) siren.Play();
+            Teleports++; TeleportsAll++; LastTeleportAt = Time.time; LastTeleportDist = Distance;
+            LastTeleportAhead = Vector3.Dot(f, np - pp) > 0f;
+            Note($"dịch chuyển tức thời {before:F0} m → {Distance:F0} m");
+            return true;
         }
 
         void Replace()
@@ -501,9 +567,10 @@ namespace PhoViet.OpenWorld
 
         // ------------------------------------------------------------ HUD
         GUIStyle big, small, btn;
-        State toastMode = (State)(-1); float toastAt, closeAt; bool wasClose;
+        State toastMode = (State)(-1); float toastAt, closeAt, netAt; bool wasClose, wasNetted;
         void OnGUI()
         {
+            if (Reinforcement) return;                       // 21.301: xe tăng viện không vẽ thẻ/chip riêng (xe gốc + thanh thông tin lo)
             if (big == null)
             {
                 big = new GUIStyle(GUI.skin.label) { fontStyle = FontStyle.Bold, alignment = TextAnchor.MiddleCenter, wordWrap = true };
@@ -532,6 +599,9 @@ namespace PhoViet.OpenWorld
             if (Mode != toastMode) { toastMode = Mode; toastAt = Time.time; }
             bool close = Mode == State.Chasing && Distance < 15f;
             if (close != wasClose) { wasClose = close; closeAt = Time.time; }
+            bool netted = player && player.Netted && Mode != State.Arrested;
+            if (netted) close = false;
+            if (netted != wasNetted) { wasNetted = netted; netAt = Time.time; }
             if (Mode == State.Arrested)
             {
                 OpenWorldToast.Show("CSGT", "Bị CSGT bắt!", "Xe đã bị chặn lại", OpenWorldToast.Kind.Danger, Time.time - toastAt, -1f, accentOverride: siren, center: true);
@@ -546,6 +616,17 @@ namespace PhoViet.OpenWorld
 
             var col = Distance < 15f ? siren : Color.white;
             if (showDistance) Shadowed(new Rect(W - 420, 16, 400, fs * 1.6f), "CSGT  " + Mathf.RoundToInt(Distance) + " m", small, col);
+            if (netted)
+            {
+                // 21.300: dính lưới là đứng yên tới khi bị CSGT bắt
+                OpenWorldToast.Show("LƯỚI ĐIỆN CSGT", "Xe dính lưới điện!", "Không chạy được nữa · CSGT đang tới bắt", OpenWorldToast.Kind.Danger,
+                                    Time.time - netAt, -1f, accentOverride: siren);
+            }
+            // 21.307: thẻ báo CSGT dịch chuyển tức thời (xe gốc vẽ cho mọi xe CSGT)
+            float tAge = Time.time - LastTeleportAt;
+            if (tAge >= 0f && tAge < 2.4f && !netted)
+                OpenWorldToast.Show("CSGT DỊCH CHUYỂN", "CSGT dịch chuyển tức thời!", (LastTeleportAhead ? "Xuất hiện phía trước" : "Xuất hiện phía sau") + " · cách " + Mathf.RoundToInt(LastTeleportDist) + " m",
+                                    OpenWorldToast.Kind.Danger, tAge, 2.4f - tAge, accentOverride: siren);
             if (close)
                 OpenWorldToast.Show("CSGT ÁP SÁT", "Còn " + Mathf.RoundToInt(Distance) + " m", "Tăng tốc hoặc rẽ để cắt đuôi", OpenWorldToast.Kind.Danger,
                                     Time.time - closeAt, -1f, accentOverride: siren);
@@ -562,7 +643,7 @@ namespace PhoViet.OpenWorld
                     float ang = Mathf.Atan2(rel.x, rel.z);                // 0 = trước, ±π = sau
                     float x = W / 2 + Mathf.Sin(ang) * W * 0.42f;
                     float sc = OpenWorldToast.Scale;
-                    float y = rel.z < 0 ? H - OpenWorldGame.SafeBottomPx - 46f * sc : OpenWorldGame.SafeTopPx + 150f * sc;
+                    float y = rel.z < 0 ? H - OpenWorldGame.SafeBottomPx - 46f * sc : OpenWorldGame.SafeTopPx + 178f * sc;
                     OpenWorldToast.Chip(x, y, (rel.z < 0 ? "CSGT phía sau  " : "CSGT phía trước  ")   /* 21.295: font web không có ▼/▲ */ + Mathf.RoundToInt(Distance) + " m", siren);
                 }
             }
@@ -579,6 +660,6 @@ namespace PhoViet.OpenWorld
         // ------------------------------------------------------------ kiểm thử
         public readonly List<string> Log = new List<string>();
         void Note(string m) { Log.Add($"{ChaseTime:F1}s {m} @({transform.position.x:F0},{transform.position.z:F0}) d={Distance:F0}"); if (Log.Count > 60) Log.RemoveAt(0); }
-        public string Report() => $"mode={Mode} dist={Distance:F1} speed={Speed:F1} direct={DirectChase} chase={ChaseTime:F1}s stuns={Stuns} reverses={Reverses} respawns={Respawns} arrests={Arrests}";
+        public string Report() => $"teleports={Teleports} mode={Mode} dist={Distance:F1} speed={Speed:F1} direct={DirectChase} chase={ChaseTime:F1}s stuns={Stuns} reverses={Reverses} respawns={Respawns} arrests={Arrests}";
     }
 }

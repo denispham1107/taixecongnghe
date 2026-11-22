@@ -28,7 +28,7 @@ namespace PhoViet.OpenWorld
         // 21.295 (người dùng: xe máy + người lái to vô lý so với xe người chơi): mẫu PV_UrbanRider gốc cao 2,15 m, dài 2,27 m, rộng 1,1 m
         // → thu 0,75 (cao 1,61 m) — người dùng vẫn thấy to → 0,64: cao ~1,38 m, dài ~1,45 m, rộng ~0,7 m = cỡ xe tay ga + người ngồi
         // ngoài đời nhân cùng tỉ lệ ~0,84 của xe người chơi (dài 3,8 m so với xe thể thao thật ~4,5 m). Đèn, va chạm, khói, độ nâng khi ngã theo tỉ lệ.
-        [Range(0.5f, 1f)] public float bikeScale = 0.64f;
+        [Range(0.5f, 1f)] public float bikeScale = 0.704f;   // 21.299: +10 % (0,64 → 0,704, người dùng: xe máy hơi bé)
         public Material[] bikeMaterials;
         public Transform player;
         public int carCount = 34, bikeCount = 26;
@@ -488,7 +488,7 @@ namespace PhoViet.OpenWorld
             public Renderer[] brakeLights; public bool braking; public float prevSpeed;
             public float hitUntil, recoverAt, filterUntil, honkBlocked, nextHonk; public string hitClip;
             // 21.259: bị xe người chơi húc → văng, bốc khói, 1 s sau nổ (xe máy biến mất, ô tô thành xác cháy).
-            public Color paint = Color.white; public bool wreck, exploded, landed; public Vector3 wreckVel, wreckSpin; public float explodeAt;
+            public Color paint = Color.white; public bool wreck, exploded, landed, laserKill; public Vector3 wreckVel, wreckSpin; public float explodeAt;
             public ParticleSystem smoke; public OpenWorldCarDent dent; public float wreckAt;
             // 21.260: khối lượng; choáng rồi về làn chạy tiếp (không nổ); xe ẩu (vượt đèn đỏ, không giữ khoảng cách).
             public float mass = 1.4f; public bool fatal, recovering, reckless;
@@ -611,7 +611,7 @@ namespace PhoViet.OpenWorld
             }
             var anim = vis.GetComponent<Animation>();
             if (anim) { anim.cullingType = AnimationCullingType.BasedOnRenderers; anim.playAutomatically = false; }
-            float halfL = Mathf.Max(bike ? 0.88f : 2.0f, (bike ? b.size.z - 0.1f : b.size.z) / 2), halfW = bike ? 0.4f : Mathf.Max(0.9f, b.size.x / 2 - 0.08f);
+            float halfL = Mathf.Max(bike ? 0.88f : 2.0f, (bike ? b.size.z - 0.1f : b.size.z) / 2), halfW = bike ? 0.4f * bikeScale / 0.64f : Mathf.Max(0.9f, b.size.x / 2 - 0.08f);
             var bc = root.AddComponent<BoxCollider>();
             bc.center = new Vector3(0, b.size.y / 2, 0); bc.size = new Vector3(halfW * 2, Mathf.Max(1f, b.size.y - 0.1f), halfL * 2);
             var rb = root.AddComponent<Rigidbody>(); rb.isKinematic = true; rb.interpolation = RigidbodyInterpolation.Interpolate;
@@ -713,6 +713,25 @@ namespace PhoViet.OpenWorld
         }
         public System.Action<Vector3, Vector3, float> ImpactFx;   // điểm chạm, pháp tuyến, vận tốc khép → mảnh vỡ
         public System.Action<Vector3, bool> WreckExploded;        // vị trí nổ, là xe máy
+        // 21.300: tia LAZER của xe người chơi — xe trúng bốc cháy 0,45 s rồi nổ tung thành mảnh (OpenWorldHazards.Laser vẽ vụ nổ,
+        // không tính sát thương cho xe người chơi), xe biến mất (thu về hồ xe, sinh lại chỗ khác như thường).
+        public System.Action<Vector3, Color, bool> LaserExploded; // vị trí, màu sơn, là xe máy
+        public int LaserKills { get; private set; }
+        public int VehicleIndexOf(Rigidbody rb)
+        {
+            if (!rb) return -1;
+            for (int i = 0; i < pool.Count; i++) if (pool[i].active && pool[i].rb == rb) return i;
+            return -1;
+        }
+        public bool LaserKill(int index, Vector3 point, Vector3 dir)
+        {
+            if (index < 0 || index >= pool.Count) return false;
+            var v = pool[index]; if (!v.active || v.exploded || v.laserKill) return false;
+            var o = new CrashOutcome { explode = true, fling = 0.25f, stun = 0f };
+            StartWreck(v, point, -dir, point - dir * 2f, dir * 4f, 6f, o, Vector3.zero, false);
+            v.laserKill = true; v.explodeAt = Time.time + 0.45f; Smoke(v, true); LaserKills++;
+            return true;
+        }
         public int Wrecks { get; private set; }
         public int Explosions { get; private set; }
         public int Recovered { get; private set; }
@@ -869,6 +888,7 @@ namespace PhoViet.OpenWorld
                 if (!v.exploded && Time.time >= v.explodeAt)
                 {
                     v.exploded = true; Explosions++;
+                    if (v.laserKill) { LaserExploded?.Invoke(v.pos + Vector3.up * 0.6f, v.bike ? new Color(.2f, .22f, .26f) : v.paint, v.bike); Despawn(v); return; }
                     WreckExploded?.Invoke(v.pos + Vector3.up * 0.6f, v.bike);
                     if (v.bike) { Despawn(v); return; }
                     // xác cháy: sẫm màu + lửa/khói đen
@@ -1197,7 +1217,7 @@ namespace PhoViet.OpenWorld
                 v.lane = L; v.s = s; v.inConn = false; v.committed = false; v.claimed = false; v.waiting = false; v.exitBlocked = false; v.conn = null;
                 v.next = PickNext(L, v); v.speed = v.vmax * 0.7f; v.prevSpeed = v.speed; v.stopTime = 0; v.ghostUntil = 0; v.shift = 0; v.blockedTime = 0;
                 v.hitUntil = 0; v.recoverAt = 0; v.filterUntil = 0; v.honkBlocked = 0; v.claimNode = null;
-                ClearWreck(v);
+                ClearWreck(v); v.laserKill = false;
                 v.baseLateral = v.bike ? ((float)rnd.NextDouble() * 2f - 1f) * 0.7f : 0f; v.lateral = v.baseLateral;
                 v.pos = p + L.right * v.lateral; v.fwd = L.dir; v.rot = Quaternion.LookRotation(L.dir);
                 v.root.SetPositionAndRotation(v.pos, v.rot); v.rb.position = v.pos; v.rb.rotation = v.rot;

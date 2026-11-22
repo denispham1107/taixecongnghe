@@ -24,6 +24,8 @@ namespace PhoViet.OpenWorld
             k == Kind.Good ? "TUYỆT VỜI" : k == Kind.Warn ? "CẢNH BÁO" : k == Kind.Danger ? "NGUY HIỂM" : "THÔNG TIN";
 
         static readonly Color Card = new Color(.05f, .11f, .15f, .9f), Detail = new Color(.78f, .87f, .89f);
+        /// <summary>21.310: cỡ thẻ thông báo so với thiết kế 21.291 (người dùng muốn nhỏ lại, đỡ che màn hình).</summary>
+        public const float CardScale = 0.75f;
         static GUIStyle titleSt, detailSt, capSt, badgeSt;
 
         // Thang đo giống OpenWorldGame.OnGUI.
@@ -49,9 +51,9 @@ namespace PhoViet.OpenWorld
                 float top = OpenWorldGame.SafeTopPx / sc;
                 // ngay dưới thanh HUD (+ hàng tên lửa khi cầm dọc); 21.297 thanh cao 86 + hàng tên lửa 40
                 stackY = top + (portrait ? OpenWorldGame.HudTopPortrait + OpenWorldGame.HudHeight + 6f + OpenWorldGame.HudMissileRow + 14f
-                                         : OpenWorldGame.HudTopLandscape + OpenWorldGame.HudHeight + 14f);
+                                         : OpenWorldGame.HudTopLandscape + OpenWorldGame.HudHeight * OpenWorldGame.HudScaleLandscape + 14f);
             }
-            float y = stackY; stackY += h + 10f; return y;
+            float y = stackY; stackY += h + 10f * CardScale; return y;
         }
 
         static void Init()
@@ -84,7 +86,8 @@ namespace PhoViet.OpenWorld
             float sc = Scale, uiW = Screen.width / sc, uiH = Screen.height / sc;
             var keep = GUI.matrix; GUI.matrix = Matrix4x4.Scale(Vector3.one * sc);
 
-            float big = center ? 1.18f : 1f;
+            // 21.310 (người dùng: thẻ che màn hình nhiều quá) — mọi kích thước thẻ × CardScale (khung, chữ, biểu tượng, lề)
+            float big = (center ? 1.18f : 1f) * CardScale;
             int capSize = Mathf.RoundToInt(12 * big), titleSize = Mathf.RoundToInt(22 * big), detailSize = Mathf.RoundToInt(14 * big);
             caption = string.IsNullOrEmpty(caption) ? DefaultCaption(kind) : caption;
             float iconD = 44 * big, padL = 14 * big, gap = 14 * big, padR = 22 * big;
@@ -96,7 +99,7 @@ namespace PhoViet.OpenWorld
             float aIn = Mathf.Clamp01(age / .2f), aOut = remaining < 0 ? 1f : Mathf.Clamp01(remaining / .25f), alpha = aIn * aOut;
             float ease = 1f - (1f - aIn) * (1f - aIn);
             float y = center ? uiH * .36f - h / 2 : NextY(h);
-            var r = new Rect((uiW - w) / 2, y - (1f - ease) * 14f, w, h);
+            var r = new Rect((uiW - w) / 2, y - (1f - ease) * 14f * CardScale, w, h);
             var acc = accentOverride ?? Accent(kind);
 
             Fill(new Rect(r.x - 2, r.y + 5, r.width + 4, r.height + 2), A(new Color(0, 0, 0, .28f), alpha), 20 * big);   // bóng đổ

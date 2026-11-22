@@ -76,12 +76,14 @@ namespace PhoViet.OpenWorld
         // nhánh dọc, cầu B2 x −162…−137 trên nhánh ngang). Đầu mút cách cầu đủ cho vòng quay đầu 46 m + nửa thân tàu.
         public static List<List<Vector2>> Centerlines()
         {
-            var s1 = Line(new Vector2(317.25f, -900f), new Vector2(317.25f, 140f));
+            // 21.302: bán đảo — ranh giới x, z ∈ [−600, 700] (PhoVietOpenWorldPeninsulaBuilder): tàu chạy trong ranh giới, đầu mút
+            // cách mép 85 m (đủ vòng quay đầu bán kính 66 m của hàng sát bờ) thay vì −900 ngoài bản đồ.
+            var s1 = Line(new Vector2(317.25f, -515f), new Vector2(317.25f, 140f));
             var s2 = new List<Vector2>();
             Vector2 C = new Vector2(234.5f, 231.5f); const float R = 82.75f;
             for (int k = 0; k <= 30; k++) { float a = Mathf.Deg2Rad * Mathf.Lerp(35f, 90f, k / 30f); s2.Add(C + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * R); }
             Line(new Vector2(234.5f, 314.25f), new Vector2(-75f, 314.25f), s2);
-            var s3 = Line(new Vector2(-221f, 314.25f), new Vector2(-900f, 314.25f));
+            var s3 = Line(new Vector2(-221f, 314.25f), new Vector2(-515f, 314.25f));
             return new List<List<Vector2>> { s1, s2, s3 };
         }
 
@@ -93,6 +95,7 @@ namespace PhoViet.OpenWorld
             public Renderer wakeRenderer; public float baseSpeed;
             // 21.284: bị tên lửa người chơi bắn → cháy (dừng dần), nổ, chìm rồi ẩn; sau respawnAfter giây xuất hiện lại
             public int state; public float stateAt, sink; public GameObject fx;          // 0 chạy, 1 cháy, 2 chìm, 3 ẩn
+            public bool sea;                                                             // 21.303: tàu chiến trên biển (bờ biển)
         }
         readonly List<Boat> boats = new List<Boat>();
         public int MovingCount { get; private set; }
@@ -129,7 +132,7 @@ namespace PhoViet.OpenWorld
                 b.speed = 0f; b.sink = Mathf.Clamp01((Time.time - b.stateAt) / sinkSeconds);
                 if (b.sink >= 1f) { b.state = 3; b.stateAt = Time.time; b.tr.gameObject.SetActive(false); if (b.fx) Destroy(b.fx); b.fx = null; }
             }
-            else if (b.state == 3 && Time.time - b.stateAt > respawnAfter)
+            else if (b.state == 3 && !b.sea && Time.time - b.stateAt > respawnAfter)   // 21.303: tàu biển do OpenWorldHazards gọi lại
             {
                 b.state = 0; b.sink = 0f; b.speed = b.baseSpeed; b.tr.gameObject.SetActive(true);
                 if (!b.moored) b.s += b.loop.Length * 0.5f;                      // hiện lại ở phía bên kia vòng chạy
@@ -161,17 +164,19 @@ namespace PhoViet.OpenWorld
                 int n = mobile ? Mathf.Max(1, (e.n + 1) / 2) : e.n;
                 var loop = MakeLoop(lines[e.seg], e.off);
                 float start = (float)rnd.NextDouble() * loop.Length;
-                for (int k = 0; k < n; k++)
-                {
-                    var b = Spawn(tints[ti++ % tints.Length]);
-                    b.loop = loop; b.speed = e.v; b.s = start + loop.Length * k / n; b.phase = (float)rnd.NextDouble() * 10f;
-                    b.wake = new Mesh { name = "OW_BoatWake" }; b.wake.MarkDynamic();
-                    var w = new GameObject("VetSong"); w.transform.SetParent(transform, false);
-                    w.AddComponent<MeshFilter>().sharedMesh = b.wake;
-                    var mr = w.AddComponent<MeshRenderer>(); mr.sharedMaterial = wakeMaterial; b.wakeRenderer = mr; b.baseSpeed = e.v;
-                    mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off; mr.receiveShadows = false;
-                    boats.Add(b); MovingCount++;
-                }
+                for (int k = 0; k < n; k++) AddMover(loop, start + loop.Length * k / n, e.v, tints[ti++ % tints.Length], rnd);
+            }
+            // 21.301 (người dùng): thêm 5 tàu xuất hiện CÙNG LÚC ở vị trí ngẫu nhiên, chạy qua lại SÁT BỜ (vòng lệch 66 m khỏi tim
+            // sông — kè ở ~83 m nên cách kè ~17 m, ngoài hàng tàu neo cách kè 9 m). Đầu mút tim sông cắt bớt 24 m để vòng quay đầu
+            // bán kính 66 m không chạm cầu. Điện thoại cũng đủ 5 tàu. Tàu này như mọi tàu khác: có thể bắn người chơi ở lề sông,
+            // bị tên lửa hạ thì cháy/chìm rồi hiện lại.
+            var shore = new (int seg, int n)[] { (0, 2), (1, 2), (2, 1) };
+            foreach (var e in shore)
+            {
+                var loop = MakeLoop(Trim(lines[e.seg], 24f), ShoreOffset);
+                for (int k = 0; k < e.n; k++)
+                    AddMover(loop, (float)rnd.NextDouble() * loop.Length, 4.2f + (float)rnd.NextDouble() * 1.8f, tints[ti++ % tints.Length], rnd);
+                ShoreCount += e.n;
             }
             // tàu neo sát kè (song song bờ, cách kè 9 m): (x, z, hướng mũi độ)
             var moor = new (float x, float z, float yaw)[]
@@ -188,6 +193,82 @@ namespace PhoViet.OpenWorld
                 boats.Add(b); MooredCount++;
             }
             Tick(0f);
+        }
+
+        // ---------------------------------------------------------------- 21.303: tàu trên biển quanh bán đảo
+        // Xe người chơi vào lề sát biển → OpenWorldHazards đặt đủ 5 tàu ngoài khơi gần xe. Tàu tuần quanh chỗ được đặt (vòng tròn
+        // bán kính seaPatrolRadius) — rời bờ biển tàu vẫn ở đó; bị bắn chìm thì nằm ẩn tới khi hazards đặt lại (không tự hiện lại).
+        [Header("Tàu biển (21.303)")] public float seaPatrolRadius = 16f, seaSpeed = 3f;
+        public bool IsSea(int i) => i >= 0 && i < boats.Count && boats[i].sea;
+        public int SeaAlive { get { int n = 0; foreach (var b in boats) if (b.sea && b.state == 0) n++; return n; } }
+        public int SeaCount { get { int n = 0; foreach (var b in boats) if (b.sea) n++; return n; } }
+        /// Tàu biển đang chìm hẳn (ẩn) / đang cháy-chìm không tính; true = tàu biển có thể đặt lại.
+        public bool SeaFree(int i) => IsSea(i) && boats[i].state == 3;
+        static Loop Circle(Vector2 c, float r, float phase)
+        {
+            var L = new Loop(); for (int k = 0; k < 48; k++) { float a = phase + Mathf.PI * 2f * k / 48f; L.Add(c + new Vector2(Mathf.Cos(a), -Mathf.Sin(a)) * r); }
+            L.Close(); return L;
+        }
+        /// Đặt một tàu biển tuần quanh center: dùng lại tàu biển đã chìm nếu có, không thì tạo mới. Trả về chỉ số tàu.
+        public int PlaceSeaBoat(Vector2 center)
+        {
+            if (!boatPrefab) return -1;
+            int idx = -1;
+            for (int i = 0; i < boats.Count; i++) if (SeaFree(i)) { idx = i; break; }
+            var loop = Circle(center, seaPatrolRadius, Random.Range(0f, Mathf.PI * 2f));
+            Boat b;
+            if (idx < 0)
+            {
+                var rnd = new System.Random(boats.Count * 7919 + 303);
+                AddMover(loop, 0f, seaSpeed, new Color(.88f, .9f, .94f), rnd);
+                idx = boats.Count - 1; b = boats[idx]; b.sea = true; b.tr.name = "TauBien";
+            }
+            else
+            {
+                b = boats[idx]; b.loop = loop; b.s = 0f; b.state = 0; b.sink = 0f; b.speed = b.baseSpeed; b.tr.gameObject.SetActive(true);
+                if (b.fx) Destroy(b.fx); b.fx = null;
+            }
+            b.pos = b.loop.Sample(b.s, out b.dir); Place(b, Time.timeSinceLevelLoad, 0f);
+            return idx;
+        }
+        /// Chơi lại: ẩn mọi tàu biển (hiện lại khi xe vào bờ biển).
+        public void ClearSea()
+        {
+            foreach (var b in boats)
+            {
+                if (!b.sea) continue;
+                b.state = 3; b.stateAt = Time.time; b.sink = 0f; b.tr.gameObject.SetActive(false);
+                if (b.fx) Destroy(b.fx); b.fx = null;
+                if (b.wakeRenderer) b.wakeRenderer.enabled = false;
+            }
+        }
+
+        public const float ShoreOffset = 66f;
+        public int ShoreCount { get; private set; }
+
+        void AddMover(Loop loop, float s, float speed, Color tint, System.Random rnd)
+        {
+            var b = Spawn(tint);
+            b.loop = loop; b.speed = speed; b.s = s; b.phase = (float)rnd.NextDouble() * 10f;
+            b.wake = new Mesh { name = "OW_BoatWake" }; b.wake.MarkDynamic();
+            var w = new GameObject("VetSong"); w.transform.SetParent(transform, false);
+            w.AddComponent<MeshFilter>().sharedMesh = b.wake;
+            var mr = w.AddComponent<MeshRenderer>(); mr.sharedMaterial = wakeMaterial; b.wakeRenderer = mr; b.baseSpeed = speed;
+            mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off; mr.receiveShadows = false;
+            boats.Add(b); MovingCount++;
+        }
+
+        // cắt bớt m mét ở hai đầu một đường tim (theo chiều dài cung)
+        static List<Vector2> Trim(List<Vector2> c, float m)
+        {
+            float total = 0; for (int i = 1; i < c.Count; i++) total += (c[i] - c[i - 1]).magnitude;
+            var o = new List<Vector2>(); float acc = 0;
+            for (int i = 0; i < c.Count; i++)
+            {
+                if (i > 0) acc += (c[i] - c[i - 1]).magnitude;
+                if (acc >= m && acc <= total - m) o.Add(c[i]);
+            }
+            return o.Count >= 2 ? o : c;
         }
 
         Boat Spawn(Color tint)

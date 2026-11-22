@@ -150,6 +150,7 @@ namespace PhoViet.OpenWorld
             if (!missileIcon) missileIcon = Resources.Load<Texture2D>("PlayerMissile/PV_MissileHud");
             if (player) { player.respawnAfterSink = false; player.showSpeed = false; }
             if (police) { police.drawJail = false; police.showDistance = false; }
+            if (player) { laser = player.GetComponent<OpenWorldLaser>(); if (!laser) laser = player.gameObject.AddComponent<OpenWorldLaser>(); }   // 21.300
             GoReady();
             InitGraphics();                                                 // 21.291: mức đồ họa đã lưu (sau thiết lập điện thoại ở Awake)
         }
@@ -158,6 +159,7 @@ namespace PhoViet.OpenWorld
         public void GoReady()
         {
             Resume();
+            ClearSquad();                                                   // 21.301
             if (police) { police.enabled = true; police.ResetChase(true); police.Halt(); police.enabled = false; }
             if (hazards) { hazards.ClearAll(); hazards.enabled = false; }
             if (player) player.frozen = true;
@@ -168,8 +170,10 @@ namespace PhoViet.OpenWorld
         {
             Resume();
             if (hazards) { hazards.ClearAll(); hazards.enabled = true; }   // số mét về 0 ngay khung hình này
+            ClearSquad();                                                   // 21.301: xóa xe CSGT tăng viện của lượt trước
             if (police) { police.enabled = true; police.ResetChase(true); }   // đưa xe về chỗ xuất phát, Runs++ → hiểm họa dọn sạch
             if (player) player.frozen = false;
+            if (laser) laser.ResetLaser();
             Mode = State.Riding; EndReason = null; EndDetail = null; NewBest = false; sinkAt = -1f; crashAt = -1f; Runs++; GraphicsOpen = false;
         }
 
@@ -188,6 +192,7 @@ namespace PhoViet.OpenWorld
             if (hazards) hazards.enabled = false;
             if (player) player.frozen = true;                               // ẩn nút NHẢY, khóa lái
             if (end == State.GameOver && police) { police.Halt(); police.enabled = false; }
+            if (end == State.GameOver) HaltSquad();
         }
 
         public void SetSound(bool on)
@@ -207,7 +212,8 @@ namespace PhoViet.OpenWorld
                 case State.Riding:
                     TickGovernor();
                     if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) { TogglePause(); break; }
-                    if (police && police.Jailed) { EndRun(State.Jailed, "CSGT đã đưa bạn vào phòng giam."); break; }
+                    TickSquad();
+                    if ((police && police.Jailed) || SquadJailed()) { EndRun(State.Jailed, "CSGT đã đưa bạn vào phòng giam."); break; }
                     if (player && player.Crashed)
                     {
                         if (crashAt < 0) crashAt = Time.time;
@@ -252,6 +258,7 @@ namespace PhoViet.OpenWorld
         }
 
         // ------------------------------------------------------------ IMGUI theo kiểu game cũ
+        OpenWorldLaser laser;                                              // 21.300
         GUIStyle label, button; bool portrait; float uiScale = 1, uiW, uiH;
         static readonly Color Glass = new Color(.07f, .19f, .21f, .64f), WelcomeWhite = new Color(.97f, .985f, 1, .93f), WelcomeGlass = new Color(.97f, .985f, 1, .82f);
         Texture2D star;
@@ -337,9 +344,12 @@ namespace PhoViet.OpenWorld
         // 21.297 — thanh thông tin mẫu A (người dùng chọn 21/11/2026): một dải kính tối bo tròn 20 (giữ độ trong suốt Glass cũ),
         // viền sáng mảnh, to hơn ~12 % (760 × 76 → 850 × 86). Mỗi mục có biểu tượng vàng vẽ bằng mã (ghim địa điểm, cúp kỷ lục,
         // đèn CSGT, tên lửa); quãng đường số to + đơn vị nhỏ + ô tốc độ; kho tên lửa thành 10 vạch bo góc; nút loa/tạm dừng tròn.
-        public const float HudHeight = 86f, HudTopLandscape = 18f, HudTopPortrait = 12f, HudMissileRow = 40f;
+        // 21.300: thêm hàng NĂNG LƯỢNG dưới tên lửa → cao 86 → 112 (cột khác canh giữa), hàng phụ máy dọc 40 → 66.
+        public const float HudHeight = 112f, HudTopLandscape = 18f, HudTopPortrait = 12f, HudMissileRow = 66f;
+        // 21.299: người dùng — thanh còn nhỏ, to thêm 10 % cả khung lẫn chữ → phóng cả thanh 1,1× quanh mép trên giữa (máy ngang).
+        public const float HudScaleLandscape = 1.1f;
         static readonly Color HudLine = new Color(.99f, .95f, .81f, .18f), HudBtn = new Color(1, .945f, .812f, .88f);
-        Texture2D pinTex, trophyTex, sirenTex, rocketTex;
+        Texture2D pinTex, trophyTex, sirenTex, rocketTex, boltTex;
 
         void HudLabel(Texture2D icon, string text, float x, float y, float w)
         {
@@ -365,60 +375,68 @@ namespace PhoViet.OpenWorld
             EnsureHudIcons();
             float bw = portrait ? uiW - 24 - SL - SR : 850, x = SL + (uiW - SL - SR - bw) / 2, y = (portrait ? HudTopPortrait : HudTopLandscape) + ST;
             float h = HudHeight;
+            var hudMatrix = GUI.matrix;
+            if (!portrait) GUIUtility.ScaleAroundPivot(Vector2.one * HudScaleLandscape, new Vector2(x + bw / 2, y) * uiScale);
             var bar = new Rect(x, y, bw, h);
             Panel(bar, Glass, 20);
             GUI.DrawTexture(bar, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, new Color(1, 1, 1, .2f), 1f, 20);
 
-            // quãng đường + tốc độ
-            float lx = x + 18;
-            HudLabel(pinTex, CurrentStreet.ToUpperInvariant(), lx, y + 14, (portrait ? bw * .4f : 210) - 20);
-            float after = BigMetres(Score, lx, y + 30, 32);
+            // quãng đường + tốc độ (21.300: cột canh giữa theo chiều cao mới — lệch oy so với bố cục 86)
+            float lx = x + 18, oy = portrait ? 0f : (h - 86f) * .5f;
+            HudLabel(pinTex, CurrentStreet.ToUpperInvariant(), lx, y + oy + 14, (portrait ? bw * .4f : 210) - 20);
+            float after = BigMetres(Score, lx, y + oy + 30, 32);
             float kmh = player ? Mathf.Abs(player.Speed) * 3.6f : 0f;
             string sp = Mathf.RoundToInt(kmh) + " km/h";
             label.fontSize = 11; float spw = label.CalcSize(new GUIContent(sp)).x + 16;
-            var pill = portrait ? new Rect(lx, y + h - 22, spw, 18) : new Rect(Mathf.Max(after + 10, lx + 92), y + 46, spw, 20);
+            var pill = portrait ? new Rect(lx, y + h - 22, spw, 18) : new Rect(Mathf.Max(after + 10, lx + 92), y + oy + 46, spw, 20);
             Panel(pill, new Color(.99f, .95f, .81f, .14f), pill.height * .5f);
             Txt(sp, pill.x, pill.y, pill.width, pill.height, 11, Cream, TextAnchor.MiddleCenter);
 
             // kỷ lục
             float c1 = x + (portrait ? bw * 0.42f : 250);
             Panel(new Rect(c1 - 17, y + 14, 1, h - 28), HudLine, 0);
-            HudLabel(trophyTex, "KỶ LỤC", c1, y + 14, 130);
-            Txt(Metres(Mathf.Max(Best, Score)), c1, y + 38, 140, 30, 22, Cream);
+            HudLabel(trophyTex, "KỶ LỤC", c1, y + oy + 14, 130);
+            Txt(Metres(Mathf.Max(Best, Score)), c1, y + oy + 38, 140, 30, 22, Cream);
 
             // CSGT
-            if (police && police.enabled && police.Mode != OpenWorldPolice.State.Waiting)
+            var nearPol = NearestPolice();                                  // 21.301: xe gần nhất (gốc hoặc tăng viện)
+            if (nearPol)
             {
                 float c2 = x + (portrait ? bw * 0.68f : 405);
                 bool flash = Mathf.FloorToInt(Time.unscaledTime * 4f) % 2 == 0;
-                var col = police.Distance < 15f ? (flash ? Hex("FF5A4D") : Hex("5FA8FF")) : Cream;
+                var col = nearPol.Distance < 15f ? (flash ? Hex("FF5A4D") : Hex("5FA8FF")) : Cream;
                 Panel(new Rect(c2 - 17, y + 14, 1, h - 28), HudLine, 0);
-                HudLabel(sirenTex, "CSGT", c2, y + 14, 100);
-                Txt(Mathf.RoundToInt(police.Distance) + " m", c2, y + 38, 110, 30, 22, col);
+                HudLabel(sirenTex, SquadCount > 0 ? "CSGT ×" + (SquadCount + 1) : "CSGT", c2, y + oy + 14, 100);
+                Txt(Mathf.RoundToInt(nearPol.Distance) + " m", c2, y + oy + 38, 110, 30, 22, col);
             }
 
             // kho tên lửa: 10 vạch bo góc (còn = vàng, đã bắn = mờ)
             if (hazards)
             {
-                float c3, ly, by;
+                float c3, ly, by, ey;
                 if (portrait)
                 {
                     var row = new Rect(x, y + h + 6, bw, HudMissileRow);
                     Panel(row, Glass, 16);
                     GUI.DrawTexture(row, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, new Color(1, 1, 1, .2f), 1f, 16);
-                    c3 = x + 16; ly = row.y + 12; by = row.y + 12;
+                    c3 = x + 16; ly = row.y + 10; by = row.y + 10; ey = row.y + 38;
                 }
                 else
                 {
-                    c3 = x + 535; ly = y + 14; by = y + 42;
+                    c3 = x + 535; ly = y + 12; by = y + 32; ey = y + 56;
                     Panel(new Rect(c3 - 17, y + 14, 1, h - 28), HudLine, 0);
                 }
                 HudLabel(rocketTex, "TÊN LỬA  " + hazards.PlayerMissiles + "/" + hazards.maxMissiles, c3, ly, 150);
                 float bx = portrait ? c3 + 160 : c3;
                 for (int i = 0; i < hazards.maxMissiles; i++)
-                    Panel(new Rect(bx + i * 14, by, 10, portrait ? 16 : 18), i < hazards.PlayerMissiles ? Gold : new Color(.99f, .95f, .81f, .2f), 3);
+                    Panel(new Rect(bx + i * 14, by, 10, portrait ? 16 : 15), i < hazards.PlayerMissiles ? Gold : new Color(.99f, .95f, .81f, .2f), 3);
+                if (hazards.PlayerMissiles < hazards.maxMissiles)
+                {   // 21.301: vạch kế tiếp đầy dần theo đồng hồ hồi 12 s
+                    float ph = (portrait ? 16 : 15) * hazards.MissileRegenProgress;
+                    Panel(new Rect(bx + hazards.PlayerMissiles * 14, by + (portrait ? 16 : 15) - ph, 10, ph), new Color(Gold.r, Gold.g, Gold.b, .65f), 2);
+                }
+                EnergyRow(c3, ey, portrait);
             }
-            FireButton();
             // 21.295: font web không có «Ⅱ»/«▶» → vẽ biểu tượng bằng hình; nút loa bên trái nút tạm dừng (tắt tiếng: gạch chéo đỏ).
             // 21.297: nút tròn 44.
             const float bs = 44;
@@ -431,6 +449,63 @@ namespace PhoViet.OpenWorld
                 if (RoundBtn(soundRect)) SetSound(!Sound);
                 DrawSpeakerIcon(soundRect, Sound, Ink);
             }
+            GUI.matrix = hudMatrix;
+            FireButton();
+            LaserButton();
+            SquadToast();
+        }
+
+        // 21.300: hàng «NĂNG LƯỢNG 100/100» (dưới tên lửa) — thanh xanh điện; đang bắn nhấp nháy; đang khóa hiện «HỒI n s» + vệt hồi.
+        static readonly Color EnergyCol = new Color(.27f, .86f, 1f), EnergyTrack = new Color(.99f, .95f, .81f, .16f);
+        void EnergyRow(float x0, float y0, bool row)
+        {
+            if (!laser) return;
+            int e = Mathf.RoundToInt(laser.Energy);
+            bool cool = laser.CooldownLeft > 0f;
+            string t = cool ? "NĂNG LƯỢNG  " + e + "/100 · HỒI " + Mathf.CeilToInt(laser.CooldownLeft) + " s" : "NĂNG LƯỢNG  " + e + "/100";
+            if (boltTex) DrawIcon(new Rect(x0, y0 + 1, 14, 14), boltTex, EnergyCol);
+            Txt(t, x0 + 19, y0, 200, 17, 11, cool ? new Color(.99f, .95f, .81f, .75f) : EnergyCol);
+            var track = row ? new Rect(x0 + 200, y0 + 2, 136, 12) : new Rect(x0, y0 + 20, 136, 12);
+            Panel(track, EnergyTrack, 6);
+            float k = Mathf.Clamp01(laser.Energy / OpenWorldLaser.MaxEnergy);
+            if (k > 0.001f)
+            {
+                var fill = new Rect(track.x, track.y, Mathf.Max(12f, track.width * k), track.height);
+                float pulse = laser.Firing ? .75f + .25f * Mathf.Sin(Time.unscaledTime * 30f) : 1f;
+                Panel(fill, new Color(EnergyCol.r, EnergyCol.g, EnergyCol.b, pulse), 6);
+                Panel(new Rect(fill.x + 3, fill.y + 2, fill.width - 6, 3), new Color(1, 1, 1, .35f * pulse), 2);
+            }
+            if (cool)
+            {   // vệt hồi chạy dần tới đầy
+                float r = 1f - laser.CooldownLeft / OpenWorldLaser.CooldownSeconds;
+                Panel(new Rect(track.x, track.y + track.height - 3, track.width * r, 3), new Color(EnergyCol.r, EnergyCol.g, EnergyCol.b, .7f), 1.5f);
+            }
+        }
+
+        // 21.300: nút LAZER (giữ để bắn) phía trên nút NHẢY; máy cảm ứng do OpenWorldDriver đọc đa điểm, chuột/phím L ở đây.
+        bool laserMouse;
+        void LaserButton()
+        {
+            if (!laser || !player || player.frozen || player.Crashed || Mode != State.Riding) { if (laser) laser.mouseHeld = laserMouse = false; return; }
+            OpenWorldDriver.EnsureTouchArt();
+            var f = OpenWorldDriver.LaserRect; bool touch = player.TouchControlsVisible;
+            var m = GUI.matrix; GUI.matrix = Matrix4x4.identity;
+            bool ready = laser.Ready || laser.Firing;
+            OpenWorldDriver.DrawArtButton(f, OpenWorldDriver.LaserButtonTex, new Color(.64f, .36f, 1f), laser.Firing, ready);
+            if (laser.CooldownLeft > 0f)
+            {   // khóa: số giây còn lại giữa nút
+                float bs = f.width * .42f; var badge = new Rect(f.center.x - bs / 2, f.y + f.height * .22f, bs, bs);
+                GUI.DrawTexture(badge, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, new Color(.06f, .1f, .16f, .85f), 0, bs * .5f);
+                GUI.DrawTexture(badge, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, new Color(.64f, .36f, 1f), bs * .08f, bs * .5f);
+                var st = new GUIStyle(label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(bs * .5f) }; st.normal.textColor = Cream;
+                GUI.Label(badge, Mathf.CeilToInt(laser.CooldownLeft).ToString(), st);
+            }
+            if (!touch) OpenWorldDriver.KeyBadge(f, "L");
+            var ev = Event.current;
+            if (!touch && ev.type == EventType.MouseDown && f.Contains(ev.mousePosition)) { laserMouse = true; ev.Use(); }
+            GUI.matrix = m;
+            if (!Input.GetMouseButton(0)) laserMouse = false;
+            laser.mouseHeld = laserMouse;
         }
 
         bool RoundBtn(Rect r)
@@ -449,6 +524,9 @@ namespace PhoViet.OpenWorld
                 if (d < .3f && d > .12f) return true;
                 return v > .5f && InTri(u, v, new Vector2(.24f, .5f), new Vector2(.76f, .5f), new Vector2(.5f, .96f)) && !(d < .12f);
             });
+            // 21.300: tia sét năng lượng
+            boltTex = MaskTex((u, v) => InTri(u, v, new Vector2(.62f, .04f), new Vector2(.22f, .56f), new Vector2(.52f, .56f))
+                                     || InTri(u, v, new Vector2(.48f, .44f), new Vector2(.78f, .44f), new Vector2(.36f, .97f)));
             // Cúp: thân chén nửa elip, hai quai, cổ và đế.
             trophyTex = MaskTex((u, v) =>
             {

@@ -27,6 +27,14 @@ Shader "PhoViet/OpenWorld/River"
         _Sparkle ("Lấp lánh", Float) = 3.5
         _ShoreFoam ("Bọt vỗ kè", Range(0, 2)) = 1
         _ShadowStrength ("Độ đậm bóng", Range(0, 1)) = 0.55
+        // 21.302/21.302c: mặt biển bao quanh bán đảo dùng chung shader, GIỐNG HỆT mặt sông (màu, gợn, bọt, nắng, phản chiếu):
+        // 1 = biển → dùng 4 probe phản chiếu của sông nhưng trộn theo khoảng cách tới probe (biển không có toạ độ dọc tim sông),
+        // điểm phản chiếu kẹp vào hộp probe rồi chuyển dần sang hướng phản xạ thẳng khi xa hộp, độ dốc sóng tính theo điểm ảnh
+        // (lưới biển ở xa thưa hơn lưới sông).
+        _SeaMode ("Biển (1 = mặt biển)", Float) = 0
+        // 21.302c: không còn dùng (biển lấy đúng _DeepColor/_MidColor của sông); giữ để vật liệu cũ không lỗi
+        _SeaDeep ("(không dùng) Biển: nước sâu", Color) = (0.03, 0.1, 0.13, 1)
+        _SeaMid ("(không dùng) Biển: nước loang", Color) = (0.06, 0.155, 0.17, 1)
     }
     SubShader
     {
@@ -47,9 +55,9 @@ Shader "PhoViet/OpenWorld/River"
             #include "OpenWorldRiverWaves.cginc"
 
             sampler2D _WaveNormal, _Foam;
-            fixed4 _DeepColor, _MidColor, _ShoreColor, _FoamColor, _ReflectTint;
+            fixed4 _DeepColor, _MidColor, _ShoreColor, _FoamColor, _ReflectTint, _SeaDeep, _SeaMid;
             float4 _Tiling;
-            float _FlowSpeed, _NormalStrength, _MinReflect, _MaxReflect, _ReflectBlur, _SunSpec, _Sparkle, _ShoreFoam, _ShadowStrength;
+            float _FlowSpeed, _NormalStrength, _MinReflect, _MaxReflect, _ReflectBlur, _SunSpec, _Sparkle, _ShoreFoam, _ShadowStrength, _SeaMode;
 
             struct appdata { float4 vertex : POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; };
             struct v2f
@@ -85,15 +93,22 @@ Shader "PhoViet/OpenWorld/River"
             float4 _OWReflMax0, _OWReflMax1, _OWReflMax2, _OWReflMax3;
             float4 _OWReflS; float _OWReflOn;
 
-            float3 BoxDir(float3 r, float3 p, float3 c, float3 bmin, float3 bmax)
+            float3 BoxDir(float3 r, float3 p, float3 c, float3 bmin, float3 bmax, float sea)
             {
+                // 21.302c: điểm biển ngoài hộp probe → chiếu từ điểm kẹp trên mép hộp, càng xa hộp càng chuyển sang hướng phản
+                // xạ thẳng (cảnh ở vô cực: trời/chân trời) — không tạo vệt hình quạt toả từ cửa sông.
+                // sea = 0 với mặt sông (giữ nguyên cách cũ); biển = 1 − độ gần cửa sông (sát cửa sông chiếu như mặt sông)
+                float3 q = sea > 0 ? lerp(p, clamp(p, bmin, bmax), sea) : p;
                 float3 rr = r + (abs(r) < 1e-4) * 1e-4;
-                float3 f = (rr > 0 ? (bmax - p) : (bmin - p)) / rr;
+                float3 f = (rr > 0 ? (bmax - q) : (bmin - q)) / rr;
                 float d = min(min(f.x, f.y), f.z);
-                return p + r * max(d, 0) - c;
+                float3 dir = q + r * max(d, 0) - c;
+                if (sea > 0) dir = lerp(normalize(dir), r, saturate(length(p - q) / 120) * sea);
+                return dir;
             }
 
-            float3 RiverReflect(float3 r, float3 p, float s, float mip)
+            // mouth (chỉ biển): 1 sát cửa sông → 0 xa 450 m (màu đỉnh a của lưới biển)
+            float3 RiverReflect(float3 r, float3 p, float s, float mouth, float mip)
             {
                 float4 S = _OWReflS; float4 w = 0;
                 if (s <= S.x) w.x = 1;
@@ -101,11 +116,20 @@ Shader "PhoViet/OpenWorld/River"
                 else if (s <= S.z) { float t = (s - S.y) / max(S.z - S.y, 1); w.y = 1 - t; w.z = t; }
                 else if (s <= S.w) { float t = (s - S.z) / max(S.w - S.z, 1); w.z = 1 - t; w.w = t; }
                 else w.w = 1;
+                float sea = 0;
+                if (_SeaMode > 0.5)
+                {   // 21.302c: biển xa cửa sông trộn 4 probe theo khoảng cách ngang tới từng probe (liền mạch); sát cửa sông dùng đúng
+                    // trọng số theo s như mặt sông (s của tim sông kéo dài ra biển) → không lộ đường ranh ở mép lưới sông
+                    float4 d2 = float4(dot(p.xz - _OWReflPos0.xz, p.xz - _OWReflPos0.xz), dot(p.xz - _OWReflPos1.xz, p.xz - _OWReflPos1.xz),
+                                       dot(p.xz - _OWReflPos2.xz, p.xz - _OWReflPos2.xz), dot(p.xz - _OWReflPos3.xz, p.xz - _OWReflPos3.xz));
+                    float4 wi = 1 / (d2 + 3600); wi /= dot(wi, 1);
+                    w = lerp(wi, w, mouth); sea = 1 - mouth;
+                }
                 float3 c = 0;
-                if (w.x > 0) c += w.x * texCUBElod(_OWRefl0, float4(BoxDir(r, p, _OWReflPos0.xyz, _OWReflMin0.xyz, _OWReflMax0.xyz), mip)).rgb;
-                if (w.y > 0) c += w.y * texCUBElod(_OWRefl1, float4(BoxDir(r, p, _OWReflPos1.xyz, _OWReflMin1.xyz, _OWReflMax1.xyz), mip)).rgb;
-                if (w.z > 0) c += w.z * texCUBElod(_OWRefl2, float4(BoxDir(r, p, _OWReflPos2.xyz, _OWReflMin2.xyz, _OWReflMax2.xyz), mip)).rgb;
-                if (w.w > 0) c += w.w * texCUBElod(_OWRefl3, float4(BoxDir(r, p, _OWReflPos3.xyz, _OWReflMin3.xyz, _OWReflMax3.xyz), mip)).rgb;
+                if (w.x > 0) c += w.x * texCUBElod(_OWRefl0, float4(BoxDir(r, p, _OWReflPos0.xyz, _OWReflMin0.xyz, _OWReflMax0.xyz, sea), mip)).rgb;
+                if (w.y > 0) c += w.y * texCUBElod(_OWRefl1, float4(BoxDir(r, p, _OWReflPos1.xyz, _OWReflMin1.xyz, _OWReflMax1.xyz, sea), mip)).rgb;
+                if (w.z > 0) c += w.z * texCUBElod(_OWRefl2, float4(BoxDir(r, p, _OWReflPos2.xyz, _OWReflMin2.xyz, _OWReflMax2.xyz, sea), mip)).rgb;
+                if (w.w > 0) c += w.w * texCUBElod(_OWRefl3, float4(BoxDir(r, p, _OWReflPos3.xyz, _OWReflMin3.xyz, _OWReflMax3.xyz, sea), mip)).rgb;
                 return c;
             }
 
@@ -150,7 +174,8 @@ Shader "PhoViet/OpenWorld/River"
                 float2 gFlow = (n1.xy * 0.6 + n2.xy * 0.4);
                 float2 g = flow * gFlow.x + side * gFlow.y + n3.xy * (0.35 * near);
                 g *= _NormalStrength * lerp(0.45, 1, near);
-                g += i.slope;
+                if (_SeaMode > 0.5) { float2 sl; OWWaveHeight(i.world.xz, t, sl); g += sl * (1 - i.color.r * 0.7); }   // 21.302c
+                else g += i.slope;
                 float3 n = normalize(float3(-g.x, 1, -g.y));
 
                 float3 v = normalize(_WorldSpaceCameraPos - i.world);
@@ -161,7 +186,16 @@ Shader "PhoViet/OpenWorld/River"
                 // phản chiếu: probe nướng sẵn; hướng phản xạ không cho chúi xuống dưới mặt nước
                 float3 r = reflect(-v, n); r.y = max(r.y, 0.02);
                 float mip = _ReflectBlur + (1 - near) * 1.5;
-                float3 refl = (_OWReflOn > 0.5 ? RiverReflect(r, i.world, i.flowUV.x, mip) : ProbeReflect(r, i.world, mip)) * _ReflectTint.rgb;
+                // biển: s theo tim sông kéo dài qua cửa sông gần nhất (nam: nhánh dọc x 317,25; tây: nhánh ngang z 314,25 —
+                // khớp OpenWorldRiverReflections.SOf); mặt sông: s = uv.x
+                float sRef = i.flowUV.x, mouth = 0;
+                if (_SeaMode > 0.5)
+                {
+                    bool south = distance(i.world.xz, float2(317.25, -600)) < distance(i.world.xz, float2(-600, 314.25));
+                    sRef = south ? (1634.5 + 129.98 + (231.5 - i.world.z)) : (i.world.x + 1400);
+                    mouth = i.color.a;
+                }
+                float3 refl = (_OWReflOn > 0.5 ? RiverReflect(r, i.world, sRef, mouth, mip) : ProbeReflect(r, i.world, mip)) * _ReflectTint.rgb;
                 refl *= lerp(0.75, 1, vis);
                 float ndv = saturate(dot(n, v));
                 float fres = 0.02 + 0.98 * pow(1 - ndv, 5);

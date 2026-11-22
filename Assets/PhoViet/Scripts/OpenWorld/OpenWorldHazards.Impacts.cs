@@ -23,14 +23,14 @@ namespace PhoViet.OpenWorld
         void OnDestroy()
         {
             if (!traffic) return;
-            traffic.ImpactFx -= OnImpactFx; traffic.WreckExploded -= OnWreckExploded;
+            traffic.ImpactFx -= OnImpactFx; traffic.WreckExploded -= OnWreckExploded; traffic.LaserExploded -= OnLaserExploded;
         }
 
         void EnsureShards()
         {
             if (shards || !craterMaterial) return;
             shards = Fx("ManhVoVaCham", null, 1, 1, 1.1f, false);
-            var main = shards.main; main.maxParticles = 320; main.startSize3D = true; main.startRotation3D = true;
+            var main = shards.main; main.maxParticles = 900;   // 21.300: 320 → 900 (vụ nổ Lazer vỡ nhiều mảnh) main.startSize3D = true; main.startRotation3D = true;
             var spin = shards.rotationOverLifetime; spin.enabled = true; spin.separateAxes = true;
             spin.x = new ParticleSystem.MinMaxCurve(-11f, 11f); spin.y = new ParticleSystem.MinMaxCurve(-14f, 14f); spin.z = new ParticleSystem.MinMaxCurve(-9f, 9f);
             var size = shards.sizeOverLifetime; size.enabled = true;
@@ -94,7 +94,7 @@ namespace PhoViet.OpenWorld
                 Emit(smokeFx, at + new Vector3(Random.Range(-1f, 1f), 1 + i * .5f, Random.Range(-1f, 1f)), Vector3.up * Random.Range(1f, 2.2f), Random.Range(3.5f, 5f), Random.Range(1.8f, 2.6f), new Color(.25f, .23f, .22f, .9f));
             PlayAt(blastClip, at, 1f);
             if (traffic) NpcKnocked += traffic.KnockAround(at, blastRadius + 1f);
-            if (police && Flat(police.transform.position - at) < blastRadius + 2f) police.Stun(1.2f, "xe người chơi nổ");
+            foreach (var pol in OpenWorldPolice.All) if (pol && Flat(pol.transform.position - at) < blastRadius + 2f) pol.Stun(1.2f, "xe người chơi nổ");
             Note("xe người chơi nổ tung");
         }
     }

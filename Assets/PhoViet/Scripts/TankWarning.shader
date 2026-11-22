@@ -8,6 +8,8 @@ Shader "PhoViet/Tank Warning"
         _Color ("Tint", Color) = (1,1,1,1)
         _Fill ("Fill colour", Color) = (1,0.08,0.03,0.42)
         _Progress ("Progress", Range(0,1)) = 0
+        // 21.304: 1 = đổi màu vòng theo _Color (giữ độ sáng ảnh vòng đỏ) — vòng vàng tên lửa máy bay; 0 = như cũ
+        _Recolor ("Recolor ring", Float) = 0
     }
     SubShader
     {
@@ -23,12 +25,14 @@ Shader "PhoViet/Tank Warning"
             #pragma fragment frag
             #pragma multi_compile_fog
             #include "UnityCG.cginc"
-            sampler2D _MainTex;fixed4 _Color,_Fill;float _Progress;
+            sampler2D _MainTex;fixed4 _Color,_Fill;float _Progress,_Recolor;
             struct v2f { float4 pos:SV_POSITION; float2 uv:TEXCOORD0; UNITY_FOG_COORDS(1) };
             v2f vert(appdata_base v){v2f o;o.pos=UnityObjectToClipPos(v.vertex);o.uv=v.texcoord.xy;UNITY_TRANSFER_FOG(o,o.pos);return o;}
             fixed4 frag(v2f i):SV_Target
             {
-                fixed4 ring=tex2D(_MainTex,i.uv)*_Color;
+                fixed4 tx=tex2D(_MainTex,i.uv);
+                fixed4 ring=tx*_Color;
+                ring.rgb=lerp(ring.rgb,max(tx.r,max(tx.g,tx.b))*_Color.rgb,_Recolor);
                 float d=distance(i.uv,float2(0.5,0.5))*2;
                 float pulse=0.72+0.28*sin(_Time.y*(10+_Progress*26));
                 float fill=(1-smoothstep(_Progress*0.86-0.04,_Progress*0.86,d))*step(d,0.9);

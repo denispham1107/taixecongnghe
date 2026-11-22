@@ -19,6 +19,12 @@ namespace PhoViet.OpenWorld
         public GameObject pickupPrefab;
         public int startMissiles = 10, maxMissiles = 10, pickupCount = 14;   // 21.295 (người dùng): vào game mang sẵn đầy 10 quả
         [Tooltip("21.284: người dùng chốt 0,3 s giữa hai lần bắn")] public float playerMissileInterval = 0.3f;
+        // 21.301 (người dùng): bỏ ô nạp tên lửa trên đường (không sinh, không hiện); thay bằng tự hồi 1 quả mỗi 12 s khi chưa đầy.
+        [Tooltip("21.301: tắt = không rải ô nạp tên lửa trên đường")] public bool pickupsEnabled = false;
+        public float missileRegenSeconds = 12f;
+        public float MissileRegenProgress => PlayerMissiles >= maxMissiles ? 1f : Mathf.Clamp01(regenClock / Mathf.Max(0.1f, missileRegenSeconds));
+        public int MissilesRegenerated { get; private set; }
+        float regenClock;
 
         public int PlayerMissiles { get; private set; }
         public int PlayerMissilesFired { get; private set; }
@@ -44,7 +50,7 @@ namespace PhoViet.OpenWorld
 
         void ResetWeapons()
         {
-            PlayerMissiles = startMissiles; fireCooldown = 0f; fireRequest = false;
+            PlayerMissiles = startMissiles; fireCooldown = 0f; fireRequest = false; regenClock = 0f;
             foreach (var p in pickups) p.live = false;        // rải lại quanh vị trí mới
             pickupCheck = 0f;
         }
@@ -59,7 +65,15 @@ namespace PhoViet.OpenWorld
             fireCooldown = Mathf.Max(0f, fireCooldown - dt);
             if (fireRequest) { fireRequest = false; TryFire(pv); }
             TickPlayerMissiles(dt);
-            TickPickups(dt, pp, pv);
+            if (pickupsEnabled) TickPickups(dt, pp, pv);
+            else foreach (var p in pickups) if (p.live) { p.live = false; if (p.root) p.root.gameObject.SetActive(false); }
+            // 21.301: hồi 1 quả mỗi missileRegenSeconds khi chưa đầy (đầy thì đồng hồ đứng ở 0)
+            if (PlayerMissiles < maxMissiles)
+            {
+                regenClock += dt;
+                if (regenClock >= missileRegenSeconds) { regenClock -= missileRegenSeconds; PlayerMissiles++; MissilesRegenerated++; }
+            }
+            else regenClock = 0f;
         }
 
         // ------------------------------------------------------------ bắn
@@ -93,7 +107,7 @@ namespace PhoViet.OpenWorld
             PlayerMissiles--; PlayerMissilesFired++; fireCooldown = playerMissileInterval;
             Emit(muzzleFx, origin, dir * 4f, 1.4f, .14f, Color.white);
             PlayAt(launchClip, origin, 0.7f);
-            Say(bestB >= 0 ? "Đã khóa tàu" : bestT != null ? "Đã khóa xe tăng" : bestH != null ? "Đã khóa trực thăng" : "Bay thẳng", bestB >= 0 || bestT != null || bestH != null ? "Tên lửa tự bám mục tiêu" : "Không có mục tiêu trong tầm", 1.0f, OpenWorldToast.Kind.Info, "TÊN LỬA");
+            Say(bestB >= 0 ? "Đã khóa tàu" : bestT != null ? "Đã khóa xe tăng" : bestH != null ? (bestH.plane ? "Đã khóa máy bay" : "Đã khóa trực thăng") : "Bay thẳng", bestB >= 0 || bestT != null || bestH != null ? "Tên lửa tự bám mục tiêu" : "Không có mục tiêu trong tầm", 1.0f, OpenWorldToast.Kind.Info, "TÊN LỬA");
             return true;
         }
         static Vector3 TankAim(Tank t) => t.root.TransformPoint(new Vector3(0, 1.2f, -0.9f));
@@ -217,7 +231,8 @@ namespace PhoViet.OpenWorld
             Emit(blastFx, h.root.position, Vector3.zero, 6f, .8f, Color.white);
             PlayAt(blastClip, h.root.position, 0.9f);
             BurnFx(h.root, Vector3.zero);
-            Say("Hạ trực thăng!", "Tên lửa trúng đích", 1.6f, OpenWorldToast.Kind.Good, "HẠ GỌN"); Note("người chơi hạ trực thăng");
+            if (h.plane) { PlanesDowned++; planeLostAt = Time.time; }
+            Say(h.plane ? "Hạ máy bay!" : "Hạ trực thăng!", "Tên lửa trúng đích", 1.6f, OpenWorldToast.Kind.Good, "HẠ GỌN"); Note(h.plane ? "người chơi hạ máy bay" : "người chơi hạ trực thăng");
         }
 
         // trực thăng bị hạ: rơi xoáy, chạm đất/nước thì nổ — true = dọn
@@ -230,7 +245,7 @@ namespace PhoViet.OpenWorld
             if (h.root.position.y > ground + 0.8f && h.age < 30f) return false;
             var at = new Vector3(h.root.position.x, ground, h.root.position.z);
             if (water) { Splashes++; for (int k = 0; k < 20; k++) Emit(sparkFx, at + Vector3.up * .2f, new Vector3(Random.Range(-3f, 3f), Random.Range(6f, 11f), Random.Range(-3f, 3f)), Random.Range(.3f, .6f), Random.Range(.6f, 1f), new Color(.8f, .9f, 1f, .9f)); PlayAt(blastClip, at, .4f); }
-            else Explode(at, false, true, "TRỰC THĂNG RƠI TRÚNG", "trực thăng rơi");
+            else Explode(at, false, true, h.plane ? "MÁY BAY RƠI TRÚNG" : "TRỰC THĂNG RƠI TRÚNG", h.plane ? "máy bay rơi" : "trực thăng rơi");
             return true;
         }
 

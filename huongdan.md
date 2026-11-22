@@ -5115,3 +5115,330 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Gió mạnh hơn: biên độ 0,15 → **0,22 m**, tốc độ 2,4 → **2,9**, vùng giữ cứng dưới thanh 0,22 → 0,15 m (vải gợn sát thanh hơn). Giá trị mặc định shader và `OW_CoVN.mat` cùng cập nhật.
   - Ảnh: `Captures/flag21298-top2.png` (phóng to: vải cuộn quanh thanh, hết khe), `flag21298-g.png` (chính diện), `flag21298-xien3/4.png` (góc xiên, 2 thời điểm cách 0,6 s).
 - **Build + phát hành 1.87.0 (21.297 + 21.298, người dùng đồng ý):** khung «Bản cập nhật» 3 dòng (thanh thông tin mới, cờ mới, nhà xa từ 1.86.1); phiên bản 1.87.0 (`PhoVietWebBuild.cs`, `ProjectSettings.asset`). `AgentScripts/QueueRelease21298.cs` → `Builds/release1870-status.json`. Lần đầu Unity bị đóng/mở lại (17:26–17:30) trước khi build chạy; lệnh xếp hàng ở Unity mới chỉ chạy sau khi `editor_focus` + tự tick (delayCall không chạy khi Unity không được chọn). Build **1.445 giây**, 3.297 nội thất 3D lược ở gói điện thoại, cache `e0d4de082effbe34`, gói điện thoại `c2bbd6bb…` **104,0 MB** (1.86.1: 103,8), máy tính `c4fa4f57…` **119,9 MB** (119,6). `docs/` pack/materialize **29/29** khớp SHA-256. Commit `259aceb`, push → Pages run `44899957130` **lỗi ở bước «Deploy to GitHub Pages»** (các bước khôi phục dữ liệu, kiểm tra bản build, tải artifact đều đạt — lỗi phía GitHub); máy không có `gh` để chạy lại và workflow chỉ chạy khi `docs/**` đổi → commit `115d71b` thêm một dòng trống vào `docs/.nojekyll` (không ảnh hưởng game) → Pages run `44900135396` thành công; trang thật `build-info.json` 1.87.0 cache `e0d4de082effbe34`, **28/28 tệp live khớp SHA-256**, trang chủ hiện 3 dòng bản cập nhật mới. Chưa thử iPhone thật.
+
+## 21.299. Thanh thông tin to thêm 10 %, xe máy to thêm 10 %, CSGT bắn lưới điện (21/11/2026, Claude Code)
+
+- **Yêu cầu (ảnh thanh thông tin 1.87.0):** (1) thanh thông tin còn nhỏ — kích thước tổng thể và chữ to thêm 10 %; (2) xe máy + người lái to thêm 10 %; (3) CSGT cách xe người chơi trong 4,5 m bắn tấm lưới điện bao trùm xe (tia điện xẹt chạy quanh lưới), xe dính lưới không di chuyển được 3 giây để CSGT dễ bắt.
+- **(1) Thanh thông tin** (`OpenWorldGame.cs` `Hud`): máy ngang phóng cả thanh 1,1× quanh mép trên giữa (`HudScaleLandscape`, `GUIUtility.ScaleAroundPivot`) → khung 850 × 86 → **935 × 95**, chữ/biểu tượng/nút tròn to theo; nút TÊN LỬA vẽ sau khi trả ma trận (không bị phóng). `OpenWorldToast.NextY` dời thẻ thông báo theo chiều cao mới. Máy dọc giữ nguyên (chỉ chơi ngang).
+- **(2) Xe máy:** `OpenWorldTraffic.bikeScale` 0,64 → **0,704** (mã + giá trị scene), bề ngang va chạm xe máy theo tỉ lệ (`0,4 × bikeScale / 0,64`). Đo trong Play: cao **1,52 m**, dài 1,62 m, rộng 0,78 m (trước 1,38 m).
+- **(3) Lưới điện CSGT** — `Scripts/OpenWorld/OpenWorldPoliceNet.cs` (thêm vào xe CSGT ở `OpenWorldPolice.Awake`):
+  - Bắn khi CSGT đang đuổi (`Chasing`) và khoảng cách CSGT–xe (số trên thanh thông tin) **≤ 4,5 m**, xe người chơi chạm đất, chưa hỏng/chìm/bị bắt/đang dính lưới, đã qua hồi 4 s sau lần trước. Lưới bay 0,3 s theo đường cong từ nóc xe CSGT, nở 20 % → 100 %, xoay theo hướng xe; tới nơi trùm cả xe (vỏ siêu elip ôm theo khung va chạm xe + 0,18/0,12/0,22 m).
+  - `OpenWorldDriver.Net(3 s)` (`Netted`, `NetRemaining`, `NetHits`): khóa ga/lái/nhảy, phanh gấp 32 m/s² về 0; `ResetTo` xóa. Xe đứng yên → luật bắt cũ (≤ 9,5 m, giữ 1,2 s) bắt được ngay.
+  - Hình: 13 dây ngang + 9 dây dọc phát sáng xanh điện (LineRenderer, nhấp nháy chạy dọc dây), 6 tia điện lởm chởm chạy dọc đoạn dây ngẫu nhiên đổi hình mỗi 0,05 s, tia lửa xẹt (ParticleSystem) bắn từ điểm ngẫu nhiên trên lưới, tiếng điện rè 100 Hz + tiếng xẹt tự tổng hợp; hết 3 s lưới mờ dần 0,35 s. Shader `OpenWorld/Shaders/OpenWorldElectric.shader` (`PhoViet/OpenWorld/Electric`, cộng sáng, dải/hạt), vật liệu `Resources/PoliceNet/PV_LuoiDien_Day|Tia|Hat.mat` (nằm trong Resources nên chắc chắn vào build).
+  - Thẻ thông báo «LƯỚI ĐIỆN CSGT — Xe dính lưới điện! Không lái được trong N giây» (đếm ngược + thanh thời gian) thay thẻ «CSGT ÁP SÁT» khi dính lưới.
+  - Lưu ý luật đuổi cũ: khi xe người chơi **đứng yên**, CSGT tự phanh dừng cách ~5,2 m (không lao vào xe) nên lưới chủ yếu bắn khi CSGT đuổi kịp xe đang chạy.
+- **Kiểm tra (Play, Game view 2778 × 1284, nút cảm ứng):** đặt CSGT sau xe 4,2 m → lưới bay (Flying) → trùm xe (Holding, `Netted`, còn 2,6 s) → CSGT bắt (Arrested) → phòng giam → hết 3 s lưới mờ (Fading) → Idle. Ảnh `Captures/net21299-a.png` (màn chơi: lưới + thẻ đếm ngược + thanh thông tin mới), `net21299-b/c/d.png` (cận cảnh, d = lưới dày 13 × 9), `net21299-e.png` (thanh thông tin 1,1×). `AgentScripts/CaptureNet21299.cs`. Biên dịch không lỗi; scene đã lưu (bikeScale 0,704).
+- **Trạng thái:** chưa commit/build/phát hành (xem 21.299b).
+- **21.299b — dựng lại lưới (người dùng: «lưới còn sơ sài xấu, dựng lại đẹp hơn, các tia điện có hiệu ứng ánh sáng»):** viết lại `OpenWorldPoliceNet.cs`.
+  - **Mắt lưới hình thoi:** 2 họ dây chéo (bước 0,1 trên miền vỏ, mắt ~0,3 m) phủ vỏ siêu elip ôm thân xe; hai đầu túm thành vòng dây; dây viền to ở mép dưới. Cả tấm là **một lưới** dải chữ thập (dải trong mặt lưới + dải dựng đứng → nhìn góc nào cũng thấy), 2 lượt vẽ: lõi sáng trắng-xanh (`PV_LuoiDien_Day`) + quầng xanh rộng (`PV_LuoiDien_Quang`); xung điện chạy dọc dây (shader `_Flicker`). Thay 22 LineRenderer cũ.
+  - **6 quả nặng** kim loại (`PV_LuoiDien_Qua`, Standard) ở 4 góc + giữa hai mép dưới, đèn nháy xanh quay về camera.
+  - **Ánh sáng:** 9 tia điện, mỗi tia lõi trắng (`PV_LuoiDien_Tia`) + quầng xanh rộng gấp 6 lần (`PV_LuoiDien_TiaQuang`, giả bloom), đổi hình lởm chởm mỗi 0,05 s; ~22 % tia phóng từ mép lưới xuống mặt đường kèm tia lửa; **đèn điểm xanh thật** (tầm 7,5 m, không bóng) chiếu lên xe/mặt đường, nhấp nháy theo tia + chớp mạnh lúc lưới chạm xe và ngẫu nhiên; **vệt sáng loang trên mặt đường** (`PV_LuoiDien_Nen`); 40 nút lưới lóe sáng ngẫu nhiên (hạt tĩnh `SetParticles`); tia lửa xẹt rơi. Vật liệu nhân bản cho mỗi lưới để mờ dần/nhấp nháy.
+  - Ảnh: `Captures/net21299-f/g/i.png` (cận cảnh), `net21299-h.png` (màn chơi điện thoại + thẻ đếm ngược). Biên dịch không lỗi.
+
+## 21.300. Lưới điện giữ tới khi bị bắt + tầm 6 m; nút LAZER + thanh NĂNG LƯỢNG; tia lazer phá xe/xe tăng/khủng long (21/11/2026, Claude Code)
+
+- **Yêu cầu:** (1) dính lưới điện thì đứng yên luôn cho tới khi CSGT tới bắt; (2) CSGT bắn lưới trong tầm 6 m (trước 4,5 m); (3) nút «Lazer» (icon mới đẹp), cỡ nút «Tên lửa», ngay trên nút «Nhảy»; thanh «Năng lượng 100/100» dưới số «Tên lửa» trên thanh thông tin; giữ nút → 2 tia lazer liên tục từ 2 đèn pha, tầm 9 m, hiệu ứng dựng bằng Blender, như thật; tia trúng mọi phương tiện trên đường (cả xe tăng, khủng long) → bốc cháy, bốc khói, vỡ tung thành mảnh nhỏ; giữ mỗi 0,5 s tốn 25 năng lượng, thả ra là khóa 10 s.
+- **Người dùng chốt (hỏi trước khi làm):** hết 10 s chờ thì năng lượng **hồi đầy 100**; xe **CSGT trúng lazer chỉ khựng** (không nổ).
+- **(1)(2) Lưới điện** (`OpenWorldPoliceNet.cs`): `range` 4,5 → **6 m**; `holdSeconds` 3 → 25 (chỉ là chốt an toàn khi CSGT kẹt — bình thường CSGT tới bắt trước). Thẻ thông báo đổi thành «Xe dính lưới điện! · Không chạy được nữa · CSGT đang tới bắt» (không đếm ngược). Thử: CSGT đặt sau xe 5,8 m → Flying → Holding (Netted) → Arrested, lưới vẫn giữ.
+- **(3) Nút LAZER:** ảnh `Resources/TouchControls/PV_Btn_Laser.png` (512², không nén như các nút khác, thêm vào `PhoVietWebMemorySettings`) vẽ bằng `ArtSource/UI/build_laser_button.py` (dùng lại nền/viền/chữ của `build_touch_controls.py`): viền tím điện `#A35CFF`, siêu xe xanh nhìn ngang phóng 2 tia đỏ phát sáng (lõi trắng, quầng Gauss), chớp sao chỗ trúng, chữ «LAZER». `OpenWorldDriver.LaserRect`: cỡ `SmallSize` (= nút Tên lửa), canh giữa ngay trên nút NHẢY (máy tính: bên trái nút TÊN LỬA); `Ctl.Laser` đa điểm → `LaserHeld`. Vẽ ở `OpenWorldGame.LaserButton` (đang bắn: sáng + quầng tím; đang khóa: xám + số giây còn lại giữa nút; máy tính: phím **L**, giữ chuột).
+- **Thanh năng lượng** (`OpenWorldGame.EnergyRow`): thanh thông tin cao 86 → **112** (cột quãng đường/kỷ lục/CSGT canh giữa; máy dọc hàng phụ 40 → 66); dưới 10 vạch tên lửa là dòng «⚡ NĂNG LƯỢNG 75/100» + thanh xanh điện 136 px (đang bắn nhấp nháy; đang khóa: «· HỒI n s» + vệt hồi chạy dần). CSGT chip phía trên dời xuống 178 (khỏi đè thanh).
+- **Hiệu ứng tia (Blender):** `ArtSource/Blender/OpenWorld/ow_laser_fx.py` (chạy nền `blender -b --factory-startup --python …`, cảnh lưu `PhoViet_OW_Lazer_21300.blend` mới, ảnh thô `ArtSource/Concepts/Laser-21300/`): Eevee chiếu thẳng hình học phát sáng — lõi trắng nóng + 3 sợi năng lượng đỏ xoắn 3 vòng/khung (lặp liền mạch) — rồi cộng quầng nhiều lớp Gauss bằng numpy (không dùng Compositor vì API đổi ở Blender 5) → `Resources/Laser/PV_LazerTia.png` 1024×128 (lặp theo chiều dài), `PV_LazerNong.png` 256² (chớp đầu đèn: lõi + sao chữ thập + 6 tia), `PV_LazerTrung.png` 256² (chớp chỗ trúng: lõi + vòng sóng + 10 tia). Shader `OpenWorld/Shaders/OpenWorldLaser.shader` (cộng sáng, ảnh × màu HDR × màu đỉnh), vật liệu `Resources/Laser/PV_Lazer_Tia|Nong|Trung.mat`.
+- **Logic** — `Scripts/OpenWorld/OpenWorldLaser.cs` (OpenWorldGame gắn vào xe người chơi lúc Start; `ResetLaser` khi vào lượt):
+  - Năng lượng 100: bấm là trừ 25, giữ mỗi 0,5 s trừ 25 → tối đa **2 s**; thả nút hoặc hết năng lượng → khóa **10 s**, hết khóa hồi đầy 100. Không bắn khi chưa vào lượt/tạm dừng/xe hỏng/chìm/bị bắt/dính lưới. Đo: 0,02 s 75 → 1,02 s 50 → 1,52 s 25 → 2,02 s 0 → dừng 2,04 s, khóa 10 s → năng lượng 100.
+  - 2 tia từ đèn pha (khung xe ±0,6; 0,52; 1,86 m), thẳng phía trước, tầm 9 m: `SphereCast` bán kính 0,16, bỏ thân xe mình, vật gần nhất chặn tia. LineRenderer bề rộng 0,42 m (nhấp nháy), ảnh cuộn dọc tia; chớp đầu đèn 0,85 m + chớp chỗ trúng 1,25 m (xoay) quay về camera; **đèn điểm đỏ thật** (tầm 7 m) nhấp nháy chiếu lên xe/mặt đường; tiếng ù lazer tự tổng hợp.
+  - Trúng **xe NPC** (ô tô, xe máy): `OpenWorldTraffic.LaserKill` → bốc cháy + khói đen (`Smoke(fire)`) 0,45 s → `LaserExploded` → `OpenWorldHazards.LaserBlast`: quả cầu lửa, tia lửa, khói, 70–100 mảnh vỡ theo màu sơn xe/màu tối/kính (hệ hạt mảnh vỡ nâng 320 → 900), lửa cháy tại chỗ 4 s; xe biến mất (thu về hồ xe, sinh lại chỗ khác). **Không gây sát thương xe người chơi** (khác `Explode` của đạn pháo), hất nhẹ xe NPC cạnh đó.
+  - Trúng **xe tăng / khủng long** (`OpenWorldHazards.Laser.cs`, `LaserHit`): nung (tia lửa + khói tại điểm chạm) 0,3 s / 0,5 s → nổ tung: xe tăng `DestroyTank` (thông báo «Hạ xe tăng!») + ẩn mô hình + tắt va chạm, giữ lửa cháy tại chỗ; khủng long nổ tung thành mảnh xanh/nâu/đỏ + quả cầu lửa, xóa («Hạ khủng long!»).
+  - Trúng **CSGT**: `Stun(1,5 s)` + khói (người dùng chọn). Nhà/cột/cây/bồn cây: tia dừng, tóe lửa + khói.
+- **Kiểm tra (Play, 2778 × 1284, nút cảm ứng, `testHold`):** ô tô thể thao trước 7,5 m → cháy rồi nổ tung thành mảnh (`Captures/laser21300-b/c.png`); xe tăng trước 8,5 m → nổ sau 8 khung (`laser21300-d.png`); khủng long → nổ tung (`laser21300-e.png`), xe người chơi không hỏng; tia trúng bồn cây ở 4,8 m thì dừng; cận cảnh tia `Captures/net21299-lz1.png`; thanh năng lượng + nút LAZER trên màn chơi (`laser21300-a.png`). Console không lỗi mới (cảnh báo nội bộ Editor khi chạy từng khung).
+- **Trạng thái:** chưa commit/build/phát hành. Chưa đo FPS trên điện thoại (đèn điểm đỏ + đèn lưới điện là đèn điểm ảnh).
+- **21.300b — làm lại tia (người dùng: «tia còn đơn giản, xấu; thêm nhiều hiệu ứng ánh sáng; bán kính +10 %; tầm 9 → 15 m; dựng lại hiệu ứng trúng đích; bắn trượt cũng phải thấy ngọn tia đẹp»):**
+  - `OpenWorldLaser.Range` 9 → **15 m**; `beamWidth` 0,42 → **0,462 m** (+10 %).
+  - Blender `ow_laser_fx.py` thêm 5 ảnh (Resources/Laser, vật liệu cùng tên `PV_Lazer_*`): `PV_LazerNgon.png` 1024×128 (**ngọn tia**: nửa trái nối liền thân tia, từ đó thon dần tới mũi nhọn, 3 sợi xoắn thu về mũi, chùm 9 vệt năng lượng tỏa ra rồi tan; ống bán kính thay đổi theo điểm), `PV_LazerVong.png` 256² (**vòng sóng** xung kích: vòng sáng + vòng mờ trong + 8 vạch), `PV_LazerQuang.png` 256×64 (dải quầng Gauss mềm, lặp), `PV_LazerHat.png` 64² (chấm sáng mềm), `PV_LazerTiaLua.png` 128×32 (**tia lửa nóng chảy**: đầu trắng, đuôi cam đỏ).
+  - **Thân tia 3 lớp** mỗi bên: quầng đỏ rộng 3,4× bề rộng (`PV_Lazer_Quang`, màu đỉnh đỏ), thân năng lượng (`PV_Lazer_Tia`, cuộn dọc), lõi trắng nóng 0,26× (dải quầng tô trắng); bề rộng nhấp nháy ±10 %; **xung sáng** chạy dọc tia 32 m/s (hạt kéo dài ~1 m) + **đốm năng lượng** bay ra hai bên. Đầu đèn: quầng tròn + 2 chớp sao xoay ngược chiều.
+  - **Bắn trượt:** thân tia dừng cách tầm 2,2 m, nối **ngọn tia** 2,6 m (LineRenderer theo hướng tia) + chấm sáng mũi + đốm năng lượng tan ra phía trước; quầng/lõi thon ở cuối (`taperCurve`).
+  - **Trúng đích** (dựng lại): chớp sao lớn 2 lớp xoay ngược chiều, quầng cam 2,3–2,9 m, **3 vòng sóng** nở 0,35 → 2,6 m mỗi 0,11 s rồi mờ, **mưa tia lửa nóng chảy** ~220 hạt/s kéo vệt văng ngược theo pháp tuyến + rơi theo trọng lực, đốm than hồng, **vết cháy phát sáng** áp lên bề mặt trúng (theo pháp tuyến, xoay chậm), đèn đổi cam đỏ, tầm 9 m, sáng hơn (3,6–5,4); khói do `OpenWorldHazards.LaserScorch` như cũ; xe NPC bốc cháy 0,45 s rồi nổ tung thành mảnh như 21.300.
+  - Sửa trong lúc thử: xung sáng ban đầu kéo vệt 7 m (lòi ra sau xe) → `velocityScale` 0,22 → 0,028, phát từ 1,1 m trước đèn; tia lửa to/dày thêm (0,08–0,17 m, 220/s).
+  - Ảnh: `Captures/laser21300b-ngon.png` (ngọn tia bắn trượt), `laser21300b-than.png` (thân tia), `laser21300b-b.png` (góc lái), `laser21300b-trung3.png` (cận cảnh trúng ô tô: vòng sóng, tia lửa, xe bốc cháy), `laser21300b-d.png` (góc lái khi trúng). Chụp bằng `AgentScripts/CaptureLaser21300.cs`.
+
+## 21.301. Bỏ ô nạp tên lửa, hồi 1 quả/12 s; mỗi 300 m thêm 1 xe CSGT (luân phiên ngược/cùng chiều); 5 tàu chạy sát bờ (21/11/2026, Claude Code)
+
+- **Yêu cầu:** (1) không còn ô/icon tên lửa trên đường cho xe ăn nạp đạn; mỗi 12 s xe tự hồi 1 quả; (2) mỗi khi đi thêm 300 m có thêm 1 xe CSGT — cùng chiều chạy lên đuổi hoặc ngược chiều chạy xuống bắt; **bổ sung: lần trước cùng chiều thì lần sau ngược chiều**; (3) thêm 5 tàu xuất hiện cùng lúc ở vị trí ngẫu nhiên, đi lại trên sông gần đất liền.
+- **(1) Tên lửa** (`OpenWorldHazards.Weapons.cs`): `pickupsEnabled = false` → không sinh/không hiện ô nạp (`TickPickups` bỏ qua, ô còn sót bị ẩn); `missileRegenSeconds = 12`: khi chưa đầy 10, đồng hồ chạy, đủ 12 s → +1 quả (`MissilesRegenerated`); đầy thì đồng hồ về 0; vào lượt mới đồng hồ về 0. Thanh thông tin: vạch tên lửa kế tiếp **đầy dần** theo đồng hồ hồi (`MissileRegenProgress`). Đo: 9 → 10 sau 11,94 s.
+- **(2) CSGT tăng viện** — `Scripts/OpenWorld/OpenWorldGame.Squad.cs` + `OpenWorldPolice.cs`:
+  - Mốc 300, 600, 900 m… của lượt (`Score`): nhân bản xe CSGT gốc (mô hình, đèn, còi, lưới điện); `deploy` = 1 **ngược chiều**: đặt phía trước ~95 m (130 m nếu không có chỗ) trên đường, đầu xe quay về phía người chơi (`PlaceOnRoad(..., preferAhead)`); = 0 **cùng chiều**: phía sau ~75 m (ưu tiên ngoài khung hình). Vào thẳng trạng thái đuổi, bật còi, tốc độ đầu 0,5 × tốc độ cơ bản. **Luân phiên**: xe gốc đã đuổi cùng chiều nên xe tăng viện thứ 1 tới từ phía trước, thứ 2 từ phía sau, thứ 3 phía trước… Tối đa 10 xe tăng viện (giữ nhẹ máy).
+  - Xe nào bắt được cũng vào phòng giam (`SquadJailed`); thanh thông tin «CSGT ×n» + khoảng cách **xe gần nhất** (`NearestPolice`); thẻ «TĂNG VIỆN · Thêm 1 xe CSGT! · phía trước, chạy ngược chiều / phía sau, đuổi cùng chiều · tổng n xe» 2,6 s. Xe tăng viện không vẽ thẻ/chip riêng (`Reinforcement` → bỏ `OnGUI`), dùng chung lưới điện (bắn khi người chơi chưa dính lưới).
+  - `OpenWorldPolice.All` (danh sách mọi xe CSGT đang bật): vụ nổ đạn pháo, xe người chơi nổ, xe tăng húc → khựng **mọi** xe CSGT trong bán kính (trước chỉ xe gốc). Khủng long vẫn chỉ xét xe gốc.
+  - Chơi lại / về đầu phố: `ClearSquad` xóa hết; hết lượt (GameOver): `HaltSquad` dừng.
+- **(3) 5 tàu sát bờ** (`OpenWorldBoats.cs`): vòng chạy mới lệch **66 m** khỏi tim sông (kè ở ~83 m → cách kè ~17 m, ngoài hàng tàu neo cách kè 9 m); đầu mút tim sông cắt bớt 24 m (`Trim`) để vòng quay đầu bán kính 66 m không chạm cầu. Phân bổ: 2 tàu nhánh dọc, 2 tàu khúc cong + nhánh ngang giữa hai cầu, 1 tàu nhánh ngang phía tây; vị trí đầu ngẫu nhiên, tốc độ 4,2–6 m/s, **cùng xuất hiện từ đầu**; điện thoại cũng đủ 5 tàu. Gom tạo tàu chạy vào `AddMover`. Tàu mới như các tàu khác (có thể bắn khi xe ở lề sông, bị tên lửa hạ thì cháy/chìm, 30 s hiện lại). Dò 2.091 điểm trên 3 vòng (± 2,5 m): không điểm nào chạm đất/công trình.
+- **Kiểm tra (Play):** tàu chạy 20 (15 + 5 sát bờ) + 6 neo; `SpawnSquad(true)` → xe ở trước 90 m, quay về người chơi (dot 0,99), Chasing; `SpawnSquad(false)` → sau 75 m, Chasing; HUD «CSGT ×3», thẻ tăng viện, vạch tên lửa hồi dần (`Captures/squad21301-a.png`); xe đứng yên bị xe tăng viện bắt → phòng giam; chơi lại → 0 xe tăng viện; hồi tên lửa 11,94 s. Biên dịch không lỗi.
+- **Trạng thái:** chưa commit/build/phát hành.
+
+## 21.302. Tàu thấy và bắn ngay từ mọi nơi; bản đồ thu về vùng phố, bên ngoài thành biển bao quanh (bán đảo) (21/11/2026, Claude Code)
+
+- **Yêu cầu (ảnh Scene khoanh đỏ quanh khu phố):** (1) tàu dù xa bờ, sát bờ bên kia hay xa xe vẫn thấy xe khi xe vào lề sát sông và bắn ngay; (2) xóa mọi cảnh vật ngoài đường đỏ, vào game không hiển thị, xe không đi vào được (khi cần mở rộng sẽ mở lại); vùng đã xóa hiển thị cho đẹp, hợp lý. Hỏi người dùng 3 phương án cảnh ngoài → **chọn «biển/vịnh bao quanh»**.
+- **(1) Tàu** (`OpenWorldHazards.Boats.cs`): `boatFireNear` 25 → **0**, `boatFireFar` 140 → **5.000 m** (mã + giá trị scene); vừa vào lề sát sông thì mọi tàu nạp xong ngay (0–0,2 s). Đo: viên đầu 0,02 s, 8 viên trong 2 s (giới hạn `maxShellsInFlight` 8 giữ nguyên).
+- **(2) Bán đảo** — Unity menu 20 `Editor/PhoVietOpenWorldPeninsulaBuilder.cs` (chạy lại được, dựng lại gốc `BanDao`):
+  - **Ranh giới = mép nền bê tông thành phố x, z ∈ [−600, 700]** (submesh `OW_Concrete` của `OW_Map_Nen`), khớp vùng khoanh đỏ (ảnh `Captures/topdown21302-truoc.png` có khung + lưới toạ độ).
+  - Xóa: **70 cao ốc vành chân trời** (LODGroup ngoài), 9 lưới + 6 va chạm ngoài; **cắt đúng theo ranh giới** 11 lưới vắt qua (mặt đất cỏ/bê tông, mặt sông `MatSongMoi`, lòng/kè/lan can/lối ven sông `OW_Map_river`, `OW_Map_SongNgoaiMep`) bằng cắt đa giác Sutherland–Hodgman giữ UV/màu đỉnh/pháp tuyến → `OpenWorld/Library/BanDao/*_BanDao.asset` (FBX gốc không đổi). Khôi phục: lấy scene `PhoVietOpenWorld.unity` ở commit trước 21.302.
+  - **Mặt biển** `BanDao/MatBien` (35.860 đỉnh, tới ±3 km, ô 4 m sát kè thưa dần): shader sông `PhoViet/OpenWorld/River` thêm `_SeaMode` (1 = phản chiếu trời/probe cảnh thay 4 probe dọc tim sông) và `_SeaDeep/_SeaMid` (màu biển; màu đỉnh a = 1 gần 2 cửa sông → dùng màu sông, chuyển dần tới 450 m) — **cùng hàm sóng** nên nối liền mặt sông ở cửa sông; r = bọt vỗ chân kè (chỉ dọc kè thật, không vẽ ngang cửa sông); vật liệu `BanDao/OW_Bien.mat`.
+  - **Bờ kè đá** (`OW_BankStone`, chân chìm −7,5 m, dốc nhẹ) + **mũ kè granite** + **lan can sắt** (`OW_IronBlack`, trụ mỗi 2,4 m, tay vịn + 2 thanh ngang) dọc 4 cạnh, chừa 2 cửa sông (nam x 234–400, tây z 229–400).
+  - **Đường dạo ven biển**: dải bê tông giữa đường và kè thêm **130 cây dừa + 134 cột đèn cờ** (sao chép cây/cột có sẵn + va chạm), cách kè 4,5 m, xen nhau mỗi 18 m, bỏ chỗ trùng cây/cột/vật cản.
+  - **Tường vô hình** 4 mặt quanh ranh giới (cao 40 m, layer Ignore Raycast: xe va, tia lazer/tên lửa xuyên) — thử lao xe 72–97 km/h ra biển: dừng ở z −597,6 (mép kè), không rơi nước.
+  - ~~7 đảo đồi xa~~ (**đã bỏ ở 21.302b** theo yêu cầu người dùng); **bầu trời** `OW_BauTroiBien.mat` (procedural, màu dưới chân trời = màu sương) để mặt biển (camera cắt ở 1,5 km) liền chân trời.
+  - Tàu (`OpenWorldBoats.Centerlines`): nhánh dọc/ngang thu về đầu mút −515 (trước −900) → tàu chạy trong ranh giới.
+  - Occlusion: `allowOcclusionWhenDynamic = false` cho biển/đảo; **nướng lại** dữ liệu che khuất (menu 12) vì 70 cao ốc vật che đã bị xóa. Kết quả: `OcclusionCullingData.asset` 24,1 → **18,9 MB** (Umbra 8,2 MB), GUID giữ nguyên. Trong lúc nướng Unity in 21 dòng «Assertion failed … GetChannelMask» (nội bộ, với lưới đã nén đỉnh 21.280), nướng vẫn hoàn tất. Chạy lại menu 20 không còn lỗi «vector: assign data…» (bầu trời không tự chép từ chính nó). Kiểm tra Play: 26 tàu, 0 tàu ngoài ranh giới; console không lỗi khi chơi.
+- **Ảnh:** `Captures/topdown21302-sau.png` (toàn cảnh), `bandao21302-choi.png` (góc lái trên đường dạo nhìn ra biển), `bandao21302-duongdao.png`, `bandao21302-cuasong3.png` (cửa sông liền mạch), `bandao21302-tren.png` (từ trên cao). Chụp: `AgentScripts/TopDown21302.cs`, `CamShot21302.cs`.
+- **Trạng thái:** chưa commit/build/phát hành.
+
+## 21.302b. Bỏ toàn bộ đảo ngoài biển; nước biển cùng màu và hiệu ứng với nước sông (22/11/2026, Claude Code)
+
+- **Yêu cầu (ảnh nhìn từ trên xuống có các đảo xanh):** xóa tất cả đảo xanh ngoài biển, chỉ hiển thị biển; nước biển có hiệu ứng và màu giống hệt nước sông.
+- **Đảo:** `PhoVietOpenWorldPeninsulaBuilder.Run()` (Unity menu 20) không gọi `BuildIslands` nữa (hàm vẫn còn trong mã, không dùng); khi chạy lại builder xóa luôn `OpenWorld/Library/BanDao/OW_BanDao_Dao.asset` và `OW_BanDao_DaoRung.mat`. Gốc `BanDao` trong scene không còn `DaoXa`.
+- **Màu và hiệu ứng nước biển** (*chưa đủ, đã sửa ở 21.302c*): `BuildSea` tạo `BanDao/OW_Bien.mat` bằng cách **chép nguyên vật liệu sông `OW_River`** (giữ mọi tham số sóng, tốc độ chảy, bọt, độ bóng, màu bờ), chỉ đặt `_SeaMode = 1` và `_SeaDeep/_SeaMid` = đúng `_DeepColor/_MidColor` của sông. Bỏ phần ghi đè tốc độ chảy và màu bờ riêng cho biển ở 21.302. `_SeaMode` vẫn dùng phản chiếu trời/probe cảnh, vì 4 probe dọc tim sông không phủ biển. Vì vậy cửa sông nối liền, không còn ranh màu.
+- **Occlusion:** không cần nướng lại vì đảo vốn không phải vật che (`allowOcclusionWhenDynamic=false`).
+- **Kiểm tra Play:** chạy lại menu 20, log «Biển 35860 đỉnh … | dao=False», scene đã lưu. Ảnh `Captures/topdown21302-sau2.png` (toàn cảnh: chỉ còn biển quanh phố, sông và biển cùng một màu), `bandao21302-tren2.png` (từ trên cao), `bandao21302-cuasong4.png` (cửa sông liền mạch), `bandao21302-duongdao3.png` (đường dạo nhìn ra biển). Đã thoát Play.
+- **Trạng thái:** chưa commit/build/phát hành (gộp cùng 21.299–21.302 vào bản kế tiếp).
+
+## 21.302c. Dựng lại mặt biển giống hoàn toàn mặt sông (độ bóng, phản chiếu, màu) (22/11/2026, Claude Code)
+
+- **Phản hồi người dùng:** vào game thấy mặt biển khác mặt sông về độ bóng, phản chiếu ánh sáng và màu sắc → yêu cầu kiểm tra và dựng lại toàn bộ mặt biển cho giống hoàn toàn sông.
+- **Nguyên nhân (21.302b chỉ chép vật liệu nên chưa đủ):**
+  1. Mặt sông phản chiếu từ **13 probe nướng sẵn dọc sông** (`PhanChieuSong`, `OpenWorldRiverReflections`), còn mặt biển ở `_SeaMode` lại lấy **phản chiếu bầu trời mặc định** (`unity_SpecCube0`, skybox 128 px). Hệ quả là biển xanh nhạt và bóng hơn sông.
+  2. Renderer biển để **Light Probes = Blend Probes** (ánh sáng môi trường lấy từ light probe ven phố), trong khi các khúc sông `OW_MatSong_*` để Off và lấy SH bầu trời.
+  3. Lưới biển ở xa thưa 10–250 m, còn sóng có bước 10/17/30 m. Độ dốc sóng nội suy theo đỉnh nên mặt biển xa phẳng, mất gợn.
+  4. Các probe sông được nướng từ trước 21.302, khi 70 cao ốc vành ngoài còn đứng. Probe 00 (z −760) và 12 (x −760) ngoài cửa sông vẫn chứa các nhà đã bị xóa, nên phản chiếu ra biển có vệt tối.
+- **Sửa** (`Scripts/OpenWorld/OpenWorldRiver.shader`; mặt sông giữ nguyên đường tính cũ vì mọi nhánh mới chỉ chạy khi `_SeaMode = 1`):
+  - Biển dùng **cùng 4 probe phản chiếu của sông** (`RiverReflect`):
+    - **Sát cửa sông** (màu đỉnh a = 1, tới 110 m rồi giảm về 0 ở 450 m), trọng số probe tính theo s của tim sông kéo dài qua cửa gần nhất, đúng như mặt sông. Nhờ vậy mép lưới sông/biển không lộ ranh.
+    - **Ra xa**, trộn 4 probe theo khoảng cách ngang (1/(d² + 60²)), liền mạch.
+  - **Điểm biển ngoài hộp probe:** kẹp vào hộp rồi chuyển dần (120 m) sang hướng phản xạ thẳng. Như vậy không có vệt quạt toả từ cửa sông, cũng không có đường nối ở x = 234,5 như khi dùng công thức s.
+  - **Độ dốc sóng của biển** tính theo từng điểm ảnh bằng `OWWaveHeight`, nên gợn xa giống sông.
+  - **Màu thân nước:** dùng thẳng `_DeepColor/_MidColor` của sông. `_SeaDeep/_SeaMid` không còn dùng, chỉ giữ để vật liệu cũ không lỗi.
+- **Builder** `Editor/PhoVietOpenWorldPeninsulaBuilder.cs` (menu 20), `BuildSea`:
+  - Renderer `MatBien` để y như mặt sông: Light Probes Off, Reflection Probes Off, đổ bóng On, nhận bóng On.
+  - Vật liệu `OW_Bien.mat` chép nguyên `OW_River`, chỉ khác `_SeaMode = 1`.
+  - **Dải lót 12 m** dưới mép lưới sông ở hai cửa sông, hạ 0,15 m, để khe giữa hai lưới (đỉnh lệch nhau) không lộ chấm trời trắng. Lưới biển có 35.889 đỉnh.
+- **Nướng lại 13 probe phản chiếu sông** theo cảnh bán đảo hiện tại bằng `AgentScripts/RebakeProbes21302.cs` (gọi `PhoVietOpenWorldRiverBuilder.BakeProbes`, tạm gắn cờ ReflectionProbeStatic cho 1.582 vật thể của `BanDao` trừ mặt biển, rồi trả lại cờ cũ; kết quả 13/13).
+  - Probe 01–11 trong lòng phố gần như không đổi (độ sáng trung bình lệch ≤ 3/255), nên mặt sông trong phố giữ nguyên dáng cũ.
+  - Probe 00/12 ngoài cửa sông nay thấy biển và trời (sáng hơn, hết vệt nhà đã xóa).
+  - Ảnh probe cũ có trong Git (commit trước), nếu cần lấy lại.
+- **Kiểm tra Play** (ảnh trong `Captures/`):
+  - `bandao21302-cuasong8.png`: cửa sông nam, sông chảy ra biển liền mạch, không đường ranh, không chấm trắng.
+  - `bandao21302-cuatay.png`: cửa tây.
+  - `bandao21302-songbien.png`: từ lòng sông nhìn ra biển.
+  - `bandao21302-tren6.png`: từ trên cao, biển cùng tông với sông.
+  - Có ảnh so sánh trước/sau: `cuasong4/5/6`, `tren2/3/4`.
+  - Shader không lỗi, console không lỗi.
+- **Trạng thái:** chưa commit/build/phát hành (gộp cùng 21.299–21.302b vào bản kế tiếp).
+
+## 21.303. Bờ biển có tàu chiến + 2 máy bay cánh kép canh gác (22/11/2026, Claude Code)
+
+- **Yêu cầu:** xe vào lề đường giáp bờ biển thì luôn xuất hiện 5 tàu + 2 máy bay. Tàu bắn đạn liên tục, máy bay bắn tên lửa liên tục, để bờ biển không còn là đường trốn.
+- **Người dùng chọn:**
+  - Máy bay là loại cánh kép đỏ (Crimson Skywing).
+  - Tàu bắn đạn pháo, máy bay bắn tên lửa.
+  - Rời bờ biển: tàu ở nguyên chỗ, quay lại lề biển thì bắn ngay; máy bay vẫn tiếp tục đuổi bắn.
+- **Mã:**
+  - `Scripts/OpenWorld/OpenWorldHazards.Coast.cs` (mới):
+    - `IsCoast`: lề sát biển = trong 37 m tính từ chân kè ở cạnh nam/tây (đường dạo 0–33 m + vỉa hè 33–37 m), 18 m ở cạnh bắc/đông. Không tính 2 cửa sông và lòng đường.
+    - `TickCoast`: vào lề biển thì `FillSeaBoats` (đủ 5 tàu ngoài khơi cạnh kè gần xe, rải ±100 m, cách kè 42–110 m) và `FillPlanes` (đủ 2 máy bay bay vào từ ngoài biển cách xe 260 m). Đang ở lề biển thì cứ 8 s bù đủ số bị hạ.
+    - `TickPlane`: máy bay 38 m/s, quay tối đa 70°/s, nghiêng cánh khi vòng. Mỗi lượt lao qua xe thì bay thẳng 1,6 s rồi vòng lại. Độ cao ≥ 30 m và ≥ mái nhà/cao ốc phía trước + 14 m. Bắn tên lửa mỗi 0,9 s khi xe ở trước mũi, cách 28–170 m.
+    - Máy bay là biến thể của trực thăng (`Heli.plane`), nên tên lửa người chơi khóa và hạ được. Không tính vào giới hạn/ô trực thăng. Lý do thua: «TRÚNG TÊN LỬA MÁY BAY» / «MÁY BAY RƠI TRÚNG».
+  - `OpenWorldBoats.cs`: thêm tàu biển (`sea`), `PlaceSeaBoat`, `ClearSea`, `SeaAlive`.
+    - Tàu biển tuần vòng bán kính 16 m quanh chỗ được đặt, 3 m/s.
+    - Bị bắn chìm thì không tự hiện lại; hazards bù khi xe ở lề biển.
+  - `OpenWorldHazards.Boats.cs`:
+    - Tàu biển chỉ bắn khi xe ở lề sát biển, tàu sông chỉ bắn khi xe ở lề sông.
+    - Mảng nhịp bắn giữ giá trị cũ khi thêm tàu.
+  - `OpenWorldHazards.cs`: chơi lại thì ẩn tàu biển và dọn máy bay; `Report()` có số liệu bờ biển.
+- **Kiểm tra Play** (`AgentScripts/Coast21303.cs`):
+  - Vào lề biển nam: sau 0,3 s có 5/5 tàu + 2/2 máy bay, đã bắn 5 viên đạn.
+  - Xe đứng yên bị hạ sau khoảng 4 s.
+  - Rời sang lòng đường 6 s: tàu không bắn thêm (5 viên), máy bay bắn thêm 6 tên lửa.
+  - Chơi lại: tàu biển ẩn hết, máy bay bị dọn.
+  - Ảnh (22/11/2026, tắt bắn tạm để chụp) `Captures/bandao21302-bien_tau_maybay.png` (từ đường dạo nhìn ra biển: 2 máy bay + tàu), `bandao21302-maybay_gan.png` (cận cảnh 2 máy bay cánh kép, 2 tàu tuần có vệt sóng), `bandao21302-gocchoi_bien.png` (góc lái). Hình máy bay quay cánh quạt, nghiêng theo vòng bay; không lỗi console.
+  - **Chưa thử trên điện thoại.**
+- **Trạng thái:** chưa commit/build/phát hành.
+
+## 21.304. Máy bay bắn tên lửa ngay theo nhịp xe tăng/tàu, vòng báo vàng; cắt bỏ đường dạo cạnh nam + tây; bỏ tàu du lịch trên sông (22/11/2026, Claude Code)
+
+- **Yêu cầu** (kèm ảnh toàn bản đồ có đường đỏ ở cạnh nam/tây và khoanh đỏ một vật trên sông):
+  1. Máy bay bắn tên lửa quá chậm: đã xuất hiện, người chơi đã thấy mà chưa bắn. Cần bắn với nhịp như xe tăng/tàu bắn đạn, có vòng báo **màu vàng** dưới đất chỉ chỗ tên lửa rơi.
+  2. Cắt lề biển theo đường đỏ: phần bên ngoài bỏ, thành biển.
+  3. Xóa vật khoanh đỏ trên sông.
+- **Đọc ảnh:** ảnh Scene view bị **xoay 90°**: phía trên ảnh là phía đông. Đối chiếu bằng 2 cầu (B1 sát khúc cua trên nhánh dọc, B2 giữa nhánh ngang).
+  - Đường đỏ nằm ở **cạnh nam và cạnh tây**, cách chân kè cũ ~30–33 m, đúng **mép ngoài vỉa hè phía biển**.
+  - Vật khoanh đỏ là **tàu du lịch trang trí đứng yên** `BanDoMo/OW_Map_showcase/OW_TauDuLich_The_Goc` (dài 36 m, mái dù đỏ) ở (213, 273).
+- **(1) Máy bay** (`Scripts/OpenWorld/OpenWorldHazards.Coast.cs`):
+  - Xuất hiện cách xe 200 m (trước là 260 m) và nạp sẵn (0–0,2 s), nên bắn ngay khi vào tầm `planeFireRange` = 260 m.
+  - Nhịp bắn = nhịp xe tăng/tàu: **1,0 → 0,55 s** theo tốc độ xe.
+  - Bắn mọi hướng trừ khi xe nằm hẳn sau đuôi (dot > −0,25).
+  - Tên lửa máy bay có giới hạn riêng `planeMaxMissiles` = 12, không chung giới hạn 6 của trực thăng (`MissilesInFlight(plane)`).
+  - Bỏ trường `planeFireEvery`.
+  - **Vòng báo vàng:** shader `Scripts/TankWarning.shader` thêm `_Recolor` (1 = tô lại vòng theo độ sáng ảnh vòng × `_Color`). `OpenWorldHazards.TintMarker` đặt cho từng vòng lấy từ pool: vàng (1; 0,86; 0,08) cho tên lửa máy bay; đỏ gốc cho đạn pháo, tàu và trực thăng.
+  - Đo trong Play: 1 s đầu đã bắn 2 tên lửa, 2,5 s bắn 6 tên lửa.
+- **(2) Cắt cạnh nam/tây** (`Editor/PhoVietOpenWorldPeninsulaBuilder.cs`, menu 20, chạy qua `AgentScripts/Peninsula21304.cs`):
+  - Ranh giới **X0 = Z0 = −567,5** (mép ngoài vỉa hè `OW_Duong_*_ViaHe`). X1 = Z1 = 700 giữ nguyên.
+  - Bỏ hẳn dải đường dạo bê tông 32,5 m. Kè + mũ kè + lan can và tường vô hình dựng sát vỉa hè.
+  - Không trồng hàng dừa/cột đèn đường dạo ở 2 cạnh này (còn 70 dừa + 70 cột ở bắc/đông).
+  - Hộp va chạm mặt đất (`VaCham/MatDat`…, BoxCollider không xoay) giờ được **co vào trong ranh giới** (bước mới; 5 hộp). Trước đó hộp còn trải tới −600 nên xe chạy được trên mặt biển.
+  - Mặt biển 35.231 đỉnh. Lần chạy: xóa 4 cụm LOD + 2 lưới, cắt 6 lưới.
+  - Lề sát biển ở runtime (`IsCoast`): nam/tây chỉ còn vỉa hè **0–5 m**; bắc/đông giữ 18 m.
+  - Occlusion **không nướng lại** (chỉ bớt mặt đất + cây đường dạo, dữ liệu cũ vẫn bảo thủ).
+- **(3)** Bước 0 của builder xóa `OW_TauDuLich_The_Goc` (bung prefab rồi xóa).
+- **Ảnh:**
+  - `Captures/topdown21302-sau304.png`: toàn cảnh, cạnh nam/tây sát vỉa hè.
+  - `Captures/bandao21302-gocchoi_304.png`: góc lái trên vỉa hè sát kè, có vòng báo vàng tên lửa máy bay.
+- **Trạng thái:** chưa commit/build/phát hành. Chưa thử điện thoại.
+
+## 21.305. Hàng rào lề biển dựng lại giống lan can lề sông; sửa góc đâm xuyên; vá góc tây nam và 4 đoạn lan can sông ở cửa sông (22/11/2026, Claude Code)
+
+- **Phản hồi người dùng** (3 ảnh):
+  1. Góc hàng rào biển giao nhau bị đâm xuyên; cần soát và sửa mọi chỗ.
+  2. Lề biển lấn thừa ra ngoài đường (khoanh đỏ góc nút giao có mảng bê tông).
+  3. Dựng lại toàn bộ hàng rào lề biển giống hàng rào lề sông (trụ đá trắng + song sắt đen).
+- **Nguyên nhân:**
+  - Lan can sắt cũ (21.302) của mỗi cạnh chạy hết tới đỉnh góc, lệch vào 0,45 m theo pháp tuyến riêng, nên ở góc hai thanh chồng/xuyên nhau 0,45 m.
+  - Khi cắt cạnh nam/tây ở 21.304, builder xóa các vật có tâm nằm ngoài ranh giới mới. Vì vậy mất:
+    - mảnh nút giao + vỉa hè góc tây nam: lộ nền bê tông thấp (−0,08) giữa đường và lan can;
+    - 4 đoạn lan can sông sát 4 bờ cửa sông (~24 m mỗi đoạn; va chạm của chúng vẫn còn).
+- **Lan can mới** (`Editor/PhoVietOpenWorldPeninsulaBuilder.cs`, `BuildSeawall` + `BuildRailing`, menu 20):
+  - Số đo lấy đúng từ `OW_Map_LanCanSong_*`:
+    - trụ granite: đế 0,56 × 0,20 m, thân 0,44 × 0,80 m, mũ 0,56 × 0,12 m; bước trụ ~3,82 m; tâm trụ cách mép kè 0,35 m;
+    - 2 thanh sắt 6 cm ở độ cao 0,21 và 0,90 m từ chân trụ;
+    - song sắt 2 cm cao 0,70 m, cách nhau 13 cm.
+  - **Hai đầu mỗi cạnh lùi 0,35 m**, nên 4 góc dùng chung **một trụ góc** và thanh/song chỉ chạy giữa hai mặt trụ, hết đâm xuyên. Đã soát cả 4 góc và 4 cửa sông bằng ảnh từ trên xuống.
+  - Chân trụ theo mặt lề: vỉa hè 0,15 m; đường dạo bắc/đông −0,08 m.
+  - Gờ đá granite ở mép kè nhô 0,15 m, kéo dài thêm 0,15 m ở góc cho kín.
+  - Chia **83 khúc ≈ 16 ô** (`BanDao/LanCanBien/LanCan_###`), mỗi khúc 1 LODGroup:
+    - LOD0 (> 0,55) có song sắt;
+    - LOD1 chỉ trụ + 2 thanh;
+    - ẩn dưới 0,012.
+  - Lưới gộp trong một tệp `OpenWorld/Library/BanDao/OW_BanDao_LanCanBien.asset`.
+  - Tổng: 1.260 trụ, 1.262 ô, 31.562 song sắt.
+- **Tường vô hình:** `inset` 0,5 → 0,7 m, mặt trong tường nằm sau mặt trong trụ. Thử trong Play: lao xe 22 m/s ra biển, đầu xe dừng ở z −566,99, cách song sắt (−567,15) 0,16 m, không xuyên.
+- **Góc tây nam** (`BuildCornerFix`, gốc `BanDao/GocTayNam`): đúc lại
+  - mặt đường nút giao x[−563,5; −556,5] × z[−563,5; −560] (đỉnh 0, `OW_Asphalt`, khớp `OW_Duong_P1/P2_MatDuong`);
+  - vỉa hè chữ L ôm góc (đỉnh 0,15, bó vỉa 0,17 dày 0,25 m, `OW_Paving`) + va chạm lề layer MatLe.
+  - Soát dọc 4 cạnh: chỉ góc này bị hở.
+- **Cửa sông:**
+  - Bờ thật đo theo lan can sông: cửa nam **x 234,5–400**, cửa tây **z 228,5–400** (trước dùng 234/229). Sửa `MouthSouth/MouthWest` và `OpenWorldHazards.IsCoast`.
+  - Dựng 4 đoạn lan can kiểu sông nối từ trụ góc lan can biển tới trụ cuối lan can sông còn lại: z −542,68 ở cửa nam, x −545,31 ở cửa tây.
+- **Ảnh:**
+  - `Captures/goc21305-SWzoom.png`: góc tây nam trước khi sửa.
+  - `Captures/bandao21302-goc_SW_moi.png`, `goc_NE_moi.png`: góc sau khi sửa.
+  - `Captures/bandao21302-lancan_canh.png`: lan can nhìn gần.
+  - `Captures/goc21305-mS_W/mS_E/mW_S/mW_N.png`: 4 cửa sông từ trên xuống.
+  - Chụp bằng `AgentScripts/Corners21305.cs`.
+- **Trạng thái:** chưa commit/build/phát hành; chưa thử điện thoại. Occlusion không nướng lại (lan can là vật động, không phải vật che).
+
+## 21.306. Lưu phần người dùng xóa tay; lấp hàng nhà phố thiếu ở khu cao tầng phía đông khúc cua sông (22/11/2026, Claude Code)
+
+- **Yêu cầu:**
+  1. Người dùng đã xóa tay một số vật trong scene → kiểm tra rồi lưu.
+  2. Ảnh Scene kẻ 2 đường xanh lá: 2 chỗ thiếu nhà phố nên xe chạy vào sân trong khu được → dựng thêm nhà phố, **mặt tiền hướng ra đường chính, không quay vào trong**.
+- **(1) Phần xóa tay** (so tên GameObject trong scene đang mở với file scene trên đĩa trước khi lưu):
+  - 7 vật không thuộc prefab bị xóa (22.013 → 22.006); số prefab instance giữ nguyên 9.334.
+  - Nhận ra: `OW_NhaThuocAnKhang` + `OW_Bang_NhaThuocAnKhang` + chữ «An Khang», `OW_QuanViaHe_TDT`, chữ «Bánh Mì Cô Lan», chữ «Nhà Thuốc.006».
+  - Đã lưu `PhoVietOpenWorld.unity`.
+- **(2) Xác định chỗ:** camera Scene đã đổi nên quét bản đồ phân loại ô 1,5 m (`AgentScripts/OccMap21306.cs` → `Captures/occmap21306.png`: nhà / vỉa hè / mặt đất / nước) và tìm sân trong nối với mạng đường.
+  - Khu trong ảnh = **khu cao tầng x 430–675, z 229–416** (phía đông sông, sát khúc cua; hàng tây/đông có sẵn).
+  - **Mặt bắc** (vỉa hè N1, mép trong z 417,6) thiếu cả hàng = đường xanh dài.
+  - **Mặt nam** (vỉa hè R3, mép trong z 227,9) thiếu đoạn góc tây tới tháp `CaoOc_CH_ZigZag_52_130` = đường xanh ngắn, cộng các khe giữa tháp.
+- **Công cụ** `Editor/PhoVietOpenWorldBlockFill.cs` (menu **21**; chạy qua `AgentScripts/BlockFill21306.cs`; chạy lại được, vật mới có hậu tố `_Lap21306`):
+  - Sao chép lần lượt 30 căn của hàng mặt tây cùng khu (`OW_Mau_NhaPho_*`, x 432,5). Giữ mặt tiền kính, nội thất, hộp LOD xa, biển hiệu đi kèm (`BangHieu`) và hộp va chạm (`VaCham_NhaPho`) theo vị trí tương đối.
+  - Khung tham chiếu chỉ quay Y, vì gốc FBX còn xoay X −90°.
+  - Mặt tiền mẫu = −X; tâm căn đặt đúng mép trong vỉa hè như hàng gốc. **Mặt bắc quay 90°** (mặt tiền ra đường phía bắc), **mặt nam quay 270°** (ra đường phía nam).
+  - Bỏ chỗ trùng tháp có sẵn. Lượt 2 lấp khe hẹp cạnh tháp (3–4 m) bằng căn gần vừa nhất, co bề ngang cho khớp.
+  - Kết quả: **55 căn + 43 biển hiệu + 4 căn lấp khe**.
+  - Quét lại: mép mặt tiền cả hai phía kín (chỉ còn khe < 0,3 m).
+- **Kiểm tra:**
+  - Ảnh `Captures/bandao21302-khuA_tong.png` (toàn khu), `khuA_bac.png` (đường phía bắc: mặt tiền kính + biển ra đường), `khuA_nam.png` (đường phía nam), `khuA_trong.png` (sân trong).
+  - Play: lao xe 15 m/s vào khe cũ mặt nam (x 466) → dừng ở z 226,1, trước mặt tiền 227,9. Console 0 lỗi.
+  - Occlusion không nướng lại (vật mới không có trong dữ liệu che → luôn vẽ, không bị loại nhầm).
+- **Còn hở — người dùng 22/11/2026 chọn «Giữ nguyên» (không lấp):** quét còn thấy sân trong nối với đường ở:
+  - khu cao tầng phía nam liền kề x 449–656, z −121..190 (hàng bắc có khe cạnh tháp `CaoOc_CH_BanCong_52_146`, tháp này và `ZigZag` nằm vắt cả ra lòng đường R3);
+  - 2 khu phía tây x −430..−248, z −124..−25 (quảng trường chợ) và z −275..−176;
+  - khu nhỏ x 134–190 (z −536..−451 và 124..190).
+- **Trạng thái:** chưa commit/build/phát hành.
+
+## 21.307. Máy bay bắn tên lửa từ xa như tàu/xe tăng; CSGT dịch chuyển tức thời khi lạc > 70 m (22/11/2026, Claude Code)
+
+- **Yêu cầu:**
+  1. Máy bay đã hiện trên trời từ xa mà vẫn không bắn → tầm bắn tên lửa máy bay xa như đạn xe tăng và tàu.
+  2. CSGT hay chạy lạc → lạc quá **70 m** thì dịch chuyển tức thời tới chỗ gần người chơi nhất nhưng cách tối thiểu **20 m**; dùng liên tục không hồi chiêu; có thông báo.
+- **(1) Máy bay:**
+  - `OpenWorldHazards.Coast.cs`: `planeFireRange` 260 → **5.000 m** (bằng `boatFireFar` của tàu), sửa cả giá trị trong scene. Bỏ điều kiện hướng mũi: còn tầm là bắn, nhịp như xe tăng/tàu.
+  - `OpenWorldHazards.FireMissile`: tên lửa máy bay bay nhanh theo tầm, `clamp(khoảng cách / 3,5 s, 36, 300 m/s)`, nên bắn từ xa vẫn tới trong ~3,5 s và vẫn có vòng báo vàng. Tên lửa trực thăng giữ 36 m/s.
+  - Đo trong Play: máy bay xuất hiện cách ~200 m, **0,2 s sau đã bắn 2 tên lửa**.
+- **(2) CSGT** (`OpenWorldPolice.cs`):
+  - `teleportFar` = 70, `teleportMin` = 20.
+  - Mỗi bước vật lý, nếu xe đang đuổi/lùi/khựng, `Distance` > 70 và người chơi không bị bắt/té/chìm: `TeleportNear()` đặt xe lên làn phải đoạn đường gần nhất cách người chơi **20–45 m** (ưu tiên phía sau, mũi xe hướng về người chơi, chỗ trống). Không được thì thử 20–65 m; chưa có chỗ thì thử lại sau 0,25 s.
+  - Sau khi dịch chuyển: chuyển sang đuổi, tốc độ ban đầu theo tốc độ người chơi (8–25 m/s), lập lại đường.
+  - Áp dụng cho cả xe gốc và xe tăng viện.
+  - `PlaceOnRoad` thêm `minR/maxR`. Xe tăng viện (21.301) giờ xuất hiện trong 20–68 m (trước: phía trước 95 m, phía sau 75 m) để không bị dịch chuyển ngay khi vừa hiện.
+  - Thẻ **«CSGT DỊCH CHUYỂN — CSGT dịch chuyển tức thời! · Xuất hiện phía sau/trước · cách N m»** hiện 2,4 s (xe gốc vẽ cho mọi xe). Biến tĩnh `LastTeleportAt/Dist/Ahead`, `TeleportsAll`.
+- **Kiểm tra Play** (`AgentScripts/Police21307.cs`):
+  - Người chơi nhảy cách CSGT ~300 m → sau 1 bước CSGT hiện phía sau cách **22,1 m**, 1 s sau đuổi tới 12,6 m.
+  - Nhảy tiếp 240 m và 200 m → dịch chuyển lại ngay (20,1 m), không hồi chiêu.
+  - Ảnh Game view có thẻ thông báo.
+  - Console 0 lỗi.
+- **Ghi chú:** chip «CSGT phía trước/sau» (y = 178) có thể đè lên thẻ thông báo khi cả hai cùng hiện (bố cục có từ trước).
+- **Trạng thái:** chưa commit/build/phát hành.
+
+## 21.308. Trực thăng + máy bay cánh kép bắn tên lửa thật sự (bắn ngay, trong khung nhìn, tên lửa to rõ) (22/11/2026, Claude Code)
+
+- **Phản hồi:** vẫn không thấy trực thăng và máy bay 2 cánh bắn tên lửa, dù đã hiện từ xa và bay gần xe.
+- **Nguyên nhân** (đo bằng `AgentScripts/Fire21308.cs`: xe chạy thật nhờ `testTouchUI` + `testPedal`; `testPedal` chỉ có tác dụng khi bật nút cảm ứng):
+  1. **Trực thăng:** chỉ bắn khi đã đứng đúng vị trí trực chiến phía trước (lệch < 18 m), cách 40–115 m, mũi hướng xe; quả đầu chờ 3–4,5 s. Xe đang chạy thì trực thăng (32 m/s) đuổi không kịp nên **gần như không bao giờ bắn**.
+  2. **Máy bay:** vẫn bắn (đo 2 quả/s) nhưng hiện ngoài biển bên hông xe, bay đuổi từ bên hông/sau lưng → **ngoài khung hình**. Tên lửa thân 1,6 m, bắn xa bay tới 300 m/s → mắt không kịp thấy, người chơi chỉ thấy thẻ cảnh báo.
+- **Sửa** (`OpenWorldHazards.cs`, `OpenWorldHazards.Coast.cs`):
+  - **Trực thăng:** quả đầu sau 0,3–0,7 s. Còn trong tầm `planeFireRange` (5 km, như tàu) là bắn, nhịp như xe tăng/tàu (1,0 → 0,55 s). Bỏ điều kiện đứng đúng chỗ/hướng mũi. Giới hạn tên lửa đang bay = max(6, 12).
+  - **Máy bay:**
+    - xuất hiện **phía trước mặt xe ~220 m** (lệch ±40 m, cao 30 m);
+    - trực chiến vòng lượn **~85 m phía trước xe** (lệch ±18 m) thay vì đuổi theo xe;
+    - độ cao bay tối thiểu `planeAltitude` 30 → **22 m** (vẫn ≥ mái nhà + 14 m; sửa cả giá trị scene) để không khuất sau thanh thông tin.
+  - **Tên lửa địch** (trực thăng + máy bay):
+    - to ×2,2 (thân ~3,5 m), vệt lửa ×2,2, khói ×1,8;
+    - chớp phóng to + 4 cụm khói ở bệ phóng;
+    - tốc độ theo tầm `clamp(khoảng cách / 3,5 s, 36, 90 m/s)` (trước: tối đa 300 m/s).
+- **Kiểm tra Play** (xe chạy thật, tăng tốc 0 → 95 km/h):
+  - **trực thăng** bắn quả đầu ở giây thứ 1 (cách 129 m), mỗi giây 1 quả, trúng xe ở giây thứ 4;
+  - **máy bay** bắn 2 quả ngay giây đầu (cách ~183 m), 15 quả/6 s, trúng xe ở giây thứ 6.
+  - Ảnh Game view: 2 máy bay phía trước giữa màn hình; tên lửa to kéo vệt khói lao xuống, vòng vàng dưới đất, nổ «Trúng tên lửa máy bay».
+  - Trực thăng: vòng đỏ trên đường phía trước.
+- **Trạng thái:** chưa commit/build/phát hành.
+
+## 21.309. Tên lửa trực thăng + máy bay cánh kép nhanh thêm 15 % (22/11/2026, Claude Code)
+
+- **Yêu cầu:** tốc độ bay của tên lửa phóng ra từ trực thăng và máy bay 2 cánh nhanh hơn 15 %.
+- **Sửa:** `OpenWorldHazards.FireMissile` nhân `EnemyMissileSpeedMul = 1.15`. Tốc độ theo tầm `clamp(khoảng cách / 3,5 s, 36, 90) × 1,15` = **41,4–103,5 m/s** (trước 36–90). Thời gian bay ngắn hơn ~13 %; vòng báo (vàng máy bay / đỏ trực thăng) chạy theo đúng thời gian bay mới. Tên lửa người chơi không đổi.
+- **Kiểm tra Play:** trực thăng cách ~150 m bắn → tên lửa 48,6 m/s (trước 42,3); tên lửa gần đạt mức sàn 41,4 m/s (trước 36). Console 0 lỗi.
+- **Trạng thái:** chưa commit/build/phát hành.
+
+## 21.310. Thẻ thông báo trong game nhỏ lại (22/11/2026, Claude Code)
+
+- **Yêu cầu (ảnh thẻ «CHUẨN BỊ · CSGT xuất phát sau 1 giây»):** cho các thông báo nhỏ lại, đang che màn hình nhiều.
+- **Sửa** `Scripts/OpenWorld/OpenWorldToast.cs`: hằng `CardScale = 0.75` nhân vào mọi kích thước của thẻ (`Show`): khung, bo góc, vòng biểu tượng, chữ nhãn/tiêu đề/dòng phụ (12/22/14 → 9/16,5/10,5 đơn vị HUD), lề, khoảng cách xếp chồng giữa các thẻ, độ trượt khi hiện. Thẻ giữa màn hình (vd. «Bị CSGT bắt») giữ hệ số 1,18 × 0,75. Chip «CSGT phía trước/sau» giữ nguyên. Thẻ vẫn theo thang đo HUD nên trên điện thoại (màn ngang ~1,4×) chữ vẫn rõ.
+- **Người dùng xác nhận cỡ 75 % «vừa rồi» (22/11/2026).**
+- **Kiểm tra Play:** ảnh `Captures/thongbao_nho21310.png` (Game view 1280 × 720): thẻ «CSGT xuất phát sau 3 giây» chỉ còn ~200 × 52 điểm ảnh, chữ vẫn đọc được.
+- **Trạng thái:** chưa commit/build/phát hành.
+
+## 21.311. Phát hành 1.88.0 (21.299–21.310) (22/11/2026, Claude Code)
+
+- **Người dùng:** «Phát hành luôn».
+- **Trước build:** song sắt lan can biển (31.562 song) đổi từ hộp 20 đỉnh sang 2 mặt phẳng trước/sau (8 đỉnh) → lưới lan can 378.576 đỉnh (≈ ½ trước), nhìn như cũ (`Captures/bandao21302-lancan_canh2.png`); chạy lại menu 20.
+- **Khung «Bản cập nhật»** `index.html` (22/11/2026, 5 dòng):
+  - bán đảo + biển giống sông + kè lan can đá;
+  - tàu chiến + máy bay cánh kép ở bờ biển, trực thăng/máy bay bắn ngay có vòng báo;
+  - LAZER + tên lửa tự hồi 12 s;
+  - CSGT lưới điện / tăng viện 300 m / dịch chuyển 70 m;
+  - thanh thông tin to, thẻ thông báo gọn, xe máy to, nhà phố khu cao tầng.
+- **Phiên bản 1.88.0** (`PhoVietWebBuild.cs`, `ProjectSettings.asset`).
+- **Build:** `AgentScripts/QueueRelease21311.cs` → `Builds/release1880-status.json`.
+  - **1.465 giây**, 3.356 nội thất 3D lược ở gói điện thoại, cache `dc5d99b638c75345`.
+  - Gói điện thoại `789e1e1d…` **104,5 MB** (1.87.0: 104,0), gói máy tính `eb27890a…` **120,5 MB** (119,9), wasm 5,9 MB.
+  - Occlusion giữ dữ liệu nướng ở 21.302.
+- **`docs/`** thay bằng `Builds/WebGL`, `PublishWebArtifact.py pack` (mỗi gói 4 phần 32 MiB), materialize: **29/29 tệp khớp SHA-256**.
+- **Commit/push/Pages/live:** xem dòng cập nhật kế tiếp.
+

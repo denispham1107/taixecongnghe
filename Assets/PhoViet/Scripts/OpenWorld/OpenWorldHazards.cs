@@ -101,7 +101,7 @@ namespace PhoViet.OpenWorld
         {
             if (player) { playerRb = player.GetComponent<Rigidbody>(); lastPlayerPos = player.transform.position; }
             if (police) seenRun = police.Runs;
-            HookTraffic();
+            HookTraffic(); HookLaser();
             NextAt = firstAt; NextKind = 0; NextTankAt = tankEvery; NextHeliAt = heliEvery; TankWave = HeliWave = 1;
             ResetWeapons();
         }
@@ -124,6 +124,7 @@ namespace PhoViet.OpenWorld
             foreach (var c in craters) Destroy(c.go);
             craters.Clear();
             DistanceDriven = 0; NextAt = firstAt; NextKind = 0; notice = null; ResetBoatGuns();
+            if (boats) boats.ClearSea(); OnCoast = false; planeLostAt = -99f;          // 21.303: tàu biển/máy bay xuất hiện lại khi vào bờ biển
             NextTankAt = tankEvery; NextHeliAt = heliEvery; TankWave = HeliWave = 1;
             ResetWeapons();
             if (player) lastPlayerPos = player.transform.position;
@@ -377,7 +378,7 @@ namespace PhoViet.OpenWorld
             t.rb.MovePosition(t.rb.position + (rot * Vector3.forward) * tankSpeed * dt);
             // húc văng xe NPC phía trước, khựng xe CSGT chắn đầu
             if (traffic) NpcKnocked += traffic.KnockAround(t.rb.position + fwd * 2.2f, 1.6f);
-            if (police && (police.transform.position - (t.rb.position + fwd * 2.4f)).sqrMagnitude < 2.6f * 2.6f) police.Stun(1.2f, "xe tăng");
+            foreach (var pol in OpenWorldPolice.All) if (pol && (pol.transform.position - (t.rb.position + fwd * 2.4f)).sqrMagnitude < 2.6f * 2.6f) pol.Stun(1.2f, "xe tăng");
             // bắn
             t.fire -= dt;
             if (t.fire <= 0f)
@@ -423,6 +424,7 @@ namespace PhoViet.OpenWorld
             var s = new Shell { start = muzzle, target = target, water = water, apex = 3.2f + Vector3.Distance(muzzle, target) * .06f, reason = reason, what = what };
             s.body = shellPool.Count > 0 ? shellPool.Pop() : NewShell(); s.body.gameObject.SetActive(true); s.body.position = muzzle;
             s.marker = markerPool.Count > 0 ? markerPool.Pop() : NewMarker(); s.marker.gameObject.SetActive(true);
+            TintMarker(s.marker, false);
             PlaceMarker(s, 0f);
             shells.Add(s); ShellsFired++;
             Emit(muzzleFx, muzzle, f * 2.5f, 3.4f, .22f, Color.white);
@@ -513,7 +515,7 @@ namespace PhoViet.OpenWorld
                 Emit(smokeFx, at + new Vector3(Random.Range(-1f, 1f), 1 + i * .5f, Random.Range(-1f, 1f)), Vector3.up * Random.Range(1f, 2.2f), Random.Range(3f, 4.5f), Random.Range(1.6f, 2.4f), new Color(.32f, .3f, .29f, .85f));
             PlayAt(blastClip, at, 0.9f);
             if (traffic) NpcKnocked += traffic.KnockAround(at, blastRadius);
-            if (police && Flat(police.transform.position - at) < blastRadius + 1.2f) police.Stun(1.2f, what);
+            foreach (var pol in OpenWorldPolice.All) if (pol && Flat(pol.transform.position - at) < blastRadius + 1.2f) pol.Stun(1.2f, what);   // 21.301: mọi xe CSGT
             if (player && !player.Crashed)
             {
                 var off = player.transform.position - at;
@@ -530,15 +532,16 @@ namespace PhoViet.OpenWorld
         {
             public Transform root; public HelicopterVisual vis; public Vector3 vel; public float age, fire, yaw; public bool leaving;
             public int slot; public bool downed; public Vector3 spin;                 // 21.258: dàn hàng nhiều chiếc, bị bắn rơi
+            public bool plane; public Transform prop; public float bank, pass, propAngle;   // 21.303: máy bay cánh kép (bờ biển)
         }
-        int ActiveHeliCount() { int n = 0; foreach (var h in helis) if (h.root && !h.downed && !h.leaving) n++; return n; }
+        int ActiveHeliCount() { int n = 0; foreach (var h in helis) if (h.root && !h.downed && !h.leaving && !h.plane) n++; return n; }
         // Vị trí trực chiến theo ô: lệch ngang (m) và độ cao (m) — dàn hàng phía trước xe.
         static readonly Vector2[] HeliSlots = { new Vector2(0, 15), new Vector2(-11, 17), new Vector2(11, 17), new Vector2(-22, 19), new Vector2(22, 19), new Vector2(0, 24) };
         int FreeHeliSlot()
         {
             for (int k = 0; k < HeliSlots.Length; k++)
             {
-                bool used = false; foreach (var h in helis) if (h.root && !h.downed && !h.leaving && h.slot == k) { used = true; break; }
+                bool used = false; foreach (var h in helis) if (h.root && !h.downed && !h.leaving && !h.plane && h.slot == k) { used = true; break; }
                 if (!used) return k;
             }
             return 0;
@@ -561,7 +564,7 @@ namespace PhoViet.OpenWorld
             var go = Instantiate(helicopterPrefab, c + Vector3.up * (heliAltitude + 6f), Quaternion.LookRotation(dir));
             go.name = "TrucThang";
             foreach (var col in go.GetComponentsInChildren<Collider>(true)) Destroy(col);
-            var h = new Heli { root = go.transform, vis = go.GetComponent<HelicopterVisual>(), fire = 3.0f + (float)rnd.NextDouble() * 1.5f, yaw = go.transform.eulerAngles.y, vel = dir * 20f, slot = FreeHeliSlot() };
+            var h = new Heli { root = go.transform, vis = go.GetComponent<HelicopterVisual>(), fire = 0.3f + (float)rnd.NextDouble() * 0.4f, yaw = go.transform.eulerAngles.y, vel = dir * 20f, slot = FreeHeliSlot() };
             if (h.vis) { h.vis.standalone = true; h.vis.ResetPose(); }
             helis.Add(h); HelisSpawned++;
             if (announce) Say("Trực thăng phía trước", "Né tên lửa", 2.2f, OpenWorldToast.Kind.Warn);
@@ -574,6 +577,7 @@ namespace PhoViet.OpenWorld
         {
             h.age += dt;
             if (h.downed) return TickDowned(h, dt);
+            if (h.plane) return TickPlane(h, dt, pp, pv);                              // 21.303
             var pf = pv.sqrMagnitude > 4f ? pv.normalized : player.transform.forward; pf.y = 0; pf.Normalize();
             if (!h.leaving && (h.age > heliStay || (player.Crashed && h.age > 4f) || player.frozen && police && police.Jailed)) { h.leaving = true; Note("trực thăng rời đi"); }
             Vector3 want;
@@ -597,40 +601,50 @@ namespace PhoViet.OpenWorld
             var to = pp - h.root.position; float d = to.magnitude;
             if (h.fire <= 0f)
             {
-                bool settled = Flat(h.root.position - HeliStation(h, pp, pf)) < 18f;   // đã vào vị trí trực chiến phía trước
-                if (settled && !player.Crashed && !player.frozen && d > 40f && d < 115f && Vector3.Dot(to / d, h.root.forward) > 0.6f && missiles.Count < maxEnemyMissilesInFlight)
+                // 21.308 (người dùng: trực thăng đã hiện, bay gần xe vẫn không bắn): trước đây chỉ bắn khi đã đứng đúng vị trí trực
+                // chiến phía trước (lệch < 18 m), cách 40–115 m, mũi hướng xe — xe đang chạy thì trực thăng đuổi không kịp nên gần như
+                // không bao giờ bắn. Nay: còn trong tầm (planeFireRange, như tàu) là bắn, nhịp như xe tăng/tàu (1,0 → 0,55 s).
+                if (!player.Crashed && !player.frozen && d > 15f && d < planeFireRange && MissilesInFlight(false) < Mathf.Max(maxEnemyMissilesInFlight, planeMaxMissiles))
                 {
                     FireMissile(h, pp, pv);
-                    h.fire = Mathf.Lerp(1.4f, 0.9f, Mathf.InverseLerp(0f, 1500f, DistanceDriven));
+                    h.fire = Mathf.Lerp(1.0f, 0.55f, Mathf.InverseLerp(8f, 27f, Mathf.Abs(player.Speed)));
                 }
-                else h.fire = 0.2f;
+                else h.fire = 0.15f;
             }
             return false;
         }
 
-        class Missile { public Transform root; public MissileFlightVisual vis; public Vector3 vel, target; public float age, eta; public Renderer marker; }
+        class Missile { public Transform root; public MissileFlightVisual vis; public Vector3 vel, target; public float age, eta; public Renderer marker; public bool fromPlane; }
         readonly List<Missile> missiles = new List<Missile>();
+        int MissilesInFlight(bool plane) { int n = 0; foreach (var m in missiles) if (m.fromPlane == plane) n++; return n; }
         readonly Stack<Missile> missilePool = new Stack<Missile>();
 
+        public const float EnemyMissileSpeedMul = 1.15f;   // 21.309: tên lửa trực thăng + máy bay cánh kép nhanh hơn 15 %
         void FireMissile(Heli h, Vector3 pp, Vector3 pv)
         {
-            var origin = h.root.TransformPoint(LauncherLocal);
+            var origin = h.root.TransformPoint(h.plane ? PlaneLauncherLocal : LauncherLocal);
+            // 21.307: tên lửa máy bay bắn từ xa (tới 5 km) bay nhanh dần theo tầm để tới nơi trong ~3,5 s (36 → 300 m/s)
+            // 21.308: tối đa 90 m/s (300 m/s thì mắt không kịp thấy) — áp dụng cả trực thăng
+            // 21.309 (người dùng): nhanh thêm 15 % (36–90 → 41,4–103,5 m/s)
+            float spd = Mathf.Clamp(Vector3.Distance(origin, pp) / 3.5f, missileSpeed, 90f) * EnemyMissileSpeedMul;
             // đón đầu: điểm trên mặt đường nơi xe sẽ tới khi tên lửa bay tới (giải gần đúng 2 vòng)
             var target = pp; float t = 0f;
-            for (int k = 0; k < 3; k++) { t = Vector3.Distance(origin, target) / missileSpeed; target = pp + pv * t; }
+            for (int k = 0; k < 3; k++) { t = Vector3.Distance(origin, target) / spd; target = pp + pv * t; }
             target.y = GroundY(target, out bool water);
             var m = missilePool.Count > 0 ? missilePool.Pop() : NewMissile();
             if (m == null) return;
-            m.target = target; m.eta = Vector3.Distance(origin, target) / missileSpeed; m.age = 0f;
-            m.vel = (target - origin).normalized * missileSpeed;
+            m.target = target; m.eta = Vector3.Distance(origin, target) / spd; m.age = 0f; m.fromPlane = h.plane;
+            m.vel = (target - origin).normalized * spd;
             m.root.gameObject.SetActive(true);
             m.root.SetPositionAndRotation(origin, Quaternion.LookRotation(m.vel));
             if (m.vis) { m.vis.standalone = true; m.vis.Begin(); }
             m.marker = markerPool.Count > 0 ? markerPool.Pop() : NewMarker(); m.marker.gameObject.SetActive(true);
+            TintMarker(m.marker, h.plane);                                              // 21.304: tên lửa máy bay → vòng vàng
             PlaceRing(m.marker, target, 0f);
             missiles.Add(m); MissilesFired++;
             if (autoDodgeTest) dodgeUntil = Time.time + 0.45f;
-            Emit(muzzleFx, origin, m.vel.normalized * 4f, 1.6f, .15f, Color.white);
+            Emit(muzzleFx, origin, m.vel.normalized * 4f, 4.2f, .22f, Color.white);                 // 21.308: chớp phóng to, dễ thấy
+            for (int k = 0; k < 4; k++) Emit(smokeFx, origin - m.vel.normalized * (k * 1.2f), -m.vel.normalized * 2f + Random.insideUnitSphere, Random.Range(1.6f, 2.6f), Random.Range(.8f, 1.3f), new Color(.85f, .85f, .85f, .7f));
             PlayAt(launchClip, origin, 0.6f);
             Say("Tên lửa lao tới!", "Đổi hướng hoặc phanh để né", 1.0f, OpenWorldToast.Kind.Danger);
         }
@@ -640,7 +654,12 @@ namespace PhoViet.OpenWorld
             if (!missilePrefab) return null;
             var go = Instantiate(missilePrefab, transform); go.name = "TenLua";
             foreach (var col in go.GetComponentsInChildren<Collider>(true)) Destroy(col);
-            return new Missile { root = go.transform, vis = go.GetComponent<MissileFlightVisual>() };
+            // 21.308: tên lửa địch to gấp 2,2 lần (thân ~3,5 m), vệt lửa + khói to theo — nhìn rõ khi bay từ trên trời xuống
+            go.transform.localScale = Vector3.one * 2.2f;
+            var vis = go.GetComponent<MissileFlightVisual>();
+            if (vis && vis.fireTrail) vis.fireTrail.widthMultiplier *= 2.2f;
+            if (vis && vis.smoke) { var mm = vis.smoke.main; mm.startSizeMultiplier *= 1.8f; }
+            return new Missile { root = go.transform, vis = vis };
         }
 
         void RetireMissile(Missile m)
@@ -673,7 +692,7 @@ namespace PhoViet.OpenWorld
                         PlayAt(blastClip, at, 0.25f);
                     }
                     // 21.285: tên lửa máy bay rơi trúng lề / lối sát sông (không trúng xe) cũng để lại hố như đạn pháo
-                    else Explode(at, direct, !direct && IsRiverBank(at), "TRÚNG TÊN LỬA TRỰC THĂNG", "tên lửa");
+                    else Explode(at, direct, !direct && (IsRiverBank(at) || IsCoast(at)), m.fromPlane ? "TRÚNG TÊN LỬA MÁY BAY" : "TRÚNG TÊN LỬA TRỰC THĂNG", "tên lửa");
                 }
             }
         }
@@ -863,6 +882,17 @@ namespace PhoViet.OpenWorld
             else { t = GameObject.CreatePrimitive(PrimitiveType.Capsule).transform; t.SetParent(transform, false); t.localScale = new Vector3(.22f, .45f, .22f); Destroy(t.GetComponent<Collider>()); }
             t.localScale = Vector3.one * 1.8f; t.name = "DanPhao"; return t;
         }
+        // 21.304: vòng báo dùng chung pool — đặt lại màu mỗi lần lấy ra (vàng = tên lửa máy bay, đỏ gốc = đạn pháo/trực thăng)
+        static readonly int RecolorId = Shader.PropertyToID("_Recolor"), TintId = Shader.PropertyToID("_Color"), FillId = Shader.PropertyToID("_Fill");
+        void TintMarker(Renderer r, bool yellow)
+        {
+            if (mpb == null) mpb = new MaterialPropertyBlock();
+            r.GetPropertyBlock(mpb);
+            mpb.SetFloat(RecolorId, yellow ? 1f : 0f);
+            mpb.SetColor(TintId, yellow ? new Color(1f, .86f, .08f, 1f) : Color.white);
+            mpb.SetColor(FillId, yellow ? new Color(1f, .8f, .05f, .45f) : (warningMaterial ? warningMaterial.GetColor(FillId) : new Color(1f, .08f, .03f, .42f)));
+            r.SetPropertyBlock(mpb);
+        }
         Renderer NewMarker()
         {
             var go = new GameObject("VongCanhBao"); go.transform.SetParent(transform, false);
@@ -889,6 +919,6 @@ namespace PhoViet.OpenWorld
                 OpenWorldToast.Show(noticeCaption, noticeTitle, noticeDetail, noticeKind, Time.time - noticeAt, noticeUntil - Time.time);
         }
 
-        public string Report() => $"km={DistanceDriven:F0} dino@{NextAt:F0} tank@{NextTankAt:F0}×{TankWave} heli@{NextHeliAt:F0}×{HeliWave} ammo={PlayerMissiles}/{maxMissiles} fired={PlayerMissilesFired} tankKills={TanksDestroyed} heliKills={HelisDowned} pickups={PickupsCollected} helis={helis.Count}/{HelisSpawned} missiles={MissilesFired}/{MissileBlasts} dinos={dinos.Count}/{DinosSpawned} tanks={tanks.Count}/{TanksSpawned} sweeps={Sweeps} shells={ShellsFired} blasts={Blasts} splash={Splashes} craters={craters.Count} jolts={CraterJolts} npcKnocked={NpcKnocked}";
+        public string Report() => $"coast={OnCoast} coastIn={CoastEntries} sea={(boats ? boats.SeaAlive : 0)}/{(boats ? boats.SeaCount : 0)} planes={ActivePlanes}/{PlanesSpawned} planeKills={PlanesDowned} km={DistanceDriven:F0} dino@{NextAt:F0} tank@{NextTankAt:F0}×{TankWave} heli@{NextHeliAt:F0}×{HeliWave} ammo={PlayerMissiles}/{maxMissiles} fired={PlayerMissilesFired} tankKills={TanksDestroyed} heliKills={HelisDowned} pickups={PickupsCollected} helis={helis.Count}/{HelisSpawned} missiles={MissilesFired}/{MissileBlasts} dinos={dinos.Count}/{DinosSpawned} tanks={tanks.Count}/{TanksSpawned} sweeps={Sweeps} shells={ShellsFired} blasts={Blasts} splash={Splashes} craters={craters.Count} jolts={CraterJolts} npcKnocked={NpcKnocked}";
     }
 }
