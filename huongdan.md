@@ -4375,7 +4375,7 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Ô tô ≥ 40 km/h: văng bật lùi/ngang 0,38 × v + nảy + xoay, móp, **choáng 1,2 → 4 s** (theo vận tốc khép 40 km/h → tối đa), khóa lái; vòng 5 ngôi sao vàng quay trên nóc (`stunMaterial` = `OW_SaoChoang.mat`, texture tự vẽ `OW_SaoChoang.png`, Particles/Alpha Blended) + chữ «CHOÁNG 2.3 s»; hết choáng lái tiếp (CSGT vẫn có thể bắt nếu đứng lâu).
   - *(21.260 thay bằng vận tốc khép ≥ 90 km/h với xe không nhẹ hơn 2,5 lần.)* Ô tô khi xe đang ≥ 95 % tốc độ tối đa: `Crash` «HÚC XE Ở TỐC ĐỘ TỐI ĐA» (lật, khói), 1 s sau nổ tung (`OpenWorldHazards.TickPlayerExplosion`) → kết thúc.
   - Đâm lại vào xác cháy đã nằm đó: như vật cản tĩnh (mất 75 % tốc độ).
-- **Bể chỗ va chạm** cả hai xe: `Scripts/OpenWorld/OpenWorldCarDent.cs` (lõi từ `PlayerCarDamage` 21.192 — lõm hình elip theo điểm chạm, sâu 0,025–0,31 m, giữ UV, mesh riêng, trả mesh gốc khi chơi lại/sinh lại) cho Supercar và 4 mẫu ô tô Meshy; **bật Read/Write** cho `PV_MeshySport/Pickup/Covered/Container.fbx` bằng cách sửa AssetPostprocessor `PhoVietCarImport` (trước ép tắt; xe tăng giữ tắt) — tốn thêm bộ nhớ CPU cho 4 lưới, game cũ không đổi hành vi. Mảnh vỡ thân xe + tia lửa ở điểm chạm (`OpenWorldHazards.ImpactShards`, như `EmitVehicleImpact` cũ: lưới `TankCraterGeometry.Debris`, 3 tông màu, số lượng theo vận tốc khép).
+- **Bể chỗ va chạm** cả hai xe *(21.324 thay bằng móp sâu + xước/kính nứt/đèn vỡ, xem 21.324)*: `Scripts/OpenWorld/OpenWorldCarDent.cs` (lõi từ `PlayerCarDamage` 21.192 — lõm hình elip theo điểm chạm, sâu 0,025–0,31 m, giữ UV, mesh riêng, trả mesh gốc khi chơi lại/sinh lại) cho Supercar và 4 mẫu ô tô Meshy; **bật Read/Write** cho `PV_MeshySport/Pickup/Covered/Container.fbx` bằng cách sửa AssetPostprocessor `PhoVietCarImport` (trước ép tắt; xe tăng giữ tắt) — tốn thêm bộ nhớ CPU cho 4 lưới, game cũ không đổi hành vi. Mảnh vỡ thân xe + tia lửa ở điểm chạm (`OpenWorldHazards.ImpactShards`, như `EmitVehicleImpact` cũ: lưới `TankCraterGeometry.Debris`, 3 tông màu, số lượng theo vận tốc khép).
 - **Vụ nổ xe bị húc** (`OpenWorldHazards.Impacts.cs`): dùng `Explode` (không hố) — hất xe NPC 2,2 m, CSGT khựng, xe người chơi trong 2,2 m (+0,6) chưa nhảy cao → «XE BỊ HÚC NỔ TUNG» → kết thúc. Trên sông chỉ bắn nước.
 - Sửa kèm: chạy lại menu 6 tạo đối tượng hiểm họa mới làm vòng chơi trỏ vào đối tượng đã xóa (mét = 0, HUD mất cột tên lửa) → menu 6 tự nối lại `OpenWorldGame.hazards`, vòng chơi tự tìm nếu mất. Hàm kiểm thử `OpenWorldTraffic.TestPlace(at, dir, bike, hold)` đặt một xe đứng yên trên làn.
 - Kiểm thử Play (Editor, CSGT và đạn/tên lửa địch tạm tắt, lịch hiểm họa đẩy xa): húc ô tô ~85 km/h → văng + choáng 3 s + vòng sao (ảnh `hu-o-to-choang-21259.png`), hết choáng lái tiếp; húc ô tô ở 97 km/h → «Xe nổ tung!»; húc xe máy → văng xa, nổ, xe người chơi không hỏng; va chạm chậm → lệch hướng + dừng; vụ nổ + xác cháy (`hu-xe-no-21259.png`, `hu-xe-may-no-21259.png`); giả lập trúng đạn xe tăng → 1,8 s sau thẻ «Trúng đạn xe tăng! / Đạn pháo nổ ngay cạnh xe.» (`ket-thuc-ngay-21259.png`). Console sạch.
@@ -5784,7 +5784,7 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - **Trời mưa:**
     - mặt trời ×0,3;
     - ánh sáng môi trường ×0,62;
-    - sương mù 40 → 560 m màu xám xanh;
+    - sương mù màu xám xanh, ban đầu 40 → 560 m; **từ 21.320 là 0 → 260 m** (phủ từ sát camera, hết «mảng đen» trước xe);
     - bầu trời tối + vòm mây.
   - **Mỗi tia sét:**
     - Diễn biến: tia dẫn đường 0,06 s → chớp chính → tái phóng ở 0,14 s và 0,30 s → tắt ở 0,62 s.
@@ -5816,3 +5816,177 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Commit/push/Pages:** commit **`99c16f3`**, push `main`; Pages run `45021001158` **lỗi tạm của GitHub** ở bước Deploy («No artifacts named "github-pages"… re-run the deployment at a later time»; các bước khôi phục/kiểm tra/tải gói đều đạt, trang vẫn 1.89.0). Người dùng chọn đẩy commit kích hoạt: **`c1f6af1`** chỉ thêm 1 dòng chú thích đầu `.github/workflows/pages.yml` → Pages run `45023323110` **thành công**.
 - **Trang thật:** `build-info.json` 1.90.0 cache `32be047b66713b80`, **30/30 tệp live khớp SHA-256**, khung bản cập nhật có 4 dòng mới. Chưa thử iPhone thật.
 
+## 21.319. Đổi hướng trái/phải nhạy hơn, bớt nặng nề (22/11/2026, Claude Code)
+
+- **Người dùng** (chơi thử 1.90.0 trên điện thoại): mỗi lần chuyển hướng Trái/Phải rất nặng nề, như phải lôi theo cả chiếc xe, và rất chậm. Góc camera đã ổn; chỉ sửa cách chuyển hướng cho bớt nặng nề, phản hồi nhanh nhạy hơn.
+- **Đo trước khi sửa** (`AgentScripts/Resp21319.cs`: chạy thẳng, giữ Phải 0,6 s rồi Trái 0,6 s rồi thả, bước 0,02 s, tắt va chạm + trọng lực xe):
+  - 90 km/h: thân xe quay 5° sau 0,30 s, tốc độ quay @0,1/0,2/0,3 s = 11/26/32°/s, tối đa 35°/s; Phải → Trái 0,22 s mới đổi chiều quay; lệch ngang sau 1 s 3,7 m.
+  - 50 km/h: 5° sau 0,22 s, tối đa 61°/s.
+  - Nguyên nhân: vô lăng ảo 0,18 s vào / 0,14 s trả, quán tính quay 0,09 s, giới hạn bám 1,7 g (ở 90 km/h chỉ cho ~35°/s), hướng chạy trễ sau đầu xe 0,11 s, vận tốc bám hướng chạy 0,35/bước.
+- **Sửa** (`OpenWorldDriver.cs`, giá trị lưu cả trong scene bằng `AgentScripts/SceneSteer21319.cs`):
+
+  | Thông số | Cũ (21.316e) | Mới |
+  | --- | --- | --- |
+  | `steerRise` / `steerReturn` (vô lăng ảo vào / trả) | 0,18 / 0,14 s | **0,08 / 0,06 s** |
+  | `yawLag` (quán tính quay) | 0,09 s | **0,045 s** |
+  | `gripG` (giới hạn bám) | 1,7 g | **2,6 g** |
+  | `gripLow` / `gripHigh` (hướng chạy trễ sau đầu xe) | 0,04 / 0,11 s | **0,02 / 0,05 s** (sát giới hạn tăng thêm ≤ 30 %, trước 50 %) |
+  | `scrubDecel` (thiếu lái) / cản cua | 3,5 / 2,2 m/s² × tỉ lệ² | **2 / 0,9** |
+  | Lực kéo tối thiểu khi cua (vòng ma sát) | 20 % | **50 %** |
+  | Vận tốc bám hướng chạy mỗi bước | 0,35 | **0,5** |
+
+  - Camera giữ nguyên (`headingLag` 0,6 s theo hướng chạy).
+  - Lái tỉ số thay đổi (×1,15 giới hạn), thắng tay/drift, thân xe nghiêng giữ nguyên cách làm.
+- **Đo sau khi sửa:**
+
+  | Tình huống | Trước | Sau |
+  | --- | --- | --- |
+  | 90 km/h: quay 5° sau | 0,30 s | **0,16 s** |
+  | 90 km/h: tốc độ quay @0,1/0,2/0,3 s | 11/26/32°/s | **43/53/54°/s** |
+  | 90 km/h: tối đa | 35°/s | **54°/s** |
+  | Phải → Trái: đổi chiều quay sau | 0,22 s | **0,10 s** |
+  | 90 km/h: lệch ngang sau 1 s | 3,7 m | **7,8 m** |
+  | 50 km/h: quay 5° sau / tối đa | 0,22 s / 61°/s | **0,12 s / 94°/s** |
+  | Chạm nhanh 0,2 s mỗi bên ở 90 km/h | — | lệch 2,3 m, xe thẳng lại sau ~0,3 s |
+
+  - Cua hết lái 97 km/h giữ ga 3 s: 52°/s, ~2,5 g, bán kính ~30 m, **không mất tốc độ** (trước 97 → 85 km/h), trượt 3,9°, nghiêng 3,5°.
+  - Quay đầu 15 km/h: 180° trong 1,6 s, bán kính ~4,2 m.
+  - P/DRIFT 70 km/h: đuôi văng tới 66°, quay 124° rồi dừng trong ~1 s.
+  - Biên dịch không lỗi.
+- **Trạng thái:** chưa commit/build/phát hành; chờ người dùng thử.
+
+
+## 21.320. «Lớp đen mờ phía trước xe» khi trời mưa: nguyên nhân và sửa sương mù (22/11/2026, Claude Code)
+
+- **Phản hồi người dùng (ảnh điện thoại):** khi mưa luôn có một lớp đen mờ ở phía trước xe; hỏi lớp này có bao quanh xe không, là gì, tại sao có.
+- **Kết luận: không có vật thể/lớp phủ đen nào.** Mảng tối là chính mặt đường dưới ánh sáng mưa, đứng cạnh vùng xa đã bị sương mù và màn mưa làm sáng xám.
+  - Khi mưa (`OpenWorldWeather.Apply`), mặt trời còn 30 % và ánh sáng môi trường còn 62 %, nên mặt nhựa tối hẳn.
+  - Sương mù tuyến tính bắt đầu ở **40 m** (`fogStartDistance` 40, hết ở 560). Từ 40 m trở ra cảnh nhạt dần sang xám sáng (0,42/0,46/0,51). Vùng 0–40 m quanh camera không có sương nên giữ màu nhựa tối.
+  - Hai ống màn mưa quanh camera (bán kính 8 m và 20 m) và hạt mưa chỉ cộng thêm vệt sáng ở xa, càng làm vùng gần trông tối hơn.
+  - Đi theo **camera**, không gắn vào xe. Nó bao quanh camera mọi hướng (sương mù tính theo khoảng cách tới camera, ống mưa đặt tại camera), xe chỉ nằm trong vùng đó.
+- **Cách kiểm tra (Play, mưa đủ, 90 km/h, chụp từ camera khi Editor dừng):** `AgentScripts/Dark21320.cs` tắt lần lượt từng phần và đo độ sáng các dải hàng trên mặt đường.
+  - Ống mưa gần, ống mưa xa, hạt mưa, giọt bắn, vòm mây: mỗi phần chỉ làm **sáng** thêm 0–3 mức, không phần nào làm tối.
+  - Tắt bóng mặt trời: khác ≤ 1,6 mức.
+  - Giả lập điện thoại (cảm ứng, mức Trung bình, 1 tầng bóng, 30 m): không có lớp tối riêng.
+  - Ảnh người dùng: mặt đường gần xe ~35, vùng khoanh đỏ ~45, xa ~60–100. Đường càng gần càng tối, không có dải bị phủ.
+  - Thử sương mù bắt đầu từ 0 m (hết ở 260 m): vùng trước xe hòa vào màn mưa xám, không còn mảng tối. Ảnh so sánh `Captures/dark21320-sosanh.png` (chỉ lưu máy).
+- **Sửa (người dùng chọn «Sửa sương mù»):** `OpenWorldWeather.Apply` khi mưa đủ (`Wet` = 1) đặt sương mù bắt đầu **0 m** (trước 40 m), hết ở **260 m** (trước 560 m). Vẫn nội suy theo `Wet` từ giá trị gốc của scene, nên lúc chuyển mưa/tạnh mưa đổi dần và trời quang trả đúng như cũ. Không đổi màu sương, ánh sáng, màn mưa hay hạt mưa.
+- **Kiểm tra sau khi sửa (Play, mưa đủ, 90 km/h, cùng vị trí):**
+  - Biên dịch không lỗi.
+  - Độ sáng mặt đường các dải hàng (gần → xa): trước 36/37/39/43/44/46/49/54/64, sau 38/40/42/46/47/51/56/64/75. Vùng trước xe sáng xám dần theo khoảng cách, không còn mép tối rõ.
+  - Vòng cảnh báo sét xanh vẫn rõ trên đường. Tia sét không chịu sương mù (shader `Lightning` không có fog), lúc chớp vẫn sáng rõ.
+  - Ảnh: `Captures/fog21320-a-rain.png`, `Captures/fog21320-b-flash.png` (chỉ lưu máy).
+- **Trạng thái:** chưa commit/build/phát hành (cùng 21.319); chưa thử trên điện thoại thật.
+
+
+## 21.321. Thiết kế lại toàn bộ menu bản đồ mở — 3 mẫu A/B/C để chọn (22/11/2026, Claude Code)
+
+- **Yêu cầu:** người dùng chưa hài lòng với thiết kế các menu (thẻ trắng phẳng lạc tông so với HUD mới: kính tối xanh lục lam + nút B Arcade). Cần vài kiểu menu chi tiết, đẹp, hợp giao diện mới, đủ 5 màn: màn chào (LÁI QUA PHỐ QUEN. + LÊN XE THÔI + bánh răng + «Địa điểm hôm nay» + dòng phím tắt), CẤU HÌNH ĐỒ HỌA, KẾT THÚC CHUYẾN XE, ĐÃ BỊ BẮT, tạm dừng «Dừng chân bên phố.».
+- **Đã làm (chỉ ảnh mẫu, chưa đụng mã game):** dựng 3 mẫu bằng HTML/CSS đè lên nền chụp thật trong game, đúng khung điểm của IMGUI (điện thoại ngang 1947 × 900 = `uiScale` của iPhone Pro Max; máy tính 1440 × 900), chữ Be Vietnam Pro SemiBold như game, nút điều khiển thật `Resources/TouchControls/PV_Btn_*.png`. Mỗi mẫu 6 khung (5 màn điện thoại + màn chào máy tính).
+  - **A — Kính HUD:** cùng chất liệu thanh HUD (kính tối `Glass`, viền kem mảnh, nhãn vàng có biểu tượng, số to màu kem); nút chính là nút arcade (viền navy + viền màu + bóng), nút phụ kính trong. Đồ họa: 4 hàng có vạch mức, hàng chọn viền ngọc. Thua: số mét to + thanh tiến tới kỷ lục («Còn … m nữa là chạm kỷ lục»).
+  - **B — Arcade dày:** mỗi thẻ là một nút B Arcade phóng to (viền navy dày, viền màu theo màn: vàng chào, đỏ thua, xanh dương tạm dừng/bị bắt, ngọc đồ họa; nền xám-xanh bóng; chữ kem viền navy; nhãn dạng thẻ treo trên mép). Đồ họa: lưới 2 × 2 ô arcade có đồng hồ mức + huy hiệu tích vàng.
+  - **C — Tem đua:** khối nghiêng −11°, chữ nghiêng, dải ca-rô; băng chéo đỏ «KẾT THÚC CHUYẾN XE»; băng dây vàng-đen «CSGT · TẠM GIỮ» ở phòng giam; đồ họa đánh số 4/3/2/1 như cấp số.
+  - Cả 3 mẫu đề xuất thêm nút **Âm thanh** và **Cấu hình đồ họa** ngay trong thẻ tạm dừng; nút chạm cao 92–110 điểm (≈ 44–52 pt trên iPhone) thay 34–58 cũ.
+  - Mọi chi tiết đều vẽ được bằng IMGUI: khung bo góc/viền (`GUI.DrawTexture` có `borderWidth`/`borderRadius`), dải màu chuyển bằng texture tạo trong mã, viền chữ bằng vẽ chữ lệch 8 hướng, biểu tượng bằng `MaskTex`, khối nghiêng của mẫu C bằng `GUI.matrix` có hệ số trượt.
+- **File:** `ArtSource/Concepts/Menus-20261122/` — `menus.html` (nguồn, mở trực tiếp; `?only=A-welcome` … `C-pc` cho từng khung), `menu21321-mauA/B/C.jpg` (ảnh tổng hợp), `menu21321-<mẫu>-<màn>.jpg` (ảnh từng khung cỡ thật), `img/` (nền + nút), `font/`. Ảnh xuất bằng Chrome headless. Nền nắng sạch chụp camera Unity ở chế độ Edit (không Play).
+- **Trạng thái:** đã gửi 3 ảnh tổng hợp cho người dùng (xem 21.321b: người dùng chọn **C**). Chưa sửa `OpenWorldGame.cs`/`OpenWorldGame.Graphics.cs`, chưa commit/build/phát hành. Sau khi chọn: cài vào `ReadyScreen`, `Brand`, `GraphicsWindow`, `GearButton`, `EndCard`, `JailScreen` (giữ màn dọc), đo trong Play ở khung ngang điện thoại và máy tính.
+
+### 21.321b. Người dùng chọn mẫu C, thu nhỏ khoảng 20 % (22/11/2026, Claude Code)
+
+- **Yêu cầu:** «Chọn mẫu C, nhưng các menu và các thành phần bên trong đang to quá, thiết kế lại nhỏ hơn một chút để xem.»
+- **Đã làm (vẫn chỉ ảnh mẫu):** thêm đối tượng `C2` trong `menus.html` (`?only=C2-welcome` … `C2-pc`), giữ bố cục, màu, khối nghiêng −11° và các chi tiết của C, thu nhỏ khoảng 20 % mọi khối, chữ, nút, khoảng cách. Số đo chính trên khung điểm 1947 × 900 (máy tính 1440 × 900 dùng cùng cỡ):
+  - Màn chào: tiêu đề 108 → 80; nhãn đỏ 48 → 40 cao; mô tả 26 → 22; nút LÊN XE THÔI 580 × 102 → 460 × 82 (chữ 40 → 32); bánh răng 102 → 82; kỷ lục 30 → 25; logo 80 → 66 cao; thẻ địa điểm chữ 31 → 26; dải nút điều khiển 104 → 84 cao (ảnh nút 64 → 52); phím tắt máy tính 74 → 62 cao, phím 44 → 36.
+  - Cấu hình đồ họa: khung 1120 × 830 → 900 × 640; hàng 112 → 92; số cấp 62 → 50; tên 32 → 26; mô tả 19 → 16; XONG 92 → 76.
+  - Kết thúc: băng đỏ 150 → 120 cao (chữ 78 → 62); thẻ 1100 × 300 → 880 × 244; số mét 104 → 84; nút 640/360 × 104 → 510/290 × 84.
+  - Bị bắt: thẻ 620 × 560 → 500 × 390; «ĐÃ BỊ BẮT» 92 → 74; CHƠI LẠI 560 × 100 → 450 × 82; VỀ ĐẦU PHỐ 72 → 60; băng dây 64 → 52.
+  - Tạm dừng: thẻ 920 × 440 → 740 × 350; tiêu đề 66 → 54; ĐI TIẾP 560 × 104 → 450 × 84; hàng nút phụ 78 → 64.
+  - Nút chính cao 82–84 điểm ≈ 39–40 pt trên iPhone Pro Max (trước 48–50 pt; thẻ cũ trong game 21–28 pt).
+- **File:** `ArtSource/Concepts/Menus-20261122/menu21321b-mauC-nho.jpg` (6 khung), `menu21321b-sosanh.jpg` (C cũ ↔ C nhỏ), `menu21321b-C-<màn>.jpg`, `menus.html` cập nhật.
+- **Trạng thái:** người dùng duyệt «Vừa, cài vào game» → cài ở 21.322.
+
+## 21.322. Cài menu mẫu C «Tem đua» bản nhỏ vào game (22/11/2026, Claude Code)
+
+- **Yêu cầu:** người dùng duyệt bản C nhỏ (21.321b): «Vừa, cài vào game».
+- **Hành vi mới:** toàn bộ menu bản đồ mở đổi sang mẫu C (khối tối nghiêng −11°, viền màu, chữ kem/vàng, dải ca-rô), đúng số đo 21.321b:
+  - **Màn chào:** logo PHỐ VIỆT góc trái, thẻ «Địa điểm hôm nay» góc phải, nhãn đỏ «BẢN ĐỒ MỞ · SÀI GÒN», «LÁI QUA» + băng vàng «PHỐ QUEN.», nút đỏ LÊN XE THÔI + ô bánh răng, dòng kỷ lục. Dưới đáy: máy cảm ứng hiện dải 8 nút điều khiển thật (TRÁI, PHẢI, KHIÊN, LÙI, GA, NHẢY, TÊN LỬA, LAZER) + chữ hướng dẫn; máy tính hiện các phím ← → WASD / J / F / SPACE / P.
+  - **Cấu hình đồ họa:** hộp nghiêng viền ngọc, 4 hàng đánh số 4/3/2/1 + vạch mức + ô độ phân giải (giữ nguyên `ResolutionText`, phím 1–4, Esc/Enter, chạm ngoài để đóng), nút X đỏ và XONG.
+  - **Kết thúc chuyến xe:** băng đỏ chéo có viền ca-rô, thẻ lý do (biểu tượng nổ khi xe hỏng; rơi sông thì không có biểu tượng), số mét to màu vàng, 24 vạch tiến tới kỷ lục + dòng «Còn … m nữa là chạm kỷ lục» / «Chuyến này là kỷ lục mới!» / «Bằng kỷ lục!», nút THỬ MỘT CHUYẾN NỮA + VỀ ĐẦU PHỐ.
+  - **Đã bị bắt:** ảnh phòng giam + 2 băng dây vàng-đen «CSGT · TẠM GIỮ» / «KHÔNG PHẬN SỰ MIỄN VÀO», thẻ viền xanh dương (quãng đường, kỷ lục hoặc «KỶ LỤC MỚI!», dòng «Lý do: …» khi có), CHƠI LẠI + VỀ ĐẦU PHỐ (màn dọc nay cũng có VỀ ĐẦU PHỐ).
+  - **Tạm dừng:** thẻ viền ngọc «Dừng chân bên phố.», ĐI TIẾP, VỀ ĐẦU PHỐ, **nút loa bật/tắt tiếng** và **nút bánh răng mở Cấu hình đồ họa ngay khi tạm dừng** (mới: `OpenGraphics` nhận cả `State.Paused`; Esc/Enter đóng hộp trước; ĐI TIẾP/P tự đóng hộp).
+- **Triển khai:**
+  - File mới `Assets/PhoViet/Scripts/OpenWorld/OpenWorldGame.Menus.cs` (partial): `BeginMenu/EndMenu` (lớp menu; màn dọc phóng về khung rộng 1000 điểm), `Skew/Unskew` (GUI.matrix có hệ số trượt tan(−11°), chạm vẫn đúng vì IMGUI đổi tọa độ chuột theo ma trận nghịch đảo), `SkewPanel`, `SkewButton` (đỏ/ngọc/viền), `ReadyScreen`, `MenuBrand`, `MenuPlace`, `KeyHints`, `TouchHints`, `GraphicsWindow`, `EndCard` → `PauseCard`/`GameOverCard`, `JailScreen`, `Tape`, `EnsureMenuArt` (texture tạo trong mã: dải màu dọc/ngang, ca-rô 2×2, sọc chéo 64², biểu tượng mũi tên/quay lại/nhà/tích/X/nổ bằng `MaskTex`).
+  - `OpenWorldGame.cs`: gỡ `Brand/ReadyScreen/EndCard/JailScreen` cũ; `OnGUI` bọc các màn menu trong `BeginMenu/EndMenu`, thêm nhánh tạm dừng + hộp đồ họa; `Update` khi tạm dừng ưu tiên `GraphicsKeys`; `TogglePause` đóng hộp đồ họa khi chơi tiếp.
+  - `OpenWorldGame.Graphics.cs`: gỡ `GraphicsWindow/GearButton/GearRect` cũ (giữ `DrawGear`, `ResolutionText`, `SetGraphics`…); `OpenGraphics` cho phép khi tạm dừng.
+  - Dải nút trên màn chào lấy `Resources/TouchControls/PV_Btn_*.png`; hiện khi `Input.touchSupported`, máy di động hoặc `OpenWorldDriver.testTouchUI`.
+- **Kiểm tra:** biên dịch không lỗi; Play (Game view 2778 × 1284 có nút cảm ứng và 1920 × 1080 máy tính): màn chào, đồ họa (từ màn chào và từ tạm dừng), tạm dừng, kết thúc chuyến xe (223 m / kỷ lục 1.893 m), bị bắt (26 m) — khớp ảnh mẫu, console 0 lỗi. Bấm giả lập vào Game view: lần đầu nút CHƠI LẠI (khối nghiêng) bấm được → vào lượt mới; các lần gửi sự kiện sau Editor không chuyển tới game nên **chưa kiểm hết từng nút bằng chạm thật** — cần thử trên điện thoại/máy tính. Ảnh `Captures/menu21322-*.png`, tổng hợp `Captures/menu21322-tonghop.jpg` (chỉ lưu máy).
+- **Trạng thái:** chưa commit/build/phát hành (người dùng chưa yêu cầu). Khi phát hành nhớ ghi khung `release-notes` trong `index.html`.
+
+## 21.323. Dựng lại hiệu ứng lửa cháy bằng Blender: ngọn lửa liền khối + khói đen — ĐÃ HOÀN TÁC (22/11/2026, Claude Code)
+
+- **HOÀN TÁC (22/11/2026, theo người dùng: «Trả tất cả về như cũ, không sử dụng mẫu lửa mới nữa»):** game dùng lại lửa cũ (ảnh nổ `PV_TankFx_Explosion.png` 4 × 2, `BurnFx(parent, local)` như bản đã commit). Đã khôi phục từ Git `OpenWorldHazards.Weapons.cs`, `.Laser.cs`, `.Boats.cs`, `Editor/PhoVietWebMemorySettings.cs`; đã xóa `Assets/PhoViet/Resources/LuaChay/` (ảnh + vật liệu) và `OpenWorld/Shaders/OpenWorldFire.shader`. Biên dịch không lỗi, không còn tham chiếu. Mô tả bên dưới chỉ để lưu lại cách đã thử; **không dùng mẫu lửa này nữa** trừ khi người dùng yêu cầu lại. Theo yêu cầu tiếp của người dùng («Xóa luôn các file thử lửa đi») đã **xóa hẳn** mọi file thử: `ArtSource/Blender/OpenWorld/build_lua_chay.py`, `pack_lua_chay.py`, `PhoViet_OW_LuaChay_21323.blend`, `ArtSource/Concepts/LuaChay-20261122/`, `AgentScripts/Fire21323.cs`, ảnh `Captures/lua21323-*` — các đường dẫn nhắc bên dưới không còn tồn tại.
+
+- **Yêu cầu:** «Dựng lại hiệu ứng lửa cháy trong game bằng blender mcp, hiện đang là từng cục cục nhỏ rời rạc nhìn rất kì.»
+- **Nguyên nhân:** mọi đám cháy (xe người chơi trúng đạn/sét 21.312/21.317, xác xe tăng 21.258, trực thăng/máy bay bị hạ, tàu bị bắn 21.284, lửa lazer 21.300) đều qua một hàm `OpenWorldHazards.BurnFx` mượn ảnh **nổ** `Art/TankFx/PV_TankFx_Explosion.png` (4 × 2 khung cầu low-poly). Hệ hạt bắn 16 cục/s bay lên 2,2 m/s → cột «bông cầu» cam rời rạc.
+- **Dựng ảnh trong Blender (MCP, Blender 5.2, Cycles):** `ArtSource/Blender/OpenWorld/build_lua_chay.py` → `PhoViet_OW_LuaChay_21323.blend`.
+  - Lửa: mô phỏng **Mantaflow** khí (miền 2,4 × 2,4 × 4,8 m, độ phân giải 110, nguồn đĩa dẹt méo `BOTH`/`INFLOW` + nhiễu mây, xoáy 0,5, xoáy lửa 1,6, tốc độ cháy 0,45, khói tan nhanh). Vật liệu `Principled Volume`: blackbody theo `flame` (950–1750 K, cường độ 9 × flame^1,4), khói mỏng sẫm. Bake 64 khung (~108 s), render khung 40–63 (24 khung, camera trực giao, nền trong suốt, EXR premultiplied).
+  - Khói: 4 cụm khói thể tích thủ tục (cầu ico + nhiễu 4D W khác nhau, nắng chéo), viền xơ mềm.
+  - Ghép: `ArtSource/Blender/OpenWorld/pack_lua_chay.py` (Python ngoài Blender, numpy + PIL) → **`Assets/PhoViet/Resources/LuaChay/PV_LuaChay4x4.png`** 1024 × 1024, 4 × 4 ô 256 px, **premultiplied alpha**: ô 0–11 = ngọn lửa **lặp liền** 12 khung (trộn chéo khung i với i+12); màu lấy cường độ phát sáng → dải màu lửa (đỏ sẫm → cam đỏ → cam → vàng → trắng ngà ở lõi), `FIRE_EXPOSURE 0,16`; alpha lửa thấp (gần cộng màu, phát sáng); chân «đĩa nguồn» mờ dần (0,74 → 0,86 chiều cao ô); ô 12–15 = cụm khói đen (alpha 0,92). Ảnh xem trên nền xám `ArtSource/Concepts/LuaChay-20261122/atlas-tren-nen-xam.png`; khung gốc `frames/*.npy` (29 MB, chỉ lưu máy; cache VDB đã xóa — chạy lại script để dựng lại).
+- **Unity:**
+  - Shader mới `Assets/PhoViet/OpenWorld/Shaders/OpenWorldFire.shader` (`PhoViet/OpenWorld/Fire`): `Blend One OneMinusSrcAlpha` (premultiplied) nên **lửa phát sáng và khói che nền dùng chung một vật liệu**; màu đỉnh hạt nhuộm + mờ dần; `_Glow 1,15` tăng sáng phần lửa; có sương mù cảnh (khói/lửa xa nhạt dần khi mưa 21.320).
+  - Vật liệu `Assets/PhoViet/Resources/LuaChay/PV_LuaChay.mat` (queue 3100). Ảnh: sRGB, mipmap, Clamp, **alphaIsTransparency tắt** (bắt buộc với ảnh premultiplied, tránh viền sáng), tối đa 1024, WebGL ETC2_RGBA8 (≈ 1,3 MB kể cả mipmap). `PhoVietWebMemorySettings.ReleaseDependencies` thêm vật liệu này (nạp bằng `Resources.Load`, không nằm trong phụ thuộc scene).
+  - `OpenWorldHazards.Weapons.cs` `BurnFx(parent, local, scale = 1)` viết lại: đối tượng «XacChay» = hệ lửa (≤ 16 hạt, 10/s, sống 0,7–1,0 s, tấm 2,8–3,5 m × 1,2 cao, gần như đứng yên ở chân, `pivot (0, 0,3)` để chân ngọn lửa nằm đúng điểm sinh và tấm nở quanh chân, mỗi hạt chạy 2 vòng ô 0–11, nửa số tấm lật ngang, xoay ±6°) + con «KhoiDen» = hệ khói (≤ 18 hạt, 4,5/s, sống 2,6–3,4 s, bốc từ đỉnh lửa 1,9 m × scale, nở 0,7 → 2,5, xoay chậm, mỗi hạt một ô khói 12–15). Không cần sửa scene (vật liệu nạp từ Resources). Cỡ đám cháy: xe người chơi 1; xác xe tăng 1,35 (chân lửa hạ từ 2,1 → 1,5 m vì tấm mới cao); trực thăng/máy bay 1,1; tàu 1,4 (chân 2,4 → 1,6 m); lửa lazer 1.
+  - `OpenWorldHazards.Laser.cs`: lửa lazer 4 s đặt `duration/loop` cho cả hệ khói con.
+  - Không đổi: quả cầu nổ lúc trúng đạn (`blastFx`, ảnh nổ cũ), khói va chạm/choáng của xe người chơi (`OpenWorldDriver.MakeSmoke`, file đang có thay đổi 21.319 của phiên khác nên không đụng).
+- **Hiệu năng:** mỗi đám cháy 2 hệ hạt cùng vật liệu (trước 1) — trường hợp xấu +1 lệnh vẽ/đám cháy, Unity gộp được khi hai hệ liền nhau trong thứ tự vẽ; số hạt mỗi đám cháy đo trong Play ≈ 7–9 lửa + 10–13 khói (trước ≈ 38 cục). Bộ nhớ +≈ 1,3 MB ảnh. Chưa đo trên iPhone. (Số liệu lệnh vẽ trong Editor khi tạm dừng không tách được — `get_performance_stats` cộng dồn nhiều lần vẽ.)
+- **Kiểm tra Play** (`AgentScripts/Fire21323.cs`: `Setup(x, z, yaw, rain)` ép thời tiết, đốt 3 đám — trên xe người chơi, trên bồn cây phía trước, mặt đất; `CloseUp`; `RealTank` sinh xe tăng rồi hạ bằng `DestroyTank` thật): Game view 2778 × 1284, trời thường và mưa giông. Ngọn lửa liền khối có lưỡi lửa, lõi vàng sáng, viền cam đỏ, khói đen bốc cao; xác xe tăng cháy đúng trên nóc. Console 0 lỗi. Ảnh `Captures/lua21323-truoc-1/2.png`, `lua21323-sau-1/2.png`, `lua21323-sau-3-xetang.png`, tổng hợp **`Captures/lua21323-truoc-sau.jpg`** (chỉ lưu máy).
+- **Trạng thái:** đã hoàn tác toàn bộ phần trong game (xem đầu mục); không commit.
+
+## 21.324. Ô tô móp sâu + bể khi va chạm, giữ vết hỏng khi chạy tiếp (23/11/2026, Claude Code)
+
+- **Yêu cầu:** mọi ô tô (cả xe người chơi) va chạm không ở tốc độ tối đa thì ngoài choáng còn biến dạng, bể, móp méo đúng chỗ va; càng nhanh càng hỏng nhiều; hết choáng chạy tiếp với nguyên vết hỏng. Người dùng chốt qua câu hỏi: **«Móp sâu + bể»** và **chỉ làm xe ô tô, không làm nhà cửa/cảnh quan**.
+- **Trước khi sửa:** đã có móp 21.259 nhưng rất nhẹ (tông container 70 km/h đầu xe chỉ nhăn, ảnh `Captures/dent21324-truoc-supercar.png`); xe CSGT không móp.
+- **Cách làm** (`Scripts/OpenWorld/OpenWorldCarDent.cs`, viết lại; API cũ `Dent/Restore/Damaged` giữ nguyên):
+  - Mức hỏng s = ((vận tốc khép − 2,5) / 22,5 m/s)^0,8 (9 → 90 km/h). Lõm sâu 0,05 → 0,5 m, rộng 0,45 → 1,15 m, cao 0,32 → 0,7 m, ăn vào thân 0,45 → 0,9 m; méo lởm chởm bằng nhiễu 3D theo vị trí đỉnh + nếp nhăn; cộng dồn nhiều cú, mỗi đỉnh lệch tối đa 0,75 m; pháp tuyến tính lại ở vùng móp. Điểm chạm nằm ngoài thân (xe con thấp tông đuôi xe tải cao) dời tới đỉnh thân gần nhất.
+  - Vết dán trên đúng tam giác thân quanh chỗ va (shader mới `OpenWorld/Shaders/OpenWorldCarDamage.shader` «PhoViet/OpenWorld/CarDamage», Standard alpha, Offset; vật liệu `Resources/XeHong/PV_XeHong.mat`; atlas 1024² `Resources/XeHong/PV_XeHong_Atlas.png` sinh bằng `ArtSource/XeHong/xehong_atlas.py`: kính nứt mạng nhện, đèn vỡ, 2 kiểu xước tróc sơn lộ lớp lót + kim loại trần + vết cào).
+    - Xước tróc sơn: mỗi cú (gộp cú cách < 0,35 m, tối đa 10).
+    - Kính nứt từ s ≥ 0,22 (~25 km/h) trên tấm kính gần chỗ va (≤ 1,7 m). Đỉnh kính tìm sẵn bằng `AgentScripts/CarGlass21324.cs` (Play, đọc ảnh texture: tối, cao hơn 55 % chiều cao xe, mẫu Meshy thêm pháp tuyến không nằm ngang) → `Resources/XeHong/PV_XeHong_Data.json` (bitmask theo tên lưới LOD0 + cụm đèn). Lúc chạy chỉ giữ kính trên xương Body/Frame (bỏ thùng/bạt xe tải tối màu).
+    - Đèn vỡ từ s ≥ 0,1 khi đèn trong tầm vết móp: xe giao thông/CSGT dùng tấm đèn phát sáng sẵn có (tấm tắt + vết đèn vỡ tại đó); xe người chơi dùng 4 cụm đèn dò từ ảnh phát sáng (JSON).
+  - Mảnh vỡ cùng màu sơn xe + mảnh kính + mảnh đèn trắng/đỏ (`OpenWorldHazards.OnCarBroke` qua sự kiện `OpenWorldCarDent.Broke`).
+  - Tải/bộ nhớ: mỗi xe một bản sao lưới động tạo ở cú đầu, các cú sau cập nhật tại chỗ; cú liên tiếp < 0,3 s bị bỏ trừ khi mạnh hơn hẳn; dữ liệu gốc dùng chung theo lưới; LOD2 không móp. Một cú trên xe người chơi (28k đỉnh) ~12–13 ms trong Editor.
+- **Nối vào:**
+  - `OpenWorldDriver`: tông xe CSGT với vận tốc đâm > 4 m/s → móp (khiên chặn); `WallDents`, `Damage`. *(21.325: thêm móp khi đụng mọi cảnh quan/vật cản.)*
+  - `OpenWorldTraffic`: xe giao thông truyền tấm đèn (`Vehicle.lampQuads`) + màu sơn; CSGT tông xe giao thông → CSGT móp.
+  - `OpenWorldPolice.DamageAt` (tông người chơi/xe giao thông; *21.325 bỏ móp khi CSGT tông tường*), lành lại khi chơi lại (`ResetChase`) hoặc cử xe thay thế.
+  - Lưới CSGT Meshy bật Read/Write (`AgentScripts/PoliceReadable21324.cs`, đổi `.fbx.meta`).
+  - Vết hỏng giữ tới khi xe sinh lại (giao thông) / chơi lại (người chơi, CSGT). Xe máy giữ như cũ (té, không móp).
+- **Kiểm tra (Play, CSGT/hiểm họa tắt, `AgentScripts/Dent21324.cs`):**
+  - 70 km/h vào Sport đứng yên: xe người chơi móp nhàu góc trước phải lộ kim loại, kính chắn gió nứt, đèn pha vỡ (`Captures/dent21324-sau-supercar.png`); Sport móp đuôi, kính sau nứt, đèn hậu vỡ (`dent21324-sau-sport.png`).
+  - Sau 7 s: Sport hết choáng về làn chạy 47 km/h, vẫn hỏng; xe người chơi hết choáng chạy tiếp, vẫn hỏng.
+  - 30 km/h vào xe tải thùng: móp nhẹ đuôi, 1 đèn hậu vỡ, không nứt kính xe tải; kính xe người chơi nứt nhẹ (`dent21324-30kmh.png`).
+  - 60 km/h vào đuôi CSGT: CSGT móp đuôi phải, kính sau nứt, đèn hậu vỡ (`dent21324-csgt.png`); chơi lại → CSGT và xe người chơi lành, vết dán xoá.
+  - Console 0 lỗi (chỉ cảnh báo nội bộ Editor khi bước khung).
+- **Sự cố khi thử:** Unity tắt 2 lần (lần 2 hiện «Failed to present D3D11 swapchain … device reset/removed» — Windows reset GPU vì quá tải). Đã giảm tải:
+  - bỏ tạo/xoá lưới mới mỗi cú (cập nhật tại chỗ + khoá 0,3 s);
+  - kịch bản thử đặt `cullingMask = 0` cho mọi camera trong vòng bước khung (vòng 6 s xong trong 2 s thay vì 8 s), chỉ bật lại để chụp.
+  - Sau đó chạy tiếp 5 lượt thử, không tắt nữa.
+- **Còn lại / ghi chú:**
+  - Mẫu Sport có kính màu sáng nên dò kính kém hơn mẫu khác (vẫn nứt được kính sau trong lần thử).
+  - Thấy tấm đèn hậu đỏ của xe tải thùng nằm lệch khỏi thân khi xe đang văng/choáng (có từ trước 21.324: tấm gắn vào thân hình, thân xe chạy hoạt ảnh va chạm) — chưa sửa.
+  - Chưa thử trên điện thoại.
+- **Trạng thái:** chưa commit/build/phát hành (cùng 21.319–21.323 đang chờ).
+
+## 21.325. Xe người chơi đụng cảnh quan/vật cản cũng móp, bể (23/11/2026, Claude Code)
+
+- **Yêu cầu:** xe người chơi đụng cảnh quan, đồ vật, chướng ngại cũng biến dạng, bể, móp méo ở chỗ va chạm — **chỉ xe người chơi** (vật cản giữ nguyên).
+- **Cách làm** (`OpenWorldDriver.OnCollisionEnter`, `HitFence`), dùng chung hệ móp/bể 21.324:
+  - Mọi vật cản (tường nhà, cột đèn/biển, cây, bồn cây, lan can, ghế, vật rơi…) với vận tốc đâm vào > **3 m/s (~11 km/h)** (`ObstacleDentMin`) → xe người chơi móp/xước/nứt kính/vỡ đèn theo vận tốc đó. Bỏ giới hạn «vật cao > 0,6 m» của 21.324.
+  - Không tính mặt đường/mặt cầu (`MatDat`/`MatCau`) và chạm từ trên xuống (pháp tuyến hướng lên > 0,55, vd. đáp xuống nóc bồn cây). Mặt lề vỉa hè không có va chạm vật lý (21.274) nên leo lề không móp.
+  - Tông xác xe nằm yên (trước chỉ giảm tốc): nay cũng móp.
+  - Húc đổ tấm rào trước cửa hàng: mức móp theo 0,7 × tốc độ (trước 0,3 ×, gần như không thấy).
+  - Khiên chặn mọi móp. Đếm `ObstacleDents`.
+  - Bỏ phần xe CSGT tự móp khi tông tường (thêm ở 21.324) cho đúng «chỉ xe người chơi». Xe CSGT vẫn móp khi va xe khác. Xe giao thông đang văng đập tường vẫn móp như 21.259 (chưa đổi).
+- **Kiểm tra (Play, `AgentScripts/Dent21324.cs` lớp `Dent21325`, camera tắt khi bước khung):**
+  - 45 km/h thẳng vào tường tiệm: móp 2 lần (va + dội), đầu xe bẹp, trầy lộ kim loại, kính nứt, đèn pha vỡ; tường giữ nguyên (`Captures/dent21325-tuong.png`).
+  - 25 km/h vào lan can bờ sông: móp nhẹ mũi xe, nứt kính nhẹ, 1 đèn vỡ (`Captures/dent21325-lancan.png`).
+  - Console 0 lỗi; Unity không tắt.
+- **Trạng thái:** chưa commit/build/phát hành; chưa thử trên điện thoại.

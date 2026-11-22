@@ -196,7 +196,7 @@ namespace PhoViet.OpenWorld
         public void TogglePause()
         {
             if (Mode == State.Riding) { Mode = State.Paused; Time.timeScale = 0f; AudioListener.pause = true; }
-            else if (Mode == State.Paused) { Mode = State.Riding; Resume(); }
+            else if (Mode == State.Paused) { Mode = State.Riding; GraphicsOpen = false; Resume(); }
         }
         void Resume() { Time.timeScale = 1f; AudioListener.pause = false; }
 
@@ -246,6 +246,7 @@ namespace PhoViet.OpenWorld
                     }
                     break;
                 case State.Paused:
+                    if (GraphicsOpen) { GraphicsKeys(); break; }
                     if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape)) TogglePause();
                     break;
                 case State.Jailed:
@@ -307,56 +308,25 @@ namespace PhoViet.OpenWorld
             switch (Mode)
             {
                 case State.Ready:
+                    BeginMenu();
                     if (GraphicsOpen) { GUI.enabled = false; ReadyScreen(); GUI.enabled = true; GraphicsWindow(); }
                     else ReadyScreen();
+                    EndMenu();
                     break;
                 case State.Riding: Hud(); break;
-                case State.Paused: Hud(); EndCard(true); break;
-                case State.Jailed: JailScreen(); break;
-                case State.GameOver: Hud(); EndCard(false); break;
+                case State.Paused:                                          // 21.322: mở được cấu hình đồ họa khi tạm dừng
+                    Hud(); BeginMenu();
+                    if (GraphicsOpen) { GUI.enabled = false; EndCard(true); GUI.enabled = true; GraphicsWindow(); }
+                    else EndCard(true);
+                    EndMenu();
+                    break;
+                case State.Jailed: BeginMenu(); JailScreen(); EndMenu(); break;
+                case State.GameOver: Hud(); BeginMenu(); EndCard(false); EndMenu(); break;
             }
             GUI.matrix = Matrix4x4.identity;
         }
 
-        void Brand(float x, float y)
-        {
-            Panel(new Rect(x - 10, y - 8, 259, 57), new Color(.97f, .985f, 1, .83f), 14);
-            Panel(new Rect(x, y, 36, 36), Red, 10); DrawStar(new Rect(x + 5, y + 5, 26, 26), Gold);
-            Txt("PHỐ VIỆT", x + 48, y - 3, 200, 30, 24, Ink); Txt("CHUYẾN XE KHÔNG NGỪNG", x + 49, y + 27, 198, 17, 9, Teal);
-        }
-
-        void ReadyScreen()
-        {
-            Brand((portrait ? 24 : 48) + SL, (portrait ? 24 : 38) + ST);
-            if (!portrait)
-            {
-                Panel(new Rect(uiW - 277 - SR, 40 + ST, 229, 56), WelcomeGlass);
-                Txt("ĐỊA ĐIỂM HÔM NAY", uiW - 257 - SR, 48 + ST, 200, 18, 9, Teal); Txt(CurrentStreet, uiW - 257 - SR, 67 + ST, 200, 25, 16, Ink);
-            }
-            float w = portrait ? 432 : 360, h = portrait ? 258 : 276;
-            float y = Mathf.Clamp(uiH * (portrait ? .15f : .27f), 105 + ST, Mathf.Max(105 + ST, uiH - h - 95 - SB));
-            var card = new Rect(portrait ? SL + (uiW - SL - SR - w) / 2 : 48 + SL, y, w, h); float x = card.x;
-            Panel(new Rect(x - 3, y + 5, w + 6, h + 3), new Color(.04f, .13f, .20f, .14f), 21);
-            Panel(new Rect(x - 1, y - 1, w + 2, h + 2), new Color(1, 1, 1, .68f), 19); Panel(card, WelcomeWhite, 18);
-            Panel(new Rect(x + 22, y + 20, 5, 13), Red, 2);
-            Txt("BẢN ĐỒ MỞ · SÀI GÒN", x + 36, y + 18, w - 110, 21, 11, Teal);
-            GearButton(card);                                               // 21.291: cấu hình đồ họa
-            Txt("LÁI QUA\nPHỐ QUEN.", x + 20, y + 48, w - 40, 108, portrait ? 39 : 41, Ink);
-            Txt("Né CSGT, khủng long, xe tăng\nvà trực thăng trên phố mở.", x + 23, y + (portrait ? 143 : 152), w - 46, 42, 15, Hex("4C657A"));
-            if (Btn("LÊN XE THÔI", new Rect(x + 22, y + h - 70, w - 44, 44), Red, Color.white, 17)) StartRun();
-            Txt("KỶ LỤC  /  " + Metres(Best), x + 23, y + h - 20, w - 46, 17, 10, Teal);
-            if (!portrait && !Input.touchSupported && !UnityEngine.Device.Application.isMobilePlatform)
-            {
-                float by = uiH - 82 - SB; Panel(new Rect(48 + SL, by, 754, 43), WelcomeGlass, 12);
-                Txt("MŨI TÊN / WASD: LÁI     J: NHẢY     F: TÊN LỬA     SPACE: PHANH TAY     P: TẠM DỪNG", 64 + SL, by + 13, 724, 23, 11, Ink);
-            }
-            else
-            {
-                float hw = portrait ? uiW - 36 - SL - SR : 600, hx = SL + (uiW - SL - SR - hw) / 2;
-                Panel(new Rect(hx, uiH - 68 - SB, hw, 44), WelcomeGlass, 10);
-                Txt("GIỮ TRÁI / PHẢI ĐỂ LÁI · GIỮ GA / LÙI / STOP · NHẢY · TÊN LỬA", hx + 7, uiH - 55 - SB, hw - 14, 16, 10, Ink, TextAnchor.MiddleCenter);
-            }
-        }
+        // 21.322: ReadyScreen/EndCard/JailScreen chuyển sang OpenWorldGame.Menus.cs (mẫu C «Tem đua» bản nhỏ).
 
         // 21.297 — thanh thông tin mẫu A (người dùng chọn 21/11/2026): một dải kính tối bo tròn 20 (giữ độ trong suốt Glass cũ),
         // viền sáng mảnh, to hơn ~12 % (760 × 76 → 850 × 86). Mỗi mục có biểu tượng vàng vẽ bằng mã (ghim địa điểm, cúp kỷ lục,
@@ -622,47 +592,6 @@ namespace PhoViet.OpenWorld
             bool click = !touch && Event.current.type == EventType.MouseDown && f.Contains(Event.current.mousePosition);
             GUI.matrix = m;
             if (click) { hazards.RequestFire(); Event.current.Use(); }
-        }
-
-        void EndCard(bool paused)
-        {
-            Panel(Fullscreen(), new Color(.04f, .12f, .14f, .63f), 0);
-            float w = portrait ? 432 : 480, h = paused ? 340 : 465, x = (uiW - w) / 2, y = (uiH - h) / 2;
-            Panel(new Rect(x, y, w, h), Cream, 18);
-            Txt(paused ? "NGHỈ MỘT CHÚT" : "KẾT THÚC CHUYẾN XE", x + 28, y + 28, w - 56, 25, 12, Red);
-            Txt(paused ? "Dừng chân bên phố." : EndReason ?? "Chuyến đi kết thúc!", x + 27, y + 62, w - 54, 48, portrait ? 31 : 36, Ink);
-            if (!paused && !string.IsNullOrEmpty(EndDetail)) Txt(EndDetail, x + 28, y + 103, w - 56, 24, portrait ? 16 : 18, Ink);
-            if (paused)
-            {
-                Txt("Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.", x + 28, y + 140, w - 56, 50, 16, Teal);
-                if (Btn("ĐI TIẾP", new Rect(x + 28, y + 215, w - 56, 58), Teal, Cream, 18)) TogglePause();
-                if (Btn("VỀ ĐẦU PHỐ", new Rect(x + 28, y + 285, w - 56, 34), Cream, Teal, 12)) GoReady();
-            }
-            else
-            {
-                Txt("Bạn đã đi được", x + 28, y + 137, w - 56, 27, 15, Teal);
-                Txt(Metres(Score), x + 24, y + 172, w - 48, 75, 58, Ink);
-                Panel(new Rect(x + 28, y + 267, w - 56, 1), Hex("D8D6BF"), 0);
-                Txt(NewBest ? "KỶ LỤC MỚI!" : "", x + 28, y + 286, 200, 27, 13, Teal);
-                Txt("KỶ LỤC  " + Metres(Best), x + w - 225, y + 286, 200, 27, 13, Red, TextAnchor.UpperRight);
-                if (Btn("THỬ MỘT CHUYẾN NỮA", new Rect(x + 28, y + 334, w - 56, 58), Red, Cream, portrait ? 15 : 18)) StartRun();
-                if (Btn("VỀ ĐẦU PHỐ", new Rect(x + 28, y + 404, w - 56, 34), Cream, Teal, 12)) GoReady();
-            }
-        }
-
-        void JailScreen()
-        {
-            var tex = portrait ? (jailTall ? jailTall : jailWide) : (jailWide ? jailWide : jailTall);
-            if (tex) GUI.DrawTexture(Fullscreen(), tex, ScaleMode.ScaleAndCrop);
-            float w = portrait ? 440 : 408, h = portrait ? 262 : 318, x = portrait ? 20 + SL : uiW - w - 42 - SR, y = portrait ? uiH - h - 22 - SB : (uiH - h) / 2;
-            Panel(new Rect(x, y, w, h), Cream, 18);
-            Txt("PHỐ VIỆT  ·  TẠM GIỮ", x + 26, y + 20, w - 52, 22, 13, Red);
-            Txt("ĐÃ BỊ BẮT", x + 24, y + 45, w - 48, 52, portrait ? 34 : 40, Ink);
-            Txt(EndReason ?? "CSGT đã đưa bạn vào phòng giam.", x + 26, y + 100, w - 52, 25, 16, Ink);
-            if (player && !string.IsNullOrEmpty(player.CrashReason)) Txt("Lý do: " + player.CrashReason.ToLowerInvariant(), x + 26, y + 124, w - 52, 22, 13, Hex("4C657A"));
-            Txt("Quãng đường  " + Metres(Score) + (NewBest ? "  ·  KỶ LỤC MỚI!" : "  ·  Kỷ lục " + Metres(Best)), x + 26, y + 150, w - 52, 28, 16, Teal);
-            if (Btn("CHƠI LẠI", new Rect(x + 26, y + (portrait ? 190 : 196), w - 52, 48), Red, Cream, 18)) StartRun();
-            if (!portrait && Btn("VỀ ĐẦU PHỐ", new Rect(x + 26, y + 258, w - 52, 32), Cream, Teal, 13)) GoReady();
         }
 
         // 21.295: biểu tượng vẽ bằng texture tạo trong mã (font web thiếu glyph). Tô màu bằng GUI.color.

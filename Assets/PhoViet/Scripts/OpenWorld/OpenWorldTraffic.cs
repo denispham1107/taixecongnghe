@@ -485,7 +485,7 @@ namespace PhoViet.OpenWorld
             public bool active, inConn, committed, claimed, waiting, exitBlocked; public Lane lane; public Conn conn, next; public float s;
             public Vector3 pos, fwd; public Quaternion rot; public string clip;
             public int claimApp = -1; public bool claimLeft; public Node claimNode;
-            public Renderer[] brakeLights; public bool braking; public float prevSpeed;
+            public Renderer[] brakeLights, lampQuads; public bool braking; public float prevSpeed;
             public float hitUntil, recoverAt, filterUntil, honkBlocked, nextHonk; public string hitClip;
             // 21.259: bị xe người chơi húc → văng, bốc khói, 1 s sau nổ (xe máy biến mất, ô tô thành xác cháy).
             public Color paint = Color.white; public bool wreck, exploded, landed, laserKill; public Vector3 wreckVel, wreckSpin; public float explodeAt;
@@ -620,7 +620,7 @@ namespace PhoViet.OpenWorld
             float mass = bike ? 0.25f : chosen.mass > 0f ? chosen.mass : ModelMass(model.name, 4f * halfW * halfL);
             return new Vehicle
             {
-                root = root.transform, visual = vis.transform, rb = rb, anim = anim, bike = bike, renderers = rends, brakeLights = brakes.ToArray(),
+                root = root.transform, visual = vis.transform, rb = rb, anim = anim, bike = bike, renderers = rends, brakeLights = brakes.ToArray(), lampQuads = lights.ToArray(),
                 halfL = halfL, halfW = halfW, paint = paintPick, vmax = bike ? 10.5f + (float)rnd.NextDouble() * 2.5f : 11f + (float)rnd.NextDouble() * 3f, mass = mass
             };
         }
@@ -847,7 +847,8 @@ namespace PhoViet.OpenWorld
         void DentAt(Vehicle v, Vector3 point, float closing)
         {
             if (v.bike) return;
-            if (v.dent == null) v.dent = new OpenWorldCarDent(v.root, v.renderers);
+            if (v.dent == null) v.dent = new OpenWorldCarDent(v.root, v.renderers, v.lampQuads);
+            v.dent.paint = v.paint;
             var outward = point - v.pos; outward.y = 0;
             v.dent.Dent(point, outward, closing);
         }
@@ -1168,7 +1169,7 @@ namespace PhoViet.OpenWorld
             var o = CrashRule(v.mass, pv ? pv.massTons : pol.massTons, closing);
             float sp = pv ? Mathf.Abs(pv.Speed) : pol.Speed;
             StartWreck(v, ct.point, ct.normal, c.rigidbody.position, c.rigidbody.transform.forward * Mathf.Max(sp, closing), closing, o, Velocity(v) * 0.35f);
-            if (pol) PoliceHits++;
+            if (pol) { PoliceHits++; pol.DamageAt(ct.point, closing); }      // 21.324: xe CSGT cũng móp/bể chỗ tông
         }
 
         // 21.255: vụ nổ đạn pháo / đuôi, thân khủng long / xe tăng hất các xe NPC trong bán kính (cùng phản ứng như bị đâm).

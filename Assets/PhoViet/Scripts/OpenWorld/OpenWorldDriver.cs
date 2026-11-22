@@ -18,13 +18,16 @@ namespace PhoViet.OpenWorld
         // steerReturn (0,12 s); đổi bên thì trả qua giữa rồi mới bẻ sang. Tốc độ quay giảm theo tốc độ xe: từ 8 m/s tới maxSpeed
         // còn highSpeedSteer (58 % → ~55°/s ở 97 km/h), đi chậm vẫn quay gắt như cũ. 21.316e: thay bằng mô hình ô tô thật bên dưới (bỏ steerDegPerSec/highSpeedSteer).
         [Header("Lái mượt (21.316)")]
-        public float steerRise = 0.18f, steerReturn = 0.14f;                    // 21.316b: 0,2 → 0,28 s (còn gắt); 21.316d: 0,18 s (chạm phím ngắn 0,2–0,4 s phải bẻ đủ)
+        public float steerRise = 0.08f, steerReturn = 0.06f;                    // 21.319 (thử điện thoại: nặng, chậm): 0,18/0,14 → 0,08/0,06 s (trước: 21.316b 0,28; 21.316d 0,18)
         // 21.316e (người dùng: góc bẻ lái, ôm cua, quay đầu chưa giống ngoài đời) — LÁI KIỂU Ô TÔ THẬT (mô hình xe hai trục + bám lốp):
         // • Góc bánh trước δ = góc lái ảo × maxWheelAngle (35°). Tốc độ quay thân xe ổn định r = v·tanδ / (L + Ku·v²) — L chiều dài cơ
         //   sở 2,65 m, Ku hệ số thiếu lái: chạy chậm xe vòng đúng bán kính hình học (quay đầu R ≈ L/tan35° ≈ 3,8 m), chạy nhanh tự thiếu lái.
         // • Giới hạn bám lốp: gia tốc ngang v·r ≤ μ·g (xe thể thao thật ~1,0 g; game gripG = 1,7 g cho dễ chơi) → r ≤ μg/v. Phanh khi cua
         //   dồn tải lên bánh trước (+12 % bám, ôm cua chặt hơn), đạp ga khi cua bớt bám (−4 %).
-        // • Quán tính quay thân xe yawLag (0,09 s): tốc độ quay đuổi theo mục tiêu, không nhảy bậc.
+        // • Quán tính quay thân xe yawLag (0,09 s; 21.319: 0,045 s): tốc độ quay đuổi theo mục tiêu, không nhảy bậc.
+        // • 21.319 (người dùng thử 1.90.0 trên điện thoại: đổi hướng nặng nề, như lôi cả chiếc xe, chậm; camera đã ổn): bám 1,7 → 2,6 g,
+        //   vô lăng ảo 0,08/0,06 s, quán tính 0,045 s, trượt hướng chạy 0,02–0,05 s, cản cua 0,9 m/s² × tỉ lệ², thiếu lái 2 m/s², lực kéo
+        //   khi cua ≥ 50 %, vận tốc bám hướng chạy 0,5/bước. Camera giữ nguyên (headingLag 0,6 s).
         // • Vòng ma sát: đang dùng bám ngang thì lực kéo dọc còn √(1 − tỉ lệ²) (tối thiểu 25 %) → cua gắt ở tốc độ cao không tăng tốc được;
         //   vượt giới hạn (lốp trước trượt, thiếu lái) mất thêm scrubDecel (3,5 m/s²) + lực cản cua 2,2 m/s² × tỉ lệ² → xe tự giảm tốc khi ôm cua.
         // • Lái tỉ số thay đổi: đi nhanh, bấm hết lái chỉ tới góc làm xe sát giới hạn bám ×1,15 (chạm ngắn ăn lái tỉ lệ).
@@ -34,9 +37,9 @@ namespace PhoViet.OpenWorld
         public float wheelBase = 2.65f;
         public float maxWheelAngle = 35f;
         public float understeerK = 0.002f;
-        public float gripG = 1.7f;
-        public float yawLag = 0.09f;
-        public float scrubDecel = 3.5f;
+        public float gripG = 2.6f;                                              // 21.319: 1,7 → 2,6 g (90 km/h: 35 → ~58°/s)
+        public float yawLag = 0.045f;                                           // 21.319: 0,09 → 0,045 s
+        public float scrubDecel = 2f;                                           // 21.319: 3,5 → 2 m/s²
         public float handbrakeSlide = 0.6f, handbrakeYawBoost = 1.8f;
         float yawRate, latUse;
         public float YawRate => yawRate * Mathf.Rad2Deg;
@@ -54,7 +57,7 @@ namespace PhoViet.OpenWorld
         // • Thân xe (mô hình) nghiêng ra ngoài cua theo gia tốc ngang (tốc độ quay × tốc độ), tối đa bodyRollMax, mượt 0,15 s.
         // • Camera (OpenWorldCamera) bám theo hướng CHẠY thay vì hướng đầu xe.
         [Header("Cảm giác vào cua (21.316b)")]
-        public float gripLow = 0.04f, gripHigh = 0.11f;                        // 21.316e: 0,15 → 0,11 (trượt ~6° thay vì 9°)
+        public float gripLow = 0.02f, gripHigh = 0.05f;                        // 21.319: 0,04/0,11 → 0,02/0,05 s (xe đi theo đầu xe, bớt «lôi cả xe»; 21.316e: 0,04/0,11)
         public float bodyRollMax = 3.5f, bodyRollGain = 0.16f;
         Vector3 moveDir; float yawRateNow, bodyRoll; Transform bodyModel; Quaternion bodyBase;
         public Vector3 MoveDir => moveDir;
@@ -332,7 +335,7 @@ namespace PhoViet.OpenWorld
             if (Mathf.Abs(actual) < Mathf.Abs(Speed) - 4f && Time.time - spawnTime > 0.5f) Speed = Mathf.MoveTowards(Speed, actual, 60f * dt);
             if (hardStop) inp.y = 0f;
             // 21.316e: vòng ma sát — đang cua gắt thì ga kéo được ít hơn
-            float traction = Mathf.Max(0.2f, Mathf.Sqrt(Mathf.Max(0f, 1f - Mathf.Clamp01(latUse) * Mathf.Clamp01(latUse))));
+            float traction = Mathf.Max(0.5f, Mathf.Sqrt(Mathf.Max(0f, 1f - Mathf.Clamp01(latUse) * Mathf.Clamp01(latUse))));
             if (inp.y > 0.05f) Speed = Mathf.MoveTowards(Speed, maxSpeed * inp.y, (Speed < 0 ? brake : accel * traction) * dt);
             else if (inp.y < -0.05f) Speed = Mathf.MoveTowards(Speed, -reverseSpeed, (Speed > 0 ? brake : accel) * dt);
             else Speed = Mathf.MoveTowards(Speed, 0f, drag * dt);
@@ -362,7 +365,7 @@ namespace PhoViet.OpenWorld
             Drifting = handbrake && Mathf.Abs(yawRate) > 0.35f;
             if (vAbs > 3f)
             {   // lốp trượt / cản khi cua → xe tự giảm tốc khi ôm cua gắt
-                float scrub = scrubDecel * Mathf.Clamp01(demand - 1f) + 2.2f * Mathf.Clamp01(latUse) * Mathf.Clamp01(latUse) + (handbrake ? 2.5f : 0f);
+                float scrub = scrubDecel * Mathf.Clamp01(demand - 1f) + 0.9f * Mathf.Clamp01(latUse) * Mathf.Clamp01(latUse) + (handbrake ? 2.5f : 0f);   // 21.319: cản cua 2,2 → 0,9
                 Speed = Mathf.MoveTowards(Speed, 0f, scrub * dt);
             }
             // 21.316e: thắng tay khi đang đánh lái chỉ hãm bánh sau (~0,6 g) để xe trượt xoay (drift) thay vì đứng khựng
@@ -400,11 +403,11 @@ namespace PhoViet.OpenWorld
             else
             {
                 // 21.316e: sát giới hạn bám thì trượt nhiều hơn; thắng tay → đuôi văng (drift)
-                float tau = Drifting ? handbrakeSlide : Mathf.Lerp(gripLow, gripHigh, Mathf.InverseLerp(8f, maxSpeed, spAbs)) * (1f + 0.5f * Mathf.Clamp01(latUse - 0.7f) / 0.3f);
+                float tau = Drifting ? handbrakeSlide : Mathf.Lerp(gripLow, gripHigh, Mathf.InverseLerp(8f, maxSpeed, spAbs)) * (1f + 0.3f * Mathf.Clamp01(latUse - 0.7f) / 0.3f);
                 moveDir = Vector3.Slerp(moveDir, want, 1f - Mathf.Exp(-dt / Mathf.Max(0.005f, tau))); moveDir.y = 0f; moveDir.Normalize();
             }
             var target = moveDir * spAbs; target.y = vel.y;
-            rb.linearVelocity = Vector3.Lerp(vel, target, 0.35f);
+            rb.linearVelocity = Vector3.Lerp(vel, target, 0.5f);                  // 21.319: 0,35 → 0,5 (vận tốc bám hướng chạy nhanh hơn)
         }
 
         // ------------------------------------------------------------ 21.255: nhảy như game cũ
@@ -586,11 +589,15 @@ namespace PhoViet.OpenWorld
 
         // 21.261: húc đổ tấm hàng rào trước cửa hàng — mất ~15 % tốc độ, móp nhẹ.
         public int FenceHits { get; private set; }
+        public int WallDents { get; private set; }                       // 21.324: số lần móp do tông xe CSGT
+        public int ObstacleDents { get; private set; }                   // 21.325: số lần móp do đụng cảnh quan/vật cản
+        public const float ObstacleDentMin = 3f;                         // 21.325: vận tốc đâm vào tối thiểu (m/s) để móp
+        public OpenWorldCarDent Damage => dent;
         public void HitFence(Vector3 point, float speed)
         {
             if (Crashed) return;
             FenceHits++; Speed *= 0.85f;
-            if (speed > 4f) Dent(point, speed * 0.3f);
+            if (speed > ObstacleDentMin && !Shielded) { Dent(point, speed * 0.7f); ObstacleDents++; }     // 21.325: 0,3 → 0,7 (rõ hơn)
         }
 
         // Khói xám nhẹ sau cú va chạm không nổ: bốc trong thời gian choáng/dừng, giảm dần ở giây cuối rồi tắt.
@@ -617,7 +624,7 @@ namespace PhoViet.OpenWorld
 
         void Dent(Vector3 point, float closing)
         {
-            if (dent == null) dent = new OpenWorldCarDent(transform, GetComponentsInChildren<Renderer>(false));
+            if (dent == null) dent = new OpenWorldCarDent(transform, GetComponentsInChildren<Renderer>(false)) { paint = new Color(.13f, .36f, .86f) };
             var outward = point - transform.position; outward.y = 0;
             dent.Dent(point, outward, closing);
         }
@@ -810,14 +817,31 @@ namespace PhoViet.OpenWorld
             if (npc && npc.owner && !Crashed)
             {
                 // xe hỏng/choáng đã nằm yên (không phải cú húc vừa xảy ra) → như vật cản tĩnh; xe đang văng tới → va chạm thật
-                if (npc.owner.IsWreck(npc.index) && !npc.owner.WreckMoving(npc.index) && npc.owner.WreckAge(npc.index) > 0.25f) { Speed *= 0.25f; return; }
+                if (npc.owner.IsWreck(npc.index) && !npc.owner.WreckMoving(npc.index) && npc.owner.WreckAge(npc.index) > 0.25f)
+                {   // 21.325: tông xác xe nằm yên như vật cản → xe người chơi móp/bể chỗ va
+                    var cw = c.GetContact(0); float iw = Mathf.Abs(Vector3.Dot(c.relativeVelocity, cw.normal));
+                    if (iw > ObstacleDentMin && cw.normal.y < 0.55f && !Shielded) { Dent(cw.point, iw); ObstacleDents++; }
+                    Speed *= 0.25f; return;
+                }
                 HitVehicle(c, npc.owner.Mass(npc.index));
                 return;
             }
             var hz = c.collider ? c.collider.GetComponentInParent<OpenWorldHazardBody>() : null;
             if (hz) { LastCrashInfo = "va collider " + c.collider.name + " tại " + c.GetContact(0).point.ToString("F1"); Crash(c.GetContact(0).point, hz.reason, 6f); return; }
-            // Đâm nhà/cây/cột: mất phần lớn tốc độ (giữ cảm giác va chạm như game cũ, chưa có hiệu ứng).
-            if (Vector3.Dot(c.GetContact(0).normal, transform.forward) < -0.5f) Speed *= 0.25f;
+            // 21.324: tông xe CSGT → cả hai móp/bể chỗ va. 21.325 (người dùng: «xe người chơi đụng cảnh quan, đồ vật, chướng
+            // ngại cũng biến dạng, bể, móp méo ở chỗ va — chỉ xe người chơi»): MỌI vật cản (tường nhà, cột đèn/biển, cây, bồn
+            // cây, lan can, ghế, xác xe, vật rơi…) với vận tốc đâm vào > 3 m/s (~11 km/h) → xe người chơi móp/bể theo vận tốc
+            // đó; vật cản không đổi. Bỏ mặt đường/mặt cầu và chạm từ trên xuống (đáp xuống nóc vật). Khiên chặn.
+            var ct0 = c.GetContact(0);
+            var pol = c.rigidbody ? c.rigidbody.GetComponent<OpenWorldPolice>() : null;
+            float into = Mathf.Abs(Vector3.Dot(c.relativeVelocity, ct0.normal));
+            if (!IsRoad(c.collider) && ct0.normal.y < 0.55f && (pol ? into > 4f : into > ObstacleDentMin))
+            {
+                if (!Shielded && !Crashed) { Dent(ct0.point, pol ? c.relativeVelocity.magnitude : into); if (pol) WallDents++; else ObstacleDents++; }
+                if (pol) pol.DamageAt(ct0.point, c.relativeVelocity.magnitude);
+            }
+            // Đâm nhà/cây/cột: mất phần lớn tốc độ (giữ cảm giác va chạm như game cũ).
+            if (Vector3.Dot(ct0.normal, transform.forward) < -0.5f) Speed *= 0.25f;
         }
 
         // «TRÚNG ĐẠN TÀU» → «Trúng đạn tàu» (giữ chữ hoa của tên riêng viết tắt như CSGT).

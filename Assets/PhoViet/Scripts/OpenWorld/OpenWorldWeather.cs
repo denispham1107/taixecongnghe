@@ -301,8 +301,9 @@ namespace PhoViet.OpenWorld
             RenderSettings.ambientIntensity = Mathf.Lerp(baseAmb, baseAmb * 0.62f, w) + f * 0.4f;
             RenderSettings.reflectionIntensity = Mathf.Lerp(baseRefl, baseRefl * 0.55f, w) + f * 0.2f;
             RenderSettings.fogColor = Color.Lerp(baseFog, RainFog, w) + FlashTint * (f * 0.22f);
-            RenderSettings.fogStartDistance = Mathf.Lerp(baseFogStart, 40f, w);
-            RenderSettings.fogEndDistance = Mathf.Lerp(baseFogEnd, 560f, w);
+            // 21.320: sương mưa phủ từ sát camera (trước: bắt đầu 40 m → vùng 0–40 m giữ màu nhựa tối, trông như «lớp đen mờ» trước xe)
+            RenderSettings.fogStartDistance = Mathf.Lerp(baseFogStart, 0f, w);
+            RenderSettings.fogEndDistance = Mathf.Lerp(baseFogEnd, 260f, w);
             if (sky)
             {
                 if (sky.HasProperty("_Exposure")) sky.SetFloat("_Exposure", Mathf.Lerp(baseExposure, 0.36f, w) + f * 1.3f);

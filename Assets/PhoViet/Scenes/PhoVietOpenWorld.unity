@@ -1778933,18 +1778933,18 @@ MonoBehaviour:
   accel: 7
   brake: 16
   drag: 1.6
-  steerRise: 0.18
-  steerReturn: 0.14
+  steerRise: 0.08
+  steerReturn: 0.06
   wheelBase: 2.65
   maxWheelAngle: 35
   understeerK: 0.002
-  gripG: 1.7
-  yawLag: 0.09
-  scrubDecel: 3.5
+  gripG: 2.6
+  yawLag: 0.045
+  scrubDecel: 2
   handbrakeSlide: 0.6
   handbrakeYawBoost: 1.8
-  gripLow: 0.04
-  gripHigh: 0.11
+  gripLow: 0.02
+  gripHigh: 0.05
   bodyRollMax: 3.5
   bodyRollGain: 0.16
   scriptedInput: {x: 0, y: 0}

@@ -19,9 +19,11 @@ namespace PhoViet.OpenWorld
             if (!traffic) return;
             traffic.ImpactFx -= OnImpactFx; traffic.ImpactFx += OnImpactFx;
             traffic.WreckExploded -= OnWreckExploded; traffic.WreckExploded += OnWreckExploded;
+            OpenWorldCarDent.Broke -= OnCarBroke; OpenWorldCarDent.Broke += OnCarBroke;
         }
         void OnDestroy()
         {
+            OpenWorldCarDent.Broke -= OnCarBroke;
             if (!traffic) return;
             traffic.ImpactFx -= OnImpactFx; traffic.WreckExploded -= OnWreckExploded; traffic.LaserExploded -= OnLaserExploded;
         }
@@ -68,6 +70,44 @@ namespace PhoViet.OpenWorld
         }
 
         void OnImpactFx(Vector3 point, Vector3 normal, float closing) => ImpactShards(point, normal, closing);
+
+        // 21.324: ô tô móp/bể (OpenWorldCarDent.Broke) → mảnh tôn cùng màu sơn xe + mảnh kính trong (kính nứt) + mảnh đèn
+        // trắng/đỏ (đèn vỡ); số mảnh và tốc độ văng theo mức hỏng. Mảnh kính nhỏ, sáng, rơi nhanh.
+        public int CarDebrisBursts { get; private set; }
+        void OnCarBroke(Vector3 point, Vector3 outward, float s, Color paint, bool glass, bool lamp)
+        {
+            EnsureShards(); if (!shards) return;
+            CarDebrisBursts++;
+            int count = Mathf.RoundToInt(Mathf.Lerp(4, 22, s));
+            float speed = Mathf.Lerp(2f, 9f, s);
+            var dark = paint * 0.55f; dark.a = 1f;
+            for (int i = 0; i < count; i++)
+            {
+                float sz = Random.Range(.08f, .24f) * (1 + s * .6f);
+                var dir = outward * .8f + Random.insideUnitSphere * .7f + Vector3.up * .55f;
+                shards.Emit(new ParticleSystem.EmitParams
+                {
+                    position = point + Random.insideUnitSphere * .15f, velocity = dir * Random.Range(speed * .5f, speed),
+                    startSize3D = new Vector3(sz, sz * .2f, sz * .8f), rotation3D = Random.insideUnitSphere * 180,
+                    startColor = i % 3 == 2 ? dark : paint, startLifetime = Random.Range(.5f, 1.1f)
+                }, 1);
+            }
+            int bits = (glass ? 26 : 0) + (lamp ? 14 : 0);
+            for (int i = 0; i < bits; i++)
+            {
+                bool isLamp = lamp && (!glass || i >= 26);
+                float sz = Random.Range(.03f, .09f);
+                var col = isLamp ? (Random.value < .5f ? new Color(1f, .95f, .85f) : new Color(.85f, .08f, .06f)) : new Color(.82f, .9f, .96f);
+                var dir = outward * .6f + Random.insideUnitSphere * .9f + Vector3.up * .8f;
+                shards.Emit(new ParticleSystem.EmitParams
+                {
+                    position = point + Vector3.up * (isLamp ? 0f : .5f) + Random.insideUnitSphere * .25f, velocity = dir * Random.Range(1.5f, 5.5f),
+                    startSize3D = new Vector3(sz, sz * .25f, sz), rotation3D = Random.insideUnitSphere * 180, startColor = col,
+                    startLifetime = Random.Range(.4f, .9f)
+                }, 1);
+            }
+            if (glass) PlayAt(blastClip, point, .18f);
+        }
 
         void OnWreckExploded(Vector3 at, bool bike)
         {

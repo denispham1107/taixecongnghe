@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mẫu menu Phố Việt</title>
+<style>
+@font-face{font-family:BVP;src:url(font/BeVietnamPro-SemiBold.ttf);font-weight:100 900}
+:root{--navy:#12233a;--navy2:#0b1726;--cream:#fcf2cf;--gold:#f5c542;--teal:#33e0c8;--teal2:#16a596;--red:#ea4436;--red2:#b8261c;
+--blue:#4aa3ff;--purple:#a45cff;--orange:#f39a3b;--green:#4fcf7a;--glass:rgba(14,40,46,.80)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a141d;color:#e8eef3;font-family:BVP,system-ui,sans-serif}
+.page{max-width:1500px;margin:0 auto;padding:28px 20px 60px}
+.page h1{font-size:30px;font-weight:600;color:var(--cream)}
+.page .lead{color:#9fb3c2;margin:6px 0 30px;font-size:15px;line-height:1.5}
+.sec{margin:0 0 56px}
+.sec h2{font-size:26px;color:var(--cream);display:flex;gap:12px;align-items:center}
+.sec h2 b{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--gold);color:var(--navy)}
+.sec p{color:#9fb3c2;margin:6px 0 18px;line-height:1.5;font-size:15px;max-width:1000px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,640px),1fr));gap:18px}
+.cell .cap{font-size:13px;color:#8aa0b1;margin:8px 2px 0}
+.fw{position:relative;width:100%;overflow:hidden;border-radius:12px;background:#000}
+.fw>.fr{position:absolute;left:0;top:0;transform-origin:0 0}
+body.only{background:#000}
+body.only .fw{border-radius:0}
+
+/* ---------- khung chung ---------- */
+.fr{position:relative;width:1947px;height:900px;overflow:hidden;background-size:cover;background-position:center;font-family:BVP;color:var(--cream);font-weight:600;line-height:1.15}
+.fr.pc{width:1440px}
+.abs{position:absolute}
+.dim{position:absolute;inset:0;background:rgba(4,16,22,.62);z-index:5}
+.dim~*{z-index:6}
+.row{display:flex;align-items:center}
+.ico{display:inline-block;flex:none}
+.stk{text-shadow:-3px -3px 0 var(--navy),3px -3px 0 var(--navy),-3px 3px 0 var(--navy),3px 3px 0 var(--navy),0 -3px 0 var(--navy),0 3px 0 var(--navy),-3px 0 0 var(--navy),3px 0 0 var(--navy),0 6px 0 var(--navy)}
+.stk2{text-shadow:-2px -2px 0 var(--navy),2px -2px 0 var(--navy),-2px 2px 0 var(--navy),2px 2px 0 var(--navy),0 4px 0 var(--navy)}
+.caps{letter-spacing:.08em;text-transform:uppercase}
+
+/* nút arcade (giống bộ nút B Arcade) */
+.arc{position:relative;display:flex;align-items:center;justify-content:center;gap:16px;border:5px solid var(--navy);border-radius:28px;color:var(--cream);
+ box-shadow:inset 0 0 0 5px var(--rim,var(--red)),inset 0 0 0 7px rgba(255,255,255,.45),0 7px 0 var(--navy2),0 16px 26px rgba(0,0,0,.35);
+ background:var(--fill,linear-gradient(180deg,#ff7466,#e23d30 52%,#b9251b))}
+.arc::after{content:"";position:absolute;left:12px;right:12px;top:10px;height:38%;border-radius:20px 20px 40px 40px/20px 20px 14px 14px;background:linear-gradient(rgba(255,255,255,.28),rgba(255,255,255,.04))}
+.arc.slate{--fill:linear-gradient(180deg,#5d7086,#3b4c60 55%,#2f3e50)}
+.arc.teal{--rim:var(--teal);--fill:linear-gradient(180deg,#3ee7cf,#14a594 55%,#0d7d72)}
+.arc.blue{--rim:var(--blue);--fill:linear-gradient(180deg,#6cb6ff,#2f7fe0 55%,#215fb3)}
+.arc.gold{--rim:var(--gold);--fill:linear-gradient(180deg,#ffd666,#f0aa1e 55%,#c9850c)}
+.keycap{display:inline-grid;place-items:center;min-width:44px;height:44px;padding:0 12px;border-radius:11px;background:var(--cream);color:var(--navy);border:3px solid var(--navy);box-shadow:0 4px 0 var(--navy);font-size:20px;text-shadow:none}
+
+/* ================= MẪU A — KÍNH HUD ================= */
+.A .glass{position:absolute;background:var(--glass);border:2px solid rgba(252,242,207,.20);border-radius:30px;box-shadow:0 22px 50px rgba(0,8,16,.42)}
+.A .glass::before{content:"";position:absolute;inset:0;border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,0) 38%);pointer-events:none}
+.A .lab{font-size:19px;color:var(--gold);letter-spacing:.09em}
+.A .sub{color:rgba(252,242,207,.72);font-size:25px;line-height:1.35}
+.A .hudbtn{width:66px;height:66px;border-radius:50%;background:rgba(255,241,207,.9);display:grid;place-items:center;box-shadow:0 0 0 2px rgba(252,242,207,.25)}
+.A .sep{height:2px;background:rgba(252,242,207,.16);border-radius:2px}
+.A .pill{display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:20px;background:rgba(252,242,207,.12);font-size:19px}
+.A .ghost{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;border-radius:24px;border:2px solid rgba(252,242,207,.35);background:rgba(252,242,207,.08);color:var(--cream);font-size:24px}
+
+/* ================= MẪU B — ARCADE DÀY ================= */
+.B .card{position:absolute;border:7px solid var(--navy);border-radius:42px;
+ background:linear-gradient(180deg,#647890 0%,#41546a 42%,#33445a 72%,var(--tint,#3b3346) 100%);
+ box-shadow:inset 0 0 0 9px var(--rim,var(--gold)),inset 0 0 0 12px rgba(252,242,207,.55),0 12px 0 var(--navy2),0 30px 60px rgba(0,0,0,.45)}
+.B .card::before{content:"";position:absolute;left:16px;right:16px;top:16px;height:34%;border-radius:28px 28px 60px 60px/28px 28px 18px 18px;background:linear-gradient(rgba(255,255,255,.17),rgba(255,255,255,0));pointer-events:none}
+.B .tag{position:absolute;left:50%;transform:translateX(-50%);top:-30px;height:58px;padding:0 34px;border:5px solid var(--navy);border-radius:29px;display:flex;align-items:center;gap:12px;font-size:24px;letter-spacing:.06em;white-space:nowrap;
+ background:var(--tagc,var(--red));box-shadow:inset 0 0 0 3px rgba(255,255,255,.35),0 5px 0 var(--navy2)}
+.B .inset{position:absolute;background:rgba(9,20,32,.55);border:4px solid var(--navy);border-radius:24px;box-shadow:inset 0 4px 0 rgba(0,0,0,.25)}
+.B .chip{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 20px;border:4px solid var(--navy);border-radius:25px;background:#2c3b4d;box-shadow:inset 0 0 0 3px var(--c,var(--gold)),0 4px 0 var(--navy2);font-size:22px}
+.B .sub{font-size:25px;color:rgba(252,242,207,.85);line-height:1.35}
+
+/* ================= MẪU C — TEM ĐUA ================= */
+.C .sk{transform:skewX(-11deg)}
+.C .pan{position:absolute;background:linear-gradient(100deg,rgba(10,22,34,.94),rgba(14,32,46,.88));border-left:12px solid var(--red);box-shadow:16px 16px 0 rgba(0,0,0,.28)}
+.C .band{position:absolute;display:flex;align-items:center;padding:0 26px}
+.C .chk{background:repeating-conic-gradient(var(--cream) 0 25%,var(--navy) 0 50%) 0 0/24px 24px}
+.C .haz{background:repeating-linear-gradient(-45deg,var(--gold) 0 26px,var(--navy) 26px 52px)}
+.C .cbtn{position:absolute;display:flex;align-items:center;justify-content:center;gap:16px;font-size:34px;letter-spacing:.06em;color:var(--cream);background:linear-gradient(180deg,#ff5a4a,#d42e22);box-shadow:10px 10px 0 var(--navy2)}
+.C .cbtn.alt{background:rgba(252,242,207,.1);border:3px solid rgba(252,242,207,.55);box-shadow:none;font-size:24px}
+.C .cbtn.s{gap:12px;box-shadow:8px 8px 0 var(--navy2)}
+.keycap.sm{min-width:36px;height:36px;padding:0 9px;border-radius:9px;font-size:16px;box-shadow:0 3px 0 var(--navy)}
+.C .cbtn.teal{background:linear-gradient(180deg,#3ee7cf,#11a091);color:var(--navy)}
+.C .lab{font-size:20px;letter-spacing:.14em;color:var(--gold)}
+.C .speed{position:absolute;height:6px;border-radius:3px;background:rgba(252,242,207,.5)}
+</style>
+</head>
+<body>
+<div class="page" id="page"></div>
+<script>
+/* ---------------- icon (nét navy dày kiểu B Arcade) ---------------- */
+const N='#12233a';
+const I={
+gear:(s=40,c='#33e0c8')=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M24 4l4 5 6-2 1 6 6 2-2 6 5 4-5 4 2 6-6 2-1 6-6-2-4 5-4-5-6 2-1-6-6-2 2-6-5-4 5-4-2-6 6-2 1-6 6 2z" fill="${c}" stroke="${N}" stroke-width="3" stroke-linejoin="round"/><circle cx=24 cy=24 r=7 fill="#fcf2cf" stroke="${N}" stroke-width="3"/></svg>`,
+pin:(s=30,c='#f5c542')=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M24 44s-14-15-14-25a14 14 0 0 1 28 0c0 10-14 25-14 25z" fill="${c}" stroke="${N}" stroke-width="3.5" stroke-linejoin="round"/><circle cx=24 cy=19 r=5.5 fill="${N}"/></svg>`,
+trophy:(s=30,c='#f5c542')=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M14 6h20v12a10 10 0 0 1-20 0z" fill="${c}" stroke="${N}" stroke-width="3.5" stroke-linejoin="round"/><path d="M14 10H6c0 8 4 11 9 11M34 10h8c0 8-4 11-9 11" fill="none" stroke="${N}" stroke-width="3.5"/><path d="M20 28h8v7h-8zM14 36h20v6H14z" fill="${c}" stroke="${N}" stroke-width="3.5" stroke-linejoin="round"/></svg>`,
+play:(s=34,c='#fcf2cf')=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M14 8l26 16-26 16z" fill="${c}" stroke="${N}" stroke-width="4" stroke-linejoin="round"/></svg>`,
+pause:(s=34,c='#fcf2cf')=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><rect x=10 y=8 width=10 height=32 rx=3 fill="${c}" stroke="${N}" stroke-width="3.5"/><rect x=28 y=8 width=10 height=32 rx=3 fill="${c}" stroke="${N}" stroke-width="3.5"/></svg>`,
+home:(s=30,c='#fcf2cf')=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M6 23L24 7l18 16h-5v18H29V30h-10v11H11V23z" fill="${c}" stroke="${N}" stroke-width="3.5" stroke-linejoin="round"/></svg>`,
+retry:(s=34,c='#fcf2cf')=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M38 24a14 14 0 1 1-5-10.7" fill="none" stroke="${N}" stroke-width="10" stroke-linecap="round"/><path d="M38 24a14 14 0 1 1-5-10.7" fill="none" stroke="${c}" stroke-width="5" stroke-linecap="round"/><path d="M27 6l11 3-4 11z" fill="${c}" stroke="${N}" stroke-width="3" stroke-linejoin="round"/></svg>`,
+check:(s=28,c='#fcf2cf')=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M9 25l10 10 20-22" fill="none" stroke="${N}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 25l10 10 20-22" fill="none" stroke="${c}" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+close:(s=28,c='#fcf2cf')=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M12 12l24 24M36 12L12 36" stroke="${N}" stroke-width="11" stroke-linecap="round"/><path d="M12 12l24 24M36 12L12 36" stroke="${c}" stroke-width="5.5" stroke-linecap="round"/></svg>`,
+speaker:(s=34,c=N)=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M8 18h8l10-8v28l-10-8H8z" fill="${c}"/><path d="M32 17c3 4 3 10 0 14M37 12c6 7 6 17 0 24" fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round"/></svg>`,
+siren:(s=34)=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M10 38V26a14 14 0 0 1 28 0v12z" fill="#ea4436" stroke="${N}" stroke-width="3.5"/><path d="M24 12V26" stroke="${N}" stroke-width="3"/><path d="M24 26V12a14 14 0 0 1 14 14v12H24z" fill="#4aa3ff" stroke="${N}" stroke-width="3.5"/><rect x=6 y=37 width=36 height=6 rx=2 fill="#fcf2cf" stroke="${N}" stroke-width="3"/></svg>`,
+boom:(s=54)=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M24 3l5 10 10-5-3 11 10 4-10 5 5 10-11-3-6 10-4-11-11 4 4-10L3 24l10-5-4-10 10 4z" fill="#f39a3b" stroke="${N}" stroke-width="3" stroke-linejoin="round"/><path d="M24 14l3 6 6-1-3 6 5 4-7 1-2 6-3-6-6 2 3-6-5-4 7-1z" fill="#f5c542"/></svg>`,
+star:(s=26,c='#f5c542')=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M24 4l5.9 13.2 14.1 1.4-10.6 9.5 3.1 14L24 35l-12.5 7.1 3.1-14L4 18.6l14.1-1.4z" fill="${c}"/></svg>`,
+bars:(lv,c='#f5c542',s=44)=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48">${[0,1,2,3].map(i=>`<rect x="${4+i*11}" y="${34-i*9}" width="8" height="${10+i*9}" rx="2" fill="${i<lv?c:'rgba(252,242,207,.18)'}"/>`).join('')}</svg>`,
+chev:(s=40,c='#fcf2cf')=>`<svg class=ico width=${s*1.6} height=${s} viewBox="0 0 76 48"><g fill="${c}" stroke="${N}" stroke-width="3" stroke-linejoin="round"><path d="M4 8h12l14 16-14 16H4l14-16z"/><path d="M26 8h12l14 16-14 16H26l14-16z" opacity=".75"/><path d="M48 8h12l14 16-14 16H48l14-16z" opacity=".5"/></g></svg>`,
+gauge:(lv,s=60,c='#f5c542')=>`<svg class=ico width=${s} height=${s} viewBox="0 0 48 48"><path d="M6 34a18 18 0 1 1 36 0" fill="none" stroke="${N}" stroke-width="9" stroke-linecap="round"/><path d="M6 34a18 18 0 1 1 36 0" fill="none" stroke="rgba(252,242,207,.25)" stroke-width="4" stroke-linecap="round"/><path d="M6 34a18 18 0 0 1 ${[0,4.2,18,31.8,36][lv]} ${[0,-14,-18,-14,0][lv]}" fill="none" stroke="${c}" stroke-width="4.5" stroke-linecap="round"/><circle cx=24 cy=34 r=4.5 fill="#fcf2cf" stroke="${N}" stroke-width="3"/><path d="M24 34L${24+16*Math.cos(Math.PI*(1-lv/4.6))} ${34-16*Math.sin(Math.PI*(1-lv/4.6))}" stroke="${N}" stroke-width="5" stroke-linecap="round"/><path d="M24 34L${24+16*Math.cos(Math.PI*(1-lv/4.6))} ${34-16*Math.sin(Math.PI*(1-lv/4.6))}" stroke="#fcf2cf" stroke-width="2" stroke-linecap="round"/></svg>`,
+};
+const flag=(s=52)=>`<div style="width:${s}px;height:${s}px;border-radius:${s*.26}px;background:#da251d;display:grid;place-items:center;border:3px solid ${N}">${I.star(s*.68)}</div>`;
+
+/* ---------------- dữ liệu ---------------- */
+const D={street:'Tôn Đức Thắng',best:'1.893 m',dist:'223 m',jail:'26 m',reason:'Trúng đạn xe tăng!',detail:'Đạn pháo nổ ngay cạnh xe.',left:'Còn 1.670 m nữa là chạm kỷ lục'};
+const GFX=[
+ {n:'Rất cao',d:'Độ phân giải gốc của màn hình · nét nhất. Đã tối ưu bộ nhớ để không văng game.',t:'2778 × 1284',lv:4,c:'#a45cff'},
+ {n:'Cao',d:'Nét gần bằng Rất cao, nhẹ máy hơn một chút.',t:'2222 × 1027',lv:3,c:'#4aa3ff'},
+ {n:'Trung bình',d:'Tự động điều chỉnh khi đang chơi theo tình trạng máy.',t:'TỰ ĐỘNG · 1389 × 642',lv:2,c:'#33e0c8'},
+ {n:'Yếu',d:'Dành cho máy yếu · mượt nhất, tắt bóng đổ.',t:'926 × 428',lv:1,c:'#4fcf7a'}];
+const SEL=2;
+const BTN=['left','right','shield','reverse','gas','jump','missile','laser'];
+const BTNLAB={left:'TRÁI',right:'PHẢI',shield:'KHIÊN',reverse:'LÙI',gas:'GA',jump:'NHẢY',missile:'TÊN LỬA',laser:'LAZER'};
+
+/* ================= MẪU A ================= */
+const A={
+brand:(x,y)=>`<div class="glass row" style="left:${x}px;top:${y}px;height:84px;padding:0 26px 0 14px;gap:16px;border-radius:24px">${flag(54)}<div><div style="font-size:31px">PHỐ VIỆT</div><div class=lab style="font-size:14px;margin-top:2px">CHUYẾN XE KHÔNG NGỪNG</div></div></div>`,
+place:(r,y)=>`<div class="glass" style="right:${r}px;top:${y}px;padding:16px 30px 16px 22px;border-radius:24px"><div class="row" style="gap:10px">${I.pin(26)}<span class=lab style="font-size:16px">ĐỊA ĐIỂM HÔM NAY</span></div><div style="font-size:30px;margin-top:6px;padding-left:36px">${D.street}</div></div>`,
+welcome(pc){
+ const W=pc?1440:1947,x=pc?56:96,cw=pc?600:640,top=pc?170:160;
+ let h=`<div class="fr ${pc?'pc':''} A" style="background-image:url(img/${pc?'nang-pc':'nang'}.jpg)">`;
+ h+=`<div class=abs style="left:0;top:0;bottom:0;width:${cw+260}px;background:linear-gradient(90deg,rgba(4,16,22,.55),rgba(4,16,22,0))"></div>`;
+ h+=this.brand(x,36)+this.place(x,36);
+ h+=`<div class=glass style="left:${x}px;top:${top}px;width:${cw}px;height:${pc?500:540}px;padding:36px 40px">
+  <div class=row style="gap:12px"><span style="width:8px;height:24px;border-radius:3px;background:var(--red)"></span><span class=lab>BẢN ĐỒ MỞ · SÀI GÒN</span></div>
+  <div class="abs hudbtn" style="right:30px;top:26px;background:rgba(252,242,207,.12);box-shadow:inset 0 0 0 2px rgba(252,242,207,.3)">${I.gear(40)}</div>
+  <div style="font-size:${pc?74:82}px;line-height:1.02;margin-top:22px;letter-spacing:-.01em">LÁI QUA<br><span style="color:var(--gold)">PHỐ QUEN.</span></div>
+  <div class=sub style="margin-top:18px">Né CSGT, khủng long, xe tăng<br>và trực thăng trên phố mở.</div>
+  <div class="arc" style="position:absolute;left:40px;right:40px;bottom:${pc?92:100}px;height:${pc?88:100}px;font-size:${pc?32:36}px"><span class="stk" style="position:relative;z-index:1">LÊN XE THÔI</span><span style="position:relative;z-index:1">${I.chev(28)}</span></div>
+  <div class="abs row" style="left:40px;right:40px;bottom:30px;gap:12px">${I.trophy(28)}<span class=lab style="font-size:17px">KỶ LỤC</span><span style="font-size:28px;margin-left:auto">${D.best}</span></div>
+ </div>`;
+ h+=this.hints(pc,x,W);
+ return h+`</div>`;},
+hints(pc,x,W){
+ if(pc) return `<div class="glass row" style="left:${x}px;bottom:36px;height:76px;padding:0 26px;gap:26px;border-radius:22px;font-size:20px">
+  <span class=row style="gap:8px"><span class=keycap>←</span><span class=keycap>→</span><span style="opacity:.6">/</span><span class=keycap>WASD</span> LÁI</span>
+  <span class=row style="gap:8px"><span class=keycap>J</span> NHẢY</span><span class=row style="gap:8px"><span class=keycap>F</span> TÊN LỬA</span>
+  <span class=row style="gap:8px"><span class=keycap>SPACE</span> PHANH TAY</span><span class=row style="gap:8px"><span class=keycap>P</span> TẠM DỪNG</span></div>`;
+ return `<div class="glass row" style="left:${x}px;bottom:34px;height:104px;padding:0 24px;gap:22px;border-radius:24px;font-size:18px">
+  <span class=lab style="font-size:16px;width:120px;line-height:1.2">ĐIỀU KHIỂN</span>
+  ${BTN.map(b=>`<span style="display:flex;flex-direction:column;align-items:center;gap:2px"><img src="img/btn_${b}.png" width=60 height=60></span>`).join('')}
+  <span class=sub style="font-size:20px;line-height:1.3;max-width:330px">Giữ TRÁI / PHẢI để lái · giữ GA, LÙI · chạm NHẢY, TÊN LỬA</span></div>`;},
+gfx(){
+ let h=this.welcome(false).replace(/<\/div>$/,'');
+ h+=`<div class=dim style="background:rgba(3,12,18,.72)"></div>`;
+ const w=1040,hh=850,x=(1947-w)/2,y=25;
+ h+=`<div class=glass style="left:${x}px;top:${y}px;width:${w}px;height:${hh}px;padding:34px 40px;background:rgba(12,34,40,.92)">
+  <div class=row style="gap:16px">${I.gear(46)}<span style="font-size:38px">CẤU HÌNH ĐỒ HỌA</span></div>
+  <div class=sub style="font-size:22px;margin-top:8px;color:var(--gold)">Chọn mức hợp với máy của bạn · lưu cho lần chơi sau.</div>
+  <div class="abs hudbtn" style="right:32px;top:28px;width:60px;height:60px;background:rgba(252,242,207,.12);box-shadow:inset 0 0 0 2px rgba(252,242,207,.3)">${I.close(26)}</div>
+  ${GFX.map((g,i)=>{const s=i==SEL;return `<div class=row style="position:relative;margin-top:${i?12:22}px;height:112px;padding:0 26px;gap:22px;border-radius:22px;
+   background:${s?'rgba(51,224,200,.16)':'rgba(252,242,207,.06)'};border:2px solid ${s?'var(--teal)':'rgba(252,242,207,.14)'};${s?'box-shadow:0 0 0 5px rgba(51,224,200,.16)':''}">
+   <span style="width:38px;height:38px;border-radius:50%;border:3px solid ${s?'var(--teal)':'rgba(252,242,207,.4)'};display:grid;place-items:center">${s?'<span style="width:18px;height:18px;border-radius:50%;background:var(--teal)"></span>':''}</span>
+   ${I.bars(g.lv,s?'#33e0c8':'#f5c542',48)}
+   <div style="flex:1"><div style="font-size:31px">${g.n}</div><div class=sub style="font-size:19px;margin-top:4px">${g.d}</div></div>
+   <span class=pill style="background:${s?'var(--teal)':'rgba(252,242,207,.12)'};color:${s?'#0b2a2a':'var(--cream)'};font-size:18px">${g.t}</span></div>`}).join('')}
+  <div class="arc teal" style="position:absolute;left:40px;right:40px;bottom:32px;height:92px;font-size:34px"><span style="position:relative;z-index:1">${I.check(34)}</span><span class=stk style="position:relative;z-index:1">XONG</span></div>
+ </div>`;
+ return h+`</div>`;},
+over(){
+ let h=`<div class="fr A" style="background-image:url(img/hud.jpg)"><div class=dim></div>`;
+ const w=900,hh=610,x=(1947-w)/2,y=190;
+ h+=`<div class=glass style="left:${x}px;top:${y}px;width:${w}px;height:${hh}px;padding:38px 44px;background:rgba(12,34,40,.9)">
+  <div class=row style="gap:22px">${I.boom(78)}<div><div class=lab style="color:#ff7b6e">KẾT THÚC CHUYẾN XE</div><div style="font-size:54px;margin-top:6px">${D.reason}</div><div class=sub style="font-size:24px;margin-top:4px">${D.detail}</div></div></div>
+  <div class=sep style="margin:30px 0 26px"></div>
+  <div class=row style="align-items:flex-end;gap:30px"><div><div class=lab>BẠN ĐÃ ĐI ĐƯỢC</div><div style="font-size:120px;line-height:1;margin-top:6px">223<span style="font-size:44px;color:rgba(252,242,207,.7)"> m</span></div></div>
+   <div style="flex:1;padding-bottom:16px"><div class=row style="gap:10px;justify-content:flex-end">${I.trophy(26)}<span class=lab style="font-size:17px">KỶ LỤC</span><span style="font-size:28px">${D.best}</span></div>
+   <div style="height:16px;border-radius:8px;background:rgba(252,242,207,.14);margin-top:14px;overflow:hidden"><div style="width:12%;height:100%;border-radius:8px;background:var(--gold)"></div></div>
+   <div class=sub style="font-size:19px;margin-top:10px;text-align:right">${D.left}</div></div></div>
+  <div class=row style="position:absolute;left:44px;right:44px;bottom:40px;gap:20px">
+   <div class=arc style="flex:1.7;height:100px;font-size:34px"><span style="position:relative;z-index:1">${I.retry(38)}</span><span class=stk style="position:relative;z-index:1">THỬ MỘT CHUYẾN NỮA</span></div>
+   <div class=ghost style="flex:1;height:100px">${I.home(30)}VỀ ĐẦU PHỐ</div></div>
+ </div>`;
+ return h+`</div>`;},
+jail(){
+ let h=`<div class="fr A" style="background-image:url(img/jail.jpg)">`;
+ h+=`<div class=abs style="right:0;top:0;bottom:0;width:900px;background:linear-gradient(270deg,rgba(4,16,22,.6),rgba(4,16,22,0))"></div>`;
+ const w=680,x=1947-w-110;
+ h+=`<div class=glass style="left:${x}px;top:150px;width:${w}px;height:610px;padding:38px 42px;background:rgba(12,34,40,.88)">
+  <div class=row style="gap:14px">${I.siren(40)}<span class=lab style="color:#ff7b6e">PHỐ VIỆT · TẠM GIỮ</span></div>
+  <div style="font-size:84px;margin-top:16px;line-height:1">ĐÃ BỊ BẮT</div>
+  <div class=sub style="margin-top:14px">CSGT đã đưa bạn vào phòng giam.</div>
+  <div class=row style="gap:16px;margin-top:28px">
+   <div style="flex:1;border-radius:20px;background:rgba(252,242,207,.07);border:2px solid rgba(252,242,207,.14);padding:16px 20px"><div class=row style="gap:8px">${I.pin(22)}<span class=lab style="font-size:15px">QUÃNG ĐƯỜNG</span></div><div style="font-size:44px;margin-top:6px">${D.jail}</div></div>
+   <div style="flex:1;border-radius:20px;background:rgba(252,242,207,.07);border:2px solid rgba(252,242,207,.14);padding:16px 20px"><div class=row style="gap:8px">${I.trophy(22)}<span class=lab style="font-size:15px">KỶ LỤC</span></div><div style="font-size:44px;margin-top:6px">${D.best}</div></div></div>
+  <div class=arc style="position:absolute;left:42px;right:42px;bottom:122px;height:100px;font-size:36px"><span style="position:relative;z-index:1">${I.retry(38)}</span><span class=stk style="position:relative;z-index:1">CHƠI LẠI</span></div>
+  <div class=ghost style="position:absolute;left:42px;right:42px;bottom:34px;height:70px">${I.home(28)}VỀ ĐẦU PHỐ</div>
+ </div>`;
+ return h+`</div>`;},
+pause(){
+ let h=`<div class="fr A" style="background-image:url(img/hud.jpg)"><div class=dim></div>`;
+ const w=820,x=(1947-w)/2,y=170;
+ h+=`<div class=glass style="left:${x}px;top:${y}px;width:${w}px;height:640px;padding:40px 46px;background:rgba(12,34,40,.9);text-align:center">
+  <div style="width:120px;height:120px;border-radius:50%;margin:0 auto;background:rgba(255,241,207,.92);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(252,242,207,.12)">${I.pause(56,'#12233a')}</div>
+  <div class=lab style="margin-top:24px">NGHỈ MỘT CHÚT</div>
+  <div style="font-size:64px;margin-top:8px">Dừng chân bên phố.</div>
+  <div class=sub style="margin-top:12px">Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.</div>
+  <div class=row style="position:absolute;left:46px;right:46px;bottom:134px;gap:18px">
+   <div class=arc style="flex:1;height:100px;font-size:36px;--rim:var(--teal);--fill:linear-gradient(180deg,#3ee7cf,#14a594 55%,#0d7d72)"><span style="position:relative;z-index:1">${I.play(36)}</span><span class=stk style="position:relative;z-index:1">ĐI TIẾP</span></div></div>
+  <div class=row style="position:absolute;left:46px;right:46px;bottom:38px;gap:14px">
+   <div class=ghost style="flex:1;height:76px">${I.home(28)}VỀ ĐẦU PHỐ</div>
+   <div class=ghost style="width:76px;height:76px;padding:0">${I.speaker(34,'#fcf2cf')}</div>
+   <div class=ghost style="width:76px;height:76px;padding:0">${I.gear(38)}</div></div>
+ </div>`;
+ return h+`</div>`;}
+};
+
+/* ================= MẪU B ================= */
+const B={
+brand:(x,y)=>`<div class="card row" style="left:${x}px;top:${y}px;height:96px;padding:0 34px 0 20px;gap:16px;border-radius:30px;--rim:#da251d;--tint:#4a2a33;box-shadow:inset 0 0 0 6px #da251d,inset 0 0 0 8px rgba(252,242,207,.5),0 8px 0 var(--navy2)">${flag(56)}<div style="position:relative"><div class=stk2 style="font-size:32px">PHỐ VIỆT</div><div class=stk2 style="font-size:14px;color:var(--gold);letter-spacing:.08em;margin-top:2px">CHUYẾN XE KHÔNG NGỪNG</div></div></div>`,
+place:(r,y)=>`<div class="card" style="right:${r}px;top:${y}px;padding:18px 32px 16px 26px;border-radius:30px;--rim:var(--teal);--tint:#2c4a50;box-shadow:inset 0 0 0 6px var(--teal),inset 0 0 0 8px rgba(252,242,207,.5),0 8px 0 var(--navy2)"><div class=row style="gap:10px;position:relative">${I.pin(28)}<span class=stk2 style="font-size:16px;color:var(--gold);letter-spacing:.08em">ĐỊA ĐIỂM HÔM NAY</span></div><div class=stk2 style="font-size:30px;margin-top:6px;padding-left:38px;position:relative">${D.street}</div></div>`,
+welcome(pc){
+ const x=pc?56:96,cw=pc?620:680,top=pc?190:180;
+ let h=`<div class="fr ${pc?'pc':''} B" style="background-image:url(img/${pc?'nang-pc':'nang'}.jpg)">`;
+ h+=this.brand(x,34)+this.place(x,34);
+ h+=`<div class=card style="left:${x}px;top:${top}px;width:${cw}px;height:${pc?520:540}px;--rim:var(--gold);--tint:#4d4232;padding:58px 46px 0">
+  <div class=tag style="--tagc:var(--red)">${I.pin(26,'#fcf2cf')}<span class=stk2>BẢN ĐỒ MỞ · SÀI GÒN</span></div>
+  <div class="arc slate" style="position:absolute;right:30px;top:36px;width:84px;height:84px;border-radius:24px;--rim:var(--teal)"><span style="position:relative;z-index:1">${I.gear(46)}</span></div>
+  <div class=stk style="position:relative;font-size:${pc?76:84}px;line-height:1.04;letter-spacing:.01em">LÁI QUA<br><span style="color:var(--gold)">PHỐ QUEN.</span></div>
+  <div class=sub style="position:relative;margin-top:18px">Né CSGT, khủng long, xe tăng<br>và trực thăng trên phố mở.</div>
+  <div class="arc" style="position:absolute;left:40px;right:40px;bottom:${pc?96:104}px;height:${pc?96:106}px;font-size:${pc?36:40}px;border-width:6px"><span class=stk style="position:relative;z-index:1">LÊN XE THÔI</span><span style="position:relative;z-index:1">${I.chev(30)}</span></div>
+  <div class="chip abs" style="left:40px;bottom:26px;--c:var(--gold)">${I.trophy(28)}<span class=stk2 style="color:var(--gold);font-size:17px;letter-spacing:.06em">KỶ LỤC</span><span class=stk2>${D.best}</span></div>
+ </div>`;
+ if(pc) h+=`<div class="card row" style="left:${x}px;bottom:30px;height:92px;padding:0 28px;gap:26px;border-radius:28px;font-size:20px;--rim:#4aa3ff;--tint:#2b3d5a;box-shadow:inset 0 0 0 6px #4aa3ff,inset 0 0 0 8px rgba(252,242,207,.5),0 8px 0 var(--navy2)">
+  <span class="row stk2" style="gap:8px;position:relative"><span class=keycap>←</span><span class=keycap>→</span><span class=keycap>WASD</span>LÁI</span>
+  <span class="row stk2" style="gap:8px;position:relative"><span class=keycap>J</span>NHẢY</span><span class="row stk2" style="gap:8px;position:relative"><span class=keycap>F</span>TÊN LỬA</span>
+  <span class="row stk2" style="gap:8px;position:relative"><span class=keycap>SPACE</span>PHANH TAY</span><span class="row stk2" style="gap:8px;position:relative"><span class=keycap>P</span>TẠM DỪNG</span></div>`;
+ else h+=`<div class="card row" style="left:${x}px;bottom:26px;height:122px;padding:0 26px;gap:16px;border-radius:30px;--rim:#4aa3ff;--tint:#2b3d5a;box-shadow:inset 0 0 0 6px #4aa3ff,inset 0 0 0 8px rgba(252,242,207,.5),0 8px 0 var(--navy2)">
+  ${BTN.map(b=>`<img src="img/btn_${b}.png" width=74 height=74 style="position:relative">`).join('')}
+  <span class=stk2 style="position:relative;font-size:21px;line-height:1.3;max-width:340px;margin-left:8px">Giữ TRÁI / PHẢI để lái<br>GA · LÙI · NHẢY · TÊN LỬA</span></div>`;
+ return h+`</div>`;},
+gfx(){
+ let h=this.welcome(false).replace(/<\/div>$/,'');
+ h+=`<div class=dim style="background:rgba(3,12,18,.7)"></div>`;
+ const w=1180,hh=790,x=(1947-w)/2,y=70;
+ h+=`<div class=card style="left:${x}px;top:${y}px;width:${w}px;height:${hh}px;--rim:var(--teal);--tint:#25434a;padding:66px 48px 0">
+  <div class=tag style="--tagc:var(--teal2)">${I.gear(34,'#f5c542')}<span class=stk2 style="font-size:28px">CẤU HÌNH ĐỒ HỌA</span></div>
+  <div class="arc" style="position:absolute;right:28px;top:28px;width:72px;height:72px;border-radius:22px"><span style="position:relative;z-index:1">${I.close(28)}</span></div>
+  <div class=sub style="position:relative;text-align:center;font-size:23px">Chọn mức hợp với máy của bạn · lưu cho lần chơi sau.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px 28px;margin-top:28px">
+  ${GFX.map((g,i)=>{const s=i==SEL;return `<div class="arc slate" style="--rim:${g.c};height:262px;border-radius:30px;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;padding:22px 26px;${s?`box-shadow:inset 0 0 0 6px ${g.c},inset 0 0 0 8px rgba(255,255,255,.5),0 7px 0 var(--navy2),0 0 0 10px ${g.c}55,0 0 36px ${g.c}`:''}">
+   <div class=row style="gap:16px;position:relative;z-index:1;width:100%">${I.gauge(g.lv,70,g.c)}<span class=stk style="font-size:38px">${g.n}</span></div>
+   <div class=stk2 style="position:relative;z-index:1;font-size:19px;line-height:1.3;margin-top:12px;color:rgba(252,242,207,.92)">${g.d}</div>
+   <span class="chip" style="position:absolute;left:24px;bottom:18px;height:44px;font-size:18px;--c:${g.c};z-index:1"><span class=stk2>${g.t}</span></span>
+   ${s?`<span style="position:absolute;right:-18px;top:-18px;width:60px;height:60px;border-radius:50%;background:var(--gold);border:5px solid var(--navy);display:grid;place-items:center;z-index:2">${I.check(30)}</span>`:''}</div>`}).join('')}
+  </div>
+  <div class="arc teal" style="position:absolute;left:50%;transform:translateX(-50%);bottom:-44px;width:420px;height:92px;font-size:36px;border-width:6px"><span style="position:relative;z-index:1">${I.check(34)}</span><span class=stk style="position:relative;z-index:1">XONG</span></div>
+ </div>`;
+ return h+`</div>`;},
+over(){
+ let h=`<div class="fr B" style="background-image:url(img/hud.jpg)"><div class=dim></div>`;
+ const w=960,hh=640,x=(1947-w)/2,y=190;
+ h+=`<div class=card style="left:${x}px;top:${y}px;width:${w}px;height:${hh}px;--rim:var(--red);--tint:#5a2c2e;padding:64px 50px 0">
+  <div class=tag style="--tagc:var(--red)"><span class=stk2 style="font-size:26px">KẾT THÚC CHUYẾN XE</span></div>
+  <div class=row style="gap:24px;position:relative">${I.boom(96)}<div><div class=stk style="font-size:58px">${D.reason}</div><div class=sub style="margin-top:6px">${D.detail}</div></div></div>
+  <div class=inset style="left:50px;right:50px;top:230px;height:190px;padding:20px 32px">
+   <div class=stk2 style="font-size:19px;color:var(--gold);letter-spacing:.08em">BẠN ĐÃ ĐI ĐƯỢC</div>
+   <div class=stk style="font-size:112px;line-height:1;margin-top:4px">223<span style="font-size:46px"> m</span></div>
+   <div class="chip abs" style="right:26px;top:26px;--c:var(--gold)">${I.trophy(28)}<span class=stk2 style="color:var(--gold);font-size:17px">KỶ LỤC</span><span class=stk2>${D.best}</span></div>
+   <div class=abs style="right:30px;bottom:30px;width:420px"><div style="height:20px;border-radius:10px;background:#1a2736;border:3px solid var(--navy);overflow:hidden"><div style="width:12%;height:100%;background:var(--gold)"></div></div><div class=stk2 style="font-size:18px;margin-top:8px;text-align:right">${D.left}</div></div></div>
+  <div class=row style="position:absolute;left:50px;right:50px;bottom:50px;gap:22px">
+   <div class=arc style="flex:1.8;height:110px;font-size:36px;border-width:6px"><span style="position:relative;z-index:1">${I.retry(40)}</span><span class=stk style="position:relative;z-index:1">THỬ MỘT CHUYẾN NỮA</span></div>
+   <div class="arc slate" style="flex:1;height:110px;font-size:26px;--rim:var(--blue)"><span style="position:relative;z-index:1">${I.home(34)}</span><span class=stk2 style="position:relative;z-index:1">VỀ ĐẦU PHỐ</span></div></div>
+ </div>`;
+ return h+`</div>`;},
+jail(){
+ let h=`<div class="fr B" style="background-image:url(img/jail.jpg)">`;
+ const w=700,x=1947-w-100;
+ h+=`<div class=card style="left:${x}px;top:150px;width:${w}px;height:620px;--rim:var(--blue);--tint:#2b3d5a;padding:66px 44px 0">
+  <div class=tag style="--tagc:#2f6fd0">${I.siren(36)}<span class=stk2 style="font-size:24px">PHỐ VIỆT · TẠM GIỮ</span>${I.siren(36)}</div>
+  <div class=stk style="position:relative;font-size:90px;line-height:1;text-align:center">ĐÃ BỊ BẮT</div>
+  <div class=sub style="position:relative;text-align:center;margin-top:14px">CSGT đã đưa bạn vào phòng giam.</div>
+  <div class=row style="gap:16px;margin-top:26px;position:relative">
+   <div class=inset style="position:relative;flex:1;padding:14px 20px"><div class=row style="gap:8px">${I.pin(24)}<span class=stk2 style="font-size:16px;color:var(--gold)">QUÃNG ĐƯỜNG</span></div><div class=stk style="font-size:46px;margin-top:4px">${D.jail}</div></div>
+   <div class=inset style="position:relative;flex:1;padding:14px 20px"><div class=row style="gap:8px">${I.trophy(24)}<span class=stk2 style="font-size:16px;color:var(--gold)">KỶ LỤC</span></div><div class=stk style="font-size:46px;margin-top:4px">${D.best}</div></div></div>
+  <div class=arc style="position:absolute;left:44px;right:44px;bottom:138px;height:106px;font-size:38px;border-width:6px"><span style="position:relative;z-index:1">${I.retry(40)}</span><span class=stk style="position:relative;z-index:1">CHƠI LẠI</span></div>
+  <div class="arc slate" style="position:absolute;left:44px;right:44px;bottom:38px;height:80px;font-size:26px;--rim:var(--blue)"><span style="position:relative;z-index:1">${I.home(30)}</span><span class=stk2 style="position:relative;z-index:1">VỀ ĐẦU PHỐ</span></div>
+ </div>`;
+ return h+`</div>`;},
+pause(){
+ let h=`<div class="fr B" style="background-image:url(img/hud.jpg)"><div class=dim></div>`;
+ const w=860,x=(1947-w)/2,y=210;
+ h+=`<div class=card style="left:${x}px;top:${y}px;width:${w}px;height:590px;--rim:var(--blue);--tint:#2b3d5a;padding:96px 50px 0;text-align:center">
+  <div style="position:absolute;left:50%;top:-74px;transform:translateX(-50%);width:148px;height:148px;border-radius:50%;border:7px solid var(--navy);background:linear-gradient(180deg,#6cb6ff,#2f7fe0 60%,#215fb3);box-shadow:inset 0 0 0 6px #fcf2cf88,0 8px 0 var(--navy2);display:grid;place-items:center">${I.pause(66)}</div>
+  <div class=stk2 style="position:relative;font-size:22px;color:var(--gold);letter-spacing:.1em">NGHỈ MỘT CHÚT</div>
+  <div class=stk style="position:relative;font-size:66px;margin-top:10px">Dừng chân bên phố.</div>
+  <div class=sub style="position:relative;margin-top:12px">Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.</div>
+  <div class="arc teal" style="position:absolute;left:50px;right:50px;bottom:144px;height:110px;font-size:40px;border-width:6px"><span style="position:relative;z-index:1">${I.play(40)}</span><span class=stk style="position:relative;z-index:1">ĐI TIẾP</span></div>
+  <div class=row style="position:absolute;left:50px;right:50px;bottom:40px;gap:16px">
+   <div class="arc slate" style="flex:1;height:82px;font-size:26px;--rim:var(--blue)"><span style="position:relative;z-index:1">${I.home(30)}</span><span class=stk2 style="position:relative;z-index:1">VỀ ĐẦU PHỐ</span></div>
+   <div class="arc slate" style="width:82px;height:82px;--rim:var(--gold)"><span style="position:relative;z-index:1">${I.speaker(36,'#fcf2cf')}</span></div>
+   <div class="arc slate" style="width:82px;height:82px;--rim:var(--teal)"><span style="position:relative;z-index:1">${I.gear(42)}</span></div></div>
+ </div>`;
+ return h+`</div>`;}
+};
+
+/* ================= MẪU C ================= */
+const C={
+speedlines:(x,y,n=5)=>Array.from({length:n},(_,i)=>`<div class=speed style="left:${x+i*28}px;top:${y+i*22}px;width:${160-i*22}px;opacity:${.55-i*.08}"></div>`).join(''),
+brand:(x,y)=>`<div class="abs sk row" style="left:${x}px;top:${y}px;height:80px;padding:0 30px 0 18px;gap:16px;background:rgba(10,22,34,.9);border-left:10px solid var(--red)">${flag(50)}<div><div style="font-size:30px">PHỐ VIỆT</div><div class=lab style="font-size:13px">CHUYẾN XE KHÔNG NGỪNG</div></div></div>`,
+place:(r,y)=>`<div class="abs sk" style="right:${r}px;top:${y}px;background:rgba(10,22,34,.9);border-right:10px solid var(--gold);padding:14px 34px 14px 26px"><div class=row style="gap:10px">${I.pin(24)}<span class=lab style="font-size:15px">ĐỊA ĐIỂM HÔM NAY</span></div><div style="font-size:31px;margin-top:4px">${D.street}</div></div>`,
+welcome(pc){
+ const x=pc?70:120,top=pc?165:150;
+ let h=`<div class="fr ${pc?'pc':''} C" style="background-image:url(img/${pc?'nang-pc':'nang'}.jpg)">`;
+ h+=`<div class=abs style="left:-200px;top:0;bottom:0;width:${pc?900:1000}px;background:linear-gradient(100deg,rgba(6,14,22,.82) 55%,rgba(6,14,22,0));transform:skewX(-11deg)"></div>`;
+ h+=this.brand(x,34)+this.place(pc?60:110,34);
+ h+=`<div class="abs sk" style="left:${x}px;top:${top}px">
+  <div class="row" style="gap:12px;background:var(--red);height:48px;padding:0 22px;display:inline-flex;font-size:20px;letter-spacing:.12em">BẢN ĐỒ MỞ · SÀI GÒN</div>
+  <div style="font-size:${pc?92:100}px;line-height:.98;margin-top:20px">LÁI QUA</div>
+  <div style="display:inline-block;background:var(--gold);color:var(--navy);font-size:${pc?92:100}px;line-height:1;padding:4px 26px 10px;margin-top:8px;box-shadow:12px 12px 0 var(--red)">PHỐ QUEN.</div>
+  <div style="font-size:26px;color:rgba(252,242,207,.8);margin-top:30px;line-height:1.35">Né CSGT, khủng long, xe tăng<br>và trực thăng trên phố mở.</div>
+ </div>`;
+ h+=`<div class="cbtn sk" style="left:${x+20}px;top:${top+(pc?410:420)}px;width:${pc?520:580}px;height:${pc?92:102}px;font-size:${pc?36:40}px">LÊN XE THÔI ${I.chev(30)}</div>`;
+ h+=`<div class="abs sk row" style="left:${x+(pc?560:620)}px;top:${top+(pc?410:420)}px;width:${pc?96:102}px;height:${pc?92:102}px;justify-content:center;background:rgba(10,22,34,.92);border:3px solid var(--teal)"><span style="transform:skewX(11deg)">${I.gear(48)}</span></div>`;
+ h+=`<div class="abs sk row" style="left:${x+30}px;top:${top+(pc?522:540)}px;gap:12px">${I.trophy(28)}<span class=lab style="font-size:17px">KỶ LỤC</span><span style="font-size:30px">${D.best}</span><span class=chk style="width:96px;height:12px;margin-left:12px;opacity:.85"></span></div>`;
+ if(pc) h+=`<div class="abs sk row" style="left:${x}px;bottom:36px;height:74px;padding:0 26px;gap:26px;background:rgba(10,22,34,.9);border-left:10px solid var(--gold);font-size:20px">
+  <span class=row style="gap:8px"><span class=keycap>←</span><span class=keycap>→</span><span class=keycap>WASD</span> LÁI</span>
+  <span class=row style="gap:8px"><span class=keycap>J</span> NHẢY</span><span class=row style="gap:8px"><span class=keycap>F</span> TÊN LỬA</span>
+  <span class=row style="gap:8px"><span class=keycap>SPACE</span> PHANH TAY</span><span class=row style="gap:8px"><span class=keycap>P</span> TẠM DỪNG</span></div>`;
+ else h+=`<div class="abs sk row" style="left:${x}px;bottom:30px;height:104px;padding:0 24px;gap:16px;background:rgba(10,22,34,.9);border-left:10px solid var(--gold)">
+  ${BTN.map(b=>`<img src="img/btn_${b}.png" width=64 height=64 style="transform:skewX(11deg)">`).join('')}
+  <span style="font-size:20px;line-height:1.3;max-width:330px;color:rgba(252,242,207,.85);margin-left:6px">Giữ TRÁI / PHẢI để lái<br>GA · LÙI · NHẢY · TÊN LỬA</span></div>`;
+ return h+`</div>`;},
+gfx(){
+ let h=this.welcome(false).replace(/<\/div>$/,'');
+ h+=`<div class=dim style="background:rgba(3,10,16,.76)"></div>`;
+ const w=1120,x=(1947-w)/2,y=35;
+ h+=`<div class="abs sk" style="left:${x}px;top:${y}px;width:${w}px;height:830px;background:rgba(10,22,34,.95);border-left:14px solid var(--teal);box-shadow:16px 16px 0 rgba(0,0,0,.3);padding:34px 44px">
+  <div class=row style="gap:16px">${I.gear(48)}<span style="font-size:42px">CẤU HÌNH ĐỒ HỌA</span><span class=chk style="width:140px;height:14px;margin-left:auto;margin-right:70px"></span></div>
+  <div style="font-size:22px;color:var(--gold);margin-top:8px">Chọn mức hợp với máy của bạn · lưu cho lần chơi sau.</div>
+  <div class="abs row" style="right:30px;top:28px;width:62px;height:62px;justify-content:center;background:var(--red)">${I.close(28)}</div>
+  ${GFX.map((g,i)=>{const s=i==SEL;return `<div class=row style="margin-top:${i?12:22}px;height:112px;gap:24px;padding:0 26px 0 0;background:${s?'linear-gradient(90deg,rgba(51,224,200,.28),rgba(51,224,200,.06))':'rgba(252,242,207,.05)'};border-right:8px solid ${s?'var(--teal)':'transparent'}">
+   <div style="width:110px;height:100%;display:grid;place-items:center;background:${s?'var(--teal)':'rgba(252,242,207,.08)'};color:${s?'var(--navy)':'var(--cream)'};font-size:62px">${4-i}</div>
+   <div style="flex:1"><div style="font-size:32px">${g.n}</div><div style="font-size:19px;color:rgba(252,242,207,.7);margin-top:4px">${g.d}</div></div>
+   <div style="display:flex;gap:6px;align-items:flex-end;height:46px">${[0,1,2,3].map(k=>`<span style="width:16px;height:${16+k*10}px;background:${k<g.lv?(s?'var(--teal)':'var(--gold)'):'rgba(252,242,207,.15)'}"></span>`).join('')}</div>
+   <span style="min-width:200px;text-align:center;font-size:18px;padding:10px 14px;background:${s?'var(--teal)':'rgba(252,242,207,.1)'};color:${s?'var(--navy)':'var(--cream)'}">${g.t}</span></div>`}).join('')}
+  <div class="cbtn teal" style="left:44px;right:44px;bottom:30px;height:92px">${I.check(36,'#fcf2cf')} XONG</div>
+ </div>`;
+ return h+`</div>`;},
+over(){
+ let h=`<div class="fr C" style="background-image:url(img/hud.jpg)"><div class=dim style="background:rgba(4,12,18,.7)"></div>`;
+ h+=`<div class=abs style="left:-80px;right:-80px;top:170px;height:150px;background:linear-gradient(180deg,#ff5a4a,#c9281d);transform:rotate(-4deg);box-shadow:0 14px 0 rgba(0,0,0,.3)">
+  <div class=chk style="position:absolute;left:0;right:0;top:0;height:16px"></div><div class=chk style="position:absolute;left:0;right:0;bottom:0;height:16px"></div>
+  <div class="sk" style="position:absolute;left:0;right:0;top:34px;text-align:center;font-size:78px;letter-spacing:.06em">KẾT THÚC CHUYẾN XE</div></div>`;
+ const x=420,y=380;
+ h+=`<div class="abs sk" style="left:${x}px;top:${y}px;width:1100px;height:300px;background:rgba(10,22,34,.94);border-left:14px solid var(--gold);padding:30px 44px">
+  <div class=row style="gap:22px">${I.boom(70)}<div><div style="font-size:48px">${D.reason}</div><div style="font-size:23px;color:rgba(252,242,207,.75);margin-top:4px">${D.detail}</div></div></div>
+  <div class=row style="align-items:flex-end;gap:34px;margin-top:22px"><div><div class=lab>BẠN ĐÃ ĐI ĐƯỢC</div><div style="font-size:104px;line-height:1;color:var(--gold)">223<span style="font-size:40px;color:var(--cream)"> m</span></div></div>
+   <div style="flex:1;padding-bottom:14px"><div class=row style="gap:10px;justify-content:flex-end">${I.trophy(26)}<span class=lab style="font-size:16px">KỶ LỤC</span><span style="font-size:28px">${D.best}</span></div>
+   <div style="display:flex;gap:4px;margin-top:12px">${Array.from({length:24},(_,k)=>`<span style="flex:1;height:18px;background:${k<3?'var(--gold)':'rgba(252,242,207,.14)'}"></span>`).join('')}</div>
+   <div style="font-size:18px;margin-top:8px;text-align:right;color:rgba(252,242,207,.72)">${D.left}</div></div></div></div>`;
+ h+=`<div class="cbtn sk" style="left:${x+30}px;top:730px;width:640px;height:104px">${I.retry(40)} THỬ MỘT CHUYẾN NỮA</div>`;
+ h+=`<div class="cbtn sk alt" style="left:${x+710}px;top:730px;width:360px;height:104px">${I.home(30)} VỀ ĐẦU PHỐ</div>`;
+ return h+`</div>`;},
+jail(){
+ let h=`<div class="fr C" style="background-image:url(img/jail.jpg)">`;
+ h+=`<div class="haz abs" style="left:-100px;width:900px;top:40px;height:64px;transform:rotate(-8deg);box-shadow:0 8px 0 rgba(0,0,0,.35)"><div style="position:absolute;inset:10px 0;background:var(--gold);display:flex;align-items:center;justify-content:space-around;color:var(--navy);font-size:26px;letter-spacing:.12em"><span>CSGT · TẠM GIỮ</span><span>CSGT · TẠM GIỮ</span></div></div>`;
+ h+=`<div class="haz abs" style="left:-120px;width:1000px;bottom:70px;height:64px;transform:rotate(5deg);box-shadow:0 8px 0 rgba(0,0,0,.35)"><div style="position:absolute;inset:10px 0;background:var(--gold);display:flex;align-items:center;justify-content:space-around;color:var(--navy);font-size:26px;letter-spacing:.12em"><span>KHÔNG PHẬN SỰ MIỄN VÀO</span><span>CSGT</span></div></div>`;
+ const x=1180;
+ h+=`<div class="abs sk" style="left:${x}px;top:170px;width:620px;height:560px;background:rgba(10,22,34,.94);border-left:14px solid var(--blue);box-shadow:16px 16px 0 rgba(0,0,0,.3);padding:34px 40px">
+  <div class=row style="gap:12px">${I.siren(38)}<span class=lab style="color:#ff7b6e">PHỐ VIỆT · TẠM GIỮ</span></div>
+  <div style="font-size:92px;line-height:1;margin-top:16px">ĐÃ BỊ BẮT</div>
+  <div style="font-size:25px;color:rgba(252,242,207,.8);margin-top:12px">CSGT đã đưa bạn vào phòng giam.</div>
+  <div class=row style="gap:30px;margin-top:24px"><div><div class=lab style="font-size:15px">QUÃNG ĐƯỜNG</div><div style="font-size:52px;color:var(--gold)">${D.jail}</div></div><div style="width:3px;height:70px;background:rgba(252,242,207,.2)"></div><div><div class=lab style="font-size:15px">KỶ LỤC</div><div style="font-size:52px">${D.best}</div></div></div>
+ </div>`;
+ h+=`<div class="cbtn sk" style="left:${x+30}px;top:610px;width:560px;height:100px">${I.retry(40)} CHƠI LẠI</div>`;
+ h+=`<div class="cbtn sk alt" style="left:${x+10}px;top:752px;width:560px;height:72px;background:rgba(10,22,34,.9)">${I.home(28)} VỀ ĐẦU PHỐ</div>`;
+ return h+`</div>`;},
+pause(){
+ let h=`<div class="fr C" style="background-image:url(img/hud.jpg)"><div class=dim style="background:rgba(4,12,18,.7)"></div>`;
+ const x=520,y=220;
+ h+=`<div class="abs sk" style="left:${x}px;top:${y}px;width:920px;height:440px;background:rgba(10,22,34,.95);border-left:14px solid var(--teal);box-shadow:16px 16px 0 rgba(0,0,0,.3);padding:40px 50px">
+  <div class=row style="gap:24px"><div style="width:110px;height:110px;background:var(--teal);display:grid;place-items:center">${I.pause(60)}</div>
+  <div><div class=lab>NGHỈ MỘT CHÚT</div><div style="font-size:66px;margin-top:6px">Dừng chân bên phố.</div></div></div>
+  <div style="font-size:25px;color:rgba(252,242,207,.8);margin-top:26px">Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.</div>
+  <div class=chk style="position:absolute;right:40px;top:34px;width:120px;height:14px"></div>
+ </div>`;
+ h+=`<div class="cbtn sk teal" style="left:${x+40}px;top:${y+310}px;width:560px;height:104px">${I.play(40,'#fcf2cf')} ĐI TIẾP</div>`;
+ h+=`<div class="cbtn sk alt" style="left:${x+40}px;top:${y+450}px;width:400px;height:78px;background:rgba(10,22,34,.9)">${I.home(28)} VỀ ĐẦU PHỐ</div>`;
+ h+=`<div class="cbtn sk alt" style="left:${x+470}px;top:${y+450}px;width:90px;height:78px;background:rgba(10,22,34,.9)">${I.speaker(34,'#fcf2cf')}</div>`;
+ h+=`<div class="cbtn sk alt" style="left:${x+590}px;top:${y+450}px;width:90px;height:78px;background:rgba(10,22,34,.9)">${I.gear(40)}</div>`;
+ return h+`</div>`;}
+};
+
+/* ================= MẪU C NHỎ (21.321b: người dùng chọn C, thu nhỏ ~20 %) ================= */
+const C2={
+brand:(x,y)=>`<div class="abs sk row" style="left:${x}px;top:${y}px;height:66px;padding:0 24px 0 14px;gap:13px;background:rgba(10,22,34,.9);border-left:8px solid var(--red)">${flag(42)}<div><div style="font-size:25px">PHỐ VIỆT</div><div class=lab style="font-size:11px">CHUYẾN XE KHÔNG NGỪNG</div></div></div>`,
+place:(r,y)=>`<div class="abs sk" style="right:${r}px;top:${y}px;background:rgba(10,22,34,.9);border-right:8px solid var(--gold);padding:11px 28px 11px 20px"><div class=row style="gap:8px">${I.pin(20)}<span class=lab style="font-size:13px">ĐỊA ĐIỂM HÔM NAY</span></div><div style="font-size:26px;margin-top:3px">${D.street}</div></div>`,
+welcome(pc){
+ const x=pc?70:110,top=pc?150:146;
+ let h=`<div class="fr ${pc?'pc':''} C" style="background-image:url(img/${pc?'nang-pc':'nang'}.jpg)">`;
+ h+=`<div class=abs style="left:-200px;top:0;bottom:0;width:${pc?820:880}px;background:linear-gradient(100deg,rgba(6,14,22,.8) 55%,rgba(6,14,22,0));transform:skewX(-11deg)"></div>`;
+ h+=this.brand(x,32)+this.place(pc?60:110,32);
+ h+=`<div class="abs sk" style="left:${x}px;top:${top}px">
+  <div class="row" style="background:var(--red);height:40px;padding:0 18px;display:inline-flex;font-size:17px;letter-spacing:.12em">BẢN ĐỒ MỞ · SÀI GÒN</div>
+  <div style="font-size:80px;line-height:.98;margin-top:16px">LÁI QUA</div>
+  <div style="display:inline-block;background:var(--gold);color:var(--navy);font-size:80px;line-height:1;padding:3px 20px 8px;margin-top:6px;box-shadow:10px 10px 0 var(--red)">PHỐ QUEN.</div>
+  <div style="font-size:22px;color:rgba(252,242,207,.8);margin-top:24px;line-height:1.35">Né CSGT, khủng long, xe tăng<br>và trực thăng trên phố mở.</div>
+ </div>`;
+ const by=top+352;
+ h+=`<div class="cbtn sk s" style="left:${x+14}px;top:${by}px;width:460px;height:82px;font-size:32px">LÊN XE THÔI ${I.chev(24)}</div>`;
+ h+=`<div class="abs sk row" style="left:${x+492}px;top:${by}px;width:82px;height:82px;justify-content:center;background:rgba(10,22,34,.92);border:3px solid var(--teal)"><span style="transform:skewX(11deg)">${I.gear(40)}</span></div>`;
+ h+=`<div class="abs sk row" style="left:${x+20}px;top:${by+104}px;gap:10px">${I.trophy(23)}<span class=lab style="font-size:14px">KỶ LỤC</span><span style="font-size:25px">${D.best}</span><span class=chk style="width:80px;height:10px;margin-left:10px;opacity:.85;background-size:20px 20px"></span></div>`;
+ if(pc) h+=`<div class="abs sk row" style="left:${x}px;bottom:32px;height:62px;padding:0 22px;gap:20px;background:rgba(10,22,34,.9);border-left:8px solid var(--gold);font-size:17px">
+  <span class=row style="gap:7px"><span class="keycap sm">←</span><span class="keycap sm">→</span><span class="keycap sm">WASD</span> LÁI</span>
+  <span class=row style="gap:7px"><span class="keycap sm">J</span> NHẢY</span><span class=row style="gap:7px"><span class="keycap sm">F</span> TÊN LỬA</span>
+  <span class=row style="gap:7px"><span class="keycap sm">SPACE</span> PHANH TAY</span><span class=row style="gap:7px"><span class="keycap sm">P</span> TẠM DỪNG</span></div>`;
+ else h+=`<div class="abs sk row" style="left:${x}px;bottom:28px;height:84px;padding:0 20px;gap:13px;background:rgba(10,22,34,.9);border-left:8px solid var(--gold)">
+  ${BTN.map(b=>`<img src="img/btn_${b}.png" width=52 height=52 style="transform:skewX(11deg)">`).join('')}
+  <span style="font-size:17px;line-height:1.3;max-width:280px;color:rgba(252,242,207,.85);margin-left:4px">Giữ TRÁI / PHẢI để lái<br>GA · LÙI · NHẢY · TÊN LỬA</span></div>`;
+ return h+`</div>`;},
+gfx(){
+ let h=this.welcome(false).replace(/<\/div>$/,'');
+ h+=`<div class=dim style="background:rgba(3,10,16,.76)"></div>`;
+ const w=900,hh=640,x=(1947-w)/2,y=(900-hh)/2;
+ h+=`<div class="abs sk" style="left:${x}px;top:${y}px;width:${w}px;height:${hh}px;background:rgba(10,22,34,.95);border-left:11px solid var(--teal);box-shadow:13px 13px 0 rgba(0,0,0,.3);padding:28px 36px">
+  <div class=row style="gap:13px">${I.gear(40)}<span style="font-size:34px">CẤU HÌNH ĐỒ HỌA</span><span class=chk style="width:110px;height:11px;margin-left:auto;margin-right:62px;background-size:20px 20px"></span></div>
+  <div style="font-size:18px;color:var(--gold);margin-top:6px">Chọn mức hợp với máy của bạn · lưu cho lần chơi sau.</div>
+  <div class="abs row" style="right:24px;top:22px;width:52px;height:52px;justify-content:center;background:var(--red)">${I.close(23)}</div>
+  ${GFX.map((g,i)=>{const s=i==SEL;return `<div class=row style="margin-top:${i?10:18}px;height:92px;gap:20px;padding:0 20px 0 0;background:${s?'linear-gradient(90deg,rgba(51,224,200,.28),rgba(51,224,200,.06))':'rgba(252,242,207,.05)'};border-right:7px solid ${s?'var(--teal)':'transparent'}">
+   <div style="width:88px;height:100%;display:grid;place-items:center;background:${s?'var(--teal)':'rgba(252,242,207,.08)'};color:${s?'var(--navy)':'var(--cream)'};font-size:50px">${4-i}</div>
+   <div style="flex:1"><div style="font-size:26px">${g.n}</div><div style="font-size:16px;color:rgba(252,242,207,.7);margin-top:3px">${g.d}</div></div>
+   <div style="display:flex;gap:5px;align-items:flex-end;height:38px">${[0,1,2,3].map(k=>`<span style="width:13px;height:${13+k*8}px;background:${k<g.lv?(s?'var(--teal)':'var(--gold)'):'rgba(252,242,207,.15)'}"></span>`).join('')}</div>
+   <span style="min-width:170px;text-align:center;font-size:15px;padding:8px 12px;background:${s?'var(--teal)':'rgba(252,242,207,.1)'};color:${s?'var(--navy)':'var(--cream)'}">${g.t}</span></div>`}).join('')}
+  <div class="cbtn teal s" style="left:36px;right:36px;bottom:26px;height:76px;font-size:28px">${I.check(30,'#fcf2cf')} XONG</div>
+ </div>`;
+ return h+`</div>`;},
+over(){
+ let h=`<div class="fr C" style="background-image:url(img/hud.jpg)"><div class=dim style="background:rgba(4,12,18,.7)"></div>`;
+ h+=`<div class=abs style="left:-80px;right:-80px;top:196px;height:120px;background:linear-gradient(180deg,#ff5a4a,#c9281d);transform:rotate(-4deg);box-shadow:0 11px 0 rgba(0,0,0,.3)">
+  <div class=chk style="position:absolute;left:0;right:0;top:0;height:13px;background-size:20px 20px"></div><div class=chk style="position:absolute;left:0;right:0;bottom:0;height:13px;background-size:20px 20px"></div>
+  <div class="sk" style="position:absolute;left:0;right:0;top:27px;text-align:center;font-size:62px;letter-spacing:.06em">KẾT THÚC CHUYẾN XE</div></div>`;
+ const w=880,x=(1947-w)/2,y=380;
+ h+=`<div class="abs sk" style="left:${x}px;top:${y}px;width:${w}px;height:244px;background:rgba(10,22,34,.94);border-left:11px solid var(--gold);padding:24px 36px">
+  <div class=row style="gap:18px">${I.boom(56)}<div><div style="font-size:38px">${D.reason}</div><div style="font-size:19px;color:rgba(252,242,207,.75);margin-top:3px">${D.detail}</div></div></div>
+  <div class=row style="align-items:flex-end;gap:28px;margin-top:16px"><div><div class=lab style="font-size:16px">BẠN ĐÃ ĐI ĐƯỢC</div><div style="font-size:84px;line-height:1;color:var(--gold)">223<span style="font-size:32px;color:var(--cream)"> m</span></div></div>
+   <div style="flex:1;padding-bottom:11px"><div class=row style="gap:8px;justify-content:flex-end">${I.trophy(21)}<span class=lab style="font-size:13px">KỶ LỤC</span><span style="font-size:23px">${D.best}</span></div>
+   <div style="display:flex;gap:3px;margin-top:10px">${Array.from({length:24},(_,k)=>`<span style="flex:1;height:14px;background:${k<3?'var(--gold)':'rgba(252,242,207,.14)'}"></span>`).join('')}</div>
+   <div style="font-size:15px;margin-top:7px;text-align:right;color:rgba(252,242,207,.72)">${D.left}</div></div></div></div>`;
+ h+=`<div class="cbtn sk s" style="left:${x+24}px;top:${y+276}px;width:510px;height:84px;font-size:28px">${I.retry(32)} THỬ MỘT CHUYẾN NỮA</div>`;
+ h+=`<div class="cbtn sk alt" style="left:${x+566}px;top:${y+276}px;width:290px;height:84px;font-size:20px">${I.home(25)} VỀ ĐẦU PHỐ</div>`;
+ return h+`</div>`;},
+jail(){
+ let h=`<div class="fr C" style="background-image:url(img/jail.jpg)">`;
+ const tape=(st,t1,t2)=>`<div class="haz abs" style="${st};height:52px;box-shadow:0 7px 0 rgba(0,0,0,.35)"><div style="position:absolute;inset:8px 0;background:var(--gold);display:flex;align-items:center;justify-content:space-around;color:var(--navy);font-size:21px;letter-spacing:.12em"><span>${t1}</span><span>${t2}</span></div></div>`;
+ h+=tape('left:-100px;width:760px;top:44px;transform:rotate(-8deg)','CSGT · TẠM GIỮ','CSGT · TẠM GIỮ');
+ h+=tape('left:-120px;width:840px;bottom:76px;transform:rotate(5deg)','KHÔNG PHẬN SỰ MIỄN VÀO','CSGT');
+ const x=1300,y=190;
+ h+=`<div class="abs sk" style="left:${x}px;top:${y}px;width:500px;height:390px;background:rgba(10,22,34,.94);border-left:11px solid var(--blue);box-shadow:13px 13px 0 rgba(0,0,0,.3);padding:28px 32px">
+  <div class=row style="gap:10px">${I.siren(31)}<span class=lab style="color:#ff7b6e;font-size:16px">PHỐ VIỆT · TẠM GIỮ</span></div>
+  <div style="font-size:74px;line-height:1;margin-top:13px">ĐÃ BỊ BẮT</div>
+  <div style="font-size:21px;color:rgba(252,242,207,.8);margin-top:10px">CSGT đã đưa bạn vào phòng giam.</div>
+  <div class=row style="gap:24px;margin-top:20px"><div><div class=lab style="font-size:13px">QUÃNG ĐƯỜNG</div><div style="font-size:42px;color:var(--gold)">${D.jail}</div></div><div style="width:3px;height:56px;background:rgba(252,242,207,.2)"></div><div><div class=lab style="font-size:13px">KỶ LỤC</div><div style="font-size:42px">${D.best}</div></div></div>
+ </div>`;
+ h+=`<div class="cbtn sk s" style="left:${x+24}px;top:${y+306}px;width:450px;height:82px;font-size:28px">${I.retry(32)} CHƠI LẠI</div>`;
+ h+=`<div class="cbtn sk alt" style="left:${x+8}px;top:${y+416}px;width:450px;height:60px;font-size:20px;background:rgba(10,22,34,.9)">${I.home(23)} VỀ ĐẦU PHỐ</div>`;
+ return h+`</div>`;},
+pause(){
+ let h=`<div class="fr C" style="background-image:url(img/hud.jpg)"><div class=dim style="background:rgba(4,12,18,.7)"></div>`;
+ const x=600,y=250;
+ h+=`<div class="abs sk" style="left:${x}px;top:${y}px;width:740px;height:350px;background:rgba(10,22,34,.95);border-left:11px solid var(--teal);box-shadow:13px 13px 0 rgba(0,0,0,.3);padding:32px 40px">
+  <div class=row style="gap:20px"><div style="width:88px;height:88px;background:var(--teal);display:grid;place-items:center">${I.pause(48)}</div>
+  <div><div class=lab style="font-size:16px">NGHỈ MỘT CHÚT</div><div style="font-size:54px;margin-top:4px">Dừng chân bên phố.</div></div></div>
+  <div style="font-size:21px;color:rgba(252,242,207,.8);margin-top:20px">Phố vẫn đợi. Sẵn sàng thì mình đi tiếp nhé.</div>
+  <div class=chk style="position:absolute;right:32px;top:28px;width:96px;height:11px;background-size:20px 20px"></div>
+ </div>`;
+ h+=`<div class="cbtn sk teal s" style="left:${x+32}px;top:${y+250}px;width:450px;height:84px;font-size:28px">${I.play(32,'#fcf2cf')} ĐI TIẾP</div>`;
+ h+=`<div class="cbtn sk alt" style="left:${x+32}px;top:${y+364}px;width:320px;height:64px;font-size:20px;background:rgba(10,22,34,.9)">${I.home(23)} VỀ ĐẦU PHỐ</div>`;
+ h+=`<div class="cbtn sk alt" style="left:${x+376}px;top:${y+364}px;width:74px;height:64px;background:rgba(10,22,34,.9)">${I.speaker(28,'#fcf2cf')}</div>`;
+ h+=`<div class="cbtn sk alt" style="left:${x+474}px;top:${y+364}px;width:74px;height:64px;background:rgba(10,22,34,.9)">${I.gear(32)}</div>`;
+ return h+`</div>`;}
+};
+
+/* ---------------- dựng trang ---------------- */
+const STY={A,B,C,C2};
+const SCR=[['welcome','Màn chào (điện thoại ngang)'],['gfx','Cấu hình đồ họa'],['over','Kết thúc chuyến xe'],['jail','Đã bị bắt'],['pause','Tạm dừng'],['pc','Màn chào trên máy tính (có phím tắt)']];
+function render(s,k){const o=STY[s];return k=='pc'?o.welcome(true):k=='welcome'?o.welcome(false):o[k]();}
+const INFO={
+A:['Kính HUD','Cùng chất liệu với thanh HUD trên cùng: kính tối xanh lục lam, viền kem mảnh, nhãn vàng có biểu tượng, số to màu kem. Nút chính là nút arcade (viền navy + viền màu + bóng). Nhẹ nhàng, gọn, ít che cảnh nhất.'],
+B:['Arcade dày','Mỗi thẻ được làm như một nút B Arcade phóng to: viền navy dày, viền màu theo từng màn (vàng = chào, đỏ = thua, xanh dương = tạm dừng/bị bắt, ngọc = đồ họa), nền xám-xanh bóng, chữ kem viền navy, nhãn dạng thẻ treo trên đầu. Vui, đậm chất game.'],
+C2:['Tem đua — bản nhỏ hơn','Mẫu C người dùng đã chọn, thu nhỏ khoảng 20 % mọi khối, chữ và nút; giữ nguyên bố cục và màu.'],
+C:['Tem đua','Phong cách đường đua: khối nghiêng, chữ nghiêng to, dải ca-rô, băng chéo đỏ «KẾT THÚC CHUYẾN XE», băng dây vàng-đen ở phòng giam. Động, mạnh, khác hẳn kiểu thẻ cũ.']};
+const q=new URLSearchParams(location.search);
+const page=document.getElementById('page');
+if(q.get('only')){document.body.classList.add('only');const [s,k]=q.get('only').split('-');page.style.padding=0;page.style.maxWidth='none';page.innerHTML=render(s,k);}
+else{
+ let h=`<h1>Phố Việt — 3 kiểu menu mới</h1><div class=lead>Mỗi kiểu có đủ 5 màn trên điện thoại ngang (khung 1947 × 900 điểm của game = iPhone Pro Max) và màn chào trên máy tính (1440 × 900). Nền là ảnh chụp thật trong game.</div>`;
+ for(const s of ['C2','A','B','C']){h+=`<div class=sec><h2><b>${s=='C2'?'C':s}</b>${INFO[s][0]}</h2><p>${INFO[s][1]}</p><div class=grid>`;
+  for(const [k,c] of SCR){const pc=k=='pc';h+=`<div class=cell><div class=fw data-w="${pc?1440:1947}" style="aspect-ratio:${pc?1440:1947}/900">${render(s,k)}</div><div class=cap>${s} · ${c}</div></div>`;}
+  h+=`</div></div>`;}
+ page.innerHTML=h;
+ const fit=()=>document.querySelectorAll('.fw').forEach(f=>{f.firstElementChild.style.transform=`scale(${f.clientWidth/+f.dataset.w})`});
+ fit();addEventListener('resize',fit);
+}
+</script>
+</body>
+</html>

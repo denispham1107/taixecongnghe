@@ -219,7 +219,7 @@ namespace PhoViet.OpenWorld
         }
 
         // ---------------------------------------------------- giao diện
-        public void OpenGraphics() { if (Mode == State.Ready) GraphicsOpen = true; }
+        public void OpenGraphics() { if (Mode == State.Ready || Mode == State.Paused) GraphicsOpen = true; }
         public void CloseGraphics() => GraphicsOpen = false;
 
         void GraphicsKeys()
@@ -229,18 +229,6 @@ namespace PhoViet.OpenWorld
             else if (Input.GetKeyDown(KeyCode.Alpha2)) SetGraphics(1);
             else if (Input.GetKeyDown(KeyCode.Alpha3)) SetGraphics(2);
             else if (Input.GetKeyDown(KeyCode.Alpha4)) SetGraphics(3);
-        }
-
-        public static Rect GearRect(Rect card) => new Rect(card.xMax - 64, card.y + 12, 50, 50);
-
-        void GearButton(Rect card)
-        {
-            var r = GearRect(card);
-            Panel(r, new Color(.09f, .33f, .37f, .09f), 14);
-            GUI.DrawTexture(r, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, new Color(.09f, .33f, .37f, .22f), 1.5f, 14);
-            DrawGear(new Rect(r.x + 10, r.y + 10, 30, 30), Teal);
-            // vùng chạm rộng hơn hình vẽ cho ngón tay
-            if (GUI.Button(new Rect(r.x - 8, r.y - 8, r.width + 16, r.height + 16), GUIContent.none, GUIStyle.none)) OpenGraphics();
         }
 
         string ResolutionText(Gfx g)
@@ -253,54 +241,7 @@ namespace PhoViet.OpenWorld
             return Mathf.RoundToInt(cssW * r) + " × " + Mathf.RoundToInt(cssH * r);
         }
 
-        void GraphicsWindow()
-        {
-            Panel(Fullscreen(), new Color(.03f, .10f, .16f, .62f), 0);
-            float w = Mathf.Min(portrait ? 440 : 600, uiW - 32 - SL - SR), h = Mathf.Min(portrait ? 640 : 560, uiH - 24 - ST - SB);
-            var r = new Rect(SL + (uiW - SL - SR - w) / 2, ST + (uiH - ST - SB - h) / 2, w, h);
-            // chạm ra ngoài cửa sổ = đóng
-            var e = Event.current;
-            if (e.type == EventType.MouseDown && !r.Contains(e.mousePosition)) { CloseGraphics(); e.Use(); return; }
-            Panel(new Rect(r.x - 3, r.y + 7, r.width + 6, r.height + 3), new Color(.01f, .07f, .12f, .2f), 22);
-            Panel(r, WelcomeWhite, 20);
-            DrawGear(new Rect(r.x + 24, r.y + 24, 26, 26), Teal);
-            Txt("CẤU HÌNH ĐỒ HỌA", r.x + 60, r.y + 21, r.width - 130, 32, 22, Ink);
-            Txt("Chọn mức hợp với máy của bạn · lưu cho lần chơi sau.", r.x + 24, r.y + 58, r.width - 48, 22, 13, Teal);
-            if (Btn("×", new Rect(r.xMax - 58, r.y + 14, 44, 44), new Color(.1f, .35f, .4f, .08f), Ink, 26)) CloseGraphics();
-
-            float top = r.y + 92, bottom = r.yMax - 80, stride = (bottom - top) / 4f;
-            string[] desc =
-            {
-                "Độ phân giải gốc của màn hình · nét nhất. Đã tối ưu bộ nhớ để không văng game.",
-                "Nét gần bằng Rất cao, nhẹ máy hơn một chút.",
-                "Tự động điều chỉnh khi đang chơi theo tình trạng máy.",
-                "Dành cho máy yếu · mượt nhất, tắt bóng đổ.",
-            };
-            for (int i = 0; i < 4; i++)
-            {
-                var g = (Gfx)i; bool sel = Graphics == g;
-                var row = new Rect(r.x + 20, top + i * stride, r.width - 40, stride - 10);
-                Panel(row, sel ? Teal : new Color(.84f, .89f, .92f), 14);
-                Panel(new Rect(row.x + 2, row.y + 2, row.width - 4, row.height - 4), sel ? new Color(.89f, .965f, .96f) : new Color(.965f, .978f, .99f), 12);
-                float cy = row.center.y;
-                Panel(new Rect(row.x + 16, cy - 11, 22, 22), sel ? Teal : new Color(.62f, .70f, .75f), 11);
-                Panel(new Rect(row.x + 18.5f, cy - 8.5f, 17, 17), sel ? Color.white : new Color(.965f, .978f, .99f), 8.5f);
-                if (sel) Panel(new Rect(row.x + 22.5f, cy - 4.5f, 9, 9), Teal, 4.5f);
-                bool compact = row.height < 58;
-                float tagW = portrait ? 0 : 150;
-                Txt(GfxName(g), row.x + 52, compact ? cy - 12 : row.y + 9, row.width - 70 - tagW, 26, compact ? 17 : 19, Ink);
-                if (!compact) Txt(desc[i], row.x + 52, row.y + 36, row.width - 66 - tagW, row.height - 40, 12, Hex("4C657A"));
-                if (!portrait)
-                {
-                    var tag = new Rect(row.xMax - tagW - 12, cy - 15, tagW, 30);
-                    Panel(tag, sel ? Teal : new Color(.86f, .91f, .93f), 15);
-                    string t = g == Gfx.Medium ? (sel ? "TỰ ĐỘNG · " + ResolutionText(g) : "TỰ ĐỘNG") : ResolutionText(g);
-                    Txt(t, tag.x, tag.y, tag.width, tag.height, g == Gfx.Medium && sel ? 10 : 12, sel ? Color.white : Ink, TextAnchor.MiddleCenter);
-                }
-                if (GUI.Button(row, GUIContent.none, GUIStyle.none)) SetGraphics(i);
-            }
-            if (Btn("XONG", new Rect(r.x + 20, r.yMax - 66, r.width - 40, 48), Teal, Color.white, 17)) CloseGraphics();
-        }
+        // 21.322: GraphicsWindow/GearButton/GearRect chuyển sang OpenWorldGame.Menus.cs (mẫu C).
 
         // Bánh răng 8 răng vẽ sẵn 96×96 (khử răng cưa 2×2), như nút cài đặt của phố cuộn cũ (PhoVietGraphicsSettings).
         void DrawGear(Rect rect, Color c)

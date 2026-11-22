@@ -140,6 +140,7 @@ namespace PhoViet.OpenWorld
         public void ResetChase(bool resetPlayer)
         {
             if (resetPlayer && player) { player.ResetTo(playerStartPos, playerStartRot); Runs++; }   // Runs: OpenWorldHazards dọn hiểm họa khi chơi lại
+            RepairDamage();
             if (player) player.frozen = false;
             Mode = State.Waiting; waitUntil = Time.time + startDelay; ChaseTime = 0; Speed = 0;
             arrestTimer = 0; arrestedAt = -99f; stuckTime = 0; stuckCount = 0;
@@ -512,13 +513,31 @@ namespace PhoViet.OpenWorld
 
         void Replace()
         {
-            Respawns++; stuckCount = 0; path.Clear(); Note("cử xe thay thế");
+            Respawns++; stuckCount = 0; path.Clear(); Note("cử xe thay thế"); RepairDamage();
             var f = player.transform.forward; f.y = 0;
             if (!PlaceOnRoad(player.transform.position, f.normalized, 90f, true) && !PlaceOnRoad(player.transform.position, f.normalized, 140f, false))
                 Teleport(player.transform.position - f.normalized * 90f + Vector3.up * 0.3f, Quaternion.LookRotation(f.normalized));
             Mode = State.Chasing;
             if (siren && !siren.isPlaying) siren.Play();
         }
+
+        // 21.324: móp/bể thân xe CSGT ở chỗ va với xe khác (xe người chơi, xe giao thông; 21.325: không móp khi đụng cảnh quan —
+        // người dùng: chỉ xe người chơi hỏng khi đụng cảnh quan); giữ tới khi cử xe thay thế
+        // hoặc chơi lại. Lưới Meshy CSGT cần Read/Write (AgentScripts/PoliceReadable21324.cs).
+        OpenWorldCarDent dent;
+        public OpenWorldCarDent Damage => dent;
+        public void DamageAt(Vector3 point, float closing)
+        {
+            if (dent == null)
+            {
+                var lampQuads = new List<Renderer>();
+                foreach (var r in GetComponentsInChildren<Renderer>(true)) if (r.name == "DenPha" || r.name == "DenHau") lampQuads.Add(r);
+                dent = new OpenWorldCarDent(transform, GetComponentsInChildren<Renderer>(true), lampQuads) { paint = new Color(.93f, .93f, .9f) };
+            }
+            var outward = point - transform.position; outward.y = 0;
+            dent.Dent(point, outward, closing);
+        }
+        void RepairDamage() { if (dent != null) dent.Restore(); }
 
         // 21.255: đuôi/thân khủng long, vụ nổ đạn pháo → xe tuần tra khựng (như game cũ 1,2 s).
         public void Stun(float seconds, string why)

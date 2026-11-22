@@ -1,6 +1,6 @@
 'use strict';
 const PREFIX='phoviet:'+self.registration.scope+':';
-const CACHE=PREFIX+'32be047b66713b80';
+const CACHE=PREFIX+'4e783ddaa2f93564';
 const ROOT=new URL('./',self.location.href);
 // 21.278: Safari/WebKit (mọi trình duyệt trên iPhone/iPad) giới hạn bộ nhớ chặt — không sao chép gói dữ liệu Unity
 // (70–90 MB) vào bộ nhớ đệm trong lúc game đang tải; các tệp nhỏ vẫn lưu offline như cũ.
