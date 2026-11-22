@@ -5990,3 +5990,13 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - 25 km/h vào lan can bờ sông: móp nhẹ mũi xe, nứt kính nhẹ, 1 đèn vỡ (`Captures/dent21325-lancan.png`).
   - Console 0 lỗi; Unity không tắt.
 - **Trạng thái:** chưa commit/build/phát hành; chưa thử trên điện thoại.
+
+## 21.326. Phát hành 1.91.0 (21.319–21.325) (23/11/2026, Claude Code)
+
+- **Gồm:** lái nhạy hơn (21.319), sương mù mưa phủ từ sát xe (21.320), menu mẫu C «Tem đua» (21.321–21.322), ô tô móp sâu + bể khi va chạm kể cả CSGT (21.324), xe người chơi móp khi đụng cảnh quan (21.325). Thử lửa Blender 21.323 đã hoàn tác, không có trong bản.
+- **Trang chủ:** khung «Bản cập nhật» ngày 23/11/2026, 5 dòng (xe móp/bể, đụng cảnh quan, lái nhạy, menu mới, hết mảng tối khi mưa). Bản 1.91.0 trong `PhoVietWebBuild.cs` + `ProjectSettings.asset`.
+- **Build:** `AgentScripts/QueueRelease21326.cs` `BuildNow` (lệnh MCP hết giờ sau 60 s nhưng build vẫn chạy, theo dõi `Builds/release1910-status.json`): 1.593 s, bỏ 3.356 vật trong gói điện thoại, cache `4e783ddaa2f93564`; gói điện thoại 106,5 MB, máy tính 122,3 MB.
+- **Đóng gói:** `docs` ← `Builds/WebGL`, `PublishWebArtifact.py pack` (chia mỗi gói thành 4 phần 32 MB) + `materialize` ra `_site`; so SHA-256 31/31 khớp.
+- **Commit/push:** `0908682` (không gồm tệp chỉ-cục-bộ, `Packages/`, `PV_StreetAtlas.mat`, `OW_Map_blocks.fbx`, các `.blend` chưa theo dõi và `PhoViet_OW_ThoiTiet.blend` do phiên thử lửa 21.323 sửa — giữ nguyên ở máy). Pages run `45053190268` thành công.
+- **Live:** 30/30 tệp khớp SHA, `build-info.json` 1.91.0, trang chủ hiện ghi chú mới.
+- **Chờ người dùng:** thử trên iPhone — lái mới, menu mới (chạm thật mọi nút), mưa, ô tô móp/bể (khung hình lúc va chạm).
