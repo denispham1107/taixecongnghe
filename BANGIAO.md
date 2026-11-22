@@ -10,7 +10,7 @@ Cập nhật lần cuối: **22/11/2026 — Claude Code (phát hành 1.89.0 = 21
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.89.0 — bản đồ mở** (21.312–21.315: nút KHIÊN 6 s/hồi 10 s miễn va chạm + đạn, phá lưới điện; trúng đạn cháy + nổ tung; Tên lửa +5 %, Lazer hạ thấp; trang chủ thêm 2 ảnh) — BUILD_PLACEHOLDER, cache `624705e30bbb847d`, gói điện thoại 105,4 MB, máy tính 121,3 MB. Bản trước 1.88.0 (`d7b1180`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
+| Bản đã phát hành | **1.89.0 — bản đồ mở** (21.312–21.315: nút KHIÊN 6 s/hồi 10 s miễn va chạm + đạn, phá lưới điện; trúng đạn cháy + nổ tung; Tên lửa +5 %, Lazer hạ thấp; trang chủ thêm 2 ảnh) — commit `6e6b362`, Pages run `45000179835` thành công, **30/30 tệp live khớp SHA-256**, cache `624705e30bbb847d`, gói điện thoại 105,4 MB, máy tính 121,3 MB. Bản trước 1.88.0 (`d7b1180`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra. Plugin `Assets/ai.meshy` đã commit cùng 1.74.0 (`bee5707`). |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |

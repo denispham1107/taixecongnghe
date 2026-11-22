@@ -5555,5 +5555,5 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - **1.509 giây**, 3.356 nội thất 3D lược ở gói điện thoại, cache `624705e30bbb847d`.
   - Gói điện thoại `722b512f…` **105,4 MB** (1.88.0: 104,5), gói máy tính `41fcee7f…` **121,3 MB** (120,5), wasm 5,9 MB.
 - **`docs/`** thay bằng `Builds/WebGL`, `PublishWebArtifact.py pack` (mỗi gói 4 phần 32 MiB), materialize `_site`: **31/31 tệp khớp SHA-256**.
-- **Commit/push/Pages:** COMMIT_PLACEHOLDER
+- **Commit/push/Pages:** commit **`6e6b362`**, push `main`; Pages run `45000179835` **thành công**. Trang thật: `build-info.json` 1.89.0 cache `624705e30bbb847d`, **30/30 tệp live khớp SHA-256**, trang chủ có 3 ảnh (`poster-home-mobile/lazer/khien.jpg`) và 4 dòng bản cập nhật. Chưa thử iPhone thật.
 
