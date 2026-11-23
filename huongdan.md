@@ -6155,3 +6155,48 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Commit/push:** `ded8ffb`. Không gồm tệp chỉ lưu ở máy, `Packages/`, `PV_StreetAtlas.mat`, `OW_Map_blocks.fbx`, các `.blend`, `Captures/` và `_Recovery`. Pages run `45128204801` thành công.
 - **Live:** 38/38 tệp khớp SHA. `build-info.json` là 1.92.0, cache `65e4fcac06e7f36d`; trang chủ đã ở giao diện mẫu C và có ghi chú mới.
 - **Chờ người dùng thử trên iPhone:** trang chủ mới (Safari: chạm LÊN XE THÔI, bánh răng, Cách chơi, Thêm vào màn hình), Ga tự động, 2 tên lửa, Lazer bấm 1 lần, lái gốc 1.89.0 so với lái 21.319.
+
+## 21.333. Script build phát hành tự kiểm số phiên bản — không phải build lại lần 2 (23/11/2026, Claude Code)
+
+- **Yêu cầu:** cập nhật vào bộ nhớ để mỗi lần phát hành không bị lỗi phải build lại thêm một lần như bản 1.92.0 (21.332).
+- **Đã làm:**
+  - **`AgentScripts/ReleaseBuild.cs`** dùng cho mọi bản sau, thay các `QueueRelease213xx` riêng từng bản. Chạy bằng `run_script` nên mỗi lần được biên dịch mới từ tệp.
+    - `SourceVersion()`: đọc `PlayerSettings.bundleVersion="x.y.z"` trong `PhoVietWebBuild.cs`.
+    - `DllHas(v)`: tìm chuỗi UTF-16 trong `Library/ScriptAssemblies/Assembly-CSharp-Editor.dll`.
+    - `Prepare()`: dll đã có số mới → đặt `PlayerSettings` và trả «ready x.y.z». Chưa có → `ImportAsset ForceUpdate` + `RequestScriptCompilation`, trả «compiling…»; đợi rồi gọi lại.
+    - `BuildNow()`: **chặn** (ghi lỗi vào trạng thái) khi đang Play, đang biên dịch hoặc dll chưa có số mới. Hợp lệ thì lưu scene, `PhoVietWebBuild.Build()`, rồi kiểm `Builds/WebGL/build-info.json` mang đúng số mới. Trạng thái ghi ở `Builds/release-x.y.z-status.json`.
+  - **Luật mới trong `AGENTS.md`** (Codex và Claude Code đều đọc) + bộ nhớ Claude `unity-stale-editor-script-before-build`.
+- **Kiểm tra:** `Prepare` trả «ready 1.92.0»; `DllHas("1.93.0")` = false, tức một dll cũ sẽ bị chặn. Không chạy build.
+- **Quy trình phát hành từ nay** (thay bước build của 21.326):
+  1. ghi `release-notes` trang chủ;
+  2. sửa số phiên bản (2 tệp);
+  3. `ReleaseBuild.Prepare` tới khi trả «ready»;
+  4. `ReleaseBuild.BuildNow`, theo dõi tệp trạng thái;
+  5. `docs` → pack/materialize → so SHA;
+  6. commit/push → Pages → kiểm tra live → commit ghi nhận.
+- **Trạng thái:** đã commit cùng 21.334.
+
+## 21.334. Trang chủ trên điện thoại: chữ và nút nhỏ lại cỡ màn chào trong game (23/11/2026, Claude Code)
+
+- **Yêu cầu:** người dùng gửi ảnh chụp iPhone ngang: font chữ, menu, nút, nội dung trang chủ quá to. Cho nhỏ lại giống màn chào trong game trên điện thoại, rồi commit và đưa bản web mới lên.
+- **Đối chiếu:** màn chào trong game vẽ trên khung 1947 × 900 điểm, co về iPhone Pro Max ngang 932 × 430 CSS px (× 0,48). Tiêu đề 80 → ~38 px, nút LÊN XE THÔI 460 × 82 → ~220 × 40, chữ nút ~15, mô tả ~11, logo cao ~32. Trang chủ cũ: tiêu đề 44–47 px, nút cao 52, thanh trên 42 px.
+- **Sửa** (`style.css`, khối 21.334, áp khi `max-width:700px` **hoặc** `max-height:500px`, tức điện thoại dọc và ngang):
+  - **Thanh trên:** cao 46, nút 32 px chữ 10,5, logo chữ 14 + dòng phụ 7.
+  - **Màn đầu:**
+    - nhãn đỏ cao 22, chữ 9,5;
+    - tiêu đề 36 px (≤ 360 px: 32), bóng đỏ 6 px;
+    - mô tả 11,5;
+    - nút LÊN XE THÔI cao 40, chữ 15, khung tối đa 300 px; bánh răng 40; dòng trạng thái 10.
+  - **Phần dưới:** thẻ Điều khiển (nút 30 px, chữ 10,5, phím 22), Bản cập nhật (chữ 10,5–11,5), tiêu đề mục 15, chú thích ảnh 11,5/9, chân trang 9,5. Hộp Cách chơi và màn Xoay ngang cũng nhỏ lại.
+  - **Điện thoại ngang (`max-height:500px` + landscape)** bố cục như màn chào trong game:
+    - ảnh phủ cả màn đầu, chữ bên trái;
+    - thẻ «ĐỊA ĐIỂM HÔM NAY · Tôn Đức Thắng» góc phải;
+    - 2 thẻ cạnh nhau, 3 ảnh một hàng.
+  - Ảnh nền màn đầu phóng to (ngang 170 %, dọc cao 145 %) để giấu thanh HUD và các nút trong ảnh chụp, tránh trông như nút bấm thật.
+  - Máy tính (≥ 1000 px, cao > 500 px) giữ nguyên.
+- **Ghi chú trang chủ:** dòng đầu thêm «trên điện thoại chữ và nút gọn như màn chào trong game».
+- **Kiểm tra:** Chrome headless 932 × 430 (×2) đặt cạnh ảnh màn chào trong game của người dùng thì cỡ chữ và nút tương đương. Đã xem 390 × 844 dọc và 1440 × 900 máy tính.
+- **Phát hành:** chỉ cập nhật vỏ web, **không build lại**.
+  - `AgentScripts/Shell21334.cs` → `PhoVietWebBuild.RefreshWebShell()`: giữ gói build 1.92.0, thay `index.html`/`style.css`/`app.js`/ảnh, tính lại cache `5ad711f70070efa4`.
+  - `docs` + pack/materialize, SHA 39/39 khớp. Trong `docs` chỉ đổi `index.html`, `style.css`, `sw.js`, `build-info.json`.
+  - Số phiên bản vẫn 1.92.0. Máy đã mở trang sẽ nhận vỏ mới khi service worker thấy cache đổi.

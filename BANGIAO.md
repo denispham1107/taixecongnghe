@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **23/11/2026 — Claude Code (phát hành 1.92.0 = 21.327–21.331)**
+Cập nhật lần cuối: **23/11/2026 — Claude Code (21.334 trang chủ gọn trên điện thoại; 1.92.0 = 21.327–21.331)**
 
 ## 1. Trạng thái hiện tại
 
@@ -63,6 +63,8 @@ Cập nhật lần cuối: **23/11/2026 — Claude Code (phát hành 1.92.0 = 21
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.334 — web 1.92.0 (vỏ mới, không build lại):** trang chủ trên điện thoại nhỏ lại cỡ màn chào trong game (tiêu đề 36 px, nút LÊN XE THÔI cao 40, thanh trên 46). Điện thoại ngang có bố cục như màn chào (ảnh phủ, thẻ «Địa điểm hôm nay»). `style.css` khối 21.334; `AgentScripts/Shell21334.cs` → `RefreshWebShell`, cache `5ad711f70070efa4`. Chi tiết `huongdan.md` 21.334.
+- **21.333:** build phát hành từ nay dùng **`AgentScripts/ReleaseBuild.cs`**: `Prepare` tới khi trả «ready x.y.z» rồi mới `BuildNow`. Script chặn build khi dll Editor chưa có số phiên bản mới, nên không phải build lại lần 2 như 1.92.0. Luật đã ghi vào `AGENTS.md`. Chi tiết `huongdan.md` 21.333.
 - **21.332 — phát hành 1.92.0:** gộp 21.327–21.331 (Ga tự động, 2 tên lửa + kho 5 s, Lazer bấm 1 lần, mưa 30 %, lái gốc 1.89.0, trang chủ mẫu C). Commit `ded8ffb`, Pages `45128204801`, live 38/38 khớp SHA, cache `65e4fcac06e7f36d`. Build lần 1 ra nhầm 1.91.0 vì Unity chưa biên dịch lại `PhoVietWebBuild.cs` → dùng `AgentScripts/Refresh21332.cs` `Reimport` trước khi build. Chi tiết `huongdan.md` 21.332.
 - **21.331 (chưa commit/phát hành):** cài trang chủ **mẫu C** vào `Assets/WebGLTemplates/PhoVietPWA/` (`index.html`, `style.css` viết lại, `app.js` thêm `#help-gear` + theme tối, ảnh nút `controls/btn-*.png`; `PhoVietWebBuild.RefreshWebShell` chép thêm). Giữ mọi id `app.js` dùng. Bản cũ: `ArtSource/Concepts/Home-20261123/index-cu-1.91.0.html`. Chi tiết `huongdan.md` 21.331.
 - **21.330 (chỉ ảnh mẫu):** 3 mẫu trang chủ web theo menu «Tem đua» — **A Đêm đua** (tối, ảnh nền màn đầu), **B Giấy đua sáng** (nền kem, tem tối), **C Màn chào trong game** (chép màn chào + thẻ kính HUD); giữ 3 ảnh cũ. `ArtSource/Concepts/Home-20261123/` (`trangchu.html?mau=A|B|C`, ảnh `trangchu21330-mau*.jpg`). Chưa sửa `index.html`. Chi tiết `huongdan.md` 21.330.
@@ -816,6 +818,7 @@ Cập nhật lần cuối: **23/11/2026 — Claude Code (phát hành 1.92.0 = 21
 | Bay cao, giữ nút Bay và máy bay Crimson Skywing | **21.177** | `PhoVietSkywing.cs`, `SkywingVisual.cs`, `PhoVietFlightButton.cs`, `PhoVietEnergy.cs`, `PhoVietGestures.cs`, `PhoVietHelicopter*.cs`, template WebGL `app.js`, `Resources/Skywing`, `AgentScripts/VerifySkywing21177.cs` |
 | Đỉnh nhảy và giữ bay / bắn xe tăng từ trên không | **21.169**, lịch sử 21.143/21.145 | `PhoVietJump.cs`, `PhoVietEnergy.cs` → FlightHeightAboveSupport/RequestEnergyHover, `PhoVietFlightButton.cs`, `PhoVietPlayerMissiles.cs`, `PhoVietPlayerTankMissiles.cs` |
 | Năng lượng / icon C / giữ cao độ / lộn360 | **21.148,21.121–21.123** | `Scripts/PhoVietEnergy.cs`, `PhoVietJump.cs`, `PlayerCarVisual.cs`, `PhoVietActions.cs`, `PhoVietRiver.cs`, `PhoVietDistanceHud.cs`; `Resources/Energy/`, `Art/Energy/`, `EnergyPickup.shader`; `AgentScripts/VerifyEnergyWeb.cjs`, `VerifyRelease154Scene.cs`, `AgentScripts/VerifyEnergy2122.cs`, `VerifyEnergyRoutes2122.cs`, `InstallEnergy2122.cs`, `CaptureEnergy2122.cs`; `ArtSource/Concepts/Energy-20261103/approval.json` |
+| **Build phát hành web** | **21.333** | `AgentScripts/ReleaseBuild.cs` (`Prepare` → «ready x.y.z» → `BuildNow`, trạng thái `Builds/release-x.y.z-status.json`), `Editor/PhoVietWebBuild.cs` (số phiên bản), `AgentScripts/PublishWebArtifact.py` (pack/materialize `docs`) |
 | WebGL/Safari/OOM/textureGPU/cache/offline/Pages | **21.283** (tấm ảnh xa nội thất mất UV, `AgentScripts/CardAttrs21283.cs`; Pages chỉ chạy khi `docs/**` đổi), **21.282** (occlusion, instancing điện thoại, `?diag=`, `pw/gltrack.cjs`), 21.281 (wasm LTO, hộp đen), 21.280 (nén đỉnh mesh, heap 384), 21.279 (đo WebKit, chia đôi, probe), 21.278, 21.277, 21.208, 21.193, 21.106, 15.2–15.4, 21.77/21.66 | `Editor/PhoVietWebBuild.cs`, `AgentScripts/BuildWebRelease.cs`, `VerifyPublishedGame.cjs`, `PublishWebArtifact.py`, `PhoVietWebMemorySettings.cs` (1024 px; 512 px của 21.278 đã bỏ), `PhoVietMobileSceneStrip.cs` (bỏ nội thất 3D gói điện thoại; móc `Extra`/`Processed`), `AgentScripts/BisectBuild21279.cs` (build chia đôi đo bộ nhớ), `Editor/PhoVietWorldMeshPostprocessor.cs` (nén đỉnh Chunks + nhà mẫu; thêm FBX thế giới mới phải hợp shader chỉ đọc vị trí + pháp tuyến), template `sw.js` (WebKit không cache data), `.github/workflows/pages.yml` |
 
 Bản đồ đầy đủ mọi file: `huongdan.md` mục 4. Các file `PhoViet*.cs` là phần của cùng `partial class PhoVietGame`.
