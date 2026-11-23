@@ -345,7 +345,7 @@ namespace PhoViet.OpenWorld
         void TickTank(Tank t, float dt, Vector3 pp, Vector3 pv)
         {
             t.age += dt;
-            if (t.destroyed) return;                                              // xác cháy: đứng yên, vẫn là vật cản
+            if (t.destroyed) return;                                              // 21.336: đã nổ tung (ẩn, không va chạm), dọn sau 2 s
             var pos = t.rb.position; pos.y = 0;
             // tới giao lộ → chọn đoạn kế tiếp hướng về người chơi (không quay đầu trừ đường cụt)
             float rem = Vector3.Dot(gp[t.toNode] - pos, t.dir);
@@ -810,7 +810,7 @@ namespace PhoViet.OpenWorld
                 if (!t.root) { tanks.RemoveAt(i); continue; }
                 TickTank(t, dt, pp, pv);
                 var rel = t.root.position - pp; rel.y = 0;
-                if (rel.magnitude > 280f || t.age > 150f || (t.destroyed && t.age - t.destroyedAt > 25f)) { Kill(t.root.gameObject, t.rb); tanks.RemoveAt(i); }
+                if (rel.magnitude > 280f || t.age > 150f || (t.destroyed && t.age - t.destroyedAt > 2f)) { Kill(t.root.gameObject, t.rb); tanks.RemoveAt(i); }
             }
             for (int i = helis.Count - 1; i >= 0; i--)
             {

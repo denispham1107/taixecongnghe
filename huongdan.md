@@ -6216,3 +6216,38 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Kiểm tra:** Chrome headless 932 × 430 ngang và 390 × 844 dọc, trên bản sao có bật nút Cài: nút chỉ còn biểu tượng, logo không vạch đỏ, «Bản cập nhật» thu gọn.
 - **Phát hành:** chỉ cập nhật vỏ web (`AgentScripts/Shell21334.cs`), vẫn bản 1.92.0, cache `e54a7b98c09942d6`. SHA `_site` 39/39 khớp.
 - **Đã lên web:** commit `fb9f4b7`, Pages run `45133572057` thành công, live 38/38 tệp khớp SHA, cache `e54a7b98c09942d6`.
+
+## 21.336. Xe tăng trúng tên lửa nổ tung và biến mất; xe người chơi màu vàng; xe NPC né sét (23/11/2026, Claude Code)
+
+- **Người dùng:**
+  - Xe tăng trúng tên lửa của xe người chơi phải nổ tung và biến mất, không chỉ cháy bốc khói như trước.
+  - Đổi màu chủ đạo của xe người chơi từ xanh dương sang vàng.
+  - Xe ô tô NPC nhận biết và né sét, để không còn cảnh nhiều xe bị sét đánh rồi tắc đường.
+- **Xe tăng (`OpenWorldHazards.Weapons.cs` `DestroyTank`):**
+  - Trúng tên lửa (hoặc Lazer) thì nổ tung thành mảnh: quả cầu lửa, tia lửa, khói và mảnh vỡ màu xanh rêu/xám. Dùng `LaserBlast` cỡ 2,8 nên có lửa nhỏ cháy tại chỗ khoảng 4 s.
+  - Mô hình ẩn ngay; va chạm tắt; bỏ khỏi danh sách vật cản của giao thông. Gốc được dọn sau 2 s (`OpenWorldHazards.cs`, trước là 25 s).
+  - Bỏ xác sẫm màu và lửa khói bám xác. Thông báo đổi thành «Hạ xe tăng! — Xe tăng nổ tung».
+  - `LaserTank` (`OpenWorldHazards.Laser.cs`) gọi chung `DestroyTank`.
+- **Xe người chơi màu vàng:**
+  - Tô lại `Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_Palette.png` bằng `AgentScripts/recolor_player_yellow.py`. Chỉ đổi điểm ảnh sắc xanh dương (hue 185–265°, bão hòa > 0,2; 27 % ảnh) sang vàng hue 50°, tăng sáng ×1,45. Đen, xám, trắng, chữ và đèn giữ nguyên.
+  - Ảnh gốc màu xanh giữ ở `ArtSource/Concepts/XeVang-20261123/PV_BlueSupercar_Palette-xanh-goc.png`. Muốn trả màu xanh: chép tệp này đè lại. Muốn đổi sắc vàng: `python -X utf8 AgentScripts/recolor_player_yellow.py <hue> <tăng_sáng>`.
+  - Tên tệp/vật liệu vẫn là `PV_BlueSupercar` để giữ GUID trong scene.
+  - **Chưa đổi:** hình chiếc xe xanh trên nút NHẢY trong game và các ảnh nút ở trang chủ (`controls/btn-jump.png`).
+- **NPC né sét (`OpenWorldTraffic.cs` `DodgeStrikes`, `OpenWorldWeather.StartVolley`):**
+  - Mỗi đợt sét, `OpenWorldWeather` báo từng vòng cảnh báo cho giao thông (`WarnStrike`: tâm, bán kính 3 m, lúc đánh). `CancelVolley` xóa hết.
+  - Mỗi khung, ô tô và xe máy NPC có lối chạy cắt qua vòng sẽ làm một trong ba việc:
+    - **Phanh** (tới 11 m/s²) để dừng ngoài vùng bị hất (bán kính × 1,8), đợi sét đánh xong rồi chạy tiếp.
+    - **Vọt qua** (tăng ga 8 m/s², tới 1,3 × tốc độ riêng) nếu không kịp phanh nhưng kịp ra khỏi vùng trước lúc đánh.
+    - **Thoát** ra phía trước nếu đang nằm trong vùng cháy.
+  - Vẫn giữ khoảng cách với xe trước; không vượt đèn đỏ.
+  - Cờ `OpenWorldTraffic.dodgeLightning` (mặc định bật). Số liệu: `StrikeBrakes/StrikeEscapes/StrikeRushes`, `DodgingNow`, `LightningLog` (xe bị đánh và trạng thái né), `OpenWorldWeather.Report()` có `dodge=phanh/thoát/vọt`.
+  - **Còn lại:** xe đang đứng kẹt (chờ đèn đỏ, sau xe khác hoặc sau xe người chơi) trong vòng thì không có đường thoát và vẫn có thể bị đánh.
+- **Kiểm tra Play** (`AgentScripts/Test21336.cs`; trước đó chạy `Reimport21336.Run` vì mã sửa ngoài Unity; bước khung với cullingMask = 0):
+  - Xe tăng 60 m: tên lửa trúng sau 0,74 s, tắt hết renderer/collider, gốc bị dọn trước 3 s.
+  - Ảnh camera: xe vàng, xe tăng nổ cầu lửa.
+  - So sánh 40 đợt sét gọi tay, xe người chơi đứng yên:
+    - **Tắt né:** 9 xe NPC trúng sét, đều là xe đang chạy.
+    - **Bật né:** 3 xe trúng, đều là xe đang đứng kẹt (v ≈ 0). Có 45 lần phanh, 18 lần thoát và 7 lần vọt qua.
+  - Số xe bị hất tăng (15 → 26) vì xe thoát khỏi vùng cháy sang vùng hất. Xe bị hất chỉ choáng rồi chạy tiếp, không nổ.
+  - Console không lỗi.
+- **Trạng thái:** đã commit source, chưa build và chưa phát hành web (bản web vẫn 1.92.0).

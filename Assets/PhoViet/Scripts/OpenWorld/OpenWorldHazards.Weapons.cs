@@ -215,23 +215,23 @@ namespace PhoViet.OpenWorld
             if (traffic) NpcKnocked += traffic.KnockAround(at, 1.4f);
         }
 
+        // 21.336: xe tăng trúng tên lửa (hoặc Lazer) → NỔ TUNG THÀNH MẢNH và biến mất (trước: để xác sẫm màu cháy, bốc khói 25 s).
+        // Mô hình ẩn ngay, tắt va chạm + bỏ khỏi danh sách vật cản giao thông; lửa nhỏ cháy tại chỗ ~4 s (LaserBlast); gốc dọn sau 2 s.
         void DestroyTank(Tank t, Vector3 at)
         {
             t.destroyed = true; t.destroyedAt = t.age; TanksDestroyed++;
             if (t.anim) t.anim.Stop();
-            Emit(blastFx, at + Vector3.up * 1.2f, Vector3.zero, 8.5f, 1.0f, Color.white);
+            var c = t.root.position + Vector3.up * 1.1f;
+            Emit(blastFx, c + Vector3.up * .4f, Vector3.zero, 9.5f, 1.1f, Color.white);
             for (int i = 0; i < 30; i++)
                 Emit(sparkFx, at, Random.insideUnitSphere * 9f + Vector3.up * 4f, Random.Range(.12f, .3f), Random.Range(.6f, 1.1f), new Color(1, .62f, .2f, 1));
             PlayAt(blastClip, at, 1f);
             if (traffic) NpcKnocked += traffic.KnockAround(at, blastRadius);
-            // xác cháy: khói đen + lửa liên tục
-            t.fire1 = BurnFx(t.root, new Vector3(0, 2.1f, -0.6f));
-            // xác xe tăng sẫm lại
-            foreach (var r in t.root.GetComponentsInChildren<Renderer>())
-            {
-                var b = new MaterialPropertyBlock(); r.GetPropertyBlock(b); b.SetColor("_Color", new Color(.28f, .26f, .24f)); b.SetColor("_PaintColor", new Color(.28f, .26f, .24f)); r.SetPropertyBlock(b);
-            }
-            Say("Hạ xe tăng!", "Tránh xác xe phía trước", 1.8f, OpenWorldToast.Kind.Good, "HẠ GỌN"); Note("người chơi hạ xe tăng");
+            foreach (var r in t.root.GetComponentsInChildren<Renderer>()) r.enabled = false;
+            foreach (var col in t.root.GetComponentsInChildren<Collider>()) col.enabled = false;
+            if (traffic && t.rb) { traffic.blockers.Remove(t.rb); traffic.blockerHalf.Remove(t.rb); }
+            LaserBlast(c, new[] { new Color(.33f, .37f, .22f), new Color(.2f, .22f, .15f), new Color(.12f, .12f, .12f), new Color(.45f, .42f, .36f) }, 2.8f, false);
+            Say("Hạ xe tăng!", "Xe tăng nổ tung", 1.8f, OpenWorldToast.Kind.Good, "HẠ GỌN"); Note("người chơi hạ xe tăng");
         }
 
         ParticleSystem BurnFx(Transform parent, Vector3 local)

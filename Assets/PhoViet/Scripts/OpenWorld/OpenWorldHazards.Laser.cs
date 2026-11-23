@@ -6,7 +6,7 @@ namespace PhoViet.OpenWorld
     // 21.300 — tia LAZER của xe người chơi (OpenWorldLaser) trúng phương tiện trên đường:
     // • Xe tăng, khủng long: cộng «độ nóng» theo thời gian tia chạm (xe tăng 0,3 s, khủng long 0,5 s) — trong lúc nung: tia lửa + khói
     //   tại điểm chạm; đủ nóng → nổ tung: quả cầu lửa, tia lửa, khói, hàng trăm mảnh vỡ theo màu vật, lửa cháy tại chỗ; mô hình biến
-    //   mất (xe tăng: giữ gốc để lửa cháy rồi dọn sau 25 s như cũ; khủng long: xóa).
+    //   mất (xe tăng: 21.336 dùng chung DestroyTank với tên lửa, gốc dọn sau 2 s; khủng long: xóa).
     // • Xe NPC (ô tô, xe máy): OpenWorldTraffic.LaserKill → bốc cháy 0,45 s → LaserExploded → LaserBlast ở đây (mảnh màu sơn xe).
     // • Vụ nổ do Lazer KHÔNG tính sát thương cho xe người chơi (khác Explode của đạn pháo); hất xe NPC gần đó như vụ nổ nhỏ.
     public partial class OpenWorldHazards
@@ -65,12 +65,8 @@ namespace PhoViet.OpenWorld
 
         void LaserTank(Tank t, Vector3 at)
         {
-            DestroyTank(t, at);                                    // nổ + lửa cháy (giữ gốc để lửa bám, dọn sau 25 s)
+            DestroyTank(t, at);                                    // 21.336: nổ tung thành mảnh + biến mất (chung với tên lửa)
             LaserTankKills++;
-            foreach (var r in t.root.GetComponentsInChildren<Renderer>()) if (!(r is ParticleSystemRenderer)) r.enabled = false;
-            foreach (var col in t.root.GetComponentsInChildren<Collider>()) col.enabled = false;
-            if (traffic && t.rb) { traffic.blockers.Remove(t.rb); traffic.blockerHalf.Remove(t.rb); }
-            LaserBlast(t.root.position + Vector3.up * 1.1f, new[] { new Color(.33f, .37f, .22f), new Color(.2f, .22f, .15f), new Color(.12f, .12f, .12f) }, 2.4f, false);
             Note("lazer hạ xe tăng");
         }
 

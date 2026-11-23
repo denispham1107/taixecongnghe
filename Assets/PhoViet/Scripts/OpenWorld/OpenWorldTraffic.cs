@@ -495,6 +495,7 @@ namespace PhoViet.OpenWorld
             public float fallSign, fallSev, fallRoll, fallPitch, fallLift, fallStart = -1f;   // 21.284: xe máy nghiêng ngã khi va chạm
             public float recWait, stunFor, stunUntil, recoverT, recDur, recS, recklessUntil, vmaxBase, lastHitAt; public int lastHit = -1;
             public Vector3 recFromPos; public Quaternion recFromRot; public Lane recLane;
+            public int dodge;   // 21.336: né sét — 0 không, 1 phanh trước vòng, 2 tăng ga thoát khỏi vòng, 3 vọt qua trước khi sét đánh
         }
         readonly List<Vehicle> pool = new List<Vehicle>();
         System.Random rnd;
@@ -732,6 +733,60 @@ namespace PhoViet.OpenWorld
             v.laserKill = true; v.explodeAt = Time.time + 0.45f; Smoke(v, true); LaserKills++;
             return true;
         }
+        // 21.336: xe NPC (ô tô + xe máy) NHẬN BIẾT và NÉ SÉT để không bị đánh hàng loạt gây tắc đường.
+        // OpenWorldWeather.StartVolley báo từng vòng cảnh báo (tâm, bán kính, thời điểm đánh). Mỗi khung, xe có lối chạy cắt qua vòng:
+        // • vòng phía trước, còn phanh kịp → phanh (tới 11 m/s²) dừng NGOÀI vùng bị hất (bán kính × 1,8) rồi đợi sét đánh xong;
+        // • không phanh kịp nhưng vọt qua kịp trước khi đánh → tăng ga vọt qua; không kịp cả hai → phanh hết sức (dừng ngoài vùng cháy);
+        // • đang nằm trong vùng cháy → tăng ga (tới 1,3 × tốc độ riêng, 8 m/s²) thoát ra phía trước, vẫn giữ khoảng cách xe trước.
+        [Tooltip("21.336: xe NPC nhận biết vòng cảnh báo sét và né (phanh trước vòng / tăng ga thoát ra)")] public bool dodgeLightning = true;
+        struct StrikeWarn { public Vector3 p; public float r, at; }
+        readonly List<StrikeWarn> strikeWarn = new List<StrikeWarn>();
+        public int StrikeBrakes { get; private set; }
+        public int StrikeEscapes { get; private set; }
+        public int StrikeRushes { get; private set; }
+        public void WarnStrike(Vector3 p, float radius, float strikeAt) => strikeWarn.Add(new StrikeWarn { p = p, r = radius, at = strikeAt });
+        public void ClearStrikes() => strikeWarn.Clear();
+        public int PendingStrikes => strikeWarn.Count;
+        public readonly List<string> LightningLog = new List<string>();
+        public int DodgingNow { get { int n = 0; foreach (var v in pool) if (v.active && v.dodge != 0) n++; return n; } }
+
+        void DodgeStrikes(Vehicle v, float now, float vGap, ref float vT, ref float accUp, ref float accDown)
+        {
+            int mode = 0; float limit = 999f, rush = 0f;
+            float kill0 = Mathf.Max(v.halfW, v.halfL) * 0.5f, knock0 = Mathf.Max(v.halfW, v.halfL) * 0.6f;
+            foreach (var w in strikeWarn)
+            {
+                float tl = w.at - now;
+                if (tl < -0.2f) continue;
+                var rel = w.p - v.pos; rel.y = 0f;
+                float al = rel.x * v.fwd.x + rel.z * v.fwd.z, lat = Mathf.Abs(rel.x * v.fwd.z - rel.z * v.fwd.x);
+                float rKill = w.r + kill0 + 0.4f, rKnock = w.r * 1.8f + knock0 + 0.3f;
+                if (lat >= rKnock || al > 45f) continue;                                   // lối chạy không cắt qua vòng
+                float cKill = lat < rKill ? Mathf.Sqrt(rKill * rKill - lat * lat) : 0f;
+                float cKnock = Mathf.Sqrt(rKnock * rKnock - lat * lat);
+                if (al < -cKill) continue;                                                 // vòng đã ở phía sau
+                if (cKill > 0f && al <= cKill)
+                {   // đang trong vùng cháy → thoát ra phía trước
+                    if (tl > 0f) { mode = Mathf.Max(mode, 2); rush = Mathf.Max(rush, v.vmax * 1.3f); }
+                    continue;
+                }
+                float room = al - cKnock - 0.3f;                                           // quãng còn lại trước mép vùng hất
+                float stopNeed = v.speed * v.speed / (2f * 11f);
+                if (room >= stopNeed - 0.2f) { float lim = Mathf.Sqrt(2f * 11f * Mathf.Max(0f, room)); limit = Mathf.Min(limit, lim); if (lim < v.speed + 2f || room < 4f) mode = Mathf.Max(mode, 1); continue; }
+                // không phanh kịp trước vùng hất: vọt qua nếu kịp ra khỏi vùng (cháy, hoặc hất khi chỉ lướt cạnh vòng) trước khi đánh,
+                // không thì phanh hết sức
+                float pass = al + (cKill > 0f ? cKill : cKnock) + 0.3f, vr = Mathf.Max(v.speed, 0.5f), vTop = v.vmax * 1.3f;
+                float tAcc = Mathf.Min((vTop - vr) / 8f, tl), dAcc = vr * tAcc + 4f * tAcc * tAcc;
+                float tPass = dAcc >= pass ? tAcc : tAcc + (pass - dAcc) / vTop;
+                if (tPass < tl - 0.05f && vGap > vr) { mode = Mathf.Max(mode, 3); rush = Mathf.Max(rush, vTop); }
+                else { limit = Mathf.Min(limit, Mathf.Sqrt(2f * 11f * Mathf.Max(0f, cKill > 0f ? al - cKill - 0.3f : room))); mode = Mathf.Max(mode, 1); }
+            }
+            if (mode >= 2) { vT = Mathf.Max(vT, Mathf.Min(rush, vGap)); accUp = 8f; }
+            else if (mode == 1) { vT = Mathf.Min(vT, limit); accDown = 11f; }
+            if (mode != 0 && v.dodge == 0) { if (mode == 1) StrikeBrakes++; else if (mode == 2) StrikeEscapes++; else StrikeRushes++; }
+            v.dodge = mode;
+        }
+
         // 21.317: sét đánh trúng xe NPC trong bán kính → bốc cháy rồi nổ tung thành mảnh như trúng LAZER (LaserExploded).
         public int LightningAround(Vector3 p, float radius)
         {
@@ -741,6 +796,7 @@ namespace PhoViet.OpenWorld
                 var v = pool[i]; if (!v.active || v.exploded || v.laserKill) continue;
                 var d = v.pos - p; d.y = 0f;
                 if (d.magnitude > radius + Mathf.Max(v.halfW, v.halfL) * 0.5f) continue;
+                if (LightningLog.Count < 40) LightningLog.Add($"{(v.bike ? "B" : "C")} né={v.dodge} v={v.speed:F1} vmax={v.vmax:F1} cách={d.magnitude:F1} chờ={v.waiting} giao lộ={v.inConn}");   // 21.336: chẩn đoán
                 if (LaserKill(i, p, d.sqrMagnitude > 0.01f ? d.normalized : Vector3.forward)) n++;
             }
             return n;
@@ -1377,6 +1433,7 @@ namespace PhoViet.OpenWorld
                 if (player && !TryMakeReckless(pp)) nextReckless = now + 3f;
             }
 
+            for (int k = strikeWarn.Count - 1; k >= 0; k--) if (now > strikeWarn[k].at + 0.25f) strikeWarn.RemoveAt(k);   // 21.336
             int act = 0;
             foreach (var v in pool)
             {
@@ -1436,8 +1493,10 @@ namespace PhoViet.OpenWorld
                 float vGap = Mathf.Sqrt(2f * 5f * Mathf.Max(0f, gap - minGap));
                 float vStop = Mathf.Sqrt(2f * 5f * Mathf.Max(0f, stopGap - 0.4f));
                 vT = Mathf.Min(vT, Mathf.Min(vGap, vStop));
+                float accUp = 3.2f, accDown = 10f;
+                if (dodgeLightning && strikeWarn.Count > 0 && !hit) DodgeStrikes(v, now, vGap, ref vT, ref accUp, ref accDown); else v.dodge = 0;
                 if (hit) vT = 0f;
-                v.speed = Mathf.MoveTowards(v.speed, vT, (vT < v.speed ? 10f : 3.2f) * dt);
+                v.speed = Mathf.MoveTowards(v.speed, vT, (vT < v.speed ? accDown : accUp) * dt);
                 if (gap < minGap * 0.5f) v.speed = 0f;
                 SetBrake(v, v.speed < 0.3f || v.speed < v.prevSpeed - 0.03f);
                 v.prevSpeed = v.speed;

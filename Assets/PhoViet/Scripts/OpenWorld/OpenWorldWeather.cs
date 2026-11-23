@@ -371,6 +371,7 @@ namespace PhoViet.OpenWorld
         void CancelVolley()
         {
             volleyOn = false; volleyClock = 0f;
+            if (traffic) traffic.ClearStrikes();
             foreach (var s in strikes) { s.live = false; if (s.warn) s.warn.gameObject.SetActive(false); if (s.mr) s.mr.gameObject.SetActive(false); }
             if (boltLight) boltLight.enabled = false;
             Flash = 0f;
@@ -389,6 +390,7 @@ namespace PhoViet.OpenWorld
                 if (!s.live) continue;
                 s.p = LastTargets[i]; s.kind = LastKinds[i]; s.delay = i == 0 ? 0f : Random.Range(0f, 0.12f); s.seed = Random.Range(0f, 100f);
                 if (s.warn) { s.warn.gameObject.SetActive(true); s.warn.transform.position = s.p + Vector3.up * 0.05f; s.warn.transform.localScale = Vector3.one * StrikeRadius * 2f; }
+                if (traffic) traffic.WarnStrike(s.p, StrikeRadius, Time.time + WarnSeconds + s.delay);   // 21.336: xe NPC thấy vòng thì né
             }
         }
 
@@ -682,6 +684,6 @@ namespace PhoViet.OpenWorld
             OpenWorldToast.Show("THỜI TIẾT", toastTitle, toastDetail, toastKind, Time.time - toastAt, toastUntil - Time.time);
         }
 
-        public string Report() => $"weather rain={Raining} wet={Wet:F2} t={RainTime:F1} rolls={RainRolls}/{Rolls} volleys={Volleys} strikes={Strikes} next={nextVolley:F1} flash={Flash:F2} drops={ParticleCount} hits={(hazards ? hazards.LightningHits : 0)} npc={(hazards ? hazards.LightningNpc : 0)} kinds=[{string.Join(",", LastKinds)}]";
+        public string Report() => $"weather rain={Raining} wet={Wet:F2} t={RainTime:F1} rolls={RainRolls}/{Rolls} volleys={Volleys} strikes={Strikes} next={nextVolley:F1} flash={Flash:F2} drops={ParticleCount} hits={(hazards ? hazards.LightningHits : 0)} npc={(hazards ? hazards.LightningNpc : 0)} dodge={(traffic ? traffic.StrikeBrakes + "/" + traffic.StrikeEscapes + "/" + traffic.StrikeRushes : "-")} kinds=[{string.Join(",", LastKinds)}]";
     }
 }
