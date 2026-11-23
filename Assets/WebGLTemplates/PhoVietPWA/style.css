@@ -319,3 +319,11 @@ h1 .t2{font-size:clamp(28px,8.2vw,41px);padding-bottom:.22em}
 /* 21.359: mở hộp thoại thì tiêu điểm vào tiêu đề (autofocus, tabindex -1) thay vì nút × đầu tiên — iPhone vẽ viền xanh quanh nút ×
    như thể nó đang được chọn. Tiêu đề nhận tiêu điểm không có viền. */
 dialog [autofocus]:focus{outline:none}
+/* 21.364: nút đóng/menu dùng icon SVG thay chữ «×»/«☰» — chữ trong nút bị iPhone bôi chọn (hiện tay cầm xanh + menu Sao chép/Tra cứu)
+   khi chạm giữ. Mọi nút không cho bôi chọn chữ, không hiện menu chạm giữ. */
+button{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.close svg,#toast-close svg,#game-menu svg{display:block;pointer-events:none}
+.close{color:var(--cream)}
+#game-menu{display:grid;place-items:center}
+#game-menu[hidden]{display:none}
+@media(max-width:700px),(max-height:500px){.close .ico-x{width:16px;height:16px}}

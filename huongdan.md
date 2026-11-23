@@ -6623,3 +6623,11 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Phát hành vỏ web:** `AgentScripts/Shell21363.cs` → `RefreshWebShell` trên bản build 1.95.1 (Unity đang Play — không dừng phiên của người dùng; lệnh lần 1 lỗi mạng, lần 2 đạt) → cache **`6aadb77aa0142a6e`**, `firebase deploy --only hosting`, live **48/48 khớp SHA-256**. Tệp `Build/*` không đổi → máy đã lưu dữ liệu game không tải lại (21.360).
 - 21.362 (thả Ga 1,12 m/s²) vẫn chỉ trong source, chưa commit/build.
 
+## 21.364. Nút đóng/menu dùng icon thay chữ «×» (iPhone bôi chọn chữ khi chạm giữ) — vỏ web 1.95.1 (24/11/2026, Claude Code)
+
+- **Người dùng (2 ảnh iPhone: hộp Top 100 trong game và hộp «Tải game»):** nút X đỏ là chữ «×» nên bị bôi chọn (tay cầm xanh + menu Sao chép/Tra cứu/Dịch); đổi thành nút icon đúng chuẩn, rà mọi chỗ trong game và trang chủ.
+- **Rà soát:** trang web có 5 nút chữ «×» (`#close-help`, `#close-install`, `#close-account`, `#close-ranks`, `#toast-close`) + nút menu máy tính `#game-menu` chữ «☰/×» (`app.js` `setMenu`). Hộp Top 100 «trong game» là hộp HTML của trang. Game Unity: bảng «Cấu hình đồ họa» đã dùng icon vẽ (`closeTex`, `OpenWorldGame.Menus.cs`); nút `HudButton("×")` chỉ còn ở `PhoVietGraphicsSettings.cs` của scene cũ (không có trong scene bản đồ mở) — không cần sửa; chữ IMGUI cũng không bôi chọn được.
+- **Sửa:** `index.html` 5 nút đóng → SVG `.ico-x` (2 nét tròn đầu, `currentColor`, `aria-hidden`; nhãn `aria-label` giữ nguyên); `#game-menu` → SVG `.ico-menu`, `app.js` `setMenu` đổi `innerHTML` giữa icon menu/đóng. `style.css` khối 21.364: mọi `button` `user-select:none` + `-webkit-touch-callout:none`; svg không nhận chạm (`pointer-events:none`); điện thoại icon 16 px.
+- **Kiểm tra (localhost Chrome):** hộp Top 100 nút đóng là icon (ảnh phóng to), `user-select: none`, không còn nút nào chứa «×»/«☰».
+- **Phát hành:** `AgentScripts/Shell21364.cs` → `RefreshWebShell` trên 1.95.1 → cache **`1a4469a81098b524`**, `firebase deploy`, live **48/48 khớp**. Chưa thử trên iPhone thật.
+

@@ -54,7 +54,8 @@ function pauseGame(){if(unityInstance)unityInstance.SendMessage(gameRoot,'PauseF
 function setMenu(open){
   menuOpen=Boolean(open);$('toolbar').hidden=immersive&&!menuOpen;
   $('game-menu').setAttribute('aria-expanded',String(menuOpen));
-  $('game-menu').textContent=menuOpen?'×':'☰';
+  // 21.364: icon SVG thay chữ ×/☰ (chữ bị iPhone bôi chọn khi chạm giữ).
+  $('game-menu').innerHTML=menuOpen?'<svg class="ico-x" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>':'<svg class="ico-menu" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>';
 }
 function syncViewport(){
   const view=window.visualViewport;
