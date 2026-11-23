@@ -6215,3 +6215,4 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - `index.html`: bỏ thuộc tính `open` của `#release-notes`. `app.js` vẫn tự mở khung khi máy đang giữ bản cũ hơn bản trên máy chủ, để thấy dòng báo cập nhật.
 - **Kiểm tra:** Chrome headless 932 × 430 ngang và 390 × 844 dọc, trên bản sao có bật nút Cài: nút chỉ còn biểu tượng, logo không vạch đỏ, «Bản cập nhật» thu gọn.
 - **Phát hành:** chỉ cập nhật vỏ web (`AgentScripts/Shell21334.cs`), vẫn bản 1.92.0, cache `e54a7b98c09942d6`. SHA `_site` 39/39 khớp.
+- **Đã lên web:** commit `fb9f4b7`, Pages run `45133572057` thành công, live 38/38 tệp khớp SHA, cache `e54a7b98c09942d6`.
