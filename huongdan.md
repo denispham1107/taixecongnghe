@@ -6599,3 +6599,12 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Phát hành:** `Shell21360.cs` → `RefreshWebShell` trên bản build 1.95.0 → cache **`b0af86db0171cc7d`**, `firebase deploy --only hosting`, live **48/48 khớp SHA-256**. Bản cập nhật trên trang thêm «Vào lại game không phải tải lại từ đầu…».
 - **Lưu ý:** iPhone tải đầy đủ thêm một lần (bản này chưa có dữ liệu trong kho trên iPhone); từ lần sau lấy từ máy tới khi có bản build mới (tệp `Build/*` đổi tên). Cùng mã vỏ trang mới, máy tính đang giữ dữ liệu sẽ dùng lại ngay.
 
+## 21.361. Phát hành 1.95.1 trên gotaviet.web.app — ô «Bảng xếp hạng» trong game (24/11/2026, Claude Code)
+
+- **Người dùng:** «Build và phát hành bản 1.95.1 luôn nhé».
+- **Gồm:** 21.357 (ô «🏆 Bảng xếp hạng» thay «Địa điểm hôm nay» trên màn chào, bấm → hộp Top 100 qua jslib `GotaOpenRanks`) + vỏ 21.358–21.360 đã có. Ghi chú bản cập nhật bỏ chú thích dòng 21.357. Thêm: hộp Top 100 mở trong game ghi «Đăng nhập **ở trang chủ** để ghi kỷ lục…» (`account.js` `myLine`, dùng `gameOpen()`), không có nút đăng nhập.
+- **Build:** số 1.95.1 trong `PhoVietWebBuild.cs` + `ProjectSettings.asset` → `ReleaseBuild.Prepare` (lần 1 «compiling», sau `recompile` → «ready 1.95.1») → `BuildNow` 1.508 s, `stripped` 3.356; gói điện thoại `0baf5fe4….data.unityweb` 105,9 MB, máy tính `ee970177….data.unityweb` 121,8 MB. Vỏ sửa thêm bằng `AgentScripts/Shell21361.cs` → cache **`61844f1d81451d04`**.
+- **Thử bản web ở localhost (Chrome):** máy đang giữ vỏ 1.95.0 hiện «Tải bản mới» → bấm → lên 1.95.1, kho `…:build` dọn hết tệp của 1.95.0; vào game, bấm ô «Bảng xếp hạng» (góc phải trên màn chào) → hộp Top 100 mở, tiêu điểm ở tiêu đề, danh sách đọc từ Firestore. Sau khi làm mới vỏ (cache đổi), tải lại trang + vào game: 4 tệp `Build/*` vẫn trong kho `build`, `transferSize` 0, gói 122 MB đọc 203 ms (xác nhận sửa 21.360 trên bản build thật).
+- **Phát hành:** `firebase deploy --only hosting --project gotaviet` → live **48/48 khớp SHA-256** (lần so đầu `account.js` lệch do máy chủ trung gian chưa cập nhật, so lại khớp), `build-info.json` 1.95.1 / `61844f1d81451d04`.
+- Chưa thử trên iPhone thật.
+

@@ -148,7 +148,7 @@ async function topScores(n){
   return (await F.getDocs(F.query(F.collection(db,'scores'),F.orderBy('best','desc'),F.limit(n)))).docs;
 }
 async function myLine(){
-  if(!user)return 'Đăng nhập để ghi kỷ lục lên bảng chung và xem hạng của bạn.';
+  if(!user)return gameOpen()?'Đăng nhập ở trang chủ để ghi kỷ lục lên bảng chung và xem hạng của bạn.':'Đăng nhập để ghi kỷ lục lên bảng chung và xem hạng của bạn.';
   if(!myScore){
     const snap=await fb.F.getDoc(fb.F.doc(fb.db,'scores',user.uid));
     if(!snap.exists())return `${displayName(user)}: chưa có điểm — chơi một lượt để lên bảng.`;
