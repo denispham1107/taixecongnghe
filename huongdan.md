@@ -6200,3 +6200,4 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - `AgentScripts/Shell21334.cs` → `PhoVietWebBuild.RefreshWebShell()`: giữ gói build 1.92.0, thay `index.html`/`style.css`/`app.js`/ảnh, tính lại cache `5ad711f70070efa4`.
   - `docs` + pack/materialize, SHA 39/39 khớp. Trong `docs` chỉ đổi `index.html`, `style.css`, `sw.js`, `build-info.json`.
   - Số phiên bản vẫn 1.92.0. Máy đã mở trang sẽ nhận vỏ mới khi service worker thấy cache đổi.
+- **Đã lên web:** commit `cfde9b6`, Pages run `45131843307` thành công, live 38/38 tệp khớp SHA, `build-info.json` 1.92.0 cache `5ad711f70070efa4`. Chờ người dùng xem lại trên iPhone (dọc và ngang).
