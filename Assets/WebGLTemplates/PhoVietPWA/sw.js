@@ -1,10 +1,17 @@
 'use strict';
 const PREFIX='phoviet:'+self.registration.scope+':';
 const CACHE=PREFIX+'__PHOVIET_CACHE__';
+// 21.360: dữ liệu game (Build/*, tên tệp có mã băm nội dung nên không bao giờ đổi nội dung) nằm trong một kho RIÊNG, không theo
+// mã cache của vỏ trang. Trước đây mọi tệp chung một kho theo mã băm của cả bản → chỉ sửa vỏ trang (21.348/21.349/21.356/21.359)
+// là máy xóa sạch và tải lại ~110 MB dữ liệu game dù bản build không đổi. Kho riêng chỉ bỏ các tệp không còn trong precache.json.
+const BUILD=PREFIX+'build';
 const ROOT=new URL('./',self.location.href);
 // 21.278: Safari/WebKit (mọi trình duyệt trên iPhone/iPad) giới hạn bộ nhớ chặt — không sao chép gói dữ liệu Unity
 // (70–90 MB) vào bộ nhớ đệm trong lúc game đang tải; các tệp nhỏ vẫn lưu offline như cũ.
+// 21.360: thay vào đó, khi game đã mở xong app.js nhắn PHOVIET_CACHE_DATA → worker tự lưu gói dữ liệu (cache.add, trình duyệt
+// ghi thẳng xuống đĩa, không qua bộ nhớ JavaScript). Lần sau vào game không phải tải lại.
 const WEBKIT=/AppleWebKit/.test(self.navigator.userAgent)&&!/Chrome|Chromium|Edg|Android|Firefox/.test(self.navigator.userAgent);
+const isBuild=relative=>relative.startsWith('Build/');
 let manifestPromise;
 function manifest(){
   return manifestPromise ||= (async()=>{
@@ -16,15 +23,19 @@ function manifest(){
     return response.json();
   })().catch(error=>{manifestPromise=null;throw error;});
 }
+async function storedUrls(){
+  const urls=new Set();
+  for(const name of [CACHE,BUILD])for(const request of await (await caches.open(name)).keys())urls.add(request.url);
+  return urls;
+}
 async function offlineStatus(client){
   // Late callbacks from a retired worker must not recreate its deleted cache.
   if(!await caches.has(CACHE))return;
-  const {files,dataVariants=[]}=await manifest(),cache=await caches.open(CACHE);
-  const stored=new Set((await cache.keys()).map(request=>request.url));
+  const {files,dataVariants=[]}=await manifest(),stored=await storedUrls();
   const alternatives=new Set(dataVariants);
   const ready=files.filter(file=>!alternatives.has(file)).every(file=>stored.has(new URL(file,ROOT).href))&&
     (!dataVariants.length||dataVariants.some(file=>stored.has(new URL(file,ROOT).href)));
-  const message={type:'PHOVIET_OFFLINE_STATUS',ready:ready&&!WEBKIT,online:WEBKIT};
+  const message={type:'PHOVIET_OFFLINE_STATUS',ready,online:!ready};
   if(client)client.postMessage(message);
   else for(const view of await self.clients.matchAll())view.postMessage(message);
 }
@@ -37,19 +48,40 @@ self.addEventListener('install',event=>{
   event.waitUntil((async()=>{
     const {files}=await manifest();
     const cache=await caches.open(CACHE);
-    try {for(const file of files.filter(file=>!file.startsWith('Build/')))await cache.add(new Request(new URL(file,ROOT),{cache:'reload'}));}
+    try {for(const file of files.filter(file=>!isBuild(file)))await cache.add(new Request(new URL(file,ROOT),{cache:'reload'}));}
     catch(error){await caches.delete(CACHE);throw error;}
   })());
 });
 self.addEventListener('activate',event=>{
   event.waitUntil((async()=>{
-    await Promise.all((await caches.keys()).filter(key=>key.startsWith(PREFIX)&&key!==CACHE).map(key=>caches.delete(key)));
+    const {files}=await manifest(),keep=new Set(files.filter(isBuild).map(file=>new URL(file,ROOT).href));
+    const build=await caches.open(BUILD);
+    // Chuyển dữ liệu game còn dùng từ các kho cũ (bản trước 21.360 lưu chung kho theo mã cache) sang kho riêng rồi mới xóa kho cũ.
+    for(const key of (await caches.keys()).filter(key=>key.startsWith(PREFIX)&&key!==CACHE&&key!==BUILD)){
+      const old=await caches.open(key);
+      for(const request of await old.keys()){
+        if(!keep.has(request.url)||await build.match(request))continue;
+        const response=await old.match(request);if(response)await build.put(request,response).catch(()=>{});
+      }
+      await caches.delete(key);
+    }
+    // Bỏ dữ liệu của bản build cũ không còn dùng.
+    for(const request of await build.keys())if(!keep.has(request.url))await build.delete(request);
     await self.clients.claim();
     await offlineStatus();
   })());
 });
+async function cacheData(url){
+  const target=new URL(url,ROOT),relative=target.pathname.substring(ROOT.pathname.length);
+  if(target.origin!==ROOT.origin||!isBuild(relative)||!(await manifest()).files.includes(relative))return;
+  const build=await caches.open(BUILD);
+  if(await build.match(target.href))return;
+  // Trình duyệt tự ghi phản hồi xuống đĩa; có sẵn trong bộ nhớ đệm HTTP (Build/* immutable) thì không tải lại.
+  await build.add(new Request(target.href)).catch(()=>{});
+}
 self.addEventListener('message',event=>{
   if(event.data?.type==='PHOVIET_CHECK_OFFLINE')event.waitUntil(offlineStatus(event.source).catch(()=>{}));
+  if(event.data?.type==='PHOVIET_CACHE_DATA')event.waitUntil(cacheData(event.data.url).then(()=>offlineStatus()).catch(()=>{}));
 });
 self.addEventListener('fetch',event=>{
   const url=new URL(event.request.url);
@@ -62,13 +94,13 @@ self.addEventListener('fetch',event=>{
   event.waitUntil(new Promise(resolve=>{finishWrite=resolve;}));
   event.respondWith((async()=>{
     if(!await caches.has(CACHE)){finishWrite();return fetch(event.request);}
-    const cache=await caches.open(CACHE);
-    if(event.request.mode==='navigate'){finishWrite();return (await cache.match(new URL('index.html',ROOT)))||fetch(event.request);}
+    const relative=url.pathname.substring(ROOT.pathname.length);
+    const cache=await caches.open(isBuild(relative)?BUILD:CACHE);
+    if(event.request.mode==='navigate'){finishWrite();return (await (await caches.open(CACHE)).match(new URL('index.html',ROOT)))||fetch(event.request);}
     const hit=await cache.match(event.request);if(hit){finishWrite();return hit;}
     const response=await fetch(event.request);
-    const relative=url.pathname.substring(ROOT.pathname.length);
     if(!response.ok||!(await manifest()).files.includes(relative)){finishWrite();return response;}
-    if(WEBKIT&&relative.endsWith('.data.unityweb')){finishWrite();return response;}
+    if(WEBKIT&&relative.endsWith('.data.unityweb')){finishWrite();return response;}   // lưu sau khi game mở xong (PHOVIET_CACHE_DATA)
     // Stream to the cache without materializing an ArrayBuffer in JavaScript.
     const write=cache.put(event.request,response.clone()).then(()=>offlineStatus()).catch(()=>{});
     write.finally(finishWrite);

@@ -209,12 +209,23 @@ async function loadGame(){
       window.phoVietInstance=unityInstance;
       startRunRecorder();
       checkOffline();
+      keepGameData([loaderUrl,config.dataUrl,config.frameworkUrl,config.codeUrl]);
       setImmersive(touchDevice||standalone||Boolean(document.fullscreenElement));
       $('welcome').hidden=true;if(!gamePortrait)canvas.focus();
       if(document.hidden) unityInstance.SendMessage(gameRoot,'PauseForBrowser');
     }catch(error){gameRequested=false;canvas.hidden=true;setImmersive(false);fail(error);}
   };
   document.body.appendChild(script);
+}
+// 21.360: lưu dữ liệu game trên máy để lần sau vào game không tải lại khi bản build chưa đổi. Gói dữ liệu ~110 MB không được
+// sao chép lúc đang tải trên iPhone (21.278, dễ văng) → đợi game mở xong 12 s rồi nhờ service worker tự lưu (sw.js
+// PHOVIET_CACHE_DATA; tệp đã có thì bỏ qua). Xin quyền lưu lâu dài để Safari không tự xóa sau một thời gian không mở.
+function keepGameData(urls){
+  try{navigator.storage?.persist?.().catch(()=>{});}catch(_){}
+  setTimeout(()=>{
+    const worker=navigator.serviceWorker?.controller;if(!worker)return;
+    for(const url of urls)if(url)worker.postMessage({type:'PHOVIET_CACHE_DATA',url:new URL(url,location.href).href});
+  },12000);
 }
 document.addEventListener('visibilitychange',()=>{
   if(document.hidden && unityInstance) unityInstance.SendMessage(gameRoot,'PauseForBrowser');
@@ -243,7 +254,8 @@ window.addEventListener('keydown',e=>{
     $('release-notes').open=true;
     btn.addEventListener('click',async()=>{
       try{const regs=await navigator.serviceWorker?.getRegistrations?.()||[];await Promise.all(regs.map(r=>r.unregister()));}catch(e){}
-      try{const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('phoviet:')).map(k=>caches.delete(k)));}catch(e){}
+      // 21.360: giữ kho dữ liệu game «…:build» (tệp có mã băm, đúng bản thì dùng lại).
+      try{const keys=await caches.keys();await Promise.all(keys.filter(k=>k.startsWith('phoviet:')&&!k.endsWith(':build')).map(k=>caches.delete(k)));}catch(e){}
       location.reload();
     });
   }).catch(()=>{});
