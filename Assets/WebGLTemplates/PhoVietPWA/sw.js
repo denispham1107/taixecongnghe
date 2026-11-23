@@ -55,6 +55,8 @@ self.addEventListener('fetch',event=>{
   const url=new URL(event.request.url);
   if(event.request.method!=='GET'||url.origin!==ROOT.origin||!url.pathname.startsWith(ROOT.pathname))return;
   if(['sw.js','precache.json','build-info.json'].includes(url.pathname.substring(ROOT.pathname.length)))return;
+  // 21.356: trang đăng nhập Google của Firebase (/__/auth/handler, /__/firebase/init.json) phải đi thẳng ra mạng — không trả index.html.
+  if(url.pathname.startsWith('/__/'))return;
   // Register the lifetime promise synchronously, before awaiting network I/O.
   let finishWrite;
   event.waitUntil(new Promise(resolve=>{finishWrite=resolve;}));

@@ -65,7 +65,8 @@ namespace PhoViet.OpenWorld
             Skew(r.center.y);
             if (shadow > 0) Rect0(new Rect(r.x + shadow, r.y + shadow, r.width, r.height), MShadow);
             Rect0(r, new Color(MPanel.r, MPanel.g, MPanel.b, alpha));
-            Rect0(rightBorder ? new Rect(r.xMax - border, r.y, border, r.height) : new Rect(r.x, r.y, border, r.height), accent);
+            // 21.355: border 0 (logo màn chào, 21.350) thì không vẽ vạch — Rect rộng 0 vẫn lọt 4 chấm đỏ ở mép trái khi khối bị nghiêng
+            if (border > 0f) Rect0(rightBorder ? new Rect(r.xMax - border, r.y, border, r.height) : new Rect(r.x, r.y, border, r.height), accent);
             Unskew();
         }
 
@@ -112,11 +113,13 @@ namespace PhoViet.OpenWorld
             Skew(py);
             float tagW = TextW("BẢN ĐỒ MỞ · SÀI GÒN", 17) + 36;
             Rect0(new Rect(x, top, tagW, 40), MRed); TxtL("BẢN ĐỒ MỞ · SÀI GÒN", x + 18, top + 20, 17, MCream);
-            TxtL("LÁI XE QUA", x - 4, top + 56 + 32, 80, MCream);   // 21.327 (+ nâng 8 px nhường ô vàng cao hơn)
-            float bw = TextW("PHỐ QUEN.", 80) + 40, by = top + 140;
-            Rect0(new Rect(x + 10, by - 8, bw, 109), MRed); Rect0(new Rect(x, by - 18, bw, 109), MGold);   // 21.327: ô vàng cao thêm 18 px phía trên — dấu sắc của «Ố» nằm trên mép ô cũ, chữ xanh đậm trên nền tối nên mất
-            TxtL("PHỐ QUEN.", x + 20, by + 44, 80, MNavy);
-            Txt("Trốn CSGT. Tiêu diệt khủng long, xe tăng,\ntrực thăng, tàu trên bản đồ.", x, by + 115, 600, 64, 22, new Color(MCream.r, MCream.g, MCream.b, .82f));   // 21.327
+            TxtL("ĐẠI NÁO", x - 4, top + 56 + 32, 80, MCream);   // 21.350: «LÁI XE QUA» → «ĐẠI NÁO»
+            // 21.350: ô vàng + chữ «PHỐ QUEN.» nhỏ lại (80 → 62); ô cao 88, chữ đặt thấp trong ô (trên tâm 50, dưới 38)
+            // để cả dấu mũ + dấu sắc chồng trên «Ố» nằm trong ô vàng (chữ xanh đậm lọt ra nền tối là mất dấu).
+            float bw = TextW("PHỐ QUEN.", 62) + 34, by = top + 140, ty = by + 48;   // ô hạ 10 điểm: dấu nặng «Ạ» của «ĐẠI» không chạm mép ô
+            Rect0(new Rect(x + 9, ty - 50 + 8, bw, 88), MRed); Rect0(new Rect(x, ty - 50, bw, 88), MGold);
+            TxtL("PHỐ QUEN.", x + 17, ty, 62, MNavy);
+            Txt("Trốn CSGT. Tiêu diệt khủng long, xe tăng,\ntrực thăng, tàu trên bản đồ.", x, by + 104, 600, 64, 22, new Color(MCream.r, MCream.g, MCream.b, .82f));   // 21.327
             Unskew();
 
             float cy = top + 352;
@@ -147,13 +150,14 @@ namespace PhoViet.OpenWorld
 
         void MenuBrand(float x, float y)
         {
-            float w = 8 + 14 + 42 + 13 + Mathf.Max(TextW("GờTa Việt", 25), TextW("CHUYẾN XE KHÔNG NGỪNG", 11)) + 24;
+            // 21.350: bỏ vạch đỏ 8 px trước lá cờ (border 0), dời nội dung sang trái 8 px; khẩu hiệu «VÒNG VÂY RỰC LỬA».
+            float w = 14 + 42 + 13 + Mathf.Max(TextW("GờTa Việt", 25), TextW("VÒNG VÂY RỰC LỬA", 11)) + 24;
             var r = new Rect(x, y, w, 66);
-            SkewPanel(r, MRed, 8, false, 0, .9f);
+            SkewPanel(r, MRed, 0, false, 0, .9f);
             Skew(r.center.y);
-            Flag(new Rect(x + 22, y + 12, 42, 42));
-            TxtL("GờTa Việt", x + 77, y + 25, 25, MCream);
-            TxtL("CHUYẾN XE KHÔNG NGỪNG", x + 78, y + 48, 11, MGold);
+            Flag(new Rect(x + 14, y + 12, 42, 42));
+            TxtL("GờTa Việt", x + 69, y + 25, 25, MCream);
+            TxtL("VÒNG VÂY RỰC LỬA", x + 70, y + 48, 11, MGold);
             Unskew();
         }
 

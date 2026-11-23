@@ -205,6 +205,7 @@ namespace PhoViet.OpenWorld
             Mode = end; EndReason = reason;
             int m = Mathf.FloorToInt(Score);
             if (m > Best) { Best = m; NewBest = true; PlayerPrefs.SetInt(BestKey, Best); PlayerPrefs.Save(); }
+            ReportRunToWeb(m);                                              // 21.356: bảng xếp hạng chung (OpenWorldGame.Leaderboard.cs)
             if (hazards) hazards.enabled = false;
             if (player) player.frozen = true;                               // ẩn nút NHẢY, khóa lái
             if (end == State.GameOver && police) { police.Halt(); police.enabled = false; }

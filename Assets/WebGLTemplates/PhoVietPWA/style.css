@@ -255,3 +255,52 @@ h1 .t2{font-size:clamp(28px,8.2vw,41px);padding-bottom:.22em}
 @media(min-width:701px) and (max-height:620px){h1 .t1{font-size:38px}h1 .t2{font-size:31px}}
 @media(max-width:700px),(max-height:500px){h1 .t1{font-size:31px}h1 .t2{font-size:25px}}
 @media(max-width:360px){h1 .t1{font-size:28px}h1 .t2{font-size:22px}}
+/* 21.356: tài khoản + bảng xếp hạng (account.js) */
+#account-open{color:var(--gold);--tbd:2px solid var(--gold);max-width:200px;--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6'/%3E%3C/svg%3E")}
+#account-open.signed{text-transform:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;line-height:42px}
+#account-open.signed::after{display:none}
+.side{display:grid;gap:18px;align-content:start;min-width:0}
+.ranks{padding:14px 16px 12px}
+.ranks-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ranks-head h2{margin:0}
+#rank-all{padding:4px 14px;font-size:11px;color:var(--navy);--tb:var(--gold)}
+.rank-me{margin:8px 0 6px;font-size:12.5px;line-height:1.5;color:var(--cream);font-weight:600}
+.rank-list{list-style:none;margin:0;padding:0;font-size:13px}
+.rank-list li{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:8px;padding:5px 8px;border-radius:8px}
+.rank-list li:nth-child(odd){background:rgba(252,242,207,.05)}
+.rank-list li.me{background:rgba(245,197,66,.22);outline:1px solid var(--gold)}
+.rank-list li.muted{display:block;color:var(--soft);font-weight:500;background:none}
+.rank-list .no{font-weight:800;color:var(--gold);text-align:center}
+.rank-list li:nth-child(1) .no{color:#ffd23f;font-size:15px}
+.rank-list .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank-list .m{font-variant-numeric:tabular-nums;color:var(--teal);font-weight:700}
+#ranks .rank-list{margin-top:4px}
+.acct-tabs{display:flex;gap:6px;margin:16px 0 12px}
+.acct-tabs button{flex:1;padding:10px;border-radius:10px;background:rgba(252,242,207,.06);color:var(--soft);font-size:13px}
+.acct-tabs button.on{background:var(--gold);color:var(--navy)}
+.acct-form{display:grid;gap:10px}
+.acct-form label{display:grid;gap:5px;font-size:12px;color:var(--soft);font-weight:600}
+.acct-form input{font:inherit;font-size:16px;font-weight:500;padding:10px 12px;border-radius:10px;border:2px solid var(--glass-line);background:#0a1a24;color:var(--cream);width:100%}
+.acct-form input:focus{outline:none;border-color:var(--gold)}
+.acct-form .primary{min-height:52px;font-size:17px;margin-top:6px}
+.linkish{justify-self:start;padding:4px 2px;color:var(--teal);font-weight:600;text-decoration:underline;letter-spacing:0}
+.acct-or{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--soft);font-size:12px}
+.acct-or::before,.acct-or::after{content:"";flex:1;height:1px;background:rgba(51,224,200,.3)}
+.google{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:48px;border-radius:10px;background:#fff;color:#1f1f1f;font-size:14px;letter-spacing:0}
+#acct-in small{color:var(--soft);font-weight:500}
+.rename{grid-template-columns:1fr auto;align-items:end}
+.rename button,#acct-logout{padding:10px 18px;--tb:rgba(10,22,34,.92);--tbd:2px solid var(--teal)}
+#acct-logout{margin-top:14px;--tbd:2px solid var(--red)}
+.acct-msg{min-height:1.4em;margin:12px 0 0!important;color:#ff8a7a!important}
+.acct-msg.ok{color:var(--teal)!important}
+#run-toast{position:fixed;z-index:45;left:50%;transform:translateX(-50%);bottom:calc(var(--safe-bottom) + 14px);width:max-content;max-width:min(560px,calc(100vw - 32px));display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 12px;padding:10px 14px;border-radius:14px;background:rgba(10,22,34,.94);border:2px solid var(--gold);box-shadow:0 8px 30px #000a;font-size:13px;line-height:1.45;text-align:center}
+.toast-actions{display:inline-flex;gap:8px;align-items:center}
+.toast-actions button{padding:5px 12px;font-size:11.5px}
+#toast-ranks{--tb:rgba(51,224,200,.25);--tbd:1px solid var(--teal)}
+#toast-close{padding:2px 8px;font-size:18px;color:var(--soft)}
+@media(max-width:700px),(max-height:500px){
+  #account-open{max-width:130px}#account-open.signed{line-height:32px}
+  .ranks{padding:10px 12px 8px}.rank-list{font-size:11.5px}.rank-list li{grid-template-columns:26px minmax(0,1fr) auto;padding:4px 6px}
+  .rank-me{font-size:11px}.side{gap:12px}
+  #run-toast{font-size:11.5px;padding:7px 10px;bottom:calc(var(--safe-bottom) + 6px)}
+}

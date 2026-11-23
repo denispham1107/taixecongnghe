@@ -50,7 +50,7 @@ namespace PhoViet.Editor
             PlayerSettings.SetIl2CppCodeGeneration(UnityEditor.Build.NamedBuildTarget.WebGL,UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize);
             PlayerSettings.SetIl2CppCompilerConfiguration(UnityEditor.Build.NamedBuildTarget.WebGL,Il2CppCompilerConfiguration.Master);
             SetWasmCodeOptimization("DiskSizeLTO");
-            PlayerSettings.bundleVersion="1.94.0";
+            PlayerSettings.bundleVersion="1.95.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
@@ -165,7 +165,7 @@ namespace PhoViet.Editor
         {
             const string root="Builds/WebGL";
             if(!File.Exists(Path.Combine(root,"index.html")))throw new Exception("Build WebGL first");
-            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-home-mobile.jpg","poster-home-lazer.jpg","poster-home-khien.jpg"})
+            foreach(string file in new[]{"style.css","app.js","account.js","manifest.webmanifest","poster-home-mobile.jpg","poster-home-lazer.jpg","poster-home-khien.jpg"})
                 File.Copy("Assets/WebGLTemplates/PhoVietPWA/"+file,Path.Combine(root,file),true);
             // 21.331: trang chủ mẫu C có dải 8 nút điều khiển (controls/btn-*.png)
             foreach(string dir in new[]{"icons","controls"})

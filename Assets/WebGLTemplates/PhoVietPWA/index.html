@@ -20,7 +20,8 @@
   <header id="toolbar">
     <a class="wordmark tem" href="./" aria-label="Về đầu phố"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="25" height="25" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.7-4.9 4.5 1.4 6.6L12 17.2l-6 3.3 1.4-6.6L2.5 9.4l6.6-.7z" fill="#ffd23f" stroke="#12233a" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span class="brand-text"><b>GờTa Việt</b><small>VÒNG VÂY RỰC LỬA</small></span></a>
     <!-- 21.347: bỏ nút Cách chơi + Toàn màn hình; nút «+» ghi rõ «Tải game», mở hộp chỉ có phần Cài game & chơi offline -->
-    <nav aria-label="Tùy chọn"><button id="install" class="tem" type="button" hidden>Tải game</button></nav>
+    <!-- 21.356: nút tài khoản (Firebase «gotaviet»): «Đăng nhập» hoặc tên người chơi; account.js đổi chữ -->
+    <nav aria-label="Tùy chọn"><button id="account-open" class="tem" type="button">Đăng nhập</button><button id="install" class="tem" type="button" hidden>Tải game</button></nav>
   </header>
   <main id="game">
     <canvas id="unity-canvas" tabindex="0" aria-label="Game GờTa Việt" hidden></canvas>
@@ -58,18 +59,26 @@
               <span><kbd>←</kbd><kbd>→</kbd><kbd>WASD</kbd> LÁI</span><span><kbd>J</kbd> NHẢY</span><span><kbd>F</kbd> TÊN LỬA</span><span><kbd>L</kbd> LAZER</span><span><kbd>K</kbd> KHIÊN</span><span><kbd>SPACE</kbd> PHANH TAY</span><span><kbd>P</kbd> TẠM DỪNG</span>
             </div>
           </div>
+          <div class="side">
+          <!-- 21.356: bảng xếp hạng chung — top 10 kỷ lục mét + hạng của người đang đăng nhập (account.js) -->
+          <section class="glass ranks" id="rank-board" aria-labelledby="rank-title">
+            <div class="ranks-head"><h2 id="rank-title" class="lab">🏆 BẢNG XẾP HẠNG · KỶ LỤC MÉT</h2><button id="rank-all" type="button" class="tem">Top 100</button></div>
+            <p id="rank-me" class="rank-me">Đăng nhập để ghi kỷ lục lên bảng chung và xem hạng của bạn.</p>
+            <ol id="rank-top" class="rank-list"><li class="muted">Đang tải bảng xếp hạng…</li></ol>
+          </section>
           <!-- Bản cập nhật: mỗi lần phát hành sửa ngày + danh sách bên dưới; số phiên bản tự lấy từ bản build (app.js). -->
           <details class="release-notes glass" id="release-notes">
             <summary><span class="release-tag">MỚI</span> Bản cập nhật <b id="release-version">—</b> · <span id="release-date">23/11/2026</span></summary>
             <ul>
-              <li>Sửa lỗi khung chữ nhật trống che phía trên màn hình khi vào game.</li>
-              <li>Game đổi tên thành <b>GờTa Việt</b> (cả tên khi thêm vào màn hình chính / cài trên iPhone, Android, máy tính).</li>
-              <li>Thanh trên gọn hơn: chỉ còn nút <b>Tải game</b>, bấm vào xem cách cài game và chơi offline.</li>
-              <li>Trang chủ mới: khẩu hiệu «Vòng vây rực lửa», tiêu đề «VƯỢT QUA 2000M · NHẬN NGAY 200,000Đ», ô logo cùng màu thanh trên.</li>
-            </ul>
+              <li>Tài khoản GờTa Việt: đăng ký bằng email hoặc Google; mỗi lượt chơi tự ghi kỷ lục lên bảng xếp hạng chung, xem hạng của bạn ngay trên trang chủ.</li>
+              <li>Game chuyển sang địa chỉ mới gotaviet.web.app.</li>
+              <li>Bị CSGT bắt: nhân vật trong phòng giam bị còng hai tay bằng còng xích.</li>
+              <li>Màn chào trong game: «ĐẠI NÁO PHỐ QUEN», khẩu hiệu «Vòng vây rực lửa», logo gọn hơn.</li>
+              <li>Trang chủ và tên ứng dụng mới «GờTa Việt»; thanh trên chỉ còn nút Tải game.</li>
             </ul>
             <p id="release-check" class="release-check" hidden></p>
           </details>
+          </div>
         </div>
         <h2 class="section-title"><span class="tem"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z" fill="#f5c542" stroke="#12233a" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span>ẢNH TRONG GAME</span><i aria-hidden="true"></i></h2>
         <div class="street-gallery" aria-label="Hình ảnh GờTa Việt">
@@ -109,6 +118,35 @@
     <div class="guide-heading"><h3 id="install-title">Cài game &amp; chơi offline</h3><button id="close-install" class="close tem" aria-label="Đóng">×</button></div>
     <p><b>Android / Chrome / Edge:</b> chọn “Cài ứng dụng” hoặc mục cài đặt trong menu trình duyệt.</p><p><b>iPhone / iPad:</b> mở bằng Safari → Chia sẻ → Thêm vào Màn hình chính → bật “Mở dưới dạng ứng dụng web” nếu có → Thêm.</p><p>Lần đầu cần mạng để tải game. Khi thông báo “Đã lưu để chơi offline” xuất hiện, bạn có thể mở lại trên máy này khi mất mạng.</p>
   </dialog>
+  <!-- 21.356: tài khoản + bảng xếp hạng (account.js). Đăng nhập/đăng ký CHỈ ở trang chủ — đang chơi game không có nút/hộp đăng nhập (người dùng 23/11/2026). -->
+  <dialog id="account" aria-labelledby="account-title">
+    <div class="guide-heading"><h3 id="account-title">Tài khoản GờTa Việt</h3><button id="close-account" class="close tem" type="button" aria-label="Đóng">×</button></div>
+    <div id="acct-out">
+      <div class="acct-tabs" role="tablist"><button type="button" id="tab-login" role="tab" class="on">Đăng nhập</button><button type="button" id="tab-signup" role="tab">Đăng ký</button></div>
+      <form id="acct-form" class="acct-form" novalidate>
+        <label id="row-name" hidden>Tên hiển thị trên bảng xếp hạng<input id="acct-name" maxlength="24" autocomplete="nickname" placeholder="VD: Quân Siêu Tốc"></label>
+        <label>Email<input id="acct-email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required></label>
+        <label>Mật khẩu<input id="acct-pass" type="password" autocomplete="current-password" minlength="6" required placeholder="Ít nhất 6 ký tự"></label>
+        <button id="acct-submit" class="primary tem" type="submit">ĐĂNG NHẬP</button>
+        <button id="acct-forgot" class="linkish" type="button">Quên mật khẩu?</button>
+      </form>
+      <div class="acct-or"><span>hoặc</span></div>
+      <button id="acct-google" class="google" type="button"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.3-2.1 3.5-5.2 3.5-8.8z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.3v3.1A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.3 14.3a7.2 7.2 0 0 1 0-4.6V6.6H1.3a12 12 0 0 0 0 10.8z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.3 6.6l4 3.1c.9-2.8 3.6-4.9 6.7-4.9z"/></svg>Đăng nhập bằng Google</button>
+    </div>
+    <div id="acct-in" hidden>
+      <p>Đang đăng nhập: <b id="acct-who"></b> <small id="acct-mail"></small></p>
+      <p id="acct-best"></p>
+      <form id="rename-form" class="acct-form rename"><label>Đổi tên hiển thị<input id="rename" maxlength="24" autocomplete="nickname"></label><button class="tem" type="submit">Lưu tên</button></form>
+      <button id="acct-logout" class="tem" type="button">Đăng xuất</button>
+    </div>
+    <p id="acct-msg" class="acct-msg" role="status" aria-live="polite"></p>
+  </dialog>
+  <dialog id="ranks" aria-labelledby="ranks-title">
+    <div class="guide-heading"><h3 id="ranks-title">🏆 Bảng xếp hạng · Top 100</h3><button id="close-ranks" class="close tem" type="button" aria-label="Đóng">×</button></div>
+    <p id="ranks-me" class="rank-me"></p>
+    <ol id="ranks-list" class="rank-list"></ol>
+  </dialog>
+  <div id="run-toast" role="status" aria-live="polite" hidden><span id="run-toast-text"></span><span class="toast-actions"><button id="toast-ranks" class="tem" type="button">Xem bảng</button><button id="toast-close" type="button" aria-label="Đóng">×</button></span></div>
   <script>
     window.PHO_VIET_BUILD={
       loaderUrl:"Build/{{{ LOADER_FILENAME }}}",
@@ -121,5 +159,6 @@
     };
   </script>
   <script src="app.js" defer></script>
+  <script type="module" src="account.js"></script>
 </body>
 </html>

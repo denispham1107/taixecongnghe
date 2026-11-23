@@ -39,7 +39,7 @@ Cập nhật toàn diện: **24/10/2026**, múi giờ **Asia/Bangkok**; kế th�
 | Thư mục đang làm việc | `C:\Users\HP\Documents\GameUnity\Taixecongnghe` |
 | GitHub | <https://github.com/denispham1107/taixecongnghe> |
 | Nhánh | `main` |
-| Bản chơi công khai | <https://denispham1107.github.io/taixecongnghe/> |
+| Bản chơi công khai | **<https://gotaviet.web.app/>** (Firebase Hosting, từ 21.356 / 1.95.0). Địa chỉ cũ <https://denispham1107.github.io/taixecongnghe/> chỉ còn tự chuyển hướng |
 | Unity Editor | **6000.5.6f1**, cần module Web Build Support để build WebGL |
 | Scene chính | `Assets/PhoViet/Scenes/PhoViet.unity` |
 | Phiên bản game đã phát hành | **1.49.0** — thayđổi21.94/chi tiết phát hành21.95 |
@@ -290,7 +290,7 @@ Taixecongnghe/
 ├─ Captures/                          # Báo cáo, JSON kiểm tra, ảnh bằng chứng
 ├─ Packages/                          # Package manifest và lock
 ├─ ProjectSettings/                   # Cấu hình Unity, scene build, input, version
-├─ docs/                              # WebGL đã build, GitHub Pages phát hành từ đây
+├─ docs/                              # 21.356: chỉ còn trang chuyển hướng sang gotaviet.web.app (trước: WebGL đã build cho GitHub Pages)
 ├─ .github/workflows/pages.yml         # Deploy artifact docs, không build Unity trên CI
 └─ Builds/                            # Build cục bộ, bị gitignore
 ```
@@ -1026,6 +1026,8 @@ Trong automation, touch quá nhanh có thể đi qua giữa hai frame Unity soft
 Các kiểm tra điện thoại/iOS bằng browser profile là **mô phỏng layout/cảm ứng**, chưa phải thử trên phần cứng iPhone/iPad/Android thật. Chưa xác nhận FPS, nhiệt máy, mọi phiên bản iOS, âm lượng/gesture audio và thanh hệ thống trên mọi thiết bị. Không tuyên bố đã test máy thật chỉ từ tên profile Playwright.
 
 ## 15. Build WebGL và phát hành GitHub Pages
+
+> **21.356: phát hành đã chuyển sang Firebase Hosting** (`firebase deploy --only hosting --project gotaviet` từ `Builds/WebGL`, xem mục 21.356). Phần đóng gói `docs/` + `PublishWebArtifact.py` + Pages bên dưới là quy trình cũ đến 1.94.0.
 
 ### 15.1. Cấu hình đang dùng
 
@@ -6452,6 +6454,108 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - cỡ tiêu đề nhỏ hơn 21.347: điện thoại (≤700 px hoặc màn thấp) `.t1` 36 → 31 px, `.t2` 30 → 25 px; ≤360 px 28/22 px; màn thấp > 700 px 38/31 px; máy tính ≥1000 px `.t1` `clamp(56px,5.4vw,78px)`, `.t2` `clamp(46px,4.5vw,64px)`; mặc định `clamp(34px,10vw,50px)` / `clamp(28px,8.2vw,41px)`;
   - `.t2` đệm dưới `.22em` để dấu nặng của «Ậ» nằm trong khối vàng (đệm trên `.36em` của 21.347 giữ cho dấu mũ).
 - **Kiểm tra (trình duyệt trong app, bản tạm từ template):** máy tính, 430 × 932, 360 × 780 (`.t1` phải tới 344 px, không cuộn ngang), 932 × 430 ngang: hai dòng tiêu đề vừa, đủ dấu, ô logo cùng nền thanh trên.
-- **Chưa đổi trong game** (người dùng chỉ yêu cầu website): màn chào trong game vẫn ghi «CHUYẾN XE KHÔNG NGỪNG» dưới logo và «LÁI XE QUA / PHỐ QUEN.» (`OpenWorldGame.Menus.cs`); đổi thì phải build lại Unity.
+- **Chưa đổi trong game ở 21.349 — đã đổi ở 21.350** (khẩu hiệu «Vòng vây rực lửa», tiêu đề «ĐẠI NÁO / PHỐ QUEN.»). Lúc 21.349 người dùng chỉ yêu cầu website: màn chào trong game vẫn ghi «CHUYẾN XE KHÔNG NGỪNG» dưới logo và «LÁI XE QUA / PHỐ QUEN.» (`OpenWorldGame.Menus.cs`); đổi thì phải build lại Unity.
 - **Phát hành:** vỏ web mới trên bản build 1.94.0 (`AgentScripts/Shell21348.cs` → `RefreshWebShell`, không build lại), cache `b51a1244a5da7111`. Bản cập nhật trang chủ: dòng «PHỐ QUEN rõ dấu» thay bằng «Trang chủ mới: khẩu hiệu Vòng vây rực lửa, tiêu đề VƯỢT QUA 2000M · NHẬN NGAY 200,000Đ, ô logo cùng màu thanh trên». `docs` đóng gói lại, materialize 39/39 khớp.
 - **Đã lên web:** commit `f3576ef`, Pages run `45186552444` thành công; live 39/39 khớp (`sw.js` chỉ khác kiểu xuống dòng), cache `b51a1244a5da7111`.
+
+## 21.350. Trong game: «ĐẠI NÁO PHỐ QUEN», khẩu hiệu «Vòng vây rực lửa», bỏ vạch đỏ logo, còng tay xích khi bị bắt, bong bóng thoại mở màn — web 1.95.0 (23/11/2026, Claude Code)
+
+- **Yêu cầu người dùng (ảnh màn chào + phòng giam trong game):**
+  - «Chuyến xe không ngừng» → «Vòng vây rực lửa» cả trong game;
+  - «LÁI XE QUA» → «ĐẠI NÁO»;
+  - ô vàng «PHỐ QUEN» nhỏ lại, chữ nhỏ lại để «PHỐ» không mất dấu;
+  - bỏ thanh đỏ phía trước lá cờ ở logo «GờTa Việt» (màn chào);
+  - bị CSGT bắt: hai tay người chơi bị còng bằng còng xích to;
+  - vừa bắt đầu: bong bóng hộp thoại kiểu truyện tranh trên xe người chơi «Ta là siêu trộm chó.Thách bắt được ta !» 3 giây, có hiệu ứng hiện và biến mất; biến mất xong game mới bắt đầu.
+- **Màn chào (`OpenWorldGame.Menus.cs`):**
+  - `ReadyScreen`: dòng 1 «ĐẠI NÁO» (80); ô vàng «PHỐ QUEN.» chữ 80 → 62, ô cao 109 → 88, chữ đặt thấp trong ô (tâm chữ `ty = by + 48`, ô từ `ty − 50`), bóng đỏ lệch 9/8; mô tả dời lên `by + 104`. Lần đầu đặt `ty = by + 38` thì dấu nặng «Ạ» của «ĐẠI» chạm mép trên ô vàng (kem trên vàng, khó thấy) → hạ thêm 10 điểm. Play 1920 × 1080: dấu nặng «Ạ», dấu mũ + sắc «Ố» đều rõ.
+  - `MenuBrand`: `SkewPanel(r, MRed, 0, …)` (bỏ vạch đỏ 8 px), dời cờ + chữ sang trái 8 px, chữ phụ «VÒNG VÂY RỰC LỬA». Scene cũ `PhoVietGame.cs` cũng đổi khẩu hiệu.
+- **Còng tay (ảnh phòng giam):** ảnh `Resources/Jail/JailWide.jpg` (1440 × 900) và `JailTall.jpg` (810 × 1200) là render tĩnh từ `ArtSource/Blender/PhoViet_Jail.blend` (render lại bản gốc khớp ảnh cũ, sai khác trung bình 1,3/255 do JPEG).
+  - Script mới `ArtSource/Blender/pho_viet_jail_cuffs.py`, chạy **Blender nền** (`blender -b PhoViet_Jail.blend --python pho_viet_jail_cuffs.py -- <thư mục ra> [save]`; Blender MCP lúc đó không mở). Không ghi đè `PhoViet_Jail.blend`; `save` lưu bản mới `ArtSource/Blender/PhoViet_Jail_CongTay.blend` (chỉ ở máy, không commit `.blend` mới).
+  - Tư thế: xoay xương `ForeArm`/`Hand` hai bên đưa cổ tay vào trước bụng, cách tâm ±0,085 m.
+  - Còng: bán kính cổ tay đo trên lưới đã biến dạng (lát ±6 mm quanh tâm còng, phân vị 70 %: trái 0,031 m, phải 0,035 m) → vòng thép bán kính = cổ tay + 3 mm khe + 5,5 mm, dày 11 mm + vành trong tối; ổ khóa nhỏ ở nửa trên phía trong; **xích 4 mắt nối ngang giữa hai ổ khóa** (mắt dài hơn bước 38 % để móc chồng). Thép `Metallic .75` (EEVEE không có probe, kim loại 1,0 phản chiếu phòng tối thành đen).
+  - Lần 1–3 người dùng thấy sai: vòng quá to so với cổ tay và xích võng phía dưới → người dùng vẽ nét xanh nối giữa hai còng phía trên → sửa theo (đo bán kính cổ tay, xích ngang). Ảnh xem thử `Captures/cong-tay-21350.jpg` (đã gửi).
+  - Xuất JPEG chất lượng 92, giữ `.meta`.
+- **Bong bóng thoại mở màn (ĐÃ XÓA HẲN ở 21.354 theo người dùng):**
+  - Hình: `ArtSource/Concepts/BongBong-20261123/bong-bong-thoai.svg` (kiểu tem đua: nền kem, viền `#12233a` 14 px, bóng đỏ `#ea4436` lệch 18 px, đuôi chỉ xuống tại (370, 612), nét tốc độ vàng, chấm halftone) → Chrome headless nền trong suốt → `Assets/PhoViet/Resources/Intro/BongBongThoai.png` 1024 × 640 (không mipmap, Clamp, alpha trong suốt). `xem-thu.jpg` ghép thử trên ảnh trang chủ.
+  - Mã: `OpenWorldGame.State` thêm `Intro` (cuối enum). `StartRun()` (LÊN XE THÔI, CHƠI LẠI, Enter/Space/R) giờ: thời tiết như cũ, dọn hiểm họa + tắt, CSGT `ResetChase(true)` + `Halt` + tắt (đưa xe về chỗ xuất phát như `GoReady`), xe `frozen`, `Mode = Intro`. `Update` → sau `IntroDur` = 3 s + 0,32 s gọi `BeginRiding()` (thân `StartRun` cũ: `weather.BeginRun`, bật hiểm họa, CSGT, mở khóa xe, `Runs++`). Trong Intro không vẽ HUD, nút cảm ứng ẩn (xe `frozen`), Lazer/Khiên/sét không gây hại (đều kiểm `Mode == Riding`).
+  - Vẽ: file mới `OpenWorldGame.Intro.cs` `IntroBubble()`: đặt đuôi bong bóng ở điểm chiếu của xe + 1,55 m, rộng 34 % màn ngang (80 % màn dọc, 360–560 điểm), giữ trong vùng an toàn; hiện 0,38 s `easeOutBack` + mờ dần vào, nhún nhẹ khi giữ, nghiêng −2°; biến mất 0,32 s phồng 1,1× rồi xẹp + mờ, 8 cục bụi kem viền xanh văng ra. Chữ bằng font Be Vietnam Pro của game: «Ta là siêu trộm chó.» xanh đậm, «Thách bắt được ta !» đỏ to hơn.
+  - Mỗi lần bắt đầu lượt đều có bong bóng (cả CHƠI LẠI).
+- **Hình bong bóng 21.350 (kem đục, rộng 34 %) đã thay bằng kiểu A «Kính HUD» ở 21.352** (người dùng chê to, che cảnh).
+- **Kiểm tra Play** (`AgentScripts/Intro21350.cs`: Editor tạm dừng, bước khung với camera `cullingMask = 0`, bật lại trước khi chụp): t = 0,22 s bong bóng bật ra; 1,64 s đủ chữ, đuôi chỉ đúng xe (`Captures/intro21350-hien.png`); 3,22 s đang xẹp + bụi (`intro21350-bien.png`); 3,36 s `Riding`, xe hết `frozen`, CSGT `Waiting` (đếm ngược xuất phát chạy sau bong bóng). Phòng giam hiện ảnh còng mới. Lưu ý: sửa mã khi đang Play làm Unity nạp lại mã → `showSpeed`/`showDistance` về mặc định nên ảnh thử có chữ «0 km/h», «CSGT 38 m» lạ — không có trong bản build.
+- **Bản cập nhật trang chủ 1.95.0:** bong bóng mở màn, còng tay xích, màn chào «ĐẠI NÁO PHỐ QUEN» + «Vòng vây rực lửa», tên «GờTa Việt» + nút Tải game.
+- **Build: người dùng bảo chưa cần build, bỏ build.** Số phiên bản trong mã đã là 1.95.0 (`PhoVietWebBuild.cs` + `ProjectSettings.asset`) và `ReleaseBuild.Prepare` đã «ready 1.95.0»; `BuildNow` đang chạy trong Unity lúc người dùng dừng (chặn luồng chính, MCP không hủy được). **Không đóng gói `docs`, không commit/push/phát hành.** Web vẫn là 1.94.0 vỏ 21.349. Khi người dùng muốn phát hành: `Prepare` tới «ready 1.95.0» → `BuildNow` → `docs` + pack/materialize → commit/push.
+
+## 21.351. Bốn kiểu bong bóng thoại mở màn mới (nhỏ, trong suốt) (23/11/2026, Claude Code) — ĐÃ XÓA ở 21.354
+
+- **Phản hồi người dùng về bong bóng 21.350** (ảnh trong game): chưa hợp phong cách game, quá to, không trong suốt nên che hết cảnh phía sau → vẽ lại vài kiểu hợp phong cách hơn, **đợi duyệt mới cho vào game**.
+- **Build 1.95.0 của 21.350 đã bị hủy** trong Unity (`Builds/release-1.95.0-status.json`: «Web build failed: Cancelled»); web vẫn 1.94.0 (vỏ 21.349). `Builds/WebGL` có thể dở — build lại trước khi đóng gói.
+- **Mẫu:** `ArtSource/Concepts/BongBong-20261123/mau/mau.html?k=A|B|C|D` (SVG, font Be Vietnam Pro của game, khung 640 × 300 = gấp đôi cỡ thật, đuôi chỉ xuống tại 230, 290) → Chrome headless nền trong suốt → `mau-A..D.png`. `ghep.py` ghép lên ảnh game điện thoại ngang `poster-home-mobile.jpg` (2778 × 1284) với chiều rộng **24 % màn hình** (bản 21.350 là 34 %, tức nhỏ hơn ~30 %), đuôi chạm nóc xe → `so-sanh-bong-bong.jpg` (bản hiện tại + A–D + cả màn hình kiểu A) và `toan-man-A..D.jpg`.
+  - **A «Kính HUD»:** kính tối trong suốt ~72–78 % như thanh thông tin/thẻ thông báo trong game, viền xanh ngọc mảnh, vạch vàng bên trái, dòng 1 kem, dòng 2 vàng.
+  - **B «Tem đua nghiêng»:** khối tối nghiêng −11° (76 %) như menu «Tem đua», vạch đỏ trái, dải ca-rô mờ dưới, chữ nghiêng; đuôi tính lại để sau khi nghiêng vẫn chạm nóc xe, chữ dời khỏi vạch đỏ.
+  - **C «Viền neon đỏ»:** kính tối ~60–66 % + viền neon cam đỏ phát sáng như nút TÊN LỬA, dòng 2 chữ cam đỏ sáng.
+  - **D «Truyện tranh gọn»:** bong bóng kem trong 82 %, viền xanh đậm mảnh 5, bóng đỏ nhạt — giữ chất truyện tranh nhưng gọn và nhìn xuyên được.
+- **Chưa đổi trong game:** mã 21.350 (`OpenWorldGame.Intro.cs`, `Resources/Intro/BongBongThoai.png`) vẫn là bản cũ. Khi người dùng chọn: xuất kiểu được chọn (có thể vẽ sẵn chữ hoặc để Unity vẽ chữ), thay texture, sửa tỉ lệ rộng 34 % → 24 % và vị trí chữ trong `IntroBubble()`, Play thử rồi mới build.
+
+## 21.352. Bong bóng thoại kiểu A «Kính HUD» vào game: bỏ vạch vàng, nhỏ hơn (23/11/2026, Claude Code) — ĐÃ XÓA ở 21.354
+
+- **Người dùng chọn kiểu A (21.351)**, yêu cầu nhỏ hơn chút nữa và bỏ vạch vàng bên ngoài (bên trái).
+- **Hình:** thêm `A2` (chỉ khung, không vạch vàng, không chữ) và `A2t` (có chữ canh giữa, xem thử) vào `ArtSource/Concepts/BongBong-20261123/mau/mau.html`; tham số `z` phóng khung SVG. Xuất `mau.html?k=A2&z=1.6` → `khung-A2-1024.png` 1024 × 480, nền trong suốt (thân kính ~70–78 %), đỉnh đuôi (368, 464) → thay `Assets/PhoViet/Resources/Intro/BongBongThoai.png` (giữ `.meta`: không mipmap, Clamp, DXT5).
+- **Mã `OpenWorldGame.Intro.cs` `IntroBubble()`:** rộng 20 % màn ngang (60 % màn dọc), kẹp 240–400 điểm (21.350: 34 %, 360–560); tỉ lệ 1024 × 480, đuôi theo (368, 464); bỏ nghiêng −2°; chữ canh giữa theo khung SVG 640 × 300 (tâm dòng 1 ≈ 88, dòng 2 ≈ 152, cỡ 42/52 quy theo bề rộng), dòng 1 kem `MCream`, dòng 2 vàng `MGold`; bụi khi biến mất đổi sang kính tối viền xanh ngọc. Hiệu ứng hiện/biến và 3 s + 0,32 s giữ như 21.350.
+- **Kiểm tra Play 1920 × 1080** (`AgentScripts/Intro21350.cs`, camera `cullingMask = 0` khi bước khung): 1,54 s bong bóng nhỏ trong suốt trên xe, thấy đường/xe phía sau, chữ đủ dấu (`Captures/intro21352-kinh.png`); 3,24 s đang mờ + bụi (`intro21352-bien.png`); 3,36 s vào `Riding`. Ảnh ghép `Captures/bong-bong-A-21352.jpg` (đã gửi).
+- **Chưa build/phát hành** (người dùng: chưa cần build). Số 1.95.0 vẫn trong mã; build 1.95.0 trước đã bị hủy.
+
+## 21.353. Bong bóng thoại: còn 15 % màn hình, hạ sát nóc xe, giữ 2 giây (23/11/2026, Claude Code) — ĐÃ XÓA ở 21.354
+
+- **Người dùng:** nhỏ thêm 5 % (hỏi lại: chọn «còn 15 % màn hình» thay vì 19 %), dịch xuống một chút, bật ra và giữ khoảng 2 giây thay vì 3; tan xong là vào lượt chơi.
+- **`OpenWorldGame.Intro.cs`:** `IntroHold` 3 → 2 s (`IntroDur` = 2,32 s); điểm neo đuôi `player + 1,2 m` (trước 1,55 m) → đuôi chạm sát nóc xe; rộng `uiW × 0,15` màn ngang / `× 0,45` màn dọc, kẹp 180–300 điểm (trước 20 %, 240–400). Chữ, khung, hiệu ứng hiện/tan giữ như 21.352.
+- **Kiểm tra Play 1920 × 1080:** 1,24 s bong bóng nhỏ ngay trên nóc xe (`Captures/intro21353-kinh.png`); 2,18 s đang tan (`intro21353-bien.png`); 2,36 s vào `Riding`. Ảnh ghép `Captures/bong-bong-A-21353.jpg` (đã gửi). Trên điện thoại ngang chữ dòng trên còn khoảng 9 px CSS — người dùng đã chọn cỡ này.
+- **Chưa build/phát hành.**
+
+## 21.354. Xóa hẳn cơ chế bong bóng thoại mở màn (23/11/2026, Claude Code)
+
+- **Người dùng:** «Xóa bỏ hoàn toàn cơ chế bong bóng hội thoại, không cần nữa, xóa bỏ luôn chứ không cần cho ẩn».
+- **Đã xóa (21.350–21.353):**
+  - `Assets/PhoViet/Scripts/OpenWorld/OpenWorldGame.Intro.cs` (+ `.meta`), thư mục `Assets/PhoViet/Resources/Intro/` (`BongBongThoai.png`) + `Intro.meta`;
+  - `OpenWorldGame.cs` đưa về đúng bản đã commit (`git checkout`, chỉ khác phần bong bóng): enum `State` không còn `Intro`, `StartRun()` vào lượt ngay như trước (không còn `BeginRiding`, `introAt`);
+  - script thử `AgentScripts/Intro21350.cs`, thư mục mẫu `ArtSource/Concepts/BongBong-20261123/` (SVG, 4 kiểu, bảng so sánh), ảnh thử `Assets/Captures/intro2135*`, `Captures/bong-bong-A-2135*.jpg` (đều chưa commit);
+  - dòng bong bóng trong khung «Bản cập nhật» của `index.html`.
+- **Giữ nguyên các thay đổi khác của 21.350:** màn chào «ĐẠI NÁO / PHỐ QUEN.» ô vàng nhỏ, «VÒNG VÂY RỰC LỬA», bỏ vạch đỏ logo (`OpenWorldGame.Menus.cs`), còng tay xích trong ảnh phòng giam. Số 1.95.0 vẫn trong mã.
+- **Kiểm tra:** biên dịch không lỗi; Play: `StartRun()` → `Riding` ngay, xe không `frozen`, `State` = Ready/Riding/Paused/Jailed/GameOver, không còn hàm `IntroBubble` và texture `Intro/BongBongThoai`; console sạch.
+- Các mục 21.350 (phần bong bóng), 21.351, 21.352, 21.353 chỉ còn là lịch sử.
+- **Dấu vết build 1.95.0 bị hủy — đã dọn (người dùng cho phép):** 148 tệp `.meta` texture đổi đúng một dòng `textureFormat` (WebGL DXT 12 → ETC2 47, pha gói điện thoại của `PhoVietWebMemorySettings` chưa trả về khi bấm Cancel) đã `git checkout` về bản commit; xóa tệp tạm `Assets/Resources/PerformanceTestRunInfo*.json` + `Assets/Resources.meta` (gói performance-testing tạo lúc build); `AssetDatabase.Refresh` → `PV_MeshyContainer_Normal` WebGL = DXT5.
+
+## 21.355. Logo màn chào trong game: xóa 4 chấm đỏ ở mép trái (23/11/2026, Claude Code)
+
+- **Người dùng (ảnh logo «GờTa Việt / VÒNG VÂY RỰC LỬA» trong game):** xóa 4 dấu chấm màu đỏ.
+- **Nguyên nhân (lỗi của 21.350):** bỏ vạch đỏ bằng `SkewPanel(r, MRed, 0, …)` nhưng `SkewPanel` vẫn gọi `Rect0` với rect rộng 0; khi khối nghiêng −11°, `GUI.DrawTexture` vẫn lọt vài điểm đỏ dọc mép trái (thấy rõ ở ảnh Play 2778 × 1284 phóng to).
+- **Sửa `OpenWorldGame.Menus.cs` `SkewPanel`:** chỉ vẽ vạch nhấn khi `border > 0`. Các khối khác (border 8/11…) không đổi.
+- **Kiểm tra Play 2778 × 1284:** logo chỉ còn khung tối + cờ + chữ, không còn chấm đỏ (`Assets/Captures/logo21355.png` trước, `logo21355b.png` sau — ảnh chỉ ở máy).
+- Chưa build/phát hành (gộp vào 1.95.0).
+
+## 21.356. Firebase «gotaviet»: tài khoản người chơi, bảng xếp hạng chung, host game tại https://gotaviet.web.app/ — web 1.95.0 (23/11/2026, Claude Code)
+
+- **Người dùng:** mở Firebase cho đăng nhập, tạo dự án tên `gotaviet`; người chơi đăng ký/đăng nhập trên trang chủ; mỗi lượt chơi xong ghi điểm + tên lên bảng xếp hạng chung, ai cũng thấy và biết hạng của mình; host toàn bộ game trên Firebase ở `https://gotaviet.web.app/`, không build trên GitHub nữa. Người dùng chọn (hỏi bằng lựa chọn): **Email + mật khẩu và nút Google**; điểm = **kỷ lục mét xa nhất**; **khách vẫn chơi được nhưng không lên bảng**; trang GitHub cũ **tự chuyển sang trang mới**; **nâng gói Blaze** (Spark chỉ cho 360 MB/ngày tải từ Hosting ≈ 3 người chơi mới/ngày — người dùng tự nhập thẻ thanh toán).
+- **Firebase (tài khoản Google của người dùng, Firebase CLI 15.22.3 đã đăng nhập sẵn trên máy):**
+  - Dự án `gotaviet` (tên hiển thị «GoTa Viet», số dự án 94356168371), `firebase projects:create`. Không bật Analytics.
+  - Ứng dụng web `1:94356168371:web:829d8d8dbc80d655059ac6` (`firebase apps:create web`); cấu hình (khóa API web công khai) nằm trong `account.js`.
+  - Firestore `(default)`, **asia-southeast1 (Singapore)**, Standard, chế độ production (tạo trên console). Luật `firestore.rules` (đẩy bằng `firebase deploy --only firestore:rules`): `scores/{uid}` ai cũng đọc; chỉ chính chủ ghi; khóa chỉ được `name`(1–24 ký tự)/`best`(số nguyên 0–2.000.000)/`runs`/`updatedAt`(= `request.time`); `best` và `runs` không được giảm.
+  - Authentication: Email/Password + Google (tên công khai «GờTa Việt», email hỗ trợ của chủ dự án). OAuth web client (Google Cloud → Credentials) thêm nguồn `https://gotaviet.web.app` và chuyển hướng `https://gotaviet.web.app/__/auth/handler` để `authDomain` = chính tên miền trang (đăng nhập Google chạy cả khi Safari chặn cookie bên thứ ba).
+  - Hosting: site mặc định `gotaviet` → `https://gotaviet.web.app/`. `firebase.json` ở gốc repo: `public` = `Builds/WebGL` (deploy thẳng bản build, không còn qua `docs/`), bỏ tệp ẩn (`.nojekyll`); `Cache-Control`: mặc định `no-cache`, `Build/**` (tên có băm) `max-age=31536000, immutable`, ảnh/font 1 ngày, `sw.js` `no-store`. `.firebaserc` default `gotaviet`.
+- **Trang chủ (`Assets/WebGLTemplates/PhoVietPWA/`):**
+  - `account.js` (module mới, nạp sau `app.js`): Firebase JS SDK 12.3.0 từ gstatic (tải khi trang rảnh; mất mạng thì game vẫn chạy, phần tài khoản báo cần mạng). Đăng ký (tên hiển thị + email + mật khẩu ≥ 6), đăng nhập, quên mật khẩu (thư tiếng Việt, `languageCode='vi'`), Google (popup; ứng dụng đã cài → `signInWithRedirect`), đổi tên, đăng xuất. Lỗi Firebase dịch sang tiếng Việt.
+  - Bảng xếp hạng: thẻ kính «🏆 BẢNG XẾP HẠNG · KỶ LỤC MÉT» trong `.board` (cột phải, trên «Bản cập nhật», bọc `div.side`) — top 10 + dòng «Bạn (tên): hạng #N / M người · kỷ lục X m», nút «Top 100» mở hộp `#ranks`. Hạng = số người kỷ lục cao hơn + 1 (`getCountFromServer`), đồng điểm cùng hạng; dòng của mình tô vàng.
+  - Thanh trên: nút `#account-open` «Đăng nhập» (viền vàng) → hiện tên người chơi khi đã đăng nhập; hộp `#account` (thẻ Đăng nhập/Đăng ký, nút Google trắng).
+  - **Đăng nhập/đăng ký CHỈ ở trang chủ web (người dùng sửa ý giữa chừng: «không cho đăng nhập đăng ký trong game»).** Khi game đã mở (`#unity-canvas` hiện), `account.js` ẩn `#account-open` (MutationObserver trên thuộc tính `hidden`), đóng hộp `#account` nếu đang mở và `openAccount()` không làm gì. Thông báo hết lượt không có nút đăng nhập.
+  - Hết lượt: thông báo `#run-toast` đáy màn hình game, tự tắt sau 9 s — đã đăng nhập: «KỶ LỤC MỚI! Lượt này X m · Kỷ lục Y m · Hạng #N» + «Xem bảng»; khách: «Lượt này X m. Đăng nhập ở trang chủ để ghi kỷ lục lên bảng xếp hạng chung.». Kỷ lục lượt khách giữ ở `localStorage` `gota:pendingBest` và tự gửi khi đăng nhập/đăng ký ở trang chủ; gửi lỗi (mất mạng, 12 s) cũng giữ lại để gửi sau.
+  - Ghi nhận khi thử: Unity WebGL bắt mọi phím trên cửa sổ → ô nhập HTML mở đè lên game đang chạy không gõ được chữ. Không còn ô nhập nào trong game nên không cần xử lý; nếu sau này thêm ô nhập khi game chạy phải chặn phím ở pha capture của `window` trước khi tới Unity.
+  - `sw.js`: không chặn `/__/` (trang đăng nhập Google của Firebase) — trước đây mọi điều hướng cùng nguồn trả `index.html` trong bộ nhớ đệm.
+  - `index.html`: bỏ thẻ `</ul>` thừa trong «Bản cập nhật»; ghi chú bản 1.95.0 thêm 2 dòng (tài khoản/bảng xếp hạng, địa chỉ mới).
+- **Game:** `OpenWorldGame.Leaderboard.cs` (mới) + `EndRun` gọi `ReportRunToWeb(m)` → jslib `GotaRunEnded(metres, best)` (`PhoVietWeb.jslib`) → `window.gotaRunEnded`. Game không biết gì về tài khoản; Editor bỏ qua.
+- **Thử trên máy (vỏ trang chủ chạy tại localhost, Chrome):** đọc bảng rỗng từ Firestore; lượt khách 345 m → thông báo mời đăng nhập + lưu chờ; đăng ký tài khoản thử → 345 m tự gửi đúng tên «Thử Nghiệm», hạng #1; lượt 1.234 m rồi 500 m → «Lượt này 500 m · Kỷ lục 1.234 m · Hạng #1», bảng + Top 100 hiển thị đúng; đăng xuất. Đã xóa điểm thử (`firebase firestore:delete scores`) và tài khoản thử trên console.
+- **Build 1.95.0** (`ReleaseBuild.Prepare` → «ready 1.95.0» → `BuildNow`, 1.505 s, `stripped` 3.356): gói điện thoại `d100fba1….data.unityweb` 105,9 MB, máy tính `3371d849….data.unityweb` 121,8 MB; `gotaRunEnded` có trong framework. Vỏ sửa sau build bằng `AgentScripts/Shell21356.cs` → `RefreshWebShell` (đã thêm `account.js` vào danh sách tệp chép của `RefreshWebShell`) → **cache `687ec80097aae6bb`**, 39 tệp.
+- **Thử bản build thật ở localhost (Chrome):** trang chủ có nút Đăng nhập + bảng xếp hạng; vào game nút ẩn; đứng yên cho CSGT bắt → phòng giam còng tay xích, `window.gotaRunEnded` được gọi («Lượt này 0 m. Đăng nhập ở trang chủ…», không có nút đăng nhập).
+- **Phát hành Firebase Hosting:** `firebase deploy --only hosting` (từ `Builds/WebGL`) → <https://gotaviet.web.app/>. Kiểm live: **39/39 tệp khớp SHA-256** bản build; header `/` `no-cache`, `sw.js` `no-store`, `Build/*` `immutable`, ảnh 1 ngày; `/__/auth/handler` 200; trang thật đọc bảng xếp hạng, 0 lỗi console.
+- **GitHub Pages cũ → chuyển hướng:** `docs/` chỉ còn `index.html` + `404.html` (chuyển ngay sang `https://gotaviet.web.app/`) + `sw.js` (xóa bộ nhớ đệm bản cũ, tự gỡ, đưa cửa sổ đang mở sang địa chỉ mới) + `.nojekyll`; xóa toàn bộ bản build cũ khỏi `docs/`. `.github/workflows/pages.yml` chỉ đăng `docs/` (bỏ `PublishWebArtifact.py materialize`). `.gitignore` thêm `/.firebase/`.
+- **Quy trình phát hành từ nay:** sửa số phiên bản → `ReleaseBuild.Prepare/BuildNow` (vỏ: `RefreshWebShell`) → thử → `firebase deploy --only hosting --project gotaviet` → so SHA-256 live với `Builds/WebGL`. Không chép vào `docs/`, không `PublishWebArtifact.py pack` nữa. Luật Firestore đổi thì `firebase deploy --only firestore:rules`.
+- **Chưa xong / chờ người dùng:** nâng gói **Blaze** (console Firebase → Upgrade, người dùng tự nhập thẻ; khi chưa nâng, Hosting giới hạn 360 MB/ngày ≈ 3 lượt tải game mới); thử đăng nhập Google trên trang thật (cần tài khoản Google của người chơi) và trên iPhone (ứng dụng đã cài dùng chuyển trang). Người đã cài bản cũ từ github.io nên cài lại từ gotaviet.web.app.

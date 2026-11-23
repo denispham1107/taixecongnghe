@@ -1,0 +1,25 @@
+rules_version = '2';
+// 21.356: bảng xếp hạng GờTa Việt. scores/{uid} = kỷ lục mét xa nhất của mỗi tài khoản.
+// Ai cũng đọc được (bảng chung); chỉ chủ tài khoản ghi được tài liệu của mình, kỷ lục không được giảm.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /scores/{uid} {
+      allow read: if true;
+      allow create: if signedInAs(uid) && valid(request.resource.data);
+      allow update: if signedInAs(uid) && valid(request.resource.data)
+                    && request.resource.data.best >= resource.data.best
+                    && request.resource.data.runs >= resource.data.runs;
+      allow delete: if signedInAs(uid);
+    }
+    function signedInAs(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+    function valid(d) {
+      return d.keys().hasOnly(['name', 'best', 'runs', 'updatedAt'])
+          && d.name is string && d.name.size() >= 1 && d.name.size() <= 24
+          && d.best is int && d.best >= 0 && d.best <= 2000000
+          && d.runs is int && d.runs >= 0
+          && d.updatedAt == request.time;
+    }
+  }
+}

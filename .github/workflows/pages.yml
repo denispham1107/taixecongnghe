@@ -1,10 +1,10 @@
-# 21.318: lần triển khai 1.90.0 đầu (run 45021001158) lỗi tạm của GitHub «No artifacts named github-pages» — commit này chỉ để chạy lại workflow.
-# 21.347: lần triển khai 1.94.0 đầu (run 45179550779) lỗi ở bước Deploy to GitHub Pages (các bước trước đạt) — sửa chú thích để chạy lại.
-name: Deploy Phố Việt WebGL
+# 21.356: game chuyển sang Firebase Hosting (https://gotaviet.web.app/, `firebase deploy` từ Builds/WebGL).
+# GitHub Pages chỉ còn trang chuyển hướng trong docs/ (index.html, 404.html, sw.js tự gỡ) — không build/đóng gói game ở đây nữa.
+name: Redirect GitHub Pages to gotaviet.web.app
 on:
   push:
     branches: [main]
-    paths: ['docs/**', '.github/workflows/pages.yml', 'AgentScripts/PublishWebArtifact.py']
+    paths: ['docs/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,19 +22,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
-      - name: Restore exact Unity data from verified Git-sized parts
-        run: python3 AgentScripts/PublishWebArtifact.py materialize --source docs --output _site
-      - name: Validate the built game
+      - name: Validate redirect page
         run: |
-          test -s _site/index.html
-          test -s _site/build-info.json
-          test -s _site/manifest.webmanifest
-          test -s _site/precache.json
-          test -s _site/sw.js
-          test -n "$(find _site/Build -name '*.wasm*' -print -quit)"
+          test -s docs/index.html
+          grep -q 'gotaviet.web.app' docs/index.html
+          test -s docs/sw.js
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: docs
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

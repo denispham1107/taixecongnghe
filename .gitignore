@@ -43,3 +43,6 @@ __pycache__/
 
 # 21.286: mô hình Meshy gốc rất nặng (>300 MB) — chỉ giữ cục bộ
 ArtSource/MeshyRaw/
+
+# 21.356: bộ nhớ đệm của Firebase CLI (firebase deploy)
+/.firebase/
