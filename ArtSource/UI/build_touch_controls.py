@@ -378,12 +378,18 @@ def build_button(name, text, accent_hex, icon, size_frac, final=FINAL):
     return img.resize((final, final), Image.LANCZOS)
 
 
+# 21.338 (người dùng chọn mẫu A «Kính neon»): 5 nút này nay xuất từ ArtSource/Concepts/Buttons-20261123/nut.html (xuat_game.sh),
+# KHÔNG ghi đè ở đây nữa. Chỉ GA và P/DRIFT còn vẽ bằng script này.
+SVG_BUTTONS = {'Left', 'Right', 'Reverse', 'Jump', 'Missile'}
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     # 21.270: vô lăng thay bằng 2 nút mũi tên trái/phải (build_wheel giữ lại để tham khảo, không xuất nữa).
     sheet = Image.new('RGBA', (330 * len(BUTTONS), 320), (70, 80, 90, 255))
     for i, (name, text, acc, icon, sf) in enumerate(BUTTONS):
-        im = build_button(name, text, acc, icon, sf); im.save(os.path.join(OUT, 'PV_Btn_%s.png' % name), optimize=True)
+        im = build_button(name, text, acc, icon, sf)
+        if name not in SVG_BUTTONS: im.save(os.path.join(OUT, 'PV_Btn_%s.png' % name), optimize=True)
         sheet.alpha_composite(im.resize((320, 320), Image.LANCZOS), (i * 330, 0))
     prev = os.path.join(ROOT, 'ArtSource', 'UI', 'touch_controls_preview.png')
     sheet.save(prev)

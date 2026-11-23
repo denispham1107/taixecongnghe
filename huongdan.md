@@ -6271,3 +6271,20 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - **C «Huy hiệu tròn»:** nút tròn vành kim loại, lòng tối, vòng màu nhấn phát sáng, biểu tượng nổi khối, nhãn chạy cong.
 - **Giữ nguyên:** GA, P/DRIFT, KHIÊN.
 - **Chờ người dùng chọn mẫu.** Sau đó vẽ ảnh thật `Resources/TouchControls/PV_Btn_{Left,Right,Laser,Missile,Jump,Reverse}.png` 512² (thay phần vẽ trong `ArtSource/UI/build_touch_controls.py` / `build_laser_button.py`), thử Simulator rồi hỏi có đổi theo GA/P/DRIFT/KHIÊN và ảnh nút trang chủ không.
+
+## 21.338. Đưa 5 nút mẫu A «Kính neon» vào game; 3 kiểu nút LAZER mới để chọn (23/11/2026, Claude Code)
+
+- **Người dùng:** chọn mẫu A, gửi ảnh bộ 6 nút. Nút LÙI trong ảnh là kiểu mũi tên cong có chữ R (bản đầu của 21.337). Nút LAZER còn quá xấu, cần vẽ lại.
+- **Đã vào game:** 5 nút TRÁI, PHẢI, TÊN LỬA, NHẢY, LÙI.
+  - Xuất từ `ArtSource/Concepts/Buttons-20261123/nut.html?mau=A` bằng `xuat_game.sh` (Chrome headless, 512², nền trong suốt) → `Assets/PhoViet/Resources/TouchControls/PV_Btn_{Left,Right,Missile,Jump,Reverse}.png`. `.meta` giữ nguyên (RGBA32 không nén + mipmap).
+  - Nút LÙI về kiểu cung tròn + R (`iconReverse`). Kiểu mũi tên xuống vẫn giữ được bằng `?lui=xuong`.
+  - `ArtSource/UI/build_touch_controls.py` không ghi đè 5 nút này nữa (`SVG_BUTTONS`); chỉ còn vẽ GA và P/DRIFT.
+  - Code vẽ/bố cục nút không đổi.
+- **LAZER vẽ lại, 3 kiểu (`nut.html?mau=A&nut=laser&lz=1|2|3`):**
+  1. «Lõi năng lượng»: quả cầu năng lượng có vành khía, bắn 1 tia lớn + 2 tia mảnh, nổ chớp ở đầu tia.
+  2. «Súng lazer»: súng khoa học viễn tưởng nhìn ngang, nòng có vòng tản nhiệt.
+  3. «Hai tia hội tụ»: 2 thấu kính (như 2 đèn pha) bắn 2 tia vào tâm vòng ngắm, đúng cách Lazer bắn trong game.
+  - Ảnh so sánh `out/lazer-3kieu.jpg` (`ghep.py lazer`). Kiểu 21.337 giữ ở `iconLaserOld`.
+- **Kiểm tra:** `AgentScripts/Buttons21338.cs` (`Reimport` → Play → `Show`). Unity nhập 512 × 512 RGBA32. Ảnh `out/unity-mauA-21338.png` cho thấy nút mới hiện đúng, console không lỗi.
+  - Editor máy tính dùng bố cục máy tính (NHẢY chồng dưới GA), như trước. Bố cục điện thoại xem ở ảnh ghép.
+- **Chờ người dùng chọn kiểu LAZER**, rồi chạy `sh xuat_game.sh laser <kiểu>` và `Buttons21338.Reimport`. Sau đó hỏi có vẽ lại GA/P/DRIFT/KHIÊN cùng mẫu A và ảnh nút trang chủ (`controls/btn-*.png`) không. Chưa phát hành.

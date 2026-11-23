@@ -55,3 +55,31 @@ y = 0
 for r in rows: tb.paste(r, (0, y)); y += r.height
 tb.save(os.path.join(HERE, 'out', 'bangnut.jpg'), quality=92)
 print('ok')
+
+
+# 21.338 — 3 kiểu LAZER mới (?lz=1|2|3) trên bộ mẫu A đã đưa vào game (raw/game-*.png): python -X utf8 ghep.py lazer
+def compose_laser():
+    names = {1: 'KIỂU 1 · LÕI NĂNG LƯỢNG', 2: 'KIỂU 2 · SÚNG LAZER', 3: 'KIỂU 3 · HAI TIA HỘI TỤ'}
+    game = {'left': 'Left', 'right': 'Right', 'missile': 'Missile', 'jump': 'Jump', 'reverse': 'Reverse'}
+    panels = []
+    for v in (1, 2, 3):
+        img = Image.open(os.path.join(HERE, 'raw', 'nen.png')).convert('RGBA').resize((W, H))
+        for k, box in (('gas', gas), ('stop', stop), ('shield', shield)):
+            put(img, Image.open(os.path.join(RES, f'PV_Btn_{KEEP[k]}.png')), box)
+        for k, box in NEW.items():
+            src = os.path.join(HERE, 'raw', f'A-laser-lz{v}.png') if k == 'laser' else os.path.join(HERE, 'raw', f'game-{game[k]}.png')
+            put(img, Image.open(src), box)
+        # phóng to nút LAZER ở góc trái trên
+        big = Image.open(os.path.join(HERE, 'raw', f'A-laser-lz{v}.png')).convert('RGBA').resize((250, 250), Image.LANCZOS)
+        d = ImageDraw.Draw(img); d.rounded_rectangle((18, 80, 18 + 270, 80 + 270), 18, fill=(20, 26, 32, 215)); img.alpha_composite(big, (28, 90))
+        f = ImageFont.truetype(FONT, 30); t = names[v]
+        d.rounded_rectangle((18, 16, 38 + d.textlength(t, font=f), 64), 10, fill=(10, 22, 34, 225)); d.text((28, 20), t, font=f, fill=(255, 244, 214))
+        panels.append(img.convert('RGB'))
+    sheet = Image.new('RGB', (W, H * 3 + 24), (20, 24, 28))
+    for i, im in enumerate(panels): sheet.paste(im, (0, i * (H + 12)))
+    sheet.save(os.path.join(HERE, 'out', 'lazer-3kieu.jpg'), quality=90)
+    print('ok lazer')
+
+
+if __name__ == '__main__' and len(__import__('sys').argv) > 1 and __import__('sys').argv[1] == 'lazer':
+    compose_laser()
