@@ -6608,3 +6608,18 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Phát hành:** `firebase deploy --only hosting --project gotaviet` → live **48/48 khớp SHA-256** (lần so đầu `account.js` lệch do máy chủ trung gian chưa cập nhật, so lại khớp), `build-info.json` 1.95.1 / `61844f1d81451d04`.
 - Chưa thử trên iPhone thật.
 
+## 21.362. Thả Ga: xe tự giảm tốc chậm hơn 30 % (24/11/2026, Claude Code)
+
+- **Người dùng:** giữ Ga rồi thả ra thì xe tự giảm tốc chậm hơn hiện giờ 30 % nữa.
+- **Sửa:** lực cản khi thả ga `OpenWorldDriver.drag` **1,6 → 1,12 m/s²** (× 0,7) — dùng ở `Speed = MoveTowards(Speed, 0, drag·dt)` khi không giữ Ga/Lùi và khi Ga tự động giảm về tốc độ đã khóa. Trường public nên sửa cả mặc định trong mã và giá trị lưu trong scene `PhoVietOpenWorld.unity` (đối tượng `XeNguoiChoi`, sửa bằng Unity + lưu scene; scene cũng ghi thêm 3 trường đang ở giá trị mặc định `dodgeLightning: 1`, `classicSteer: 1`, `classicSteerDegPerSec: 95` — không đổi hành vi).
+- **Hệ quả:** 110 km/h về 0 khi thả Ga ~19,1 s → ~27,3 s. Phanh/Lùi (`brake` 16), cản cua (`scrubDecel`) không đổi.
+- **Kiểm tra:** biên dịch đạt, scene lưu `drag: 1.12`. Chưa chạy thử cảm giác lái (Play mode bị Unity chặn lệnh đọc quá 5 s).
+- **Chưa build/phát hành** (web đang 1.95.1).
+
+## 21.363. Rút gọn chữ hướng dẫn cài iPhone (Chrome/Safari) — vỏ web 1.95.1 (24/11/2026, Claude Code)
+
+- **Người dùng:** ghi ngắn các bước theo nội dung gửi; câu mở đầu đổi thành «Làm theo các bước dưới đây để cài đặt ứng dụng "GờTa Việt"».
+- **`index.html` `#install-guide`:** câu mở đầu cả hai thẻ → «Làm theo các bước dưới đây để cài đặt ứng dụng «GờTa Việt».». Chrome: Bước 2 «Bấm nút «Xem thêm» có dấu mũi tên xuống dưới ở cuối hàng.», Bước 3 «Bấm «Thêm vào Màn hình chính» (biểu tượng dấu cộng trong ô vuông).», Bước 4 «Giữ tên GờTa Việt, kiểm tra công tắc … rồi bấm nút xanh «Thêm» ở góc phải trên.». Safari: Bước 3 «Bấm nút «Xem thêm» có dấu mũi tên xuống ở cuối hàng.», Bước 4 «Bấm «Thêm vào Màn hình chính» (…), ngay dưới mục «Tìm trên trang».», Bước 5 như Bước 4 Chrome. Các bước đổi dùng tiền tố «Bước N:»; Chrome Bước 1 và Safari Bước 1–2 giữ nguyên (người dùng không yêu cầu đổi). Ảnh giữ nguyên.
+- **Phát hành vỏ web:** `AgentScripts/Shell21363.cs` → `RefreshWebShell` trên bản build 1.95.1 (Unity đang Play — không dừng phiên của người dùng; lệnh lần 1 lỗi mạng, lần 2 đạt) → cache **`6aadb77aa0142a6e`**, `firebase deploy --only hosting`, live **48/48 khớp SHA-256**. Tệp `Build/*` không đổi → máy đã lưu dữ liệu game không tải lại (21.360).
+- 21.362 (thả Ga 1,12 m/s²) vẫn chỉ trong source, chưa commit/build.
+
