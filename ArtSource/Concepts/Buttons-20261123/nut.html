@@ -1,0 +1,210 @@
+<!doctype html>
+<!-- 21.337 — mẫu thiết kế lại 6 nút cảm ứng (TRÁI, PHẢI, LAZER, TÊN LỬA, NHẢY, LÙI), không vẽ ô tô; mỗi nút vẽ đúng công dụng.
+     ?mau=A|B|C&nut=left|right|laser|missile|jump|reverse  → 1 nút 512×512 nền trong suốt (render.sh chụp từng nút)
+     ?mau=A|B|C (không có nut)                              → cả 6 nút một hàng để xem nhanh
+     Mẫu A «Kính neon»: tấm kính tối bo góc, viền màu phát sáng, biểu tượng trắng → màu nhấn, phát quang.
+     Mẫu B «Tem đua»: theo menu trong game (khối nghiêng −11°): biểu tượng kem viền xanh đen đậm + bóng cứng, nhãn trong dải nghiêng màu nhấn.
+     Mẫu C «Huy hiệu tròn»: nút tròn vành kim loại, lòng tối, vòng màu nhấn, biểu tượng màu nổi khối. -->
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:BVP;src:url(../../../Assets/PhoViet/Fonts/BeVietnamPro-SemiBold.ttf)}
+html,body{margin:0;background:transparent}
+body.sheet{background:#2b3138;padding:16px;display:flex;gap:14px}
+svg{display:block}
+</style></head><body>
+<script>
+const Q = new URLSearchParams(location.search), MAU = Q.get('mau') || 'A', NUT = Q.get('nut');
+const NAVY = '#10263a', CREAM = '#fff4d6';
+const BTN = {
+  left:    { label: 'TRÁI',    acc: '#2ec7e8', light: '#bff4ff', dark: '#0b7f9c' },
+  right:   { label: 'PHẢI',    acc: '#2ec7e8', light: '#bff4ff', dark: '#0b7f9c' },
+  laser:   { label: 'LAZER',   acc: '#b066ff', light: '#efd9ff', dark: '#6a22c2' },
+  missile: { label: 'TÊN LỬA', acc: '#ff5a4a', light: '#ffd3cc', dark: '#b8231a' },
+  jump:    { label: 'NHẢY',    acc: '#ffc53d', light: '#fff1c4', dark: '#c98a0a' },
+  reverse: { label: 'LÙI',     acc: '#35c76b', light: '#cdf7dc', dark: '#16843f' },
+};
+
+// ---------- bút vẽ theo mẫu: m = khối chính, a = chi tiết màu nhấn, h = lửa nóng, s = khói, k = chi tiết tối
+function pens(mau, id, b) {
+  const ol = `stroke="${NAVY}" stroke-linejoin="round" stroke-linecap="round" paint-order="stroke"`;
+  if (mau === 'A') return {
+    m: `fill="url(#gm${id})" filter="url(#glow${id})"`,
+    a: `fill="${b.acc}" filter="url(#glow${id})"`,
+    h: `fill="url(#gh${id})"`, s: `fill="#e8f2ff" fill-opacity=".55"`, k: `fill="${b.dark}"`,
+    line: w => `fill="none" stroke="url(#gm${id})" stroke-width="${w}" stroke-linecap="round" filter="url(#glow${id})"`,
+    under: w => ``,
+    txt: `fill="${b.light}"`,
+  };
+  if (mau === 'B') return {
+    m: `fill="${CREAM}" ${ol} stroke-width="16" filter="url(#hard${id})"`,
+    a: `fill="${b.acc}" ${ol} stroke-width="12"`,
+    h: `fill="url(#gh${id})" ${ol} stroke-width="10"`, s: `fill="#f3f6fa" ${ol} stroke-width="10"`, k: `fill="${NAVY}"`,
+    line: w => `fill="none" stroke="${CREAM}" stroke-width="${w}" stroke-linecap="round"`,
+    under: w => `fill="none" stroke="${NAVY}" stroke-width="${w + 32}" stroke-linecap="round" filter="url(#hard${id})"`,
+    txt: `fill="${NAVY}"`,
+  };
+  return {   // C
+    m: `fill="url(#gm${id})" ${ol} stroke-width="12"`,
+    a: `fill="${b.light}" ${ol} stroke-width="10"`,
+    h: `fill="url(#gh${id})" ${ol} stroke-width="8"`, s: `fill="#dfe8f1" ${ol} stroke-width="8"`, k: `fill="${NAVY}"`,
+    line: w => `fill="none" stroke="url(#gm${id})" stroke-width="${w}" stroke-linecap="round"`,
+    under: w => `fill="none" stroke="${NAVY}" stroke-width="${w + 24}" stroke-linecap="round"`,
+    txt: `fill="${CREAM}"`,
+  };
+}
+
+// ---------- biểu tượng (khung 512, vùng hình ~ y 60–370)
+function arrowPts(dir) {   // mũi tên lớn bo đầu
+  const p = [[92, 218], [232, 98], [232, 168], [402, 168], [402, 268], [232, 268], [232, 338]];
+  return p.map(([x, y]) => [dir < 0 ? x : 512 - x, y].join(',')).join(' ');
+}
+function iconSteer(P, dir) {
+  const sx = x => dir < 0 ? x : 512 - x;
+  let s = '';
+  // vệt tốc độ sau đuôi
+  [[192, 52], [218, 76], [244, 40]].forEach(([y, len], i) => {
+    s += `<rect x="${dir < 0 ? sx(424) : sx(424) - len}" y="${y + 6}" width="${len}" height="18" rx="9" ${P.a} opacity="${.95 - i * .2}"/>`;
+  });
+  s += `<polygon points="${arrowPts(dir)}" ${P.m}/>`;
+  // vạch sáng trên thân mũi tên
+  s += `<rect x="${dir < 0 ? 246 : 512 - 246 - 140}" y="186" width="140" height="16" rx="8" fill="#fff" opacity=".45"/>`;
+  return s;
+}
+function star(cx, cy, r1, r2, n, rot = 0) {
+  let p = [];
+  for (let i = 0; i < n * 2; i++) { const r = i % 2 ? r2 : r1, a = rot + i * Math.PI / n; p.push((cx + r * Math.cos(a)).toFixed(1) + ',' + (cy + r * Math.sin(a)).toFixed(1)); }
+  return p.join(' ');
+}
+function iconLaser(P, b) {
+  let s = '';
+  // đầu phát: khối lục giác + thấu kính, chĩa lên phải
+  s += `<g transform="translate(150 300) rotate(-28)">
+    <rect x="-80" y="-46" width="122" height="92" rx="20" ${P.m}/>
+    <rect x="34" y="-58" width="40" height="116" rx="14" ${P.m}/>
+    <rect x="-52" y="-52" width="14" height="104" rx="7" ${P.a}/>
+    <rect x="-14" y="-52" width="14" height="104" rx="7" ${P.a}/>
+    <rect x="-70" y="-20" width="96" height="12" rx="6" fill="#fff" opacity=".45"/>
+    <circle cx="82" cy="0" r="36" fill="#ff4f4f" stroke="${NAVY}" stroke-width="8"/>
+    <circle cx="82" cy="0" r="18" fill="#fff" filter="url(#soft)"/><circle cx="82" cy="0" r="12" fill="#fff"/></g>`;
+  // hai tia đỏ tỏa nhẹ
+  const ox = 150 + 82 * Math.cos(-28 * Math.PI / 180), oy = 300 + 82 * Math.sin(-28 * Math.PI / 180);
+  [[438, 128], [452, 196]].forEach(([x, y]) => {
+    s += `<line x1="${ox}" y1="${oy}" x2="${x}" y2="${y}" stroke="#ff3b3b" stroke-width="34" stroke-linecap="round" opacity=".45" filter="url(#soft)"/>`;
+    s += `<line x1="${ox}" y1="${oy}" x2="${x}" y2="${y}" stroke="#ff4f4f" stroke-width="16" stroke-linecap="round"/>`;
+    s += `<line x1="${ox}" y1="${oy}" x2="${x}" y2="${y}" stroke="#fff" stroke-width="6" stroke-linecap="round"/>`;
+    s += `<polygon points="${star(x, y, 40, 12, 6, .3)}" fill="#fff6c8" stroke="#ff7b2e" stroke-width="5" stroke-linejoin="round"/>`;
+  });
+  return s;
+}
+function iconMissile(P) {
+  let s = '';
+  // vòng ngắm khóa mục tiêu
+  s += `<g ${P.a.replace(/fill="[^"]*"/, 'fill="none"')} opacity=".95">`;
+  s += `</g>`;
+  const rc = (x, y, r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="${NAVY}" stroke-width="22" opacity=".0"/>`;
+  s += `<g transform="translate(398 112)">
+      <path d="M-58,-22 A62,62 0 0 1 -22,-58 M22,-58 A62,62 0 0 1 58,-22 M58,22 A62,62 0 0 1 22,58 M-22,58 A62,62 0 0 1 -58,22" fill="none" stroke="${NAVY}" stroke-width="24" stroke-linecap="round"/>
+      <path d="M-58,-22 A62,62 0 0 1 -22,-58 M22,-58 A62,62 0 0 1 58,-22 M58,22 A62,62 0 0 1 22,58 M-22,58 A62,62 0 0 1 -58,22" fill="none" stroke="#ff5a4a" stroke-width="12" stroke-linecap="round"/>
+      <circle r="10" fill="#ff5a4a" stroke="${NAVY}" stroke-width="6"/></g>`;
+  // tên lửa nằm chéo, mũi hướng vòng ngắm
+  s += `<g transform="translate(232 238) rotate(-42)">
+    <path d="M-150,0 C-184,-20 -214,-8 -238,0 C-214,8 -184,20 -150,0 Z" ${P.h}/>
+    <path d="M-150,0 C-176,-10 -198,-4 -214,0 C-198,4 -176,10 -150,0 Z" fill="#fff8d0"/>
+    <path d="M-120,-30 L-160,-74 L-150,-30 Z" ${P.a}/>
+    <path d="M-120,30 L-160,74 L-150,30 Z" ${P.a}/>
+    <rect x="-150" y="-32" width="200" height="64" rx="18" ${P.m}/>
+    <path d="M44,-32 C94,-32 128,-14 150,0 C128,14 94,32 44,32 Z" ${P.a}/>
+    <rect x="-96" y="-32" width="26" height="64" ${P.k} opacity=".85"/>
+    <rect x="-64" y="-32" width="12" height="64" ${P.k} opacity=".5"/>
+    <rect x="-140" y="-18" width="170" height="10" rx="5" fill="#fff" opacity=".5"/></g>`;
+  return s;
+}
+function iconJump(P) {
+  let s = '';
+  // mặt đất + vòi phản lực khói hai bên
+  s += `<rect x="96" y="352" width="320" height="22" rx="11" ${P.k} opacity=".8"/>`;
+  [[168, 334, 34], [128, 348, 24], [344, 334, 34], [384, 348, 24], [256, 342, 30]].forEach(([x, y, r]) => s += `<circle cx="${x}" cy="${y}" r="${r}" ${P.s}/>`);
+  // lửa đẩy dưới mũi tên
+  s += `<path d="M222,300 C226,330 240,346 256,356 C272,346 286,330 290,300 Z" ${P.h}/>`;
+  // mũi tên lên lớn
+  s += `<polygon points="256,62 370,186 304,186 304,302 208,302 208,186 142,186" ${P.m}/>`;
+  s += `<rect x="224" y="196" width="16" height="92" rx="8" fill="#fff" opacity=".45"/>`;
+  // hai chữ V nhỏ chỉ lên hai bên
+  [[104, 196], [408, 196]].forEach(([x, y]) => s += `<path d="M${x - 26},${y + 14} L${x},${y - 12} L${x + 26},${y + 14} M${x - 26},${y + 50} L${x},${y + 24} L${x + 26},${y + 50}" ${P.line(16).replace('url(#gm', 'url(#ga')} ${''}/>`);
+  return s;
+}
+function iconReverse(P, b) {
+  // mũi tên xuống (lùi về sau) + chữ R số lùi trên thân — cùng ngôn ngữ với mũi tên TRÁI/PHẢI/NHẢY
+  let s = '';
+  s += `<polygon points="256,366 374,236 306,236 306,104 206,104 206,236 138,236" ${P.m}/>`;
+  s += `<rect x="222" y="246" width="16" height="70" rx="8" fill="#fff" opacity=".4"/>`;
+  s += `<circle cx="256" cy="178" r="58" ${P.a}/>`;
+  s += `<text x="256" y="214" text-anchor="middle" font-family="BVP" font-size="100" fill="${NAVY}">R</text>`;
+  return s;
+}
+
+// ---------- tấm nút + nhãn
+function defs(id, b) {
+  return `<defs>
+    <linearGradient id="gm${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${MAU === 'A' ? '#ffffff' : b.light}"/><stop offset="${MAU === 'A' ? '.55' : '.5'}" stop-color="${MAU === 'A' ? b.light : b.acc}"/><stop offset="1" stop-color="${MAU === 'A' ? b.acc : b.dark}"/></linearGradient>
+    <linearGradient id="ga${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${b.light}"/><stop offset="1" stop-color="${b.acc}"/></linearGradient>
+    <linearGradient id="gh${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff5a1f"/><stop offset=".6" stop-color="#ffb02e"/><stop offset="1" stop-color="#fff3b0"/></linearGradient>
+    <linearGradient id="gp${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b3550" stop-opacity=".78"/><stop offset="1" stop-color="#08131f" stop-opacity=".86"/></linearGradient>
+    <radialGradient id="gd${id}" cx=".5" cy=".38" r=".65"><stop offset="0" stop-color="#22405e" stop-opacity=".9"/><stop offset="1" stop-color="#07111b" stop-opacity=".92"/></radialGradient>
+    <linearGradient id="rim${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f7fa"/><stop offset=".35" stop-color="#9aa7b4"/><stop offset=".6" stop-color="#4b5866"/><stop offset="1" stop-color="#c8d2dc"/></linearGradient>
+    <filter id="glow${id}" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceAlpha" stdDeviation="10" result="b"/><feFlood flood-color="${b.acc}" flood-opacity=".95"/><feComposite in2="b" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="ring${id}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
+    <filter id="hard${id}" x="-20%" y="-20%" width="140%" height="150%"><feOffset dy="12" in="SourceAlpha" result="o"/><feFlood flood-color="#030a12" flood-opacity=".55"/><feComposite in2="o" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
+    <clipPath id="clipB${id}"><rect x="22" y="22" width="468" height="468" rx="46"/></clipPath>
+  </defs>`;
+}
+function plate(id, b) {
+  if (MAU === 'A') return `
+    <rect x="30" y="30" width="452" height="452" rx="104" fill="none" stroke="${b.acc}" stroke-width="22" opacity=".55" filter="url(#ring${id})"/>
+    <rect x="30" y="30" width="452" height="452" rx="104" fill="url(#gp${id})"/>
+    <rect x="30" y="30" width="452" height="452" rx="104" fill="none" stroke="${b.acc}" stroke-width="9"/>
+    <rect x="48" y="48" width="416" height="416" rx="88" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="3"/>
+    <path d="M70,140 Q80,60 160,52 L352,52" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="7" stroke-linecap="round"/>`;
+  if (MAU === 'B') return `
+    <rect x="22" y="22" width="468" height="468" rx="46" fill="url(#gp${id})" stroke="${NAVY}" stroke-width="10"/>
+    <g clip-path="url(#clipB${id})">
+      <polygon points="22,22 210,22 120,150 22,150" fill="${b.acc}" opacity=".9" transform="skewX(0)"/>
+      <polygon points="220,22 262,22 172,150 130,150" fill="${b.acc}" opacity=".55"/>
+      <polygon points="272,22 296,22 206,150 182,150" fill="${b.acc}" opacity=".3"/>
+    </g>
+    <rect x="22" y="22" width="468" height="468" rx="46" fill="none" stroke="${b.acc}" stroke-width="6" opacity=".9"/>`;
+  return `
+    <circle cx="256" cy="256" r="236" fill="url(#rim${id})" stroke="${NAVY}" stroke-width="8"/>
+    <circle cx="256" cy="256" r="206" fill="url(#gd${id})" stroke="${NAVY}" stroke-width="6"/>
+    <circle cx="256" cy="256" r="192" fill="none" stroke="${b.acc}" stroke-width="20" opacity=".55" filter="url(#ring${id})"/>
+    <circle cx="256" cy="256" r="192" fill="none" stroke="${b.acc}" stroke-width="7"/>
+    <path d="M110,150 A170,170 0 0 1 300,82" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="10" stroke-linecap="round"/>`;
+}
+function label(id, b, P) {
+  const t = b.label, long = t.length > 5;
+  if (MAU === 'A') return `<text x="256" y="446" text-anchor="middle" font-family="BVP" font-size="${long ? 56 : 64}" letter-spacing="3" fill="${CREAM}" stroke="#07111b" stroke-width="10" paint-order="stroke" stroke-linejoin="round">${t}</text>
+    <rect x="206" y="458" width="100" height="7" rx="3.5" fill="${b.acc}"/>`;
+  if (MAU === 'B') return `<g transform="translate(256 420) skewX(-11)"><rect x="${long ? -170 : -140}" y="-38" width="${long ? 340 : 280}" height="76" rx="6" fill="${b.acc}" stroke="${NAVY}" stroke-width="10"/></g>
+    <text x="256" y="442" text-anchor="middle" font-family="BVP" font-size="${long ? 52 : 58}" letter-spacing="3" fill="${NAVY}" font-style="italic">${t}</text>`;
+  return `<path id="arc${id}" d="M120,330 A150,150 0 0 0 392,330" fill="none"/>
+    <text font-family="BVP" font-size="${long ? 46 : 52}" letter-spacing="3" fill="${CREAM}" stroke="#07111b" stroke-width="9" paint-order="stroke" text-anchor="middle"><textPath href="#arc${id}" startOffset="50%">${t}</textPath></text>`;
+}
+function icon(key, P, b) {
+  if (key === 'left') return iconSteer(P, -1);
+  if (key === 'right') return iconSteer(P, 1);
+  if (key === 'laser') return iconLaser(P, b);
+  if (key === 'missile') return iconMissile(P);
+  if (key === 'jump') return iconJump(P);
+  return iconReverse(P, b);
+}
+function button(key, size) {
+  const b = BTN[key], id = MAU + key, P = pens(MAU, id, b);
+  // C: biểu tượng thu nhỏ vào lòng tròn, chừa chỗ chữ cong phía dưới
+  const iconT = MAU === 'C' ? 'translate(256 236) scale(.66) translate(-256 -226)' : MAU === 'B' ? 'translate(256 214) scale(.78) translate(-256 -214)' : 'translate(256 214) scale(.80) translate(-256 -214)';
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 512 512">${defs(id, b)}${plate(id, b)}<g transform="${iconT}">${icon(key, P, b)}</g>${label(id, b, P)}</svg>`;
+}
+if (NUT) document.body.innerHTML = button(NUT, 512);
+else { document.body.className = 'sheet'; document.body.innerHTML = Object.keys(BTN).map(k => button(k, 220)).join(''); }
+</script>
+</body></html>

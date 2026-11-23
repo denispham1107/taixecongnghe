@@ -6251,3 +6251,23 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Số xe bị hất tăng (15 → 26) vì xe thoát khỏi vùng cháy sang vùng hất. Xe bị hất chỉ choáng rồi chạy tiếp, không nổ.
   - Console không lỗi.
 - **Trạng thái:** đã commit source, chưa build và chưa phát hành web (bản web vẫn 1.92.0).
+
+## 21.337. Mẫu thiết kế lại 6 nút cảm ứng: TRÁI, PHẢI, LAZER, TÊN LỬA, NHẢY, LÙI (23/11/2026, Claude Code)
+
+- **Người dùng:** thiết kế 6 nút còn xấu và sơ sài. Muốn vài mẫu mới; trong nút không vẽ ô tô, chỉ vẽ đúng công dụng.
+- **Đã làm (mẫu để chọn, chưa đưa vào game):** thư mục `ArtSource/Concepts/Buttons-20261123/`.
+  - `nut.html` vẽ SVG. Dùng `?mau=A|B|C`, thêm `&nut=left|right|laser|missile|jump|reverse` để vẽ 1 nút 512².
+  - `render.sh` dùng Chrome headless xuất `raw/sheet-*.png` và `raw/{mẫu}-{nút}.png` 512² nền trong suốt.
+  - `ghep.py` ghép nút lên ảnh màn chơi `raw/nen.png` (1280 × 590, chụp camera Unity) theo đúng công thức bố cục điện thoại của `OpenWorldDriver`, độ đục 68 %. Ra `out/tonghop.jpg` (hiện tại + A/B/C) và `out/bangnut.jpg`.
+- **Biểu tượng chung cho cả 3 mẫu (giữ màu nhấn cũ từng nút):**
+  - TRÁI / PHẢI: mũi tên lớn có vệt tốc độ.
+  - LAZER: đầu phát có thấu kính đỏ, bắn 2 tia, tia lửa ở đầu tia.
+  - TÊN LỬA: tên lửa chéo có lửa đuôi, bay vào vòng ngắm khóa mục tiêu.
+  - NHẢY: mũi tên lên có lửa đẩy, khói hai bên mặt đất và chữ V chỉ lên.
+  - LÙI: mũi tên xuống có huy hiệu R (số lùi).
+- **3 mẫu:**
+  - **A «Kính neon»:** tấm kính tối bo góc, viền màu phát sáng, biểu tượng trắng chuyển sang màu nhấn, nhãn chữ kem.
+  - **B «Tem đua»:** theo menu trong game. Góc trên có sọc nghiêng màu nhấn; biểu tượng kem viền xanh đen có bóng cứng; nhãn nghiêng −11° trong dải màu nhấn.
+  - **C «Huy hiệu tròn»:** nút tròn vành kim loại, lòng tối, vòng màu nhấn phát sáng, biểu tượng nổi khối, nhãn chạy cong.
+- **Giữ nguyên:** GA, P/DRIFT, KHIÊN.
+- **Chờ người dùng chọn mẫu.** Sau đó vẽ ảnh thật `Resources/TouchControls/PV_Btn_{Left,Right,Laser,Missile,Jump,Reverse}.png` 512² (thay phần vẽ trong `ArtSource/UI/build_touch_controls.py` / `build_laser_button.py`), thử Simulator rồi hỏi có đổi theo GA/P/DRIFT/KHIÊN và ảnh nút trang chủ không.
