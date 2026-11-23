@@ -4,13 +4,13 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **23/11/2026 — Claude Code (21.334 trang chủ gọn trên điện thoại; 1.92.0 = 21.327–21.331)**
+Cập nhật lần cuối: **23/11/2026 — Claude Code (21.335 sửa trang chủ điện thoại; 1.92.0 = 21.327–21.331)**
 
 ## 1. Trạng thái hiện tại
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.92.0 — bản đồ mở** (21.327–21.331: Ga tự động, loạt 2 tên lửa + kho hồi 5 s, Lazer bấm 1 lần, mưa 30 %, lái gốc 1.89.0 tạm để so sánh, trang chủ mẫu C) — commit `ded8ffb`, Pages run `45128204801`, **38/38 tệp live khớp SHA-256**, cache `65e4fcac06e7f36d` → **21.334 vỏ mới cache `5ad711f70070efa4`** (`cfde9b6`, trang chủ gọn trên điện thoại), gói điện thoại 106,5 MB, máy tính 122,3 MB. Bản trước **1.91.0** (21.319–21.325: lái nhạy hơn, sương mưa phủ từ sát xe, menu mẫu C «Tem đua», ô tô móp sâu + xước/kính nứt/đèn vỡ khi va chạm cả CSGT, xe người chơi móp khi đụng cảnh quan) — commit `0908682`, Pages run `45053190268` thành công, **30/30 tệp live khớp SHA-256**, cache `4e783ddaa2f93564`, gói điện thoại 106,5 MB, máy tính 122,3 MB. Bản trước 1.90.0 (`99c16f3`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
+| Bản đã phát hành | **1.92.0 — bản đồ mở** (21.327–21.331: Ga tự động, loạt 2 tên lửa + kho hồi 5 s, Lazer bấm 1 lần, mưa 30 %, lái gốc 1.89.0 tạm để so sánh, trang chủ mẫu C) — commit `ded8ffb`, Pages run `45128204801`, **38/38 tệp live khớp SHA-256**, cache `65e4fcac06e7f36d` → **21.334–21.335 vỏ mới, cache `e54a7b98c09942d6`** (trang chủ gọn trên điện thoại, sửa nút Cài khi ngang), gói điện thoại 106,5 MB, máy tính 122,3 MB. Bản trước **1.91.0** (21.319–21.325: lái nhạy hơn, sương mưa phủ từ sát xe, menu mẫu C «Tem đua», ô tô móp sâu + xước/kính nứt/đèn vỡ khi va chạm cả CSGT, xe người chơi móp khi đụng cảnh quan) — commit `0908682`, Pages run `45053190268` thành công, **30/30 tệp live khớp SHA-256**, cache `4e783ddaa2f93564`, gói điện thoại 106,5 MB, máy tính 122,3 MB. Bản trước 1.90.0 (`99c16f3`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra. Plugin `Assets/ai.meshy` đã commit cùng 1.74.0 (`bee5707`). |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -63,6 +63,7 @@ Cập nhật lần cuối: **23/11/2026 — Claude Code (21.334 trang chủ gọ
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.335 — web 1.92.0 (vỏ mới):** sửa nút Cài tràn chữ khi điện thoại xoay ngang (`#install{font-size:0}` cho mọi điện thoại), bỏ vạch đỏ cạnh logo, «Bản cập nhật» thu gọn khi mở trang (bỏ `open`). Cache `e54a7b98c09942d6`. Chi tiết `huongdan.md` 21.335.
 - **21.334 — web 1.92.0 (vỏ mới, không build lại):** trang chủ trên điện thoại nhỏ lại cỡ màn chào trong game (tiêu đề 36 px, nút LÊN XE THÔI cao 40, thanh trên 46). Điện thoại ngang có bố cục như màn chào (ảnh phủ, thẻ «Địa điểm hôm nay»). `style.css` khối 21.334; `AgentScripts/Shell21334.cs` → `RefreshWebShell`, cache `5ad711f70070efa4`; commit `cfde9b6`, Pages `45131843307`, live 38/38 khớp. Chi tiết `huongdan.md` 21.334.
 - **21.333:** build phát hành từ nay dùng **`AgentScripts/ReleaseBuild.cs`**: `Prepare` tới khi trả «ready x.y.z» rồi mới `BuildNow`. Script chặn build khi dll Editor chưa có số phiên bản mới, nên không phải build lại lần 2 như 1.92.0. Luật đã ghi vào `AGENTS.md`. Chi tiết `huongdan.md` 21.333.
 - **21.332 — phát hành 1.92.0:** gộp 21.327–21.331 (Ga tự động, 2 tên lửa + kho 5 s, Lazer bấm 1 lần, mưa 30 %, lái gốc 1.89.0, trang chủ mẫu C). Commit `ded8ffb`, Pages `45128204801`, live 38/38 khớp SHA, cache `65e4fcac06e7f36d`. Build lần 1 ra nhầm 1.91.0 vì Unity chưa biên dịch lại `PhoVietWebBuild.cs` → dùng `AgentScripts/Refresh21332.cs` `Reimport` trước khi build. Chi tiết `huongdan.md` 21.332.

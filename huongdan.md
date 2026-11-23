@@ -6201,3 +6201,17 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - `docs` + pack/materialize, SHA 39/39 khớp. Trong `docs` chỉ đổi `index.html`, `style.css`, `sw.js`, `build-info.json`.
   - Số phiên bản vẫn 1.92.0. Máy đã mở trang sẽ nhận vỏ mới khi service worker thấy cache đổi.
 - **Đã lên web:** commit `cfde9b6`, Pages run `45131843307` thành công, live 38/38 tệp khớp SHA, `build-info.json` 1.92.0 cache `5ad711f70070efa4`. Chờ người dùng xem lại trên iPhone (dọc và ngang).
+
+## 21.335. Trang chủ: sửa nút Cài khi xoay ngang, bỏ vạch đỏ cạnh logo, «Bản cập nhật» thu gọn sẵn (23/11/2026, Claude Code)
+
+- **Người dùng (ảnh iPhone):**
+  - **Lỗi khi xoay ngang:** chữ «THÊM VÀO MÀN HÌNH» tràn ra ngoài nút ở thanh trên.
+  - Bỏ vạch đỏ bên trái logo «PHỐ VIỆT».
+  - Khung «Bản cập nhật» luôn thu gọn khi mở trang, cả dọc lẫn ngang.
+- **Nguyên nhân lỗi:** khối 21.334 thu nút Cài về 32 px cho mọi điện thoại. Nhưng lệnh ẩn chữ (`font-size:0`) chỉ có ở khối `max-width:700px`, nên điện thoại xoay ngang (rộng > 700 px) vẫn in chữ dài trong nút 32 px.
+- **Sửa:**
+  - `style.css` khối 21.334: `#install{font-size:0}` cho mọi điện thoại; biểu tượng là `::after` nên vẫn hiện.
+  - Bỏ `.wordmark::before{border-left:7px solid red}`.
+  - `index.html`: bỏ thuộc tính `open` của `#release-notes`. `app.js` vẫn tự mở khung khi máy đang giữ bản cũ hơn bản trên máy chủ, để thấy dòng báo cập nhật.
+- **Kiểm tra:** Chrome headless 932 × 430 ngang và 390 × 844 dọc, trên bản sao có bật nút Cài: nút chỉ còn biểu tượng, logo không vạch đỏ, «Bản cập nhật» thu gọn.
+- **Phát hành:** chỉ cập nhật vỏ web (`AgentScripts/Shell21334.cs`), vẫn bản 1.92.0, cache `e54a7b98c09942d6`. SHA `_site` 39/39 khớp.

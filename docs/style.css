@@ -18,7 +18,6 @@ button:hover{filter:brightness(1.08)}button:focus-visible,a:focus-visible{outlin
 #toolbar{position:relative;min-height:calc(var(--bar) + var(--safe-top));display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:calc(12px + var(--safe-top)) max(24px,var(--safe-right)) 12px max(24px,var(--safe-left));gap:10px 24px;background:linear-gradient(180deg,#0d1b2a,var(--bg));z-index:2}
 #toolbar::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:repeating-conic-gradient(var(--cream) 0 25%,var(--navy) 0 50%) 0 0/8px 8px;opacity:.55}
 .wordmark{display:inline-flex;align-items:center;gap:12px;padding:7px 20px 7px 14px;text-decoration:none;color:var(--cream);white-space:nowrap;--tb:var(--panel)}
-.wordmark::before{border-left:7px solid var(--red)}
 .brand-mark{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:#da251d;border:2px solid var(--navy)}
 .brand-text b{display:block;font-size:19px;line-height:1.05;letter-spacing:.02em;font-weight:700}
 .brand-text small{display:block;font-size:9px;letter-spacing:.14em;color:var(--gold);margin-top:3px}
@@ -163,7 +162,8 @@ nav button{height:38px;padding:0 10px;font-size:11.5px}
 nav{gap:6px}
 nav button{height:32px;padding:0 10px;font-size:10.5px;gap:6px}
 nav button::after{width:15px;height:15px}
-#install,#fullscreen{width:32px}
+#install,#fullscreen{width:32px;padding:0;justify-content:center}
+#install{font-size:0;gap:0;letter-spacing:0}   /* 21.335: điện thoại ngang (> 700 px) trước đây vẫn hiện chữ «Thêm vào màn hình» tràn ra ngoài nút 32 px */
 .lab{font-size:9px}
 .hero-bg{height:300px;background-size:auto 145%;background-position:50% 72%}
 .eyebrow{height:22px;padding:0 11px;font-size:9.5px;gap:6px}.eyebrow .ic{width:12px;height:12px}
