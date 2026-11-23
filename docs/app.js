@@ -114,7 +114,10 @@ function setImmersive(enabled){
   immersive=Boolean(enabled);document.body.classList.toggle('immersive',immersive);
   document.documentElement.classList.toggle('game-immersive',immersive);
   document.querySelector('meta[name="theme-color"]').content=immersive?'#202020':'#0a1622';   // 21.331: trang chủ nền tối
-  $('game-menu').hidden=!immersive||touchDevice||!unityInstance||$('install').hidden;   // 21.347: menu ☰ chỉ còn «Tải game»setMenu(false);syncViewport();scheduleViewport();
+  // 21.347: menu ☰ (máy tính) chỉ còn «Tải game» nên ẩn khi nút này ẩn. 21.348: chú thích này trước nằm cuối dòng lệnh và
+  // vô hiệu luôn setMenu/syncViewport phía sau → thanh trên rỗng che màn hình game (1.94.0). Không đặt // giữa dòng lệnh.
+  $('game-menu').hidden=!immersive||touchDevice||!unityInstance||$('install').hidden;
+  setMenu(false);syncViewport();scheduleViewport();
 }
 async function requestNativeFullscreen(){
   if(document.fullscreenElement || (ios && standalone) || matchMedia('(display-mode: fullscreen)').matches)return true;
