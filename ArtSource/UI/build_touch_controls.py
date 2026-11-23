@@ -379,8 +379,8 @@ def build_button(name, text, accent_hex, icon, size_frac, final=FINAL):
 
 
 # 21.338 (người dùng chọn mẫu A «Kính neon»): 5 nút này nay xuất từ ArtSource/Concepts/Buttons-20261123/nut.html (xuat_game.sh),
-# KHÔNG ghi đè ở đây nữa. Chỉ GA và P/DRIFT còn vẽ bằng script này.
-SVG_BUTTONS = {'Left', 'Right', 'Reverse', 'Jump', 'Missile'}
+# KHÔNG ghi đè ở đây nữa (chỉ còn vẽ ảnh xem trước touch_controls_preview.png).
+SVG_BUTTONS = {'Left', 'Right', 'Reverse', 'Jump', 'Missile', 'Gas', 'Stop'}   # 21.340: cả GA + P/DRIFT → script này không ghi ảnh nút nào nữa
 
 
 def main():

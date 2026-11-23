@@ -22,6 +22,9 @@ const BTN = {
   missile: { label: 'TÊN LỬA', acc: '#ff5a4a', light: '#ffd3cc', dark: '#b8231a' },
   jump:    { label: 'NHẢY',    acc: '#ffc53d', light: '#fff1c4', dark: '#c98a0a' },
   reverse: { label: 'LÙI',     acc: '#35c76b', light: '#cdf7dc', dark: '#16843f' },
+  gas:     { label: 'GA',      acc: '#ff8a3d', light: '#ffe2cc', dark: '#c4561a' },   // 21.340
+  stop:    { label: 'P/DRIFT', acc: '#3d8bf0', light: '#d6e8ff', dark: '#1d5bb8' },
+  shield:  { label: 'KHIÊN',   acc: '#33f0d2', light: '#d4fff7', dark: '#0d9c86' },
 };
 
 // ---------- bút vẽ theo mẫu: m = khối chính, a = chi tiết màu nhấn, h = lửa nóng, s = khói, k = chi tiết tối
@@ -220,6 +223,52 @@ function iconReverseDown(P, b) {
   return s;
 }
 
+// 21.340 — GA, P/DRIFT, KHIÊN theo mẫu A (người dùng: «Vẽ lại luôn»)
+function iconGas(P, b) {
+  // bàn đạp ga hình thang (rộng trên, hẹp dưới), 4 rãnh to chống trượt, bản lề dưới + 3 chữ V chỉ lên (tăng tốc)
+  let s = '';
+  s += `<rect x="128" y="344" width="212" height="26" rx="13" ${P.k} opacity=".9"/>`;
+  s += `<path d="M206,300 L190,350 L278,350 L262,300 Z" fill="${b.dark}" opacity=".9"/>`;
+  s += `<path d="M150,96 Q150,72 176,72 L292,72 Q318,72 318,96 L300,292 Q298,314 276,314 L192,314 Q170,314 168,292 Z" ${P.m}/>`;
+  for (let i = 0; i < 4; i++) { const y = 110 + i * 48, inset = i * 4; s += `<rect x="${178 + inset}" y="${y}" width="${112 - inset * 2}" height="24" rx="12" fill="${b.dark}" opacity=".8"/>`; }
+  s += `<path d="M170,98 Q172,86 186,84" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="10" stroke-linecap="round"/>`;
+  [[398, 300, .5], [398, 222, .78], [398, 144, 1]].forEach(([x, y, o]) =>
+    s += `<path d="M${x - 42},${y + 26} L${x},${y - 16} L${x + 42},${y + 26}" ${P.line(26)} opacity="${o}"/>`);
+  return s;
+}
+function iconStop(P, b) {
+  // ký hiệu phanh tay ( P ) + 2 vệt lốp trượt cong (drift)
+  const cx = 256, cy = 190;
+  let s = '';
+  s += `<path d="M128,342 Q250,292 402,318" fill="none" stroke="${b.acc}" stroke-width="18" stroke-linecap="round" opacity=".55"/>`;
+  s += `<path d="M150,380 Q272,334 418,360" fill="none" stroke="${b.acc}" stroke-width="18" stroke-linecap="round" opacity=".35"/>`;
+  s += `<circle cx="${cx}" cy="${cy}" r="96" fill="${b.dark}" fill-opacity=".35"/>`;
+  s += `<circle cx="${cx}" cy="${cy}" r="96" ${P.line(30)}/>`;
+  const arc = (r, a0, a1) => { const p0 = [cx + r * Math.cos(a0), cy + r * Math.sin(a0)], p1 = [cx + r * Math.cos(a1), cy + r * Math.sin(a1)]; return `M${p0[0].toFixed(1)},${p0[1].toFixed(1)} A${r},${r} 0 0 1 ${p1[0].toFixed(1)},${p1[1].toFixed(1)}`; };
+  const d2r = Math.PI / 180;
+  s += `<path d="${arc(146, 140 * d2r, 220 * d2r)}" ${P.line(24).replace(/url\(#gm[^)]*\)/, b.acc)}/>`;
+  s += `<path d="${arc(146, -40 * d2r, 40 * d2r)}" ${P.line(24).replace(/url\(#gm[^)]*\)/, b.acc)}/>`;
+  s += `<text x="${cx}" y="${cy + 50}" text-anchor="middle" font-family="BVP" font-size="150" fill="url(#gm${MAU}stop)" ${MAU === 'A' ? `filter="url(#glow${MAU}stop)"` : `stroke="${NAVY}" stroke-width="12" paint-order="stroke"`}>P</text>`;
+  return s;
+}
+function iconShield(P, b) {
+  // khiên năng lượng: vỏ khiên sáng, lòng tối vân lục giác, tia sét vàng giữa + tia lửa điện quanh viền
+  let s = `<path d="M256,58 L398,110 Q402,284 256,370 Q110,284 114,110 Z" ${P.m}/>`;
+  s += `<path d="M256,92 L370,132 Q372,268 256,336 Q140,268 142,132 Z" fill="#0b1d2c" fill-opacity=".92"/>`;
+  let hex = '';
+  for (let r = 0; r < 6; r++) for (let c = 0; c < 6; c++) {
+    const x = 156 + c * 40 + (r % 2) * 20, y = 132 + r * 36, h = [];
+    for (let k = 0; k < 6; k++) { const a = Math.PI / 6 + k * Math.PI / 3; h.push((x + 20 * Math.cos(a)).toFixed(1) + ',' + (y + 20 * Math.sin(a)).toFixed(1)); }
+    hex += `<polygon points="${h.join(' ')}"/>`;
+  }
+  s += `<clipPath id="sh${MAU}"><path d="M256,92 L370,132 Q372,268 256,336 Q140,268 142,132 Z"/></clipPath>`;
+  s += `<g clip-path="url(#sh${MAU})" fill="none" stroke="${b.acc}" stroke-width="3" opacity=".45">${hex}</g>`;
+  s += `<polygon points="282,118 196,238 248,238 222,326 318,196 264,196 296,118" fill="#ffe066" stroke="#7a4b00" stroke-width="6" stroke-linejoin="round" ${MAU === 'A' ? 'filter="url(#soft2)"' : ''}/>`;
+  s += `<polygon points="282,118 196,238 248,238 222,326 318,196 264,196 296,118" fill="#fff3a6" stroke="#b37400" stroke-width="5" stroke-linejoin="round"/>`;
+  [[106, 92], [412, 96], [94, 236], [420, 230], [256, 30]].forEach(([x, y], i) => s += `<polygon points="${star(x, y, i === 4 ? 22 : 18, 6, 4, .3)}" fill="${b.light}" filter="url(#glow${MAU}shield)"/>`);
+  return s;
+}
+
 // ---------- tấm nút + nhãn
 function defs(id, b) {
   return `<defs>
@@ -233,6 +282,7 @@ function defs(id, b) {
     <filter id="ring${id}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
     <filter id="hard${id}" x="-20%" y="-20%" width="140%" height="150%"><feOffset dy="12" in="SourceAlpha" result="o"/><feFlood flood-color="#030a12" flood-opacity=".55"/><feComposite in2="o" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
+    <filter id="soft2" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="14"/></filter>
     <clipPath id="clipB${id}"><rect x="22" y="22" width="468" height="468" rx="46"/></clipPath>
   </defs>`;
 }
@@ -273,6 +323,9 @@ function icon(key, P, b) {
   if (key === 'laser') return iconLaser(P, b);
   if (key === 'missile') return iconMissile(P);
   if (key === 'jump') return iconJump(P);
+  if (key === 'gas') return iconGas(P, b);
+  if (key === 'stop') return iconStop(P, b);
+  if (key === 'shield') return iconShield(P, b);
   return iconReverse(P, b);
 }
 function button(key, size) {

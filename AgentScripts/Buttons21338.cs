@@ -7,7 +7,7 @@ public static class Buttons21338
 {
     public static string Reimport()
     {
-        foreach (var n in new[] { "Left", "Right", "Missile", "Jump", "Reverse", "Laser" })
+        foreach (var n in new[] { "Left", "Right", "Missile", "Jump", "Reverse", "Laser", "Gas", "Stop", "Shield" })
             AssetDatabase.ImportAsset("Assets/PhoViet/Resources/TouchControls/PV_Btn_" + n + ".png", ImportAssetOptions.ForceUpdate | ImportAssetOptions.ForceSynchronousImport);
         var t = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/PhoViet/Resources/TouchControls/PV_Btn_Left.png");
         return "ok " + (t ? t.width + "x" + t.height + " " + t.format : "missing");

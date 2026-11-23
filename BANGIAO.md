@@ -4,7 +4,7 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **23/11/2026 — Claude Code (21.339 đủ 6 nút mẫu A trong game (LAZER kiểu 3); 21.338; 21.337 mẫu nút; 21.336 xe tăng nổ tung, xe vàng, NPC né sét — source, chưa phát hành; 1.92.0 = 21.327–21.331)**
+Cập nhật lần cuối: **23/11/2026 — Claude Code (21.340 đủ 9 nút mẫu A + ảnh nút trang chủ; 21.339 LAZER kiểu 3; 21.337 mẫu nút; 21.336 xe tăng nổ tung, xe vàng, NPC né sét — source, chưa phát hành; 1.92.0 = 21.327–21.331)**
 
 ## 1. Trạng thái hiện tại
 
@@ -63,6 +63,7 @@ Cập nhật lần cuối: **23/11/2026 — Claude Code (21.339 đủ 6 nút m�
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.340 (source, chưa phát hành):** GA (bàn đạp + chữ V), P/DRIFT (ký hiệu (P) + vệt lốp), KHIÊN (khiên vân lục giác + tia sét) vẽ lại theo mẫu A; `xuat_game.sh` xuất đủ 9 nút + 8 ảnh nút trang chủ `controls/btn-*.png`; script nút cũ bị chặn ghi đè (`--force`). Chi tiết `huongdan.md` 21.340.
 - **21.339 (source, chưa phát hành):** nút LAZER kiểu 3 «Hai tia hội tụ» vào game (`xuat_game.sh laser 3`); không chạy lại `build_laser_button.py` (ghi đè nút cũ). Chi tiết `huongdan.md` 21.339.
 - **21.338 (source, chưa phát hành):** người dùng chọn mẫu A «Kính neon» → 5 nút TRÁI/PHẢI/TÊN LỬA/NHẢY/LÙI (LÙI kiểu cung tròn + R) đã thay `Resources/TouchControls/PV_Btn_*.png` bằng `ArtSource/Concepts/Buttons-20261123/xuat_game.sh`; `build_touch_controls.py` không ghi đè 5 nút này nữa. 3 kiểu LAZER mới (`?lz=1|2|3`, `out/lazer-3kieu.jpg`). Chi tiết `huongdan.md` 21.338.
 - **21.337 (mẫu, chưa vào game):** 3 mẫu vẽ lại 6 nút TRÁI/PHẢI/LAZER/TÊN LỬA/NHẢY/LÙI không có ô tô — A «Kính neon», B «Tem đua», C «Huy hiệu tròn» — `ArtSource/Concepts/Buttons-20261123/` (`nut.html`, `render.sh`, `ghep.py`, `out/tonghop.jpg`). Chi tiết `huongdan.md` 21.337.
@@ -510,7 +511,7 @@ Cập nhật lần cuối: **23/11/2026 — Claude Code (21.339 đủ 6 nút m�
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **21.339 hỏi người dùng:** vẽ lại GA/P/DRIFT/KHIÊN theo mẫu A và ảnh nút trang chủ (`controls/btn-*.png`, còn xe xanh) không. 21.336–21.339 chưa phát hành.
+- **21.336–21.340 chưa phát hành** (xe tăng nổ tung, xe vàng, NPC né sét, 9 nút mẫu A + ảnh nút trang chủ). Chờ người dùng nói «Phát hành»; nhớ sửa «Bản cập nhật» trong `index.html`.
 - **21.336 chưa phát hành:** xe tăng nổ tung, xe vàng, NPC né sét đã commit source; cần «Phát hành» để lên web (dùng `ReleaseBuild.cs`). Hình xe trên nút NHẢY và ảnh nút trang chủ vẫn là xe xanh — hỏi người dùng có đổi sang vàng không.
 - **Chờ người dùng (1.92.0):** thử trên iPhone: trang chủ mẫu C (chạm LÊN XE THÔI, bánh răng, Cách chơi, Thêm vào màn hình), Ga tự động, 2 tên lửa, Lazer bấm 1 lần, lái gốc.
 - **Lái gốc tạm thời (21.329, có trong web 1.92.0):** `classicSteer = true` để người dùng so sánh. Chờ người dùng nói giữ hay trả lại lái 21.316–21.319 (`classicSteer = false`).
@@ -733,7 +734,7 @@ Cập nhật lần cuối: **23/11/2026 — Claude Code (21.339 đủ 6 nút m�
 | Khiên năng lượng (nút KHIÊN, 6 s / hồi 10 s từ 21.313, phá lưới) + trúng đạn cháy nổ | **21.312** | `Scripts/OpenWorld/OpenWorldShield.cs`, `OpenWorldNetShatter.cs`, `OpenWorldDriver.cs` (`ShieldRect`, `Shielded`, `ShieldBump`, `Ignite`, `BlastUp`), `OpenWorldPoliceNet.cs` (`ShatterIfOnPlayer`), `OpenWorldHazards.cs` (`Explode`), `OpenWorldGame.cs` (`ShieldButton`), shader `OpenWorld/Shaders/OpenWorldShield.shader`, `Resources/Khien/`; Blender `ArtSource/Blender/OpenWorld/build_khien.py` → `PhoViet_OW_Khien.blend`; nút `ArtSource/UI/build_shield_button.py`; thử `AgentScripts/Shield21312.cs` |
 | Lái xe người chơi (vô lăng ảo, mô hình ô tô thật, trượt/nghiêng, camera) | **21.316–21.316e** | `Scripts/OpenWorld/OpenWorldDriver.cs` (FixedUpdate: `steerVal`, `wheelBase`, `gripG`, `MoveDir`, `UpdateBodyRoll`), `OpenWorldCamera.cs` (`headingLag`); thử `AgentScripts/SteerFeel21316.cs`, `Corner21316e.cs`, độ nhạy `Resp21319.cs` (21.319); ghi Play thật `Editor/PhoVietPlayProbe.cs` (cờ `Captures/steer21316/probe.on`); khói lốp + tiếng rít `OpenWorldTireFx.cs` (21.316g) |
 | Xe tăng trúng tên lửa/Lazer nổ tung + biến mất | **21.336** | `OpenWorldHazards.Weapons.cs` `DestroyTank` (dùng `LaserBlast`), dọn gốc 2 s trong `OpenWorldHazards.cs` |
-| Nút cảm ứng mẫu A «Kính neon» (SVG → PNG 512): TRÁI/PHẢI/TÊN LỬA/NHẢY/LÙI/LAZER (kiểu 3) | **21.337–21.339** | `ArtSource/Concepts/Buttons-20261123/` (`nut.html`, `xuat_game.sh`, `render.sh`, `ghep.py`), `Resources/TouchControls/`, `AgentScripts/Buttons21338.cs`; GA/P/DRIFT vẫn `ArtSource/UI/build_touch_controls.py` |
+| Nút cảm ứng mẫu A «Kính neon» (SVG → PNG 512): đủ 9 nút (TRÁI/PHẢI/TÊN LỬA/NHẢY/LÙI/LAZER kiểu 3/GA/P-DRIFT/KHIÊN) + ảnh nút trang chủ | **21.337–21.340** | `ArtSource/Concepts/Buttons-20261123/` (`nut.html`, `xuat_game.sh`, `render.sh`, `ghep.py`), `Resources/TouchControls/`, `AgentScripts/Buttons21338.cs`; script nút cũ `ArtSource/UI/build_*` bị chặn ghi đè |
 | Màu sơn xe người chơi (vàng) | **21.336** | `Art/PlayerCar/PV_BlueSupercar_Palette.png`, `AgentScripts/recolor_player_yellow.py`, gốc xanh `ArtSource/Concepts/XeVang-20261123/` |
 | Lửa cháy (xe/xác xe tăng/trực thăng/tàu/lazer) | 21.312/21.258 (21.323 thử lửa Blender — **đã hoàn tác**, không dùng) | `OpenWorldHazards.Weapons.cs` `BurnFx` (ảnh nổ `Art/TankFx/PV_TankExplosion.mat`) |
 | Thời tiết mưa giông + sét (tung mưa 30 % / thường 70 % từ 21.327, 2 phút, đợt 7 tia/15 s, vòm mây; NPC né sét 21.336) | **21.317**, 21.336 | `Scripts/OpenWorld/OpenWorldWeather.cs` (`Roll`, `BeginRun`, `PickTargets`, `StartVolley`→`WarnStrike`, `Fire`, `Apply`), `OpenWorldHazards.Weather.cs` (`LightningBlast`, `CoastPoint`), `OpenWorldTraffic.LightningAround`, `OpenWorldTraffic.DodgeStrikes` (né sét, cờ `dodgeLightning`), thử `AgentScripts/Test21336.cs`, `OpenWorldGame` (`GoReady`/`StartRun` gọi tung); shader `OpenWorld/Shaders/OpenWorldLightning.shader`, `OpenWorldRain.shader`; `Resources/ThoiTiet/`; Blender `ArtSource/Blender/OpenWorld/build_mua_set.py` → `PhoViet_OW_ThoiTiet.blend`; vật liệu `AgentScripts/WeatherAssets21317.cs`; thử `AgentScripts/Weather21317.cs` |

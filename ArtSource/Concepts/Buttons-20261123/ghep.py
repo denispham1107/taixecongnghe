@@ -45,7 +45,7 @@ def compose(mau):
 
 
 import sys
-if len(sys.argv) > 1 and sys.argv[1] == 'lazer': ims = None   # 21.338: chỉ ghép LAZER (không vẽ lại tonghop — «HIỆN TẠI» là bộ nút trước 21.338)
+if len(sys.argv) > 1 and sys.argv[1] in ('lazer', 'du'): ims = None   # 21.338: chỉ ghép LAZER (không vẽ lại tonghop — «HIỆN TẠI» là bộ nút trước 21.338)
 else: ims = [compose(m) for m in ('HienTai', 'A', 'B', 'C')]
 sheet = Image.new('RGB', (W * 2 + 12, H * 2 + 12), (20, 24, 28))
 for i, im in enumerate(ims or []): sheet.paste(im, ((i % 2) * (W + 12), (i // 2) * (H + 12)))
@@ -85,3 +85,16 @@ def compose_laser():
 
 if __name__ == '__main__' and len(__import__('sys').argv) > 1 and __import__('sys').argv[1] == 'lazer':
     compose_laser()
+
+
+# 21.340 — đủ 9 nút mẫu A trên bố cục điện thoại: python -X utf8 ghep.py du → out/dienthoai-du9-21340.png
+def compose_all():
+    img = Image.open(os.path.join(HERE, 'raw', 'nen.png')).convert('RGBA').resize((W, H))
+    boxes = {'Gas': gas, 'Stop': stop, 'Shield': shield, 'Left': left, 'Right': right, 'Laser': laser, 'Missile': fire, 'Jump': jump, 'Reverse': rev}
+    for k, box in boxes.items(): put(img, Image.open(os.path.join(HERE, 'raw', f'game-{k}.png')), box)
+    img.convert('RGB').save(os.path.join(HERE, 'out', 'dienthoai-du9-21340.png'))
+    print('ok du')
+
+
+if __name__ == '__main__' and len(__import__('sys').argv) > 1 and __import__('sys').argv[1] == 'du':
+    compose_all()

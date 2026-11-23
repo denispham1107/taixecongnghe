@@ -8,6 +8,10 @@ Icon (vẽ 3× rồi thu nhỏ, chi tiết):
   • Vệt bóng kính chéo trên vai trái; 4 tia điện lởm chởm xẹt quanh mép khiên + chớp sao 4 cánh + tia lửa nhỏ.
 Chạy:  python ArtSource/UI/build_shield_button.py   →  Assets/PhoViet/Resources/TouchControls/PV_Btn_Shield.png (512²)
 """
+import sys as _sys
+if '--force' not in _sys.argv:
+    _sys.exit('21.339/21.340: PV_Btn_Shield.png nay xuất từ ArtSource/Concepts/Buttons-20261123/xuat_game.sh (mẫu A). Thêm --force nếu thật sự muốn vẽ lại nút cũ.')
+
 import math
 import os
 import random

@@ -4,6 +4,10 @@ Icon: siêu xe xanh nhìn ngang (như nút NHẢY) phóng 2 tia lazer đỏ từ
 hai tia tỏa nhẹ, chớp sáng ở đầu đèn và chớp sao chỗ tia trúng, vài tia lửa.
 Chạy:  python ArtSource/UI/build_laser_button.py   →  Assets/PhoViet/Resources/TouchControls/PV_Btn_Laser.png (512²)
 """
+import sys as _sys
+if '--force' not in _sys.argv:
+    _sys.exit('21.339/21.340: PV_Btn_Laser.png nay xuất từ ArtSource/Concepts/Buttons-20261123/xuat_game.sh (mẫu A). Thêm --force nếu thật sự muốn vẽ lại nút cũ.')
+
 import math
 import os
 import sys

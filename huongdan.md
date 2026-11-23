@@ -6302,3 +6302,19 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - GA, P/DRIFT, KHIÊN vẫn kiểu cũ.
   - Ảnh nút ở trang chủ (`Assets/WebGLTemplates/PhoVietPWA/controls/btn-*.png`) vẫn là bộ cũ, có hình xe xanh.
   - Chưa phát hành (cùng 21.336–21.338).
+
+## 21.340. Vẽ lại GA, P/DRIFT, KHIÊN theo mẫu A + ảnh nút trang chủ (23/11/2026, Claude Code)
+
+- **Người dùng:** «Vẽ lại luôn» GA, P/DRIFT, KHIÊN và ảnh nút trang chủ theo mẫu A.
+- **Biểu tượng mới (`nut.html`: `iconGas`, `iconStop`, `iconShield`; giữ màu nhấn cũ):**
+  - **GA (cam):** bàn đạp ga hình thang, 4 rãnh chống trượt, bản lề dưới, 3 chữ V chỉ lên (tăng tốc). Bản đầu trông như micro nên đã vẽ lại.
+  - **P/DRIFT (xanh dương):** ký hiệu phanh tay ( P ) phát sáng, dưới có 2 vệt lốp trượt cong.
+  - **KHIÊN (ngọc):** vỏ khiên sáng, lòng tối có vân lục giác, tia sét vàng ở giữa, tia lửa điện quanh viền.
+- **Xuất:** `xuat_game.sh` (không tham số) xuất đủ 9 nút mẫu A vào `Resources/TouchControls/PV_Btn_*.png` (512²). Cũng thu nhỏ 8 ảnh nút trang chủ `Assets/WebGLTemplates/PhoVietPWA/controls/btn-*.png` (160²; trang chủ không có P/DRIFT).
+- **Chặn ghi đè:**
+  - `build_touch_controls.py` không ghi ảnh nút nào nữa (`SVG_BUTTONS` gồm cả Gas, Stop).
+  - `build_laser_button.py` và `build_shield_button.py` dừng ngay, trừ khi chạy với `--force`.
+- **Kiểm tra:**
+  - `Buttons21338.Reimport` (đã thêm Gas, Stop, Shield) → Play → `Show`. Ảnh `out/unity-du9-21340.png`: 9 nút mới hiện đúng, console không lỗi. Editor máy tính vẫn xếp nút kiểu máy tính (NHẢY chồng dưới GA), như trước.
+  - Bố cục điện thoại: `ghep.py du` → `out/dienthoai-du9-21340.png`.
+- **Trạng thái:** đã commit, chưa phát hành. Khi phát hành nhớ ghi vào «Bản cập nhật»: nút điều khiển mới, xe vàng, xe tăng nổ tung, NPC né sét.
