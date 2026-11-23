@@ -528,7 +528,7 @@ Cập nhật lần cuối: **23/11/2026 — Claude Code (21.356 phát hành 1.95
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **Chờ người dùng (21.356):** (1) **nâng gói Blaze** cho dự án `gotaviet` (Firebase console → Upgrade, tự nhập thẻ) — gói Spark chỉ cho Hosting tải 360 MB/ngày ≈ 3 lượt tải game mới/ngày; sau khi nâng nên đặt ngân sách cảnh báo (Google Cloud Billing → Budgets). (2) Thử trên gotaviet.web.app: đăng ký email, đăng nhập Google (máy tính + iPhone đã cài), chơi một lượt xem thông báo hạng + bảng xếp hạng. (3) Người đã cài bản cũ từ github.io cài lại từ gotaviet.web.app.
+- **Chờ người dùng (21.356):** (1) ~~nâng gói Blaze~~ đã nâng; ngân sách cảnh báo «GoTa Viet - canh bao 5 USD/thang» 130.000 ₫/tháng chỉ cho dự án gotaviet (email 50/90/100 %, không chặn). (2) Thử trên gotaviet.web.app: đăng ký email, đăng nhập Google (máy tính + iPhone đã cài), chơi một lượt xem thông báo hạng + bảng xếp hạng. (3) Người đã cài bản cũ từ github.io cài lại từ gotaviet.web.app.
 
 - **Đã dọn dấu vết build 1.95.0 bị hủy (người dùng cho phép):** 148 tệp `.meta` texture (cả 2 tệp Emerald Tyrant sót lần đầu) về bản đã commit (WebGL DXT), xóa `Assets/Resources/PerformanceTestRunInfo*` + `Assets/Resources.meta`; Unity đã nạp lại.
 - ~~Chờ người dùng cho phép build/phát hành 1.95.0~~ — đã phát hành ở 21.356 trên Firebase: gồm 21.350 (màn chào «ĐẠI NÁO / PHỐ QUEN.», «VÒNG VÂY RỰC LỬA», bỏ vạch đỏ logo, còng tay xích phòng giam) + 21.355 (hết 4 chấm đỏ ở logo). Bong bóng thoại đã xóa hẳn (21.354). Số 1.95.0 đã trong mã; build trước bị hủy.
