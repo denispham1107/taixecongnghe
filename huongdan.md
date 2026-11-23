@@ -6152,3 +6152,6 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Gói điện thoại 106,5 MB, gói máy tính 122,3 MB, wasm 5,9 MB.
   - Trang chủ mới có trong bản build (`controls/` + 3 ảnh).
 - **Đóng gói:** `docs` ← `Builds/WebGL`; `PublishWebArtifact.py pack` (mỗi gói 4 phần 32 MB) + `materialize` ra `_site`. So SHA-256 39/39 khớp.
+- **Commit/push:** `ded8ffb`. Không gồm tệp chỉ lưu ở máy, `Packages/`, `PV_StreetAtlas.mat`, `OW_Map_blocks.fbx`, các `.blend`, `Captures/` và `_Recovery`. Pages run `45128204801` thành công.
+- **Live:** 38/38 tệp khớp SHA. `build-info.json` là 1.92.0, cache `65e4fcac06e7f36d`; trang chủ đã ở giao diện mẫu C và có ghi chú mới.
+- **Chờ người dùng thử trên iPhone:** trang chủ mới (Safari: chạm LÊN XE THÔI, bánh răng, Cách chơi, Thêm vào màn hình), Ga tự động, 2 tên lửa, Lazer bấm 1 lần, lái gốc 1.89.0 so với lái 21.319.
