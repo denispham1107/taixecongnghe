@@ -142,7 +142,7 @@ namespace PhoViet.OpenWorld
             if (!driver || systems.Count == 0) return;
             if (driver.Jumps != seenJumps) { seenJumps = driver.Jumps; GroundRing(36, 6.5f, 1.7f, 1.4f); }
             if (driver.Landings != seenLandings) { seenLandings = driver.Landings; if (!driver.Crashed) GroundRing(22, 4f, 1.25f, 1f); }
-            bool on = driver.Airborne && !driver.Crashed;
+            bool on = driver.Airborne && !driver.Crashed && !driver.AirKnocked;   // 21.366: tắt luồng phụt khi bị đụng rơi xuống
             if (on && !Emitting) { foreach (var p in systems) p.Play(); Emitting = true; }
             else if (!on && Emitting) { foreach (var p in systems) p.Stop(true, ParticleSystemStopBehavior.StopEmitting); Emitting = false; }
         }

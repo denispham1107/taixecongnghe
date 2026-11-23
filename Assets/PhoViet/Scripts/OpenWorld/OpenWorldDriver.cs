@@ -12,7 +12,9 @@ namespace PhoViet.OpenWorld
         public float maxSpeed = 27f;          // ≈ 97 km/h
         public float reverseSpeed = 8f;
         // 21.292 (người dùng): thả ga xe trôi lâu hơn — drag 2,2 → 1,6 m/s² (từ 97 km/h về 0: 12 s → 17 s).
-        public float accel = 7f, brake = 16f, drag = 1.6f;
+        // 21.362 (người dùng): thả Ga tự giảm tốc chậm hơn 30 % nữa — drag 1,6 → 1,12 m/s² (110 km/h về 0: ~19 s → ~27 s).
+        // Giá trị cũng lưu trong scene PhoVietOpenWorld (trường public) — sửa cả hai.
+        public float accel = 7f, brake = 16f, drag = 1.12f;
         // 21.316 (người dùng: đổi hướng trái/phải chưa mượt) — «vô lăng ảo»: nút/phím lái là bật/tắt (−1/0/+1) nên trước đây thân xe
         // nhảy ngay 0 → 95°/s → −95°/s trong 1 bước. Nay góc lái tăng dần tới đủ trong steerRise (0,2 s), trả về thẳng trong
         // steerReturn (0,12 s); đổi bên thì trả qua giữa rồi mới bẻ sang. Tốc độ quay giảm theo tốc độ xe: từ 8 m/s tới maxSpeed
@@ -343,11 +345,17 @@ namespace PhoViet.OpenWorld
                 if (sinkTime > 3f && respawnAfterSink) Respawn();
                 return;
             }
-            if (transform.position.y < WaterY + 0.3f) { sinking = true; sinkTime = 0; RiverFalls++; jumping = false; return; }
+            if (transform.position.y < WaterY + 0.3f)
+            {
+                // 21.365: lưu vận tốc + điểm chạm nước trước khi bị kìm lại để OpenWorldWaterSplash dựng nước văng theo cú lao.
+                WaterEntryVelocity = rb.linearVelocity; WaterEntryPoint = transform.position;
+                sinking = true; sinkTime = 0; RiverFalls++; jumping = false; return;
+            }
             // 21.255: xe hỏng (trúng đạn pháo/khủng long/đâm xe tăng) → văng theo vật lý, khóa lái, nằm chờ CSGT.
             if (Crashed) { Speed = 0; return; }
             TickJump(dt);
             TickUnstick(dt);
+            if (TickKnockFall()) return;                                      // 21.366: đụng vật cản trên không → rơi thẳng xuống
             bool stunned = Time.time < stunUntil, stopping = Time.time < stopUntil;
             if (Time.time < flingUntil) { Speed = 0f; return; }               // 21.259: đang văng sau cú húc — để vật lý tự bay
             if (transform.position.y > -0.2f && Mathf.Abs(rb.linearVelocity.y) < 0.5f && Time.time - lastSafeTime > 1f)
@@ -482,6 +490,11 @@ namespace PhoViet.OpenWorld
         }
         void OnCollisionStay(Collision c)
         {
+            if (!knockFall && (jumping || Time.time - supportAt > 0.12f) && !IsRoad(c.collider) && c.contactCount > 0)
+            {
+                var c0 = c.GetContact(0);
+                if (c0.normal.y < 0.3f) AirKnock(c0.normal, Mathf.Abs(Vector3.Dot(c.relativeVelocity, c0.normal)));   // 21.366
+            }
             for (int i = 0; i < c.contactCount; i++)
             {
                 if (c.GetContact(i).normal.y <= 0.55f) continue;
@@ -554,6 +567,51 @@ namespace PhoViet.OpenWorld
             foreach (var c in unstickIgnored) if (c && body) Physics.IgnoreCollision(body, c, false);
             unstickIgnored.Clear();
         }
+
+        // ------------------------------------------------------------ 21.366: đụng vật cản lúc đang trên không → rơi xuống ngay
+        // Lỗi (người dùng: «xe đang nhảy mà đụng vật cản thì bị dừng ở độ cao đó luôn cho đến 1 lúc rồi mới rớt xuống»): trên
+        // không, FixedUpdate vẫn kéo vận tốc ngang về hướng chạy × Speed (Ga tự động còn giữ Speed) → mỗi bước vật lý xe bị ép
+        // vào thân cây/cột/tường/xe khác; lực ép lớn nên ma sát giữ xe dính trên vật cản, chỉ rơi khi Speed tụt hết.
+        // Sửa: chạm sườn (pháp tuyến ngang) khi xe cao hơn mặt đường > AirKnockHeight → bỏ vận tốc lao vào vật, bật nhẹ ra khỏi
+        // vật, vận tốc đứng ≤ −1,5 m/s, Speed = 0, khóa lái/ga và kéo xuống bằng gia tốc rơi của cú nhảy (22 m/s²) tới khi chạm
+        // đất (tối đa 3 s). Áp dụng mọi vật cản: cây, cột, tường, lan can, bồn cây, xác xe, CSGT, xe NPC (cả khi có khiên).
+        public const float AirKnockHeight = 0.5f;
+        public int AirKnocks { get; private set; }
+        public bool AirKnocked => knockFall;
+        bool knockFall; float knockAt = -10f;
+
+        bool HighInAir()
+        {
+            if (!jumping && Grounded()) return false;
+            float road = RoadBelow();
+            return float.IsNaN(road) || transform.position.y - road > AirKnockHeight;
+        }
+
+        // n: pháp tuyến chỗ chạm (hướng từ vật cản về phía xe). Trả về true nếu đã xử lý như cú đụng trên không.
+        bool AirKnock(Vector3 n, float into)
+        {
+            if (Crashed || sinking || n.y >= 0.55f || !HighInAir()) return false;
+            if (knockFall && Time.time - knockAt < 0.15f) return true;
+            n.y = 0f; if (n.sqrMagnitude < 0.01f) n = -transform.forward; n.Normalize();
+            var v = rb.linearVelocity; var flat = v; flat.y = 0f;
+            var tangent = flat - n * Vector3.Dot(flat, n);
+            var nv = tangent * 0.3f + n * Mathf.Clamp(into * 0.25f, 1.5f, 4f);
+            nv.y = Mathf.Min(v.y, -1.5f);
+            rb.linearVelocity = nv; rb.angularVelocity = Vector3.zero;
+            Speed = 0f; cruise = false; knockFall = true; knockAt = Time.time; AirKnocks++;
+            return true;
+        }
+
+        // true = đang rơi sau cú đụng (bỏ qua phần lái/ga trong FixedUpdate)
+        bool TickKnockFall()
+        {
+            if (!knockFall) return false;
+            Speed = 0f;
+            if (!jumping) rb.AddForce(Vector3.down * (JumpFall + Physics.gravity.y), ForceMode.Acceleration);   // khi nhảy TickJump đã kéo 22 m/s²
+            bool landed = Time.time - knockAt > 0.1f && rb.linearVelocity.y <= 0.5f && Grounded();
+            if (landed || Time.time - knockAt > 3f) { knockFall = false; return false; }
+            return true;
+        }
         void TickJump(float dt)
         {
             if (jumpRequest) { jumpRequest = false; jumpRequestAt = Time.time; }
@@ -598,7 +656,7 @@ namespace PhoViet.OpenWorld
                 if (!bodyModel) return;
                 bodyBase = bodyModel.localRotation;
             }
-            bool calm = Crashed || jumping || frozen || sinking || Time.time < flingUntil;
+            bool calm = Crashed || jumping || frozen || sinking || knockFall || Time.time < flingUntil;
             float want = calm || classicSteer ? 0f : Mathf.Clamp(yawRateNow * Mathf.Deg2Rad * Speed * bodyRollGain, -bodyRollMax, bodyRollMax);
             bodyRoll = Mathf.Lerp(bodyRoll, want, 1f - Mathf.Exp(-Time.deltaTime / 0.15f));
             bodyModel.localRotation = bodyBase * Quaternion.Euler(0f, 0f, bodyRoll);   // cua phải (yaw +) → roll + : sườn phải nhổm lên, sườn trái (ngoài cua) hạ
@@ -683,8 +741,9 @@ namespace PhoViet.OpenWorld
         void HitVehicle(Collision c, float otherMass)
         {
             var ct = c.GetContact(0); float closing = c.relativeVelocity.magnitude;
-            if (closing < OpenWorldTraffic.MinClosing) return;
-            if (Shielded) { ShieldBump(ct.point, closing); return; }            // 21.312: khiên — không văng/choáng/nổ, chỉ giảm tốc
+            bool air = HighInAir();                                             // 21.366
+            if (closing < OpenWorldTraffic.MinClosing) { if (air) AirKnock(ct.normal, closing); return; }
+            if (Shielded) { ShieldBump(ct.point, closing); if (air) AirKnock(ct.normal, closing); return; }   // 21.312: khiên — không văng/choáng/nổ, chỉ giảm tốc
             Dent(ct.point, closing);
             var other = c.collider.attachedRigidbody ? c.collider.attachedRigidbody.position : ct.point;
             var away = transform.position - other; away.y = 0; away = away.sqrMagnitude > 0.01f ? away.normalized : -transform.forward;
@@ -703,6 +762,7 @@ namespace PhoViet.OpenWorld
                 float k = Mathf.InverseLerp(flingSpeed, OpenWorldTraffic.FatalClosing, closing), f = o.fling, fu = Mathf.Min(1f, f);
                 var side = transform.right * (Vector3.Dot(away, transform.right) >= 0 ? 1f : -1f);
                 rb.linearVelocity = (away * 0.75f + side * 0.35f).normalized * (closing * 0.38f * f) + Vector3.up * (1.6f + closing * 0.09f) * fu;
+                if (air) { var fv = rb.linearVelocity; fv.y = -1.5f; rb.linearVelocity = fv; knockFall = true; knockAt = Time.time; AirKnocks++; }   // 21.366: trên không → văng ra + rơi, không hất lên
                 rb.angularVelocity = new Vector3(0, (Random.value < .5f ? -1f : 1f) * (2f + k * 3f) * fu, 0);
                 flingUntil = Time.time + (0.6f + k * 0.6f) * Mathf.Clamp(f, 0.4f, 1f);
                 stunUntil = Time.time + o.stun; stunAt = Time.time; stunTotal = Mathf.Max(.1f, o.stun);
@@ -710,7 +770,8 @@ namespace PhoViet.OpenWorld
                 StunSmoke(o.stun);
                 return;
             }
-            // nhẹ: đổi hướng nhẹ, phanh gấp tới dừng
+            // nhẹ: đổi hướng nhẹ, phanh gấp tới dừng (21.366: trên không → rơi xuống ngay)
+            if (air && AirKnock(ct.normal, closing)) { Bumps++; StunSmoke(0.9f); return; }
             float sideSign = Vector3.Dot(away, transform.right) >= 0 ? 1f : -1f;
             float yaw = sideSign * Mathf.Lerp(5f, 12f, Mathf.InverseLerp(OpenWorldTraffic.MinClosing, flingSpeed, closing));
             rb.MoveRotation(rb.rotation * Quaternion.Euler(0, yaw, 0));
@@ -820,6 +881,8 @@ namespace PhoViet.OpenWorld
 
         public const float WaterY = -2.2f;
         public bool Sinking => sinking;
+        public Vector3 WaterEntryVelocity { get; private set; }               // 21.365: nước văng (OpenWorldWaterSplash)
+        public Vector3 WaterEntryPoint { get; private set; }
         // 21.257: OpenWorldGame tắt — rơi sông là kết thúc chuyến (luật cũ); HUD km/h do thanh HUD vòng chơi vẽ.
         [System.NonSerialized] public bool respawnAfterSink = true, showSpeed = true;
         // 21.254: CSGT bắt → khóa điều khiển (phanh tới đứng yên); chơi lại → đưa xe về vị trí xuất phát.
@@ -843,7 +906,7 @@ namespace PhoViet.OpenWorld
             if (stunSmoke) stunSmoke.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear); stunSmokeUntil = 0f; LastHit = null;
             rb.position = pos; rb.rotation = rot; transform.SetPositionAndRotation(pos, rot);
             rb.linearVelocity = Vector3.zero; rb.angularVelocity = Vector3.zero; spawnTime = Time.time;
-            RestoreUnstick(); perchTime = 0f; otherSupport = null;
+            RestoreUnstick(); perchTime = 0f; otherSupport = null; knockFall = false;   // 21.366
             lastSafePos = pos; lastSafeRot = rot; lastSafeTime = Time.time;
         }
         public int RiverFalls { get; private set; }
@@ -873,7 +936,8 @@ namespace PhoViet.OpenWorld
                 {   // 21.325: tông xác xe nằm yên như vật cản → xe người chơi móp/bể chỗ va
                     var cw = c.GetContact(0); float iw = Mathf.Abs(Vector3.Dot(c.relativeVelocity, cw.normal));
                     if (iw > ObstacleDentMin && cw.normal.y < 0.55f && !Shielded) { Dent(cw.point, iw); ObstacleDents++; }
-                    Speed *= 0.25f; return;
+                    if (!AirKnock(cw.normal, iw)) Speed *= 0.25f;                 // 21.366
+                    return;
                 }
                 HitVehicle(c, npc.owner.Mass(npc.index));
                 return;
@@ -892,6 +956,8 @@ namespace PhoViet.OpenWorld
                 if (!Shielded && !Crashed) { Dent(ct0.point, pol ? c.relativeVelocity.magnitude : into); if (pol) WallDents++; else ObstacleDents++; }
                 if (pol) pol.DamageAt(ct0.point, c.relativeVelocity.magnitude);
             }
+            // 21.366: đang trên không → rơi xuống ngay (không treo trên thân cây/cột/tường)
+            if (!IsRoad(c.collider) && AirKnock(ct0.normal, into)) return;
             // Đâm nhà/cây/cột: mất phần lớn tốc độ (giữ cảm giác va chạm như game cũ).
             if (Vector3.Dot(ct0.normal, transform.forward) < -0.5f) Speed *= 0.25f;
         }

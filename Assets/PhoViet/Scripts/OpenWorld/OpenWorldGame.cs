@@ -144,6 +144,7 @@ namespace PhoViet.OpenWorld
             if (!hazards) hazards = FindAnyObjectByType<OpenWorldHazards>();
             if (!police) police = FindAnyObjectByType<OpenWorldPolice>();
             if (!traffic) traffic = FindAnyObjectByType<OpenWorldTraffic>();
+            if (player && !player.GetComponent<OpenWorldWaterSplash>()) player.gameObject.AddComponent<OpenWorldWaterSplash>();   // 21.365: nước văng khi rơi sông/biển
             Best = PlayerPrefs.GetInt(BestKey, 0);
             Sound = PlayerPrefs.GetInt(SoundKey, 1) == 1; AudioListener.volume = Sound ? 1f : 0f;
             if (!jailWide) jailWide = Resources.Load<Texture2D>("Jail/JailWide");
@@ -243,7 +244,8 @@ namespace PhoViet.OpenWorld
                     if (player && player.Sinking)
                     {
                         if (sinkAt < 0) sinkAt = Time.time;
-                        else if (Time.time - sinkAt > 1.4f) EndRun(State.GameOver, "Rơi xuống sông!");
+                        // 21.365: 1,4 → 2,4 s — chờ nước văng (1,2 s), cột nước và sóng chấn động hiện rõ rồi mới hiện thẻ kết thúc
+                        else if (Time.time - sinkAt > 2.4f) EndRun(State.GameOver, "Rơi xuống sông!");
                     }
                     break;
                 case State.Paused:

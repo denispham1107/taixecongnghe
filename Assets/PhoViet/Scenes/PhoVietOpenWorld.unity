@@ -524366,6 +524366,7 @@ MonoBehaviour:
   smokeMaterial: {fileID: 2100000, guid: 6ef168a3e3736d345929a9f167dc5a89, type: 2}
   flingSpeed: 11.11
   explodeDelay: 1
+  dodgeLightning: 1
   recklessEveryMin: 14
   recklessEveryMax: 26
   recklessSpeedMin: 16
@@ -1778932,7 +1778933,9 @@ MonoBehaviour:
   reverseSpeed: 8
   accel: 7
   brake: 16
-  drag: 1.6
+  drag: 1.12
+  classicSteer: 1
+  classicSteerDegPerSec: 95
   steerRise: 0.08
   steerReturn: 0.06
   wheelBase: 2.65

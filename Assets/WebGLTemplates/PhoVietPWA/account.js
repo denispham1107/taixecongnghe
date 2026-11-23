@@ -9,8 +9,9 @@ const SDK='https://www.gstatic.com/firebasejs/12.3.0/';
 const host=location.hostname;
 const CONFIG={
   apiKey:'AIzaSyCHs0mMV_mxaaXhxNya50wrWupEb9UxR7g',
-  // Cùng tên miền với trang (gotaviet.web.app) để đăng nhập Google chạy được cả khi Safari chặn cookie bên thứ ba.
-  authDomain:host==='gotaviet.web.app'||host==='gotaviet.firebaseapp.com'?host:'gotaviet.firebaseapp.com',
+  // Cùng tên miền với trang để đăng nhập Google chạy được cả khi Safari chặn cookie bên thứ ba.
+  // 21.367: tên miền chính gotaviet.com (Firebase Hosting phục vụ /__/auth/handler trên tên miền tùy chỉnh; sw.js bỏ qua /__/).
+  authDomain:['gotaviet.com','www.gotaviet.com','gotaviet.web.app','gotaviet.firebaseapp.com'].includes(host)?host:'gotaviet.firebaseapp.com',
   projectId:'gotaviet',
   storageBucket:'gotaviet.firebasestorage.app',
   messagingSenderId:'94356168371',
