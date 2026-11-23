@@ -1009841,7 +1009841,7 @@ MonoBehaviour:
   pickupCount: 14
   playerMissileInterval: 0.3
   pickupsEnabled: 0
-  missileRegenSeconds: 12
+  missileRegenSeconds: 5
   traffic: {fileID: 414950685}
   police: {fileID: 1499774850}
   player: {fileID: 1385693118}

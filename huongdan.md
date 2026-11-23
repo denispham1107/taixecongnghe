@@ -6000,3 +6000,155 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Commit/push:** `0908682` (không gồm tệp chỉ-cục-bộ, `Packages/`, `PV_StreetAtlas.mat`, `OW_Map_blocks.fbx`, các `.blend` chưa theo dõi và `PhoViet_OW_ThoiTiet.blend` do phiên thử lửa 21.323 sửa — giữ nguyên ở máy). Pages run `45053190268` thành công.
 - **Live:** 30/30 tệp khớp SHA, `build-info.json` 1.91.0, trang chủ hiện ghi chú mới.
 - **Chờ người dùng:** thử trên iPhone — lái mới, menu mới (chạm thật mọi nút), mưa, ô tô móp/bể (khung hình lúc va chạm).
+
+## 21.327. Mưa 30 %, Ga tự động, loạt 2 tên lửa, Lazer 5 s, sửa chữ màn chào (23/11/2026, Claude Code)
+
+- **Yêu cầu + chốt qua câu hỏi:**
+  - Tỉ lệ thời tiết: mưa 30 %, thường 70 % (trước 50/50).
+  - Ga tự động: chạm nhanh 2 lần vào Ga (điện thoại) hoặc ↑ (máy tính) → giữ nguyên vận tốc; đổi biểu tượng; chạm 2 lần nữa → bình thường. Người dùng chọn: **bấm Lùi/P-DRIFT, choáng, va chạm, bị bắt, hết lượt thì tự tắt; đang tự động mà giữ Ga thì tăng tốc, thả ra giữ tốc độ mới**.
+  - Tên lửa: mỗi lần bắn 2 quả từ 2 đèn xe, tự khóa 2 mục tiêu (trong tầm nhắm hoặc gần xe nhất), trừ 2 quả; giảm thời gian hồi 40 % — người dùng chọn **kho tự hồi** (12 → 7,2 s/quả), nhịp giữa 2 lần bắn giữ 0,3 s; chỉ 1 mục tiêu → **cả 2 quả bám nó**, không có → 2 quả bay thẳng.
+  - Lazer: khóa + hồi năng lượng còn 5 s.
+  - Màn chào: «LÁI QUA» → «LÁI XE QUA»; sửa mất dấu sắc «PHỐ»; mô tả mới «Trốn CSGT. Tiêu diệt khủng long, xe tăng, trực thăng, tàu trên bản đồ.»
+- **Cách làm:**
+  - `OpenWorldWeather.rainChance` 0,5 → 0,3 (thành phần thêm lúc chạy, không lưu scene).
+  - `OpenWorldDriver` (21.327): `GasTap()` — lần bấm Ga/↑/W thứ hai bắt đầu trong 0,4 s sau lần thứ nhất → bật/tắt `cruise` (bật khi đang chạy ≥ 7 km/h, giữ `cruiseSpeed` = tốc độ lúc đó). Trong `FixedUpdate`: không ga → giữ `cruiseSpeed` (tụt vì va thì tăng tốc lại); giữ ga → tăng tốc và nâng `cruiseSpeed`; khóa lái (choáng/va nhẹ/lưới/bị bắt), Lùi, P/DRIFT, Space → tắt; `ResetTo` (chơi lại) → tắt.
+    - Nút Ga khi tự động (`DrawCruiseGas`): quầng xanh lá nhịp thở + viền xanh + ảnh Ga ánh xanh + nhãn «TỰ ĐỘNG» trong nút.
+    - Máy tính (`DrawCruiseChip`): thẻ «GA TỰ ĐỘNG 60 km/h · ↑↑ tắt» bên trái nút Nhảy.
+  - `OpenWorldHazards.Weapons.TryFire` viết lại: gom mục tiêu (xe tăng chưa hạ, trực thăng/máy bay, tàu) trong tầm nhắm (≤ 180 m, lệch ≤ 55°) theo khoảng cách; thiếu thì thêm mục tiêu gần xe nhất mọi phía ≤ 120 m (khác mục tiêu đầu). 2 quả xuất phát ở 2 đèn pha (`OpenWorldLaser.lampLocal`, ±0,6 m), mỗi quả 1 mục tiêu; còn 1 quả trong kho thì bắn 1. Thông báo «Khóa 2 xe tăng» / «Khóa xe tăng + trực thăng»…; `LastSalvo`, `LastSalvoTargets`.
+  - `missileRegenSeconds` 12 → 7,2 (mã + scene, `AgentScripts/Scene21327.cs`; diff scene đúng 1 dòng). *(21.328: → 5 s.)*
+  - `OpenWorldLaser.CooldownSeconds` 10 → 5 (hết khóa thì năng lượng đầy 100). *(21.328: bỏ giữ nút — bấm 1 lần bắn tới hết năng lượng.)*
+  - `OpenWorldGame.Menus.ReadyScreen`: chữ mới. «PHỐ» không mất dấu: dấu sắc của «Ố» (Be Vietnam Pro đặt bên phải dấu mũ, cao hơn) nằm **trên mép ô vàng** nên chữ xanh đậm lẫn vào nền tối → ô vàng cao thêm 18 px phía trên (bóng đỏ giữ đáy), «LÁI XE QUA» nâng 8 px; `TxtL` khung chữ cao 2,8 × cỡ chữ.
+- **Kiểm tra (Play, `AgentScripts/Feat21327.cs`, camera tắt khi bước khung):**
+  - 1.000 lần tung thời tiết: mưa 299 = 30 %.
+  - Ga tự động: bật ở 28 km/h → thả ga 4 s vẫn 28 km/h; giữ ga 1 s → 53 km/h, thả giữ 53. Chạm 2 lần → tắt (xe trôi chậm dần); bấm Lùi → tắt. Ảnh nút: `Captures/feat21327-gatudong.png` (điện thoại), `feat21327-gatudong-pc.png` (máy tính).
+  - Tên lửa: sinh 1 xe tăng + 1 trực thăng phía trước → 1 lần bắn 2 quả, khóa 2 mục tiêu, kho 10 → 8; xe tăng và trực thăng đều bị hạ. Chỉ có 1 tàu → cả 2 quả bám tàu. Không mục tiêu → 2 quả bay thẳng song song từ 2 đèn. Kho hồi +1 sau 7,2 s.
+  - Lazer: thả sau 0,6 s → khóa 4,96 s, hết khóa năng lượng 100.
+  - Màn chào: `Captures/feat21327-manchao.png` — «LÁI XE QUA», «PHỐ» rõ dấu sắc, mô tả mới 2 dòng.
+  - Console 0 lỗi.
+- **Trạng thái:** chưa commit/build/phát hành; chưa thử trên điện thoại.
+
+## 21.328. Kho tên lửa hồi 5 s; Lazer bấm 1 lần là bắn tới hết năng lượng (23/11/2026, Claude Code)
+
+- **Yêu cầu:** kho tên lửa tự hồi 1 quả sau 5 s (trước 7,2 s), nhịp giữa hai lần bắn giữ 0,3 s. Lazer bỏ giữ nút: chỉ cần ấn 1 lần, tự bắn cho tới khi hết năng lượng.
+- **Cách làm:**
+  - `OpenWorldHazards.missileRegenSeconds` 7,2 → 5 (mã + scene qua `AgentScripts/Scene21327.cs`; diff scene đúng 1 dòng).
+  - `OpenWorldLaser.Update`: chỉ tính lúc vừa bấm xuống (`wasHeld`, cạnh lên của nút cảm ứng / phím L / chuột / `testHold`). Đang bắn thì không cần giữ; tia tắt khi hết năng lượng (100: trừ 25 lúc bấm + 25 mỗi 0,5 s → bắn 2 s) hoặc khi không bắn được nữa (hết lượt, xe hỏng, dính lưới, đang bay chìm…). Hết năng lượng → khóa 5 s → đầy 100. Bấm thêm khi đang bắn không có tác dụng.
+- **Kiểm tra (Play, `AgentScripts/Feat21327.cs` lớp `Feat21328`):** chạm 1 khung → bắn 2,00 s, khóa 5,02 s, năng lượng 100, sẵn sàng lại. Kho tên lửa: `missileRegenSeconds` 5, 8 → 9 sau 7,4 s. Console 0 lỗi.
+- **Trạng thái:** chưa commit/build/phát hành (cùng 21.327).
+
+## 21.329. Tạm trở về lái gốc 1.89.0 để so sánh, camera giữ như hiện giờ (23/11/2026, Claude Code)
+
+- **Yêu cầu:** cho đổi hướng quẹo trái/phải trở về phiên bản đầu tiên, chưa chỉnh sửa gì (trước chuỗi 21.316 → 21.319) để chơi thử so sánh; khi cần sẽ bảo trả lại giống hiện giờ. Góc quay, tốc độ quay và chuyển cảnh camera giữ nguyên như hiện giờ.
+- **Cách làm:** thêm công tắc, không xóa mã lái mới.
+  - Trong `OpenWorldDriver` có `classicSteer` (mặc định **true**) và `classicSteerDegPerSec` = 95. Hai trường mới chưa có trong scene nên dùng mặc định của mã; scene không đổi.
+  - Khi bật, `FixedUpdate` lái y hệt 1.89.0:
+    - giữ nút/phím là thân xe quay ngay 95°/s; mức quay tăng dần từ 0 tới 6 m/s; lùi thì đảo chiều;
+    - Space hoặc P/DRIFT là phanh gấp như cũ;
+    - vận tốc bám theo đầu xe 0,35 mỗi bước;
+    - không có vô lăng ảo, giới hạn bám, thiếu lái, cản cua, trượt hướng chạy, nghiêng thân xe hay drift thắng tay. Lực kéo không bị giảm khi cua.
+  - Vẫn giữ: Ga tự động (21.327), khói lốp khi phanh gấp, móp xe, chệch lái sau va chạm (jolt).
+  - Camera `OpenWorldCamera` không đổi (trễ hướng 0,6 s, bám hướng chạy). Ở lái gốc, hướng chạy trùng với đầu xe.
+  - Nhãn nút vẫn là «P/DRIFT», nhưng ở lái gốc nút chỉ phanh gấp, không drift.
+- **Trả lại lái hiện giờ (21.316–21.319):** đặt `classicSteer = false` trong mã; mọi thông số lái mới vẫn còn nguyên.
+- **Kiểm tra (Play, `AgentScripts/Steer21329.cs`, camera tắt khi bước khung):** xe chạy 60 km/h, giữ Phải 0,5 s.
+
+  | Chỉ số | Gốc 1.89.0 | Hiện giờ (21.319) |
+  | --- | --- | --- |
+  | Góc quay | 49,3° | 36,0° |
+  | Tốc độ quay tối đa | 95°/s | 78°/s |
+  | Thời gian tới 5° | 0,06 s | 0,12 s |
+  | Nghiêng thân | 0° | 3,3° |
+  | Camera xoay tối đa | 51°/s | 31°/s |
+
+  - Camera xoay nhanh hơn ở lái gốc vì thân xe quay nhanh hơn; độ trễ camera vẫn 0,6 s.
+  - Ở 90 km/h lái gốc vẫn 95°/s (chưa có giảm theo tốc độ, giống 1.89.0).
+  - Biên dịch và Play 0 lỗi.
+- **Trạng thái:** chưa commit/build/phát hành (cùng 21.327–21.328). Thử trong Unity Editor được ngay; điện thoại cần build mới.
+
+## 21.330. Thiết kế lại trang chủ web theo menu «Tem đua»: 3 mẫu để chọn (23/11/2026, Claude Code)
+
+- **Yêu cầu:** thiết kế lại trang chủ cho hợp với bộ menu mới trong game (mẫu C «Tem đua», 21.322). Gửi vài mẫu trước; người dùng duyệt rồi mới cập nhật lên web. **Giữ nguyên 3 ảnh đang có** trên trang chủ: `poster-home-mobile.jpg`, `poster-home-lazer.jpg`, `poster-home-khien.jpg`.
+- **Đã làm (chỉ ảnh mẫu, chưa sửa `index.html`/`style.css`):**
+  - **Phong cách chung theo menu trong game:**
+    - khối tối nghiêng −11°;
+    - viền màu đỏ/vàng/ngọc, chữ kem và vàng;
+    - tiêu đề «LÁI XE QUA» + băng vàng «PHỐ QUEN.» có bóng đỏ;
+    - nhãn đỏ «BẢN ĐỒ MỞ · SÀI GÒN», nút đỏ nghiêng «VÀO PHỐ »» + ô bánh răng (Cách chơi);
+    - dải ca-rô, băng sọc vàng-đen ở chân trang;
+    - phím bấm kiểu nắp phím, dải 8 nút cảm ứng thật `PV_Btn_*.png` cho điện thoại;
+    - mô tả mới như màn chào: «Trốn CSGT. Tiêu diệt khủng long, xe tăng, trực thăng, tàu trên bản đồ.»
+  - **Giữ đủ chức năng trang cũ:** nút Cài/Thêm vào màn hình, Cách chơi, toàn màn hình, dòng trạng thái tải, phím máy tính, hướng dẫn cảm ứng, khung `release-notes`, 3 ảnh có chú thích, chân trang.
+  - **A — Đêm đua:** cả trang tối. Màn đầu lấy ảnh `poster-home-mobile` làm nền, phóng to để giấu HUD; chữ và nút đè bên trái. Bên dưới là ghi chú bản cập nhật dạng tem nghiêng viền vàng, ảnh cắt hình bình hành có thẻ số 01/02/03.
+  - **B — Giấy đua sáng:** nền kem có sọc chéo mờ, chữ navy, các tem tối dán nghiêng. Ảnh 1 đặt cạnh tiêu đề trong khung viền navy, bóng đỏ, có nhãn «ẢNH TRONG GAME · 3D». Hai ảnh còn lại là thẻ trắng viền navy («HÀNH ĐỘNG TRÊN PHỐ»).
+  - **C — Màn chào trong game:** màn đầu chép bố cục màn chào. Nền là ảnh `poster-home-khien`; có thẻ «ĐỊA ĐIỂM HÔM NAY · Tôn Đức Thắng» và nút «LÊN XE THÔI». Bên dưới là hai thẻ kính HUD viền ngọc (Điều khiển, Bản cập nhật) và lưới 3 ảnh.
+  - **Điện thoại 390 px:** thanh trên rút gọn, nút Cài chỉ còn biểu tượng, tiêu đề 47 px; dải 8 nút nằm 1 hàng; ảnh xếp dọc.
+- **File:** `ArtSource/Concepts/Home-20261123/`:
+  - `trangchu.html` — nguồn; mở trực tiếp với `?mau=A|B|C`, thêm `&w=390` để xem khung điện thoại;
+  - `img/` (3 ảnh + nút), `font.ttf`;
+  - `render.sh` — chụp bằng Chrome headless. Chrome trên Windows không cho cửa sổ hẹp hơn ~500 px nên khung điện thoại dựng bằng `w=390`;
+  - `crop.py` (cắt nền hồng dưới trang), `view.py`, `tonghop.py`;
+  - ảnh gửi người dùng: `trangchu21330-mau{A,B,C}.jpg` (máy tính + điện thoại) và `trangchu21330-mau{A,B,C}-dienthoai.jpg` (điện thoại cả trang); thư mục `out/` chứa ảnh từng khung.
+- **Trạng thái:** người dùng chọn **mẫu C** → cài ở 21.331. Ghi chú gốc khi chờ duyệt:
+  - sửa `Assets/WebGLTemplates/PhoVietPWA/index.html` + `style.css`, giữ mọi id mà `app.js` dùng (`play`, `load-status`, `progress`, `retry`, `install`, `help`, `fullscreen`, `release-notes`, `release-version`, `release-date`, `release-check`, `offline-status`, `guide`, `rotate-game`, `game-menu`…);
+  - đổi `theme-color`, sửa hộp `guide` cùng kiểu;
+  - thử Safari iPhone, rồi phát hành cùng bản kế tiếp.
+
+## 21.331. Cài trang chủ mẫu C «Màn chào trong game» vào template web (23/11/2026, Claude Code)
+
+- **Yêu cầu:** người dùng chọn **mẫu C** (21.330).
+- **Đã làm** (`Assets/WebGLTemplates/PhoVietPWA/`; bản cũ lưu ở `ArtSource/Concepts/Home-20261123/index-cu-1.91.0.html`, `style-cu-1.91.0.css`):
+  - `index.html`:
+    - **Màn đầu:**
+      - nền là ảnh `poster-home-khien.jpg`;
+      - nhãn đỏ «BẢN ĐỒ MỞ · SÀI GÒN»;
+      - «LÁI XE QUA» + băng vàng «PHỐ QUEN.»;
+      - mô tả mới, trong đó có «Trốn CSGT. Tiêu diệt khủng long, xe tăng, trực thăng, tàu trên bản đồ.»;
+      - nút đỏ nghiêng **LÊN XE THÔI** (`#play`) + ô bánh răng `#help-gear` mở Cách chơi;
+      - máy tính có thêm thẻ «ĐỊA ĐIỂM HÔM NAY · Tôn Đức Thắng».
+    - **Hai thẻ kính viền ngọc:**
+      - «Điều khiển»: dải 8 nút thật `controls/btn-*.png` (160 px, chép từ ảnh nút trong game), hướng dẫn cảm ứng, và phím máy tính (`kbd`; chỉ hiện khi có chuột: `hover:hover`);
+      - «Bản cập nhật»: `#release-notes`, nay **mở sẵn**.
+    - **«ẢNH TRONG GAME»:** 3 ảnh cũ đánh số 01/02/03.
+    - Chân trang có băng sọc vàng-đen. `theme-color` = `#0a1622`; mô tả trang mới.
+  - **Giữ nguyên mọi id `app.js` dùng.** Chỉ thêm `help-gear`.
+  - `style.css` viết lại theo mẫu C:
+    - Khối nghiêng −11° vẽ bằng `.tem::before`, nên chữ đứng thẳng. `app.js` đổi chữ nút `#play` («ĐANG MỞ PHỐ…») hoặc `#install` vẫn giữ kiểu.
+    - Biểu tượng nút thanh trên dùng `mask` SVG.
+    - **Bố cục theo màn hình:**
+      - điện thoại dọc ≤ 700 px: nút Cài chỉ còn biểu tượng, ẩn dòng phụ của logo;
+      - ≥ 760 px: 2 thẻ cạnh nhau;
+      - ≥ 1000 px: ảnh nền phủ màn đầu, thẻ kính đè lên đáy;
+      - màn ngang thấp (≤ 620 px cao): màn đầu gọn lại.
+    - Hộp Cách chơi, màn «Xoay ngang», nút ☰ và thanh menu trong game đổi sang tông tối viền ngọc. Phần trong game (immersive, safe-area) giữ nguyên.
+  - `app.js`:
+    - `theme-color` khi về trang chủ = `#0a1622`;
+    - `#help-gear` gọi Cách chơi.
+  - `Editor/PhoVietWebBuild.cs` `RefreshWebShell`: chép thêm `poster-home-lazer.jpg`, `poster-home-khien.jpg` và thư mục `controls/`. Bản build đầy đủ vẫn tự chép cả template; `PruneUnusedPosters` giữ 3 ảnh vì `index.html` có nhắc tên.
+- **Kiểm tra:**
+  - Chrome headless máy tính 1440 × 900 và điện thoại 390 px (qua iframe, máy chủ cục bộ tạm, đã tắt): 3 ảnh tải đủ, không tràn ngang, đủ id.
+  - Unity biên dịch không lỗi.
+  - **Chưa thử trên Safari iPhone thật**, chưa build lại.
+- **Trạng thái:** chưa commit/build/phát hành. Phát hành cùng bản kế tiếp (1.92.0, cùng 21.327–21.329). Nhớ cập nhật khung `release-notes`.
+
+## 21.332. Phát hành 1.92.0 (21.327–21.331) (23/11/2026, Claude Code)
+
+- **Gồm:**
+  - mưa 30 % (21.327);
+  - Ga tự động: chạm nhanh 2 lần Ga / ↑ (21.327);
+  - mỗi lần bắn 2 tên lửa từ 2 đèn, khóa 2 mục tiêu (21.327); kho tự hồi 5 s (21.328);
+  - Lazer khóa/hồi 5 s (21.327) và bấm 1 lần là bắn tới hết năng lượng (21.328);
+  - màn chào «LÁI XE QUA», sửa dấu «PHỐ» (21.327);
+  - **lái gốc 1.89.0** (`classicSteer = true`, 21.329 — người dùng muốn so sánh; trả lại lái 21.316–21.319 bằng `classicSteer = false`);
+  - **trang chủ mẫu C** (21.330–21.331).
+- **Trang chủ:**
+  - khung «Bản cập nhật» ngày 23/11/2026, 5 dòng: trang chủ mới, Ga tự động, 2 tên lửa + kho hồi 5 s, Lazer bấm 1 lần, mưa ít hơn + lái tạm về kiểu ban đầu;
+  - hộp Cách chơi: bỏ hướng dẫn drift (lái gốc không drift), thêm Ga tự động, Lazer bấm 1 lần, tên lửa bắn 2 quả + kho hồi 5 s.
+- **Phiên bản:** 1.92.0 trong `PhoVietWebBuild.cs` + `ProjectSettings.asset`.
+  - **Lưu ý:** build lần 1 ra nhầm 1.91.0. `PhoVietWebBuild.cs` sửa ngoài Unity ngay trước khi build nên chưa được biên dịch lại, và `recompile` của MCP báo «up_to_date».
+  - Đã ép nạp lại bằng `AgentScripts/Refresh21332.cs` `Reimport` (`ImportAsset ForceUpdate` + `RequestScriptCompilation`). Đã kiểm `Library/ScriptAssemblies/Assembly-CSharp-Editor.dll` có chuỗi 1.92.0 rồi mới build lại.
+  - **Lần sau:** sửa số phiên bản rồi chạy `Reimport` (hoặc kiểm dll) trước khi build.
+- **Build:** `AgentScripts/QueueRelease21332.cs` `BuildNow` (trạng thái `Builds/release1920-status.json`).
+  - 1.444 s, bỏ 3.356 vật trong gói điện thoại, cache `65e4fcac06e7f36d`.
+  - Gói điện thoại 106,5 MB, gói máy tính 122,3 MB, wasm 5,9 MB.
+  - Trang chủ mới có trong bản build (`controls/` + 3 ảnh).
+- **Đóng gói:** `docs` ← `Builds/WebGL`; `PublishWebArtifact.py pack` (mỗi gói 4 phần 32 MB) + `materialize` ra `_site`. So SHA-256 39/39 khớp.

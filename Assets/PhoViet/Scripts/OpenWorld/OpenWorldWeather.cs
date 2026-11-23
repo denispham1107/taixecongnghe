@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 namespace PhoViet.OpenWorld
 {
     // 21.317 — người dùng 22/11/2026: thời tiết ngẫu nhiên mỗi lần bắt đầu game / CHƠI LẠI (THỬ MỘT CHUYẾN NỮA) / VỀ ĐẦU PHỐ:
-    // 50 % trời thường, 50 % mưa giông. Đang trời thường mà bấm VỀ ĐẦU PHỐ (hoặc chơi lại) ra mưa → chuyển nhanh sang mưa (2 s).
+    // 70 % trời thường, 30 % mưa giông (21.327; trước 50/50). Đang trời thường mà bấm VỀ ĐẦU PHỐ (hoặc chơi lại) ra mưa → chuyển nhanh sang mưa (2 s).
     // • Mưa kéo dài 2 phút lái (đếm khi đang chạy; màn chào/tạm dừng/kết thúc không trừ), rồi tạnh dần trong 20 s về trời thường.
     // • Khi mưa to: cứ mỗi đợt 7 tia sét đánh ĐỒNG THỜI xuống đường phố, lề đường, lề sông, lề biển quanh tầm nhìn người chơi;
     //   1 s trước có vòng cảnh báo xanh điện dưới đất. Đánh xong nghỉ 15 s rồi đánh đợt tiếp.
@@ -24,7 +24,7 @@ namespace PhoViet.OpenWorld
     {
         public const float RainSeconds = 120f, EndFade = 20f, QuickFade = 2f, VolleyPause = 15f, WarnSeconds = 1f, StrikeRadius = 3f;
         public const int VolleySize = 7;
-        [Range(0, 1)] public float rainChance = 0.5f;
+        [Range(0, 1)] public float rainChance = 0.3f;              // 21.327: mưa 30 % / thường 70 % (trước 50/50)
         [Tooltip("Kiểm thử: lần tung tiếp theo ép ra mưa (true) / trời thường (false)")] public static bool? ForceNext;
 
         public bool Raining { get; private set; }

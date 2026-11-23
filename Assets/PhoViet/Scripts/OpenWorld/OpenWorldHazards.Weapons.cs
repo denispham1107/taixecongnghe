@@ -5,6 +5,7 @@ namespace PhoViet.OpenWorld
 {
     // 21.258 — tên lửa của người chơi + ô nạp tên lửa trên phố (bản đồ mở). Dựa trên PhoVietPlayerMissiles/MissilePickups cũ:
     // • Vào lượt có 5 quả, tối đa 10 (người dùng chốt). Phím F hoặc nút TÊN LỬA; hồi 0,3 s (21.284; trước 0,25 s).
+    // • 21.327: mỗi lần bắn 2 quả từ 2 đèn pha, khóa 2 mục tiêu, trừ 2 quả; kho tự hồi 1 quả mỗi 5 s (21.328; 21.327 là 7,2 s, trước 12 s). Xem TryFire.
     // • 21.284: khóa cả tàu trên sông (OpenWorldHazards.Boats) — trúng thì tàu cháy, nổ, chìm.
     // • Tự khóa xe tăng (chưa bị hạ) hoặc trực thăng gần nhất phía trước (trong 180 m, lệch ≤ 55°), bay ≥ 70 m/s (= tốc độ xe
     //   + 50), bẻ hướng dò mục tiêu 300°/s, sống 4 s; không có mục tiêu thì bay thẳng. Lửa đuôi/khói = PV_HelicopterMissile.
@@ -21,7 +22,7 @@ namespace PhoViet.OpenWorld
         [Tooltip("21.284: người dùng chốt 0,3 s giữa hai lần bắn")] public float playerMissileInterval = 0.3f;
         // 21.301 (người dùng): bỏ ô nạp tên lửa trên đường (không sinh, không hiện); thay bằng tự hồi 1 quả mỗi 12 s khi chưa đầy.
         [Tooltip("21.301: tắt = không rải ô nạp tên lửa trên đường")] public bool pickupsEnabled = false;
-        public float missileRegenSeconds = 12f;
+        public float missileRegenSeconds = 5f;                           // 21.327: 12 → 7,2 s; 21.328 (người dùng): 7,2 → 5 s
         public float MissileRegenProgress => PlayerMissiles >= maxMissiles ? 1f : Mathf.Clamp01(regenClock / Mathf.Max(0.1f, missileRegenSeconds));
         public int MissilesRegenerated { get; private set; }
         float regenClock;
@@ -77,37 +78,66 @@ namespace PhoViet.OpenWorld
         }
 
         // ------------------------------------------------------------ bắn
+        // 21.327 (người dùng): mỗi lần bấm bắn CÙNG LÚC 2 tên lửa từ 2 đèn pha, tự khóa 2 mục tiêu khác nhau — ưu tiên mục tiêu
+        // trong tầm nhắm (phía trước, ≤ 180 m, lệch ≤ 55°) gần nhất, thiếu thì lấy mục tiêu gần xe nhất mọi phía (≤ 120 m).
+        // Chỉ có 1 mục tiêu → cả 2 quả cùng bám nó; không có → 2 quả bay thẳng song song. Trừ 2 quả mỗi lần (còn 1 thì bắn 1).
+        struct Lock { public Tank t; public Heli h; public int b; public float d2; public Vector3 aim; }
+        readonly List<Lock> lockBuf = new List<Lock>();
+        public int LastSalvo { get; private set; }
+        public int LastSalvoTargets { get; private set; }
+
+        void GatherLocks(Vector3 origin, Vector3 fwd, bool aimCone, float range)
+        {
+            lockBuf.Clear(); float r2 = range * range;
+            bool Ok(Vector3 d) { var f = new Vector3(d.x, 0, d.z); return d.sqrMagnitude < r2 && (!aimCone || Vector3.Dot(f.normalized, fwd) >= 0.57f); }
+            foreach (var t in tanks) { if (!t.root || t.destroyed) continue; var a = TankAim(t); var d = a - origin; if (Ok(d)) lockBuf.Add(new Lock { t = t, b = -1, d2 = d.sqrMagnitude, aim = a }); }
+            foreach (var h in helis) { if (!h.root || h.downed) continue; var a = h.root.position; var d = a - origin; if (Ok(d)) lockBuf.Add(new Lock { h = h, b = -1, d2 = d.sqrMagnitude, aim = a }); }
+            if (boats) for (int i = 0; i < boats.Count; i++) { if (!boats.Alive(i)) continue; var a = boats.BoatCenter(i); var d = a - origin; if (Ok(d)) lockBuf.Add(new Lock { b = i, d2 = d.sqrMagnitude, aim = a }); }
+            lockBuf.Sort((x, y) => x.d2.CompareTo(y.d2));
+        }
+        static bool SameLock(Lock a, Lock b) => a.t == b.t && a.h == b.h && a.b == b.b;
+
         bool TryFire(Vector3 pv)
         {
             if (!CanFire || !missilePrefab) return false;
             var fwd = player.transform.forward; fwd.y = 0; fwd.Normalize();
-            var origin = player.transform.position + fwd * 2.7f + Vector3.up * 0.9f;
-            Tank bestT = null; Heli bestH = null; float bd = 180f * 180f;
-            foreach (var t in tanks)
+            var center = player.transform.position + fwd * 2.7f + Vector3.up * 0.9f;
+            // chọn tối đa 2 mục tiêu
+            var picks = new List<Lock>(2);
+            GatherLocks(center, fwd, true, 180f);
+            foreach (var l in lockBuf) { if (picks.Count >= 2) break; picks.Add(l); }
+            if (picks.Count < 2)
             {
-                if (!t.root || t.destroyed) continue;
-                var d = TankAim(t) - origin; if (Vector3.Dot(d.normalized, fwd) < 0.57f || d.sqrMagnitude >= bd) continue;
-                bd = d.sqrMagnitude; bestT = t; bestH = null;
+                GatherLocks(center, fwd, false, 120f);
+                foreach (var l in lockBuf) { if (picks.Count >= 2) break; if (picks.Count == 1 && SameLock(picks[0], l)) continue; picks.Add(l); }
             }
-            foreach (var h in helis)
+            int shots = Mathf.Min(2, PlayerMissiles);
+            // 2 đèn pha (cùng vị trí đèn của Lazer)
+            var lz = player.GetComponent<OpenWorldLaser>();
+            var lamp = lz ? lz.lampLocal : new Vector3(0.6f, 0.52f, 1.86f);
+            int fired = 0;
+            for (int k = 0; k < shots; k++)
             {
-                if (!h.root || h.downed) continue;
-                var d = h.root.position - origin; var flat = new Vector3(d.x, 0, d.z);
-                if (Vector3.Dot(flat.normalized, fwd) < 0.57f || d.sqrMagnitude >= bd) continue;
-                bd = d.sqrMagnitude; bestH = h; bestT = null;
+                float side = shots == 1 ? 0f : (k == 0 ? -1f : 1f);
+                var origin = player.transform.TransformPoint(new Vector3(side * lamp.x, lamp.y + 0.05f, lamp.z + 0.35f));
+                Lock? tgt = picks.Count == 0 ? (Lock?)null : picks[Mathf.Min(k, picks.Count - 1)];
+                var dir = tgt.HasValue ? (tgt.Value.aim - origin).normalized : fwd;
+                var m = pmPool.Count > 0 ? pmPool.Pop() : NewPM(); if (m == null) break;
+                m.speed = Mathf.Max(70f, Mathf.Abs(player.Speed) + 50f); m.vel = dir * m.speed; m.age = 0f;
+                m.tank = tgt?.t; m.heli = tgt?.h; m.boat = tgt.HasValue ? tgt.Value.b : -1;
+                m.root.gameObject.SetActive(true); m.root.SetPositionAndRotation(origin, Quaternion.LookRotation(dir));
+                if (m.vis) { m.vis.standalone = true; m.vis.Begin(); }
+                pmissiles.Add(m); fired++;
+                Emit(muzzleFx, origin, dir * 4f, 1.1f, .12f, Color.white);
             }
-            int bestB = NearestBoatTarget(origin, fwd, ref bd);                 // 21.284: tàu gần hơn thì khóa tàu
-            if (bestB >= 0) { bestT = null; bestH = null; }
-            var dir = bestB >= 0 ? (boats.BoatCenter(bestB) - origin).normalized : bestT != null ? (TankAim(bestT) - origin).normalized : bestH != null ? (bestH.root.position - origin).normalized : fwd;
-            var m = pmPool.Count > 0 ? pmPool.Pop() : NewPM(); if (m == null) return false;
-            m.speed = Mathf.Max(70f, Mathf.Abs(player.Speed) + 50f); m.vel = dir * m.speed; m.age = 0f; m.tank = bestT; m.heli = bestH; m.boat = bestB;
-            m.root.gameObject.SetActive(true); m.root.SetPositionAndRotation(origin, Quaternion.LookRotation(dir));
-            if (m.vis) { m.vis.standalone = true; m.vis.Begin(); }
-            pmissiles.Add(m);
-            PlayerMissiles--; PlayerMissilesFired++; fireCooldown = playerMissileInterval;
-            Emit(muzzleFx, origin, dir * 4f, 1.4f, .14f, Color.white);
-            PlayAt(launchClip, origin, 0.7f);
-            Say(bestB >= 0 ? "Đã khóa tàu" : bestT != null ? "Đã khóa xe tăng" : bestH != null ? (bestH.plane ? "Đã khóa máy bay" : "Đã khóa trực thăng") : "Bay thẳng", bestB >= 0 || bestT != null || bestH != null ? "Tên lửa tự bám mục tiêu" : "Không có mục tiêu trong tầm", 1.0f, OpenWorldToast.Kind.Info, "TÊN LỬA");
+            if (fired == 0) return false;
+            PlayerMissiles -= fired; PlayerMissilesFired += fired; fireCooldown = playerMissileInterval;
+            LastSalvo = fired; LastSalvoTargets = picks.Count;
+            PlayAt(launchClip, center, 0.8f);
+            string Name(Lock l) => l.b >= 0 ? "tàu" : l.t != null ? "xe tăng" : l.h != null ? (l.h.plane ? "máy bay" : "trực thăng") : "?";
+            string title = picks.Count >= 2 && fired >= 2 ? (Name(picks[0]) == Name(picks[1]) ? "Khóa 2 " + Name(picks[0]) : "Khóa " + Name(picks[0]) + " + " + Name(picks[1]))
+                         : picks.Count == 1 ? "Đã khóa " + Name(picks[0]) : "Bay thẳng";
+            Say(title, picks.Count > 0 ? (fired >= 2 ? "2 tên lửa tự bám mục tiêu" : "Tên lửa tự bám mục tiêu") : "Không có mục tiêu trong tầm", 1.0f, OpenWorldToast.Kind.Info, "TÊN LỬA");
             return true;
         }
         static Vector3 TankAim(Tank t) => t.root.TransformPoint(new Vector3(0, 1.2f, -0.9f));

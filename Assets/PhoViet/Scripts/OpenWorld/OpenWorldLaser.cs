@@ -5,10 +5,11 @@ using UnityEngine.Rendering;
 namespace PhoViet.OpenWorld
 {
     // 21.300 — người dùng 21/11/2026: nút «LAZER» (trên nút NHẢY, cỡ nút TÊN LỬA) + thanh «NĂNG LƯỢNG 100/100» dưới số tên lửa.
-    // • Giữ nút (phím L / chuột giữ nút trên máy tính) → 2 tia lazer phóng liên tục từ 2 đèn pha. Ảnh hiệu ứng dựng bằng Blender
+    // • Giữ nút (phím L / chuột giữ nút trên máy tính) → 2 tia lazer phóng liên tục từ 2 đèn pha. 21.328: chỉ cần bấm 1 lần,
+    //   tia tự bắn tới khi hết năng lượng. Ảnh hiệu ứng dựng bằng Blender
     //   (ArtSource/Blender/OpenWorld/ow_laser_fx.py → Resources/Laser), shader cộng sáng PhoViet/OpenWorld/Laser.
-    // • Năng lượng 100: bấm là trừ 25 ngay, giữ thêm mỗi 0,5 s trừ 25 (tối đa 2 s). Thả nút hoặc hết năng lượng → khóa 10 s;
-    //   hết 10 s năng lượng hồi đầy 100 (người dùng chọn). Vào lượt mới: đầy 100, không khóa.
+    // • Năng lượng 100: bấm là trừ 25 ngay, mỗi 0,5 s trừ thêm 25 (bắn ~1,5–2 s). Hết năng lượng → khóa 5 s
+    //   (21.327, trước 10 s); hết 5 s năng lượng hồi đầy 100 (người dùng chọn). Vào lượt mới: đầy 100, không khóa.
     // • Tia trúng: xe NPC (ô tô/xe máy) → OpenWorldTraffic.LaserKill (bốc cháy rồi nổ tung thành mảnh); xe tăng/khủng long →
     //   OpenWorldHazards.LaserHit (nung 0,3/0,5 s rồi nổ tung); xe CSGT → chỉ khựng 1,5 s (người dùng chọn) + khói; nhà/cột/cây
     //   → tia dừng ở đó, tóe lửa. Vụ nổ do lazer không làm hại xe người chơi.
@@ -24,7 +25,7 @@ namespace PhoViet.OpenWorld
     //   rồi tan) dài 2,6 m + chấm sáng mũi + đốm năng lượng tan ra; quầng/lõi thon dần ở cuối.
     public class OpenWorldLaser : MonoBehaviour
     {
-        public const float MaxEnergy = 100f, Cost = 25f, TickSeconds = 0.5f, CooldownSeconds = 10f, Range = 15f;
+        public const float MaxEnergy = 100f, Cost = 25f, TickSeconds = 0.5f, CooldownSeconds = 5f, Range = 15f;   // 21.327: khóa/hồi năng lượng 10 → 5 s
         [Tooltip("Vị trí 2 đèn pha trong khung xe (x ngang, y cao, z dọc)")] public Vector3 lampLocal = new Vector3(0.6f, 0.52f, 1.86f);
         public float beamWidth = 0.462f;                                   // 21.300b: +10 % (0,42)
         const float TipLen = 2.6f, TipBack = 2.2f, PulseSpeed = 32f;
@@ -59,6 +60,7 @@ namespace PhoViet.OpenWorld
         void Awake() { driver = GetComponent<OpenWorldDriver>(); }
 
         bool Held => (driver && driver.LaserHeld) || Input.GetKey(KeyCode.L) || mouseHeld || testHold;
+        bool wasHeld;
 
         bool CanShoot()
         {
@@ -75,10 +77,13 @@ namespace PhoViet.OpenWorld
                 CooldownLeft -= dt;
                 if (CooldownLeft <= 0f) { CooldownLeft = 0f; Energy = MaxEnergy; }
             }
-            bool want = Held && CanShoot();
+            // 21.328 (người dùng): bỏ giữ nút — chạm/bấm 1 lần là Lazer tự bắn tới khi hết năng lượng (100 → ~1,5 s), rồi khóa
+            // 5 s. Chỉ tính lúc vừa bấm xuống (giữ hay bấm thêm khi đang bắn không có tác dụng). Hết lượt/xe hỏng/kẹt lưới → ngừng.
+            bool held = Held, pressed = held && !wasHeld; wasHeld = held;
+            bool can = CanShoot();
             if (Firing)
             {
-                if (!want) { StopFiring(true); return; }
+                if (!can) { StopFiring(true); return; }
                 tick += dt;
                 while (tick >= TickSeconds)
                 {
@@ -87,7 +92,7 @@ namespace PhoViet.OpenWorld
                     Energy -= Cost;
                 }
             }
-            else if (want && Ready)
+            else if (pressed && can && Ready)
             {
                 Firing = true; tick = 0f; Energy -= Cost; Shots++;
                 Build(); root.gameObject.SetActive(true);

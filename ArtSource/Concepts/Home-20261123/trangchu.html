@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phố Việt — mẫu trang chủ</title>
+<!-- 21.330 — 3 mẫu thiết kế lại trang chủ theo menu «Tem đua» trong game. ?mau=A|B|C (A mặc định), &shot=1 khi chụp ảnh. -->
+<style>
+@font-face{font-family:BVP;src:url(font.ttf) format('truetype');font-weight:100 900}
+:root{--navy:#12233a;--navy2:#0b1726;--ink:#0a1622;--cream:#fcf2cf;--gold:#f5c542;--red:#ea4436;--red2:#c22e22;--teal:#33e0c8;--teal2:#16a596;--blue:#4aa3ff;
+--panel:linear-gradient(100deg,rgba(10,22,34,.95),rgba(14,32,46,.9));--sk:-11deg}
+*{box-sizing:border-box}
+html{background:#0a1622}
+html.shot{background:#ff00fe}
+body{margin:0;font-family:BVP,system-ui,sans-serif;font-weight:600;color:var(--cream);line-height:1.4;-webkit-font-smoothing:antialiased}
+.page{overflow:hidden}
+.sk{transform:skewX(var(--sk))}.un{transform:skewX(calc(-1 * var(--sk)));display:inline-flex;align-items:center;gap:inherit}
+.chk{background:repeating-conic-gradient(var(--cream) 0 25%,var(--navy) 0 50%) 0 0/16px 16px}
+.haz{background:repeating-linear-gradient(-45deg,var(--gold) 0 18px,var(--navy) 18px 36px)}
+.row{display:flex;align-items:center}
+.lab{font-size:12px;letter-spacing:.16em;color:var(--gold)}
+svg{flex:none}
+button{font:inherit;cursor:pointer;border:0;color:inherit;background:none;padding:0}
+/* ---------- chung: thanh trên ---------- */
+.bar{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px}
+.brand{display:inline-flex;align-items:center;gap:12px;padding:8px 20px 8px 12px;background:var(--panel);border-left:7px solid var(--red);color:var(--cream);text-decoration:none}
+.flag{width:38px;height:38px;border-radius:10px;background:#da251d;border:2px solid var(--navy);display:grid;place-items:center}
+.brand b{display:block;font-size:20px;line-height:1.05;letter-spacing:.02em}
+.brand small{display:block;font-size:9.5px;letter-spacing:.14em;color:var(--gold);margin-top:3px}
+.nav{display:flex;gap:8px}
+.nb{height:42px;padding:0 16px;display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.06em;background:rgba(10,22,34,.9);border:2px solid rgba(252,242,207,.25);color:var(--cream)}
+.nb.install{border-color:var(--teal);color:var(--teal)}
+.nb.help{border-color:var(--gold)}
+.nb.sq{width:42px;padding:0;justify-content:center}
+/* ---------- chung: tiêu đề kiểu menu ---------- */
+.tag{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 16px;background:var(--red);font-size:13px;letter-spacing:.14em;color:var(--cream)}
+.t1{font-size:58px;line-height:.98;letter-spacing:-.01em;margin:16px 0 0;font-style:italic;font-weight:800}
+.t2{display:inline-block;background:var(--gold);color:var(--navy);font-size:58px;line-height:1;padding:4px 18px 8px;margin-top:6px;box-shadow:9px 9px 0 var(--red);font-style:italic;font-weight:800}
+.desc{font-size:16px;color:rgba(252,242,207,.86);margin:22px 0 0;max-width:34em}
+.cta{display:flex;align-items:center;gap:12px;margin-top:26px}
+.go{flex:1;max-width:400px;height:64px;display:flex;align-items:center;justify-content:center;gap:14px;font-size:24px;letter-spacing:.08em;color:var(--cream);background:linear-gradient(180deg,#ff5a4a,#d42e22);box-shadow:7px 7px 0 var(--navy2)}
+.gear{width:64px;height:64px;display:grid;place-items:center;background:rgba(10,22,34,.92);border:3px solid var(--teal)}
+.status{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:13px;color:rgba(252,242,207,.8)}
+.status .chk{width:54px;height:8px}
+.keys{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:22px;padding:12px 18px;background:var(--panel);border-left:7px solid var(--gold);font-size:12px;letter-spacing:.06em}
+.keys span{display:inline-flex;align-items:center;gap:6px}
+.kc{display:inline-grid;place-items:center;min-width:28px;height:28px;padding:0 7px;border-radius:7px;background:var(--cream);color:var(--navy);border:2px solid var(--navy);box-shadow:0 3px 0 var(--navy);font-size:12px;font-style:normal;transform:skewX(11deg)}
+.pads{display:flex;align-items:center;gap:8px;margin-top:22px;padding:10px 14px;background:var(--panel);border-left:7px solid var(--gold);flex-wrap:wrap}
+.pads img{width:40px;height:40px;transform:skewX(11deg)}
+.pads p{flex-basis:100%;margin:4px 0 0;font-size:12.5px;color:rgba(252,242,207,.82);line-height:1.45}
+/* ghi chú bản cập nhật */
+.notes{margin-top:26px;background:var(--panel);border-right:7px solid var(--gold);padding:0 0 16px}
+.notes .hd{display:flex;align-items:center;gap:10px;padding:12px 18px;font-size:15px;border-bottom:2px solid rgba(252,242,207,.12)}
+.notes .new{background:var(--red);padding:3px 10px;font-size:11px;letter-spacing:.14em}
+.notes .ver{color:var(--gold)}
+.notes .chev{margin-left:auto;color:var(--gold)}
+.notes ul{list-style:none;margin:12px 0 0;padding:0 18px}
+.notes li{position:relative;padding-left:22px;font-size:13px;line-height:1.5;color:rgba(252,242,207,.86);margin-top:8px;font-weight:500}
+.notes li:before{content:"";position:absolute;left:0;top:7px;width:10px;height:10px;background:var(--gold);transform:skewX(var(--sk))}
+/* thư viện ảnh */
+.secthd{display:flex;align-items:center;gap:12px;margin:0 0 18px}
+.secthd b{font-size:22px;letter-spacing:.04em;font-style:italic}
+.speed{height:4px;background:var(--gold);opacity:.7}
+.shot-card{position:relative}
+.shot-card img{display:block;width:100%;aspect-ratio:2778/1284;object-fit:cover}
+.cap{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--panel)}
+.cap .no{display:grid;place-items:center;min-width:42px;height:42px;background:var(--gold);color:var(--navy);font-size:17px;font-style:italic}
+.cap b{display:block;font-size:15px}
+.cap small{display:block;font-size:11.5px;color:rgba(252,242,207,.65);font-weight:500;margin-top:2px}
+.cap .pill{margin-left:auto;font-size:11px;letter-spacing:.12em;padding:5px 10px;border:2px solid var(--teal);color:var(--teal)}
+.cap .pill.n{border-color:var(--red);background:var(--red);color:var(--cream)}
+footer.ft{position:relative;margin-top:40px;padding:22px 16px 26px;background:var(--navy2)}
+footer.ft .haz{position:absolute;left:0;right:0;top:0;height:8px}
+footer.ft .t{font-size:13px;letter-spacing:.12em;color:var(--gold)}
+footer.ft p{margin:6px 0 0;font-size:12px;color:rgba(252,242,207,.7);font-weight:500}
+
+/* =============== MẪU A — ĐÊM ĐUA: ảnh trong game làm nền màn đầu =============== */
+.A{background:#0a1622}
+.A .hero{position:relative;padding:0 0 28px}
+.A .hero .bg{position:absolute;inset:0 0 auto;height:420px;background:url(img/poster-home-mobile.jpg) 56% 42%/auto 125%}
+.A .hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,14,22,.55) 0%,rgba(6,14,22,.25) 22%,rgba(6,14,22,.82) 48%,#0a1622 72%)}
+.A .hero .in{position:relative;padding:150px 16px 0}
+.A .body{padding:0 16px}
+.A .gal{display:grid;gap:22px;margin-top:40px}
+.A .gal .shot-card img{clip-path:polygon(4% 0,100% 0,96% 100%,0 100%)}
+.A .gal .cap{margin:-14px 0 0 0;position:relative;transform:skewX(var(--sk));margin-left:10px;margin-right:6px}
+.A .gal .cap>*{transform:skewX(11deg)}
+@media (min-width:1000px){
+ .A .bar{padding:22px 48px}
+ .A .hero{min-height:760px;padding:0}
+ .A .hero .bg{background-size:150% auto;background-position:56% 46%}
+ .A .hero .shade{background:linear-gradient(100deg,rgba(6,14,22,.9) 30%,rgba(6,14,22,.35) 58%,rgba(6,14,22,0) 75%),linear-gradient(180deg,rgba(6,14,22,.5),rgba(6,14,22,0) 18%,rgba(6,14,22,0) 80%,#0a1622)}
+ .A .hero .in{padding:70px 48px 60px;max-width:760px}
+ .A .t1,.A .t2{font-size:96px}
+ .A .desc{font-size:19px}
+ .A .go{height:76px;font-size:28px}.A .gear{width:76px;height:76px}
+ .A .body{padding:0 48px;display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:start}
+ .A .notes{margin-top:0}
+ .A .gal{grid-template-columns:1fr 1fr;margin-top:0}
+ .A .gal .shot-card:first-child{grid-column:1 / 3}
+ footer.ft{padding:26px 48px 30px}
+}
+
+/* =============== MẪU B — GIẤY ĐUA SÁNG: nền kem sáng, tem tối dán nghiêng =============== */
+.B{background:#f4ecd4;color:var(--navy);
+ background-image:repeating-linear-gradient(-60deg,rgba(18,35,58,.035) 0 2px,transparent 2px 14px)}
+.B .bar{background:#fbf5e3;border-bottom:4px solid var(--navy)}
+.B .bar:after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:8px;background:repeating-conic-gradient(var(--navy) 0 25%,#fbf5e3 0 50%) 0 0/8px 8px}
+.B .nb{background:#fff;color:var(--navy);border:2px solid var(--navy);box-shadow:3px 3px 0 var(--navy)}
+.B .nb.install{background:var(--teal);color:var(--navy)}
+.B .nb.help{background:var(--gold)}
+.B .hero{padding:40px 16px 0}
+.B .t1{color:var(--navy)}
+.B .t2{background:var(--navy);color:var(--gold);box-shadow:9px 9px 0 var(--red)}
+.B .desc{color:#3b4b60}
+.B .gear{background:#fff;border-color:var(--navy);box-shadow:5px 5px 0 var(--navy)}
+.B .status{color:#4a5a6e}
+.B .frame{position:relative;margin-top:34px;border:5px solid var(--navy);box-shadow:12px 12px 0 var(--red);background:var(--navy)}
+.B .frame img{display:block;width:100%;aspect-ratio:2778/1284;object-fit:cover}
+.B .frame .stick{position:absolute;left:-6px;top:-18px;background:var(--gold);color:var(--navy);border:3px solid var(--navy);padding:4px 12px;font-size:12px;letter-spacing:.12em}
+.B .frame .stick2{position:absolute;right:12px;bottom:-16px;background:var(--navy);color:var(--cream);padding:5px 12px;font-size:12px;letter-spacing:.1em;border:3px solid var(--cream)}
+.B .body{padding:0 16px}
+.B .gal{display:grid;gap:26px;margin-top:40px}
+.B .gal .shot-card{background:#fff;border:4px solid var(--navy);box-shadow:8px 8px 0 var(--navy)}
+.B .gal .cap{background:#fff;color:var(--navy);border-top:4px solid var(--navy)}
+.B .gal .cap small{color:#5b6a7c}
+.B .gal .cap .pill{border-color:var(--navy);color:var(--navy)}
+.B .gal .cap .pill.n{border-color:var(--red);color:#fff}
+.B .secthd b{color:var(--navy)}
+.B .secthd .speed{background:var(--red)}
+@media (min-width:1000px){
+ .B .bar{padding:18px 48px}
+ .B .hero{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;align-items:center;padding:64px 48px 30px}
+ .B .t1,.B .t2{font-size:88px}
+ .B .desc{font-size:18px}
+ .B .frame{margin-top:0}
+ .B .go{height:74px;font-size:27px}.B .gear{width:74px;height:74px}
+ .B .body{padding:0 48px;display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:start}
+ .B .notes{margin-top:40px}
+ .B .gal{grid-template-columns:1fr 1fr}
+ footer.ft{padding:26px 48px 30px}
+}
+
+/* =============== MẪU C — MÀN CHÀO TRONG GAME: màn đầu chép y màn chào, dưới là thẻ HUD kính =============== */
+.C{background:#0a1622}
+.C .hero{position:relative;padding:0 0 24px}
+.C .hero .bg{position:absolute;inset:0 0 auto 0;height:330px;background:url(img/poster-home-khien.jpg) 55% 50%/cover}
+.C .hero .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,14,22,.35),rgba(6,14,22,.1) 40%,#0a1622 98%)}
+.C .bar{position:relative}
+.C .place{display:none}
+.C .hero .in{position:relative;padding:150px 16px 0}
+.C .gear{border-color:var(--teal)}
+.C .glass{background:rgba(14,40,46,.82);border:2px solid rgba(51,224,200,.35);border-radius:22px;box-shadow:0 18px 40px rgba(0,8,16,.4)}
+.C .body{padding:0 16px}
+.C .twin{display:grid;gap:18px;margin-top:30px}
+.C .notes{margin-top:0;border-right:0;border-radius:22px;background:rgba(14,40,46,.82);border:2px solid rgba(51,224,200,.35)}
+.C .notes .hd{border-bottom-color:rgba(51,224,200,.25)}
+.C .notes li:before{transform:none;background:var(--teal);border-radius:3px}
+.C .how{padding:16px 18px}
+.C .how h3{margin:0 0 10px;font-size:15px;display:flex;align-items:center;gap:8px}
+.C .how h3 i{font-style:normal;font-size:11px;letter-spacing:.14em;color:var(--gold)}
+.C .how .pads{margin:0;background:none;border:0;padding:0}
+.C .how .pads img{transform:none;width:46px;height:46px}
+.C .how .keys{margin:12px 0 0;background:none;border:0;padding:0}
+.C .how .kc{transform:none}
+.C .gal{display:grid;gap:18px;margin-top:34px}
+.C .gal .shot-card{border-radius:22px;overflow:hidden;border:2px solid rgba(51,224,200,.35)}
+.C .gal .cap{background:rgba(14,40,46,.95)}
+.C .gal .cap .no{border-radius:10px}
+@media (min-width:1000px){
+ .C .bar{padding:24px 48px}
+ .C .hero{min-height:800px;padding:0}
+ .C .hero .bg{height:auto;bottom:0;background-size:165% auto;background-position:52% 58%}
+ .C .hero .bg:after{background:linear-gradient(100deg,rgba(6,14,22,.88) 32%,rgba(6,14,22,.25) 62%,rgba(6,14,22,0) 80%),linear-gradient(180deg,rgba(6,14,22,0) 78%,#0a1622)}
+ .C .place{display:block;position:absolute;right:48px;top:110px;z-index:2;background:rgba(10,22,34,.9);border-right:7px solid var(--gold);padding:10px 26px 10px 20px}
+ .C .place .lab{font-size:11px}.C .place b{display:block;font-size:24px;margin-top:2px}
+ .C .hero .in{padding:60px 48px 0;max-width:780px}
+ .C .t1,.C .t2{font-size:92px}
+ .C .desc{font-size:19px}
+ .C .go{height:76px;font-size:28px}.C .gear{width:76px;height:76px}
+ .C .body{padding:0 48px}
+ .C .twin{grid-template-columns:1.3fr 1fr;margin-top:-90px;position:relative}
+ .C .gal{grid-template-columns:repeat(3,1fr)}
+ footer.ft{padding:26px 48px 30px}
+}
+
+/* điện thoại (khung < 1000 px; lớp .ph gắn bằng script để chụp được khung 390 px) */
+.ph .brand{padding:7px 14px 7px 10px}.ph .brand .flag{width:32px!important;height:32px!important}
+.ph .bar{padding:12px}.ph .brand b{font-size:17px;white-space:nowrap}.ph .brand small{display:none}
+.ph .nav{gap:6px}.ph .nb{height:38px;padding:0 10px;font-size:11.5px;white-space:nowrap}.ph .nb.sq,.ph .nb.install{width:38px;padding:0;justify-content:center}
+.ph .t1,.ph .t2{font-size:47px;white-space:nowrap}
+.ph .pads{gap:5px;flex-wrap:wrap}.ph .pads img{width:34px;height:34px}
+.ph .C .how .pads img{width:36px;height:36px}
+.B .notes,.B .keys,.B .pads{color:var(--cream)}
+.C .secthd{margin-top:36px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const q=new URLSearchParams(location.search), M=(q.get('mau')||'A').toUpperCase();
+if(q.get('shot')) document.documentElement.classList.add('shot');
+// Chrome trên Windows không cho cửa sổ hẹp hơn ~500 px → khung điện thoại 390 px dựng bằng ?w=390
+const W=+q.get('w')||0; if(W) document.write(`<style>#app{width:${W}px}</style>`);
+const N='#12233a';
+const I={
+ star:s=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.6.7-4.9 4.5 1.4 6.6L12 17.2l-6 3.3 1.4-6.6L2.5 9.4l6.6-.7z" fill="#ffd23f" stroke="${N}" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+ chev:(s,c='#fcf2cf')=>`<svg width="${s*1.5}" height="${s}" viewBox="0 0 36 24" fill="none" stroke="${c}" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l8 8-8 8M18 4l8 8-8 8"/></svg>`,
+ gear:(s,c='#33e0c8')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.4" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8l1.6 2.4 2.8-.8.6 2.8 2.8.6-.8 2.8 2.4 1.6-2.4 1.6.8 2.8-2.8.6-.6 2.8-2.8-.8L12 21.2l-1.6-2.4-2.8.8-.6-2.8-2.8-.6.8-2.8L2.8 12l2.4-1.6-.8-2.8 2.8-.6.6-2.8 2.8.8z"/></svg>`,
+ book:(s,c='#f5c542')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C6.5 4 9.5 4 12 6c2.5-2 5.5-2 8-.5V19c-2.5-1.5-5.5-1.5-8 .5-2.5-2-5.5-2-8-.5z"/><path d="M12 6v13.5"/></svg>`,
+ plus:(s,c='#33e0c8')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.6" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M12 8v8M8 12h8"/></svg>`,
+ full:(s,c='#fcf2cf')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>`,
+ pin:(s,c='#f5c542')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M12 22s7-7.2 7-12.5A7 7 0 0 0 5 9.5C5 14.8 12 22 12 22z" fill="${c}" stroke="${N}" stroke-width="1.8"/><circle cx="12" cy="9.5" r="2.6" fill="${N}"/></svg>`,
+ down:(s,c='#f5c542')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`,
+ bolt:(s,c='#f5c542')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z" fill="${c}" stroke="${N}" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+};
+const flag=s=>`<span class="flag un" style="width:${s}px;height:${s}px">${I.star(s*.7)}</span>`;
+const light=M==='B';
+const bar=()=>`<header class="bar">
+ <a class="brand sk" href="#"><span class="un" style="gap:12px">${flag(38)}<span><b>PHỐ VIỆT</b><small>CHUYẾN XE KHÔNG NGỪNG</small></span></span></a>
+ <nav class="nav">
+  <button class="nb install sk"><span class="un">${I.plus(18,light?N:'#33e0c8')}<span class="wide">THÊM VÀO MÀN HÌNH</span></span></button>
+  <button class="nb help sk"><span class="un">${I.book(18,light?N:'#f5c542')}<span class="wide">CÁCH CHƠI</span></span></button>
+  <button class="nb sq sk" aria-label="Toàn màn hình"><span class="un">${I.full(18,light?N:'#fcf2cf')}</span></button>
+ </nav></header>`;
+const title=()=>`<span class="tag sk"><span class="un">${I.pin(18)}BẢN ĐỒ MỞ · SÀI GÒN</span></span>
+ <h1 style="margin:0"><div class="t1">LÁI XE QUA</div><div class="t2 sk"><span class="un">PHỐ QUEN.</span></div></h1>
+ <p class="desc">Trốn CSGT. Tiêu diệt khủng long, xe tăng, trực thăng, tàu trên bản đồ. Cầm lái xe đua xanh chạy tự do khắp phố ven sông, chợ và cầu — phá kỷ lục quãng đường.</p>
+ <div class="cta"><button class="go sk"><span class="un">${M==='C'?'LÊN XE THÔI':'VÀO PHỐ'} ${I.chev(22)}</span></button><button class="gear sk" aria-label="Cách chơi"><span class="un">${I.gear(34,light?N:'#33e0c8')}</span></button></div>
+ <div class="status"><span class="chk sk"></span>Chơi miễn phí · Máy tính &amp; điện thoại</div>`;
+const keys=(cls='keys sk')=>`<div class="${cls}"><span class="un" style="flex-wrap:wrap;gap:8px 16px">
+ <span><i class="kc">←</i><i class="kc">→</i><i class="kc">WASD</i> LÁI</span><span><i class="kc">J</i> NHẢY</span><span><i class="kc">F</i> TÊN LỬA</span><span><i class="kc">L</i> LAZER</span><span><i class="kc">K</i> KHIÊN</span><span><i class="kc">SPACE</i> PHANH TAY</span><span><i class="kc">P</i> TẠM DỪNG</span></span></div>`;
+const BTN=['left','right','shield','reverse','gas','jump','missile','laser'];
+const pads=(cls='pads sk')=>`<div class="${cls}">${BTN.map(b=>`<img src="img/btn_${b}.png" alt="">`).join('')}
+ <p style="${cls.includes('sk')?'transform:skewX(11deg)':''}">Xoay ngang để chơi. Giữ TRÁI / PHẢI để lái · GA · LÙI · P/DRIFT bên phải · NHẢY, TÊN LỬA, LAZER hàng trên · KHIÊN trên hai nút lái.</p></div>`;
+const notes=(cls='notes sk')=>`<section class="${cls}"><div style="${cls.includes('sk')?'transform:skewX(11deg)':''}">
+ <div class="hd"><span class="new">MỚI</span><span>Bản cập nhật <span class="ver">1.91.0</span> · 23/11/2026</span><span class="chev">${I.down(18)}</span></div>
+ <ul>
+  <li>Ô tô móp méo, bể đúng chỗ va chạm: tông càng nhanh càng móp sâu, trầy tróc sơn, nứt kính, vỡ đèn.</li>
+  <li>Xe của bạn đụng tường, cột, cây, lan can… cũng bị móp, bể (bật KHIÊN thì không hỏng).</li>
+  <li>Đánh lái trái/phải nhạy hơn, bớt nặng nề.</li>
+  <li>Menu mới kiểu «Tem đua» cho màn chào, tạm dừng, thua, bị bắt và cấu hình đồ họa.</li>
+  <li>Trời mưa: hết mảng tối mờ phía trước xe.</li>
+ </ul></div></section>`;
+const SHOTS=[['poster-home-mobile.jpg','Lái xe trên phố ven sông','Trong game trên điện thoại · cấu hình Rất cao','3D'],
+ ['poster-home-lazer.jpg','Lazer hạ khủng long','Trong game trên điện thoại','MỚI'],
+ ['poster-home-khien.jpg','Bật khiên, phóng lazer','Trong game trên điện thoại · cấu hình Rất cao','MỚI']];
+const gal=(skip)=>`<div class="gal">${SHOTS.filter((s,i)=>i!==skip).map((s,i)=>`<figure class="shot-card" style="margin:0"><img src="img/${s[0]}" alt="">
+ <figcaption class="cap"><span class="no">0${i+1}</span><span><b>${s[1]}</b><small>${s[2]}</small></span><span class="pill ${s[3]==='MỚI'?'n':''}">${s[3]}</span></figcaption></figure>`).join('')}</div>`;
+const secthd=t=>`<div class="secthd"><span class="tag sk" style="height:30px"><span class="un">${I.bolt(16)}</span></span><b>${t}</b><span style="flex:1;display:flex;flex-direction:column;gap:5px"><span class="speed sk"></span><span class="speed sk" style="width:70%;opacity:.45"></span></span></div>`;
+const foot=()=>`<footer class="ft"><span class="haz"></span><div class="t">PHỐ VIỆT / CHUYẾN XE KHÔNG NGỪNG</div><p>Có thể thêm vào màn hình chính · iPhone/iPad: cần kết nối mạng khi chơi (để tiết kiệm bộ nhớ)</p></footer>`;
+const wide=(W||innerWidth)>=1000;
+let h='';
+if(M==='A'){
+ h=`<div class="page A"><section class="hero"><div class="bg"></div><div class="shade"></div>${bar()}<div class="in">${title()}${wide?keys():pads()}</div></section>
+ <div class="body"><div>${notes()}</div><div>${wide?'':secthd('ẢNH TRONG GAME')}${gal()}</div></div>${foot()}</div>`;
+}else if(M==='B'){
+ h=`<div class="page B">${bar()}<section class="hero"><div>${title()}${wide?keys():''}</div>
+ <figure class="frame" style="margin-top:${wide?0:34}px"><img src="img/poster-home-mobile.jpg" alt=""><span class="stick sk"><span class="un">ẢNH TRONG GAME · 3D</span></span><span class="stick2 sk"><span class="un">Lái xe trên phố ven sông</span></span></figure></section>
+ <div class="body"><div>${wide?'':pads()}${notes()}</div><div style="margin-top:${wide?40:0}px">${secthd('HÀNH ĐỘNG TRÊN PHỐ')}${gal(0)}</div></div>${foot()}</div>`;
+}else{
+ h=`<div class="page C"><section class="hero"><div class="bg"></div>${bar()}<div class="place sk"><div class="un" style="display:block"><span class="lab row" style="gap:6px">${I.pin(14)}ĐỊA ĐIỂM HÔM NAY</span><b>Tôn Đức Thắng</b></div></div><div class="in">${title()}</div></section>
+ <div class="body"><div class="twin"><div class="glass how"><h3><i>ĐIỀU KHIỂN</i></h3>${pads('pads')}${wide?keys('keys'):''}</div>${notes('notes')}</div>${secthd('ẢNH TRONG GAME')}${gal()}</div>${foot()}</div>`;
+}
+const app=document.getElementById('app'); app.innerHTML=h; if(!wide) app.classList.add('ph');
+// trên điện thoại: nút thanh trên chỉ còn biểu tượng + chữ ngắn
+if(!wide) document.querySelectorAll('.nb.install .wide').forEach(e=>e.remove());
+</script>
+</body>
+</html>

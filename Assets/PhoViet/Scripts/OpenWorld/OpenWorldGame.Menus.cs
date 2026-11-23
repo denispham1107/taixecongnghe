@@ -48,7 +48,8 @@ namespace PhoViet.OpenWorld
         void Tile(Rect r, Texture2D t, float cell) => GUI.DrawTextureWithTexCoords(r, t, new Rect(0, 0, r.width / cell, r.height / cell));
         void Checker(Rect r) => Tile(r, checkerTex, 20f);
         float TextW(string t, int size) { label.fontSize = size; return label.CalcSize(new GUIContent(t)).x; }
-        void TxtL(string t, float x, float cy, int size, Color c, float w = 1200) => Txt(t, x, cy - size, w, size * 2, size, c, TextAnchor.MiddleLeft);
+        // 21.327: khung cao 2,8 × cỡ chữ (trước 2 ×) — chữ hoa có 2 dấu chồng (Ố, Ấ, Ế…) ở cỡ 80 bị cắt mất dấu sắc trên cùng
+        void TxtL(string t, float x, float cy, int size, Color c, float w = 1200) => Txt(t, x, cy - size * 1.4f, w, size * 2.8f, size, c, TextAnchor.MiddleLeft);
         void TxtR(string t, float right, float cy, int size, Color c, float w = 900) => Txt(t, right - w, cy - size, w, size * 2, size, c, TextAnchor.MiddleRight);
         void TxtC(string t, Rect r, int size, Color c) => Txt(t, r.x - 200, r.y, r.width + 400, r.height, size, c, TextAnchor.MiddleCenter);
         void Ico(Texture2D t, float x, float y, float s, Color c) => DrawIcon(new Rect(x, y, s, s), t, c);
@@ -111,11 +112,11 @@ namespace PhoViet.OpenWorld
             Skew(py);
             float tagW = TextW("BẢN ĐỒ MỞ · SÀI GÒN", 17) + 36;
             Rect0(new Rect(x, top, tagW, 40), MRed); TxtL("BẢN ĐỒ MỞ · SÀI GÒN", x + 18, top + 20, 17, MCream);
-            TxtL("LÁI QUA", x - 4, top + 56 + 40, 80, MCream);
+            TxtL("LÁI XE QUA", x - 4, top + 56 + 32, 80, MCream);   // 21.327 (+ nâng 8 px nhường ô vàng cao hơn)
             float bw = TextW("PHỐ QUEN.", 80) + 40, by = top + 140;
-            Rect0(new Rect(x + 10, by + 10, bw, 91), MRed); Rect0(new Rect(x, by, bw, 91), MGold);
+            Rect0(new Rect(x + 10, by - 8, bw, 109), MRed); Rect0(new Rect(x, by - 18, bw, 109), MGold);   // 21.327: ô vàng cao thêm 18 px phía trên — dấu sắc của «Ố» nằm trên mép ô cũ, chữ xanh đậm trên nền tối nên mất
             TxtL("PHỐ QUEN.", x + 20, by + 44, 80, MNavy);
-            Txt("Né CSGT, khủng long, xe tăng\nvà trực thăng trên phố mở.", x, by + 115, 560, 64, 22, new Color(MCream.r, MCream.g, MCream.b, .82f));
+            Txt("Trốn CSGT. Tiêu diệt khủng long, xe tăng,\ntrực thăng, tàu trên bản đồ.", x, by + 115, 600, 64, 22, new Color(MCream.r, MCream.g, MCream.b, .82f));   // 21.327
             Unskew();
 
             float cy = top + 352;

@@ -470,7 +470,7 @@ namespace PhoViet.OpenWorld
             }
         }
 
-        // 21.300: nút LAZER (giữ để bắn) phía trên nút NHẢY; máy cảm ứng do OpenWorldDriver đọc đa điểm, chuột/phím L ở đây.
+        // 21.300: nút LAZER (21.328: bấm 1 lần là bắn tới khi hết năng lượng) phía trên nút NHẢY; máy cảm ứng do OpenWorldDriver đọc đa điểm, chuột/phím L ở đây.
         bool laserMouse;
         void LaserButton()
         {

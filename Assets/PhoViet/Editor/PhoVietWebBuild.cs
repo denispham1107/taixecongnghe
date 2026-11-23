@@ -50,7 +50,7 @@ namespace PhoViet.Editor
             PlayerSettings.SetIl2CppCodeGeneration(UnityEditor.Build.NamedBuildTarget.WebGL,UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize);
             PlayerSettings.SetIl2CppCompilerConfiguration(UnityEditor.Build.NamedBuildTarget.WebGL,Il2CppCompilerConfiguration.Master);
             SetWasmCodeOptimization("DiskSizeLTO");
-            PlayerSettings.bundleVersion="1.91.0";
+            PlayerSettings.bundleVersion="1.92.0";
             AssetDatabase.SaveAssets();
             Debug.Log("PHỐ VIỆT PWA configured: gzip fallback, single thread, Safari-compatible WASM");
         }
@@ -165,11 +165,15 @@ namespace PhoViet.Editor
         {
             const string root="Builds/WebGL";
             if(!File.Exists(Path.Combine(root,"index.html")))throw new Exception("Build WebGL first");
-            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-home-mobile.jpg"})
+            foreach(string file in new[]{"style.css","app.js","manifest.webmanifest","poster-home-mobile.jpg","poster-home-lazer.jpg","poster-home-khien.jpg"})
                 File.Copy("Assets/WebGLTemplates/PhoVietPWA/"+file,Path.Combine(root,file),true);
-            Directory.CreateDirectory(Path.Combine(root,"icons"));
-            foreach(string icon in Directory.GetFiles("Assets/WebGLTemplates/PhoVietPWA/icons"))
-                if(!icon.EndsWith(".meta"))File.Copy(icon,Path.Combine(root,"icons",Path.GetFileName(icon)),true);
+            // 21.331: trang chủ mẫu C có dải 8 nút điều khiển (controls/btn-*.png)
+            foreach(string dir in new[]{"icons","controls"})
+            {
+                Directory.CreateDirectory(Path.Combine(root,dir));
+                foreach(string f in Directory.GetFiles("Assets/WebGLTemplates/PhoVietPWA/"+dir))
+                    if(!f.EndsWith(".meta"))File.Copy(f,Path.Combine(root,dir,Path.GetFileName(f)),true);
+            }
             // Replace the whole landing template while retaining the generated runtime
             // URLs, both texture variants and product version from the successful build.
             string htmlPath=Path.Combine(root,"index.html"),html=File.ReadAllText(htmlPath);

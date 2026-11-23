@@ -113,7 +113,7 @@ function scheduleViewport(){
 function setImmersive(enabled){
   immersive=Boolean(enabled);document.body.classList.toggle('immersive',immersive);
   document.documentElement.classList.toggle('game-immersive',immersive);
-  document.querySelector('meta[name="theme-color"]').content=immersive?'#202020':'#eef5fb';
+  document.querySelector('meta[name="theme-color"]').content=immersive?'#202020':'#0a1622';   // 21.331: trang chủ nền tối
   $('game-menu').hidden=!immersive||touchDevice||!unityInstance;setMenu(false);syncViewport();scheduleViewport();
 }
 async function requestNativeFullscreen(){
@@ -134,6 +134,7 @@ $('help').addEventListener('click', () => {
   pauseGame();setMenu(false);
   $('guide').showModal();
 });
+$('help-gear').addEventListener('click',()=>$('help').click());   // 21.331: ô bánh răng cạnh LÊN XE THÔI mở Cách chơi
 $('close-help').addEventListener('click', () => {$('guide').close();if(unityInstance)canvas.focus();else $('help').focus();});
 $('guide').addEventListener('click', e => {if(e.target === $('guide')) $('guide').close();});
 $('retry').addEventListener('click', () => location.reload());
