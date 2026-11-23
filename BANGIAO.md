@@ -512,6 +512,7 @@ Cập nhật lần cuối: **23/11/2026 — Claude Code (21.341 nút mới trong
 
 ## 3. Đang dở / cần người dùng quyết
 
+- **ĐANG LÀM (21.342) — phát hành 1.93.0 (21.336–21.341):** đã sửa «Bản cập nhật» + số phiên bản 1.93.0, `ReleaseBuild.Prepare` trả «ready 1.93.0», đang `ReleaseBuild.BuildNow` (theo dõi `Builds/release-1.93.0-status.json`). Bước kế: chép `docs`, pack/materialize `_site`, so SHA, commit + push, đợi Pages, kiểm live.
 - **21.336–21.341 chưa phát hành** (xe tăng nổ tung, xe vàng, NPC né sét, 9 nút mẫu A + ảnh nút trang chủ + nút mới trong 3 ảnh trang chủ). Chờ người dùng nói «Phát hành»; nhớ sửa «Bản cập nhật» trong `index.html`.
 - **21.336 chưa phát hành:** xe tăng nổ tung, xe vàng, NPC né sét đã commit source; cần «Phát hành» để lên web (dùng `ReleaseBuild.cs`). Hình xe trên nút NHẢY và ảnh nút trang chủ vẫn là xe xanh — hỏi người dùng có đổi sang vàng không.
 - **Chờ người dùng (1.92.0):** thử trên iPhone: trang chủ mẫu C (chạm LÊN XE THÔI, bánh răng, Cách chơi, Thêm vào màn hình), Ga tự động, 2 tên lửa, Lazer bấm 1 lần, lái gốc.
