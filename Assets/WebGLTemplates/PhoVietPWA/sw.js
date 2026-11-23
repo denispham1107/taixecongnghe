@@ -5,6 +5,11 @@ const CACHE=PREFIX+'__PHOVIET_CACHE__';
 // mã cache của vỏ trang. Trước đây mọi tệp chung một kho theo mã băm của cả bản → chỉ sửa vỏ trang (21.348/21.349/21.356/21.359)
 // là máy xóa sạch và tải lại ~110 MB dữ liệu game dù bản build không đổi. Kho riêng chỉ bỏ các tệp không còn trong precache.json.
 const BUILD=PREFIX+'build';
+// 21.368: tên miền chính gotaviet.com. Worker này khi chạy trên gotaviet.web.app / gotaviet.firebaseapp.com (máy đã cài app từ
+// địa chỉ cũ hoặc còn giữ trang cũ) không lưu gì nữa: xóa kho cũ, đưa các cửa sổ đang mở và mọi lần mở trang sang gotaviet.com.
+const HOME='https://gotaviet.com';
+const MOVED=['gotaviet.web.app','gotaviet.firebaseapp.com'].includes(self.location.hostname);
+const movedUrl=url=>HOME+url.pathname+url.search+url.hash;
 const ROOT=new URL('./',self.location.href);
 // 21.278: Safari/WebKit (mọi trình duyệt trên iPhone/iPad) giới hạn bộ nhớ chặt — không sao chép gói dữ liệu Unity
 // (70–90 MB) vào bộ nhớ đệm trong lúc game đang tải; các tệp nhỏ vẫn lưu offline như cũ.
@@ -42,6 +47,7 @@ async function offlineStatus(client){
 self.addEventListener('install',event=>{
   // 21.278: bản mới thay ngay bản cũ (không chờ đóng hết tab) để máy không kẹt ở bản đã lưu.
   self.skipWaiting();
+  if(MOVED)return;
   // Cache the small shell first, one response at a time. Fetching a second copy
   // of the whole Unity build during startup can kill mobile WebKit.
   // Runtime files are cached from their actual game requests below.
@@ -53,6 +59,14 @@ self.addEventListener('install',event=>{
   })());
 });
 self.addEventListener('activate',event=>{
+  if(MOVED){
+    event.waitUntil((async()=>{
+      await Promise.all((await caches.keys()).filter(key=>key.startsWith('phoviet:')).map(key=>caches.delete(key)));
+      await self.clients.claim();
+      for(const client of await self.clients.matchAll({type:'window'}))try{await client.navigate(movedUrl(new URL(client.url)));}catch(_){}
+    })());
+    return;
+  }
   event.waitUntil((async()=>{
     const {files}=await manifest(),keep=new Set(files.filter(isBuild).map(file=>new URL(file,ROOT).href));
     const build=await caches.open(BUILD);
@@ -80,11 +94,16 @@ async function cacheData(url){
   await build.add(new Request(target.href)).catch(()=>{});
 }
 self.addEventListener('message',event=>{
+  if(MOVED)return;
   if(event.data?.type==='PHOVIET_CHECK_OFFLINE')event.waitUntil(offlineStatus(event.source).catch(()=>{}));
   if(event.data?.type==='PHOVIET_CACHE_DATA')event.waitUntil(cacheData(event.data.url).then(()=>offlineStatus()).catch(()=>{}));
 });
 self.addEventListener('fetch',event=>{
   const url=new URL(event.request.url);
+  if(MOVED){
+    if(event.request.mode==='navigate'&&url.origin===ROOT.origin&&!url.pathname.startsWith('/__/'))event.respondWith(Response.redirect(movedUrl(url),302));
+    return;
+  }
   if(event.request.method!=='GET'||url.origin!==ROOT.origin||!url.pathname.startsWith(ROOT.pathname))return;
   if(['sw.js','precache.json','build-info.json'].includes(url.pathname.substring(ROOT.pathname.length)))return;
   // 21.356: trang đăng nhập Google của Firebase (/__/auth/handler, /__/firebase/init.json) phải đi thẳng ra mạng — không trả index.html.
