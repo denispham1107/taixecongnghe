@@ -44,10 +44,12 @@ def compose(mau):
     return img.convert('RGB')
 
 
-ims = [compose(m) for m in ('HienTai', 'A', 'B', 'C')]
+import sys
+if len(sys.argv) > 1 and sys.argv[1] == 'lazer': ims = None   # 21.338: chỉ ghép LAZER (không vẽ lại tonghop — «HIỆN TẠI» là bộ nút trước 21.338)
+else: ims = [compose(m) for m in ('HienTai', 'A', 'B', 'C')]
 sheet = Image.new('RGB', (W * 2 + 12, H * 2 + 12), (20, 24, 28))
-for i, im in enumerate(ims): sheet.paste(im, ((i % 2) * (W + 12), (i // 2) * (H + 12)))
-sheet.save(os.path.join(HERE, 'out', 'tonghop.jpg'), quality=90)
+for i, im in enumerate(ims or []): sheet.paste(im, ((i % 2) * (W + 12), (i // 2) * (H + 12)))
+if ims: sheet.save(os.path.join(HERE, 'out', 'tonghop.jpg'), quality=90)
 # bảng nút rời (nền tối) để nhìn chi tiết
 rows = [Image.open(os.path.join(HERE, 'raw', f'sheet-{m}.png')).convert('RGB') for m in 'ABC']
 tb = Image.new('RGB', (rows[0].width, sum(r.height for r in rows)))
