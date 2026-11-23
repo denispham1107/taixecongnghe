@@ -6318,3 +6318,19 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - `Buttons21338.Reimport` (đã thêm Gas, Stop, Shield) → Play → `Show`. Ảnh `out/unity-du9-21340.png`: 9 nút mới hiện đúng, console không lỗi. Editor máy tính vẫn xếp nút kiểu máy tính (NHẢY chồng dưới GA), như trước.
   - Bố cục điện thoại: `ghep.py du` → `out/dienthoai-du9-21340.png`.
 - **Trạng thái:** đã commit, chưa phát hành. Khi phát hành nhớ ghi vào «Bản cập nhật»: nút điều khiển mới, xe vàng, xe tăng nổ tung, NPC né sét.
+
+## 21.341. Thay bộ nút mới vào 3 ảnh trong game trên trang chủ (23/11/2026, Claude Code)
+
+- **Người dùng:** thay tất cả các nút vừa thiết kế lại vào 3 ảnh màn chơi trên trang chủ web.
+- **Ảnh:** `Assets/WebGLTemplates/PhoVietPWA/poster-home-{mobile,lazer,khien}.jpg` (2778 × 1284, 1389 × 642, 2778 × 1284; cỡ giữ nguyên). Bản gốc giữ ở `ArtSource/Concepts/Buttons-20261123/poster/goc-poster-home-*.jpg`.
+- **Cách làm (thư mục `poster/`):**
+  - **Dò vị trí:** `match.py` so khớp mẫu (NCC qua FFT, chỉ dùng numpy) ảnh nút cũ (`old-*.png` lấy từ commit a66cd40) để tìm khung tấm nút cũ trong từng ảnh → `box-*.json`. Cần sửa tay nút TÊN LỬA ảnh khiên: lấy cỡ 174 px quanh tâm tìm được.
+  - **Thay nút:** `compose.py` làm 3 việc:
+    - xóa nút cũ bằng cách lấp vùng (nới 7 %) bằng khuếch tán nhiều tầng từ viền, không cần OpenCV;
+    - dán nút mẫu A `raw/game-*.png` vào đúng khung, đục 68 % như trong game. Nút đang giữ (có quầng màu: GA ảnh 1 và 3, LAZER ảnh 2 và 3) dán đục 100 % và thu 7 % như `DrawArtButton`;
+    - vẽ lại huy hiệu «10» của TÊN LỬA.
+  - Nút «STOP» cũ trong ảnh nay là P/DRIFT. Quầng giữ nút và vòng sáng KHIÊN đang bật vẫn giữ.
+- **Kiểm tra:** xem ảnh thu nhỏ và phóng to từng cụm nút: không còn vết nút cũ, nhãn rõ.
+- **Còn lại:**
+  - Xe trong 3 ảnh vẫn màu xanh (ảnh chụp trước 21.336).
+  - Chưa phát hành. Khi phát hành, các ảnh này đi theo vỏ web (`RefreshWebShell` chép 3 poster).
