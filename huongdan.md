@@ -6288,3 +6288,17 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Kiểm tra:** `AgentScripts/Buttons21338.cs` (`Reimport` → Play → `Show`). Unity nhập 512 × 512 RGBA32. Ảnh `out/unity-mauA-21338.png` cho thấy nút mới hiện đúng, console không lỗi.
   - Editor máy tính dùng bố cục máy tính (NHẢY chồng dưới GA), như trước. Bố cục điện thoại xem ở ảnh ghép.
 - **Chờ người dùng chọn kiểu LAZER**, rồi chạy `sh xuat_game.sh laser <kiểu>` và `Buttons21338.Reimport`. Sau đó hỏi có vẽ lại GA/P/DRIFT/KHIÊN cùng mẫu A và ảnh nút trang chủ (`controls/btn-*.png`) không. Chưa phát hành.
+
+## 21.339. Nút LAZER kiểu 3 «Hai tia hội tụ» vào game (23/11/2026, Claude Code)
+
+- **Người dùng:** chọn kiểu 3.
+- **Làm:**
+  - `nut.html`: mặc định `lz` = 3.
+  - Chạy `sh xuat_game.sh laser 3` → `Assets/PhoViet/Resources/TouchControls/PV_Btn_Laser.png` (512², nền trong suốt, khớp byte với `raw/A-laser-lz3.png`).
+  - Chạy `Buttons21338.Reimport`: Unity nhập 512 × 512 RGBA32.
+  - `ArtSource/UI/build_laser_button.py` không còn là nguồn của nút này. Không chạy lại script đó (sẽ ghi đè bằng nút cũ).
+- **Kiểm tra:** Play + `Buttons21338.Show`. Ảnh `ArtSource/Concepts/Buttons-20261123/out/unity-lazer3-21339.png` cho thấy đủ 6 nút mẫu A hiện đúng, console không lỗi.
+- **Còn lại:**
+  - GA, P/DRIFT, KHIÊN vẫn kiểu cũ.
+  - Ảnh nút ở trang chủ (`Assets/WebGLTemplates/PhoVietPWA/controls/btn-*.png`) vẫn là bộ cũ, có hình xe xanh.
+  - Chưa phát hành (cùng 21.336–21.338).

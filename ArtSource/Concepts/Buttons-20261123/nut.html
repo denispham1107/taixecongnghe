@@ -92,7 +92,7 @@ function burst(x, y, r) {
   return s;
 }
 function iconLaser(P, b) {
-  const v = Q.get('lz') || '1';
+  const v = Q.get('lz') || '3';   // 21.339: người dùng chọn kiểu 3
   let s = '';
   if (v === '1') {
     s += beam(206, 240, 432, 128, 26);
