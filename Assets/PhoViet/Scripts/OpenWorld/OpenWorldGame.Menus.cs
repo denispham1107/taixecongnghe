@@ -106,7 +106,7 @@ namespace PhoViet.OpenWorld
             Skew(mH / 2); Grad(new Rect(-200, 0, x + 770, mH), gradBand, new Color(6 / 255f, 14 / 255f, 22 / 255f, .8f)); Unskew();
 
             MenuBrand(x, 32 + MST);
-            MenuPlace(mW - (x - MSL) - MSR, 32 + MST);
+            MenuRanks(mW - (x - MSL) - MSR, 32 + MST);   // 21.357: thay ô «Địa điểm hôm nay»
 
             // nhãn + tiêu đề + mô tả (một khối nghiêng)
             float py = top + 160;
@@ -161,18 +161,24 @@ namespace PhoViet.OpenWorld
             Unskew();
         }
 
-        void MenuPlace(float right, float y)
+        // 21.357: người dùng — thay ô «ĐỊA ĐIỂM HÔM NAY / tên phố» góc phải trên màn chào bằng ô «Bảng xếp hạng» có cúp phía trước;
+        // bấm vào hiện danh sách bảng xếp hạng (hộp Top 100 của trang web, account.js — OpenWorldGame.Leaderboard.cs).
+        void MenuRanks(float right, float y)
         {
             EnsureHudIcons();
-            string street = CurrentStreet;
-            float w = 20 + Mathf.Max(28 + TextW("ĐỊA ĐIỂM HÔM NAY", 13), TextW(street, 26)) + 28 + 8;
+            const string label = "Bảng xếp hạng";
+            float w = 20 + 36 + 14 + TextW(label, 26) + 16 + ChevronsW(14) + 20 + 8;
             var r = new Rect(right - w, y, w, 68);
-            SkewPanel(r, MGold, 8, true, 0, .9f);
+            bool hover = r.Contains(Event.current.mousePosition);
+            SkewPanel(r, MGold, 8, true, 0, hover ? .98f : .9f);
             Skew(r.center.y);
-            Ico(pinTex, r.x + 20, y + 10, 20, MGold);
-            TxtL("ĐỊA ĐIỂM HÔM NAY", r.x + 48, y + 20, 13, MGold);
-            TxtL(street, r.x + 20, y + 46, 26, MCream);
+            Ico(trophyTex, r.x + 20, r.center.y - 18, 36, MGold);
+            float tx = r.x + 20 + 36 + 14;
+            TxtL(label, tx, r.center.y, 26, MCream);
+            Chevrons(tx + TextW(label, 26) + 16, r.center.y, 14, MGold);
+            bool hit = GUI.Button(new Rect(r.x - 8, r.y - 8, r.width + 16, r.height + 16), GUIContent.none, GUIStyle.none);
             Unskew();
+            if (hit) OpenRanksOnWeb();
         }
 
         void KeyHints(float x)

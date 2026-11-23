@@ -6560,3 +6560,31 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Quy trình phát hành từ nay:** sửa số phiên bản → `ReleaseBuild.Prepare/BuildNow` (vỏ: `RefreshWebShell`) → thử → `firebase deploy --only hosting --project gotaviet` → so SHA-256 live với `Builds/WebGL`. Không chép vào `docs/`, không `PublishWebArtifact.py pack` nữa. Luật Firestore đổi thì `firebase deploy --only firestore:rules`.
 - **Chưa xong / chờ người dùng:** nâng gói **Blaze** (console Firebase → Upgrade, người dùng tự nhập thẻ; khi chưa nâng, Hosting giới hạn 360 MB/ngày ≈ 3 lượt tải game mới); thử đăng nhập Google trên trang thật (cần tài khoản Google của người chơi) và trên iPhone (ứng dụng đã cài dùng chuyển trang). Người đã cài bản cũ từ github.io nên cài lại từ gotaviet.web.app.
 - **Gói Blaze (23/11/2026):** người dùng tự nâng; console Firebase báo «Blaze · Pay as you go». Theo lựa chọn của người dùng (5 USD/tháng), Claude tạo ngân sách **«GoTa Viet - canh bao 5 USD/thang»** trong tài khoản thanh toán «Firebase Payment» (tính bằng ₫): chỉ cảnh báo, phạm vi **chỉ dự án gotaviet**, hàng tháng **130.000 ₫**, email cho chủ tài khoản thanh toán ở 50/90/100 % (65.000 / 117.000 / 130.000 ₫). Không chặn chi tiêu. Lúc nâng gói, Firebase cũng tạo sẵn ngân sách «Firebase Project gotaviet» 25 ₫ (sẽ báo ngay khi có phí nhỏ) — giữ nguyên, người dùng tự xóa nếu không cần.
+
+## 21.357. Màn chào trong game: ô «Bảng xếp hạng» thay «Địa điểm hôm nay» (23/11/2026, Claude Code)
+
+- **Người dùng (ảnh màn chào, khoanh đỏ ô «ĐỊA ĐIỂM HÔM NAY / Tôn Đức Thắng»):** thay nguyên ô đó bằng ô «Bảng xếp hạng» có icon cúp phía trước; bấm vào hiện danh sách bảng xếp hạng.
+- **`OpenWorldGame.Menus.cs`:** `MenuPlace` → `MenuRanks` (cùng vị trí góc phải trên, khối tối nghiêng viền vàng phải như cũ): cúp vàng 36 (`trophyTex`) + «Bảng xếp hạng» chữ kem 26 + mũi tên kép vàng; sáng hơn khi rê chuột; vùng bấm rộng thêm 8 mỗi phía. Bấm → `OpenRanksOnWeb()`.
+- **`OpenWorldGame.Leaderboard.cs`:** jslib `GotaOpenRanks` (`PhoVietWeb.jslib`) → `window.gotaOpenRanks` (`account.js`) mở hộp `#ranks` «🏆 Bảng xếp hạng · Top 100» của trang (chỉ xem, có dòng hạng của mình nếu đã đăng nhập ở trang chủ; không có đăng nhập trong game — 21.356). Editor chỉ ghi log + đếm `ranksOpened`.
+- **`index.html`:** thêm dòng bản cập nhật «Màn chào trong game: ô Bảng xếp hạng…».
+- **Kiểm tra:** biên dịch đạt; Play Editor 1389 × 642 thấy ô mới đúng chỗ (`Assets/Captures/ranks21357.png`, chỉ ở máy). Không giả lập được cú bấm IMGUI trong Editor (dự án Legacy Input, `simulate_pointer` cần Input System) → cần thử bấm trên bản web.
+- **Chưa build/phát hành** (cần build Unity vì đổi C#/jslib); web đang 1.95.0.
+
+## 21.358. Hộp «Tải game»: hướng dẫn cài trên iPhone bằng Chrome (4 ảnh) — thẻ theo trình duyệt (24/11/2026, Claude Code)
+
+- **Người dùng (4 ảnh chụp iPhone, Chrome trên gotaviet.web.app):** bấm «Tải game» mở cửa sổ hướng dẫn cài game trong Chrome và Safari; giữ nguyên khung đỏ + mũi tên đỏ (chỗ cần bấm); ảnh 2 xóa hết vùng khung xanh lá (hàng danh bạ Zalo) rồi ghép liền; viết hướng dẫn chi tiết «Thêm vào Màn hình chính dưới dạng ứng dụng» cho Chrome kèm 4 ảnh. Ảnh Safari người dùng gửi sau.
+- **Ảnh:** `Assets/WebGLTemplates/PhoVietPWA/install/ios-chrome-1..4.jpg` (rộng 600, JPEG 84, 57–131 KB). Ảnh 2: khung xanh nằm dòng 408–734 (ảnh gốc 924 × 2000) → bỏ dòng 398–742, trộn 12 dòng hai bên chỗ nối (ảnh còn 924 × 1644 trước khi thu nhỏ); khung đỏ «Xem thêm» + mũi tên giữ nguyên.
+- **`index.html` `#install-guide`:** 3 thẻ `.install-tabs` — «iPhone · Chrome» (4 bước: 1 bấm Chia sẻ ở góc phải thanh địa chỉ; 2 bấm «Xem thêm» cuối hàng nút tròn; 3 «Thêm vào Màn hình chính» dưới mục In; 4 giữ tên GờTa Việt, bật «Mở dưới dạng ứng dụng web», bấm «Thêm»; khung «Xong!»), «iPhone · Safari» (chữ tạm, chờ ảnh), «Android · Máy tính» (chữ cũ). `app.js` `openInstallGuide()`/`installTab()`: iPhone + `CriOS` → thẻ Chrome, iPhone khác → Safari, máy khác → Android·Máy tính. `style.css` khối 21.358 (ảnh tối đa 300 px, điện thoại 240 px).
+- **`PhoVietWebBuild.RefreshWebShell`:** chép thêm thư mục `install`.
+- **Kiểm tra:** vỏ trang chạy localhost trong Chrome — hộp mở, thẻ đổi đúng, 4 ảnh tải đủ cỡ. Chưa thử trên iPhone thật.
+- **Bổ sung Safari (cùng ngày, người dùng gửi 5 ảnh iPhone Safari):** thẻ «iPhone · Safari» 5 bước thay chữ tạm — 1 bấm nút menu (ba gạch) bên trái thanh địa chỉ dưới cùng; 2 chọn «Chia sẻ»; 3 bấm «Xem thêm» cuối hàng nút tròn; 4 «Thêm vào Màn hình chính» (dưới «Tìm trên trang»); 5 giữ tên, bật «Mở dưới dạng ứng dụng web», bấm «Thêm»; khung «Xong!». Ảnh `install/ios-safari-1..5.jpg` (rộng 600, 54–137 KB). Ảnh 3: khung xanh (hàng danh bạ Zalo) dòng 1084–1392 → bỏ dòng 1078–1398, trộn 10 dòng chỗ nối (924 × 1670 trước khi thu nhỏ). Thử localhost: thẻ Safari mở đủ 5 ảnh.
+- **Chưa build/phát hành** (gộp với 21.357 thành 1.95.1 khi người dùng cho phép).
+
+## 21.359. Sửa: mở hộp «Tải game» trên iPhone thì nút × trông như đang được chọn — phát hành vỏ web 1.95.0 (24/11/2026, Claude Code)
+
+- **Người dùng (2 ảnh iPhone, Safari + Chrome trên gotaviet.web.app):** bấm «Tải game» thì trang «tự chọn» nút × đỏ (viền xanh ngọc quanh nút).
+- **Nguyên nhân:** `dialog.showModal()` đặt tiêu điểm vào phần tử bấm được đầu tiên trong hộp — nút × (`.close`); iPhone hiện viền `:focus-visible` (outline xanh ngọc 3 px, `style.css`) nên trông như nút đang được chọn. Không có cú bấm nào.
+- **Sửa:** tiêu đề 4 hộp thoại (`#guide-title`, `#install-title`, `#account-title`, `#ranks-title`) thêm `tabindex="-1" autofocus` → tiêu điểm vào tiêu đề; `style.css` `dialog [autofocus]:focus{outline:none}`; `app.js` `openInstallGuide()` gọi thêm `$('install-title').focus()`. Thử localhost: mở cả 4 hộp, `document.activeElement` đều là tiêu đề.
+- **Phát hành vỏ web (không build lại game):** `AgentScripts/Shell21359.cs` → `RefreshWebShell` trên bản build 1.95.0 (gồm luôn hộp «Tải game» 21.358 có ảnh Chrome/Safari, thư mục `install/` vào precache) → cache **`06056dc976eefa31`**; `firebase deploy --only hosting` → live **48/48 tệp khớp SHA-256**. Bản cập nhật trên trang: ngày 24/11/2026, thêm dòng «Nút Tải game: hướng dẫn cài từng bước có ảnh cho iPhone»; dòng ô «Bảng xếp hạng» trong game (21.357) tạm để trong chú thích HTML, thêm lại khi build 1.95.1.
+- Chưa thử lại trên iPhone thật.
+

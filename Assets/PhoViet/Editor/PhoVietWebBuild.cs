@@ -168,7 +168,7 @@ namespace PhoViet.Editor
             foreach(string file in new[]{"style.css","app.js","account.js","manifest.webmanifest","poster-home-mobile.jpg","poster-home-lazer.jpg","poster-home-khien.jpg"})
                 File.Copy("Assets/WebGLTemplates/PhoVietPWA/"+file,Path.Combine(root,file),true);
             // 21.331: trang chủ mẫu C có dải 8 nút điều khiển (controls/btn-*.png)
-            foreach(string dir in new[]{"icons","controls"})
+            foreach(string dir in new[]{"icons","controls","install"})   // 21.358: ảnh hướng dẫn cài (install/)
             {
                 Directory.CreateDirectory(Path.Combine(root,dir));
                 foreach(string f in Directory.GetFiles("Assets/WebGLTemplates/PhoVietPWA/"+dir))

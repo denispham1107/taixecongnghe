@@ -68,8 +68,10 @@
           </section>
           <!-- Bản cập nhật: mỗi lần phát hành sửa ngày + danh sách bên dưới; số phiên bản tự lấy từ bản build (app.js). -->
           <details class="release-notes glass" id="release-notes">
-            <summary><span class="release-tag">MỚI</span> Bản cập nhật <b id="release-version">—</b> · <span id="release-date">23/11/2026</span></summary>
+            <summary><span class="release-tag">MỚI</span> Bản cập nhật <b id="release-version">—</b> · <span id="release-date">24/11/2026</span></summary>
             <ul>
+              <!-- 21.357 chưa build: khi phát hành 1.95.1 thêm lại «Màn chào trong game: ô «Bảng xếp hạng» có cúp ở góc phải trên (thay «Địa điểm hôm nay»), chạm vào để xem Top 100.» -->
+              <li>Nút «Tải game»: hướng dẫn cài từng bước có ảnh cho iPhone (Chrome và Safari).</li>
               <li>Tài khoản GờTa Việt: đăng ký bằng email hoặc Google; mỗi lượt chơi tự ghi kỷ lục lên bảng xếp hạng chung, xem hạng của bạn ngay trên trang chủ.</li>
               <li>Game chuyển sang địa chỉ mới gotaviet.web.app.</li>
               <li>Bị CSGT bắt: nhân vật trong phòng giam bị còng hai tay bằng còng xích.</li>
@@ -109,18 +111,58 @@
   <div id="safe-area-probe" aria-hidden="true"></div>
   <dialog id="guide" aria-labelledby="guide-title">
     <div class="guide-heading"><p class="eyebrow tem">SẴN SÀNG LÊN ĐƯỜNG</p><button id="close-help" class="close tem" aria-label="Đóng hướng dẫn">×</button></div>
-    <h2 id="guide-title">Cầm lái. Khám phá. Phá kỷ lục.</h2>
+    <h2 id="guide-title" tabindex="-1" autofocus>Cầm lái. Khám phá. Phá kỷ lục.</h2>
     <div class="guide-section"><h3>Máy tính</h3><p>Phím mũi tên hoặc WASD để tăng tốc, lùi và đánh lái. J nhảy, F bắn tên lửa, Space phanh tay, K khiên, L lazer (bấm 1 lần là bắn tới hết năng lượng), chạm nhanh 2 lần ↑ để bật/tắt Ga tự động, P hoặc nút tạm dừng (góc trên) để tạm dừng; nút hình loa bên cạnh để bật/tắt tiếng.</p></div>
     <div class="guide-section"><h3>Điện thoại</h3><p>Xoay ngang để chơi. Góc trái dưới có hai nút mũi tên: giữ ← để rẽ trái, giữ → để rẽ phải, giống phím mũi tên trên máy tính; trượt ngón sang nút kia là đổi hướng. Hàng dưới bên phải: giữ P/Drift để phanh gấp về 0 trong 1 giây, giữ Lùi để lùi, giữ Ga để chạy tới; chạm nhanh 2 lần vào Ga để xe tự giữ tốc độ (Ga tự động). Hàng trên: Tên lửa (trên Lùi) và Nhảy (trên Ga). Có thể vừa giữ nút lái vừa bấm hoặc giữ các nút bên phải.</p></div>
     <div class="guide-section"><h3>Trên phố mở</h3><p>Lái tự do khắp bản đồ: phố ven sông, chợ, cầu và các đại lộ, có đèn giao thông và dòng xe máy, ô tô. Điểm là số mét bạn lái được.</p><p><b>CSGT</b> xuất phát sau vài giây và đuổi theo; đứng yên gần xe CSGT quá lâu là bị bắt.</p><p><b>Hiểm họa</b> xuất hiện theo quãng đường: khủng long quất đuôi (nhảy qua để né), xe tăng bắn đạn pháo để lại hố kéo lệch xe, trực thăng phóng tên lửa có vòng báo đỏ. Trúng đạn, tên lửa, khủng long, đâm thân xe tăng hay rơi sông là kết thúc chuyến.</p><p><b>Tên lửa của bạn:</b> bắt đầu đầy 10 quả (tối đa 10), mỗi lần bắn 2 quả từ 2 đèn xe và tự khóa 2 mục tiêu (xe tăng, trực thăng, tàu); kho tự hồi 1 quả mỗi 5 giây, nhặt biểu tượng tên lửa trên phố để nạp thêm.</p><p><b>Va chạm:</b> húc xe khác thì cả hai văng, bốc khói và choáng theo tốc độ; từ 90 km/h xe cùng cỡ hoặc nhỏ hơn sẽ nổ tung. Hàng rào trước cửa hàng húc đổ được, lan can bờ sông thì không.</p></div>
   </dialog>
+  <!-- 21.358: «Tải game» — hướng dẫn cài theo trình duyệt (thẻ iPhone·Chrome / iPhone·Safari / Android·Máy tính; app.js chọn sẵn thẻ đúng máy).
+       Ảnh iPhone·Chrome/Safari do người dùng chụp (giữ khung + mũi tên đỏ là chỗ cần bấm; đã xóa hàng danh bạ Zalo ở ảnh Chrome 2 và Safari 3). -->
   <dialog id="install-guide" aria-labelledby="install-title">
-    <div class="guide-heading"><h3 id="install-title">Cài game &amp; chơi offline</h3><button id="close-install" class="close tem" aria-label="Đóng">×</button></div>
-    <p><b>Android / Chrome / Edge:</b> chọn “Cài ứng dụng” hoặc mục cài đặt trong menu trình duyệt.</p><p><b>iPhone / iPad:</b> mở bằng Safari → Chia sẻ → Thêm vào Màn hình chính → bật “Mở dưới dạng ứng dụng web” nếu có → Thêm.</p><p>Lần đầu cần mạng để tải game. Khi thông báo “Đã lưu để chơi offline” xuất hiện, bạn có thể mở lại trên máy này khi mất mạng.</p>
+    <div class="guide-heading"><h3 id="install-title" tabindex="-1" autofocus>Cài game &amp; chơi offline</h3><button id="close-install" class="close tem" aria-label="Đóng">×</button></div>
+    <div class="install-tabs" role="tablist" aria-label="Chọn trình duyệt">
+      <button type="button" role="tab" data-tab="ios-chrome">iPhone · Chrome</button>
+      <button type="button" role="tab" data-tab="ios-safari">iPhone · Safari</button>
+      <button type="button" role="tab" data-tab="other">Android · Máy tính</button>
+    </div>
+    <section class="install-pane" data-pane="ios-chrome" role="tabpanel" aria-label="Cài trên iPhone bằng Chrome">
+      <p class="install-lead">Thêm GờTa Việt vào <b>Màn hình chính</b> để mở như một ứng dụng: toàn màn hình, không còn thanh địa chỉ. Làm theo 4 bước dưới đây — bấm đúng chỗ có <b class="red">khung đỏ</b> và <b class="red">mũi tên đỏ</b> trong ảnh.</p>
+      <ol class="install-steps">
+        <li><p><b>Bước 1 — Bấm nút Chia sẻ.</b> Mở <b>gotaviet.web.app</b> bằng Chrome. Trên thanh địa chỉ ở đầu màn hình, bấm biểu tượng <b>Chia sẻ</b> (ô vuông có mũi tên hướng lên) ở góc phải.</p>
+          <img src="install/ios-chrome-1.jpg" width="600" height="1244" alt="Bước 1: trang gotaviet.web.app trong Chrome, khung đỏ và mũi tên đỏ chỉ vào nút Chia sẻ ở góc phải thanh địa chỉ" loading="lazy" decoding="async"></li>
+        <li><p><b>Bước 2 — Bấm «Xem thêm».</b> Bảng chia sẻ hiện lên. Ở hàng nút tròn phía dưới (Sao chép, Gửi tới thiết bị của bạn, Thêm vào Danh sách đọc), bấm nút <b>«Xem thêm»</b> có dấu mũi tên xuống ở cuối hàng.</p>
+          <img src="install/ios-chrome-2.jpg" width="600" height="1068" alt="Bước 2: bảng chia sẻ của Chrome, khung đỏ chỉ vào nút Xem thêm ở cuối hàng nút tròn" loading="lazy" decoding="async"></li>
+        <li><p><b>Bước 3 — Chọn «Thêm vào Màn hình chính».</b> Danh sách mở rộng ra. Kéo xuống dưới mục «In», bấm <b>«Thêm vào Màn hình chính»</b> (biểu tượng dấu cộng trong ô vuông).</p>
+          <img src="install/ios-chrome-3.jpg" width="600" height="1299" alt="Bước 3: danh sách mở rộng, mũi tên đỏ chỉ xuống mục Thêm vào Màn hình chính được khoanh đỏ" loading="lazy" decoding="async"></li>
+        <li><p><b>Bước 4 — Bấm «Thêm».</b> Giữ tên <b>GờTa Việt</b>, kiểm tra công tắc <b>«Mở dưới dạng ứng dụng web»</b> đang bật (màu xanh lá), rồi bấm nút xanh <b>«Thêm»</b> ở góc phải trên.</p>
+          <img src="install/ios-chrome-4.jpg" width="600" height="1299" alt="Bước 4: màn hình Thêm vào Màn hình chính với tên GờTa Việt, công tắc Mở dưới dạng ứng dụng web đang bật, khung đỏ chỉ nút Thêm" loading="lazy" decoding="async"></li>
+      </ol>
+      <p class="install-done"><b>Xong!</b> Biểu tượng GờTa Việt xuất hiện trên Màn hình chính. Từ nay chạm vào biểu tượng đó để vào game toàn màn hình. Lần đầu cần mạng để tải game (khoảng 110 MB).</p>
+    </section>
+    <section class="install-pane" data-pane="ios-safari" role="tabpanel" aria-label="Cài trên iPhone bằng Safari" hidden>
+      <p class="install-lead">Thêm GờTa Việt vào <b>Màn hình chính</b> để mở như một ứng dụng: toàn màn hình, không còn thanh địa chỉ. Làm theo 5 bước dưới đây — bấm đúng chỗ có <b class="red">khung đỏ</b> và <b class="red">mũi tên đỏ</b> trong ảnh.</p>
+      <ol class="install-steps">
+        <li><p><b>Bước 1 — Mở menu Safari.</b> Mở <b>gotaviet.web.app</b> bằng Safari. Trên thanh địa chỉ ở cuối màn hình, bấm nút <b>menu</b> (ba gạch ngang) ở bên trái.</p>
+          <img src="install/ios-safari-1.jpg" width="600" height="1299" alt="Bước 1: trang gotaviet.web.app trong Safari, mũi tên đỏ chỉ vào nút menu ba gạch được khoanh đỏ ở bên trái thanh địa chỉ dưới cùng" loading="lazy" decoding="async"></li>
+        <li><p><b>Bước 2 — Chọn «Chia sẻ».</b> Trong menu vừa hiện ra, bấm <b>«Chia sẻ»</b> (biểu tượng ô vuông có mũi tên hướng lên), ngay dưới dòng «Dịch sang…».</p>
+          <img src="install/ios-safari-2.jpg" width="600" height="1299" alt="Bước 2: menu Safari, khung đỏ và mũi tên đỏ chỉ vào mục Chia sẻ" loading="lazy" decoding="async"></li>
+        <li><p><b>Bước 3 — Bấm «Xem thêm».</b> Bảng chia sẻ hiện lên. Ở hàng nút tròn phía dưới (Sao chép, Thêm vào Dấu trang, Thêm vào Danh sách đọc), bấm nút <b>«Xem thêm»</b> có dấu mũi tên xuống ở cuối hàng.</p>
+          <img src="install/ios-safari-3.jpg" width="600" height="1084" alt="Bước 3: bảng chia sẻ của Safari, khung đỏ chỉ vào nút Xem thêm ở cuối hàng nút tròn" loading="lazy" decoding="async"></li>
+        <li><p><b>Bước 4 — Chọn «Thêm vào Màn hình chính».</b> Danh sách mở rộng ra. Bấm <b>«Thêm vào Màn hình chính»</b> (biểu tượng dấu cộng trong ô vuông), ngay dưới mục «Tìm trên trang».</p>
+          <img src="install/ios-safari-4.jpg" width="600" height="1299" alt="Bước 4: danh sách tác vụ, khung đỏ và mũi tên đỏ chỉ vào mục Thêm vào Màn hình chính" loading="lazy" decoding="async"></li>
+        <li><p><b>Bước 5 — Bấm «Thêm».</b> Giữ tên <b>GờTa Việt</b>, kiểm tra công tắc <b>«Mở dưới dạng ứng dụng web»</b> đang bật (màu xanh lá), rồi bấm nút xanh <b>«Thêm»</b> ở góc phải trên.</p>
+          <img src="install/ios-safari-5.jpg" width="600" height="1299" alt="Bước 5: màn hình Thêm vào Màn hình chính với tên GờTa Việt, công tắc Mở dưới dạng ứng dụng web đang bật, khung đỏ chỉ nút Thêm" loading="lazy" decoding="async"></li>
+      </ol>
+      <p class="install-done"><b>Xong!</b> Biểu tượng GờTa Việt xuất hiện trên Màn hình chính. Từ nay chạm vào biểu tượng đó để vào game toàn màn hình. Lần đầu cần mạng để tải game (khoảng 110 MB).</p>
+    </section>
+    <section class="install-pane" data-pane="other" role="tabpanel" aria-label="Cài trên Android và máy tính" hidden>
+      <p><b>Android / Chrome / Edge:</b> chọn “Cài ứng dụng” hoặc mục cài đặt trong menu trình duyệt.</p>
+      <p>Lần đầu cần mạng để tải game. Khi thông báo “Đã lưu để chơi offline” xuất hiện, bạn có thể mở lại trên máy này khi mất mạng.</p>
+    </section>
   </dialog>
   <!-- 21.356: tài khoản + bảng xếp hạng (account.js). Đăng nhập/đăng ký CHỈ ở trang chủ — đang chơi game không có nút/hộp đăng nhập (người dùng 23/11/2026). -->
   <dialog id="account" aria-labelledby="account-title">
-    <div class="guide-heading"><h3 id="account-title">Tài khoản GờTa Việt</h3><button id="close-account" class="close tem" type="button" aria-label="Đóng">×</button></div>
+    <div class="guide-heading"><h3 id="account-title" tabindex="-1" autofocus>Tài khoản GờTa Việt</h3><button id="close-account" class="close tem" type="button" aria-label="Đóng">×</button></div>
     <div id="acct-out">
       <div class="acct-tabs" role="tablist"><button type="button" id="tab-login" role="tab" class="on">Đăng nhập</button><button type="button" id="tab-signup" role="tab">Đăng ký</button></div>
       <form id="acct-form" class="acct-form" novalidate>
@@ -142,7 +184,7 @@
     <p id="acct-msg" class="acct-msg" role="status" aria-live="polite"></p>
   </dialog>
   <dialog id="ranks" aria-labelledby="ranks-title">
-    <div class="guide-heading"><h3 id="ranks-title">🏆 Bảng xếp hạng · Top 100</h3><button id="close-ranks" class="close tem" type="button" aria-label="Đóng">×</button></div>
+    <div class="guide-heading"><h3 id="ranks-title" tabindex="-1" autofocus>🏆 Bảng xếp hạng · Top 100</h3><button id="close-ranks" class="close tem" type="button" aria-label="Đóng">×</button></div>
     <p id="ranks-me" class="rank-me"></p>
     <ol id="ranks-list" class="rank-list"></ol>
   </dialog>

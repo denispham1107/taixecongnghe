@@ -147,9 +147,20 @@ window.addEventListener('beforeinstallprompt', e => {
 });
 window.addEventListener('appinstalled', () => {$('install').hidden=true;installPrompt=null;});
 if(!standalone) $('install').hidden=false;   // 21.347: «Tải game» luôn hiện khi chưa cài (iPhone, Android, máy tính)
+// 21.358: hộp «Tải game» có 3 thẻ hướng dẫn; mở sẵn thẻ đúng máy (iPhone Chrome = CriOS, iPhone khác = Safari).
+function installTab(name){
+  for(const b of document.querySelectorAll('.install-tabs [data-tab]')){const on=b.dataset.tab===name;b.classList.toggle('on',on);b.setAttribute('aria-selected',String(on));}
+  for(const p of document.querySelectorAll('.install-pane'))p.hidden=p.dataset.pane!==name;
+}
+for(const b of document.querySelectorAll('.install-tabs [data-tab]'))b.addEventListener('click',()=>installTab(b.dataset.tab));
+function openInstallGuide(){
+  installTab(ios?(/CriOS/.test(navigator.userAgent)?'ios-chrome':'ios-safari'):'other');
+  $('install-guide').showModal();$('install-guide').scrollTop=0;
+  $('install-title').focus({preventScroll:true});   // 21.359: không để tiêu điểm (viền xanh) nằm trên nút × khi vừa mở
+}
 $('install').addEventListener('click', async () => {
   pauseGame();setMenu(false);
-  if(!installPrompt) {$('install-guide').showModal();return;}
+  if(!installPrompt) {openInstallGuide();return;}
   await installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('install').hidden=true;
 });
 

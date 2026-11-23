@@ -183,6 +183,8 @@ async function openRanks(){
 function closeDialog(d){d.close();const c=$('unity-canvas');if(c&&!c.hidden)c.focus({preventScroll:true});}
 $('account-open')?.addEventListener('click',openAccount);
 $('rank-all')?.addEventListener('click',openRanks);
+// 21.357: ô «Bảng xếp hạng» trên màn chào trong game (jslib GotaOpenRanks) mở hộp Top 100 — chỉ xem, không có đăng nhập.
+window.gotaOpenRanks=()=>{void openRanks();};
 $('toast-ranks')?.addEventListener('click',()=>{$('run-toast').hidden=true;openRanks();});
 $('toast-close')?.addEventListener('click',()=>{$('run-toast').hidden=true;});
 $('close-account').addEventListener('click',()=>closeDialog($('account')));
