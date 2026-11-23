@@ -6334,3 +6334,22 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Còn lại:**
   - Xe trong 3 ảnh vẫn màu xanh (ảnh chụp trước 21.336).
   - Chưa phát hành. Khi phát hành, các ảnh này đi theo vỏ web (`RefreshWebShell` chép 3 poster).
+
+## 21.342. Phát hành 1.93.0 (21.336–21.341) (23/11/2026, Claude Code)
+
+- **Người dùng:** giữ xe xanh trong 3 ảnh trang chủ; build và phát hành luôn.
+- **Bản cập nhật (`index.html` `#release-notes`, 23/11/2026):**
+  - bộ nút điều khiển vẽ mới;
+  - xe màu vàng;
+  - xe tăng trúng tên lửa nổ tung;
+  - xe trên phố biết né sét.
+- **Số phiên bản:** 1.93.0 (`PhoVietWebBuild.cs` + `ProjectSettings.asset`).
+- **Build:** theo quy trình `AgentScripts/ReleaseBuild.cs`.
+  - `Prepare` lần 1 trả «compiling» (đã nhập lại `PhoVietWebBuild.cs`); lần 2 trả «ready 1.93.0».
+  - `BuildNow` chạy 1.499 s, **đúng số ngay lần đầu** (không phải build lại như 1.92.0).
+  - Kết quả: `build-info.json` 1.93.0, cache `255fdfd76d730ea4`, 3.356 vật thể bị lược ở gói điện thoại.
+  - Gói điện thoại 105,9 MB, máy tính 121,8 MB.
+- **Đóng gói:** `docs` ← `Builds/WebGL`. `PublishWebArtifact.py pack` cắt 2 gói data thành phần 32 MB; `materialize` → `_site`. SHA 39/39 khớp.
+- **Commit:** `5e32638`, push `main` (kèm các commit 21.336–21.341).
+- **Đã lên web:** Pages run `45154491159` thành công; live 38/38 tệp khớp SHA-256, `build-info.json` trên mạng mang 1.93.0, cache `255fdfd76d730ea4`.
+- **Chờ người dùng:** thử trên iPhone: 9 nút mới (chạm đúng, nhìn rõ), xe vàng, xe tăng nổ tung, xe NPC né sét. Lái gốc 1.89.0 (21.329, `classicSteer = true`) vẫn còn trong bản này.

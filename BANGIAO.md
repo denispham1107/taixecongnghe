@@ -4,13 +4,13 @@
 >
 > Ai vừa sửa/thêm chức năng, build hoặc phát hành **phải cập nhật file này trong cùng công việc** (mục 1–3 và 6), song song với ghi chi tiết vào `huongdan.md`.
 
-Cập nhật lần cuối: **23/11/2026 — Claude Code (21.341 nút mới trong 3 ảnh trang chủ; 21.340 đủ 9 nút mẫu A; 21.339 LAZER kiểu 3; 21.337 mẫu nút; 21.336 xe tăng nổ tung, xe vàng, NPC né sét — source, chưa phát hành; 1.92.0 = 21.327–21.331)**
+Cập nhật lần cuối: **23/11/2026 — Claude Code (21.342 phát hành 1.93.0 = 21.336–21.341)**
 
 ## 1. Trạng thái hiện tại
 
 | Mục | Giá trị |
 | --- | --- |
-| Bản đã phát hành | **1.92.0 — bản đồ mở** (21.327–21.331: Ga tự động, loạt 2 tên lửa + kho hồi 5 s, Lazer bấm 1 lần, mưa 30 %, lái gốc 1.89.0 tạm để so sánh, trang chủ mẫu C) — commit `ded8ffb`, Pages run `45128204801`, **38/38 tệp live khớp SHA-256**, cache `65e4fcac06e7f36d` → **21.334–21.335 vỏ mới, cache `e54a7b98c09942d6`** (trang chủ gọn trên điện thoại, sửa nút Cài khi ngang), gói điện thoại 106,5 MB, máy tính 122,3 MB. Bản trước **1.91.0** (21.319–21.325: lái nhạy hơn, sương mưa phủ từ sát xe, menu mẫu C «Tem đua», ô tô móp sâu + xước/kính nứt/đèn vỡ khi va chạm cả CSGT, xe người chơi móp khi đụng cảnh quan) — commit `0908682`, Pages run `45053190268` thành công, **30/30 tệp live khớp SHA-256**, cache `4e783ddaa2f93564`, gói điện thoại 106,5 MB, máy tính 122,3 MB. Bản trước 1.90.0 (`99c16f3`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
+| Bản đã phát hành | **1.93.0 — bản đồ mở** (21.336–21.341: 9 nút cảm ứng mẫu A «Kính neon» + ảnh nút/3 ảnh trang chủ, xe người chơi vàng, xe tăng trúng tên lửa nổ tung + biến mất, xe NPC né sét) — commit `5e32638`, Pages run `45154491159`, **38/38 tệp live khớp SHA-256**, cache `255fdfd76d730ea4`, gói điện thoại 105,9 MB, máy tính 121,8 MB. Bản trước **1.92.0** (21.327–21.331: Ga tự động, loạt 2 tên lửa + kho hồi 5 s, Lazer bấm 1 lần, mưa 30 %, lái gốc 1.89.0 tạm để so sánh, trang chủ mẫu C) — commit `ded8ffb`, Pages run `45128204801`, **38/38 tệp live khớp SHA-256**, cache `65e4fcac06e7f36d` → **21.334–21.335 vỏ mới, cache `e54a7b98c09942d6`** (trang chủ gọn trên điện thoại, sửa nút Cài khi ngang), gói điện thoại 106,5 MB, máy tính 122,3 MB. Bản trước **1.91.0** (21.319–21.325: lái nhạy hơn, sương mưa phủ từ sát xe, menu mẫu C «Tem đua», ô tô móp sâu + xước/kính nứt/đèn vỡ khi va chạm cả CSGT, xe người chơi móp khi đụng cảnh quan) — commit `0908682`, Pages run `45053190268` thành công, **30/30 tệp live khớp SHA-256**, cache `4e783ddaa2f93564`, gói điện thoại 106,5 MB, máy tính 122,3 MB. Bản trước 1.90.0 (`99c16f3`). **Người dùng xác nhận 1.80.0 chơi được trên iPhone, không văng.** |
 | Meshy Bridge | **21.176:** đã khôi phục 0.2.5 trong Unity Phố Việt. Menu **Meshy → Bridge** mở, cổng `127.0.0.1:5326` đã kiểm tra. Plugin `Assets/ai.meshy` đã commit cùng 1.74.0 (`bee5707`). |
 | Bản chơi | <https://denispham1107.github.io/taixecongnghe/> (thư mục `docs/` trên `main`) |
 | Icon cài đặt | **21.167, web 1.64.0:** dùng mẫu A gốc «Phố lên đèn» với cờ nhỏ, có favicon, Apple Touch Icon và bản maskable. |
@@ -63,6 +63,7 @@ Cập nhật lần cuối: **23/11/2026 — Claude Code (21.341 nút mới trong
 
 ## 2. Việc vừa làm gần nhất (mới nhất ở trên)
 
+- **21.342 — phát hành 1.93.0 (21.336–21.341):** `ReleaseBuild` build đúng số ngay lần đầu (1.499 s), cache `255fdfd76d730ea4`; commit `5e32638`, Pages `45154491159`, live 38/38 khớp. Xe trong 3 ảnh trang chủ giữ màu xanh (người dùng chọn). Chi tiết `huongdan.md` 21.342.
 - **21.341 (source, chưa phát hành):** thay bộ nút cũ trong 3 ảnh trang chủ `poster-home-{mobile,lazer,khien}.jpg` bằng 9 nút mẫu A (`ArtSource/Concepts/Buttons-20261123/poster/`: `match.py` dò khung, `compose.py` xoá + dán; gốc `goc-*.jpg`). Xe trong ảnh vẫn xanh. Chi tiết `huongdan.md` 21.341.
 - **21.340 (source, chưa phát hành):** GA (bàn đạp + chữ V), P/DRIFT (ký hiệu (P) + vệt lốp), KHIÊN (khiên vân lục giác + tia sét) vẽ lại theo mẫu A; `xuat_game.sh` xuất đủ 9 nút + 8 ảnh nút trang chủ `controls/btn-*.png`; script nút cũ bị chặn ghi đè (`--force`). Chi tiết `huongdan.md` 21.340.
 - **21.339 (source, chưa phát hành):** nút LAZER kiểu 3 «Hai tia hội tụ» vào game (`xuat_game.sh laser 3`); không chạy lại `build_laser_button.py` (ghi đè nút cũ). Chi tiết `huongdan.md` 21.339.
@@ -512,9 +513,7 @@ Cập nhật lần cuối: **23/11/2026 — Claude Code (21.341 nút mới trong
 
 ## 3. Đang dở / cần người dùng quyết
 
-- **ĐANG LÀM (21.342) — phát hành 1.93.0 (21.336–21.341):** đã sửa «Bản cập nhật» + số phiên bản 1.93.0, `ReleaseBuild.Prepare` trả «ready 1.93.0», đang `ReleaseBuild.BuildNow` (theo dõi `Builds/release-1.93.0-status.json`). Bước kế: chép `docs`, pack/materialize `_site`, so SHA, commit + push, đợi Pages, kiểm live.
-- **21.336–21.341 chưa phát hành** (xe tăng nổ tung, xe vàng, NPC né sét, 9 nút mẫu A + ảnh nút trang chủ + nút mới trong 3 ảnh trang chủ). Chờ người dùng nói «Phát hành»; nhớ sửa «Bản cập nhật» trong `index.html`.
-- **21.336 chưa phát hành:** xe tăng nổ tung, xe vàng, NPC né sét đã commit source; cần «Phát hành» để lên web (dùng `ReleaseBuild.cs`). Hình xe trên nút NHẢY và ảnh nút trang chủ vẫn là xe xanh — hỏi người dùng có đổi sang vàng không.
+- **Chờ người dùng (1.93.0):** thử trên iPhone: 9 nút mới, xe vàng, xe tăng nổ tung, NPC né sét.
 - **Chờ người dùng (1.92.0):** thử trên iPhone: trang chủ mẫu C (chạm LÊN XE THÔI, bánh răng, Cách chơi, Thêm vào màn hình), Ga tự động, 2 tên lửa, Lazer bấm 1 lần, lái gốc.
 - **Lái gốc tạm thời (21.329, có trong web 1.92.0):** `classicSteer = true` để người dùng so sánh. Chờ người dùng nói giữ hay trả lại lái 21.316–21.319 (`classicSteer = false`).
 - **Chờ người dùng (1.91.0):** thử trên iPhone: lái nhạy hơn, menu mẫu C (chạm thật mọi nút ở màn chào/tạm dừng/thua/bị bắt/đồ họa), mưa (hết mảng tối), ô tô móp/bể (khung hình lúc va chạm; mỗi cú ~12 ms trong Editor). `PhoViet_OW_ThoiTiet.blend` còn thay đổi chưa commit từ phiên thử lửa 21.323 — giữ nguyên, hỏi người dùng trước khi commit/khôi phục.
