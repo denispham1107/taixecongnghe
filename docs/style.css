@@ -245,3 +245,13 @@ h1 .t2{font-size:clamp(34px,10vw,49px);padding-top:.36em;padding-bottom:.14em;li
 /* 21.347: hộp «Tải game» chỉ có phần Cài game & chơi offline */
 #install-guide .guide-heading{margin-bottom:6px}
 #install-guide .guide-heading h3{margin:0 0 0 4px}
+/* 21.349: ô logo trên thanh trên trong suốt → cùng màu nền thanh header (trước là khối --panel nghiêng khác màu). */
+#toolbar .wordmark{--tb:transparent}
+/* 21.349: tiêu đề mới dài hơn («VƯỢT QUA 2000M» / «NHẬN NGAY 200,000Đ») → chữ nhỏ hơn 21.347; đệm dưới .22em để dấu nặng
+   của «Ậ» nằm trong khối vàng (chữ xanh đen, ra ngoài khối là mất dấu như «PHỐ» trước đây). */
+h1 .t1{font-size:clamp(34px,10vw,50px)}
+h1 .t2{font-size:clamp(28px,8.2vw,41px);padding-bottom:.22em}
+@media(min-width:1000px){h1 .t1{font-size:clamp(56px,5.4vw,78px)}h1 .t2{font-size:clamp(46px,4.5vw,64px)}}
+@media(min-width:701px) and (max-height:620px){h1 .t1{font-size:38px}h1 .t2{font-size:31px}}
+@media(max-width:700px),(max-height:500px){h1 .t1{font-size:31px}h1 .t2{font-size:25px}}
+@media(max-width:360px){h1 .t1{font-size:28px}h1 .t2{font-size:22px}}

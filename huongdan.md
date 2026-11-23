@@ -6439,3 +6439,18 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Phát hành:** không build lại Unity (lỗi chỉ ở vỏ web). `AgentScripts/Shell21348.cs` → `PhoVietWebBuild.RefreshWebShell` chép vỏ mới vào bản build 1.94.0 có sẵn, cache mới `dd3d9bdd78753c1c` (số phiên bản giữ 1.94.0). Bản cập nhật trang chủ thêm dòng «Sửa lỗi khung chữ nhật trống che phía trên màn hình khi vào game». `docs` đóng gói lại, materialize 39/39 khớp SHA.
 - **Đã lên web:** commit `993a329`, Pages run `45182394756` thành công; live 39/39 khớp (riêng `sw.js` chỉ khác kiểu xuống dòng), `build-info.json` 1.94.0 cache `dd3d9bdd78753c1c`, `app.js` trên mạng đã có bản sửa. Máy đang giữ vỏ cũ sẽ được báo tải bản mới (cache đổi).
 - **Chờ người dùng:** thử lại trên iPhone (xoay ngang, lúc tải, màn chào, khi chơi).
+
+## 21.349. Trang chủ: ô logo cùng màu thanh trên, khẩu hiệu «Vòng vây rực lửa», tiêu đề «VƯỢT QUA 2000M / NHẬN NGAY 200,000Đ» (23/11/2026, Claude Code)
+
+- **Yêu cầu người dùng (ảnh trang chủ máy tính), chỉ trên website, làm xong cập nhật web luôn:**
+  - ô logo «GờTa Việt…» khác màu thanh header → cùng màu thanh header;
+  - «Chuyến xe không ngừng» → «Vòng vây rực lửa»;
+  - «LÁI XE QUA» → «VƯỢT QUA 2000M», «PHỐ QUEN» → «NHẬN NGAY 200,000Đ», chữ nhỏ lại một chút vì dài hơn.
+- **`index.html`:** `<title>` «GờTa Việt — Vòng vây rực lửa», chữ nhỏ dưới logo và chân trang «VÒNG VÂY RỰC LỬA», `h1` `.t1` «VƯỢT QUA 2000M», `.t2` «NHẬN NGAY 200,000Đ» (viết đúng như người dùng, không dấu chấm cuối). `manifest.webmanifest` `name` «GờTa Việt — Vòng vây rực lửa» (`short_name` giữ «GờTa Việt»). Chuỗi NFC.
+- **`style.css` khối 21.349 (cuối tệp):**
+  - `#toolbar .wordmark{--tb:transparent}`: bỏ khối `--panel` nghiêng sau logo, logo nằm thẳng trên nền thanh trên;
+  - cỡ tiêu đề nhỏ hơn 21.347: điện thoại (≤700 px hoặc màn thấp) `.t1` 36 → 31 px, `.t2` 30 → 25 px; ≤360 px 28/22 px; màn thấp > 700 px 38/31 px; máy tính ≥1000 px `.t1` `clamp(56px,5.4vw,78px)`, `.t2` `clamp(46px,4.5vw,64px)`; mặc định `clamp(34px,10vw,50px)` / `clamp(28px,8.2vw,41px)`;
+  - `.t2` đệm dưới `.22em` để dấu nặng của «Ậ» nằm trong khối vàng (đệm trên `.36em` của 21.347 giữ cho dấu mũ).
+- **Kiểm tra (trình duyệt trong app, bản tạm từ template):** máy tính, 430 × 932, 360 × 780 (`.t1` phải tới 344 px, không cuộn ngang), 932 × 430 ngang: hai dòng tiêu đề vừa, đủ dấu, ô logo cùng nền thanh trên.
+- **Chưa đổi trong game** (người dùng chỉ yêu cầu website): màn chào trong game vẫn ghi «CHUYẾN XE KHÔNG NGỪNG» dưới logo và «LÁI XE QUA / PHỐ QUEN.» (`OpenWorldGame.Menus.cs`); đổi thì phải build lại Unity.
+- **Phát hành:** vỏ web mới trên bản build 1.94.0 (`AgentScripts/Shell21348.cs` → `RefreshWebShell`, không build lại), cache `b51a1244a5da7111`. Bản cập nhật trang chủ: dòng «PHỐ QUEN rõ dấu» thay bằng «Trang chủ mới: khẩu hiệu Vòng vây rực lửa, tiêu đề VƯỢT QUA 2000M · NHẬN NGAY 200,000Đ, ô logo cùng màu thanh trên». `docs` đóng gói lại, materialize 39/39 khớp.
