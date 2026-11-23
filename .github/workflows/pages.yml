@@ -1,4 +1,5 @@
 # 21.318: lần triển khai 1.90.0 đầu (run 45021001158) lỗi tạm của GitHub «No artifacts named github-pages» — commit này chỉ để chạy lại workflow.
+# 21.347: lần triển khai 1.94.0 đầu (run 45179550779) lỗi ở bước Deploy to GitHub Pages (các bước trước đạt) — sửa chú thích để chạy lại.
 name: Deploy Phố Việt WebGL
 on:
   push:
