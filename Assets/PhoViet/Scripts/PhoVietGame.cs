@@ -674,7 +674,7 @@ namespace PhoViet
         {
             Panel(new Rect(x-10,y-8,259,57),new Color(.97f,.985f,1,.83f),14);
             Panel(new Rect(x,y,36,36),Red,10);Txt("★",x,y-1,36,36,27,Gold,TextAnchor.MiddleCenter);
-            Txt("PHỐ VIỆT",x+48,y-3,200,30,24,Ink);Txt("CHUYẾN XE KHÔNG NGỪNG",x+49,y+27,198,17,9,Teal);
+            Txt("GờTa Việt",x+48,y-3,200,30,24,Ink);Txt("CHUYẾN XE KHÔNG NGỪNG",x+49,y+27,198,17,9,Teal);
         }
         void ReadyScreen()
         {

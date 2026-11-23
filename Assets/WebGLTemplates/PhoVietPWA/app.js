@@ -114,7 +114,7 @@ function setImmersive(enabled){
   immersive=Boolean(enabled);document.body.classList.toggle('immersive',immersive);
   document.documentElement.classList.toggle('game-immersive',immersive);
   document.querySelector('meta[name="theme-color"]').content=immersive?'#202020':'#0a1622';   // 21.331: trang chủ nền tối
-  $('game-menu').hidden=!immersive||touchDevice||!unityInstance;setMenu(false);syncViewport();scheduleViewport();
+  $('game-menu').hidden=!immersive||touchDevice||!unityInstance||$('install').hidden;   // 21.347: menu ☰ chỉ còn «Tải game»setMenu(false);syncViewport();scheduleViewport();
 }
 async function requestNativeFullscreen(){
   if(document.fullscreenElement || (ios && standalone) || matchMedia('(display-mode: fullscreen)').matches)return true;
@@ -130,30 +130,23 @@ document.addEventListener('fullscreenchange',()=>{if(!canvas.hidden)setImmersive
 new ResizeObserver(scheduleViewport).observe(canvas);
 syncViewport();
 
-$('help').addEventListener('click', () => {
-  pauseGame();setMenu(false);
-  $('guide').showModal();
-});
-$('help-gear').addEventListener('click',()=>$('help').click());   // 21.331: ô bánh răng cạnh LÊN XE THÔI mở Cách chơi
-$('close-help').addEventListener('click', () => {$('guide').close();if(unityInstance)canvas.focus();else $('help').focus();});
+// 21.347: bỏ nút Cách chơi trên thanh trên; ô bánh răng cạnh LÊN XE THÔI vẫn mở Cách chơi.
+$('help-gear').addEventListener('click',()=>{pauseGame();setMenu(false);$('guide').showModal();});
+$('close-help').addEventListener('click', () => {$('guide').close();if(unityInstance)canvas.focus();else $('help-gear').focus();});
 $('guide').addEventListener('click', e => {if(e.target === $('guide')) $('guide').close();});
+// 21.347: nút «Tải game» mở hộp chỉ có phần Cài game & chơi offline.
+$('close-install').addEventListener('click', () => {$('install-guide').close();if(unityInstance)canvas.focus();else $('install').focus();});
+$('install-guide').addEventListener('click', e => {if(e.target === $('install-guide')) $('install-guide').close();});
 $('retry').addEventListener('click', () => location.reload());
-$('fullscreen').addEventListener('click', async () => {
-  setMenu(false);
-  if(document.fullscreenElement){await document.exitFullscreen();return;}
-  if(unityInstance)setImmersive(true);
-  const supported=await requestNativeFullscreen();
-  if(!supported && ios && !standalone){pauseGame();$('guide').showModal();}
-});
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();installPrompt=e;
   if(!standalone) $('install').hidden=false;
 });
 window.addEventListener('appinstalled', () => {$('install').hidden=true;installPrompt=null;});
-if(ios && !standalone) {$('install').hidden=false;$('install').textContent='Thêm vào màn hình';}
+if(!standalone) $('install').hidden=false;   // 21.347: «Tải game» luôn hiện khi chưa cài (iPhone, Android, máy tính)
 $('install').addEventListener('click', async () => {
   pauseGame();setMenu(false);
-  if(!installPrompt) {$('guide').showModal();return;}
+  if(!installPrompt) {$('install-guide').showModal();return;}
   await installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('install').hidden=true;
 });
 
@@ -279,10 +272,7 @@ if(new URLSearchParams(location.search).has('perf')){
   requestAnimationFrame(tick);
 }
 if('serviceWorker' in navigator) {
-  navigator.serviceWorker.addEventListener('message',event=>{
-    if(event.data?.type==='PHOVIET_OFFLINE_STATUS')$('offline-status').textContent=event.data.online?'iPhone/iPad: cần kết nối mạng khi chơi (để tiết kiệm bộ nhớ)':event.data.ready?
-      'Đã lưu để chơi offline trên máy này':'Game sẽ được lưu offline sau khi tải xong';
-  });
+  // 21.347: chân trang ghi «Tác giả: PHẠM MINH QUÂN» cố định, bỏ dòng trạng thái offline (trước ghi «iPhone/iPad: cần kết nối mạng…»).
   navigator.serviceWorker.addEventListener('controllerchange',checkOffline);
   (async()=>{
     try {
@@ -293,7 +283,6 @@ if('serviceWorker' in navigator) {
         const worker=reg.installing;
         worker.addEventListener('statechange',()=>{
           if(worker.state==='activated')checkOffline();
-          else if(worker.state==='installed' && reg.active)$('offline-status').textContent='Có bản mới · đóng và mở lại để cập nhật';
         });
       });
     }catch(error){console.warn('Offline cache unavailable',error);}

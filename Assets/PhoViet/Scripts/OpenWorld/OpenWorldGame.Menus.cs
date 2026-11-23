@@ -147,12 +147,12 @@ namespace PhoViet.OpenWorld
 
         void MenuBrand(float x, float y)
         {
-            float w = 8 + 14 + 42 + 13 + Mathf.Max(TextW("PHỐ VIỆT", 25), TextW("CHUYẾN XE KHÔNG NGỪNG", 11)) + 24;
+            float w = 8 + 14 + 42 + 13 + Mathf.Max(TextW("GờTa Việt", 25), TextW("CHUYẾN XE KHÔNG NGỪNG", 11)) + 24;
             var r = new Rect(x, y, w, 66);
             SkewPanel(r, MRed, 8, false, 0, .9f);
             Skew(r.center.y);
             Flag(new Rect(x + 22, y + 12, 42, 42));
-            TxtL("PHỐ VIỆT", x + 77, y + 25, 25, MCream);
+            TxtL("GờTa Việt", x + 77, y + 25, 25, MCream);
             TxtL("CHUYẾN XE KHÔNG NGỪNG", x + 78, y + 48, 11, MGold);
             Unskew();
         }
@@ -392,7 +392,7 @@ namespace PhoViet.OpenWorld
             float ix = x + 43;
             EnsureHudIcons();
             Ico(sirenTex, ix, y + 28, 31, new Color32(255, 123, 110, 255));
-            TxtL("PHỐ VIỆT · TẠM GIỮ", ix + 41, y + 44, 16, new Color32(255, 123, 110, 255));
+            TxtL("GờTa Việt · TẠM GIỮ", ix + 41, y + 44, 16, new Color32(255, 123, 110, 255));
             TxtL("ĐÃ BỊ BẮT", ix - 3, y + 112, 74, MCream);
             TxtL(EndReason ?? "CSGT đã đưa bạn vào phòng giam.", ix, y + 168, 21, new Color(MCream.r, MCream.g, MCream.b, .8f), 440);
             if (why != null) TxtL(why, ix, y + 194, 15, new Color(MCream.r, MCream.g, MCream.b, .6f), 440);

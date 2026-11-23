@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><title>Icon Phố Việt — 4 mẫu không xe</title>
+<style>
+@font-face{font-family:BVP;src:url(../../../Assets/WebGLTemplates/PhoVietPWA/font.ttf)}
+*{box-sizing:border-box}
+body{margin:0;width:1600px;background:#0b1422;color:#e8f1ff;font-family:BVP,Segoe UI,sans-serif;padding:40px 44px}
+h1{margin:0 0 4px;font-size:40px}
+.sub{color:#9fb3cc;font-size:17px;margin-bottom:26px}
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.card{background:#122036;border:1px solid #213452;border-radius:20px;padding:18px;text-align:center}
+.card.now{opacity:.82;border-style:dashed}
+.big{width:236px;height:236px;border-radius:22.4%;display:block;margin:0 auto 14px;box-shadow:0 10px 28px #0008}
+.tag{display:inline-block;background:#ffcf22;color:#14141b;font-weight:700;border-radius:8px;padding:2px 10px;margin-right:6px}
+.card.now .tag{background:#5b6b82;color:#fff}
+.name{font-size:20px;font-weight:700}
+.desc{color:#a9bbd2;font-size:14px;line-height:1.45;margin-top:8px;min-height:62px}
+.row{display:flex;justify-content:center;align-items:end;gap:14px;margin-top:12px;color:#8aa0bb;font-size:12px}
+.row div{display:flex;flex-direction:column;align-items:center;gap:4px}
+.circ{border-radius:50%}
+h2{font-size:22px;margin:34px 0 12px}
+.dev{display:grid;grid-template-columns:1.25fr 1.25fr 1fr;gap:18px}
+.phone{border-radius:28px;padding:26px 22px;display:flex;justify-content:space-around}
+.ios{background:linear-gradient(160deg,#2b5c8a,#7a4f9a 60%,#d77a6a)}
+.android{background:linear-gradient(160deg,#1d3b33,#2f6a5a 55%,#8fb88a)}
+.app{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13px;color:#fff;text-shadow:0 1px 3px #0009}
+.app img{width:64px;height:64px;box-shadow:0 3px 8px #0006}
+.ios .app img{border-radius:22.4%}
+.android .app img{border-radius:50%}
+.app b{font-weight:400;opacity:.85;font-size:11px}
+.desk{background:#1d2633;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:14px}
+.tabs{display:flex;gap:4px;background:#dfe3ea;border-radius:10px 10px 0 0;padding:6px 6px 0}
+.tab{display:flex;align-items:center;gap:6px;background:#fff;color:#222;font-size:12px;padding:6px 8px;border-radius:8px 8px 0 0;width:20%}
+.tab img{width:16px;height:16px;border-radius:3px}
+.bar{display:flex;justify-content:center;gap:10px;background:#202a3a;border-radius:12px;padding:8px}
+.bar div{display:flex;flex-direction:column;align-items:center;font-size:10px;color:#9fb3cc;gap:3px}
+.bar img{width:32px;height:32px;border-radius:6px}
+.lbl{font-size:13px;color:#9fb3cc;margin-bottom:-6px}
+.note{color:#7f93ad;font-size:13px;margin-top:22px}
+</style></head><body>
+<h1>Icon Phố Việt: 4 mẫu mới, không vẽ xe</h1>
+<div class="sub">Vẽ lại theo yêu cầu: không có ô tô, hình khối to, rõ ở cỡ nhỏ. Cột đầu là icon đang dùng, để so sánh.</div>
+<div class="cards" id="cards"></div>
+<h2>Cỡ thật trên màn hình</h2>
+<div class="dev">
+  <div><div class="lbl">iPhone (bo góc)</div><div class="phone ios" id="ios"></div></div>
+  <div><div class="lbl">Android (cắt tròn)</div><div class="phone android" id="and"></div></div>
+  <div class="desk"><div class="lbl">Máy tính: tab Chrome 16 px và thanh tác vụ 32 px</div><div class="tabs" id="tabs"></div><div class="bar" id="bar"></div></div>
+</div>
+<div class="note">Khi được duyệt: xuất bộ PNG 180 (Apple), 192/512 (Android, máy tính), bản maskable 512 có lề an toàn và favicon.</div>
+<script>
+const M=[
+ {k:'Hiện tại',f:'../../../Assets/WebGLTemplates/PhoVietPWA/icons/icon-512.png',n:'Phố lên đèn',d:'Icon đang dùng từ 1.64.0, có vẽ xe.',now:1},
+ {k:'1',f:'raw/m1-chu-p-duong-pho.png',n:'Chữ P đường phố',d:'Chữ P (Phố) là một con đường nhựa có vạch vàng, ngôi sao vàng nằm trong lòng chữ, nền đỏ. Kiểu logo thương hiệu.'},
+ {k:'2',f:'raw/m2-dong-ho-toc-do.png',n:'Đồng hồ tốc độ',d:'Đồng hồ neon kim vọt vào vùng đỏ, trục sao đỏ, tia sét. Cùng tông «Kính neon» với nút điều khiển.'},
+ {k:'3',f:'raw/m3-duong-cong-hoang-hon.png',n:'Đường cong hoàng hôn',d:'Con đường uốn chữ S chạy vào mặt trời lặn sau tháp búp sen, hàng dừa hai bên.'},
+ {k:'4',f:'raw/m4-bien-bao-khung-long.png',n:'Biển báo khủng long',d:'Biển cảnh báo tam giác kiểu Việt Nam (vàng viền đỏ) với bóng khủng long, hiểm họa vui nhộn của game.'}];
+const $=id=>document.getElementById(id);
+for(const m of M){
+ $('cards').insertAdjacentHTML('beforeend',`<div class="card ${m.now?'now':''}"><img class="big" src="${m.f}"><div class="name"><span class="tag">${m.k}</span>${m.n}</div><div class="desc">${m.d}</div>
+ <div class="row"><div><img src="${m.f}" width="48" height="48" style="border-radius:22.4%">48</div><div><img src="${m.f}" width="32" height="32" style="border-radius:22.4%">32</div><div><img src="${m.f}" width="16" height="16" style="border-radius:3px">16</div><div><img class="circ" src="${m.f}" width="48" height="48">tròn</div></div></div>`);
+ const lab=m.now?'Hiện tại':'Mẫu '+m.k;
+ $('ios').insertAdjacentHTML('beforeend',`<div class="app"><img src="${m.f}">Phố Việt<b>${lab}</b></div>`);
+ $('and').insertAdjacentHTML('beforeend',`<div class="app"><img src="${m.f}">Phố Việt<b>${lab}</b></div>`);
+ $('tabs').insertAdjacentHTML('beforeend',`<div class="tab"><img src="${m.f}">${m.k}</div>`);
+ $('bar').insertAdjacentHTML('beforeend',`<div><img src="${m.f}">${m.k}</div>`);
+}
+</script></body></html>

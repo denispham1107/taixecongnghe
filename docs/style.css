@@ -25,9 +25,7 @@ nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px;max-width:100%
 nav button{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px;font-size:12.5px;text-transform:uppercase;--tb:rgba(10,22,34,.92)}
 nav button::after{content:"";order:-1;width:18px;height:18px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
 #install{color:var(--teal);--tbd:2px solid var(--teal);--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'%3E%3Crect x='3.5' y='3.5' width='17' height='17' rx='4'/%3E%3Cpath d='M12 8v8M8 12h8'/%3E%3C/svg%3E")}
-#help{--tbd:2px solid var(--gold);--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 5.5C6.5 4 9.5 4 12 6c2.5-2 5.5-2 8-.5V19c-2.5-1.5-5.5-1.5-8 .5-2.5-2-5.5-2-8-.5z'/%3E%3Cpath d='M12 6v13.5'/%3E%3C/svg%3E")}
-#help::after{background:var(--gold)}
-#fullscreen{width:42px;padding:0;justify-content:center;--tbd:2px solid rgba(252,242,207,.3);--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5'/%3E%3C/svg%3E")}
+/* 21.347: nút Cách chơi + Toàn màn hình đã bỏ; «Tải game» ghi chữ ở mọi cỡ màn hình */
 #game{min-height:0;position:relative;overflow:hidden;background:var(--bg)}
 #unity-canvas{position:absolute;inset:0;display:block;width:100%;height:100%;touch-action:none;outline:none}
 
@@ -98,7 +96,7 @@ kbd{display:inline-grid;place-items:center;min-width:28px;height:28px;padding:0 
 footer{position:relative;flex:none;display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px;margin-top:40px;padding:24px max(16px,var(--safe-right)) max(22px,var(--safe-bottom)) max(16px,var(--safe-left));background:var(--navy2);font-size:12px;line-height:1.6;color:rgba(252,242,207,.7);font-weight:500}
 footer::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:repeating-linear-gradient(-45deg,var(--gold) 0 18px,var(--navy) 18px 36px)}
 .footer-title{font-weight:700;letter-spacing:.12em;color:var(--gold)}.footer-title>span{margin:0 7px}
-#offline-status{overflow-wrap:anywhere}
+.author{overflow-wrap:anywhere;font-weight:700;letter-spacing:.08em;color:var(--cream)}   /* 21.347: thay dòng trạng thái offline */
 
 /* ---------- máy tính bảng / điện thoại ngang ---------- */
 @media(min-width:760px){
@@ -144,8 +142,6 @@ footer{padding:26px max(48px,var(--safe-right)) max(28px,var(--safe-bottom)) max
 .brand-text b{font-size:17px}.brand-text small{display:none}
 nav{gap:6px}
 nav button{height:38px;padding:0 10px;font-size:11.5px}
-#install{width:38px;padding:0;justify-content:center;font-size:0;gap:0;letter-spacing:0}
-#fullscreen{width:38px}
 .pads{gap:4px}.pads img{width:34px;height:34px}
 }
 
@@ -162,8 +158,6 @@ nav button{height:38px;padding:0 10px;font-size:11.5px}
 nav{gap:6px}
 nav button{height:32px;padding:0 10px;font-size:10.5px;gap:6px}
 nav button::after{width:15px;height:15px}
-#install,#fullscreen{width:32px;padding:0;justify-content:center}
-#install{font-size:0;gap:0;letter-spacing:0}   /* 21.335: điện thoại ngang (> 700 px) trước đây vẫn hiện chữ «Thêm vào màn hình» tràn ra ngoài nút 32 px */
 .lab{font-size:9px}
 .hero-bg{height:300px;background-size:auto 145%;background-position:50% 72%}
 .eyebrow{height:22px;padding:0 11px;font-size:9.5px;gap:6px}.eyebrow .ic{width:12px;height:12px}
@@ -241,3 +235,13 @@ dialog p b{color:var(--cream)}
 .rotate-card h2{margin:12px 0 8px;font-size:23px;font-style:italic;font-weight:800}
 .rotate-card p{margin:0 0 22px;color:var(--soft);font-size:13px;line-height:1.65;font-weight:500}
 .rotate-card button{min-height:46px;padding:8px 24px;font-size:14px;--tb:linear-gradient(180deg,#ff5a4a,#d42e22)}
+/* 21.347: «PHỐ QUEN» nhỏ hơn ~15 % và đệm trên theo em để dấu sắc chồng trên Ô nằm trong khối vàng
+   (trước đây dấu lòi lên trên khối, chữ xanh đen trên nền tối nên trông như «PHÔ QUEN»). */
+h1 .t2{font-size:clamp(34px,10vw,49px);padding-top:.36em;padding-bottom:.14em;line-height:1}
+@media(min-width:1000px){h1 .t2{font-size:clamp(54px,5.4vw,78px)}}
+@media(min-width:701px) and (max-height:620px){h1 .t2{font-size:37px}}
+@media(max-width:700px),(max-height:500px){h1 .t2{font-size:30px}}
+@media(max-width:360px){h1 .t2{font-size:27px}}
+/* 21.347: hộp «Tải game» chỉ có phần Cài game & chơi offline */
+#install-guide .guide-heading{margin-bottom:6px}
+#install-guide .guide-heading h3{margin:0 0 0 4px}

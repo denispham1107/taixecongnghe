@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><title>Phố Việt · CSGT truy đuổi</title><defs><linearGradient id="body" x2="28%" y2="100%"><stop offset="0" stop-color="#fff4b8"/><stop offset="0.29" stop-color="#ffd84a"/><stop offset="0.58" stop-color="#ffb400"/><stop offset="1" stop-color="#cf7a00"/></linearGradient>
+<linearGradient id="rear" x2="0%" y2="100%"><stop offset="0" stop-color="#3b3640"/><stop offset="0.54" stop-color="#1c1a22"/><stop offset="1" stop-color="#0c0b10"/></linearGradient>
+<linearGradient id="glass" x2="55%" y2="100%"><stop offset="0" stop-color="#28476d"/><stop offset="0.55" stop-color="#142744"/><stop offset="1" stop-color="#071228"/></linearGradient>
+<linearGradient id="jet" x2="100%" y2="0%"><stop offset="0" stop-color="#fff4ae"/><stop offset="0.38" stop-color="#ffc052"/><stop offset="1" stop-color="#ff6342"/></linearGradient>
+<linearGradient id="jetv" x2="0%" y2="100%"><stop offset="0" stop-color="#fff4ae"/><stop offset="0.38" stop-color="#ffc052"/><stop offset="1" stop-color="#ff6342" stop-opacity="0"/></linearGradient>
+<linearGradient id="police" x2="28%" y2="100%"><stop offset="0" stop-color="#ffffff"/><stop offset="0.55" stop-color="#dfe7f2"/><stop offset="1" stop-color="#9fb0c8"/></linearGradient>
+<linearGradient id="olive" x2="30%" y2="100%"><stop offset="0" stop-color="#a3ae62"/><stop offset="1" stop-color="#55602f"/></linearGradient>
+<!-- xe vàng nhìn từ trên (tâm 256,305, mũi hướng lên) -->
+<g id="carTop" stroke-linejoin="round">
+ <path d="M213 257h18v36h-18zm68 0h18v36h-18zm-68 76h18v36h-18zm68 0h18v36h-18z" fill="#07142c"/>
+ <path d="m223 261 8-20 15-8h20l15 8 8 20 4 97-9 20h-56l-9-20Z" fill="url(#body)" stroke="#4a2a00" stroke-width="5"/>
+ <path d="m233 269 13-8h20l13 8-4 26h-38Z" fill="url(#glass)" stroke="#ffe9a0" stroke-width="3"/>
+ <path d="M238 300h36v27h-36z" fill="#17161c"/><path d="M252 300h8v27h-8z" fill="#ffc81e"/>
+ <path d="m237 332 7 25h24l7-25Zm-7-45-5 47 7-14Zm52 0 5 47-7-14Z" fill="#1d1a20"/>
+ <path d="M244 339h24m-22 7h20" stroke="#57525e" stroke-width="3"/>
+ <path d="m225 257 15-9m47 9-15-9" stroke="#edfcff" stroke-width="4" stroke-linecap="round"/>
+ <path d="m225 358 13 7m49-7-13 7" stroke="#ff626f" stroke-width="5" stroke-linecap="round"/>
+</g>
+<linearGradient id="bg" x2="100%" y2="100%"><stop offset="0" stop-color="#11183a"/><stop offset="0.52" stop-color="#22336a"/><stop offset="1" stop-color="#0d1430"/></linearGradient></defs>
+<rect width="512" height="512" fill="url(#bg)"/>
+ <path d="M0 0h200L60 260H0Zm512 512H310l146-268h56Z" fill="#1a2550" stroke="#33478a" stroke-width="3"/>
+ <path d="M20 30h50v40H20zm70 0h50v40H90zM20 100h50v40H20zm0 70h30v40H20zm420 110h50v40h-50zm0 70h50v40h-50zm-70 70h50v40h-50z" fill="#121a3c"/>
+ <path d="M30 40h10m30 0h10M30 110h10m400 180h10m-10 70h10" stroke="#ffbf6b" stroke-width="5" opacity=".6"/>
+ <path d="M300 0v60m40-60v30m-340 420h80m340-450v120m40-120v80" stroke="#6f8ad0" opacity=".25" stroke-width="2"/>
+ <path d="M90 560L420 -48" stroke="#0b1430" stroke-width="196"/>
+ <path d="M90 560L420 -48" stroke="#4f6fc8" stroke-width="180"/>
+ <path d="M90 560L420 -48" stroke="#1a2444" stroke-width="168"/>
+ <path d="M90 560L420 -48" stroke="#e7d581" stroke-width="5" stroke-dasharray="22 20"/>
+ <path d="M42 520 372 -88m-200 650L502 -46" stroke="#33477e" stroke-width="3" stroke-dasharray="14 18"/>
+ <circle cx="166" cy="372" r="74" fill="#ff3b4e" opacity=".16"/><circle cx="196" cy="398" r="74" fill="#3b8cff" opacity=".16"/>
+ <g transform="translate(178 398) rotate(31) scale(.95) translate(-256 -305)"><g stroke-linejoin="round">
+ <path d="M213 257h18v36h-18zm68 0h18v36h-18zm-68 76h18v36h-18zm68 0h18v36h-18z" fill="#07142c"/>
+ <path d="m223 261 8-20 15-8h20l15 8 8 20 4 97-9 20h-56l-9-20Z" fill="url(#police)" stroke="#1b2a48" stroke-width="5"/>
+ <path d="m233 269 13-8h20l13 8-4 26h-38Z" fill="url(#glass)" stroke="#cfe0f5" stroke-width="3"/>
+ <path d="M224 300h64v10h-64z" fill="#2c66d8"/>
+ <rect x="236" y="298" width="20" height="12" rx="3" fill="#ff3b4e" stroke="#1b2a48" stroke-width="2"/>
+ <rect x="256" y="298" width="20" height="12" rx="3" fill="#3b8cff" stroke="#1b2a48" stroke-width="2"/>
+ <path d="M238 318h36v24h-36z" fill="url(#glass)" stroke="#cfe0f5" stroke-width="3"/>
+ <path d="m225 257 15-9m47 9-15-9" stroke="#edfcff" stroke-width="4" stroke-linecap="round"/>
+ <path d="m225 358 13 7m49-7-13 7" stroke="#ff626f" stroke-width="5" stroke-linecap="round"/>
+</g></g>
+ <path d="M150 300l-18-8m14 22-20 2m96-28 4-18" stroke="#ff5a6a" stroke-width="4" stroke-linecap="round"/>
+ <path d="M268 320l-26 44m40-36-26 44m40-36-26 44" stroke="#c9d6ff" stroke-width="3" opacity=".4" stroke-linecap="round"/>
+ <use href="#carTop" transform="translate(322 176) rotate(31) scale(1.08) translate(-256 -305)"/></svg>

@@ -6089,7 +6089,7 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - `crop.py` (cắt nền hồng dưới trang), `view.py`, `tonghop.py`;
   - ảnh gửi người dùng: `trangchu21330-mau{A,B,C}.jpg` (máy tính + điện thoại) và `trangchu21330-mau{A,B,C}-dienthoai.jpg` (điện thoại cả trang); thư mục `out/` chứa ảnh từng khung.
 - **Trạng thái:** người dùng chọn **mẫu C** → cài ở 21.331. Ghi chú gốc khi chờ duyệt:
-  - sửa `Assets/WebGLTemplates/PhoVietPWA/index.html` + `style.css`, giữ mọi id mà `app.js` dùng (`play`, `load-status`, `progress`, `retry`, `install`, `help`, `fullscreen`, `release-notes`, `release-version`, `release-date`, `release-check`, `offline-status`, `guide`, `rotate-game`, `game-menu`…);
+  - sửa `Assets/WebGLTemplates/PhoVietPWA/index.html` + `style.css`, giữ mọi id mà `app.js` dùng (`play`, `load-status`, `progress`, `retry`, `install`, `help`, `fullscreen`, `release-notes`, `release-version`, `release-date`, `release-check`, `offline-status`, `guide`, `rotate-game`, `game-menu`…); — **21.347:** `help`, `fullscreen`, `offline-status` đã bỏ, thêm `install-guide`, `close-install`;
   - đổi `theme-color`, sửa hộp `guide` cùng kiểu;
   - thử Safari iPhone, rồi phát hành cùng bản kế tiếp.
 
@@ -6353,3 +6353,77 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Commit:** `5e32638`, push `main` (kèm các commit 21.336–21.341).
 - **Đã lên web:** Pages run `45154491159` thành công; live 38/38 tệp khớp SHA-256, `build-info.json` trên mạng mang 1.93.0, cache `255fdfd76d730ea4`.
 - **Chờ người dùng:** thử trên iPhone: 9 nút mới (chạm đúng, nhìn rõ), xe vàng, xe tăng nổ tung, xe NPC né sét. Lái gốc 1.89.0 (21.329, `classicSteer = true`) vẫn còn trong bản này.
+
+## 21.343. Bốn mẫu icon ứng dụng mới (23/11/2026, Claude Code) — người dùng chê, xem 21.344
+
+- **Yêu cầu:** người dùng chưa hài lòng với icon cài đặt hiện tại (21.167, «Phố lên đèn» xe xanh) trên iOS, Android, máy tính. Vẽ vài mẫu mới, **đợi duyệt rồi mới thay**.
+- **4 mẫu SVG 512² vẽ tay** trong `ArtSource/Concepts/AppIcon-20261123/`, theo game hiện tại (xe siêu xe vàng 21.336, đại lộ ven sông, sấm sét, kiểu «Kính neon» của 9 nút 21.338–21.340):
+  - **A `a-dai-lo-hoang-hon.svg` «Đại lộ hoàng hôn»:** đuôi xe vàng (nắp máy đen sọc vàng giống xe trong game), đèn hậu đỏ, mặt trời lặn có vạch sau tháp búp sen, hàng dừa, hai cờ đỏ sao vàng.
+  - **B `b-huy-hieu-neon.svg` «Huy hiệu neon»:** tấm kính viền xanh neon như nút điều khiển, đầu xe vàng nhìn thẳng, đèn pha xanh, tia sét hổ phách, huy hiệu sao đỏ trên mũi xe.
+  - **C `c-bay-qua-sam-set.svg` «Bay qua sấm sét»:** xe vàng nhìn ngang bật nhảy khỏi dốc, đêm giông, sét tím trắng, mưa xiên, phố có tháp búp sen.
+  - **D `d-den-pha-can-canh.svg` «Đèn pha cận cảnh»:** đầu xe phủ kín icon, đôi đèn pha neon, kính phản chiếu phố hoàng hôn, sao đỏ. Rõ nhất ở 16–32 px.
+- **Xem thử:** `sh render.sh [tên]` → `raw/<tên>.png` 1024² (Chrome headless). `so-sanh-4-mau.html` → `so-sanh-4-mau.png/.jpg` 1600 × 960: icon lớn + 48/32/16/tròn, cỡ thật màn hình iPhone (bo góc), Android (cắt tròn), tab Chrome 16 px, thanh tác vụ 32 px; cột đầu là icon hiện tại. Đã xem cả 4 ảnh lớn và bảng.
+- **Chưa đổi gì trong game/web** (manifest, `index.html`, `icons/*` giữ nguyên). Khi người dùng chọn: xuất Apple 180 nền kín, 192/512 `any`, 512 `maskable` (thu hình vào vùng an toàn tròn 80 %, vì mép đèn pha mẫu D sẽ bị cắt), favicon; cập nhật `manifest.webmanifest`, `index.html`, `ArtSource/Web/pho-viet-app-icon.svg`, `AgentScripts/GenerateWebIcons.cjs` (xem 21.167), ghi bản cập nhật trên trang chủ rồi phát hành.
+
+## 21.344. Vẽ lại 4 mẫu icon không có xe (23/11/2026, Claude Code) — người dùng chuyển hướng, xem 21.345
+
+- **Phản hồi 21.343:** «Xấu quá, thiết kế lại, không cần vẽ xe ô tô bên trong». Bỏ cả 4 mẫu A–D (giữ file để tham khảo, không dùng).
+- **4 mẫu mới, SVG 512²** trong `ArtSource/Concepts/AppIcon-20261123/`, hình khối to, ít chi tiết để rõ ở 16–48 px:
+  - **1 `m1-chu-p-duong-pho.svg` «Chữ P đường phố»:** chữ P (Phố) là con đường nhựa viền trắng, vạch vàng đứt, chân chữ chạy ra mép dưới có vạch đi bộ; ngôi sao vàng trong lòng chữ; nền đỏ. Kiểu logo thương hiệu.
+  - **2 `m2-dong-ho-toc-do.svg` «Đồng hồ tốc độ»:** cung tốc độ xanh → vàng → đỏ, kim đỏ vọt vào vùng đỏ, trục sao đỏ viền xanh neon, tia sét hổ phách. Tông «Kính neon» của nút.
+  - **3 `m3-duong-cong-hoang-hon.svg` «Đường cong hoàng hôn»:** đường uốn chữ S chạy vào mặt trời lặn có vạch sau tháp búp sen, bóng hàng dừa hai bên.
+  - **4 `m4-bien-bao-khung-long.svg` «Biển báo khủng long»:** biển cảnh báo tam giác kiểu Việt Nam (vàng, viền đỏ, mép trắng) trên cột, bóng T-rex đen, nền xanh mòng két.
+- **Xem thử:** `sh render.sh m1-chu-p-duong-pho …` → `raw/*.png` 1024². `so-sanh-mau-khong-xe.html` → `.png/.jpg` 1600 × 960 (lớn + 48/32/16/tròn, cỡ thật iPhone/Android/tab Chrome/thanh tác vụ; cột đầu là icon hiện tại). Đã xem từng ảnh lớn và bảng; đã chỉnh T-rex (dáng đứng, đầu to), kim và tia sét đồng hồ, bỏ ngôi sao lạc ở mẫu 3.
+- **Chưa đổi icon trong game/web.** Khi người dùng chọn: xuất Apple 180, 192/512 `any`, 512 `maskable` có lề an toàn, favicon; sửa `manifest.webmanifest`, `index.html`, `ArtSource/Web/pho-viet-app-icon.svg`, `AgentScripts/GenerateWebIcons.cjs` (quy trình 21.167), ghi bản cập nhật trang chủ rồi phát hành.
+
+## 21.345. Bốn icon xe vàng theo phong cách mẫu D/E (23/11/2026, Claude Code) — người dùng chọn mẫu 2, xem 21.346
+
+- **Yêu cầu:** người dùng gửi ảnh 2 mẫu cũ của 21.165, **D «Không chiến đêm»** và **E «Đường đua năng lượng»**, và yêu cầu vẽ icon theo phong cách đó. Hỏi lại vì 21.344 dặn không vẽ xe; người dùng chọn **«Có xe, màu vàng»**.
+- **Phong cách lấy từ `ArtSource/Concepts/PWA-Icons-20261109/d-*.svg`, `e-*.svg`:** hình phẳng, viền đậm 3–7 px, nền gradient xanh đêm / xanh mòng két, nét trang trí mờ (opacity .25–.6), không dùng hiệu ứng phát sáng. Xe dùng lại hình từ D (nhìn sau) và E (nhìn trên), đổi sang gradient vàng, viền nâu `#4a2a00`, nắp máy đen có sọc vàng như xe trong game.
+- **File:** `ArtSource/Concepts/AppIcon-20261123/kieu-de/`. `_defs.txt` chứa gradient chung và `#carTop` (xe vàng nhìn từ trên). `build.py` sinh `k1…k4-*.svg` (xe nhìn sau, tên lửa, xe tăng, xe CSGT, cây dừa nhìn trên, đường kiểu E). Xuất ảnh bằng `sh ../render.sh` chạy trong `kieu-de/`, ra `raw/*.png` 1024².
+  - **1 `k1-dem-giong-ne-set`:** đuôi xe vàng giữa phố đêm, mây giông viền tím, sét đánh sau dãy nhà bên phải, mưa xiên.
+  - **2 `k2-ten-lua-ha-xe-tang`:** nhìn từ trên, xe vàng phóng tên lửa vào xe tăng chắn đường (nòng chĩa xuống), khối nhà, cây dừa.
+  - **3 `k3-dai-lo-ven-song`:** đường cong kiểu E ven sông có thuyền, cây dừa, huy hiệu sao vàng nền đỏ thay chỗ quả cầu tia sét của E.
+  - **4 `k4-csgt-truy-duoi`:** đường chéo, xe vàng phía trước, xe CSGT trắng có đèn đỏ/xanh và quầng đèn đuổi phía sau.
+- **Bảng xem thử:** `so-sanh-kieu-de.html` sinh `.png/.jpg`. Đã xem từng ảnh lớn và bảng. Đã chỉnh: sét không còn chạm xe ở mẫu 1, xe nằm đúng làn và dời cây dừa khỏi mặt đường ở mẫu 3.
+- **Chưa đổi icon trong game/web.** Khi người dùng chọn mẫu, làm theo quy trình 21.167: xuất 180 Apple, 192/512 any, 512 maskable, favicon; sửa `manifest.webmanifest`, `index.html`, `ArtSource/Web/pho-viet-app-icon.svg`, `AgentScripts/GenerateWebIcons.cjs`; ghi bản cập nhật trên trang chủ rồi phát hành.
+
+## 21.346. Vẽ lại mẫu 2 «Tên lửa hạ xe tăng» (23/11/2026, Claude Code) — chờ duyệt áp dụng
+
+- **Yêu cầu:** người dùng chọn mẫu 2 (21.345), muốn vẽ lại xe người chơi, xe tăng và tên lửa cho đẹp hơn, thêm sông và tàu ở bên trái.
+- **Script:** `ArtSource/Concepts/AppIcon-20261123/kieu-de/k2v2.py`, độc lập với `build.py`, sinh `k2v2-ten-lua-ha-xe-tang.svg`. Xuất ảnh bằng `sh ../render.sh k2v2-ten-lua-ha-xe-tang`, ra `raw/k2v2-*.png` 1024².
+  - **Xe vàng (vẽ mới, nhìn từ trên):** thân siêu xe thắt eo, hông sau phình, gradient vàng theo chiều ngang, khe gió nắp capo, đèn pha xếch, kính lái phản chiếu, nóc sáng, nắp máy đen có lá gió và sọc vàng giữa, hốc gió hông, gương, đèn hậu dải đỏ, 2 ống xả, bánh lộ ra 4 góc, bóng đổ.
+  - **Xe tăng (vẽ mới):** xích có vân, thân dốc phía trước, mảng rằn ri, lưới tản nhiệt máy, tháp pháo 6 cạnh có nắp chỉ huy, kính ngắm, ăng-ten, nòng có hãm nòng, bóng đổ. Khung ngắm cam bao quanh (khóa mục tiêu như trong game).
+  - **Tên lửa (vẽ mới):** thân trắng, mũi đỏ, 2 vạch xanh, cánh lái trước, cánh đuôi xanh, ống phụt, lửa 2 lớp, 3 cụm khói.
+  - **Sông + tàu bên trái:** dải sông gradient xanh, bờ kè viền sáng, lan can chấm, sóng; tàu đánh cá thân xanh, sàn gỗ, cabin mái đỏ, cờ đỏ, vệt sóng hình chữ V. Đường dời sang phải, giữa sông và đường là hàng dừa ven sông, khối nhà ở bên phải.
+- **Bảng so sánh:** `so-sanh-mau2-ve-lai.jpg` gồm bản trước, bản vẽ lại và cỡ thật iPhone 180/60, Android tròn 96/48, máy tính 48/32/16. Đã xem ảnh, thu xe còn hệ số 1,04 để không sát mép dưới.
+- **Chưa đổi icon trong game/web.** Khi người dùng duyệt, làm theo quy trình 21.167: xuất 180 Apple nền kín, 192/512 any, 512 maskable thu vào vùng an toàn, favicon; sửa `manifest.webmanifest`, `index.html` (đổi tên file icon để máy không giữ bản cũ), `ArtSource/Web/pho-viet-app-icon.svg`, `AgentScripts/GenerateWebIcons.cjs`; ghi bản cập nhật trên trang chủ rồi phát hành.
+
+## 21.347. Đổi tên game thành «GờTa Việt», thanh trên chỉ còn «Tải game», sửa dấu «PHỐ QUEN», chân trang ghi tác giả — web 1.94.0 (23/11/2026, Claude Code)
+
+- **Yêu cầu người dùng (ảnh trang chủ trên iPhone):**
+  - đổi toàn bộ tên game «Phố Việt» thành **«GờTa Việt»**, kể cả tên khi thêm vào màn hình chính / cài trên iOS, Android, máy tính, không lỗi dấu;
+  - dòng «iPhone/iPad: cần kết nối mạng…» ở chân trang đổi thành **«Tác giả: PHẠM MINH QUÂN»**;
+  - «PHỐ QUEN» bị mất dấu sắc → chữ nhỏ lại cho thấy rõ dấu;
+  - bỏ nút **Cách chơi** và **Toàn màn hình** trên thanh trên; nút «+» ghi rõ **«Tải game»**, căn gọn; bấm vào chỉ hiện phần «Cài game & chơi offline»;
+  - làm xong cập nhật web.
+- **Tên mới (luôn viết đúng hoa/thường «GờTa Việt», chuỗi Unicode dựng sẵn NFC: ờ U+1EDD, ệ U+1EC7):**
+  - `manifest.webmanifest`: `name` «GờTa Việt — Chuyến xe không ngừng», `short_name` «GờTa Việt» (tên dưới icon trên Android/máy tính);
+  - `index.html`: `<title>`, `apple-mobile-web-app-title` (tên dưới icon trên iPhone/iPad), thêm `application-name`, logo thanh trên, chân trang, nhãn ảnh và `aria-label`;
+  - trong game (IMGUI): logo màn chào `OpenWorldGame.Menus.cs` `MenuBrand`, thẻ «GờTa Việt · TẠM GIỮ» khi bị bắt, tên địa điểm dự phòng trong `OpenWorldGame.cs`; scene cũ `PhoVietGame.cs`/`PhoVietActions.cs` cũng đổi cho đồng bộ.
+  - Font Be Vietnam Pro (web `font.ttf` và `Assets/PhoViet/Fonts/BeVietnamPro-SemiBold.ttf`) đã kiểm có đủ ký tự «ờ Ờ ệ Ệ».
+  - **Giữ nguyên** `PlayerSettings.productName`/`companyName`, tên menu Editor «Phố Việt/…», tên thư mục/namespace `PhoViet`, tên cache service worker: đổi `productName` có thể làm mất dữ liệu lưu (kỷ lục, cài đặt) của người chơi trên WebGL.
+  - Máy đã cài/thêm vào màn hình chính từ trước: Android/máy tính Chrome tự cập nhật tên theo manifest sau một thời gian (có thể hỏi xác nhận); **iPhone/iPad giữ tên cũ tới khi xóa icon và thêm lại** (iOS không đọc lại tên).
+- **Thanh trên:** `nav` chỉ còn `#install` (chữ «Tải game», icon «+»), hiện ở mọi máy khi chưa chạy dạng ứng dụng đã cài (trước chỉ hiện trên iPhone hoặc khi Chrome báo cài được). Bỏ CSS chỉ-icon 32/38 px của `#install` ở điện thoại (21.335), bỏ `#help`, `#fullscreen`.
+  - Bấm «Tải game»: nếu Chrome/Edge có lời mời cài (`beforeinstallprompt`) thì mở hộp cài của trình duyệt như trước; nếu không (iPhone, Safari, Firefox…) mở hộp mới `#install-guide` chỉ có phần «Cài game & chơi offline» (3 đoạn như ảnh người dùng gửi).
+  - Hộp `#guide` (Cách chơi) không còn phần cài đặt; vẫn mở bằng ô bánh răng cạnh «LÊN XE THÔI».
+  - Menu ☰ trong game trên máy tính ẩn khi không có nút nào (đã cài ứng dụng).
+- **«PHỐ QUEN»:** dấu sắc chồng trên «Ô» trước đây lòi lên trên khối vàng, chữ xanh đen trên nền tối nên trông như «PHÔ QUEN». Thêm khối CSS cuối `style.css`: `h1 .t2` nhỏ hơn ~15 % (điện thoại 36 → 30 px, ≤360 px 27 px, màn thấp 37 px, máy tính `clamp(54px,5.4vw,78px)`) và đệm trên `.36em` để cả dấu nằm trong khối vàng.
+- **Chân trang:** `#offline-status` thay bằng `<span class="author">Tác giả: PHẠM MINH QUÂN</span>` cố định; `app.js` bỏ các chỗ ghi trạng thái offline/«Có bản mới» vào chân trang (`sw.js` vẫn gửi tin, không ai nghe). Báo bản cũ vẫn do `#release-check` lo.
+- **Kiểm tra:** chép template ra thư mục tạm, điền số build giả, mở bằng trình duyệt trong app ở 430 × 932 (iPhone dọc), 932 × 430 (ngang) và máy tính: logo «GờTa Việt» đủ dấu, nút «TẢI GAME» căn phải cùng hàng logo, «PHỐ QUEN.» đủ dấu sắc trong khối vàng, hộp Tải game chỉ có phần cài đặt, chân trang ghi tác giả. `node --check app.js` đạt.
+- **Bản cập nhật trang chủ 23/11/2026 (1.94.0):** đổi tên GờTa Việt (cả tên khi cài), thanh trên chỉ còn Tải game, «PHỐ QUEN» rõ dấu.
+- **Icon mới 21.346 chưa áp dụng** (vẫn chờ người dùng duyệt), bản này giữ icon 21.167.
+- **Số phiên bản 1.94.0** (`PhoVietWebBuild.cs` + `ProjectSettings.asset`). `ReleaseBuild.Prepare` lần 1 «compiling», lần 2 «ready 1.94.0»; `BuildNow` 1.464 s, đúng số ngay lần đầu, cache `d03530bf2669329d`, 3.356 vật thể lược ở gói điện thoại. Gói điện thoại 105,9 MB, máy tính 121,8 MB.
+- **Chạy thử bản build** (`Builds/WebGL` qua `python -m http.server`, trình duyệt trong app): trang chủ đúng, LÊN XE THÔI tải game, màn chào trong game ghi «GờTa Việt» đủ dấu. Lỗi console duy nhất là trình duyệt trong app chặn service worker (như các bản trước).
+- **Đóng gói:** `docs` ← `Builds/WebGL` (giữ `.nojekyll`), `PublishWebArtifact.py pack` (mỗi gói 4 phần 32 MB), `materialize` → `_site`: 39/39 tệp khớp SHA-256.
+- **Commit/push/Pages:** xem dòng ghi kết quả bên dưới (cập nhật sau khi Pages chạy xong).

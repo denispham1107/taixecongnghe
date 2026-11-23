@@ -261,7 +261,7 @@ namespace PhoViet.OpenWorld
         {
             get
             {
-                if (!traffic || traffic.roads == null || !player) return "Phố Việt";
+                if (!traffic || traffic.roads == null || !player) return "GờTa Việt";
                 var p = new Vector2(player.transform.position.x, player.transform.position.z);
                 float best = float.MaxValue; string id = null;
                 foreach (var r in traffic.roads)
@@ -270,7 +270,7 @@ namespace PhoViet.OpenWorld
                     float d = (r.a + ab * t - p).sqrMagnitude;
                     if (d < best) { best = d; id = r.id; }
                 }
-                return id != null && StreetNames.TryGetValue(id, out var n) ? n : "Phố Việt";
+                return id != null && StreetNames.TryGetValue(id, out var n) ? n : "GờTa Việt";
             }
         }
 

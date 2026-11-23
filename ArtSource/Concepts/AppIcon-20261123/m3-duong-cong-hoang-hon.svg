@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- 21.344 mẫu 3 «Đường cong hoàng hôn»: con đường uốn chữ S chạy vào mặt trời lặn sau tháp búp sen Sài Gòn, hình khối phẳng gọn -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a1b6e"/><stop offset=".5" stop-color="#b8357a"/><stop offset="1" stop-color="#ff9a52"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3a8"/><stop offset="1" stop-color="#ffb347"/></linearGradient>
+    <linearGradient id="land" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b1f5e"/><stop offset="1" stop-color="#160c2c"/></linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a3a6a"/><stop offset="1" stop-color="#1f1830"/></linearGradient>
+    <clipPath id="sc"><circle cx="256" cy="232" r="92"/></clipPath>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="16"/></filter>
+  </defs>
+  <rect width="512" height="512" fill="url(#sky)"/>
+  <circle cx="256" cy="232" r="120" fill="#ffc35a" opacity=".35" filter="url(#soft)"/>
+  <g clip-path="url(#sc)">
+    <rect x="160" y="130" width="192" height="200" fill="url(#sun)"/>
+    <g fill="#e2547a"><rect x="160" y="236" width="192" height="6"/><rect x="160" y="252" width="192" height="8"/><rect x="160" y="270" width="192" height="10"/><rect x="160" y="290" width="192" height="12"/></g>
+  </g>
+  <!-- tháp búp sen + phố -->
+  <g fill="#2b1650">
+    <path d="M300 300 L303 150 Q316 104 330 150 L333 300 Z"/><ellipse cx="338" cy="172" rx="18" ry="4.5"/>
+    <rect x="96" y="250" width="34" height="60"/><rect x="132" y="226" width="26" height="84"/><rect x="160" y="262" width="40" height="48"/>
+    <rect x="352" y="244" width="30" height="66"/><rect x="384" y="266" width="44" height="44"/>
+  </g>
+  <!-- đất -->
+  <path d="M0 300 L512 300 L512 512 L0 512 Z" fill="url(#land)"/>
+  <rect x="0" y="296" width="512" height="8" fill="#ff9a52" opacity=".55"/>
+  <!-- đường chữ S -->
+  <path d="M244 302 C236 330 330 340 324 372 C316 414 120 412 90 512 L330 512 C350 440 430 424 396 370 C372 334 268 326 268 302 Z" fill="#fff0e0" opacity=".9"/>
+  <path d="M248 302 C242 330 336 340 330 372 C322 414 130 414 104 512 L314 512 C336 442 418 424 386 372 C364 336 266 326 264 302 Z" fill="url(#road)"/>
+  <path d="M256 302 C252 332 358 344 356 372 C352 412 230 418 208 512" fill="none" stroke="#ffd21f" stroke-width="7" stroke-dasharray="20 14"/>
+  <!-- hàng dừa bóng -->
+  <g fill="none" stroke="#1a0c30" stroke-linecap="round">
+    <path d="M44 520 Q58 420 70 330" stroke-width="12"/>
+    <path d="M70 330 Q40 310 14 326" stroke-width="9"/><path d="M70 330 Q100 306 128 318" stroke-width="9"/><path d="M70 330 Q52 300 30 292" stroke-width="8"/><path d="M70 330 Q92 296 114 290" stroke-width="8"/><path d="M70 332 Q46 340 34 368" stroke-width="8"/><path d="M70 332 Q96 340 106 366" stroke-width="8"/>
+    <path d="M470 520 Q458 430 448 352" stroke-width="11"/>
+    <path d="M448 352 Q420 334 396 348" stroke-width="8"/><path d="M448 352 Q474 330 500 340" stroke-width="8"/><path d="M448 352 Q432 324 412 318" stroke-width="7"/><path d="M448 352 Q466 322 486 316" stroke-width="7"/><path d="M448 354 Q428 362 418 386" stroke-width="7"/>
+  </g>
+</svg>

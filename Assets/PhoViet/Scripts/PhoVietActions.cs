@@ -243,7 +243,7 @@ namespace PhoViet
             if(backdrop!=null)GUI.DrawTexture(FullscreenGuiRect(),backdrop,ScaleMode.ScaleAndCrop);
             float w=portrait?440:408,h=portrait?236:292,x=portrait?20:uiW-w-42,y=portrait?uiH-h-22:(uiH-h)/2;
             Panel(new Rect(x,y,w,h),Cream,18);
-            Txt("PHỐ VIỆT  ·  TẠM GIỮ",x+26,y+20,w-52,22,13,Red);
+            Txt("GờTa Việt  ·  TẠM GIỮ",x+26,y+20,w-52,22,13,Red);
             Txt("ĐÃ BỊ BẮT",x+24,y+45,w-48,52,portrait?34:40,Ink);
             Txt("CSGT đã đưa bạn vào phòng giam.",x+26,y+100,w-52,25,16,Ink);
             Txt("Quãng đường  "+Mathf.Max(0,Mathf.FloorToInt(Distance))+" m",x+26,y+129,w-52,28,17,Teal);

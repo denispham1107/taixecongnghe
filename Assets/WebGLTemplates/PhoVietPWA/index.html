@@ -7,8 +7,9 @@
   <meta name="description" content="Lái xe qua phố quen: trốn CSGT, tiêu diệt khủng long, xe tăng, trực thăng, tàu trên bản đồ mở Sài Gòn và phá kỷ lục quãng đường. Chơi trên máy tính, Android và iPhone.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Phố Việt">
-  <title>Phố Việt — Chuyến xe không ngừng</title>
+  <meta name="apple-mobile-web-app-title" content="GờTa Việt">
+  <meta name="application-name" content="GờTa Việt">
+  <title>GờTa Việt — Chuyến xe không ngừng</title>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-pho-len-den-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-pho-len-den.png">
@@ -17,11 +18,12 @@
 <body>
   <!-- 21.331: trang chủ mẫu C «Màn chào trong game» (21.330), cùng phong cách menu «Tem đua» trong game. Giữ mọi id app.js dùng. -->
   <header id="toolbar">
-    <a class="wordmark tem" href="./" aria-label="Về đầu phố"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="25" height="25" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.7-4.9 4.5 1.4 6.6L12 17.2l-6 3.3 1.4-6.6L2.5 9.4l6.6-.7z" fill="#ffd23f" stroke="#12233a" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span class="brand-text"><b>PHỐ VIỆT</b><small>CHUYẾN XE KHÔNG NGỪNG</small></span></a>
-    <nav aria-label="Tùy chọn"><button id="install" class="tem" aria-label="Thêm vào màn hình chính" hidden>Cài ứng dụng</button><button id="help" class="tem">Cách chơi</button><button id="fullscreen" class="tem" aria-label="Toàn màn hình"></button></nav>
+    <a class="wordmark tem" href="./" aria-label="Về đầu phố"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="25" height="25" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.7-4.9 4.5 1.4 6.6L12 17.2l-6 3.3 1.4-6.6L2.5 9.4l6.6-.7z" fill="#ffd23f" stroke="#12233a" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span class="brand-text"><b>GờTa Việt</b><small>CHUYẾN XE KHÔNG NGỪNG</small></span></a>
+    <!-- 21.347: bỏ nút Cách chơi + Toàn màn hình; nút «+» ghi rõ «Tải game», mở hộp chỉ có phần Cài game & chơi offline -->
+    <nav aria-label="Tùy chọn"><button id="install" class="tem" type="button" hidden>Tải game</button></nav>
   </header>
   <main id="game">
-    <canvas id="unity-canvas" tabindex="0" aria-label="Game Phố Việt" hidden></canvas>
+    <canvas id="unity-canvas" tabindex="0" aria-label="Game GờTa Việt" hidden></canvas>
     <section id="rotate-game" role="dialog" aria-modal="true" aria-labelledby="rotate-title" hidden>
       <div class="rotate-card">
         <svg viewBox="0 0 56 56" width="56" height="56" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="24" width="40" height="24" rx="5"/><path d="M42 34v4M15 17a14 14 0 0 1 24-7m-1-6 2 7-7 2"/></svg>
@@ -60,37 +62,37 @@
           <details class="release-notes glass" id="release-notes">
             <summary><span class="release-tag">MỚI</span> Bản cập nhật <b id="release-version">—</b> · <span id="release-date">23/11/2026</span></summary>
             <ul>
-              <li>Bộ nút điều khiển vẽ mới: mỗi nút vẽ đúng công dụng (mũi tên lái, bàn đạp ga, phanh tay P, lùi R, nhảy, tên lửa khóa mục tiêu, lazer hai tia, khiên).</li>
-              <li>Xe của bạn đổi sang màu vàng.</li>
-              <li>Xe tăng trúng tên lửa nổ tung thành mảnh và biến mất.</li>
-              <li>Xe ô tô, xe máy trên phố biết né sét: phanh trước vòng cảnh báo hoặc vọt qua, đỡ cảnh nhiều xe bị đánh gây tắc đường.</li>
+              <li>Game đổi tên thành <b>GờTa Việt</b> (cả tên khi thêm vào màn hình chính / cài trên iPhone, Android, máy tính).</li>
+              <li>Thanh trên gọn hơn: chỉ còn nút <b>Tải game</b>, bấm vào xem cách cài game và chơi offline.</li>
+              <li>Tiêu đề «PHỐ QUEN» hiện rõ dấu sắc.</li>
+            </ul>
             </ul>
             <p id="release-check" class="release-check" hidden></p>
           </details>
         </div>
         <h2 class="section-title"><span class="tem"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z" fill="#f5c542" stroke="#12233a" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span>ẢNH TRONG GAME</span><i aria-hidden="true"></i></h2>
-        <div class="street-gallery" aria-label="Hình ảnh Phố Việt">
+        <div class="street-gallery" aria-label="Hình ảnh GờTa Việt">
         <figure class="street-preview">
           <picture>
             <img src="poster-home-mobile.jpg" width="2778" height="1284" alt="Màn hình chơi trên điện thoại: xe đua xanh chạy trên phố Tôn Đức Thắng ven sông, phía trước có xe tăng, xe máy, ô tô và trực thăng, trên sông có tàu cá; hai nút lái bên trái, các nút Ga, Lùi, P/Drift, Nhảy, Tên lửa bên phải" loading="lazy" decoding="async">
           </picture>
-          <figcaption class="preview-label"><span class="preview-no" aria-hidden="true">01</span><span><b>Lái xe trên phố ven sông</b><small>Hình ảnh trong game Phố Việt trên điện thoại · cấu hình Rất cao</small></span><span class="preview-tag">3D</span></figcaption>
+          <figcaption class="preview-label"><span class="preview-no" aria-hidden="true">01</span><span><b>Lái xe trên phố ven sông</b><small>Hình ảnh trong game GờTa Việt trên điện thoại · cấu hình Rất cao</small></span><span class="preview-tag">3D</span></figcaption>
         </figure>
         <figure class="street-preview">
           <picture>
             <img src="poster-home-lazer.jpg" width="1389" height="642" alt="Xe đua xanh bắn hai tia lazer đỏ hạ khủng long phía trước, khủng long nổ tung thành lửa và mảnh vỡ, bên cạnh là ô tô xanh lá; nút Lazer đang sáng" loading="lazy" decoding="async">
           </picture>
-          <figcaption class="preview-label"><span class="preview-no" aria-hidden="true">02</span><span><b>Lazer hạ khủng long</b><small>Hình ảnh trong game Phố Việt trên điện thoại</small></span><span class="preview-tag new">MỚI</span></figcaption>
+          <figcaption class="preview-label"><span class="preview-no" aria-hidden="true">02</span><span><b>Lazer hạ khủng long</b><small>Hình ảnh trong game GờTa Việt trên điện thoại</small></span><span class="preview-tag new">MỚI</span></figcaption>
         </figure>
         <figure class="street-preview">
           <picture>
             <img src="poster-home-khien.jpg" width="2778" height="1284" alt="Xe đua xanh bật khiên năng lượng xanh ngọc hình lục giác có tia điện xẹt quanh, bắn tia lazer làm xe phía trước nổ tung ngay sát đầu xe, hai vụ nổ lớn và khói đen hai bên đường; nút Khiên phía trên hai nút lái" loading="lazy" decoding="async">
           </picture>
-          <figcaption class="preview-label"><span class="preview-no" aria-hidden="true">03</span><span><b>Bật khiên, phóng lazer</b><small>Hình ảnh trong game Phố Việt trên điện thoại · cấu hình Rất cao</small></span><span class="preview-tag new">MỚI</span></figcaption>
+          <figcaption class="preview-label"><span class="preview-no" aria-hidden="true">03</span><span><b>Bật khiên, phóng lazer</b><small>Hình ảnh trong game GờTa Việt trên điện thoại · cấu hình Rất cao</small></span><span class="preview-tag new">MỚI</span></figcaption>
         </figure>
         </div>
       </div>
-      <footer><span class="footer-title">PHỐ VIỆT <span aria-hidden="true">/</span> CHUYẾN XE KHÔNG NGỪNG</span><span id="offline-status" role="status">Có thể thêm vào màn hình chính</span></footer>
+      <footer><span class="footer-title">GờTa Việt <span aria-hidden="true">/</span> CHUYẾN XE KHÔNG NGỪNG</span><span class="author">Tác giả: PHẠM MINH QUÂN</span></footer>
     </section>
   </main>
   <button id="game-menu" hidden aria-label="Mở tùy chọn game" aria-expanded="false" aria-controls="toolbar">☰</button>
@@ -101,7 +103,10 @@
     <div class="guide-section"><h3>Máy tính</h3><p>Phím mũi tên hoặc WASD để tăng tốc, lùi và đánh lái. J nhảy, F bắn tên lửa, Space phanh tay, K khiên, L lazer (bấm 1 lần là bắn tới hết năng lượng), chạm nhanh 2 lần ↑ để bật/tắt Ga tự động, P hoặc nút tạm dừng (góc trên) để tạm dừng; nút hình loa bên cạnh để bật/tắt tiếng.</p></div>
     <div class="guide-section"><h3>Điện thoại</h3><p>Xoay ngang để chơi. Góc trái dưới có hai nút mũi tên: giữ ← để rẽ trái, giữ → để rẽ phải, giống phím mũi tên trên máy tính; trượt ngón sang nút kia là đổi hướng. Hàng dưới bên phải: giữ P/Drift để phanh gấp về 0 trong 1 giây, giữ Lùi để lùi, giữ Ga để chạy tới; chạm nhanh 2 lần vào Ga để xe tự giữ tốc độ (Ga tự động). Hàng trên: Tên lửa (trên Lùi) và Nhảy (trên Ga). Có thể vừa giữ nút lái vừa bấm hoặc giữ các nút bên phải.</p></div>
     <div class="guide-section"><h3>Trên phố mở</h3><p>Lái tự do khắp bản đồ: phố ven sông, chợ, cầu và các đại lộ, có đèn giao thông và dòng xe máy, ô tô. Điểm là số mét bạn lái được.</p><p><b>CSGT</b> xuất phát sau vài giây và đuổi theo; đứng yên gần xe CSGT quá lâu là bị bắt.</p><p><b>Hiểm họa</b> xuất hiện theo quãng đường: khủng long quất đuôi (nhảy qua để né), xe tăng bắn đạn pháo để lại hố kéo lệch xe, trực thăng phóng tên lửa có vòng báo đỏ. Trúng đạn, tên lửa, khủng long, đâm thân xe tăng hay rơi sông là kết thúc chuyến.</p><p><b>Tên lửa của bạn:</b> bắt đầu đầy 10 quả (tối đa 10), mỗi lần bắn 2 quả từ 2 đèn xe và tự khóa 2 mục tiêu (xe tăng, trực thăng, tàu); kho tự hồi 1 quả mỗi 5 giây, nhặt biểu tượng tên lửa trên phố để nạp thêm.</p><p><b>Va chạm:</b> húc xe khác thì cả hai văng, bốc khói và choáng theo tốc độ; từ 90 km/h xe cùng cỡ hoặc nhỏ hơn sẽ nổ tung. Hàng rào trước cửa hàng húc đổ được, lan can bờ sông thì không.</p></div>
-    <div class="guide-section"><h3>Cài game & chơi offline</h3><p><b>Android / Chrome / Edge:</b> chọn “Cài ứng dụng” hoặc mục cài đặt trong menu trình duyệt.</p><p><b>iPhone / iPad:</b> mở bằng Safari → Chia sẻ → Thêm vào Màn hình chính → bật “Mở dưới dạng ứng dụng web” nếu có → Thêm.</p><p id="cache-help">Lần đầu cần mạng để tải game. Khi thông báo “Đã lưu để chơi offline” xuất hiện, bạn có thể mở lại trên máy này khi mất mạng.</p></div>
+  </dialog>
+  <dialog id="install-guide" aria-labelledby="install-title">
+    <div class="guide-heading"><h3 id="install-title">Cài game &amp; chơi offline</h3><button id="close-install" class="close tem" aria-label="Đóng">×</button></div>
+    <p><b>Android / Chrome / Edge:</b> chọn “Cài ứng dụng” hoặc mục cài đặt trong menu trình duyệt.</p><p><b>iPhone / iPad:</b> mở bằng Safari → Chia sẻ → Thêm vào Màn hình chính → bật “Mở dưới dạng ứng dụng web” nếu có → Thêm.</p><p>Lần đầu cần mạng để tải game. Khi thông báo “Đã lưu để chơi offline” xuất hiện, bạn có thể mở lại trên máy này khi mất mạng.</p>
   </dialog>
   <script>
     window.PHO_VIET_BUILD={

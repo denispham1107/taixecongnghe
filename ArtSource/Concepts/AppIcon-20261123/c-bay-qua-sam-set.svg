@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- 21.343 mẫu C «Bay qua sấm sét»: xe vàng nhìn ngang bật nhảy qua phố Sài Gòn trong đêm giông, sét đánh phía sau, mưa xiên -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#090d26"/><stop offset=".55" stop-color="#24195a"/><stop offset="1" stop-color="#4b2a7a"/>
+    </linearGradient>
+    <linearGradient id="yel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffef7a"/><stop offset=".5" stop-color="#ffc814"/><stop offset="1" stop-color="#d48800"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a4f7a"/><stop offset="1" stop-color="#0c1628"/>
+    </linearGradient>
+    <linearGradient id="trail" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0" stop-color="#ffe066" stop-opacity=".85"/><stop offset="1" stop-color="#ffe066" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="flash" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#d9c8ff" stop-opacity=".75"/><stop offset="1" stop-color="#7b5cff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="rim" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e8f0ff"/><stop offset=".55" stop-color="#9aa6b8"/><stop offset="1" stop-color="#5b6372"/></radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="12"/></filter>
+  </defs>
+
+  <rect width="512" height="512" fill="url(#sky)"/>
+  <circle cx="132" cy="150" r="170" fill="url(#flash)"/>
+  <!-- mây (viền dưới sáng do sét) -->
+  <g fill="#4a3a9a" opacity=".9"><circle cx="10" cy="43" r="62"/><circle cx="86" cy="21" r="70"/><circle cx="168" cy="53" r="56"/><circle cx="246" cy="15" r="72"/><circle cx="326" cy="47" r="60"/><circle cx="408" cy="13" r="72"/><circle cx="492" cy="43" r="70"/></g>
+  <g fill="#17113c"><circle cx="10" cy="36" r="62"/><circle cx="86" cy="14" r="70"/><circle cx="168" cy="46" r="56"/><circle cx="246" cy="8" r="72"/><circle cx="326" cy="40" r="60"/><circle cx="408" cy="6" r="72"/><circle cx="492" cy="36" r="70"/></g>
+  <!-- sét -->
+  <path d="M168 0 L132 92 L170 98 L112 214 L150 220 L86 352" fill="none" stroke="#a98bff" stroke-width="22" stroke-linejoin="miter" opacity=".55" filter="url(#glow)"/>
+  <path d="M168 0 L132 92 L170 98 L112 214 L150 220 L86 352" fill="none" stroke="#f4efff" stroke-width="8" stroke-linejoin="miter"/>
+  <path d="M132 92 L96 132 M112 214 L70 236" fill="none" stroke="#f4efff" stroke-width="3.5"/>
+
+  <!-- phố Sài Gòn -->
+  <g fill="#150f2e">
+    <rect x="0" y="330" width="40" height="120"/><rect x="40" y="300" width="34" height="150"/><rect x="74" y="352" width="44" height="98"/>
+    <rect x="300" y="318" width="36" height="132"/><rect x="336" y="288" width="30" height="162"/><rect x="366" y="340" width="40" height="110"/><rect x="406" y="310" width="34" height="140"/><rect x="440" y="350" width="72" height="100"/>
+    <path d="M454 450 L456 228 Q470 176 486 228 L488 450 Z"/><ellipse cx="494" cy="252" rx="18" ry="4.4"/>
+  </g>
+  <g fill="#ffb56b" opacity=".75">
+    <rect x="48" y="314" width="5" height="5"/><rect x="60" y="334" width="5" height="5"/><rect x="10" y="346" width="5" height="5"/><rect x="88" y="366" width="5" height="5"/>
+    <rect x="344" y="300" width="5" height="5"/><rect x="352" y="322" width="5" height="5"/><rect x="310" y="332" width="5" height="5"/><rect x="414" y="324" width="5" height="5"/><rect x="376" y="356" width="5" height="5"/><rect x="466" y="262" width="4" height="6"/><rect x="472" y="300" width="4" height="6"/>
+  </g>
+  <!-- cờ trên mái -->
+  <path d="M352 288 L352 256" stroke="#150f2e" stroke-width="3"/><rect x="353" y="256" width="24" height="16" fill="#e3262b"/>
+  <path d="M365 259.5 l1.7 4.6 4.9 0 -4 3 1.5 4.7 -4.1-2.9 -4.1 2.9 1.5-4.7 -4-3 4.9 0z" fill="#ffd400"/>
+
+  <!-- đường + dốc -->
+  <path d="M0 450 L512 450 L512 512 L0 512 Z" fill="#100c1f"/>
+  <path d="M0 452 L512 452" stroke="#6a5aa8" stroke-width="3" opacity=".7"/>
+  <g stroke="#ffcf3a" stroke-width="6" stroke-linecap="round"><path d="M20 484 L80 484"/><path d="M150 484 L210 484"/><path d="M280 484 L340 484"/><path d="M410 484 L470 484"/></g>
+  <path d="M0 450 L70 450 L150 412 L150 450 Z" fill="#2a2148"/>
+  <path d="M70 450 L150 412" stroke="#ffcf3a" stroke-width="4"/>
+  <ellipse cx="288" cy="460" rx="118" ry="9" fill="#000" opacity=".45"/>
+
+  <!-- mưa -->
+  <g stroke="#b9c6ff" stroke-width="2" stroke-linecap="round" opacity=".28">
+    <path d="M30 120 L18 150"/><path d="M220 80 L208 110"/><path d="M400 140 L388 170"/><path d="M470 210 L458 240"/><path d="M250 180 L238 210"/><path d="M60 250 L48 280"/><path d="M330 220 L318 250"/><path d="M190 300 L178 330"/><path d="M430 380 L418 410"/><path d="M280 400 L268 430"/><path d="M120 400 L108 430"/><path d="M500 300 L488 330"/>
+  </g>
+
+  <!-- vệt chuyển động -->
+  <g transform="rotate(-12 256 290)">
+    <path d="M110 268 L-30 262 L-30 274 L110 286 Z" fill="url(#trail)" opacity=".55"/>
+    <path d="M108 300 L-10 304 L-10 312 L108 314 Z" fill="url(#trail)" opacity=".4"/>
+    <path d="M140 250 L20 236 L20 242 L140 258 Z" fill="url(#trail)" opacity=".35"/>
+  </g>
+
+  <!-- XE VÀNG (ngang, đang bay) -->
+  <g transform="rotate(-12 256 290) translate(-20,-48) scale(1.08)">
+    <path d="M102 318 L98 300 Q98 292 108 290 L168 282 Q214 258 250 254 Q284 252 306 262 L352 284 Q398 290 418 300 Q426 306 421 314 L414 324 L104 324 Z" fill="url(#yel)"/>
+    <path d="M168 282 Q214 258 250 254 Q284 252 306 262 L352 284 Q398 290 418 300" fill="none" stroke="#fff7b8" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M208 283 Q236 265 262 263 Q288 263 302 269 L330 286 L210 289 Z" fill="url(#glass)"/>
+    <path d="M232 270 L252 265 L230 288 L216 288 Z" fill="#8ff2ff" opacity=".28"/>
+    <path d="M266 263 L270 288" stroke="#ffcf22" stroke-width="4"/>
+    <path d="M210 297 L254 295 L232 315 L207 313 Z" fill="#14141b"/>
+    <path d="M262 294 L340 291" stroke="#b67c00" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M100 290 L150 283 L148 291 L102 297 Z" fill="#14141b"/>
+    <path d="M118 324 L414 324 L404 334 L126 334 Z" fill="#14141b"/>
+    <!-- bánh -->
+    <circle cx="166" cy="324" r="35" fill="#0b0b10"/><circle cx="360" cy="324" r="35" fill="#0b0b10"/>
+    <circle cx="166" cy="326" r="30" fill="#111117"/><circle cx="166" cy="326" r="19" fill="url(#rim)"/>
+    <g stroke="#3b414d" stroke-width="3.5" stroke-linecap="round"><path d="M166 310 L166 342"/><path d="M150 326 L182 326"/><path d="M155 315 L177 337"/><path d="M177 315 L155 337"/></g>
+    <circle cx="166" cy="326" r="5" fill="#ffcf22"/>
+    <circle cx="360" cy="326" r="30" fill="#111117"/><circle cx="360" cy="326" r="19" fill="url(#rim)"/>
+    <g stroke="#3b414d" stroke-width="3.5" stroke-linecap="round"><path d="M360 310 L360 342"/><path d="M344 326 L376 326"/><path d="M349 315 L371 337"/><path d="M371 315 L349 337"/></g>
+    <circle cx="360" cy="326" r="5" fill="#ffcf22"/>
+    <!-- đèn -->
+    <path d="M392 292 L416 298 L412 305 L388 299 Z" fill="#c9fbff" filter="url(#glow)"/>
+    <path d="M392 292 L416 298 L412 305 L388 299 Z" fill="#f2feff"/>
+    <ellipse cx="430" cy="300" rx="34" ry="16" fill="#c9fbff" opacity=".35" filter="url(#glow)"/>
+    <rect x="97" y="292" width="9" height="10" rx="2" fill="#ff2b3d" filter="url(#glow)"/>
+    <rect x="97" y="293" width="8" height="8" rx="2" fill="#ff5a66"/>
+  </g>
+</svg>
