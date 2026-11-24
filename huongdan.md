@@ -6684,3 +6684,112 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Phát hành:** `AgentScripts/Shell21368.cs` (`PhoVietWebBuild.RefreshWebShell`, không build lại game) → cache **`07fc7393a1317cab`** (bản 1.95.2) → `firebase deploy --only hosting --project gotaviet` → live **48/48 khớp SHA-256** trên cả gotaviet.com và gotaviet.web.app.
 - **Thử (Chrome máy tính):** mở `https://gotaviet.web.app/?thu=21368` → về `https://gotaviet.com/?thu=21368`, trang chủ 1.95.2, service worker điều khiển; `/__/auth/handler` 200 trên cả hai tên miền; trên gotaviet.com bấm «Đăng nhập bằng Google» vẫn mở cửa sổ `gotaviet.com/__/auth/handler?providerId=google.com`.
 - **Chưa:** thử trên iPhone đã cài app từ gotaviet.web.app.
+
+## 21.369. Âm thanh xe người chơi rơi xuống sông/biển: gió rít khi rơi → «ÙM» chạm nước → nước ào, bọt ùng ục → ngập «ực» rồi lặng (24/11/2026, Claude Code)
+
+- **Người dùng:** «Dựng âm thanh khi xe người chơi rơi xuống sông xuống biển nhé (âm thanh xuyên suốt quá trình xe rơi chạm mặt nước và đến khi xe chìm hoàn toàn)».
+- **Tạo âm:** `ArtSource/Audio/ow_water_fall_audio.py` (numpy, chạy `python ArtSource/Audio/ow_water_fall_audio.py [--png]`) tổng hợp theo mô hình vật lý âm thanh chất lỏng (van den Doel 2005): mỗi bọt khí = bộ cộng hưởng Minnaert f ≈ 3,26 / r, tắt dần d = 0,13 f + 0,0072 f^1,5, cao độ vút lên khi nổi. Xuất 4 WAV 44,1 kHz 16 bit stereo vào `Assets/PhoViet/Resources/NuocVang/`:
+  - `PV_AmGioRoi.wav` (2 s, vòng lặp nối mềm): gió rít + luồng gió đập thân xe.
+  - `PV_AmNuocVang.wav` (3 s): thân xe đập nước (ục trầm 72→44 Hz + vỗ «chát»), thân tiếng nước tung (nhiễu hồng 250–7000 Hz, rối 15–40 Hz), hốc khí sập «bụp» 95–140 Hz, mây ~420 bọt 0,8–12 mm, ~900 giọt rơi lại lộp độp 0,4–2,6 s (đỉnh ~0,95 s, khớp giọt hạt trong game), sóng xào xạc; vang ngắn bờ kè.
+  - `PV_AmXeChim.wav` (2,4 s): nước ào vào khoang (nhiễu 140–1500 Hz cuộn xoáy), bọt to 10–30 mm «ọc» từng loạt, dòng bọt nhỏ, thân xe kẽo kẹt rất nhẹ.
+  - `PV_AmXeNgap.wav` (2,6 s): «ực» lớn 78/112/150 Hz (túi khí cuối thoát ra) + ầm trầm, dư âm nghẹt, bọt lẻ tẻ nổi lên rồi lặng; toàn bộ lọc dưới 750 Hz (nghe như dưới nước).
+  - Ảnh phổ kiểm tra `ArtSource/Audio/preview/*.png`; bản nghe thử ghép trọn cú rơi `ArtSource/Audio/preview/nuoc-roi-tron-bo.wav` (4,8 s, đã gửi người dùng).
+- **Trong game (`OpenWorldWaterSplash.cs`, «21.369»):** 4 `AudioSource` 2D (camera luôn bám xe; giữ stereo), qua `PhoVietAudio.Route` (âm lượng tổng / nút loa / tạm dừng như mọi tiếng khác).
+  - Gió (gắn xe): khi xe đang rơi (vy < −2,5 m/s), cao hơn mặt nước và tia xuống dưới gầm không gặp đất/cầu/bờ trên mặt nước (`OverWater`) → âm lượng (−vy − 2,5) / 11 (tối đa 0,85), cao độ 0,85–1,2; vào êm, tắt gọn khi chạm nước.
+  - Chạm nước (`Splash` → `PlaySplashAudio`): «ÙM» âm lượng 0,75–1, cao độ 1,08 → 0,9 theo tốc độ lao; cùng lúc phát tiếng chìm.
+  - Nóc xe xuống dưới mặt nước (`body.bounds.max.y < WaterY` khi `driver.Sinking`) → phát `PV_AmXeNgap`, tiếng chìm tắt trong 0,25 s. Thời điểm ngập thay đổi theo cú lao nên tách 2 tệp thay vì 1 tệp cố định.
+  - Xe được đưa lên bờ / chơi lại giữa chừng → mọi tiếng nước tắt dần 0,25 s. `WindVolume`, `SubmergedAt`, `SinkPlaying` cho kiểm thử.
+- **Thử Unity (`AgentScripts/SinkAudio21369.cs`: `Setup` → `Drop(cao m, km/h)` bước khung ghi âm lượng từng nguồn):**
+  - Rơi 8 m, 60 km/h: gió bắt đầu ở vy −2,5, tối đa 0,88 lúc chạm nước (1,28 s), tắt ngay; «ÙM» + chìm phát; nóc ngập sau 0,62 s → «ực»; xe nằm đáy sau 2,26 s.
+  - Trôi từ bờ 0,6 m, 25 km/h: không có gió (đúng); ngập sau 0,90 s, tiếng chìm tắt dần 0,25 s; nằm đáy sau 2,54 s.
+  - Cả 4 clip nạp đúng (stereo, đủ độ dài).
+  - Lưu ý thử: khi Editor tạm dừng, `AudioSource.isPlaying` luôn false; điều khiển từ xa Unity không tự chạy thời gian thật → chỉ kiểm được logic/âm lượng, chưa nghe trong Editor.
+- **Chưa:** nghe thật trong game / trên điện thoại; chưa build/commit. Âm thanh đã làm lại thành stereo rộng ở 21.370 (xem dưới).
+
+## 21.370. Âm thanh rơi sông/biển làm lại thành stereo thật (24/11/2026, Claude Code)
+
+- **Người dùng** (sau khi nghe bản thử 21.369): «Chỉnh âm thanh trước, cho âm thanh là stereo nhé không phải mono».
+- **Nguyên nhân nghe như mono:** 4 tệp 21.369 đã là WAV 2 kênh, nhưng các tiếng chính đều chung một tín hiệu ở hai kênh và nằm giữa: tiếng ục thân xe, vỗ «chát», «bụp»/«ực» (pan 0,5), tiếng kẽo kẹt. Riêng `PV_AmXeNgap` có tương quan T/P 0,74. Unity không ép mono: `forceToMono: 0` ở cả 4 `.meta`, `Default Speaker Mode: 2` (Stereo), nguồn 2D `spatialBlend 0` giữ nguyên 2 kênh.
+- **Sửa `ArtSource/Audio/ow_water_fall_audio.py`:**
+  - Thêm hàm `put` (đặt tiếng điểm: chênh mức theo luật công suất + chênh thời gian tới hai tai ITD ≤ 0,65 ms), `add_moving` (nguồn liên tục chạy trái↔phải theo đường pan), `wide_pan` (vị trí ngẫu nhiên nghiêng ra hai biên), `reflections` (phản xạ sớm lệch: trái 17 ms, phải 29 ms, dội chéo kênh), `widen` (nới rộng M/S ×1,25–1,35 phần trên 250 Hz, dải trầm giữ chắc).
+  - Gió: luồng gió lượn trái↔phải chu kỳ 2 s (bằng độ dài vòng lặp, nối liền); tiếng rít khe cửa chạy ngược chiều.
+  - «ÙM»: ục trầm hai kênh lệch cao độ 3 %; vỗ «chát» ở mép trái, mép phải (trễ 7 ms) và giữa; hai vạt nước loang dần ra hai biên; «bụp» giữa → trái → phải; mây bọt và ~900 giọt lộp độp rải rộng hai tai; sóng vỗ hai bên luân phiên.
+  - Xe chìm: nước ào vào cửa trái trước, cửa phải trễ 0,18 s; các loạt «ọc» xen kẽ trái/phải; kẽo kẹt hai kênh lệch cao độ.
+  - Ngập: «ực» trái → phải → trái; dư âm nghẹt xoáy chậm quanh đầu; bọt lẻ luân phiên hai bên.
+  - `python ArtSource/Audio/ow_water_fall_audio.py --png --mix` in độ stereo mỗi tệp. Cờ `--mix` mới ghép bản nghe thử `ArtSource/Audio/preview/nuoc-roi-tron-bo.wav` (4,6 s) theo thời điểm đo Unity: chạm nước 1,28 s, ngập sau 0,62 s.
+- **Đo sau sửa** (tương quan T/P, càng thấp càng rộng / side÷mid / chênh trái−phải mỗi 0,1 s):
+
+  | Tệp | Tương quan T/P | Side÷mid | Chênh T−P mỗi 0,1 s |
+  |---|---|---|---|
+  | `PV_AmGioRoi` | 0,13 | 0,88 | −6,6…+6,5 dB |
+  | `PV_AmNuocVang` | 0,16 | 0,85 | −4,2…+3,0 dB |
+  | `PV_AmXeChim` | 0,09 | 0,92 | −7,3…+7,9 dB |
+  | `PV_AmXeNgap` (trước 0,74) | 0,36 | 0,70 | −2,2…+5,3 dB |
+  | Bản thử ghép | 0,24 | 0,78 | −6,8…+4,7 dB |
+
+  Độ dài, tên tệp và mã C# giữ nguyên, nên `OpenWorldWaterSplash.cs` không đổi. Bản thử mới đã gửi người dùng.
+- **Chưa:** người dùng nghe duyệt; nghe trong game / điện thoại; build/commit. Tiếng gió đã bỏ ở 21.371 (xem dưới).
+
+## 21.371. Bỏ tiếng gió khi xe đang rơi — âm thanh chỉ từ lúc chạm nước tới khi chìm hẳn (24/11/2026, Claude Code)
+
+- **Người dùng:** «Bỏ tiếng gió khi rơi đi không cần thiết, chỉ cần âm thanh bắt đầu lúc chạm nước đến khi chìm hẳn».
+- **`OpenWorldWaterSplash.cs`:** xoá nguồn `windAudio`, biến `windVol`, thuộc tính `WindVolume`, hàm `OverWater` và đoạn tính gió trong `TickAudio`. Còn 3 nguồn 2D stereo:
+  - `PV_AmNuocVang` «ÙM» lúc chạm nước;
+  - `PV_AmXeChim` nước ào, bọt ùng ục;
+  - `PV_AmXeNgap` «ực», nghẹt dưới nước, phát lúc nóc xe ngập.
+
+  Logic phát, tắt và chuyển giữa ba tiếng giữ nguyên như 21.369/21.370.
+- **Tệp âm:** xoá `Resources/NuocVang/PV_AmGioRoi.wav` (+ `.meta`) và `ArtSource/Audio/preview/PV_AmGioRoi.png`.
+- **`ArtSource/Audio/ow_water_fall_audio.py`:** bỏ hàm `wind_loop`, chỉ xuất 3 tệp; độ stereo không đổi so với 21.370. Bản thử `--mix` giờ bắt đầu ngay lúc chạm nước (0,15 s), ngập sau 0,62 s, dài 3,47 s, tương quan T/P 0,25 — đã gửi người dùng.
+- **`AgentScripts/SinkAudio21369.cs`:** bỏ các cột/ghi chép gió.
+- **Kiểm tra:** Unity biên dịch lại không lỗi (chỉ 6 cảnh báo cũ `FindObjectsSortMode`).
+- **Đã phát hành trong 1.95.3 (21.373).** Chưa nghe thử trên điện thoại.
+
+## 21.372. Mặt tiền cửa hàng trên điện thoại rõ nét: ảnh nội thất sau kính HD + hết lật ngược, lọc dị hướng ở «Rất cao» (24/11/2026, Claude Code)
+
+- **Người dùng** (ảnh chụp điện thoại, dãy Bún Bò Huế – Cù Lao Petshop): «Khi chơi trên mobile mặc dù đã để mức đồ họa Rất cao nhưng các hình ảnh của mặt tiền cửa hàng vẫn rất mờ, hãy làm cho thật rõ nét hơn».
+- **Nguyên nhân:**
+  - Gói điện thoại không có nội thất 3D (`Editor/PhoVietMobileSceneStrip.cs`, 21.277, chống sập iPhone). Sau kính chỉ là tấm ảnh chụp sẵn trong atlas `Library/NoiThat/OW_NoiThat_AnhXa.png`: ô 192 × 144, tổng 1920 × 864. Web giới hạn 1024 px nên còn ~102 × 77 px cho cả mặt tiền một căn, nén ETC2 chất lượng 50.
+  - Nhà nổi bật (`OW_NoiThat_NoiBat_AnhXa.png` 1280 × 528) và Petshop (`OW_NoiThat_PetShop_AnhXa.png` 1152 × 288) cũng vậy.
+  - Máy cảm ứng tắt lọc dị hướng ở mọi mức.
+- **Lỗi cũ phát hiện thêm (có từ 21.272):** tấm ảnh hiện **ngược trái/phải**: chữ «Bún Bò Huế» trên quầy đọc ngược, cầu thang sai bên. Trong `build_interiors.py`, `card_object` / `featured_card_object` / `petshop_card_object` gán u0 cho mép y lớn, mà người đứng ngoài đường nhìn vào thì y lớn ở bên phải.
+- **Sửa:**
+  - **Blender (chạy nền, không mở/ghi `.blend`):** `build_interiors.py` có chế độ mới `MODE='render_cards_hd'` (`render_cards_hd(part)`). Chế độ này dựng lại đúng như lúc xuất (cùng hạt giống/thứ tự) và chỉ render ảnh **1168 px**, EEVEE 32 mẫu, **không xuất FBX**.
+    - Chạy: `"C:/Program Files/Blender Foundation/Blender 5.2/blender.exe" -b --factory-startup --python ArtSource/Blender/OpenWorld/run_cards_hd.py -- main|featured|petshop` (~20–30 s/ảnh, 71 ảnh ≈ 35 phút).
+    - Ảnh ra ở `ArtSource/Concepts/OpenWorld-20261117/NoiThat-21272/AnhXaHD` (54), `.../AnhXaNoiBatHD` (14), `ArtSource/Concepts/OpenWorld-20261117/Petshop-21285/AnhXaHD` (3).
+    - `CELL`/`ATLAS_COLS` trong script đổi sang (584, 438) / 7 cho lần xuất FBX sau.
+  - **Ghép atlas:** `python ArtSource/Blender/OpenWorld/ow_interior_atlas_hd.py`, lật gương từng ô (`MIRROR = True`, sửa lỗi ngược mà không đổi UV):
+
+    | Atlas | Lưới | Ô | Kích thước |
+    |---|---|---|---|
+    | `OW_NoiThat_AnhXa.png` | 7 × 8 (mới) | 584 × 438 | 4088 × 3504 |
+    | `OW_NoiThat_NoiBat_AnhXa.png` | 5 × 3 (giữ) | 816 × 560 | 4080 × 1680 |
+    | `OW_NoiThat_PetShop_AnhXa.png` | 3 × 1 (giữ) | 1168 × 876 | 3504 × 876 |
+
+  - **Unity:**
+    - `Editor/PhoVietInteriorMeshPostprocessor.cs` có `RemapCardUv`: tấm ảnh `*_Xa` trong `OW_NoiThat_5_0/6_0/8_0.fbx` mang UV lưới cũ 10 × 6 (rộng đúng 1/10) được đổi sang ô cùng số thứ tự trong lưới 7 × 8. Ví dụ `NT_BunBoHue_Xa` ô 11: u 0,5714–0,7143, v 0,75–0,875. FBX xuất sau này đã ở lưới 7 cột nên không bị đổi hai lần.
+    - 3 atlas: `maxTextureSize` 4096, mipmap, aniso 2, **`nPOTScale` ToNearest** → 4096 × 4096 / 4096 × 2048 / 4096 × 1024, UV chuẩn hóa nên ô giãn đều, không lệch.
+    - **Bài học (build lần 1 bị bỏ):** đặt `nPOTScale` None thì Unity WebGL **không nén** ảnh không phải lũy thừa 2: báo cáo build ghi 54,6 + 26,1 + 11,7 MB RGB24, gói điện thoại 107,5 → 147,5 MiB. Không đăng bản đó; trả về ToNearest rồi build lại. Atlas web muốn nén ETC2/DXT phải là lũy thừa 2.
+    - `PhoVietWebMemorySettings`: `IsInteriorCard` miễn giới hạn 1024 → 4096, nén chất lượng 100 ở cả ETC2 (điện thoại) và DXT (máy tính).
+    - `PhoVietOpenWorldShopfrontBuilder` (menu 10) giữ 4096 thay vì 2048.
+  - **Lọc dị hướng:** `OpenWorldGame.Graphics.cs` `ApplyGraphics`: mức **Rất cao trên máy cảm ứng** = `AnisotropicFiltering.ForceEnable` + `Texture.SetGlobalAnisotropicFilteringLimits(4, 8)`. Mặt tiền, vỉa hè và tấm ảnh nhìn xiên không còn nhòe; không tốn bộ nhớ. Các mức khác trên cảm ứng vẫn tắt. `RestoreGraphicsBaseline` đặt lại giới hạn mặc định (9, 16); máy tính giữ như cũ.
+- **Bộ nhớ:** 3 atlas ETC2 RGB4 (DXT1 trên máy tính) 4096² + 4096×2048 + 4096×1024, kể cả mipmap ≈ **18,7 MB GPU** (cũ ≈ 0,7 MB); gói dữ liệu tăng tương ứng. Vẫn không có nội thất 3D trên điện thoại.
+- **Kiểm tra Unity:**
+  - So cùng góc máy, ép tấm ảnh (LOD 1) như gói điện thoại: `Captures/shopfront21372-truoc.png`, `shopfront21372-sau.png`, `shopfront21372-sau-gan.png`, ghép `shopfront21372-truoc-sau.jpg` (đã gửi người dùng). Nội thất sau kính rõ: kệ, bàn ghế, chữ «Bún Bò Huế» trên quầy và bảng thực đơn đọc đúng chiều.
+  - Play: Rất cao cảm ứng = ForceEnable, Cao/Yếu cảm ứng = Disable; 0 lỗi console.
+
+## 21.373. Phát hành 1.95.3 trên gotaviet.com (24/11/2026, Claude Code)
+
+- **Người dùng:** «Làm xong thì build và phát hành 1.95.3 luôn nhé».
+- **Gồm:** 21.369–21.371 (âm thanh xe rơi sông/biển stereo, từ lúc chạm nước tới khi chìm hẳn, không còn tiếng gió) + 21.372 (mặt tiền cửa hàng HD trên điện thoại, sửa ảnh nội thất ngược, lọc dị hướng ở Rất cao).
+- **«Bản cập nhật»** trong `index.html` thêm hai dòng:
+  - «Mặt tiền cửa hàng trên điện thoại nét hơn nhiều: nội thất sau kính độ phân giải cao, mức «Rất cao» lọc ảnh sắc nét khi nhìn xiên.»
+  - «Xe rơi sông/biển có âm thanh stereo: «ùm» chạm nước, nước ào và bọt ùng ục đến khi xe chìm hẳn.»
+- **Build:** số 1.95.3 trong `PhoVietWebBuild.cs` + `ProjectSettings.asset` → `ReleaseBuild.Prepare` «ready 1.95.3» → `BuildNow`.
+  - **Lần 1** (cache `c7650e4cf90b355f`, 1.241 s) **bỏ, không đăng:** 3 atlas `nPOTScale` None không được nén. Báo cáo build ghi 54,6 + 26,1 + 11,7 MB; gói điện thoại 147,5 MiB, máy tính 162,7 MiB.
+  - **Lần 2** (ToNearest): 2.391 s, `stripped` 3.356, cache **`baf298b8bfa34a59`**. Atlas 10,7 + 5,3 + 2,7 MB. Gói điện thoại `8e51dc78….data.unityweb` **121.228.539 B (115,6 MiB**, +8,1 MiB so với 1.95.2); máy tính `25a4b2e9….data.unityweb` 136.719.892 B (130,4 MiB).
+- **Phát hành:** `firebase deploy --only hosting --project gotaviet` → so SHA-256 từng tệp `Builds/WebGL` với bản live: **gotaviet.com 48/48 khớp, gotaviet.web.app 48/48 khớp**. `.nojekyll` không lên vì Firebase bỏ tệp ẩn, như mọi lần. `build-info.json` live: 1.95.3 / `baf298b8bfa34a59`.
+- **Commit:** gồm mã + tài liệu + 3 atlas + 3 WAV + script Blender/âm thanh.
+  - Không commit ảnh render HD nguồn (`AnhXaHD`, `AnhXaNoiBatHD`, Petshop `AnhXaHD`, ~70 MB, chỉ ở máy). Tạo lại bằng `run_cards_hd.py`.
+  - Không commit các tệp chỉ ở máy như mọi lần.
+- **Chưa:** thử trên iPhone/Android thật (mặt tiền, FPS khi bật lọc dị hướng, bộ nhớ +~19 MB GPU), nghe âm thanh rơi sông trên điện thoại.

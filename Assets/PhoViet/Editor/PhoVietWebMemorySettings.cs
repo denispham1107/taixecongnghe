@@ -40,7 +40,11 @@ namespace PhoViet.Editor
   // ETC2/DXT ở chất lượng 50 làm nhòe. Ảnh màu (Palette) giữ RGBA32 2048² không nén; các ảnh khác của xe nén chất lượng 100,
   // pháp tuyến đủ 2048².
   static bool IsPlayerCar(string path)=>path.StartsWith("Assets/PhoViet/Art/PlayerCar/PV_BlueSupercar_",StringComparison.Ordinal);
-  static int WebQuality(string path)=>IsPlayerCar(path)?100:50;
+  // 21.372 (người dùng: «trên mobile dù để Rất cao mặt tiền cửa hàng vẫn rất mờ»): gói điện thoại không có nội thất 3D, sau kính chỉ
+  // là ảnh chụp sẵn trong 3 atlas Library/NoiThat/*_AnhXa.png → giữ đủ độ phân giải HD (≤ 4096, lũy thừa 2, ~18,7 MB GPU cả 3 kể cả mipmap,
+  // ETC2/DXT) và nén chất lượng 100 (ô 584 × 438 mỗi căn; nén 50 làm nhòe chữ biển/kệ hàng).
+  static bool IsInteriorCard(string path)=>path.StartsWith("Assets/PhoViet/OpenWorld/Library/NoiThat/",StringComparison.Ordinal)&&path.EndsWith("_AnhXa.png",StringComparison.Ordinal);
+  static int WebQuality(string path)=>IsPlayerCar(path)||IsInteriorCard(path)?100:50;
   // Use the same size budget for ETC2/EAC and DXT so either can load within the WebGL heap.
   // The player's paint and surface maps keep their source resolution.
   // 21.279: bỏ giới hạn 512 px của 1.76.2 (người dùng yêu cầu không giảm độ phân giải); nguyên nhân sập iPhone là probe sông.
@@ -50,6 +54,7 @@ namespace PhoViet.Editor
    int full=importer.maxTextureSize;
    if(path.EndsWith("PV_BlueSupercar_Surface.png",StringComparison.Ordinal)||path.EndsWith("PV_BlueSupercar_Palette.png",StringComparison.Ordinal))return full;
    if(path.EndsWith("PV_BlueSupercar_Normal.png",StringComparison.Ordinal))return Mathf.Max(full,2048);
+   if(IsInteriorCard(path))return 4096;
    return Mathf.Min(full,MobileTextureLimit);
   }
   // GPU compression must match mobile WebGL: DXT is expanded on iPhone, and

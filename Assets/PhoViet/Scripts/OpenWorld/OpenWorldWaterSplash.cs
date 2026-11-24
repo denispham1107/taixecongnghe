@@ -25,6 +25,13 @@ namespace PhoViet.OpenWorld
         Coroutine crownPlay;
         int seenFalls;
         public int Splashes { get; private set; }                                // kiểm thử
+        // 21.369: âm thanh từ lúc chạm nước tới khi chìm hẳn (ArtSource/Audio/ow_water_fall_audio.py → Resources/NuocVang/PV_Am*.wav):
+        //   «ÙM» chạm nước (to/trầm theo tốc độ lao) → xe chìm (PV_AmXeChim: nước ào vào khoang, bọt ùng ục) → đúng lúc nóc
+        //   xe xuống dưới mặt nước: tắt nhanh tiếng chìm, phát PV_AmXeNgap («ực» lớn + bóp nghẹt như nghe dưới nước, bọt lẻ tẻ
+        //   rồi lặng khi xe nằm đáy). 21.371: bỏ tiếng gió khi đang rơi theo yêu cầu người dùng (âm thanh bắt đầu lúc chạm nước).
+        AudioSource splashAudio, sinkAudio, underAudio; float splashAt = -10f; bool submerged; Collider body;
+        public bool SinkPlaying => sinkAudio && sinkAudio.isPlaying;
+        public float SubmergedAt { get; private set; } = -10f;
 
         void Awake()
         {
@@ -50,6 +57,7 @@ namespace PhoViet.OpenWorld
                     mist = Make(root, "NuocVang_Suong", m, ParticleSystemRenderMode.Billboard, -.04f, 1); }
             }
             BuildCrown(root);
+            BuildAudio(root);
             if (drops)
             {
                 // 21.365d: 8 dáng giọt thật (hạt lệ, kéo sợi, méo, dẹt — PV_GiotNuoc4x2), mỗi giọt 1 dáng ngẫu nhiên, xoay + lộn khi bay.
@@ -172,6 +180,56 @@ namespace PhoViet.OpenWorld
                 seenFalls = driver.RiverFalls;
                 Splash(driver.WaterEntryPoint, driver.WaterEntryVelocity);
             }
+            TickAudio();
+        }
+
+        // ------------------------------------------------------------ 21.369: âm thanh rơi sông/biển
+        void BuildAudio(Transform root)
+        {
+            AudioSource Src(GameObject g, string clip, bool loop)
+            {
+                var c = Resources.Load<AudioClip>("NuocVang/" + clip); if (!c) { Debug.LogWarning("NuocVang: thiếu âm " + clip); return null; }
+                var a = PhoViet.PhoVietAudio.Route(g.AddComponent<AudioSource>());
+                a.clip = c; a.loop = loop; a.playOnAwake = false; a.spatialBlend = 0f; a.dopplerLevel = 0f; a.volume = 0f;   // camera luôn bám sát xe → 2D, giữ stereo
+                return a;
+            }
+            splashAudio = Src(root.gameObject, "PV_AmNuocVang", false);
+            sinkAudio = Src(root.gameObject, "PV_AmXeChim", false);
+            underAudio = Src(root.gameObject, "PV_AmXeNgap", false);
+            body = GetComponent<Collider>();
+        }
+
+        void TickAudio()
+        {
+            float dt = Time.unscaledDeltaTime;
+            // nóc xe vừa xuống dưới mặt nước → «ực» + tiếng nghẹt dưới nước; tiếng chìm trên mặt nước tắt nhanh (0,25 s)
+            if (driver.Sinking && !submerged && Time.time - splashAt < 6f && body && body.bounds.max.y < OpenWorldDriver.WaterY)
+            {
+                submerged = true; SubmergedAt = Time.time;
+                if (underAudio) { underAudio.Stop(); underAudio.volume = .95f; underAudio.pitch = Random.Range(.96f, 1.04f); underAudio.Play(); }
+            }
+            if (submerged && sinkAudio && sinkAudio.volume > 0f)
+            {
+                sinkAudio.volume = Mathf.MoveTowards(sinkAudio.volume, 0f, dt * 3.6f);
+                if (sinkAudio.volume <= 0f) sinkAudio.Stop();
+            }
+            // xe được đưa lên bờ / chơi lại giữa chừng → tắt mọi tiếng nước nhanh
+            if (!driver.Sinking && Time.time - splashAt > .3f)
+                foreach (var a in new[] { splashAudio, sinkAudio, underAudio })
+                    if (a && a.isPlaying) { a.volume = Mathf.MoveTowards(a.volume, 0f, dt * 4f); if (a.volume <= 0f) a.Stop(); }
+        }
+
+        void PlaySplashAudio(float k)
+        {
+            splashAt = Time.time;
+            if (splashAudio)
+            {   // lao càng mạnh càng to + trầm hơn
+                splashAudio.Stop(); splashAudio.volume = Mathf.Lerp(.75f, 1f, k); splashAudio.pitch = Mathf.Lerp(1.08f, .9f, k) * Random.Range(.97f, 1.03f);
+                splashAudio.Play();
+            }
+            if (sinkAudio) { sinkAudio.Stop(); sinkAudio.volume = .9f; sinkAudio.pitch = Random.Range(.96f, 1.04f); sinkAudio.Play(); }
+            if (underAudio) underAudio.Stop();
+            submerged = false;
         }
 
         /// Nước văng + sóng chấn động + bọt tại điểm chạm nước; vel = vận tốc lúc chạm (cỡ hiệu ứng theo tốc độ lao).
@@ -181,6 +239,7 @@ namespace PhoViet.OpenWorld
             float y = OpenWorldDriver.WaterY, speed = vel.magnitude, k = Mathf.Clamp01(speed / 25f);
             var c = new Vector3(at.x, y, at.z);
             var flat = new Vector3(vel.x, 0, vel.z); var fwd = flat.sqrMagnitude > .01f ? flat.normalized : transform.forward;
+            PlaySplashAudio(k);                                                 // 21.369
             if (crown && crownFrames != null && crownFrames.Length > 0)
             {
                 if (crownPlay != null) StopCoroutine(crownPlay);

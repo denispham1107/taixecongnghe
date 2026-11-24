@@ -86,7 +86,8 @@ namespace PhoViet.OpenWorldEditor
                 childIndex[w] = idx;
             }
             var atlasTex = AssetImporter.GetAtPath(Root + "Library/NoiThat/OW_NoiThat_AnhXa.png") as TextureImporter;
-            if (atlasTex && (atlasTex.maxTextureSize != 2048 || atlasTex.mipmapEnabled == false)) { atlasTex.maxTextureSize = 2048; atlasTex.mipmapEnabled = true; atlasTex.SaveAndReimport(); }
+            // 21.372: atlas HD 4088 × 3504 (lưới 7 × 8) → giữ 4096
+            if (atlasTex && (atlasTex.maxTextureSize != 4096 || atlasTex.mipmapEnabled == false)) { atlasTex.maxTextureSize = 4096; atlasTex.mipmapEnabled = true; atlasTex.SaveAndReimport(); }
 
             // 4) biển hiệu theo vị trí
             var signs = new List<(Vector3 p, int i)>();

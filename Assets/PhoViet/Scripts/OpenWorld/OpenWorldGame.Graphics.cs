@@ -7,7 +7,7 @@ namespace PhoViet.OpenWorld
     // Nút bánh răng ở góc phải trên thẻ chào «LÁI QUA PHỐ QUEN.» mở cửa sổ 4 mức, lưu PlayerPrefs (GfxKey) cho lần sau:
     //   Rất cao    — mật độ điểm ảnh GỐC của màn hình (iPhone 3x, tối đa 3,8 triệu điểm ảnh trên máy cảm ứng), cố định.
     //                Chống văng mà vẫn giữ độ phân giải: không MSAA (mật độ điểm ảnh gốc đã mịn răng cưa — bộ đệm khung MSAA 4×
-    //                ở 3 triệu điểm ảnh tốn thêm ~90 MB), bóng 1 tầng (cascade), 1 đèn điểm ảnh, không lọc dị hướng; giữ
+    //                ở 3 triệu điểm ảnh tốn thêm ~90 MB), bóng 1 tầng (cascade), 1 đèn điểm ảnh, lọc dị hướng 4–8× (21.372); giữ
     //                nguyên mọi nội dung (xe NPC, tàu, nhà, cây), texture, tầm nhìn.
     //   Cao        — 80 % mật độ gốc (iPhone 2,4x), cố định, bóng như Rất cao.
     //   Trung bình — tự động: bắt đầu 55 % mật độ gốc, đo thời gian khung khi đang chạy; chậm (trung vị > 25 ms hai lần liền)
@@ -87,7 +87,7 @@ namespace PhoViet.OpenWorld
             if (!gfxInit) return;
             QualitySettings.antiAliasing = baseAA; QualitySettings.shadowCascades = baseCascades; QualitySettings.pixelLightCount = basePixelLights;
             QualitySettings.shadowDistance = baseShadowDist; QualitySettings.lodBias = baseLod; QualitySettings.shadows = baseShadows;
-            QualitySettings.anisotropicFiltering = baseAniso;
+            QualitySettings.anisotropicFiltering = baseAniso; Texture.SetGlobalAnisotropicFilteringLimits(9, 16);   // mặc định Unity
         }
 
         void ApplyGraphics(bool resetAdaptive)
@@ -106,6 +106,12 @@ namespace PhoViet.OpenWorld
             QualitySettings.lodBias = p.lod;
             QualitySettings.pixelLightCount = p.pixelLights;
             if (TouchGfx || Graphics == Gfx.Low) QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
+            // 21.372 (người dùng: «trên mobile dù để Rất cao mặt tiền cửa hàng vẫn rất mờ»): Rất cao trên máy cảm ứng bật lọc dị
+            // hướng 4–8× cho mọi texture → mặt tiền, vỉa hè, tấm ảnh nội thất nhìn xiên không nhòe theo mipmap thấp. Không tốn bộ nhớ.
+            if (TouchGfx && Graphics == Gfx.VeryHigh)
+            {
+                QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable; Texture.SetGlobalAnisotropicFilteringLimits(4, 8);
+            }
             RequestedRatio = ratio;
             PhoVietSetPixelPlan(ratio, p.budget);
             MatchHouseLods();

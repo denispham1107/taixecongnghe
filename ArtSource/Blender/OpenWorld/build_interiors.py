@@ -258,8 +258,13 @@ def build_interior_object(kind, w, seed, title=None, sub=None, name=None):
     bake_vertex_colors(ob)
     return ob
 
-CARD_DIR = ROOT + '/ArtSource/Concepts/OpenWorld-20261117/NoiThat-21272/AnhXa'
-CELL = (192, 144); ATLAS_COLS = 10
+# 21.372 (người dùng: «trên mobile dù để Rất cao mặt tiền cửa hàng vẫn rất mờ»): gói điện thoại chỉ có ảnh xa nội thất, ô cũ
+# 192 × 144 (texture web 1024 px → ~102 × 77 px/căn). Ảnh render 1168 px (CARD_RES) vào thư mục *HD, ô atlas 584 × 438, lưới
+# 7 cột × 8 hàng (4088 × 3504, ≤ 4096) — ghép bằng ArtSource/Blender/OpenWorld/ow_interior_atlas_hd.py (Python ngoài, PIL).
+# FBX cũ (UV lưới 10 × 6) được Unity đổi UV sang lưới mới khi nhập (PhoVietInteriorMeshPostprocessor.RemapCardUv).
+CARD_DIR = ROOT + '/ArtSource/Concepts/OpenWorld-20261117/NoiThat-21272/AnhXaHD'
+CARD_RES = globals().get('CARD_RES', 1168)
+CELL = (584, 438); ATLAS_COLS = 7
 ALL_KINDS = I.SHOP_TYPES + I.HOME_TYPES
 
 NT_WIDTHS = [5.0, 6.0, 8.0]      # 21.272: chỉ 3 bộ nội thất (bề ngang khác co giãn ngang trong Unity) cho nhẹ bản web
@@ -278,8 +283,8 @@ def render_card(kind, w, show):
     cam.data.sensor_fit = 'HORIZONTAL'; cam.data.sensor_width = 36
     import math as _m
     cam.data.lens = 36 / (2 * (W / 2) / (2.6 + 0.4))          # khung ngang = ô kính tại mặt kính (x = −0,4)
-    sc.render.resolution_x = 384; sc.render.resolution_y = int(384 * H / W)
-    try: sc.eevee.taa_render_samples = 16
+    sc.render.resolution_x = CARD_RES; sc.render.resolution_y = int(CARD_RES * H / W)
+    try: sc.eevee.taa_render_samples = 32
     except Exception: pass
     sc.render.filepath = CARD_DIR + '/%03d_%s_%s.png' % (card_index(kind, w), kind, str(w).replace('.', '_'))
     bpy.ops.render.render(write_still=True)
@@ -362,7 +367,7 @@ FEATURED = [   # (id, bề ngang, loại, tên trên bảng trong tiệm, dòng 
     (4010, 7.0, 'HaiSan', 'Ốc Đêm', 'Ốc – Hải sản tươi'), (4011, 9.0, 'HaiSan', 'Hải Sản Tươi Sống', None),
     (4012, 8.5, 'CaPhe', 'Cà Phê Cù Lao', None), (4013, 7.5, 'LauBo', 'Lẩu Bò Cù Lao', None),
 ]
-FCARD_DIR = ROOT + '/ArtSource/Concepts/OpenWorld-20261117/NoiThat-21272/AnhXaNoiBat'
+FCARD_DIR = ROOT + '/ArtSource/Concepts/OpenWorld-20261117/NoiThat-21272/AnhXaNoiBatHD'      # 21.372: bản HD (cũ: AnhXaNoiBat, 384 px)
 FCOLS, FROWS = 5, 3
 
 def featured_card_object(fid, i, w):
@@ -405,7 +410,7 @@ if MODE == 'export_featured':
 # MODE 'export_petshop': nội thất PetShop 3 bề ngang (5/6/8 m) → Library/NoiThat/OW_NoiThat_PetShop.fbx gồm NT_PetShop_<w>
 # (3D, màu đỉnh) + NT_PetShop_<w>_Xa (tấm ảnh xa, UV ô thứ i của atlas 3 × 1 OW_NoiThat_PetShop_AnhXa.png — ghép bằng Python
 # ngoài vì Blender không có PIL). Có thể gọi từng bề ngang qua Blender MCP: petshop_width(w) rồi petshop_export().
-PCARD_DIR = ROOT + '/ArtSource/Concepts/OpenWorld-20261117/Petshop-21285/AnhXa'
+PCARD_DIR = ROOT + '/ArtSource/Concepts/OpenWorld-20261117/Petshop-21285/AnhXaHD'            # 21.372: bản HD (cũ: AnhXa, 384 px)
 PET_WIDTHS = [5.0, 6.0, 8.0]
 
 def petshop_card_object(i, w):
@@ -446,3 +451,31 @@ if MODE == 'export_petshop':
     _clear()
     for w in PET_WIDTHS: print('petshop', w, petshop_width(w)[2])
     print('fbx', petshop_export())
+
+# ------------------------------------------------------------------------------------------------ 21.372: chỉ render lại ảnh xa HD
+# MODE 'render_cards_hd': dựng lại đúng như export_interiors / export_featured / petshop_width (cùng hạt giống, cùng thứ tự) và chỉ
+# render ảnh (CARD_RES px) vào các thư mục *HD — KHÔNG xuất FBX (mesh 3D/UV trong Unity giữ nguyên). PART = 'main'|'featured'|'petshop'|None.
+def render_cards_hd(part=None):
+    out = []
+    if part in (None, 'main'):
+        for w in NT_WIDTHS:
+            _clear()
+            for i, kind in enumerate(ALL_KINDS):
+                ob = build_interior_object(kind, w, 1000 + i); out.append(render_card(kind, w, [ob]))
+                print('card', kind, w, flush=True)
+    if part in (None, 'featured'):
+        global CARD_DIR, card_index
+        _clear(); old, _ci = CARD_DIR, card_index; CARD_DIR = FCARD_DIR
+        try:
+            for i, (fid, w, kind, title, sub) in enumerate(FEATURED):
+                ob = build_interior_object(kind, w, 5000 + fid, title, sub, name='F_%d' % fid)
+                card_index = lambda k, ww, _i=i: _i
+                out.append(render_card(kind, w, [ob])); print('featured', fid, flush=True)
+        finally: CARD_DIR, card_index = old, _ci
+    if part in (None, 'petshop'):
+        _clear()
+        for w in PET_WIDTHS: petshop_width(w); print('petshop', w, flush=True)
+    return out
+
+if MODE == 'render_cards_hd':
+    print('xong', len(render_cards_hd(globals().get('PART'))))
