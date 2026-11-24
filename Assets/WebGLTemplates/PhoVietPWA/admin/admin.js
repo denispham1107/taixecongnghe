@@ -92,7 +92,7 @@ function render() {
   const total = users.reduce((a, u) => a + u.plays.seconds, 0), visits = users.reduce((a, u) => a + u.plays.count, 0);
   const today = Date.now() - 86400000, active = users.filter(u => u.plays.last > today).length;
   $('stats').innerHTML = [['Tài khoản', num(users.length)], ['Chơi trong 24 giờ', num(active)], ['Tổng lần vào chơi', num(visits)],
-    ['Tổng thời gian chơi', dur(total)], ['Tổng lượt (bảng)', num(users.reduce((a, u) => a + (u.board?.runs || 0), 0))]]
+    ['Tổng thời gian chơi', dur(total)], ['Tổng số ván chơi', num(users.reduce((a, u) => a + (u.board?.runs || 0), 0))]]
     .map(([k, v]) => `<div class="stat"><small>${k}</small><b>${v}</b></div>`).join('');
   const q = $('search').value.trim().toLowerCase(), key = $('sort').value;
   const list = users.filter(u => !q || [u.name, u.email, u.board?.name, u.uid].some(x => (x || '').toLowerCase().includes(q)));
@@ -131,7 +131,7 @@ function drawDetail() {
       ${kv('Tạo tài khoản', when(u.created))}${kv('Đăng nhập gần nhất', when(u.lastSignIn))}
       ${kv('Hoạt động gần nhất', when(u.lastActive))}${kv('Đăng nhập bằng', provider(u.providers))}
       ${kv('Tổng thời gian chơi', dur(total))}${kv('Số lần vào chơi', num(plays.length))}
-      ${kv('Kỷ lục trên bảng', b ? metres(b.best) : '—')}${kv('Số lượt (bảng)', num(b?.runs || 0))}
+      ${kv('Kỷ lục trên bảng', b ? metres(b.best) : '—')}${kv('Số ván chơi', num(b?.runs || 0))}
       ${kv('Điểm cao nhất đã ghi', runs.length ? metres(best) : '—')}${kv('Mã tài khoản (uid)', esc(uid))}
     </div>
 

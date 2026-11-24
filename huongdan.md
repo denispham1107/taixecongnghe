@@ -6909,3 +6909,15 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
     - `update` đổi tên/tên bảng/kỷ lục 777/khóa;
     - không tự xóa được, `delete` xóa Auth + scores + 1 play + 1 run.
 - **Chưa:** người dùng tự đăng nhập /admin bằng tài khoản Google của mình để xem; dữ liệu lần chơi bắt đầu tích lũy từ lúc này.
+
+## 21.379. Trang quản trị: đổi nhãn «Lượt» → «Số ván chơi» (24/11/2026, Claude Code)
+
+- **Người dùng** (ảnh trang /admin trên iPhone): hỏi «Tổng lượt (bảng)» và «Lượt» nghĩa là gì → «Đổi Lượt thành Số ván chơi, Tổng lượt (bảng) thành Tổng số ván chơi».
+- **Ý nghĩa** (`scores/{uid}.runs`): số ván đã chơi xong (bị bắt / kết thúc chuyến) khi đã đăng nhập, đếm từ 21.356. Khác «Số lần vào» (`plays`: số lần mở game kèm thời lượng, có từ 21.378).
+- **Sửa** `Assets/WebGLTemplates/PhoVietPWA/admin/`:
+  - `index.html`: cột bảng «Lượt» → «Số ván chơi».
+  - `admin.js`: ô thống kê «Tổng lượt (bảng)» → «Tổng số ván chơi»; ô chi tiết «Số lượt (bảng)» → «Số ván chơi» cho đồng bộ.
+- **Phát hành:**
+  - Chép 3 tệp admin vào `Builds/WebGL/admin/`. Không cần `RefreshWebShell`: admin/ không nằm trong `precache.json`, nên cache vỏ vẫn `48314b9ae1db7ecf`. Unity MCP lúc này cũng không kết nối được.
+  - Chạy `firebase deploy --only hosting` → live 51/51 khớp SHA-256 trên gotaviet.com và gotaviet.web.app.
+  - Không sửa «Bản cập nhật» trên trang chủ: chỉ đổi chữ trên trang quản trị, người chơi không thấy gì mới, và đổi `index.html` thì phải chạy `RefreshWebShell` trong Unity.
