@@ -6789,7 +6789,7 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - **Lần 1** (cache `c7650e4cf90b355f`, 1.241 s) **bỏ, không đăng:** 3 atlas `nPOTScale` None không được nén. Báo cáo build ghi 54,6 + 26,1 + 11,7 MB; gói điện thoại 147,5 MiB, máy tính 162,7 MiB.
   - **Lần 2** (ToNearest): 2.391 s, `stripped` 3.356, cache **`baf298b8bfa34a59`**. Atlas 10,7 + 5,3 + 2,7 MB. Gói điện thoại `8e51dc78….data.unityweb` **121.228.539 B (115,6 MiB**, +8,1 MiB so với 1.95.2); máy tính `25a4b2e9….data.unityweb` 136.719.892 B (130,4 MiB).
 - **Phát hành:** `firebase deploy --only hosting --project gotaviet` → so SHA-256 từng tệp `Builds/WebGL` với bản live: **gotaviet.com 48/48 khớp, gotaviet.web.app 48/48 khớp**. `.nojekyll` không lên vì Firebase bỏ tệp ẩn, như mọi lần. `build-info.json` live: 1.95.3 / `baf298b8bfa34a59`.
-- **Commit:** gồm mã + tài liệu + 3 atlas + 3 WAV + script Blender/âm thanh.
+- **Commit:** `c73a611` (đã push `main`), gồm mã + tài liệu + 3 atlas + 3 WAV + script Blender/âm thanh.
   - Không commit ảnh render HD nguồn (`AnhXaHD`, `AnhXaNoiBatHD`, Petshop `AnhXaHD`, ~70 MB, chỉ ở máy). Tạo lại bằng `run_cards_hd.py`.
   - Không commit các tệp chỉ ở máy như mọi lần.
 - **Chưa:** thử trên iPhone/Android thật (mặt tiền, FPS khi bật lọc dị hướng, bộ nhớ +~19 MB GPU), nghe âm thanh rơi sông trên điện thoại.
