@@ -30,7 +30,7 @@ function loadSdk(){
     const a=auth.getAuth(appInst);a.languageCode='vi';
     fb={auth:a,A:auth,db:store.getFirestore(appInst),F:store};
     auth.getRedirectResult(a).catch(e=>showMsg(errText(e)));
-    auth.onAuthStateChanged(a,u=>{user=u;myScore=null;renderAccount();// Lúc vừa tạo tài khoản chưa có tên hiển thị → chờ updateProfile rồi mới gửi điểm (trong submit).
+    auth.onAuthStateChanged(a,u=>{user=u;myScore=null;renderAccount();if(u)void playStart();else playStop();// Lúc vừa tạo tài khoản chưa có tên hiển thị → chờ updateProfile rồi mới gửi điểm (trong submit).
       if(u&&!signingUp)void flushPending().finally(refreshBoard);else if(!u)refreshBoard();});
     return fb;
   })().catch(e=>{fbPromise=null;throw e;});
@@ -117,6 +117,7 @@ window.gotaRunEnded=async(metres,localBest)=>{
     void loadSdk().catch(()=>{});
     return;
   }
+  void logRun(metres);
   try{
     const r=await Promise.race([saveScore(metres,true),new Promise((_,no)=>setTimeout(()=>no({code:'unavailable'}),12000))]);
     toast(`${r.newBest?'KỶ LỤC MỚI! ':''}Lượt này ${fmt(metres)} · Kỷ lục ${fmt(r.best)} · Hạng #${r.rank}`);
@@ -126,6 +127,36 @@ window.gotaRunEnded=async(metres,localBest)=>{
     toast(`Lượt này ${fmt(metres)}. Chưa gửi được điểm (${errText(e)}) — sẽ tự gửi lại.`);
   }
 };
+
+/* ---------- 21.378: nhật ký chơi cho trang quản trị (/admin) ----------
+   Chỉ tài khoản đã đăng nhập. plays/{id} = một lần vào chơi: tạo khi game mở (canvas hiện) và trang đang hiển thị, cập nhật
+   seconds/end mỗi 30 s; trang bị ẩn (chuyển app, khóa máy, đóng tab) thì chốt lần đó, hiện lại thì mở lần mới.
+   runs/{id} = điểm (mét) từng lượt. Luật ở firestore.rules; trang quản trị đọc qua Cloud Function adminApi. */
+let play=null;
+async function playStart(){
+  if(play||!user||!gameOpen()||document.hidden)return;
+  const p=play={ref:null,from:performance.now(),timer:0};
+  try{
+    const {db,F}=await loadSdk();
+    if(!user||play!==p){if(play===p)play=null;return;}
+    p.ref=await F.addDoc(F.collection(db,'plays'),{uid:user.uid,start:F.serverTimestamp(),end:F.serverTimestamp(),seconds:0});
+    if(play!==p){await playWrite(p);return;}   // đã bị chốt trong lúc chờ tạo
+    p.timer=setInterval(()=>void playWrite(p),30000);
+  }catch(e){console.warn('play log',e);if(play===p)play=null;}
+}
+async function playWrite(p){
+  if(!p?.ref||!fb)return;
+  try{await fb.F.updateDoc(p.ref,{end:fb.F.serverTimestamp(),seconds:Math.max(0,Math.floor((performance.now()-p.from)/1000))});}
+  catch(e){console.warn('play log',e);}
+}
+function playStop(){const p=play;if(!p)return;play=null;clearInterval(p.timer);void playWrite(p);}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)playStop();else void playStart();});
+window.addEventListener('pagehide',playStop);
+async function logRun(metres){
+  if(!user)return;
+  try{const {db,F}=await loadSdk();await F.addDoc(F.collection(db,'runs'),{uid:user.uid,metres:Math.floor(metres),at:F.serverTimestamp()});}
+  catch(e){console.warn('run log',e);}
+}
 
 /* ---------- thông báo sau mỗi lượt (nằm trên màn hình game) ---------- */
 let toastTimer=0;
@@ -250,7 +281,7 @@ $('acct-logout').addEventListener('click',async()=>{
 });
 setMode(false);renderAccount();
 // Game đã mở → ẩn nút tài khoản trên thanh trên (menu ☰ máy tính chỉ còn «Tải game») và đóng hộp tài khoản nếu đang mở.
-{const c=$('unity-canvas'),sync=()=>{const on=gameOpen();if($('account-open'))$('account-open').hidden=on;if(on&&$('account').open)$('account').close();};
+{const c=$('unity-canvas'),sync=()=>{const on=gameOpen();if($('account-open'))$('account-open').hidden=on;if(on&&$('account').open)$('account').close();if(on)void playStart();else playStop();};
  if(c){new MutationObserver(sync).observe(c,{attributes:true,attributeFilter:['hidden']});sync();}}
 // Tải SDK + bảng xếp hạng khi trang rảnh (không chen vào lúc tải game).
 const idle=window.requestIdleCallback||(f=>setTimeout(f,1200));

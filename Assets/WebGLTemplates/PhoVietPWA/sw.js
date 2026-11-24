@@ -108,6 +108,8 @@ self.addEventListener('fetch',event=>{
   if(['sw.js','precache.json','build-info.json'].includes(url.pathname.substring(ROOT.pathname.length)))return;
   // 21.356: trang đăng nhập Google của Firebase (/__/auth/handler, /__/firebase/init.json) phải đi thẳng ra mạng — không trả index.html.
   if(url.pathname.startsWith('/__/'))return;
+  // 21.378: trang quản trị /admin đi thẳng ra mạng (không trả index.html của game, không lưu offline).
+  if(url.pathname==='/admin'||url.pathname.startsWith('/admin/'))return;
   // Register the lifetime promise synchronously, before awaiting network I/O.
   let finishWrite;
   event.waitUntil(new Promise(resolve=>{finishWrite=resolve;}));

@@ -6861,3 +6861,51 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Máy tính 1536 × 730: hai nút cao 46 px.
   - Ảnh `Captures/trangchu21377-huongdan.jpg` (chỉ ở máy).
 - **Phát hành (vỏ trên 1.95.4):** thêm dòng «Bản cập nhật» «Nút «Hướng dẫn cài game» cạnh LÊN XE THÔI; hộp «Tải game» có thêm thẻ «Cách chơi».» → `AgentScripts/Shell21377.cs` (`PhoVietWebBuild.RefreshWebShell`, không build lại game) → cache **`5f618cb75656b3bd`** → `firebase deploy --only hosting --project gotaviet` → live **48/48 khớp SHA-256** trên gotaviet.com và gotaviet.web.app (`.nojekyll` không lên, như mọi lần). Chưa thử trên iPhone thật.
+
+## 21.378. Trang quản trị https://gotaviet.com/admin + nhật ký chơi (24/11/2026, Claude Code)
+
+- **Người dùng:** «Tạo trang https://gotaviet.com/admin làm trang quản trị: quản lý xóa, thay đổi thông tin tài khoản người chơi; xem thời gian tạo tài khoản (ngày tháng năm giờ phút giây); xem những giờ người chơi vào chơi, chơi bao lâu mỗi lần và tổng thời gian chơi; xem các điểm người chơi từng đạt. Cần chỉnh Firebase/Cloudflare thì toàn quyền làm.»
+- **Kiến trúc:**
+  - Dự án Firebase `gotaviet` đã ở gói **Blaze** (`gcloud billing projects describe` → `billingEnabled: True`), nên dùng **Cloud Functions** (Admin SDK, không cần khóa bí mật).
+  - **Cloudflare không đổi:** `/admin` cùng tên miền, Firebase Hosting phục vụ.
+- **Cloud Function** `functions/index.js`: callable **`adminApi`**, Node 22, gen 2, `asia-southeast1`, 256 MiB, tối đa 2 phiên bản.
+  - Kiểm tra quyền: người gọi phải có tài liệu `admins/{uid}` trong Firestore.
+  - `list`: mọi tài khoản Auth, kèm kỷ lục `scores`, tổng `plays` (số lần vào, tổng giây, lần gần nhất) và số `runs`.
+  - `detail`: một tài khoản, kèm `plays` và `runs` mới nhất trước.
+  - `update`: tên hiển thị, email, mật khẩu mới, khóa/mở khóa (khóa thì thu hồi phiên đăng nhập), tên trên bảng, kỷ lục — admin được hạ kỷ lục.
+  - `delete`: xóa tài khoản Auth, `scores/{uid}` và mọi `plays`/`runs` của người đó.
+  - Chặn tự khóa hoặc tự xóa tài khoản quản trị.
+  - `firebase.json` có khối `functions`; `firebase deploy` tự bật các API run/eventarc/pubsub và đặt chính sách dọn ảnh container sau 1 ngày (tránh phí lưu trữ).
+- **Dữ liệu mới + `firestore.rules`:**
+  - `plays/{id}` `{uid, start, end, seconds}`: chủ tài khoản tạo với `seconds=0`, `start=end=request.time`. Cập nhật chỉ được đổi `end`/`seconds`, `seconds` không giảm và không vượt thời gian thực + 60 s. Máy khách không đọc được; quản trị viên đọc/xóa được.
+  - `runs/{id}` `{uid, metres, at}`: chủ tài khoản tạo, `metres` 0–2.000.000.
+  - `admins/{uid}`: chỉ chính người đó đọc được. Hiện có **1** tài liệu: tài khoản Google của chủ dự án (`XSy7HNRZLwZiUUrDdtGY5aOle0j1`, tạo bằng Firestore REST + `gcloud auth print-access-token`). Thêm quản trị viên khác: tạo `admins/{uid}` trong Firebase Console → Firestore.
+  - `scores/{uid}`: thêm `allow delete` cho admin. Luật cũ giữ nguyên.
+- **Ghi nhật ký chơi** (`Assets/WebGLTemplates/PhoVietPWA/account.js`, chỉ tài khoản đã đăng nhập):
+  - Game mở (canvas hiện) và trang đang hiển thị → `playStart` tạo `plays`, mỗi 30 s cập nhật `seconds`/`end`.
+  - Trang bị ẩn (chuyển app, khóa máy) hoặc `pagehide` → `playStop` chốt lần đó; hiện lại thì mở lần mới.
+  - Mỗi lượt hết (`gotaRunEnded`) → `logRun` ghi `runs`.
+  - Khách không ghi. Dữ liệu có **từ 24/11/2026**; trước đó chỉ có kỷ lục và số lượt trong `scores`.
+- **Trang** `Assets/WebGLTemplates/PhoVietPWA/admin/` (`index.html`, `admin.js`, `admin.css`), cùng tông màu trang chủ.
+  - Đăng nhập Google hoặc email/mật khẩu. Tài khoản không phải admin thấy «Không có quyền».
+  - Ô thống kê: tài khoản, chơi trong 24 giờ, tổng lần vào, tổng thời gian, tổng lượt.
+  - Bảng người chơi: tên/email/cách đăng nhập, nhãn QUẢN TRỊ/ĐÃ KHÓA, lúc tạo tài khoản `dd/mm/yyyy HH:mm:ss` (giờ Việt Nam), chơi gần nhất, số lần vào, tổng thời gian, kỷ lục, số lượt. Có tìm kiếm và 5 kiểu sắp xếp.
+  - Bấm một người → lúc tạo, đăng nhập gần nhất, hoạt động gần nhất, form sửa, bảng các lần vào chơi (bắt đầu/kết thúc/thời lượng), bảng điểm từng lượt, vùng «Xóa tài khoản» (gõ XOA để xác nhận).
+  - Hosting: `/admin` 301 → `/admin/`, header `X-Robots-Tag: noindex, nofollow` + `<meta name="robots">`.
+  - `sw.js` bỏ qua `/admin` (không trả trang game).
+  - `PhoVietWebBuild.RefreshWebShell` chép thư mục `admin/`; `FinalizeWebOutput` loại `admin/` khỏi `precache.json` (không vào kho offline). Bản build Unity đầy đủ tự chép cả thư mục template.
+- **Phát hành:**
+  - `firebase deploy --only functions,firestore:rules --project gotaviet --non-interactive --force`.
+  - «Bản cập nhật» thêm dòng «Tài khoản đã đăng nhập được ghi lại thời gian chơi và điểm từng lượt (để quản lý bảng xếp hạng).»
+  - `AgentScripts/Shell21378.cs` (`RefreshWebShell` trên 1.95.4) → cache **`48314b9ae1db7ecf`** → `firebase deploy --only hosting` → live **51/51 khớp SHA-256** trên gotaviet.com và gotaviet.web.app (`.nojekyll` không lên, như mọi lần).
+- **Kiểm tra trên bản thật:**
+  - Gọi `adminApi` không đăng nhập → `UNAUTHENTICATED «Cần đăng nhập.»`; CORS từ gotaviet.com 204.
+  - Trang /admin hiện ô đăng nhập, 0 lỗi console.
+  - Thử đầu-cuối bằng 2 tài khoản thử tạm (REST Identity Toolkit/Firestore, đã xóa sạch: Auth còn 2 tài khoản thật, plays/runs 0, admins 1). Đạt các mục:
+    - người chơi tạo/cập nhật `plays` và tạo `runs`;
+    - chặn `seconds` gian lận, chặn ghi `runs` cho người khác, chặn người chơi đọc `plays`;
+    - tài khoản không phải admin gọi bị `PERMISSION_DENIED`;
+    - admin `list` thấy số lần vào/giây/lượt và lúc tạo, `detail` thấy `plays`/`runs`;
+    - `update` đổi tên/tên bảng/kỷ lục 777/khóa;
+    - không tự xóa được, `delete` xóa Auth + scores + 1 play + 1 run.
+- **Chưa:** người dùng tự đăng nhập /admin bằng tài khoản Google của mình để xem; dữ liệu lần chơi bắt đầu tích lũy từ lúc này.

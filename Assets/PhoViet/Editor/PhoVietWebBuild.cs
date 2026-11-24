@@ -168,7 +168,7 @@ namespace PhoViet.Editor
             foreach(string file in new[]{"style.css","app.js","account.js","manifest.webmanifest","poster-home-mobile.jpg","poster-home-lazer.jpg","poster-home-khien.jpg"})
                 File.Copy("Assets/WebGLTemplates/PhoVietPWA/"+file,Path.Combine(root,file),true);
             // 21.331: trang chủ mẫu C có dải 8 nút điều khiển (controls/btn-*.png)
-            foreach(string dir in new[]{"icons","controls","install"})   // 21.358: ảnh hướng dẫn cài (install/)
+            foreach(string dir in new[]{"icons","controls","install","admin"})   // 21.358: ảnh hướng dẫn cài (install/); 21.378: trang quản trị (admin/)
             {
                 Directory.CreateDirectory(Path.Combine(root,dir));
                 foreach(string f in Directory.GetFiles("Assets/WebGLTemplates/PhoVietPWA/"+dir))
@@ -203,7 +203,7 @@ namespace PhoViet.Editor
             var files=Directory.GetFiles(root,"*",SearchOption.AllDirectories)
                 .Where(p=>!p.EndsWith(".meta")&&!p.EndsWith(".map")&&!p.EndsWith(".br"))
                 .Select(p=>p.Substring(root.Length+1).Replace('\\','/'))
-                .Where(p=>p!="sw.js"&&p!="precache.json"&&p!="build-info.json"&&p!=".nojekyll")
+                .Where(p=>p!="sw.js"&&p!="precache.json"&&p!="build-info.json"&&p!=".nojekyll"&&!p.StartsWith("admin/",StringComparison.Ordinal))   // 21.378: trang quản trị không vào kho offline
                 .OrderBy(p=>p,StringComparer.Ordinal).ToArray();
             using var hash=SHA256.Create();
             foreach(string file in files)
