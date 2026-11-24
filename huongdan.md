@@ -6547,7 +6547,7 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Bảng xếp hạng: thẻ kính «🏆 BẢNG XẾP HẠNG · KỶ LỤC MÉT» trong `.board` (cột phải, trên «Bản cập nhật», bọc `div.side`) — top 10 + dòng «Bạn (tên): hạng #N / M người · kỷ lục X m», nút «Top 100» mở hộp `#ranks`. Hạng = số người kỷ lục cao hơn + 1 (`getCountFromServer`), đồng điểm cùng hạng; dòng của mình tô vàng.
   - Thanh trên: nút `#account-open` «Đăng nhập» (viền vàng) → hiện tên người chơi khi đã đăng nhập; hộp `#account` (thẻ Đăng nhập/Đăng ký, nút Google trắng).
   - **Đăng nhập/đăng ký CHỈ ở trang chủ web (người dùng sửa ý giữa chừng: «không cho đăng nhập đăng ký trong game»).** Khi game đã mở (`#unity-canvas` hiện), `account.js` ẩn `#account-open` (MutationObserver trên thuộc tính `hidden`), đóng hộp `#account` nếu đang mở và `openAccount()` không làm gì. Thông báo hết lượt không có nút đăng nhập.
-  - Hết lượt: thông báo `#run-toast` đáy màn hình game, tự tắt sau 9 s — đã đăng nhập: «KỶ LỤC MỚI! Lượt này X m · Kỷ lục Y m · Hạng #N» + «Xem bảng»; khách: «Lượt này X m. Đăng nhập ở trang chủ để ghi kỷ lục lên bảng xếp hạng chung.». Kỷ lục lượt khách giữ ở `localStorage` `gota:pendingBest` và tự gửi khi đăng nhập/đăng ký ở trang chủ; gửi lỗi (mất mạng, 12 s) cũng giữ lại để gửi sau.
+  - Hết lượt: thông báo `#run-toast` đáy màn hình game, tự tắt sau 9 s — đã đăng nhập: «KỶ LỤC MỚI! Lượt này X m · Kỷ lục Y m · Hạng #N» + «Xem bảng»; khách: «Lượt này X m. Đăng nhập ở trang chủ để ghi kỷ lục lên bảng xếp hạng chung.». Kỷ lục lượt khách giữ ở `localStorage` `gota:pendingBest` và tự gửi khi đăng nhập/đăng ký ở trang chủ; gửi lỗi (mất mạng, 12 s) cũng giữ lại để gửi sau (từ 21.380: gửi lại ngay khi có mạng trở lại hoặc gộp vào ván kế tiếp; trước đó chỉ gửi khi mở lại trang/đăng nhập lại).
   - Ghi nhận khi thử: Unity WebGL bắt mọi phím trên cửa sổ → ô nhập HTML mở đè lên game đang chạy không gõ được chữ. Không còn ô nhập nào trong game nên không cần xử lý; nếu sau này thêm ô nhập khi game chạy phải chặn phím ở pha capture của `window` trước khi tới Unity.
   - `sw.js`: không chặn `/__/` (trang đăng nhập Google của Firebase) — trước đây mọi điều hướng cùng nguồn trả `index.html` trong bộ nhớ đệm.
   - `index.html`: bỏ thẻ `</ul>` thừa trong «Bản cập nhật»; ghi chú bản 1.95.0 thêm 2 dòng (tài khoản/bảng xếp hạng, địa chỉ mới).
@@ -6921,3 +6921,18 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Chép 3 tệp admin vào `Builds/WebGL/admin/`. Không cần `RefreshWebShell`: admin/ không nằm trong `precache.json`, nên cache vỏ vẫn `48314b9ae1db7ecf`. Unity MCP lúc này cũng không kết nối được.
   - Chạy `firebase deploy --only hosting` → live 51/51 khớp SHA-256 trên gotaviet.com và gotaviet.web.app.
   - Không sửa «Bản cập nhật» trên trang chủ: chỉ đổi chữ trên trang quản trị, người chơi không thấy gì mới, và đổi `index.html` thì phải chạy `RefreshWebShell` trong Unity.
+
+## 21.380. Kiểm tra kỷ lục khách + gửi lại điểm lỗi khi có mạng lại (24/11/2026, Claude Code)
+
+- **Người dùng:** «Kiểm tra nếu người chơi không đăng nhập, điểm kỷ lục có được lưu trong máy không, và khi đăng nhập thì kỷ lục có tự cập nhật vào không.» Sau báo cáo, người dùng chọn **«Chỉ sửa chỗ 2»**.
+- **Kết quả kiểm tra (không sửa gì):**
+  - Khách: kỷ lục lưu trên máy ở 2 chỗ — kỷ lục trong game (`PlayerPrefs` `PhoViet.OpenWorld.BestMetres.v1`, `OpenWorldGame.cs`) và kỷ lục chờ gửi `localStorage` `gota:pendingBest` (`account.js` `gotaRunEnded`, giữ số lớn nhất).
+  - Thử thật trên bản build trong máy (`Builds/WebGL` qua `http.server` 127.0.0.1): 3 ván 850 → 420 → 1.320 m cho `pendingBest` 850 → 850 → 1.320, tải lại trang vẫn còn 1.320, thông báo khách đúng.
+  - Đăng nhập (Google/email; đăng ký mới chờ đặt tên): `onAuthStateChanged` → `flushPending` → `saveScore(p,false)` lấy max với kỷ lục trên bảng (không hạ điểm, không cộng «Số ván chơi»), gửi xong xóa `pendingBest`.
+  - Hai chỗ hở báo người dùng: (1) kỷ lục trên máy từ trước 1.95.0 không gửi (game có truyền `localBest` nhưng `account.js` bỏ qua) — **người dùng chọn không sửa** vì máy dùng chung sẽ gửi nhầm tài khoản; (2) đã đăng nhập mà gửi lỗi thì chỉ gửi lại khi mở lại trang — **đã sửa**.
+- **Sửa (`Assets/WebGLTemplates/PhoVietPWA/account.js`):**
+  - `flushPending` trả Promise, có khóa `flushing` chống gửi chồng; chỉ xóa `pendingBest` khi số chờ không tăng trong lúc gửi.
+  - Sự kiện `online`: đã đăng nhập thì `flushPending()` rồi `refreshBoard()`.
+  - `gotaRunEnded` đã đăng nhập: chờ `flushing` nếu đang gửi, rồi `saveScore(max(mét ván này, pendingBest), true)`; thành công thì xóa số chờ. Thông báo vẫn ghi «Lượt này X m · Kỷ lục Y m».
+- **Kiểm tra:** trang thử trong thư mục tạm (bản `index.html` build + `account.js` mới + Firebase giả trong bộ nhớ, không đụng dữ liệu thật): ván 500 có mạng → bảng 500; ván 900 mất mạng → chờ 900; sự kiện `online` → bảng 900, chờ 0; ván 1.200 mất mạng → chờ 1.200; ván 300 có mạng → bảng 1.200, số ván 2, chờ 0; ván 100 → bảng giữ 1.200. `node --check` cú pháp đạt.
+- **Phát hành:** «Bản cập nhật» thêm dòng «Mất mạng lúc gửi điểm: kỷ lục tự gửi lên bảng xếp hạng ngay khi có mạng lại hoặc sau ván kế tiếp, không cần mở lại trang.» `AgentScripts/Shell21380.cs` (`RefreshWebShell` trên 1.95.4) → cache **`f267d045895f3b56`** → `firebase deploy --only hosting` → live **51/51 khớp SHA-256** trên gotaviet.com và gotaviet.web.app (`.nojekyll` không lên, như mọi lần). Commit + push cùng mục này.

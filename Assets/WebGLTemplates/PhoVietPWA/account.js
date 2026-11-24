@@ -99,9 +99,16 @@ async function saveScore(metres,countRun){
   myScore={best,rank,runs:data.runs};
   return {best,rank,newBest:best>(old?.best||0)};
 }
-async function flushPending(){
-  const p=readPending();if(!p||!user)return;
-  try{await saveScore(p,false);writePending(0);}catch(e){console.warn('pending score',e);}
+// 21.380: gửi lỗi (mất mạng) thì gửi lại khi có mạng trở lại (sự kiện «online») và gộp vào lần gửi ván kế tiếp,
+// không phải chờ mở lại trang. flushing chặn gửi chồng hai lần cùng lúc.
+let flushing=null;
+function flushPending(){
+  if(!readPending()||!user)return Promise.resolve();
+  return flushing||=(async()=>{
+    try{const p=readPending();if(p&&user){await saveScore(p,false);if(readPending()<=p)writePending(0);}}
+    catch(e){console.warn('pending score',e);}
+    finally{flushing=null;}
+  })();
 }
 // Gọi từ Unity (jslib GotaRunEnded) mỗi khi hết lượt.
 // 21.375: đang chơi (Unity báo gotaRunStarted) thì không hiện thông báo xếp hạng; vào lượt mới tắt thông báo còn đang hiện
@@ -119,7 +126,10 @@ window.gotaRunEnded=async(metres,localBest)=>{
   }
   void logRun(metres);
   try{
-    const r=await Promise.race([saveScore(metres,true),new Promise((_,no)=>setTimeout(()=>no({code:'unavailable'}),12000))]);
+    if(flushing)await flushing.catch(()=>{});
+    const pending=readPending();   // 21.380: điểm lần trước chưa gửi được thì gửi kèm (lấy số lớn hơn)
+    const r=await Promise.race([saveScore(Math.max(metres,pending),true),new Promise((_,no)=>setTimeout(()=>no({code:'unavailable'}),12000))]);
+    if(pending&&readPending()<=pending)writePending(0);
     toast(`${r.newBest?'KỶ LỤC MỚI! ':''}Lượt này ${fmt(metres)} · Kỷ lục ${fmt(r.best)} · Hạng #${r.rank}`);
     refreshBoard();
   }catch(e){
@@ -286,4 +296,4 @@ setMode(false);renderAccount();
 // Tải SDK + bảng xếp hạng khi trang rảnh (không chen vào lúc tải game).
 const idle=window.requestIdleCallback||(f=>setTimeout(f,1200));
 idle(()=>{if(navigator.onLine!==false)refreshBoard();});
-window.addEventListener('online',()=>{refreshBoard();});
+window.addEventListener('online',()=>{if(user)void flushPending().finally(refreshBoard);else refreshBoard();});   // 21.380
