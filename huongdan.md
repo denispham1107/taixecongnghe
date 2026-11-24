@@ -6845,3 +6845,19 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Phát hành:** `firebase deploy --only hosting --project gotaviet` → so SHA-256 với `Builds/WebGL`: **gotaviet.com 48/48, gotaviet.web.app 48/48 khớp** (`.nojekyll` không lên vì Firebase bỏ tệp ẩn, như mọi lần).
 - **Commit:** `59aad06` (mã + vỏ trang + tài liệu), đã push `main`. Không commit tệp chỉ ở máy như mọi lần.
 - **Chưa:** người dùng thử trên máy tính (phím mới) và điện thoại (thông báo xếp hạng tắt khi vào lượt, lazer bắn xác cháy).
+
+## 21.377. Thẻ «Cách chơi» trong hộp «Tải game»; nút «Hướng dẫn cài game» thay ô bánh răng (24/11/2026, Claude Code)
+
+- **Người dùng** (ảnh trang chủ iPhone dọc/ngang + hộp «Cài game & chơi offline»):
+  - «Khi ấn vào Tải game cho thêm 1 tab "Cách chơi": copy hết nội dung hướng dẫn cách chơi trong nút hình bánh răng màu xanh vào.»
+  - «Bỏ nút bánh răng, cho thêm 1 nút "Hướng dẫn Cài Game", thiết kế phù hợp giao diện hiện giờ. Khi ấn vào đó sẽ xuất hiện đầy đủ thông tin như ấn vào "Tải Game" trên iOS.»
+- **Làm** (`Assets/WebGLTemplates/PhoVietPWA/`):
+  - `index.html`: bỏ hộp `#guide` (bánh răng); thêm thẻ thứ 4 `data-tab="howto"` «Cách chơi» sau «Android · Máy tính» trong `#install-guide`, khung `section.install-pane.howto` chứa nguyên nội dung cũ (nhãn «SẴN SÀNG LÊN ĐƯỜNG», tiêu đề «Cầm lái. Khám phá. Phá kỷ lục.», 3 phần Máy tính / Điện thoại / Trên phố mở — đã có phím mới 21.375).
+  - Ô bánh răng `#help-gear` → nút `#install-help` class `setup`: khối nghiêng viền xanh ngọc (cùng kiểu ô bánh răng cũ), icon điện thoại + mũi tên tải xuống, chữ 2 dòng «HƯỚNG DẪN / CÀI GAME», cao bằng nút LÊN XE THÔI ở mọi cỡ (`align-self:stretch`).
+  - `app.js`: bỏ 3 trình nghe của bánh răng/`#guide`; `#install-help` → `pauseGame(); setMenu(false); openInstallGuide();` — luôn mở hộp hướng dẫn (kể cả máy tính/Android có lời mời cài của trình duyệt, khác nút «Tải game» vẫn gọi lời mời cài nếu có), chọn sẵn thẻ đúng máy (iPhone Chrome / iPhone Safari / Android · Máy tính). Đóng hộp không còn đặt tiêu điểm lên nút «Tải game».
+  - `style.css` khối cuối 21.377: `.setup` + cỡ theo từng khung (máy tính gọn 21.374: chữ 10,5 px, điện thoại: 9,5 px); `.howto` canh lề nhãn/tiêu đề.
+- **Kiểm tra** (bản xem thử cục bộ từ `Builds/WebGL` + vỏ mới, trình duyệt trong app):
+  - Điện thoại 375 × 812: LÊN XE THÔI và «HƯỚNG DẪN CÀI GAME» cùng hàng; bấm → hộp mở, 4 thẻ xếp 2 × 2 vừa khung; thẻ «Cách chơi» hiện đủ 3 phần.
+  - Máy tính 1536 × 730: hai nút cao 46 px.
+  - Ảnh `Captures/trangchu21377-huongdan.jpg` (chỉ ở máy).
+- **Phát hành (vỏ trên 1.95.4):** thêm dòng «Bản cập nhật» «Nút «Hướng dẫn cài game» cạnh LÊN XE THÔI; hộp «Tải game» có thêm thẻ «Cách chơi».» → `AgentScripts/Shell21377.cs` (`PhoVietWebBuild.RefreshWebShell`, không build lại game) → cache **`5f618cb75656b3bd`** → `firebase deploy --only hosting --project gotaviet` → live **48/48 khớp SHA-256** trên gotaviet.com và gotaviet.web.app (`.nojekyll` không lên, như mọi lần). Chưa thử trên iPhone thật.

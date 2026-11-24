@@ -134,12 +134,9 @@ document.addEventListener('fullscreenchange',()=>{if(!canvas.hidden)setImmersive
 new ResizeObserver(scheduleViewport).observe(canvas);
 syncViewport();
 
-// 21.347: bỏ nút Cách chơi trên thanh trên; ô bánh răng cạnh LÊN XE THÔI vẫn mở Cách chơi.
-$('help-gear').addEventListener('click',()=>{pauseGame();setMenu(false);$('guide').showModal();});
-$('close-help').addEventListener('click', () => {$('guide').close();if(unityInstance)canvas.focus();else $('help-gear').focus();});
-$('guide').addEventListener('click', e => {if(e.target === $('guide')) $('guide').close();});
+// 21.377: bỏ ô bánh răng (hộp Cách chơi #guide) → nội dung chuyển thành thẻ «Cách chơi» trong hộp «Tải game».
 // 21.347: nút «Tải game» mở hộp chỉ có phần Cài game & chơi offline.
-$('close-install').addEventListener('click', () => {$('install-guide').close();if(unityInstance)canvas.focus();else $('install').focus();});
+$('close-install').addEventListener('click', () => {$('install-guide').close();if(unityInstance)canvas.focus();});
 $('install-guide').addEventListener('click', e => {if(e.target === $('install-guide')) $('install-guide').close();});
 $('retry').addEventListener('click', () => location.reload());
 window.addEventListener('beforeinstallprompt', e => {
@@ -159,6 +156,8 @@ function openInstallGuide(){
   $('install-guide').showModal();$('install-guide').scrollTop=0;
   $('install-title').focus({preventScroll:true});   // 21.359: không để tiêu điểm (viền xanh) nằm trên nút × khi vừa mở
 }
+// 21.377: nút «Hướng dẫn cài game» cạnh LÊN XE THÔI — luôn mở hộp hướng dẫn (như «Tải game» trên iPhone), chọn sẵn thẻ đúng máy.
+$('install-help').addEventListener('click',()=>{pauseGame();setMenu(false);openInstallGuide();});
 $('install').addEventListener('click', async () => {
   pauseGame();setMenu(false);
   if(!installPrompt) {openInstallGuide();return;}
