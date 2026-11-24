@@ -7149,3 +7149,32 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Thẻ `data-pane="other"` giờ là «**Android / Chrome / Edge:** Bấm vào nút “TẢI GAME” để tải và cài đặt Game trực tiếp vào máy nhé.»
   - Dòng «Bản cập nhật» của 21.392 sửa theo: «… hướng dẫn gọn — bấm vào nút «TẢI GAME» để tải và cài game vào máy.»
 - **Phát hành vỏ web trên 1.95.5:** `AgentScripts/Shell21393.cs` (`RefreshWebShell`) → cache **`3e003bac165ed764`** → `firebase deploy` → gotaviet.com **51/51 khớp SHA-256** (`.nojekyll` không lên như mọi lần). Đã commit + push.
+
+## 21.394. Ảnh hướng dẫn cài iPhone: chữ gotaviet.web.app → gotaviet.com (25/11/2026, Claude Code)
+
+- **Người dùng (kèm ảnh thẻ iPhone · Chrome trên điện thoại):** «Trong "iphone-chrome" và "iPhone-Safari": hình nào có "gotaviet.web.app" cho thay bằng "gotaviet.com" nhé».
+- **8 ảnh `Assets/WebGLTemplates/PhoVietPWA/install/` có chữ cũ, đã sửa:**
+
+  | Ảnh | Vị trí chữ |
+  |---|---|
+  | `ios-chrome-1` | thanh địa chỉ |
+  | `ios-chrome-2` | thanh địa chỉ + dòng phụ trong bảng chia sẻ |
+  | `ios-chrome-3` | dòng phụ |
+  | `ios-chrome-4` | `https://gotaviet.web.app/` → `https://gotaviet.com/` |
+  | `ios-safari-1` | thanh địa chỉ dưới đáy |
+  | `ios-safari-3` | dòng phụ (chữ đỏ nhạt) |
+  | `ios-safari-4` | dòng phụ |
+  | `ios-safari-5` | dòng địa chỉ https |
+
+  `ios-safari-2` không có chữ này nên giữ nguyên. Kích thước ảnh không đổi (width/height trong `index.html` vẫn đúng).
+- **Cách làm:** `FixUrl.cs` dùng System.Drawing qua PowerShell `Add-Type`; bản lưu ở `ArtSource/Concepts/CaiDatIphone-21394/FixUrl.cs`, chỉ trong máy.
+  - Trong khung tìm của từng chỗ, dò điểm ảnh khác nền. Nền được nội suy theo cột giữa mép trên và mép dưới khung, ngưỡng 60, để lấy khung bao chữ cũ và màu chữ (trung bình các điểm đậm nhất).
+  - Tô lại nền: mép trên/dưới cách chữ 5 px, làm mịn ngang 7 px, nội suy theo cột, lề ngang 7 px.
+  - Vẽ chữ mới bằng phép ánh xạ đo từ chữ cũ:
+    - cỡ và chân chữ khớp chữ cũ;
+    - chữ trên thanh địa chỉ canh giữa, font Segoe UI Semibold;
+    - dòng phụ và dòng https canh trái, font Segoe UI.
+  - Lưu JPEG chất lượng 92.
+  - Ảnh gốc giữ trong thư mục tạm của phiên; ảnh so sánh trước/sau ở `ArtSource/Concepts/CaiDatIphone-21394/truoc-sau.png` (chỉ trong máy).
+- **`index.html`:** «Bản cập nhật» thêm dòng «Ảnh hướng dẫn cài trên iPhone (Chrome, Safari) đổi sang địa chỉ gotaviet.com.» (`alt` đã ghi gotaviet.com từ 21.387).
+- **Phát hành vỏ web trên 1.95.5:** `AgentScripts/Shell21394.cs` (`RefreshWebShell`) → cache **`6c6cbbf6a0a09fe2`** → `firebase deploy` → gotaviet.com **51/51 khớp SHA-256** (`.nojekyll` không lên như mọi lần). Đã commit + push.
