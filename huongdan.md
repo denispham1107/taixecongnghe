@@ -6843,4 +6843,5 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **«Bản cập nhật»** trong `index.html` thêm 4 dòng: lazer bắn nổ xác xe cháy; đổi phím máy tính; thông báo xếp hạng không hiện đè khi chơi; trang chủ máy tính gọn hơn.
 - **Build:** 1.95.4 trong `PhoVietWebBuild.cs` + `ProjectSettings.asset` → `ReleaseBuild.Prepare` (lần 1 «compiling», lần 2 «ready 1.95.4») → `BuildNow`: 2.438 s, `stripped` 3.356, cache **`c935dba171cbfa54`**. Gói điện thoại `a0193ba3….data.unityweb` 121.229.122 B (115,6 MiB), máy tính `16444fc7….data.unityweb` 136.720.245 B (130,4 MiB).
 - **Phát hành:** `firebase deploy --only hosting --project gotaviet` → so SHA-256 với `Builds/WebGL`: **gotaviet.com 48/48, gotaviet.web.app 48/48 khớp** (`.nojekyll` không lên vì Firebase bỏ tệp ẩn, như mọi lần).
+- **Commit:** `59aad06` (mã + vỏ trang + tài liệu), đã push `main`. Không commit tệp chỉ ở máy như mọi lần.
 - **Chưa:** người dùng thử trên máy tính (phím mới) và điện thoại (thông báo xếp hạng tắt khi vào lượt, lazer bắn xác cháy).
