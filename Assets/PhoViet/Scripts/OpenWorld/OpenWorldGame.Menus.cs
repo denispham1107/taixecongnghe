@@ -184,7 +184,7 @@ namespace PhoViet.OpenWorld
         void KeyHints(float x)
         {
             float h = 62, y = mH - 32 - h - MSB, cy = y + h / 2;
-            string[][] items = { new[] { "←", "→", "WASD", "LÁI" }, new[] { "J", "NHẢY" }, new[] { "F", "TÊN LỬA" }, new[] { "SPACE", "PHANH TAY" }, new[] { "P", "TẠM DỪNG" } };
+            string[][] items = { new[] { "←", "→", "WASD", "LÁI" }, new[] { "SPACE", "NHẢY" }, new[] { "K", "TÊN LỬA" }, new[] { ";", "KHIÊN" }, new[] { "J", "PHANH TAY" }, new[] { "P", "TẠM DỪNG" } };
             float w = 8 + 22;
             foreach (var it in items) { for (int i = 0; i < it.Length - 1; i++) w += Mathf.Max(36, TextW(it[i], 16) + 18) + 7; w += TextW(it[it.Length - 1], 17) + 20; }
             w += 2;

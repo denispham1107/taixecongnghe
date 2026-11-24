@@ -7,7 +7,7 @@
   <script>(function(){var h=location.hostname;if(h==='gotaviet.web.app'||h==='gotaviet.firebaseapp.com')location.replace('https://gotaviet.com'+location.pathname+location.search+location.hash);})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0a1622">
-  <meta name="description" content="Lái xe qua phố quen: trốn CSGT, tiêu diệt khủng long, xe tăng, trực thăng, tàu trên bản đồ mở Sài Gòn và phá kỷ lục quãng đường. Chơi trên máy tính, Android và iPhone.">
+  <meta name="description" content="Đại náo phố quen: trốn CSGT, tiêu diệt khủng long, xe tăng, trực thăng, tàu trên bản đồ mở Sài Gòn và phá kỷ lục quãng đường. Chơi trên máy tính, Android và iPhone.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="GờTa Việt">
@@ -59,7 +59,7 @@
             <div class="pads"><img src="controls/btn-left.png" width="160" height="160" alt="TRÁI" loading="lazy" decoding="async"><img src="controls/btn-right.png" width="160" height="160" alt="PHẢI" loading="lazy" decoding="async"><img src="controls/btn-shield.png" width="160" height="160" alt="KHIÊN" loading="lazy" decoding="async"><img src="controls/btn-reverse.png" width="160" height="160" alt="LÙI" loading="lazy" decoding="async"><img src="controls/btn-gas.png" width="160" height="160" alt="GA" loading="lazy" decoding="async"><img src="controls/btn-jump.png" width="160" height="160" alt="NHẢY" loading="lazy" decoding="async"><img src="controls/btn-missile.png" width="160" height="160" alt="TÊN LỬA" loading="lazy" decoding="async"><img src="controls/btn-laser.png" width="160" height="160" alt="LAZER" loading="lazy" decoding="async"></div>
             <p class="touch-guide">Xoay ngang để chơi. Giữ TRÁI / PHẢI để lái · GA · LÙI · P/DRIFT bên phải · NHẢY, TÊN LỬA, LAZER hàng trên · KHIÊN trên hai nút lái.</p>
             <div class="controls" aria-label="Điều khiển bằng bàn phím">
-              <span><kbd>←</kbd><kbd>→</kbd><kbd>WASD</kbd> LÁI</span><span><kbd>J</kbd> NHẢY</span><span><kbd>F</kbd> TÊN LỬA</span><span><kbd>L</kbd> LAZER</span><span><kbd>K</kbd> KHIÊN</span><span><kbd>SPACE</kbd> PHANH TAY</span><span><kbd>P</kbd> TẠM DỪNG</span>
+              <span><kbd>←</kbd><kbd>→</kbd><kbd>WASD</kbd> LÁI</span><span><kbd>SPACE</kbd> NHẢY</span><span><kbd>K</kbd> TÊN LỬA</span><span><kbd>L</kbd> LAZER</span><span><kbd>;</kbd> KHIÊN</span><span><kbd>J</kbd> PHANH TAY</span><span><kbd>P</kbd> TẠM DỪNG</span>
             </div>
           </div>
           <div class="side">
@@ -73,6 +73,10 @@
           <details class="release-notes glass" id="release-notes">
             <summary><span class="release-tag">MỚI</span> Bản cập nhật <b id="release-version">—</b> · <span id="release-date">24/11/2026</span></summary>
             <ul>
+              <li>Tia lazer bắn nổ tung được cả xác xe đang đứng yên bốc cháy.</li>
+              <li>Máy tính: đổi phím — Space nhảy, K tên lửa, ; khiên, J phanh tay.</li>
+              <li>Thông báo bảng xếp hạng không còn hiện đè khi đang chơi.</li>
+              <li>Trang chủ trên máy tính gọn hơn, lộ rõ ảnh nền.</li>
               <li>Mặt tiền cửa hàng trên điện thoại nét hơn nhiều: nội thất sau kính độ phân giải cao, mức «Rất cao» lọc ảnh sắc nét khi nhìn xiên.</li>
               <li>Xe rơi sông/biển có âm thanh stereo: «ùm» chạm nước, nước ào và bọt ùng ục đến khi xe chìm hẳn.</li>
               <li>Thả Ga xe trôi xa hơn.</li>
@@ -122,7 +126,7 @@
   <dialog id="guide" aria-labelledby="guide-title">
     <div class="guide-heading"><p class="eyebrow tem">SẴN SÀNG LÊN ĐƯỜNG</p><button id="close-help" class="close tem" aria-label="Đóng hướng dẫn"><svg class="ico-x" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg></button></div>
     <h2 id="guide-title" tabindex="-1" autofocus>Cầm lái. Khám phá. Phá kỷ lục.</h2>
-    <div class="guide-section"><h3>Máy tính</h3><p>Phím mũi tên hoặc WASD để tăng tốc, lùi và đánh lái. J nhảy, F bắn tên lửa, Space phanh tay, K khiên, L lazer (bấm 1 lần là bắn tới hết năng lượng), chạm nhanh 2 lần ↑ để bật/tắt Ga tự động, P hoặc nút tạm dừng (góc trên) để tạm dừng; nút hình loa bên cạnh để bật/tắt tiếng.</p></div>
+    <div class="guide-section"><h3>Máy tính</h3><p>Phím mũi tên hoặc WASD để tăng tốc, lùi và đánh lái. Space nhảy, K bắn tên lửa, J phanh tay, ; (chấm phẩy) khiên, L lazer (bấm 1 lần là bắn tới hết năng lượng), chạm nhanh 2 lần ↑ để bật/tắt Ga tự động, P hoặc nút tạm dừng (góc trên) để tạm dừng; nút hình loa bên cạnh để bật/tắt tiếng.</p></div>
     <div class="guide-section"><h3>Điện thoại</h3><p>Xoay ngang để chơi. Góc trái dưới có hai nút mũi tên: giữ ← để rẽ trái, giữ → để rẽ phải, giống phím mũi tên trên máy tính; trượt ngón sang nút kia là đổi hướng. Hàng dưới bên phải: giữ P/Drift để phanh gấp về 0 trong 1 giây, giữ Lùi để lùi, giữ Ga để chạy tới; chạm nhanh 2 lần vào Ga để xe tự giữ tốc độ (Ga tự động). Hàng trên: Tên lửa (trên Lùi) và Nhảy (trên Ga). Có thể vừa giữ nút lái vừa bấm hoặc giữ các nút bên phải.</p></div>
     <div class="guide-section"><h3>Trên phố mở</h3><p>Lái tự do khắp bản đồ: phố ven sông, chợ, cầu và các đại lộ, có đèn giao thông và dòng xe máy, ô tô. Điểm là số mét bạn lái được.</p><p><b>CSGT</b> xuất phát sau vài giây và đuổi theo; đứng yên gần xe CSGT quá lâu là bị bắt.</p><p><b>Hiểm họa</b> xuất hiện theo quãng đường: khủng long quất đuôi (nhảy qua để né), xe tăng bắn đạn pháo để lại hố kéo lệch xe, trực thăng phóng tên lửa có vòng báo đỏ. Trúng đạn, tên lửa, khủng long, đâm thân xe tăng hay rơi sông là kết thúc chuyến.</p><p><b>Tên lửa của bạn:</b> bắt đầu đầy 10 quả (tối đa 10), mỗi lần bắn 2 quả từ 2 đèn xe và tự khóa 2 mục tiêu (xe tăng, trực thăng, tàu); kho tự hồi 1 quả mỗi 5 giây, nhặt biểu tượng tên lửa trên phố để nạp thêm.</p><p><b>Va chạm:</b> húc xe khác thì cả hai văng, bốc khói và choáng theo tốc độ; từ 90 km/h xe cùng cỡ hoặc nhỏ hơn sẽ nổ tung. Hàng rào trước cửa hàng húc đổ được, lan can bờ sông thì không.</p></div>
   </dialog>

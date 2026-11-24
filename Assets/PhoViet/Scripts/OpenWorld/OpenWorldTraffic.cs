@@ -718,6 +718,7 @@ namespace PhoViet.OpenWorld
         // không tính sát thương cho xe người chơi), xe biến mất (thu về hồ xe, sinh lại chỗ khác như thường).
         public System.Action<Vector3, Color, bool> LaserExploded; // vị trí, màu sơn, là xe máy
         public int LaserKills { get; private set; }
+        public int LaserWrecks { get; private set; }               // 21.374: xác cháy bị lazer bắn nổ
         public int VehicleIndexOf(Rigidbody rb)
         {
             if (!rb) return -1;
@@ -727,7 +728,15 @@ namespace PhoViet.OpenWorld
         public bool LaserKill(int index, Vector3 point, Vector3 dir)
         {
             if (index < 0 || index >= pool.Count) return false;
-            var v = pool[index]; if (!v.active || v.exploded || v.laserKill) return false;
+            var v = pool[index]; if (!v.active || v.laserKill) return false;
+            // 21.374: xác xe đã nổ, đứng yên bốc cháy (người dùng: «tia lazer không bắn cho nổ tung được») → nổ tung thành mảnh ngay
+            // (mảnh màu xác cháy) rồi biến mất, như xe trúng lazer.
+            if (v.exploded)
+            {
+                LaserExploded?.Invoke(v.pos + Vector3.up * 0.6f, new Color(.16f, .14f, .13f), v.bike);
+                Despawn(v); LaserKills++; LaserWrecks++;
+                return true;
+            }
             var o = new CrashOutcome { explode = true, fling = 0.25f, stun = 0f };
             StartWreck(v, point, -dir, point - dir * 2f, dir * 4f, 6f, o, Vector3.zero, false);
             v.laserKill = true; v.explodeAt = Time.time + 0.45f; Smoke(v, true); LaserKills++;

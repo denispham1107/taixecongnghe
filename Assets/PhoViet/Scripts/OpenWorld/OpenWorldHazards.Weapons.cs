@@ -4,7 +4,7 @@ using UnityEngine;
 namespace PhoViet.OpenWorld
 {
     // 21.258 — tên lửa của người chơi + ô nạp tên lửa trên phố (bản đồ mở). Dựa trên PhoVietPlayerMissiles/MissilePickups cũ:
-    // • Vào lượt có 5 quả, tối đa 10 (người dùng chốt). Phím F hoặc nút TÊN LỬA; hồi 0,3 s (21.284; trước 0,25 s).
+    // • Vào lượt có 5 quả, tối đa 10 (người dùng chốt). Phím K (21.375; trước F) hoặc nút TÊN LỬA; hồi 0,3 s (21.284; trước 0,25 s).
     // • 21.327: mỗi lần bắn 2 quả từ 2 đèn pha, khóa 2 mục tiêu, trừ 2 quả; kho tự hồi 1 quả mỗi 5 s (21.328; 21.327 là 7,2 s, trước 12 s). Xem TryFire.
     // • 21.284: khóa cả tàu trên sông (OpenWorldHazards.Boats) — trúng thì tàu cháy, nổ, chìm.
     // • Tự khóa xe tăng (chưa bị hạ) hoặc trực thăng gần nhất phía trước (trong 180 m, lệch ≤ 55°), bay ≥ 70 m/s (= tốc độ xe
@@ -45,7 +45,7 @@ namespace PhoViet.OpenWorld
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F)) fireRequest = true;
+            if (Input.GetKeyDown(KeyCode.K)) fireRequest = true;   // 21.375: phím K (trước F)
             PosePickups(Time.deltaTime);
         }
 

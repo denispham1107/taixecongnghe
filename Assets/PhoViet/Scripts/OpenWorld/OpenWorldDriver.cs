@@ -4,7 +4,7 @@ using UnityEngine;
 namespace PhoViet.OpenWorld
 {
     // Lái tự do tối giản cho scene bản đồ mở (21.249, đợt 6). Tách hẳn khỏi PhoVietGame (map cuộn cũ).
-    // Bàn phím: W/S hoặc ↑/↓ ga/phanh-lùi, A/D hoặc ←/→ lái, Space phanh tay. Cảm ứng: kéo nửa trái màn hình
+    // Bàn phím: W/S hoặc ↑/↓ ga/phanh-lùi, A/D hoặc ←/→ lái, J phanh tay (21.375; trước Space). Cảm ứng: kéo nửa trái màn hình
     // (lên = ga, xuống = phanh/lùi, trái/phải = lái). Rơi khỏi mặt đất (xuống sông) thì vật lý tự xử lý.
     [RequireComponent(typeof(Rigidbody))]
     public class OpenWorldDriver : MonoBehaviour
@@ -315,9 +315,11 @@ namespace PhoViet.OpenWorld
         // Máy tính: chữ phím nhỏ ở góc nút.
         public static void KeyBadge(Rect b, string key)
         {
-            float s = b.width * .26f; var q = new Rect(b.xMax - s * 1.05f, b.y + s * .05f, s, s);
-            Disc(q, new Color(.06f, .12f, .19f, .92f));
-            var st = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold, fontSize = Mathf.RoundToInt(s * .58f) };
+            float s = b.width * .26f; bool wide = key.Length > 2;          // 21.375: «SPACE» → viên thuốc dài thay vòng tròn
+            float w = wide ? s * 2.4f : s;
+            var q = new Rect(b.xMax - w - s * .05f, b.y + s * .05f, w, s);
+            Bar(q, new Color(.06f, .12f, .19f, .92f), s * .5f);
+            var st = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold, fontSize = Mathf.RoundToInt(s * (wide ? .42f : .58f)) };
             st.normal.textColor = new Color(1f, .96f, .84f); GUI.Label(q, key, st);
         }
 
@@ -369,7 +371,7 @@ namespace PhoViet.OpenWorld
                 if (Mathf.Abs(inp.x) < 0.05f) inp.x = TouchSteer;
                 if (Mathf.Abs(inp.y) < 0.05f) inp.y = GasHeld ? 1f : RevHeld ? -1f : 0f;
             }
-            bool hand = locked || Input.GetKey(KeyCode.Space);
+            bool hand = locked || Input.GetKey(KeyCode.J);   // 21.375: phanh tay J (trước Space)
             bool hardStop = !locked && StopHeld && TouchControlsVisible;
             // Bị nhà/cây/cột chặn: tốc độ trên HUD tụt theo vận tốc thực.
             var fwd0 = transform.forward; fwd0.y = 0; fwd0.Normalize();
@@ -379,7 +381,7 @@ namespace PhoViet.OpenWorld
             // 21.316e: vòng ma sát — đang cua gắt thì ga kéo được ít hơn
             float traction = Mathf.Max(0.5f, Mathf.Sqrt(Mathf.Max(0f, 1f - Mathf.Clamp01(latUse) * Mathf.Clamp01(latUse))));
             // 21.327: Ga tự động — tắt khi phanh/lùi/thắng tay hoặc bị khóa lái (choáng, va, lưới, bị bắt)
-            if (cruise && (locked || inp.y < -0.05f || hardStop || Input.GetKey(KeyCode.Space))) cruise = false;
+            if (cruise && (locked || inp.y < -0.05f || hardStop || Input.GetKey(KeyCode.J))) cruise = false;
             if (inp.y > 0.05f) Speed = Mathf.MoveTowards(Speed, maxSpeed * inp.y, (Speed < 0 ? brake : accel * traction) * dt);
             else if (inp.y < -0.05f) Speed = Mathf.MoveTowards(Speed, -reverseSpeed, (Speed > 0 ? brake : accel) * dt);
             else if (cruise) Speed = Mathf.MoveTowards(Speed, cruiseSpeed, (Speed < cruiseSpeed ? accel * traction : drag) * dt);
@@ -402,7 +404,7 @@ namespace PhoViet.OpenWorld
             bool easing = Mathf.Abs(steerTarget) < Mathf.Abs(steerVal) || steerTarget * steerVal < 0f;
             steerVal = Mathf.MoveTowards(steerVal, steerTarget, dt / Mathf.Max(0.01f, easing ? steerReturn : steerRise));
             // 21.316e: mô hình xe hai trục + giới hạn bám lốp (xem chú thích ở phần khai báo)
-            bool handbrake = !locked && (Input.GetKey(KeyCode.Space) || hardStop) && vAbs > 4f;
+            bool handbrake = !locked && (Input.GetKey(KeyCode.J) || hardStop) && vAbs > 4f;
             bool braking = handbrake || (inp.y < -0.05f && v > 0.5f);
             float mu = gripG * 9.81f * (braking ? 1.12f : inp.y > 0.05f ? 0.96f : 1f);
             float rLim = mu / Mathf.Max(vAbs, 0.5f);
@@ -470,7 +472,7 @@ namespace PhoViet.OpenWorld
 
         // ------------------------------------------------------------ 21.255: nhảy như game cũ
         // Đỉnh cố định 4,1166525 m so với mặt đỡ lúc phóng (21.100), gia tốc lên 24,2 m/s², rơi 22 m/s², hồi 2 s,
-        // chỉ nhảy khi bánh chạm mặt đường/cầu. Phím J (Space vẫn là phanh tay) hoặc nút NHẢY (21.286: bỏ chạm nửa phải màn hình).
+        // chỉ nhảy khi bánh chạm mặt đường/cầu. Phím Space (21.375; J là phanh tay) hoặc nút NHẢY (21.286: bỏ chạm nửa phải màn hình).
         // 21.295 (người dùng): đáp đất là nhảy lại được ngay — bỏ thời gian hồi 2 s tính từ lúc phóng (cũ: chờ thêm ~0,8 s sau khi
         // đáp). Chỉ chặn bấm lặp trong 0,3 s đầu; bấm Nhảy hơi sớm (≤ 0,2 s trước khi chạm đất) được giữ lại và phóng ngay khi đáp.
         public const float JumpApex = 4.1166525f, JumpRise = 24.2f, JumpFall = 22f, JumpCooldown = 0.3f, JumpBuffer = 0.2f;
@@ -637,7 +639,9 @@ namespace PhoViet.OpenWorld
             // Khói xe hỏng luôn bốc thẳng lên trời dù xe lật ngửa.
             if (smoke && Crashed) smoke.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.9f, Quaternion.identity);
             if (burn) burn.transform.SetPositionAndRotation(transform.position + Vector3.up * 0.7f, Quaternion.identity);   // 21.312: lửa luôn bốc lên
-            if (Input.GetKeyDown(KeyCode.J)) jumpRequest = true;
+            // 21.375 (người dùng): máy tính nhảy bằng Space (trước J; J giờ là phanh tay). Bỏ qua 0,3 s đầu lượt vì Space cũng
+            // là phím «Lên xe» ở màn chào/màn kết thúc — tránh vừa vào lượt đã nhảy.
+            if (Input.GetKeyDown(KeyCode.Space) && Time.time - spawnTime > 0.3f) jumpRequest = true;
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) GasTap();   // 21.327: ↑/W chạm 2 lần → Ga tự động
         }
 
@@ -993,13 +997,13 @@ namespace PhoViet.OpenWorld
                                     Time.time - crashShownAt, 1.75f - (Time.time - crashShownAt), center: true);
             else if (!frozen)
             {
-                // Nút NHẢY (cảm ứng: chỉ nút này; bàn phím: J), mờ khi đang hồi.
+                // Nút NHẢY (cảm ứng: chỉ nút này; bàn phím: Space từ 21.375), mờ khi đang hồi.
                 LoadTouchArt();
                 var b = JumpRect; float sz = b.width;
                 bool ready = !jumping && Time.time - jumpAt >= JumpCooldown;
                 bool held = false; foreach (var k in fingers.Values) if (k == Ctl.Jump) held = true;
                 DrawArtButton(b, jumpTex, new Color(.96f, .76f, .29f), held, ready);
-                if (!TouchControlsVisible) KeyBadge(b, "J");
+                if (!TouchControlsVisible) KeyBadge(b, "SPACE");
             }
             DrawTouchControls();
             if (cruise && !TouchControlsVisible && !frozen && !Crashed) DrawCruiseChip();

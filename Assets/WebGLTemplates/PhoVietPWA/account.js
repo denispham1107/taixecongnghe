@@ -104,7 +104,12 @@ async function flushPending(){
   try{await saveScore(p,false);writePending(0);}catch(e){console.warn('pending score',e);}
 }
 // Gọi từ Unity (jslib GotaRunEnded) mỗi khi hết lượt.
+// 21.375: đang chơi (Unity báo gotaRunStarted) thì không hiện thông báo xếp hạng; vào lượt mới tắt thông báo còn đang hiện
+// (kể cả kết quả gửi điểm về muộn sau khi người chơi đã bấm chơi lại).
+let inRun=false;
+window.gotaRunStarted=()=>{inRun=true;clearTimeout(toastTimer);const t=$('run-toast');if(t)t.hidden=true;};
 window.gotaRunEnded=async(metres,localBest)=>{
+  inRun=false;
   metres=Math.max(0,Math.floor(Number(metres)||0));
   if(!user){
     writePending(Math.max(readPending(),metres));
@@ -125,7 +130,7 @@ window.gotaRunEnded=async(metres,localBest)=>{
 /* ---------- thông báo sau mỗi lượt (nằm trên màn hình game) ---------- */
 let toastTimer=0;
 function toast(text){
-  const t=$('run-toast');if(!t)return;
+  const t=$('run-toast');if(!t||inRun)return;
   $('run-toast-text').textContent=text;
   t.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>{t.hidden=true;},9000);
 }

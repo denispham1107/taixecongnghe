@@ -327,3 +327,31 @@ button{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 #game-menu{display:grid;place-items:center}
 #game-menu[hidden]{display:none}
 @media(max-width:700px),(max-height:500px){.close .ico-x{width:16px;height:16px}}
+/* 21.374: máy tính — chữ, nút, menu gọn ~60 % như bản điện thoại (người dùng: «hiển thị to quá làm che hết hình ảnh phía sau»).
+   Thanh trên dùng cỡ nút của điện thoại ngang; màn đầu (≥ 1000 px, cao ≥ 621 px) thu tiêu đề/mô tả/nút còn ~60 % để lộ ảnh nền. */
+@media(min-width:701px) and (min-height:501px){:root{--bar:50px}
+#toolbar{padding-top:calc(7px + var(--safe-top));padding-bottom:7px;gap:8px 16px}
+.wordmark{padding:4px 14px 4px 10px;gap:9px}
+.brand-mark{width:28px;height:28px;border-radius:8px}.brand-mark svg{width:19px;height:19px}
+.brand-text b{font-size:15px}.brand-text small{font-size:7.5px;margin-top:2px}
+nav{gap:8px}
+nav button{height:34px;padding:0 12px;font-size:11px;gap:7px}
+nav button::after{width:15px;height:15px}
+#account-open.signed{line-height:34px}
+}
+@media(min-width:1000px) and (min-height:621px){
+.place{top:24px;padding:6px 18px 6px 14px}.place::before{border-right-width:5px}
+.place .lab{font-size:9px}.place .lab .ic{width:11px;height:11px}.place b{font-size:15px;margin-top:1px}
+.intro{padding:44px 48px 120px max(48px,var(--safe-left));max-width:600px}
+.eyebrow{height:26px;padding:0 12px;font-size:10px;gap:6px}.eyebrow .ic{width:12px;height:12px}
+h1{margin-top:12px}
+h1 .t1{font-size:clamp(40px,3.2vw,47px)}
+h1 .t2{font-size:clamp(32px,2.6vw,38px);margin:6px 0 0 8px;padding-left:14px;padding-right:14px;--ts:6px 6px 0 var(--red)}
+.description{font-size:13px;line-height:1.55;margin-top:14px;max-width:32em}
+.play-panel{max-width:340px;margin-top:18px}
+.cta{gap:12px;padding-left:6px}
+.primary{min-height:46px;font-size:16px;gap:10px;padding:0 16px;--ts:5px 5px 0 var(--navy2)}
+.primary::after{width:24px;height:16px}
+.gear{width:46px;height:46px;--tbd:2px solid var(--teal)}.gear svg{width:24px;height:24px}
+#load-status{font-size:11px;margin-top:10px}#load-status::before{width:42px;height:6px;background-size:6px 6px}
+}

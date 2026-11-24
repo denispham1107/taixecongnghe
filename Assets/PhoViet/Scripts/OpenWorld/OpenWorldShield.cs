@@ -93,7 +93,7 @@ namespace PhoViet.OpenWorld
         void Update()
         {
             float dt = Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.K)) requested = true;
+            if (Input.GetKeyDown(KeyCode.Semicolon)) requested = true;   // 21.375: phím ; (trước K, K giờ là tên lửa)
             if (requested) { requested = false; TryActivate(); }
             if (Active)
             {

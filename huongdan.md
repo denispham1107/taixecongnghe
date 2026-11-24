@@ -6793,3 +6793,54 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Không commit ảnh render HD nguồn (`AnhXaHD`, `AnhXaNoiBatHD`, Petshop `AnhXaHD`, ~70 MB, chỉ ở máy). Tạo lại bằng `run_cards_hd.py`.
   - Không commit các tệp chỉ ở máy như mọi lần.
 - **Chưa:** thử trên iPhone/Android thật (mặt tiền, FPS khi bật lọc dị hướng, bộ nhớ +~19 MB GPU), nghe âm thanh rơi sông trên điện thoại.
+
+## 21.374. Trang chủ máy tính gọn ~60 %, mô tả chia sẻ «Đại náo phố quen», Lazer bắn nổ xác xe cháy (24/11/2026, Claude Code)
+
+- **Người dùng** (ảnh trang chủ trên máy tính, ảnh chia sẻ link trong Zalo, ảnh trong game có xác xe đang cháy):
+  - «Trên web trang chủ mở trên desktop, các thành phần nút, menu cho nhỏ lại như trong bản mobile, hiện đang hiển thị to quá làm che hết hình ảnh phía sau.»
+  - «Thay đổi nội dung trong phần gửi link cho người khác: "Lái xe qua phố quen" đổi thành "Đại náo phố quen".»
+  - «Xe bị dừng bốc cháy, tia lazer không bắn cho nổ tung được; cho tia lazer bắn nổ tung được tất cả phương tiện trên đường, kể cả phương tiện đang đứng yên bốc cháy.»
+- **Người dùng chọn:** cỡ «Gọn ~60 %»; xe CSGT trúng lazer **vẫn chỉ khựng 1,5 s** như 21.300 (không nổ).
+- **Trang chủ máy tính** (`Assets/WebGLTemplates/PhoVietPWA/style.css`, hai khối cuối tệp ghi 21.374):
+  - `@media(min-width:701px) and (min-height:501px)`: thanh trên dùng cỡ như điện thoại ngang: `--bar` 50 px, nút Đăng nhập/Tải game cao 34 px chữ 11 px, logo 28 px, tên 15 px.
+  - `@media(min-width:1000px) and (min-height:621px)`: tiêu đề «VƯỢT QUA 2000M» 78 → 47 px, «NHẬN NGAY 200,000Đ» 64 → 38 px, mô tả 18 → 13 px, nút «LÊN XE THÔI» cao 76 → 46 px chữ 16 px, bánh răng 76 → 46 px, khung chữ rộng 820 → 600 px, nhãn «Bản đồ mở», thẻ «Địa điểm hôm nay» nhỏ lại.
+  - Điện thoại dọc/ngang và laptop thấp (≤ 620 px) giữ quy tắc cũ (khối 21.334 / màn ngang thấp).
+  - Kiểm tra bằng trình duyệt trong app, khung 1536 × 730: tiêu đề 47 px, nút 46 px, nút thanh trên 34 px, chữ chiếm ~1/3 bên trái, lộ ảnh nền. Ảnh so sánh `Captures/trangchu21374-truoc-sau.jpg` (chỉ ở máy).
+- **Mô tả chia sẻ link** (`index.html` `<meta name="description">`, Zalo/Facebook đọc dòng này): «Đại náo phố quen: trốn CSGT, …». Zalo có thể giữ bản xem trước cũ của link một thời gian.
+- **Lazer bắn nổ xác xe cháy** (`Scripts/OpenWorld/OpenWorldTraffic.cs` `LaserKill`):
+  - Trước: xác xe NPC đã nổ (`exploded`, đứng yên bốc cháy) bị `LaserKill` bỏ qua → tia chỉ tóe lửa.
+  - Nay: xác đã nổ trúng tia → `LaserExploded` ngay (mảnh màu xác cháy, quả cầu lửa, khói, lửa tại chỗ ~4 s do `OpenWorldHazards.LaserBlast`) rồi `Despawn` (biến mất, ô trong pool được dùng lại cho xe mới). Bộ đếm mới `LaserWrecks`.
+  - Xe đang chạy, xe bị hất chưa nổ, xe tăng, khủng long vẫn như 21.300; sét (21.317) vẫn không đánh nổ xác cháy.
+  - Kiểm tra Play (EditorApplication.Step, camera `cullingMask` 0): tạo xác cháy bằng `StartWreck` (explode) → sau 1,5 s `exploded` → gọi `OpenWorldLaser.Apply` lên collider xác: `Hits` +1, `LaserBlasts` +1, xe `active=false`, 2/2 lần; 0 lỗi mới trong console.
+- **Đã phát hành trong 1.95.4 (21.376).**
+
+## 21.375. Không hiện thông báo xếp hạng khi đang chơi; đổi phím máy tính K/;/Space/J (24/11/2026, Claude Code)
+
+- **Người dùng** (ảnh điện thoại: hộp «Lượt này 207 m. Đăng nhập ở trang chủ…» + «Xem bảng» còn hiện khi đã vào lượt mới):
+  - «Khi đang chơi không cho xuất hiện thông báo bảng xếp hạng; nếu trước đó có xuất hiện thông báo xếp hạng thì khi vào game cho tắt luôn.»
+  - «Khi chơi trên desktop chỉnh lại các nút: K tên lửa, ; khiên, Spacebar nhảy, J phanh.»
+- **Thông báo xếp hạng** (hộp `#run-toast` của trang, 9 s sau mỗi lượt):
+  - Mới: jslib `GotaRunStarted` (`Assets/PhoViet/Plugins/WebGL/PhoVietWeb.jslib`) → `window.gotaRunStarted` (`account.js`). `OpenWorldGame.StartRun` gọi `ReportRunStartToWeb()` (`OpenWorldGame.Leaderboard.cs`, bộ đếm `runStartsReported`).
+  - `account.js`: cờ `inRun`; `gotaRunStarted` bật cờ, tắt hộp đang hiện + hủy hẹn giờ; `gotaRunEnded` tắt cờ; `toast()` không hiện gì khi `inRun` → kết quả gửi điểm về muộn (đã bấm chơi lại) cũng không hiện đè lên game. Màn kết thúc/bị bắt vẫn hiện thông báo như cũ.
+- **Phím máy tính** (trước → nay):
+
+  | Việc | Trước | Nay | Mã |
+  |---|---|---|---|
+  | Tên lửa | F | **K** | `OpenWorldHazards.Weapons.cs` `Update` |
+  | Khiên | K | **;** (`KeyCode.Semicolon`) | `OpenWorldShield.cs` |
+  | Nhảy | J | **Space** | `OpenWorldDriver.cs` `Update` (bỏ qua 0,3 s đầu lượt vì Space cũng là «Lên xe» ở màn chào/kết thúc) |
+  | Phanh tay (P/DRIFT) | Space | **J** | `OpenWorldDriver.cs` `hand`, tắt Ga tự động, `handbrake` |
+  | Lazer, tạm dừng | L, P | giữ | |
+
+  - Chữ phím ở góc nút trên máy tính: TÊN LỬA «K», KHIÊN «;», NHẢY «SPACE» (`KeyBadge` vẽ viên dài khi chữ > 2 ký tự). Bảng phím ở màn chào (`OpenWorldGame.Menus.cs` `KeyHints`) thêm KHIÊN. Trang chủ: dãy `<kbd>` thẻ «Điều khiển» và đoạn «Máy tính» trong hộp hướng dẫn (`index.html`) ghi phím mới.
+- **Kiểm tra Unity Play:** biên dịch 0 lỗi; màn chào hiện «← → WASD LÁI · SPACE NHẢY · K TÊN LỬA · ; KHIÊN · J PHANH TAY · P TẠM DỪNG» vừa khung (`Assets/Captures/phim21375-manchao.png`, chỉ ở máy); vào lượt: `runStartsReported` = 1, góc nút hiện «;», «L», «K», «SPACE» (`phim21375-dangchoi.png`). Chưa bấm phím thật trong Editor (Input cũ không giả lập được qua eval); `account.js` chỉ kiểm cú pháp, cần thử trên bản build.
+- **Đã phát hành trong 1.95.4 (21.376).**
+
+## 21.376. Phát hành 1.95.4 trên gotaviet.com (24/11/2026, Claude Code)
+
+- **Người dùng:** «Phát hành 1.95.4».
+- **Gồm:** 21.374 (trang chủ máy tính gọn ~60 %, mô tả chia sẻ «Đại náo phố quen», Lazer bắn nổ xác xe cháy) + 21.375 (không hiện thông báo xếp hạng khi đang chơi, phím máy tính Space nhảy / K tên lửa / ; khiên / J phanh tay).
+- **«Bản cập nhật»** trong `index.html` thêm 4 dòng: lazer bắn nổ xác xe cháy; đổi phím máy tính; thông báo xếp hạng không hiện đè khi chơi; trang chủ máy tính gọn hơn.
+- **Build:** 1.95.4 trong `PhoVietWebBuild.cs` + `ProjectSettings.asset` → `ReleaseBuild.Prepare` (lần 1 «compiling», lần 2 «ready 1.95.4») → `BuildNow`: 2.438 s, `stripped` 3.356, cache **`c935dba171cbfa54`**. Gói điện thoại `a0193ba3….data.unityweb` 121.229.122 B (115,6 MiB), máy tính `16444fc7….data.unityweb` 136.720.245 B (130,4 MiB).
+- **Phát hành:** `firebase deploy --only hosting --project gotaviet` → so SHA-256 với `Builds/WebGL`: **gotaviet.com 48/48, gotaviet.web.app 48/48 khớp** (`.nojekyll` không lên vì Firebase bỏ tệp ẩn, như mọi lần).
+- **Chưa:** người dùng thử trên máy tính (phím mới) và điện thoại (thông báo xếp hạng tắt khi vào lượt, lazer bắn xác cháy).
