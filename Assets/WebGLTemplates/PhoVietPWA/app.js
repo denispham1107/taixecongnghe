@@ -158,6 +158,10 @@ function openInstallGuide(){
 }
 // 21.377: nút «Hướng dẫn cài game» cạnh LÊN XE THÔI — luôn mở hộp hướng dẫn (như «Tải game» trên iPhone), chọn sẵn thẻ đúng máy.
 $('install-help').addEventListener('click',()=>{pauseGame();setMenu(false);openInstallGuide();});
+// 21.381: nút «CÁCH NHẬN 200,000VNĐ» dưới LÊN XE THÔI → hộp bảng mốc thưởng.
+$('reward-open').addEventListener('click',()=>{pauseGame();setMenu(false);$('reward').showModal();$('reward').scrollTop=0;$('reward-title').focus({preventScroll:true});});
+$('close-reward').addEventListener('click',()=>$('reward').close());
+$('reward').addEventListener('click',e=>{if(e.target===$('reward'))$('reward').close();});
 $('install').addEventListener('click', async () => {
   pauseGame();setMenu(false);
   if(!installPrompt) {openInstallGuide();return;}
