@@ -6948,3 +6948,13 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Chưa có:** cơ chế tự trả thưởng hay theo dõi người giới thiệu — chỉ là trang thông tin; trả thưởng do chủ game làm tay (trang /admin xem được kỷ lục từng tài khoản).
 - **Kiểm tra:** xem thử `Builds/WebGL` qua `http.server` 127.0.0.1 trong trình duyệt của ứng dụng ở 1917×835, 1280×720, 390×844 (dọc), 844×390 (ngang): nút + dòng giới thiệu nằm đúng dưới «Chơi miễn phí…», chữ «200,000VNĐ» đúng dấu phẩy, hộp bảng hiện đủ 5 dòng không tràn, Esc đóng. Bản live gotaviet.com có nút, 0 lỗi console.
 - **Phát hành:** `AgentScripts/Shell21381.cs` (`RefreshWebShell` trên 1.95.4) → cache **`33b9849c23e2e164`** → `firebase deploy --only hosting` → live **51/51 khớp SHA-256** (`.nojekyll` không lên, như mọi lần).
+
+## 21.382. Trang chủ: tiêu đề «CHƠI GAME / NHẬN NGAY 1,000,000VNĐ» + nút «CÁCH NHẬN 1,000,000VNĐ» (24/11/2026, Claude Code)
+
+- **Người dùng (kèm ảnh trang chủ máy tính và hộp bảng thưởng 21.381):** «"Vượt qua 2000M" đổi thành "CHƠI GAME"; "NHẬN NGAY 200,000Đ" đổi thành "NHẬN NGAY 1,000,000VNĐ"; "CÁCH NHẬN 200,000VNĐ" đổi thành "CÁCH NHẬN 1,000,000VNĐ", đổi luôn cả bên trong khi ấn vào nút.»
+- **Làm (`Assets/WebGLTemplates/PhoVietPWA/`):**
+  - `index.html`: `h1 .t1` «CHƠI GAME», `h1 .t2` «NHẬN NGAY 1,000,000VNĐ»; nút `#reward-open` «CÁCH NHẬN 1,000,000VNĐ»; tiêu đề hộp `#reward-title` «Cách nhận 1,000,000VNĐ» (hiện in hoa). Bảng mốc 2000m–10000m và dòng thưởng giới thiệu 50,000VNĐ giữ nguyên. «Bản cập nhật»: dòng 21.381 sửa thành «Trang chủ: tiêu đề «CHƠI GAME / NHẬN NGAY 1,000,000VNĐ»; nút «Cách nhận 1,000,000VNĐ» dưới LÊN XE THÔI: …».
+  - `style.css`: dòng vàng dài hơn → điện thoại dọc (`max-width:700px`) `h1 .t2{font-size:min(25px,calc(7.4vw - 5px))}`; trước đó ở 375 px dòng vàng lấn mép phải 11 px và trang cuộn ngang. Ghi chú 21.349 sửa theo tiêu đề mới.
+  - **Không đổi** màn chào trong game (Unity vẫn khẩu hiệu/tiêu đề cũ — người dùng chỉ yêu cầu trang chủ web).
+- **Kiểm tra** (bản `Builds/WebGL` qua `http.server` 127.0.0.1, trình duyệt của ứng dụng): đo mép phải dòng vàng và bề rộng cuộn của `#welcome` ở 1917×835, 1280×720, 430×932, 390×844, 375×667, 360×780, 320×640, 844×390, 667×375 — không còn tràn/cuộn ngang (375 px: chữ 22,8 px, mép 355; 320 px: 18,7 px, mép 299; ≥ 430 px giữ 25 px). Hộp bảng thưởng mở đúng tiêu đề mới.
+- **Phát hành:** `AgentScripts/Shell21381.cs` chạy lại (`RefreshWebShell` trên 1.95.4) → cache **`90b1b577e284d418`** → `firebase deploy --only hosting` → live **51/51 khớp SHA-256** trên gotaviet.com và gotaviet.web.app (`.nojekyll` không lên, như mọi lần).
