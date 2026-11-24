@@ -6955,6 +6955,179 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Làm (`Assets/WebGLTemplates/PhoVietPWA/`):**
   - `index.html`: `h1 .t1` «CHƠI GAME», `h1 .t2` «NHẬN NGAY 1,000,000VNĐ»; nút `#reward-open` «CÁCH NHẬN 1,000,000VNĐ»; tiêu đề hộp `#reward-title` «Cách nhận 1,000,000VNĐ» (hiện in hoa). Bảng mốc 2000m–10000m và dòng thưởng giới thiệu 50,000VNĐ giữ nguyên. «Bản cập nhật»: dòng 21.381 sửa thành «Trang chủ: tiêu đề «CHƠI GAME / NHẬN NGAY 1,000,000VNĐ»; nút «Cách nhận 1,000,000VNĐ» dưới LÊN XE THÔI: …».
   - `style.css`: dòng vàng dài hơn → điện thoại dọc (`max-width:700px`) `h1 .t2{font-size:min(25px,calc(7.4vw - 5px))}`; trước đó ở 375 px dòng vàng lấn mép phải 11 px và trang cuộn ngang. Ghi chú 21.349 sửa theo tiêu đề mới.
-  - **Không đổi** màn chào trong game (Unity vẫn khẩu hiệu/tiêu đề cũ — người dùng chỉ yêu cầu trang chủ web).
+  - Màn chào trong game **không có** dòng này (Unity hiện «ĐẠI NÁO / PHỐ QUEN.», không có «VƯỢT QUA 2000M / NHẬN NGAY 200,000Đ» — đã kiểm tra ở 21.383), nên không cần đổi trong game.
 - **Kiểm tra** (bản `Builds/WebGL` qua `http.server` 127.0.0.1, trình duyệt của ứng dụng): đo mép phải dòng vàng và bề rộng cuộn của `#welcome` ở 1917×835, 1280×720, 430×932, 390×844, 375×667, 360×780, 320×640, 844×390, 667×375 — không còn tràn/cuộn ngang (375 px: chữ 22,8 px, mép 355; 320 px: 18,7 px, mép 299; ≥ 430 px giữ 25 px). Hộp bảng thưởng mở đúng tiêu đề mới.
 - **Phát hành:** `AgentScripts/Shell21381.cs` chạy lại (`RefreshWebShell` trên 1.95.4) → cache **`90b1b577e284d418`** → `firebase deploy --only hosting` → live **51/51 khớp SHA-256** trên gotaviet.com và gotaviet.web.app (`.nojekyll` không lên, như mọi lần).
+
+## 21.383. Máy tính: phím mũi tên lái/ga/lùi (bỏ WASD), Q tên lửa, W lazer, E khiên, R phanh; nút KHIÊN cạnh nút NHẢY (24/11/2026, Claude Code)
+
+- **Người dùng (kèm ảnh HUD máy tính, khung xanh lá bên trái nút NHẢY):** «Bỏ các nút W,A,S,D chỉ cho người chơi đổi hướng, ga, lùi bằng các nút mũi tên: Lên, Xuống, Trái, Phải. Nút Q: tên lửa. Nút W: Lazer. Nút E: Khiên. Nút R: Phanh. Ở chế độ chơi trên Desktop: cho nút "Khiên" di chuyển đến khoảng vị trí tôi đánh dấu.»
+- **Mã (`Assets/PhoViet/Scripts/OpenWorld/`):**
+  - `OpenWorldDriver.cs`:
+    - `ReadInput` đọc thẳng `KeyCode.LeftArrow/RightArrow/UpArrow/DownArrow` thay `Input.GetAxisRaw("Horizontal"/"Vertical")`, vì trục mặc định của Input Manager gồm cả A/D/W/S.
+    - Phanh tay `KeyCode.J` → `KeyCode.R` (3 chỗ: `hand`, tắt Ga tự động, `handbrake`).
+    - Ga tự động chỉ còn ↑ chạm 2 lần (bỏ W).
+    - `ShieldRect` máy tính (`!touchLayout`): bên trái `JumpRect`, cách 1 Gap, canh giữa theo chiều cao nút NHẢY (trước: bên trái nút LAZER, hàng trên).
+    - Thẻ «GA TỰ ĐỘNG» (`DrawCruiseChip`) dời sang bên trái nút KHIÊN để không đè.
+    - Bố cục cảm ứng điện thoại không đổi.
+  - `OpenWorldHazards.Weapons.cs`: tên lửa `K` → `Q`.
+  - `OpenWorldLaser.cs`: lazer `L` → `W`.
+  - `OpenWorldShield.cs`: khiên `;` → `E`.
+  - `OpenWorldGame.cs`: chữ phím trên nút (`KeyBadge`) đổi thành W, E, Q.
+  - `OpenWorldGame.Menus.cs` `KeyHints` (thanh phím ở màn chào): ← → LÁI · ↑ ↓ GA/LÙI · SPACE NHẢY · Q TÊN LỬA · W LAZER · E KHIÊN · R PHANH · P TẠM DỪNG. Trước đó thiếu LAZER.
+  - Giữ: Space nhảy, P/Esc tạm dừng; R/Enter/Space vẫn là «chơi lại» ở thẻ kết thúc/phòng giam (chỉ khi lượt đã hết). `PhoVietGame.cs`/`PhoVietFootHud.cs` là map cuộn cũ, không dùng trong bản đồ mở nên không sửa.
+- **Trang chủ (`Assets/WebGLTemplates/PhoVietPWA/index.html`, chỉ trong source):**
+  - Thanh `<kbd>` điều khiển theo phím mới.
+  - Thẻ «Cách chơi» › Máy tính viết lại theo phím mới.
+  - «Bản cập nhật» thêm dòng «Máy tính: đổi phím — chỉ dùng phím mũi tên để lái, ga, lùi (bỏ W/A/S/D); Q tên lửa, W lazer, E khiên, R phanh; nút Khiên nằm cạnh nút Nhảy.»
+  - **Không được chạy `RefreshWebShell` trước khi build game mới.** Nếu chạy, trang chủ sẽ ghi phím mới trong khi game trên mạng (1.95.4) còn phím cũ. Phải phát hành cùng bản build.
+- **Kiểm tra trong Unity:**
+  - Biên dịch 0 lỗi.
+  - Chế độ Play 1124×632 (bố cục máy tính): thanh phím màn chào hiện đủ 8 mục, vừa khung.
+  - Trong lượt: KHIÊN (865,497; 104 px) bên trái NHẢY (981,489; 119 px), cùng hàng; LAZER/TÊN LỬA hàng trên giữ nguyên; chữ phím W/Q/E/SPACE đúng.
+  - Bật Ga tự động: thẻ «GA TỰ ĐỘNG 54 km/h» nằm bên trái KHIÊN, không đè.
+  - Ảnh `Assets/Captures/phim21383-khien-may-tinh.png` (chỉ trong máy).
+  - Chưa bấm phím thật (Editor không giả lập được phím Input cũ). Cần thử trên bản build.
+- **Trạng thái:** trong source, chưa build/commit. Cần build bản mới (ví dụ 1.95.5) theo `ReleaseBuild.cs` để lên web.
+
+## 21.384. Banner quảng cáo «Cù Lao Petshop» trên 2 mảng tường trống ở ngã 3 nơi xe xuất phát (24/11/2026, Claude Code)
+
+- **Người dùng (3 ảnh, khung xanh lá ở ngã 3):** «Ở ngay vị trí trên hình thứ 3 ngay giao lộ đang có 2 bức tường trống, hãy sử dụng Blender MCP dựng thiết kế 1 banner quảng cáo nội dung "Cù Lao Petshop" có phong cách giống bảng hiệu Cù Lao Petshop đã dựng; dựng xong cho vào game dán lên tường.» Lần đầu tôi tìm nhầm giao lộ đầu đại lộ ở mép nam bản đồ (x ≈ 110, z ≈ −550); người dùng chỉnh: **ngã 3 ngay chỗ xe bắt đầu**.
+- **Vị trí** (xe xuất phát (218,5; −400) hướng bắc trên đường ven sông; ngã 3 = đường vào phố z ≈ −430 gặp đường ven sông):
+  - Tường hồng: mặt hông **bắc** nhà góc nam `OW_NhaNoiBat_R2_4005_Goc` (mặt phẳng z = −438, x 186…202, cao 21,65 m), nhìn ra đường vào phố.
+  - Tường kem: mặt hông **đông** nhà góc bắc `OW_Mau_NhaPho_7_0_0` ở (196,7; −422,5) (mặt phẳng x = 200,2, z −422,5…−413,9, cao 23,06 m), nhìn ra đường ven sông.
+- **Blender:** MCP của phiên không nối được (hết giờ khi khởi động) nhưng add-on Blender MCP vẫn mở cổng 127.0.0.1:9876 → gửi lệnh `execute_code` thẳng vào cổng đó (cùng giao thức MCP), cảnh trống chưa lưu, không đụng tệp Blender cũ.
+  - Script `ArtSource/Blender/OpenWorld/build_petshop_banner.py` (dùng `ow_lib.py`): nền xanh ngọc `#16808A`, viền trắng trong, khung hộp nhôm tối + bu lông góc, đĩa trắng có vòng chỉ xanh + **dấu chân cam** `#F28C28` lớn, chữ trắng Arial Bold «Cù Lao» / «Petshop» + gạch chân trắng, dải cam bo tròn «Spa - Lưu Trú - Thú y», vệt dấu chân trắng nhỏ, đèn rọi trên đỉnh (tay đòn + chao, mặt đèn phát sáng).
+  - Hai khổ: **`OW_BangRon_Petshop_Ngang`** 13 × 9,5 m (đĩa trái, chữ phải; 3 đèn) cho tường hồng; **`OW_BangRon_Petshop_Doc`** 7 × 14 m (đĩa trên, chữ dưới; 2 đèn) cho tường kem. Mỗi khổ gộp thành **1 mesh** (~6,4–7 nghìn mặt), gốc = giữa mép dưới trên mặt tường, mặt đọc −y.
+  - Xuất `Assets/PhoViet/OpenWorld/Library/OW_BangRon_Petshop.fbx`; ảnh duyệt `ArtSource/Concepts/BangRonPetshop-21384/bang-ron-petshop-duyet.png`; nguồn lưu bản sao mới `ArtSource/Blender/OpenWorld/PhoViet_OW_BangRonPetshop_21384.blend`.
+- **Unity:** `AgentScripts/InstallPetshopBanner21384.cs` (`run_script … InstallPetshopBanner21384.Run`, chạy lại được):
+  - FBX gán lại vật liệu sẵn có: `OW_SignBG_16808A`, `OW_FrameWhite`, `OW_SignTextWhite`, `OW_PetshopPaw`, `OW_AluCharcoal`, `OW_LampBulb` (không thêm vật liệu mới).
+  - Gốc scene riêng **`BangRonPetshop`** (ngoài `BanDoMo` → không cần nướng lại occlusion): banner Ngang đáy y 8,5, giữa x 194 trên z = −438 (bao 187,35…200,65 × 8,35…19,04); banner Dọc đáy y 6,5, giữa z −418,2 trên x = 200,2 (bao −421,85…−414,55 × 6,35…21,54); cách tường 2 cm; không đổ bóng; LODGroup ẩn < 1 % màn hình.
+  - Scene `PhoVietOpenWorld.unity` chỉ thêm đối tượng mới (không sửa đối tượng cũ). Từ 21.385 gốc `BangRonPetshop` có 4 banner, từ 21.386 có 6 banner (xem 21.385, 21.386).
+- **Kiểm tra:** ảnh render từ camera tạm (`AgentScripts/Shot21384.cs`): `Assets/Captures/banner21384-sau-nga3.png` (nhìn từ đường ven sông vào ngã 3), `banner21384-sau-tuongA.png`, `banner21384-sau-lai-xe.png` (lái về phía nam) — chữ đọc xuôi, đúng hướng, không đè biển/mái hiên.
+- **Trạng thái:** trong source, chưa build/commit. Lên web cùng bản build kế tiếp (chung với 21.383).
+
+## 21.385. Thêm 2 banner «Cù Lao Petshop» ở ngã 3 phía trước, hướng về cầu (24/11/2026, Claude Code)
+
+- **Người dùng:** «Cho thêm 2 banner quảng cáo giống vậy ở ngã 3 phía trước luôn nhé — phía trước là phía hướng tiến về cầu.» Cầu Ánh Dương (`OW_Cau_B1_AnhDuong`) ở z ≈ 206…224 phía bắc; từ chỗ xuất phát (z −400) chạy về bắc, ngã 3 kế tiếp là đường vào phố z ≈ −300 (giữa dãy nam z −307,5 và dãy bắc z −292,5).
+- **Hai tường trống:**
+  - Phía nam: mặt hông **bắc** nhà ven sông `OW_Mau_NhaPho_5_0_3_B` (mặt phẳng z = −309,3, x 193,4…202, cao 21,65 m), nhìn ra đường vào phố → banner **Dọc** 7 × 14 m, đáy y 6,5, giữa x 197,7 (`OW_BangRon_Petshop_Doc_Nga3Truoc_Nam`).
+  - Phía bắc: mặt hông **đông** nhà góc `OW_Mau_NhaPho_5_5_1` (mặt phẳng x = 199,7, z −292,5…−283,9, **cao 15,05 m**), nhìn ra đường ven sông → banner **Dọc thu 75 %** (5,5 × 10,5 m) để không lố mái, đáy y 3,6, giữa z −288,2, đỉnh đèn 14,88 (`OW_BangRon_Petshop_Doc_Nga3Truoc_Bac`).
+- **Cách làm:** dùng lại `OW_BangRon_Petshop.fbx` (không dựng lại Blender). `AgentScripts/InstallPetshopBanner21384.cs`: `Place` thêm tham số `scale` + hậu tố tên; `Run` dựng lại cả gốc `BangRonPetshop` = 4 banner (2 ở ngã 3 xuất phát + 2 ở ngã 3 phía trước). Vật liệu, không đổ bóng, LODGroup như 21.384.
+- **Kiểm tra:** `Assets/Captures/banner21384b-sau-nga3-truoc.png` (nhìn từ đường ven sông vào ngã 3), `banner21384b-sau-tuongNam.png` (cận, chữ đọc xuôi), `banner21384b-sau-lai-xe.png` (lái về phía cầu). Scene đã lưu, diff scene chỉ có dòng thêm.
+- **Trạng thái:** trong source, chưa build/commit; lên web cùng bản build kế tiếp (chung 21.383, 21.384).
+
+## 21.386. Thêm 2 banner «Cù Lao Petshop» ở ngã 3 thứ ba, tiếp tục về phía cầu (24/11/2026, Claude Code)
+
+- **Người dùng:** «Cho tiếp thêm 2 banner quảng cáo giống vậy ở ngã 3 phía trước luôn nhé, phía trước ở đây là phía hướng tiến về cầu.» Sau ngã 3 z ≈ −300 (21.385), ngã 3 kế tiếp trên đường ven sông về phía cầu Ánh Dương là đường vào phố **z ≈ −150** (giữa dãy nam z −163 và dãy bắc z −137).
+- **Hai tường trống:**
+  - Phía nam: mặt hông **đông** nhà góc `OW_Mau_NhaPho_6_0_3_B` (mặt phẳng x = 199,7, z −171,6…−163, cao 23,06 m), nhìn ra đường ven sông → banner **Dọc** 7 × 14 m, đáy y 6,5, giữa z −167,3 (`OW_BangRon_Petshop_Doc_Nga3Thu3_Nam`).
+  - Phía bắc: mặt hông **nam** nhà ven sông `OW_Mau_NhaPho_7_0_3_PetShop` (mặt phẳng z = −135,3, x 193,4…202, **cao 15,05 m**), nhìn ra đường vào phố → banner **Dọc thu 75 %**, đáy y 3,6, giữa x 197,7, quay −z (`OW_BangRon_Petshop_Doc_Nga3Thu3_Bac`).
+- **Cách làm:** `AgentScripts/InstallPetshopBanner21384.cs` thêm 2 lệnh `Place`; `Run` dựng lại gốc `BangRonPetshop` = **6 banner** ở 3 ngã 3 liên tiếp từ chỗ xuất phát về phía cầu. Dùng lại `OW_BangRon_Petshop.fbx`, không dựng lại Blender.
+- **Kiểm tra:** `Assets/Captures/banner21386-sau-nga3.png` (nhìn từ đường ven sông vào ngã 3), `banner21386-sau-tuongBac.png` (banner phía bắc, thấy cầu phía xa) — đúng hướng, chữ đọc xuôi. Scene đã lưu, diff scene chỉ có dòng thêm.
+- **Trạng thái:** trong source, chưa build/commit; lên web cùng bản build kế tiếp (chung 21.383–21.385).
+
+## 21.387. Chỉ dùng một tên miền gotaviet.com — bỏ phát hành/kiểm tra riêng gotaviet.web.app (24/11/2026, Claude Code)
+
+- **Người dùng:** «Từ bây giờ chỉ xài 1 tên miền duy nhất là https://gotaviet.com/, không cần phải build và phát hành lên trên đây https://gotaviet.web.app/ nữa nhé».
+- **Thực tế kỹ thuật:** gotaviet.web.app (và gotaviet.firebaseapp.com) là tên miền mặc định của **cùng một** site Firebase Hosting `gotaviet`; mỗi lần `firebase deploy` chỉ đăng một lần, không có bản build hay lần phát hành riêng cho web.app, và Firebase không cho xoá tên miền mặc định. Từ 21.368 mở web.app đã tự chuyển ngay sang gotaviet.com, nên người chơi chỉ thấy gotaviet.com.
+- **Quy trình phát hành mới (thay mọi mô tả cũ «so SHA trên cả gotaviet.com và gotaviet.web.app» ở 21.367–21.382):** `ReleaseBuild` (hoặc `RefreshWebShell`) → `firebase deploy --only hosting --project gotaviet` → so SHA-256 **chỉ trên https://gotaviet.com**. Không kiểm tra, không báo cáo, không giới thiệu web.app nữa.
+- **Giữ nguyên (để máy cũ/đường link cũ về đúng chỗ):** script chuyển hướng đầu `index.html`, chế độ `MOVED` trong `sw.js`, `authDomain` trong `account.js`/`admin/admin.js` vẫn nhận host web.app/firebaseapp.com (Firebase Auth cần `/__/auth/handler`). `docs/` (GitHub Pages cũ) đã chuyển thẳng sang gotaviet.com từ 21.367.
+- **Sửa (`Assets/WebGLTemplates/PhoVietPWA/index.html`, chỉ trong source, lên web cùng bản build tới):**
+  - Ghi chú phát hành cũ «Game chuyển sang địa chỉ mới gotaviet.web.app.» → «Game chuyển sang máy chủ mới (nay là gotaviet.com).»
+  - `alt` 2 ảnh hướng dẫn cài iPhone «trang gotaviet.web.app» → «trang gotaviet.com».
+- `AGENTS.md` cập nhật quy tắc phát hành; `BANGIAO.md` bỏ web.app khỏi bảng trạng thái/tra cứu.
+- **Trạng thái:** chỉ đổi tài liệu + chữ trong vỏ web; chưa build/commit (đi cùng bản phát hành 1.95.5).
+
+## 21.388. 4 mẫu banner «Cù Lao Petshop» mới để duyệt (25/11/2026, Claude Code)
+
+- **Người dùng (kèm ảnh 2 banner trong game và trong Blender):** «Tôi vẫn chưa hài lòng với thiết kế của các mẫu banner, còn thô đơn giản và xấu quá, bạn hãy thiết kế thêm cho mình 1 vài mẫu, khi nào mình duyệt mẫu nào rồi thì bạn hãy cho vào trong game».
+- **Cách làm mới:** vẽ mặt banner dạng ảnh phẳng (SVG → PNG) thay cho chữ/hình khối 3D đơn giản của 21.384. Có chó corgi + mèo mướp minh hoạ, phông Google có dấu tiếng Việt (Be Vietnam Pro, Baloo 2, Dancing Script, Playfair Display), nút dịch vụ có biểu tượng (kéo = Spa, nhà + tim = Lưu trú, chữ thập = Thú y).
+- **File (chỉ trong máy, `ArtSource/Concepts/BangRonPetshop-21388/`):**
+  - `banner.html`: toàn bộ 4 mẫu; `?c=1..4&f=v|h`.
+  - `render.sh [mẫu]`: Chrome headless xuất `mauN-doc.png` (1024×2048, banner dọc 7×14 m) và `mauN-ngang.png` (2048×1496, banner ngang 13×9,5 m).
+  - `sheet.html` → `xem-doc.png`, `xem-ngang.png` (bảng so sánh).
+- **4 mẫu:**
+  1. Tươi mát: nền xanh ngọc chuyển màu, logo bàn chân trong vòng tròn, «Cù Lao» chữ viết tay trắng, «PETSHOP» cam chuyển màu, 3 nút dịch vụ, chó mèo ló lên trên bảng «CỬA HÀNG THÚ CƯNG».
+  2. Ấm áp: nền kem có bàn chân mờ, sóng xanh trên đầu, «Petshop» cam viền trắng, chó mèo trong vòng tròn cam + ruy băng, 3 huy hiệu dịch vụ tròn.
+  3. Đêm sang trọng: xanh đêm + vàng kim, khung viền đôi, huy hiệu tròn vẽ chó mèo nét vàng, «CÙ LAO» chữ có chân phát sáng nhẹ, «PETSHOP» chữ mảnh giãn rộng.
+  4. Vui nhộn: chéo xanh/cam, chấm bi + tia nắng, chữ viền đậm nghiêng, bong bóng «Gâu! Meo~», chó mèo viền đậm trên bảng dịch vụ.
+- Câu khẩu hiệu «Yêu thương như người nhà», «Chăm sóc tận tâm mỗi ngày», «Gâu! Meo~» là chữ mình đề xuất, bỏ/đổi được. Không ghi số điện thoại/địa chỉ (không có dữ liệu thật).
+- **Khi người dùng chọn mẫu (chưa làm):** dùng PNG của mẫu đó làm texture (vật liệu mới, không đổ bóng) trên tấm phẳng của 6 banner hiện có, giữ khung nhôm + đèn chiếu; dựng lại trong Blender (`build_petshop_banner.py`) rồi chạy `InstallPetshopBanner21384.Run`.
+- **Trạng thái:** người dùng chọn **mẫu 2 «Ấm áp»** (25/11/2026) → đã đưa vào game ở 21.389.
+
+## 21.389. Đưa mẫu 2 «Ấm áp» lên cả 6 banner Cù Lao Petshop (25/11/2026, Claude Code)
+
+- **Người dùng:** «Mẫu 2» (chọn từ 4 mẫu 21.388).
+- **Texture (`Assets/PhoViet/OpenWorld/Textures/`):**
+  - `OW_BangRonPetshop_Doc.png` 1024×2048 (banner dọc 7×14 m, đúng tỉ lệ 1:2).
+  - `OW_BangRonPetshop_Ngang.png` 2048×2048: ảnh 13:9,5 kéo giãn thành vuông để giữ đủ độ phân giải; UV phủ trọn tấm 13×9,5 m nên co lại đúng tỉ lệ.
+  - Xuất từ `ArtSource/Concepts/BangRonPetshop-21388/banner.html?c=2&f=v|h` bằng Chrome headless (`--window-size=1024,2048` / `2048,2048`).
+  - Import: Default, sRGB, mipmap, Clamp, Trilinear, aniso 8, max 2048, nén CompressedHQ (DXT1 trên máy tính), không ghi đè riêng cho nền tảng nào (điện thoại giữ nguyên độ phân giải).
+- **Vật liệu (`Assets/PhoViet/OpenWorld/Materials/`):** `OW_BangRonPetshop_Doc.mat`, `OW_BangRonPetshop_Ngang.mat`.
+  - Shader built-in `Standard` (dự án đã dùng ở 179 vật liệu, có cả `_EMISSION`) với `_MainTex` = ảnh.
+  - `_Color` 0,8 xám, `_EmissionMap` = ảnh, `_EmissionColor` 0,1, `_Glossiness` 0,2, GPU instancing.
+  - Lý do chỉnh màu: dự án ở Gamma, mặt trời 1,2. Với `_Color` trắng, banner hứng nắng bị chói (cam ngả vàng, xanh ngọc ngả xanh nhạt). Với 0,8 + phát sáng 0,1, màu đúng cả trong nắng lẫn trong bóng râm.
+- **Blender:** `ArtSource/Blender/OpenWorld/build_petshop_banner_anh.py` (mới; exec `build_petshop_banner.py` để dùng lại khung, đèn, gộp mesh, xuất FBX).
+  - Mỗi banner = khung nhôm hộp + tấm lót + 4 bu lông + đèn rọi (3 đèn bản ngang, 2 đèn bản dọc) như 21.384.
+  - Thêm tấm phẳng có UV ở y = −0,185, mang vật liệu ảnh. Bỏ chữ, đĩa và dấu chân 3D, bỏ viền trắng trong.
+  - Giữ tên mesh `OW_BangRon_Petshop_Ngang/_Doc` và cùng FBX `Library/OW_BangRon_Petshop.fbx`.
+  - Số mặt còn 131 (ngang) và 105 (dọc); trước đây khoảng 6.400–7.000.
+  - Bản copy `PhoViet_OW_BangRonPetshop_21389.blend` (`save_as_mainfile(copy=True)`, chỉ trong máy). File đang mở trong Blender (`PhoViet_OW_BannerCuLao.blend`) không lưu đè.
+- **Unity:**
+  - `AgentScripts/InstallPetshopBanner21384.cs`: mảng `Mats` thêm 2 vật liệu mới để remap. Chạy lại `InstallPetshopBanner21384.Run` → 6 banner cùng vị trí/bounds như 21.386, vật liệu `OW_AluCharcoal, OW_FrameWhite, OW_LampBulb, OW_BangRonPetshop_*`.
+  - Scene đã lưu (vẫn chỉ thêm gốc `BangRonPetshop`).
+- **Kiểm tra:** chụp bằng `Shot21384.Render`, ảnh `Assets/Captures/banner21389-*.png` (chỉ trong máy):
+  - `nga3`: ngã 3 xuất phát;
+  - `tuongNgang`: banner ngang + cận banner dọc;
+  - `nga3thu3`: ngã 3 thứ ba;
+  - `lai-xe`: góc lái xe.
+  - Kết quả: chữ, dấu tiếng Việt và hình chó mèo rõ; màu đúng; khung, đèn và hướng đúng.
+- **Trạng thái:** trong source, chưa build/commit; phát hành cùng 1.95.5 (21.383–21.389). Khi commit nhớ thêm 2 PNG, 2 `.mat`, FBX và `.meta` mới; `ArtSource/Concepts/...` và `.blend` vẫn chỉ trong máy.
+
+## 21.390. Thêm 4 banner Petshop ở 2 ngã 3 còn lại trên đường ven sông — tổng 10 banner (25/11/2026, Claude Code)
+
+- **Người dùng:** «Vẫn dọc trên cùng con đường chính này, chỗ nào có ngã ba mà có 2 tường trống bạn lắp 2 banner Quảng cáo vào cho tôi nhé».
+- **Rà cả đường ven sông** (mặt tiền dãy nhà x ≈ 202, từ z ≈ −555 tới lối lên cầu z ≈ 190) bằng collider `BanDoMo/VaCham_NhaPho` và các khối khác (x 180…230, cao > 9,5 m). Các chỗ hở trong dãy nhà là đường vào phố:
+  - z ≈ −430, −300, −150: đã có banner (21.384–21.386).
+  - **z ≈ 0** (đường vào phố z −9,3…9,2): 2 tường hông quay vào đường nhánh, trống → thêm 2 banner.
+  - **z ≈ 100** (z 92,5…107,5): 2 mặt đông nhà góc lùi vào, quay ra đường ven sông, trống → thêm 2 banner.
+  - **Không phải ngã 3, bỏ qua:**
+    - Đầu nam z ≈ −555: góc cua chữ L, đường ven sông rẽ tây theo bờ biển, chỉ có 1 nhà góc.
+    - Cuối dãy phía bắc z ≈ 186 (lối lên cầu B1): chỉ có tường bắc của căn nhà cuối, không có góc thứ hai.
+    - Đoạn −80…−20, 22…84, 120…186: dãy nhà liền, không có đường nhánh.
+- **`AgentScripts/InstallPetshopBanner21384.cs`** thêm 4 lệnh `Place` (cùng FBX mẫu 2 của 21.389). Banner được thu nhỏ để không vượt mái:
+
+  | Ngã 3 | Banner | Tường | Cao tường (collider) | Thu nhỏ | Khung bao |
+  |---|---|---|---|---|---|
+  | `_Nga3Thu4_Nam` | ngang | z = −9,3, x 193,4…202, quay +z | 11,8 m | 60 % | y 3,3…9,7 |
+  | `_Nga3Thu4_Bac` | dọc | z = 9,2, quay −z | 16,3 m | 75 % | y 3,5…14,9 |
+  | `_Nga3Thu5_Nam` | dọc | mặt đông x = 198,2, z 84,2…92,5, quay +x | 18,4 m | 90 % | y 3,1…16,7 |
+  | `_Nga3Thu5_Bac` | dọc | mặt đông x = 200,2, z 107,5…116,1, quay +x | 16,3 m | 75 % | y 3,3…14,7 |
+
+- Gốc scene `BangRonPetshop` giờ có **10 banner**. Scene đã lưu; vẫn chỉ thêm, không đổi gì khác.
+- **Kiểm tra:** chụp `Assets/Captures/banner21390-*.png` (chỉ trong máy):
+  - `truoc-*` trước khi lắp: tường trống;
+  - `sau-z0`, `sau-z0-gan`, `sau-z100` sau khi lắp: đúng hướng, chữ đọc xuôi, nằm gọn trong tường.
+- **Trạng thái:** trong source, chưa build/commit; đi cùng bản 1.95.5.
+
+## 21.391. Phát hành 1.95.5 trên https://gotaviet.com/ (25/11/2026, Claude Code)
+
+- **Người dùng:** «Phát hành 1.95.5».
+- **Gồm:**
+  - 21.383: phím máy tính mũi tên + Q/W/E/R, nút KHIÊN cạnh NHẢY;
+  - 21.387: trang chủ bỏ chữ gotaviet.web.app;
+  - 21.384–21.390: 10 banner «Cù Lao Petshop» mẫu 2 ở 5 ngã 3 đường ven sông.
+- **Trang chủ «Bản cập nhật»** (`index.html`):
+  - ngày 25/11/2026;
+  - thêm dòng «Đường ven sông: 10 bảng quảng cáo «Cù Lao Petshop» mới có hình chó mèo trên tường ở 5 ngã ba.»;
+  - bỏ dòng phím cũ của 21.375 («Space nhảy, K tên lửa, ; khiên, J phanh tay»), vì đã bị phím mới 21.383 thay.
+- **Số phiên bản:** `PhoVietWebBuild.cs` + `ProjectSettings.asset` → 1.95.5.
+- **Build:** `ReleaseBuild.Prepare` → lần 1 «compiling for 1.95.5», lần 2 «ready 1.95.5» → `ReleaseBuild.BuildNow`.
+  - `Builds/release-1.95.5-status.json`: done, 2591 s, stripped 3356.
+  - `Builds/WebGL/build-info.json`: 1.95.5, cache **`7171798ce8898485`**.
+- **Phát hành:** `firebase deploy --only hosting --project gotaviet` (ghi chú «GoTa Viet 1.95.5 cache 7171798ce8898485 (gotaviet.com)»).
+  - So SHA-256 **chỉ trên https://gotaviet.com** (quy tắc 21.387): **51/51 khớp**; `.nojekyll` không lên như mọi lần.
+  - `https://gotaviet.com/build-info.json` = 1.95.5.
+- **Chưa thử trên máy thật:** phím mới (Editor không giả lập được phím Input cũ) và banner trên điện thoại.
+- **Commit + push:** cùng việc này. Không commit các file chỉ để trong máy: `.blend`, `ArtSource/Concepts/*`, `Captures/*`, `Assets/Captures*`, `Packages/`, `PV_StreetAtlas.mat`, `OW_Map_blocks.fbx`, `.png.meta` của Unity tự đổi, AgentScripts 21279/21280.

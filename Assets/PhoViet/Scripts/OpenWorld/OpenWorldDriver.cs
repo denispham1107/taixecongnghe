@@ -4,7 +4,7 @@ using UnityEngine;
 namespace PhoViet.OpenWorld
 {
     // Lái tự do tối giản cho scene bản đồ mở (21.249, đợt 6). Tách hẳn khỏi PhoVietGame (map cuộn cũ).
-    // Bàn phím: W/S hoặc ↑/↓ ga/phanh-lùi, A/D hoặc ←/→ lái, J phanh tay (21.375; trước Space). Cảm ứng: kéo nửa trái màn hình
+    // Bàn phím (21.383): ↑/↓ ga/phanh-lùi, ←/→ lái (bỏ W/A/S/D), R phanh tay (21.375 J; trước Space). Cảm ứng: kéo nửa trái màn hình
     // (lên = ga, xuống = phanh/lùi, trái/phải = lái). Rơi khỏi mặt đất (xuống sông) thì vật lý tự xử lý.
     [RequireComponent(typeof(Rigidbody))]
     public class OpenWorldDriver : MonoBehaviour
@@ -92,7 +92,10 @@ namespace PhoViet.OpenWorld
         Vector2 ReadInput()
         {
             if (scriptedInput != Vector2.zero) return scriptedInput;
-            return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            // 21.383 (người dùng): bỏ W/A/S/D — chỉ phím mũi tên ←/→ lái, ↑ ga, ↓ lùi (W giờ là Lazer, E khiên, Q tên lửa, R phanh).
+            float x = (Input.GetKey(KeyCode.RightArrow) ? 1f : 0f) - (Input.GetKey(KeyCode.LeftArrow) ? 1f : 0f);
+            float y = (Input.GetKey(KeyCode.UpArrow) ? 1f : 0f) - (Input.GetKey(KeyCode.DownArrow) ? 1f : 0f);
+            return new Vector2(x, y);
         }
 
         // ------------------------------------------------------------ 21.265/21.270: nút lái + bàn đạp cảm ứng
@@ -112,7 +115,7 @@ namespace PhoViet.OpenWorld
         readonly System.Collections.Generic.Dictionary<int, Ctl> fingers = new System.Collections.Generic.Dictionary<int, Ctl>();
         bool leftHeld, rightHeld, gasHeld, revHeld, stopHeld, laserHeld;
         public bool LaserHeld => laserHeld;                                    // 21.300: giữ nút LAZER (OpenWorldLaser đọc)
-        // 21.327 — GA TỰ ĐỘNG (người dùng): chạm nhanh 2 lần vào nút Ga (điện thoại) hoặc phím ↑ / W (máy tính) → xe giữ nguyên
+        // 21.327 — GA TỰ ĐỘNG (người dùng): chạm nhanh 2 lần vào nút Ga (điện thoại) hoặc phím ↑ (máy tính; 21.383 bỏ W) → xe giữ nguyên
         // vận tốc đang chạy, không cần giữ Ga; nút Ga đổi biểu tượng (quầng xanh lá + nhãn «TỰ ĐỘNG» trong nút; máy tính: thẻ nhỏ
         // bên trái nút Nhảy). Chạm nhanh 2 lần lần nữa → về bình thường. Người dùng chốt: bấm Lùi/P-DRIFT/Space, bị choáng, va
         // chạm mạnh, dính lưới, bị bắt, hết lượt hoặc chơi lại → tự tắt. Đang tự động mà giữ Ga → tăng tốc, thả ra giữ tốc độ mới.
@@ -181,12 +184,13 @@ namespace PhoViet.OpenWorld
             }
         }
         // 21.312 (người dùng): nút KHIÊN phía trên 2 nút TRÁI/PHẢI, canh giữa khe hai nút, cỡ bằng nút TÊN LỬA mới; khe dưới 1,5 × Gap để
-        // không lẫn vùng chạm nới rộng của nút lái. Máy tính (không có nút lái): bên trái nút LAZER, phím K.
+        // không lẫn vùng chạm nới rộng của nút lái. Máy tính (không có nút lái): 21.383 (người dùng) bên trái nút NHẢY, canh giữa theo
+        // chiều cao nút NHẢY (trước: bên trái nút LAZER); phím E.
         public static Rect ShieldRect
         {
             get
             {
-                if (!touchLayout) { var lz = LaserRect; return new Rect(lz.x - FireSize - Gap, lz.yMax - FireSize, FireSize, FireSize); }
+                if (!touchLayout) { var j = JumpRect; return new Rect(j.x - FireSize - Gap, j.center.y - FireSize * .5f, FireSize, FireSize); }
                 Rect l = LeftRect, r = RightRect; float cx = (l.xMax + r.x) * 0.5f;
                 return new Rect(cx - FireSize * .5f, l.y - FireSize - Gap * 1.5f, FireSize, FireSize);
             }
@@ -371,7 +375,7 @@ namespace PhoViet.OpenWorld
                 if (Mathf.Abs(inp.x) < 0.05f) inp.x = TouchSteer;
                 if (Mathf.Abs(inp.y) < 0.05f) inp.y = GasHeld ? 1f : RevHeld ? -1f : 0f;
             }
-            bool hand = locked || Input.GetKey(KeyCode.J);   // 21.375: phanh tay J (trước Space)
+            bool hand = locked || Input.GetKey(KeyCode.R);   // 21.383: phanh tay R (21.375 J, trước Space)
             bool hardStop = !locked && StopHeld && TouchControlsVisible;
             // Bị nhà/cây/cột chặn: tốc độ trên HUD tụt theo vận tốc thực.
             var fwd0 = transform.forward; fwd0.y = 0; fwd0.Normalize();
@@ -381,7 +385,7 @@ namespace PhoViet.OpenWorld
             // 21.316e: vòng ma sát — đang cua gắt thì ga kéo được ít hơn
             float traction = Mathf.Max(0.5f, Mathf.Sqrt(Mathf.Max(0f, 1f - Mathf.Clamp01(latUse) * Mathf.Clamp01(latUse))));
             // 21.327: Ga tự động — tắt khi phanh/lùi/thắng tay hoặc bị khóa lái (choáng, va, lưới, bị bắt)
-            if (cruise && (locked || inp.y < -0.05f || hardStop || Input.GetKey(KeyCode.J))) cruise = false;
+            if (cruise && (locked || inp.y < -0.05f || hardStop || Input.GetKey(KeyCode.R))) cruise = false;
             if (inp.y > 0.05f) Speed = Mathf.MoveTowards(Speed, maxSpeed * inp.y, (Speed < 0 ? brake : accel * traction) * dt);
             else if (inp.y < -0.05f) Speed = Mathf.MoveTowards(Speed, -reverseSpeed, (Speed > 0 ? brake : accel) * dt);
             else if (cruise) Speed = Mathf.MoveTowards(Speed, cruiseSpeed, (Speed < cruiseSpeed ? accel * traction : drag) * dt);
@@ -404,7 +408,7 @@ namespace PhoViet.OpenWorld
             bool easing = Mathf.Abs(steerTarget) < Mathf.Abs(steerVal) || steerTarget * steerVal < 0f;
             steerVal = Mathf.MoveTowards(steerVal, steerTarget, dt / Mathf.Max(0.01f, easing ? steerReturn : steerRise));
             // 21.316e: mô hình xe hai trục + giới hạn bám lốp (xem chú thích ở phần khai báo)
-            bool handbrake = !locked && (Input.GetKey(KeyCode.J) || hardStop) && vAbs > 4f;
+            bool handbrake = !locked && (Input.GetKey(KeyCode.R) || hardStop) && vAbs > 4f;
             bool braking = handbrake || (inp.y < -0.05f && v > 0.5f);
             float mu = gripG * 9.81f * (braking ? 1.12f : inp.y > 0.05f ? 0.96f : 1f);
             float rLim = mu / Mathf.Max(vAbs, 0.5f);
@@ -642,7 +646,7 @@ namespace PhoViet.OpenWorld
             // 21.375 (người dùng): máy tính nhảy bằng Space (trước J; J giờ là phanh tay). Bỏ qua 0,3 s đầu lượt vì Space cũng
             // là phím «Lên xe» ở màn chào/màn kết thúc — tránh vừa vào lượt đã nhảy.
             if (Input.GetKeyDown(KeyCode.Space) && Time.time - spawnTime > 0.3f) jumpRequest = true;
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) GasTap();   // 21.327: ↑/W chạm 2 lần → Ga tự động
+            if (Input.GetKeyDown(KeyCode.UpArrow)) GasTap();   // 21.327: ↑ chạm 2 lần → Ga tự động (21.383: bỏ W — W là Lazer)
         }
 
         // 21.316b: nghiêng thân xe (chỉ mô hình con, không đụng vật lý) ra ngoài cua
@@ -1034,7 +1038,8 @@ namespace PhoViet.OpenWorld
             st.normal.textColor = new Color(.86f, 1f, .9f);
             string text = "GA TỰ ĐỘNG " + Mathf.RoundToInt(cruiseSpeed * 3.6f) + " km/h · ↑↑ tắt";
             float w = st.CalcSize(new GUIContent(text)).x + h * 1.7f;
-            var r = new Rect(b.x - w - b.width * .12f, b.center.y - h / 2, w, h);   // bên trái nút Nhảy (hàng Khiên/Lazer/Tên lửa nằm phía trên)
+            float left = shieldRef ? ShieldRect.x : b.x;   // 21.383: nút KHIÊN máy tính giờ nằm bên trái nút Nhảy → thẻ ra bên trái KHIÊN
+            var r = new Rect(left - w - b.width * .12f, b.center.y - h / 2, w, h);   // bên trái nút Nhảy/Khiên (hàng Lazer/Tên lửa phía trên)
             float pulse = .5f + .5f * Mathf.Sin(Time.unscaledTime * 4.2f);
             Bar(r, new Color(.04f, .16f, .09f, .92f), h * .5f);
             Bar(new Rect(r.x + h * .2f, r.y + h * .2f, h * .6f, h * .6f), new Color(CruiseGreen.r, CruiseGreen.g, CruiseGreen.b, .6f + .4f * pulse), h * .3f);

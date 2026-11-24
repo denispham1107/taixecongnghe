@@ -474,7 +474,7 @@ namespace PhoViet.OpenWorld
             }
         }
 
-        // 21.300: nút LAZER (21.328: bấm 1 lần là bắn tới khi hết năng lượng) phía trên nút NHẢY; máy cảm ứng do OpenWorldDriver đọc đa điểm, chuột/phím L ở đây.
+        // 21.300: nút LAZER (21.328: bấm 1 lần là bắn tới khi hết năng lượng) phía trên nút NHẢY; máy cảm ứng do OpenWorldDriver đọc đa điểm, chuột/phím W (21.383) ở đây.
         bool laserMouse;
         void LaserButton()
         {
@@ -492,7 +492,7 @@ namespace PhoViet.OpenWorld
                 var st = new GUIStyle(label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(bs * .5f) }; st.normal.textColor = Cream;
                 GUI.Label(badge, Mathf.CeilToInt(laser.CooldownLeft).ToString(), st);
             }
-            if (!touch) OpenWorldDriver.KeyBadge(f, "L");
+            if (!touch) OpenWorldDriver.KeyBadge(f, "W");   // 21.383
             var ev = Event.current;
             if (!touch && ev.type == EventType.MouseDown && f.Contains(ev.mousePosition)) { laserMouse = true; ev.Use(); }
             GUI.matrix = m;
@@ -501,7 +501,7 @@ namespace PhoViet.OpenWorld
         }
 
         // 21.312: nút KHIÊN (bấm 1 lần → khiên 6 s, hồi 10 s (21.313)) phía trên giữa 2 nút TRÁI/PHẢI; máy cảm ứng do OpenWorldDriver đọc
-        // đa điểm, chuột/phím ; (21.375; trước K) ở đây. Đang bật: nút sáng + quầng xanh ngọc + số giây còn lại; đang hồi: xám + số giây hồi.
+        // đa điểm, chuột/phím E (21.383; 21.375 ;) ở đây. Đang bật: nút sáng + quầng xanh ngọc + số giây còn lại; đang hồi: xám + số giây hồi.
         void ShieldButton()
         {
             if (!shield || !player || player.frozen || player.Crashed || Mode != State.Riding) return;
@@ -519,7 +519,7 @@ namespace PhoViet.OpenWorld
                 var st = new GUIStyle(label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(bs * .5f) }; st.normal.textColor = Cream;
                 GUI.Label(badge, Mathf.CeilToInt(left).ToString(), st);
             }
-            if (!touch) OpenWorldDriver.KeyBadge(f, ";");
+            if (!touch) OpenWorldDriver.KeyBadge(f, "E");   // 21.383
             var ev = Event.current;
             if (!touch && ev.type == EventType.MouseDown && f.Contains(ev.mousePosition)) { shield.requested = true; ev.Use(); }
             GUI.matrix = m;
@@ -576,7 +576,7 @@ namespace PhoViet.OpenWorld
             });
         }
 
-        // Nút TÊN LỬA phía trên nút NHẢY (góc phải dưới); bàn phím: K (21.375; trước F).
+        // Nút TÊN LỬA phía trên nút NHẢY (góc phải dưới); bàn phím: Q (21.383; 21.375 K, trước F).
         void FireButton()
         {
             if (!hazards || !player || player.frozen || player.Crashed || Mode != State.Riding) return;
@@ -584,7 +584,7 @@ namespace PhoViet.OpenWorld
             // đa điểm (vừa lái vừa bắn); nút IMGUI chỉ còn cho chuột.
             var f = OpenWorldDriver.FireRect; var r = new Rect(f.x / uiScale, f.y / uiScale, f.width / uiScale, f.height / uiScale);
             bool ready = hazards.CanFire, touch = player.TouchControlsVisible;
-            // 21.266: nút vẽ sẵn (PV_Btn_Missile) + huy hiệu số tên lửa; máy tính thêm chữ phím K (21.375), bấm chuột vẫn bắn.
+            // 21.266: nút vẽ sẵn (PV_Btn_Missile) + huy hiệu số tên lửa; máy tính thêm chữ phím Q (21.383), bấm chuột vẫn bắn.
             var m = GUI.matrix; GUI.matrix = Matrix4x4.identity;
             OpenWorldDriver.DrawArtButton(f, OpenWorldDriver.MissileButtonTex, new Color(.91f, .27f, .23f), false, ready);
             float bs = f.width * .3f; var badge = new Rect(f.x - bs * .1f, f.y - bs * .1f, bs, bs);
@@ -592,7 +592,7 @@ namespace PhoViet.OpenWorld
             GUI.DrawTexture(badge, Texture2D.whiteTexture, ScaleMode.StretchToFill, true, 0, Ink, bs * .1f, bs * .5f);
             var st = new GUIStyle(label) { alignment = TextAnchor.MiddleCenter, fontSize = Mathf.RoundToInt(bs * .56f) }; st.normal.textColor = Ink;
             GUI.Label(badge, hazards.PlayerMissiles.ToString(), st);
-            if (!touch) OpenWorldDriver.KeyBadge(f, "K");
+            if (!touch) OpenWorldDriver.KeyBadge(f, "Q");   // 21.383
             bool click = !touch && Event.current.type == EventType.MouseDown && f.Contains(Event.current.mousePosition);
             GUI.matrix = m;
             if (click) { hazards.RequestFire(); Event.current.Use(); }

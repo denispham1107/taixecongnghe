@@ -9,7 +9,7 @@ namespace PhoViet.OpenWorld
     // • Miễn nhiễm mọi đạn: đạn pháo xe tăng/tàu, tên lửa trực thăng/máy bay cánh kép (OpenWorldHazards.Explode → Absorb).
     // • Phá vỡ lưới điện CSGT: đang dính lưới thì bật khiên là lưới vỡ tung (OpenWorldNetShatter), lưới bắn tới khi khiên đang bật
     //   cũng vỡ ngay khi chạm khiên; xe chạy tiếp được.
-    // • Hết 6 s → hồi 10 s mới dùng lại (21.313; 21.312 là 4 s / 15 s). Phím K trên máy tính. Vào lượt mới: sẵn sàng.
+    // • Hết 6 s → hồi 10 s mới dùng lại (21.313; 21.312 là 4 s / 15 s). Phím E trên máy tính (21.383). Vào lượt mới: sẵn sàng.
     // Hình: lưới Blender PV_Khien.fbx (build_khien.py): vỏ elip fresnel + 162 ô lục giác (khung sáng + mặt ô lóe ngẫu nhiên) + vành
     // sáng dưới đất, shader cộng sáng PhoViet/OpenWorld/Shield; 12 TIA NĂNG LƯỢNG (6 mẫu tia sét có nhánh) xẹt quanh mặt khiên, đổi
     // chỗ mỗi 0,055 s, một phần phóng chĩa ra ngoài; tia lửa ở đầu tia; đèn điểm xanh ngọc nhấp nháy; tiếng ù năng lượng + xẹt.
@@ -93,7 +93,7 @@ namespace PhoViet.OpenWorld
         void Update()
         {
             float dt = Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.Semicolon)) requested = true;   // 21.375: phím ; (trước K, K giờ là tên lửa)
+            if (Input.GetKeyDown(KeyCode.E)) requested = true;   // 21.383: phím E (21.375 ;, trước K)
             if (requested) { requested = false; TryActivate(); }
             if (Active)
             {

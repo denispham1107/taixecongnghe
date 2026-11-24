@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 namespace PhoViet.OpenWorld
 {
     // 21.300 — người dùng 21/11/2026: nút «LAZER» (trên nút NHẢY, cỡ nút TÊN LỬA) + thanh «NĂNG LƯỢNG 100/100» dưới số tên lửa.
-    // • Giữ nút (phím L / chuột giữ nút trên máy tính) → 2 tia lazer phóng liên tục từ 2 đèn pha. 21.328: chỉ cần bấm 1 lần,
+    // • Giữ nút (phím W — 21.383, trước L / chuột giữ nút trên máy tính) → 2 tia lazer phóng liên tục từ 2 đèn pha. 21.328: chỉ cần bấm 1 lần,
     //   tia tự bắn tới khi hết năng lượng. Ảnh hiệu ứng dựng bằng Blender
     //   (ArtSource/Blender/OpenWorld/ow_laser_fx.py → Resources/Laser), shader cộng sáng PhoViet/OpenWorld/Laser.
     // • Năng lượng 100: bấm là trừ 25 ngay, mỗi 0,5 s trừ thêm 25 (bắn ~1,5–2 s). Hết năng lượng → khóa 5 s
@@ -59,7 +59,7 @@ namespace PhoViet.OpenWorld
 
         void Awake() { driver = GetComponent<OpenWorldDriver>(); }
 
-        bool Held => (driver && driver.LaserHeld) || Input.GetKey(KeyCode.L) || mouseHeld || testHold;
+        bool Held => (driver && driver.LaserHeld) || Input.GetKey(KeyCode.W) || mouseHeld || testHold;
         bool wasHeld;
 
         bool CanShoot()
