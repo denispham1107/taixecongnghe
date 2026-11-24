@@ -7139,4 +7139,13 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - `section.install-pane[data-pane="other"]`: 2 đoạn `<p>` cũ → 1 đoạn `<p><b>Android / Chrome / Edge:</b> chọn “TẢI GAME” để tải và cài đặt Game trực tiếp vào máy nhé.</p>`.
   - «Bản cập nhật» thêm dòng «Hộp «Tải game» › Android · Máy tính: hướng dẫn gọn — chọn «TẢI GAME» để tải và cài game vào máy.»
   - Thẻ iPhone và thẻ «Cách chơi» không đổi.
+- (Từ 21.393 chữ «chọn» đổi thành «Bấm vào nút», xem 21.393.)
 - **Phát hành vỏ web (không build lại game):** `AgentScripts/Shell21392.cs` (`PhoVietWebBuild.RefreshWebShell` trên 1.95.5) → cache **`dcc0027250c8e7fe`** → `firebase deploy --only hosting --project gotaviet` → gotaviet.com **51/51 khớp SHA-256** (`.nojekyll` không lên như mọi lần). Đã commit + push.
+
+## 21.393. Thẻ «Android · Máy tính»: «chọn» → «Bấm vào nút» (25/11/2026, Claude Code)
+
+- **Người dùng:** «thay chữ "chọn" thành "Bấm vào nút"».
+- **`index.html`:**
+  - Thẻ `data-pane="other"` giờ là «**Android / Chrome / Edge:** Bấm vào nút “TẢI GAME” để tải và cài đặt Game trực tiếp vào máy nhé.»
+  - Dòng «Bản cập nhật» của 21.392 sửa theo: «… hướng dẫn gọn — bấm vào nút «TẢI GAME» để tải và cài game vào máy.»
+- **Phát hành vỏ web trên 1.95.5:** `AgentScripts/Shell21393.cs` (`RefreshWebShell`) → cache **`3e003bac165ed764`** → `firebase deploy` → gotaviet.com **51/51 khớp SHA-256** (`.nojekyll` không lên như mọi lần). Đã commit + push.
