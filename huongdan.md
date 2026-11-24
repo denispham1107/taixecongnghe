@@ -7131,3 +7131,12 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - `https://gotaviet.com/build-info.json` = 1.95.5.
 - **Chưa thử trên máy thật:** phím mới (Editor không giả lập được phím Input cũ) và banner trên điện thoại.
 - **Commit + push:** cùng việc này. Không commit các file chỉ để trong máy: `.blend`, `ArtSource/Concepts/*`, `Captures/*`, `Assets/Captures*`, `Packages/`, `PV_StreetAtlas.mat`, `OW_Map_blocks.fbx`, `.png.meta` của Unity tự đổi, AgentScripts 21279/21280.
+
+## 21.392. Thẻ «Android · Máy tính» trong hộp Tải game: chỉ còn hướng dẫn bấm «TẢI GAME» (25/11/2026, Claude Code)
+
+- **Người dùng (kèm ảnh hộp «CÀI GAME & CHƠI OFFLINE», thẻ Android · Máy tính):** đổi 2 câu «Android / Chrome / Edge: chọn “Cài ứng dụng” hoặc mục cài đặt trong menu trình duyệt.» + «Lần đầu cần mạng để tải game. Khi thông báo “Đã lưu để chơi offline” xuất hiện, bạn có thể mở lại trên máy này khi mất mạng» thành «Android / Chrome / Edge: chọn “TẢI GAME” để tải và cài đặt Game trực tiếp vào máy nhé.»
+- **`Assets/WebGLTemplates/PhoVietPWA/index.html`:**
+  - `section.install-pane[data-pane="other"]`: 2 đoạn `<p>` cũ → 1 đoạn `<p><b>Android / Chrome / Edge:</b> chọn “TẢI GAME” để tải và cài đặt Game trực tiếp vào máy nhé.</p>`.
+  - «Bản cập nhật» thêm dòng «Hộp «Tải game» › Android · Máy tính: hướng dẫn gọn — chọn «TẢI GAME» để tải và cài game vào máy.»
+  - Thẻ iPhone và thẻ «Cách chơi» không đổi.
+- **Phát hành vỏ web (không build lại game):** `AgentScripts/Shell21392.cs` (`PhoVietWebBuild.RefreshWebShell` trên 1.95.5) → cache **`dcc0027250c8e7fe`** → `firebase deploy --only hosting --project gotaviet` → gotaviet.com **51/51 khớp SHA-256** (`.nojekyll` không lên như mọi lần). Đã commit + push.
