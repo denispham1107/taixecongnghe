@@ -7178,3 +7178,18 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - Ảnh gốc giữ trong thư mục tạm của phiên; ảnh so sánh trước/sau ở `ArtSource/Concepts/CaiDatIphone-21394/truoc-sau.png` (chỉ trong máy).
 - **`index.html`:** «Bản cập nhật» thêm dòng «Ảnh hướng dẫn cài trên iPhone (Chrome, Safari) đổi sang địa chỉ gotaviet.com.» (`alt` đã ghi gotaviet.com từ 21.387).
 - **Phát hành vỏ web trên 1.95.5:** `AgentScripts/Shell21394.cs` (`RefreshWebShell`) → cache **`6c6cbbf6a0a09fe2`** → `firebase deploy` → gotaviet.com **51/51 khớp SHA-256** (`.nojekyll` không lên như mọi lần). Đã commit + push.
+
+## 21.395. Dọn dung lượng thư mục game và rác phát sinh ngoài ổ đĩa (25/11/2026, Claude Code)
+
+- **Người dùng:** thư mục game 15,5 GB quá nặng — dọn tối đa; kiểm tra cả dung lượng không cần thiết do game phát sinh ở nơi khác trên ổ cứng.
+- **Đo trước khi dọn (dự án 14,2 GB):** `.git` 5,56 GB (đối tượng rời 3,15 GB + gói 2,4 GB), `Library` 4,16 GB, `ArtSource` 1,67 GB, `Assets` 1,63 GB, `Captures` 0,73 GB, `Builds` 0,25 GB, `_site` 0,22 GB.
+- **Đã xoá (tự sinh lại được hoặc là bản rác/sao lưu cũ, tổng 5,09 GB), Unity Editor không mở lúc xoá:**
+  - `Library/Occlusion` 807 MB (bộ đệm umbra lúc bake; kết quả bake nằm ở `Assets/PhoViet/Scenes/PhoVietOpenWorld/OcclusionCullingData.asset`), `Library/Bee` 558 MB (lần build WebGL tới biên dịch lại từ đầu, lâu hơn), `Library/PlayerDataCache` 173 MB, `Library/Search` 79 MB, `Library/BurstCache` 76 MB, `Library/ShaderCache` 29 MB.
+  - `_site/` 226 MB (bản ghép cho GitHub Pages cũ, đã bỏ từ 21.356; `.gitignore` có sẵn).
+  - `Assets/_Recovery/` 441 MB (5 cảnh phục hồi sau khi Unity tắt đột ngột 20–23/11, scene thật đã commit sau đó) + `.meta`.
+  - `Assets/Captures/` 98 MB (ảnh chụp banner 21.384, không asset nào tham chiếu GUID) + `.meta`.
+  - 35 tệp `*.blend1` sao lưu tự động của Blender (377 MB), `huongdan.tmp` (4/11).
+  - Ngoài dự án: thư mục tạm phiên Claude cũ `%LOCALAPPDATA%\Temp\claude\…\81b886ae…\scratchpad` 1,7 GB (các bản sao build WebGL 1.83–1.88 để thử), 9 hồ sơ Chrome thử bộ nhớ `%LOCALAPPDATA%\Temp\pvmem-*` 0,4 GB, `%LOCALAPPDATA%\Unity\Caches\bee` 256 MB.
+- **Git:** `git gc` gộp đối tượng rời gần như không giảm (toàn tệp nhị phân). ~3,5 GB là các bản `docs/Build/*.data.unityweb.part*` từ thời Pages. Người dùng chọn cắt lịch sử cục bộ: `git fetch --depth=24 origin main` (giữ 24 commit từ sau `9f69774` 1.95.0 Firebase — commit cuối còn `docs/Build`), xoá `ORIG_HEAD` hỏng, `git reflog expire --expire=now --all`, `git gc --prune=now`. **Kho trên máy giờ là bản nông (shallow)**; commit/push bình thường; cần lịch sử cũ thì `git fetch --unshallow` (lấy lại từ GitHub).
+- **Giữ lại (người dùng chọn/không chọn):** phần còn lại của `Library` (Artifacts, PackageCache — xoá thì Unity phải nhập lại toàn bộ); `Builds/WebGL` (cần để so SHA khi phát hành); `ArtSource`, `Captures` (kể cả ảnh chưa commit), `functions/node_modules`. Không đụng bộ đệm chung: npm-cache 5,5 GB, Unity Hub Templates 1,7 GB, lịch sử chat Claude 1,5 GB, `~/.codex` 7,4 GB, `~/.cache/codex-runtimes` 7,7 GB; dự án khác `Documents/GameUnity/Diablo25D` 15,4 GB không thuộc game này.
+- **Kết quả:** GIT_RESULT_PLACEHOLDER
