@@ -114,7 +114,11 @@ function flushPending(){
 // 21.375: đang chơi (Unity báo gotaRunStarted) thì không hiện thông báo xếp hạng; vào lượt mới tắt thông báo còn đang hiện
 // (kể cả kết quả gửi điểm về muộn sau khi người chơi đã bấm chơi lại).
 let inRun=false;
-window.gotaRunStarted=()=>{inRun=true;clearTimeout(toastTimer);const t=$('run-toast');if(t)t.hidden=true;};
+// 21.396: chế độ TẬP LUYỆN — game báo gotaRunStarted(true) khi vào lượt tập, gotaPracticeEnded khi hết lượt tập (không gửi điểm),
+// gotaReady khi về màn chào. Thời gian từ lúc vào lượt tập tới lúc về màn chào/vào lượt thật cộng vào plays.practice.
+window.gotaRunStarted=(practice)=>{inRun=true;setPractice(!!practice);clearTimeout(toastTimer);const t=$('run-toast');if(t)t.hidden=true;};
+window.gotaPracticeEnded=()=>{inRun=false;};
+window.gotaReady=()=>{inRun=false;setPractice(false);};
 window.gotaRunEnded=async(metres,localBest)=>{
   inRun=false;
   metres=Math.max(0,Math.floor(Number(metres)||0));
@@ -142,24 +146,33 @@ window.gotaRunEnded=async(metres,localBest)=>{
    Chỉ tài khoản đã đăng nhập. plays/{id} = một lần vào chơi: tạo khi game mở (canvas hiện) và trang đang hiển thị, cập nhật
    seconds/end mỗi 30 s; trang bị ẩn (chuyển app, khóa máy, đóng tab) thì chốt lần đó, hiện lại thì mở lần mới.
    runs/{id} = điểm (mét) từng lượt. Luật ở firestore.rules; trang quản trị đọc qua Cloud Function adminApi. */
-let play=null;
+let play=null,practiceSince=null;   // 21.396: performance.now() lúc bắt đầu chế độ tập luyện, null = đang chơi thật/màn chào
+function setPractice(on){
+  const now=performance.now();
+  if(on&&practiceSince===null)practiceSince=now;
+  else if(!on&&practiceSince!==null){if(play)play.pAcc+=Math.max(0,now-Math.max(practiceSince,play.from));practiceSince=null;}
+}
+function practiceMs(p,now){return p.pAcc+(practiceSince!==null?Math.max(0,now-Math.max(practiceSince,p.from)):0);}
 async function playStart(){
   if(play||!user||!gameOpen()||document.hidden)return;
-  const p=play={ref:null,from:performance.now(),timer:0};
+  const p=play={ref:null,from:performance.now(),timer:0,pAcc:0};
   try{
     const {db,F}=await loadSdk();
     if(!user||play!==p){if(play===p)play=null;return;}
-    p.ref=await F.addDoc(F.collection(db,'plays'),{uid:user.uid,start:F.serverTimestamp(),end:F.serverTimestamp(),seconds:0});
+    p.ref=await F.addDoc(F.collection(db,'plays'),{uid:user.uid,start:F.serverTimestamp(),end:F.serverTimestamp(),seconds:0,practice:0});
     if(play!==p){await playWrite(p);return;}   // đã bị chốt trong lúc chờ tạo
     p.timer=setInterval(()=>void playWrite(p),30000);
   }catch(e){console.warn('play log',e);if(play===p)play=null;}
 }
 async function playWrite(p){
   if(!p?.ref||!fb)return;
-  try{await fb.F.updateDoc(p.ref,{end:fb.F.serverTimestamp(),seconds:Math.max(0,Math.floor((performance.now()-p.from)/1000))});}
+  const now=p.stopAt||performance.now(),seconds=Math.max(0,Math.floor((now-p.from)/1000));
+  const practice=Math.min(seconds,Math.max(p.pDone||0,Math.floor(practiceMs(p,now)/1000)));
+  if(p.stopAt)p.pDone=practice;
+  try{await fb.F.updateDoc(p.ref,{end:fb.F.serverTimestamp(),seconds,practice});}
   catch(e){console.warn('play log',e);}
 }
-function playStop(){const p=play;if(!p)return;play=null;clearInterval(p.timer);void playWrite(p);}
+function playStop(){const p=play;if(!p)return;const now=performance.now();p.pDone=Math.floor(practiceMs(p,now)/1000);p.stopAt=now;play=null;clearInterval(p.timer);void playWrite(p);}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)playStop();else void playStart();});
 window.addEventListener('pagehide',playStop);
 async function logRun(metres){

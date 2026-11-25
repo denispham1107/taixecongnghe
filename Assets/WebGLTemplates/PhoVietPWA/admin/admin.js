@@ -88,21 +88,24 @@ $('reload').addEventListener('click', async () => {
 });
 $('search').addEventListener('input', render); $('sort').addEventListener('change', render);
 
+// 21.396: giờ chơi tách 2 loại — luyện tập (chế độ TẬP LUYỆN, plays.practice) và chơi thật (còn lại, đua bảng xếp hạng).
+const prac = p => Math.min(p.seconds || 0, p.practice || 0), real = p => Math.max(0, (p.seconds || 0) - prac(p));
+
 function render() {
-  const total = users.reduce((a, u) => a + u.plays.seconds, 0), visits = users.reduce((a, u) => a + u.plays.count, 0);
+  const total = users.reduce((a, u) => a + real(u.plays), 0), totalP = users.reduce((a, u) => a + prac(u.plays), 0), visits = users.reduce((a, u) => a + u.plays.count, 0);
   const today = Date.now() - 86400000, active = users.filter(u => u.plays.last > today).length;
   $('stats').innerHTML = [['Tài khoản', num(users.length)], ['Chơi trong 24 giờ', num(active)], ['Tổng lần vào chơi', num(visits)],
-    ['Tổng thời gian chơi', dur(total)], ['Tổng số ván chơi', num(users.reduce((a, u) => a + (u.board?.runs || 0), 0))]]
+    ['Giờ chơi thật (đua xếp hạng)', dur(total)], ['Giờ luyện tập', dur(totalP)], ['Tổng số ván chơi', num(users.reduce((a, u) => a + (u.board?.runs || 0), 0))]]
     .map(([k, v]) => `<div class="stat"><small>${k}</small><b>${v}</b></div>`).join('');
   const q = $('search').value.trim().toLowerCase(), key = $('sort').value;
   const list = users.filter(u => !q || [u.name, u.email, u.board?.name, u.uid].some(x => (x || '').toLowerCase().includes(q)));
-  const by = {created: u => -(u.created || 0), lastplay: u => -(u.plays.last || 0), time: u => -u.plays.seconds, best: u => -(u.board?.best || 0)};
+  const by = {created: u => -(u.created || 0), lastplay: u => -(u.plays.last || 0), time: u => -real(u.plays), practice: u => -prac(u.plays), best: u => -(u.board?.best || 0)};
   list.sort(key === 'name' ? (a, b) => (a.name || a.email).localeCompare(b.name || b.email, 'vi') : (a, b) => by[key](a) - by[key](b));
   $('users').tBodies[0].innerHTML = list.map(u => `<tr tabindex="0" data-uid="${esc(u.uid)}">
     <td class="pname"><b>${esc(u.name || u.board?.name || '(chưa đặt tên)')}${u.admin ? '<span class="tag admin">QUẢN TRỊ</span>' : ''}${u.disabled ? '<span class="tag off">ĐÃ KHÓA</span>' : ''}</b><small>${esc(u.email || u.uid)} · ${provider(u.providers)}</small></td>
     <td>${when(u.created)}</td><td>${when(u.plays.last)}</td><td class="num">${num(u.plays.count)}</td>
-    <td class="num">${dur(u.plays.seconds)}</td><td class="num">${u.board ? metres(u.board.best) : '—'}</td><td class="num">${num(u.board?.runs || 0)}</td></tr>`).join('')
-    || '<tr><td colspan="7" class="muted">Không có người chơi nào.</td></tr>';
+    <td class="num">${dur(real(u.plays))}</td><td class="num">${dur(prac(u.plays))}</td><td class="num">${u.board ? metres(u.board.best) : '—'}</td><td class="num">${num(u.board?.runs || 0)}</td></tr>`).join('')
+    || '<tr><td colspan="8" class="muted">Không có người chơi nào.</td></tr>';
 }
 $('users').addEventListener('click', e => { const tr = e.target.closest('tr[data-uid]'); if (tr) openDetail(tr.dataset.uid); });
 $('users').addEventListener('keydown', e => { const tr = e.target.closest('tr[data-uid]'); if (tr && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openDetail(tr.dataset.uid); } });
@@ -122,7 +125,7 @@ async function openDetail(uid) {
 }
 
 function drawDetail() {
-  const {user: u, board: b, plays, runs} = current, uid = current.uid, total = plays.reduce((a, p) => a + p.seconds, 0);
+  const {user: u, board: b, plays, runs} = current, uid = current.uid, total = plays.reduce((a, p) => a + real(p), 0), totalP = plays.reduce((a, p) => a + prac(p), 0);
   const best = runs.reduce((a, r) => Math.max(a, r.metres), 0);
   const kv = (k, v) => `<div class="kv"><small>${k}</small><span>${v}</span></div>`;
   $('d-title').textContent = u.name || b?.name || u.email || 'Người chơi';
@@ -130,7 +133,8 @@ function drawDetail() {
     <div class="grid">
       ${kv('Tạo tài khoản', when(u.created))}${kv('Đăng nhập gần nhất', when(u.lastSignIn))}
       ${kv('Hoạt động gần nhất', when(u.lastActive))}${kv('Đăng nhập bằng', provider(u.providers))}
-      ${kv('Tổng thời gian chơi', dur(total))}${kv('Số lần vào chơi', num(plays.length))}
+      ${kv('Giờ chơi thật (đua xếp hạng)', dur(total))}${kv('Giờ luyện tập', dur(totalP))}
+      ${kv('Số lần vào chơi', num(plays.length))}
       ${kv('Kỷ lục trên bảng', b ? metres(b.best) : '—')}${kv('Số ván chơi', num(b?.runs || 0))}
       ${kv('Điểm cao nhất đã ghi', runs.length ? metres(best) : '—')}${kv('Mã tài khoản (uid)', esc(uid))}
     </div>
@@ -147,9 +151,9 @@ function drawDetail() {
       </form>
     </div>
 
-    <div class="sec"><h3>Các lần vào chơi (${num(plays.length)} lần · ${dur(total)})</h3>
-      <div class="scroll"><table><thead><tr><th>#</th><th>Bắt đầu</th><th>Kết thúc</th><th class="num">Thời lượng</th></tr></thead><tbody>
-      ${plays.map((p, i) => `<tr><td>${plays.length - i}</td><td>${when(p.start)}</td><td>${when(p.end)}</td><td class="num">${dur(p.seconds)}</td></tr>`).join('') || '<tr><td colspan="4" class="muted">Chưa có lần vào chơi nào được ghi.</td></tr>'}
+    <div class="sec"><h3>Các lần vào chơi (${num(plays.length)} lần · thật ${dur(total)} · luyện tập ${dur(totalP)})</h3>
+      <div class="scroll"><table><thead><tr><th>#</th><th>Bắt đầu</th><th>Kết thúc</th><th class="num">Chơi thật</th><th class="num">Luyện tập</th></tr></thead><tbody>
+      ${plays.map((p, i) => `<tr><td>${plays.length - i}</td><td>${when(p.start)}</td><td>${when(p.end)}</td><td class="num">${dur(real(p))}</td><td class="num">${dur(prac(p))}</td></tr>`).join('') || '<tr><td colspan="5" class="muted">Chưa có lần vào chơi nào được ghi.</td></tr>'}
       </tbody></table></div>
     </div>
 

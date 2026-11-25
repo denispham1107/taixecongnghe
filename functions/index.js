@@ -3,7 +3,7 @@
    (Firebase Authentication), không chỉ dữ liệu bảng xếp hạng.
    Hành động (request.data.action):
      list   → mọi tài khoản: tên, email, cách đăng nhập, lúc tạo, lần đăng nhập cuối, khóa?, kỷ lục, số lượt,
-              tổng số lần vào chơi + tổng thời gian chơi + lần chơi gần nhất (từ plays), số điểm đã ghi (từ runs).
+              tổng số lần vào chơi + tổng thời gian chơi (21.396: kèm practice = phần luyện tập) + lần chơi gần nhất (từ plays), số điểm đã ghi (từ runs).
      detail → một tài khoản + danh sách lần vào chơi (plays) + điểm từng lượt (runs), mới nhất trước.
      update → sửa tên hiển thị / email / mật khẩu mới / khóa-mở khóa / tên trên bảng / kỷ lục.
      delete → xóa tài khoản đăng nhập + scores/{uid} + mọi plays/runs của người đó.
@@ -55,16 +55,16 @@ exports.adminApi = onCall({region: 'asia-southeast1', memory: '256MiB', timeoutS
 
   if (action === 'list') {
     const [users, scores, plays, runs, admins] = await Promise.all([
-      allUsers(), db.collection('scores').get(), db.collection('plays').select('uid', 'start', 'seconds').get(),
+      allUsers(), db.collection('scores').get(), db.collection('plays').select('uid', 'start', 'seconds', 'practice').get(),
       db.collection('runs').select('uid').get(), db.collection('admins').get()]);
     const sc = {}; scores.forEach(s => { sc[s.id] = s.data(); });
-    const pl = {}; plays.forEach(p => { const x = p.data(), a = pl[x.uid] ||= {count: 0, seconds: 0, last: 0};
-      a.count++; a.seconds += x.seconds || 0; a.last = Math.max(a.last, ms(x.start) || 0); });
+    const pl = {}; plays.forEach(p => { const x = p.data(), a = pl[x.uid] ||= {count: 0, seconds: 0, practice: 0, last: 0};
+      a.count++; a.seconds += x.seconds || 0; a.practice += Math.min(x.seconds || 0, x.practice || 0);   /* 21.396: giờ luyện tập */ a.last = Math.max(a.last, ms(x.start) || 0); });
     const rn = {}; runs.forEach(r => { const u = r.get('uid'); rn[u] = (rn[u] || 0) + 1; });
     const adm = new Set(admins.docs.map(a => a.id));
     return {me, users: users.map(u => ({...userInfo(u), admin: adm.has(u.uid),
       board: sc[u.uid] ? {name: sc[u.uid].name, best: sc[u.uid].best, runs: sc[u.uid].runs} : null,
-      plays: pl[u.uid] || {count: 0, seconds: 0, last: 0}, runsLogged: rn[u.uid] || 0}))};
+      plays: pl[u.uid] || {count: 0, seconds: 0, practice: 0, last: 0}, runsLogged: rn[u.uid] || 0}))};
   }
 
   const uid = String(d.uid || '');
@@ -74,7 +74,7 @@ exports.adminApi = onCall({region: 'asia-southeast1', memory: '256MiB', timeoutS
     const [u, s, plays, runs] = await Promise.all([auth.getUser(uid), db.doc('scores/' + uid).get(),
       db.collection('plays').where('uid', '==', uid).get(), db.collection('runs').where('uid', '==', uid).get()]);
     return {user: userInfo(u), board: s.exists ? {name: s.get('name'), best: s.get('best'), runs: s.get('runs'), updatedAt: ms(s.get('updatedAt'))} : null,
-      plays: plays.docs.map(p => ({start: ms(p.get('start')), end: ms(p.get('end')), seconds: p.get('seconds') || 0})).sort((a, b) => b.start - a.start),
+      plays: plays.docs.map(p => ({start: ms(p.get('start')), end: ms(p.get('end')), seconds: p.get('seconds') || 0, practice: p.get('practice') || 0})).sort((a, b) => b.start - a.start),
       runs: runs.docs.map(r => ({at: ms(r.get('at')), metres: r.get('metres') || 0})).sort((a, b) => b.at - a.at)};
   }
 

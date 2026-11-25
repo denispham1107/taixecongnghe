@@ -75,7 +75,7 @@ namespace PhoViet.OpenWorld
         int FillSeaBoats(Vector3 pp)
         {
             if (!boats) return 0;
-            int need = coastBoats - boats.SeaAlive, made = 0;
+            int need = CoastBoats - boats.SeaAlive, made = 0;   // 21.396: tập luyện 3 tàu
             if (need <= 0) return 0;
             NearestSide(pp, out var foot, out var outN, out var along);
             float[] offs = { 0f, -55f, 55f, -105f, 105f, -150f, 150f };
@@ -100,7 +100,7 @@ namespace PhoViet.OpenWorld
         {
             if (!planePrefab) planePrefab = Resources.Load<GameObject>("Skywing/PV_Skywing");
             if (!planePrefab) return 0;
-            int need = coastPlanes - ActivePlanes, made = 0;
+            int need = CoastPlanes - ActivePlanes, made = 0;   // 21.396: tập luyện 1 chiếc bay
             NearestSide(pp, out _, out var outN, out var along);
             for (int k = 0; k < need; k++)
             {

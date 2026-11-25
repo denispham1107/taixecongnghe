@@ -3,6 +3,7 @@ rules_version = '2';
 // Ai cũng đọc được (bảng chung); chỉ chủ tài khoản ghi được tài liệu của mình, kỷ lục không được giảm.
 // 21.378: trang quản trị /admin + nhật ký chơi.
 //   plays/{id} = một lần vào chơi {uid, start, end, seconds} — chủ tài khoản tạo khi mở game, cập nhật seconds/end mỗi 30 s.
+//   21.396: thêm practice = số giây trong đó ở chế độ TẬP LUYỆN (tùy chọn, ≤ seconds, không giảm) — bản game cũ không gửi vẫn hợp lệ.
 //   runs/{id}  = điểm từng lượt {uid, metres, at} — chủ tài khoản tạo khi hết lượt.
 //   admins/{uid} = danh sách quản trị viên. Trang quản trị đọc/sửa/xóa qua Cloud Function adminApi (Admin SDK, bỏ qua luật),
 //   nên ở đây plays/runs/admins không cho máy khách đọc; quản trị viên vẫn được đọc/sửa trực tiếp cho tiện kiểm tra.
@@ -19,16 +20,20 @@ service cloud.firestore {
     match /plays/{id} {
       allow read: if isAdmin();
       allow create: if signedInAs(request.resource.data.uid)
-                    && request.resource.data.keys().hasOnly(['uid', 'start', 'end', 'seconds'])
+                    && request.resource.data.keys().hasOnly(['uid', 'start', 'end', 'seconds', 'practice'])
                     && request.resource.data.start == request.time
                     && request.resource.data.end == request.time
-                    && request.resource.data.seconds == 0;
+                    && request.resource.data.seconds == 0
+                    && request.resource.data.get('practice', 0) == 0;
       allow update: if signedInAs(resource.data.uid)
-                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['end', 'seconds'])
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['end', 'seconds', 'practice'])
                     && request.resource.data.end == request.time
                     && request.resource.data.seconds is int
                     && request.resource.data.seconds >= resource.data.seconds
-                    && request.resource.data.seconds <= (request.time.toMillis() - resource.data.start.toMillis()) / 1000 + 60;
+                    && request.resource.data.seconds <= (request.time.toMillis() - resource.data.start.toMillis()) / 1000 + 60
+                    && request.resource.data.get('practice', 0) is int
+                    && request.resource.data.get('practice', 0) >= resource.data.get('practice', 0)
+                    && request.resource.data.get('practice', 0) <= request.resource.data.seconds;
       allow delete: if isAdmin();
     }
     match /runs/{id} {

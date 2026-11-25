@@ -73,7 +73,7 @@ namespace PhoViet.OpenWorld
             {
                 boatFire[i] -= dt;
                 if (boatFire[i] > 0f) continue;
-                bool armed = boats.IsSea(i) ? coast : bank;                           // 21.303: tàu biển chỉ bắn khi xe ở lề sát biển
+                bool armed = boats.IsSea(i) ? coast : bank && RiverGunArmed(i, pp);       // 21.396: tập luyện chỉ 3 tàu sông gần xe bắn                           // 21.303: tàu biển chỉ bắn khi xe ở lề sát biển
                 if (!armed || !boats.Alive(i) || player.Crashed || player.frozen || shells.Count >= maxShellsInFlight) { boatFire[i] = 0.25f; continue; }
                 var c = boats.BoatCenter(i); var to = pp - c; to.y = 0; float dist = to.magnitude;
                 if (dist < boatFireNear || dist > boatFireFar) { boatFire[i] = 0.25f; continue; }

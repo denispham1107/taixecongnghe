@@ -29,6 +29,10 @@ namespace PhoViet.OpenWorld
         public bool NewBest { get; private set; }
         public float Score => hazards ? hazards.DistanceDriven : 0f;
         public int Runs { get; private set; }
+        // 21.396: chế độ TẬP LUYỆN (nút dưới LÊN XE THÔI) — cùng bản đồ, hiểm họa thưa (OpenWorldHazards.Practice.cs), không hiện/đếm
+        // số mét, không lưu kỷ lục, không gửi bảng xếp hạng; trang web tính giờ chơi tập luyện riêng (account.js plays.practice).
+        // Chơi lại / THỬ LẠI giữ chế độ đang chơi; VỀ ĐẦU PHỐ về chế độ thật.
+        public bool Practice { get; private set; }
         public string EndReason { get; private set; }
         public const string BestKey = "PhoViet.OpenWorld.BestMetres.v1", SoundKey = "PhoViet.OpenWorld.Sound.v1";
         public bool Sound { get; private set; } = true;
@@ -174,19 +178,27 @@ namespace PhoViet.OpenWorld
             if (police) { police.enabled = true; police.ResetChase(true); police.Halt(); police.enabled = false; }
             if (hazards) { hazards.ClearAll(); hazards.enabled = false; }
             if (player) player.frozen = true;
+            ReportReadyToWeb();                                             // 21.396: trang web thôi tính giờ tập luyện
+            Practice = false;
             Mode = State.Ready; EndReason = null; EndDetail = null; NewBest = false; sinkAt = -1f; crashAt = -1f;
         }
 
+        /// 21.396: nút TẬP LUYỆN (phím T ở màn chào).
+        public void StartPractice() { Practice = true; StartRun(); }
+        /// Nút LÊN XE THÔI: luôn là lượt thật (tính mét + bảng xếp hạng).
+        public void StartRealRun() { Practice = false; StartRun(); }
+
+        /// Lượt mới theo chế độ đang chọn (Practice).
         public void StartRun()
         {
             Resume();
-            ReportRunStartToWeb();                                          // 21.375: trang tắt thông báo xếp hạng khi đang chơi
+            ReportRunStartToWeb(Practice);                                          // 21.375: trang tắt thông báo xếp hạng khi đang chơi
             if (weather)
             {
                 if (Mode == State.GameOver || Mode == State.Jailed || !weatherRolled) { weather.Roll(!weatherRolled); weatherRolled = true; }
                 weather.BeginRun();
             }
-            if (hazards) { hazards.ClearAll(); hazards.enabled = true; }   // số mét về 0 ngay khung hình này
+            if (hazards) { hazards.practice = Practice; hazards.ClearAll(); hazards.enabled = true; }   // số mét về 0 ngay khung hình này
             ClearSquad();                                                   // 21.301: xóa xe CSGT tăng viện của lượt trước
             if (police) { police.enabled = true; police.ResetChase(true); }   // đưa xe về chỗ xuất phát, Runs++ → hiểm họa dọn sạch
             if (player) player.frozen = false;
@@ -205,9 +217,13 @@ namespace PhoViet.OpenWorld
         void EndRun(State end, string reason)
         {
             Mode = end; EndReason = reason;
-            int m = Mathf.FloorToInt(Score);
-            if (m > Best) { Best = m; NewBest = true; PlayerPrefs.SetInt(BestKey, Best); PlayerPrefs.Save(); }
-            ReportRunToWeb(m);                                              // 21.356: bảng xếp hạng chung (OpenWorldGame.Leaderboard.cs)
+            if (Practice) ReportPracticeEndToWeb();                          // 21.396: tập luyện không kỷ lục, không bảng xếp hạng
+            else
+            {
+                int m = Mathf.FloorToInt(Score);
+                if (m > Best) { Best = m; NewBest = true; PlayerPrefs.SetInt(BestKey, Best); PlayerPrefs.Save(); }
+                ReportRunToWeb(m);                                          // 21.356: bảng xếp hạng chung (OpenWorldGame.Leaderboard.cs)
+            }
             if (hazards) hazards.enabled = false;
             if (player) player.frozen = true;                               // ẩn nút NHẢY, khóa lái
             if (end == State.GameOver && police) { police.Halt(); police.enabled = false; }
@@ -226,7 +242,8 @@ namespace PhoViet.OpenWorld
             {
                 case State.Ready:
                     if (GraphicsOpen) { GraphicsKeys(); break; }
-                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space)) StartRun();
+                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Space)) StartRealRun();
+                    else if (Input.GetKeyDown(KeyCode.T)) StartPractice();   // 21.396
                     break;
                 case State.Riding:
                     TickGovernor();
@@ -375,7 +392,8 @@ namespace PhoViet.OpenWorld
             // quãng đường + tốc độ (21.300: cột canh giữa theo chiều cao mới — lệch oy so với bố cục 86)
             float lx = x + 18, oy = portrait ? 0f : (h - 86f) * .5f;
             HudLabel(pinTex, CurrentStreet.ToUpperInvariant(), lx, y + oy + 14, (portrait ? bw * .4f : 210) - 20);
-            float after = BigMetres(Score, lx, y + oy + 30, 32);
+            // 21.396: tập luyện không đếm mét — ô quãng đường hiện nhãn TẬP LUYỆN
+            float after = Practice ? PracticeTag(lx, y + oy + 34) : BigMetres(Score, lx, y + oy + 30, 32);
             float kmh = player ? Mathf.Abs(player.Speed) * 3.6f : 0f;
             string sp = Mathf.RoundToInt(kmh) + " km/h";
             label.fontSize = 11; float spw = label.CalcSize(new GUIContent(sp)).x + 16;
@@ -386,8 +404,9 @@ namespace PhoViet.OpenWorld
             // kỷ lục
             float c1 = x + (portrait ? bw * 0.42f : 250);
             Panel(new Rect(c1 - 17, y + 14, 1, h - 28), HudLine, 0);
-            HudLabel(trophyTex, "KỶ LỤC", c1, y + oy + 14, 130);
-            Txt(Metres(Mathf.Max(Best, Score)), c1, y + oy + 38, 140, 30, 22, Cream);
+            HudLabel(trophyTex, Practice ? "XẾP HẠNG" : "KỶ LỤC", c1, y + oy + 14, 130);
+            if (Practice) Txt("Không tính", c1, y + oy + 41, 140, 30, 18, new Color(Cream.r, Cream.g, Cream.b, .75f));
+            else Txt(Metres(Mathf.Max(Best, Score)), c1, y + oy + 38, 140, 30, 22, Cream);
 
             // CSGT
             var nearPol = NearestPolice();                                  // 21.301: xe gần nhất (gốc hoặc tăng viện)
@@ -688,6 +707,16 @@ namespace PhoViet.OpenWorld
             var old = GUI.color; GUI.color = c; GUI.DrawTexture(r, star); GUI.color = old;
         }
 
-        public string Report() => $"mode={Mode} score={Score:F0} best={Best} newBest={NewBest} runs={Runs} street={CurrentStreet} reason={EndReason}";
+        // 21.396: nhãn «TẬP LUYỆN» xanh dương thay số mét trên thanh thông tin; trả về x sau nhãn.
+        float PracticeTag(float x, float y)
+        {
+            const string t = "TẬP LUYỆN";
+            label.fontSize = 17; float w = label.CalcSize(new GUIContent(t)).x + 20;
+            Panel(new Rect(x, y, w, 30), new Color32(46, 125, 230, 235), 8);
+            Txt(t, x, y, w, 30, 17, Cream, TextAnchor.MiddleCenter);
+            return x + w;
+        }
+
+        public string Report() => $"mode={Mode} practice={Practice} score={Score:F0} best={Best} newBest={NewBest} runs={Runs} street={CurrentStreet} reason={EndReason}";
     }
 }

@@ -102,7 +102,7 @@ namespace PhoViet.OpenWorld
             if (player) { playerRb = player.GetComponent<Rigidbody>(); lastPlayerPos = player.transform.position; }
             if (police) seenRun = police.Runs;
             HookTraffic(); HookLaser();
-            NextAt = firstAt; NextKind = 0; NextTankAt = tankEvery; NextHeliAt = heliEvery; TankWave = HeliWave = 1;
+            NextAt = DinoFirst; NextKind = 0; NextTankAt = TankFirst; NextHeliAt = HeliFirst; TankWave = HeliWave = 1;
             ResetWeapons();
         }
 
@@ -123,9 +123,9 @@ namespace PhoViet.OpenWorld
             shells.Clear();
             foreach (var c in craters) Destroy(c.go);
             craters.Clear();
-            DistanceDriven = 0; NextAt = firstAt; NextKind = 0; notice = null; ResetBoatGuns();
+            DistanceDriven = 0; NextAt = DinoFirst; NextKind = 0; notice = null; ResetBoatGuns(); practiceGunsAt = -99f;   // 21.396: tập luyện không khủng long
             if (boats) boats.ClearSea(); OnCoast = false; planeLostAt = -99f;          // 21.303: tàu biển/máy bay xuất hiện lại khi vào bờ biển
-            NextTankAt = tankEvery; NextHeliAt = heliEvery; TankWave = HeliWave = 1;
+            NextTankAt = TankFirst; NextHeliAt = HeliFirst; TankWave = HeliWave = 1;   // 21.396: mốc riêng khi tập luyện
             ResetWeapons();
             if (player) lastPlayerPos = player.transform.position;
         }
@@ -781,17 +781,17 @@ namespace PhoViet.OpenWorld
             // 21.258: lượt xe tăng / trực thăng theo quãng đường, mỗi lượt thêm 1 chiếc.
             if (live && DistanceDriven >= NextTankAt)
             {
-                int want = Mathf.Min(TankWave, maxTanks - ActiveTankCount()), made = 0;
+                int want = TankWant, made = 0;   // 21.396: tập luyện tối đa 1 xe tăng
                 for (int i = 0; i < want; i++) if (SpawnTankAhead(tankAhead + i * 17f + (float)rnd.NextDouble() * 6f, i, false)) made++;
                 if (made > 0) Say(made > 1 ? made + " xe tăng phía trước" : "Xe tăng phía trước", "Né đạn pháo", 2.2f, OpenWorldToast.Kind.Warn);
-                TankWave++; NextTankAt = DistanceDriven + tankEvery;
+                TankWave++; NextTankAt = DistanceDriven + TankEvery;
             }
             if (live && DistanceDriven >= NextHeliAt)
             {
-                int want = Mathf.Min(HeliWave, maxHelis - ActiveHeliCount()), made = 0;
+                int want = HeliWant, made = 0;   // 21.396: tập luyện tối đa 1 chiếc bay
                 for (int i = 0; i < want; i++) if (SpawnHelicopterAhead(heliAhead + i * 10f, false)) made++;
                 if (made > 0) Say(made > 1 ? made + " trực thăng phía trước" : "Trực thăng phía trước", "Né tên lửa", 2.2f, OpenWorldToast.Kind.Warn);
-                HeliWave++; NextHeliAt = DistanceDriven + heliEvery;
+                HeliWave++; NextHeliAt = DistanceDriven + HeliEvery;
             }
             TickWeapons(dt, pp, pv);
             TickBoatGuns(dt, pp, pv, live);

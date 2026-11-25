@@ -11,12 +11,13 @@ namespace PhoViet.OpenWorld
         static readonly Color MNavy = new Color32(18, 35, 58, 255), MNavy2 = new Color32(11, 23, 38, 255), MCream = new Color32(252, 242, 207, 255),
             MGold = new Color32(245, 197, 66, 255), MTeal = new Color32(51, 224, 200, 255), MTealDark = new Color32(17, 160, 145, 255),
             MRed = new Color32(255, 90, 74, 255), MRedDark = new Color32(212, 46, 34, 255), MBlue = new Color32(74, 163, 255, 255),
-            MPanel = new Color(10 / 255f, 22 / 255f, 34 / 255f, .94f), MShadow = new Color(0, 0, 0, .3f);
+            MPanel = new Color(10 / 255f, 22 / 255f, 34 / 255f, .94f), MShadow = new Color(0, 0, 0, .3f),
+            MPractice = new Color32(46, 125, 230, 255), MPracticeLight = new Color32(140, 196, 255, 255);   // 21.396: xanh dương chế độ TẬP LUYỆN
         const float SkewK = -0.19438f;                                     // tan(−11°): x' = x + k·(y − tâm)
 
         float mW, mH, mf = 1f;                                             // khung điểm của lớp menu
         Matrix4x4 menuM;
-        Texture2D gradV, gradBand, gradRow, checkerTex, hazardTex, chevTex, retryTex, homeTex, checkTex, closeTex, boomTex;
+        Texture2D gradV, gradBand, gradRow, checkerTex, hazardTex, chevTex, retryTex, homeTex, checkTex, closeTex, boomTex, coneTex;
         Texture2D[] hintBtns;
         static readonly string[] HintBtnNames = { "Left", "Right", "Shield", "Reverse", "Gas", "Jump", "Missile", "Laser" };
 
@@ -70,7 +71,7 @@ namespace PhoViet.OpenWorld
             Unskew();
         }
 
-        enum MBtn { Red, Teal, Ghost, Dark }
+        enum MBtn { Red, Teal, Ghost, Dark, Blue }
         /// Nút nghiêng kiểu tem đua; trả về true khi bấm. icon/iconSize tùy chọn, đặt trước chữ.
         bool SkewButton(Rect r, string text, int size, MBtn kind, Texture2D icon = null, float iconSize = 0, bool chevrons = false)
         {
@@ -82,6 +83,7 @@ namespace PhoViet.OpenWorld
                 case MBtn.Teal: Rect0(new Rect(r.x + 8, r.y + 8, r.width, r.height), MNavy2); Grad(r, gradV, hover ? Color.Lerp(MTeal, Color.white, .08f) : MTeal); break;
                 case MBtn.Ghost: Rect0(r, new Color(MCream.r, MCream.g, MCream.b, hover ? .16f : .1f)); Frame0(r, new Color(MCream.r, MCream.g, MCream.b, .55f), 3); break;
                 case MBtn.Dark: Rect0(r, new Color(MPanel.r, MPanel.g, MPanel.b, .9f)); Frame0(r, new Color(MCream.r, MCream.g, MCream.b, hover ? .8f : .55f), 3); break;
+                case MBtn.Blue: Rect0(new Rect(r.x + 8, r.y + 8, r.width, r.height), MNavy2); Grad(r, gradV, hover ? Color.Lerp(MPractice, Color.white, .1f) : MPractice); break;   // 21.396
             }
             Color fg = kind == MBtn.Teal ? MNavy : MCream;
             float tw = string.IsNullOrEmpty(text) ? 0 : TextW(text, size), gap = 12;
@@ -119,11 +121,12 @@ namespace PhoViet.OpenWorld
             float bw = TextW("PHỐ QUEN.", 62) + 34, by = top + 140, ty = by + 48;   // ô hạ 10 điểm: dấu nặng «Ạ» của «ĐẠI» không chạm mép ô
             Rect0(new Rect(x + 9, ty - 50 + 8, bw, 88), MRed); Rect0(new Rect(x, ty - 50, bw, 88), MGold);
             TxtL("PHỐ QUEN.", x + 17, ty, 62, MNavy);
-            Txt("Trốn CSGT. Tiêu diệt khủng long, xe tăng,\ntrực thăng, tàu trên bản đồ.", x, by + 104, 600, 64, 22, new Color(MCream.r, MCream.g, MCream.b, .82f));   // 21.327
+            // 21.396: «Trốn CSGT» → «Thoát khỏi sự truy đuổi của CSGT» (người dùng 25/11/2026)
+            Txt("Thoát khỏi sự truy đuổi của CSGT. Tiêu diệt khủng long,\nxe tăng, trực thăng, tàu trên bản đồ.", x, by + 104, 680, 64, 22, new Color(MCream.r, MCream.g, MCream.b, .82f));   // 21.327
             Unskew();
 
             float cy = top + 352;
-            if (SkewButton(new Rect(x + 14, cy, 460, 82), "LÊN XE THÔI", 32, MBtn.Red, null, 0, true)) StartRun();
+            if (SkewButton(new Rect(x + 14, cy, 460, 82), "LÊN XE THÔI", 32, MBtn.Red, null, 0, true)) StartRealRun();
             // bánh răng — cấu hình đồ họa (21.291)
             var g = new Rect(x + 492, cy, 82, 82);
             Skew(g.center.y);
@@ -133,8 +136,12 @@ namespace PhoViet.OpenWorld
             DrawGear(new Rect(g.center.x - 20, g.center.y - 20, 40, 40), MTeal);
             if (gearHit) OpenGraphics();
 
+            // 21.396: nút TẬP LUYỆN ngay dưới LÊN XE THÔI — xanh dương (khác đỏ/vàng), nón giao thông + nhãn «KHÔNG TÍNH ĐIỂM».
+            float pty = cy + 100;
+            if (PracticeButton(new Rect(x + 14, pty, 460, 66))) StartPractice();
+
             // kỷ lục
-            float ry = cy + 104 + 14;
+            float ry = pty + 66 + 34;
             Skew(ry);
             EnsureHudIcons();
             Ico(trophyTex, x + 20, ry - 12, 23, MGold);
@@ -146,6 +153,23 @@ namespace PhoViet.OpenWorld
 
             bool touchUI = Input.touchSupported || UnityEngine.Device.Application.isMobilePlatform || (player && player.testTouchUI);
             if (touchUI) TouchHints(x); else KeyHints(x);
+        }
+
+        /// 21.396: nút «TẬP LUYỆN» — khối nghiêng xanh dương, nón giao thông kem, chữ kem, ô nhãn tối «KHÔNG TÍNH ĐIỂM».
+        bool PracticeButton(Rect r)
+        {
+            bool click = SkewButton(r, null, 26, MBtn.Blue);
+            Skew(r.center.y);
+            const string t = "TẬP LUYỆN", tag = "KHÔNG TÍNH ĐIỂM";
+            float tw = TextW(t, 26), gw = TextW(tag, 12) + 22, cs = 34, gap = 12;
+            float x = r.center.x - (cs + gap + tw + 16 + gw) / 2;
+            Ico(coneTex, x, r.center.y - cs / 2 - 1, cs, MCream);
+            x += cs + gap; TxtL(t, x, r.center.y, 26, MCream, tw + 40); x += tw + 16;
+            var pill = new Rect(x, r.center.y - 13, gw, 26);
+            Rect0(pill, new Color(MNavy2.r, MNavy2.g, MNavy2.b, .55f));
+            TxtC(tag, pill, 12, MPracticeLight);
+            Unskew();
+            return click;
         }
 
         void MenuBrand(float x, float y)
@@ -341,15 +365,15 @@ namespace PhoViet.OpenWorld
             var band = new Rect(-80, 196 + oy, mW + 160, 120);
             GUI.matrix = menuM * RotZ(band.center, -4f);
             Rect0(new Rect(band.x, band.y + 11, band.width, band.height), MShadow);
-            Grad(band, gradV, MRed);
+            Grad(band, gradV, Practice ? MPractice : MRed);   // 21.396: buổi tập — băng xanh dương
             Checker(new Rect(band.x, band.y, band.width, 13)); Checker(new Rect(band.x, band.yMax - 13, band.width, 13));
             GUI.matrix = menuM * RotZ(band.center, -4f) * Matrix4x4.Translate(new Vector3(0, band.center.y, 0)) * Shear() * Matrix4x4.Translate(new Vector3(0, -band.center.y, 0));
-            TxtC("KẾT THÚC CHUYẾN XE", new Rect(band.x, band.y + 13, band.width, band.height - 26), 62, MCream);
+            TxtC(Practice ? "KẾT THÚC BUỔI TẬP" : "KẾT THÚC CHUYẾN XE", new Rect(band.x, band.y + 13, band.width, band.height - 26), 62, MCream);
             Unskew();
 
             float x = MSL + (mW - MSL - MSR - 880) / 2, y = 380 + oy;
             var r = new Rect(x, y, 880, 244);
-            SkewPanel(r, MGold, 11);
+            SkewPanel(r, Practice ? MPractice : MGold, 11);   // 21.396
             Skew(r.center.y);
             float ix = x + 47;
             bool crash = !string.IsNullOrEmpty(EndDetail);
@@ -358,6 +382,9 @@ namespace PhoViet.OpenWorld
             TxtL(EndReason ?? "Chuyến đi kết thúc!", tx, y + (crash ? 44 : 50), 38, MCream, r.xMax - tx - 30);
             if (crash) TxtL(EndDetail, tx, y + 80, 19, new Color(MCream.r, MCream.g, MCream.b, .75f), r.xMax - tx - 30);
 
+            if (Practice) { PracticeNote(ix, y + 118, r.xMax - ix - 30); Unskew(); }   // 21.396
+            else
+            {
             TxtL("BẠN ĐÃ ĐI ĐƯỢC", ix, y + 118, 16, MGold);
             int sc = Mathf.Max(0, Mathf.FloorToInt(Score));
             string num = sc.ToString("N0", System.Globalization.CultureInfo.InvariantCulture).Replace(",", ".");
@@ -380,8 +407,9 @@ namespace PhoViet.OpenWorld
             string note = NewBest ? "Chuyến này là kỷ lục mới!" : left > 0 ? "Còn " + Metres(left) + " nữa là chạm kỷ lục" : "Bằng kỷ lục!";
             TxtR(note, bx1, y + 212, 15, new Color(MCream.r, MCream.g, MCream.b, .72f));
             Unskew();
+            }
 
-            if (SkewButton(new Rect(x + 24, y + 276, 510, 84), "THỬ MỘT CHUYẾN NỮA", 28, MBtn.Red, retryTex, 32)) { StartRun(); return; }
+            if (SkewButton(new Rect(x + 24, y + 276, 510, 84), Practice ? "TẬP TIẾP" : "THỬ MỘT CHUYẾN NỮA", 28, Practice ? MBtn.Blue : MBtn.Red, retryTex, 32)) { StartRun(); return; }
             if (SkewButton(new Rect(x + 566, y + 276, 290, 84), "VỀ ĐẦU PHỐ", 20, MBtn.Ghost, homeTex, 25)) GoReady();
         }
 
@@ -408,15 +436,27 @@ namespace PhoViet.OpenWorld
             TxtL(EndReason ?? "CSGT đã đưa bạn vào phòng giam.", ix, y + 168, 21, new Color(MCream.r, MCream.g, MCream.b, .8f), 440);
             if (why != null) TxtL(why, ix, y + 194, 15, new Color(MCream.r, MCream.g, MCream.b, .6f), 440);
             float sy = y + 204 + extra;
+            if (Practice) PracticeNote(ix, sy + 8, 440);   // 21.396
+            else
+            {
             TxtL("QUÃNG ĐƯỜNG", ix, sy + 8, 13, MGold);
             TxtL(Metres(Score), ix - 2, sy + 44, 42, MGold);
             float c2 = ix + Mathf.Max(TextW("QUÃNG ĐƯỜNG", 13), TextW(Metres(Score), 42)) + 24;
             Rect0(new Rect(c2, sy + 6, 3, 56), new Color(MCream.r, MCream.g, MCream.b, .2f));
             TxtL(NewBest ? "KỶ LỤC MỚI!" : "KỶ LỤC", c2 + 27, sy + 8, 13, MGold);
             TxtL(Metres(Best), c2 + 25, sy + 44, 42, MCream);
+            }
             Unskew();
-            if (SkewButton(new Rect(x + 24, y + 306 + extra, 450, 82), "CHƠI LẠI", 28, MBtn.Red, retryTex, 32)) { StartRun(); return; }
+            if (SkewButton(new Rect(x + 24, y + 306 + extra, 450, 82), Practice ? "TẬP TIẾP" : "CHƠI LẠI", 28, Practice ? MBtn.Blue : MBtn.Red, retryTex, 32)) { StartRun(); return; }
             if (SkewButton(new Rect(x + 8, y + 416 + extra, 450, 60), "VỀ ĐẦU PHỐ", 20, MBtn.Dark, homeTex, 23)) GoReady();
+        }
+
+        // 21.396: thay khối quãng đường/kỷ lục khi đang tập luyện (gọi trong khối đã nghiêng).
+        void PracticeNote(float x, float y, float w)
+        {
+            TxtL("BUỔI TẬP LUYỆN", x, y, 16, MPracticeLight);
+            TxtL("Không tính quãng đường và bảng xếp hạng.", x, y + 40, 23, MCream, w);
+            TxtL("Quen tay rồi thì VỀ ĐẦU PHỐ, bấm LÊN XE THÔI để đua kỷ lục.", x, y + 76, 16, new Color(MCream.r, MCream.g, MCream.b, .72f), w);
         }
 
         void Tape(Rect r, float deg, string a, string b)
@@ -470,6 +510,13 @@ namespace PhoViet.OpenWorld
                 float dx = u - .5f, dy = v - .5f, d = Mathf.Sqrt(dx * dx + dy * dy), a = Mathf.Atan2(dy, dx);
                 float t = Mathf.Repeat(a / (Mathf.PI * 2f) * 12f, 1f), rad = Mathf.Lerp(.27f, .49f, 1f - Mathf.Abs(t - .5f) * 2f);
                 return d < rad;
+            });
+            // 21.396: nón giao thông (thân tam giác có 2 vạch phản quang rỗng + đế)
+            coneTex = MaskTex((u, v) =>
+            {
+                if (u > .1f && u < .9f && v > .84f && v < .95f) return true;
+                if (!InTri(u, v, new Vector2(.5f, .04f), new Vector2(.2f, .86f), new Vector2(.8f, .86f))) return false;
+                return !((v > .36f && v < .47f) || (v > .6f && v < .71f));
             });
             hintBtns = new Texture2D[HintBtnNames.Length];
             for (int i = 0; i < HintBtnNames.Length; i++) hintBtns[i] = Resources.Load<Texture2D>("TouchControls/PV_Btn_" + HintBtnNames[i]);
