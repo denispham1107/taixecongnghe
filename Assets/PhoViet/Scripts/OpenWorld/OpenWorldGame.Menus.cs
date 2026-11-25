@@ -137,11 +137,12 @@ namespace PhoViet.OpenWorld
             if (gearHit) OpenGraphics();
 
             // 21.396: nút TẬP LUYỆN ngay dưới LÊN XE THÔI — xanh dương (khác đỏ/vàng), nón giao thông + nhãn «KHÔNG TÍNH ĐIỂM».
-            float pty = cy + 100;
-            if (PracticeButton(new Rect(x + 14, pty, 460, 66))) StartPractice();
+            // 21.397 (người dùng): nhỏ bớt — 460 × 66 → 370 × 56, chữ 26 → 22.
+            float pty = cy + 98;
+            if (PracticeButton(new Rect(x + 14, pty, 370, 56))) StartPractice();
 
             // kỷ lục
-            float ry = pty + 66 + 34;
+            float ry = pty + 56 + 34;
             Skew(ry);
             EnsureHudIcons();
             Ico(trophyTex, x + 20, ry - 12, 23, MGold);
@@ -158,16 +159,16 @@ namespace PhoViet.OpenWorld
         /// 21.396: nút «TẬP LUYỆN» — khối nghiêng xanh dương, nón giao thông kem, chữ kem, ô nhãn tối «KHÔNG TÍNH ĐIỂM».
         bool PracticeButton(Rect r)
         {
-            bool click = SkewButton(r, null, 26, MBtn.Blue);
+            bool click = SkewButton(r, null, 22, MBtn.Blue);
             Skew(r.center.y);
             const string t = "TẬP LUYỆN", tag = "KHÔNG TÍNH ĐIỂM";
-            float tw = TextW(t, 26), gw = TextW(tag, 12) + 22, cs = 34, gap = 12;
-            float x = r.center.x - (cs + gap + tw + 16 + gw) / 2;
+            float tw = TextW(t, 22), gw = TextW(tag, 11) + 18, cs = 28, gap = 10;
+            float x = r.center.x - (cs + gap + tw + 14 + gw) / 2;
             Ico(coneTex, x, r.center.y - cs / 2 - 1, cs, MCream);
-            x += cs + gap; TxtL(t, x, r.center.y, 26, MCream, tw + 40); x += tw + 16;
-            var pill = new Rect(x, r.center.y - 13, gw, 26);
+            x += cs + gap; TxtL(t, x, r.center.y, 22, MCream, tw + 40); x += tw + 14;
+            var pill = new Rect(x, r.center.y - 11, gw, 22);
             Rect0(pill, new Color(MNavy2.r, MNavy2.g, MNavy2.b, .55f));
-            TxtC(tag, pill, 12, MPracticeLight);
+            TxtC(tag, pill, 11, MPracticeLight);
             Unskew();
             return click;
         }
@@ -424,8 +425,9 @@ namespace PhoViet.OpenWorld
             float oy = MenuOffsetY;
             string why = player && !string.IsNullOrEmpty(player.CrashReason) ? "Lý do: " + player.CrashReason.ToLowerInvariant() : null;
             float extra = why != null ? 26 : 0;
-            float x = mW - 147 - 500 - MSR, y = 190 + oy - extra / 2;
-            var r = new Rect(x, y, 500, 390 + extra);
+            float pe = Practice ? 34 : 0;                                    // 21.397: khối tập luyện cao hơn khối quãng đường
+            float x = mW - 147 - 500 - MSR, y = 190 + oy - (extra + pe) / 2;
+            var r = new Rect(x, y, 500, 390 + extra + pe);
             SkewPanel(r, MBlue, 11);
             Skew(r.center.y);
             float ix = x + 43;
@@ -436,7 +438,7 @@ namespace PhoViet.OpenWorld
             TxtL(EndReason ?? "CSGT đã đưa bạn vào phòng giam.", ix, y + 168, 21, new Color(MCream.r, MCream.g, MCream.b, .8f), 440);
             if (why != null) TxtL(why, ix, y + 194, 15, new Color(MCream.r, MCream.g, MCream.b, .6f), 440);
             float sy = y + 204 + extra;
-            if (Practice) PracticeNote(ix, sy + 8, 440);   // 21.396
+            if (Practice) PracticeStrip(new Rect(ix, sy - 4, 418, 104));   // 21.397: dải tập luyện gọn, không chữ tràn
             else
             {
             TxtL("QUÃNG ĐƯỜNG", ix, sy + 8, 13, MGold);
@@ -447,16 +449,38 @@ namespace PhoViet.OpenWorld
             TxtL(Metres(Best), c2 + 25, sy + 44, 42, MCream);
             }
             Unskew();
-            if (SkewButton(new Rect(x + 24, y + 306 + extra, 450, 82), Practice ? "TẬP TIẾP" : "CHƠI LẠI", 28, Practice ? MBtn.Blue : MBtn.Red, retryTex, 32)) { StartRun(); return; }
-            if (SkewButton(new Rect(x + 8, y + 416 + extra, 450, 60), "VỀ ĐẦU PHỐ", 20, MBtn.Dark, homeTex, 23)) GoReady();
+            if (SkewButton(new Rect(x + 24, y + 306 + extra + pe, 450, 82), Practice ? "TẬP TIẾP" : "CHƠI LẠI", 28, Practice ? MBtn.Blue : MBtn.Red, retryTex, 32)) { StartRun(); return; }
+            if (SkewButton(new Rect(x + 8, y + 416 + extra + pe, 450, 60), "VỀ ĐẦU PHỐ", 20, MBtn.Dark, homeTex, 23)) GoReady();
         }
 
-        // 21.396: thay khối quãng đường/kỷ lục khi đang tập luyện (gọi trong khối đã nghiêng).
+        // 21.396: thay khối quãng đường/kỷ lục khi đang tập luyện (gọi trong khối đã nghiêng) — thẻ KẾT THÚC BUỔI TẬP.
+        // 21.397: cỡ chữ tự thu cho vừa bề rộng (không xuống dòng chồng lên dòng dưới).
         void PracticeNote(float x, float y, float w)
         {
             TxtL("BUỔI TẬP LUYỆN", x, y, 16, MPracticeLight);
-            TxtL("Không tính quãng đường và bảng xếp hạng.", x, y + 40, 23, MCream, w);
-            TxtL("Quen tay rồi thì VỀ ĐẦU PHỐ, bấm LÊN XE THÔI để đua kỷ lục.", x, y + 76, 16, new Color(MCream.r, MCream.g, MCream.b, .72f), w);
+            const string a = "Không tính quãng đường và bảng xếp hạng.", b = "Quen tay rồi thì VỀ ĐẦU PHỐ, bấm LÊN XE THÔI để đua kỷ lục.";
+            TxtL(a, x, y + 40, FitSize(a, 23, w, 15), MCream, w + 40);
+            TxtL(b, x, y + 76, FitSize(b, 16, w, 11), new Color(MCream.r, MCream.g, MCream.b, .72f), w + 40);
+        }
+
+        // 21.397 (người dùng: ô «ĐÃ BỊ BẮT» chữ tràn chồng nhau) — phòng giam khi tập: dải xanh mờ có vạch xanh trái, nhãn
+        // «BUỔI TẬP LUYỆN · KHÔNG TÍNH ĐIỂM», 2 dòng ngắn mỗi dòng một câu, cỡ chữ tự thu cho vừa (không để xuống dòng).
+        void PracticeStrip(Rect r)
+        {
+            Rect0(r, new Color(MPractice.r, MPractice.g, MPractice.b, .18f));
+            Rect0(new Rect(r.x, r.y, 5, r.height), MPractice);
+            float tx = r.x + 18, w = r.width - 30;
+            TxtL("BUỔI TẬP LUYỆN · KHÔNG TÍNH ĐIỂM", tx, r.y + 22, FitSize("BUỔI TẬP LUYỆN · KHÔNG TÍNH ĐIỂM", 13, w, 10), MPracticeLight, w + 40);
+            const string a = "Quãng đường và kỷ lục không được ghi.", b = "Quen tay thì về đầu phố, bấm LÊN XE THÔI.";
+            TxtL(a, tx, r.y + 52, FitSize(a, 19, w, 13), MCream, w + 40);
+            TxtL(b, tx, r.y + 80, FitSize(b, 15, w, 11), new Color(MCream.r, MCream.g, MCream.b, .72f), w + 40);
+        }
+
+        /// Cỡ chữ lớn nhất ≤ size (≥ min) để dòng chữ nằm gọn trong bề rộng w.
+        int FitSize(string t, int size, float w, int min)
+        {
+            while (size > min && TextW(t, size) > w) size--;
+            return size;
         }
 
         void Tape(Rect r, float deg, string a, string b)

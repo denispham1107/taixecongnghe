@@ -30,6 +30,7 @@ namespace PhoViet.OpenWorld
         {
             if (!police || Mode != State.Riding) return;
             squad.RemoveAll(p => !p);
+            if (Practice) return;                                           // 21.397: tập luyện chỉ 1 xe CSGT (xe gốc đuổi phía sau), không tăng viện
             while (Score >= nextSquadAt)
             {
                 nextSquadAt += SquadEvery;
