@@ -7222,3 +7222,12 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Tàu khi tập (OpenWorldHazards.Practice.cs):** `practiceBoats` 3 → 2 — lề sông chỉ 2 tàu gần xe nhất bắn, lề biển 2 tàu biển (máy bay biển vẫn 1). Scene không lưu trường này (dùng giá trị mặc định trong mã); bản đang mở trong Editor đã đặt lại 2 không làm bẩn scene (sau biên dịch Unity giữ giá trị cũ 3 trong bộ nhớ).
 - **Kiểm tra:** `Assets/Captures/tapluyen21398-menu.png` (câu mới 2 dòng, không đè nút); Play: `practiceBoats=2`, `CoastBoats=2` khi tập.
 - **Trạng thái:** trong source, chưa build/phát hành (cùng 21.396–21.397 trong bản 1.95.6).
+
+## 21.399. Phát hành 1.95.6 trên https://gotaviet.com/ (25/11/2026, Claude Code)
+
+- **Người dùng:** «Phát hành 1.95.6».
+- **Nội dung bản:** 21.396–21.398 — chế độ TẬP LUYỆN (nút xanh dưới LÊN XE THÔI, phím T; không khủng long, 1 xe tăng, 1 chiếc bay, 2 tàu bắn, 1 xe CSGT; không đếm mét/kỷ lục/bảng xếp hạng; ô phòng giam và thẻ kết thúc buổi tập riêng), /admin tách giờ chơi thật / giờ luyện tập (`plays.practice`), câu giới thiệu «Cắt đuôi CSGT. Quét sạch khủng long, xe tăng, trực thăng và chiến hạm khắp bản đồ.» (game + trang chủ + meta).
+- **Quy trình:** «Bản cập nhật» trong `index.html` đã ghi sẵn (21.396–21.398, ngày 25/11/2026). Số phiên bản `PhoVietWebBuild.cs` + `ProjectSettings.asset` → 1.95.6; `ReleaseBuild.Prepare` («compiling» → «ready 1.95.6»); `ReleaseBuild.BuildNow` — xong sau 2.498 s (`Builds/release-1.95.6-status.json`, stripped 3356), `build-info.json` cache `7b12d50d2461a697`. Kiểm tra bản build có `gotaPracticeEnded` (account.js), «Cắt đuôi CSGT» (index.html), «Giờ luyện tập» (admin).
+- **Deploy:** `firebase deploy --only hosting,firestore:rules,functions --project gotaviet` — hosting 51 tệp (12 tệp mới tải lên), luật Firestore mới (plays.practice), Cloud Function `adminApi` (asia-southeast1) cập nhật thành công.
+- **Kiểm tra live:** so SHA-256 51/51 tệp trên https://gotaviet.com khớp `Builds/WebGL` (script so lại viết mới ở scratchpad `shacheck.py` vì scratchpad cũ đã bị dọn ở 21.395).
+- **Chưa thử trên máy thật:** chế độ Tập luyện trên điện thoại (nút, ô phòng giam), giờ luyện tập hiện trên /admin sau khi chơi tập bằng tài khoản đã đăng nhập.
