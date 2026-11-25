@@ -7214,3 +7214,11 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Nút TẬP LUYỆN nhỏ hơn:** 460 × 66 → 370 × 56, chữ 26 → 22, nón 34 → 28, nhãn 12 → 11; dòng KỶ LỤC theo lên.
 - **Kiểm tra (Editor, Play):** `Assets/Captures/tapluyen21397-menu.png` (nút nhỏ, thẳng mép trái với LÊN XE THÔI), `tapluyen21397-bibat.png` (phòng giam khi tập có dòng «Lý do…», không chữ chồng). Tập ở 950–985 m: `SquadCount = 0`, 1 xe `OpenWorldPolice` trong scene (chơi thật ở mốc này đã có 3 xe tăng viện).
 - **Trạng thái:** trong source, chưa build/phát hành (đi cùng 21.396 trong bản 1.95.6).
+
+## 21.398. Câu giới thiệu «Cắt đuôi CSGT…» + tập luyện bớt 1 tàu (25/11/2026, Claude Code)
+
+- **Người dùng:** trong game và trang chủ đổi câu giới thiệu (cả đoạn «Thoát khỏi sự truy đuổi của CSGT… phá kỷ lục quãng đường.») thành «Cắt đuôi CSGT. Quét sạch khủng long, xe tăng, trực thăng và chiến hạm khắp bản đồ.»; chế độ Tập luyện bớt 1 tàu mỗi lần xuất hiện.
+- **Chữ:** màn chào trong game (OpenWorldGame.Menus.cs, 2 dòng: «Cắt đuôi CSGT. Quét sạch khủng long, xe tăng, / trực thăng và chiến hạm khắp bản đồ.»); trang chủ `index.html` `.description` (bỏ hẳn câu «Cầm lái xe đua xanh…»); thẻ `<meta name="description">` cũng đổi sang «cắt đuôi CSGT, quét sạch … chiến hạm». Ghi chú «Bản cập nhật»: dòng lời giới thiệu ghi câu mới; dòng Tập luyện ghi 2 tàu + 1 xe CSGT. Mô tả 21.396 về chữ «Thoát khỏi sự truy đuổi của CSGT» đã bị thay bằng câu này.
+- **Tàu khi tập (OpenWorldHazards.Practice.cs):** `practiceBoats` 3 → 2 — lề sông chỉ 2 tàu gần xe nhất bắn, lề biển 2 tàu biển (máy bay biển vẫn 1). Scene không lưu trường này (dùng giá trị mặc định trong mã); bản đang mở trong Editor đã đặt lại 2 không làm bẩn scene (sau biên dịch Unity giữ giá trị cũ 3 trong bộ nhớ).
+- **Kiểm tra:** `Assets/Captures/tapluyen21398-menu.png` (câu mới 2 dòng, không đè nút); Play: `practiceBoats=2`, `CoastBoats=2` khi tập.
+- **Trạng thái:** trong source, chưa build/phát hành (cùng 21.396–21.397 trong bản 1.95.6).

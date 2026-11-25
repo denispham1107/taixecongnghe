@@ -121,8 +121,8 @@ namespace PhoViet.OpenWorld
             float bw = TextW("PHỐ QUEN.", 62) + 34, by = top + 140, ty = by + 48;   // ô hạ 10 điểm: dấu nặng «Ạ» của «ĐẠI» không chạm mép ô
             Rect0(new Rect(x + 9, ty - 50 + 8, bw, 88), MRed); Rect0(new Rect(x, ty - 50, bw, 88), MGold);
             TxtL("PHỐ QUEN.", x + 17, ty, 62, MNavy);
-            // 21.396: «Trốn CSGT» → «Thoát khỏi sự truy đuổi của CSGT» (người dùng 25/11/2026)
-            Txt("Thoát khỏi sự truy đuổi của CSGT. Tiêu diệt khủng long,\nxe tăng, trực thăng, tàu trên bản đồ.", x, by + 104, 680, 64, 22, new Color(MCream.r, MCream.g, MCream.b, .82f));   // 21.327
+            // 21.396: «Trốn CSGT» → «Thoát khỏi sự truy đuổi của CSGT»; 21.398 (người dùng 25/11/2026): câu mới «Cắt đuôi CSGT…»
+            Txt("Cắt đuôi CSGT. Quét sạch khủng long, xe tăng,\ntrực thăng và chiến hạm khắp bản đồ.", x, by + 104, 680, 64, 22, new Color(MCream.r, MCream.g, MCream.b, .82f));   // 21.327
             Unskew();
 
             float cy = top + 352;
