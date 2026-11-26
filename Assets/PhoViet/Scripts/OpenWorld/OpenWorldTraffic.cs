@@ -742,6 +742,28 @@ namespace PhoViet.OpenWorld
             v.laserKill = true; v.explodeAt = Time.time + 0.45f; Smoke(v, true); LaserKills++;
             return true;
         }
+        // 21.401 (người dùng): TÊN LỬA người chơi bắn nổ được mọi xe NPC trên đường — trúng thì bốc cháy, bốc khói rồi nổ tung thành
+        // mảnh (dùng chung đường LaserKill → LaserExploded → OpenWorldHazards.LaserBlast), nhưng đếm riêng MissileKills.
+        public int MissileKills { get; private set; }
+        public int VehicleSlots => pool.Count;
+        /// <summary>Thân xe i cho tên lửa: 0 = không có, 1 = xe đang chạy (khóa được), 2 = xác cháy/xe đang văng (chỉ trúng, không khóa).</summary>
+        public int MissileBody(int i, out Vector3 center, out Vector3 fwd, out float halfL, out float halfW)
+        {
+            center = fwd = Vector3.zero; halfL = halfW = 0f;
+            if (i < 0 || i >= pool.Count) return 0;
+            var v = pool[i]; if (!v.active || v.laserKill) return 0;
+            center = v.pos + Vector3.up * (v.bike ? 0.7f : 0.85f);
+            fwd = v.root ? v.root.forward : v.fwd; halfL = v.halfL; halfW = v.halfW;
+            return v.wreck || v.exploded ? 2 : 1;
+        }
+        public bool MissileKill(int index, Vector3 point, Vector3 dir)
+        {
+            int k = LaserKills, w = LaserWrecks;
+            bool ok = LaserKill(index, point, dir);
+            LaserKills = k; LaserWrecks = w;
+            if (ok) MissileKills++;
+            return ok;
+        }
         // 21.336: xe NPC (ô tô + xe máy) NHẬN BIẾT và NÉ SÉT để không bị đánh hàng loạt gây tắc đường.
         // OpenWorldWeather.StartVolley báo từng vòng cảnh báo (tâm, bán kính, thời điểm đánh). Mỗi khung, xe có lối chạy cắt qua vòng:
         // • vòng phía trước, còn phanh kịp → phanh (tới 11 m/s²) dừng NGOÀI vùng bị hất (bán kính × 1,8) rồi đợi sét đánh xong;

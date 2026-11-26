@@ -7240,3 +7240,37 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - «Bản cập nhật»: ngày 26/11/2026, thêm dòng «Trang chủ: nút «LÊN XE THÔI» đổi tên thành «VÀO GAME».»; 2 dòng cũ nói vị trí nút trên trang chủ («dưới/cạnh LÊN XE THÔI») sửa thành VÀO GAME.
 - **Trong game giữ nguyên «LÊN XE THÔI»** (người dùng chỉ yêu cầu trang chủ); dòng ghi chú về nút TẬP LUYỆN «dưới LÊN XE THÔI» là nút trong game nên giữ.
 - **Phát hành vỏ web trên 1.95.6:** `AgentScripts/Shell21400.cs` (`RefreshWebShell`) → cache **`9b2d017a6272ed52`** → `firebase deploy --only hosting` → gotaviet.com **51/51 khớp SHA-256**. Đã commit + push.
+
+## 21.401. Tên lửa bắn nổ mọi xe trên đường, ưu tiên xe tăng/máy bay; lazer to và xa hơn 10 % (26/11/2026, Claude Code)
+
+- **Người dùng:** tên lửa của người chơi bắn nổ được mọi phương tiện trên đường (trúng thì bốc cháy, bốc khói, nổ tung thành nhiều mảnh nhỏ); khi có xe tăng và máy bay thì ưu tiên chúng, hạ hết mới bắn phương tiện khác; áp dụng cả chơi thật lẫn Tập luyện; 2 tia lazer bán kính to thêm 10 % và bắn xa thêm 10 %.
+- **Người dùng chọn (hỏi lại):**
+  - **Xe CSGT:** không khóa, tên lửa vẫn bay xuyên qua như cũ (giữ việc bị đuổi).
+  - **Tàu:** xếp sau xe tăng/máy bay, trước xe trên đường.
+- **Tên lửa — `OpenWorldHazards.Weapons.cs`:**
+  - `Lock` thêm `v` (chỉ số xe NPC) và `tier`: 0 = xe tăng/trực thăng/máy bay, 1 = tàu, 2 = xe NPC. `GatherLocks(..., priority)` gom riêng nhóm 0 hoặc nhóm 1+2, xếp theo tier rồi khoảng cách.
+  - `TryFire`:
+    1. Nhóm 0 phía trước ≤ 180 m, thiếu thì mọi phía ≤ 260 m (tên lửa sống 4 s, ≥ 70 m/s nên với tới). Chỉ 1 chiếc thì cả 2 quả cùng bám nó.
+    2. Chỉ khi nhóm 0 không có chiếc nào trong tầm: tàu rồi xe đường, như cũ (phía trước ≤ 180 m, thiếu thì mọi phía ≤ 120 m).
+    3. Thống kê `PriorityLocks`, `CarLocks`. Thông báo «Khóa 2 xe» / «Đã khóa xe».
+  - `PMissile.car`: quả bám xe NPC lấy tâm xe mỗi khung (`traffic.MissileBody`); xe đã nổ/biến mất thì bay thẳng.
+  - Va chạm: `CarHit` — viên nang dọc thân xe (bán kính nửa bề ngang + 0,45 m, 9 điểm dọc thân), xét cả xác cháy. **Chỉ quả bám xe hoặc bay thẳng mới nổ vào xe**; quả đang bám xe tăng/máy bay/tàu bay vượt qua xe đường để giữ ưu tiên.
+  - `HitCar` → `traffic.MissileKill` + quả cầu lửa 4, 16 tia lửa, tiếng nổ. Đếm `CarsHitByMissile`.
+- **`OpenWorldTraffic.cs`:**
+  - `VehicleSlots`.
+  - `MissileBody(i, …)` trả 0 = không có, 1 = xe đang chạy (khóa được), 2 = xác cháy/xe đang văng (chỉ trúng).
+  - `MissileKill` dùng chung `LaserKill`: xe bốc cháy, bốc khói 0,45 s rồi `LaserExploded` → `OpenWorldHazards.LaserBlast` nổ tung thành mảnh màu sơn xe, lửa cháy tại chỗ. Xác cháy thì nổ ngay. Không cộng `LaserKills`/`LaserWrecks`, đếm riêng `MissileKills`.
+- **Cả chơi thật và Tập luyện** dùng chung đường bắn này (không có nhánh `practice`).
+- **Lazer — `OpenWorldLaser.cs`:**
+  - `Range` 15 → **16,5 m**.
+  - `beamWidth` 0,462 → **0,508 m** (quầng/lõi nhân theo nên to theo).
+  - Bán kính dò trúng `SphereCast` 0,17 → 0,187.
+  - `beamWidth` không lưu trong scene (component thêm lúc chạy) nên giá trị mới có hiệu lực ngay.
+- **Trang chủ `index.html`:** «Bản cập nhật» thêm 2 dòng (tên lửa, lazer); «Cách chơi › Trên phố mở» sửa đoạn «Tên lửa của bạn» theo thứ tự khóa mới (bỏ câu nhặt biểu tượng tên lửa vì ô nạp đã tắt từ 21.301). **Chưa `RefreshWebShell`** — phải phát hành cùng bản build mới.
+- **Kiểm tra trong Editor (Play, tắt tạm CSGT, đặt quãng đường bằng reflection):**
+  - Không có xe tăng/máy bay: loạt bắn khóa xe đường (`CarLocks` 1–2), `MissileKills` 1 → 3, xe trúng cháy rồi nổ (ảnh `Assets/Captures/tenlua21401-xe1.png`, `-xe2.png`).
+  - Có 1 xe tăng (mốc 160 m): `PriorityLocks=1`, `CarLocks=0`, `targets=1`; `TanksDestroyed` 0 → 1.
+  - Lazer: `Range=16.5`, `beamWidth=0.508`, 2 tia bắn bình thường (ảnh `Assets/Captures/lazer21401.png`).
+  - Console không có lỗi mới.
+  - Chưa thử trên điện thoại.
+- **Trạng thái:** trong source, đã commit + push; chưa build/phát hành.

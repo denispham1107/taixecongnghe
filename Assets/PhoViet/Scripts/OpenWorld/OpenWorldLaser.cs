@@ -25,9 +25,9 @@ namespace PhoViet.OpenWorld
     //   rồi tan) dài 2,6 m + chấm sáng mũi + đốm năng lượng tan ra; quầng/lõi thon dần ở cuối.
     public class OpenWorldLaser : MonoBehaviour
     {
-        public const float MaxEnergy = 100f, Cost = 25f, TickSeconds = 0.5f, CooldownSeconds = 5f, Range = 15f;   // 21.327: khóa/hồi năng lượng 10 → 5 s
+        public const float MaxEnergy = 100f, Cost = 25f, TickSeconds = 0.5f, CooldownSeconds = 5f, Range = 16.5f;   // 21.327: khóa/hồi năng lượng 10 → 5 s; 21.401 (người dùng): tầm 15 → 16,5 m (+10 %)
         [Tooltip("Vị trí 2 đèn pha trong khung xe (x ngang, y cao, z dọc)")] public Vector3 lampLocal = new Vector3(0.6f, 0.52f, 1.86f);
-        public float beamWidth = 0.462f;                                   // 21.300b: +10 % (0,42)
+        public float beamWidth = 0.508f;                                   // 21.300b: +10 % (0,42); 21.401 (người dùng): +10 % nữa (0,462 → 0,508)
         const float TipLen = 2.6f, TipBack = 2.2f, PulseSpeed = 32f;
 
         public float Energy { get; private set; } = MaxEnergy;
@@ -124,7 +124,7 @@ namespace PhoViet.OpenWorld
                 var B = beams[bi];
                 var o = t.TransformPoint(new Vector3(bi == 0 ? -lampLocal.x : lampLocal.x, lampLocal.y, lampLocal.z));
                 float len = Range; bool hit = false; Vector3 hitPoint = o + fwd * Range, hitNormal = -fwd;
-                int n = Physics.SphereCastNonAlloc(o - fwd * 0.3f, 0.17f, fwd, hits, Range + 0.3f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+                int n = Physics.SphereCastNonAlloc(o - fwd * 0.3f, 0.187f, fwd, hits, Range + 0.3f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
                 System.Array.Sort(hits, 0, n, HitComparer);
                 for (int i = 0; i < n; i++)
                 {

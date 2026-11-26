@@ -14,6 +14,10 @@ namespace PhoViet.OpenWorld
     //   Trúng nhà/mặt đất → nổ nhỏ (chỉ hất xe NPC, không làm hỏng xe người chơi).
     // • Ô nạp (Resources/PlayerMissile/PV_MissilePickup): luôn có ~14 ô rải trên mặt đường quanh xe (60–200 m, ưu tiên phía
     //   trước), nhấp nhô và quay về camera; xe chạm (kể cả đang nhảy thấp) → +1 quả nếu chưa đầy 10.
+    // • 21.401 (người dùng, cả chơi thật lẫn TẬP LUYỆN): tên lửa bắn nổ được MỌI xe NPC trên đường (ô tô, xe máy, cả xác cháy) —
+    //   trúng thì bốc cháy, bốc khói rồi nổ tung thành mảnh (OpenWorldTraffic.MissileKill). Thứ tự khóa mục tiêu: (1) xe tăng +
+    //   trực thăng/máy bay (phía trước ≤ 180 m, thiếu thì mọi phía ≤ 260 m); chỉ khi không còn chiếc nào trong tầm mới tới (2) tàu,
+    //   rồi (3) xe trên đường. Không khóa và không nổ xe CSGT (người dùng chọn — tên lửa bay xuyên qua như cũ).
     public partial class OpenWorldHazards
     {
         [Header("Tên lửa người chơi (21.258)")]
@@ -35,7 +39,7 @@ namespace PhoViet.OpenWorld
         public bool CanFire => PlayerMissiles > 0 && fireCooldown <= 0f && player && !player.Crashed && !player.frozen;
 
         bool fireRequest; float fireCooldown, pickupClock, pickupCheck;
-        class PMissile { public Transform root; public MissileFlightVisual vis; public Vector3 vel; public float age, speed; public Tank tank; public Heli heli; public int boat = -1; }
+        class PMissile { public Transform root; public MissileFlightVisual vis; public Vector3 vel; public float age, speed; public Tank tank; public Heli heli; public int boat = -1, car = -1; }
         readonly List<PMissile> pmissiles = new List<PMissile>();
         readonly Stack<PMissile> pmPool = new Stack<PMissile>();
         class Pickup { public Transform root; public bool live; public float phase; }
@@ -81,21 +85,35 @@ namespace PhoViet.OpenWorld
         // 21.327 (người dùng): mỗi lần bấm bắn CÙNG LÚC 2 tên lửa từ 2 đèn pha, tự khóa 2 mục tiêu khác nhau — ưu tiên mục tiêu
         // trong tầm nhắm (phía trước, ≤ 180 m, lệch ≤ 55°) gần nhất, thiếu thì lấy mục tiêu gần xe nhất mọi phía (≤ 120 m).
         // Chỉ có 1 mục tiêu → cả 2 quả cùng bám nó; không có → 2 quả bay thẳng song song. Trừ 2 quả mỗi lần (còn 1 thì bắn 1).
-        struct Lock { public Tank t; public Heli h; public int b; public float d2; public Vector3 aim; }
+        // 21.401: tier 0 = xe tăng/trực thăng/máy bay, 1 = tàu, 2 = xe NPC trên đường (v = chỉ số trong OpenWorldTraffic)
+        struct Lock { public Tank t; public Heli h; public int b, v, tier; public float d2; public Vector3 aim; }
         readonly List<Lock> lockBuf = new List<Lock>();
         public int LastSalvo { get; private set; }
         public int LastSalvoTargets { get; private set; }
 
-        void GatherLocks(Vector3 origin, Vector3 fwd, bool aimCone, float range)
+        void GatherLocks(Vector3 origin, Vector3 fwd, bool aimCone, float range, bool priority)
         {
             lockBuf.Clear(); float r2 = range * range;
             bool Ok(Vector3 d) { var f = new Vector3(d.x, 0, d.z); return d.sqrMagnitude < r2 && (!aimCone || Vector3.Dot(f.normalized, fwd) >= 0.57f); }
-            foreach (var t in tanks) { if (!t.root || t.destroyed) continue; var a = TankAim(t); var d = a - origin; if (Ok(d)) lockBuf.Add(new Lock { t = t, b = -1, d2 = d.sqrMagnitude, aim = a }); }
-            foreach (var h in helis) { if (!h.root || h.downed) continue; var a = h.root.position; var d = a - origin; if (Ok(d)) lockBuf.Add(new Lock { h = h, b = -1, d2 = d.sqrMagnitude, aim = a }); }
-            if (boats) for (int i = 0; i < boats.Count; i++) { if (!boats.Alive(i)) continue; var a = boats.BoatCenter(i); var d = a - origin; if (Ok(d)) lockBuf.Add(new Lock { b = i, d2 = d.sqrMagnitude, aim = a }); }
-            lockBuf.Sort((x, y) => x.d2.CompareTo(y.d2));
+            if (priority)
+            {
+                foreach (var t in tanks) { if (!t.root || t.destroyed) continue; var a = TankAim(t); var d = a - origin; if (Ok(d)) lockBuf.Add(new Lock { t = t, b = -1, v = -1, tier = 0, d2 = d.sqrMagnitude, aim = a }); }
+                foreach (var h in helis) { if (!h.root || h.downed) continue; var a = h.root.position; var d = a - origin; if (Ok(d)) lockBuf.Add(new Lock { h = h, b = -1, v = -1, tier = 0, d2 = d.sqrMagnitude, aim = a }); }
+            }
+            else
+            {
+                if (boats) for (int i = 0; i < boats.Count; i++) { if (!boats.Alive(i)) continue; var a = boats.BoatCenter(i); var d = a - origin; if (Ok(d)) lockBuf.Add(new Lock { b = i, v = -1, tier = 1, d2 = d.sqrMagnitude, aim = a }); }
+                if (traffic) for (int i = 0; i < traffic.VehicleSlots; i++)
+                    {
+                        if (traffic.MissileBody(i, out var a, out _, out _, out _) != 1) continue;
+                        var d = a - origin; if (Ok(d)) lockBuf.Add(new Lock { b = -1, v = i, tier = 2, d2 = d.sqrMagnitude, aim = a });
+                    }
+            }
+            lockBuf.Sort((x, y) => x.tier != y.tier ? x.tier.CompareTo(y.tier) : x.d2.CompareTo(y.d2));
         }
-        static bool SameLock(Lock a, Lock b) => a.t == b.t && a.h == b.h && a.b == b.b;
+        static bool SameLock(Lock a, Lock b) => a.t == b.t && a.h == b.h && a.b == b.b && a.v == b.v;
+        public int PriorityLocks { get; private set; }      // 21.401: số mục tiêu ưu tiên (xe tăng/máy bay) trong lần bắn cuối
+        public int CarLocks { get; private set; }           // 21.401: số xe đường bị khóa trong lần bắn cuối
 
         bool TryFire(Vector3 pv)
         {
@@ -104,13 +122,17 @@ namespace PhoViet.OpenWorld
             var center = player.transform.position + fwd * 2.7f + Vector3.up * 0.9f;
             // chọn tối đa 2 mục tiêu
             var picks = new List<Lock>(2);
-            GatherLocks(center, fwd, true, 180f);
-            foreach (var l in lockBuf) { if (picks.Count >= 2) break; picks.Add(l); }
-            if (picks.Count < 2)
+            void Add() { foreach (var l in lockBuf) { if (picks.Count >= 2) break; if (picks.Count == 1 && SameLock(picks[0], l)) continue; picks.Add(l); } }
+            // 21.401: (1) xe tăng/máy bay trước — phía trước ≤ 180 m, thiếu thì mọi phía ≤ 260 m (tên lửa bay 4 s, ≥ 70 m/s, với tới)
+            GatherLocks(center, fwd, true, 180f, true); Add();
+            if (picks.Count < 2) { GatherLocks(center, fwd, false, 260f, true); Add(); }
+            // (2)(3) không còn xe tăng/máy bay trong tầm → tàu rồi xe trên đường (như cũ: phía trước ≤ 180 m, thiếu thì mọi phía ≤ 120 m)
+            if (picks.Count == 0)
             {
-                GatherLocks(center, fwd, false, 120f);
-                foreach (var l in lockBuf) { if (picks.Count >= 2) break; if (picks.Count == 1 && SameLock(picks[0], l)) continue; picks.Add(l); }
+                GatherLocks(center, fwd, true, 180f, false); Add();
+                if (picks.Count < 2) { GatherLocks(center, fwd, false, 120f, false); Add(); }
             }
+            PriorityLocks = 0; CarLocks = 0; foreach (var l in picks) { if (l.tier == 0) PriorityLocks++; else if (l.tier == 2) CarLocks++; }
             int shots = Mathf.Min(2, PlayerMissiles);
             // 2 đèn pha (cùng vị trí đèn của Lazer)
             var lz = player.GetComponent<OpenWorldLaser>();
@@ -124,7 +146,7 @@ namespace PhoViet.OpenWorld
                 var dir = tgt.HasValue ? (tgt.Value.aim - origin).normalized : fwd;
                 var m = pmPool.Count > 0 ? pmPool.Pop() : NewPM(); if (m == null) break;
                 m.speed = Mathf.Max(70f, Mathf.Abs(player.Speed) + 50f); m.vel = dir * m.speed; m.age = 0f;
-                m.tank = tgt?.t; m.heli = tgt?.h; m.boat = tgt.HasValue ? tgt.Value.b : -1;
+                m.tank = tgt?.t; m.heli = tgt?.h; m.boat = tgt.HasValue ? tgt.Value.b : -1; m.car = tgt.HasValue ? tgt.Value.v : -1;
                 m.root.gameObject.SetActive(true); m.root.SetPositionAndRotation(origin, Quaternion.LookRotation(dir));
                 if (m.vis) { m.vis.standalone = true; m.vis.Begin(); }
                 pmissiles.Add(m); fired++;
@@ -134,7 +156,7 @@ namespace PhoViet.OpenWorld
             PlayerMissiles -= fired; PlayerMissilesFired += fired; fireCooldown = playerMissileInterval;
             LastSalvo = fired; LastSalvoTargets = picks.Count;
             PlayAt(launchClip, center, 0.8f);
-            string Name(Lock l) => l.b >= 0 ? "tàu" : l.t != null ? "xe tăng" : l.h != null ? (l.h.plane ? "máy bay" : "trực thăng") : "?";
+            string Name(Lock l) => l.b >= 0 ? "tàu" : l.v >= 0 ? "xe" : l.t != null ? "xe tăng" : l.h != null ? (l.h.plane ? "máy bay" : "trực thăng") : "?";
             string title = picks.Count >= 2 && fired >= 2 ? (Name(picks[0]) == Name(picks[1]) ? "Khóa 2 " + Name(picks[0]) : "Khóa " + Name(picks[0]) + " + " + Name(picks[1]))
                          : picks.Count == 1 ? "Đã khóa " + Name(picks[0]) : "Bay thẳng";
             Say(title, picks.Count > 0 ? (fired >= 2 ? "2 tên lửa tự bám mục tiêu" : "Tên lửa tự bám mục tiêu") : "Không có mục tiêu trong tầm", 1.0f, OpenWorldToast.Kind.Info, "TÊN LỬA");
@@ -153,7 +175,7 @@ namespace PhoViet.OpenWorld
         {
             if (m.vis) m.vis.End();
             if (m.root) m.root.gameObject.SetActive(false);
-            m.tank = null; m.heli = null; m.boat = -1; pmPool.Push(m);
+            m.tank = null; m.heli = null; m.boat = -1; m.car = -1; pmPool.Push(m);
             if (removeFromList) pmissiles.Remove(m);
         }
 
@@ -166,7 +188,9 @@ namespace PhoViet.OpenWorld
                 if (m.tank != null && (!m.tank.root || m.tank.destroyed)) m.tank = null;
                 if (m.heli != null && (!m.heli.root || m.heli.downed)) m.heli = null;
                 if (m.boat >= 0 && !boats.Alive(m.boat)) m.boat = -1;
-                var aim = m.boat >= 0 ? boats.BoatCenter(m.boat) : m.tank != null ? TankAim(m.tank) : m.heli != null ? m.heli.root.position : (Vector3?)null;
+                Vector3 carAim = Vector3.zero;
+                if (m.car >= 0 && (!traffic || traffic.MissileBody(m.car, out carAim, out _, out _, out _) != 1)) m.car = -1;
+                var aim = m.boat >= 0 ? boats.BoatCenter(m.boat) : m.car >= 0 ? carAim : m.tank != null ? TankAim(m.tank) : m.heli != null ? m.heli.root.position : (Vector3?)null;
                 if (aim.HasValue) { var want = aim.Value - m.root.position; if (want.sqrMagnitude > .001f) m.vel = Vector3.RotateTowards(m.vel, want.normalized * m.speed, 300f * Mathf.Deg2Rad * dt, 0); }
                 var from = m.root.position; var to = from + m.vel * dt;
                 // trúng xe tăng (hộp thân) / trực thăng (cầu 3,2 m)
@@ -187,6 +211,10 @@ namespace PhoViet.OpenWorld
                 if (hitB >= 0) { HitBoat(hitB, to); pmissiles.RemoveAt(i); RetirePM(m, false); continue; }
                 if (hitT != null) { DestroyTank(hitT, to); pmissiles.RemoveAt(i); RetirePM(m, false); continue; }
                 if (hitH != null) { DownHeli(hitH, m.vel); pmissiles.RemoveAt(i); RetirePM(m, false); continue; }
+                // 21.401: trúng xe NPC trên đường (cả xác cháy) → bốc cháy, khói rồi nổ tung thành mảnh. Quả đang bám xe tăng/máy bay/tàu
+                // bay vượt qua xe đường (ưu tiên mục tiêu chính); chỉ quả bám xe hoặc bay thẳng mới nổ vào xe.
+                int hitV = m.tank == null && m.heli == null && m.boat < 0 ? CarHit(from, to) : -1;
+                if (hitV >= 0) { HitCar(hitV, to, m.vel); pmissiles.RemoveAt(i); RetirePM(m, false); continue; }
                 // nhà/mặt đất (không tính xe người chơi, xe NPC, CSGT)
                 bool wall = false; Vector3 wallAt = to;
                 // 21.284: tên lửa khóa tàu bay chúi qua lan can/kè ven sông → không tính va vật tĩnh (giữa lề và sông không có nhà)
@@ -200,6 +228,36 @@ namespace PhoViet.OpenWorld
                 m.root.position = to; m.root.rotation = Quaternion.LookRotation(m.vel);
             }
         }
+        // 21.401: đoạn bay from→to chạm thân xe NPC (viên nang dọc thân xe: bán kính = nửa bề ngang + 0,45 m)
+        int CarHit(Vector3 from, Vector3 to)
+        {
+            if (!traffic) return -1;
+            int best = -1; float bd = float.MaxValue;
+            for (int i = 0; i < traffic.VehicleSlots; i++)
+            {
+                if (traffic.MissileBody(i, out var c, out var f, out float hl, out float hw) == 0) continue;
+                if ((c - from).sqrMagnitude > 900f && (c - to).sqrMagnitude > 900f) continue;
+                f.y = 0f; if (f.sqrMagnitude < .01f) f = Vector3.forward; f.Normalize();
+                float reach = Mathf.Max(0f, hl - hw), r = hw + 0.45f;
+                var a = c - f * reach; var b = c + f * reach;
+                float d = float.MaxValue;
+                for (int k = 0; k <= 8; k++) d = Mathf.Min(d, DistPointSeg(Vector3.Lerp(a, b, k / 8f), from, to));
+                if (d < r && d < bd) { bd = d; best = i; }
+            }
+            return best;
+        }
+        public int CarsHitByMissile { get; private set; }
+        void HitCar(int idx, Vector3 at, Vector3 vel)
+        {
+            if (!traffic.MissileKill(idx, at, vel.sqrMagnitude > .01f ? vel.normalized : Vector3.forward)) return;
+            CarsHitByMissile++;
+            Emit(blastFx, at + Vector3.up * .4f, Vector3.zero, 4f, .7f, Color.white);
+            for (int k = 0; k < 16; k++)
+                Emit(sparkFx, at, Random.insideUnitSphere * 7f + Vector3.up * 3f, Random.Range(.1f, .22f), Random.Range(.4f, .9f), new Color(1, .62f, .2f, 1));
+            PlayAt(blastClip, at, 0.6f);
+            Note("tên lửa hạ xe trên đường");
+        }
+
         static float DistPointSeg(Vector3 p, Vector3 a, Vector3 b)
         {
             var ab = b - a; float t = Mathf.Clamp01(Vector3.Dot(p - a, ab) / Mathf.Max(1e-5f, ab.sqrMagnitude));
