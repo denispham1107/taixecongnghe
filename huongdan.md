@@ -7231,3 +7231,12 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
 - **Deploy:** `firebase deploy --only hosting,firestore:rules,functions --project gotaviet` — hosting 51 tệp (12 tệp mới tải lên), luật Firestore mới (plays.practice), Cloud Function `adminApi` (asia-southeast1) cập nhật thành công.
 - **Kiểm tra live:** so SHA-256 51/51 tệp trên https://gotaviet.com khớp `Builds/WebGL` (script so lại viết mới ở scratchpad `shacheck.py` vì scratchpad cũ đã bị dọn ở 21.395).
 - **Chưa thử trên máy thật:** chế độ Tập luyện trên điện thoại (nút, ô phòng giam), giờ luyện tập hiện trên /admin sau khi chơi tập bằng tài khoản đã đăng nhập.
+
+## 21.400. Trang chủ: nút «LÊN XE THÔI» → «VÀO GAME» (26/11/2026, Claude Code)
+
+- **Người dùng:** «Trên website trang chủ: Nút "Lên xe thôi" đổi lại thành "Vào Game" nhé».
+- **`Assets/WebGLTemplates/PhoVietPWA/index.html`:**
+  - Nút `#play` (khối `.cta`) giờ là «**VÀO GAME**» (chữ hoa như kiểu nút cũ). `app.js` không ghi lại chữ này (chỉ đổi thành «ĐANG MỞ PHỐ…» khi bấm), CSS nút rộng cố định nên không phải sửa.
+  - «Bản cập nhật»: ngày 26/11/2026, thêm dòng «Trang chủ: nút «LÊN XE THÔI» đổi tên thành «VÀO GAME».»; 2 dòng cũ nói vị trí nút trên trang chủ («dưới/cạnh LÊN XE THÔI») sửa thành VÀO GAME.
+- **Trong game giữ nguyên «LÊN XE THÔI»** (người dùng chỉ yêu cầu trang chủ); dòng ghi chú về nút TẬP LUYỆN «dưới LÊN XE THÔI» là nút trong game nên giữ.
+- **Phát hành vỏ web trên 1.95.6:** `AgentScripts/Shell21400.cs` (`RefreshWebShell`) → cache **`9b2d017a6272ed52`** → `firebase deploy --only hosting` → gotaviet.com **51/51 khớp SHA-256**. Đã commit + push.
