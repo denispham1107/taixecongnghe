@@ -7266,11 +7266,22 @@ Thiết kế cửa sổ của mục này đã được khôi phục về mẫu t
   - `beamWidth` 0,462 → **0,508 m** (quầng/lõi nhân theo nên to theo).
   - Bán kính dò trúng `SphereCast` 0,17 → 0,187.
   - `beamWidth` không lưu trong scene (component thêm lúc chạy) nên giá trị mới có hiệu lực ngay.
-- **Trang chủ `index.html`:** «Bản cập nhật» thêm 2 dòng (tên lửa, lazer); «Cách chơi › Trên phố mở» sửa đoạn «Tên lửa của bạn» theo thứ tự khóa mới (bỏ câu nhặt biểu tượng tên lửa vì ô nạp đã tắt từ 21.301). **Chưa `RefreshWebShell`** — phải phát hành cùng bản build mới.
+- **Trang chủ `index.html`:** «Bản cập nhật» thêm 2 dòng (tên lửa, lazer); «Cách chơi › Trên phố mở» sửa đoạn «Tên lửa của bạn» theo thứ tự khóa mới (bỏ câu nhặt biểu tượng tên lửa vì ô nạp đã tắt từ 21.301). Lên web cùng bản build 1.95.7 (21.402).
 - **Kiểm tra trong Editor (Play, tắt tạm CSGT, đặt quãng đường bằng reflection):**
   - Không có xe tăng/máy bay: loạt bắn khóa xe đường (`CarLocks` 1–2), `MissileKills` 1 → 3, xe trúng cháy rồi nổ (ảnh `Assets/Captures/tenlua21401-xe1.png`, `-xe2.png`).
   - Có 1 xe tăng (mốc 160 m): `PriorityLocks=1`, `CarLocks=0`, `targets=1`; `TanksDestroyed` 0 → 1.
   - Lazer: `Range=16.5`, `beamWidth=0.508`, 2 tia bắn bình thường (ảnh `Assets/Captures/lazer21401.png`).
   - Console không có lỗi mới.
   - Chưa thử trên điện thoại.
-- **Trạng thái:** trong source, đã commit + push; chưa build/phát hành.
+- **Trạng thái:** đã commit + push (`0e55d3a`); phát hành trong **1.95.7** (21.402).
+
+## 21.402. Phát hành 1.95.7 (26/11/2026, Claude Code)
+
+- **Người dùng:** «Phát hành 1.95.7».
+- **Nội dung:** 21.401 (tên lửa bắn nổ mọi xe NPC trên đường, ưu tiên xe tăng/trực thăng/máy bay → tàu → xe đường, không khóa CSGT; lazer tầm 16,5 m, rộng 0,508 m) + nút trang chủ «VÀO GAME» (21.400, đã lên vỏ web trước đó).
+- **Trang chủ:** «Bản cập nhật» ngày 26/11/2026 đã có 2 dòng tên lửa/lazer từ 21.401; «Cách chơi › Trên phố mở» ghi thứ tự khóa mới.
+- **Số phiên bản:** `PhoVietWebBuild.cs` + `ProjectSettings.asset` → 1.95.7.
+- **Build:** `ReleaseBuild.Prepare` (lần 1 «compiling», lần 2 «ready 1.95.7») → `ReleaseBuild.BuildNow` (2591 s), cache **`92f4916e736d1743`**.
+- **Phát hành:** `firebase deploy --only hosting --project gotaviet` → so SHA-256 tệp live trên https://gotaviet.com với `Builds/WebGL`: **51/51 khớp**.
+- **Commit + push** cùng việc này.
+- **Chưa thử trên điện thoại thật.**
